@@ -2,6 +2,7 @@ require "csv"
 require './lib/game'
 require './lib/team'
 require './lib/game_teams'
+require 'pry'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams, :games_array
@@ -23,10 +24,10 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  def highest_total_score(game_data)
-    sum = 0
+# Game Statistics
+  def highest_total_score
     highest_sum = 0
-    game_data.each do |game|
+    @games.each do |game|
       sum = game.away_goals.to_i + game.home_goals.to_i
       #require 'pry'; binding.pry
       highest_sum = sum if sum > highest_sum
@@ -34,9 +35,68 @@ class StatTracker
     highest_sum
   end
 
-  # def count_of_teams
-  #   require 'pry'; binding.pry
-  #   @teams.count
-  # end
+# League Statistics
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    team_hash = {}
+    @game_teams.each do |game_team|
+      if team_hash[game_team.team_id].nil?
+        team_hash[game_team.team_id] = [game_team.goals]
+      else
+        team_hash[game_team.team_id] << game_team.goals
+      end
+    end
+    sum_goals = 0
+      team_hash.map do |team, goals|
+        goals.each do |goal|
+          sum_goals += goal
+        end
+        avg_goals = sum_goals.to_f / goals.length.to_f
+        team_hash[team] = avg_goals
+        sum_goals = 0
+      end
+      team_hash = team_hash.sort_by {|team_id, avg_goals| avg_goals}.reverse.to_h
+
+      highest_avg = team_hash.values[0]
+      team_hash.map do |team, avg_goals|
+        team_hash.delete(team) if avg_goals < highest_avg
+      end
+
+      if team_hash.keys.length > 1
+        team_names = []
+        team_hash.keys.each do |team_id|
+          team_names << team_name_helper(team_id)
+        end
+        return team_names
+      else
+        return team_name_helper(team_hash.keys[0])
+      end
+
+
+
+
+      binding.pry
+      if highest_avg.length == 1
+      end
+      return team_hash
 
   end
+
+
+
+  def team_name_helper(team_id)
+    @teams.each do |team|
+      if team.team_id == team_id
+        return team.team_name
+      end
+    end
+  end
+
+  # Season Statistics
+
+  # Team Statistics
+
+end

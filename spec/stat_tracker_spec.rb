@@ -37,13 +37,21 @@ RSpec.describe StatTracker do
     #   collections is the key with the data as the value so that
     # end
     describe 'League Statistics' do
-      it '#count_of_teams can count teams' do 
+      it '#count_of_teams can count teams' do
       expect(@stat_tracker.count_of_teams).to eq(32)
       end
 
-      it '#best_offense finds team with the best offense' do 
-        expect(stat_tracker.best_offense).to eq()
+      it '#best_offense finds team with the best offense' do
+        expect(@stat_tracker.best_offense).to eq(["Atlanta United",
+           "Orlando City SC", "Portland Timbers", "San Jose Earthquakes"])
       end
+
+      it '#team_name_helper finds team name via team_id' do
+        expect(@stat_tracker.team_name_helper("3")).to eq("Houston Dynamo")
+      end
+
+
+
     end
 
     describe 'Team Statistics' do
