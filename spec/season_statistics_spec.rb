@@ -1,3 +1,5 @@
+# require 'simplecov'
+# SimpleCov.start
 require 'rspec'
 require './modules/season_statistics'
 require './lib/stat_tracker'
@@ -31,14 +33,17 @@ RSpec.describe 'Season' do
 
     it ' returns the most accurate team' do
       expect(@stat_tracker.most_accurate_team('20132014')).to eq 'Real Salt Lake'
+      expect(@stat_tracker.most_accurate_team('20142015')).to eq 'Toronto FC'
     end
 
     it 'returns the least accurate team' do
       expect(@stat_tracker.least_accurate_team('20132014')).to eq 'New York City FC'
+      expect(@stat_tracker.least_accurate_team('20142015')).to eq 'Columbus Crew SC'
     end
 
     it 'returns team with most tackles' do
       expect(@stat_tracker.most_tackles('20132014')).to eq 'FC Cincinnati'
+      expect(@stat_tracker.most_tackles('20142015')).to eq 'Seattle Sounders FC'
     end
 
     it 'returns team with least tackles' do

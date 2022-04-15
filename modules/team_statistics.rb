@@ -4,8 +4,7 @@ require './lib/game_teams'
 
 module TeamStatistics
   def team_info(team_id)
-    teams = @teams
-    the_team = teams.find { |team| team.team_id == team_id }
+    the_team = @teams.find { |team| team.team_id == team_id }
     { 'team_id' => the_team.team_id,
       'franchise_id' => the_team.franchise_id,
       'team_name' => the_team.team_name,
