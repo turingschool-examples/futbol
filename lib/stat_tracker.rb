@@ -137,7 +137,7 @@ include GameModule
 		avg_goals = {}
 		 team_goals.each do |team, goals|
 			avg_goals[team] = (goals.sum / goals.size).ceil(2)
-	end
+		end
 	#creates hash w/team_id keys and team name values
 		team_names = {}
 		@teams.each do |team|
@@ -147,11 +147,13 @@ include GameModule
 		avg_goals.keys.each do |key|
 		team_names.each do |id, name|
 			if id == key
-			avg_goals[name] = avg_goals[key]
-			avg_goals.delete(key)
-		end
+				avg_goals[name] = avg_goals[key]
+				avg_goals.delete(key)
+			end
 		end
 	end
+	#turns avg_goals into an array with the key and value pair and calling first
+	#index position
 	max_avg = avg_goals.values.max
 	max_team = avg_goals.select{|team, goals| goals == max_avg}
 	max_team.keys[0]
@@ -170,7 +172,7 @@ include GameModule
 		avg_goals = {}
 		 team_goals.each do |team, goals|
 			avg_goals[team] = (goals.sum / goals.size).ceil(2)
-	end
+		end
 		team_names = {}
 		@teams.each do |team|
 			team_names[team.team_id] = team.team_name
@@ -178,8 +180,8 @@ include GameModule
 		avg_goals.keys.each do |key|
 		team_names.each do |id, name|
 			if id == key
-			avg_goals[name] = avg_goals[key]
-			avg_goals.delete(key)
+				avg_goals[name] = avg_goals[key]
+				avg_goals.delete(key)
 			end
 		end
 	end
