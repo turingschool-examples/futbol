@@ -41,28 +41,25 @@ def read_game_teams(csv)
 end
 
   def highest_total_score
-    # require 'pry'; binding.pry
-    @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
-    @games.map {|game| games.away_goals + games.home_goals}.max
+    # @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
+    @games.map {|game| game.away_goals + game.home_goals}.max
   end
 
   def games_by_season(season)
     @games.select do |row|
-      row[:season] == season.to_s
+      row.season == season
     end
   end
 
-  def team_info(team_id)
-    # require "pry"; binding.pry
-    team = Hash.new
-
+  def team_info(given_team_id)
+    team = {}
     @teams.each do |row|
-      if row[:team_id] == team_id.to_s
-        team[:team_id] = row[:team_id]
-        team[:franchise_id] = row[:franchiseid]
-        team[:team_name] = row[:teamname]
-        team[:abbreviation] = row[:abbreviation]
-        team[:link] = row[:link]
+      if row.team_id == given_team_id
+        team[:team_id] = row.team_id
+        team[:franchise_id] = row.franchise_id
+        team[:team_name] = row.team_name
+        team[:abbreviation] = row.abbreviation
+        team[:link] = row.link
       end
     end
     return team
@@ -71,20 +68,21 @@ end
 
   def game_teams_by_season(season)
     @game_teams.select do |row|
-      row[:game_id][0..3] == season.to_s[0..3]
+      # require "pry"; binding.pry
+      row.game_id.to_s[0..3] == season.to_s[0..3]
     end
   end
 
   def coaches_records(game_teams)
     hash = {}
     game_teams.each do |row|
-      hash[row[:head_coach]] = [0,0,0.to_f]
+      hash[row.head_coach] = [0,0,0.to_f]
     end
     game_teams.each do |row|
-      if row[:result] == "WIN"
-        hash[row[:head_coach]][0] += 1
+      if row.result == "WIN"
+        hash[row.head_coach][0] += 1
       else
-        hash[row[:head_coach]][1] += 1
+        hash[row.head_coach][1] += 1
       end
     end
     return hash
@@ -117,14 +115,15 @@ end
 
   def team_name(id)
     @teams.find do |row|
-      row[:team_id] == id.to_s
-    end[:teamname].to_s
+      row.team_id == id
+    end.team_name.to_s
   end
 
   def total_amount(game_teams, category)
     total_amount = 0
     game_teams.each do |game|
-      total_amount += game[category].to_i
+      require 'pry'; binding.pry
+      total_amount += game.(category.to_s)
     end
     total_amount
   end
@@ -133,12 +132,12 @@ end
     season_game_teams = game_teams_by_season(season)
     hash = {}
     season_game_teams.each do |row|
-      hash[row[:team_id]] = [0,0,0.to_f]
+      hash[row.team_id] = [0,0,0.to_f]
     end
     season_game_teams.each do |row|
-      hash[row[:team_id]][0] += row[:goals].to_i
-      hash[row[:team_id]][1] += row[:shots].to_i
-      hash[row[:team_id]][2] = hash[row[:team_id]][0]/hash[row[:team_id]][1].to_f
+      hash[row.team_id][0] += row.goals
+      hash[row.team_id][1] += row.shots
+      hash[row.team_id][2] = hash[row.team_id][0]/hash[row.team_id][1].to_f
     end
     accurate_team_id = hash.max_by do |team|
       team[1][2]
@@ -150,12 +149,12 @@ end
     season_game_teams = game_teams_by_season(season)
     hash = {}
     season_game_teams.each do |row|
-      hash[row[:team_id]] = [0,0,0.to_f]
+      hash[row.team_id] = [0,0,0.to_f]
     end
     season_game_teams.each do |row|
-      hash[row[:team_id]][0] += row[:goals].to_i
-      hash[row[:team_id]][1] += row[:shots].to_i
-      hash[row[:team_id]][2] = hash[row[:team_id]][0]/hash[row[:team_id]][1].to_f
+      hash[row.team_id][0] += row.goals
+      hash[row.team_id][1] += row.shots
+      hash[row.team_id][2] = hash[row.team_id][0]/hash[row.team_id][1].to_f
     end
     inaccurate_team_id = hash.min_by do |team|
       team[1][2]
@@ -167,10 +166,11 @@ end
     season_game_teams = game_teams_by_season(season)
     hash = {}
     season_game_teams.each do |row|
-      hash[row[:team_id]] = [0]
+      hash[row.team_id] = [0]
     end
     season_game_teams.each do |row|
-      hash[row[:team_id]][0] += row[:tackles].to_i
+      # require 'pry'; binding.pry
+      hash[row.team_id][0] += row.tackles
     end
     most_tackles_team_id = hash.max_by do |team|
       team[1]
@@ -182,10 +182,10 @@ end
     season_game_teams = game_teams_by_season(season)
     hash = {}
     season_game_teams.each do |row|
-      hash[row[:team_id]] = [0]
+      hash[row.team_id] = [0]
     end
     season_game_teams.each do |row|
-      hash[row[:team_id]][0] += row[:tackles].to_i
+      hash[row.team_id][0] += row.tackles
     end
     fewest_tackles_team_id = hash.min_by do |team|
       team[1]
@@ -194,6 +194,6 @@ end
   end
 
   def count_of_teams
-      @teams.map {|team| team[:team_id]}.length
+      @teams.map {|team| team.team_id}.length
   end
 end

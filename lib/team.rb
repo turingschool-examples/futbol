@@ -3,10 +3,11 @@ class Team
 
   def initialize(row)
     @team_id = row[:team_id].to_i
-    @franchise_id = row[:franchiseId].to_i
+    @franchise_id = row[:franchiseid].to_i
     @team_name = row[:teamname]
     @abbreviation = row[:abbreviation]
     @stadium = row[:stadium]
     @link = row[:link]
+    # require 'pry'; binding.pry
   end
 end
