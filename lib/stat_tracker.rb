@@ -77,6 +77,10 @@ include GameModule
   return game_arr
   end
 
+	def total_num_games
+		@games.count
+	end
+
 	def highest_total_score
 		GameModule.total_score(@games).max
 	end
@@ -91,11 +95,11 @@ include GameModule
 	end
 
 	def percentage_home_wins
-		return ((GameModule.total_home_wins(@games).count).to_f / (@games.count).to_f) * 100
+		return ((GameModule.total_home_wins(@games).count).to_f / total_num_games.to_f) * 100
 	end
 
 	def average_goals_per_game
-		(GameModule.total_score(@games).sum.to_f / @games.count).ceil(2)
+		(GameModule.total_score(@games).sum.to_f / total_num_games).ceil(2)
 	end
 
 	def average_goals_per_season
@@ -123,6 +127,16 @@ include GameModule
 	end
 
 #	percentage_ties	Percentage of games that has resulted in a tie (rounded to the nearest 100th)
-
+	def percentage_ties
+		require "pry"; binding.pry
+		ties = []
+		@games.each do |game|
+			if game.home_goals == game.away_goals
+				ties << game
+			end
+		end
+		return ties
+		(ties.count / total_num_games).to_f * 100
+	end
 
 end
