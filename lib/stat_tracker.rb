@@ -1,9 +1,12 @@
+require_relative './game_teams'
+
 class StatTracker
-  attr_reader :stats_main, :teams
+  attr_reader :stats_main, :teams, :game_teams
   def initialize(stat_tracker)
     @games = stat_tracker[:games]
     @teams = Teams.new(stat_tracker[:teams])
-    @game_teams = stat_tracker[:game_teams]
+    @game_teams = GameTeams.new(stat_tracker[:game_teams])
+
     @stats_main = stat_tracker
   end
 
