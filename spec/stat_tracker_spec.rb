@@ -98,4 +98,34 @@ describe StatTracker do
   it 'can count the total number of teams' do
     expect(@stat_tracker.count_of_teams).to eq 32
   end
+
+  describe "Team Statistics" do
+    before :each do
+      @game_path = './data/dummy_games.csv'
+      @team_path = './data/dummy_teams.csv'
+      @game_teams_path = './data/dummy_game_teams.csv'
+
+      @locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+    end
+
+    it 'has team info' do
+      expected = {
+        :team_id=>3,
+        :franchise_id=> 10,
+        :team_name=> "Houston Dynamo",
+        :abbreviation=> "HOU",
+        :link=>"/api/v1/teams/3"
+      }
+      expect(@stat_tracker.team_info(3)).to eq(expected)
+    end
+
+    it 'calculates season with highest win percentage' do
+      expect(@stat_tracker.best_season(16)).to eq("20152016")
+    end
+
+  end
 end
