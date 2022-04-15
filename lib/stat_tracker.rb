@@ -163,4 +163,36 @@ include GameModule
 		end
 		best_game.season
 	end
+
+	def worst_season(team_id)
+	game_team_arr = @game_teams.find_all do |game|
+		game.team_id == team_id
+	end
+	season_record_hash = {}
+	game_team_arr.each do |game|
+		if season_record_hash[game.game_id[0..3]] == nil
+			season_record_hash[game.game_id[0..3]] = [game.result]
+		else
+			season_record_hash[game.game_id[0..3]] << game.result
+		end
+	end
+	win_counter = 0
+	worst_win_percentage = 100
+	season_record_hash.each do |season, result|
+		 win_counter = result.count("WIN")
+		 win_percentage = (win_counter.to_f / result.count.to_f) * 100
+		 season_record_hash[season] = win_percentage
+		 if worst_win_percentage > win_percentage 
+			 worst_win_percentage = win_percentage
+		 end
+	 end
+	 worst_season = season_record_hash.select{|season, result| result == worst_win_percentage}
+	 worst_game = @games.find do |game|
+			worst_season.keys[0] == game.season[0..3]
+		end
+		worst_game.season
+	end
+
+
+
 end
