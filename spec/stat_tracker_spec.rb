@@ -97,6 +97,29 @@ describe StatTracker do
       }
     end
 
+  it 'can count the total number of teams' do
+    expect(@stat_tracker.count_of_teams).to eq 32
+  end
+
+  describe "Season Statistics" do
+
+    it 'can determine winningest coach for a season' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
+    end
+
+    it 'can determine worst coach for a season' do
+        expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
+    end
+
+    it 'can determine team with best ratio of shots to goals for the season' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq "FC Dallas"
+    end
+
+    it 'can determine team with worst ratio of shots to goals for the season' do
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq "New England Revolution"
+    end
+  end
+
 	  it 'can count the total number of teams' do
 	    expect(@stat_tracker.count_of_teams).to eq 32
 	  end
