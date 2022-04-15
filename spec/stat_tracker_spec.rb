@@ -51,4 +51,10 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_score_by_team).to eq(expected_hash)
   end
 
+  it "returns the ID of the team with the best offense" do
+
+    expect(@stat_tracker.best_offense_team_id).to eq(6)
+  end
+
+
 end

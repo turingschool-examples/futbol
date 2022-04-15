@@ -86,5 +86,16 @@ attr_reader :games, :team, :game_teams
     average_hash
   end
 
+  def best_offense_team_id
+    best_offense_id = 0
+    average_score_by_team.each do |key, value|
+      sorted = average_score_by_team.values.sort
+      if sorted.last == value
+        best_offense_id = key
+      end
+    end
+    best_offense_id
+  end
+
 
 end
