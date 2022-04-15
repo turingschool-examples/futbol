@@ -7,7 +7,7 @@ require 'csv'
 
 game_path = './data/games_sample.csv'
 team_path = './data/teams.csv'
-game_teams_path = './data/games_teams_sample.csv'
+game_teams_path = './data/game_teams.csv'
 
 locations = {
   games: game_path,
@@ -17,10 +17,4 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-hash = {bacon: "protein", apple: "fruit"}
 require 'pry'; binding.pry
-
-new_hash = hash.map do |k,v|
-  require 'pry'; binding.pry
-  [k, v.to_sym]
-end.to_h

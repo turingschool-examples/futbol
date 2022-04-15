@@ -64,7 +64,6 @@ end
     return team
   end
 
-
   def game_teams_by_season(season)
     @game_teams.select do |row|
       row.game_id.to_s[0..3] == season.to_s[0..3]
@@ -172,4 +171,6 @@ end
   def count_of_teams
       @teams.map {|team| team.team_id}.length
   end
+
+
 end
