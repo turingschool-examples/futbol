@@ -99,8 +99,12 @@ describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq 32
   end
 
-  it "can calculate highest average number of goals" do
+  it "can calculate highest average number of goals scored across all seasons" do
     expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
 
+  end
+
+  it "can calculate lowest average of goals scored per game across all seasons " do
+    expect(@stat_tracker.worst_offense).to eq "New England Revolution"
   end
 end

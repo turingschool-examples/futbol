@@ -152,7 +152,39 @@ include GameModule
 		end
 		end
 	end
-	avg_goals.max[0]
+	max_avg = avg_goals.values.max
+	max_team = avg_goals.select{|team, goals| goals == max_avg}
+	max_team.keys[0]
 	end
+
+	def worst_offense
+		team_goals = {}
+		@game_teams.each do |game|
+			team = game.team_id
+			if team_goals[team] == nil
+				team_goals[team] = [game.goals.to_f]
+			else
+				team_goals[team] << game.goals.to_f
+			end
+		end
+		avg_goals = {}
+		 team_goals.each do |team, goals|
+			avg_goals[team] = (goals.sum / goals.size).ceil(2)
 	end
-		
+		team_names = {}
+		@teams.each do |team|
+			team_names[team.team_id] = team.team_name
+		end
+		avg_goals.keys.each do |key|
+		team_names.each do |id, name|
+			if id == key
+			avg_goals[name] = avg_goals[key]
+			avg_goals.delete(key)
+			end
+		end
+	end
+	min_avg = avg_goals.values.min
+	min_team = avg_goals.select{|team, goals| goals == min_avg}
+	min_team.keys[0]
+	end
+end
