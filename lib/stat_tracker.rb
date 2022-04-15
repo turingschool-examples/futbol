@@ -442,7 +442,6 @@ end
       @teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
     end
     @team_ids.each do |id|
-      # @id_avg_hash.merge!("#{team_average_number_of_goals_per_game(id)}" => @teams_hash[id])
       @id_avg_hash.merge!("#{@teams_hash[id]}" => team_average_number_of_goals_per_game(id))
     end
     @id_avg_hash.each do |k, v|
@@ -460,7 +459,6 @@ end
       @teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
     end
     @team_ids.each do |id|
-      # @id_avg_hash.merge!("#{team_average_number_of_goals_per_game(id)}" => @teams_hash[id])
       @id_avg_hash.merge!("#{@teams_hash[id]}" => team_average_number_of_goals_per_game(id))
     end
     @id_avg_hash.each do |k, v|
