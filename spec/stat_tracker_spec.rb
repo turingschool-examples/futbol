@@ -36,7 +36,9 @@ RSpec.describe StatTracker do
     #     })
     #   collections is the key with the data as the value so that
     # end
-
+    it 'can count the number of teams' do 
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
 
 
 end

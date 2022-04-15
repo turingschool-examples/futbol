@@ -66,7 +66,9 @@ class StatTracker
     #this does stuff so other classes can use it :D
   end
 
+  def count_of_teams
 
+  end
 
 
   end
