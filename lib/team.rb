@@ -10,4 +10,7 @@ class Team
     @link = row[:link]
     # require 'pry'; binding.pry
   end
+
+  def best_season
+  end
 end

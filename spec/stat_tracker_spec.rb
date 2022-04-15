@@ -35,6 +35,18 @@ RSpec.describe StatTracker do
   end
 
   it 'can give us team info' do
+<<<<<<< HEAD
+=======
+    game_path = './data/games_15_rows.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+>>>>>>> 227ff65 (save files for rebase)
 
    expected = {:team_id=>1,
                :franchise_id=>23,
@@ -42,7 +54,12 @@ RSpec.describe StatTracker do
                :abbreviation=>"ATL",
                :link=>"/api/v1/teams/1"}
 
+<<<<<<< HEAD
    expect(@stat_tracker.team_info(1)).to eq(expected)
+=======
+   stat_tracker = StatTracker.from_csv(locations)
+   expect(stat_tracker.team_info(1)).to eq(expected)
+>>>>>>> 227ff65 (save files for rebase)
  end
 
   it 'can give me the highest_total_score' do

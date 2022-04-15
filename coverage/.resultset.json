@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jamesriddle/turing/1module/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/phillipmstewart/turing/1-mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           null,
@@ -11,6 +11,7 @@
           1,
           null,
           1,
+<<<<<<< HEAD
           1,
           1,
           1,
@@ -72,6 +73,47 @@
           1,
           11,
           163702,
+=======
+          16,
+          16,
+          16,
+          null,
+          null,
+          1,
+          15,
+          null,
+          null,
+          1,
+          16,
+          null,
+          null,
+          1,
+          1,
+          15,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          32,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          10,
+          90318,
+>>>>>>> 227ff65 (save files for rebase)
           null,
           null,
           null,
@@ -115,6 +157,7 @@
           1,
           5,
           98,
+<<<<<<< HEAD
           null,
           null,
           null,
@@ -122,6 +165,8 @@
           null,
           null,
           null,
+=======
+>>>>>>> 227ff65 (save files for rebase)
           null,
           null,
           null,
@@ -145,22 +190,63 @@
           null,
           1,
           1,
+<<<<<<< HEAD
+=======
+          1,
+          1,
+          2710,
+          null,
+          1,
+          2710,
+          2710,
+          2710,
+          null,
+          1,
+>>>>>>> 227ff65 (save files for rebase)
           31,
           null,
           1,
           null,
           null,
           1,
+<<<<<<< HEAD
           3,
           94,
           3,
           7986,
           null,
           3,
+=======
+          1,
+          1,
+          1,
+          2710,
+          null,
+          1,
+          2710,
+          2710,
+          2710,
+          null,
+          1,
+          31,
+          null,
+          1,
+>>>>>>> 227ff65 (save files for rebase)
           null,
           null,
           1,
           1,
+<<<<<<< HEAD
+=======
+          1,
+          1,
+          2638,
+          null,
+          1,
+          2638,
+          null,
+          1,
+>>>>>>> 227ff65 (save files for rebase)
           30,
           null,
           1,
@@ -168,14 +254,36 @@
           null,
           1,
           1,
+<<<<<<< HEAD
+=======
+          1,
+          1,
+          2638,
+          null,
+          1,
+          2638,
+          null,
+          1,
+>>>>>>> 227ff65 (save files for rebase)
           30,
           null,
           1,
+          null,
+          null,
+<<<<<<< HEAD
+          1,
+          33,
+          null,
+=======
           null,
           null,
           1,
           33,
           null,
+          null,
+          1,
+          0,
+>>>>>>> 227ff65 (save files for rebase)
           null,
           null,
           null
@@ -248,6 +356,10 @@
         ]
       }
     },
+<<<<<<< HEAD
     "timestamp": 1650037457
+=======
+    "timestamp": 1649956424
+>>>>>>> 227ff65 (save files for rebase)
   }
 }
