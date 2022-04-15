@@ -401,11 +401,17 @@ end
 
 #STEPHEN
 
+  it 'counts the total number of teams in the data' do
+    expect(@stat_tracker.count_of_teams).to eq(9)
+  end
 
+  it 'can name the team with the best offense' do
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  end
 
-
-
-
+  it 'can name the team with the worst offense' do
+    expect(@stat_tracker.worst_offense).to eq("Houston Dynamo")
+  end
 
 
 
