@@ -51,5 +51,9 @@ RSpec.describe StatTracker do
 
     expect(@stat_tracker.count_of_games_by_season).to eq(expected_hash)
   end
+  it "can find average goals per game" do
+
+    expect(@stat_tracker.average_goals_per_game).to eq 3.75
+  end
 
 end

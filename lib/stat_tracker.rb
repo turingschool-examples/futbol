@@ -87,13 +87,14 @@ attr_reader :games, :team, :game_teams
   end
 
   def count_of_games_by_season
-   @games.group_by { |total| total.season.to_s }.transform_values do |values| values.count
-   end
-
+    @games.group_by { |total| total.season.to_s }.transform_values do |values| values.count
+    end
   end
 
   def average_goals_per_game
-
+    total_goals = @games.map {|game| game.away_goals + game.home_goals}
+    average = total_goals.sum.to_f / @games.count
+    average.round(2)
   end
 
   def average_goals_by_season
