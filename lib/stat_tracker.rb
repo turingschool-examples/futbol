@@ -119,13 +119,6 @@ end
     end.team_name.to_s
   end
 
-  # def total_amount_shots(game_teams, category)
-  #   game_teams.map do |game|
-  #     game.shots
-  #   end.sum
-  # end
-  #
-
   def accuracy_hash(season)
     season_game_teams = game_teams_by_season(season)
     hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
@@ -189,10 +182,9 @@ end
       end
     end
     best_season_id = hash.max_by do |season|
-      season[1][2]
+      season[2]
     end[0]
     return team_name(best_season_id)
-    # require "pry";binding.pry
   end
 
   def most_goals_scored(team_id)
