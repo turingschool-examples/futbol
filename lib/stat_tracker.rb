@@ -57,6 +57,11 @@ end
     @games.map {|game| game.away_goals + game.home_goals}.min
   end
 
+  # def percentage_home_wins(team)
+  #   require 'pry'; binding.pry
+  #   @game_teams.map {|game_team| (game_team.}
+  # end
+
 
   def games_by_season(season)
     @games.select do |row|

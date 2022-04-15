@@ -82,6 +82,22 @@ RSpec.describe StatTracker do
     expect(stat_tracker.lowest_total_score).to eq(2)
   end
 
+  it 'can calculate percentage_home_wins' do
+
+    game_path = './data/games_15_rows.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/games_teams_15_rows.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.precentage_home_wins()).to eq(50.00)
+  end
+
   it 'can give me the winningest coach given a specific season' do
     game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
