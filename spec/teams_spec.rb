@@ -7,12 +7,11 @@ SimpleCov.start
 require_relative "../lib/stat_tracker"
 require_relative "../lib/teams"
 
-
 RSpec.describe Teams do
   before :each do
-    game_path = "./data/games.csv"
-    team_path = "./data/teams.csv"
-    game_teams_path = "./data/game_teams.csv"
+    game_path = "./data/test_games.csv"
+    team_path = "./data/test_teams.csv"
+    game_teams_path = "./data/test_game_teams.csv"
 
     locations = {
       games: game_path,
@@ -23,7 +22,7 @@ RSpec.describe Teams do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  it 'exists and has attributes' do
+  it "exists and has attributes" do
     expect(@stat_tracker.teams).to be_a Teams
     expect(@stat_tracker.teams.team_id).to eq(@stat_tracker.stats_main[:teams][:team_id])
     expect(@stat_tracker.teams.franchiseid).to eq(@stat_tracker.stats_main[:teams][:franchiseid])
