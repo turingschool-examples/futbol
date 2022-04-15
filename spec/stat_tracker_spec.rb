@@ -100,7 +100,7 @@ describe StatTracker do
   end
 
   it "can calculate highest average number of goals" do
-    expect(@stat_tracker.best_offense).to eq 4
+    expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
 
   end
 end

@@ -121,4 +121,38 @@ include GameModule
 		end
 			total_teams.count
 	end
-end
+
+	def best_offense
+		#creates hash w/ team ids keys and team goals values
+		team_goals = {}
+		@game_teams.each do |game|
+			team = game.team_id
+			if team_goals[team] == nil
+				team_goals[team] = [game.goals.to_f]
+			else
+				team_goals[team] << game.goals.to_f
+			end
+		end
+	#averages all value arrays and reassigns it to team_goals key
+		avg_goals = {}
+		 team_goals.each do |team, goals|
+			avg_goals[team] = (goals.sum / goals.size).ceil(2)
+	end
+	#creates hash w/team_id keys and team name values
+		team_names = {}
+		@teams.each do |team|
+			team_names[team.team_id] = team.team_name
+		end
+		#reassigns key of team_id with team_name in avg_goals hash
+		avg_goals.keys.each do |key|
+		team_names.each do |id, name|
+			if id == key
+			avg_goals[name] = avg_goals[key]
+			avg_goals.delete(key)
+		end
+		end
+	end
+	avg_goals.max[0]
+	end
+	end
+		
