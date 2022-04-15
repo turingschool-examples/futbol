@@ -3,16 +3,16 @@ require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before :each do
-    game_path = './data/dummy_games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/dummy_game_teams.csv'
+    @game_path = './data/dummy_games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/dummy_game_teams.csv'
 
     @locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
       }
-      @stat_tracker = StatTracker.from_csv(@locations)
+    @stat_tracker = StatTracker.from_csv(@locations)
 
   end
 
@@ -36,7 +36,15 @@ RSpec.describe StatTracker do
     #     })
     #   collections is the key with the data as the value so that
     # end
+    describe 'League Statistics' do
+      it '#count_of_teams can count teams' do 
+      expect(@stat_tracker.count_of_teams).to eq(32)
+      end
 
+      it '#best_offense finds team with the best offense' do 
+        expect(stat_tracker.best_offense).to eq()
+      end
+    end
 
 
 end

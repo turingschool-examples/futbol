@@ -23,5 +23,30 @@ class GameTeams
     @takeaways = takeaways
   end
 
+  def self.fill_game_teams_array(data)
+    game_teams_data = []
+    data.each do |row|
+      game_id = row[:game_id]
+      team_id = row[:team_id]
+      hoa = row[:hoa]
+      result = row[:result]
+      settled_in = row[:settled_in]
+      head_coach = row[:head_coach]
+      goals = row[:goals]
+      shots = row[:shots]
+      tackles = row[:tackles]
+      pim = row[:pim]
+      power_play_opportunities = row[:power_play_opportunities]
+      power_play_goals = row[:power_play_goals]
+      face_off_win_percentage = row[:face_off_win_percentage]
+      giveaways = row[:giveaways]
+      takeaways = row[:takeaways]
+      game_teams_data << GameTeams.new(game_id, team_id, hoa, result, settled_in, head_coach, goals,
+        shots, tackles, pim, power_play_opportunities, power_play_goals,
+        face_off_win_percentage, giveaways, takeaways)
+      end
+      game_teams_data
+  end
+
 
 end
