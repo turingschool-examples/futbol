@@ -27,7 +27,7 @@ include GameModule
 			franchise_id = row[:franchiseid]
 			team_name = row[:teamname]
 			abbreviation = row[:abbreviation]
-			stadium = row[:stadium] # do symbols always return all lowercase or the same case as we assign it???
+			stadium = row[:stadium] # do symbols always return all lowercase or the same cse as we assign it???
 			link = row[:link]
 			team_arr << Team.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
 		end
@@ -126,17 +126,15 @@ include GameModule
 			total_teams.count
 	end
 
-#	percentage_ties	Percentage of games that has resulted in a tie (rounded to the nearest 100th)
 	def percentage_ties
-		require "pry"; binding.pry
 		ties = []
 		@games.each do |game|
 			if game.home_goals == game.away_goals
 				ties << game
 			end
 		end
-		return ties
-		(ties.count / total_num_games).to_f * 100
+		return ((ties.count.to_f / total_num_games.to_f).ceil(4)) * 100
 	end
+
 
 end
