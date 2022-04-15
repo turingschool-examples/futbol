@@ -1,6 +1,6 @@
 require "pry"
-require "./lib/stat_tracker"
 require "csv"
+require_relative "./lib/stat_tracker"
 
 game_path = "./data/games.csv"
 team_path = "./data/teams.csv"
