@@ -127,5 +127,8 @@ describe StatTracker do
       expect(@stat_tracker.best_season(16)).to eq("20152016")
     end
 
+    it 'calculates season with lowest win percentage' do
+      expect(@stat_tracker.worst_season(16)).to eq("20122013")
+    end
   end
 end
