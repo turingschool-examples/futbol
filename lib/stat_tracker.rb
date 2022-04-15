@@ -188,4 +188,14 @@ end
     return team_name(best_season_id)
     # require "pry";binding.pry
   end
+
+  def most_goals_scored(team_id)
+    team_games = game_teams_by_team(team_id.to_i)
+    team_games.map {|game| game.goals}.max
+  end
+
+  def fewest_goals_scored(team_id)
+    team_games = game_teams_by_team(team_id.to_i)
+    team_games.map {|game| game.goals}.min
+  end
 end
