@@ -1,3 +1,5 @@
+# require 'simplecov'
+# SimpleCov.start
 require './lib/stat_tracker'
 require './lib/team_stats'
 require './modules/team_statistics'

@@ -3,85 +3,69 @@ require './lib/game_teams'
 require './lib/team_stats'
 
 module Season
-  def winningest_coach(season)
-    outcome = @game_teams.find_all { |game| game.result == 'WIN' }
-    coach_performance(season, outcome).sort_by { |_coach, wins| wins }.reverse[0][0]
-  end
-
   def games_by_season(season)
-    @games.find_all { |game| game.season == season }
+    @game_teams.find_all { |game| game.game_id[0..3] == season[0..3] }
   end
 
-  def coach_performance(season, outcome)
-    games = games_by_season(season)
-    result_by_coach = {}
-    outcome.each do |result|
-      next unless games.any? { |game| game.game_id == result.game_id }
-
-      result_by_coach[result.head_coach] = 1 if result_by_coach[result.head_coach].nil?
-      result_by_coach[result.head_coach] += 1
+  def coach_record(season, result)
+    games = games_by_season(season).find_all { |game| game.result == result }
+    coaches = Hash.new(0)
+    games.each do |game|
+      coaches[game.head_coach] += 1
     end
-    result_by_coach
+    coaches.sort_by { |_coach, number| number }
+  end
+
+  def winningest_coach(season)
+    coach_record(season, 'WIN').last[0]
   end
 
   def worst_coach(season)
-    outcome = @game_teams.find_all { |game| game.result == 'LOSS' }
-    coach_performance(season, outcome).min_by { |_coach, loss| loss }[0]
+    coach_record(season, 'LOSS').first[0]
+  end
+
+  def team_id_to_name(id)
+    @teams.find { |team| team.team_id == id }.team_name
   end
 
   def most_accurate_team(season)
-    @teams.find { |team| team.team_id == team_accuracy(season)[-1][0] }.team_name
-  end
-
-  def team_accuracy(season)
-    games = games_by_season(season)
-    shots_taken = {}
-    goals_made = {}
-    @game_teams.each do |team|
-      next unless games.any? { |game| game.game_id == team.game_id }
-
-      if shots_taken[team.team_id].nil?
-        shots_taken[team.team_id] = team.shots
-      else
-        shots_taken[team.team_id] += team.shots
-      end
-      if goals_made[team.team_id].nil?
-        goals_made[team.team_id] = team.goals
-      else
-        goals_made[team.team_id] += team.goals
-      end
-    end
-    team_accuracy = []
-    shots_taken.each do |team, shots|
-      team_accuracy << [team, goals_made[team].to_f / shots]
-    end
-    team_accuracy.sort_by { |_team, accuracy| accuracy }
+    team_id_to_name(team_accuracy(season).last[0])
   end
 
   def least_accurate_team(season)
-    @teams.find { |team| team.team_id == team_accuracy(season)[0][0] }.team_name
+    team_id_to_name(team_accuracy(season).first[0])
+  end
+
+  def team_accuracy(season)
+    teams = {}
+    games_by_season(season).each do |game|
+      if teams[game.team_id].nil?
+        teams[game.team_id] = { goals: game.goals, shots: game.shots }
+      else
+        teams[game.team_id][:goals] += game.goals
+        teams[game.team_id][:shots] += game.shots
+      end
+    end
+    teams.map { |team, number| [team, number[:goals].to_f / number[:shots]] }.sort_by { |team| team[1] }
   end
 
   def most_tackles(season)
-    @teams.find { |team| team.team_id == team_tackles(season)[-1][0] }.team_name
-  end
-
-  def team_tackles(season)
-    games = games_by_season(season)
-    tackles_by_team = {}
-    @game_teams.each do |team|
-      next unless games.any? { |game| game.game_id == team.game_id }
-
-      if tackles_by_team[team.team_id].nil?
-        tackles_by_team[team.team_id] = team.tackles
-      else
-        tackles_by_team[team.team_id] += team.tackles
-      end
-    end
-    tackles_by_team.sort_by { |_team, tackles| tackles }
+    team_id_to_name(team_tackles(season).last[0])
   end
 
   def fewest_tackles(season)
-    @teams.find { |team| team.team_id == team_tackles(season)[0][0] }.team_name
+    team_id_to_name(team_tackles(season).first[0])
+  end
+
+  def team_tackles(season)
+    teams = {}
+    games_by_season(season).each do |game|
+      if teams[game.team_id].nil?
+        teams[game.team_id] = game.tackles
+      else
+        teams[game.team_id] += game.tackles
+      end
+    end
+    teams.sort_by { |_team, number| number }
   end
 end
