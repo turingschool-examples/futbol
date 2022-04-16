@@ -112,4 +112,7 @@ describe StatTracker do
     expect(@stat_tracker.most_goals_scored(26)).to eq 3
 
   end
+  it "can return the fewest amount of goals scored by a team in a single game" do
+    expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
+  end
 end
