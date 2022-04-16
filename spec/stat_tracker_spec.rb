@@ -77,7 +77,6 @@ describe StatTracker do
         "20132014" => 3.25
       }
       expect(@stat_tracker.average_goals_per_season).to eq expected
-
     end
   end
 
@@ -93,11 +92,39 @@ describe StatTracker do
         game_teams: @game_teams_path
       }
     end
-  end
 
-  it 'can count the total number of teams' do
-    expect(@stat_tracker.count_of_teams).to eq 32
-  end
+    it 'can count the total number of teams' do
+      expect(@stat_tracker.count_of_teams).to eq 32
+    end
+
+    xit 'returns highest average score of home team' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq()
+    end
+
+
+  describe "Season Statistics" do
+    before :each do
+      @game_path = './data/dummy_games.csv'
+      @team_path = './data/dummy_teams.csv'
+      @game_teams_path = './data/dummy_game_teams.csv'
+
+      @locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+      end
+    end 
+
+    it 'calculates team with most tackles in season' do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    end
+
+    it 'calculates team with least tackles in season' do
+      expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
+    end
+
+
 
   describe "Team Statistics" do
     before :each do
@@ -110,6 +137,7 @@ describe StatTracker do
         teams: @team_path,
         game_teams: @game_teams_path
       }
+      end
     end
 
     it 'has team info' do
@@ -143,20 +171,8 @@ describe StatTracker do
       expect(@stat_tracker.game_id_to_season("2015030133")).to eq("20152016")
     end
 
-    it 'calculates team with most tackles in season' do
-      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
-    end
-
-    it 'calculates team with least tackles in season' do
-      expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
-    end
-
     it 'calculates average win percentage of all games for a team' do
       expect(@stat_tracker.average_win_percentage(16)).to eq(40.0)
-    end
-
-    xit 'returns highest average score of home team' do
-      expect(@stat_tracker.highest_scoring_home_team).to eq()
     end
   end
 end

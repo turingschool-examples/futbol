@@ -289,8 +289,8 @@ include GameModule
 	# 				home_team_hash[game.home_team_id] = game.home_goals.to_i
 	# 			else
 	# 				home_team_hash[game.home_team_id] << game.home_goals.to_i
-	# 				require "pry"; binding.pry
 	# 			end
+	# 				require "pry"; binding.pry
 	# 	  end
 	# 		home_team_hash.each do |team_id, scores|
 	# 			scores.sum / scores.count
