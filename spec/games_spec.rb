@@ -51,10 +51,17 @@ RSpec.describe Games do
   end
 
   it "creates games_by_season_hash" do
-    expect = {
+    expect1 = {
       "20122013" => 15,
       "20132014" => 5
     }
-    expect(@stat_tracker.games.games_by_season_hash[:count]).to eq(expect)
+
+    expect2 = {
+      "20122013" => 4.13,
+      "20132014" => 4.20
+    }
+
+    expect(@stat_tracker.games.games_by_season_hash[:count]).to eq(expect1)
+    expect(@stat_tracker.games.games_by_season_hash[:average_goals]).to eq(expect2)
   end
 end

@@ -46,5 +46,9 @@ class StatTracker
   def count_of_games_by_season
     @games.games_by_season_hash[:count]
   end
+
+  def average_goals_per_game
+    @games.total_scores.sum.to_f / @games.total_scores.count.to_f
+  end
   # End Game Statistics methods
 end

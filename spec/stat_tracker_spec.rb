@@ -60,9 +60,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_goals_per_game).to eq 4.15
   end
 
-  xit "checks average_goals_by_season" do
-    # Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
-    # Hash
+  it "checks average_goals_by_season" do
+    expect = {
+      "20122013" => 4.13,
+      "20132014" => 4.20
+    }
+    expect(@stat_tracker.average_goals_by_season).to eq(expect)
   end
   # End Game Statistics methods
 end
