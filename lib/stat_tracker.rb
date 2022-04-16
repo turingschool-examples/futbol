@@ -1,8 +1,8 @@
 require 'csv'
-require './modules/game_statistics'
-require './modules/league_statistics'
-require './modules/season_statistics'
-require './modules/team_statistics'
+require_relative '../modules/game_statistics'
+require_relative '../modules/league_statistics'
+require_relative '../modules/season_statistics'
+require_relative '../modules/team_statistics'
 
 class StatTracker
   include TeamStatistics
