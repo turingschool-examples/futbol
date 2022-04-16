@@ -189,4 +189,13 @@ include GameModule
 	min_team = avg_goals.select{|team, goals| goals == min_avg}
 	min_team.keys[0]
 	end
+
+	def most_goals_scored(team_id)
+		game_arr = @game_teams.find_all do |game|
+				team_id = game.team_id
+		end
+		@game_teams.each do |game|
+			require "pry";binding.pry
+		end
+	end
 end
