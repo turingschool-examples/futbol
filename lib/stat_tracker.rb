@@ -18,6 +18,7 @@ class StatTracker
     @games = Game.fill_game_array(@game_data)
     @teams = Team.fill_team_array(@team_data)
     @game_teams = GameTeams.fill_game_teams_array(@game_team_data)
+    # binding.pry
   end
 
   def self.from_csv(locations)
@@ -266,6 +267,36 @@ class StatTracker
 
   # Season Statistics
 
+  def winningest_coach
+    ## Take in an argument that is year/season
+    #organize by team_id
+    #team_id.length, return total_games
+    #look at result
+    #wins = +1, loss = 0, tie = 0, return win_total
+    #total wins / total games
+    #return percentage
+    #iterate through year/season to compare percentages
+    #return highest percentage and coach
+  end
+
+
+  def organize_seasons # Take in an argument that is year/season
+    season_hash = @game_teams.group_by do |game|
+      game.game_id[0..3]
+    end
+    season_hash
+  end
+
+  def organize_teams #organize by team_id
+    team_hash
+
+
+  end
+
   # Team Statistics
+
+  def favorite_opponent
+    #one opponents lowest win percentage against another team
+    #
 
 end
