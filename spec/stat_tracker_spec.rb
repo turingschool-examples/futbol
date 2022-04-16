@@ -151,5 +151,8 @@ describe StatTracker do
       expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
     end
 
+    it 'calculates average win percentage of all games for a team' do
+      expect(@stat_tracker.average_win_percentage(16)).to eq(40.0)
+    end
   end
 end
