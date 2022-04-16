@@ -110,11 +110,14 @@ describe StatTracker do
     end
   end
   context "Season: Accuracy Ratios" do
+    it 'can separate game ids by season' do
+      expect(@stat_tracker.games_by_season('20122013')).to eq(['2012030221', '2012030225', '2012030314'])
+    end
     it 'returns the name of the team with the best shot to goal ratio' do
-      expect(@stat_tracker.most_accurate_team).to eq("FC Dallas")
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("Houston Dynamo")
     end
     it 'returns the name of the team with the worst shot to goal ratio' do
-      expect(@stat_tracker.least_accurate_team).to eq("Houston Dynamo")
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
     end
   end
 
