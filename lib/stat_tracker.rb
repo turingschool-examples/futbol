@@ -265,4 +265,17 @@ include GameModule
 		tackle_id = tackles_hash.sort_by{|team_id, tackles| tackles}.first[0]
 		team_name_by_id(tackle_id)
 	end
+
+	def average_win_percentage(team_id)
+		games_by_team_arr = @game_teams.find_all do |game|
+			 game.team_id == team_id
+		end
+		results_arr = []
+		games_by_team_arr.each do |games|
+			results_arr << games.result
+		end
+		wins = results_arr.count("WIN")
+		win_percentage = (wins.to_f / results_arr.count.to_f) * 100
+		return win_percentage
+	end
 end
