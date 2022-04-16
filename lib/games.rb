@@ -21,6 +21,7 @@ class Games
     @home_goals = data[:home_goals]
     @venue = data[:venue]
     @venue_link = data[:venue_link]
+    @data = data
   end
 
   def total_scores
@@ -49,9 +50,19 @@ class Games
   end
 
   def games_by_season_hash
-    games_by_season = {count: Hash.new(0)}
-    @season.each do |season|
+    games_by_season = {count: Hash.new(0), average_goals: Hash.new(0)}
+    # total_goals_by_season = {total_goals: Hash.new(0)}
+    total_goals_by_season = Hash.new(0)
+    @season.each_with_index do |season, index|
       games_by_season[:count][season] += 1
+      total_goals_by_season[season] += (@data[:home_goals][index].to_i + @data[:away_goals][index].to_i)
+      # total_goals_by_season[:total_goals][season] += (@data[:home_goals][index].to_i + @data[:away_goals][index].to_i)
+    end
+    games_by_season[:count].each do |season1, season_count|
+      total_goals_by_season.each do |season2, total_score|
+        games_by_season[:average_goals][season2] = (total_score.to_f / season_count.to_f).round(2) if
+        season1 == season2
+      end
     end
     games_by_season
   end
