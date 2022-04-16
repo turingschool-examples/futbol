@@ -348,8 +348,8 @@ include GameModule
 		end
 		worst_team = @teams.find{|team| team.team_id == worst_team_id}
 		return worst_team.team_name
-  end 
-    
+  end
+
 	def percentage_ties
 		ties = []
 		@games.each do |game|
@@ -371,6 +371,50 @@ include GameModule
 			game_count_by_season_hash[season] = seasons_arr.count(season)
 		end
 		return game_count_by_season_hash
+	end
+
+
+	def favorite_opponent(team_name)
+		team_id = @teams.find{|team| team.team_name == team_name}.team_id
+		#find every GameTeam object for this team
+		game_info_for_team = @game_teams.find_all{|game_team| game_team.team_id == team_id}
+		#find every GameTeam object for all opponents of the team and associate them with team id in a hash
+		opponent_game_info = {}
+		game_info_for_team.each do |given_team|
+			opponent = @game_teams.find{|game_team| ((game_team.team_id != team_id) && (game_team.game_id == given_team.game_id))}
+			if opponent
+				if opponent_game_info[opponent.team_id]
+					opponent_game_info[opponent.team_id] << opponent
+				else
+					opponent_game_info[opponent.team_id] = [opponent]
+				end
+			end
+		end
+		#calculate win percentage for each team in opponent_game_info_hash
+		opponent_win_percentage = {}
+		lowest_win_percentage = 100
+		opponent_game_info.each do |team_id, game_teams|
+			wins_losses = []
+			game_teams.each do |game_team|
+				wins_losses << game_team.result
+			end
+			win_percentage = (wins_losses.count("WIN"
+			).to_f / wins_losses.count.to_f) * 100
+			if win_percentage < lowest_win_percentage
+				lowest_win_percentage = win_percentage
+			end
+			opponent_win_percentage[team_id] = win_percentage
+		end
+		fav_opponent_id = nil
+		opponent_win_percentage.each do |id, win|
+			if win == lowest_win_percentage
+				fav_opponent_id = id
+				break
+			end
+		end
+		#find the name associated with the id for fav_opponent
+		fav_opponent_team = @teams.find{|team| team.team_id == fav_opponent_id}
+		return fav_opponent_team.team_name
 
 	end
 end

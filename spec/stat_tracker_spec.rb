@@ -68,7 +68,7 @@ describe StatTracker do
 		it "can calculate a percentage of home wins" do
 			expect(@stat_tracker.percentage_home_wins).to eq 50.0
 	  end
-    
+
     it "can calculate the percentage of games that has resulted in a tie" do
 			expect(@stat_tracker.percentage_ties).to eq 6.25
 		end
@@ -76,7 +76,7 @@ describe StatTracker do
 	  it "can calculate average goals per game" do
 	    expect(@stat_tracker.average_goals_per_game).to eq 3.69
 	  end
-    
+
     it 'can count the total number of teams' do
 	    expect(@stat_tracker.count_of_teams).to eq 32
 	  end
@@ -149,6 +149,15 @@ describe StatTracker do
     it 'can determine team with worst ratio of shots to goals for the season' do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq "New England Revolution"
     end
+  end
+
+  describe "Team Statistics" do
+
+    it 'can determine name of favorite opponent for a given team' do
+      expect(@stat_tracker.favorite_opponent("New England Revolution")).to eq "LA Galaxy"
+      expect(@stat_tracker.favorite_opponent("FC Dallas")).to eq "Houston Dynamo"
+    end
+
   end
 
 end
