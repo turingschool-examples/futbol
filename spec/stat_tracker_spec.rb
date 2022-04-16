@@ -154,5 +154,9 @@ describe StatTracker do
     it 'calculates average win percentage of all games for a team' do
       expect(@stat_tracker.average_win_percentage(16)).to eq(40.0)
     end
+
+    xit 'returns highest average score of home team' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq()
+    end
   end
 end
