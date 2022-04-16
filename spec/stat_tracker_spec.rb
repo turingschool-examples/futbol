@@ -46,6 +46,22 @@ RSpec.describe StatTracker do
            "Orlando City SC", "Portland Timbers", "San Jose Earthquakes"])
       end
 
+      it '#worst_offense finds team with the worst offense' do
+        expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
+      end
+
+      it '#lowest_scoring_visitor finds team with the lowest average away goals' do
+        expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+      end
+
+      it '#lowest_scoring_home_team finds team with the lowest average home goals' do
+        expect(@stat_tracker.lowest_scoring_home_team).to eq("Seattle Sounders FC")
+      end
+
+      it '#highest_scoring_home_team finds team with the highest average home goals' do
+        expect(@stat_tracker.highest_scoring_home_team).to eq(["Orlando City SC", "San Jose Earthquakes"])
+      end
+
       it '#team_name_helper finds team name via team_id' do
         expect(@stat_tracker.team_name_helper("3")).to eq("Houston Dynamo")
       end
