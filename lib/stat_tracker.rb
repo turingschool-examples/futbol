@@ -289,10 +289,27 @@ include GameModule
 					home_team_hash[game.home_team_id] << game.home_goals.to_i
 				end
 		  end
-			home_team_hash.each do |team_id, scores|
-				home_team_hash[team_id] = (scores.sum.to_f / scores.count.to_f).ceil(2)
-			end
-			home_win_id = home_team_hash.sort_by{|team_id, score| score}.last[0] #first
-			team_name_by_id(home_win_id)
+		home_team_hash.each do |team_id, scores|
+			home_team_hash[team_id] = (scores.sum.to_f / scores.count.to_f).ceil(2)
+		end
+		home_win_id = home_team_hash.sort_by{|team_id, score| score}.last[0]
+		team_name_by_id(home_win_id)
+	 end
+
+	 def lowest_scoring_home_team
+		 home_team_hash = {}
+		 @games.each do |game|
+			 game.home_team_id
+				 if home_team_hash[game.home_team_id] == nil
+					 home_team_hash[game.home_team_id] = [game.home_goals.to_i]
+				 else
+					 home_team_hash[game.home_team_id] << game.home_goals.to_i
+				 end
+			 end
+		 home_team_hash.each do |team_id, scores|
+			 home_team_hash[team_id] = (scores.sum.to_f / scores.count.to_f).ceil(2)
+		 end
+		 home_score_id = home_team_hash.sort_by{|team_id, score| score}.first[0]
+		 team_name_by_id(home_score_id)
 	 end
 end
