@@ -172,7 +172,7 @@ end
   end
 
   def best_season(id)
-  team_games = game_teams_by_team(id.to_i)
+  team_games = game_teams_by_team(team_id.to_i)
   hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
     team_games.each do |game|
       hash[game.game_id.to_s[0..3]][0]+=1

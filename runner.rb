@@ -5,7 +5,7 @@ require './lib/team'
 require './lib/game'
 require 'csv'
 
-game_path = './data/games_sample.csv'
+game_path = './data/games.csv'
 team_path = './data/teams.csv'
 game_teams_path = './data/game_teams.csv'
 

@@ -8,9 +8,9 @@ require 'csv'
 
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = './data/games.csv'
+    game_path = './data/games_sample.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/games_teams_sample.csv'
 
     locations = {
       games: game_path,
@@ -117,6 +117,5 @@ RSpec.describe StatTracker do
 
   it "gives us the best season" do
     expect(@stat_tracker.best_season("6")).to eq "20132014"
-
   end
 end
