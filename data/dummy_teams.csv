@@ -14,7 +14,7 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 9,30,New York City FC,NYC,Yankee Stadium,/api/v1/teams/9
 8,1,New York Red Bulls,NY,Red Bull Arena,/api/v1/teams/8
 30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30
-15,24,P1,POR,Providence Park,/api/v1/teams/15
+15,24,Portland Timbers,POR,Providence Park,/api/v1/teams/15
 19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
 24,32,Real Salt Lake,RSL,Rio Tinto Stadium,/api/v1/teams/24
 27,28,San Jose Earthquakes,SJ,Avaya Stadium,/api/v1/teams/27
