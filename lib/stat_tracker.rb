@@ -200,7 +200,19 @@ include GameModule
 				team_goals[game.team_id] << game.goals.to_i
 			end
 		end
-	# most_goals = team_goals.select{|team, goals| goals == }
 		team_goals.values.flatten!.max
+	end
+
+	def fewest_goals_scored(team_id)
+		team_number = @game_teams.find_all{|game_team| game_team.team_id.to_i == team_id}
+		team_goals = {}
+		team_number.each do |game|
+			if team_goals[game.team_id] == nil
+				team_goals[game.team_id] = [game.goals.to_i]
+			else
+				team_goals[game.team_id] << game.goals.to_i
+			end
+		end
+		team_goals.values.flatten!.min
 	end
 end
