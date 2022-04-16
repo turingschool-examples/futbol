@@ -460,12 +460,62 @@ end
     @teams_info
   end
 
+  def best_season(team_id)
+    seasons_win_avg_hash = {}
+    games_per_season = teams_games_played_in_season(team_id)
+    wins_per_season = teams_wins_in_season(team_id)
+    games_per_season.each do | gk, gv |
+      wins_per_season.each do | wk, wv |
+        if gk == wk
+          seasons_win_avg_hash.merge!("#{wk}" => (wv.to_f / gv.to_f))
+        end
+      end
+    end
+    seasons_win_avg_hash.max_by{|k,v| v}[0]
+  end
 
+  def worst_season(team_id)
+    seasons_win_avg_hash = {}
+    games_per_season = teams_games_played_in_season(team_id)
+    wins_per_season = teams_wins_in_season(team_id)
+    games_per_season.each do | gk, gv |
+      wins_per_season.each do | wk, wv |
+        if gk == wk
+          seasons_win_avg_hash.merge!("#{wk}" => (wv.to_f / gv.to_f))
+        end
+      end
+    end
+    seasons_win_avg_hash.min_by{|k,v| v}[0]
+  end
+#will pull first available if there is a tie, but there are no ties
+  def teams_games_played_in_season(team_id)
+    games_per_season_arr = []
+    @games.each do |row|
+      if (row[:home_team_id] || row[:away_team_id]) == team_id
+        games_per_season_arr << row[:season]
+      end
+    end
+    games_per_season_hash = games_per_season_arr.tally
+    games_per_season_hash
+  end
 
-
-
-
-
+  def teams_wins_in_season(team_id)
+    season_wins_arr = []
+    @games.each do |row|
+      if row[:away_team_id] == team_id
+        if row[:away_goals].to_f > row[:home_goals].to_f
+          season_wins_arr << row[:season]
+        end
+      end
+      if row[:home_team_id] == team_id
+        if row[:home_goals].to_f > row[:away_goals].to_f
+          season_wins_arr << row[:season]
+        end
+      end
+    end
+    season_wins_hash = season_wins_arr.tally
+    season_wins_hash
+  end
 
 
 
