@@ -7,6 +7,7 @@ require_relative "../lib/stat_tracker"
 require_relative "../lib/games"
 require_relative "../lib/teams"
 require_relative "../lib/game_teams"
+require 'pry'
 
 RSpec.describe StatTracker do
   before :each do
@@ -29,7 +30,8 @@ RSpec.describe StatTracker do
 
 
   it 'returns a hash for team info' do
-    expected = [{team_id: 4, franchiseid: 16, teamname: "Chicago Fire", abbreviation: "CHI", link: "/api/v1/teams/4"}]
-    expect(stat_tracker.teams.team_info(4).to eq(expected)
+    expected = {team_id: "4", franchiseid: "16", teamname: "Chicago Fire", abbreviation: "CHI", stadium: "SeatGeek Stadium", link: "/api/v1/teams/4"}
+
+    expect(@stat_tracker.team_info(4)).to eq(expected)
   end
 end

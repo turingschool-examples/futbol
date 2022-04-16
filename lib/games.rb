@@ -22,4 +22,8 @@ class Games
     @venue = data[:venue]
     @venue_link = data[:venue_link]
   end
+
+  # def self.create_list_of_game(games)
+  #   games.map { |games| Games.new(games) }
+  # end
 end
