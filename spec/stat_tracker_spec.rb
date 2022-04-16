@@ -421,8 +421,13 @@ end
  "Link"=>"/api/v1/teams/3"})
   end
 
+  it 'can return the best season for a team' do
+    expect(@stat_tracker.best_season("6")).to eq("20132014")
+  end
 
-
+  it 'can return the worst season for a team' do
+    expect(@stat_tracker.worst_season("6")).to eq("20122013")
+  end
 
 
 
