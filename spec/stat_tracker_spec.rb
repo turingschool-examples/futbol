@@ -88,8 +88,12 @@ RSpec.describe StatTracker do
       end
 
       it '#fewest_goals_scored can find the lowest number of goals a team has scored in a game' do 
-
+        expect(@stat_tracker.fewest_goals_scored("3")).to eq(1)
       end 
+
+      it '#favorite_opponent can produce the name of the team with the lowest win percentage against another team' do 
+        expect(@stat_tracker("24")).to eq(["Chicago Fire", "Los Angeles FC"])
+      end
     end
 
 end
