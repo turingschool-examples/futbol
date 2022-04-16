@@ -178,6 +178,17 @@ class StatTracker
     end
   end
 
+  def average_win_percentage(team_id)
+    counter = 0
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h[team_id].each do |row|
+      if row[:result] == "WIN"
+        counter += 1
+      end
+    end #module for percentages?
+    ((counter.to_f / team_id_h[team_id].count.to_f) * 100).round(2)
+  end
+
 
 
 
