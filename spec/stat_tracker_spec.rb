@@ -97,10 +97,13 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-    it 'returns highest average score of home team' do
+    it 'returns highest average scoring of home team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
     end
 
+    it 'returns lowest average scoring home team' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("New York City FC")
+    end
 
   describe "Season Statistics" do
     before :each do
