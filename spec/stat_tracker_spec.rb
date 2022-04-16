@@ -3,9 +3,11 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
 
   before(:all) do
-    game_path = './data/games_fixture.csv'
+    game_path = './data/games.csv'
+    # game_path = './data/games_fixture.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_fixture.csv'
+    # game_teams_path = './data/game_teams_fixture.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -33,27 +35,21 @@ RSpec.describe StatTracker do
 
   ## SEASON STAT TESTS
 
-  it "counts_coaches" do
-    expected = {
-      "John Tortorella" => 5,
-      "Claude Julien" => 9,
-      "Dan Bylsma" => 4,
-      "Mike Babcock" => 1,
-      "Joel Quenneville" => 1
-    }
+  xit "lists games by season" do
 # require 'pry'; binding.pry
 
-    expect(@stat_tracker.count_coaches).to eq(expected)
+    expect(@stat_tracker.games_in_season("2012")).to eq([])
   end
+
 
   it "checks winningest coach" do
 
-    expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+    expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
   end
 
-  xit "checks worst coach" do
+  it "checks worst coach" do
 
-
+    expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
   end
 
   xit "checks most accurate team" do
@@ -66,14 +62,21 @@ RSpec.describe StatTracker do
 
   end
 
-  xit "checks most tackles" do
+  it "#teams_by_tackles" do
 
-
+    expect(@stat_tracker.teams_by_tackles("20132014")). to eq ([])
   end
 
-  xit "checks least tackles" do
+  it "checks most tackles" do
 
+    expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
 
+  it "checks least tackles" do
+
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+    expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
 
 end
