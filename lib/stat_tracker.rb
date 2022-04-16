@@ -283,9 +283,31 @@ end
     return min_tackles_team[0]
   end
 
+  def most_goals_scored(team_id)
+    goals = []
+    most_goals = @game_teams.group_by { |row| row[:team_id].itself}
+    most_goals.each do | team, stats |
+      if team_id.to_s == team
+        stats.each do | goal |
+          goals << goal[:goals].to_i
+        end
+      end
+    end
+    return goals.sort.pop
+  end
 
-
-
+  def fewest_goals_scored(team_id)
+    goals = []
+    fewest_goals = @game_teams.group_by { |row| row[:team_id].itself}
+    fewest_goals.each do | team, stats |
+      if team_id.to_s == team
+        stats.each do | goal |
+          goals << goal[:goals].to_i
+        end
+      end
+    end
+    return goals.sort.shift
+  end
 
 
 
