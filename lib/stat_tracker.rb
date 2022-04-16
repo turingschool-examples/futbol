@@ -348,8 +348,8 @@ include GameModule
 		end
 		worst_team = @teams.find{|team| team.team_id == worst_team_id}
 		return worst_team.team_name
-  end 
-    
+  end
+
 	def percentage_ties
 		ties = []
 		@games.each do |game|
@@ -373,4 +373,15 @@ include GameModule
 		return game_count_by_season_hash
 
 	end
-end
+
+	def rival(team_id)
+		league_teams = @games.find_all{|teams| teams.team_id.to_i == team_id}
+		wins_loss = {}
+		league_teams.each do |games|
+			if league_teams[games] = [games.result]
+			#keep track of home goals and away goals
+			#
+
+			end
+		end
+	
