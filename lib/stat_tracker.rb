@@ -24,8 +24,8 @@ class StatTracker
   end
 
 
-  def team_info(team_id)
-    teams.by_id(team_id)
-  end
+    def team_info(team_id)
+      teams.by_id(team_id)
+    end
 
   end
