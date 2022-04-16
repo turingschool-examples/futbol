@@ -5,14 +5,14 @@ require './lib/stat_tracker'
 describe StatTracker do
   before(:each) do
 
-    game_path = './data/games_test.csv'
-    team_path = './data/teams_test.csv'
-    game_teams_path = './data/game_teams_test.csv'
+    @game_path = './data/games_test.csv'
+    @team_path = './data/teams_test.csv'
+    @game_teams_path = './data/game_teams_test.csv'
 
     locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
@@ -98,14 +98,47 @@ describe StatTracker do
 
 
 #SAI
-  it 'returns a percentage of how many wins were home wins' do
-    expect(@stat_tracker.percentage_home_wins).to eq(44.44)
+  context 'Games: Percentages' do
+    it 'returns a percentage of how many wins were home wins' do
+        expect(@stat_tracker.percentage_home_wins).to eq(44.44)
+    end
+
+    it 'returns a percentage of how many wins were away wins' do
+        expect(@stat_tracker.percentage_visitor_wins).to eq(55.56)
+    end
+
+    it 'returns a percentage of how many ties there were' do
+        expect(@stat_tracker.percentage_ties).to eq(0.00)
+    end
+
   end
-  it 'returns a percentage of how many wins were away wins' do
-    expect(@stat_tracker.percentage_visitor_wins).to eq(55.56)
-  end
-  it 'returns a percentage of how many ties there were' do
-    expect(@stat_tracker.percentage_ties).to eq(0.00)
+  context "Season: Accuracy Ratios" do
+    before(:each) do
+
+      @game_path = './data/games_test.csv'
+      @team_path = './data/teams_test.csv'
+      @game_teams_path = './data/game_teams_test_sai.csv'
+
+      locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+
+      @stat_tracker = StatTracker.from_csv(locations)
+    end
+    it 'can separate game ids by season' do
+      expect(@stat_tracker.games_by_season('20122013')).to eq(['2012030221', '2012030225', '2012030314'])
+    end
+
+    it 'returns the name of the team with the best shot to goal ratio' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("Houston Dynamo")
+    end
+
+    it 'returns the name of the team with the worst shot to goal ratio' do
+      # require 'pry'; binding.pry
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+    end
   end
 
 
