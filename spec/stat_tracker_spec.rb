@@ -413,7 +413,9 @@ end
     expect(@stat_tracker.worst_offense).to eq("Houston Dynamo")
   end
 
-
+  it 'can return a team info hash' do
+    expect(stat_tracker.team_info(3)).to eq("3" => ["3", "10", "Houston Dynamo", "HOU", "/api/v1/teams/3"])
+  end
 
 
 
