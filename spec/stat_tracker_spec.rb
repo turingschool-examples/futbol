@@ -97,8 +97,8 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-    xit 'returns highest average score of home team' do
-      expect(@stat_tracker.highest_scoring_home_team).to eq()
+    it 'returns highest average score of home team' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
     end
 
 
@@ -114,7 +114,7 @@ describe StatTracker do
         game_teams: @game_teams_path
       }
       end
-    end 
+    end
 
     it 'calculates team with most tackles in season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
@@ -123,8 +123,6 @@ describe StatTracker do
     it 'calculates team with least tackles in season' do
       expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
     end
-
-
 
   describe "Team Statistics" do
     before :each do
