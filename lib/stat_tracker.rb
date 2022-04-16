@@ -88,4 +88,58 @@ attr_reader :games, :team, :game_teams
     end
     game_team_arr.min
   end
+
+  def best_season(id)
+    grouped_by_season = @games.group_by { |game| game.season[0..].to_s}
+    win_percentage_by_season = Hash.new
+    grouped_by_season.each do |season, games|
+      wins = 0.0
+      losses = 0.0
+      ties = 0.0
+      games.each do |game|
+        if (game.home_team_id || game.away_team_id) == id && game.home_goals == game.away_goals
+          ties += 1.0
+        elsif game.home_team_id == id && game.home_goals > game.away_goals
+          wins += 1.0
+        elsif game.away_team_id == id && game.away_goals > game.home_goals
+          wins += 1.0
+        elsif game.home_team_id == id && game.home_goals < game.away_goals
+          losses += 1.0
+        elsif game.away_team_id == id && game.away_goals < game.home_goals
+          losses += 1.0
+        else
+        end
+      end
+      win_percentage_by_season[season] = ((wins * 1.0) + (losses * 0.0) + (ties * 0.5)) / (wins + losses + ties)
+    end
+    win_percentage_by_season.each{|k, v| win_percentage_by_season.delete(k) if !win_percentage_by_season[k].is_a?(Float)}
+    win_percentage_by_season.sort_by{|k, v| v}.last[0]
+  end
+
+  def worst_season(id)
+    grouped_by_season = @games.group_by { |game| game.season[0..].to_s}
+    win_percentage_by_season = Hash.new
+    grouped_by_season.each do |season, games|
+      wins = 0.0
+      losses = 0.0
+      ties = 0.0
+      games.each do |game|
+        if (game.home_team_id || game.away_team_id) == id && game.home_goals == game.away_goals
+          ties += 1.0
+        elsif game.home_team_id == id && game.home_goals > game.away_goals
+          wins += 1.0
+        elsif game.away_team_id == id && game.away_goals > game.home_goals
+          wins += 1.0
+        elsif game.home_team_id == id && game.home_goals < game.away_goals
+          losses += 1.0
+        elsif game.away_team_id == id && game.away_goals < game.home_goals
+          losses += 1.0
+        else
+        end
+      end
+      win_percentage_by_season[season] = ((wins * 1.0) + (losses * 0.0) + (ties * 0.5)) / (wins + losses + ties)
+    end
+    win_percentage_by_season.each{|k, v| win_percentage_by_season.delete(k) if !win_percentage_by_season[k].is_a?(Float)}
+    win_percentage_by_season.sort_by{|k, v| v}.first[0]
+  end
 end

@@ -3,9 +3,9 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
 
   before(:all) do
-    game_path = './data/games_fixture.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams_fixture.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -23,12 +23,12 @@ RSpec.describe StatTracker do
 
   it "finds highest_total_score" do
 
-    expect(@stat_tracker.highest_total_score).to eq 5
+    expect(@stat_tracker.highest_total_score).to eq 11
   end
 
   it "finds lowest_total_score" do
 
-    expect(@stat_tracker.lowest_total_score).to eq 1
+    expect(@stat_tracker.lowest_total_score).to eq 0
   end
 
   it "can create a hash with team info" do
@@ -44,10 +44,18 @@ RSpec.describe StatTracker do
   end
 
   it "can return most goals scored by a team" do
-    expect(@stat_tracker.most_goals_scored("3")).to eq 2
+    expect(@stat_tracker.most_goals_scored("3")).to eq 6
   end
 
   it "can return fewest goals scored by a team" do
-    expect(@stat_tracker.fewest_goals_scored("3")).to eq 1
+    expect(@stat_tracker.fewest_goals_scored("3")).to eq 0
+  end
+
+  it "can find a team's best season" do
+    expect(@stat_tracker.best_season("6")).to eq "20132014"
+  end
+
+  it "can find a team's worst season" do
+    expect(@stat_tracker.worst_season("6")).to eq "20152016"
   end
 end
