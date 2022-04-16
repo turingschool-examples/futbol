@@ -33,10 +33,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq 1
   end
 
-  ## SEASON STAT TESTS
+## SEASON STAT TESTS - Tested on actual dataset, NOT the fixtures
 
   it "lists games by season" do
-
 
     expect(@stat_tracker.games_in_season("2012")).to be_a(Array)
   end
@@ -89,14 +88,16 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.shot_accuracy("20132014")).to eq(expected)
   end
 
-  xit "checks most accurate team" do
+  it "checks most accurate team" do
 
-
+    expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  xit "checks least accurate team" do
+  it "checks least accurate team" do
 
-
+    expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
   it "checks teams by total tackles within a season" do
