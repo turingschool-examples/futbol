@@ -1,3 +1,4 @@
+require "csv"
 require_relative "./game_teams"
 require_relative "./games"
 require_relative "./teams"
@@ -40,6 +41,9 @@ class StatTracker
 
   def percentage_ties
     (@games.game_outcomes[:tie].to_f / @games.game_outcomes[:total].to_f) * 100
+  end
+
+  def count_of_games_by_season
   end
   # End Game Statistics methods
 end

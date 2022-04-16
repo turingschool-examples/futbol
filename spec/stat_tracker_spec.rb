@@ -48,7 +48,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.percentage_ties).to eq 15.00
   end
 
-  it "checks count_of_games_by_season" do
+  xit "checks count_of_games_by_season" do
     expect = {
       "20122013" => 15,
       "20132014" => 5

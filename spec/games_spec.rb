@@ -49,4 +49,12 @@ RSpec.describe Games do
     }
     expect(@stat_tracker.games.game_outcomes).to eq(expect)
   end
+
+  xit "creates count_of_games_by_season_hash" do
+    expect = {
+      "20122013" => 15,
+      "20132014" => 5
+    }
+    expect(@stat_tracker.games.count_of_games_by_season_hash).to eq(expect)
+  end
 end
