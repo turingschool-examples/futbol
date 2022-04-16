@@ -27,11 +27,30 @@ include GameModule
 			franchise_id = row[:franchiseid]
 			team_name = row[:teamname]
 			abbreviation = row[:abbreviation]
-			stadium = row[:stadium] # do symbols always return all lowercase or the same case as we assign it???
+			stadium = row[:stadium] # do symbols always return all lowercase or the same cse as we assign it???
 			link = row[:link]
 			team_arr << Team.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
 		end
 		return team_arr
+	end
+
+	def create_games(games)
+		game_arr = []
+		games.each do |row|
+			game_id = row[:game_id]
+			season = row[:season]
+			type = row[:type]
+			date_time = row[:date_time]
+			away_team_id = row[:away_team_id]
+			home_team_id = row[:home_team_id]
+			away_goals = row[:away_goals].to_i
+			home_goals = row[:home_goals].to_i
+			venue = row[:venue]
+			venue_link = row[:venue_link]
+			game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
+				away_goals, home_goals, venue, venue_link)
+		end
+		return game_arr
 	end
 
   def create_game_teams(game_teams)
@@ -58,24 +77,9 @@ include GameModule
     return game_team_array
   end
 
-  def create_games(games)
-    game_arr = []
-    games.each do |row|
-      game_id = row[:game_id]
-      season = row[:season]
-      type = row[:type]
-      date_time = row[:date_time]
-      away_team_id = row[:away_team_id]
-      home_team_id = row[:home_team_id]
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      venue = row[:venue]
-      venue_link = row[:venue_link]
-      game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
-        away_goals, home_goals, venue, venue_link)
-    end
-  return game_arr
-  end
+	def game_count
+		@games.count
+	end
 
 	def highest_total_score
 		GameModule.total_score(@games).max
@@ -91,11 +95,11 @@ include GameModule
 	end
 
 	def percentage_home_wins
-		return ((GameModule.total_home_wins(@games).count).to_f / (@games.count).to_f) * 100
+		return ((GameModule.total_home_wins(@games).count).to_f / game_count.to_f) * 100
 	end
 
 	def average_goals_per_game
-		(GameModule.total_score(@games).sum.to_f / @games.count).ceil(2)
+		(GameModule.total_score(@games).sum.to_f / game_count).ceil(2)
 	end
 
 	def average_goals_per_season
@@ -108,8 +112,8 @@ include GameModule
 				season_goals_avg[season] << game.away_goals + game.home_goals
 			end
 		end
-			season_goals_avg.each do |season, goals|
-				season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
+		season_goals_avg.each do |season, goals|
+			season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
 		end
 		return season_goals_avg
 	end
@@ -214,5 +218,159 @@ include GameModule
 			end
 		end
 		team_goals.values.flatten!.min
+  end
+
+	def winningest_coach(season)
+    #find all the games for the given season
+    season_games = @games.find_all{|game| game.season == season}
+    #use the season to find the game_id and then get an array of all the game_teams for that season
+    game_teams_by_season = []
+    season_games.each do |game|
+      matching_game_team = @game_teams.find_all{|g_t| g_t.game_id == game.game_id}
+      if matching_game_team
+        game_teams_by_season << matching_game_team
+      end
+    end
+    game_teams_by_season.flatten!
+    #go through the game_team objects to calculate win precentage for each coach
+    coach_wins_losses = {}
+    game_teams_by_season.each do |game_team|
+      if coach_wins_losses.keys.include?(game_team.head_coach)
+        coach_wins_losses[game_team.head_coach] << game_team.result
+      else
+        coach_wins_losses[game_team.head_coach] = [game_team.result]
+      end
+    end
+    #calculate win percentage for each coach
+    highest_percentage = 0.0
+    best_coach = nil
+    coach_wins_losses.each do |coach, win_loss|
+        wins = 0
+        win_loss.each do |val|
+          if val == "WIN"
+            wins += 1
+          end
+        end
+        percentage = ((wins.to_f / win_loss.length) * 100).round(2)
+        if percentage > highest_percentage
+          best_coach = coach
+          highest_percentage = percentage
+        end
+    end
+    return best_coach
+  end
+
+	def worst_coach(season)
+		#find all the games for the given season
+		season_games = @games.find_all{|game| game.season == season}
+		#use the season to find the game_id and then get an array of all the game_teams for that season
+		game_teams_by_season = []
+		season_games.each do |game|
+			matching_game_team = @game_teams.find_all{|g_t| g_t.game_id == game.game_id}
+			if matching_game_team
+				game_teams_by_season << matching_game_team
+			end
+		end
+		game_teams_by_season.flatten!
+		#go through the game_team objects to calculate win precentage for each coach
+		coach_wins_losses = {}
+		game_teams_by_season.each do |game_team|
+			if coach_wins_losses.keys.include?(game_team.head_coach)
+				coach_wins_losses[game_team.head_coach] << game_team.result
+			else
+				coach_wins_losses[game_team.head_coach] = [game_team.result]
+			end
+		end
+		#calculate win percentage for each coach
+		lowest_percentage = 100.0
+		worst_coach = nil
+		coach_wins_losses.each do |coach, win_loss|
+				wins = 0
+				win_loss.each do |val|
+					if val == "WIN"
+						wins += 1
+					end
+				end
+				percentage = ((wins.to_f / win_loss.length) * 100).round(2)
+				if percentage < lowest_percentage
+					worst_coach = coach
+					lowest_percentage = percentage
+				end
+		end
+		return worst_coach
+	end
+
+	def most_accurate_team(season)
+		team_shots_goals = {}
+		season_games = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
+		season_games.each do |season_game|
+			team_id = season_game.team_id
+			if team_shots_goals[team_id]
+				team_shots_goals[team_id][0] += season_game.shots
+				team_shots_goals[team_id][1] +=  season_game.goals
+			else
+				team_shots_goals[team_id] = [season_game.shots, season_game.goals]
+			end
+		end
+		best_team_id = 0
+		best_ratio = 100
+		team_shots_goals.each do |team_id, shots_goals|
+			ratio = shots_goals[0].to_f / shots_goals[1].to_f
+			if ratio < best_ratio
+				best_ratio = ratio
+				best_team_id = team_id
+			end
+		end
+		best_team = @teams.find{|team| team.team_id == best_team_id}
+		return best_team.team_name
+	end
+
+	def least_accurate_team(season)
+		team_shots_goals = {}
+		season_games = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
+		season_games.each do |season_game|
+			team_id = season_game.team_id
+			if team_shots_goals[team_id]
+				team_shots_goals[team_id][0] += season_game.shots
+				team_shots_goals[team_id][1] +=  season_game.goals
+			else
+				team_shots_goals[team_id] = [season_game.shots, season_game.goals]
+			end
+		end
+		worst_team_id = 0
+		worst_ratio = 0
+		team_shots_goals.each do |team_id, shots_goals|
+			ratio = shots_goals[0].to_f / shots_goals[1].to_f
+			if ratio > worst_ratio
+				worst_ratio = ratio
+				worst_team_id = team_id
+			end
+		end
+		worst_team = @teams.find{|team| team.team_id == worst_team_id}
+		return worst_team.team_name
+  end 
+    
+	def percentage_ties
+		ties = []
+		@games.each do |game|
+			if game.home_goals == game.away_goals
+				ties << game
+			end
+		end
+		return ((ties.count.to_f / game_count.to_f).ceil(4)) * 100
+	end
+
+# 	A hash with season names (e.g. 20122013) as keys and counts of games as values
+	def count_of_games_by_season
+		seasons_arr = []
+		@games.each do |game|
+			seasons_arr << game.season
+		end
+		game_count_by_season_hash = Hash.new
+		seasons_arr.uniq.each do |season|
+			game_count_by_season_hash[season] = seasons_arr.count(season)
+		end
+		return game_count_by_season_hash
+
 	end
 end
