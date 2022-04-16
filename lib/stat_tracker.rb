@@ -99,32 +99,95 @@ class StatTracker
 
 
 #SAI
-def percentage_home_wins
-  total_games = @games[:game_id].count.to_f
-  home_wins = 0
-  @games.each { |row| home_wins += 1 if row[:home_goals].to_i > row[:away_goals].to_i }
-  decimal = (home_wins.to_f / total_games)
-  (decimal * 100).round(2)
-end
+  def percentage_home_wins
+    total_games = @games[:game_id].count.to_f
+    home_wins = 0
+    @games.each { |row| home_wins += 1 if row[:home_goals].to_i > row[:away_goals].to_i }
+    decimal = (home_wins.to_f / total_games)
+    (decimal * 100).round(2)
+  end
+
+  def percentage_visitor_wins
+    total_games = @games[:game_id].count.to_f
+    visitor_wins = 0
+    @games.each { |row| visitor_wins += 1 if row[:home_goals].to_i < row[:away_goals].to_i }
+    decimal = (visitor_wins.to_f / total_games)
+    (decimal * 100).round(2)
+  end
 
-def percentage_visitor_wins
-  total_games = @games[:game_id].count.to_f
-  visitor_wins = 0
-  @games.each { |row| visitor_wins += 1 if row[:home_goals].to_i < row[:away_goals].to_i }
-  decimal = (visitor_wins.to_f / total_games)
-  (decimal * 100).round(2)
-end
+  def percentage_ties
+    total_games = @games[:game_id].count.to_f
+    number_tied = 0
+    @games.each { |row| number_tied += 1 if row[:home_goals].to_i == row[:away_goals].to_i }
+    decimal = (number_tied.to_f / total_games)
+    (decimal * 100).round(2)
+  end
 
-def percentage_ties
-  total_games = @games[:game_id].count.to_f
-  number_tied = 0
-  @games.each { |row| number_tied += 1 if row[:home_goals].to_i == row[:away_goals].to_i }
-  decimal = (number_tied.to_f / total_games)
-  (decimal * 100).round(2)
-end
+  def games_by_season(season)
+    games_in_season = @games.collect { |row| row[:game_id] if row[:season] == season}
+    games_in_season.compact
+  end
 
+  def most_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
+    team_ratios = {}
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h.each do |id, array|
+      shots = 0.0
+      goals = 0.0
+      array.each do |row|
+        if games_by_season(season_id).include?(row[:game_id])
+          shots += row[:shots].to_f
+          goals += row[:goals].to_f
+        end
+      end
+      if goals != 0
+        team_ratios["#{id}"] = (shots / goals).round(2)
+      else
+        team_ratios["#{id}"] = 0
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == team_ratios.max_by{|k,v| v}[0]
+        return row[:teamname]
+      end
+    end
+  end
 
+  def least_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
+    team_ratios = {}
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h.each do |id, array|
+      shots = 0.0
+      goals = 0.0
+      array.each do |row|
+        if games_by_season(season_id).include?(row[:game_id])
+          shots += row[:shots].to_f
+          goals += row[:goals].to_f
+        end
+      end
+      if goals != 0
+        team_ratios["#{id}"] = (shots / goals).round(2)
+      else
+        team_ratios["#{id}"] = 0
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == team_ratios.min_by{|k,v| v}[0]
+        return row[:teamname]
+      end
+    end
+  end
 
+  def average_win_percentage(team_id)
+    counter = 0
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h[team_id].each do |row|
+      if row[:result] == "WIN"
+        counter += 1
+      end
+    end #module for percentages?
+    ((counter.to_f / team_id_h[team_id].count.to_f) * 100).round(2)
+  end
 
 
 
@@ -198,7 +261,7 @@ end
 
 
 
-  #COLIN
+  #C O O O O O O O O O O O O LIN
   def average_goals_per_game
     goals = []
     @games.each do |row|
@@ -223,11 +286,91 @@ end
     average_by_season
   end
 
+  def count_of_games_by_season
+    season_games_hash = {}
+    season_games = @games.group_by { |row| row[:season].itself }
+    season_games.each do |season, games|
+      game = 0
+      games.each do |key|
+        game += 1
+      end
+        season_games_hash.merge!(season => game)
+    end
+    season_games_hash
+  end
 
+  def most_tackles(season)
+  game_array = []
+  tackle_hash = {}
+  max_tackles_team = []
+  @game_teams.each do | row |
+      if season.to_s.include?(row[:game_id][0..3])
+      game_array << row
+      end
+    end
+    team_hash = game_array.group_by { |row| row[:team_id].itself }
+    team_hash.each do | team, stats |
+      stats.map do | row |
+        tackle_hash.merge!(team => row[:tackles].sum)
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == tackle_hash.max_by{|k,v| v}[0]
+        max_tackles_team << row[:teamname]
+      end
+    end
+    return max_tackles_team[0]
+  end
 
 
+  def fewest_tackles(season)
+  game_array = []
+  tackle_hash = {}
+  min_tackles_team = []
+  @game_teams.each do | row |
+      if season.to_s.include?(row[:game_id][0..3])
+      game_array << row
+      end
+    end
+    team_hash = game_array.group_by { |row| row[:team_id].itself }
+    team_hash.each do | team, stats |
+      stats.each do | row |
+        tackle_hash.merge!(team => row[:tackles].sum)
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == tackle_hash.min_by{|k,v| v}[0]
+        min_tackles_team << row[:teamname]
+      end
+    end
+    return min_tackles_team[0]
+  end
 
+  def most_goals_scored(team_id)
+    goals = []
+    most_goals = @game_teams.group_by { |row| row[:team_id].itself}
+    most_goals.each do | team, stats |
+      if team_id.to_s == team
+        stats.each do | goal |
+          goals << goal[:goals].to_i
+        end
+      end
+    end
+    return goals.sort.pop
+  end
 
+  def fewest_goals_scored(team_id)
+    goals = []
+    fewest_goals = @game_teams.group_by { |row| row[:team_id].itself}
+    fewest_goals.each do | team, stats |
+      if team_id.to_s == team
+        stats.each do | goal |
+          goals << goal[:goals].to_i
+        end
+      end
+    end
+    return goals.sort.shift
+  end
 
 
 
@@ -310,8 +453,7 @@ end
 
 
 
-
-# T H I A G O O O O O O O A L L L L L
+  # T H I A G O O O O O O O A L L L L L
   def winningest_coach#.(season) not implemented yet
     results = @game_teams[:result]
     coaches = @game_teams[:head_coach]
@@ -340,7 +482,7 @@ end
   end
 
 
-def worst_coach
+  def worst_coach
   results = @game_teams[:result]
   coaches = @game_teams[:head_coach]
   unique_coaches = coaches.uniq
@@ -364,7 +506,28 @@ def worst_coach
     end
   end
   loss_list.key(loss_list.values.min)
-end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
