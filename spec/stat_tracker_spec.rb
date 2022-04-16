@@ -26,4 +26,46 @@ RSpec.describe StatTracker do
   it "exists" do
     expect(@stat_tracker).to be_a StatTracker
   end
+
+  # Start Game Statistics methods
+  it "checks highest_total_score" do
+    expect(@stat_tracker.highest_total_score).to eq 6
+  end
+
+  it "checks lowest_total_score" do
+    expect(@stat_tracker.lowest_total_score).to eq 1
+  end
+
+  it "checks percentage_home_wins" do
+    expect(@stat_tracker.percentage_home_wins).to eq 0.5
+  end
+
+  it "checks percentage_visitor_wins" do
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.35
+  end
+
+  it "checks percentage_ties" do
+    expect(@stat_tracker.percentage_ties).to eq 0.15
+  end
+
+  it "checks count_of_games_by_season" do
+    expect = {
+      "20122013" => 15,
+      "20132014" => 5
+    }
+    expect(@stat_tracker.count_of_games_by_season).to eq(expect)
+  end
+
+  it "checks average_goals_per_game" do
+    expect(@stat_tracker.average_goals_per_game).to eq 4.15
+  end
+
+  it "checks average_goals_by_season" do
+    expect = {
+      "20122013" => 4.13,
+      "20132014" => 4.20
+    }
+    expect(@stat_tracker.average_goals_by_season).to eq(expect)
+  end
+  # End Game Statistics methods
 end
