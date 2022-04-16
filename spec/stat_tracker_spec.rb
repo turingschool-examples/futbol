@@ -35,10 +35,10 @@ RSpec.describe StatTracker do
 
   ## SEASON STAT TESTS
 
-  xit "lists games by season" do
-# require 'pry'; binding.pry
+  it "lists games by season" do
 
-    expect(@stat_tracker.games_in_season("2012")).to eq([])
+
+    expect(@stat_tracker.games_in_season("2012")).to be_a(Array)
   end
 
 
@@ -62,9 +62,41 @@ RSpec.describe StatTracker do
 
   end
 
-  it "#teams_by_tackles" do
+  it "checks teams by total tackles within a season" do
+    expected = [
+      ["1", 1568],
+      ["18", 1611],
+      ["20", 1708],
+      ["23", 1710],
+      ["22", 1751],
+      ["14", 1774],
+      ["17", 1783],
+      ["30", 1787],
+      ["12", 1807],
+      ["25", 1820],
+      ["16", 1836],
+      ["13", 1860],
+      ["15", 1904],
+      ["28", 1931],
+      ["7", 1992],
+      ["19", 2087],
+      ["2", 2092],
+      ["27", 2173],
+      ["8", 2211],
+      ["21", 2223],
+      ["52", 2313],
+      ["9", 2351],
+      ["4", 2404],
+      ["6", 2441],
+      ["5", 2510],
+      ["24", 2515],
+      ["10", 2592],
+      ["3", 2675],
+      ["29", 2915],
+      ["26", 3691]
+    ]
 
-    expect(@stat_tracker.teams_by_tackles("20132014")). to eq ([])
+    expect(@stat_tracker.teams_by_tackles("20132014")). to eq (expected)
   end
 
   it "checks most tackles" do

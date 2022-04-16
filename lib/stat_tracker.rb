@@ -57,6 +57,7 @@ attr_reader :games, :team, :game_teams
 
   def games_in_season(season)
     @game_teams.find_all { |game| game.game_id[0..3] == season[0..3] }
+# require 'pry'; binding.pry
   end
 
 ## Find teams from id
