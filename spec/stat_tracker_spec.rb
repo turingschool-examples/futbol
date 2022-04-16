@@ -207,10 +207,17 @@ it 'finds the average goals by season' do
   expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.33, "20132014"=>4.0, "20152016"=>4.0, "20142015"=>8.5})
 end
 
+it 'counts games per season' do
+  expect(@stat_tracker.count_of_games_by_season).to eq ({"20122013"=>3, "20132014"=>2, "20152016"=>2, "20142015"=>2})
+end
 
+it 'shows the team with the most tackles in a given season' do
+  expect(@stat_tracker.most_tackles(20122013)).to eq("Houston Dynamo")
+end
 
-
-
+it 'shows the team with the fewest tackles in a given season' do
+  expect(@stat_tracker.fewest_tackles(20122013)).to eq("FC Dallas")
+end
 
 
 

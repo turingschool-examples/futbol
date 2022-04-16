@@ -198,7 +198,7 @@ end
 
 
 
-  #COLIN
+  #C O O O O O O O O O O O O LIN
   def average_goals_per_game
     goals = []
     @games.each do |row|
@@ -223,8 +223,64 @@ end
     average_by_season
   end
 
+  def count_of_games_by_season
+    season_games_hash = {}
+    season_games = @games.group_by { |row| row[:season].itself }
+    season_games.each do |season, games|
+      game = 0
+      games.each do |key|
+        game += 1
+      end
+        season_games_hash.merge!(season => game)
+    end
+    season_games_hash
+  end
 
+  def most_tackles(season)
+  game_array = []
+  tackle_hash = {}
+  max_tackles_team = []
+  @game_teams.each do | row |
+      if season.to_s.include?(row[:game_id][0..3])
+      game_array << row
+      end
+    end
+    team_hash = game_array.group_by { |row| row[:team_id].itself }
+    team_hash.each do | team, stats |
+      stats.map do | row |
+        tackle_hash.merge!(team => row[:tackles].sum)
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == tackle_hash.max_by{|k,v| v}[0]
+        max_tackles_team << row[:teamname]
+      end
+    end
+    return max_tackles_team[0]
+  end
 
+  def fewest_tackles(season)
+  game_array = []
+  tackle_hash = {}
+  min_tackles_team = []
+  @game_teams.each do | row |
+      if season.to_s.include?(row[:game_id][0..3])
+      game_array << row
+      end
+    end
+    team_hash = game_array.group_by { |row| row[:team_id].itself }
+    team_hash.each do | team, stats |
+      stats.each do | row |
+        tackle_hash.merge!(team => row[:tackles].sum)
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == tackle_hash.min_by{|k,v| v}[0]
+        min_tackles_team << row[:teamname]
+      end
+    end
+    return min_tackles_team[0]
+  end
 
 
 
@@ -311,7 +367,7 @@ end
 
 
 
-# T H I A G O O O O O O O A L L L L L
+  # T H I A G O O O O O O O A L L L L L
   def winningest_coach#.(season) not implemented yet
     results = @game_teams[:result]
     coaches = @game_teams[:head_coach]
@@ -335,12 +391,12 @@ end
       end
     end
     win_list.key(win_list.values.max)
-  
+
 
   end
 
 
-def worst_coach
+  def worst_coach
   results = @game_teams[:result]
   coaches = @game_teams[:head_coach]
   unique_coaches = coaches.uniq
@@ -364,33 +420,33 @@ def worst_coach
     end
   end
   loss_list.key(loss_list.values.min)
-end
+  end
 
 
 
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   #stephen
 
   def count_of_teams
