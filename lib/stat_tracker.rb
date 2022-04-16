@@ -148,12 +148,12 @@ include GameModule
 		end
 	end
 	win_counter = 0
-	best_win_percentage = 0 #100
+	best_win_percentage = 0
 	season_record_hash.each do |season, result|
 		 win_counter = result.count("WIN")
 		 win_percentage = (win_counter.to_f / result.count.to_f) * 100
 		 season_record_hash[season] = win_percentage
-		 if best_win_percentage < win_percentage # >
+		 if best_win_percentage < win_percentage
 			 best_win_percentage = win_percentage
 		 end
 	 end
@@ -182,7 +182,7 @@ include GameModule
 		 win_counter = result.count("WIN")
 		 win_percentage = (win_counter.to_f / result.count.to_f) * 100
 		 season_record_hash[season] = win_percentage
-		 if worst_win_percentage > win_percentage 
+		 if worst_win_percentage > win_percentage
 			 worst_win_percentage = win_percentage
 		 end
 	 end
@@ -193,6 +193,76 @@ include GameModule
 		worst_game.season
 	end
 
+	def team_name_by_id(team_id)
+	 	name = ""
+		@teams.find_all do |team|
+			if team.team_id == team_id
+				 name << team.team_name
+		  end
+		end
+		name
+	end
 
+	def tackles_by_id(team_id)
+		tackles_hash = {}
+		game_team_id = @game_teams.find_all do |gameteam|
+			 gameteam.team_id == team_id
+		 end
+		 game_team_id.each do |game|
+			if tackles_hash[game.team_id] == nil
+	 			tackles_hash[game.team_id] = [game.tackles.to_i]
+	 		else
+	 			tackles_hash[game.team_id] << game.tackles.to_i
+	  	end
+		 end
+			tackles_hash
+	end
 
+	def game_id_to_season(game_id)
+		season = ""
+		@games.find do |game|
+			if game_id[0..3] == game.season[0..3]
+				season << game.season
+			end
+		end
+		season
+	end
+
+	def most_tackles(season_id)
+		game_season = []
+		@game_teams.each do |game|
+			if season_id[0..3] == game.game_id[0..3]
+				game_season << game
+			end
+		end
+		tackles_hash = {}
+ 		game_season.each do |game|
+			if tackles_hash[game.team_id] == nil
+				tackles_hash[game.team_id] = game.tackles.to_i
+			else
+				tackles_hash[game.team_id] += game.tackles.to_i
+			end
+		end
+		tackle_id = tackles_hash.sort_by{|team_id, tackles| tackles}.last[0] #first
+		team_name_by_id(tackle_id)
+	end
+
+	def least_tackles(season_id)
+		game_season = []
+		@game_teams.each do |game|
+			if season_id[0..3] == game.game_id[0..3]
+				game_season << game
+			end
+		end
+		tackles_hash = {}
+ 		game_season.each do |game|
+			if tackles_hash[game.team_id] == nil
+				tackles_hash[game.team_id] = game.tackles.to_i
+			else
+				tackles_hash[game.team_id] += game.tackles.to_i
+			end
+		end
+		tackle_id = tackles_hash.sort_by{|team_id, tackles| tackles}.first[0]
+		team_name_by_id(tackle_id)
+	end
 end
