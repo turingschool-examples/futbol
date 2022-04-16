@@ -142,4 +142,19 @@ attr_reader :games, :team, :game_teams
     win_percentage_by_season.each{|k, v| win_percentage_by_season.delete(k) if !win_percentage_by_season[k].is_a?(Float)}
     win_percentage_by_season.sort_by{|k, v| v}.first[0]
   end
+
+  def average_win_percentage(id)
+    wins = 0.0
+    total_games_played = @games.find_all{|game| (game.home_team_id || game.away_team_id) == id}
+    @games.each do |game|
+      if game.home_team_id == id && game.home_goals > game.away_goals
+        wins += 1.0
+      elsif game.away_team_id == id && game.away_goals > game.home_goals
+        wins += 1.0
+      else
+      end
+    end
+    return ((wins * 1.0) / (total_games_played.count)).round(2) / 2
+  end
+
 end
