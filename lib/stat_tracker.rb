@@ -154,7 +154,6 @@ class StatTracker
   end
 
   def worst_season(team_id)
-    best_season = ""
     team_by_id = @game_teams.find_all do |team|
       team.team_id == team_id
     end
@@ -179,5 +178,20 @@ class StatTracker
       win_tracker = 0.0
     end
     highest = games_by_season.min_by {|season, percentage| percentage}[0]
+  end
+
+  def average_win_percentage(team_id)
+    team_by_id = @game_teams.find_all do |team|
+      team.team_id == team_id
+    end
+    win_counter = 0.0
+    win_loss_tracker = team_by_id.map {|team| team.result}
+    win_loss_tracker.each do |result|
+      if result == ("WIN")
+        win_counter += 1
+      end
+    end
+    win_counter / win_loss_tracker.count
+    # require 'pry'; binding.pry
   end
 end
