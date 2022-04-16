@@ -259,6 +259,7 @@ end
     return max_tackles_team[0]
   end
 
+
   def fewest_tackles(season)
   game_array = []
   tackle_hash = {}
@@ -421,6 +422,29 @@ end
   end
   loss_list.key(loss_list.values.min)
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
