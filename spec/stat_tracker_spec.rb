@@ -3,11 +3,11 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
 
   before(:all) do
-    game_path = './data/games.csv'
-    # game_path = './data/games_fixture.csv'
+    game_path = './data/games_fixture.csv'
+    # game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    # game_teams_path = './data/game_teams_fixture.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_fixture.csv'
+    # game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -18,40 +18,103 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  xit "exists" do
 
+  it "exists" do
     expect(@stat_tracker).to be_a(StatTracker)
   end
 
-  xit "finds highest_total_score" do
-
-    expect(@stat_tracker.highest_total_score).to eq 5
+  it "finds highest_total_score" do
+    expect(@stat_tracker.highest_total_score).to eq(5)
   end
 
-  xit "finds lowest_total_score" do
+  it "finds lowest_total_score" do
+    expect(@stat_tracker.lowest_total_score).to eq(1)
+  end
 
-    expect(@stat_tracker.lowest_total_score).to eq 1
+  it "returns the number of teams" do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it "returns a hash of the games played and goals by each team" do
+    expect(@stat_tracker.all_games_by_team.keys).to eq(["3", "6", "5", "17", "16"])
+  end
+
+  it "returns a hash of the average number of goals scored across all games for each team" do
+    expected_hash =  {"3"=>1.6,
+                      "6"=>2.6666666666666665,
+                      "5"=>0.5,
+                      "17"=>1.0,
+                      "16"=>2.0}
+    expect(@stat_tracker.all_average_score_by_team).to eq(expected_hash)
+  end
+
+  it "returns the name of the team with best offense" do
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  end
+
+  it "returns the name of the team with worst offense" do
+    expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+  end
+
+  it "returns a hash of away games played by each team" do
+    expect(@stat_tracker.games_by_team("away").keys).to eq(["3", "6", "5", "17"])
+  end
+
+  it "returns a hash of the average number of goals scored across all away games for each team" do
+    expected_hash =  {"3"=>1.6666666666666667,
+                      "6"=>3,
+                      "5"=>0.5,
+                      "17"=>1.0}
+    expect(@stat_tracker.average_score_by_team("away")).to eq(expected_hash)
+  end
+
+  it "returns the name of the highest scoring visitor" do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  it "returns the name of the lowest scoring visitor" do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  end
+
+  it "returns a hash of home games played by each team" do
+    expect(@stat_tracker.games_by_team("home").keys).to eq(["6", "3", "5", "16"])
+  end
+
+  it "returns a hash of the average number of home goals scored across all seasons for each team" do
+    expected_hash =  {"16"=>2.0,
+                      "3"=>1.5,
+                      "5"=>0.5,
+                      "6"=>2.4}
+    expect(@stat_tracker.average_score_by_team("home")).to eq(expected_hash)
+  end
+
+  it "returns the name of the highest scoring home team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+  end
+
+  it "returns the lowest scoring home team" do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 
 ## SEASON STAT TESTS - Tested on actual dataset, NOT the fixtures
 
-  it "lists games by season" do
+  xit "lists games by season" do
 
     expect(@stat_tracker.games_in_season("2012")).to be_a(Array)
   end
 
 
-  it "checks winningest coach" do
+  xit "checks winningest coach" do
 
     expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
   end
 
-  it "checks worst coach" do
+  xit "checks worst coach" do
 
     expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
   end
 
-  it "checks shot accuracy of teams by season" do
+  xit "checks shot accuracy of teams by season" do
     expected = [
       ["9", 0.2638888888888889],
       ["13", 0.2641509433962264],
@@ -88,19 +151,19 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.shot_accuracy("20132014")).to eq(expected)
   end
 
-  it "checks most accurate team" do
+  xit "checks most accurate team" do
 
     expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  it "checks least accurate team" do
+  xit "checks least accurate team" do
 
     expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  it "checks teams by total tackles within a season" do
+  xit "checks teams by total tackles within a season" do
     expected = [
       ["1", 1568],
       ["18", 1611],
@@ -137,13 +200,13 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.teams_by_tackles("20132014")). to eq (expected)
   end
 
-  it "checks most tackles" do
+  xit "checks most tackles" do
 
     expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  it "checks least tackles" do
+  xit "checks least tackles" do
 
     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
