@@ -126,6 +126,100 @@ include GameModule
 			total_teams.count
 	end
 
+	def best_offense
+		#creates hash w/ team ids keys and team goals values
+		team_goals = {}
+		@game_teams.each do |game|
+			team = game.team_id
+			if team_goals[team] == nil
+				team_goals[team] = [game.goals.to_f]
+			else
+				team_goals[team] << game.goals.to_f
+			end
+		end
+	#averages all value arrays and reassigns it to team_goals key
+		avg_goals = {}
+		 team_goals.each do |team, goals|
+			avg_goals[team] = (goals.sum / goals.size).ceil(2)
+		end
+	#creates hash w/team_id keys and team name values
+		team_names = {}
+		@teams.each do |team|
+			team_names[team.team_id] = team.team_name
+		end
+		#reassigns key of team_id with team_name in avg_goals hash
+		avg_goals.keys.each do |key|
+		team_names.each do |id, name|
+			if id == key
+				avg_goals[name] = avg_goals[key]
+				avg_goals.delete(key)
+			end
+		end
+	end
+	#turns avg_goals into an array with the key and value pair and calling first
+	#index position
+	max_avg = avg_goals.values.max
+	max_team = avg_goals.select{|team, goals| goals == max_avg}
+	max_team.keys[0]
+	end
+
+	def worst_offense
+		team_goals = {}
+		@game_teams.each do |game|
+			team = game.team_id
+			if team_goals[team] == nil
+				team_goals[team] = [game.goals.to_f]
+			else
+				team_goals[team] << game.goals.to_f
+			end
+		end
+		avg_goals = {}
+		 team_goals.each do |team, goals|
+			avg_goals[team] = (goals.sum / goals.size).ceil(2)
+		end
+		team_names = {}
+		@teams.each do |team|
+			team_names[team.team_id] = team.team_name
+		end
+		avg_goals.keys.each do |key|
+		team_names.each do |id, name|
+			if id == key
+				avg_goals[name] = avg_goals[key]
+				avg_goals.delete(key)
+			end
+		end
+	end
+	min_avg = avg_goals.values.min
+	min_team = avg_goals.select{|team, goals| goals == min_avg}
+	min_team.keys[0]
+	end
+
+	def most_goals_scored(team_id)
+		team_number = @game_teams.find_all{|game_team| game_team.team_id.to_i == team_id}
+		team_goals = {}
+		team_number.each do |game|
+			if team_goals[game.team_id] == nil
+				team_goals[game.team_id] = [game.goals.to_i]
+			else
+				team_goals[game.team_id] << game.goals.to_i
+			end
+		end
+		team_goals.values.flatten!.max
+	end
+
+	def fewest_goals_scored(team_id)
+		team_number = @game_teams.find_all{|game_team| game_team.team_id.to_i == team_id}
+		team_goals = {}
+		team_number.each do |game|
+			if team_goals[game.team_id] == nil
+				team_goals[game.team_id] = [game.goals.to_i]
+			else
+				team_goals[game.team_id] << game.goals.to_i
+			end
+		end
+		team_goals.values.flatten!.min
+  end
+
 	def winningest_coach(season)
     #find all the games for the given season
     season_games = @games.find_all{|game| game.season == season}
@@ -254,6 +348,7 @@ include GameModule
 		end
 		worst_team = @teams.find{|team| team.team_id == worst_team_id}
 		return worst_team.team_name
+  end 
     
 	def percentage_ties
 		ties = []
@@ -276,5 +371,6 @@ include GameModule
 			game_count_by_season_hash[season] = seasons_arr.count(season)
 		end
 		return game_count_by_season_hash
+
 	end
 end
