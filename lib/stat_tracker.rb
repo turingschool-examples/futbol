@@ -7,7 +7,7 @@ require_relative 'game_team'
 class StatTracker
 
   attr_reader :games,
-              :team, 
+              :team,
               :game_teams
 
   def initialize(locations)
@@ -62,22 +62,22 @@ class StatTracker
   end
 
 #helper_methods that are used for best_offense and worse_offense
-  def games_by_team
-    games_by_team_hash = {}
+  def all_games_by_team
+    all_games_by_team_hash = {}
     @game_teams.each do |game|
-      if games_by_team_hash[game.team_id].nil?
-        games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
+      if all_games_by_team_hash[game.team_id].nil?
+        all_games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
       else
-        games_by_team_hash[game.team_id][:goals] += game.goals
-        games_by_team_hash[game.team_id][:number_of_games] += 1
+        all_games_by_team_hash[game.team_id][:goals] += game.goals
+        all_games_by_team_hash[game.team_id][:number_of_games] += 1
       end
     end
-    games_by_team_hash
+    all_games_by_team_hash
   end
 
-  def average_score_by_team
+  def all_average_score_by_team
     average_hash = {}
-    games_by_team.each do |key, value|
+    all_games_by_team.each do |key, value|
       average_hash[key] = value[:goals].to_f / value[:number_of_games]
     end
     average_hash
@@ -86,7 +86,7 @@ class StatTracker
 ## best_offense
   def best_offense
     best_offense_team = @teams.find do |team|
-      team.team_id == average_score_by_team.sort_by{|k, v| v}.last[0]
+      team.team_id == all_average_score_by_team.sort_by{|k, v| v}.last[0]
     end
     best_offense_team.team_name
   end
@@ -94,75 +94,55 @@ class StatTracker
 ##worst_offense
   def worst_offense
     worst_offense_team = @teams.find do |team|
-      team.team_id == average_score_by_team.sort_by{|k, v| v}.first[0]
+      team.team_id == all_average_score_by_team.sort_by{|k, v| v}.first[0]
     end
     worst_offense_team.team_name
   end
 
-## helper methods for highest_scoring_visitor and lowest_scoring_visitor
-  def away_games_by_team
-    away_games_by_team_hash = {}
+  ##helper methods for highest_scoring_visitor/highest_scoring_home_team,
+  ## lowest_scoring_home_team/lowest_scoring visitor
+
+  def games_by_team(home_or_away)
+    games_by_team_hash = {}
     @game_teams.each do |game|
-      if away_games_by_team_hash[game.team_id].nil? && game.hoa == "away"
-        away_games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
-      elsif game.hoa == "away"
-        away_games_by_team_hash[game.team_id][:goals] += game.goals
-        away_games_by_team_hash[game.team_id][:number_of_games] += 1
+      if games_by_team_hash[game.team_id].nil? && game.hoa == home_or_away
+        games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
+      elsif game.hoa == home_or_away
+        games_by_team_hash[game.team_id][:goals] += game.goals
+        games_by_team_hash[game.team_id][:number_of_games] += 1
       end
     end
-    away_games_by_team_hash
+    games_by_team_hash
   end
 
-  def average_away_score_by_team
-    average_away_hash = {}
-    away_games_by_team.each do |key, value|
-      average_away_hash[key] = value[:goals].to_f / value[:number_of_games]
+  def average_score_by_team(home_or_away)
+    average_hash = {}
+    games_by_team(home_or_away).each do |key, value|
+      average_hash[key] = value[:goals].to_f / value[:number_of_games]
     end
-    average_away_hash
+    average_hash
   end
 
-##highest_scoring_visitor
+  ##highest_scoring_visitor
   def highest_scoring_visitor
     highest_scoring_visitor = @teams.find do |team|
-      team.team_id == average_away_score_by_team.sort_by{|k, v| v}.last[0]
+      team.team_id == average_score_by_team("away").sort_by{|k, v| v}.last[0]
     end
     highest_scoring_visitor.team_name
   end
 
-##lowest_scoring_visitor
+  ##lowest_scoring_visitor
   def lowest_scoring_visitor
     lowest_scoring_visitor = @teams.find do |team|
-      team.team_id == average_away_score_by_team.sort_by{|k, v| v}.first[0]
+      team.team_id == average_score_by_team("away").sort_by{|k, v| v}.first[0]
     end
     lowest_scoring_visitor.team_name
-  end
-
-  ##helper methods for highest_scoring_home_team and lowest_scoring_home_team
-  def home_games_by_team
-    home_games_by_team_hash = {}
-    @game_teams.each do |game|
-      if home_games_by_team_hash[game.team_id].nil? && game.hoa == "home"
-        home_games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
-      elsif game.hoa == "home"
-        home_games_by_team_hash[game.team_id][:goals] += game.goals
-        home_games_by_team_hash[game.team_id][:number_of_games] += 1
-      end
-    end
-    home_games_by_team_hash
-  end
-
-  def average_home_score_by_team
-    average_home_hash = {}
-    home_games_by_team.each do |key, value|
-      average_home_hash[key] = value[:goals].to_f / value[:number_of_games]
-    end
-    average_home_hash
   end
 
   #highest_scoring_home_team
   def highest_scoring_home_team
     highest_scoring_home_team = @teams.find do |team|
-      team.team_id == average_home_score_by_team.sort_by{|k, v| v}.last[0]
+      team.team_id == average_score_by_team("home").sort_by{|k, v| v}.last[0]
     end
     highest_scoring_home_team.team_name
   end
@@ -170,9 +150,86 @@ class StatTracker
   #lowest_scoring_home_team
   def lowest_scoring_home_team
     lowest_scoring_home_team = @teams.find do |team|
-      team.team_id == average_home_score_by_team.sort_by{|k, v| v}.first[0]
+      team.team_id == average_score_by_team("home").sort_by{|k, v| v}.first[0]
     end
     lowest_scoring_home_team.team_name
   end
+
+
+# ## helper methods for highest_scoring_visitor and lowest_scoring_visitor
+#   def away_games_by_team
+#     away_games_by_team_hash = {}
+#     @game_teams.each do |game|
+#       if away_games_by_team_hash[game.team_id].nil? && game.hoa == "away"
+#         away_games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
+#       elsif game.hoa == "away"
+#         away_games_by_team_hash[game.team_id][:goals] += game.goals
+#         away_games_by_team_hash[game.team_id][:number_of_games] += 1
+#       end
+#     end
+#     away_games_by_team_hash
+#   end
+#
+#   def average_away_score_by_team
+#     average_away_hash = {}
+#     away_games_by_team.each do |key, value|
+#       average_away_hash[key] = value[:goals].to_f / value[:number_of_games]
+#     end
+#     average_away_hash
+#   end
+#
+# ##highest_scoring_visitor
+#   def highest_scoring_visitor
+#     highest_scoring_visitor = @teams.find do |team|
+#       team.team_id == average_away_score_by_team.sort_by{|k, v| v}.last[0]
+#     end
+#     highest_scoring_visitor.team_name
+#   end
+#
+# ##lowest_scoring_visitor
+#   def lowest_scoring_visitor
+#     lowest_scoring_visitor = @teams.find do |team|
+#       team.team_id == average_away_score_by_team.sort_by{|k, v| v}.first[0]
+#     end
+#     lowest_scoring_visitor.team_name
+#   end
+#
+#   ##helper methods for highest_scoring_home_team and lowest_scoring_home_team
+#   def home_games_by_team
+#     home_games_by_team_hash = {}
+#     @game_teams.each do |game|
+#       if home_games_by_team_hash[game.team_id].nil? && game.hoa == "home"
+#         home_games_by_team_hash[game.team_id] = { goals: game.goals, number_of_games: 1 }
+#       elsif game.hoa == "home"
+#         home_games_by_team_hash[game.team_id][:goals] += game.goals
+#         home_games_by_team_hash[game.team_id][:number_of_games] += 1
+#       end
+#     end
+#     home_games_by_team_hash
+#   end
+#
+#   def average_home_score_by_team
+#     average_home_hash = {}
+#     home_games_by_team.each do |key, value|
+#       average_home_hash[key] = value[:goals].to_f / value[:number_of_games]
+#     end
+#     average_home_hash
+#   end
+#
+#   #highest_scoring_home_team
+#   def highest_scoring_home_team
+#     highest_scoring_home_team = @teams.find do |team|
+#       team.team_id == average_home_score_by_team.sort_by{|k, v| v}.last[0]
+#     end
+#     highest_scoring_home_team.team_name
+#   end
+#
+#   #lowest_scoring_home_team
+#   def lowest_scoring_home_team
+#     lowest_scoring_home_team = @teams.find do |team|
+#       team.team_id == average_home_score_by_team.sort_by{|k, v| v}.first[0]
+#     end
+#     lowest_scoring_home_team.team_name
+#   end
 
 end
