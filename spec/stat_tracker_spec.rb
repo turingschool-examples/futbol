@@ -33,7 +33,7 @@ RSpec.describe StatTracker do
   end
 
   it "returns a hash of the games played and goals by each team" do
-    expect(@stat_tracker.games_by_team.keys).to eq(["3", "6", "5", "17", "16"])
+    expect(@stat_tracker.all_games_by_team.keys).to eq(["3", "6", "5", "17", "16"])
   end
 
   it "returns a hash of the average number of goals scored across all games for each team" do
@@ -42,7 +42,7 @@ RSpec.describe StatTracker do
                       "5"=>0.5,
                       "17"=>1.0,
                       "16"=>2.0}
-    expect(@stat_tracker.average_score_by_team).to eq(expected_hash)
+    expect(@stat_tracker.all_average_score_by_team).to eq(expected_hash)
   end
 
   it "returns the name of the team with best offense" do
@@ -54,7 +54,7 @@ RSpec.describe StatTracker do
   end
 
   it "returns a hash of away games played by each team" do
-    expect(@stat_tracker.away_games_by_team.keys).to eq(["3", "6", "5", "17"])
+    expect(@stat_tracker.games_by_team("away").keys).to eq(["3", "6", "5", "17"])
   end
 
   it "returns a hash of the average number of goals scored across all away games for each team" do
@@ -62,7 +62,7 @@ RSpec.describe StatTracker do
                       "6"=>3,
                       "5"=>0.5,
                       "17"=>1.0}
-    expect(@stat_tracker.average_away_score_by_team).to eq(expected_hash)
+    expect(@stat_tracker.average_score_by_team("away")).to eq(expected_hash)
   end
 
   it "returns the name of the highest scoring visitor" do
@@ -74,7 +74,7 @@ RSpec.describe StatTracker do
   end
 
   it "returns a hash of home games played by each team" do
-    expect(@stat_tracker.home_games_by_team.keys).to eq(["6", "3", "5", "16"])
+    expect(@stat_tracker.games_by_team("home").keys).to eq(["6", "3", "5", "16"])
   end
 
   it "returns a hash of the average number of home goals scored across all seasons for each team" do
@@ -82,7 +82,7 @@ RSpec.describe StatTracker do
                       "3"=>1.5,
                       "5"=>0.5,
                       "6"=>2.4}
-    expect(@stat_tracker.average_home_score_by_team).to eq(expected_hash)
+    expect(@stat_tracker.average_score_by_team("home")).to eq(expected_hash)
   end
 
   it "returns the name of the highest scoring home team" do
