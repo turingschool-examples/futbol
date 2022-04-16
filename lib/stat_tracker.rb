@@ -114,4 +114,21 @@ class StatTracker
     end
     team_hash 
   end
+
+  def season_games(game_id)
+    season = ""
+    @games.find do |game|
+      if game_id[0..3] == game.season[0..3]
+        season << game.season
+      end
+    end
+    return season
+  end
+
+  def best_season(team_id)
+    @game_teams.
+    #iterate through 
+    #make a hash with key being season and value being the win percentage
+    require 'pry'; binding.pry
+  end
 end
