@@ -99,32 +99,84 @@ class StatTracker
 
 
 #SAI
-def percentage_home_wins
-  total_games = @games[:game_id].count.to_f
-  home_wins = 0
-  @games.each { |row| home_wins += 1 if row[:home_goals].to_i > row[:away_goals].to_i }
-  decimal = (home_wins.to_f / total_games)
-  (decimal * 100).round(2)
-end
+  def percentage_home_wins
+    total_games = @games[:game_id].count.to_f
+    home_wins = 0
+    @games.each { |row| home_wins += 1 if row[:home_goals].to_i > row[:away_goals].to_i }
+    decimal = (home_wins.to_f / total_games)
+    (decimal * 100).round(2)
+  end
 
-def percentage_visitor_wins
-  total_games = @games[:game_id].count.to_f
-  visitor_wins = 0
-  @games.each { |row| visitor_wins += 1 if row[:home_goals].to_i < row[:away_goals].to_i }
-  decimal = (visitor_wins.to_f / total_games)
-  (decimal * 100).round(2)
-end
+  def percentage_visitor_wins
+    total_games = @games[:game_id].count.to_f
+    visitor_wins = 0
+    @games.each { |row| visitor_wins += 1 if row[:home_goals].to_i < row[:away_goals].to_i }
+    decimal = (visitor_wins.to_f / total_games)
+    (decimal * 100).round(2)
+  end
 
-def percentage_ties
-  total_games = @games[:game_id].count.to_f
-  number_tied = 0
-  @games.each { |row| number_tied += 1 if row[:home_goals].to_i == row[:away_goals].to_i }
-  decimal = (number_tied.to_f / total_games)
-  (decimal * 100).round(2)
-end
+  def percentage_ties
+    total_games = @games[:game_id].count.to_f
+    number_tied = 0
+    @games.each { |row| number_tied += 1 if row[:home_goals].to_i == row[:away_goals].to_i }
+    decimal = (number_tied.to_f / total_games)
+    (decimal * 100).round(2)
+  end
 
+  def games_by_season(season)
+    games_in_season = @games.collect { |row| row[:game_id] if row[:season] == season}
+    games_in_season.compact
+  end
 
+  def most_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
+    team_ratios = {}
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h.each do |id, array|
+      shots = 0.0
+      goals = 0.0
+      array.each do |row|
+        if games_by_season(season_id).include?(row[:game_id])
+          shots += row[:shots].to_f
+          goals += row[:goals].to_f
+        end
+      end
+      if goals != 0
+        team_ratios["#{id}"] = (shots / goals).round(2)
+      else
+        team_ratios["#{id}"] = 0
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == team_ratios.max_by{|k,v| v}[0]
+        return row[:teamname]
+      end
+    end
+  end
 
+  def least_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
+    team_ratios = {}
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h.each do |id, array|
+      shots = 0.0
+      goals = 0.0
+      array.each do |row|
+        if games_by_season(season_id).include?(row[:game_id])
+          shots += row[:shots].to_f
+          goals += row[:goals].to_f
+        end
+      end
+      if goals != 0
+        team_ratios["#{id}"] = (shots / goals).round(2)
+      else
+        team_ratios["#{id}"] = 0
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == team_ratios.min_by{|k,v| v}[0]
+        return row[:teamname]
+      end
+    end
+  end
 
 
 
