@@ -289,7 +289,6 @@ end
     most_goals.each do | team, stats |
       if team_id.to_s == team
         stats.each do | goal |
-          # require 'pry'; binding.pry
           goals << goal[:goals].to_i
         end
       end
@@ -298,7 +297,16 @@ end
   end
 
   def fewest_goals_scored(team_id)
-
+    goals = []
+    fewest_goals = @game_teams.group_by { |row| row[:team_id].itself}
+    fewest_goals.each do | team, stats |
+      if team_id.to_s == team
+        stats.each do | goal |
+          goals << goal[:goals].to_i
+        end
+      end
+    end
+    return goals.sort.shift
   end
 
 
