@@ -130,5 +130,26 @@ describe StatTracker do
     it 'calculates season with lowest win percentage' do
       expect(@stat_tracker.worst_season(16)).to eq("20122013")
     end
+
+    it 'returns team name by team id' do
+      expect(@stat_tracker.team_name_by_id(17)).to eq("LA Galaxy")
+    end
+
+    it 'returns number of tackles by team id' do
+      expect(@stat_tracker.tackles_by_id(19)).to eq({19 => [41, 41, 40]})
+    end
+
+    it 'returns season by game id' do
+      expect(@stat_tracker.game_id_to_season("2015030133")).to eq("20152016")
+    end
+
+    it 'calculates team with most tackles in season' do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    end
+
+    it 'calculates team with least tackles in season' do
+      expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
+    end
+
   end
 end
