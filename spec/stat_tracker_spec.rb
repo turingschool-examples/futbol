@@ -136,8 +136,28 @@ describe StatTracker do
     end
 
     it 'returns the name of the team with the worst shot to goal ratio' do
-      # require 'pry'; binding.pry
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+    end
+  end
+  context 'Average win Percentage' do
+    before(:each) do
+
+      @game_path = './data/games_test.csv'
+      @team_path = './data/teams_test.csv'
+      @game_teams_path = './data/game_teams_test_sai.csv'
+
+      locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+
+      @stat_tracker = StatTracker.from_csv(locations)
+    end
+    it 'returns the average win percentage based off a team id' do
+      expect(@stat_tracker.average_win_percentage('3')).to eq(20.00)
+      expect(@stat_tracker.average_win_percentage('5')).to eq(0.0)
+      expect(@stat_tracker.average_win_percentage('6')).to eq(83.33)
     end
   end
 
