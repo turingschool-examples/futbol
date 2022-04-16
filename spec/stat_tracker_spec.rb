@@ -62,4 +62,8 @@ RSpec.describe StatTracker do
   it "can find a team's average win percentage" do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
+
+  it "can find favorite opponent of a team" do
+    expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+  end
 end
