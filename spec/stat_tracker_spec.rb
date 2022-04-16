@@ -82,6 +82,14 @@ RSpec.describe StatTracker do
       it '#average_win_percentage can determine the average wins of all games for a team' do 
         expect(@stat_tracker.average_win_percentage("3")).to eq(0.0)
       end
+
+      it '#most_goals_scored can find the highest number of goals a team has scored in a game' do
+        expect(@stat_tracker.most_goals_scored("3")).to eq(2)
+      end
+
+      it '#fewest_goals_scored can find the lowest number of goals a team has scored in a game' do 
+
+      end 
     end
 
 end

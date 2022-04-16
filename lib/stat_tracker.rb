@@ -192,6 +192,16 @@ class StatTracker
       end
     end
     win_counter / win_loss_tracker.count
+  end
+
+  def most_goals_scored(team_id)
+    team_by_id = @game_teams.find_all do |team|
+      team.team_id == team_id
+    end
+    highest_goals = team_by_id.map do |id|
+      id.goals
+    end
+    highest_goals.sort.pop
     # require 'pry'; binding.pry
   end
 end
