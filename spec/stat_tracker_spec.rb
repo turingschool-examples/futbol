@@ -154,9 +154,10 @@ describe StatTracker do
   describe "Team Statistics" do
 
     it 'can determine name of favorite opponent for a given team' do
-      expect(@stat_tracker.favorite_opponent("FC Dallas")).to eq "Houstan Dynamo"
+      expect(@stat_tracker.favorite_opponent("New England Revolution")).to eq "LA Galaxy"
+      expect(@stat_tracker.favorite_opponent("FC Dallas")).to eq "Houston Dynamo"
     end
-    
+
   end
 
 end
