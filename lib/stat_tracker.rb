@@ -335,7 +335,7 @@ end
       end
     end
     win_list.key(win_list.values.max)
-  
+
 
   end
 
@@ -368,29 +368,29 @@ end
 
 
 
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   #stephen
 
   def count_of_teams
@@ -448,6 +448,19 @@ end
       end
     end
   end
+
+  def team_info(team_id)
+    @teams_info = {}
+    @teams.each do |row|
+      if row[:team_id] == team_id
+        @teams_info.merge!('Team ID' => row[:team_id], 'Franchise ID' => row[:franchiseid],
+            'Team Name'=> row[:teamname], 'Abbreviation' =>row[:abbreviation], 'Link' => row[:link])
+      end
+    end
+    @teams_info
+  end
+
+
 
 
 
