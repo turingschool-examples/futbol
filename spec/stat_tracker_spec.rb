@@ -71,8 +71,16 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.season_games("2012030221")).to eq("20122013")
       end
 
-      xit '#best_season can determine the best season for a team' do
-        expect(@stat_tracker.best_season(24)).to eq("")
+      it '#best_season can determine the best season for a team' do
+        expect(@stat_tracker.best_season("24")).to eq("20122013")
+      end
+
+      it '#worst_season can determine the best season for a team' do 
+        expect(@stat_tracker.worst_season("24")).to eq("20132014")
+      end
+
+      it '#average_win_percentage can determine the average wins of all games for a team' do 
+
       end
     end
 

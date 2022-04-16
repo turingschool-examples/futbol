@@ -126,9 +126,58 @@ class StatTracker
   end
 
   def best_season(team_id)
-    @game_teams.
-    #iterate through 
-    #make a hash with key being season and value being the win percentage
-    require 'pry'; binding.pry
+    best_season = ""
+    team_by_id = @game_teams.find_all do |team|
+      team.team_id == team_id
+    end
+    games_by_season = {}
+    team_by_id.each do |game|
+      if games_by_season[season_games(game.game_id)].nil?
+        games_by_season[season_games(game.game_id)] = [game]
+      else
+        games_by_season[season_games(game.game_id)] << game
+      end
+    end
+    win_tracker = 0.0
+    win_percentage = 0.0
+    games_by_season.map do |season, games|
+      games.each do |game|
+        if game.result == "WIN"
+          win_tracker += 1.0
+        end
+      end
+      win_percentage = win_tracker / games.count * 100
+      games_by_season[season] = win_percentage
+      win_tracker = 0.0
+    end
+    highest = games_by_season.max_by {|season, percentage| percentage}[0]
+  end
+
+  def worst_season(team_id)
+    best_season = ""
+    team_by_id = @game_teams.find_all do |team|
+      team.team_id == team_id
+    end
+    games_by_season = {}
+    team_by_id.each do |game|
+      if games_by_season[season_games(game.game_id)].nil?
+        games_by_season[season_games(game.game_id)] = [game]
+      else
+        games_by_season[season_games(game.game_id)] << game
+      end
+    end
+    win_tracker = 0.0
+    win_percentage = 0.0
+    games_by_season.map do |season, games|
+      games.each do |game|
+        if game.result == "WIN"
+          win_tracker += 1.0
+        end
+      end
+      win_percentage = win_tracker / games.count * 100
+      games_by_season[season] = win_percentage
+      win_tracker = 0.0
+    end
+    highest = games_by_season.min_by {|season, percentage| percentage}[0]
   end
 end
