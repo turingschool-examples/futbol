@@ -30,7 +30,7 @@ class Games
   end
 
   def game_outcomes
-    outcomes = {away_win: 0, home_win: 0, tie: 0, total: 0}
+    outcomes = Hash.new(0)
     @away_goals.each_with_index do |score, index|
       if score.to_i > @home_goals[index].to_i
         outcomes[:away_win] += 1
@@ -46,5 +46,13 @@ class Games
       end
     end
     outcomes
+  end
+
+  def games_by_season_hash
+    games_by_season = {count: Hash.new(0)}
+    @season.each do |season|
+      games_by_season[:count][season] += 1
+    end
+    games_by_season
   end
 end

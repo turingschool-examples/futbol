@@ -44,6 +44,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
+    @games.games_by_season_hash[:count]
   end
   # End Game Statistics methods
 end
