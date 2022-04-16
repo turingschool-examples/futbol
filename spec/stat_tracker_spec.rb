@@ -56,10 +56,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expect)
   end
 
-  xit "checks average_goals_per_game" do
-    # Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
-    # Float
-    # 4.15
+  it "checks average_goals_per_game" do
+    expect(@stat_tracker.average_goals_per_game).to eq 4.15
   end
 
   xit "checks average_goals_by_season" do
