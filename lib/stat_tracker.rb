@@ -32,15 +32,15 @@ class StatTracker
   end
 
   def percentage_home_wins
-    (@games.game_outcomes[:home_win].to_f / @games.game_outcomes[:total].to_f) * 100
+    (@games.game_outcomes[:home_win].to_f / @games.game_outcomes[:total].to_f).round(2)
   end
 
   def percentage_visitor_wins
-    (@games.game_outcomes[:away_win].to_f / @games.game_outcomes[:total].to_f) * 100
+    (@games.game_outcomes[:away_win].to_f / @games.game_outcomes[:total].to_f).round(2)
   end
 
   def percentage_ties
-    (@games.game_outcomes[:tie].to_f / @games.game_outcomes[:total].to_f) * 100
+    (@games.game_outcomes[:tie].to_f / @games.game_outcomes[:total].to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -48,7 +48,7 @@ class StatTracker
   end
 
   def average_goals_per_game
-    @games.total_scores.sum.to_f / @games.total_scores.count.to_f
+    (@games.total_scores.sum.to_f / @games.total_scores.count.to_f).round(2)
   end
 
   def average_goals_by_season

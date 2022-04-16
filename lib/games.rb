@@ -51,12 +51,10 @@ class Games
 
   def games_by_season_hash
     games_by_season = {count: Hash.new(0), average_goals: Hash.new(0)}
-    # total_goals_by_season = {total_goals: Hash.new(0)}
     total_goals_by_season = Hash.new(0)
     @season.each_with_index do |season, index|
       games_by_season[:count][season] += 1
       total_goals_by_season[season] += (@data[:home_goals][index].to_i + @data[:away_goals][index].to_i)
-      # total_goals_by_season[:total_goals][season] += (@data[:home_goals][index].to_i + @data[:away_goals][index].to_i)
     end
     games_by_season[:count].each do |season1, season_count|
       total_goals_by_season.each do |season2, total_score|
