@@ -68,11 +68,11 @@ RSpec.describe StatTracker do
       end
 
       it 'can identify the season through the game id' do
-        expect(@stat_tracker.season_games(2012030221)).to eq("20122013")
+        expect(@stat_tracker.season_games("2012030221")).to eq("20122013")
       end
 
       xit '#best_season can determine the best season for a team' do
-        expect(@stat_tracker.best_season(team_id)).to eq("Postseason")
+        expect(@stat_tracker.best_season(24)).to eq("")
       end
     end
 
