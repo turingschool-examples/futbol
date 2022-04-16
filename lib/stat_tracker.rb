@@ -191,22 +191,16 @@ include GameModule
 	end
 
 	def most_goals_scored(team_id)
-		team_number = @game_teams.find_all do |game|
-			team_id = game.team_id
-		end
+		team_number = @game_teams.find_all{|game_team| game_team.team_id.to_i == team_id}
 		team_goals = {}
 		team_number.each do |game|
-			if team_goals[team_number] == nil
-				team_goals[team_number] = [game.goals]
+			if team_goals[game.team_id] == nil
+				team_goals[game.team_id] = [game.goals.to_i]
 			else
-				team_goals[team_number] << game.goals
+				team_goals[game.team_id] << game.goals.to_i
 			end
 		end
 	# most_goals = team_goals.select{|team, goals| goals == }
-		team_goals[team_number]
+		team_goals.values.flatten!.max
 	end
 end
-
-#game_teams CSV file
-#need team_id => with individual games goals
-#individual goals need to go in array hash that has all goals team has ever scored

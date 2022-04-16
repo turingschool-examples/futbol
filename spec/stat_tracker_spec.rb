@@ -109,7 +109,7 @@ describe StatTracker do
   end
 
   it "can return the most goals scored by a team in a single game" do
-    expect(@stat_tracker.most_goals_scored(16)).to eq 3
+    expect(@stat_tracker.most_goals_scored(26)).to eq 3
 
   end
 end
