@@ -3,11 +3,11 @@ require './lib/game_teams'
 
 module GameStats
   def highest_total_score
-    @games.map { |game| game.away_goals + game.home_goals }.sort[-1]
+    @games.map { |game| game.away_goals + game.home_goals }.max # sort[-1]
   end
 
   def lowest_total_score
-    @games.map { |game| game.away_goals + game.home_goals }.sort[0]
+    @games.map { |game| game.away_goals + game.home_goals }.min # sort[0]
   end
 
   def percentage_home_wins
