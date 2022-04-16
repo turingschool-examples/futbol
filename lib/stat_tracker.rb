@@ -33,5 +33,13 @@ class StatTracker
   def percentage_home_wins
     (@games.game_outcomes[:home_win].to_f / @games.game_outcomes[:total].to_f) * 100
   end
+
+  def percentage_visitor_wins
+    (@games.game_outcomes[:away_win].to_f / @games.game_outcomes[:total].to_f) * 100
+  end
+
+  def percentage_ties
+    (@games.game_outcomes[:tie].to_f / @games.game_outcomes[:total].to_f) * 100
+  end
   # End Game Statistics methods
 end
