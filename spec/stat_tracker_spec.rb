@@ -40,16 +40,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.percentage_home_wins).to eq 50.00
   end
 
-  xit "checks percentage_visitor_wins" do
-    # Percentage of games that a visitor has won (rounded to the nearest 100th)
-    # Float
-    # 35.00
+  it "checks percentage_visitor_wins" do
+    expect(@stat_tracker.percentage_visitor_wins).to eq 35.00
   end
 
-  xit "checks percentage_ties" do
-    # Percentage of games that has resulted in a tie (rounded to the nearest 100th)
-    # Float
-    # 15.00
+  it "checks percentage_ties" do
+    expect(@stat_tracker.percentage_ties).to eq 15.00
   end
 
   xit "checks count_of_games_by_season" do

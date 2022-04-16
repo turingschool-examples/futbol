@@ -29,5 +29,9 @@ class StatTracker
   def lowest_total_score
     @games.total_scores.min
   end
+
+  def percentage_home_wins
+    (@games.game_outcomes[:home_win].to_f / @games.game_outcomes[:total].to_f) * 100
+  end
   # End Game Statistics methods
 end
