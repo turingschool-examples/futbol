@@ -283,7 +283,9 @@ end
     return min_tackles_team[0]
   end
 
+  def most_goals_scored
 
+  end
 
 
 

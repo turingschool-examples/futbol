@@ -220,7 +220,10 @@ it 'shows the team with the fewest tackles in a given season' do
   expect(@stat_tracker.fewest_tackles(20122013)).to eq("FC Dallas")
 end
 
-
+it 'shows the most goals a given team has scored' do
+  expect (@stat_tracker.most_goals_scored(3)).to eq(2)
+  expect (@stat_tracker.most_goals_scored(6)).to eq(3)  
+end
 
 
 
