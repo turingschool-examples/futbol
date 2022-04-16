@@ -66,7 +66,7 @@ include GameModule
       type = row[:type]
       date_time = row[:date_time]
       away_team_id = row[:away_team_id]
-      home_team_id = row[:home_team_id]
+      home_team_id = row[:home_team_id].to_i
       away_goals = row[:away_goals].to_i
       home_goals = row[:home_goals].to_i
       venue = row[:venue]
@@ -279,27 +279,20 @@ include GameModule
 		return win_percentage
 	end
 
-	#	Name of the team with the highest average score per
-	#game across all seasons when they are home.	String
-	# def highest_scoring_home_team
-	# 	home_team_hash = {}
-	# 	@games.each do |game|
-	# 		game.home_team_id
-	# 			if home_team_hash[game.home_team_id] == nil
-	# 				home_team_hash[game.home_team_id] = game.home_goals.to_i
-	# 			else
-	# 				home_team_hash[game.home_team_id] << game.home_goals.to_i
-	# 			end
-	# 				require "pry"; binding.pry
-	# 	  end
-	# 		home_team_hash.each do |team_id, scores|
-	# 			scores.sum / scores.count
-	# 		end
-	# 		home_win = home_team_hash.sort_by{|team_id, score| score}.last[0] #first
-	#
-	# 		# home_team_hash.values / game.home_goals.count.to_i
-	# 		require "pry"; binding.pry
-	# 	# end
-	# end
-
+	def highest_scoring_home_team
+		home_team_hash = {}
+		@games.each do |game|
+			game.home_team_id
+				if home_team_hash[game.home_team_id] == nil
+					home_team_hash[game.home_team_id] = [game.home_goals.to_i]
+				else
+					home_team_hash[game.home_team_id] << game.home_goals.to_i
+				end
+		  end
+			home_team_hash.each do |team_id, scores|
+				home_team_hash[team_id] = (scores.sum.to_f / scores.count.to_f).ceil(2)
+			end
+			home_win_id = home_team_hash.sort_by{|team_id, score| score}.last[0] #first
+			team_name_by_id(home_win_id)
+	 end
 end
