@@ -40,7 +40,7 @@ module GameStats
 
   def average_goals_by_season
     games_in_season = count_of_games_by_season
-    goals_in_season = {}
+    goals_in_season = {} # ;aklsdifh;opasidfhp
     @games.each do |game|
       if goals_in_season[game.season].nil?
         goals_in_season[game.season] = (game.home_goals + game.away_goals)
