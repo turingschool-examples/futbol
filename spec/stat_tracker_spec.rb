@@ -414,7 +414,11 @@ end
   end
 
   it 'can return a team info hash' do
-    expect(stat_tracker.team_info(3)).to eq("3" => ["3", "10", "Houston Dynamo", "HOU", "/api/v1/teams/3"])
+    expect(@stat_tracker.team_info("3")).to eq({"Team ID"=>"3",
+ "Franchise ID"=>"10",
+ "Team Name"=>"Houston Dynamo",
+ "Abbreviation"=>"HOU",
+ "Link"=>"/api/v1/teams/3"})
   end
 
 
