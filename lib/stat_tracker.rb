@@ -135,7 +135,19 @@ attr_reader :games, :team, :game_teams
       end
     end
     teams.sort_by { |team, number| number }
-# require "pry"; binding.pry
   end
 
+  def shot_accuracy(season)
+    teams = Hash.new
+    games_in_season(season).each do |game|
+      if teams[game.team_id].nil?
+        teams[game.team_id] = { goals: game.goals.to_f, shots: game.shots.to_f }
+      else
+        teams[game.team_id][:goals] += game.goals.to_f
+        teams[game.team_id][:shots] += game.shots.to_f
+      end
+    end
+    teams.map { |team, count| [team,  count[:goals] / count[:shots]] }.sort_by { |team| team[1] }
+    # require "pry"; binding.pry
+  end
 end
