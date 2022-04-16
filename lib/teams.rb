@@ -13,6 +13,17 @@ class Teams
     @abbreviation = data[:abbreviation]
     @stadium = data[:stadium]
     @link = data[:link]
+    @teams = Hash.new
+
+    data.by_row!.each do |row|
+      team_hash = row.to_h
+      @teams[team_hash[:team_id].to_i] = team_hash
+    end
   end
+
+  def by_id(id)
+    @teams[id]
+  end
+
 
 end

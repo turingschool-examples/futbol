@@ -64,4 +64,8 @@ class Games
     end
     games_by_season
   end
+
+  # def self.create_list_of_game(games)
+  #   games.map { |games| Games.new(games) }
+  # end
 end

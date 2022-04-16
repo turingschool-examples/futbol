@@ -7,6 +7,7 @@ require_relative "../lib/stat_tracker"
 require_relative "../lib/games"
 require_relative "../lib/teams"
 require_relative "../lib/game_teams"
+require 'pry'
 
 RSpec.describe StatTracker do
   before :each do
@@ -25,6 +26,20 @@ RSpec.describe StatTracker do
 
   it "exists" do
     expect(@stat_tracker).to be_a StatTracker
+  end
+
+
+
+  it 'returns a hash for team info' do
+    expected = {team_id: "4", franchiseid: "16", teamname: "Chicago Fire", abbreviation: "CHI", stadium: "SeatGeek Stadium", link: "/api/v1/teams/4"}
+
+    expect(@stat_tracker.team_info(4)).to eq(expected)
+  end
+
+  it 'shows the season with the highest win percentage for a team' do
+    #Need the win percentage method and be able to use the team_id
+    #One is coming from game_teams.csv and one from teams.csv
+    expect(@stat_tracker.best_season(6)).to eq("20132014")
   end
 
   # Start Game Statistics methods
