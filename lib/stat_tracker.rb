@@ -45,7 +45,7 @@ class StatTracker
     game_teams_array
   end
 
-## GAME STATISTICS
+###### GAME STATISTICS - Deannah
 
   def highest_total_score
     @games.map {|game| game.away_goals + game.home_goals}.max
@@ -141,13 +141,13 @@ class StatTracker
 # Name of the Team with the most tackles in the season
     team_name_from_id(teams_by_tackles(season).last[0])
   end
-    
+
   def fewest_tackles(season)
 # Name of the Team with the fewest tackles in the season
     team_name_from_id(teams_by_tackles(season).first[0])
   end
 
-########## LEAGUE STATISTICS - JENN ##########
+########## LEAGUE STATISTICS - Jenn
 
 ##count_of_teams
   def count_of_teams
@@ -246,5 +246,5 @@ class StatTracker
     end
     lowest_scoring_home_team.team_name
   end
-  
+
 end
