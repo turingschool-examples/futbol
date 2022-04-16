@@ -26,4 +26,10 @@ RSpec.describe StatTracker do
   it "exists" do
     expect(@stat_tracker).to be_a StatTracker
   end
+
+
+  it 'returns a hash for team info' do
+    expected = [{team_id: 4, franchiseid: 16, teamname: "Chicago Fire", abbreviation: "CHI", link: "/api/v1/teams/4"}]
+    expect(stat_tracker.teams.team_info(4).to eq(expected)
+  end
 end
