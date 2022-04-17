@@ -702,6 +702,28 @@ class StatTracker
     end
   end
 
+  def rival(team_id)
+     teams_hash = {}
+     opp_win_avg_hash = {}
+     opp_wins = number_of_opponent_wins(team_id)
+     opp_games = number_of_games_against_opponents(team_id)
+     @teams.each do |row|
+       teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+     end
+     opp_games.each do | gk, gv |
+       opp_wins.each do | wk, wv |
+         if gk == wk
+           opp_win_avg_hash.merge!("#{wk}" => (wv.to_f / gv.to_f))
+         end
+       end
+     end
+     opp_win_avg_hash.each do | k, v|
+       if v == opp_win_avg_hash.values.max
+         return teams_hash[k]
+       end
+     end
+  end
+
 
   def number_of_opponent_wins(team_id)
     opponent_wins_arr = []
@@ -735,7 +757,7 @@ class StatTracker
     opponents_games_hash = opponent_games_arr.tally
     opponents_games_hash
   end
-    
+
 
 
 
