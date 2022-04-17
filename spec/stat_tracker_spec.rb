@@ -120,6 +120,10 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.team_shot_percentage_by_season("2012030221")["30"]).to eq(0.28)
       end
 
+      it "defines team name by team_id" do
+
+        expect(@stat_tracker.team_name("3")).to eq(("John Tortorella"))
+      end
       # it "returns most accurate team" do
       #
       #

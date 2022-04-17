@@ -351,6 +351,10 @@ class StatTracker
     game_team_by_id.head_coach
   end
 
+  def team_name
+
+  end
+
 end
 
   # Team Statistics
