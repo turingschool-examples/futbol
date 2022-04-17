@@ -142,6 +142,12 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.total_tackles_by_season("2012030221")).to be_a(Hash)
 
       end
+
+      it "returns the team with the most tackles" do
+
+        expect(@stat_tracker.most_tackles("2012030221")).to be_a(Array)
+
+      end
     end
 
 
