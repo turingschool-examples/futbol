@@ -5,7 +5,7 @@ RSpec.describe StatTracker do
   before :each do
     @game_path = './data/dummy_games.csv'
     @team_path = './data/teams.csv'
-    @game_teams_path = './data/dummy_game_teams.csv'
+    @game_teams_path = './data/game_teams.csv'
 
     @locations = {
         games: @game_path,
@@ -73,27 +73,43 @@ RSpec.describe StatTracker do
 
       it "organizes seasons by year" do
 
-        expect(@stat_tracker.organize_seasons.length).to eq(2)
+        expect(@stat_tracker.games_by_season("2012030221").length).to eq(1612)
+        expect(@stat_tracker.games_by_season("2012030221")).to be_a(Array)
       end
 
       it "organizes a specific season by team" do
 
-        expect(@stat_tracker.organize_teams.length).to eq(19)
+        expect(@stat_tracker.organize_teams("2012030221").length).to eq(30)
+        expect(@stat_tracker.organize_teams("2013020177").length).to eq(30)
 
       end
 
       it "calculates the winning percentage per team per season" do
 
-        expect(@stat_tracker.season_winning_percentage("24")).to eq(0.67)
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["1"]).to eq(0.33)
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["10"]).to eq(0.44)
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["17"]).to eq(0.47)
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["3"]).to eq(0.37)
 
       end
 
-      it "returns head coach" do
+      it "returns head coach given team_id" do
 
         expect(@stat_tracker.head_coach_name("3")).to eq(("John Tortorella"))
 
       end
 
+      it "returns winningest head coach" do
+
+        expect(@stat_tracker.winningest_coach("2012030221")).to eq(("Claude Julien"))
+
+      end
+
+      it "returns loser head coach" do
+
+        expect(@stat_tracker.worst_coach("2012030221")).to eq(("Gerard Gallant"))
+
+      end
     end
 
 

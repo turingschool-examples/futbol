@@ -274,40 +274,71 @@ class StatTracker
   ##wins = +1, loss = 0, tie = 0, return win_total
   ##total wins / total games organize_teams["3"].length
   ##return percentage
-  #return a coach based on team_id
+  ##return a coach based on team_id
   #iterate through year/season to compare percentages
   #return highest percentage and coach
 
-  def winningest_coach
-    organize_seasons.organize_teams.season_winning_percentage
-
-
-  end
-
-  def organize_seasons # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
-    season_hash = @game_teams.group_by {|game| game.game_id[0..3]}
-  end
-
-  def organize_teams #organize by team_id returns :team_id{[games]}
-    team_hash = @game_teams.group_by {|game| game.team_id}
-  end
-
-  def season_winning_percentage(team_id) #calculates/returns winning percentage
-    win_total = 0
-    organize_teams[team_id].each do |game|
-      if game.result == "WIN"
-        win_total += 1
+  def winningest_coach(season_id)
+    best_team = team_winning_percentage_by_season(season_id).max_by do |team_id, percentage|
+        percentage
       end
-     end
-     win_percent = (win_total.to_f / organize_teams[team_id].length.to_f)
-    win_percent.round(2)
+    head_coach_name(best_team[0])
+  end
+
+  def worst_coach(season_id)
+    worst_team = team_winning_percentage_by_season(season_id).min_by do |team_id, percentage|
+      percentage #look through my percentages
+    end
+    head_coach_name(worst_team[0])
+  end
+
+  def games_by_season(season_id) # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
+  #  season_hash = @game_teams.group_by {|game| game.game_id[0..3]}
+    year = season_id[0..3]
+    @game_teams.find_all do |game_team|
+      game_team.game_id[0..3] == year
+    end
+
+  end
+
+  def organize_teams(season_id) #organize by team_id returns :team_id{[games]}
+    # team_hash = @game_teams.group_by {|game| game.team_id}
+    team_hash = games_by_season(season_id).group_by {|game| game.team_id}
+  end
+
+  def team_winning_percentage_by_season(season_id) #calculates/returns winning percentage
+    win_percentage_hash = {}
+    organize_teams(season_id).each do |team_id,game_teams|
+      number_of_wins = 0
+      game_teams.each do |game_team|
+        if game_team.result == "WIN"
+          number_of_wins += 1
+        end
+      end
+        total_games = game_teams.count
+        win_percentage = number_of_wins.to_f / total_games.to_f
+        win_percentage_hash[team_id] = win_percentage.round(2)
+      end
+      win_percentage_hash # returns :team_id => season win percentage as the value
+    # win_total = 0
+    # binding.pry
+    # organize_teams(season_id)[team_id].each do |game|
+    #   if game.result == "WIN"
+    #     win_total += 1
+    #   end
+    #  end
+    #  win_percent = (win_total.to_f / organize_teams[team_id].length.to_f)
+    # win_percent.round(2)
   end
 
   def head_coach_name(team_id) #return a coach based on team_id
-    if organize_seasons[team_id]
-      organize_seasons[head_coach]
+    game_team_by_id = @game_teams.find do |game_team|
+      game_team.team_id == team_id
     end
+    game_team_by_id.head_coach
   end
 
+
 end
+
   # Team Statistics
