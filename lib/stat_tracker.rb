@@ -187,12 +187,12 @@ end
     return team_name(best_season_id)
   end
 
-  def most_goals_scored(team_id)
+  def most_goals_scored(id)
     team_games = game_teams_by_team(team_id.to_i)
     team_games.map {|game| game.goals}.max
   end
 
-  def fewest_goals_scored(team_id)
+  def fewest_goals_scored(id)
     team_games = game_teams_by_team(team_id.to_i)
     team_games.map {|game| game.goals}.min
   end
