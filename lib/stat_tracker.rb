@@ -147,6 +147,7 @@ end
     end
     hash
   end
+  require "pry"; binding.pry
 
   def most_accurate_team(season)
     accurate_team_id = accuracy_hash(season).max_by do |team|
@@ -187,6 +188,7 @@ end
 
   def count_of_teams
       @teams.map {|team| team.team_id}.length
+      # require 'pry'; binding.pry
   end
 
 
