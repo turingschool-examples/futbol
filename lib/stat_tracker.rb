@@ -296,6 +296,8 @@ class StatTracker
     best_shot = team_shot_percentage_by_season(season_id).max_by do  |team_id, percentage|
       percentage
     end
+    binding.pry
+    team_name(best_shot [0])
   end
 
   def least_accurate_team(season_id)
