@@ -56,11 +56,6 @@ end
     @games.map {|game| game.away_goals + game.home_goals}.min
   end
 
-  def percentage_home_wins(team)
-    # @game_teams.map {|game_team| (gam.}
-  end
-
-
   def games_by_season(season)
     @games.select do |row|
       row.season == season
@@ -99,62 +94,84 @@ end
     return hash
   end
 
-  def percentage_away_wins
-    game_results = Hash.new{|h,k| h[k] = [0,0,0,0,0,0.to_i] }
+  def win_tallies
+    game_results = Hash.new({:home_wins => 0, :home_losses => 0, :away_wins => 0, :away_losses => 0, :ties => 0})
       @game_teams.each do |game|
         if game.hoa == "home" && game.result == "WIN"
-          game_results[game.data][0] += 1
+          game_results[:game_data][:home_wins] += 1
         elsif game.hoa == "home" && game.result == "LOSS"
-          game_results[game.data][1] += 1
+          game_results[:game_data][:home_losses] += 1
         elsif game.hoa == "away" && game.result == "WIN"
-          game_results[game.data][2] += 1
+          game_results[:game_data][:away_wins] += 1
         elsif game.hoa == "away" && game.result == "LOSS"
-          game_results[game.data][3] += 1
+          game_results[:game_data][:away_losses] += 1
         elsif game.hoa == "home" && game.result == "TIE"
-          game_results[game.data][4] += 1
+          game_results[:game_data][:ties] += 1
         elsif game.hoa == "away" && game.result == "TIE"
-          game_results[game.data][4] += 1
+          game_results[:game_data][:ties] += 1
         end
       end
-      require "pry"; binding.pry
-      return game_results
+      # require "pry"; binding.pry
+      game_results
   end
 
   def percentage_home_wins
-    total_home_games = game_results[key][0] + game_results[key][1]
-    percentage_home_wins = game_results[key][0]/total_home_games.to_f
+    total_home_games = win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses]
+    percentage_home_wins = (win_tallies[:game_data][:home_wins]/total_home_games.to_f).round(2)
   end
 
   def percentage_away_wins
-    total_away_games = game_results[key][2] + game_results[key][3]
-    percentage_away_wins = game_results[key][2]/total_away_games.to_f
+    total_away_games = win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses]
+    percentage_away_wins = (win_tallies[:game_data][:away_wins]/total_away_games.to_f).round(2)
   end
 
   def percentage_ties
-    total_games = game_results[key][0] + game_results[key][1] + game_results[key][2] + game_results[key][3]
-    percentage_ties = game_results[key][4]/total_games.to_f
+    total_games = win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses] +
+    win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses] + win_tallies[:game_data][:ties]
+    percentage_ties = (win_tallies[:game_data][:ties]/total_games.to_f).round(2)
   end
 
-  # def percentage_home_wins
-  #   game_results = Hash.new{|h,k| h[k] = [0,0,0,0,0,0.to_f] }
-  #     @game_teams.each do |row|
-  #       require "pry"; binding.pry
-  #       if row[:HoA] == "home" && row[:result] == "WIN"
-  #         game_results[tallies][0] += 1
-  #       elsif row[:HoA] == "home" && row[:result] == "LOSS"
-  #         game_results[tallies][1] += 1
-  #       elsif row[:HoA] == "away" && row[:result] == "WIN"
-  #         game_results[tallies][2] += 1
-  #       elsif row[:HoA] == "away" && row[:result] == "LOSS"
-  #         game_results[tallies][3] += 1
-  #       elsif row[:HoA] == "home" && row[:result] == "TIE"
-  #         game_results[tallies][4] += 1
-  #       elsif row[:HoA] == "away" && row[:result] == "TIE"
-  #         game_results[tallies][4] += 1
-  #       end
-  #     end
-  #     return game_results
-  # end
+  def seasons_unique
+      seasons = @games.map { |game| game.season}.uniq
+  end
+
+  def count_games_by_season
+    games_per_season = {}
+    seasons_unique.each do |season|
+      count = 0
+      @games.each do |game|
+        if season == game.season
+          count += 1
+          games_per_season[season.to_s] = count
+        end
+      end
+    end
+    games_per_season
+  end
+
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    seasons_unique.each do |season|
+      count = 0
+      @games.each do |game|
+        if season == game.season
+          count += 1
+        end
+      end
+
+      @games.each do |game|
+        if season == game.season
+          goals_by_season[season.to_s] += game.away_goals + game.home_goals
+        end
+      end
+      goals_by_season[season.to_s] = (goals_by_season[season.to_s]/count.to_f).round(2)
+    end
+    # require "pry"; binding.pry
+    goals_by_season
+  end
+
+  def average_goals_per_game
+  end
 
   def win_percentage_by_coach(coaching_hash)
     coaching_hash.keys.map do |key|
@@ -163,7 +180,6 @@ end
     end
     return coaching_hash
   end
-
 
   def winningest_coach(season)
     season_game_teams = game_teams_by_season(season)
