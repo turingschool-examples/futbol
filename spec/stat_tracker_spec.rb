@@ -501,7 +501,9 @@ end
     expect(@stat_tracker.favorite_opponent("3")).to eq("FC Dallas")
   end
 
-
+  it "can return the teams riveal" do
+   expect(@stat_tracker.rival("6")).to eq("Sporting Kansas City")
+ end
 
 
 
