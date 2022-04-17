@@ -373,7 +373,7 @@ include GameModule
 # highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.
 # create a hash of team_id as key and value (goals)
 
-	def highest_scoring_visitor
+	def average_visitor_scores
 		away_team_goals_hash = {}
 		@games.each do |game|
 			away_team_goals_hash[game.away_team_id] = average_away_goals_per_team(game.away_team_id)
@@ -392,8 +392,16 @@ include GameModule
 		end
 		goals / games.to_f
 	end
+
+	def highest_scoring_visitor
+		average_visitor_scores.invert.max.last
+	end
+
+	def lowest_scoring_visitor
+		average_visitor_scores.invert.min.last
+	end
 end
-#
+
 # def highest_scoring_visitor
 # 	away_team_goals_hash = {}
 # 	away_team_num_of_games = {}

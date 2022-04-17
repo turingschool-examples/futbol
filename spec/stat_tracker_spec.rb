@@ -125,15 +125,23 @@ describe StatTracker do
       expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
     end
 
-		it "can return the highest average score per game across all seasons when they are away" do
-			expect(@stat_tracker.highest_scoring_visitor).to be_a(Hash)
-			expect(@stat_tracker.highest_scoring_visitor['3']).to eq(1.75)
-			expect(@stat_tracker.highest_scoring_visitor['8']).to eq(2)
+		it "can return the average score per game across all seasons when they are away" do
+			expect(@stat_tracker.average_visitor_scores).to be_a(Hash)
+			expect(@stat_tracker.average_visitor_scores['3']).to eq(1.75)
+			expect(@stat_tracker.average_visitor_scores['8']).to eq(2)
 		end
 
 		it "can return average away goals per team" do
 			expect(@stat_tracker.average_away_goals_per_team('3')).to eq(1.75)
 		end
+
+    it "returns the name of the team with the highest average score per game across all seasons when they are away" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq('24')
+    end
+
+    it "returns the name of the team with the lowest average score per game across all seasons when they are away" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('4')
+    end
   end
 
   describe "Season Statistics" do
