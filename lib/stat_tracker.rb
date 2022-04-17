@@ -303,7 +303,6 @@ class StatTracker
     worst_shot = team_shot_percentage_by_season(season_id).min_by do |team_id, percentage|
       percentage
     end
-    binding.pry
     team_name(worst_shot[0])
   end
 

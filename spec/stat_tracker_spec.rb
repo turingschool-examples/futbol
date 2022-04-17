@@ -136,6 +136,12 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.least_accurate_team("2012030221")).to eq(("Houston Dynamo"))
 
       end
+
+      it "returns the total number of tackles per team in a season" do
+
+        expect(@stat_tracker.total_tackles_by_season("2012030221")).to be_a(Array)
+
+      end
     end
 
 
