@@ -281,22 +281,15 @@ class StatTracker
 
 
   def organize_seasons # Take in an argument that is year/season
-    season_hash = @game_teams.group_by do |game|
-      game.game_id[0..3]
-    end
-    season_hash
+    season_hash = @game_teams.group_by {|game| game.game_id[0..3]}
   end
 
   def organize_teams #organize by team_id
-    team_hash
-
-
+    team_hash = @game_teams.group_by {|game| game.team_id}
   end
 
-  # Team Statistics
+  
 
-  def favorite_opponent
-    #one opponents lowest win percentage against another team
-    #
+  # Team Statistics
 
 end

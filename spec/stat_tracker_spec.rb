@@ -73,6 +73,8 @@ RSpec.describe StatTracker do
 
       it "organizes a specific season by team" do
 
+        expect(@stat_tracker.organize_teams.length).to eq(19)
+
       end
 
     end
