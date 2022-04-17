@@ -497,8 +497,13 @@ end
     expect(@stat_tracker.worst_season("6")).to eq("20122013")
   end
 
+  it "can return the favorite opponent" do
+    expect(@stat_tracker.favorite_opponent("3")).to eq("FC Dallas")
+  end
 
-
+  it "can return the teams riveal" do
+   expect(@stat_tracker.rival("6")).to eq("Sporting Kansas City")
+ end
 
 
 
