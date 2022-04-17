@@ -293,14 +293,18 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    best_shot = team_shot_percentage_by_season(season_id).max_by do  |team_id, percentage|
+    best_shot = team_shot_percentage_by_season(season_id).max_by do |team_id, percentage|
       percentage
     end
     team_name(best_shot[0])
   end
 
   def least_accurate_team(season_id)
-
+    worst_shot = team_shot_percentage_by_season(season_id).min_by do |team_id, percentage|
+      percentage
+    end
+    binding.pry
+    team_name(worst_shot[0])
   end
 
   def games_by_season(season_id) # Take in an argument that is year/season converts game_id to year, returns :year{[games]}

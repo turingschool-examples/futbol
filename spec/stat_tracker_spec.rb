@@ -130,10 +130,10 @@ RSpec.describe StatTracker do
 
         expect(@stat_tracker.most_accurate_team("2012030221")).to eq(("DC United"))
       end
-      
+
       it "returns least accurate team" do
 
-        expect(@stat_tracker.least_accurate_team("2012030221")).to eq(("Gerard Gallant"))
+        expect(@stat_tracker.least_accurate_team("2012030221")).to eq(("Houston Dynamo"))
 
       end
     end
