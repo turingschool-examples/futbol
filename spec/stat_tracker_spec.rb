@@ -139,7 +139,7 @@ RSpec.describe StatTracker do
 
       it "returns the total number of tackles per team in a season" do
 
-        expect(@stat_tracker.total_tackles_by_season("2012030221")).to be_a(Array)
+        expect(@stat_tracker.total_tackles_by_season("2012030221")).to be_a(Hash)
 
       end
     end

@@ -348,6 +348,17 @@ class StatTracker
       shot_percentage_hash
   end
 
+  def total_tackles_by_season(season_id)
+    tackle_total_hash = {}
+    organize_teams(season_id).each do |team_id,game_teams|
+      number_of_tackles = 0
+      game_teams.each do |game_team|
+        number_of_tackles += game_team.tackles
+      end
+      tackle_total_hash[team_id] = number_of_tackles
+    end
+    tackle_total_hash
+  end
 
   def head_coach_name(team_id) #return a coach based on team_id
     game_team_by_id = @game_teams.find do |game_team|
