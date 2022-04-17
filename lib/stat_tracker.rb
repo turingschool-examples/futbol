@@ -274,13 +274,15 @@ class StatTracker
   ##wins = +1, loss = 0, tie = 0, return win_total
   ##total wins / total games organize_teams["3"].length
   ##return percentage
+  #return a coach based on team_id
   #iterate through year/season to compare percentages
   #return highest percentage and coach
 
   def winningest_coach
-    
-  end
+    organize_seasons.organize_teams.season_winning_percentage
 
+
+  end
 
   def organize_seasons # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
     season_hash = @game_teams.group_by {|game| game.game_id[0..3]}
@@ -301,6 +303,9 @@ class StatTracker
     win_percent.round(2)
   end
 
-  # Team Statistics
-
+  def head_coach_name(team_id) #return a coach based on team_id
+  organize_teams[team_id] == organize_teams[head_coach]
+# binding.pry
+  end
 end
+  # Team Statistics

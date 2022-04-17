@@ -66,6 +66,11 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.team_name_helper("3")).to eq("Houston Dynamo")
       end
 
+
+    end
+
+    describe 'Season Statistics' do
+
       it "organizes seasons by year" do
 
         expect(@stat_tracker.organize_seasons.length).to eq(2)
@@ -80,6 +85,12 @@ RSpec.describe StatTracker do
       it "calculates the winning percentage per team per season" do
 
         expect(@stat_tracker.season_winning_percentage("24")).to eq(0.67)
+
+      end
+
+      it "returns head coach" do
+
+        expect(@stat_tracker.head_coach_name("3")).to eq("John Tortorella")
 
       end
 
