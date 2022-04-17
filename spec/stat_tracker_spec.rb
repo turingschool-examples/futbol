@@ -122,7 +122,7 @@ RSpec.describe StatTracker do
 
       it "defines team name by team_id" do
 
-        expect(@stat_tracker.team_name("3")).to eq(("John Tortorella"))
+        expect(@stat_tracker.team_name("3")).to eq(("Houston Dynamo"))
       end
       # it "returns most accurate team" do
       #

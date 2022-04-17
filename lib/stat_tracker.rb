@@ -295,6 +295,7 @@ class StatTracker
   def most_accurate_team(season_id)
     best_shot = team_shot_percentage_by_season(season_id).max_by do  |team_id, percentage|
       percentage
+    end
   end
 
   def least_accurate_team(season_id)
@@ -351,10 +352,14 @@ class StatTracker
     game_team_by_id.head_coach
   end
 
-  def team_name
-
+  def team_name(team_id)
+    team_name_by_id = @teams.find do |team|
+      team.team_id == team_id
+    end
+    team_name_by_id.team_name
   end
 
 end
+
 
   # Team Statistics
