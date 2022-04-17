@@ -110,6 +110,25 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.worst_coach("2012030221")).to eq(("Gerard Gallant"))
 
       end
+
+      it "returns calculates the shooting percentage per team per season" do
+
+
+        expect(@stat_tracker.team_shot_percentage_by_season("2012030221")["3"]).to eq(0.37)
+      end
+
+      it "returns most accurate team" do
+
+
+        expect(@stat_tracker.most_accurate_team("2012030221")).to eq(("Claude Julien"))
+
+      end
+
+      it "returns least accurate team" do
+
+        expect(@stat_tracker.least_accurate_team("2012030221")).to eq(("Gerard Gallant"))
+
+      end
     end
 
 

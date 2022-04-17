@@ -292,6 +292,14 @@ class StatTracker
     head_coach_name(worst_team[0])
   end
 
+  def most_accurate_team(season_id)
+
+  end
+
+  def least_accurate_team(season_id)
+
+  end
+
   def games_by_season(season_id) # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
   #  season_hash = @game_teams.group_by {|game| game.game_id[0..3]}
     year = season_id[0..3]
@@ -319,17 +327,25 @@ class StatTracker
         win_percentage = number_of_wins.to_f / total_games.to_f
         win_percentage_hash[team_id] = win_percentage.round(2)
       end
-      win_percentage_hash # returns :team_id => season win percentage as the value
-    # win_total = 0
-    # binding.pry
-    # organize_teams(season_id)[team_id].each do |game|
-    #   if game.result == "WIN"
-    #     win_total += 1
-    #   end
-    #  end
-    #  win_percent = (win_total.to_f / organize_teams[team_id].length.to_f)
-    # win_percent.round(2)
+      win_percentage_hash
   end
+
+  def team_shot_percentage_by_season(season_id) #calculates/returns winning percentage
+    shot_percentage_hash = {}
+    organize_teams(season_id).each do |team_id,game_teams|
+      number_of_wins = 0
+      game_teams.each do |game_team|
+        if game_team.result == "WIN"
+          number_of_wins += 1
+        end
+      end
+        total_games = game_teams.count
+        win_percentage = number_of_wins.to_f / total_games.to_f
+        win_percentage_hash[team_id] = win_percentage.round(2)
+      end
+      shot_percentage_hash
+  end
+
 
   def head_coach_name(team_id) #return a coach based on team_id
     game_team_by_id = @game_teams.find do |game_team|
