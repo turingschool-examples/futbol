@@ -145,8 +145,7 @@ RSpec.describe StatTracker do
 
       it "returns the team with the most tackles" do
 
-        expect(@stat_tracker.most_tackles("2012030221")).to be_a(Array)
-
+        expect(@stat_tracker.most_tackles("2012030221")).to be_a(String)
       end
     end
 

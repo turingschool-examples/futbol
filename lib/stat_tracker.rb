@@ -306,6 +306,13 @@ class StatTracker
     team_name(worst_shot[0])
   end
 
+  def most_tackles(season_id)
+    highest_tackles = total_tackles_by_season(season_id).max_by do |team_id, total_tackles|
+      total_tackles
+    end
+    team_name(highest_tackles[0])
+  end
+
   def games_by_season(season_id) # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
     year = season_id[0..3]
     @game_teams.find_all do |game_team|
