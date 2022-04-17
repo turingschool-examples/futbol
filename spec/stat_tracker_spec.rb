@@ -77,6 +77,12 @@ RSpec.describe StatTracker do
 
       end
 
+      it "calculates the winning percentage per team per season" do
+
+        expect(@stat_tracker.season_winning_percentage("24")).to eq(0.67)
+
+      end
+
     end
 
 

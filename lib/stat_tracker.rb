@@ -267,28 +267,39 @@ class StatTracker
 
   # Season Statistics
 
+  ## Take in an argument that is year/season
+  ##organize by team_id
+  ##team_id.length, return total_games
+  ##look at :result
+  ##wins = +1, loss = 0, tie = 0, return win_total
+  ##total wins / total games organize_teams["3"].length
+  ##return percentage
+  #iterate through year/season to compare percentages
+  #return highest percentage and coach
+
   def winningest_coach
-    ## Take in an argument that is year/season
-    #organize by team_id
-    #team_id.length, return total_games
-    #look at result
-    #wins = +1, loss = 0, tie = 0, return win_total
-    #total wins / total games
-    #return percentage
-    #iterate through year/season to compare percentages
-    #return highest percentage and coach
+    
   end
 
 
-  def organize_seasons # Take in an argument that is year/season
+  def organize_seasons # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
     season_hash = @game_teams.group_by {|game| game.game_id[0..3]}
   end
 
-  def organize_teams #organize by team_id
+  def organize_teams #organize by team_id returns :team_id{[games]}
     team_hash = @game_teams.group_by {|game| game.team_id}
   end
 
-  
+  def season_winning_percentage(team_id) #calculates/returns winning percentage
+    win_total = 0
+    organize_teams[team_id].each do |game|
+      if game.result == "WIN"
+        win_total += 1
+      end
+     end
+     win_percent = (win_total.to_f / organize_teams[team_id].length.to_f)
+    win_percent.round(2)
+  end
 
   # Team Statistics
 
