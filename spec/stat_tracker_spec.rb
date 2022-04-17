@@ -1,10 +1,4 @@
-require 'simplecov'
-SimpleCov.start
-require './lib/stat_tracker'
-require './lib/team'
-require './lib/game_team'
-require './lib/game'
-require 'pry'
+require './required_files'
 
 describe StatTracker do
   before :each do
@@ -68,7 +62,7 @@ describe StatTracker do
 		it "can calculate a percentage of home wins" do
 			expect(@stat_tracker.percentage_home_wins).to eq 50.0
 	  end
-    
+
     it "can calculate the percentage of games that has resulted in a tie" do
 			expect(@stat_tracker.percentage_ties).to eq 6.25
 		end
@@ -76,7 +70,7 @@ describe StatTracker do
 	  it "can calculate average goals per game" do
 	    expect(@stat_tracker.average_goals_per_game).to eq 3.69
 	  end
-    
+
     it 'can count the total number of teams' do
 	    expect(@stat_tracker.count_of_teams).to eq 32
 	  end
@@ -116,7 +110,6 @@ describe StatTracker do
 
     it "can calculate highest average number of goals scored across all seasons" do
       expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
-
     end
 
     it "can calculate lowest average of goals scored per game across all seasons " do
@@ -127,9 +120,20 @@ describe StatTracker do
       expect(@stat_tracker.most_goals_scored(26)).to eq 3
 
     end
+
     it "can return the fewest amount of goals scored by a team in a single game" do
       expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
     end
+
+		it "can return the highest average score per game across all seasons when they are away" do
+			expect(@stat_tracker.highest_scoring_visitor).to be_a(Hash)
+			expect(@stat_tracker.highest_scoring_visitor['3']).to eq(1.75)
+			expect(@stat_tracker.highest_scoring_visitor['8']).to eq(2)
+		end
+
+		it "can return average away goals per team" do
+			expect(@stat_tracker.average_away_goals_per_team('3')).to eq(1.75)
+		end
   end
 
   describe "Season Statistics" do
