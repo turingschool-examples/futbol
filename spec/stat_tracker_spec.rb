@@ -147,6 +147,11 @@ RSpec.describe StatTracker do
 
         expect(@stat_tracker.most_tackles("2012030221")).to be_a(String)
       end
+
+      it "returns the team with the least amount of tackles" do
+
+        expect(@stat_tracker.least_tackles("2012030221")).to be_a(String)
+      end
     end
 
 
