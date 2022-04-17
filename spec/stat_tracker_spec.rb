@@ -122,4 +122,8 @@ RSpec.describe StatTracker do
   it "gives us the worst season" do
     expect(@stat_tracker.worst_season("4")).to eq "20122013"
   end
+
+  it "gives us the average win percentage" do
+    expect(@stat_tracker.average_win_percentage("26")).to eq(45.2)
+  end
 end

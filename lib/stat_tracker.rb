@@ -72,7 +72,7 @@ end
 
   def game_teams_by_team(team_id)
     @game_teams.select do |row|
-      row.team_id == team_id
+      row.team_id == team_id.to_i
     end
   end
 
@@ -172,28 +172,63 @@ end
   end
 
   def best_season(id)
-  team_games = game_teams_by_team(team_id.to_i)
-  hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
-    team_games.each do |game|
-      hash[game.game_id.to_s[0..3]][0]+=1
-      if game.result == "WIN" && game.team_id == id
-        hash[game.game_id.to_s[0..3]][1]+=1
-        hash[game.game_id.to_s[0..3]][2] = hash[game.game_id.to_s[0..3]][1]/hash[game.game_id.to_s[0..3]][0].to_f
+    team_games = game_teams_by_team(team_id)
+    hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
+      team_games.each do |game|
+        hash[game.game_id.to_s[0..3]][0]+=1
+        if game.result == "WIN" && game.team_id == id
+          hash[game.game_id.to_s[0..3]][1]+=1
+          hash[game.game_id.to_s[0..3]][2] = hash[game.game_id.to_s[0..3]][1]/hash[game.game_id.to_s[0..3]][0].to_f
+        end
       end
-    end
-    best_season_id = hash.max_by do |season|
-      season[2]
-    end[0]
-    return team_name(best_season_id)
+      best_season_id = hash.max_by do |season|
+        season[2]
+      end[0]
+      return team_name(best_season_id)
+  end
+
+  def worst_season(id)
+    team_games = game_teams_by_team(team_id)
+    hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
+      team_games.each do |game|
+        hash[game.game_id.to_s[0..3]][0]+=1
+        if game.result == "LOSS" && game.team_id == id
+          hash[game.game_id.to_s[0..3]][1]+=1
+          hash[game.game_id.to_s[0..3]][2] = hash[game.game_id.to_s[0..3]][1]/hash[game.game_id.to_s[0..3]][0].to_f
+        end
+      end
+      worst_season_id = hash.min_by do |season|
+        season[2]
+      end[0]
+      return team_name(worst_season_id)
   end
 
   def most_goals_scored(id)
-    team_games = game_teams_by_team(team_id.to_i)
+    team_games = game_teams_by_team(team_id)
     team_games.map {|game| game.goals}.max
   end
 
   def fewest_goals_scored(id)
-    team_games = game_teams_by_team(team_id.to_i)
+    team_games = game_teams_by_team(team_id)
     team_games.map {|game| game.goals}.min
+  end
+
+  def average_win_percentage(id)
+  #   @games.each do |game|
+  #   end
+  #
+  # end
+    team_games = game_teams_by_team(team_id.to_i)
+    hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
+      team_games.each do |game|
+        if game.result == "WIN" && game.team_id == id
+          hash[game.game_id][1]+=1
+          hash[game.game_id][2] = hash[game.game_id][1]/hash[game.game_id][0].to_f
+        end
+      end
+      avg_win_pct_id = hash do |team|
+        team[2]
+      end
+      return team_name(avg_win_pct_id)
   end
 end
