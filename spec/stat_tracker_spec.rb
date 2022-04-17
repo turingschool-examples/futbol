@@ -8,9 +8,9 @@ require 'csv'
 
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = './data/games_sample.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/games_teams_sample.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -120,10 +120,10 @@ RSpec.describe StatTracker do
   end
 
   it "gives us the worst season" do
-    expect(@stat_tracker.worst_season("4")).to eq "20122013"
+    expect(@stat_tracker.worst_season("6")).to eq "20142015"
   end
 
   it "gives us the average win percentage" do
-    expect(@stat_tracker.average_win_percentage("26")).to eq(45.2)
+    expect(@stat_tracker.average_win_percentage("6")).to eq(0.49)
   end
 end
