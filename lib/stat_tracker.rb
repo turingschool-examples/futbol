@@ -293,7 +293,8 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-
+    best_shot = team_shot_percentage_by_season(season_id).max_by do  |team_id, percentage|
+      percentage
   end
 
   def least_accurate_team(season_id)
@@ -301,16 +302,13 @@ class StatTracker
   end
 
   def games_by_season(season_id) # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
-  #  season_hash = @game_teams.group_by {|game| game.game_id[0..3]}
     year = season_id[0..3]
     @game_teams.find_all do |game_team|
       game_team.game_id[0..3] == year
     end
-
   end
 
   def organize_teams(season_id) #organize by team_id returns :team_id{[games]}
-    # team_hash = @game_teams.group_by {|game| game.team_id}
     team_hash = games_by_season(season_id).group_by {|game| game.team_id}
   end
 
