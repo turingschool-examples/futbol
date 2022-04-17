@@ -90,7 +90,7 @@ RSpec.describe StatTracker do
 
       it "returns head coach" do
 
-        expect(@stat_tracker.head_coach_name("3")).to eq("John Tortorella")
+        expect(@stat_tracker.head_coach_name("3")).to eq(("John Tortorella"))
 
       end
 

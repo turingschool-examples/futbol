@@ -304,8 +304,10 @@ class StatTracker
   end
 
   def head_coach_name(team_id) #return a coach based on team_id
-  organize_teams[team_id] == organize_teams[head_coach]
-# binding.pry
+    if organize_seasons[team_id]
+      organize_seasons[head_coach]
+    end
   end
+
 end
   # Team Statistics
