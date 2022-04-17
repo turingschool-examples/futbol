@@ -99,6 +99,53 @@ end
     return hash
   end
 
+  def percentage_away_wins
+    game_results = Hash.new{|h,k| h[k] = [0,0,0,0,0,0.to_i] }
+      @game_teams.each do |game|
+        if game.hoa == "home" && game.result == "WIN"
+          game_results[game.data][0] += 1
+        elsif game.hoa == "home" && game.result == "LOSS"
+          game_results[game.data][1] += 1
+        elsif game.hoa == "away" && game.result == "WIN"
+          game_results[game.data][2] += 1
+        elsif game.hoa == "away" && game.result == "LOSS"
+          game_results[game.data][3] += 1
+        elsif game.hoa == "home" && game.result == "TIE"
+          game_results[game.data][4] += 1
+        elsif game.hoa == "away" && game.result == "TIE"
+          game_results[game.data][4] += 1
+        end
+      end
+      require "pry"; binding.pry
+      return game_results
+  end
+  # def percentage_home_wins
+  #   game_results = Hash.new{|h,k| h[k] = [0,0,0,0,0,0.to_f] }
+  #     @game_teams.each do |row|
+  #       require "pry"; binding.pry
+  #       if row[:HoA] == "home" && row[:result] == "WIN"
+  #         game_results[tallies][0] += 1
+  #       elsif row[:HoA] == "home" && row[:result] == "LOSS"
+  #         game_results[tallies][1] += 1
+  #       elsif row[:HoA] == "away" && row[:result] == "WIN"
+  #         game_results[tallies][2] += 1
+  #       elsif row[:HoA] == "away" && row[:result] == "LOSS"
+  #         game_results[tallies][3] += 1
+  #       elsif row[:HoA] == "home" && row[:result] == "TIE"
+  #         game_results[tallies][4] += 1
+  #       elsif row[:HoA] == "away" && row[:result] == "TIE"
+  #         game_results[tallies][4] += 1
+  #       end
+  #     end
+  #     return game_results
+  # end
+
+  def percentage_home_wins
+    total_away_games = game_results[key][0] + game_results[key][1]
+    percentage_home_wins = game_results[key][0]/total_away_games.to_f
+  end
+
+
   def win_percentage_by_coach(coaching_hash)
     coaching_hash.keys.map do |key|
       total_games = coaching_hash[key][0] + coaching_hash[key][1]
@@ -147,7 +194,7 @@ end
     end
     hash
   end
-  require "pry"; binding.pry
+  # require "pry"; binding.pry
 
   def most_accurate_team(season)
     accurate_team_id = accuracy_hash(season).max_by do |team|

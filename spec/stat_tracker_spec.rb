@@ -54,15 +54,15 @@ RSpec.describe StatTracker do
   end
 
   it 'can calculate percentage_home_wins' do
-    expect(@stat_tracker.precentage_home_wins).to eq(0.44)
+    expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
   it 'can calculate percentage_visitor_wins' do
-    expect(@stat_tracker.precentage_home_wins).to eq(0.36)
+    expect(@stat_tracker.percentage_away_wins).to eq(0.36)
   end
 
   it 'can calculate percentage_ties' do
-    expect(@stat_tracker.precentage_home_wins).to eq(0.20)
+    expect(@stat_tracker.percentage_ties).to eq(0.20)
   end
 
   it 'can give me the winningest coach given a specific season' do
