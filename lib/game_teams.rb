@@ -32,5 +32,15 @@ class GameTeams
     @faceoffwinpercentage = data[:faceoffwinpercentage]
     @giveaways = data[:giveaways]
     @takeaways = data[:takeaways]
+
+    @game_teams = Hash.new
+
+    data.by_row!.each do |row|
+      # binding.pry
+      team_hash = row.to_h
+      @game_teams[team_hash[:team_id].to_i] = team_hash
+    end
   end
+
+
 end
