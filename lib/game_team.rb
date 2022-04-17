@@ -1,5 +1,5 @@
 class GameTeam
-  attr_reader :game_id, :team_id, :HoA, :result, :settled_in,
+  attr_reader :game_id, :team_id, :hoa, :result, :settled_in,
   :head_coach, :goals, :shots, :tackles, :pim,
   :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage,
   :giveaways, :takeaways
@@ -7,7 +7,7 @@ class GameTeam
 def initialize(row)
     @game_id = row[:game_id].to_i
     @team_id = row[:team_id].to_i
-    @HoA = row[:HoA]
+    @hoa = row[:hoa]
     @result = row[:result]
     @settled_in = row[:settled_in]
     @head_coach = row[:head_coach]
