@@ -130,6 +130,11 @@ end
     percentage_away_wins = game_results[key][2]/total_away_games.to_f
   end
 
+  def percentage_ties
+    total_games = game_results[key][0] + game_results[key][1] + game_results[key][2] + game_results[key][3]
+    percentage_ties = game_results[key][4]/total_games.to_f
+  end
+
   # def percentage_home_wins
   #   game_results = Hash.new{|h,k| h[k] = [0,0,0,0,0,0.to_f] }
   #     @game_teams.each do |row|
@@ -150,8 +155,6 @@ end
   #     end
   #     return game_results
   # end
-
-
 
   def win_percentage_by_coach(coaching_hash)
     coaching_hash.keys.map do |key|
