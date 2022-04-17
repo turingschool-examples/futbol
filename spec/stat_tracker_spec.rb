@@ -1,9 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-#
-# require_relative 'game'
-# require_relative 'team'
-# require_relative 'game_team'
 
 require './lib/stat_tracker'
 require './lib/game_team'
@@ -127,7 +123,35 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.tackle_hash(20172018)[28]).to eq(1690)
   end
 
-  it " " do
+  it 'counts total number of teams' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
 
+  it "finds avg goals of team " do
+    expect(@stat_tracker.avg_total_goals(19)).to eq(2.11)
+  end
+
+  it "finds the highest scoring team aka best offense" do
+    expect(@stat_tracker.best_offense).to eq("Reign FC")
+  end
+
+  it "finds the lowest scoring team aka worst offense" do
+    expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+  end
+
+  it "finds highest scoring visitor aka best offense when away" do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  it "finds highest scoring home team aka best offense when home" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+  end
+
+  it "finds lowest scoring visitor aka worst offense when away" do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+  end
+
+  it "finds lowest scoring home team aka worst offense when home" do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
   end
 end
