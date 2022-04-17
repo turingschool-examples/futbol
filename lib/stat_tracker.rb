@@ -333,15 +333,14 @@ class StatTracker
   def team_shot_percentage_by_season(season_id) #calculates/returns winning percentage
     shot_percentage_hash = {}
     organize_teams(season_id).each do |team_id,game_teams|
-      number_of_wins = 0
+      number_of_goals = 0
+      number_of_shots = 0
       game_teams.each do |game_team|
-        if game_team.result == "WIN"
-          number_of_wins += 1
+          number_of_goals += game_team.goals
+          number_of_shots += game_team.shots
         end
-      end
-        total_games = game_teams.count
-        win_percentage = number_of_wins.to_f / total_games.to_f
-        win_percentage_hash[team_id] = win_percentage.round(2)
+        shot_percentage = number_of_goals.to_f / number_of_shots.to_f
+        shot_percentage_hash[team_id] = shot_percentage.round(2)
       end
       shot_percentage_hash
   end
@@ -353,7 +352,6 @@ class StatTracker
     end
     game_team_by_id.head_coach
   end
-
 
 end
 
