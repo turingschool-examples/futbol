@@ -171,6 +171,17 @@ end
   end
 
   def average_goals_per_game
+    all_goals = 0.00
+      @games.each do |game|
+        all_goals += game.away_goals + game.home_goals
+      end
+
+    all_games = 0.00
+      count_games_by_season.each do |k,v|
+        all_games += v
+      end
+
+    average = (all_goals / all_games).round(2)
   end
 
   def win_percentage_by_coach(coaching_hash)

@@ -90,9 +90,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_games_by_season).to eq(expected)
   end
 
-  # it 'calculates average goals per game' do
-  #   expect(@stat_tracker.average_goals_per_game).to eq(4.22)
-  # end
+  it 'calculates average goals per game' do
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+  end
 
   it 'can give me the winningest coach given a specific season' do
     expect(@stat_tracker.winningest_coach(20132014)).to eq("Claude Julien")
