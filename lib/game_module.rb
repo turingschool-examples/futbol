@@ -1,3 +1,5 @@
+require './required_files'
+
 module GameModule
 
   def GameModule.total_score(games)

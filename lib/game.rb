@@ -1,3 +1,5 @@
+require './required_files'
+
 class Game
 
   attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id,
