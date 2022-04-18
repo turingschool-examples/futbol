@@ -105,6 +105,19 @@ describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq("New York City FC")
     end
 
+    it 'creates a home goal hash' do
+      expected = {6=>3.0,
+                 3=>1.5,
+                 13=>2.0,
+                 7=>2.0,
+                 15=>1.34,
+                 4=>1.5,
+                 30=>2.0,
+                 19=>2.0,
+                 9=>1.0}
+      expect(@stat_tracker.home_goals_hash).to eq(expected)
+    end
+
   describe "Season Statistics" do
     before :each do
       @game_path = './data/dummy_games.csv'
