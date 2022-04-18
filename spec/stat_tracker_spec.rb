@@ -112,9 +112,22 @@ describe StatTracker do
     xit 'returns highest average score of home team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq()
     end
-    
-    
+
+
+    it "can calculate lowest average of goals scored per game across all seasons " do
+      expect(@stat_tracker.worst_offense).to eq "New England Revolution"
+    end
+
+    it "can return the most goals scored by a team in a single game" do
+      expect(@stat_tracker.most_goals_scored(26)).to eq 3
+    end
+
+    it "can return the fewest amount of goals scored by a team in a single game" do
+      expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
+    end
+
 		it "can return the average score per game across all seasons when they are away" do
+
 			expect(@stat_tracker.average_visitor_scores).to be_a(Hash)
 			expect(@stat_tracker.average_visitor_scores['3']).to eq(1.75)
 			expect(@stat_tracker.average_visitor_scores['8']).to eq(2)
@@ -145,8 +158,8 @@ describe StatTracker do
         teams: @team_path,
         game_teams: @game_teams_path
       }
-      end
-    end 
+     end
+
 
     it 'calculates team with most tackles in season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
@@ -186,8 +199,8 @@ end
         teams: @team_path,
         game_teams: @game_teams_path
       }
-      end
-    end
+     end
+
 
     it 'has team info' do
       expected = {
