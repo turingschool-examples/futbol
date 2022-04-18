@@ -97,7 +97,6 @@ class StatTracker
 
 
 
-
 #SAI
   def percentage_home_wins
     total_games = @games[:game_id].count.to_f
@@ -198,69 +197,6 @@ class StatTracker
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   #C O O O O O O O O O O O O LIN
   def average_goals_per_game
     goals = []
@@ -322,7 +258,6 @@ class StatTracker
     return max_tackles_team[0]
   end
 
-
   def fewest_tackles(season)
   game_array = []
   tackle_hash = {}
@@ -377,92 +312,15 @@ class StatTracker
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   # T H I A G O O O O O O O A L L L L L
   def winningest_coach#.(season) not implemented yet
     results = @game_teams[:result]
     coaches = @game_teams[:head_coach]
     unique_coaches = coaches.uniq
-
     win_list = Hash.new(0)
-
     coach_result = coaches.zip(results)
     win_results = []
+
     coach_result.each do |g|
       win_results << g if g.include?("WIN")
     end
@@ -477,60 +335,45 @@ class StatTracker
       end
     end
     win_list.key(win_list.values.max)
-
-
   end
 
 
   def worst_coach
-  results = @game_teams[:result]
-  coaches = @game_teams[:head_coach]
-  unique_coaches = coaches.uniq
+    results = @game_teams[:result]
+    coaches = @game_teams[:head_coach]
+    unique_coaches = coaches.uniq
+    loss_list = Hash.new(0)
+    coach_result = coaches.zip(results)
+    loss_results = []
 
-  loss_list = Hash.new(0)
+    coach_result.each do |g|
+      loss_results << g if g.include?("LOSS")
+    end
 
-  coach_result = coaches.zip(results)
-  loss_results = []
-  coach_result.each do |g|
-    loss_results << g if g.include?("LOSS")
-  end
-
-
-  unique_coaches.each do |coach|
-    loss_results.each do |loss|
-      if coach == loss[0] && loss_list[coach] == nil
-        loss_list[coach] = 1
-      elsif coach == loss[0] && loss_list[coach] != nil
-        loss_list[coach] += 1
+    unique_coaches.each do |coach|
+      loss_results.each do |loss|
+        if coach == loss[0] && loss_list[coach] == nil
+          loss_list[coach] = 1
+        elsif coach == loss[0] && loss_list[coach] != nil
+          loss_list[coach] += 1
+        end
       end
     end
+    loss_list.key(loss_list.values.min)
   end
-  loss_list.key(loss_list.values.min)
+
+
+  def team_average_number_of_goals_per_away_game(team_id)#helper method to average away score for visitors
+    away_game_count = 0
+    away_game_score = 0
+    @games.each do |row|
+      if row[:away_team_id].to_i == team_id.to_i
+        away_game_count += 1
+        away_game_score += row[:away_goals].to_i
+      end
+    end
+    away_game_score.to_f / away_game_count.to_f
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -679,95 +522,5 @@ class StatTracker
     season_wins_hash = season_wins_arr.tally
     season_wins_hash
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 end
