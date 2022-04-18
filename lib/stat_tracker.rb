@@ -128,55 +128,55 @@ class StatTracker
     games_in_season.compact
   end
 
-  # def most_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
-  #   team_ratios = {}
-  #   team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
-  #   team_id_h.each do |id, array|
-  #     shots = 0.0
-  #     goals = 0.0
-  #     array.each do |row|
-  #       if games_by_season(season_id).include?(row[:game_id])
-  #         shots += row[:shots].to_f
-  #         goals += row[:goals].to_f
-  #       end
-  #     end
-  #     if goals != 0
-  #       team_ratios["#{id}"] = (shots / goals).round(2)
-  #     else
-  #       team_ratios["#{id}"] = 0
-  #     end
-  #   end
-  #   @teams.each do |row|
-  #     if row[:team_id] == team_ratios.max_by{|k,v| v}[0]
-  #       return row[:teamname]
-  #     end
-  #   end
-  # end
-  #
-  # def least_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
-  #   team_ratios = {}
-  #   team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
-  #   team_id_h.each do |id, array|
-  #     shots = 0.0
-  #     goals = 0.0
-  #     array.each do |row|
-  #       if games_by_season(season_id).include?(row[:game_id])
-  #         shots += row[:shots].to_f
-  #         goals += row[:goals].to_f
-  #       end
-  #     end
-  #     if goals != 0
-  #       team_ratios["#{id}"] = (shots / goals).round(2)
-  #     else
-  #       team_ratios["#{id}"] = 0
-  #     end
-  #   end
-  #   @teams.each do |row|
-  #     if row[:team_id] == team_ratios.min_by{|k,v| v}[0]
-  #       return row[:teamname]
-  #     end
-  #   end
-  # end
+  def most_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
+    team_ratios = {}
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h.each do |id, array|
+      shots = 0.0
+      goals = 0.0
+      array.each do |row|
+        if games_by_season(season_id).include?(row[:game_id])
+          shots += row[:shots].to_f
+          goals += row[:goals].to_f
+        end
+      end
+      if goals != 0
+        team_ratios["#{id}"] = (shots / goals).round(2)
+      else
+        team_ratios["#{id}"] = 0
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == team_ratios.max_by{|k,v| v}[0]
+        return row[:teamname]
+      end
+    end
+  end
+
+  def least_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
+    team_ratios = {}
+    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
+    team_id_h.each do |id, array|
+      shots = 0.0
+      goals = 0.0
+      array.each do |row|
+        if games_by_season(season_id).include?(row[:game_id])
+          shots += row[:shots].to_f
+          goals += row[:goals].to_f
+        end
+      end
+      if goals != 0
+        team_ratios["#{id}"] = (shots / goals).round(2)
+      else
+        team_ratios["#{id}"] = 0
+      end
+    end
+    @teams.each do |row|
+      if row[:team_id] == team_ratios.min_by{|k,v| v}[0]
+        return row[:teamname]
+      end
+    end
+  end
 
   def average_win_percentage(team_id)
     counter = 0
@@ -322,7 +322,7 @@ class StatTracker
     return max_tackles_team[0]
   end
 
-  def potato
+  def seasons_hash
     @games.group_by { |row| row[:season].itself}
   end
 
@@ -332,9 +332,9 @@ class StatTracker
   game_array = []
   tackle_hash = {}
   min_tackles_team = []
-  working_array = potato
+  working_array = seasons_hash
   acceptable_games = []
-  working_array[season].each { |row| acceptable_games << row[:game_id]}
+  (working_array[season]).each { |row| acceptable_games << row[:game_id]}
   @game_teams.each do | row |
       if acceptable_games.include?(row[:game_id])
       game_array << row
