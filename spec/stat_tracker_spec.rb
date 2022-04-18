@@ -154,5 +154,42 @@ RSpec.describe StatTracker do
       end
     end
 
+    describe 'Team Statistics' do
+      it '#team_info can put team info into a hash' do 
+        expected = {
+          "team_id" => "1",
+          "franchise_id" => "23",
+          "team_name" => "Atlanta United",
+          "abbreviation" => "ATL",
+          "link" => "/api/v1/teams/1"
+        }
+
+        expect(@stat_tracker.team_info("1")).to eq(expected)
+      end
+
+      it 'can identify the season through the game id' do
+        expect(@stat_tracker.season_games("2012030221")).to eq("20122013")
+      end
+
+      it '#best_season can determine the best season for a team' do
+        expect(@stat_tracker.best_season("24")).to eq("20122013")
+      end
+
+      it '#worst_season can determine the best season for a team' do 
+        expect(@stat_tracker.worst_season("24")).to eq("20132014")
+      end
+
+      it '#average_win_percentage can determine the average wins of all games for a team' do 
+        expect(@stat_tracker.average_win_percentage("3")).to eq(0.0)
+      end
+
+      it '#most_goals_scored can find the highest number of goals a team has scored in a game' do
+        expect(@stat_tracker.most_goals_scored("3")).to eq(2)
+      end
+
+      it '#fewest_goals_scored can find the lowest number of goals a team has scored in a game' do 
+
+      end 
+    end
 
 end
