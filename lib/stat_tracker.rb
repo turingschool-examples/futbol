@@ -281,30 +281,6 @@ include GameModule
 		return win_percentage
 	end
 
-	#	Name of the team with the highest average score per
-	#game across all seasons when they are home.	String
-	# def highest_scoring_home_team
-	# 	home_team_hash = {}
-	# 	@games.each do |game|
-	# 		game.home_team_id
-	# 			if home_team_hash[game.home_team_id] == nil
-	# 				home_team_hash[game.home_team_id] = game.home_goals.to_i
-	# 			else
-	# 				home_team_hash[game.home_team_id] << game.home_goals.to_i
-	# 			end
-	# 				require "pry"; binding.pry
-	# 	  end
-	# 		home_team_hash.each do |team_id, scores|
-	# 			scores.sum / scores.count
-	# 		end
-	# 		home_win = home_team_hash.sort_by{|team_id, score| score}.last[0] #first
-	#
-	# 		# home_team_hash.values / game.home_goals.count.to_i
-	# 		require "pry"; binding.pry
-	# 	# end
-	# end
-
-
 	def best_offense
 		#creates hash w/ team ids keys and team goals values
 		team_goals = {}
@@ -630,21 +606,3 @@ include GameModule
 
 end
 
-# def highest_scoring_visitor
-# 	away_team_goals_hash = {}
-# 	away_team_num_of_games = {}
-# 	@games.each do |game|
-# 		if away_team_goals_hash.key?(game.away_team_id) == false
-# 			away_team_goals_hash[game.away_team_id] = game.away_goals
-# 			away_team_num_of_games[game.away_team_id] = 1
-# 		else
-# 			away_team_goals_hash[game.away_team_id] += game.away_goals
-# 			away_team_num_of_games[game.away_team_id] += 1
-# 		end
-# 	end
-# 	average_goals_per_team = {}
-# 	away_team_goals_hash.each do |key, value|
-# 		average_goals_per_team[key] = value.to_f/away_team_num_of_games[key]
-# 	end
-# 	average_goals_per_team
-# end
