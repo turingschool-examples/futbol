@@ -515,6 +515,31 @@ class StatTracker
     home_game_score.to_f / home_game_count.to_f
   end
 
+  def highest_scoring_home_team
+    home_goals_hash = {}
+    home_games_hash = {}
+    home_avg_hash = {}
+    teams_hash = {}
+
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+
+    @teams.each do |row|
+      home_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_home_game(row[:team_id]))
+
+    end
+    # require'pry';binding.pry
+    home_avg_hash.each do |k, v|
+      # require'pry';binding.pry
+      if v == home_avg_hash.values.max
+        return teams_hash[k]
+      end
+    end
+
+  end
+# Description: Name of the team with the highest average score per game across all seasons when they are home.
+
 
 
 
