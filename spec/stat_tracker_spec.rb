@@ -90,6 +90,7 @@ describe StatTracker do
 		end
 	end
 
+
   describe "League Statistics" do
     before :each do
       @game_path = './data/dummy_games.csv'
@@ -103,28 +104,16 @@ describe StatTracker do
       }
     end
 
+
     it 'can count the total number of teams' do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-
-    it "can calculate highest average number of goals scored across all seasons" do
-      expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
+    xit 'returns highest average score of home team' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq()
     end
-
-    it "can calculate lowest average of goals scored per game across all seasons " do
-      expect(@stat_tracker.worst_offense).to eq "New England Revolution"
-    end
-
-    it "can return the most goals scored by a team in a single game" do
-      expect(@stat_tracker.most_goals_scored(26)).to eq 3
-
-    end
-
-    it "can return the fewest amount of goals scored by a team in a single game" do
-      expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
-    end
-
+    
+    
 		it "can return the average score per game across all seasons when they are away" do
 			expect(@stat_tracker.average_visitor_scores).to be_a(Hash)
 			expect(@stat_tracker.average_visitor_scores['3']).to eq(1.75)
@@ -144,9 +133,30 @@ describe StatTracker do
     end
   end
 
-  describe "Season Statistics" do
 
-    it 'can determine winningest coach for a season' do
+  describe "Season Statistics" do
+    before :each do
+      @game_path = './data/dummy_games.csv'
+      @team_path = './data/dummy_teams.csv'
+      @game_teams_path = './data/dummy_game_teams.csv'
+
+      @locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+      end
+    end 
+
+    it 'calculates team with most tackles in season' do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    end
+
+    it 'calculates team with least tackles in season' do
+      expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
+    end
+  
+      it 'can determine winningest coach for a season' do
       expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
     end
 
@@ -161,15 +171,80 @@ describe StatTracker do
     it 'can determine team with worst ratio of shots to goals for the season' do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq "New England Revolution"
     end
-  end
+end
+
+
 
   describe "Team Statistics" do
+    before :each do
+      @game_path = './data/dummy_games.csv'
+      @team_path = './data/dummy_teams.csv'
+      @game_teams_path = './data/dummy_game_teams.csv'
+
+      @locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+      end
+    end
+
+    it 'has team info' do
+      expected = {
+        :team_id=>3,
+        :franchise_id=> 10,
+        :team_name=> "Houston Dynamo",
+        :abbreviation=> "HOU",
+        :link=>"/api/v1/teams/3"
+      }
+      expect(@stat_tracker.team_info(3)).to eq(expected)
+    end
+
+    it 'calculates season with highest win percentage' do
+      expect(@stat_tracker.best_season(16)).to eq("20152016")
+    end
+
+    it 'calculates season with lowest win percentage' do
+      expect(@stat_tracker.worst_season(16)).to eq("20122013")
+    end
+
+    it 'returns team name by team id' do
+      expect(@stat_tracker.team_name_by_id(17)).to eq("LA Galaxy")
+    end
+
+    it 'returns number of tackles by team id' do
+      expect(@stat_tracker.tackles_by_id(19)).to eq({19 => [41, 41, 40]})
+    end
+
+    it 'returns season by game id' do
+      expect(@stat_tracker.game_id_to_season("2015030133")).to eq("20152016")
+    end
+
+    it 'calculates average win percentage of all games for a team' do
+      expect(@stat_tracker.average_win_percentage(16)).to eq(40.0)
+    end
+
+    it "can calculate highest average number of goals scored across all seasons" do
+      expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
+    end
+
+    it "can calculate lowest average of goals scored per game across all seasons " do
+      expect(@stat_tracker.worst_offense).to eq "New England Revolution"
+    end
+
+    it "can return the most goals scored by a team in a single game" do
+      expect(@stat_tracker.most_goals_scored(26)).to eq 3
+
+    end
+
+    it "can return the fewest amount of goals scored by a team in a single game" do
+      expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
+    end
 
     it 'can determine name of favorite opponent for a given team' do
       expect(@stat_tracker.favorite_opponent("New England Revolution")).to eq "LA Galaxy"
       expect(@stat_tracker.favorite_opponent("FC Dallas")).to eq "Houston Dynamo"
     end
-
   end
 
 end

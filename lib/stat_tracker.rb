@@ -20,7 +20,7 @@ include GameModule
 	def create_teams(teams)
 		team_arr = Array.new
 		teams.each do |row|
-			team_id = row[:team_id]
+			team_id = row[:team_id].to_i
 			franchise_id = row[:franchiseid]
 			team_name = row[:teamname]
 			abbreviation = row[:abbreviation]
@@ -54,7 +54,7 @@ include GameModule
     game_team_array = []
     game_teams.each do |row|
       game_id = row[:game_id]
-      team_id = row[:team_id]
+      team_id = row[:team_id].to_i
       hoa = row[:hoa]
       result = row[:result]
       settled_in = row[:settled_in]
@@ -121,6 +121,164 @@ include GameModule
 			total_teams << team.team_id
 		end
 			total_teams.count
+	end
+
+
+	def team_info(team_id)
+		team_hash = {}
+		team = @teams.find do |team|
+			team.team_id == team_id
+		end
+		team_hash[:team_id] = team.team_id
+		team_hash[:franchise_id] = team.franchise_id.to_i
+		team_hash[:team_name] = team.team_name
+		team_hash[:abbreviation] = team.abbreviation
+		team_hash[:link] = team.link
+		team_hash
+	end
+
+	def best_season(team_id)
+	game_team_arr = @game_teams.find_all do |game|
+		game.team_id == team_id
+	end
+	season_record_hash = {}
+	game_team_arr.each do |game|
+		if season_record_hash[game.game_id[0..3]] == nil
+			season_record_hash[game.game_id[0..3]] = [game.result]
+		else
+			season_record_hash[game.game_id[0..3]] << game.result
+		end
+	end
+	win_counter = 0
+	best_win_percentage = 0
+	season_record_hash.each do |season, result|
+		 win_counter = result.count("WIN")
+		 win_percentage = (win_counter.to_f / result.count.to_f) * 100
+		 season_record_hash[season] = win_percentage
+		 if best_win_percentage < win_percentage
+			 best_win_percentage = win_percentage
+		 end
+	 end
+	 best_season = season_record_hash.select{|season, result| result == best_win_percentage}
+	 best_game = @games.find do |game|
+		  best_season.keys[0] == game.season[0..3]
+		end
+		best_game.season
+	end
+
+	def worst_season(team_id)
+	game_team_arr = @game_teams.find_all do |game|
+		game.team_id == team_id
+	end
+	season_record_hash = {}
+	game_team_arr.each do |game|
+		if season_record_hash[game.game_id[0..3]] == nil
+			season_record_hash[game.game_id[0..3]] = [game.result]
+		else
+			season_record_hash[game.game_id[0..3]] << game.result
+		end
+	end
+	win_counter = 0
+	worst_win_percentage = 100
+	season_record_hash.each do |season, result|
+		 win_counter = result.count("WIN")
+		 win_percentage = (win_counter.to_f / result.count.to_f) * 100
+		 season_record_hash[season] = win_percentage
+		 if worst_win_percentage > win_percentage
+			 worst_win_percentage = win_percentage
+		 end
+	 end
+	 worst_season = season_record_hash.select{|season, result| result == worst_win_percentage}
+	 worst_game = @games.find do |game|
+			worst_season.keys[0] == game.season[0..3]
+		end
+		worst_game.season
+	end
+
+	def team_name_by_id(team_id)
+	 	name = ""
+		@teams.find_all do |team|
+			if team.team_id == team_id
+				 name << team.team_name
+		  end
+		end
+		name
+	end
+
+	def tackles_by_id(team_id)
+		tackles_hash = {}
+		game_team_id = @game_teams.find_all do |gameteam|
+			 gameteam.team_id == team_id
+		 end
+		 game_team_id.each do |game|
+			if tackles_hash[game.team_id] == nil
+	 			tackles_hash[game.team_id] = [game.tackles.to_i]
+	 		else
+	 			tackles_hash[game.team_id] << game.tackles.to_i
+	  	end
+		 end
+			tackles_hash
+	end
+
+	def game_id_to_season(game_id)
+		season = ""
+		@games.find do |game|
+			if game_id[0..3] == game.season[0..3]
+				season << game.season
+			end
+		end
+		season
+	end
+
+	def most_tackles(season_id)
+		game_season = []
+		@game_teams.each do |game|
+			if season_id[0..3] == game.game_id[0..3]
+				game_season << game
+			end
+		end
+		tackles_hash = {}
+ 		game_season.each do |game|
+			if tackles_hash[game.team_id] == nil
+				tackles_hash[game.team_id] = game.tackles.to_i
+			else
+				tackles_hash[game.team_id] += game.tackles.to_i
+			end
+		end
+		tackle_id = tackles_hash.sort_by{|team_id, tackles| tackles}.last[0] #first
+		team_name_by_id(tackle_id)
+	end
+
+	def least_tackles(season_id)
+		game_season = []
+		@game_teams.each do |game|
+			if season_id[0..3] == game.game_id[0..3]
+				game_season << game
+			end
+		end
+		tackles_hash = {}
+ 		game_season.each do |game|
+			if tackles_hash[game.team_id] == nil
+				tackles_hash[game.team_id] = game.tackles.to_i
+			else
+				tackles_hash[game.team_id] += game.tackles.to_i
+			end
+		end
+		tackle_id = tackles_hash.sort_by{|team_id, tackles| tackles}.first[0]
+		team_name_by_id(tackle_id)
+	end
+
+	def average_win_percentage(team_id)
+		games_by_team_arr = @game_teams.find_all do |game|
+			 game.team_id == team_id
+		end
+		results_arr = []
+		games_by_team_arr.each do |games|
+			results_arr << games.result
+		end
+		wins = results_arr.count("WIN")
+		win_percentage = (wins.to_f / results_arr.count.to_f) * 100
+		return win_percentage
 	end
 
 	def best_offense
@@ -445,23 +603,6 @@ include GameModule
 	def lowest_scoring_visitor
 		average_visitor_scores.invert.min.last
 	end
+
 end
 
-# def highest_scoring_visitor
-# 	away_team_goals_hash = {}
-# 	away_team_num_of_games = {}
-# 	@games.each do |game|
-# 		if away_team_goals_hash.key?(game.away_team_id) == false
-# 			away_team_goals_hash[game.away_team_id] = game.away_goals
-# 			away_team_num_of_games[game.away_team_id] = 1
-# 		else
-# 			away_team_goals_hash[game.away_team_id] += game.away_goals
-# 			away_team_num_of_games[game.away_team_id] += 1
-# 		end
-# 	end
-# 	average_goals_per_team = {}
-# 	away_team_goals_hash.each do |key, value|
-# 		average_goals_per_team[key] = value.to_f/away_team_num_of_games[key]
-# 	end
-# 	average_goals_per_team
-# end
