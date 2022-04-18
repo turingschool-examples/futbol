@@ -42,7 +42,7 @@ RSpec.describe StatTracker do
                       "25", "13", "18", "10", "29", "52", "54", "1", "23",
                       "12", "27", "7", "22", "53"
                     ]
-    expect(@stat_tracker.all_games_by_team.keys).to eq(expected_array)
+    expect(@stat_tracker.games_by_team(nil).keys).to eq(expected_array)
   end
 
   it "returns a hash of the average number of goals scored across all games for each team" do
@@ -64,7 +64,7 @@ RSpec.describe StatTracker do
                       "6" => 2.2627450980392156, "7" => 1.8362445414847162,
                       "8" => 2.0461847389558234, "9" => 2.105476673427992
                     }
-    expect(@stat_tracker.all_average_score_by_team).to eq(expected_hash)
+    expect(@stat_tracker.average_score_by_team(nil)).to eq(expected_hash)
   end
 
   it "returns the name of the team with best offense" do
