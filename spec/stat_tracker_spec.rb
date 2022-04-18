@@ -318,9 +318,9 @@ end
     expect(@stat_tracker.highest_scoring_home_team). to eq("FC Dallas")
   end
 
-
-
-
+  it 'can retrieve lowest avg score per home game across all seasons' do
+    expect(@stat_tracker.lowest_scoring_home_team). to eq("Sporting Kansas City")
+  end
 
 
 
