@@ -503,6 +503,17 @@ class StatTracker
     end
   end
 
+  def team_average_number_of_goals_per_home_game(team_id)#helper method to average home scores for home teams
+    home_game_count = 0
+    home_game_score = 0
+    @games.each do |row|
+      if row[:home_team_id].to_i == team_id.to_i
+        home_game_count += 1
+        home_game_score += row[:home_goals].to_i
+      end
+    end
+    home_game_score.to_f / home_game_count.to_f
+  end
 
 
 
