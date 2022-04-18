@@ -480,27 +480,27 @@ class StatTracker
     end
   end
 
+  def lowest_scoring_visitor
+    away_goals_hash = {}
+    away_games_hash = {}
+    away_avg_hash = {}
+    teams_hash = {}
 
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
 
+    @teams.each do |row|
+      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    end
+    # require'pry';binding.pry
+    away_avg_hash.each do |k, v|
+      if v == away_avg_hash.values.min
+        return teams_hash[k]
+      end
+    end
+  end
 
 
 
