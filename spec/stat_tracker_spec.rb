@@ -310,6 +310,9 @@ end
     expect(@stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
   end
 
+  it 'can retrieve lowest scoring visitor' do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Houston Dynamo")
+  end
 
 
 
@@ -320,9 +323,6 @@ end
 
 
 
-
-
-# Ensuring this line stays on 325
 
 
 
@@ -398,7 +398,6 @@ end
 
 
 #STEPHEN
-
   it 'counts the total number of teams in the data' do
     expect(@stat_tracker.count_of_teams).to eq(9)
   end
