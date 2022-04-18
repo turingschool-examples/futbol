@@ -85,6 +85,32 @@ class StatTracker
     best[0]
   end
 
+  def most_goals_scored(team_id)
+    # @game_teams.goals_array(team_id).max
+    max_goals = Hash.new
+    goals_by_id = Array.new
+    binding.pry
+    @game_teams.each do |row|
+      team_hash = row.to_h
+      max_goals[team_hash[:team_id]] = goals_by_id
+      if team_hash[:team_id] == team_id
+        goals_by_id << team_hash[:goals]
+      end
+    end
+    max_goals[team_id].max
+
+
+
+    # max_goals = Hash.new
+    # goals_by_id = Array.new
+    #
+    # game_teams.gt_by_id(team_id).find_all
+    #   max_goals[team_id] = goals_by_id
+    #   goals_by_id << game_teams.gt_by_id(team_id)[:goals]
+    #   max_goals[team_id].max.to_i
+    end
+  end
+
   # Start Game Statistics methods
   def highest_total_score
     @games.total_scores.max
@@ -118,4 +144,4 @@ class StatTracker
     @games.games_by_season_hash[:average_goals]
   end
   # End Game Statistics methods
-end
+# end

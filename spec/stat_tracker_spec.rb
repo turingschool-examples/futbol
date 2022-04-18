@@ -36,10 +36,14 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.team_info(4)).to eq(expected)
   end
 
-  xit 'shows the season with the highest win percentage for a team' do
+  it 'shows the season with the highest win percentage for a team' do
     #Need the win percentage method and be able to use the team_id
 
     expect(@stat_tracker.best_season(30)).to eq("20122013")
+  end
+
+  it 'will show the highest score of a particular team' do
+    expect(@stat_tracker.most_goals_scored(16)).to eq(4)
   end
 
   # Start Game Statistics methods
