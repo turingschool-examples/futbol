@@ -217,8 +217,33 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    opponent_stats = {}
-    #gather data from games.csv - away_team_id: wins/games_played --> helper method?
+    team_by_id = @game_teams.find_all do |team|
+      team.team_id == team_id
+    end
+    id_of_every_game_played = team_by_id.flat_map {|game_team| game_team.game_id}
+    opponents = @game_teams.find_all do |game_team|
+      id_of_every_game_played.include?(game_team.game_id) && game_team.team_id != team_id
+    end
+    teams_by_id = opponents.group_by {|opponent| opponent.team_id}
+    # require 'pry'; binding.pry
+    opposing_win = 0.0
+    teams_by_id.each do |team_id, game_teams|
+      game_teams.each do |game_team|
+        if game_team.result == 'WIN'
+          opposing_win += 1
+        end
+      end
+      opposing_win_percentage = opposing_win / game_teams.count
+      teams_by_id[team_id] = opposing_win_percentage
+      opposing_win = 0.0 
+    end
+    favorite = teams_by_id.min_by {|team_id, win_percentage| win_percentage}[0]
+    @teams.each do |team| 
+      if team.team_id.include?(favorite) 
+        return team.team_name
+      end
+    end
     # require 'pry'; binding.pry
   end
+
 end
