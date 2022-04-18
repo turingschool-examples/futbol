@@ -474,8 +474,8 @@ class StatTracker
     end
     # require'pry';binding.pry
     away_avg_hash.each do |k, v|
-      if v == away_avg_hash.values.max
-        return teams_hash[k]
+      if v == away_avg_hash.values.max # nil error
+        return teams_hash[k] # might work with larger data set, not sample data
       end
     end
   end
@@ -496,12 +496,12 @@ class StatTracker
     end
     # require'pry';binding.pry
     away_avg_hash.each do |k, v|
-      if v == away_avg_hash.values.min
-        return teams_hash[k]
+      # require'pry';binding.pry
+      if v == away_avg_hash.values.min # nil error
+        return teams_hash[k] # might work with larger data set, not sample data
       end
     end
   end
-
 
 
 
