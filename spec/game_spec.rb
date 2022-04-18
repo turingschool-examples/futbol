@@ -73,6 +73,41 @@ RSpec.describe Game do
         expect(@game2.venue_link).to eq("/api/v1/venues/null")
         expect(@game3.venue_link).to eq("/api/v1/venues/null")
     end
+
+    it "tells you the highest total score" do
+
+    end
+
+    it "tells you the lowest total score" do
+
+    end
+
+    it "tells you the percentage of home wins" do
+
+    end
+
+    it "tells you the percentage of visitor wins" do
+
+    end
+
+    it "tell you the percentage of ties" do
+
+    end
+
+    it "tells you the count of games by season" do
+
+    end
+
+    it "tells you the average goals per game" do
+
+    end
+
+    it "tells you the average goals per season" do
+
+    end
+
+    
 end
+
 
 #Game Stats Tests

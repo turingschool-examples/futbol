@@ -71,7 +71,7 @@ RSpec.describe StatTracker do
     end
 
     describe 'Team Statistics' do
-      it '#team_info can put team info into a hash' do 
+      it '#team_info can put team info into a hash' do
         expected = {
           "team_id" => "1",
           "franchise_id" => "23",
@@ -91,11 +91,11 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.best_season("24")).to eq("20122013")
       end
 
-      it '#worst_season can determine the best season for a team' do 
+      it '#worst_season can determine the best season for a team' do
         expect(@stat_tracker.worst_season("24")).to eq("20132014")
       end
 
-      it '#average_win_percentage can determine the average wins of all games for a team' do 
+      it '#average_win_percentage can determine the average wins of all games for a team' do
         expect(@stat_tracker.average_win_percentage("3")).to eq(0.0)
       end
 
@@ -103,9 +103,23 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.most_goals_scored("3")).to eq(2)
       end
 
-      it '#fewest_goals_scored can find the lowest number of goals a team has scored in a game' do 
+      it '#fewest_goals_scored can find the lowest number of goals a team has scored in a game' do
 
-      end 
+      end
+
+    end
+
+    describe "Game statistics" do
+
+      it "can tell us the highest scoring game" do
+        expect(@stat_tracker.highest_total_score).to eq(6)
+      end
+
+      it "can tell us the lowest scoring game" do
+        expect(@stat_tracker.lowest_total_score).to eq(1)
+      end
+
+      it "can tell us how many games there were in a season" do
     end
 
 end

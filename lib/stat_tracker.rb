@@ -29,11 +29,39 @@ class StatTracker
     highest_sum = 0
     @games.each do |game|
       sum = game.away_goals.to_i + game.home_goals.to_i
-      #require 'pry'; binding.pry
       highest_sum = sum if sum > highest_sum
     end
     highest_sum
   end
+
+  def lowest_total_score
+    lowest_sum = 0
+    @games.map! do |game|
+      sum = game.away_goals.to_i + game.home_goals.to_i
+    end
+    # require 'pry'; binding.pry
+    @games.min
+  end
+
+  def percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+  end
+
+  def percentage_ties
+  end
+
+  def count_of_games_by_season
+    @games.season.count
+  end
+
+  def average_goals_per_game
+  end
+
+  def average_goals_by_season
+  end
+
 
 # League Statistics
   def count_of_teams
@@ -281,7 +309,7 @@ class StatTracker
         }
       end
     end
-    team_hash 
+    team_hash
   end
 
   def season_games(game_id)
