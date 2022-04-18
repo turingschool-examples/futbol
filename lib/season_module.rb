@@ -1,5 +1,5 @@
 require './required_files'
 
-module TeamModule
+module SeasonModule
 
 end

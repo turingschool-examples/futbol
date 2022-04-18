@@ -1,7 +1,11 @@
 require './required_files'
 
 class StatTracker
+include TeamModule
 include GameModule
+include LeagueModule
+include SeasonModule
+
 	attr_reader :games, :teams, :game_teams
 
 	def initialize(games_hash, teams_hash, game_teams_hash)
@@ -38,8 +42,8 @@ include GameModule
 			season = row[:season]
 			type = row[:type]
 			date_time = row[:date_time]
-			away_team_id = row[:away_team_id]
-			home_team_id = row[:home_team_id]
+			away_team_id = row[:away_team_id].to_i
+			home_team_id = row[:home_team_id].to_i
 			away_goals = row[:away_goals].to_i
 			home_goals = row[:home_goals].to_i
 			venue = row[:venue]
@@ -617,119 +621,71 @@ include GameModule
 		 home_team_hash[team_id] = (scores.sum.to_f / scores.count.to_f).ceil(2)
 	 end
 	 home_team_hash
- end
-
-# highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.
-# create a hash of team_id as key and value (goals)
-
-
-
-	def average_visitor_scores
-		away_team_goals_hash = {}
-		@games.each do |game|
-			away_team_goals_hash[game.away_team_id] = average_away_goals_per_team(game.away_team_id)
-		end
-		away_team_goals_hash
 	end
 
-# 	def average_scores(arg)
-# 		if arg == "home"
-# 			team_id = home_team_id
-# 		else
-# 			team_id = away_team_id
-# 		end
-# 		team_goals_hash = {}
-# 		@games.each do |game|
-# 			team_goals_hash[game.team_id] = average_goals_per_team(game.team_id)
-# 		end
-# 		team_goals_hash
-# 	end
 
 
-# 	def average_goals_per_team(team_id)
-# 		goals = 0
-# 		games = 0
-# 		@games.each do |game|
-# 			if game.team_id == team_id
-# 				goals += game.goals
-# 				games += 1
-# 			end
-# 		end
-# 		goals / games.to_f
-# 	end
 
 	def highest_scoring_visitor
-		average_visitor_scores.invert.max.last
+		team_id = LeagueModule.average_visitor_scores(@games).invert.max.last
+		team_name_by_id(team_id.to_i)
 	end
 
 	def lowest_scoring_visitor
-		average_visitor_scores.invert.min.last
+		team_id = LeagueModule.average_visitor_scores(@games).invert.min.last
+		team_name_by_id(team_id.to_i)
 	end
 
+	def highest_scoring_home_team
+		team_id = LeagueModule.average_home_scores(@games).invert.max.last
+		team_name_by_id(team_id.to_i)
+	end
 
-	def average_away_goals_per_team(team_id)
-		goals = 0
-		games = 0
-		@games.each do |game|
-			if game.away_team_id == team_id
-				goals += game.away_goals
-				games += 1
+	def lowest_scoring_home_team
+		team_id = LeagueModule.average_home_scores(@games).invert.min.last
+		team_name_by_id(team_id.to_i)
+	end
+
+	def rival(team_name)
+		team_id = @teams.find{|team| team.team_name == team_name}.team_id
+		#find every GameTeam object for this team
+		game_info_for_team = @game_teams.find_all{|game_team| game_team.team_id == team_id}
+		#find every GameTeam object for all opponents of the team and associate them with team id in a hash
+		opponent_game_info = {}
+		game_info_for_team.each do |given_team|
+			opponent = @game_teams.find{|game_team| ((game_team.team_id != team_id) && (game_team.game_id == given_team.game_id))}
+			if opponent
+				if opponent_game_info[opponent.team_id]
+					opponent_game_info[opponent.team_id] << opponent
+				else
+					opponent_game_info[opponent.team_id] = [opponent]
+				end
 			end
 		end
-		goals / games.to_f
-	end
-
-	def highest_scoring_visitor
-		average_visitor_scores.invert.max.last
-	end
-
-	def lowest_scoring_visitor
-		average_visitor_scores.invert.min.last
-	end
-
-
-		def rival(team_name)
-			team_id = @teams.find{|team| team.team_name == team_name}.team_id
-			#find every GameTeam object for this team
-			game_info_for_team = @game_teams.find_all{|game_team| game_team.team_id == team_id}
-			#find every GameTeam object for all opponents of the team and associate them with team id in a hash
-			opponent_game_info = {}
-			game_info_for_team.each do |given_team|
-				opponent = @game_teams.find{|game_team| ((game_team.team_id != team_id) && (game_team.game_id == given_team.game_id))}
-				if opponent
-					if opponent_game_info[opponent.team_id]
-						opponent_game_info[opponent.team_id] << opponent
-					else
-						opponent_game_info[opponent.team_id] = [opponent]
-					end
-				end
+		#calculate win percentage for each team in opponent_game_info_hash
+		opponent_win_percentage = {}
+		lowest_win_percentage = 0
+		opponent_game_info.each do |team_id, game_teams|
+			wins_losses = []
+			game_teams.each do |game_team|
+				wins_losses << game_team.result
 			end
-			#calculate win percentage for each team in opponent_game_info_hash
-			opponent_win_percentage = {}
-			lowest_win_percentage = 0
-			opponent_game_info.each do |team_id, game_teams|
-				wins_losses = []
-				game_teams.each do |game_team|
-					wins_losses << game_team.result
-				end
-				win_percentage = (wins_losses.count("WIN"
-				).to_f / wins_losses.count.to_f) * 100
-				if win_percentage > lowest_win_percentage
-					lowest_win_percentage = win_percentage
-				end
-				opponent_win_percentage[team_id] = win_percentage
+			win_percentage = (wins_losses.count("WIN"
+			).to_f / wins_losses.count.to_f) * 100
+			if win_percentage > lowest_win_percentage
+				lowest_win_percentage = win_percentage
 			end
-			fav_opponent_id = nil
-			opponent_win_percentage.each do |id, win|
-				if win == lowest_win_percentage
-					fav_opponent_id = id
-					break
-				end
+			opponent_win_percentage[team_id] = win_percentage
+		end
+		fav_opponent_id = nil
+		opponent_win_percentage.each do |id, win|
+			if win == lowest_win_percentage
+				fav_opponent_id = id
+				break
 			end
-			#find the name associated with the id for fav_opponent
-			fav_opponent_team = @teams.find{|team| team.team_id == fav_opponent_id}
-			return fav_opponent_team.team_name
-
+		end
+		#find the name associated with the id for fav_opponent
+		fav_opponent_team = @teams.find{|team| team.team_id == fav_opponent_id}
+		return fav_opponent_team.team_name
 		end
 	end
-
