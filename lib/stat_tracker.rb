@@ -106,6 +106,7 @@ class StatTracker
     total_goals = @games.map {|game| game.away_goals + game.home_goals}
     average = total_goals.sum.to_f / @games.count
     average.round(2)
+  end
 
   ## TEAM STATISTICS
 
@@ -245,7 +246,7 @@ class StatTracker
       end
     end
     return (wins / total_games_played.count).round(2) / 2
-
+  end
 ####### SEASON STATISTICS : All methods return Strings - Team Name || Head Coach
 
 ## Find season from games
@@ -445,4 +446,5 @@ class StatTracker
     end
     average_goals
   end
+
 end
