@@ -197,6 +197,56 @@ class StatTracker
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   #C O O O O O O O O O O O O LIN
   def average_goals_per_game
     goals = []
@@ -312,6 +362,41 @@ class StatTracker
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   # T H I A G O O O O O O O A L L L L L
   def winningest_coach#.(season) not implemented yet
     results = @game_teams[:result]
@@ -337,7 +422,6 @@ class StatTracker
     win_list.key(win_list.values.max)
   end
 
-
   def worst_coach
     results = @game_teams[:result]
     coaches = @game_teams[:head_coach]
@@ -362,7 +446,6 @@ class StatTracker
     loss_list.key(loss_list.values.min)
   end
 
-
   def team_average_number_of_goals_per_away_game(team_id)#helper method to average away score for visitors
     away_game_count = 0
     away_game_score = 0
@@ -374,6 +457,73 @@ class StatTracker
     end
     away_game_score.to_f / away_game_count.to_f
   end
+
+  def highest_scoring_visitor
+    away_goals_hash = {}
+    away_games_hash = {}
+    away_avg_hash = {}
+    teams_hash = {}
+
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+
+    @teams.each do |row|
+      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))
+
+    end
+    # require'pry';binding.pry
+    away_avg_hash.each do |k, v|
+      if v == away_avg_hash.values.max
+        return teams_hash[k]
+      end
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
