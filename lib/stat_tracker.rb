@@ -469,8 +469,7 @@ class StatTracker
     end
 
     @teams.each do |row|
-      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))
-
+      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))\
     end
     # require'pry';binding.pry
     away_avg_hash.each do |k, v|
@@ -492,7 +491,6 @@ class StatTracker
 
     @teams.each do |row|
       away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))
-
     end
     # require'pry';binding.pry
     away_avg_hash.each do |k, v|
@@ -527,27 +525,39 @@ class StatTracker
 
     @teams.each do |row|
       home_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_home_game(row[:team_id]))
-
     end
     # require'pry';binding.pry
     home_avg_hash.each do |k, v|
       # require'pry';binding.pry
       if v == home_avg_hash.values.max
-        return teams_hash[k]
+        return teams_hash[k] # should work with larger data set, not sample data
       end
     end
-
   end
 # Description: Name of the team with the highest average score per game across all seasons when they are home.
 
+  def lowest_scoring_home_team
+    home_goals_hash = {}
+    home_games_hash = {}
+    home_avg_hash = {}
+    teams_hash = {}
 
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
 
-
-
-
-
-
-
+    @teams.each do |row|
+      home_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_home_game(row[:team_id]))
+    end
+    # require'pry';binding.pry
+    home_avg_hash.each do |k, v|
+      # require'pry';binding.pry
+      if v == home_avg_hash.values.min
+        return teams_hash[k] # should work with larger data set, not sample data
+      end
+    end
+  end
+# Description: Name of the team with the lowest average score per game across all seasons when they are at home.
 
 
 
