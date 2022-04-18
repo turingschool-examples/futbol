@@ -197,59 +197,6 @@ describe StatTracker do
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #COLIN
 it 'find the average goals per game' do
   # require 'pry'; bind!ing.pry
@@ -267,7 +214,6 @@ end
 it 'shows the team with the most tackles in a given season' do
   expect(@stat_tracker.most_tackles(20122013)).to eq("Houston Dynamo")
 end
-
 
 it 'shows the team with the fewest tackles in a given season' do
   expect(@stat_tracker.fewest_tackles(20122013)).to eq("FC Dallas")
@@ -351,34 +297,18 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #THIAGO
   it 'can return name of coach with best win percentage based on season' do #.(season) not implemented yet
     expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
   end
+
   it 'can return name of coach with worst win percentage based on season' do #.(season) not implemented yet
     expect(@stat_tracker.worst_coach).to eq("John Tortorella")
   end
 
-
-
-
-
+  it 'can retrieve highest scoring visitor' do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
+  end
 
 
 
@@ -496,92 +426,5 @@ end
   it 'can return the worst season for a team' do
     expect(@stat_tracker.worst_season("6")).to eq("20122013")
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 end
