@@ -120,6 +120,8 @@ RSpec.describe StatTracker do
       end
 
       it "can tell us how many games there were in a season" do
+
+      end
     end
 
 end
