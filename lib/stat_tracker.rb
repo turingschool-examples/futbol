@@ -177,7 +177,7 @@ class StatTracker
       games_by_season[season] = win_percentage
       win_tracker = 0.0
     end
-    highest = games_by_season.min_by {|season, percentage| percentage}[0]
+    lowest = games_by_season.min_by {|season, percentage| percentage}[0]
   end
 
   def average_win_percentage(team_id)
@@ -239,7 +239,7 @@ class StatTracker
     end
     favorite = teams_by_id.min_by {|team_id, win_percentage| win_percentage}[0]
     @teams.each do |team| 
-      if team.team_id.include?(favorite) 
+      if team.team_id.include?(favorite)
         return team.team_name
       end
     end
@@ -255,6 +255,7 @@ class StatTracker
       id_of_every_game_played.include?(game_team.game_id) && game_team.team_id != team_id
     end
     teams_by_id = opponents.group_by {|opponent| opponent.team_id}
+    # require 'pry'; binding.pry
     opposing_win = 0.0
     teams_by_id.each do |team_id, game_teams|
       game_teams.each do |game_team|
@@ -264,14 +265,13 @@ class StatTracker
       end
       opposing_win_percentage = opposing_win / game_teams.count
       teams_by_id[team_id] = opposing_win_percentage
-      opposing_win = 0.0
+      opposing_win = 0.0 
     end
-    least_favorite = teams_by_id.max_by { |team_id, win_percentage| win_percentage }[0]
+    least_favorite = teams_by_id.max_by {|team_id, win_percentage| win_percentage}[0]
     @teams.each do |team|
       if team.team_id.include?(least_favorite)
         return team.team_name
       end
-      require 'pry'; binding.pry
     end
   end
 end
