@@ -44,6 +44,51 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
+  it 'can calculate lowest_total_score' do
+    expect(@stat_tracker.lowest_total_score).to eq(0)
+  end
+
+  it 'can calculate percentage_home_wins' do
+    expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+  end
+
+  it 'can calculate percentage_visitor_wins' do
+    expect(@stat_tracker.percentage_away_wins).to eq(0.36)
+  end
+
+  it 'can calculate percentage_ties' do
+    expect(@stat_tracker.percentage_ties).to eq(0.20)
+  end
+
+  it 'can calculate average_goals_by_season' do
+
+    expected = {
+    "20122013"=>4.12,
+    "20162017"=>4.23,
+    "20142015"=>4.14,
+    "20152016"=>4.16,
+    "20132014"=>4.19,
+    "20172018"=>4.44
+  }
+    expect(@stat_tracker.average_goals_by_season).to eq(expected)
+  end
+
+  it 'counts games by season' do
+    expected = {
+      "20122013"=>806,
+      "20162017"=>1317,
+      "20142015"=>1319,
+      "20152016"=>1321,
+      "20132014"=>1323,
+      "20172018"=>1355
+    }
+    expect(@stat_tracker.count_games_by_season).to eq(expected)
+  end
+
+  it 'calculates average goals per game' do
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+  end
+
   it 'can give me the winningest coach given a specific season' do
     expect(@stat_tracker.winningest_coach(20132014)).to eq("Claude Julien")
   end
@@ -51,7 +96,6 @@ RSpec.describe StatTracker do
   it 'gives me all the games given the season' do
     expect(@stat_tracker.games_by_season(20172018).count).to eq(1355)
   end
-
 
   it 'gives me all the game teams given the season' do
     expect(@stat_tracker.game_teams_by_season(20172018).count).to eq(2710)
@@ -99,6 +143,7 @@ RSpec.describe StatTracker do
   it 'counts total number of teams' do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
+
 
   it 'gives me a hash of shot percentages given a season' do
     expect(@stat_tracker.accuracy_hash(20172018)[28][2]).to eq(0.29614325068870523)

@@ -1,5 +1,8 @@
 require 'csv'
-
+require_relative 'game'
+require_relative 'team'
+require_relative 'game_team'
+#
 # game_data = CSV.open"./data/games.csv", headers: true, header_converters: :symbol
 
 class StatTracker
@@ -40,8 +43,17 @@ def read_game_teams(csv)
   game_teams_arr
 end
 
+  # def highest_total_score
+  #   @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
+  # end
+
   def highest_total_score
     @games.map {|game| game.away_goals + game.home_goals}.max
+  end
+
+  def lowest_total_score
+    # require 'pry'; binding.pry
+    @games.map {|game| game.away_goals + game.home_goals}.min
   end
 
   def games_by_season(season)
@@ -88,6 +100,96 @@ end
     return hash
   end
 
+  def win_tallies
+    game_results = Hash.new({:home_wins => 0, :home_losses => 0, :away_wins => 0, :away_losses => 0, :ties => 0})
+      @game_teams.each do |game|
+        if game.hoa == "home" && game.result == "WIN"
+          game_results[:game_data][:home_wins] += 1
+        elsif game.hoa == "home" && game.result == "LOSS"
+          game_results[:game_data][:home_losses] += 1
+        elsif game.hoa == "away" && game.result == "WIN"
+          game_results[:game_data][:away_wins] += 1
+        elsif game.hoa == "away" && game.result == "LOSS"
+          game_results[:game_data][:away_losses] += 1
+        elsif game.hoa == "home" && game.result == "TIE"
+          game_results[:game_data][:ties] += 1
+        elsif game.hoa == "away" && game.result == "TIE"
+          game_results[:game_data][:ties] += 1
+        end
+      end
+      # require "pry"; binding.pry
+      game_results
+  end
+
+  def percentage_home_wins
+    total_home_games = win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses]
+    percentage_home_wins = (win_tallies[:game_data][:home_wins]/total_home_games.to_f).round(2)
+  end
+
+  def percentage_away_wins
+    total_away_games = win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses]
+    percentage_away_wins = (win_tallies[:game_data][:away_wins]/total_away_games.to_f).round(2)
+  end
+
+  def percentage_ties
+    total_games = win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses] +
+    win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses] + win_tallies[:game_data][:ties]
+    percentage_ties = (win_tallies[:game_data][:ties]/total_games.to_f).round(2)
+  end
+
+  def seasons_unique
+      seasons = @games.map { |game| game.season}.uniq
+  end
+
+  def count_games_by_season
+    games_per_season = {}
+    seasons_unique.each do |season|
+      count = 0
+      @games.each do |game|
+        if season == game.season
+          count += 1
+          games_per_season[season.to_s] = count
+        end
+      end
+    end
+    games_per_season
+  end
+
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    seasons_unique.each do |season|
+      count = 0
+      @games.each do |game|
+        if season == game.season
+          count += 1
+        end
+      end
+
+      @games.each do |game|
+        if season == game.season
+          goals_by_season[season.to_s] += game.away_goals + game.home_goals
+        end
+      end
+      goals_by_season[season.to_s] = (goals_by_season[season.to_s]/count.to_f).round(2)
+    end
+    # require "pry"; binding.pry
+    goals_by_season
+  end
+
+  def average_goals_per_game
+    all_goals = 0.00
+      @games.each do |game|
+        all_goals += game.away_goals + game.home_goals
+      end
+
+    all_games = 0.00
+      count_games_by_season.each do |k,v|
+        all_games += v
+      end
+
+    average = (all_goals / all_games).round(2)
+  end
+
   def win_percentage_by_coach(coaching_hash)
     coaching_hash.keys.map do |key|
       total_games = coaching_hash[key][0] + coaching_hash[key][1]
@@ -95,7 +197,6 @@ end
     end
     return coaching_hash
   end
-
 
   def winningest_coach(season)
     season_game_teams = game_teams_by_season(season)
@@ -129,6 +230,7 @@ end
     end
     hash
   end
+  # require "pry"; binding.pry
 
   def most_accurate_team(season)
     accurate_team_id = accuracy_hash(season).max_by do |team|
@@ -170,7 +272,6 @@ end
   def count_of_teams
     @teams.count
   end
-
 
   def best_season(id)
     team_games = game_teams_by_team(id.to_i)
