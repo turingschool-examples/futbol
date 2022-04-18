@@ -13,17 +13,17 @@ module TeamStatistics
   end
 
   def best_season(team_id)
-    seasons = count_season_wins(@games, team_id)
-    seasons.max_by { |_season, wins| wins }[0]
+    season = count_season_wins(team_id).max_by { |_season, wins| wins }[0]
+    season + (season.to_i + 1).to_s
   end
 
   def worst_season(team_id)
-    seasons = count_season_wins(@games, team_id)
-    seasons.min_by { |_season, wins| wins }[0]
+    season = count_season_wins(team_id).min_by { |_season, wins| wins }[0]
+    season + (season.to_i + 1).to_s
   end
 
   def average_win_percentage(team_id)
-    seasons = count_season_wins(@games, team_id)
+    seasons = count_season_wins(team_id)
     total_games_per_season = @games.count do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end / seasons.length
@@ -31,26 +31,10 @@ module TeamStatistics
     percentage.round(2)
   end
 
-  def count_season_wins(games, team_id)
-    seasons = {}
-    games.each do |game|
-      if game.home_team_id == team_id
-        if game.home_goals > game.away_goals
-          if seasons[game.season].nil?
-            seasons[game.season] = 1
-          else
-            seasons[game.season] += 1
-          end
-        end
-      elsif game.away_team_id == team_id
-        if game.home_goals < game.away_goals
-          if seasons[game.season].nil?
-            seasons[game.season] = 1
-          else
-            seasons[game.season] += 1
-          end
-        end
-      end
+  def count_season_wins(team_id)
+    seasons = Hash.new(0)
+    @game_teams.each do |game|
+      seasons[game.game_id[0..3]] += 1 if game.team_id == team_id && game.result == 'WIN'
     end
     seasons
   end
@@ -66,80 +50,36 @@ module TeamStatistics
   end
 
   def favorite_opponent(team_id)
-    wins = count_wins_against_opponent(@games, team_id)
-    losses = count_losses_against_opponent(@games, team_id)
-    percentages = []
-    wins.each do |team, win|
-      percentages << if losses[team].nil?
-                       [team, win]
-                     else
-                       [team, win / losses[team]]
-                     end
-    end
-    favorite_team_id = percentages.max_by { |team| team[1] }[0]
-    @teams.find { |team| team.team_id == favorite_team_id }.team_name
+    team_id_to_name(win_ratio_hasher(team_id).last[0])
   end
 
   def rival(team_id)
-    wins = count_wins_against_opponent(@games, team_id)
-    losses = count_losses_against_opponent(@games, team_id)
-    percentages = []
-    losses.each do |team, loss|
-      percentages << if wins[team].nil?
-                       [team, loss]
-                     else
-                       [team, loss / wins[team]]
-                     end
-    end
-    favorite_team_id = percentages.max_by { |team| team[1] }[0]
-    @teams.find { |team| team.team_id == favorite_team_id }.team_name
+    team_id_to_name(win_ratio_hasher(team_id).first[0])
   end
 
-  def count_wins_against_opponent(games, team_id)
-    opponents = {}
+  def opponent_hasher(team_id, outcome)
+    opponents = Hash.new(0)
+    game_ids = @game_teams.find_all do |game|
+                 game.team_id == team_id && game.result == outcome
+               end.map { |game| [game.game_id] }.flatten
+    games = game_ids.map { |game_id| @games.find { |game| game.game_id == game_id } }
     games.each do |game|
-      if game.home_team_id == team_id
-        if game.home_goals > game.away_goals
-          if opponents[game.away_team_id].nil?
-            opponents[game.away_team_id] = 1
-          else
-            opponents[game.away_team_id] += 1
-          end
-        end
-      elsif game.away_team_id == team_id
-        if game.home_goals < game.away_goals
-          if opponents[game.home_team_id].nil?
-            opponents[game.home_team_id] = 1
-          else
-            opponents[game.home_team_id] += 1
-          end
-        end
-      end
+      game.home_team_id == team_id ? (opponents[game.away_team_id] += 1) : (opponents[game.home_team_id] += 1)
     end
     opponents
   end
 
-  def count_losses_against_opponent(games, team_id)
-    opponents = {}
-    games.each do |game|
-      if game.home_team_id == team_id
-        if game.home_goals < game.away_goals
-          if opponents[game.away_team_id].nil?
-            opponents[game.away_team_id] = 1
-          else
-            opponents[game.away_team_id] += 1
-          end
-        end
-      elsif game.away_team_id == team_id
-        if game.home_goals > game.away_goals
-          if opponents[game.home_team_id].nil?
-            opponents[game.home_team_id] = 1
-          else
-            opponents[game.home_team_id] += 1
-          end
-        end
-      end
+  def win_ratio_hasher(team_id)
+    new = {}
+    wins = opponent_hasher(team_id, 'WIN')
+    losses = opponent_hasher(team_id, 'LOSS')
+    wins.each do |team, wins|
+      new[team] = wins / (wins.to_f + losses[team])
     end
-    opponents
+    new.sort_by { |_team, percentage| percentage }
+  end
+
+  def team_id_to_name(id)
+    @teams.find { |team| team.team_id == id }.team_name
   end
 end
