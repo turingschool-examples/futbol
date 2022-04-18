@@ -1,3 +1,5 @@
+require './required_files'
+
 class GameTeam
 
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach,
