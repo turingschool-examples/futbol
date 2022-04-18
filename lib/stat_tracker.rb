@@ -187,11 +187,12 @@ class StatTracker
     win_counter = 0.0
     win_loss_tracker = team_by_id.map {|team| team.result}
     win_loss_tracker.each do |result|
-      if result == ("WIN")
+      if result == ('WIN')
         win_counter += 1
       end
     end
-    win_counter / win_loss_tracker.count
+    percentage = win_counter / win_loss_tracker.count
+    percentage.round(2)
   end
 
   def most_goals_scored(team_id)
@@ -213,5 +214,11 @@ class StatTracker
       id.goals
     end
     highest_goals.sort.shift
+  end
+
+  def favorite_opponent(team_id)
+    opponent_stats = {}
+    #gather data from games.csv - away_team_id: wins/games_played --> helper method?
+    # require 'pry'; binding.pry
   end
 end
