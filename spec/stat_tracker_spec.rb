@@ -212,6 +212,51 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.games_in_season("2012")).to be_a(Array)
   end
 
+  it "creates a hash of games won/lost in a given season" do
+    expected_1 = {
+      "Joel Quenneville"=>47, "Ken Hitchcock"=>37,
+      "Patrick Roy"=>36, "Mike Yeo"=>37,
+      "Darryl Sutter"=>53, "Bruce Boudreau"=>49,
+      "Lindy Ruff"=>34, "John Tortorella"=>33,
+      "Adam Oates"=>22, "Claude Julien"=>54,
+      "Craig Berube"=>34, "Dan Bylsma"=>46,
+      "Claude Noel"=>13, "Todd McLellan"=>41,
+      "Randy Carlyle"=>22, "Dave Tippett"=>28,
+      "Peter DeBoer"=>31, "Todd Richards"=>38,
+      "Ted Nolan"=>13, "Jack Capuano"=>22,
+      "Paul MacLean"=>24, "Kevin Dineen"=>3,
+      "Peter Horachek"=>15, "Alain Vigneault"=>49,
+      "Bob Hartley"=>24, "Barry Trotz"=>31,
+      "Michel Therrien"=>44, "Mike Babcock"=>31,
+      "Jon Cooper"=>29, "Kirk Muller"=>31,
+      "Dallas Eakins"=>19, "Paul Maurice"=>12,
+      "Ron Rolston"=>2
+    }
+
+    expected_2 = {
+      "John Tortorella"=>27, "Dan Bylsma"=>20,
+      "Mike Babcock"=>21, "Joel Quenneville"=>17,
+      "Paul MacLean"=>23, "Michel Therrien"=>22,
+      "Mike Yeo"=>23, "Darryl Sutter"=>26,
+      "Ken Hitchcock"=>20, "Bruce Boudreau"=>17,
+      "Jack Capuano"=>23, "Adam Oates"=>25,
+      "Todd Richards"=>19, "Kirk Muller"=>19,
+      "Joe Sacco"=>27, "Ralph Krueger"=>22,
+      "Kevin Dineen"=>31, "Barry Trotz"=>26,
+      "Glen Gulutzan"=>23, "Bob Hartley"=>26,
+      "Ron Rolston"=>9, "Alain Vigneault"=>15,
+      "Lindy Ruff"=>7, "Todd McLellan"=>19,
+      "Randy Carlyle"=>18, "Peter DeBoer"=>18,
+      "Peter Laviolette"=>20, "Claude Julien"=>17,
+      "Jon Cooper"=>6, "Dave Tippett"=>16,
+      "Martin Raymond"=>1, "Claude Noel"=>19,
+      "Guy Boucher"=>8
+    }
+
+
+    expect(@stat_tracker.coach_results("WIN", "20132014")).to eq(expected_1)
+    expect(@stat_tracker.coach_results("LOSS", "20122013")).to eq(expected_2)
+  end
 
   it "checks winningest coach" do
 

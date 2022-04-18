@@ -286,37 +286,28 @@ class StatTracker
     teams.map { |team, count| [team,  count[:goals] / count[:shots]] }.sort_by { |team| team[1] }
   end
 
-  def winningest_coach(season)
-# Name of the Coach with the best win percentage for the season
-    winning_coaches = []
+  def coach_results(result, season)
+    coaches = []
     win_loss_hash = games_in_season(season).group_by { |win_loss| win_loss.result[0..].to_s}
-      win_loss_hash.each do |k, v|
-        if k == "WIN"
-          v.each do |coach|
-            winning_coaches << coach.head_coach
-          end
+    win_loss_hash.each do |k, v|
+      if k == result
+        v.each do |coach|
+          coaches << coach.head_coach
         end
       end
+    end
     coach_by_percent = Hash.new
-    winners = winning_coaches.group_by { |coach| coach[0..]}.transform_values { |v| v.count}
-    winners.to_a.sort_by { |number| number[1] }.last[0]
+    coach_hash = coaches.group_by { |coach| coach[0..]}.transform_values { |v| v.count}
+  end
+
+  def winningest_coach(season)
+# Name of the Coach with the best win percentage for the season
+    coach_results("WIN", season).to_a.sort_by { |number| number[1] }.last[0]
   end
 
   def worst_coach(season)
 # Name of the Coach with the worst win percentage for the season
-# Actually LEAST amount of losses
-    losing_coaches = []
-    win_loss_hash = games_in_season(season).group_by { |win_loss| win_loss.result[0..].to_s}
-      win_loss_hash.each do |k, v|
-        if k == "LOSS"
-          v.each do |coach|
-            losing_coaches << coach.head_coach
-          end
-        end
-      end
-    coach_by_percent = Hash.new
-    losers = losing_coaches.group_by { |coach| coach[0..]}.transform_values { |v| v.count}
-    losers.to_a.sort_by { |number| number[1] }.first[0]
+    coach_results("LOSS", season).to_a.sort_by { |number| number[1] }.first[0]
   end
 
   def most_accurate_team(season)
