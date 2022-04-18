@@ -1,6 +1,8 @@
 require './required_files'
+include LeagueModule
 
 describe StatTracker do
+
   before :each do
     @game_path = './data/dummy_games.csv'
     @team_path = './data/dummy_teams.csv'
@@ -110,13 +112,6 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-    it 'returns highest average scoring of home team' do
-      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
-    end
-
-    it 'returns lowest average scoring home team' do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("New York City FC")
-    end
 
     it 'creates a home goal hash' do
       expected = {6=>3.0,
@@ -143,23 +138,30 @@ describe StatTracker do
       expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
     end
 
-		it "can return the average score per game across all seasons when they are away" do
+    it 'returns highest average scoring of home team' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+    end
 
-			expect(@stat_tracker.average_visitor_scores).to be_a(Hash)
-			expect(@stat_tracker.average_visitor_scores['3']).to eq(1.75)
-			expect(@stat_tracker.average_visitor_scores['8']).to eq(2)
+    it 'returns lowest average scoring home team' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("New York City FC")
+    end
+
+		it "can return the average score per game across all seasons when they are away" do
+			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)).to be_a(Hash)
+			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)['3']).to eq(1.75)
+			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)['8']).to eq(2)
 		end
 
 		it "can return average away goals per team" do
-			expect(@stat_tracker.average_away_goals_per_team('3')).to eq(1.75)
+			expect(LeagueModule.average_away_goals_per_team('3', @stat_tracker.games)).to eq(1.75)
 		end
 
     it "returns the name of the team with the highest average score per game across all seasons when they are away" do
-      expect(@stat_tracker.highest_scoring_visitor).to eq('24')
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Real Salt Lake")
     end
 
     it "returns the name of the team with the lowest average score per game across all seasons when they are away" do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq('4')
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('Chicago Fire')
     end
   end
 
