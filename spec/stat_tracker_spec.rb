@@ -126,4 +126,12 @@ RSpec.describe StatTracker do
   it "gives us the average win percentage" do
     expect(@stat_tracker.average_win_percentage("6")).to eq(0.49)
   end
+
+  it "tells us a team's favorite opponent" do
+    expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+  end
+
+  it "tells us a team's rival" do
+    expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
+  end
 end
