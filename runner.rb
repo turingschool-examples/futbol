@@ -8,7 +8,7 @@ game_path = './data/games.csv'
 team_path = './data/teams.csv'
 
 game_teams_path = './data/game_teams.csv'
-game_teams_path = './data/games_teams_sample.csv'
+
 
 
 locations = {

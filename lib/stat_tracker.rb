@@ -1,9 +1,10 @@
 require 'csv'
+
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
 #
-# game_data = CSV.open"./data/games.csv", headers: true, header_converters: :symbol
+
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -21,38 +22,33 @@ class StatTracker
 
   def read_games(csv)
   games_arr = []
-  CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
-    games_arr << Game.new(row)
+    CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
+      games_arr << Game.new(row)
+    end
+    games_arr
   end
-  games_arr
-end
 
-def read_teams(csv)
-  teams_arr = []
-  CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
-    teams_arr << Team.new(row)
+  def read_teams(csv)
+    teams_arr = []
+    CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
+      teams_arr << Team.new(row)
+    end
+    teams_arr
   end
-  teams_arr
-end
 
-def read_game_teams(csv)
-  game_teams_arr = []
-  CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
-    game_teams_arr << GameTeam.new(row)
+  def read_game_teams(csv)
+    game_teams_arr = []
+    CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
+      game_teams_arr << GameTeam.new(row)
+    end
+    game_teams_arr
   end
-  game_teams_arr
-end
-
-  # def highest_total_score
-  #   @games.map {|game| game[:away_goals].to_i + game[:home_goals].to_i}.max
-  # end
 
   def highest_total_score
     @games.map {|game| game.away_goals + game.home_goals}.max
   end
 
   def lowest_total_score
-    # require 'pry'; binding.pry
     @games.map {|game| game.away_goals + game.home_goals}.min
   end
 
@@ -101,7 +97,7 @@ end
   end
 
   def win_tallies
-    game_results = Hash.new({:home_wins => 0, :home_losses => 0, :away_wins => 0, :away_losses => 0, :ties => 0})
+    game_results = Hash.new({:home_wins => 0, :home_losses => 0, :away_wins => 0, :away_losses => 0, :home_ties => 0, :away_ties => 0})
       @game_teams.each do |game|
         if game.hoa == "home" && game.result == "WIN"
           game_results[:game_data][:home_wins] += 1
@@ -112,29 +108,32 @@ end
         elsif game.hoa == "away" && game.result == "LOSS"
           game_results[:game_data][:away_losses] += 1
         elsif game.hoa == "home" && game.result == "TIE"
-          game_results[:game_data][:ties] += 1
+          game_results[:game_data][:home_ties] += 1
         elsif game.hoa == "away" && game.result == "TIE"
-          game_results[:game_data][:ties] += 1
+          game_results[:game_data][:away_ties] += 1
         end
       end
-      # require "pry"; binding.pry
       game_results
   end
 
   def percentage_home_wins
-    total_home_games = win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses]
+    total_home_games = (win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses] +
+      win_tallies[:game_data][:home_ties])
     percentage_home_wins = (win_tallies[:game_data][:home_wins]/total_home_games.to_f).round(2)
   end
 
   def percentage_away_wins
-    total_away_games = win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses]
+    total_away_games = (win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses] +
+    win_tallies[:game_data][:away_ties])
     percentage_away_wins = (win_tallies[:game_data][:away_wins]/total_away_games.to_f).round(2)
   end
 
   def percentage_ties
-    total_games = win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses] +
-    win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses] + win_tallies[:game_data][:ties]
-    percentage_ties = (win_tallies[:game_data][:ties]/total_games.to_f).round(2)
+    total_games = (win_tallies[:game_data][:home_wins] + win_tallies[:game_data][:home_losses] +
+    win_tallies[:game_data][:away_wins] + win_tallies[:game_data][:away_losses] + win_tallies[:game_data][:home_ties] +
+    win_tallies[:game_data][:away_ties])
+    percentage_ties = ((win_tallies[:game_data][:home_ties] +
+    win_tallies[:game_data][:away_ties])/total_games.to_f).round(2)
   end
 
   def seasons_unique
@@ -274,6 +273,14 @@ end
   end
 
   def best_season(id)
+    hash = win_percentage_by_team_id(id)
+      season_id = hash.max_by do |season|
+        season[1][2]
+      end[0].to_i
+      return  "#{season_id}#{season_id+1}"
+  end
+
+  def win_percentage_by_team_id(id)
     team_games = game_teams_by_team(id.to_i)
     hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
     # hash {wins => 0, games => 0, avg_win_pct => 0.to_f}
@@ -284,23 +291,11 @@ end
           hash[game.game_id.to_s[0..3]][2] = hash[game.game_id.to_s[0..3]][1]/hash[game.game_id.to_s[0..3]][0].to_f
         end
       end
-      season_id = hash.max_by do |season|
-        season[1][2]
-      end[0].to_i
-      # require "pry"; binding.pry
-      return  "#{season_id}#{season_id+1}"
+      hash
   end
 
   def worst_season(id)
-    team_games = game_teams_by_team(id.to_i)
-    hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
-      team_games.each do |game|
-        hash[game.game_id.to_s[0..3]][0]+=1
-        if game.result == "WIN"
-          hash[game.game_id.to_s[0..3]][1]+=1
-          hash[game.game_id.to_s[0..3]][2] = hash[game.game_id.to_s[0..3]][1]/hash[game.game_id.to_s[0..3]][0].to_f
-        end
-      end
+      hash = win_percentage_by_team_id(id)
       season_id = hash.min_by do |season|
         season[1][2]
       end[0].to_i
@@ -321,22 +316,20 @@ end
     team_games = game_teams_by_team(id.to_i)
     win_total = 0
     game_total = 0
-    # hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
       team_games.each do |game|
-        # hash[game.game_id][0]+=1
         game_total += 1
         if game.result == "WIN"
           win_total += 1
         end
       end
-      # require "pry"; binding.pry
-      return (win_total/game_total.to_f).round(2)
+    return (win_total/game_total.to_f).round(2)
+  end
+
+  def games_by_team(team_id)
+    @games.select do |game|
+      game.home_team_id == team_id.to_i || game.away_team_id == team_id.to_i
     end
-    def games_by_team(team_id)
-      @games.select do |game|
-        game.home_team_id == team_id.to_i || game.away_team_id == team_id.to_i
-      end
-    end
+  end
 
   def favorite_opponent(id)
     hash = Hash.new{|h,k| h[k] = [0,0,0.to_f] }
@@ -386,7 +379,8 @@ end
       team[1][2]
     end[0]
     return team_name(rival_id)
-    
+  end
+
   def avg_total_goals(team_id, hoa = nil)
     goals = []
     @game_teams.each do |game|
@@ -437,7 +431,5 @@ end
   def lowest_scoring_home_team
     worst_offense("home")
   end
+
 end
-# --- PS NOTES --- #
-# hash {wins => 0, games => 0, avg_win_pct => 0.to_f}  --- < Better way to
-# label key value pairs vs line's 176's less readable way
