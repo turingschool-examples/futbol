@@ -185,7 +185,7 @@ describe StatTracker do
     it 'calculates team with least tackles in season' do
       expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
     end
-  
+
      it 'can determine winningest coach for a season' do
       expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
     end
@@ -200,7 +200,7 @@ describe StatTracker do
 
     it 'can determine team with worst ratio of shots to goals for the season' do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq "New England Revolution"
-
+    end
 
     it 'can count the total number of teams' do
       expect(@stat_tracker.count_of_teams).to eq 32
@@ -281,7 +281,7 @@ describe StatTracker do
     end
 
     it "can name opponent with the highest win percentage aganist a given team" do
-      expect(@stat_tracker.rival(16)).to eq "FC Dallas"
+      expect(@stat_tracker.rival("New England Revolution")).to eq "LA Galaxy"
 
     end
 
