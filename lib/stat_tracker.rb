@@ -1,7 +1,11 @@
 require './required_files'
 
 class StatTracker
+include TeamModule
 include GameModule
+include LeagueModule
+include SeasonModule
+
 	attr_reader :games, :teams, :game_teams
 
 	def initialize(games_hash, teams_hash, game_teams_hash)
@@ -619,63 +623,26 @@ include GameModule
 	 home_team_hash
 	end
 
-	def average_visitor_scores
-		away_team_goals_hash = {}
-		@games.each do |game|
-			away_team_goals_hash[game.away_team_id] = average_away_goals_per_team(game.away_team_id)
-		end
-		away_team_goals_hash
-	end
 
-	def average_away_goals_per_team(team_id)
-		goals = 0
-		games = 0
-		@games.each do |game|
-			if game.away_team_id == team_id
-				goals += game.away_goals
-				games += 1
-			end
-		end
-		goals / games.to_f
-	end
+
 
 	def highest_scoring_visitor
-		team_id = average_visitor_scores.invert.max.last
+		team_id = LeagueModule.average_visitor_scores(@games).invert.max.last
 		team_name_by_id(team_id.to_i)
 	end
 
 	def lowest_scoring_visitor
-		team_id = average_visitor_scores.invert.min.last
+		team_id = LeagueModule.average_visitor_scores(@games).invert.min.last
 		team_name_by_id(team_id.to_i)
 	end
 
-	def average_home_scores
-		home_team_goals_hash = {}
-		@games.each do |game|
-			home_team_goals_hash[game.home_team_id] = average_home_goals_per_team(game.home_team_id)
-		end
-		home_team_goals_hash
-	end
-
-	def average_home_goals_per_team(team_id)
-		goals = 0
-		games = 0
-		@games.each do |game|
-			if game.home_team_id == team_id
-				goals += game.home_goals
-				games += 1
-			end
-		end
-		goals / games.to_f
-	end
-
 	def highest_scoring_home_team
-		team_id = average_home_scores.invert.max.last
+		team_id = LeagueModule.average_home_scores(@games).invert.max.last
 		team_name_by_id(team_id.to_i)
 	end
 
 	def lowest_scoring_home_team
-		team_id = average_home_scores.invert.min.last
+		team_id = LeagueModule.average_home_scores(@games).invert.min.last
 		team_name_by_id(team_id.to_i)
 	end
 
