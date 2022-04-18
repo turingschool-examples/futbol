@@ -6,9 +6,10 @@ require 'csv'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
+
 game_teams_path = './data/game_teams.csv'
-# runner.rb
-#What is the above?
+game_teams_path = './data/games_teams_sample.csv'
+
 
 locations = {
   games: game_path,
