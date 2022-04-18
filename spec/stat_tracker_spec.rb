@@ -118,14 +118,13 @@ describe StatTracker do
 
     it "can return the most goals scored by a team in a single game" do
       expect(@stat_tracker.most_goals_scored(26)).to eq 3
-
     end
 
     it "can return the fewest amount of goals scored by a team in a single game" do
       expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
     end
 
-		it "can return the average score per game across all seasons when they are away" do
+		it "can return the average score per team across all seasons when they are away" do
 			expect(@stat_tracker.average_visitor_scores).to be_a(Hash)
 			expect(@stat_tracker.average_visitor_scores['3']).to eq(1.75)
 			expect(@stat_tracker.average_visitor_scores['8']).to eq(2)
