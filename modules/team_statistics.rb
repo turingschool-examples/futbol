@@ -1,4 +1,4 @@
-require_relative '../lib/team_stats'
+require_relative '../lib/team'
 require_relative '../lib/game'
 require_relative '../lib/game_teams'
 
@@ -14,16 +14,15 @@ module TeamStatistics
 
   def best_season(team_id)
     seasons = count_season_wins(@games, team_id)
-    seasons.sort_by { |_season, wins| wins }[-1][0]
+    seasons.max_by { |_season, wins| wins }[0]
   end
 
   def worst_season(team_id)
     seasons = count_season_wins(@games, team_id)
-    seasons.sort_by { |_season, wins| wins }[0][0]
+    seasons.min_by { |_season, wins| wins }[0]
   end
 
   def average_win_percentage(team_id)
-    total_games = @games.count { |game| game.home_team_id == team_id || game.away_team_id == team_id }
     seasons = count_season_wins(@games, team_id)
     total_games_per_season = @games.count do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
@@ -58,12 +57,12 @@ module TeamStatistics
 
   def most_goals_scored(team_id)
     teams_games = @game_teams.find_all { |game| game.team_id == team_id }
-    teams_games.sort_by { |game| game.goals }[-1].goals
+    teams_games.max_by(&:goals).goals
   end
 
   def fewest_goals_scored(team_id)
     teams_games = @game_teams.find_all { |game| game.team_id == team_id }
-    teams_games.sort_by { |game| game.goals }[0].goals
+    teams_games.min_by(&:goals).goals
   end
 
   def favorite_opponent(team_id)
@@ -77,7 +76,7 @@ module TeamStatistics
                        [team, win / losses[team]]
                      end
     end
-    favorite_team_id = percentages.sort_by { |team| team[1] }[-1][0]
+    favorite_team_id = percentages.max_by { |team| team[1] }[0]
     @teams.find { |team| team.team_id == favorite_team_id }.team_name
   end
 
@@ -92,7 +91,7 @@ module TeamStatistics
                        [team, loss / wins[team]]
                      end
     end
-    favorite_team_id = percentages.sort_by { |team| team[1] }[-1][0]
+    favorite_team_id = percentages.max_by { |team| team[1] }[0]
     @teams.find { |team| team.team_id == favorite_team_id }.team_name
   end
 

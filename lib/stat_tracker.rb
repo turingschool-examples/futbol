@@ -24,7 +24,7 @@ class StatTracker
   def self.from_csv(locations)
     stat_tracker = StatTracker.new(locations)
     stat_tracker.games = Game.create_list_of_games(stat_tracker.games_csv)
-    stat_tracker.teams = TeamStats.create_list_of_teams(stat_tracker.teams_csv)
+    stat_tracker.teams = Team.create_list_of_teams(stat_tracker.teams_csv)
     stat_tracker.game_teams = GameTeams.create_list_of_game_teams(stat_tracker.game_teams_csv)
     stat_tracker
   end

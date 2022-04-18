@@ -1,7 +1,7 @@
 # require 'simplecov'
 # SimpleCov.start
 require './lib/stat_tracker'
-require './lib/team_stats'
+require './lib/team'
 require './modules/team_statistics'
 
 describe TeamStatistics do
@@ -20,7 +20,7 @@ describe TeamStatistics do
   end
 
   it 'can create a list of Team Stats' do
-    expect(@stat_tracker.teams.all? { |team| team.instance_of?(TeamStats) }).to eq(true)
+    expect(@stat_tracker.teams.all? { |team| team.instance_of?(Team) }).to eq(true)
   end
 
   it 'can return a hash of a teams info' do

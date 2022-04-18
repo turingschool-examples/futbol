@@ -3,11 +3,11 @@ require_relative '../lib/game_teams'
 
 module GameStats
   def highest_total_score
-    @games.map { |game| game.away_goals + game.home_goals }.sort[-1]
+    @games.map { |game| game.away_goals + game.home_goals }.max # sort[-1]
   end
 
   def lowest_total_score
-    @games.map { |game| game.away_goals + game.home_goals }.sort[0]
+    @games.map { |game| game.away_goals + game.home_goals }.min # sort[0]
   end
 
   def percentage_home_wins
@@ -40,6 +40,14 @@ module GameStats
 
   def average_goals_by_season
     games_in_season = count_of_games_by_season
+    average_goals = {}
+    goals_by_season.each do |season, goals|
+      average_goals[season] = (goals / games_in_season[season].to_f).round(2)
+    end
+    average_goals
+  end
+
+  def goals_by_season
     goals_in_season = {}
     @games.each do |game|
       if goals_in_season[game.season].nil?
@@ -48,10 +56,6 @@ module GameStats
         goals_in_season[game.season] += (game.home_goals + game.away_goals)
       end
     end
-    average_goals = {}
-    goals_in_season.each do |season, goals|
-      average_goals[season] = (goals / games_in_season[season].to_f).round(2)
-    end
-    average_goals
+    goals_in_season
   end
 end
