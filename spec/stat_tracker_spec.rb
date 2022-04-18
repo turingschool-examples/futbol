@@ -292,3 +292,4 @@ describe StatTracker do
     end
   end
 end
+it
