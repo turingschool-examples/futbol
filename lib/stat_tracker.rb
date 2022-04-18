@@ -288,18 +288,18 @@ class StatTracker
 
   def winningest_coach(season)
 # Name of the Coach with the best win percentage for the season
-    winning_coaches = []
-    win_loss_hash = games_in_season(season).group_by { |win_loss| win_loss.result[0..].to_s}
-      win_loss_hash.each do |k, v|
-        if k == "WIN"
-          v.each do |coach|
-            winning_coaches << coach.head_coach
-          end
-        end
-      end
-    coach_by_percent = Hash.new
-    winners = winning_coaches.group_by { |coach| coach[0..]}.transform_values { |v| v.count}
-    winners.to_a.sort_by { |number| number[1] }.last[0]
+    # winning_coaches = []
+    # win_loss_hash = games_in_season(season).group_by { |win_loss| win_loss.result[0..].to_s}
+    #   win_loss_hash.each do |k, v|
+    #     if k == "WIN"
+    #       v.each do |coach|
+    #         winning_coaches << coach.head_coach
+    #       end
+    #     end
+    #   end
+    # coach_by_percent = Hash.new
+    # winners = winning_coaches.group_by { |coach| coach[0..]}.transform_values { |v| v.count}
+    coach_wins("WIN", season).to_a.sort_by { |number| number[1] }.last[0]
   end
 
 #   def worst_coach(season)
