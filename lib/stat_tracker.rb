@@ -20,13 +20,13 @@ include GameModule
 	def create_teams(teams)
 		team_arr = Array.new
 		teams.each do |row|
-			team_id = row[:team_id].to_i
-			franchise_id = row[:franchiseid]
-			team_name = row[:teamname]
-			abbreviation = row[:abbreviation]
-			stadium = row[:stadium]
-			link = row[:link]
-			team_arr << Team.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
+    team_id = row[:team_id].to_i
+    franchise_id = row[:franchiseid]
+    team_name = row[:teamname]
+    abbreviation = row[:abbreviation]
+    stadium = row[:stadium]
+    link = row[:link]
+    team_arr << Team.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
 		end
 		return team_arr
 	end
@@ -74,9 +74,30 @@ include GameModule
     return game_team_array
   end
 
+
 	def game_count
 		@games.count
 	end
+
+  def create_games(games)
+    game_arr = []
+    games.each do |row|
+      game_id = row[:game_id]
+      season = row[:season]
+      type = row[:type]
+      date_time = row[:date_time]
+      away_team_id = row[:away_team_id]
+      home_team_id = row[:home_team_id].to_i
+      away_goals = row[:away_goals].to_i
+      home_goals = row[:home_goals].to_i
+      venue = row[:venue]
+      venue_link = row[:venue_link]
+      game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
+        away_goals, home_goals, venue, venue_link)
+    end
+  return game_arr
+  end
+
 
 	def highest_total_score
 		GameModule.total_score(@games).max
@@ -528,32 +549,6 @@ include GameModule
 		return game_count_by_season_hash
 	end
 
-
-# highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.
-# create a hash of team_id as key and value (goals)
-
-
-	# def average_visitor_scores
-	# 	away_team_goals_hash = {}
-	# 	@games.each do |game|
-	# 		away_team_goals_hash[game.away_team_id] = average_away_goals_per_team(game.away_team_id)
-	# 	end
-	# 	away_team_goals_hash
-	# end
-
-	def average_scores(arg)
-		if arg == "home"
-			team_id = home_team_id
-		else
-			team_id = away_team_id
-		end
-		team_goals_hash = {}
-		@games.each do |game|
-			team_goals_hash[game.team_id] = average_goals_per_team(game.team_id)
-		end
-		team_goals_hash
-	end
-
   def favorite_opponent(team_name)
 		team_id = @teams.find{|team| team.team_name == team_name}.team_id
 		#find every GameTeam object for this team
@@ -595,15 +590,89 @@ include GameModule
 		#find the name associated with the id for fav_opponent
 		fav_opponent_team = @teams.find{|team| team.team_id == fav_opponent_id}
 		return fav_opponent_team.team_name
+  end
+
+
+	def highest_scoring_home_team
+		home_win_id = home_goals_hash.sort_by{|team_id, score| score}.last[0]
+		team_name_by_id(home_win_id)
+	 end
+
+	 def lowest_scoring_home_team
+		 home_score_id = home_goals_hash.sort_by{|team_id, score| score}.first[0]
+		 team_name_by_id(home_score_id)
+	 end
+
+	def home_goals_hash
+	 home_team_hash = {}
+	 @games.each do |game|
+		 game.home_team_id
+			 if home_team_hash[game.home_team_id] == nil
+				 home_team_hash[game.home_team_id] = [game.home_goals.to_i]
+			 else
+				 home_team_hash[game.home_team_id] << game.home_goals.to_i
+			 end
+		 end
+	 home_team_hash.each do |team_id, scores|
+		 home_team_hash[team_id] = (scores.sum.to_f / scores.count.to_f).ceil(2)
+	 end
+	 home_team_hash
+ end
+
+# highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.
+# create a hash of team_id as key and value (goals)
 
 
 
-	def average_goals_per_team(team_id, arg)
+	def average_visitor_scores
+		away_team_goals_hash = {}
+		@games.each do |game|
+			away_team_goals_hash[game.away_team_id] = average_away_goals_per_team(game.away_team_id)
+		end
+		away_team_goals_hash
+	end
+
+# 	def average_scores(arg)
+# 		if arg == "home"
+# 			team_id = home_team_id
+# 		else
+# 			team_id = away_team_id
+# 		end
+# 		team_goals_hash = {}
+# 		@games.each do |game|
+# 			team_goals_hash[game.team_id] = average_goals_per_team(game.team_id)
+# 		end
+# 		team_goals_hash
+# 	end
+
+
+# 	def average_goals_per_team(team_id)
+# 		goals = 0
+# 		games = 0
+# 		@games.each do |game|
+# 			if game.team_id == team_id
+# 				goals += game.goals
+# 				games += 1
+# 			end
+# 		end
+# 		goals / games.to_f
+# 	end
+
+	def highest_scoring_visitor
+		average_visitor_scores.invert.max.last
+	end
+
+	def lowest_scoring_visitor
+		average_visitor_scores.invert.min.last
+	end
+
+
+	def average_away_goals_per_team(team_id)
 		goals = 0
 		games = 0
 		@games.each do |game|
-			if game.team_id == team_id
-				goals += game.goals
+			if game.away_team_id == team_id
+				goals += game.away_goals
 				games += 1
 			end
 		end
@@ -617,30 +686,7 @@ include GameModule
 	def lowest_scoring_visitor
 		average_visitor_scores.invert.min.last
 	end
-
 end
-
-
-# 	def average_away_goals_per_team(team_id)
-# 		goals = 0
-# 		games = 0
-# 		@games.each do |game|
-# 			if game.away_team_id == team_id
-# 				goals += game.away_goals
-# 				games += 1
-# 			end
-# 		end
-# 		goals / games.to_f
-# 	end
-#
-# 	def highest_scoring_visitor
-# 		average_visitor_scores.invert.max.last
-# 	end
-#
-# 	def lowest_scoring_visitor
-# 		average_visitor_scores.invert.min.last
-# 	end
-# end
 
 # def highest_scoring_visitor
 # 	away_team_goals_hash = {}
