@@ -120,7 +120,7 @@ RSpec.describe StatTracker do
       end
 
       it "can tell us how many games there were in a season" do
-
+        expect(@stat_tracker.count_of_games_by_season).to eq({"20122013" => 15, "20132014" => 5})
       end
     end
 

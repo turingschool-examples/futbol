@@ -53,7 +53,16 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    @games.season.count
+    @games.map! do |game|
+      game.season
+    end
+    game_hash = @games.group_by do |season|
+      season
+    end
+    game_hash.each do |seasonid, count|
+      # require 'pry' ; binding.pry
+      game_hash[seasonid] = count.count
+    end
   end
 
   def average_goals_per_game
@@ -432,11 +441,11 @@ class StatTracker
       end
       opposing_win_percentage = opposing_win / game_teams.count
       teams_by_id[team_id] = opposing_win_percentage
-      opposing_win = 0.0 
+      opposing_win = 0.0
     end
     favorite = teams_by_id.min_by {|team_id, win_percentage| win_percentage}[0]
-    @teams.each do |team| 
-      if team.team_id.include?(favorite) 
+    @teams.each do |team|
+      if team.team_id.include?(favorite)
         return team.team_name
       end
     end
