@@ -201,7 +201,7 @@ describe StatTracker do
 
     it 'can create hash with win loss record for each coach in a season' do
       season_games = @stat_tracker.games.find_all{|game| game.season == "20122013"}
-      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams)[0]).to eq(@stat_tracker.game_teams[0])
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams)
       expect(SeasonModule.coach_wins_losses_for_season(game_teams_by_season)["John Tortorella"]).to eq(["LOSS", "LOSS"])
     end
 

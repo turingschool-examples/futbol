@@ -10,11 +10,19 @@ module SeasonModule
         game_teams_by_season << matching_game_team
       end
     end
-    game_teams_by_season.flatten!
+    return game_teams_by_season.flatten!
   end
 
   def SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
-
+    coach_wins_losses = {}
+    game_teams_by_season.each do |game_team|
+      if coach_wins_losses.keys.include?(game_team.head_coach)
+        coach_wins_losses[game_team.head_coach] << game_team.result
+      else
+        coach_wins_losses[game_team.head_coach] = [game_team.result]
+      end
+    end
+    return coach_wins_losses
   end
 
 end

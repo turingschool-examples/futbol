@@ -406,14 +406,7 @@ include SeasonModule
     #use the season to find the game_id and then get an array of all the game_teams for that season
     game_teams_by_season = SeasonModule.game_teams_for_season(season, season_games, @game_teams)
     #go through the game_team objects to calculate win precentage for each coach
-    coach_wins_losses = {}
-    game_teams_by_season.each do |game_team|
-      if coach_wins_losses.keys.include?(game_team.head_coach)
-        coach_wins_losses[game_team.head_coach] << game_team.result
-      else
-        coach_wins_losses[game_team.head_coach] = [game_team.result]
-      end
-    end
+    coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
     #calculate win percentage for each coach
     highest_percentage = 0.0
     best_coach = nil
