@@ -194,22 +194,21 @@ describe StatTracker do
     end
 
     it 'can create a list of all game team objects for a given season' do
-      season_games = @stat_tracker.games.find_all{|game| game.season == "20122013"}
-      expect(SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams)[0]).to eq(@stat_tracker.game_teams[0])
-      expect(SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams).last).to eq(@stat_tracker.game_teams[4])
+      expect(SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)[0]).to eq(@stat_tracker.game_teams[0])
+      expect(SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams).last).to eq(@stat_tracker.game_teams[9])
     end
 
     it 'can create hash with win loss record for each coach in a season' do
-      season_games = @stat_tracker.games.find_all{|game| game.season == "20122013"}
-      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams)
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
       expect(SeasonModule.coach_wins_losses_for_season(game_teams_by_season)["John Tortorella"]).to eq(["LOSS", "LOSS"])
     end
 
     it 'can calculate win percentage for each coach' do
-      season_games = @stat_tracker.games.find_all{|game| game.season == "20122013"}
-      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams)
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
       coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
-      expect(SeasonModule.coach_win_percentage(coach_wins_losses)["John Tortorella"]).to eq(0)
+      coach_win_percentages = SeasonModule.coach_win_percentage(coach_wins_losses)
+      expect(coach_win_percentages["John Tortorella"]).to eq(0)
+      expect(coach_win_percentages["Mike Babcock"]).to eq(50.0)
     end
 
     it 'can determine worst coach for a season' do

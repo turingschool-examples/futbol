@@ -401,10 +401,8 @@ include SeasonModule
   end
 
 	def winningest_coach(season)
-    #find all the games for the given season
-    season_games = @games.find_all{|game| game.season == season}
-    #use the season to find the game_id and then get an array of all the game_teams for that season
-    game_teams_by_season = SeasonModule.game_teams_for_season(season, season_games, @game_teams)
+    #get an array of all the game_teams for that season
+    game_teams_by_season = SeasonModule.game_teams_for_season(season, @game_teams)
     #go through the game_team objects to calculate win precentage for each coach
     coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
     #calculate win percentage for each coach
@@ -414,10 +412,8 @@ include SeasonModule
   end
 
 	def worst_coach(season)
-		#find all the games for the given season
-		season_games = @games.find_all{|game| game.season == season}
-		#use the season to find the game_id and then get an array of all the game_teams for that season
-		game_teams_by_season = SeasonModule.game_teams_for_season(season, season_games, @game_teams)
+		#get an array of all the game_teams for that season
+		game_teams_by_season = SeasonModule.game_teams_for_season(season, @game_teams)
     #go through the game_team objects to calculate win precentage for each coach
     coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
     #calculate win percentage for each coach
@@ -428,8 +424,8 @@ include SeasonModule
 
 	def most_accurate_team(season)
 		team_shots_goals = {}
-		season_games = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
-		season_games.each do |season_game|
+		season_games_teams = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
+		season_games_teams.each do |season_game|
 			team_id = season_game.team_id
 			if team_shots_goals[team_id]
 				team_shots_goals[team_id][0] += season_game.shots
@@ -453,8 +449,8 @@ include SeasonModule
 
 	def least_accurate_team(season)
 		team_shots_goals = {}
-		season_games = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
-		season_games.each do |season_game|
+		season_games_teams = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
+		season_games_teams.each do |season_game|
 			team_id = season_game.team_id
 			if team_shots_goals[team_id]
 				team_shots_goals[team_id][0] += season_game.shots
