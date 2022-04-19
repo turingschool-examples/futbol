@@ -34,4 +34,18 @@ module SeasonModule
     return coach_wins_losses
   end
 
+  def SeasonModule.team_shots_goals(season_game_teams)
+    team_shots_goals = {}
+    season_game_teams.each do |season_game|
+      team_id = season_game.team_id
+      if team_shots_goals[team_id]
+        team_shots_goals[team_id][0] += season_game.shots
+        team_shots_goals[team_id][1] +=  season_game.goals
+      else
+        team_shots_goals[team_id] = [season_game.shots, season_game.goals]
+      end
+    end
+    return team_shots_goals
+  end
+
 end

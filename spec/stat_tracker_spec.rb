@@ -219,6 +219,11 @@ describe StatTracker do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq "FC Dallas"
     end
 
+    it 'can create hash with team_id keys and array values holding shots and goals' do
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
+      expect(SeasonModule.team_shots_goals(game_teams_by_season)).to eq({3=>[17, 4], 6=>[28, 8], 17=>[12, 3], 16=>[25, 4]})
+    end
+
     it 'can determine team with worst ratio of shots to goals for the season' do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq "New England Revolution"
     end
