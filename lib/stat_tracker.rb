@@ -92,57 +92,26 @@ class StatTracker
   end
 
   def best_season(id)
-    grouped_by_season = @games.group_by { |game| game.season[0..].to_s}
-    win_percentage_by_season = Hash.new
-    grouped_by_season.each do |season, games|
-      wins = 0.0
-      losses = 0.0
-      ties = 0.0
-      games.each do |game|
-        if (game.home_team_id || game.away_team_id) == id && game.home_goals == game.away_goals
-          ties += 1.0
-        elsif game.home_team_id == id && game.home_goals > game.away_goals
-          wins += 1.0
-        elsif game.away_team_id == id && game.away_goals > game.home_goals
-          wins += 1.0
-        elsif game.home_team_id == id && game.home_goals < game.away_goals
-          losses += 1.0
-        elsif game.away_team_id == id && game.away_goals < game.home_goals
-          losses += 1.0
-        else
-        end
-      end
-      win_percentage_by_season[season] = ((wins * 1.0) + (losses * 0.0) + (ties * 0.5)) / (wins + losses + ties)
-    end
-    win_percentage_by_season.each{|k, v| win_percentage_by_season.delete(k) if !win_percentage_by_season[k].is_a?(Float)}
-    win_percentage_by_season.sort_by{|k, v| v}.last[0]
+    max_season = track_season_results(id).max_by { |k, v| v.count("WIN") / v.count.to_f}[0]
+    @games.find { |game| game.season[0..3] == max_season }.season
   end
 
   def worst_season(id)
-    grouped_by_season = @games.group_by { |game| game.season[0..].to_s}
-    win_percentage_by_season = Hash.new
-    grouped_by_season.each do |season, games|
-      wins = 0.0
-      losses = 0.0
-      ties = 0.0
-      games.each do |game|
-        if (game.home_team_id || game.away_team_id) == id && game.home_goals == game.away_goals
-          ties += 1.0
-        elsif game.home_team_id == id && game.home_goals > game.away_goals
-          wins += 1.0
-        elsif game.away_team_id == id && game.away_goals > game.home_goals
-          wins += 1.0
-        elsif game.home_team_id == id && game.home_goals < game.away_goals
-          losses += 1.0
-        elsif game.away_team_id == id && game.away_goals < game.home_goals
-          losses += 1.0
-        else
-        end
+    min_season = track_season_results(id).min_by { |k, v| v.count("WIN") / v.count.to_f}[0]
+    @games.find { |game| game.season[0..3] == min_season }.season
+  end
+
+  def track_season_results(id)
+    all_games = @game_teams.select {|game| game.team_id == id}
+    track_season_results = {}
+    all_games.each do |game|
+      if track_season_results[game.game_id[0..3]].nil?
+        track_season_results[game.game_id[0..3]] = [game.result]
+      else
+        track_season_results[game.game_id[0..3]] << game.result
       end
-      win_percentage_by_season[season] = ((wins * 1.0) + (losses * 0.0) + (ties * 0.5)) / (wins + losses + ties)
     end
-    win_percentage_by_season.each{|k, v| win_percentage_by_season.delete(k) if !win_percentage_by_season[k].is_a?(Float)}
-    win_percentage_by_season.sort_by{|k, v| v}.first[0]
+    track_season_results
   end
 
   def average_win_percentage(id)

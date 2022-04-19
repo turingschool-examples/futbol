@@ -276,7 +276,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.best_season("6")).to eq "20132014"
   end
 
-  xit "can find a team's worst season" do
+  it "can find a team's worst season" do
     expect(@stat_tracker.worst_season("6")).to eq "20142015"
   end
 
@@ -284,11 +284,11 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
-  xit "can find favorite opponent of a team" do
+  it "can find favorite opponent of a team" do
     expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
   end
 
-  xit "can find rival of a team" do
+  it "can find rival of a team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
 
