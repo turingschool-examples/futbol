@@ -126,6 +126,10 @@ describe StatTracker do
       expect(@stat_tracker.home_goals_hash).to eq(expected)
     end
 
+    it "can calculate highest average number of goals scored across all seasons" do
+      expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
+    end
+
     it "can calculate lowest average of goals scored per game across all seasons " do
       expect(@stat_tracker.worst_offense).to eq "New England Revolution"
     end
@@ -258,10 +262,6 @@ describe StatTracker do
 
     it 'calculates average win percentage of all games for a team' do
       expect(@stat_tracker.average_win_percentage(16)).to eq(40.0)
-    end
-
-    it "can calculate highest average number of goals scored across all seasons" do
-      expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
     end
 
     it "can calculate lowest average of goals scored per game across all seasons " do
