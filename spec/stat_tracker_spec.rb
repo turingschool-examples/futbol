@@ -305,23 +305,37 @@ end
   it 'can return name of coach with worst win percentage based on season' do #.(season) not implemented yet
     expect(@stat_tracker.worst_coach).to eq("John Tortorella")
   end
+  context "thiagos fancy testing section" do
+    before :each do
+      @game_path = './data/games_test_tigo.csv'
+      @team_path = './data/teams_test.csv'
+      @game_teams_path = './data/game_teams_test.csv'
 
-  it 'can retrieve highest scoring visitor' do
-    expect(@stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
+      locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+
+      @stat_tracker = StatTracker.from_csv(locations)
+    end
+
+    it 'can retrieve highest scoring visitor' do
+        expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+
+    it 'can retrieve lowest scoring visitor' do
+        expect(@stat_tracker.lowest_scoring_visitor).to eq("Chicago Fire")
+    end
+
+    it 'can retrieve highest avg score per home game across all seasons' do
+        expect(@stat_tracker.highest_scoring_home_team). to eq("Atlanta United")
+    end
+
+    it 'can retrieve lowest avg score per home game across all seasons' do
+        expect(@stat_tracker.lowest_scoring_home_team). to eq("Chicago Fire")
+    end
   end
-
-  it 'can retrieve lowest scoring visitor' do
-    expect(@stat_tracker.lowest_scoring_visitor).to eq("Houston Dynamo")
-  end
-
-  it 'can retrieve highest avg score per home game across all seasons' do
-    expect(@stat_tracker.highest_scoring_home_team). to eq("FC Dallas")
-  end
-
-  it 'can retrieve lowest avg score per home game across all seasons' do
-    expect(@stat_tracker.lowest_scoring_home_team). to eq("Sporting Kansas City")
-  end
-
 
 
 
