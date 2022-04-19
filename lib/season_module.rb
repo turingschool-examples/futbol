@@ -25,4 +25,18 @@ module SeasonModule
     return coach_wins_losses
   end
 
+  def SeasonModule.coach_win_percentage(coach_wins_losses)
+    coach_wins_losses.each do |coach, win_loss|
+        wins = 0
+        win_loss.each do |val|
+          if val == "WIN"
+            wins += 1
+          end
+        end
+        percentage = ((wins.to_f / win_loss.length) * 100).round(2)
+        coach_wins_losses[coach] = percentage
+    end
+    return coach_wins_losses
+  end
+
 end

@@ -408,21 +408,8 @@ include SeasonModule
     #go through the game_team objects to calculate win precentage for each coach
     coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
     #calculate win percentage for each coach
-    highest_percentage = 0.0
-    best_coach = nil
-    coach_wins_losses.each do |coach, win_loss|
-        wins = 0
-        win_loss.each do |val|
-          if val == "WIN"
-            wins += 1
-          end
-        end
-        percentage = ((wins.to_f / win_loss.length) * 100).round(2)
-        if percentage > highest_percentage
-          best_coach = coach
-          highest_percentage = percentage
-        end
-    end
+		coach_win_percentages = SeasonModule.coach_win_percentage(coach_wins_losses)
+		best_coach = coach_win_percentages.invert.max[1]
     return best_coach
   end
 
