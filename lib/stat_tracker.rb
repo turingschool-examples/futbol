@@ -114,55 +114,56 @@ class StatTracker
     track_season_results
   end
 
-  def average_win_percentage(id)
-    wins = 0.0
-    total_games_played = @games.find_all{|game| (game.home_team_id || game.away_team_id) == id}
-    @games.each do |game|
-      if game.home_team_id == id && game.home_goals > game.away_goals
-        wins += 1.0
-      elsif game.away_team_id == id && game.away_goals > game.home_goals
-        wins += 1.0
-      else
+    def average_win_percentage(id)
+      wins = 0.0
+      total_games_played = @games.find_all{|game| (game.home_team_id || game.away_team_id) == id}
+      @games.each do |game|
+        if game.home_team_id == id && game.home_goals > game.away_goals
+          wins += 1.0
+        elsif game.away_team_id == id && game.away_goals > game.home_goals
+          wins += 1.0
+        else
+        end
       end
+      return ((wins * 1.0) / (total_games_played.count)).round(2) / 2
     end
-    return ((wins * 1.0) / (total_games_played.count)).round(2) / 2
-  end
 
-  def favorite_opponent(id)
-    opponents = Hash.new
-    @teams.each do |team|
-      if team.team_id != id
-        opponents[team.team_name] = win_percentage_vs(team.team_id, id)
+    def favorite_opponent(id)
+      opponents = Hash.new
+      @teams.each do |team|
+        if team.team_id != id
+          opponents[team.team_name] = win_percentage_vs(team.team_id, id)
+        end
       end
+      opponents.each{|k, v| opponents.delete(k) if !opponents[k].is_a?(Float)}
+      opponents.sort_by{|k, v| v}.first[0]
     end
-    opponents.each{|k, v| opponents.delete(k) if !opponents[k].is_a?(Float)}
-    opponents.sort_by{|k, v| v}.first[0]
-  end
 
-  def rival(id)
-    opponents = Hash.new
-    @teams.each do |team|
-      if team.team_id != id
-        opponents[team.team_name] = win_percentage_vs(team.team_id, id)
+    def rival(id)
+      opponents = Hash.new
+      @teams.each do |team|
+        if team.team_id != id
+          opponents[team.team_name] = win_percentage_vs(team.team_id, id)
+        end
       end
+      opponents.each{|k, v| opponents.delete(k) if !opponents[k].is_a?(Float)}
+      opponents.sort_by{|k, v| v}.last[0]
     end
-    opponents.each{|k, v| opponents.delete(k) if !opponents[k].is_a?(Float)}
-    opponents.sort_by{|k, v| v}.last[0]
-  end
 
-  def win_percentage_vs(id1, id2)
-    wins = 0.0
-    total_games_played = @games.find_all{|game| (game.home_team_id || game.away_team_id) == id1 && (game.home_team_id || game.away_team_id) == id2}
-    @games.each do |game|
-      if game.home_team_id == id1 && game.away_team_id == id2 && game.home_goals > game.away_goals
-        wins += 1.0
-      elsif game.away_team_id == id1 && game.home_team_id == id2 && game.away_goals > game.home_goals
-        wins += 1.0
-      else
+    def win_percentage_vs(id1, id2)
+      wins = 0.0
+      total_games_played = @games.find_all{|game|
+        (game.home_team_id == id1 && game.away_team_id == id2) || (game.home_team_id == id2 && game.away_team_id == id1)}
+      @games.each do |game|
+        if game.home_team_id == id1 && game.away_team_id == id2 && game.home_goals > game.away_goals
+          wins += 1.0
+        elsif game.away_team_id == id1 && game.home_team_id == id2 && game.away_goals > game.home_goals
+          wins += 1.0
+        else
+        end
       end
+      (wins / total_games_played.count).round(2) / 2
     end
-    return (wins / total_games_played.count).round(2) / 2
-  end
 
 ####### SEASON STATISTICS : All methods return Strings - Team Name || Head Coach
 
