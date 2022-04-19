@@ -97,7 +97,6 @@ class StatTracker
 
 
 
-
 #SAI
   def percentage_home_wins
     total_games = @games[:game_id].count.to_f
@@ -248,19 +247,6 @@ class StatTracker
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   #C O O O O O O O O O O O O LIN
   def average_goals_per_game
     goals = []
@@ -321,7 +307,6 @@ class StatTracker
     end
     return max_tackles_team[0]
   end
-
 
   def fewest_tackles(season)
   game_array = []
@@ -412,57 +397,15 @@ class StatTracker
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   # T H I A G O O O O O O O A L L L L L
   def winningest_coach#.(season) not implemented yet
     results = @game_teams[:result]
     coaches = @game_teams[:head_coach]
     unique_coaches = coaches.uniq
-
     win_list = Hash.new(0)
-
     coach_result = coaches.zip(results)
     win_results = []
+
     coach_result.each do |g|
       win_results << g if g.include?("WIN")
     end
@@ -477,48 +420,144 @@ class StatTracker
       end
     end
     win_list.key(win_list.values.max)
-
-
   end
-
 
   def worst_coach
-  results = @game_teams[:result]
-  coaches = @game_teams[:head_coach]
-  unique_coaches = coaches.uniq
+    results = @game_teams[:result]
+    coaches = @game_teams[:head_coach]
+    unique_coaches = coaches.uniq
+    loss_list = Hash.new(0)
+    coach_result = coaches.zip(results)
+    loss_results = []
 
-  loss_list = Hash.new(0)
+    coach_result.each do |g|
+      loss_results << g if g.include?("LOSS")
+    end
 
-  coach_result = coaches.zip(results)
-  loss_results = []
-  coach_result.each do |g|
-    loss_results << g if g.include?("LOSS")
+    unique_coaches.each do |coach|
+      loss_results.each do |loss|
+        if coach == loss[0] && loss_list[coach] == nil
+          loss_list[coach] = 1
+        elsif coach == loss[0] && loss_list[coach] != nil
+          loss_list[coach] += 1
+        end
+      end
+    end
+    loss_list.key(loss_list.values.min)
   end
 
+  def team_average_number_of_goals_per_away_game(team_id)#helper method to average away score for visitors
+    away_game_count = 0
+    away_game_score = 0
+    @games.each do |row|
+      if row[:away_team_id].to_i == team_id.to_i
+        away_game_count += 1
+        away_game_score += row[:away_goals].to_i
+      end
+    end
+    away_game_score.to_f / away_game_count.to_f
+  end
 
-  unique_coaches.each do |coach|
-    loss_results.each do |loss|
-      if coach == loss[0] && loss_list[coach] == nil
-        loss_list[coach] = 1
-      elsif coach == loss[0] && loss_list[coach] != nil
-        loss_list[coach] += 1
+  def highest_scoring_visitor
+    away_goals_hash = {}
+    away_games_hash = {}
+    away_avg_hash = {}
+    teams_hash = {}
+
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+
+    @teams.each do |row|
+      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))
+    end
+    # require'pry';binding.pry
+    away_avg_hash.each do |k, v|
+      if v == away_avg_hash.values.max # nil error
+        return teams_hash[k] # might work with larger data set, not sample data
       end
     end
   end
-  loss_list.key(loss_list.values.min)
+
+  def lowest_scoring_visitor
+    away_goals_hash = {}
+    away_games_hash = {}
+    away_avg_hash = {}
+    teams_hash = {}
+
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+
+    @teams.each do |row|
+      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))
+    end
+    # require'pry';binding.pry
+    away_avg_hash.each do |k, v|
+      # require'pry';binding.pry
+      if v == away_avg_hash.values.min # nil error
+        return teams_hash[k] # might work with larger data set, not sample data
+      end
+    end
   end
 
+  def team_average_number_of_goals_per_home_game(team_id)#helper method to average home scores for home teams
+    home_game_count = 0
+    home_game_score = 0
+    @games.each do |row|
+      if row[:home_team_id].to_i == team_id.to_i
+        home_game_count += 1
+        home_game_score += row[:home_goals].to_i
+      end
+    end
+    home_game_score.to_f / home_game_count.to_f
+  end
 
+  def highest_scoring_home_team
+    home_goals_hash = {}
+    home_games_hash = {}
+    home_avg_hash = {}
+    teams_hash = {}
 
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
 
+    @teams.each do |row|
+      home_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_home_game(row[:team_id]))
+    end
+    # require'pry';binding.pry
+    home_avg_hash.each do |k, v|
+      # require'pry';binding.pry
+      if v == home_avg_hash.values.max
+        return teams_hash[k] # should work with larger data set, not sample data
+      end
+    end
+  end
+# Description: Name of the team with the highest average score per game across all seasons when they are home.
 
+  def lowest_scoring_home_team
+    home_goals_hash = {}
+    home_games_hash = {}
+    home_avg_hash = {}
+    teams_hash = {}
 
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
 
-
-
-
-
-
+    @teams.each do |row|
+      home_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_home_game(row[:team_id]))
+    end
+    # require'pry';binding.pry
+    home_avg_hash.each do |k, v|
+      # require'pry';binding.pry
+      if v == home_avg_hash.values.min
+        return teams_hash[k] # should work with larger data set, not sample data
+      end
+    end
+  end
+# Description: Name of the team with the lowest average score per game across all seasons when they are at home.
 
 
 
