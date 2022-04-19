@@ -469,7 +469,7 @@ class StatTracker
     end
 
     @teams.each do |row|
-      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))\
+      away_avg_hash.merge!("#{row[:team_id]}" => team_average_number_of_goals_per_away_game(row[:team_id]))
     end
     # require'pry';binding.pry
     away_avg_hash.each do |k, v|
