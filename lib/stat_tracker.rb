@@ -102,11 +102,9 @@ include SeasonModule
   return game_arr
   end
 
-
 	def highest_total_score
 		GameModule.total_score(@games).max
 	end
-
 
 	def lowest_total_score
 		GameModule.total_score(@games).min
@@ -124,7 +122,7 @@ include SeasonModule
 		(GameModule.total_score(@games).sum.to_f / game_count).ceil(2)
 	end
 
-	def average_goals_per_season
+	def average_goals_by_season
 		season_goals_avg = {}
 		@games.each do |game|
 			season = game.season
@@ -147,7 +145,6 @@ include SeasonModule
 		end
 			total_teams.count
 	end
-
 
 	def team_info(team_id)
 		team_hash = {}
@@ -531,22 +528,17 @@ include SeasonModule
   end
 
 	def percentage_ties
-		ties = []
-		@games.each do |game|
-			if game.home_goals == game.away_goals
-				ties << game
-			end
-		end
+		ties = @games.select { |game| game.home_goals == game.away_goals }
 		return ((ties.count.to_f / game_count.to_f).ceil(4)) * 100
 	end
 
 	def count_of_games_by_season
 		seasons_arr = @games.map { |game| game.season }
-		game_count_by_season_hash = Hash.new
+		game_count_by_season = Hash.new
 		seasons_arr.uniq.each do |season|
-			game_count_by_season_hash[season] = seasons_arr.count(season)
+			game_count_by_season[season] = seasons_arr.count(season)
 		end
-		return game_count_by_season_hash
+		return game_count_by_season
 	end
 
   def favorite_opponent(team_name)
