@@ -28,4 +28,8 @@ class StatTracker
     stat_tracker.game_teams = GameTeams.create_list_of_game_teams(stat_tracker.game_teams_csv)
     stat_tracker
   end
+
+  def team_id_to_name(id)
+    @teams.find { |team| team.team_id == id }.team_name
+  end
 end

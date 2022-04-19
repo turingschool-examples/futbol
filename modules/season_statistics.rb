@@ -24,10 +24,6 @@ module Season
     coach_record(season, 'LOSS').first[0]
   end
 
-  def team_id_to_name(id)
-    @teams.find { |team| team.team_id == id }.team_name
-  end
-
   def most_accurate_team(season)
     team_id_to_name(team_accuracy(season).last[0])
   end

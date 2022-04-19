@@ -7,10 +7,6 @@ module LeagueStats
     @teams.length
   end
 
-  def team_id_to_name(id)
-    @teams.find { |team| team.team_id == id }.team_name
-  end
-
   def wins_calculator
     teams_and_wins = {}
     @game_teams.each do |game|

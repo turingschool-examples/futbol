@@ -78,8 +78,4 @@ module TeamStatistics
     end
     new.sort_by { |_team, percentage| percentage }
   end
-
-  def team_id_to_name(id)
-    @teams.find { |team| team.team_id == id }.team_name
-  end
 end
