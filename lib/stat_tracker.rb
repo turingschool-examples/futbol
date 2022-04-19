@@ -409,12 +409,7 @@ include SeasonModule
 	end
 
 	def most_accurate_team(season)
-		season_game_teams = SeasonModule.game_teams_for_season(season, @game_teams)
-		team_shots_goals = SeasonModule.team_shots_goals(season_game_teams)
-		team_shots_goals_ratios = SeasonModule.shots_goals_ratio(team_shots_goals)
-		best_team_id = team_shots_goals_ratios.invert.min[1]
-		best_team = @teams.find{|team| team.team_id == best_team_id}
-		return best_team.team_name
+		SeasonModule.best_team(season, @game_teams, @teams)
 	end
 
 	def least_accurate_team(season)
