@@ -192,6 +192,11 @@ describe StatTracker do
       expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
     end
 
+    it 'can create a list of all game team objects for a given seaon' do
+      expect(SeasonModule.game_teams_for_season("20122013")[0]).to eq(@stat_tracker.games[0])
+      expect(SeasonModule.game_teams_for_season("20122013").last).to eq(@stat_tracker.games[9])
+    end
+
     it 'can determine worst coach for a season' do
         expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
     end
