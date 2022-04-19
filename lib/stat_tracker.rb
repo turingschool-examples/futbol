@@ -227,7 +227,7 @@ class StatTracker
     end
     return (wins / total_games_played.count).round(2) / 2
   end
-  
+
 ####### SEASON STATISTICS : All methods return Strings - Team Name || Head Coach
 
   def winningest_coach(season)
@@ -262,7 +262,6 @@ class StatTracker
 
 ########## LEAGUE STATISTICS - Jenn
 
-##count_of_teams
   def count_of_teams
     @teams.count
   end
@@ -276,19 +275,19 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    @teams.find { |team| team.team_id == average_score_by_team("away").sort_by{|k, v| v}.last[0]}.team_name
+    scoring_team("away", "highest")
   end
 
   def lowest_scoring_visitor
-    @teams.find { |team| team.team_id == average_score_by_team("away").sort_by{|k, v| v}.first[0] }.team_name
+    scoring_team("away", "lowest")
   end
 
   def highest_scoring_home_team
-    @teams.find { |team| team.team_id == average_score_by_team("home").sort_by{|k, v| v}.last[0] }.team_name
+    scoring_team("home", "highest")
   end
 
   def lowest_scoring_home_team
-    @teams.find { |team| team.team_id == average_score_by_team("home").sort_by{|k, v| v}.first[0] }.team_name
+    scoring_team("home", "lowest")
   end
 
   def average_goals_by_season
@@ -298,6 +297,15 @@ class StatTracker
   end
 
 ##HELPER METHODS - LEAGUE STATISTICS
+
+  def scoring_team(hoa, hol)
+    if hol == "lowest"
+      @teams.find { |team| team.team_id == average_score_by_team(hoa).sort_by{|k, v| v}.first[0] }.team_name
+    elsif hol == "highest"
+      @teams.find { |team| team.team_id == average_score_by_team(hoa).sort_by{|k, v| v}.last[0] }.team_name
+    end
+  end
+
   def games_by_team(home_or_away =nil)
     games_by_team_hash = {}
     @game_teams.each do |game|
