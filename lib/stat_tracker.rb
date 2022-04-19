@@ -401,19 +401,11 @@ include SeasonModule
   end
 
 	def winningest_coach(season)
-    game_teams_by_season = SeasonModule.game_teams_for_season(season, @game_teams)
-    coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
-		coach_win_percentages = SeasonModule.coach_win_percentage(coach_wins_losses)
-		best_coach = coach_win_percentages.invert.max[1]
-    return best_coach
+		SeasonModule.best_coach(season, @game_teams)
   end
 
 	def worst_coach(season)
-		game_teams_by_season = SeasonModule.game_teams_for_season(season, @game_teams)
-    coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
-		coach_win_percentages = SeasonModule.coach_win_percentage(coach_wins_losses)
-		worst_coach = coach_win_percentages.invert.min[1]
-		return worst_coach
+		SeasonModule.worst_coach(season, @game_teams)
 	end
 
 	def most_accurate_team(season)

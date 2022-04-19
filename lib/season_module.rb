@@ -34,6 +34,22 @@ module SeasonModule
     return coach_wins_losses
   end
 
+  def best_coach(season, game_teams)
+    game_teams_by_season = game_teams_for_season(season, game_teams)
+    coach_wins_losses = coach_wins_losses_for_season(game_teams_by_season)
+		coach_win_percentages = coach_win_percentage(coach_wins_losses)
+		best_coach = coach_win_percentages.invert.max[1]
+    return best_coach
+  end
+
+  def worst_coach(season, game_teams)
+    game_teams_by_season = game_teams_for_season(season, game_teams)
+    coach_wins_losses = coach_wins_losses_for_season(game_teams_by_season)
+		coach_win_percentages = coach_win_percentage(coach_wins_losses)
+		worst_coach = coach_win_percentages.invert.min[1]
+		return worst_coach
+  end
+
   def SeasonModule.team_shots_goals(season_game_teams)
     team_shots_goals = {}
     season_game_teams.each do |season_game|
