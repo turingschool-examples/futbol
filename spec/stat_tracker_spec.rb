@@ -205,6 +205,13 @@ describe StatTracker do
       expect(SeasonModule.coach_wins_losses_for_season(game_teams_by_season)["John Tortorella"]).to eq(["LOSS", "LOSS"])
     end
 
+    it 'can calculate win percentage for each coach' do
+      season_games = @stat_tracker.games.find_all{|game| game.season == "20122013"}
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams)
+      coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
+      expect(SeasonModule.coach_win_percentage(coach_wins_losses)["John Tortorella"]).to eq(0)
+    end
+
     it 'can determine worst coach for a season' do
         expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
     end
