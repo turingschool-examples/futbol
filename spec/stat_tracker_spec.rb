@@ -224,6 +224,13 @@ describe StatTracker do
       expect(SeasonModule.team_shots_goals(game_teams_by_season)).to eq({3=>[17, 4], 6=>[28, 8], 17=>[12, 3], 16=>[25, 4]})
     end
 
+    it 'can calculate the ratio of shots to gaols' do
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
+      team_shots_goals = SeasonModule.team_shots_goals(game_teams_by_season)
+      team_shots_goals_ratio = SeasonModule.shots_goals_ratio(team_shots_goals)
+      expect(team_shots_goals_ratio).to eq({3=>4.25, 6=>3.5, 17=>4.0, 16=>6.25})
+    end
+
     it 'can determine team with worst ratio of shots to goals for the season' do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq "New England Revolution"
     end

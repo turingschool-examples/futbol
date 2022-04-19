@@ -48,4 +48,13 @@ module SeasonModule
     return team_shots_goals
   end
 
+  def SeasonModule.shots_goals_ratio(team_shots_goals)
+    shots_goals_ratio = {}
+    team_shots_goals.each do |team_id, shots_goals|
+      ratio = shots_goals[0].to_f / shots_goals[1].to_f
+      shots_goals_ratio[team_id] = ratio
+    end
+    return shots_goals_ratio
+  end
+
 end
