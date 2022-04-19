@@ -93,4 +93,25 @@ module LeagueModule
     min_team = avg_goals.select{|team, goals| goals == min_avg}
     min_team.keys[0]
   end
+
+  def LeagueModule.total_team_count(teams_arr)
+    total_teams = []
+    teams_arr.each do |team|
+      total_teams << team.team_id
+    end
+    total_teams
+  end
+
+  def LeagueModule.goals_scored(team_id, game_teams_arr)
+    team_number = game_teams_arr.find_all{|game_team| game_team.team_id.to_i == team_id}
+		team_goals = {}
+		team_number.each do |game|
+			if team_goals[game.team_id] == nil
+				team_goals[game.team_id] = [game.goals.to_i]
+			else
+				team_goals[game.team_id] << game.goals.to_i
+			end
+		end
+		team_goals.values.flatten!
+  end
 end

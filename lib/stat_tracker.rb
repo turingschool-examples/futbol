@@ -141,12 +141,9 @@ include SeasonModule
 	end
 
 	def count_of_teams
-		total_teams = []
-		@teams.each do |team|
-			total_teams << team.team_id
-		end
-			total_teams.count
+		LeagueModule.total_team_count(@teams).count
 	end
+
 
 
 	def team_info(team_id)
@@ -323,29 +320,11 @@ include SeasonModule
 	end
 
 	def most_goals_scored(team_id)
-		team_number = @game_teams.find_all{|game_team| game_team.team_id.to_i == team_id}
-		team_goals = {}
-		team_number.each do |game|
-			if team_goals[game.team_id] == nil
-				team_goals[game.team_id] = [game.goals.to_i]
-			else
-				team_goals[game.team_id] << game.goals.to_i
-			end
-		end
-		team_goals.values.flatten!.max
+		LeagueModule.goals_scored(team_id, @game_teams).max
 	end
 
 	def fewest_goals_scored(team_id)
-		team_number = @game_teams.find_all{|game_team| game_team.team_id.to_i == team_id}
-		team_goals = {}
-		team_number.each do |game|
-			if team_goals[game.team_id] == nil
-				team_goals[game.team_id] = [game.goals.to_i]
-			else
-				team_goals[game.team_id] << game.goals.to_i
-			end
-		end
-		team_goals.values.flatten!.min
+		LeagueModule.goals_scored(team_id, @game_teams).min
   end
 
 	def winningest_coach(season)
