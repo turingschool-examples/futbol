@@ -4,7 +4,6 @@ SimpleCov.start
 require './lib/stat_tracker'
 require './lib/futbol_csv_reader'
 require './lib/game_child'
-require './lib/game'
 require 'csv'
 
 RSpec.describe GameChild do
@@ -49,7 +48,7 @@ RSpec.describe GameChild do
   it 'can calculate percentage_ties' do
     expect(@stat_tracker.percentage_ties).to eq(0.20)
   end
-  #
+
   it 'can calculate average_goals_by_season' do
 
     expected = {
@@ -78,5 +77,4 @@ RSpec.describe GameChild do
   it 'calculates average goals per game' do
     expect(@stat_tracker.average_goals_per_game).to eq(4.22)
   end
-
 end
