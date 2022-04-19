@@ -401,22 +401,16 @@ include SeasonModule
   end
 
 	def winningest_coach(season)
-    #get an array of all the game_teams for that season
     game_teams_by_season = SeasonModule.game_teams_for_season(season, @game_teams)
-    #go through the game_team objects to calculate win precentage for each coach
     coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
-    #calculate win percentage for each coach
 		coach_win_percentages = SeasonModule.coach_win_percentage(coach_wins_losses)
 		best_coach = coach_win_percentages.invert.max[1]
     return best_coach
   end
 
 	def worst_coach(season)
-		#get an array of all the game_teams for that season
 		game_teams_by_season = SeasonModule.game_teams_for_season(season, @game_teams)
-    #go through the game_team objects to calculate win precentage for each coach
     coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
-    #calculate win percentage for each coach
 		coach_win_percentages = SeasonModule.coach_win_percentage(coach_wins_losses)
 		worst_coach = coach_win_percentages.invert.min[1]
 		return worst_coach
