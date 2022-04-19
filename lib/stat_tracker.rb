@@ -719,4 +719,171 @@ class StatTracker
     season_wins_hash
   end
 
+  def favorite_opponent(team_id)
+    teams_hash = {}
+    opp_win_avg_hash = {}
+    opp_wins = number_of_opponent_wins(team_id)
+    opp_games = number_of_games_against_opponents(team_id)
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+    opp_games.each do | gk, gv |
+      opp_wins.each do | wk, wv |
+        if gk == wk
+          opp_win_avg_hash.merge!("#{wk}" => (wv.to_f / gv.to_f))
+        end
+      end
+    end
+    opp_win_avg_hash.each do | k, v|
+      if v == opp_win_avg_hash.values.min
+        return teams_hash[k]
+      end
+    end
+  end
+
+  def rival(team_id)
+     teams_hash = {}
+     opp_win_avg_hash = {}
+     opp_wins = number_of_opponent_wins(team_id)
+     opp_games = number_of_games_against_opponents(team_id)
+     @teams.each do |row|
+       teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+     end
+     opp_games.each do | gk, gv |
+       opp_wins.each do | wk, wv |
+         if gk == wk
+           opp_win_avg_hash.merge!("#{wk}" => (wv.to_f / gv.to_f))
+         end
+       end
+     end
+     opp_win_avg_hash.each do | k, v|
+       if v == opp_win_avg_hash.values.max
+         return teams_hash[k]
+       end
+     end
+  end
+
+
+  def number_of_opponent_wins(team_id)
+    opponent_wins_arr = []
+    @games.each do |row|
+      if row[:away_team_id] == team_id
+        if row[:away_goals].to_f < row[:home_goals].to_f
+          opponent_wins_arr << row[:home_team_id]
+        end
+      end
+      if row[:home_team_id] == team_id
+        if row[:home_goals].to_f < row[:away_goals].to_f
+          opponent_wins_arr << row[:away_team_id]
+        end
+      end
+    end
+    opponent_wins_hash = opponent_wins_arr.tally
+    opponent_wins_hash
+  end
+
+
+  def number_of_games_against_opponents(team_id)
+    opponent_games_arr = []
+    games.each do |row|
+      if row[:home_team_id] == team_id
+      opponent_games_arr << row[:away_team_id]
+      end
+      if row[:away_team_id] == team_id
+      opponent_games_arr << row[:home_team_id]
+      end
+    end
+    opponents_games_hash = opponent_games_arr.tally
+    opponents_games_hash
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end
