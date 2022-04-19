@@ -56,33 +56,18 @@ class StatTracker
   end
 
   def percentage_home_wins
-    home_wins = []
-    @games.each do |game|
-      if game.home_goals > game.away_goals
-        home_wins << game
-      end
-    end
-    (home_wins.count / @games.count.to_f).round(2)
+    home_wins = @games.find_all { |game| game.home_goals > game.away_goals}
+    find_percentage(home_wins)
   end
 
   def percentage_visitor_wins
-    visitor_wins = []
-    @games.each do |game|
-      if game.away_goals > game.home_goals
-        visitor_wins << game
-      end
-    end
-    (visitor_wins.count / @games.count.to_f).round(2)
+    visitor_wins = @games.find_all { |game| game.away_goals > game.home_goals}
+    find_percentage(visitor_wins)
   end
 
   def percentage_ties
-    total_ties = []
-    @games.each do |game|
-      if game.away_goals == game.home_goals
-        total_ties << game
-      end
-    end
-    (total_ties.count / @games.count.to_f).round(2)
+    total_ties = @games.find_all { |game| game.away_goals == game.home_goals}
+    find_percentage(total_ties)
   end
 
   def count_of_games_by_season
@@ -90,22 +75,17 @@ class StatTracker
     end
   end
 
-  def count_of_goals_by_season
-    goals_by_season = {}
-    @games.each do |game|
-      if goals_by_season[game.season].nil?
-        goals_by_season[game.season] = game.home_goals + game.away_goals
-      else
-        goals_by_season[game.season] += game.home_goals + game.away_goals
-      end
-    end
-    goals_by_season
-  end
-
   def average_goals_per_game
     total_goals = @games.map {|game| game.away_goals + game.home_goals}
-    average = total_goals.sum.to_f / @games.count
-    average.round(2)
+    average = (total_goals.sum.to_f / @games.count).round(2)
+  end
+
+  def average_goals_by_season
+    average_goals = {}
+    count_of_goals_by_season.each do |season, goals|
+      average_goals[season] = (goals.to_f / count_of_games_by_season[season]).round(2)
+    end
+    average_goals
   end
 
   ## TEAM STATISTICS
@@ -398,6 +378,25 @@ class StatTracker
       end
     end
     coach_hash = coaches.group_by { |coach| coach[0..]}.transform_values { |v| v.count}
+  end  
+  
+  ####Deannah Game Stats helper methods
+
+  #Deannah -- helper to calculate percentage, has test but it's a little weird
+  def find_percentage(total)
+    (total.count / @games.count.to_f).round(2)
   end
 
+  #Deannah -- helper method for average goals by season, has test
+  def count_of_goals_by_season
+    goals_by_season = {}
+    @games.each do |game|
+      if goals_by_season[game.season].nil?
+        goals_by_season[game.season] = game.home_goals + game.away_goals
+      else
+        goals_by_season[game.season] += game.home_goals + game.away_goals
+      end
+    end
+    goals_by_season
+  end
 end
