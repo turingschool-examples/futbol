@@ -413,12 +413,7 @@ include SeasonModule
 	end
 
 	def least_accurate_team(season)
-		season_game_teams = SeasonModule.game_teams_for_season(season, @game_teams)
-		team_shots_goals = SeasonModule.team_shots_goals(season_game_teams)
-		team_shots_goals_ratios = SeasonModule.shots_goals_ratio(team_shots_goals)
-		worst_team_id = team_shots_goals_ratios.invert.max[1]
-		worst_team = @teams.find{|team| team.team_id == worst_team_id}
-		return worst_team.team_name
+		SeasonModule.worst_team(season, @game_teams, @teams)
   end
 
 	def percentage_ties
