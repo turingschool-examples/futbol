@@ -1,5 +1,6 @@
 require './required_files'
 include LeagueModule
+include SeasonModule
 
 describe StatTracker do
 
@@ -192,9 +193,10 @@ describe StatTracker do
       expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
     end
 
-    it 'can create a list of all game team objects for a given seaon' do
-      expect(SeasonModule.game_teams_for_season("20122013")[0]).to eq(@stat_tracker.games[0])
-      expect(SeasonModule.game_teams_for_season("20122013").last).to eq(@stat_tracker.games[9])
+    it 'can create a list of all game team objects for a given season' do
+      season_games = @stat_tracker.games.find_all{|game| game.season == "20122013"}
+      expect(SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams)[0]).to eq(@stat_tracker.game_teams[0])
+      expect(SeasonModule.game_teams_for_season("20122013", season_games, @stat_tracker.game_teams).last).to eq(@stat_tracker.game_teams[4])
     end
 
     it 'can determine worst coach for a season' do
