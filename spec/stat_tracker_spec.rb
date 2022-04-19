@@ -197,59 +197,6 @@ describe StatTracker do
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #COLIN
 it 'find the average goals per game' do
   # require 'pry'; bind!ing.pry
@@ -267,7 +214,6 @@ end
 it 'shows the team with the most tackles in a given season' do
   expect(@stat_tracker.most_tackles(20122013)).to eq("Houston Dynamo")
 end
-
 
 it 'shows the team with the fewest tackles in a given season' do
   expect(@stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
@@ -351,48 +297,46 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #THIAGO
   it 'can return name of coach with best win percentage based on season' do #.(season) not implemented yet
     expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
   end
+
   it 'can return name of coach with worst win percentage based on season' do #.(season) not implemented yet
     expect(@stat_tracker.worst_coach).to eq("John Tortorella")
   end
+  context "thiagos fancy testing section" do
+    before :each do
+      @game_path = './data/games_test_tigo.csv'
+      @team_path = './data/teams_test.csv'
+      @game_teams_path = './data/game_teams_test.csv'
 
+      locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
 
+      @stat_tracker = StatTracker.from_csv(locations)
+    end
 
+    it 'can retrieve highest scoring visitor' do
+        expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
 
+    it 'can retrieve lowest scoring visitor' do
+        expect(@stat_tracker.lowest_scoring_visitor).to eq("Chicago Fire")
+    end
 
+    it 'can retrieve highest avg score per home game across all seasons' do
+        expect(@stat_tracker.highest_scoring_home_team). to eq("Atlanta United")
+    end
 
+    it 'can retrieve lowest avg score per home game across all seasons' do
+        expect(@stat_tracker.lowest_scoring_home_team). to eq("Chicago Fire")
+    end
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-# Ensuring this line stays on 325
 
 
 
@@ -468,7 +412,6 @@ end
 
 
 #STEPHEN
-
   it 'counts the total number of teams in the data' do
     expect(@stat_tracker.count_of_teams).to eq(9)
   end
@@ -504,6 +447,7 @@ end
   it "can return the teams riveal" do
    expect(@stat_tracker.rival("6")).to eq("Sporting Kansas City")
  end
+
 
 
 
