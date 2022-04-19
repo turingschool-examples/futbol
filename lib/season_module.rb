@@ -13,4 +13,8 @@ module SeasonModule
     game_teams_by_season.flatten!
   end
 
+  def SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
+
+  end
+
 end
