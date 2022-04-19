@@ -166,19 +166,6 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected_hash)
   end
 
-  it "can count goals per season" do
-    expected_hash = {
-      "20122013"=>3322,
-      "20162017"=>5565,
-      "20142015"=>5461,
-      "20152016"=>5499,
-      "20132014"=>5547,
-      "20172018"=>6019
-      }
-
-    expect(@stat_tracker.count_of_goals_by_season).to eq(expected_hash)
-  end
-
   it "can find average goals per game" do
 
     expect(@stat_tracker.average_goals_per_game).to eq 4.22
@@ -329,6 +316,27 @@ RSpec.describe StatTracker do
 
     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+  end
+
+  #Deannah -- helper method test. Not sure how to write this better because there are 3237 @games, .count counts array elements.  Ideas anyone??
+  it "can calculate percentage" do
+    total = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    expect(@stat_tracker.find_percentage(total)).to eq 0.00
+  end
+
+  ##Deannah -- helper method test
+  it "can count goals per season" do
+    expected_hash = {
+      "20122013"=>3322,
+      "20162017"=>5565,
+      "20142015"=>5461,
+      "20152016"=>5499,
+      "20132014"=>5547,
+      "20172018"=>6019
+      }
+
+    expect(@stat_tracker.count_of_goals_by_season).to eq(expected_hash)
   end
 
 end
