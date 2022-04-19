@@ -540,12 +540,8 @@ include SeasonModule
 		return ((ties.count.to_f / game_count.to_f).ceil(4)) * 100
 	end
 
-
 	def count_of_games_by_season
-		seasons_arr = []
-		@games.each do |game|
-			seasons_arr << game.season
-		end
+		seasons_arr = @games.map { |game| game.season }
 		game_count_by_season_hash = Hash.new
 		seasons_arr.uniq.each do |season|
 			game_count_by_season_hash[season] = seasons_arr.count(season)
@@ -555,9 +551,8 @@ include SeasonModule
 
   def favorite_opponent(team_name)
 		team_id = @teams.find{|team| team.team_name == team_name}.team_id
-		#find every GameTeam object for this team
+		# find every GameTeam object for this team
 		game_info_for_team = @game_teams.find_all{|game_team| game_team.team_id == team_id}
-		#find every GameTeam object for all opponents of the team and associate them with team id in a hash
 		opponent_game_info = {}
 		game_info_for_team.each do |given_team|
 			opponent = @game_teams.find{|game_team| ((game_team.team_id != team_id) && (game_team.game_id == given_team.game_id))}
@@ -622,9 +617,6 @@ include SeasonModule
 	 end
 	 home_team_hash
 	end
-
-
-
 
 	def highest_scoring_visitor
 		team_id = LeagueModule.average_visitor_scores(@games).invert.max.last
