@@ -100,11 +100,11 @@ describe StatTracker do
 #SAI
   context 'Games: Percentages' do
     it 'returns a percentage of how many wins were home wins' do
-        expect(@stat_tracker.percentage_home_wins).to eq(44.44)
+        expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
 
     it 'returns a percentage of how many wins were away wins' do
-        expect(@stat_tracker.percentage_visitor_wins).to eq(55.56)
+        expect(@stat_tracker.percentage_visitor_wins).to eq(0.56)
     end
 
     it 'returns a percentage of how many ties there were' do
@@ -155,9 +155,9 @@ describe StatTracker do
       @stat_tracker = StatTracker.from_csv(locations)
     end
     it 'returns the average win percentage based off a team id' do
-      expect(@stat_tracker.average_win_percentage('3')).to eq(20.00)
+      expect(@stat_tracker.average_win_percentage('3')).to eq(0.2)
       expect(@stat_tracker.average_win_percentage('5')).to eq(0.0)
-      expect(@stat_tracker.average_win_percentage('6')).to eq(83.33)
+      expect(@stat_tracker.average_win_percentage('6')).to eq(0.83)
     end
   end
 
@@ -216,7 +216,7 @@ it 'shows the team with the most tackles in a given season' do
 end
 
 it 'shows the team with the fewest tackles in a given season' do
-  expect(@stat_tracker.fewest_tackles(20122013)).to eq("FC Dallas")
+  expect(@stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
 end
 
 it 'shows the most goals a given team has scored' do
@@ -425,11 +425,11 @@ end
   end
 
   it 'can return a team info hash' do
-    expect(@stat_tracker.team_info("3")).to eq({"Team ID"=>"3",
- "Franchise ID"=>"10",
- "Team Name"=>"Houston Dynamo",
- "Abbreviation"=>"HOU",
- "Link"=>"/api/v1/teams/3"})
+    expect(@stat_tracker.team_info("3")).to eq({"team_id"=>"3",
+ "franchise_id"=>"10",
+ "team_name"=>"Houston Dynamo",
+ "abbreviation"=>"HOU",
+ "link"=>"/api/v1/teams/3"})
   end
 
   it 'can return the best season for a team' do
