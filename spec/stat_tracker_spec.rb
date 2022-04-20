@@ -1,4 +1,5 @@
 require './required_files'
+
 include LeagueModule
 include SeasonModule
 
@@ -8,6 +9,7 @@ describe StatTracker do
     @game_path = './data/dummy_games.csv'
     @team_path = './data/dummy_teams.csv'
     @game_teams_path = './data/dummy_game_teams.csv'
+
 
     @locations = {
       games: @game_path,
@@ -32,7 +34,6 @@ describe StatTracker do
   it 'has game_teams' do
     expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
   end
-
 
 	describe "Game Statistics" do
 		before :each do
@@ -84,16 +85,14 @@ describe StatTracker do
 		end
 
 	  it "can calculate average goals per season" do
-
 	    expected = {
 	      "20122013" => 4.43,
 	      "20152016" => 3.00,
 	      "20132014" => 3.25
 	    }
-	    expect(@stat_tracker.average_goals_per_season).to eq expected
+	    expect(@stat_tracker.average_goals_by_season).to eq expected
 		end
 	end
-
 
   describe "League Statistics" do
     before :each do
@@ -108,7 +107,6 @@ describe StatTracker do
       }
     end
 
-
     it 'can count the total number of teams' do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
@@ -118,7 +116,6 @@ describe StatTracker do
       expected = [1, 4, 26, 14, 6, 3, 5, 17, 28, 18, 23, 16, 9, 8, 30, 15,
         19, 24, 27, 2, 20, 21, 25, 13, 10, 29, 52, 54, 12, 7, 22, 53])
     end
-
 
     it 'creates a home goal hash' do
       expected = {6=>3.0,
@@ -259,12 +256,12 @@ describe StatTracker do
 
 		it "can return the average score per game across all seasons when they are away" do
 			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)).to be_a(Hash)
-			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)['3']).to eq(1.75)
-			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)['8']).to eq(2)
+			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)[3]).to eq(1.75)
+			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)[8]).to eq(2)
 		end
 
 		it "can return average away goals per team" do
-			expect(LeagueModule.average_away_goals_per_team('3', @stat_tracker.games)).to eq(1.75)
+			expect(LeagueModule.average_away_goals_per_team(3, @stat_tracker.games)).to eq(1.75)
 		end
 
     it "returns the name of the team with the highest average score per game across all seasons when they are away" do
@@ -275,7 +272,6 @@ describe StatTracker do
       expect(@stat_tracker.lowest_scoring_visitor).to eq('Chicago Fire')
     end
   end
-
 
   describe "Season Statistics" do
     before :each do
@@ -289,7 +285,6 @@ describe StatTracker do
         game_teams: @game_teams_path
       }
      end
-
 
     it 'calculates team with most tackles in season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
@@ -348,9 +343,7 @@ describe StatTracker do
     it 'can count the total number of teams' do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
-
   end
-
 
   describe "Team Statistics" do
     before :each do
@@ -364,7 +357,6 @@ describe StatTracker do
         game_teams: @game_teams_path
       }
      end
-
 
     it 'has team info' do
       expected = {
@@ -407,7 +399,6 @@ describe StatTracker do
 
     it "can return the most goals scored by a team in a single game" do
       expect(@stat_tracker.most_goals_scored(26)).to eq 3
-
     end
 
     it "can return the fewest amount of goals scored by a team in a single game" do
@@ -421,13 +412,12 @@ describe StatTracker do
 
     it "can name opponent with the highest win percentage aganist a given team" do
       expect(@stat_tracker.rival("New England Revolution")).to eq "LA Galaxy"
-
     end
 
     it 'can determine name of rival for a given team' do
       expect(@stat_tracker.rival("LA Galaxy")).to eq "New England Revolution"
       expect(@stat_tracker.rival("Houston Dynamo")).to eq "FC Dallas"
-
     end
   end
 end
+
