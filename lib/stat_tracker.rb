@@ -34,21 +34,21 @@ class StatTracker
 	end
 
 	def percentage_visitor_wins
-		return ((GameModule.total_visitor_wins(@games).count).to_f / (@games.count).to_f) * 100
+		return ((GameModule.total_visitor_wins(@games).count).to_f / (@games.count).to_f).round(2)
 	end
 
 	def percentage_home_wins
-		return ((GameModule.total_home_wins(@games).count).to_f / game_count.to_f) * 100
+		return ((GameModule.total_home_wins(@games).count).to_f / game_count.to_f)
 	end
 
 	def average_goals_per_game
-		(GameModule.total_score(@games).sum.to_f / game_count).ceil(2)
+		(GameModule.total_score(@games).sum.to_f / game_count).round(2)
 	end
 
 	def average_goals_by_season
 		season_goals_avg = GameModule.season_goals(@games)
 		season_goals_avg.each do |season, goals|
-			season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).ceil(2)
+			season_goals_avg[season] = (goals.sum.to_f / goals.count.to_f).round(2)
 		end
 		return season_goals_avg
 	end
@@ -102,7 +102,7 @@ class StatTracker
 		games_by_team_arr = @game_teams.find_all { |game| game.team_id == team_id }
 		results_arr = games_by_team_arr.map { |games| games.result }
 		wins = results_arr.count("WIN")
-		win_percentage = (wins.to_f / results_arr.count.to_f) * 100
+		win_percentage = (wins.to_f / results_arr.count.to_f).round(2)
 		return win_percentage
 	end
 
@@ -148,7 +148,7 @@ class StatTracker
 
 	def percentage_ties
 		ties = @games.select { |game| game.home_goals == game.away_goals }
-		return ((ties.count.to_f / game_count.to_f).ceil(4)) * 100
+		return ((ties.count.to_f / game_count.to_f)).round(2)
 	end
 
 	def count_of_games_by_season

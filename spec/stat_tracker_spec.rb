@@ -61,15 +61,15 @@ describe StatTracker do
 		end
 
 		it "can return the percentage of games that a visitor has won" do
-			expect(@stat_tracker.percentage_visitor_wins).to eq 43.75
+			expect(@stat_tracker.percentage_visitor_wins).to eq 0.44
 		end
 
 		it "can calculate a percentage of home wins" do
-			expect(@stat_tracker.percentage_home_wins).to eq 50.0
+			expect(@stat_tracker.percentage_home_wins).to eq 0.50
 	  end
 
     it "can calculate the percentage of games that has resulted in a tie" do
-			expect(@stat_tracker.percentage_ties).to eq 6.25
+			expect(@stat_tracker.percentage_ties).to eq 0.06
 		end
 
 	  it "can calculate average goals per game" do
@@ -354,31 +354,31 @@ describe StatTracker do
         :abbreviation=> "HOU",
         :link=>"/api/v1/teams/3"
       }
-      expect(@stat_tracker.team_info(3)).to eq(expected)
+      expect(@stat_tracker.team_info(3)).to eq expected
     end
 
     it 'returns hash of seasons for team' do
-      expect(TeamModule.season_hash(16, @stat_tracker.game_teams)).to be_a(Hash)
+      expect(TeamModule.season_hash(16, @stat_tracker.game_teams)).to be_a Hash
     end
 
     it 'returns win percentage by season' do
-      expect(TeamModule.season_win_percentages(16, @stat_tracker.game_teams)).to be_a(Hash)
+      expect(TeamModule.season_win_percentages(16, @stat_tracker.game_teams)).to be_a Hash
     end
 
     it 'calculates season with highest win percentage' do
-      expect(@stat_tracker.best_season(16)).to eq("20152016")
+      expect(@stat_tracker.best_season(16)).to eq "20152016"
     end
 
     it 'calculates season with lowest win percentage' do
-      expect(@stat_tracker.worst_season(16)).to eq("20122013")
+      expect(@stat_tracker.worst_season(16)).to eq "20122013"
     end
 
     it 'returns team name by team id' do
-      expect(LeagueModule.team_name_by_id(17, @stat_tracker.teams)).to eq("LA Galaxy")
+      expect(LeagueModule.team_name_by_id(17, @stat_tracker.teams)).to eq "LA Galaxy"
     end
 
     it 'calculates average win percentage of all games for a team' do
-      expect(@stat_tracker.average_win_percentage(16)).to eq(40.0)
+      expect(@stat_tracker.average_win_percentage(16)).to eq 0.4
     end
 
     it "can calculate lowest average of goals scored per game across all seasons " do
