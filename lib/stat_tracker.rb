@@ -31,11 +31,87 @@ class StatTracker
     highest_sum = 0
     @games.each do |game|
       sum = game.away_goals.to_i + game.home_goals.to_i
-      #require 'pry'; binding.pry
       highest_sum = sum if sum > highest_sum
     end
     highest_sum
   end
+
+  def lowest_total_score
+    lowest_sum = 0
+    @games.map! do |game|
+      sum = game.away_goals.to_i + game.home_goals.to_i
+    end
+    @games.min
+  end
+
+  def percentage_home_wins
+    home_wins = []
+    @game_teams.each do |game|
+      if game.hoa == "home" && game.result == "WIN"
+        home_wins << game
+      end
+     end
+     (home_wins.length.to_f / @games.length.to_f).round(2)
+
+
+  end
+
+  def percentage_visitor_wins
+    away_wins = []
+    @game_teams.each do |game|
+      if game.hoa == "away" && game.result == "WIN"
+        away_wins << game
+      end
+     end
+     (away_wins.length.to_f / @games.length.to_f).round(2)
+     # require 'pry'; binding.pry
+  end
+
+  def percentage_ties
+    ((@games.find_all{|game| game.home_goals == game.away_goals}.length) /
+    (@games.length.to_f)).round(2)
+  end
+
+  def count_of_games_by_season
+    @games.map! do |game|
+      game.season
+    end
+    game_hash = @games.group_by do |season|
+      season
+    end
+    game_hash.each do |seasonid, count|
+      # require 'pry' ; binding.pry
+      game_hash[seasonid] = count.count
+    end
+  end
+
+  def average_goals_per_game
+    avg_goals = []
+    @games.each do |game|
+      goals = game.away_goals + game.home_goals
+      avg_goals << goals
+    end
+    (avg_goals.sum.to_f / avg_goals.length).round(2)
+  end
+
+  def average_goals_by_season
+    # season_goals = {}
+    # season_goals = @games.group_by do |game|
+    #   game.season
+    # end
+    # new_season_goals = season_goals.map do |season, games|
+    #   games.map! do |game|
+    #     game.away_goals + game.home_goals
+    #   end.sum
+      # require 'pry' ; binding.pry
+    # end
+    avg_goals_hash = {}
+    avg = @games.group_by {|game| game.season}
+    avg.map { |season, games| games.map!{ |game| game.away_goals + game.home_goals } }
+    avg.map { |season, games| avg_goals_hash[season] = (games.sum / games.length.to_f).round(2) }
+    avg_goals_hash
+  end
+
 
 # League Statistics
   def count_of_teams
@@ -405,7 +481,7 @@ class StatTracker
 
   def worst_season(team_id)
     @game_team_stats.worst_season(team_id)
-  end 
+  end
 
   def average_win_percentage(team_id)
     @game_team_stats.average_win_percentage(team_id)
@@ -427,4 +503,3 @@ class StatTracker
     @game_team_stats.rival(team_id)
   end
 end
-

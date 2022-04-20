@@ -153,4 +153,5 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.least_tackles("2012030221")).to be_a(String)
       end
     end
+
 end
