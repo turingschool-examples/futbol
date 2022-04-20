@@ -1,4 +1,5 @@
 require './required_files'
+
 include LeagueModule
 
 describe StatTracker do
