@@ -298,14 +298,31 @@ end
 
 
 #THIAGO
-  it 'can return name of coach with best win percentage based on season' do #.(season) not implemented yet
-    expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+  context "thiagos fancy testing section for coaches" do
+    before :each do
+      @game_path = './data/games_test_tigo.csv'
+      @team_path = './data/teams_test.csv'
+      @game_teams_path = './data/game_teams_test_sai.csv'
+
+      locations = {
+        games: @game_path,
+        teams: @team_path,
+        game_teams: @game_teams_path
+      }
+
+      @stat_tracker = StatTracker.from_csv(locations)
+    end
+
+      it 'can return name of coach with best win percentage based on season' do
+        expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+      end
+
+      it 'can return name of coach with worst win percentage based on season' do
+        expect(@stat_tracker.worst_coach("20122013")).to eq("Dan Bylsma")
+      end
   end
 
-  it 'can return name of coach with worst win percentage based on season' do #.(season) not implemented yet
-    expect(@stat_tracker.worst_coach).to eq("John Tortorella")
-  end
-  context "thiagos fancy testing section" do
+  context "thiagos fancy testing section for visitors and home teams" do
     before :each do
       @game_path = './data/games_test_tigo.csv'
       @team_path = './data/teams_test.csv'
