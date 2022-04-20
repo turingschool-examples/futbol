@@ -30,5 +30,16 @@ module GameModule
     return total_visitor_wins
   end
 
-
+  def GameModule.season_goals(games)
+    season_goals = {}
+    games.each do |game|
+      season = game.season
+      if season_goals[season] == nil
+        season_goals[season] = [game.away_goals + game.home_goals]
+      else
+        season_goals[season] << game.away_goals + game.home_goals
+      end
+    end
+    return season_goals
+  end
 end

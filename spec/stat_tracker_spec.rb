@@ -92,7 +92,6 @@ describe StatTracker do
 		end
 	end
 
-
   describe "League Statistics" do
     before :each do
       @game_path = './data/dummy_games.csv'
@@ -106,24 +105,10 @@ describe StatTracker do
       }
     end
 
-
     it 'can count the total number of teams' do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-
-    it 'creates a home goal hash' do
-      expected = {6=>3.0,
-                 3=>1.5,
-                 13=>2.0,
-                 7=>2.0,
-                 15=>1.34,
-                 4=>1.5,
-                 30=>2.0,
-                 19=>2.0,
-                 9=>1.0}
-      expect(@stat_tracker.home_goals_hash).to eq(expected)
-    end
 
     it "can calculate lowest average of goals scored per game across all seasons " do
       expect(@stat_tracker.worst_offense).to eq "New England Revolution"
@@ -164,7 +149,6 @@ describe StatTracker do
     end
   end
 
-
   describe "Season Statistics" do
     before :each do
       @game_path = './data/dummy_games.csv'
@@ -177,7 +161,6 @@ describe StatTracker do
         game_teams: @game_teams_path
       }
      end
-
 
     it 'calculates team with most tackles in season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
@@ -206,9 +189,7 @@ describe StatTracker do
     it 'can count the total number of teams' do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
-
   end
-
 
   describe "Team Statistics" do
     before :each do
@@ -222,7 +203,6 @@ describe StatTracker do
         game_teams: @game_teams_path
       }
      end
-
 
     it 'has team info' do
       expected = {
@@ -269,7 +249,6 @@ describe StatTracker do
 
     it "can return the most goals scored by a team in a single game" do
       expect(@stat_tracker.most_goals_scored(26)).to eq 3
-
     end
 
     it "can return the fewest amount of goals scored by a team in a single game" do
@@ -283,13 +262,24 @@ describe StatTracker do
 
     it "can name opponent with the highest win percentage aganist a given team" do
       expect(@stat_tracker.rival("New England Revolution")).to eq "LA Galaxy"
-
     end
 
     it 'can determine name of rival for a given team' do
       expect(@stat_tracker.rival("LA Galaxy")).to eq "New England Revolution"
       expect(@stat_tracker.rival("Houston Dynamo")).to eq "FC Dallas"
-
     end
   end
 end
+
+# it 'creates a home goal hash' do
+#   expected = {6=>3.0,
+#              3=>1.5,
+#              13=>2.0,
+#              7=>2.0,
+#              15=>1.34,
+#              4=>1.5,
+#              30=>2.0,
+#              19=>2.0,
+#              9=>1.0}
+#   expect(@stat_tracker.home_goals_hash).to eq(expected)
+# end
