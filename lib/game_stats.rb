@@ -1,6 +1,7 @@
 require_relative 'csv_reader'
 require_relative 'game_teams'
 
+
 class GameStats < CSVReader
   def initialize(locations)
     super(locations)
@@ -72,5 +73,6 @@ class GameStats < CSVReader
     avg.map { |season, games| avg_goals_hash[season] = (games.sum / games.length.to_f).round(2) }
     avg_goals_hash
   end
+
 
 end
