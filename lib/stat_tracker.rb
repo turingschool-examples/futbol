@@ -39,17 +39,34 @@ class StatTracker
     @games.map! do |game|
       sum = game.away_goals.to_i + game.home_goals.to_i
     end
-    # require 'pry'; binding.pry
     @games.min
   end
 
   def percentage_home_wins
+    home_wins = []
+    @game_teams.each do |game|
+      if game.hoa == "home" && game.result == "WIN"
+        home_wins << game
+      end
+     end
+     (home_wins.length.to_f / @games.length.to_f).round(2)
+
+
   end
 
   def percentage_visitor_wins
+    away_wins = []
+    @game_teams.each do |game|
+      if game.hoa == "away" && game.result == "WIN"
+        away_wins << game
+      end
+     end
+     (away_wins.length.to_f / @games.length.to_f).round(2)
+     # require 'pry'; binding.pry
   end
 
   def percentage_ties
+
   end
 
   def count_of_games_by_season
@@ -66,6 +83,7 @@ class StatTracker
   end
 
   def average_goals_per_game
+    
   end
 
   def average_goals_by_season
@@ -477,7 +495,7 @@ class StatTracker
       if team.team_id.include?(least_favorite)
         return team.team_name
       end
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
     end
   end
 end
