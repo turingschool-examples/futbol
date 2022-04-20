@@ -401,133 +401,19 @@ include SeasonModule
   end
 
 	def winningest_coach(season)
-    #find all the games for the given season
-    season_games = @games.find_all{|game| game.season == season}
-    #use the season to find the game_id and then get an array of all the game_teams for that season
-    game_teams_by_season = []
-    season_games.each do |game|
-      matching_game_team = @game_teams.find_all{|g_t| g_t.game_id == game.game_id}
-      if matching_game_team
-        game_teams_by_season << matching_game_team
-      end
-    end
-    game_teams_by_season.flatten!
-    #go through the game_team objects to calculate win precentage for each coach
-    coach_wins_losses = {}
-    game_teams_by_season.each do |game_team|
-      if coach_wins_losses.keys.include?(game_team.head_coach)
-        coach_wins_losses[game_team.head_coach] << game_team.result
-      else
-        coach_wins_losses[game_team.head_coach] = [game_team.result]
-      end
-    end
-    #calculate win percentage for each coach
-    highest_percentage = 0.0
-    best_coach = nil
-    coach_wins_losses.each do |coach, win_loss|
-        wins = 0
-        win_loss.each do |val|
-          if val == "WIN"
-            wins += 1
-          end
-        end
-        percentage = ((wins.to_f / win_loss.length) * 100).round(2)
-        if percentage > highest_percentage
-          best_coach = coach
-          highest_percentage = percentage
-        end
-    end
-    return best_coach
+		SeasonModule.best_coach(season, @game_teams)
   end
 
 	def worst_coach(season)
-		#find all the games for the given season
-		season_games = @games.find_all{|game| game.season == season}
-		#use the season to find the game_id and then get an array of all the game_teams for that season
-		game_teams_by_season = []
-		season_games.each do |game|
-			matching_game_team = @game_teams.find_all{|g_t| g_t.game_id == game.game_id}
-			if matching_game_team
-				game_teams_by_season << matching_game_team
-			end
-		end
-		game_teams_by_season.flatten!
-		#go through the game_team objects to calculate win precentage for each coach
-		coach_wins_losses = {}
-		game_teams_by_season.each do |game_team|
-			if coach_wins_losses.keys.include?(game_team.head_coach)
-				coach_wins_losses[game_team.head_coach] << game_team.result
-			else
-				coach_wins_losses[game_team.head_coach] = [game_team.result]
-			end
-		end
-		#calculate win percentage for each coach
-		lowest_percentage = 100.0
-		worst_coach = nil
-		coach_wins_losses.each do |coach, win_loss|
-				wins = 0
-				win_loss.each do |val|
-					if val == "WIN"
-						wins += 1
-					end
-				end
-				percentage = ((wins.to_f / win_loss.length) * 100).round(2)
-				if percentage < lowest_percentage
-					worst_coach = coach
-					lowest_percentage = percentage
-				end
-		end
-		return worst_coach
+		SeasonModule.worst_coach(season, @game_teams)
 	end
 
 	def most_accurate_team(season)
-		team_shots_goals = {}
-		season_games = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
-		season_games.each do |season_game|
-			team_id = season_game.team_id
-			if team_shots_goals[team_id]
-				team_shots_goals[team_id][0] += season_game.shots
-				team_shots_goals[team_id][1] +=  season_game.goals
-			else
-				team_shots_goals[team_id] = [season_game.shots, season_game.goals]
-			end
-		end
-		best_team_id = 0
-		best_ratio = 100
-		team_shots_goals.each do |team_id, shots_goals|
-			ratio = shots_goals[0].to_f / shots_goals[1].to_f
-			if ratio < best_ratio
-				best_ratio = ratio
-				best_team_id = team_id
-			end
-		end
-		best_team = @teams.find{|team| team.team_id == best_team_id}
-		return best_team.team_name
+		SeasonModule.best_team(season, @game_teams, @teams)
 	end
 
 	def least_accurate_team(season)
-		team_shots_goals = {}
-		season_games = @game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
-		season_games.each do |season_game|
-			team_id = season_game.team_id
-			if team_shots_goals[team_id]
-				team_shots_goals[team_id][0] += season_game.shots
-				team_shots_goals[team_id][1] +=  season_game.goals
-			else
-				team_shots_goals[team_id] = [season_game.shots, season_game.goals]
-			end
-		end
-		worst_team_id = 0
-		worst_ratio = 0
-		team_shots_goals.each do |team_id, shots_goals|
-			ratio = shots_goals[0].to_f / shots_goals[1].to_f
-			if ratio > worst_ratio
-				worst_ratio = ratio
-				worst_team_id = team_id
-			end
-		end
-		worst_team = @teams.find{|team| team.team_id == worst_team_id}
-		return worst_team.team_name
+		SeasonModule.worst_team(season, @game_teams, @teams)
   end
 
 	def percentage_ties
