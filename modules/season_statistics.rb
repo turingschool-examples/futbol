@@ -13,7 +13,7 @@ module Season
     games.each do |game|
       coaches[game.head_coach] += 1
     end
-    a = coaches.sort_by { |_coach, number| number }
+    coaches.sort_by { |_coach, number| number }
   end
 
   def winningest_coach(season)
