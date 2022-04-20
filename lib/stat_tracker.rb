@@ -138,6 +138,7 @@ class StatTracker
         games_by_season[season_games(game.game_id)] << game
       end
     end
+    require 'pry'; binding.pry
     win_tracker = 0.0
     win_percentage = 0.0
     games_by_season.map do |season, games|

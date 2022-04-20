@@ -96,7 +96,7 @@ RSpec.describe StatTracker do
       end
 
       it '#rival can produce the name that has the highest win percentage against the given team' do
-        expect(@stat_tracker.rival("24")).to eq("Chicago Red Stars")
+        expect(@stat_tracker.rival("24")).to eq("Portland Timbers")
       end
     end
 end
