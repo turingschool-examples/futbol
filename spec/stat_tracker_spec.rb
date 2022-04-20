@@ -267,6 +267,14 @@ describe StatTracker do
       expect(@stat_tracker.team_info(3)).to eq(expected)
     end
 
+    it 'returns hash of seasons for team' do
+      expect(TeamModule.season_hash(16, @stat_tracker.game_teams)).to be_a(Hash)
+    end
+
+    it 'returns win percentage by season' do
+      expect(TeamModule.season_win_percentages(16, @stat_tracker.game_teams)).to be_a(Hash)
+    end
+
     it 'calculates season with highest win percentage' do
       expect(@stat_tracker.best_season(16)).to eq("20152016")
     end
@@ -276,15 +284,7 @@ describe StatTracker do
     end
 
     it 'returns team name by team id' do
-      expect(@stat_tracker.team_name_by_id(17)).to eq("LA Galaxy")
-    end
-
-    it 'returns number of tackles by team id' do
-      expect(@stat_tracker.tackles_by_id(19)).to eq({19 => [41, 41, 40]})
-    end
-
-    it 'returns season by game id' do
-      expect(@stat_tracker.game_id_to_season("2015030133")).to eq("20152016")
+      expect(LeagueModule.team_name_by_id(17, @stat_tracker.teams)).to eq("LA Galaxy")
     end
 
     it 'calculates average win percentage of all games for a team' do

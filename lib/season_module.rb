@@ -2,6 +2,25 @@ require './required_files'
 
 module SeasonModule
 
+
+  def SeasonModule.tackles_hash(season_id, game_teams)
+    game_season = []
+    game_teams.each do |game|
+      if season_id[0..3] == game.game_id[0..3]
+        game_season << game
+      end
+    end
+    tackles_hash = {}
+    game_season.each do |game|
+      if tackles_hash[game.team_id] == nil
+        tackles_hash[game.team_id] = game.tackles.to_i
+      else
+        tackles_hash[game.team_id] += game.tackles.to_i
+      end
+    end
+    tackles_hash
+  end
+  
   def SeasonModule.game_teams_for_season(season, game_teams)
     game_teams.find_all{|game_team| game_team.game_id[0..3] == season[0..3]}
   end
@@ -83,6 +102,7 @@ module SeasonModule
 		worst_team_id = team_shots_goals_ratios.invert.max[1]
 		worst_team = teams.find{|team| team.team_id == worst_team_id}
 		return worst_team.team_name
+
   end
 
 end
