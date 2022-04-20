@@ -26,7 +26,7 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012020225,29,away,LOSS,REG,Todd Richards,2,6,22,6,3,0,47.6,3,4
 2012020225,24,home,WIN,REG,Bruce Boudreau,3,7,24,6,3,2,52.4,6,8
 2012020577,12,away,LOSS,REG,Kirk Muller,2,10,20,4,1,0,52.7,3,11
-2012020577,6,home,WIN,REG,Claude Julien,4,9,15,2,2,0,47.3,10,3
+2012020577,6,home,LOSS,REG,Claude Julien,4,9,15,2,2,0,47.3,10,3
 2013021085,17,away,TIE,REG,Mike Babcock,2,8,32,8,2,0,41.7,4,3
 2013021085,29,home,TIE,REG,Todd Richards,2,7,33,6,4,2,58.3,5,5
 2012020122,1,away,WIN,REG,Peter DeBoer,3,6,19,21,3,1,46.6,6,9
