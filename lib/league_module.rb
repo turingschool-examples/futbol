@@ -41,4 +41,14 @@ module LeagueModule
 		goals / games.to_f
 	end
 
+  def LeagueModule.team_name_by_id(team_id, teams)
+    name = ""
+    teams.find_all do |team|
+      if team.team_id == team_id
+         name << team.team_name
+      end
+    end
+    name
+  end
+
 end
