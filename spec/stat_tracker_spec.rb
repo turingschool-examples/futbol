@@ -117,18 +117,6 @@ describe StatTracker do
         19, 24, 27, 2, 20, 21, 25, 13, 10, 29, 52, 54, 12, 7, 22, 53])
     end
 
-    it 'creates a home goal hash' do
-      expected = {6=>3.0,
-                 3=>1.5,
-                 13=>2.0,
-                 7=>2.0,
-                 15=>1.34,
-                 4=>1.5,
-                 30=>2.0,
-                 19=>2.0,
-                 9=>1.0}
-      expect(@stat_tracker.home_goals_hash).to eq(expected)
-    end
 
     it "can calculate highest average number of goals scored across all seasons" do
       expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
@@ -420,4 +408,3 @@ describe StatTracker do
     end
   end
 end
-
