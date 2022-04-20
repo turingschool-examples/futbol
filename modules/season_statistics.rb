@@ -13,7 +13,9 @@ module Season
     games.each do |game|
       coaches[game.head_coach] += 1
     end
-    coaches.sort_by { |_coach, number| number }
+    a = coaches.sort_by { |_coach, number| number }
+    require 'pry'
+    binding.pry
   end
 
   def winningest_coach(season)
@@ -42,7 +44,7 @@ module Season
         teams[game.team_id][:shots] += game.shots
       end
     end
-    teams.map { |team, number| [team, number[:goals].to_f / number[:shots]] }.sort_by { |team| team[1] }
+    teams.map { |team, number| [team, (number[:goals].to_f / number[:shots]).round(6)] }.sort_by { |team| team[1] }
   end
 
   def most_tackles(season)
@@ -62,6 +64,6 @@ module Season
         teams[game.team_id] += game.tackles
       end
     end
-    teams.sort_by { |_team, number| number }
+    a = teams.sort_by { |_team, number| number }
   end
 end
