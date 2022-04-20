@@ -388,6 +388,7 @@ class StatTracker
       team.team_id == team_id
     end
     team_name_by_id.team_name
+  end
 
   # Team Statistics
   def team_info(team_id)
