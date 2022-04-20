@@ -45,7 +45,7 @@ module LeagueModule
   def LeagueModule.get_team_goals(game_teams_arr)
     team_goals = {}
 		game_teams_arr.each do |game|
-			team = game.team_id
+			team = game.team_id.to_i
 			if team_goals[team] == nil
 				team_goals[team] = [game.goals.to_f]
 			else
@@ -66,7 +66,7 @@ module LeagueModule
   def LeagueModule.team_names(teams_arr)
     team_names = {}
     teams_arr.each do |team|
-      team_names[team.team_id] = team.team_name
+      team_names[team.team_id.to_i] = team.team_name
     end
     team_names
   end
@@ -99,7 +99,7 @@ module LeagueModule
   def LeagueModule.total_team_count(teams_arr)
     total_teams = []
     teams_arr.each do |team|
-      total_teams << team.team_id
+      total_teams << team.team_id.to_i
     end
     total_teams
   end
