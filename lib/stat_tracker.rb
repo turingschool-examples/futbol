@@ -4,33 +4,23 @@ require_relative 'team'
 require_relative 'game_teams'
 require_relative 'game_team_stats'
 require_relative 'league_stats'
-# require_relative 'csv_reader'
+require_relative 'game_stats'
 require 'pry'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams, :games_array
 
   def initialize(locations)
-    # @game_data = CSV.read(locations[:games], headers:true,
-    #    header_converters: :symbol)
-    # @team_data = CSV.read(locations[:teams], headers:true,
-    #    header_converters: :symbol)
-    # @game_team_data = CSV.read(locations[:game_teams],
-    #    headers:true, header_converters: :symbol)
-    # @games_array = []
-    # @games = Game.fill_game_array(@game_data)
-    # @teams = Team.fill_team_array(@team_data)
-    # @game_teams = GameTeams.fill_game_teams_array(@game_team_data)
     @game_team_stats = GameTeamStats.new(locations)
+
     @league_stats = LeagueStats.new(locations)
+    @game_stats = GameStats.new(locations)
+
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
-
-
 
 
   # Season Statistics
@@ -194,6 +184,7 @@ class StatTracker
     @game_team_stats.rival(team_id)
   end
 
+
   def count_of_teams
     @league_stats.count_of_teams
   end
@@ -221,4 +212,38 @@ class StatTracker
   def highest_scoring_home_team
     @league_stats.highest_scoring_home_team
   end
+
+  def highest_total_score
+    @game_stats.highest_total_score
+  end
+
+  def lowest_total_score
+    @game_stats.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @game_stats.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game_stats.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @game_stats.percentage_ties
+  end
+
+  def average_goals_per_game
+    @game_stats.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @game_stats.average_goals_by_season
+  end
+
+  def count_of_games_by_season
+    @game_stats.count_of_games_by_season
+  end 
+
+
 end
