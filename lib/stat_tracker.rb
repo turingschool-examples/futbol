@@ -3,6 +3,7 @@ require_relative 'game'
 require_relative 'team'
 require_relative 'game_teams'
 require_relative 'game_team_stats'
+require_relative 'game_stats'
 require 'pry'
 
 class StatTracker
@@ -20,88 +21,11 @@ class StatTracker
     @teams = Team.fill_team_array(@team_data)
     @game_teams = GameTeams.fill_game_teams_array(@game_team_data)
     @game_team_stats = GameTeamStats.new(locations)
+    @game_stats = GameStats.new(locations)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-
-# Game Statistics
-  def highest_total_score
-    highest_sum = 0
-    @games.each do |game|
-      sum = game.away_goals.to_i + game.home_goals.to_i
-      highest_sum = sum if sum > highest_sum
-    end
-    highest_sum
-  end
-
-  def lowest_total_score
-    lowest_sum = 0
-    lowest = @games.map do |game|
-      sum = game.away_goals.to_i + game.home_goals.to_i
-    end
-    lowest.min
-  end
-
-  def percentage_home_wins
-    home_wins = []
-    @game_teams.each do |game|
-      if game.hoa == "home" && game.result == "WIN"
-        home_wins << game
-      end
-     end
-     (home_wins.length.to_f / @games.length.to_f).round(2)
-
-
-  end
-
-  def percentage_visitor_wins
-    away_wins = []
-    @game_teams.each do |game|
-      if game.hoa == "away" && game.result == "WIN"
-        away_wins << game
-      end
-     end
-     (away_wins.length.to_f / @games.length.to_f).round(2)
-     # require 'pry'; binding.pry
-  end
-
-  def percentage_ties
-    # require 'pry'; binding.pry
-    ((@game_teams.find_all { |game| game.result == 'TIE'}.count) / @game_teams.count.to_f).round(2)
-  end 
-
-  def count_of_games_by_season
-    # require 'pry'; binding.pry
-    @games.group_by {|game| game.season}.transform_values { |values| values.count}
-  end
-
-  def average_goals_per_game
-    avg_goals = []
-    @games.each do |game|
-      goals = game.away_goals + game.home_goals
-      avg_goals << goals
-    end
-    (avg_goals.sum.to_f / avg_goals.length).round(2)
-  end
-
-  def average_goals_by_season
-    # season_goals = {}
-    # season_goals = @games.group_by do |game|
-    #   game.season
-    # end
-    # new_season_goals = season_goals.map do |season, games|
-    #   games.map! do |game|
-    #     game.away_goals + game.home_goals
-    #   end.sum
-      # require 'pry' ; binding.pry
-    # end
-    avg_goals_hash = {}
-    avg = @games.group_by {|game| game.season}
-    avg.map { |season, games| games.map!{ |game| game.away_goals + game.home_goals } }
-    avg.map { |season, games| avg_goals_hash[season] = (games.sum / games.length.to_f).round(2) }
-    avg_goals_hash
   end
 
 
@@ -494,4 +418,37 @@ class StatTracker
   def rival(team_id)
     @game_team_stats.rival(team_id)
   end
+
+  def highest_total_score
+    @game_stats.highest_total_score
+  end
+
+  def lowest_total_score
+    @game_stats.lowest_total_score
+  end
+
+  def percentage_home_wins
+    @game_stats.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game_stats.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @game_stats.percentage_ties
+  end
+
+  def average_goals_per_game
+    @game_stats.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @game_stats.average_goals_by_season
+  end
+
+  def count_of_games_by_season
+    @game_stats.count_of_games_by_season
+  end 
+
 end
