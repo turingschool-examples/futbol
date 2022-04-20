@@ -38,10 +38,10 @@ class StatTracker
 
   def lowest_total_score
     lowest_sum = 0
-    @games.map! do |game|
+    lowest = @games.map do |game|
       sum = game.away_goals.to_i + game.home_goals.to_i
     end
-    @games.min
+    lowest.min
   end
 
   def percentage_home_wins
@@ -68,21 +68,13 @@ class StatTracker
   end
 
   def percentage_ties
-    ((@games.find_all{|game| game.home_goals == game.away_goals}.length) /
-    (@games.length.to_f)).round(2)
-  end
+    # require 'pry'; binding.pry
+    ((@game_teams.find_all { |game| game.result == 'TIE'}.count) / @game_teams.count.to_f).round(2)
+  end 
 
   def count_of_games_by_season
-    @games.map! do |game|
-      game.season
-    end
-    game_hash = @games.group_by do |season|
-      season
-    end
-    game_hash.each do |seasonid, count|
-      # require 'pry' ; binding.pry
-      game_hash[seasonid] = count.count
-    end
+    # require 'pry'; binding.pry
+    @games.group_by {|game| game.season}.transform_values { |values| values.count}
   end
 
   def average_goals_per_game
