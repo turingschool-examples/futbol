@@ -132,7 +132,7 @@ describe StatTracker do
     end
 
     it 'returns the name of the team with the best shot to goal ratio' do
-      expect(@stat_tracker.most_accurate_team("20122013")).to eq("Houston Dynamo")
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
     end
 
     it 'returns the name of the team with the worst shot to goal ratio' do
