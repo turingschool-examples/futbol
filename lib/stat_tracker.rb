@@ -149,7 +149,6 @@ class StatTracker
       final_hash.merge!("#{key}" => (hash2[:goals] / hash2[:shots]))
     end
     final_hash.each do |k, v|
-      require "pry"; binding.pry
       if v == final_hash.values.max
         return teams_hash[k]
       end
