@@ -13,7 +13,7 @@ RSpec.describe GameTeamStats do
           teams: @team_path,
           game_teams: @game_teams_path
         }
-        # require 'pry'; binding.pry
+
         @game_team_stats = GameTeamStats.new(@locations)
     end
     
