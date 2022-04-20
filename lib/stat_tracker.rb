@@ -9,7 +9,7 @@ include SeasonModule
 	attr_reader :games, :teams, :game_teams
 
 	def initialize(games_hash, teams_hash, game_teams_hash)
-		@games = create_games(games_hash)
+		@games = Game.create_games(games_hash)
 		@teams = create_teams(teams_hash)
 		@game_teams = create_game_teams(game_teams_hash)
 	end
@@ -35,24 +35,24 @@ include SeasonModule
 		return team_arr
 	end
 
-	def create_games(games)
-		game_arr = []
-		games.each do |row|
-			game_id = row[:game_id]
-			season = row[:season]
-			type = row[:type]
-			date_time = row[:date_time]
-			away_team_id = row[:away_team_id].to_i
-			home_team_id = row[:home_team_id].to_i
-			away_goals = row[:away_goals].to_i
-			home_goals = row[:home_goals].to_i
-			venue = row[:venue]
-			venue_link = row[:venue_link]
-			game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
-				away_goals, home_goals, venue, venue_link)
-		end
-		return game_arr
-	end
+	# def create_games(games)
+	# 	game_arr = []
+	# 	games.each do |row|
+	# 		game_id = row[:game_id]
+	# 		season = row[:season]
+	# 		type = row[:type]
+	# 		date_time = row[:date_time]
+	# 		away_team_id = row[:away_team_id].to_i
+	# 		home_team_id = row[:home_team_id].to_i
+	# 		away_goals = row[:away_goals].to_i
+	# 		home_goals = row[:home_goals].to_i
+	# 		venue = row[:venue]
+	# 		venue_link = row[:venue_link]
+	# 		game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
+	# 			away_goals, home_goals, venue, venue_link)
+	# 	end
+	# 	return game_arr
+	# end
 
   def create_game_teams(game_teams)
     game_team_array = []
@@ -227,7 +227,7 @@ include SeasonModule
 
 	def team_name_by_id(team_id)
 	 	name = ""
-		@teams.find_all do |team|
+		@teams.select do |team|
 			if team.team_id == team_id
 				 name << team.team_name
 		  end
@@ -299,13 +299,8 @@ include SeasonModule
 	end
 
 	def average_win_percentage(team_id)
-		games_by_team_arr = @game_teams.find_all do |game|
-			 game.team_id == team_id
-		end
-		results_arr = []
-		games_by_team_arr.each do |games|
-			results_arr << games.result
-		end
+		games_by_team_arr = @game_teams.find_all { |game| game.team_id == team_id }
+		results_arr = games_by_team_arr.map { |games| games.result }
 		wins = results_arr.count("WIN")
 		win_percentage = (wins.to_f / results_arr.count.to_f) * 100
 		return win_percentage
@@ -593,22 +588,22 @@ include SeasonModule
 
 	def highest_scoring_visitor
 		team_id = LeagueModule.average_visitor_scores(@games).invert.max.last
-		team_name_by_id(team_id.to_i)
+		team_name_by_id(team_id)
 	end
 
 	def lowest_scoring_visitor
 		team_id = LeagueModule.average_visitor_scores(@games).invert.min.last
-		team_name_by_id(team_id.to_i)
+		team_name_by_id(team_id)
 	end
 
 	def highest_scoring_home_team
 		team_id = LeagueModule.average_home_scores(@games).invert.max.last
-		team_name_by_id(team_id.to_i)
+		team_name_by_id(team_id)
 	end
 
 	def lowest_scoring_home_team
 		team_id = LeagueModule.average_home_scores(@games).invert.min.last
-		team_name_by_id(team_id.to_i)
+		team_name_by_id(team_id)
 	end
 
 	def rival(team_name)

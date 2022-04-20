@@ -8,6 +8,7 @@ describe StatTracker do
     @team_path = './data/dummy_teams.csv'
     @game_teams_path = './data/dummy_game_teams.csv'
 
+
     @locations = {
       games: @game_path,
       teams: @team_path,
@@ -31,7 +32,6 @@ describe StatTracker do
   it 'has game_teams' do
     expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
   end
-
 
 	describe "Game Statistics" do
 		before :each do
@@ -132,12 +132,12 @@ describe StatTracker do
 
 		it "can return the average score per game across all seasons when they are away" do
 			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)).to be_a(Hash)
-			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)['3']).to eq(1.75)
-			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)['8']).to eq(2)
+			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)[3]).to eq(1.75)
+			expect(LeagueModule.average_visitor_scores(@stat_tracker.games)[8]).to eq(2)
 		end
 
 		it "can return average away goals per team" do
-			expect(LeagueModule.average_away_goals_per_team('3', @stat_tracker.games)).to eq(1.75)
+			expect(LeagueModule.average_away_goals_per_team(3, @stat_tracker.games)).to eq(1.75)
 		end
 
     it "returns the name of the team with the highest average score per game across all seasons when they are away" do
