@@ -208,7 +208,7 @@ class StatTracker
 	end
 
 	def lowest_scoring_visitor
-		team_id = LeagueModule.average_visitor_scores(@games).invert.min.las
+		team_id = LeagueModule.average_visitor_scores(@games).invert.min.last
 		LeagueModule.team_name_by_id(team_id.to_i, @teams)
 	end
 
@@ -265,4 +265,3 @@ class StatTracker
 		return fav_opponent_team.team_name
 		end
 	end
-
