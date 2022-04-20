@@ -1,4 +1,4 @@
-require './required_files'
+
 
 class Game
 

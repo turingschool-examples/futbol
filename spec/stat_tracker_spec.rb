@@ -113,6 +113,12 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
+    it 'creates an array with all the teams' do
+      expect(LeagueModule.total_team_count(@stat_tracker.teams)).to eq(
+      expected = [1, 4, 26, 14, 6, 3, 5, 17, 28, 18, 23, 16, 9, 8, 30, 15,
+        19, 24, 27, 2, 20, 21, 25, 13, 10, 29, 52, 54, 12, 7, 22, 53])
+    end
+
 
     it 'creates a home goal hash' do
       expected = {6=>3.0,
@@ -127,8 +133,108 @@ describe StatTracker do
       expect(@stat_tracker.home_goals_hash).to eq(expected)
     end
 
+    it "can calculate highest average number of goals scored across all seasons" do
+      expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
+    end
+
     it "can calculate lowest average of goals scored per game across all seasons " do
       expect(@stat_tracker.worst_offense).to eq "New England Revolution"
+    end
+
+    it "makes an hash with all team goals based on team id" do
+      expect(LeagueModule.get_team_goals(@stat_tracker.game_teams)).to eq({
+        3=>[2.0, 2.0],
+        6=>[3.0, 3.0, 2.0],
+        17=>[1.0, 2.0],
+        16=>[2.0, 1.0, 1.0, 0.0, 3.0],
+        5=>[4.0],
+        28=>[2.0, 2.0],
+        26=>[3.0, 1.0],
+        19=>[1.0, 2.0, 3.0]
+        })
+      end
+
+    it "gets all the goals from an array and averages them" do
+      get_team_goals = LeagueModule.get_team_goals(@stat_tracker.game_teams)
+      expect(LeagueModule.goals_average(get_team_goals)).to eq({
+        3=>2.0,
+        6=>2.67,
+        17=>1.5,
+        16=>1.4,
+        5=>4.0,
+        28=>2.0,
+        26=>2.0,
+        19=>2.0
+        })
+    end
+
+    it "can associate team names with team ideas in a hash" do
+      expect(LeagueModule.team_names(@stat_tracker.teams)).to eq({
+        1=>"Atlanta United",
+        4=>"Chicago Fire",
+        26=>"FC Cincinnati",
+        14=>"DC United",
+        6=>"FC Dallas",
+        3=>"Houston Dynamo",
+        5=>"Sporting Kansas City",
+        17=>"LA Galaxy",
+        28=>"Los Angeles FC",
+        18=>"Minnesota United FC",
+        23=>"Montreal Impact",
+        16=>"New England Revolution",
+        9=>"New York City FC",
+        8=>"New York Red Bulls",
+        30=>"Orlando City SC",
+        15=>"Portland Timbers",
+        19=>"Philadelphia Union",
+        24=>"Real Salt Lake",
+        27=>"San Jose Earthquakes",
+        2=>"Seattle Sounders FC",
+        20=>"Toronto FC",
+        21=>"Vancouver Whitecaps FC",
+        25=>"Chicago Red Stars",
+        13=>"Houston Dash",
+        10=>"North Carolina Courage",
+        29=>"Orlando Pride",
+        52=>"Portland Thorns FC",
+        54=>"Reign FC",
+        12=>"Sky Blue FC",
+        7=>"Utah Royals FC",
+        22=>"Washington Spirit FC",
+        53=>"Columbus Crew SC"
+        })
+    end
+
+    it "replaces game_id with average goals and makes team name key" do
+      get_team_goals = LeagueModule.get_team_goals(@stat_tracker.game_teams)
+      avg_goals = LeagueModule.goals_average(get_team_goals)
+      name_of_teams = LeagueModule.team_names(@stat_tracker.teams)
+      expect(LeagueModule.id_to_name(avg_goals, name_of_teams)).to eq({
+        "Houston Dynamo"=>2.0,
+        "FC Dallas"=>2.67,
+        "LA Galaxy"=>1.5,
+        "New England Revolution"=>1.4,
+        "Sporting Kansas City"=>4.0,
+        "Los Angeles FC"=>2.0,
+        "FC Cincinnati"=>2.0,
+        "Philadelphia Union"=>2.0
+        })
+    end
+
+    it "finds the max average goals" do
+      get_team_goals = LeagueModule.get_team_goals(@stat_tracker.game_teams)
+      avg_goals = LeagueModule.goals_average(get_team_goals)
+      name_of_teams = LeagueModule.team_names(@stat_tracker.teams)
+      team_id_to_team_name = LeagueModule.id_to_name(avg_goals, name_of_teams)
+      expect(LeagueModule.max_avg_goals(team_id_to_team_name)).to eq("Sporting Kansas City")
+    end
+
+    it "finds the min average goals" do
+      get_team_goals = LeagueModule.get_team_goals(@stat_tracker.game_teams)
+      avg_goals = LeagueModule.goals_average(get_team_goals)
+      name_of_teams = LeagueModule.team_names(@stat_tracker.teams)
+      team_id_to_team_name = LeagueModule.id_to_name(avg_goals, name_of_teams)
+      expect(LeagueModule.min_avg_goals(team_id_to_team_name)).to eq("New England Revolution")
     end
 
     it "can return the most goals scored by a team in a single game" do
@@ -137,6 +243,10 @@ describe StatTracker do
 
     it "can return the fewest amount of goals scored by a team in a single game" do
       expect(@stat_tracker.fewest_goals_scored(16)).to eq 0
+    end
+
+    it "creates an array of all team goals by a given team" do
+      expect(LeagueModule.goals_scored(26, @stat_tracker.game_teams)).to eq([3, 1])
     end
 
     it 'returns highest average scoring of home team' do
@@ -289,10 +399,6 @@ describe StatTracker do
 
     it 'calculates average win percentage of all games for a team' do
       expect(@stat_tracker.average_win_percentage(16)).to eq(40.0)
-    end
-
-    it "can calculate highest average number of goals scored across all seasons" do
-      expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
     end
 
     it "can calculate lowest average of goals scored per game across all seasons " do
