@@ -313,32 +313,50 @@ class StatTracker
     team_name(highest_tackles[0])
   end
 
-  def least_tackles(season_id)
+  def fewest_tackles(season_id)
     lowest_tackles = total_tackles_by_season(season_id).min_by do |team_id, total_tackles|
       total_tackles
     end
     team_name(lowest_tackles[0])
   end
 
-  def games_by_season(season_id) # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
-    year = season_id[0..3]
-    @game_teams.find_all do |game_team|
-      game_team.game_id[0..3] == year
+  def games_by_season # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
+    season_hash = @games.group_by {|game| game.season}
+    games_by_season = {}
+    season_hash.each do |season, games|
+      games_by_season[season] = games.map do |game|
+        game.game_id
+      end
     end
+    games_by_season
   end
 
-  def organize_teams(season_id) #organize by team_id returns :team_id{[games]}
-    team_hash = games_by_season(season_id).group_by {|game| game.team_id}
+  def stats_by_season
+    stats = {}
+    games_by_season.each do |season, games|
+      @game_teams.each do |game_line|
+        stats[season] = [] if stats[season].nil?
+        stats[season] << game_line if games.include?(game_line.game_id)
+      end
+    end
+    stats
   end
 
-  def team_winning_percentage_by_season(season_id) #calculates/returns winning percentage
+  # def organize_teams(season) #organize by team_id returns :team_id{[games]}
+  #   team_hash = games_by_season(season).group_by {|game| game.away_team_id}
+  # end
+
+  def team_winning_percentage_by_season(season) #calculates/returns winning percentage
     win_percentage_hash = {}
-    organize_teams(season_id).each do |team_id,game_teams|
+    stats_by_season.each do |game_team|
+      # win_percentage_hash[]
+      binding.pry
       number_of_wins = 0
       game_teams.each do |game_team|
         if game_team.result == "WIN"
           number_of_wins += 1
         end
+        game_team.result
       end
         total_games = game_teams.count
         win_percentage = number_of_wins.to_f / total_games.to_f
