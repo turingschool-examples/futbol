@@ -437,52 +437,52 @@ class StatTracker
 
 
   # T H I A G O O O O O O O A L L L L L
-  def winningest_coach#.(season) not implemented yet
-    results = @game_teams[:result]
-    coaches = @game_teams[:head_coach]
-    unique_coaches = coaches.uniq
-    win_list = Hash.new(0)
-    coach_result = coaches.zip(results)
-    win_results = []
-
-    coach_result.each do |g|
-      win_results << g if g.include?("WIN")
-    end
-
-    unique_coaches.each do |coach|
-      win_results.each do |win|
-        if coach == win[0] && win_list[coach] == nil
-          win_list[coach] = 1
-        elsif coach == win[0] && win_list[coach] != nil
-          win_list[coach] += 1
-        end
+  def winningest_coach(season_id)
+    hash = {}
+    final_hash = {}
+    season_games = games_by_season(season_id)
+    array = @game_teams.select { |row| season_games.include?(row[:game_id])}
+    array.each do |row|
+      if !hash.keys.include?(row[:head_coach])
+        hash[row[:head_coach]] = [row[:result]]
+      else
+        hash[row[:head_coach]] << row[:result]
       end
     end
-    win_list.key(win_list.values.max)
+    hash.each do |key, array|
+      wins = array.select { |element| element == "WIN" }
+      # require 'pry';binding.pry
+      final_hash.merge!("#{key}" => (wins.count.to_f / array.count.to_f))
+    end
+    final_hash.each do |k, v|
+      if v == final_hash.values.max
+        return k
+      end
+    end
   end
 
-  def worst_coach
-    results = @game_teams[:result]
-    coaches = @game_teams[:head_coach]
-    unique_coaches = coaches.uniq
-    loss_list = Hash.new(0)
-    coach_result = coaches.zip(results)
-    loss_results = []
-
-    coach_result.each do |g|
-      loss_results << g if g.include?("LOSS")
-    end
-
-    unique_coaches.each do |coach|
-      loss_results.each do |loss|
-        if coach == loss[0] && loss_list[coach] == nil
-          loss_list[coach] = 1
-        elsif coach == loss[0] && loss_list[coach] != nil
-          loss_list[coach] += 1
-        end
+  def worst_coach(season_id)
+    hash = {}
+    final_hash = {}
+    season_games = games_by_season(season_id)
+    array = @game_teams.select { |row| season_games.include?(row[:game_id])}
+    array.each do |row|
+      if !hash.keys.include?(row[:head_coach])
+        hash[row[:head_coach]] = [row[:result]]
+      else
+        hash[row[:head_coach]] << row[:result]
       end
     end
-    loss_list.key(loss_list.values.min)
+    hash.each do |key, array|
+      win = array.select { |element| element == "WIN" }
+      final_hash.merge!("#{key}" => (win.count.to_f / array.count.to_f))
+    end
+    # require 'pry';binding.pry
+    final_hash.each do |k, v|
+      if v == final_hash.values.min
+        return k
+      end
+    end
   end
 
   def team_average_number_of_goals_per_away_game(team_id)#helper method to average away score for visitors
