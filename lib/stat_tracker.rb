@@ -2,6 +2,7 @@ require "csv"
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_teams'
+require_relative 'game_team_stats'
 require 'pry'
 
 class StatTracker
@@ -18,7 +19,7 @@ class StatTracker
     @games = Game.fill_game_array(@game_data)
     @teams = Team.fill_team_array(@team_data)
     @game_teams = GameTeams.fill_game_teams_array(@game_team_data)
-    # binding.pry
+    @game_team_stats = GameTeamStats.new(locations)
   end
 
   def self.from_csv(locations)
@@ -390,110 +391,39 @@ class StatTracker
 
   # Team Statistics
   def team_info(team_id)
-    team_hash = {}
-    @teams.each do |team|
-    # require 'pry'; binding.pry
-      if team.team_id == team_id
-        team_hash = {
-        "team_id" => team.team_id,
-        "franchise_id" => team.franchise_id,
-        "team_name" => team.team_name,
-        "abbreviation" => team.abbreviation,
-        "link" => team.link
-        }
-      end
-    end
-    team_hash 
+    @game_team_stats.team_info(team_id)
   end
 
   def season_games(game_id)
-    season = ""
-    @games.find do |game|
-      if game_id[0..3] == game.season[0..3]
-        season << game.season
-      end
-    end
-    return season
+    @game_team_stats.season_games(game_id)
   end
 
   def best_season(team_id)
-    best_season = ""
-    team_by_id = @game_teams.find_all do |team|
-      team.team_id == team_id
-    end
-    games_by_season = {}
-    team_by_id.each do |game|
-      if games_by_season[season_games(game.game_id)].nil?
-        games_by_season[season_games(game.game_id)] = [game]
-      else
-        games_by_season[season_games(game.game_id)] << game
-      end
-    end
-    win_tracker = 0.0
-    win_percentage = 0.0
-    games_by_season.map do |season, games|
-      games.each do |game|
-        if game.result == "WIN"
-          win_tracker += 1.0
-        end
-      end
-      win_percentage = win_tracker / games.count * 100
-      games_by_season[season] = win_percentage
-      win_tracker = 0.0
-    end
-    highest = games_by_season.max_by {|season, percentage| percentage}[0]
+    @game_team_stats.best_season(team_id)
   end
 
   def worst_season(team_id)
-    team_by_id = @game_teams.find_all do |team|
-      team.team_id == team_id
-    end
-    games_by_season = {}
-    team_by_id.each do |game|
-      if games_by_season[season_games(game.game_id)].nil?
-        games_by_season[season_games(game.game_id)] = [game]
-      else
-        games_by_season[season_games(game.game_id)] << game
-      end
-    end
-    win_tracker = 0.0
-    win_percentage = 0.0
-    games_by_season.map do |season, games|
-      games.each do |game|
-        if game.result == "WIN"
-          win_tracker += 1.0
-        end
-      end
-      win_percentage = win_tracker / games.count * 100
-      games_by_season[season] = win_percentage
-      win_tracker = 0.0
-    end
-    highest = games_by_season.min_by {|season, percentage| percentage}[0]
-  end
+    @game_team_stats.worst_season(team_id)
+  end 
 
   def average_win_percentage(team_id)
-    team_by_id = @game_teams.find_all do |team|
-      team.team_id == team_id
-    end
-    win_counter = 0.0
-    win_loss_tracker = team_by_id.map {|team| team.result}
-    win_loss_tracker.each do |result|
-      if result == ("WIN")
-        win_counter += 1
-      end
-    end
-    win_counter / win_loss_tracker.count
+    @game_team_stats.average_win_percentage(team_id)
   end
 
   def most_goals_scored(team_id)
-    team_by_id = @game_teams.find_all do |team|
-      team.team_id == team_id
-    end
-    highest_goals = team_by_id.map do |id|
-      id.goals
-    end
-    highest_goals.sort.pop
-    # require 'pry'; binding.pry
+    @game_team_stats.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_team_stats.fewest_goals_scored(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @game_team_stats.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @game_team_stats.rival(team_id)
   end
 end
 
