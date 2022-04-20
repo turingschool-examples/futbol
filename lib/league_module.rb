@@ -52,7 +52,6 @@ module LeagueModule
 			end
     end
     team_goals
-
   end
 
   def LeagueModule.goals_average(team_goals)
@@ -116,4 +115,16 @@ module LeagueModule
 		end
 		team_goals.values.flatten!
   end
+
+  def LeagueModule.team_name_by_id(team_id, teams)
+    name = ""
+    teams.find_all do |team|
+      if team.team_id == team_id
+         name << team.team_name
+      end
+    end
+    name
+  end
+
+
 end

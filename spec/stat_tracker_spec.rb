@@ -1,5 +1,6 @@
 require './required_files'
 include LeagueModule
+include SeasonModule
 
 describe StatTracker do
 
@@ -302,12 +303,42 @@ describe StatTracker do
       expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
     end
 
+    it 'can create a list of all game team objects for a given season' do
+      expect(SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)[0]).to eq(@stat_tracker.game_teams[0])
+      expect(SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams).last).to eq(@stat_tracker.game_teams[9])
+    end
+
+    it 'can create hash with win loss record for each coach in a season' do
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
+      expect(SeasonModule.coach_wins_losses_for_season(game_teams_by_season)["John Tortorella"]).to eq(["LOSS", "LOSS"])
+    end
+
+    it 'can calculate win percentage for each coach' do
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
+      coach_wins_losses = SeasonModule.coach_wins_losses_for_season(game_teams_by_season)
+      coach_win_percentages = SeasonModule.coach_win_percentage(coach_wins_losses)
+      expect(coach_win_percentages["John Tortorella"]).to eq(0)
+      expect(coach_win_percentages["Mike Babcock"]).to eq(50.0)
+    end
+
     it 'can determine worst coach for a season' do
         expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
     end
 
     it 'can determine team with best ratio of shots to goals for the season' do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq "FC Dallas"
+    end
+
+    it 'can create hash with team_id keys and array values holding shots and goals' do
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
+      expect(SeasonModule.team_shots_goals(game_teams_by_season)).to eq({3=>[17, 4], 6=>[28, 8], 17=>[12, 3], 16=>[25, 4]})
+    end
+
+    it 'can calculate the ratio of shots to gaols' do
+      game_teams_by_season = SeasonModule.game_teams_for_season("20122013", @stat_tracker.game_teams)
+      team_shots_goals = SeasonModule.team_shots_goals(game_teams_by_season)
+      team_shots_goals_ratio = SeasonModule.shots_goals_ratio(team_shots_goals)
+      expect(team_shots_goals_ratio).to eq({3=>4.25, 6=>3.5, 17=>4.0, 16=>6.25})
     end
 
     it 'can determine team with worst ratio of shots to goals for the season' do
@@ -346,6 +377,14 @@ describe StatTracker do
       expect(@stat_tracker.team_info(3)).to eq(expected)
     end
 
+    it 'returns hash of seasons for team' do
+      expect(TeamModule.season_hash(16, @stat_tracker.game_teams)).to be_a(Hash)
+    end
+
+    it 'returns win percentage by season' do
+      expect(TeamModule.season_win_percentages(16, @stat_tracker.game_teams)).to be_a(Hash)
+    end
+
     it 'calculates season with highest win percentage' do
       expect(@stat_tracker.best_season(16)).to eq("20152016")
     end
@@ -355,15 +394,7 @@ describe StatTracker do
     end
 
     it 'returns team name by team id' do
-      expect(@stat_tracker.team_name_by_id(17)).to eq("LA Galaxy")
-    end
-
-    it 'returns number of tackles by team id' do
-      expect(@stat_tracker.tackles_by_id(19)).to eq({19 => [41, 41, 40]})
-    end
-
-    it 'returns season by game id' do
-      expect(@stat_tracker.game_id_to_season("2015030133")).to eq("20152016")
+      expect(LeagueModule.team_name_by_id(17, @stat_tracker.teams)).to eq("LA Galaxy")
     end
 
     it 'calculates average win percentage of all games for a team' do
