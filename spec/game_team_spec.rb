@@ -12,13 +12,13 @@ describe GameTeam do
 
   it 'has readable attributes' do
     expect(@game_team1.game_id).to eq("2012030221")
-    expect(@game_team1.team_id).to eq(3)
+    expect(@game_team1.team_id).to eq("3")
     expect(@game_team1.hoa).to eq("away")
     expect(@game_team1.result).to eq("LOSS")
     expect(@game_team1.settled_in).to eq("OT")
     expect(@game_team1.head_coach).to eq("John Tortorella")
-    expect(@game_team1.goals).to eq(2)
-    expect(@game_team1.shots).to eq(8)
+    expect(@game_team1.goals).to eq("2")
+    expect(@game_team1.shots).to eq("8")
     expect(@game_team1.tackles).to eq("44")
     expect(@game_team1.pim).to eq("8")
     expect(@game_team1.power_play_opportunities).to eq("3")

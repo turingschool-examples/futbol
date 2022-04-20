@@ -8,7 +8,7 @@ describe Team do
 	end
 
 	it "has attributes" do
-		expect(@team1.team_id).to eq(1)
+		expect(@team1.team_id).to eq('1')
 		expect(@team1.franchise_id).to eq('23')
 		expect(@team1.team_name).to eq('Atlanta United')
 		expect(@team1.abbreviation).to eq('ATL')

@@ -38,7 +38,7 @@ class StatTracker
 	end
 
 	def percentage_home_wins
-		return ((GameModule.total_home_wins(@games).count).to_f / game_count.to_f)
+		return ((GameModule.total_home_wins(@games).count).to_f / game_count.to_f).round(2)
 	end
 
 	def average_goals_per_game
@@ -59,7 +59,7 @@ class StatTracker
 
 	def team_info(team_id)
 		team_hash = {}
-		team = @teams.find { |team| team.team_id == team_id }
+		team = @teams.find { |team| team.team_id == team_id.to_i }
 		team_hash[:team_id] = team.team_id
 		team_hash[:franchise_id] = team.franchise_id.to_i
 		team_hash[:team_name] = team.team_name
