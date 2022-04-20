@@ -83,10 +83,17 @@ class StatTracker
   end
 
   def average_goals_per_game
-    
+    avg_goals = []
+    @games.each do |game|
+      goals = game.away_goals + game.home_goals
+      avg_goals << goals
+    end
+    (avg_goals.sum.to_f / avg_goals.length).round(2)
+    # require 'pry' ; binding.pry
   end
 
   def average_goals_by_season
+    avg_goals = 
   end
 
 
