@@ -10,8 +10,8 @@ include SeasonModule
 
 	def initialize(games_hash, teams_hash, game_teams_hash)
 		@games = Game.create_games(games_hash)
-		@teams = create_teams(teams_hash)
-		@game_teams = create_game_teams(game_teams_hash)
+		@teams = Team.create_teams(teams_hash)
+		@game_teams = GameTeam.create_game_teams(game_teams_hash)
 	end
 
 	def self.from_csv(locations)
@@ -21,62 +21,29 @@ include SeasonModule
 	 stat_tracker1 = self.new(games_hash, teams_hash, game_teams_hash)
 	end
 
-	def create_teams(teams)
-		team_arr = Array.new
-		teams.each do |row|
-    team_id = row[:team_id].to_i
-    franchise_id = row[:franchiseid]
-    team_name = row[:teamname]
-    abbreviation = row[:abbreviation]
-    stadium = row[:stadium]
-    link = row[:link]
-    team_arr << Team.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
-		end
-		return team_arr
-	end
-
-	# def create_games(games)
-	# 	game_arr = []
-	# 	games.each do |row|
-	# 		game_id = row[:game_id]
-	# 		season = row[:season]
-	# 		type = row[:type]
-	# 		date_time = row[:date_time]
-	# 		away_team_id = row[:away_team_id].to_i
-	# 		home_team_id = row[:home_team_id].to_i
-	# 		away_goals = row[:away_goals].to_i
-	# 		home_goals = row[:home_goals].to_i
-	# 		venue = row[:venue]
-	# 		venue_link = row[:venue_link]
-	# 		game_arr << Game.new(game_id, season, type, date_time, away_team_id, home_team_id,
-	# 			away_goals, home_goals, venue, venue_link)
-	# 	end
-	# 	return game_arr
-	# end
-
-  def create_game_teams(game_teams)
-    game_team_array = []
-    game_teams.each do |row|
-      game_id = row[:game_id]
-      team_id = row[:team_id].to_i
-      hoa = row[:hoa]
-      result = row[:result]
-      settled_in = row[:settled_in]
-      head_coach = row[:head_coach]
-      goals = row[:goals].to_i
-      shots = row[:shots].to_i
-      tackles = row[:tackles]
-      pim = row[:pim]
-      power_play_opportunities = row[:powerplayopportunities]
-      power_play_goals = row[:powerplaygoals]
-      face_off_win_percentage = row[:faceoffwinpercentage]
-      giveaways = row[:giveaways]
-      takeaways = row[:takeaways]
-      # binding.pry
-      game_team_array << GameTeam.new(game_id,team_id,hoa,result,settled_in,head_coach,goals,shots,tackles,pim,power_play_opportunities,power_play_goals,face_off_win_percentage,giveaways,takeaways)
-    end
-    return game_team_array
-  end
+  # def create_game_teams(game_teams)
+  #   game_team_array = []
+  #   game_teams.each do |row|
+  #     game_id = row[:game_id]
+  #     team_id = row[:team_id].to_i
+  #     hoa = row[:hoa]
+  #     result = row[:result]
+  #     settled_in = row[:settled_in]
+  #     head_coach = row[:head_coach]
+  #     goals = row[:goals].to_i
+  #     shots = row[:shots].to_i
+  #     tackles = row[:tackles]
+  #     pim = row[:pim]
+  #     power_play_opportunities = row[:powerplayopportunities]
+  #     power_play_goals = row[:powerplaygoals]
+  #     face_off_win_percentage = row[:faceoffwinpercentage]
+  #     giveaways = row[:giveaways]
+  #     takeaways = row[:takeaways]
+  #     # binding.pry
+  #     game_team_array << GameTeam.new(game_id,team_id,hoa,result,settled_in,head_coach,goals,shots,tackles,pim,power_play_opportunities,power_play_goals,face_off_win_percentage,giveaways,takeaways)
+  #   end
+  #   return game_team_array
+  # end
 
 
 	def game_count

@@ -1,8 +1,16 @@
 require './required_files'
 
 class Game
-
-  attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
+  attr_reader :game_id,
+              :season,
+              :type,
+              :date_time,
+              :away_team_id,
+              :home_team_id,
+              :away_goals,
+              :home_goals,
+              :venue,
+              :venue_link
 
   def initialize(row)
     @game_id = row[:game_id]
@@ -24,5 +32,4 @@ class Game
     end
     return game_arr
   end
-
 end
