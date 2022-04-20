@@ -5,7 +5,7 @@ RSpec.describe StatTracker do
   before :each do
     @game_path = './data/dummy_games.csv'
     @team_path = './data/teams.csv'
-    @game_teams_path = './data/dummy_game_teams.csv'
+    @game_teams_path = './data/game_teams.csv'
 
     @locations = {
         games: @game_path,
@@ -67,80 +67,90 @@ RSpec.describe StatTracker do
       end
 
 
-
     end
 
-    describe 'Team Statistics' do
-      it '#team_info can put team info into a hash' do
-        expected = {
-          "team_id" => "1",
-          "franchise_id" => "23",
-          "team_name" => "Atlanta United",
-          "abbreviation" => "ATL",
-          "link" => "/api/v1/teams/1"
-        }
+    describe 'Season Statistics' do
 
-        expect(@stat_tracker.team_info("1")).to eq(expected)
+      it "organizes seasons by year" do
+
+        expect(@stat_tracker.games_by_season("2012030221").length).to eq(1612)
+        expect(@stat_tracker.games_by_season("2012030221")).to be_a(Array)
       end
 
-      it 'can identify the season through the game id' do
-        expect(@stat_tracker.season_games("2012030221")).to eq("20122013")
-      end
+      it "organizes a specific season by team" do
 
-      it '#best_season can determine the best season for a team' do
-        expect(@stat_tracker.best_season("24")).to eq("20122013")
-      end
-
-      it '#worst_season can determine the best season for a team' do
-        expect(@stat_tracker.worst_season("24")).to eq("20132014")
-      end
-
-      it '#average_win_percentage can determine the average wins of all games for a team' do
-        expect(@stat_tracker.average_win_percentage("3")).to eq(0.0)
-      end
-
-      it '#most_goals_scored can find the highest number of goals a team has scored in a game' do
-        expect(@stat_tracker.most_goals_scored("3")).to eq(2)
-      end
-
-      it '#fewest_goals_scored can find the lowest number of goals a team has scored in a game' do
+        expect(@stat_tracker.organize_teams("2012030221").length).to eq(30)
+        expect(@stat_tracker.organize_teams("2013020177").length).to eq(30)
 
       end
 
-    end
+      it "calculates the winning percentage per team per season" do
 
-    describe "Game statistics" do
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["1"]).to eq(0.33)
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["10"]).to eq(0.44)
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["17"]).to eq(0.47)
+        expect(@stat_tracker.team_winning_percentage_by_season("2012030221")["3"]).to eq(0.37)
 
-      it "can tell us the highest scoring game" do
-        expect(@stat_tracker.highest_total_score).to eq(6)
       end
 
-      it "can tell us the lowest scoring game" do
-        expect(@stat_tracker.lowest_total_score).to eq(1)
+      it "returns head coach given team_id" do
+
+        expect(@stat_tracker.head_coach_name("3")).to eq(("John Tortorella"))
+
       end
 
-      it "can tell us the percentage of home games won" do
-        expect(@stat_tracker.percentage_home_wins).to eq(0.5)
+      it "returns winningest head coach" do
+
+        expect(@stat_tracker.winningest_coach("2012030221")).to eq(("Claude Julien"))
+
       end
 
-      it "can tell us the percentage of away games won" do
-        expect(@stat_tracker.percentage_visitor_wins).to eq(0.35)
+      it "returns loser head coach" do
+
+        expect(@stat_tracker.worst_coach("2012030221")).to eq(("Gerard Gallant"))
+
       end
 
-      it "can tell us the percentage of ties" do
-        expect(@stat_tracker.percentage_ties).to eq(0.15)
+      it "returns calculates the shooting percentage per team per season" do
+
+
+        expect(@stat_tracker.team_shot_percentage_by_season("2012030221")["3"]).to eq(0.25)
+        expect(@stat_tracker.team_shot_percentage_by_season("2012030221")["8"]).to eq(0.29)
+        expect(@stat_tracker.team_shot_percentage_by_season("2012030221")["26"]).to eq(0.3)
+        expect(@stat_tracker.team_shot_percentage_by_season("2012030221")["30"]).to eq(0.28)
       end
 
-      it "can tell us the average goals per game" do
-        expect(@stat_tracker.average_goals_per_game).to eq(4.15)
+      it "defines team name by team_id" do
+
+        expect(@stat_tracker.team_name("3")).to eq(("Houston Dynamo"))
       end
 
-      it "can tell us the average goals per season" do
-        expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>4.13, "20132014"=>4.2})
+      it "returns most accurate team" do
+
+
+        expect(@stat_tracker.most_accurate_team("2012030221")).to eq(("DC United"))
       end
 
-      it "can tell us how many games there were in a season" do
-        expect(@stat_tracker.count_of_games_by_season).to eq({"20122013" => 15, "20132014" => 5})
+      it "returns least accurate team" do
+
+        expect(@stat_tracker.least_accurate_team("2012030221")).to eq(("Houston Dynamo"))
+
+      end
+
+      it "returns the total number of tackles per team in a season" do
+
+        expect(@stat_tracker.total_tackles_by_season("2012030221")).to be_a(Hash)
+
+      end
+
+      it "returns the team with the most tackles" do
+
+        expect(@stat_tracker.most_tackles("2012030221")).to be_a(String)
+      end
+
+      it "returns the team with the least amount of tackles" do
+
+        expect(@stat_tracker.least_tackles("2012030221")).to be_a(String)
       end
     end
 
