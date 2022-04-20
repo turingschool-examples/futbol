@@ -122,12 +122,21 @@ RSpec.describe StatTracker do
       it "can tell us the percentage of home games won" do
         expect(@stat_tracker.percentage_home_wins).to eq(0.5)
       end
+
       it "can tell us the percentage of away games won" do
         expect(@stat_tracker.percentage_visitor_wins).to eq(0.35)
       end
 
+      it "can tell us the percentage of ties" do
+        expect(@stat_tracker.percentage_ties).to eq(0.15)
+      end
+
       it "can tell us the average goals per game" do
         expect(@stat_tracker.average_goals_per_game).to eq(4.15)
+      end
+
+      it "can tell us the average goals per season" do
+        expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>4.13, "20132014"=>4.2})
       end
 
       it "can tell us how many games there were in a season" do
