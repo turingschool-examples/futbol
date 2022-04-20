@@ -1,4 +1,4 @@
-require './required_files'
+require_relative '../required_files'
 
 class StatTracker
 include TeamModule

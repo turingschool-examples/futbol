@@ -1,4 +1,4 @@
-require './required_files'
+
 
 module LeagueModule
   def LeagueModule.average_visitor_scores(games_arr)
