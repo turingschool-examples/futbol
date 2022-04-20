@@ -14,8 +14,6 @@ module Season
       coaches[game.head_coach] += 1
     end
     a = coaches.sort_by { |_coach, number| number }
-    require 'pry'
-    binding.pry
   end
 
   def winningest_coach(season)
