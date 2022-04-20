@@ -1,4 +1,4 @@
-require './required_files'
+
 
 class Team
 	attr_reader :team_id,

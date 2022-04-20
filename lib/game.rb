@@ -1,4 +1,4 @@
-require './required_files'
+
 
 class Game
   attr_reader :game_id,
