@@ -127,55 +127,61 @@ class StatTracker
     games_in_season.compact
   end
 
+
   def most_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
-    team_ratios = {}
-    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
-    team_id_h.each do |id, array|
-      shots = 0.0
-      goals = 0.0
-      array.each do |row|
-        if games_by_season(season_id).include?(row[:game_id])
-          shots += row[:shots].to_f
-          goals += row[:goals].to_f
-        end
-      end
-      if goals != 0
-        team_ratios["#{id}"] = (shots / goals).round(2)
+    teams_hash = {}
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+    hash = {}
+    final_hash = {}
+    season_games = games_by_season(season_id)
+    array = @game_teams.select { |row| season_games.include?(row[:game_id])}
+    array.each do |row|
+      if !hash.keys.include?(row[:team_id])
+        hash[row[:team_id]] = {goals: row[:goals].to_f, shots: row[:shots].to_f}
       else
-        team_ratios["#{id}"] = 0
+        hash[row[:team_id]][:goals] += row[:goals].to_f
+        hash[row[:team_id]][:shots] += row[:shots].to_f
       end
     end
-    @teams.each do |row|
-      if row[:team_id] == team_ratios.max_by{|k,v| v}[0]
-        return row[:teamname]
+    hash.each do |key, hash2|
+      final_hash.merge!("#{key}" => (hash2[:goals] / hash2[:shots]))
+    end
+    final_hash.each do |k, v|
+      if v == final_hash.values.max
+        return teams_hash[k]
       end
     end
   end
 
   def least_accurate_team(season_id) #returns a team name, with best ratio of shots and goals
-    team_ratios = {}
-    team_id_h = @game_teams.group_by { |row| row[:team_id].itself }
-    team_id_h.each do |id, array|
-      shots = 0.0
-      goals = 0.0
-      array.each do |row|
-        if games_by_season(season_id).include?(row[:game_id])
-          shots += row[:shots].to_f
-          goals += row[:goals].to_f
-        end
-      end
-      if goals != 0
-        team_ratios["#{id}"] = (shots / goals).round(2)
+    teams_hash = {}
+    @teams.each do |row|
+      teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+    end
+    hash = {}
+    final_hash = {}
+    season_games = games_by_season(season_id)
+    array = @game_teams.select { |row| season_games.include?(row[:game_id])}
+    array.each do |row|
+      if !hash.keys.include?(row[:team_id])
+        hash[row[:team_id]] = {goals: row[:goals].to_f, shots: row[:shots].to_f}
       else
-        team_ratios["#{id}"] = 0
+        hash[row[:team_id]][:goals] += row[:goals].to_f
+        hash[row[:team_id]][:shots] += row[:shots].to_f
       end
     end
-    @teams.each do |row|
-      if row[:team_id] == team_ratios.min_by{|k,v| v}[0]
-        return row[:teamname]
+    hash.each do |key, hash2|
+      final_hash.merge!("#{key}" => (hash2[:goals] / hash2[:shots]))
+    end
+    final_hash.each do |k, v|
+      if v == final_hash.values.min
+        return teams_hash[k]
       end
     end
   end
+
 
   def average_win_percentage(team_id)
     counter = 0
@@ -762,8 +768,12 @@ class StatTracker
     end
     opp_games.each do | gk, gv |
       opp_wins.each do | wk, wv |
-        if gk == wk
-          opp_win_avg_hash.merge!("#{wk}" => (wv.to_f / gv.to_f))
+        if !opp_wins.keys.include?(gk)
+          opp_win_avg_hash.merge!("#{gk}" => 0.0)
+        else
+          if gk == wk
+            opp_win_avg_hash.merge!("#{gk}" => (wv.to_f / gv.to_f))
+          end
         end
       end
     end
@@ -830,7 +840,12 @@ class StatTracker
     opponents_games_hash
   end
 
-
+  # def teams_hash
+  #   teams_hash = {}
+  #   @teams.each do |row|
+  #     teams_hash.merge!("#{row[:team_id]}" => row[:teamname])
+  #   end
+  # end
 
 
 
