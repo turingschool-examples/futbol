@@ -1,4 +1,4 @@
-class GameTeams
+class GameTeams 
   attr_reader :game_id, :team_id, :hoa, :result, :settled_in, :head_coach, :goals,
     :shots, :tackles, :pim, :power_play_opportunities, :power_play_goals,
     :face_off_win_percentage, :giveaways, :takeaways
@@ -42,8 +42,8 @@ class GameTeams
       giveaways = row[:giveaways].to_i
       takeaways = row[:takeaways].to_i
       game_teams_data << GameTeams.new(game_id, team_id, hoa, result, settled_in, head_coach, goals,
-        shots, tackles, pim, power_play_opportunities, power_play_goals,
-        face_off_win_percentage, giveaways, takeaways)
+      shots, tackles, pim, power_play_opportunities, power_play_goals,
+      face_off_win_percentage, giveaways, takeaways)
       end
       game_teams_data
   end
