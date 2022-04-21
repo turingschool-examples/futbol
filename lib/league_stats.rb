@@ -73,10 +73,31 @@ class LeagueStats < CSVReader
     end
 
     def lowest_scoring_visitor
-      team_hash = hashburger_helper('away')[0]
-      length_hash = hashburger_helper('away')[1]
-      return_hash = low_league_avg_helper(team_hash, length_hash)
-      tie_bundler_helper(return_hash)
+      team_hash = {}
+      @games.each do |game|
+        if team_hash[game.away_team_id].nil?
+          team_hash[game.away_team_id] = [game.away_goals]
+        else
+          team_hash[game.away_team_id] << game.away_goals
+        end
+      end
+      sum_goals = 0
+        team_hash.map do |team, goals|
+          goals.each do |goal|
+            sum_goals += goal
+          end
+          avg_goals = sum_goals.to_f / goals.length.to_f
+          team_hash[team] = avg_goals
+          sum_goals = 0
+        end
+        team_hash = team_hash.sort_by {|away_team_id, avg_goals| avg_goals}.to_h
+
+        lowest_avg = team_hash.values[0]
+        team_hash.map do |team, avg_goals|
+          team_hash.delete(team) if avg_goals > lowest_avg
+        end
+
+        tie_bundler_helper(team_hash)
     end
 
     def highest_scoring_visitor
@@ -106,10 +127,11 @@ class LeagueStats < CSVReader
       return_hash.keys.each do |team_id|
           team_names << team_name_helper(team_id)
       end
-          return team_names.join(', ')
+          return team_names.pop
       else
           return team_name_helper(return_hash.keys[0])
       end
+      return team_name_helper(return_hash.keys[0])
     end
 
     def team_name_helper(team_id)
