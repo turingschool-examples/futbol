@@ -1,4 +1,7 @@
 require './lib/stat_tracker'
+require './lib/team'
+require './lib/csv_reader'
+require 'csv'
 
 
 RSpec.describe StatTracker do
@@ -25,6 +28,4 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.teams.count).to eq(32)
         expect(@stat_tracker.game_teams.count).to eq(40)
     end
-
-
-  
+  end
