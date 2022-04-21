@@ -125,7 +125,7 @@ class LeagueStats < CSVReader
       return_hash.keys.each do |team_id|
           team_names << team_name_helper(team_id)
       end
-          return team_names.pop
+          return team_names.join(', ')
       else
           return team_name_helper(return_hash.keys[0])
       end

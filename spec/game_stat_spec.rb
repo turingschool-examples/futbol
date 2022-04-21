@@ -1,4 +1,5 @@
 require './lib/game_stats'
+require './lib/csv_reader'
 require 'csv'
 
 RSpec.describe GameStats do

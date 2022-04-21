@@ -1,4 +1,5 @@
 require './lib/csv_reader'
+require './lib/game_team_stats'
 
 RSpec.describe GameTeamStats do 
     before :each do
