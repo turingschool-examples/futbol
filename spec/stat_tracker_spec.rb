@@ -86,6 +86,7 @@ RSpec.describe StatTracker do
       it "calculates the winning percentage per team per season" do
 
 
+        expect(@stat_tracker.organize_teams("20122013")).to eq Hash
         expect(@stat_tracker.team_winning_percentage_by_season("20122013")).to eq Hash
       end
 
