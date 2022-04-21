@@ -15,7 +15,7 @@ class SeasonStats
             }
         end
         end
-        team_hash 
+        team_hash
     end
 
     def season_games(game_id)
@@ -138,10 +138,10 @@ class SeasonStats
         end
         opposing_win_percentage = opposing_win / game_teams.count
         teams_by_id[team_id] = opposing_win_percentage
-        opposing_win = 0.0 
+        opposing_win = 0.0
         end
         favorite = teams_by_id.min_by {|team_id, win_percentage| win_percentage}[0]
-        @teams.each do |team| 
+        @teams.each do |team|
         if team.team_id.include?(favorite)
             return team.team_name
         end
@@ -168,7 +168,7 @@ class SeasonStats
         end
         opposing_win_percentage = opposing_win / game_teams.count
         teams_by_id[team_id] = opposing_win_percentage
-        opposing_win = 0.0 
+        opposing_win = 0.0
         end
         least_favorite = teams_by_id.max_by {|team_id, win_percentage| win_percentage}[0]
         @teams.each do |team|
@@ -178,4 +178,3 @@ class SeasonStats
         end
     end
     end
-end
