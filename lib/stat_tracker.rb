@@ -5,6 +5,7 @@ require_relative 'game_teams'
 require_relative 'game_team_stats'
 require_relative 'league_stats'
 require_relative 'game_stats'
+require_relative 'season_stats'
 require 'pry'
 
 class StatTracker
@@ -12,155 +13,13 @@ class StatTracker
 
   def initialize(locations)
     @game_team_stats = GameTeamStats.new(locations)
-
     @league_stats = LeagueStats.new(locations)
     @game_stats = GameStats.new(locations)
-
+    @season_stats = SeasonStats.new(locations)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-
-
-  # Season Statistics
-
-
-  ## Take in an argument that is year/season
-  ##organize by team_id
-  ##team_id.length, return total_games
-  ##look at :result
-  ##wins = +1, loss = 0, tie = 0, return win_total
-  ##total wins / total games organize_teams["3"].length
-  ##return percentage
-  ##return a coach based on team_id
-  #iterate through year/season to compare percentages
-  #return highest percentage and coach
-
-  def winningest_coach(season_id)
-    best_team = team_winning_percentage_by_season(season_id).max_by do |team_id, percentage|
-        percentage
-      end
-    head_coach_name(best_team[0])
-  end
-
-  def worst_coach(season_id)
-    worst_team = team_winning_percentage_by_season(season_id).min_by do |team_id, percentage|
-      percentage #look through my percentages
-    end
-    head_coach_name(worst_team[0])
-  end
-
-  def most_accurate_team(season_id)
-    best_shot = team_shot_percentage_by_season(season_id).max_by do |team_id, percentage|
-      percentage
-    end
-    team_name(best_shot[0])
-  end
-
-  def least_accurate_team(season_id)
-    worst_shot = team_shot_percentage_by_season(season_id).min_by do |team_id, percentage|
-      percentage
-    end
-    team_name(worst_shot[0])
-  end
-
-  def most_tackles(season_id)
-    highest_tackles = total_tackles_by_season(season_id).max_by do |team_id, total_tackles|
-      total_tackles
-    end
-    team_name(highest_tackles[0])
-  end
-
-  def fewest_tackles(season_id)
-    lowest_tackles = total_tackles_by_season(season_id).min_by do |team_id, total_tackles|
-      total_tackles
-    end
-    team_name(lowest_tackles[0])
-  end
-
-  def games_by_season # Take in an argument that is year/season converts game_id to year, returns :year{[games]}
-    season_hash = @games.group_by {|game| game.season}
-    games_by_season = {}
-    season_hash.each do |season, games|
-      games_by_season[season] = games.map do |game|
-        game.game_id
-      end
-    end
-    games_by_season
-  end
-
-  def stats_by_season
-    stats = {}
-    games_by_season.each do |season, games|
-      @game_teams.each do |game_line|
-        stats[season] = [] if stats[season].nil?
-        stats[season] << game_line if games.include?(game_line.game_id)
-      end
-    end
-    # binding.pry
-    stats
-  end
-
-  # def organize_teams(season) #organize by team_id returns :team_id{[games]}
-  #   binding.pry
-  #   team_hash = stats_by_season.group_by {|game_team| @game_teams.team_id}
-  # end
-
-  def team_winning_percentage_by_season(season_id) #calculates/returns winning percentage
-    win_percentage_hash = Hash.new(0)
-      season = stats_by_season[season_id]
-    season.each do |game_team|
-        if game_team.result == "WIN"
-          win_percentage_hash[game_team.team_id] += 1
-        end
-    total_games = season.count
-    win_percentage = win_percentage_hash[game_team.team_id] /
-        win_percentage_hash[game_team.team_id] = win_percentage.to_f.round(2)
-      end
-      binding.pry
-      win_percentage_hash
-  end
-
-  def team_shot_percentage_by_season(season_id) #calculates/returns winning percentage
-    shot_percentage_hash = {}
-    organize_teams(season_id).each do |team_id,game_teams|
-      number_of_goals = 0
-      number_of_shots = 0
-      game_teams.each do |game_team|
-          number_of_goals += game_team.goals
-          number_of_shots += game_team.shots
-        end
-        shot_percentage = number_of_goals.to_f / number_of_shots.to_f
-        shot_percentage_hash[team_id] = shot_percentage.round(2)
-      end
-      shot_percentage_hash
-  end
-
-  def total_tackles_by_season(season_id)
-    tackle_total_hash = {}
-    organize_teams(season_id).each do |team_id,game_teams|
-      number_of_tackles = 0
-      game_teams.each do |game_team|
-        number_of_tackles += game_team.tackles
-      end
-      tackle_total_hash[team_id] = number_of_tackles
-    end
-    tackle_total_hash
-  end
-
-  def head_coach_name(team_id) #return a coach based on team_id
-    game_team_by_id = @game_teams.find do |game_team|
-      game_team.team_id == team_id
-    end
-    game_team_by_id.head_coach
-  end
-
-  def team_name(team_id)
-    team_name_by_id = @teams.find do |team|
-      team.team_id == team_id
-    end
-    team_name_by_id.team_name
   end
 
   # Team Statistics
@@ -200,7 +59,7 @@ class StatTracker
     @game_team_stats.rival(team_id)
   end
 
-
+#league stats
   def count_of_teams
     @league_stats.count_of_teams
   end
@@ -229,6 +88,7 @@ class StatTracker
     @league_stats.highest_scoring_home_team
   end
 
+  #Game Stats
   def highest_total_score
     @game_stats.highest_total_score
   end
@@ -261,5 +121,29 @@ class StatTracker
     @game_stats.count_of_games_by_season
   end 
 
+  #season_stats
 
+  def winningest_coach(season_id)
+    @season_stats.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    @season_stats.worst_coach(season_id)
+  end
+
+  def most_accurate_team(season_id)
+    @season_stats.most_accurate_team
+  end
+
+  def least_accurate_team(season_id)
+    @season_stats.least_accurate_team(season_id)
+  end
+
+  def most_tackles(season_id)
+    @season_stats.most_tackles(season_id)
+  end
+
+  def fewest_tackles(season_id)
+    @season_stats.fewest_tackles
+  end
 end
