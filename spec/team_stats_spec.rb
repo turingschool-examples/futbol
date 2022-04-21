@@ -1,5 +1,3 @@
-require './lib/game_team_stats'
-require './lib/stat_tracker'
 require './lib/csv_reader'
 
 RSpec.describe GameTeamStats do 
@@ -18,7 +16,6 @@ RSpec.describe GameTeamStats do
     end
     
     it 'exists' do 
-        # require 'pry'; binding.pry
         expect(@game_team_stats).to be_a(GameTeamStats)
     end
 

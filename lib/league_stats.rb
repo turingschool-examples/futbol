@@ -1,6 +1,4 @@
 require_relative 'csv_reader'
-require_relative 'team'
-
 
 class LeagueStats < CSVReader
 

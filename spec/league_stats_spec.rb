@@ -1,5 +1,3 @@
-require './lib/league_stats'
-require './lib/stat_tracker'
 require './lib/csv_reader'
 
 RSpec.describe LeagueStats do

@@ -1,3 +1,11 @@
+require_relative 'csv_reader'
+
+class SeasonStats < CSVReader
+
+  def initialize(locations)
+      super(locations)
+  end
+
 ### shit that don't work
   def winningest_coach(season_id)
     best_team = team_winning_percentage_by_season(season_id).max_by do |team_id, percentage|
@@ -108,3 +116,4 @@
     end
     team_name_by_id.team_name
   end
+end
