@@ -16,12 +16,12 @@ RSpec.describe SeasonStats do
       @season_stats = SeasonStats.new(@locations)
   end
 
-    it 'exists' do 
+    it 'exists' do
       expect(@season_stats).to be_a(SeasonStats)
     end
 
     it "#winningest_coach can produce the name of the coach" do
-      expect(@season_stats.winningest_coach("2012030221")).to eq("Claude Julien")
+      expect(@season_stats.winningest_coach("20132014")).to eq("Adam Oates")
     end
 
     it "returns loser head coach" do

@@ -6,16 +6,17 @@ require_relative 'game_team_stats'
 require_relative 'league_stats'
 require_relative 'game_stats'
 require_relative 'season_stats'
+require_relative 'csv_reader'
 require 'pry'
 
-class StatTracker
-  attr_reader :games, :teams, :game_teams, :games_array
+class StatTracker < CSVReader
 
   def initialize(locations)
     @game_team_stats = GameTeamStats.new(locations)
     @league_stats = LeagueStats.new(locations)
     @game_stats = GameStats.new(locations)
     @season_stats = SeasonStats.new(locations)
+    super(locations)
   end
 
   def self.from_csv(locations)
@@ -119,7 +120,7 @@ class StatTracker
 
   def count_of_games_by_season
     @game_stats.count_of_games_by_season
-  end 
+  end
 
   #season_stats
 
@@ -132,7 +133,7 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    @season_stats.most_accurate_team
+    @season_stats.most_accurate_team(season_id)
   end
 
   def least_accurate_team(season_id)
@@ -144,6 +145,6 @@ class StatTracker
   end
 
   def fewest_tackles(season_id)
-    @season_stats.fewest_tackles
+    @season_stats.fewest_tackles(season_id)
   end
 end
