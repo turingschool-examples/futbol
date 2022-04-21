@@ -57,9 +57,6 @@ class SeasonStats < CSVReader
       end
       return_hash = return_hash.sort_by {
         |team_id, ratio| ratio}.reverse.to_h
-    # best_shot = team_shot_percentage_by_season(season_id).max_by do |team_id, percentage|
-    #   percentage
-    # end
      team_name(return_hash.keys[0])
   end
 
@@ -79,9 +76,6 @@ class SeasonStats < CSVReader
       return_hash = return_hash.sort_by {
         |team_id, ratio| ratio}.to_h
     team_name(return_hash.keys[0])
-    # worst_shot = team_shot_percentage_by_season(season_id).min_by do |team_id, percentage|
-    #   percentage
-    # end
   end
 
   def most_tackles(season_id)
