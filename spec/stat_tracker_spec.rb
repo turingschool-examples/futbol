@@ -30,7 +30,7 @@ RSpec.describe StatTracker do
 
     it 'has a lowest total score' do
 
-      expect(@stat_tracker.lowest_total_score).to eq(18)
+      expect(@stat_tracker.lowest_total_score).to eq(0)
     end
   end
 end

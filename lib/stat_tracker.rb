@@ -18,14 +18,7 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
-  def total_score
-    away_goals + home_goals
-  end
-
   def lowest_total_score
-   lowest = @games.min_by do |game|
-     game.total_score
-   end
-   lowest.total_score
+    @games.map {|game| game[:away_goals] + game[:home_goals]}.min
   end
 end
