@@ -4,7 +4,7 @@ require_relative 'spec_helper.rb'
 
 describe StatTracker do
 
-    describe '.from_CSV(locations)' do
+    describe '.from_csv(locations)' do
         it 'returns an instance of StatTracker' do
 
             game_path = './data/games.csv'
