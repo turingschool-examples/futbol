@@ -26,6 +26,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
     end
 
+
+    it 'can calculate percentage visitor wins' do
+        expect(@stat_tracker.percentage_visitor_wins).to eq(0.22)
+    end
+
     it 'has a total score' do
       expect(@stat_tracker.total_scores_per_game).to eq(34)
     end
@@ -42,13 +47,23 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(3.78)
     end
 
+
+    it 'show percentage of tie games' do
+      expect(@stat_tracker.percentage_ties).to eq(0.0)
+    end
+    
     it 'shows the percentage_home_wins' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.56)
     end
 
+
+    it 'can return the count of games per season' do
+
+     expect(@stat_tracker.count_of_games_by_season).to eq({20122013=>5, 20142015=>4})
+    end   
+    
     it 'can count the total teams' do
       expect(@stat_tracker.count_of_teams).to eq(3)
     end
-
   end
 end
