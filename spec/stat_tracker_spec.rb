@@ -29,7 +29,7 @@ RSpec.describe StatTracker do
     end
 
     it 'show highest_total_score' do
-      expect(@stat_tracker.highest_total_score).to eq()
+      expect(@stat_tracker.highest_total_score).to eq(5)
     end
   end
 end
