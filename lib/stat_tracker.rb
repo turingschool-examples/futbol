@@ -18,4 +18,14 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
+  def total_scores_per_game
+    games[:away_goals].sum + games[:home_goals].sum
+  end
+
+  def lowest_total_score
+    lowest = @games.min_by do |game|
+      game.total_scores_per_game
+    end
+    lowest.total_scores_per_game
+  end
 end
