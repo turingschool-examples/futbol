@@ -1,7 +1,4 @@
-require 'simplecov'
-SimpleCov.start
-
-require './lib/stat_tracker'
+require 'spec_helper'
 
 RSpec.describe StatTracker do
   let!(:game_path) { './data/games.csv' }
