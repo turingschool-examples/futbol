@@ -15,4 +15,6 @@ class StatTracker
       game_teams = CSV.table(locations[:game_teams])
       StatTracker.new(games, teams, game_teams)
     end
+
+
 end
