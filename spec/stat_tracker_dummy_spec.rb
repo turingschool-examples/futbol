@@ -53,6 +53,6 @@ describe StatTracker do
       "20142015" => 3.86,
       "20152016" => 4.60
     }
-    expect(@stat_tracker.average_goals_by_season).to eq(expected
+    expect(@stat_tracker.average_goals_by_season).to eq(expected)
   end
 end
