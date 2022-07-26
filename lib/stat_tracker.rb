@@ -22,15 +22,14 @@ class StatTracker
       }
     @games = Game.create_multiple_games(@locations[:games])
     @teams = Teams.create_multiple_teams(@locations[:teams])
-    @game_teams = game_teams
-    #two ways to create a stat tracker: data that I give it
+    @game_teams = GameTeams.create_multiple_game_teams(@location[:game_teams])
   end
 
 
   def self.from_csv(locations)
-    @games 
+    @games
     @teams
-    game_teams = CSV.parse(File.read(locations[:game_teams]), headers: true, header_converters: :symbol).map(&:to_h)
-    StatTracker.new(@games, @teams, game_teams)
+    @game_teams
+    StatTracker.new(@games, @teams, @game_teams)
   end
 end

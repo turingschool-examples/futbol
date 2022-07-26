@@ -4,7 +4,8 @@ require './lib/stat_tracker'
 
 describe GameTeams do
   before :each do
-    @game_team = GameTeams.new({ game_id: "2012030221",
+    @game_team = GameTeams.new({ 
+      game_id: "2012030221",
       team_id: "3",
       HoA: "away",
       result: "LOSS",
