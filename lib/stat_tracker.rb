@@ -9,7 +9,7 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    games = CSV.open(locations[:games], { headers: true, header_converters: :symbol }).to_a
+    games = CSV.open(locations[:games], { headers: true, header_converters: :symbol })
     teams = CSV.open(locations[:teams], { headers: true, header_converters: :symbol })
     game_teams = CSV.open(locations[:game_teams], {headers: true, header_converters: :symbol })
     StatTracker.new(games, teams, game_teams)
