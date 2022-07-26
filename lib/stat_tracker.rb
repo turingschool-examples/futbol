@@ -26,6 +26,9 @@ class StatTracker
         total_score.min
     end
   
+    def highest_total_score
+      total_score.max
+    end
 
 end
 
