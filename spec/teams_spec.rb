@@ -1,4 +1,5 @@
 require "./lib/stat_tracker.rb"
+require 'csv'
 
 describe Teams do
   before :each do

@@ -1,7 +1,5 @@
 require "./lib/stat_tracker.rb"
-require "./data/games.csv"
-require "./data/teams.csv"
-require "./data/game_teams.csv"
+require './lib/teams.rb'
 
 describe StatTracker do
   before :each do
@@ -41,7 +39,7 @@ describe StatTracker do
          powerPlayGoals: "0",
          faceOffWinPercentage: "44.8",
          giveaways: "17",
-         takeaways: "7" }] 
+         takeaways: "7" }]
          # Game Teams
     )
   end
