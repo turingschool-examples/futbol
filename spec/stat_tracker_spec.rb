@@ -27,5 +27,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.teams).to be_an_instance_of(CSV::Table)
       expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
     end
+
+    it 'can return the number average_goals_per_game' do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.78)
+    end
+
   end
 end
