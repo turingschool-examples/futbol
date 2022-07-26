@@ -16,10 +16,6 @@ describe Teams do
     expect(@teams).to be_instance_of(Teams)
   end
 
-  xit 'to be a hash' do
-    expect(Teams[0]).to be_instance_of(Hash)
-  end
-
   it 'reads the correct team_id' do
     expect(@teams.team_id).to eq("1")
   end
