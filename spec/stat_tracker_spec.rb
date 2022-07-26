@@ -52,10 +52,6 @@ RSpec.describe StatTracker do
     it 'shows the percentage_home_wins' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.56)
     end
-    
-    it 'can return the team with the worst offense' do
-      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
-    end
 
     it 'can calculate percentage visitor wins' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.44)
@@ -68,6 +64,11 @@ RSpec.describe StatTracker do
 
     it 'can count the total teams' do
       expect(@stat_tracker.count_of_teams).to eq(3)
+    end
+
+    it 'can return a hash of team and goal data' do
+      expect(@stat_tracker.teams_and_goals).to be_an(Hash)
+      expect(@stat_tracker.teams_and_goals[3][:total_goals]).to eq(8)
     end
   end
 end
