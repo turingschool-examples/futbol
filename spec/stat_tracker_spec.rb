@@ -4,7 +4,7 @@ RSpec.describe StatTracker do
   context 'Iteration 1' do
     before :each do
       game_path = './data/games_dummy.csv'
-      team_path = './data/teams.csv'
+      team_path = './data/teams_dummy.csv'
       game_teams_path = './data/game_teams_dummy.csv'
 
       locations = {
@@ -42,8 +42,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(3.78)
     end
 
+
     it 'show percentage of tie games' do
       expect(@stat_tracker.percentage_ties).to eq(0.0)
+    end
+    
+    it 'shows the percentage_home_wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(0.56)
     end
 
   end
