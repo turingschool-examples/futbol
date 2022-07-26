@@ -27,11 +27,11 @@ class StatTracker
   end
 
   def lowest_total_score
-  
+
   end
 
   def percentage_home_wins
-    
+
   end
 
   def percentage_visitor_wins
@@ -58,7 +58,11 @@ class StatTracker
 # League Statistics
 
   def count_of_teams
-
+    teams = []
+    @teams_data.select do |team|
+      teams << team[:team_id] 
+    end
+    teams.count
   end
 
   def best_offense
@@ -86,63 +90,64 @@ class StatTracker
   end
 
 
-# Season Statistics
+  # Season Statistics
 
-def winningest_coach
+  def winningest_coach
 
-end
+  end
 
-def worst_coach
+  def worst_coach
 
-end
+  end
 
-def most_accurate_team
+  def most_accurate_team
 
-end
+  end
 
-def least_accurate_team
+  def least_accurate_team
 
-end
+  end
 
-def most_tackles
+  def most_tackles
 
-end
+  end
 
-def fewest_tackles
+  def fewest_tackles
 
-end
+  end
 
 
-# Team Statistics
+  # Team Statistics
 
-def team_info
+  def team_info
 
-end
+  end
 
-def best_season
+  def best_season
 
-end
+  end
 
-def worst_season
+  def worst_season
 
-end
+  end
 
-def average_win_percentage
+  def average_win_percentage
 
-end
+  end
 
-def most_goals_scored
+  def most_goals_scored
 
-end
+  end
 
-def fewest_goals_scored
+  def fewest_goals_scored
 
-end
+  end
 
-def favorite_opponent
+  def favorite_opponent
 
-end
+  end
 
-def rival
+  def rival
 
+  end
 end
