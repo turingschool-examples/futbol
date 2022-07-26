@@ -56,8 +56,8 @@ RSpec.describe StatTracker do
 
   end
 
-  xit '#best_offense' do
-
+  it '#best_offense' do
+    expect(stat_tracker.best_offense).to eq "Reign FC"
   end
 
   xit '#worst_offense' do

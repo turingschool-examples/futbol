@@ -64,7 +64,12 @@ class StatTracker
   end
 
   def best_offense
-
+    team_goals = Hash.new()
+    @game_teams_data.each do |row|
+      team_goals[row[:team_id]] = row[:goals].to_i
+    end
+    team_best_offense = team_goals.key(team_goals.values.max)
+    find_team_name_by_id(team_best_offense)
   end
 
   def worst_offense
