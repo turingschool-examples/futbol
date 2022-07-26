@@ -65,5 +65,10 @@ RSpec.describe StatTracker do
     it 'can count the total teams' do
       expect(@stat_tracker.count_of_teams).to eq(3)
     end
+
+    it 'can return a hash of team and goal data' do
+      expect(@stat_tracker.teams_and_goals).to be_an(Hash)
+      expect(@stat_tracker.teams_and_goals[3][:total_goals]).to eq(8)
+    end
   end
 end
