@@ -31,5 +31,5 @@ RSpec.describe StatTracker do
       expect(stat_tracker.teams).to eq(teams_data)
       expect(stat_tracker.game_teams).to eq(game_teams_data)
     end
-  end
+   end
 end
