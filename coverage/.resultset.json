@@ -1,7 +1,69 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/jake/Turing/1mod/projects/futbol/spec/spec_stat_tracker.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          2,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/jake/Turing/1mod/projects/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/jake/Turing/1mod/projects/futbol/lib/games.rb": {
+        "lines": [
+          1,
+          1,
+          0,
+          null,
+          null
+        ]
+      }
     },
-    "timestamp": 1658784097
+    "timestamp": 1658864910
   }
 }
