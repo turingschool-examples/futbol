@@ -1,26 +1,23 @@
 require 'spec_helper'
 
 RSpec.describe StatTracker do
-  before :each do
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
-    
-    @locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    @stat_tracker = StatTracker.from_csv(@locations)
+  let!(:game_path) { './data/games.csv' }
+  let!(:team_path) { './data/teams.csv' }
+  let!(:game_teams_path) { './data/game_teams.csv' }
+  
+  let!(:locations) { {games: game_path, teams: team_path, game_teams: game_teams_path } }
+
+  let!(:stat_tracker) { StatTracker.from_csv(locations) }
+  context 'stat_tracker instantiates' do
+    it 'should have a class' do
+      expect(stat_tracker).to be_a StatTracker
+    end
+
+    it 'self method should be an instance of the class' do
+      expect(StatTracker.from_csv(locations)).to be_a StatTracker
+    end
   end
 
-  it 'should have a class' do
-    expect(@stat_tracker).to be_a StatTracker
-  end
-
-  it 'self method should be an instance of the class' do
-    expect(StatTracker.from_csv(@locations)).to be_a StatTracker
-  end
 
   it '#highest_total_score' do
    
@@ -147,3 +144,4 @@ RSpec.describe StatTracker do
 
   end
 end
+
