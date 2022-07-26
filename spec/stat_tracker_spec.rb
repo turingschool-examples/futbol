@@ -16,9 +16,9 @@ describe StatTracker do
             teams: team_path,
             game_teams: game_teams_path
             }
-           
+
             expect(StatTracker.from_csv(locations)).to be_an_instance_of(StatTracker)
-    
+
         end
     end
 end
