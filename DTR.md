@@ -7,7 +7,7 @@ Norms Erik, Jake, Mary, and Taryn shall live by:
 
 
 
-Taryn.orlemann@gmail.com
+taryn.orlemann@gmail.com
 mballantyne777@gmail.com
 imjakekim@gmail.com
 riggs.erik@gmail.com
