@@ -98,12 +98,13 @@ RSpec.describe StatTracker do
     expect(stat_tracker.least_accurate_team).to be_a(String)
   end
 
-  xit '#most_tackles' do
-
+  it '#most_tackles' do
+    
+    expect(stat_tracker.most_tackles).to be_a(String)
   end
 
-  xit '#fewest_tackles' do
-
+  it '#fewest_tackles' do
+    expect(stat_tracker.fewest_tackles).to be_a(String)
   end
 
 

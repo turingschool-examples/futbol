@@ -110,7 +110,7 @@ class StatTracker
   end
 
   def least_accurate_team
-    accuracy_by_id = Hash.new(0)
+    accuracy_by_id = Hash.new
     @game_teams_data.each do |row|
       goals = row[:goals].to_f
       shots = row[:shots].to_f
@@ -123,11 +123,21 @@ class StatTracker
   end
 
   def most_tackles
-
+    tackles_by_id = Hash.new
+    @game_teams_data.each do |row|
+      tackles_by_id[row[:team_id]] = row[:tackles]
+    end
+    most_tackle_id = tackles_by_id.key(tackles_by_id.values.max)
+    find_team_name_by_id(most_tackle_id)
   end
 
   def fewest_tackles
-
+    tackles_by_id = Hash.new
+    @game_teams_data.each do |row|
+      tackles_by_id[row[:team_id]] = row[:tackles]
+    end
+    least_tackle_id = tackles_by_id.key(tackles_by_id.values.min)
+    find_team_name_by_id(least_tackle_id)
   end
 
 
