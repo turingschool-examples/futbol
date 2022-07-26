@@ -31,7 +31,9 @@ describe StatTracker do
     end
     describe 'Game Statistics' do 
          
-
+        it 'can return the lowest score' do 
+            expect(@stat_tracker.lowest_total_score).to eq(1)
+        end
 
     end
 end
