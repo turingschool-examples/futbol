@@ -33,7 +33,7 @@ describe StatTracker do
     describe 'Game Statistics' do
 
       it "finds highest total score" do
-        expect(stat_tracker.highest_total_score).to eq 7
+        expect(@stat_tracker.highest_total_score).to eq 7
       end
 
     end

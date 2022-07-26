@@ -23,6 +23,6 @@ class StatTracker
     end
 
     def highest_total_score
-      total_score
+      total_score.max
     end
 end
