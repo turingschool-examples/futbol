@@ -56,5 +56,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_home_wins).to eq(0.56)
     end
 
+    it 'can return the count of games per season' do
+
+     expect(@stat_tracker.count_of_games_by_season).to eq({20122013=>5, 20142015=>4})
+    end
   end
 end
