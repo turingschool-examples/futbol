@@ -31,5 +31,10 @@ RSpec.describe StatTracker do
     it 'show highest_total_score' do
       expect(@stat_tracker.highest_total_score).to eq(5)
     end
+
+    it 'can return the number average_goals_per_game' do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.78)
+    end
+
   end
 end
