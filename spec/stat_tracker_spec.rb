@@ -19,9 +19,9 @@ RSpec.describe StatTracker do
   end
 
   it '3. can load an array of multiple CSVs' do
-    game_path = './data/games.csv'
+    game_path = './data/games_dummy.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
 
     locations = {
       games: game_path,
@@ -30,6 +30,7 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
+    
     expect(stat_tracker).to be_a Hash
     expect(stat_tracker.keys).to eq([:games, :teams, :game_teams])
     expect(stat_tracker.values).to all be_an_instance_of StatTracker
