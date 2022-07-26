@@ -35,4 +35,13 @@ class StatTracker
     end
     total_scores.min
   end
+
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+
+    @all_data_hash[:games].each do |row|
+      games_by_season[row[:season]] += 1
+    end
+    games_by_season
+  end
 end

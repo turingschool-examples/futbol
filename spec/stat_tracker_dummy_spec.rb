@@ -26,4 +26,15 @@ describe StatTracker do
   it '#lowest_total_score' do
     expect(@stat_tracker.lowest_total_score).to eq 1
   end
+
+  it '#count_of_games_by_season' do
+    expected = {
+      "20122013" => 2,
+      "20132014" => 6,
+      "20142015" => 7,
+      "20152016" => 5
+    }
+
+    expect(@stat_tracker.count_of_games_by_season).to eq(expected)
+  end
 end
