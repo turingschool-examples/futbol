@@ -41,4 +41,8 @@ describe StatTracker do
 
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
   end
+
+  it '#count_of_teams' do
+    expect(@stat_tracker.count_of_teams). to eq (20)
+  end
 end

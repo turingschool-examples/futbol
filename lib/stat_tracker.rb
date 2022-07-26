@@ -53,4 +53,13 @@ class StatTracker
     end
     games_by_season
   end
+
+  def count_of_teams
+    team_names = []
+
+    @all_data_hash[:teams].each do |row|
+      team_names << row[:teamname]
+    end
+    team_names.uniq.count
+  end
 end
