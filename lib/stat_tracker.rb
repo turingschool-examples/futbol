@@ -22,7 +22,13 @@ class StatTracker
       end
     end
 
+    def lowest_total_score 
+        total_score.min
+    end
+  
     def highest_total_score
       total_score.max
     end
+
 end
+
