@@ -47,7 +47,7 @@ describe StatTracker do
 
         it 'percentage_visitor_wins' do
        
-            expect(@stat_tracker.percentage_visitor_wins).to eq(48.33)
+            expect(@stat_tracker.percentage_visitor_wins).to eq(13.33)
         end
     end
 end

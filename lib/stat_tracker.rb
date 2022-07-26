@@ -21,21 +21,16 @@ class StatTracker
      
         away_wins = []
         game_results = game_teams.values_at(:hoa, :result)
-
-        total_games_played = []
+        total_games_played = game_results.count.to_f
      
-     
-    #    game_results.find_all do |game|
-    #     game == ["away", "WIN"]
-
        game_results.each do |game|
         away_wins << game if game == ["away", "WIN"]
            
         end
-        require 'pry'; binding.pry 
+        ((away_wins.count / total_games_played)*100).round(2)
+    end
 
 
-        
     def total_score
       @games.values_at(:away_goals, :home_goals).map do |game|
         game[0] + game[1]
