@@ -68,7 +68,7 @@ describe StatTracker do
     expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
   end
 
-  xit '#lowest_scoring_home_team' do
+  it '#lowest_scoring_home_team' do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 end

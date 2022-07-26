@@ -94,16 +94,16 @@ class StatTracker
     away_team_goals_hash.each do |team, goals|
       avg_away_team_goals_hash[team] = (goals.sum(0.0) / goals.length).round(2)
     end
-    highest_team_id = avg_away_team_goals_hash.max_by do |team, avg_goals|
+    highest_away_team_id = avg_away_team_goals_hash.max_by do |team, avg_goals|
       avg_goals
     end[0]
-    highest_team_name = nil
+    highest_away_team_name = nil
     @all_data_hash[:teams].each do |row|
-      if row[:team_id] == highest_team_id
-        highest_team_name = row[:teamname]
+      if row[:team_id] == highest_away_team_id
+        highest_away_team_name = row[:teamname]
       end
     end
-    highest_team_name
+    highest_away_team_name
   end
 
   def lowest_scoring_visitor
@@ -130,5 +130,61 @@ class StatTracker
       end
     end
     lowest_away_team_name
+  end
+
+  def highest_scoring_home_team
+    home_team_goals_hash = Hash.new
+    @all_data_hash[:game_teams].each do |row|
+      if !home_team_goals_hash[row[:team_id]]
+        home_team_goals_hash[row[:team_id]] = []
+      end
+      if row[:hoa] == "home"
+        home_team_goals_hash[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    avg_home_team_goals_hash = Hash.new(0)
+    home_team_goals_hash.each do |team, goals|
+      if goals != []
+        avg_home_team_goals_hash[team] = (goals.sum(0.0) / goals.length).round(2)
+      end
+    end
+    highest_home_team_id = avg_home_team_goals_hash.max_by do |team, avg_goals|
+      avg_goals
+    end[0]
+    highest_home_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == highest_home_team_id
+        highest_home_team_name = row[:teamname]
+      end
+    end
+    highest_home_team_name
+  end
+
+  def lowest_scoring_home_team
+    home_team_goals_hash = Hash.new
+    @all_data_hash[:game_teams].each do |row|
+      if !home_team_goals_hash[row[:team_id]]
+        home_team_goals_hash[row[:team_id]] = []
+      end
+      if row[:hoa] == "home"
+        home_team_goals_hash[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    avg_home_team_goals_hash = Hash.new(0)
+    home_team_goals_hash.each do |team, goals|
+      if goals != []
+        avg_home_team_goals_hash[team] = (goals.sum(0.0) / goals.length).round(2)
+      end
+    end
+    lowest_home_team_id = avg_home_team_goals_hash.min_by do |team, avg_goals|
+      avg_goals
+    end[0]
+    lowest_home_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == lowest_home_team_id
+        lowest_home_team_name = row[:teamname]
+      end
+    end
+    lowest_home_team_name
   end
 end
