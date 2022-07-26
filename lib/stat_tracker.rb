@@ -25,6 +25,8 @@ class StatTracker
     def lowest_total_score 
         total_score.min
     end
+
+    
   
 
 end

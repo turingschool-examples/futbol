@@ -35,5 +35,9 @@ describe StatTracker do
             expect(@stat_tracker.lowest_total_score).to eq(1)
         end
 
+        it 'can return a hash with season names as keyes and counts of games as values' do 
+            expect(@stat_tracker.count_of_games_by_season).
+        end
+
     end
 end
