@@ -7,9 +7,9 @@ describe StatTracker do
     describe '.from_csv(locations)' do
         it 'returns an instance of StatTracker' do
 
-            game_path = './data/games.csv'
+            game_path = './data/games_dummy.csv'
             team_path = './data/teams.csv'
-            game_teams_path = './data/game_teams.csv'
+            game_teams_path = './data/game_teams_dummy.csv'
 
             locations = {
             games: game_path,
@@ -21,10 +21,10 @@ describe StatTracker do
 
         end
 
-        it "text" do
-          game_path = './data/games.csv'
+        it "read csv files" do
+          game_path = './data/games_dummy.csv'
           team_path = './data/teams.csv'
-          game_teams_path = './data/game_teams.csv'
+          game_teams_path = './data/game_teams_dummy.csv'
 
           locations = {
           games: game_path,
