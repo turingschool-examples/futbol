@@ -3,7 +3,7 @@ require 'csv'
 
 describe GameTeams do
   before :each do
-    @game_team = GameTeams.new({ 
+    @game_team = GameTeams.new({
       game_id: "2012030221",
       team_id: "3",
       HoA: "away",
@@ -23,10 +23,6 @@ describe GameTeams do
 
   it 'exists' do
     expect(@game_team).to be_an(GameTeams)
-  end
-
-  xit 'to be a hash' do
-    expect(GameTeams[0]).to be_instance_of(Hash)
   end
 
   it 'reads the correct team id' do
