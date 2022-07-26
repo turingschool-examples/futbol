@@ -17,6 +17,10 @@ RSpec.describe StatTracker do
   end
 
   xit '#highest_total_score' do
+
+
+  it '#highest_total_score' do
+
    
   end
 
@@ -141,3 +145,4 @@ RSpec.describe StatTracker do
 
   end
 end
+
