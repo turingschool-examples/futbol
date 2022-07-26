@@ -18,4 +18,14 @@ class StatTracker
   def initialize(all_data_hash)
     @all_data_hash = all_data_hash
   end
+
+  def highest_total_score
+    total_scores = []
+    @all_data_hash[:games].each do |row|
+      home_goals = row[:home_goals].to_i
+      away_goals = row[:away_goals].to_i
+      total_scores << home_goals + away_goals
+    end
+    total_scores.max
+  end
 end
