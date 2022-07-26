@@ -47,5 +47,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(3.78)
     end
 
+    it 'show percentage of tie games' do
+      expect(@stat_tracker.percentage_ties).to eq()
+    end
+
   end
 end

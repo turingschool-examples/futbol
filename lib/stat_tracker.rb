@@ -35,4 +35,8 @@ class StatTracker
     (total_goals.to_f / @games.length).round(2)
   end
 
+  def percentage_ties
+
+  end
+
 end
