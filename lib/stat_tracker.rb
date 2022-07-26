@@ -62,4 +62,8 @@ class StatTracker
     end
    games_by_season
   end
+
+  def count_of_teams
+    @teams[:team_id].uniq.count
+  end
 end
