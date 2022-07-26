@@ -12,9 +12,9 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    games = CSV.table(locations[:games], headers: true, header_converters: :symbol )
-    teams = CSV.table(locations[:teams], headers: true, header_converters: :symbol)
-    game_teams = CSV.table(locations[:game_teams], headers: true, header_converters: :symbol)
+    games = CSV.table(locations[:games], converters: :all)
+    teams = CSV.table(locations[:teams], converters: :all)
+    game_teams = CSV.table(locations[:game_teams], converters: :all)
     StatTracker.new(games, teams, game_teams)
   end
 

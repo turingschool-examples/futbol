@@ -23,9 +23,9 @@ RSpec.describe StatTracker do
 
     it 'has data' do
 
-      expect(@stat_tracker.games).to be_an_instance_of(CSV)
-      expect(@stat_tracker.teams).to be_an_instance_of(CSV)
-      expect(@stat_tracker.game_teams).to be_an_instance_of(CSV)
+      expect(@stat_tracker.games).to be_an_instance_of(CSV::Table)
+      expect(@stat_tracker.teams).to be_an_instance_of(CSV::Table)
+      expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
     end
   end
 end
