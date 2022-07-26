@@ -28,4 +28,26 @@ RSpec.describe StatTracker do
   it 'returns percentage_visitor_wins' do
     expect(stat_tracker.percentage_visitor_wins).to eq(57.14)
   end
+
+  it 'returns percentage_ties' do
+    expect(stat_tracker.percentage_ties).to eq(0.00)
+  end
+
+  it 'returns count of games by season' do
+    expect(stat_tracker.count_of_games_by_season).to eq({'20122013' => 7})
+  end
+
+  it 'returns average goals per game' do
+    expect(stat_tracker.average_goals_per_game).to eq(4.29)
+  end
+
+  it 'returns total goals by season' do
+    expect(stat_tracker.total_goals_by_season).to eq({'20122013' => 30})
+  end
+
+  it 'returns average goals by season' do
+    expect(stat_tracker.average_goals_by_season).to eq({'20122013' => 4.29})
+  end
+
+  #league stats
 end
