@@ -4,6 +4,7 @@ class StatTracker
   attr_reader :games,
               :teams,
               :game_teams
+              :percentage_visitor_wins
 
   def initialize(games, teams, game_teams)
     @games = games
@@ -16,6 +17,13 @@ class StatTracker
     teams = CSV.table(locations[:teams], converters: :all)
     game_teams = CSV.table(locations[:game_teams], converters: :all)
     StatTracker.new(games, teams, game_teams)
+  end
+
+  def percentage_visitor_wins
+    total_away_wins = @game_teams.count do |game_team| 
+      game_team[:hoa] == "away" && game_team[:result] == "WIN"
+    end
+    (total_away_wins/@games.length.to_f).round(2)
   end
 
   def total_scores_per_game
@@ -33,6 +41,11 @@ class StatTracker
   def average_goals_per_game
     total_goals = @games.sum{ |game| game[:away_goals] + game[:home_goals] }
     (total_goals.to_f / @games.length).round(2)
+  end
+
+  def percentage_ties
+    total_tie_games = @games.count{ |game| game[:away_goals] == game[:home_goals] }
+    (total_tie_games.to_f / @games.length).round(2)
   end
 
   def percentage_home_wins

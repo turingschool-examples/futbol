@@ -17,29 +17,29 @@ RSpec.describe StatTracker do
     end
 
     it 'exists' do
-
       expect(@stat_tracker).to be_an_instance_of(StatTracker)
     end
 
     it 'has data' do
-
       expect(@stat_tracker.games).to be_an_instance_of(CSV::Table)
       expect(@stat_tracker.teams).to be_an_instance_of(CSV::Table)
       expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
     end
 
-    it 'has a total score' do
 
+    it 'can calculate percentage visitor wins' do
+        expect(@stat_tracker.percentage_visitor_wins).to eq(0.22)
+    end
+
+    it 'has a total score' do
       expect(@stat_tracker.total_scores_per_game).to eq(34)
     end
 
     it 'has a lowest total score' do
-
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
 
     it 'show highest_total_score' do
-
      expect(@stat_tracker.highest_total_score).to eq(5)
     end
 
@@ -47,6 +47,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(3.78)
     end
 
+
+    it 'show percentage of tie games' do
+      expect(@stat_tracker.percentage_ties).to eq(0.0)
+    end
+    
     it 'shows the percentage_home_wins' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.56)
     end
