@@ -79,4 +79,6 @@ class StatTracker
     end
     avg_goals_by_season
   end
+
+  
 end
