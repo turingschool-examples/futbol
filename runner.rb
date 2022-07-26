@@ -1,7 +1,6 @@
 require './lib/stat_tracker'
 require 'csv'
 
-
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
 game_teams_path = './data/game_teams.csv'
@@ -16,4 +15,4 @@ stat_tracker = StatTracker.from_csv(locations)
 
 require 'pry'; binding.pry
 
-a = 'a'
+a = "a"
