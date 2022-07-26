@@ -18,4 +18,9 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
+  def average_goals_per_game
+    total_goals = @games.sum{ |row| row[:away_goals] + row[:home_goals] }
+    (total_goals.to_f / @games.length).round(2)
+  end
+
 end
