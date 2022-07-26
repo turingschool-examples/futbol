@@ -22,8 +22,8 @@ class StatTracker
   def highest_total_score
     total_scores = []
     @all_data_hash[:games].each do |row|
-      home_goals = row[:away_goals].to_i
-      away_goals = row[:home_goals].to_i
+      home_goals = row[:home_goals].to_i
+      away_goals = row[:away_goals].to_i
       total_scores << home_goals + away_goals
     end
     total_scores.max
@@ -32,8 +32,8 @@ class StatTracker
   def lowest_total_score
     total_scores = []
     @all_data_hash[:games].map do |row|
-      home_goals = row[:away_goals].to_i
-      away_goals = row[:home_goals].to_i
+      home_goals = row[:home_goals].to_i
+      away_goals = row[:away_goals].to_i
       total_scores << home_goals + away_goals
     end
     total_scores.min
