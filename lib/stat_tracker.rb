@@ -86,63 +86,92 @@ class StatTracker
   end
 
 
-# Season Statistics
+  # Season Statistics
 
-def winningest_coach
+  def winningest_coach
 
-end
+  end
 
-def worst_coach
+  def worst_coach
 
-end
+  end
 
-def most_accurate_team
+  def most_accurate_team
+    accuracy_by_id = Hash.new(0)
+    @game_teams_data.each do |row|
+      goals = row[:goals].to_f
+      shots = row[:shots].to_f
+      team_id = row[:team_id]
+      accuracy = goals / shots
+      accuracy_by_id[team_id] = accuracy
+    end
+    accurate_id = accuracy_by_id.key(accuracy_by_id.values.max)
+    find_team_name_by_id(accurate_id)
+  end
 
-end
+  def least_accurate_team
+    accuracy_by_id = Hash.new(0)
+    @game_teams_data.each do |row|
+      goals = row[:goals].to_f
+      shots = row[:shots].to_f
+      team_id = row[:team_id]
+      accuracy = goals / shots
+      accuracy_by_id[team_id] = accuracy
+    end
+    accurate_id = accuracy_by_id.key(accuracy_by_id.values.min)
+    find_team_name_by_id(accurate_id)
+  end
 
-def least_accurate_team
+  def most_tackles
 
-end
+  end
 
-def most_tackles
+  def fewest_tackles
 
-end
-
-def fewest_tackles
-
-end
+  end
 
 
-# Team Statistics
+  # Team Statistics
 
-def team_info
+  def team_info
 
-end
+  end
 
-def best_season
+  def best_season
 
-end
+  end
 
-def worst_season
+  def worst_season
 
-end
+  end
 
-def average_win_percentage
+  def average_win_percentage
 
-end
+  end
 
-def most_goals_scored
+  def most_goals_scored
 
-end
+  end
 
-def fewest_goals_scored
+  def fewest_goals_scored
 
-end
+  end
 
-def favorite_opponent
+  def favorite_opponent
 
-end
+  end
 
-def rival
+  def rival
 
+  end
+
+  # Helper Methods Below
+
+  def find_team_name_by_id(id_number)
+    team_name = nil
+    @teams_data.each do |row|
+      team_name = row[:teamname] if row[:team_id] == id_number.to_s
+    end
+    team_name
+  end
 end
