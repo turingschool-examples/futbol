@@ -67,4 +67,31 @@ class StatTracker
   def count_of_teams
     @teams[:team_id].uniq.count
   end
+
+  def teams_and_goals #=> League Stats Helper Method
+    teams_and_goals_hash = {}
+    @teams.each do |team|
+      teams_and_goals_hash[team[:team_id]] = {
+        team_name: team[:teamname],
+        total_goals: 0,
+        total_games: 0,
+        total_home_goals: 0,
+        total_away_goals: 0,
+        total_home_games: 0,
+        total_away_games: 0
+      }
+    end
+    @game_teams.each do |game_team|
+      teams_and_goals_hash[game_team[:team_id]][:total_goals] += game_team[:goals]
+      teams_and_goals_hash[game_team[:team_id]][:total_games] += 1
+      if game_team[:hoa] == 'home'
+        teams_and_goals_hash[game_team[:team_id]][:total_home_goals] += game_team[:goals] 
+        teams_and_goals_hash[game_team[:team_id]][:total_home_games] += 1
+      else
+        teams_and_goals_hash[game_team[:team_id]][:total_away_goals] += game_team[:goals]
+        teams_and_goals_hash[game_team[:team_id]][:total_away_games] += 1
+      end
+    end
+    teams_and_goals_hash
+  end
 end
