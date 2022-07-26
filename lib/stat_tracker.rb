@@ -80,5 +80,55 @@ class StatTracker
     avg_goals_by_season
   end
 
-  
+  def highest_scoring_visitor
+    away_team_goals_hash = Hash.new
+    @all_data_hash[:game_teams].each do |row|
+      if !away_team_goals_hash[row[:team_id]]
+        away_team_goals_hash[row[:team_id]] = []
+      end
+      if row[:hoa] == "away"
+        away_team_goals_hash[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    avg_away_team_goals_hash = Hash.new(0)
+    away_team_goals_hash.each do |team, goals|
+      avg_away_team_goals_hash[team] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    highest_team_id = avg_away_team_goals_hash.max_by do |team, avg_goals|
+      avg_goals
+    end[0]
+    highest_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == highest_team_id
+        highest_team_name = row[:teamname]
+      end
+    end
+    highest_team_name
+  end
+
+  def lowest_scoring_visitor
+    away_team_goals_hash = Hash.new
+    @all_data_hash[:game_teams].each do |row|
+      if !away_team_goals_hash[row[:team_id]]
+        away_team_goals_hash[row[:team_id]] = []
+      end
+      if row[:hoa] == "away"
+        away_team_goals_hash[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    avg_away_team_goals_hash = Hash.new(0)
+    away_team_goals_hash.each do |team, goals|
+      avg_away_team_goals_hash[team] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    lowest_away_team_id = avg_away_team_goals_hash.min_by do |team, avg_goals|
+      avg_goals
+    end[0]
+    lowest_away_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == lowest_away_team_id
+        lowest_away_team_name = row[:teamname]
+      end
+    end
+    lowest_away_team_name
+  end
 end
