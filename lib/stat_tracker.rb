@@ -41,5 +41,8 @@ class StatTracker
     (home_wins.to_f / total_games).round(2)
   end
 
+  def count_of_teams
+    @teams[:team_id].uniq.count
+  end
 
 end
