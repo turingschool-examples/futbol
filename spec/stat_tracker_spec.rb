@@ -37,5 +37,7 @@ describe StatTracker do
           expect(stat_tracker.teams).to eq(CSV.table(team_path))
           expect(stat_tracker.game_teams).to eq(CSV.table(game_teams_path))
         end
+
+        
     end
 end

@@ -15,4 +15,10 @@ class StatTracker
       game_teams = CSV.table(locations[:game_teams])
       StatTracker.new(games, teams, game_teams)
     end
+      def lowest_total_score
+        low_score = @games.min_by{|game| game.away_goals + game.home_goals}
+        low_score.away_goals + low_scores.home_goals 
+    end
+
 end
+
