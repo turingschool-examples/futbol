@@ -33,6 +33,22 @@ class StatTracker
            
         end
         require 'pry'; binding.pry 
+
+
+        
+    def total_score
+      @games.values_at(:away_goals, :home_goals).map do |game|
+        game[0] + game[1]
+      end
+    end
+
+    def lowest_total_score 
+        total_score.min
+    end
+  
+    def highest_total_score
+      total_score.max
     end
 
 end
+
