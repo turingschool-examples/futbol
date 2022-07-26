@@ -43,5 +43,7 @@ class StatTracker
     win_percentage.max_by{|coach, percentage| -percentage}.first
   end
 
+  
+
 
 end

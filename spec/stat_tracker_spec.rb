@@ -38,8 +38,7 @@ RSpec.describe StatTracker do
 
   context 'Season statistics' do
     it 'S1. has a method for winningest_coach' do
-      team_path = './data/game_teams_dummy.csv'
-      location = team_path
+      location = './data/game_teams_dummy.csv'
       stat_tracker = StatTracker.new(location)
 
       expect(stat_tracker.data[:head_coach]).to include(stat_tracker.winningest_coach)
@@ -47,12 +46,26 @@ RSpec.describe StatTracker do
     end
 
     it 'S2. has a method for worst_coach' do
-      team_path = './data/game_teams_dummy.csv'
-      location = team_path
+
+      location = './data/game_teams_dummy.csv'
       stat_tracker = StatTracker.new(location)
 
       expect(stat_tracker.data[:head_coach]).to include(stat_tracker.worst_coach)
       expect(stat_tracker.worst_coach). to eq "Patrick Roy"
+    end
+
+    it 'S3. can tell most_accurate_team' do
+      game_path = './data/games_dummy.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams_dummy.csv'
+
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+
+      stat_tracker = StatTracker.from_csv(locations)
     end
 
 
@@ -62,8 +75,6 @@ RSpec.describe StatTracker do
 # These methods each take a season id as an argument and return the values described below.
 #
 # Method	Description	Return Value
-
-# worst_coach	Name of the Coach with the worst win percentage for the season	String
 # most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
 # least_accurate_team	Name of the Team with the worst ratio of shots to goals for the season	String
 # most_tackles	Name of the Team with the most tackles in the season	String
