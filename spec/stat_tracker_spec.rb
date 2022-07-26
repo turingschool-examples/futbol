@@ -70,7 +70,7 @@ describe StatTracker do
       game_teams: @game_teams_path,
     }
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-    expect(stat_tracker.highest_total_score).to eq(20)
+    expect(stat_tracker.highest_total_score).to eq(5)
   end
 
 
