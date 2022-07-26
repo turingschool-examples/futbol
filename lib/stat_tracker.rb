@@ -20,13 +20,11 @@ class StatTracker
   end
 
   def highest_total_score
-    total_scores = []
-    @all_data_hash[:games].each do |row|
+    @all_data_hash[:games].map do |row|
       home_goals = row[:home_goals].to_i
       away_goals = row[:away_goals].to_i
-      total_scores << home_goals + away_goals
-    end
-    total_scores.max
+      home_goals + away_goals
+    end.max
   end
 
   def lowest_total_score
