@@ -12,6 +12,6 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-# require 'pry'; binding.pry
+require 'pry'; binding.pry
 
-# p stat_tracker.games.shift[:away_goals]
+p stat_tracker.games.shift[:away_goals]
