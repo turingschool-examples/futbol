@@ -1,5 +1,6 @@
 require './lib/stat_tracker'
-require_relative '../data/teams.csv'
+p File.exist? 'data/teams.csv'
+# require 'data/teams.csv'
 # require 'pry'; binding.pry
 
 RSpec.describe StatTracker do
@@ -15,6 +16,6 @@ RSpec.describe StatTracker do
     location = {teams: team_path}
     stat_tracker = StatTracker.new(location)
 
-    expect(stat_tracker[0]).to eq "team_id,franchiseId,teamName,abbreviation,Stadium,link"
+    expect(stat_tracker).to eq team: ["team_id,franchiseId,teamName,abbreviation,Stadium,link"]
   end
 end

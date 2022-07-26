@@ -1,9 +1,9 @@
 # runner.rb
 require './lib/stat_tracker'
 
-game_path = './data/games.csv'
-team_path = './data/teams.csv'
-game_teams_path = './data/game_teams.csv'
+game_path = CSV.open './data/games.csv'
+team_path = CSV.open './data/teams.csv'
+game_teams_path = CSV.open './data/game_teams.csv'
 
 locations = {
   games: game_path,
@@ -11,6 +11,6 @@ locations = {
   game_teams: game_teams_path
 }
 
-stat_tracker = StatTracker.from_csv(locations)
-
+p stat_tracker = StatTracker.from_csv(locations)
+stat_tracker.teams
 require 'pry' ; binding.pry
