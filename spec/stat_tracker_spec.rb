@@ -27,5 +27,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.teams).to be_an_instance_of(CSV::Table)
       expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
     end
+
+    it 'show highest_total_score' do
+      expect(@stat_tracker.highest_total_score).to eq()
+    end
   end
 end

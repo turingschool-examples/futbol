@@ -18,4 +18,7 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
+  def highest_total_score
+    @games.map {|game| game[:away_goals] + game[:home_goals]}
+  end
 end
