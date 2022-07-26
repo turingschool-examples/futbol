@@ -27,5 +27,15 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.teams).to be_an_instance_of(CSV::Table)
       expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
     end
+
+    it 'has a total score' do
+
+      expect(@stat_tracker.total_scores_per_game).to eq(34)
+    end
+
+    it 'has a lowest total score' do
+
+      expect(@stat_tracker.lowest_total_score).to eq(1)
+    end
   end
 end
