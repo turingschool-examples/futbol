@@ -35,4 +35,16 @@ class StatTracker
     end
     total_scores.min
   end
+
+  def percentage_home_wins
+    home_wins = 0.0
+    total_games = 0.0
+    @all_data_hash[:games].each do |row|
+      if row[:home_goals].to_i > row[:away_goals].to_i
+        home_wins += 1
+      end
+      total_games += 1
+    end
+    percentage = (home_wins / total_games).round(2)
+  end
 end
