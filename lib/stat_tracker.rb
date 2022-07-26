@@ -19,12 +19,6 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
-  def percentage_visitor_wins
-    total_away_wins = @game_teams.count do |game_team| 
-      game_team[:hoa] == "away" && game_team[:result] == "WIN"
-    end
-    (total_away_wins/@games.length.to_f).round(2)
-  end
 
   def total_scores_per_game
     games[:away_goals].sum + games[:home_goals].sum
@@ -54,11 +48,18 @@ class StatTracker
     (home_wins.to_f / total_games).round(2)
   end
 
+  def percentage_visitor_wins
+    total_away_wins = @game_teams.count do |game_team|
+      game_team[:hoa] == "away" && game_team[:result] == "WIN"
+    end
+    (total_away_wins/@games.length.to_f).round(2)
+  end
+  
   def count_of_games_by_season
    games_by_season = Hash.new(0)
 
    @games.each do |game|
-     games_by_season[game[:season]] += 1 
+     games_by_season[game[:season]] += 1
     end
    games_by_season
   end
