@@ -30,6 +30,8 @@ RSpec.describe StatTracker do
     }
 
     stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker).to be_a Hash
+    expect(stat_tracker.keys).to eq([:games, :teams, :game_teams])
     expect(stat_tracker.values).to all be_an_instance_of StatTracker
   end
 end
