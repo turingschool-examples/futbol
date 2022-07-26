@@ -1,4 +1,4 @@
-require './lib/stat_tracker'
+require_relative './lib/stat_tracker'
 require 'csv'
 
 
@@ -14,4 +14,6 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-# require 'pry'; binding.pry
+require 'pry'; binding.pry
+
+x = 1
