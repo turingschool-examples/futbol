@@ -1,5 +1,6 @@
 require "./lib/stat_tracker.rb"
 require './lib/teams.rb'
+require './lib/game_teams'
 
 describe StatTracker do
   before :each do

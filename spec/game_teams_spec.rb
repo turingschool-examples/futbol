@@ -1,6 +1,5 @@
 require './lib/game_teams'
 require 'csv'
-require './lib/stat_tracker'
 
 describe GameTeams do
   before :each do
