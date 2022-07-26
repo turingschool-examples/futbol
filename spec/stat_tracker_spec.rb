@@ -70,5 +70,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.teams_and_goals).to be_an(Hash)
       expect(@stat_tracker.teams_and_goals[3][:total_goals]).to eq(8)
     end
+
+    it 'can return the team with the best offense' do
+      expect(@stat_tracker.best_offense).to eq("FC Dallas")
+    end
   end
 end
