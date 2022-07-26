@@ -17,7 +17,6 @@ class StatTracker
     new_stat_tracker = StatTracker.new(locations)#games_data, teams_data, game_teams_data)
   end
 
-
   # Game statistics 
   def highest_total_score
     scores = @games_data.map do |row|
@@ -27,11 +26,11 @@ class StatTracker
   end
 
   def lowest_total_score
-  
+
   end
 
   def percentage_home_wins
-    
+
   end
 
   def percentage_visitor_wins
@@ -54,11 +53,14 @@ class StatTracker
 
   end
 
-
 # League Statistics
 
   def count_of_teams
-
+    teams = []
+    @teams_data.select do |team|
+      teams << team[:team_id] 
+    end
+    teams.count
   end
 
   def best_offense
@@ -84,7 +86,6 @@ class StatTracker
   def lowest_scoring_home_team
 
   end
-
 
   # Season Statistics
 
@@ -140,7 +141,6 @@ class StatTracker
     find_team_name_by_id(least_tackle_id)
   end
 
-
   # Team Statistics
 
   def team_info
@@ -185,3 +185,4 @@ class StatTracker
     team_name
   end
 end
+

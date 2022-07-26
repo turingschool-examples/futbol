@@ -17,11 +17,7 @@ RSpec.describe StatTracker do
   end
 
   xit '#highest_total_score' do
-
-
-  it '#highest_total_score' do
-
-   
+  
   end
 
   xit '#lowest_total_score' do
@@ -55,7 +51,8 @@ RSpec.describe StatTracker do
 
 # League Statistics
 
-  xit '#count_of_teams' do
+  it '#count_of_teams' do
+    expect(stat_tracker.count_of_teams).to eq 32
 
   end
 
