@@ -4,6 +4,7 @@ class StatTracker
   attr_reader :games,
               :teams,
               :game_teams
+              :percentage_visitor_wins
 
   def initialize(games, teams, game_teams)
     @games = games
@@ -18,4 +19,14 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
+
+  def percentage_visitor_wins
+    
+    # require 'pry';binding.pry
+    total_away_wins = @game_teams.count do |game_team| 
+      game_team[:hoa] == "away" && game_team[:result] == "WIN"
+    end
+    (total_away_wins/@games.length.to_f).round(2)
+    # (game[:away_wins]/(total_away_games.to_f).round(2))
+  end
 end
