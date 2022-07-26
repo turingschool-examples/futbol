@@ -1,4 +1,5 @@
 require './lib/teams.rb'
+require './lib/game.rb'
 
 class StatTracker
   attr_reader :games,
@@ -19,7 +20,7 @@ class StatTracker
       teams: team_path,
       game_teams: game_teams_path
       }
-    @games = games
+    @games = Game.create_multiple_games(@locations[:games])
     @teams = Teams.create_multiple_teams(@locations[:teams])
     @game_teams = game_teams
     #two ways to create a stat tracker: data that I give it
@@ -27,9 +28,9 @@ class StatTracker
 
 
   def self.from_csv(locations)
-    games = CSV.parse(File.read(locations[:games]), headers: true, header_converters: :symbol).map(&:to_h)
+    @games 
     @teams
     game_teams = CSV.parse(File.read(locations[:game_teams]), headers: true, header_converters: :symbol).map(&:to_h)
-    StatTracker.new(games, @teams, game_teams)
+    StatTracker.new(@games, @teams, game_teams)
   end
 end
