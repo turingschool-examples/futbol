@@ -30,4 +30,8 @@ describe StatTracker do
   it '#returns the percentage of home team wins' do
     expect(@stat_tracker.percentage_home_wins).to eq 0.35
   end
+
+  it '#returns the percentage of visitor team wins' do
+    expect(@stat_tracker.percentage_vistor_wins).to eq .3
+  end
 end
