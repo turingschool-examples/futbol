@@ -1,20 +1,35 @@
 require './lib/stat_tracker'
-require_relative '../data/teams.csv'
-# require 'pry'; binding.pry
 
 RSpec.describe StatTracker do
-  
+
   it '1. exists' do
-    stat_tracker = StatTracker.new("filepath")
+    team_path = './data/teams.csv'
+    location = team_path
+    stat_tracker = StatTracker.new(location)
 
     expect(stat_tracker).to be_an_instance_of StatTracker
   end
 
   it '2. can load filepath' do
     team_path = './data/teams.csv'
-    location = {teams: team_path}
+    location = team_path
     stat_tracker = StatTracker.new(location)
+    # require "pry"; binding.pry
+    expect(stat_tracker.data.headers).to eq [:team_id,:franchiseid,:teamname,:abbreviation,:stadium,:link]
+  end
 
-    expect(stat_tracker[0]).to eq "team_id,franchiseId,teamName,abbreviation,Stadium,link"
+  it '3. can load an array of multiple CSVs' do
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+    expect(stat_tracker.values).to all be_an_instance_of StatTracker
   end
 end
