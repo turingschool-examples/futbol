@@ -62,4 +62,14 @@ class StatTracker
     end
     team_names.uniq.count
   end
+
+  def average_goals_by_season
+    goals_season_hash = Hash.new([])
+    goals_season_hash = @all_data_hash[:games].map do |row|
+      home_goals = row[:home_goals].to_i
+      away_goals = row[:away_goals].to_i
+      home_goals + away_goals
+    end
+    (total_scores.sum(0.0) / total_scores.length).round(2)
+  end
 end
