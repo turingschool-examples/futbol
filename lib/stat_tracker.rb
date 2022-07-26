@@ -94,4 +94,11 @@ class StatTracker
     end
     teams_and_goals_hash
   end
+
+  def highest_scoring_home_team
+    high_scoring = teams_and_goals
+    high_scoring.each do |team|
+      require 'pry' ; binding.pry
+    end
+  end
 end
