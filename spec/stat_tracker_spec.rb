@@ -26,4 +26,5 @@ describe StatTracker do
   it '#lowest_total_score' do
     expect(@stat_tracker.lowest_total_score).to eq 0
   end
+
 end

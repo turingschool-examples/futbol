@@ -35,4 +35,6 @@ class StatTracker
     end
     total_scores.min
   end
+
+
 end
