@@ -1,0 +1,4 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3
+5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
