@@ -17,7 +17,6 @@ class StatTracker
     new_stat_tracker = StatTracker.new(locations)#games_data, teams_data, game_teams_data)
   end
 
-
   # Game statistics 
   def highest_total_score
     scores = @games_data.map do |row|
@@ -54,7 +53,6 @@ class StatTracker
 
   end
 
-
 # League Statistics
 
   def count_of_teams
@@ -89,7 +87,6 @@ class StatTracker
 
   end
 
-
   # Season Statistics
 
   def winningest_coach
@@ -101,21 +98,48 @@ class StatTracker
   end
 
   def most_accurate_team
-
+    accuracy_by_id = Hash.new(0)
+    @game_teams_data.each do |row|
+      goals = row[:goals].to_f
+      shots = row[:shots].to_f
+      team_id = row[:team_id]
+      accuracy = goals / shots
+      accuracy_by_id[team_id] = accuracy
+    end
+    accurate_id = accuracy_by_id.key(accuracy_by_id.values.max)
+    find_team_name_by_id(accurate_id)
   end
 
   def least_accurate_team
-
+    accuracy_by_id = Hash.new
+    @game_teams_data.each do |row|
+      goals = row[:goals].to_f
+      shots = row[:shots].to_f
+      team_id = row[:team_id]
+      accuracy = goals / shots
+      accuracy_by_id[team_id] = accuracy
+    end
+    accurate_id = accuracy_by_id.key(accuracy_by_id.values.min)
+    find_team_name_by_id(accurate_id)
   end
 
   def most_tackles
-
+    tackles_by_id = Hash.new
+    @game_teams_data.each do |row|
+      tackles_by_id[row[:team_id]] = row[:tackles]
+    end
+    most_tackle_id = tackles_by_id.key(tackles_by_id.values.max)
+    find_team_name_by_id(most_tackle_id)
   end
 
   def fewest_tackles
-
+    tackles_by_id = Hash.new
+    @game_teams_data.each do |row|
+      tackles_by_id[row[:team_id]] = row[:tackles]
+    end
+    least_tackle_id = tackles_by_id.key(tackles_by_id.values.min)
+    find_team_name_by_id(least_tackle_id)
   end
-
 
   # Team Statistics
 
@@ -150,4 +174,15 @@ class StatTracker
   def rival
 
   end
+
+  # Helper Methods Below
+
+  def find_team_name_by_id(id_number)
+    team_name = nil
+    @teams_data.each do |row|
+      team_name = row[:teamname] if row[:team_id] == id_number.to_s
+    end
+    team_name
+  end
 end
+
