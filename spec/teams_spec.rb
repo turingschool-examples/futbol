@@ -1,4 +1,4 @@
-require "./lib/stat_tracker.rb"
+require './lib/teams'
 require 'csv'
 
 describe Teams do
