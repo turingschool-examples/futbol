@@ -52,6 +52,10 @@ RSpec.describe StatTracker do
     it 'shows the percentage_home_wins' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.56)
     end
+    
+    it 'can return the team with the worst offense' do
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+    end
 
     it 'can calculate percentage visitor wins' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.44)
