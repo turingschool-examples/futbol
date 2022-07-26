@@ -1,4 +1,5 @@
 class Games
-  def initialize(csv)
+  def initialize(path)
+    @csv = CSV.read path
   end
 end
