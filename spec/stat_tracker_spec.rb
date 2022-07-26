@@ -4,7 +4,7 @@ RSpec.describe StatTracker do
   context 'Iteration 1' do
     before :each do
       game_path = './data/games_dummy.csv'
-      team_path = './data/teams.csv'
+      team_path = './data/teams_dummy.csv'
       game_teams_path = './data/game_teams_dummy.csv'
 
       locations = {
