@@ -1,5 +1,5 @@
 require 'csv'
-require 'games'
+require_relative 'games'
 
 class StatTracker
   attr_reader :locations, :data
