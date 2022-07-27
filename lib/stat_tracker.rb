@@ -66,7 +66,7 @@ class StatTracker
   #     end
   #   end
 
-  def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
+  def most_goals_scored(team_id)  
     goals_by_game = []
     @game_teams.each do |game|
       if team_id == game.team_id
@@ -76,6 +76,15 @@ class StatTracker
     goals_by_game.max
   end
   
+  def fewest_goals_scored(team_id)  
+    goals_by_game = []
+    @game_teams.each do |game|
+      if team_id == game.team_id
+        goals_by_game << game.goals.to_i
+      end
+    end
+    goals_by_game.min
+  end
   
 
 end
