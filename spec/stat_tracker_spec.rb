@@ -72,7 +72,6 @@ describe StatTracker do
     expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
-
   xit "can calculate the games lowest total score" do
     expect(@stat_tracker.lowest_total_score).to eq(0)
   end
@@ -90,7 +89,6 @@ describe StatTracker do
   end
 
   xit "can calculate the games count of games by season" do
-
     expected = {
       "20122013" => 806,
       "20162017" => 1317,
@@ -100,9 +98,7 @@ describe StatTracker do
       "20172018" => 1355,
     }
 
-
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
-
   end
 
   xit "can calculate the games average goals per game" do
@@ -121,35 +117,34 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-
-  it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
-    
-    
-   
+  it "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
     expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
       "team_name" => "Minnesota United FC",
       "abbreviation" => "MIN",
-      "link" => "/api/v1/teams/18"
+      "link" => "/api/v1/teams/18",
     })
-    end
+  end
 
-  it 'can tell the most goals a team has scored in a game across all seasons' do
-    
-   
+  it "can tell the most goals a team has scored in a game across all seasons" do
     expect(@stat_tracker.most_goals_scored("18")).to eq(7)
   end
 
-  it 'can tell the fewest goals a team has scored in a game across all seasons' do
-   
-   
+  it "can tell the fewest goals a team has scored in a game across all seasons" do
     expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
+  end
+
+  it "can count the total number of teams" do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it "gives a hash of team id to team name" do
+    expect(@stat_tracker.team_id_to_name.length).to eq(32)
+    expect(@stat_tracker.team_id_to_name).to be_a(Hash)
   end
 
   it "can calculate which team has the best offense" do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
   end
-
-
 end
