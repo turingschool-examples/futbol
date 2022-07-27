@@ -47,6 +47,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.least_accurate_team("20122013")). to be_a String
     end
 
+    it 'can tell the team with the most tackles in a season' do
+      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.most_tackles("20122013"))
+      expect(@stat_tracker.most_tackles("20122013")).to be_a String
+    end
+
+    it 'can tell the team with the fewest tackles in a season' do
+      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.fewest_tackles("20122013"))
+      expect(@stat_tracker.fewest_tackles("20122013")).to be_a String
+    end
+
 
 #   Season Statistics
 # These methods each take a season id as an argument and return the values described below.

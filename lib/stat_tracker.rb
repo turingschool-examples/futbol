@@ -123,4 +123,9 @@ class StatTracker
 
     id_team_key[team_id_lowest_accuracy]
   end
+
+  def most_tackles()
+
+  end
+
 end
