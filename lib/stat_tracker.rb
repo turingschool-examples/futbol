@@ -31,18 +31,18 @@ class StatTracker
     end
 
     def percentage_home_wins
-      percentage = home_wins/home_games
+      percentage = (home_wins/home_games) * 100
       p percentage
     end
 
-    def game_win
-      wins = []
-      @game_teams[:result].map {|row| wins << row   if row == "WIN"}; p wins.count.to_f
+    def game_wins
+      win = []
+      @game_teams[:result].map {|row| win << row   if row == "WIN"}; p win.count.to_f
     end 
   
-    def game_loss
-      losses = []
-      @game_teams[:result].map {|row| losses << row   if row == "LOSS"}; p losses.count.to_f
+    def game_losses
+      loss = []
+      @game_teams[:result].map {|row| loss << row   if row == "LOSS"}; p loss.count.to_f
     end
   
     def home_games

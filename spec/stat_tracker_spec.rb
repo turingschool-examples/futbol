@@ -45,11 +45,11 @@ describe StatTracker do
         end
 
         it "tracks wins" do
-          expect(@stat_tracker.game_win).to eq 29
+          expect(@stat_tracker.game_wins).to eq 29
         end
   
         it "tracks losses" do
-          expect(@stat_tracker.game_loss).to eq 29
+          expect(@stat_tracker.game_losses).to eq 29
         end
   
         it "tracks home games" do
@@ -65,7 +65,7 @@ describe StatTracker do
         end
   
         it ' calculates percentage wins' do 
-          expect(@stat_tracker.percentage_home_wins).to eq 0.7
+          expect(@stat_tracker.percentage_home_wins).to eq 70
         end
 
 
