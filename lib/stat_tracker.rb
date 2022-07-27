@@ -80,7 +80,7 @@ class StatTracker
           total_games_in_season += 1
         end
       end
-      average_goals_per_season[season] = total_goals_in_season.to_f / total_games_in_season 
+      average_goals_per_season[season] = total_goals_in_season.to_f / total_games_in_season
       # require 'pry';binding.pry
     end
     average_goals_per_season
@@ -114,12 +114,12 @@ class StatTracker
   end
 
   def worst_offense
-    result = teams_and_goals.min_by do |team, stats| 
+    result = teams_and_goals.min_by do |team, stats|
       stats[:total_goals].to_f / stats[:total_games]
     end
     result[1][:team_name]
   end
-   
+
   def best_offense
     result = teams_and_goals.max_by do |team, stats|
       stats[:total_goals].to_f / stats[:total_games]
@@ -181,4 +181,13 @@ class StatTracker
     result_team_name
   end
 
+  def team_info(team)
+    team_info = Hash.new()
+    @teams.each do |individual_team|
+      if individual_team[:teamname] == team
+        team_info = {"team_id" => individual_team[:team_id].to_s, "franchise_id" => individual_team[:franchiseid].to_s, "team_name" => individual_team[:teamname], "abbreviation" => individual_team[:abbreviation], "link" => individual_team[:link]}
+      end
+    end
+    team_info
+  end
 end
