@@ -115,5 +115,28 @@ class StatTracker
     ((total_goals_per_game.sum.to_f)/(@games.size)).round(2)
   end
 
+  def best_offense
+    team_id_to_name
+    team_scores = Hash.new { |h, k| h[k] = [] }
+    @game_teams.each do |game_team|
+      team_scores[game_team.team_id] << game_team.goals.to_i
+    end
+  
+    team_scores.map do |id, scores|
+      length = scores.length
+      team_scores[id] = scores.reduce(0) { |sum, num| sum + num } / length
+      #this works but puts out an array, how do I get it back to the original hash form?
+    end
+      #team_scores =
+      # {"3"=>[2, 2, 1, 2, 1],
+      #   "6"=>[3, 3, 2, 3, 3, 3, 4, 2, 1],
+      #   "5"=>[0, 1, 1, 0],
+      #   "17"=>[1, 2, 3, 2, 1, 3, 1],
+      #   "16"=>[2, 1, 1, 0, 2, 2, 2].....}
+    
+    #best_offense = {:team_id => [array of all their scores]}
+    #it should be a hash with key of team name and value of an array of their scores!!!!
+    #14882 arrays of team_id, goals inside an array
+  end
 
 end

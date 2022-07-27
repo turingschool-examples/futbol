@@ -147,5 +147,9 @@ describe StatTracker do
     expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
+  it "can calculate which team has the best offense" do
+    expect(@stat_tracker.best_offense).to eq "Reign FC"
+  end
+
 
 end
