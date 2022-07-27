@@ -16,6 +16,20 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
+    def percentage_visitor_wins
+            #sum of visitor wins / total games played
+        
+        away_wins = []
+        game_results = game_teams.values_at(:hoa, :result)
+        total_games_played = game_results.count.to_f
+        
+        game_results.each do |game|
+        away_wins << game if game == ["away", "WIN"]
+            
+        end
+        ((away_wins.count / total_games_played)*100).round(2)
+    end
+
   def total_scores_by_game
     @games.values_at(:away_goals, :home_goals).map do |game|
       game[0] + game[1]
@@ -72,4 +86,23 @@ class StatTracker
   def average_goals_per_game
     total_scores_by_game.sum/@games.size
   end 
+
+  def count_of_games_by_season
+    counts = {}
+    games.each do |game|
+        season = game[:season]
+        if counts[season].nil?
+             counts[season] = 0
+        end
+        counts[season] += 1
+    end
+    counts
+    # games.reduce({}) do |counts, game|
+    #     season = game[:season]
+    #     counts[season] = 0 if counts[season].nil?
+    #     counts[season] += 1
+    #     counts
+    # end
+    end
 end
+
