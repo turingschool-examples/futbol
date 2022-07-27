@@ -67,4 +67,22 @@ class StatTracker
   def count_of_teams
     @teams[:team_id].uniq.count
   end
+
+  def average_goals_by_season
+    average_goals_per_season = Hash.new(0)
+    seasons = @games[:season].uniq
+    seasons.each do |season|
+      total_goals_in_season = 0
+      total_games_in_season = 0
+      @games.each do |game|
+        if game[:season] == season
+          total_goals_in_season += game[:away_goals] + game[:home_goals]
+          total_games_in_season += 1
+        end
+      end
+      average_goals_per_season[season] = total_goals_in_season.to_f / total_games_in_season 
+      # require 'pry';binding.pry
+    end
+    average_goals_per_season
+  end
 end
