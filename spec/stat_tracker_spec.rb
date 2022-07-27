@@ -90,8 +90,8 @@ describe StatTracker do
           20162017 => 12,
       })
     end
-
   end
+
   describe 'Season Statistics' do 
 
     xit 'can show name of coach witht he best win percentage of the season' do 
@@ -106,15 +106,33 @@ describe StatTracker do
       expect(@stat_tracker.most_accurate_team).to eq("")
     end
 
-    xit 'can show name of the tem with the worst ratio of shots to goals for the season' do 
+    xit 'can show name of the team with the worst ratio of shots to goals for the season' do 
       expect(@stat_tracker.least_accurate_team).to eq("")
     end
 
     xit 'can show name of the team with most tackles in the season' do 
       expect(@stat_tracker.fewest_tackles).to eq("")
     end
+  end
+
+  describe 'Team Statistics' do 
+    
+    xit 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do 
+      expect(@stat_tracker.team_info).to eq({})
+    end
+
+    xit 'can show season with the highest win percentage for a team' do 
+      expect(@stat_tracker.best_season).to eq("")
+    end
+
+    xit 'can show season with the lowest win percentage for a team' do 
+      expect(@stat_tracker.average_win_percentage).to eq(#float)
+    end
+
+    xit 'can   '
 
   end
+
 end
   
 
