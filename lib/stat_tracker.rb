@@ -70,6 +70,7 @@ class StatTracker
       total_games += 1 
     end
     tie_percentage = (ties / total_games).round(2)
+  end
 
   def average_goals_per_game
     total_scores = @all_data_hash[:games].map do |row|
