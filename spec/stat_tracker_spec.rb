@@ -53,15 +53,14 @@ RSpec.describe StatTracker do
 
   it '#count_of_teams' do
     expect(stat_tracker.count_of_teams).to eq 32
-
   end
 
   it '#best_offense' do
     expect(stat_tracker.best_offense).to eq "Reign FC"
   end
 
-  xit '#worst_offense' do
-
+  it '#worst_offense' do
+    expect(stat_tracker.worst_offense).to eq "Utah Royals FC"
   end
 
   xit '#highest_scoring_visitor' do
