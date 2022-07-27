@@ -26,8 +26,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
     end
 
-
-
     it 'has a total score' do
       expect(@stat_tracker.total_scores_per_game).to eq(34)
     end
@@ -66,6 +64,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(3)
     end
 
+    it 'can calculate average goals by season' do
+        expect(@stat_tracker.average_goals_by_season).to eq ({20122013 => 4.4, 20142015 => 3.0})
+    end
+
     it 'can return a hash of team and goal data' do
       expect(@stat_tracker.teams_and_goals).to be_an(Hash)
       expect(@stat_tracker.teams_and_goals[3][:total_goals]).to eq(8)
@@ -95,7 +97,6 @@ RSpec.describe StatTracker do
     it 'can show the lowest scoring visiting team' do
       expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
     end
-
 
   end
 end

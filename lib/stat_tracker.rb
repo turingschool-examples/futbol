@@ -68,6 +68,24 @@ class StatTracker
     @teams[:team_id].uniq.count
   end
 
+  def average_goals_by_season
+    average_goals_per_season = Hash.new(0)
+    seasons = @games[:season].uniq
+    seasons.each do |season|
+      total_goals_in_season = 0
+      total_games_in_season = 0
+      @games.each do |game|
+        if game[:season] == season
+          total_goals_in_season += game[:away_goals] + game[:home_goals]
+          total_games_in_season += 1
+        end
+      end
+      average_goals_per_season[season] = total_goals_in_season.to_f / total_games_in_season 
+      # require 'pry';binding.pry
+    end
+    average_goals_per_season
+  end
+
   def teams_and_goals #=> League Stats Helper Method
     teams_and_goals_hash = {}
     @teams.each do |team|
@@ -95,7 +113,6 @@ class StatTracker
     teams_and_goals_hash
   end
 
-
   def worst_offense
     result = teams_and_goals.min_by do |team, stats| 
       stats[:total_goals].to_f / stats[:total_games]
@@ -109,7 +126,6 @@ class StatTracker
     end
     result[1][:team_name]
   end
-
 
   def highest_scoring_home_team
     high_scoring = teams_and_goals.max_by{|team, stats| stats[:total_home_goals].to_f / stats[:total_home_games]}
