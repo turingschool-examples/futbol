@@ -136,6 +136,11 @@ describe StatTracker do
     expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
+  it 'can name the team with the worst shot accuracy' do
+    expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  end
+
 
 
 end
