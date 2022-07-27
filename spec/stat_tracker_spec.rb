@@ -91,5 +91,11 @@ RSpec.describe StatTracker do
     it 'can show the highest scoring visiting team' do
       expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
     end
+
+    it 'can show the lowest scoring visiting team' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
+    end
+
+
   end
 end
