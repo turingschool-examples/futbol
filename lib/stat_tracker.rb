@@ -49,10 +49,7 @@ class StatTracker
   end
 
   def percentage_home_wins
-    numerator = 0
-    @games.each do |game|
-      numerator += 1 if game.home_goals.to_i > game.away_goals.to_i
-    end
+    numerator = @games.find_all {|game| game.home_goals.to_i > game.away_goals.to_i }.size
     denominator = games.size
     (numerator.to_f/denominator).round(2)
   end
