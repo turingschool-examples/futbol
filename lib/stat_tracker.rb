@@ -41,4 +41,20 @@ class StatTracker
     high_low_added.max
   end
 
+  def lowest_total_score
+    high_low_added = @games.map do |game|
+      [game.home_goals.to_i,game.away_goals.to_i].sum
+    end
+    high_low_added.min
+  end
+
+  def percentage_home_wins
+    numerator = 0
+    @games.each do |game|
+      numerator += 1 if game.home_goals.to_i > game.away_goals.to_i
+    end
+    denominator = games.size
+    (numerator.to_f/denominator).round(2)
+  end
+
 end
