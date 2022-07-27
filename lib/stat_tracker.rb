@@ -101,7 +101,7 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    low_scoring = teams_and_goals.min_by{|teams, stats| stats[:total_home_goals].to_f}
+    low_scoring = teams_and_goals.min_by{|teams, stats| stats[:total_home_goals].to_f / stats[:total_home_games]}
     low_scoring[1][:team_name]
   end
 end
