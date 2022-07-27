@@ -123,9 +123,6 @@ describe StatTracker do
 
 
   it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
-    
-    
-   
     expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
@@ -136,16 +133,15 @@ describe StatTracker do
     end
 
   it 'can tell the most goals a team has scored in a game across all seasons' do
-    
-   
     expect(@stat_tracker.most_goals_scored("18")).to eq(7)
   end
 
   it 'can tell the fewest goals a team has scored in a game across all seasons' do
-   
-   
-    expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
+   expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
+  xit 'can tell which season is a teams best' do
+    expect(@stat_tracker.best_season("6")).to eq("20132014")
+   end
 
 end
