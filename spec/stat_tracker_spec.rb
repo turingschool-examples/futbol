@@ -82,6 +82,16 @@ describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(4)
     end
 
+    it 'Has hash with season names as keys and counts of games as values' do 
+      expect(@stat_tracker.count_of_games_by_season).to eq({
+          20122013 => 28,
+          20132014 => 33,
+          20142015 => 28,
+          20162017 => 12,
+      })
+    end
+
   end
 end
   
+

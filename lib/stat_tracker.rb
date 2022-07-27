@@ -72,4 +72,23 @@ class StatTracker
   def average_goals_per_game
     total_scores_by_game.sum/@games.size
   end 
+
+  def count_of_games_by_season
+    counts = {}
+    games.each do |game|
+        season = game[:season]
+        if counts[season].nil?
+             counts[season] = 0
+        end
+        counts[season] += 1
+    end
+    counts
+    # games.reduce({}) do |counts, game|
+    #     season = game[:season]
+    #     counts[season] = 0 if counts[season].nil?
+    #     counts[season] += 1
+    #     counts
+    # end
+    end
 end
+
