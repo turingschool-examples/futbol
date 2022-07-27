@@ -1,4 +1,4 @@
-require './lib/stat_tracker.rb'
+require_relative './stat_tracker'
 require 'csv'
 
 class Teams

@@ -1,5 +1,5 @@
-require './lib/teams.rb'
-require './lib/game.rb'
+require_relative './teams'
+require_relative './game'
 require 'csv'
 
 class StatTracker
@@ -33,4 +33,12 @@ class StatTracker
     @game_teams
     StatTracker.new(@games, @teams, @game_teams)
   end
+
+  def highest_total_score
+    high_low_added = @games.map do |game|
+      [game.home_goals.to_i,game.away_goals.to_i].sum
+    end
+    high_low_added.max
+  end
+
 end

@@ -1,4 +1,4 @@
-require './lib/stat_tracker.rb'
+require_relative './stat_tracker'
 require 'csv'
 
 class Game
@@ -20,13 +20,12 @@ class Game
   def self.create_multiple_games(locations)
     games = CSV.parse(File.read(locations), headers: true, header_converters: :symbol).map(&:to_h)
     games_as_objects = games.map { |row| Game.new(row) }
-    
+
   end
 
-  
+
 
 
 
 
 end
-
