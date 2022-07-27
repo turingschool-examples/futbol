@@ -107,7 +107,11 @@ describe StatTracker do
     end
 
     xit 'can show name of the tem with the worst ratio of shots to goals for the season' do 
-      expect(@stat_tracker.least_accurate_team.to eq(""))
+      expect(@stat_tracker.least_accurate_team).to eq("")
+    end
+
+    xit 'can show name of the team with most tackles in the season' do 
+      expect(@stat_tracker.fewest_tackles).to eq("")
     end
 
   end
