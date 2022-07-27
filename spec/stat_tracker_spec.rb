@@ -45,10 +45,6 @@ describe StatTracker do
     it "finds highest total score" do
       expect(@stat_tracker.highest_total_score).to eq(7)
     end
-        
-    it 'can return the lowest score' do 
-      expect(@stat_tracker.lowest_total_score).to eq(1)
-    end
 
     it "tracks wins" do
       expect(@stat_tracker.game_wins).to eq(29)
@@ -62,6 +58,10 @@ describe StatTracker do
       expect(@stat_tracker.home_games).to eq(30)
     end
 
+    it 'percentage_visitor_wins' do
+        expect(@stat_tracker.percentage_visitor_wins).to eq(13.33)
+    end
+    
     it "tracks away games" do
       expect(@stat_tracker.away_games).to eq(30)
     end
