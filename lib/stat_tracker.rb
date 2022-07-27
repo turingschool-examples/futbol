@@ -95,22 +95,76 @@ class StatTracker
     find_team_name_by_id(team_worst_offense)
   end
 
-
-
   def highest_scoring_visitor
-
+    teams = Hash.new()
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] = []
+    end
+    @game_teams_data.each do |row|
+      if row[:hoa] == "away"
+        teams[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    team_average_goals = Hash.new()
+    teams.each do |team, goals|
+      team_average_goals[team] = (goals.sum.to_f / goals.length).round(2)
+    end
+    highest_score_visitor = team_average_goals.key(team_average_goals.values.max)
+    find_team_name_by_id(highest_score_visitor)
   end
 
   def highest_scoring_home_team
-
+    teams = Hash.new()
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] = []
+    end
+    @game_teams_data.each do |row|
+      if row[:hoa] == "home"
+        teams[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    team_average_goals = Hash.new()
+    teams.each do |team, goals|
+      team_average_goals[team] = (goals.sum.to_f / goals.length).round(2)
+    end
+    highest_score_home_team = team_average_goals.key(team_average_goals.values.max)
+    find_team_name_by_id(highest_score_home_team)
   end
 
   def lowest_scoring_visitor
-
+    teams = Hash.new()
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] = []
+    end
+    @game_teams_data.each do |row|
+      if row[:hoa] == "away"
+        teams[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    team_average_goals = Hash.new()
+    teams.each do |team, goals|
+      team_average_goals[team] = (goals.sum.to_f / goals.length).round(2)
+    end
+    lowest_score_visitor = team_average_goals.key(team_average_goals.values.min)
+    find_team_name_by_id(lowest_score_visitor)
   end
 
   def lowest_scoring_home_team
-
+    teams = Hash.new()
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] = []
+    end
+    @game_teams_data.each do |row|
+      if row[:hoa] == "home"
+        teams[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    team_average_goals = Hash.new()
+    teams.each do |team, goals|
+      team_average_goals[team] = (goals.sum.to_f / goals.length).round(2)
+    end
+    lowest_score_home_team = team_average_goals.key(team_average_goals.values.min)
+    find_team_name_by_id(lowest_score_home_team)
   end
 
   # Season Statistics
