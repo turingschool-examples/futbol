@@ -60,4 +60,14 @@ describe StatTracker do
   it '#count_of_teams' do
     expect(@stat_tracker.count_of_teams). to eq (20)
   end
+
+  it '#average_goals_by_season' do
+    expected = {
+      "20122013" => 2.50,
+      "20132014" => 3.67,
+      "20142015" => 3.86,
+      "20152016" => 4.60
+    }
+    expect(@stat_tracker.average_goals_by_season).to eq(expected)
+  end
 end
