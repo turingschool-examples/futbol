@@ -146,4 +146,30 @@ class StatTracker
     low_scoring = teams_and_goals.min_by{|teams, stats| stats[:total_away_goals].to_f / stats[:total_away_games]}
     low_scoring[1][:team_name]
   end
+
+  def tackles_by_team(season) #helper method, returns hash with keys team_id and values number of tackles
+    season_game_ids = []
+    @games.each do |game| 
+      season_game_ids << game[:game_id] if season.to_i == game[:season]
+    end
+    team_tackle_data = Hash.new(0)
+    @game_teams.each do |game_team|
+      season_game_ids.each do |game_id|
+        if game_team[:game_id] == game_id
+          team_tackle_data[game_team[:team_id]] += game_team[:tackles]
+        end
+      end
+    end
+    team_tackle_data
+  end
+
+  def fewest_tackles(season)
+    result_team_id = tackles_by_team(season).min_by do |team_id, tackles|
+      tackles
+    end.first
+    result_team_name = ""
+    @teams.each{ |team| result_team_name = team[:teamname] if team[:team_id] == result_team_id }
+    result_team_name
+  end
+
 end
