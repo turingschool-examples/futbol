@@ -8,9 +8,9 @@ class StatTracker
 
   def initialize(locations)
     @locations = locations
-    @games_data = CSV.open(@locations[:games], headers: true, header_converters: :symbol)
-    @teams_data = CSV.open(@locations[:teams], headers: true, header_converters: :symbol)
-    @game_teams_data = CSV.open(@locations[:game_teams], headers: true, header_converters: :symbol)
+    @games_data = CSV.read(@locations[:games], headers: true, header_converters: :symbol)
+    @teams_data = CSV.read(@locations[:teams], headers: true, header_converters: :symbol)
+    @game_teams_data = CSV.read(@locations[:game_teams], headers: true, header_converters: :symbol)
   end
 
   def self.from_csv(locations)
@@ -85,15 +85,54 @@ class StatTracker
 
   end
 
-
+# coach_hash = {
+#                 coach => {
+#                           :wins = 0,
+#                           :total_games = 0
+#                           }
+#               }
   # Season Statistics
-
+  
   def winningest_coach
-
+    coach_records = {}
+    all_coaches_array.each do |coach|
+      coach_records[coach] = {wins: 0, total_games: 0}
+    end
+    @game_teams_data.each do |row|
+      result = row[:result]
+      coach = row[:head_coach].to_sym
+      if result == "WIN"
+        coach_records[coach][:wins] += 1
+        coach_records[coach][:total_games] += 1
+      else
+        coach_records[coach][:total_games] += 1
+      end
+    end
+    new_hash = coach_records.map do |coach, record|
+      [coach, (record[:wins].to_f/record[:total_games].to_f)]
+    end.to_h
+    new_hash.key(new_hash.values.max)
   end
-
+    
   def worst_coach
-
+    coach_records = {}
+    all_coaches_array.each do |coach|
+      coach_records[coach] = {wins: 0, total_games: 0}
+    end
+    @game_teams_data.each do |row|
+      result = row[:result]
+      coach = row[:head_coach].to_sym
+      if result == "WIN"
+        coach_records[coach][:wins] += 1
+        coach_records[coach][:total_games] += 1
+      else
+        coach_records[coach][:total_games] += 1
+      end
+    end
+    new_hash = coach_records.map do |coach, record|
+      [coach, (record[:wins].to_f/record[:total_games].to_f)]
+    end.to_h
+    new_hash.key(new_hash.values.min)
   end
 
   def most_accurate_team
@@ -184,4 +223,15 @@ class StatTracker
     end
     team_name
   end
+
+  def all_coaches_array
+    coach_array = []
+    @game_teams_data.each do |row|
+      coach_array << row[:head_coach]
+    end
+    coach_array.uniq!.map do |coach|
+      coach.to_sym
+    end
+  end
+
 end
