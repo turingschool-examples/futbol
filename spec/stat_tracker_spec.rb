@@ -64,31 +64,31 @@ describe StatTracker do
     expect(stat_tracker.highest_total_score).to eq(11)
   end
 
-  xit 'can calculate the games lowest total score' do
+  it 'can calculate the games lowest total score' do
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
 
     expect(stat_tracker.lowest_total_score).to eq(0)
   end
 
-  xit 'can calculate the games precentage home wins' do
+  it 'can calculate the games precentage home wins' do
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
 
     expect(stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
-  xit 'can calculate the games percentage visitor wins' do
+  it 'can calculate the games percentage visitor wins' do
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
 
     expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
   end
 
-  xit 'can calculate the games percentage ties' do
+  it 'can calculate the games percentage ties' do
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
 
     expect(stat_tracker.percentage_ties).to eq(0.20)
   end
 
-  xit 'can calculate the games count of games by season' do
+  it 'can calculate the games count of games by season' do
     expected = {
       "20122013"=>806,
       "20162017"=>1317,
@@ -98,7 +98,6 @@ describe StatTracker do
       "20172018"=>1355
     }
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-
     expect(stat_tracker.count_of_games_by_season).to eq(expected)
   end
 
