@@ -53,7 +53,7 @@ class StatTracker
     (wins / games.to_f).round(2)
   end
 
-  def count_of_games_by_season 
+  def count_of_games_by_season
     seasons = Hash.new
     @games.each do |game|
       if seasons[game[:season]]
@@ -65,4 +65,7 @@ class StatTracker
     seasons
   end
 
+  def average_goals_per_game
+    (@games.sum { |game| game[:away_goals].to_f + game[:home_goals].to_f } / @games.count).round(2)
+  end
 end
