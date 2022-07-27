@@ -82,7 +82,7 @@ describe StatTracker do
     expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
   end
 
-  xit 'can calculate the games percentage ties' do
+  it 'can calculate the games percentage ties' do
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
 
     expect(stat_tracker.percentage_ties).to eq(0.20)
