@@ -1,5 +1,6 @@
 require_relative './teams'
 require_relative './game'
+require_relative './game_teams'
 require 'csv'
 
 class StatTracker
@@ -40,5 +41,7 @@ class StatTracker
     end
     high_low_added.max
   end
+
+  def 
 
 end
