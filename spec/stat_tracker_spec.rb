@@ -98,11 +98,18 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
     end
 
+
+    it 'can return the team with the fewest tackles in a given season' do
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+    end
+
+
     it 'can show the team info' do
       expect(@stat_tracker.team_info('FC Dallas')).to eq({"team_id" => "6", "franchise_id" => "6",
         "team_name" => "FC Dallas",
         "abbreviation" => "DAL",
         "link" => "/api/v1/teams/6"})
     end
+
   end
 end
