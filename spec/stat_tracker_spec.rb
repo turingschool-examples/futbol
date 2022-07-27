@@ -99,7 +99,10 @@ RSpec.describe StatTracker do
     end
 
     it 'can show the team info' do
-      expect(@stat_tracker.team_info).to eq({})
+      expect(@stat_tracker.team_info('FC Dallas')).to eq({"team_id" => "6", "franchise_id" => "6",
+        "team_name" => "FC Dallas",
+        "abbreviation" => "DAL",
+        "link" => "/api/v1/teams/6"})
     end
   end
 end
