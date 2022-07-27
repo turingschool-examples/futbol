@@ -56,8 +56,10 @@ class StatTracker
     team_hash
   end
 
-  def most_goals_scored(team_id)
-    
+  def most_goals_scored#(team_id)  #use game_teams, iterate thru game_teams and find the max
+    @game_teams.map do |game|
+      game.goals.to_i
+    end.max
   end
 
 end
