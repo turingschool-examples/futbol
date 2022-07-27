@@ -57,20 +57,11 @@ describe StatTracker do
     }
     expect(StatTracker.from_csv(locations)).to be_a(StatTracker)
   end
-end
 
-describe StatTracker do
   it 'can calculate the games highest total score' do
-    @game_path = "./fixtures/dummy_game.csv"
-    @team_path = "./fixtures/dummy_teams.csv"
-    @game_teams_path = "./fixtures/dummy_game_teams.csv"
-    locations = {
-      games: @game_path,
-      teams: @team_path,
-      game_teams: @game_teams_path,
-    }
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-    expect(stat_tracker.highest_total_score).to eq(5)
+    
+    expect(stat_tracker.highest_total_score).to eq(11)
   end
 
 
