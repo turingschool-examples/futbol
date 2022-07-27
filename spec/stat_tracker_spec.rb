@@ -121,10 +121,10 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-  it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link '
+  it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
     
-    require 'pry';binding.pry
+   
     expect(stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
@@ -132,4 +132,6 @@ describe StatTracker do
       "abbreviation" => "MIN",
       "link" => "/api/v1/teams/18"
     })
+    end
+
 end
