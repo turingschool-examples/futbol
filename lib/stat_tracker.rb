@@ -53,13 +53,21 @@ class StatTracker
     (wins / games.to_f).round(2)
   end
 
-  def count_of_games_by_season
+  def count_of_games_by_season(team_id = false)
     seasons = Hash.new
     @games.each do |game|
-      if seasons[game[:season]]
-        seasons[game[:season]] += 1
+      if team_id
+        if seasons[game[:season]] && (game[:home_team_id || :away_team_id]) == team_id
+          seasons[game[:season]] += 1
+        elsif (game[:home_team_id || :away_team_id]) == team_id
+          seasons[game[:season]] = 1
+        end
       else
-        seasons[game[:season]] = 1
+        if seasons[game[:season]]
+          seasons[game[:season]] += 1
+        else
+          seasons[game[:season]] = 1
+        end
       end
     end
     seasons
@@ -94,5 +102,15 @@ class StatTracker
   def team_info(team_id)
     headers = @teams[0].headers.map!(&:to_s)
     Hash[headers.zip((@teams.find { |team| team[:team_id] == team_id }).field(0..-1))].reject { |k| k == 'stadium' }
+  end
+
+  def best_season(team_id)
+    win_ids = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN" }.map { |game| game[:game_id] } 
+    season_info = count_of_games_by_season(team_id)
+    ordered_win_rate = []
+    season_info.each do |season|
+      ordered_win_rate << ((@games.count { |game| game[:season] == season[0] && win_ids.include?(game[:game_id]) }) / season[1].to_f)
+    end
+    Hash[season_info.keys.zip(ordered_win_rate)].max_by { |_k, v| v }[0]
   end
 end
