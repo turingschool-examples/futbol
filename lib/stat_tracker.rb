@@ -25,6 +25,7 @@ class StatTracker
     list_of_data
   end
 
+  # Game Statistics Methods
   def highest_total_score
     max = @games.max_by { |game| game[:away_goals].to_i + game[:home_goals].to_i }
     max[:away_goals].to_i + max[:home_goals].to_i
@@ -86,7 +87,7 @@ class StatTracker
     end
     Hash[seasons.keys.zip(avg_arr)]
   end
-
+  # League Statistics Methods
   def best_offense
     teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by(&:to_i)
     avgs = []
