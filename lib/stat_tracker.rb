@@ -53,4 +53,16 @@ class StatTracker
     (wins / games.to_f).round(2)
   end
 
+  def count_of_games_by_season 
+    seasons = Hash.new
+    @games.each do |game|
+      if seasons[game[:season]]
+        seasons[game[:season]] += 1
+      else
+        seasons[game[:season]] = 1
+      end
+    end
+    seasons
+  end
+
 end
