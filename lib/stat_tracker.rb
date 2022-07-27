@@ -331,4 +331,25 @@ class StatTracker
     end
     least_accurate_team_name
   end
+
+  def most_accurate_team(season)
+    season_stats = @all_data_hash[:game_teams].select do |game|
+      game[:game_id][0..3] == season[0..3]
+    end
+    season_stats_hash = Hash.new{|h,k| h[k] = [0, 0]}
+    season_stats.each do |game|
+      season_stats_hash[game[:team_id]][0] += game[:goals].to_i
+      season_stats_hash[game[:team_id]][1] += game[:shots].to_i
+    end
+    most_accurate_team_id = season_stats_hash.max_by do |team, array|
+      array[0].to_f / array[1].to_f
+    end[0]
+    most_accurate_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == most_accurate_team_id
+        most_accurate_team_name = row[:teamname]
+      end
+    end
+    most_accurate_team_name
+  end
 end

@@ -99,7 +99,7 @@ describe StatTracker do
     expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
   end
 
-  xit '#most_accurate_team' do
+  it '#most_accurate_team' do
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 end
