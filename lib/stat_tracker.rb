@@ -74,20 +74,25 @@ class StatTracker
     avg_arr = []
     seasons.each do |season, count|
       games_in_season = @games.find_all { |game| game[:season] == season }
-      avg_arr << ((games_in_season.sum { |game| game[:away_goals].to_i + game[:home_goals].to_i}) / count.to_f).round(2)
+      avg_arr << ((games_in_season.sum { |game| game[:away_goals].to_i + game[:home_goals].to_i }) / count.to_f).round(2)
     end
     Hash[seasons.keys.zip(avg_arr)]
   end
 
   def best_offense
-    teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by { |num| num.to_i }
+    teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by(&:to_i)
     avgs = []
     teams.each do |team|
-      home_goal = (@games.find_all { |game| team == game[:home_team_id]}.map { |game| game[:home_goals].to_i}).sum
-      away_goal = (@games.find_all { |game| team == game[:away_team_id]}.map { |game| game[:away_goals].to_i}).sum
-      avgs << ((home_goal + away_goal).to_f / (@games.find_all { |game| game[:home_team_id] == team || game[:away_team_id] == team}).count).round(3)
+      home_goal = (@games.find_all { |game| team == game[:home_team_id] }.map { |game| game[:home_goals].to_i }).sum
+      away_goal = (@games.find_all { |game| team == game[:away_team_id] }.map { |game| game[:away_goals].to_i }).sum
+      avgs << ((home_goal + away_goal).to_f / (@games.count { |game| (game[:home_team_id || :away_team_id]) == team })).round(3)
     end
-    best_o_id = (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0]
-    @teams.find { |team| team[:team_id] == best_o_id }[:teamname]
+    @teams.find { |team| team[:team_id] == (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0] }[:team_name]
+  end
+
+  # Team Statistics Methods
+  def team_info(team_id)
+    headers = @teams[0].headers.map!(&:to_s)
+    Hash[headers.zip((@teams.find { |team| team[:team_id] == team_id }).field(0..-1))].reject { |k| k == 'stadium' }
   end
 end
