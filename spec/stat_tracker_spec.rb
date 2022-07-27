@@ -80,7 +80,7 @@ RSpec.describe StatTracker do
     end
 
     it 'can show the highest scoring visiting team' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq('')
+      expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
     end
   end
 end
