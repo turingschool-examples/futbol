@@ -28,34 +28,17 @@ RSpec.describe StatTracker do
 
   context 'Season statistics' do
     it 'S1. has a method for winningest_coach' do
-      location = './data/game_teams_dummy.csv'
-      stat_tracker = StatTracker.new(location)
-
-      expect(stat_tracker.data[:head_coach]).to include(stat_tracker.winningest_coach)
-      expect(stat_tracker.winningest_coach). to eq "Claude Julien"
+      expect(@stat_tracker.game_teams[:head_coach]).to include(@stat_tracker.winningest_coach)
+      expect(@stat_tracker.winningest_coach). to eq "Claude Julien"
     end
 
     it 'S2. has a method for worst_coach' do
-
-      location = './data/game_teams_dummy.csv'
-      stat_tracker = StatTracker.new(location)
-
-      expect(stat_tracker.data[:head_coach]).to include(stat_tracker.worst_coach)
-      expect(stat_tracker.worst_coach). to eq "Patrick Roy"
+      expect(@stat_tracker.game_teams[:head_coach]).to include(@stat_tracker.worst_coach)
+      expect(@stat_tracker.worst_coach). to eq "Patrick Roy"
     end
 
-    it 'S3. can tell most_accurate_team' do
-      game_path = './data/games_dummy.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/game_teams_dummy.csv'
-
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-      }
-
-      stat_tracker = StatTracker.from_csv(locations)
+    xit 'S3. can tell most_accurate_team' do
+      
     end
 
 

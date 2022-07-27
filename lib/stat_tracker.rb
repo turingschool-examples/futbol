@@ -18,7 +18,7 @@ class StatTracker
   end
 
   def winningest_coach
-    coaches_and_results = @data[:result].zip @data[:head_coach]
+    coaches_and_results = @game_teams[:result].zip @game_teams[:head_coach]
     wins = Hash.new(0)
     losses = Hash.new(0)
     coaches_and_results.each do |result, coach|
@@ -34,7 +34,7 @@ class StatTracker
   end
 
   def worst_coach
-    coaches_and_results = @data[:result].zip @data[:head_coach]
+    coaches_and_results = @game_teams[:result].zip @game_teams[:head_coach]
     wins = Hash.new(0)
     losses = Hash.new(0)
     coaches_and_results.each do |result, coach|
@@ -49,7 +49,7 @@ class StatTracker
     win_percentage.max_by{|coach, percentage| -percentage}.first
   end
 
-  
+
 
 
 end
