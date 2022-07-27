@@ -82,12 +82,12 @@ RSpec.describe StatTracker do
 
 # Season Statistics
 
-  xit '#winningest_coach' do
-
+  it '#winningest_coach' do
+    expect(stat_tracker.winningest_coach).to be_a(String)
   end
 
-  xit '#worst_coach' do
-
+  it '#worst_coach' do
+    expect(stat_tracker.worst_coach).to be_a(String)
   end
 
   it '#most_accurate_team' do
@@ -99,7 +99,7 @@ RSpec.describe StatTracker do
   end
 
   it '#most_tackles' do
-    
+
     expect(stat_tracker.most_tackles).to be_a(String)
   end
 
