@@ -9,26 +9,36 @@ class StatTracker
     @game_teams = game_teams
   end
 
-    def self.from_csv(locations)
-      games = CSV.table(locations[:games])
-      teams = CSV.table(locations[:teams])
-      game_teams = CSV.table(locations[:game_teams])
-      StatTracker.new(games, teams, game_teams)
+  def self.from_csv(locations)
+    games = CSV.table(locations[:games])
+    teams = CSV.table(locations[:teams])
+    game_teams = CSV.table(locations[:game_teams])
+    StatTracker.new(games, teams, game_teams)
+  end
+
+  def total_scores_by_game
+    @games.values_at(:away_goals, :home_goals).map do |game|
+      game[0] + game[1]
+    end
+  end
+
+  def lowest_total_score
+      total_scores_by_game.min
+  end
+
+  def highest_total_score
+    total_scores_by_game.max
+  end
+
+  def percentage_ties
+    ties = 0.0
+    total_games = total_scores_by_game.count
+
+    @games.values_at(:away_goals, :home_goals).each do |game|
+      ties += 1 if game[0] == game[1]
     end
 
-    def total_score
-      @games.values_at(:away_goals, :home_goals).map do |game|
-        game[0] + game[1]
-      end
-    end
-
-    def lowest_total_score 
-        total_score.min
-    end
-  
-    def highest_total_score
-      total_score.max
-    end
+    ((ties/total_games)*100).round(1)
+  end
 
 end
-
