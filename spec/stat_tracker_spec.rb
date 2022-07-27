@@ -123,13 +123,13 @@ describe StatTracker do
 
   it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link '
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-    expected = {
+    
+    require 'pry';binding.pry
+    expect(stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
       "team_name" => "Minnesota United FC",
       "abbreviation" => "MIN",
       "link" => "/api/v1/teams/18"
-    }
-    require 'pry';binding.pry
-    expect(stat_tracker.team_info("18")).to eq expected
+    })
 end
