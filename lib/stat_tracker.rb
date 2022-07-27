@@ -36,7 +36,6 @@ class StatTracker
     total_scores.min
   end
 
-<<<<<<< HEAD
   def average_goals_per_game
     total_scores = @all_data_hash[:games].map do |row|
       home_goals = row[:home_goals].to_i
@@ -63,8 +62,7 @@ class StatTracker
     end
     team_names.uniq.count
   end
-=======
->>>>>>> a487ab3a38c0296e572b68234c15ff8290ed4204
+  
   def percentage_home_wins
     home_wins = 0.0
     total_games = 0.0
