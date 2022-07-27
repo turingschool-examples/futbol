@@ -121,8 +121,8 @@ class StatTracker
     @all_data_hash[:teams].find do |team|
       team[:team_id].to_i == lowest_average[0].to_i
     end[:teamname]
-=======
-
+  end
+  
   def average_goals_by_season
     goals_season_hash = Hash.new
     @all_data_hash[:games].each do |row|
@@ -138,8 +138,8 @@ class StatTracker
       avg_goals_by_season[season] = (total_scores.sum(0.0) / total_scores.length).round(2)
     end
     avg_goals_by_season
-   end
-  
+  end
+
   def percentage_home_wins
     home_wins = 0.0
     total_games = 0.0
