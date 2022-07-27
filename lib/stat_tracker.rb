@@ -95,11 +95,24 @@ class StatTracker
     teams_and_goals_hash
   end
 
+
   def worst_offense
-    result = teams_and_goals.min_by do |team, stats|
+    result = teams_and_goals.min_by do |team, stats| 
+      stats[:total_goals].to_f / stats[:total_games]
+    end
+    result[1][:team_name]
+  end
+   
+  def best_offense
+    result = teams_and_goals.max_by do |team, stats|
       stats[:total_goals].to_f / stats[:total_games]
     end
     result[1][:team_name]
   end
 
+
+  def highest_scoring_home_team
+    high_scoring = teams_and_goals.max_by{|team, stats| stats[:total_home_goals].to_f / stats[:total_home_games]}
+    high_scoring[1][:team_name]
+  end
 end
