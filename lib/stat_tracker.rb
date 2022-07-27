@@ -113,4 +113,15 @@ class StatTracker
     end
     Hash[season_info.keys.zip(ordered_win_rate)].max_by { |_k, v| v }[0]
   end
+
+  def worst_season(team_id)
+    win_ids = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN" }.map { |game| game[:game_id] } 
+    season_info = count_of_games_by_season(team_id)
+    ordered_win_rate = []
+    season_info.each do |season|
+      ordered_win_rate << ((@games.count { |game| game[:season] == season[0] && win_ids.include?(game[:game_id]) }) / season[1].to_f)
+    end
+    Hash[season_info.keys.zip(ordered_win_rate)].min_by { |_k, v| v }[0]
+  end
+
 end
