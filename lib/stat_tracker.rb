@@ -36,6 +36,7 @@ class StatTracker
     total_scores.min
   end
 
+<<<<<<< HEAD
   def average_goals_per_game
     total_scores = @all_data_hash[:games].map do |row|
       home_goals = row[:home_goals].to_i
@@ -62,6 +63,8 @@ class StatTracker
     end
     team_names.uniq.count
   end
+=======
+>>>>>>> a487ab3a38c0296e572b68234c15ff8290ed4204
   def percentage_home_wins
     home_wins = 0.0
     total_games = 0.0
@@ -96,5 +99,32 @@ class StatTracker
       total_games += 1
     end
     tie_percentage = (ties / total_games).round(2)
+  end
+
+  def average_goals_per_game
+    total_scores = @all_data_hash[:games].map do |row|
+      home_goals = row[:home_goals].to_i
+      away_goals = row[:away_goals].to_i
+      home_goals + away_goals
+    end
+    (total_scores.sum(0.0) / total_scores.length).round(2)
+  end
+
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+
+    @all_data_hash[:games].each do |row|
+      games_by_season[row[:season]] += 1
+    end
+    games_by_season
+  end
+
+  def count_of_teams
+    team_names = []
+
+    @all_data_hash[:teams].each do |row|
+      team_names << row[:teamname]
+    end
+    team_names.uniq.count
   end
 end

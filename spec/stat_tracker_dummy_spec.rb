@@ -30,6 +30,10 @@ describe StatTracker do
     expect(@stat_tracker.percentage_home_wins).to eq 0.35
   end
 
+  it '#returns the percentage of home team wins' do
+    expect(@stat_tracker.percentage_home_wins).to eq 0.35
+  end
+
   it '#returns the percentage of visitor team wins' do
     expect(@stat_tracker.percentage_vistor_wins).to eq 0.3
   end
@@ -37,7 +41,7 @@ describe StatTracker do
   it '#returns the percentage of games tied' do
     expect(@stat_tracker.percentage_ties).to eq 0.35
   end
-  
+
   it '#average_goals_per_game' do
     expect(@stat_tracker.average_goals_per_game).to eq(3.85)
   end

@@ -38,4 +38,5 @@ describe StatTracker do
   it '#returns the percentage of games tied' do
     expect(@stat_tracker.percentage_ties).to eq 0.20
   end
+
 end
