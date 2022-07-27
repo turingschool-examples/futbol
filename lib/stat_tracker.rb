@@ -65,7 +65,7 @@ class StatTracker
       end
     end
 
-    ((home_wins / total_games) * 100).round(2)
+    (home_wins / total_games).round(2)
   end
 
   def percentage_visitor_wins
@@ -81,7 +81,7 @@ class StatTracker
       end
     end
 
-    ((visitor_wins / total_games) * 100).round(2)
+    (visitor_wins / total_games).round(2)
   end
 
   def percentage_ties
@@ -97,7 +97,7 @@ class StatTracker
       end
     end
 
-    ((ties / total_games) * 100).round(2)
+    (ties / total_games).round(2)
   end
 
   def count_of_games_by_season
