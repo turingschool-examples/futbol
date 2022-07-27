@@ -81,7 +81,6 @@ describe StatTracker do
     it 'average goals' do
       expect(@stat_tracker.average_goals_per_game).to eq(4)
     end
-
   end
 end
   
