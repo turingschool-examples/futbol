@@ -35,14 +35,10 @@ class StatTracker
   end
 
   def highest_total_score
-    score_pairs_added = []
-    scores_as_pairs = @games.map do |game|
-      [game.home_goals.to_i,game.away_goals.to_i]
+    high_low_added = @games.map do |game|
+      [game.home_goals.to_i,game.away_goals.to_i].sum
     end
-    scores_as_pairs.each do |score_pair|
-      score_pairs_added << score_pair.sum
-  end
-     score_pairs_added.max
+    high_low_added.max
   end
 
 end
