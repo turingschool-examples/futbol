@@ -17,15 +17,8 @@ class Game
     @venue_link = game_info[:venue_link]
   end
 
-  def self.create_multiple_games(locations)
-    games = CSV.parse(File.read(locations), headers: true, header_converters: :symbol).map(&:to_h)
+  def self.create_multiple_games(location)
+    games = CSV.parse(File.read(location), headers: true, header_converters: :symbol).map(&:to_h)
     games_as_objects = games.map { |row| Game.new(row) }
-
   end
-
-
-
-
-
-
 end
