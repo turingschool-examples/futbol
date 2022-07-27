@@ -31,7 +31,14 @@ class StatTracker
   end
 
   def percentage_ties
-  
+    ties = 0.0
+    total_games = total_scores_by_game.count
+
+    @games.values_at(:away_goals, :home_goals).each do |game|
+      ties += 1 if game[0] == game[1]
+    end
+
+    ((ties/total_games)*100).round(1)
   end
 
 end
