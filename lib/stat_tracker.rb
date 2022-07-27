@@ -2,6 +2,7 @@ require 'csv'
 
 
 class StatTracker
+  attr_reader :games, :teams, :game_teams
   def initialize(games, teams, game_teams)
     @games = read_data(games)
     @teams = read_data(teams)
@@ -16,10 +17,10 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
-  def read_data(games)
-    list_of_games = []
-    games.each do |row|
-      list_of_games << row
+  def read_data(data)
+    list_of_data = []
+    data.each do |row|
+      list_of_data << row
     end
     list_of_data
   end
