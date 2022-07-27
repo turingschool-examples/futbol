@@ -112,6 +112,10 @@ class StatTracker
     ((total_goals_per_game.sum.to_f) / (@games.size)).round(2)
   end
 
+  def count_of_teams
+    @teams.count { |team| team.team_id }
+  end
+
   def best_offense
     team_scores = Hash.new { |h, k| h[k] = [] }
     @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
@@ -136,15 +140,24 @@ class StatTracker
     team_id_to_name[team_scores_average[0]]
   end
 
-  def count_of_teams
-    @teams.count do |team|
-      team.team_id
-    end
+  def highest_scoring_visitor
+    away_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
+    
+    visitor_scores_average =
+    away_team_scores.map do |id, scores|
+      average = ((scores.sum) / (scores.length)).round(2)
+      [id, average]
+    end.max { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
+    team_id_to_name[visitor_scores_average[0]]
   end
 
+  def highest_scoring_home_team
+    
+  end
+
+
   def team_id_to_name
-    @teams.map do |team|
-      [team.team_id, team.team_name]
-    end.to_h
+    @teams.map { |team| [team.team_id, team.team_name] }.to_h
   end
 end
