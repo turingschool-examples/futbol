@@ -54,7 +54,7 @@ class StatTracker
     end
     (total_away_wins/@games.length.to_f).round(2)
   end
-  
+
   def count_of_games_by_season
    games_by_season = Hash.new(0)
 
@@ -85,7 +85,7 @@ class StatTracker
       teams_and_goals_hash[game_team[:team_id]][:total_goals] += game_team[:goals]
       teams_and_goals_hash[game_team[:team_id]][:total_games] += 1
       if game_team[:hoa] == 'home'
-        teams_and_goals_hash[game_team[:team_id]][:total_home_goals] += game_team[:goals] 
+        teams_and_goals_hash[game_team[:team_id]][:total_home_goals] += game_team[:goals]
         teams_and_goals_hash[game_team[:team_id]][:total_home_games] += 1
       else
         teams_and_goals_hash[game_team[:team_id]][:total_away_goals] += game_team[:goals]
@@ -105,5 +105,10 @@ class StatTracker
   def highest_scoring_home_team
     high_scoring = teams_and_goals.max_by{|team, stats| stats[:total_home_goals].to_f / stats[:total_home_games]}
     high_scoring[1][:team_name]
+  end
+
+  def lowest_scoring_home_team
+    low_scoring = teams_and_goals.min_by{|teams, stats| stats[:total_home_goals].to_f / stats[:total_home_games]}
+    low_scoring[1][:team_name]
   end
 end
