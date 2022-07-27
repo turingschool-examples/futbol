@@ -56,10 +56,26 @@ class StatTracker
     team_hash
   end
 
-  def most_goals_scored#(team_id)  #use game_teams, iterate thru game_teams and find the max
-    @game_teams.map do |game|
-      game.goals.to_i
-    end.max
+  # def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
+  #   @game_teams.map do |game|
+  #     if team_id == game.team_id
+        
+  #       game.goals.to_i
+  #       require 'pry';binding.pry
+  #       end
+  #     end
+  #   end
+
+  def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
+    goals_by_game = []
+    @game_teams.each do |game|
+      if team_id == game.team_id
+        goals_by_game << game.goals.to_i
+      end
+    end
+    goals_by_game.max
   end
+  
+  
 
 end
