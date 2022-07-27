@@ -94,4 +94,12 @@ class StatTracker
     end
     teams_and_goals_hash
   end
+
+  def worst_offense
+    result = teams_and_goals.min_by do |team, stats|
+      stats[:total_goals].to_f / stats[:total_games]
+    end
+    result[1][:team_name]
+  end
+
 end
