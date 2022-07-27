@@ -16,35 +16,52 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
-    def percentage_visitor_wins
-            #sum of visitor wins / total games played
-        
-        away_wins = []
-        game_results = game_teams.values_at(:hoa, :result)
-        total_games_played = game_results.count.to_f
-        
-        game_results.each do |game|
-        away_wins << game if game == ["away", "WIN"]
-            
-        end
-        ((away_wins.count / total_games_played)*100).round(2)
-    end
 
-  def total_scores_by_game
+ # Game Statistics
+
+  def total_scores_by_game #helper for issue #2, #3, #6
     @games.values_at(:away_goals, :home_goals).map do |game|
       game[0] + game[1]
     end
   end
 
-  def lowest_total_score
-      total_scores_by_game.min
-  end
-
-  def highest_total_score
+  def highest_total_score #issue #2
     total_scores_by_game.max
   end
 
-  def percentage_ties
+  def lowest_total_score #issue #3
+    total_scores_by_game.min
+  end
+
+  def home_wins #helper for issue #4
+    home_win = 0.0
+    @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
+  end
+
+  def home_games #helper for issue #4
+    home = 0.0
+    @game_teams[:hoa].map {|row| home += 1 if row == "home"}; home
+  end
+
+  def percentage_home_wins #issue #4
+    percentage = (home_wins/home_games) * 100
+  end
+
+  def percentage_visitor_wins #issue #5
+        #sum of visitor wins / total games played
+
+    away_wins = []
+    game_results = game_teams.values_at(:hoa, :result)
+    total_games_played = game_results.count.to_f
+
+    game_results.each do |game|
+    away_wins << game if game == ["away", "WIN"]
+
+    end
+    ((away_wins.count / total_games_played)*100).round(2)
+  end
+
+  def percentage_ties #issue #6
     ties = 0.0
     total_games = total_scores_by_game.count
 
@@ -54,40 +71,7 @@ class StatTracker
     ((ties/total_games)*100).round(1)
   end
 
-  def percentage_home_wins
-    percentage = (home_wins/home_games) * 100
-  end
-
-  def game_wins
-    win = 0.0
-    @game_teams[:result].map {|row| win += 1 if row == "WIN"}; win
-  end 
-
-  def game_losses
-    loss = 0.0
-    @game_teams[:result].map {|row| loss += 1 if row == "LOSS"}; loss
-  end
-
-  def home_games
-    home = 0.0
-    @game_teams[:hoa].map {|row| home += 1 if row == "home"}; home
-  end
-
-  def away_games
-    away = 0.0
-    @game_teams[:hoa].map {|row| away += 1  if row == "away"}; away
-  end
-
-  def home_wins
-    home_win = 0.0
-    @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
-  end
-
-  def average_goals_per_game
-    total_scores_by_game.sum/@games.size
-  end 
-
-  def count_of_games_by_season
+  def count_of_games_by_season #issue 7
     counts = {}
     games.each do |game|
         season = game[:season]
@@ -103,6 +87,163 @@ class StatTracker
     #     counts[season] += 1
     #     counts
     # end
-    end
-end
+  end
 
+  def average_goals_per_game #issue #8
+    total_scores_by_game.sum/@games.size
+  end
+
+  def average_goals_by_season #issue #9
+
+  end
+
+
+
+  def game_wins #Helper method not yet used
+    win = 0.0
+    @game_teams[:result].map {|row| win += 1 if row == "WIN"}; win
+  end
+
+  def game_losses #Helper method not yet used
+    loss = 0.0
+    @game_teams[:result].map {|row| loss += 1 if row == "LOSS"}; loss
+  end
+
+  def away_games #Helper method not yet used
+    away = 0.0
+    @game_teams[:hoa].map {|row| away += 1  if row == "away"}; away
+  end
+
+
+  # League Statistics
+
+  def count_of_teams #issue # 10
+
+
+
+  end
+
+  def best_offense #issue # 11
+
+
+
+  end
+
+  def worst_offense #issue # 12
+
+
+
+  end
+
+  def highest_scoring_visitor #issue # 13
+
+
+
+  end
+
+  def highest_scoring_home_team #issue # 14
+
+
+
+  end
+
+  def lowest_scoring_visitor #issue # 15
+
+
+
+  end
+
+  def lowest_scoring_home_team #issue # 16
+
+
+
+  end
+
+
+  # Season Statistics
+  
+  def winningest_coach #issue # 17
+
+
+
+  end
+
+  def worst_coach #issue # 18
+
+
+
+  end
+
+  def most_accurate_team #issue # 19
+
+
+
+  end
+
+  def least_accurate_team #issue # 20
+
+
+
+  end
+
+  def most_tackles #issue # 21
+
+
+
+  end
+
+  def fewest_tackles #issue # 22
+
+
+
+  end
+
+  def team_info #issue # 23
+
+
+
+  end
+
+  def best_season #issue # 24
+
+
+
+  end
+
+  def worst_season #issue # 25
+
+
+
+  end
+
+  def average_win_percentage #issue # 26
+
+
+
+  end
+
+  def most_goals_scored #issue # 27
+
+
+
+  end
+
+  def fewest_goals_scored #issue # 28
+
+
+
+  end
+
+  def favorite_opponent #issue # 29
+
+
+
+  end
+
+  def rival #issue # 30
+
+
+
+  end
+
+end
