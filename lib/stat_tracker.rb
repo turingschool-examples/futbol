@@ -72,6 +72,21 @@ class StatTracker
     end
     goals_by_game.min
   end
+
+  def season(team_id)
+    single_season = []
+    @game_teams.each do |game|
+      if team_id == game.team_id
+        single_season << game
+      end
+    end
+    require 'pry';binding.pry
+    single_season
+  end
+
+  def best_season(team_id)
+
+  end
   
 
   def lowest_total_score

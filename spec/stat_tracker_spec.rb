@@ -140,7 +140,12 @@ describe StatTracker do
    expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
-  xit 'can tell which season is a teams best' do
+  it 'can split a teams games out by season' do
+    
+    expect(@stat_tracker.season("6")).to be_an(Array)
+  end
+
+  it 'can tell which season is a teams best' do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
    end
 
