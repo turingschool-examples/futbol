@@ -153,8 +153,41 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    
+    home_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
+
+    home_scores_average =
+    home_team_scores.map do |id, scores|
+      average = ((scores.sum) / (scores.length)).round(2)
+      [id, average]
+    end.max { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
+    team_id_to_name[home_scores_average[0]]
   end
+
+  def lowest_scoring_visitor
+    away_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
+    
+    visitor_scores_average =
+    away_team_scores.map do |id, scores|
+      average = ((scores.sum) / (scores.length)).round(2)
+      [id, average]
+    end.min { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
+    team_id_to_name[visitor_scores_average[0]]
+  end
+
+  def lowest_scoring_home_team
+    home_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
+
+    home_scores_average =
+    home_team_scores.map do |id, scores|
+      average = ((scores.sum) / (scores.length)).round(2)
+      [id, average]
+    end.min { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
+    team_id_to_name[home_scores_average[0]]
+  end
+
 
 
   def team_id_to_name
