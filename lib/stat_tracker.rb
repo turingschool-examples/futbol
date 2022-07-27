@@ -73,15 +73,14 @@ class StatTracker
     goals_by_game.min
   end
 
-  def season(team_id)
-    single_season = []
+  def team_isolator(team_id)
+    team_games = []
     @game_teams.each do |game|
       if team_id == game.team_id
-        single_season << game
+        team_games << game
       end
     end
-    require 'pry';binding.pry
-    single_season
+    team_games
   end
 
   def best_season(team_id)
