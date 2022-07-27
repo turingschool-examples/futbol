@@ -49,7 +49,23 @@ class StatTracker
     win_percentage.max_by{|coach, percentage| -percentage}.first
   end
 
+  def most_accurate_team
+    i = 0
+    per_game_accuracy = @game_teams[:shots].map do |shot|
+      ratio = @game_teams[:goals][i].to_f / shot.to_f
+      i += 1
+      ratio
+    end
+    team_id_accuracy_arr = @game_teams[:team_id].zip per_game_accuracy
+    team_id_accuracy_h = Hash.new{|hash, key| hash[key] = []}
+    team_id_accuracy_arr.each do |game|
+      team_id_accuracy_h[game[0]] << game[1]
+    end
+    team_id_highest_accuracy = team_id_accuracy_h.map do |id, acc|
+      [id, acc.reduce(:+) / acc.length]
+    end.max_by{|id, avg| avg}.first
+    id_team_key = @teams[:team_id].zip(@teams[:teamname]).to_h
 
-
-
+    id_team_key[team_id_highest_accuracy]
+  end
 end

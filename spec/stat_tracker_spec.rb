@@ -37,8 +37,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_coach). to eq "Patrick Roy"
     end
 
-    xit 'S3. can tell most_accurate_team' do
-      
+    it 'S3. can tell most_accurate_team' do
+      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.most_accurate_team)
+      expect(@stat_tracker.most_accurate_team). to be_a String
     end
 
 
