@@ -11,9 +11,9 @@ describe StatTracker do
     @game_teams_path = './data/game_teams_dummy.csv'
 
     @locations = {
-    games: @game_path,
-    teams: @team_path,
-    game_teams: @game_teams_path
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(@locations)
 
@@ -43,7 +43,7 @@ describe StatTracker do
     end
 
     it "finds highest total score" do
-      expect(@stat_tracker.highest_total_score).to eq 7
+      expect(@stat_tracker.highest_total_score).to eq(7)
     end
         
     it 'can return the lowest score' do 
@@ -51,27 +51,27 @@ describe StatTracker do
     end
 
     it "tracks wins" do
-      expect(@stat_tracker.game_wins).to eq 29
+      expect(@stat_tracker.game_wins).to eq(29)
     end
 
     it "tracks losses" do
-      expect(@stat_tracker.game_losses).to eq 29
+      expect(@stat_tracker.game_losses).to eq(29)
     end
 
     it "tracks home games" do
-      expect(@stat_tracker.home_games).to eq 30
+      expect(@stat_tracker.home_games).to eq(30)
     end
 
     it "tracks away games" do
-      expect(@stat_tracker.away_games).to eq 30
+      expect(@stat_tracker.away_games).to eq(30)
     end
 
     it "calculates home wins" do
-      expect(@stat_tracker.home_wins).to eq 21
+      expect(@stat_tracker.home_wins).to eq(21)
     end
 
     it 'calculates percentage wins' do 
-      expect(@stat_tracker.percentage_home_wins).to eq 70
+      expect(@stat_tracker.percentage_home_wins).to eq(70.0)
     end
 
     it "returns the percentage of tied games" do
@@ -79,7 +79,7 @@ describe StatTracker do
     end
 
     it 'average goals' do
-      expect(@stat_tracker.average_goals_per_game).to eq 4
+      expect(@stat_tracker.average_goals_per_game).to eq(4)
     end
 
   end

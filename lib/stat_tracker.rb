@@ -42,35 +42,34 @@ class StatTracker
 
   def percentage_home_wins
     percentage = (home_wins/home_games) * 100
-    p percentage
   end
 
   def game_wins
-    win = []
-    @game_teams[:result].map {|row| win << row   if row == "WIN"}; win.count.to_f
+    win = 0.0
+    @game_teams[:result].map {|row| win += 1 if row == "WIN"}; win
   end 
 
   def game_losses
-    loss = []
-    @game_teams[:result].map {|row| loss << row   if row == "LOSS"}; loss.count.to_f
+    loss = 0.0
+    @game_teams[:result].map {|row| loss += 1 if row == "LOSS"}; loss
   end
 
   def home_games
-    home = []
-    @game_teams[:hoa].map {|row| home << row   if row == "home" }; home.count.to_f
+    home = 0.0
+    @game_teams[:hoa].map {|row| home += 1 if row == "home"}; home
   end
 
   def away_games
-    away = []
-    @game_teams[:hoa].map {|row| away << row   if row == "away"}; away.count.to_f
+    away = 0.0
+    @game_teams[:hoa].map {|row| away += 1  if row == "away"}; away
   end
 
-  def home_wins #(home, wins)
-    home_win = [] 
-    @game_teams.values_at(:result, :hoa).flat_map {|row| home_win << row if row == ["WIN", "home"]}; p home_win.count.to_f
+  def home_wins
+    home_win = 0.0
+    @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
   end
 
-  def average_goals_per_game #(float)
+  def average_goals_per_game
     total_scores_by_game.sum/@games.size
   end 
 end
