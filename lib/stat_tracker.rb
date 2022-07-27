@@ -41,4 +41,16 @@ class StatTracker
 
     ((home_wins.count / all_home_games.count.to_f).round(2))
   end
+
+  def percentage_visitor_wins
+    vistor_wins = []
+    all_vistor_games = []
+
+    @game_teams.each do |row|
+      vistor_wins << row if row[:hoa] == "away" && row[:result] == "WIN"
+      all_vistor_games << row if row[:hoa] == "away"
+    end
+
+    ((vistor_wins.count / all_vistor_games.count.to_f).round(2))
+  end
 end
