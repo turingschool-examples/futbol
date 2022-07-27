@@ -129,8 +129,21 @@ describe StatTracker do
       expect(@stat_tracker.average_win_percentage).to eq(#float)
     end
 
-    xit 'can   '
+    xit 'can return hgihest number of goals a particular team has scored in a  single game' do 
+      expect(@stat_tracker.most_goals_scored).to eq(#integer)
+    end
 
+    xit 'can return lowest number of goals a particular team has scored in a single game' do
+       expect(@stat_tracker.fewest_goals_scored).to eq(#integer)
+    end 
+
+    xit 'can return name of the opponent that has the lowest win percentage against the given team' do 
+      expect(@stat_tracker.favorite_opponent).to eq("")
+    end
+
+    xit 'can return name of the opponent that has the highest win percentage against the given team' do
+      expect(@stat_tracker.rival).to eq("")
+    end
   end
 
 end
