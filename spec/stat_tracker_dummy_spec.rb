@@ -27,6 +27,7 @@ describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq 1
   end
 
+
   it '#returns the percentage of home team wins' do
     expect(@stat_tracker.percentage_home_wins).to eq 0.35
   end
@@ -37,5 +38,23 @@ describe StatTracker do
 
   it '#returns the percentage of games tied' do
     expect(@stat_tracker.percentage_ties).to eq 0.35
+
+  it '#average_goals_per_game' do
+    expect(@stat_tracker.average_goals_per_game).to eq(3.85)
+  end
+  
+  it '#count_of_games_by_season' do
+    expected = {
+      "20122013" => 2,
+      "20132014" => 6,
+      "20142015" => 7,
+      "20152016" => 5
+    }
+
+    expect(@stat_tracker.count_of_games_by_season).to eq(expected)
+  end
+
+  it '#count_of_teams' do
+    expect(@stat_tracker.count_of_teams). to eq (20)
   end
 end
