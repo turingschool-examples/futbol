@@ -68,4 +68,14 @@ class StatTracker
   def average_goals_per_game
     (@games.sum { |game| game[:away_goals].to_f + game[:home_goals].to_f } / @games.count).round(2)
   end
+  
+  def average_goals_by_season
+    seasons = count_of_games_by_season
+    avg_arr = []
+    seasons.each do |season, count|
+      games_in_season = @games.find_all { |game| game[:season] == season }
+      avg_arr << ((games_in_season.sum { |game| game[:away_goals].to_i + game[:home_goals].to_i}) / count.to_f).round(2)
+    end
+    Hash[seasons.keys.zip(avg_arr)]
+  end
 end
