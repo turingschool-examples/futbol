@@ -4,10 +4,23 @@ require './lib/game_teams'
 
 describe StatTracker do
   before :each do
-    @game_path = "./data/games.csv"
-    @team_path = "./data/teams.csv"
-    @game_teams_path = "./data/game_teams.csv"
-    @stat_tracker = StatTracker.new(
+    game_path = "./data/dummy_games.csv"
+    team_path = "./data/dummy_teams.csv"
+    game_teams_path = "./data/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+  end
+
+  it "exists" do
+    expect(@stat_tracker).to be_a(StatTracker)
+  end
+
+  it "has games" do
+    stat_tracker = StatTracker.new(
       [{ game_id: "2012030221",
          season: "20122013",
          type: "Postseason",
@@ -43,19 +56,16 @@ describe StatTracker do
          takeaways: "7" }]
          # Game Teams
     )
+    expect(stat_tracker.games.length).to eq(1)
+    expect(stat_tracker.teams.length).to eq(1)
+    expect(stat_tracker.game_teams.length).to eq(1)
   end
 
-  it "exists" do
+  it "has the right class when reading from csv" do
     expect(@stat_tracker).to be_a(StatTracker)
-  end
-
-  it "has the right class" do
-    locations = {
-      games: @game_path,
-      teams: @team_path,
-      game_teams: @game_teams_path,
-    }
-    expect(StatTracker.from_csv(locations)).to be_a(StatTracker)
+    expect(@stat_tracker.games.length).to eq(7441)
+    expect(@stat_tracker.teams.length).to eq(32)
+    expect(@stat_tracker.game_teams.length).to eq(14882)
   end
 
   it 'can calculate the games highest total score' do

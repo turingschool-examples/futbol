@@ -18,8 +18,8 @@ class GameTeams
               :giveaways,
               :takeaways
 
-  def self.create_multiple_game_teams(locations)
-    game_teams = CSV.parse(File.read(locations), headers: true, header_converters: :symbol).map(&:to_h)
+  def self.create_multiple_game_teams(location)
+    game_teams = CSV.parse(File.read(location), headers: true, header_converters: :symbol).map(&:to_h)
     game_teams_as_objects = game_teams.map { |row| GameTeams.new(row) }
   end
 
