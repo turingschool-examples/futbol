@@ -114,15 +114,25 @@ class StatTracker
 
   def best_offense
     team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each do |game_team|
-      team_scores[game_team.team_id] << game_team.goals.to_f
-    end
+    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
 
     team_scores_average =
       team_scores.map do |id, scores|
         average = ((scores.sum) / (scores.length)).round(2)
         [id, average]
       end.max { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
+    team_id_to_name[team_scores_average[0]]
+  end
+
+  def worst_offense
+    team_scores = Hash.new { |h, k| h[k] = [] }
+    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
+
+    team_scores_average =
+      team_scores.map do |id, scores|
+        average = ((scores.sum) / (scores.length)).round(2)
+        [id, average]
+      end.min { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
     team_id_to_name[team_scores_average[0]]
   end
 

@@ -144,7 +144,11 @@ describe StatTracker do
     expect(@stat_tracker.team_id_to_name).to be_a(Hash)
   end
 
-  it "can calculate which team has the best offense" do
+  it "can calculate which team had the best offense" do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
+  end
+
+  it "can calculate which team had the worst offense" do
+    expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
   end
 end
