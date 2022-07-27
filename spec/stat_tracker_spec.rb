@@ -120,5 +120,29 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
+  it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
+    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
+    
+   
+    expect(stat_tracker.team_info("18")).to eq({
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    })
+    end
+
+  it 'can tell the most goals a team has scored in a game across all seasons' do
+    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
+   
+    expect(stat_tracker.most_goals_scored("18")).to eq(7)
+  end
+
+  it 'can tell the fewest goals a team has scored in a game across all seasons' do
+    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
+   
+    expect(stat_tracker.fewest_goals_scored("18")).to eq(0)
+  end
 
 end
