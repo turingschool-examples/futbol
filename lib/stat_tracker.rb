@@ -106,7 +106,7 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    high_scoring = teams_and_goals.max_by{|teams, stats| stats[:total_away_goals].to_f}
+    high_scoring = teams_and_goals.max_by{|teams, stats| stats[:total_away_goals].to_f / stats[:total_away_games]}
     high_scoring[1][:team_name]
   end
 end
