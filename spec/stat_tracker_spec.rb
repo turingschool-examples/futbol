@@ -77,6 +77,11 @@ describe StatTracker do
     it "returns the percentage of tied games" do
       expect(@stat_tracker.percentage_ties).to eq(17.8)
     end
-  end 
-  
+
+    it 'average goals' do
+      expect(@stat_tracker.average_goals_per_game).to eq 4
+    end
+
+  end
 end
+  

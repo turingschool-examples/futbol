@@ -47,22 +47,22 @@ class StatTracker
 
   def game_wins
     win = []
-    @game_teams[:result].map {|row| win << row   if row == "WIN"}; p win.count.to_f
+    @game_teams[:result].map {|row| win << row   if row == "WIN"}; win.count.to_f
   end 
 
   def game_losses
     loss = []
-    @game_teams[:result].map {|row| loss << row   if row == "LOSS"}; p loss.count.to_f
+    @game_teams[:result].map {|row| loss << row   if row == "LOSS"}; loss.count.to_f
   end
 
   def home_games
     home = []
-    @game_teams[:hoa].map {|row| home << row   if row == "home" }; p home.count.to_f
+    @game_teams[:hoa].map {|row| home << row   if row == "home" }; home.count.to_f
   end
 
   def away_games
     away = []
-    @game_teams[:hoa].map {|row| away << row   if row == "away"}; p away.count.to_f
+    @game_teams[:hoa].map {|row| away << row   if row == "away"}; away.count.to_f
   end
 
   def home_wins #(home, wins)
@@ -70,4 +70,7 @@ class StatTracker
     @game_teams.values_at(:result, :hoa).flat_map {|row| home_win << row if row == ["WIN", "home"]}; p home_win.count.to_f
   end
 
+  def average_goals_per_game #(float)
+    total_scores_by_game.sum/@games.size
+  end 
 end
