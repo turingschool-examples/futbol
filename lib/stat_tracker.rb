@@ -79,6 +79,10 @@ class StatTracker
     Hash[seasons.keys.zip(avg_arr)]
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
   def best_offense
     teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by { |num| num.to_i }
     avgs = []
@@ -89,5 +93,17 @@ class StatTracker
     end
     best_o_id = (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0]
     @teams.find { |team| team[:team_id] == best_o_id }[:teamname]
+  end
+
+  def worst_offense
+    teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by { |num| num.to_i }
+    avgs = []
+    teams.each do |team|
+      home_goal = (@games.find_all { |game| team == game[:home_team_id]}.map { |game| game[:home_goals].to_i}).sum
+      away_goal = (@games.find_all { |game| team == game[:away_team_id]}.map { |game| game[:away_goals].to_i}).sum
+      avgs << ((home_goal + away_goal).to_f / (@games.find_all { |game| game[:home_team_id] == team || game[:away_team_id] == team}).count).round(3)
+    end
+    worst_o_id = (Hash[teams.zip(avgs)].min_by { |_k, v| v })[0]
+    @teams.find { |team| team[:team_id] == worst_o_id }[:teamname]
   end
 end
