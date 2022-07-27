@@ -145,6 +145,11 @@ describe StatTracker do
     expect(@stat_tracker.team_isolator("6")).to be_an(Array)
   end
 
+  it 'can isolate a teams games by season' do
+    
+    expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
+  end
+
   xit 'can tell which season is a teams best' do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
    end

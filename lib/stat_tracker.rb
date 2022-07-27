@@ -83,8 +83,19 @@ class StatTracker
     team_games
   end
 
-  def best_season(team_id)
+  def season(team_id, season)
+    games_by_season = []
+    @games.each do |game|
+      if (game.home_team_id == team_id || game.away_team_id == team_id) && game.season == season
+        games_by_season << game
+      end
+      
+    end
+    games_by_season
+  end
 
+  def best_season(team_id)
+    # max of total number of wins (home wins and away wins) in a season/total number of games in a season
   end
   
 
