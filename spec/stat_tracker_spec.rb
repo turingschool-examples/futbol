@@ -140,14 +140,23 @@ describe StatTracker do
    expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
-  it 'can isolate a teams games in game_teams' do
+  it 'can isolate a single teams games in game_teams' do
 
     expect(@stat_tracker.team_isolator("6")).to be_an(Array)
   end
 
-  it 'can isolate a teams games by season' do
+  it 'can isolate a single teams games in games' do
+    
+    expect(@stat_tracker.all_team_games("6")).to be_an(Array)
+  end
+
+  it 'can isolate a teams games by season in games' do
     
     expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
+  end
+
+  it 'can find a teams average win percentage' do
+    expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
   xit 'can tell which season is a teams best' do
