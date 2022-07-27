@@ -41,4 +41,37 @@ class StatTracker
     high_low_added.max
   end
 
+  def winningest_coach(season_id)
+
+    coaches = []
+    win_or_loss = []
+    @game_teams.each do |game|
+  require 'pry'; binding.pry
+      if game.game_id == season_id
+      coaches << game.head_coach
+      win_or_loss << game.result
+
+    end
+    end
+    result = coaches.zip(win_or_loss)
+    result
+      require 'pry'; binding.pry
+
+    #find winning percentage of each coach then take max
+    #games won/games played per coach
+    #Best winning rate = winnigest coach
+    #worst winning rate = worst coach
+    game_wins = {}
+    total_games = {}
+
+    winning_rate = {}
+    game_wins/total_games
+  end
+
+  def worst_coach
+    #find winning percentage then take min
+  end
+
+
+
 end

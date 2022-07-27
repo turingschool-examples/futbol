@@ -122,8 +122,8 @@ describe StatTracker do
   end
 
   it 'can name the coach with the best winning percentage' do
-    expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
-    expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+    expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
+    expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
   end
 
 
