@@ -172,4 +172,13 @@ class StatTracker
     result_team_name
   end
 
+  def most_tackles(season)
+    result_team_id = tackles_by_team(season).max_by do |team_id, tackles|
+      tackles
+    end.first
+    result_team_name = ""
+    @teams.each{ |team| result_team_name = team[:teamname] if team[:team_id] == result_team_id }
+    result_team_name
+  end
+
 end
