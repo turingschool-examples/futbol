@@ -96,9 +96,7 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    high_scoring = teams_and_goals
-    high_scoring.each do |team|
-      require 'pry' ; binding.pry
-    end
+    high_scoring = teams_and_goals.max_by{|teams, stats| stats[:total_home_goals].to_f}
+    high_scoring[1][:team_name]
   end
 end
