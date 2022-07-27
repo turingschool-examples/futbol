@@ -92,6 +92,25 @@ describe StatTracker do
     end
 
   end
+  describe 'Season Statistics' do 
+
+    xit 'can show name of coach witht he best win percentage of the season' do 
+      expect(@stat_tracker.winningest_coach).to eq("")
+    end
+
+    xit 'can show name with the worst win percentage for the season' do 
+      expect(@stat_tracker.worst_coach).to eq("")
+    end
+
+    xit 'can show name of the team with the best ratio of shots to goals for the season' do 
+      expect(@stat_tracker.most_accurate_team).to eq("")
+    end
+
+    xit 'can show name of the tem with the worst ratio of shots to goals for the season' do 
+      expect(@stat_tracker.least_accurate_team.to eq(""))
+    end
+
+  end
 end
   
 
