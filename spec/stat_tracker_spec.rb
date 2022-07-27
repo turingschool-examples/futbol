@@ -1,12 +1,12 @@
 require "./lib/stat_tracker.rb"
-require './lib/teams.rb'
-require './lib/game_teams'
+require "./lib/teams.rb"
+require "./lib/game_teams"
 
 describe StatTracker do
   before :each do
-    game_path = "./data/dummy_games.csv"
-    team_path = "./data/dummy_teams.csv"
-    game_teams_path = "./data/dummy_game_teams.csv"
+    game_path = "./data/games.csv"
+    team_path = "./data/teams.csv"
+    game_teams_path = "./data/game_teams.csv"
     locations = {
       games: game_path,
       teams: team_path,
@@ -54,7 +54,7 @@ describe StatTracker do
          faceOffWinPercentage: "44.8",
          giveaways: "17",
          takeaways: "7" }]
-         # Game Teams
+      # Game Teams
     )
     expect(stat_tracker.games.length).to eq(1)
     expect(stat_tracker.teams.length).to eq(1)
@@ -68,68 +68,52 @@ describe StatTracker do
     expect(@stat_tracker.game_teams.length).to eq(14882)
   end
 
-  it 'can calculate the games highest total score' do
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-
-    expect(stat_tracker.highest_total_score).to eq(11)
+  it "can calculate the games highest total score" do
+    expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
-  xit 'can calculate the games lowest total score' do
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-
-    expect(stat_tracker.lowest_total_score).to eq(0)
+  xit "can calculate the games lowest total score" do
+    expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
-  xit 'can calculate the games precentage home wins' do
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-
-    expect(stat_tracker.percentage_home_wins).to eq(0.44)
+  xit "can calculate the games precentage home wins" do
+    expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
-  xit 'can calculate the games percentage visitor wins' do
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-
-    expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
+  xit "can calculate the games percentage visitor wins" do
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
   end
 
-  xit 'can calculate the games percentage ties' do
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-
-    expect(stat_tracker.percentage_ties).to eq(0.20)
+  xit "can calculate the games percentage ties" do
+    expect(@stat_tracker.percentage_ties).to eq(0.20)
   end
 
-  xit 'can calculate the games count of games by season' do
+  xit "can calculate the games count of games by season" do
     expected = {
-      "20122013"=>806,
-      "20162017"=>1317,
-      "20142015"=>1319,
-      "20152016"=>1321,
-      "20132014"=>1323,
-      "20172018"=>1355
+      "20122013" => 806,
+      "20162017" => 1317,
+      "20142015" => 1319,
+      "20152016" => 1321,
+      "20132014" => 1323,
+      "20172018" => 1355,
     }
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
 
-    expect(stat_tracker.count_of_games_by_season).to eq(expected)
+    expect(@stat_tracker.count_of_games_by_season).to eq(expected)
   end
 
-  xit 'can calculate the games average goals per game' do
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
-
-    expect(stat_tracker.average_goals_per_game).to eq(4.22)
+  xit "can calculate the games average goals per game" do
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
   end
 
-  xit 'can calculate the games average goals by season' do
-    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
+  xit "can calculate the games average goals by season" do
     expected = {
-          "20122013"=>4.12,
-          "20162017"=>4.23,
-          "20142015"=>4.14,
-          "20152016"=>4.16,
-          "20132014"=>4.19,
-          "20172018"=>4.44
-        }
+      "20122013" => 4.12,
+      "20162017" => 4.23,
+      "20142015" => 4.14,
+      "20152016" => 4.16,
+      "20132014" => 4.19,
+      "20172018" => 4.44,
+    }
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
-
-
 end
