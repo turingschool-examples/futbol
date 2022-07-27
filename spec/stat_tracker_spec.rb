@@ -92,6 +92,28 @@ describe StatTracker do
     end
   end
 
+  describe 'League Statistics' do 
+
+    xit 'can return total number of teams in the data' do 
+      expect(@stat_tracker.count_of_teams).to eq(#integer)
+    end
+
+    xit 'can return the name of the team with the highest average number of goals scored per game across all seasons' do 
+      expect(@stat_tracker.best_offense).to eq("")
+    end
+
+    xit 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do 
+      expect(@stat_tracker.worst_offense).to eq("")
+    end
+
+    xit 'can return Name of the team with the highest average score per game across all seasons when they are away' do 
+      expect(@stat_tracker.highest_scoring_visitor).to eq("")
+    end
+
+    
+
+  end
+
   describe 'Season Statistics' do 
 
     xit 'can show name of coach witht he best win percentage of the season' do 
