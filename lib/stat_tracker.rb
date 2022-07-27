@@ -7,7 +7,7 @@ class StatTracker
     @games = read_data(games)
     @teams = read_data(teams)
     @game_teams = read_data(game_teams)
-    require "pry"; binding.pry
+    #require "pry"; binding.pry
   end
 
   def self.from_csv(locations)
@@ -23,6 +23,11 @@ class StatTracker
       list_of_data << row
     end
     list_of_data
+  end
+
+  def highest_total_score
+    max = @games.max_by { |game| game[:away_goals].to_i + game[:home_goals].to_i }
+    max[:away_goals].to_i + max[:home_goals].to_i
   end
 
 end
