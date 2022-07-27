@@ -53,4 +53,16 @@ class StatTracker
 
     ((vistor_wins.count / all_vistor_games.count.to_f).round(2))
   end
+
+  def percentage_ties
+    ties = []
+    all_games = []
+
+    @game_teams.each do |row|
+      ties << row if row[:result] == "TIE"
+      all_games << row[:result]
+    end
+
+    ((ties.count / all_games.count.to_f).round(2))
+  end
 end
