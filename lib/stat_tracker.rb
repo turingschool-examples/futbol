@@ -183,15 +183,49 @@ class StatTracker
     lowest_score_home_team = team_average_goals.key(team_average_goals.values.min)
     find_team_name_by_id(lowest_score_home_team)
   end
-
+  
   # Season Statistics
-
+  
   def winningest_coach
-
+    coach_records = {}
+    all_coaches_array.each do |coach|
+      coach_records[coach] = {wins: 0, total_games: 0}
+    end
+    @game_teams_data.each do |row|
+      result = row[:result]
+      coach = row[:head_coach].to_sym
+      if result == "WIN"
+        coach_records[coach][:wins] += 1
+        coach_records[coach][:total_games] += 1
+      else
+        coach_records[coach][:total_games] += 1
+      end
+    end
+    new_hash = coach_records.map do |coach, record|
+      [coach, (record[:wins].to_f/record[:total_games].to_f)]
+    end.to_h
+    new_hash.key(new_hash.values.max)
   end
-
+    
   def worst_coach
-
+    coach_records = {}
+    all_coaches_array.each do |coach|
+      coach_records[coach] = {wins: 0, total_games: 0}
+    end
+    @game_teams_data.each do |row|
+      result = row[:result]
+      coach = row[:head_coach].to_sym
+      if result == "WIN"
+        coach_records[coach][:wins] += 1
+        coach_records[coach][:total_games] += 1
+      else
+        coach_records[coach][:total_games] += 1
+      end
+    end
+    new_hash = coach_records.map do |coach, record|
+      [coach, (record[:wins].to_f/record[:total_games].to_f)]
+    end.to_h
+    new_hash.key(new_hash.values.min)
   end
 
   def most_accurate_team
@@ -281,5 +315,16 @@ class StatTracker
     end
     team_name
   end
+
+  def all_coaches_array
+    coach_array = []
+    @game_teams_data.each do |row|
+      coach_array << row[:head_coach]
+    end
+    coach_array.uniq!.map do |coach|
+      coach.to_sym
+    end
+  end
+
 end
 
