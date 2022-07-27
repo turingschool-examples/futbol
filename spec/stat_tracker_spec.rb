@@ -98,7 +98,7 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(#integer)
     end
 
-    xit 'can return the name of the team with the highest average number of goals scored per game across all seasons' do 
+    xit 'can return Name of the team with the highest average number of goals scored per game across all seasons' do 
       expect(@stat_tracker.best_offense).to eq("")
     end
 
@@ -110,8 +110,17 @@ describe StatTracker do
       expect(@stat_tracker.highest_scoring_visitor).to eq("")
     end
 
-    
+    xit 'can return Name of the team with the highest average score per game across all seasons when they are home' do 
+      expect(@stat_tracker.highest_scoring_home_team).to eq("")
+    end
 
+    xit 'can return Name of the team with the lowest average score per game across all seasons when they are a visitor' do 
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("")
+    end
+
+    xit 'can return Name of the team with the lowest average score per game across all seasons when they are at home' do 
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("")
+    end
   end
 
   describe 'Season Statistics' do 
