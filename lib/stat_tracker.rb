@@ -62,4 +62,64 @@ class StatTracker
     end
     team_names.uniq.count
   end
+
+  def best_offense
+    goals_per_team = Hash.new()
+
+    @all_data_hash[:game_teams].each do |row|
+      if !goals_per_team[row[:team_id]]
+        goals_per_team[row[:team_id]] = []
+        goals_per_team[row[:team_id]] << row[:goals].to_i
+      else
+        goals_per_team[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    goals_per_team
+
+    team_ids = goals_per_team.keys
+    goals_scored = goals_per_team.values
+
+    averages = []
+    goals_scored.each do |team_goals|
+      averages << team_goals.sum(0.0) / team_goals.length.round(2)
+    end
+    averages
+
+    team_averages = Hash[team_ids.zip(averages)]
+    highest_average = team_averages.max_by{|k, v| v}
+
+    @all_data_hash[:teams].find do |team|
+      team[:team_id].to_i == highest_average[0].to_i
+    end[:teamname]
+  end
+
+  def worst_offense
+    goals_per_team = Hash.new()
+
+    @all_data_hash[:game_teams].each do |row|
+      if !goals_per_team[row[:team_id]]
+        goals_per_team[row[:team_id]] = []
+        goals_per_team[row[:team_id]] << row[:goals].to_i
+      else
+        goals_per_team[row[:team_id]] << row[:goals].to_i
+      end
+    end
+    goals_per_team
+
+    team_ids = goals_per_team.keys
+    goals_scored = goals_per_team.values
+
+    averages = []
+    goals_scored.each do |team_goals|
+      averages << team_goals.sum(0.0) / team_goals.length.round(2)
+    end
+    averages
+
+    team_averages = Hash[team_ids.zip(averages)]
+    lowest_average = team_averages.min_by{|k, v| v}
+
+    @all_data_hash[:teams].find do |team|
+      team[:team_id].to_i == lowest_average[0].to_i
+    end[:teamname]
+  end
 end

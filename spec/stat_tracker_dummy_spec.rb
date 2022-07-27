@@ -30,7 +30,7 @@ describe StatTracker do
   it '#average_goals_per_game' do
     expect(@stat_tracker.average_goals_per_game).to eq(3.85)
   end
-  
+
   it '#count_of_games_by_season' do
     expected = {
       "20122013" => 2,
@@ -43,6 +43,14 @@ describe StatTracker do
   end
 
   it '#count_of_teams' do
-    expect(@stat_tracker.count_of_teams). to eq (20)
+    expect(@stat_tracker.count_of_teams).to eq (20)
+  end
+
+  it '#best offense' do
+    expect(@stat_tracker.best_offense).to eq ("FC Dallas")
+  end
+
+  it '#worst offense' do
+    expect(@stat_tracker.worst_offense).to eq ("Sporting Kansas City")
   end
 end
