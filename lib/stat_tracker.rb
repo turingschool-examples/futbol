@@ -204,7 +204,7 @@ class StatTracker
     new_hash = coach_records.map do |coach, record|
       [coach, (record[:wins].to_f/record[:total_games].to_f)]
     end.to_h
-    new_hash.key(new_hash.values.max)
+    (new_hash.key(new_hash.values.max)).to_s
   end
     
   def worst_coach
@@ -225,7 +225,7 @@ class StatTracker
     new_hash = coach_records.map do |coach, record|
       [coach, (record[:wins].to_f/record[:total_games].to_f)]
     end.to_h
-    new_hash.key(new_hash.values.min)
+    (new_hash.key(new_hash.values.min)).to_s
   end
 
   def most_accurate_team
