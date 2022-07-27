@@ -54,4 +54,10 @@ class StatTracker
     (numerator.to_f/denominator).round(2)
   end
 
+  def percentage_visitor_wins
+    numerator = @games.find_all {|game| game.home_goals.to_i < game.away_goals.to_i }.size
+    denominator = games.size
+    (numerator.to_f/denominator).round(2)
+  end
+
 end

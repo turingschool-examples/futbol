@@ -76,7 +76,7 @@ describe StatTracker do
     expect(stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
-  xit 'can calculate the games percentage visitor wins' do
+  it 'can calculate the games percentage visitor wins' do
     stat_tracker = StatTracker.new(@games, @teams, @game_teams)
 
     expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
