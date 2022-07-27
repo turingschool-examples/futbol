@@ -56,4 +56,8 @@ class StatTracker
     team_hash
   end
 
+  def most_goals_scored(team_id)
+    
+  end
+
 end

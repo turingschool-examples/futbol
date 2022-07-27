@@ -134,4 +134,11 @@ describe StatTracker do
     })
     end
 
+  it 'can tell the most goals a team has scored in a game across all seasons' do
+    stat_tracker = StatTracker.new(@games, @teams, @game_teams)
+
+    expect(stat_tracker.most_goals_scored("18")).to eq(7)
+  end
+
+
 end
