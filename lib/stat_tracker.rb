@@ -8,9 +8,9 @@ class StatTracker
 
   def initialize(locations)
     @locations = locations
-    @games_data = CSV.open(@locations[:games], headers: true, header_converters: :symbol)
-    @teams_data = CSV.open(@locations[:teams], headers: true, header_converters: :symbol)
-    @game_teams_data = CSV.open(@locations[:game_teams], headers: true, header_converters: :symbol)
+    @games_data = CSV.read(@locations[:games], headers: true, header_converters: :symbol)
+    @teams_data = CSV.read(@locations[:teams], headers: true, header_converters: :symbol)
+    @game_teams_data = CSV.read(@locations[:game_teams], headers: true, header_converters: :symbol)
   end
 
   def self.from_csv(locations)
@@ -63,13 +63,39 @@ class StatTracker
     teams.count
   end
 
-  def best_offense
+  def best_offense 
+    teams = Hash.new()
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] = []
+    end
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] << row[:goals].to_i 
+    end
+    team_average_goals = Hash.new()
+    teams.each do |team, goals|
+      team_average_goals[team] = (goals.sum.to_f / goals.length).round(2)
+    end
+    team_best_offense = team_average_goals.key(team_average_goals.values.max)
+    find_team_name_by_id(team_best_offense)
+  end 
 
+  def worst_offense # team w/ lowest average goals scored per game.
+    teams = Hash.new()
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] = []
+    end
+    @game_teams_data.each do |row|
+      teams[row[:team_id]] << row[:goals].to_i 
+    end
+    team_average_goals = Hash.new()
+    teams.each do |team, goals|
+      team_average_goals[team] = (goals.sum.to_f / goals.length).round(2)
+    end
+    team_worst_offense = team_average_goals.key(team_average_goals.values.min)
+    find_team_name_by_id(team_worst_offense)
   end
 
-  def worst_offense
 
-  end
 
   def highest_scoring_visitor
 
