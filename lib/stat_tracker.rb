@@ -30,4 +30,9 @@ class StatTracker
     max[:away_goals].to_i + max[:home_goals].to_i
   end
 
+  def lowest_total_score
+    min = @games.min_by { |game| game[:away_goals].to_i + game[:home_goals].to_i }
+    min[:away_goals].to_i + min[:home_goals].to_i
+  end
+
 end
