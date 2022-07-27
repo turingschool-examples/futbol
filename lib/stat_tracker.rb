@@ -54,7 +54,7 @@ class StatTracker
     end
     (total_away_wins/@games.length.to_f).round(2)
   end
-  
+
   def count_of_games_by_season
    games_by_season = Hash.new(0)
 
@@ -84,5 +84,66 @@ class StatTracker
       # require 'pry';binding.pry
     end
     average_goals_per_season
+  end
+
+  def teams_and_goals #=> League Stats Helper Method
+    teams_and_goals_hash = {}
+    @teams.each do |team|
+      teams_and_goals_hash[team[:team_id]] = {
+        team_name: team[:teamname],
+        total_goals: 0,
+        total_games: 0,
+        total_home_goals: 0,
+        total_away_goals: 0,
+        total_home_games: 0,
+        total_away_games: 0
+      }
+    end
+    @game_teams.each do |game_team|
+      teams_and_goals_hash[game_team[:team_id]][:total_goals] += game_team[:goals]
+      teams_and_goals_hash[game_team[:team_id]][:total_games] += 1
+      if game_team[:hoa] == 'home'
+        teams_and_goals_hash[game_team[:team_id]][:total_home_goals] += game_team[:goals]
+        teams_and_goals_hash[game_team[:team_id]][:total_home_games] += 1
+      else
+        teams_and_goals_hash[game_team[:team_id]][:total_away_goals] += game_team[:goals]
+        teams_and_goals_hash[game_team[:team_id]][:total_away_games] += 1
+      end
+    end
+    teams_and_goals_hash
+  end
+
+  def worst_offense
+    result = teams_and_goals.min_by do |team, stats| 
+      stats[:total_goals].to_f / stats[:total_games]
+    end
+    result[1][:team_name]
+  end
+   
+  def best_offense
+    result = teams_and_goals.max_by do |team, stats|
+      stats[:total_goals].to_f / stats[:total_games]
+    end
+    result[1][:team_name]
+  end
+
+  def highest_scoring_home_team
+    high_scoring = teams_and_goals.max_by{|team, stats| stats[:total_home_goals].to_f / stats[:total_home_games]}
+    high_scoring[1][:team_name]
+  end
+
+  def lowest_scoring_home_team
+    low_scoring = teams_and_goals.min_by{|teams, stats| stats[:total_home_goals].to_f / stats[:total_home_games]}
+    low_scoring[1][:team_name]
+  end
+
+  def highest_scoring_visitor
+    high_scoring = teams_and_goals.max_by{|teams, stats| stats[:total_away_goals].to_f / stats[:total_away_games]}
+    high_scoring[1][:team_name]
+  end
+
+  def lowest_scoring_visitor
+    low_scoring = teams_and_goals.min_by{|teams, stats| stats[:total_away_goals].to_f / stats[:total_away_games]}
+    low_scoring[1][:team_name]
   end
 end
