@@ -1,0 +1,7 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2017030163,20172018,Postseason,4/15/18,52,30,2,4,Exploria Stadium,/api/v1/venues/null
+2017030164,20172018,Postseason,4/18/18,52,30,2,0,Exploria Stadium,/api/v1/venues/null
+2017030165,20172018,Postseason,4/20/18,30,52,0,3,Providence Park,/api/v1/venues/null
+2013020674,20132014,Regular Season,1/11/14,19,23,1,2,Saputo Stadium,/api/v1/venues/null
+2013020177,20132014,Regular Season,10/29/13,24,4,3,2,SeatGeek Stadium,/api/v1/venues/null
+2012020225,20122013,Regular Season,2/19/13,29,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
