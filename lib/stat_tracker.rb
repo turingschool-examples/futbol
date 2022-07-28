@@ -132,15 +132,15 @@ class StatTracker
   end
 
   def average_goals_by_season
-    new_hash = Hash.new()
+    seasons = Hash.new()
     @games_data.each do |row|
-      new_hash[row[:season]] = []
+      seasons[row[:season]] = []
     end
     @games_data.each do |row|
-      new_hash[row[:season]] << (row[:away_goals].to_i + row[:home_goals].to_i)
+      seasons[row[:season]] << (row[:away_goals].to_i + row[:home_goals].to_i)
     end
     average_goals_by_season = Hash.new()
-    new_hash.each do |season, goals|
+    seasons.each do |season, goals|
       average_goals_by_season[season] = (goals.sum.to_f / goals.length).round(2)  
     end
     average_goals_by_season
@@ -275,10 +275,10 @@ class StatTracker
         coach_records[coach][:total_games] += 1
       end
     end
-    new_hash = coach_records.map do |coach, record|
+    seasons = coach_records.map do |coach, record|
       [coach, (record[:wins].to_f/record[:total_games].to_f)]
     end.to_h
-    (new_hash.key(new_hash.values.max)).to_s
+    (seasons.key(seasons.values.max)).to_s
   end
     
   def worst_coach
@@ -296,10 +296,10 @@ class StatTracker
         coach_records[coach][:total_games] += 1
       end
     end
-    new_hash = coach_records.map do |coach, record|
+    seasons = coach_records.map do |coach, record|
       [coach, (record[:wins].to_f/record[:total_games].to_f)]
     end.to_h
-    (new_hash.key(new_hash.values.min)).to_s
+    (seasons.key(seasons.values.min)).to_s
   end
 
   def most_accurate_team
