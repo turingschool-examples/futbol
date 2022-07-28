@@ -368,8 +368,47 @@ class StatTracker
 
   def favorite_opponent(given_team_id)
     #hash that has for a key every other team in league
+    all_team_games = @all_data_hash[:games].select do |team|
+      team[:away_team_id] == given_team_id || team[:home_team_id] == given_team_id
+    end
+    team_opponent_hash = Hash.new{|h,k| h[k] = [0.0, 0.0]}
+    all_team_games.each do |game|
+      #home games
+      if game[:away_team_id] != given_team_id
+        if game[:away_goals] > game[:home_goals]
+          team_opponent_hash[game[:away_team_id]][1] += 1
+        elsif game[:away_goals] < game[:home_goals]
+          team_opponent_hash[game[:away_team_id]][1] += 1
+          team_opponent_hash[game[:away_team_id]][0] += 1
+          #ties are counted as 0.5's or 0's
+        # else
+        #   team_opponent_hash[game[:away_team_id]][1] += 1
+        #   team_opponent_hash[game[:away_team_id]][0] += 0.5
+        end
+        #away games
+      elsif game[:home_team_id] != given_team_id
+          if game[:home_goals] > game[:away_goals]
+            team_opponent_hash[game[:home_team_id]][1] += 1
+          elsif game[:home_goals] < game[:away_goals]
+            team_opponent_hash[game[:home_team_id]][1] += 1
+            team_opponent_hash[game[:home_team_id]][0] += 1
+          end
+      end
+    end
     #values are an array that has total games won and the total games played against
+    favorite_opponent_team_id = team_opponent_hash.max_by do |team, array|
+      array[0].to_f / array[1].to_f
+    end[0]
     #max_by [0]/[1]
     #convert team id to name
+    favorite_opponent_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      require 'pry'; binding.pry
+      if row[:team_id] == favorite_opponent_team_id
+        favorite_opponent_team_name = row[:teamname]
+      end
+    end
+    require 'pry'; binding.pry
+    favorite_opponent_team_name
   end
 end
