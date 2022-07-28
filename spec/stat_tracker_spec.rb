@@ -93,6 +93,9 @@ RSpec.describe StatTracker do
     it 'can return the favorite opponent for any team' do
       expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
       expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
+   
+    it 'can show winningest coach' do
+        expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
     end
 
     it 'can return a hash of the average goals by season' do
