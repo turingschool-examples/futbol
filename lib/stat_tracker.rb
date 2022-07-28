@@ -65,4 +65,20 @@ class StatTracker
 
     ((ties.count / all_games.count.to_f).round(2))
   end
+
+  def count_of_games_by_season
+    total_game_count = Hash.new {  }
+
+    games.each do |game|
+      season_values = game[:season]
+
+      if total_game_count[season_values].nil?
+        total_game_count[season_values] = 0
+      end
+
+      total_game_count[season_values] += 1
+    end
+
+    total_game_count
+  end
 end
