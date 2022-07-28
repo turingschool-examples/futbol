@@ -191,6 +191,7 @@ class StatTracker
     id_team_key = @teams[:team_id].zip(@teams[:teamname]).to_h
 
     id_team_key[fewest_tackles]
+
   end
 
 end
