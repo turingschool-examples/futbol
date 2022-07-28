@@ -1,6 +1,6 @@
 require "./lib/stat_tracker.rb"
 require "./lib/teams.rb"
-require "./lib/games"
+require "./lib/game"
 require "./lib/game_teams"
 
 describe StatTracker do
@@ -73,7 +73,7 @@ describe StatTracker do
     expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
-  xit "can calculate the games lowest total score" do
+  it "can calculate the games lowest total score" do
     expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
