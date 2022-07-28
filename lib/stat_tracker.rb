@@ -79,18 +79,23 @@ class StatTracker
     Hash[seasons.keys.zip(avg_arr)]
   end
 
-  def coach_win_percentages_by_season(season_desired)
-    gretzy = []
-    games_won = Hash.new(0)
-    games_played = Hash.new(0)
-    percent_won = {}
+  def list_game_ids_by_season(season_desired) #every game_id associated with a season
     season_dsrd = @games.select {|game| game[:season] == season_desired}
+    gretzy = []
     season_dsrd.each do |game|
       gretzy << game[:game_id]
     end
+    gretzy
 
-    gretzy.each do |num|
-      stanley = @game_teams.select { |thing| thing[:game_id] ==num }
+  end
+
+  def coach_win_percentages_by_season(season_desired) #{coaches => win percentage}
+    games_won = Hash.new(0)
+    games_played = Hash.new(0)
+    percent_won = {}
+
+      list_game_ids_by_season(season_desired).each do |num|
+      stanley = @game_teams.select { |thing| thing[:game_id] == num }
       stanley.each do |half|
         if half[:result] == "WIN"
           games_won[half[:head_coach]] += 1
@@ -101,7 +106,6 @@ class StatTracker
         end
       end
     end
-# require "pry"; binding.pry
     games_won.keys.each do |key|
       percent_won[key] = (games_won[key].to_f / games_played[key].to_f)
     end
@@ -113,8 +117,36 @@ class StatTracker
   end
 
   def worst_coach(season_desired)
-    # require "pry"; binding.pry
     wasd = coach_win_percentages_by_season(season_desired).min_by {|a, b| b }[0]
-    # require "pry"; binding.pry
   end
+
+  def most_accurate_team(season_desired)
+    # Name of the Team with the best ratio of shots to goals for the season	String
+
+    @team_shots_1 = Hash.new(0)
+    @team_goals_1 = Hash.new(0)
+    @team_shot_percentage_1 = Hash.new
+    list_game_ids_by_season(season_desired).each do |num|
+
+      wayne = @game_teams.select { |thing| thing[:game_id] == num }
+      wayne.each do |period|
+        @team_shots_1[period[:team_id]] += period[:shots].to_i
+        @team_goals_1[period[:team_id]] += period[:goals].to_i
+      end
+    end
+    # require "pry"; binding.pry
+    @team_shots_1.each do |thornton|
+      # require "pry"; binding.pry
+      @team_shot_percentage_1[thornton[0]] = @team_goals_1[thornton[0]].to_f / @team_shots_1[thornton[0]]
+      # require "pry"; binding.pry
+    end
+    # require "pry"; binding.pry
+    wasd = @team_shot_percentage_1.max_by { |a, b| b }
+    (@teams.find { |this_team| this_team[:team_id] == wasd[0]})[:teamname]
+
+  end #method
+
+
+
+
 end
