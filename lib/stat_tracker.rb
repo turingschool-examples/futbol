@@ -5,13 +5,12 @@ require './lib/game'
 class StatTracker
   attr_reader :games,
               :teams,
-              :game_teams
-              :percentage_visitor_wins
+              :seasons
 
   def initialize(games, teams, game_teams)
-    @teams = Team.generate_teams(teams)
-    @games = Game.generate_games(games, game_teams, @teams)
-    @game_teams = game_teams
+    @teams = Team.generate_teams(teams) #array of team objects
+    @games = Game.generate_games(games, game_teams, @teams)#an array of all game stats with hashes for home teams and away teams
+    @seasons = Season.generate_seasons(@games) #a hash of season_id and keys and season objects as values
   end
 
   def self.from_csv(locations)
@@ -150,7 +149,7 @@ class StatTracker
 
   def tackles_by_team(season) #helper method, returns hash with keys team_id and values number of tackles
     season_game_ids = []
-    @games.each do |game| 
+    @games.each do |game|
       season_game_ids << game[:game_id] if season.to_i == game[:season]
     end
     team_tackle_data = Hash.new(0)
