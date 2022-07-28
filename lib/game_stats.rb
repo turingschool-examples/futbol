@@ -1,0 +1,3 @@
+module GameStats
+
+end
