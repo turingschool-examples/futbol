@@ -311,92 +311,58 @@ class StatTracker
     lowest_home_team_name
   end
 
-  def winningest_coach(season)
-    games_by_season = []
-
-    @all_data_hash[:game_teams].each do |row|
-      games_by_season << row if season[0..3] == row[:game_id][0..3]
+  def least_accurate_team(season)
+    season_stats = @all_data_hash[:game_teams].select do |game|
+      game[:game_id][0..3] == season[0..3]
     end
-    games_by_season
-
-    coaches_by_game_count = Hash.new(0)
-
-    games_by_season.each do |game|
-      coaches_by_game_count[game[:head_coach]] += 1
+    season_stats_hash = Hash.new{|h,k| h[k] = [0, 0]}
+    season_stats.each do |game|
+      season_stats_hash[game[:team_id]][0] += game[:goals].to_i
+      season_stats_hash[game[:team_id]][1] += game[:shots].to_i
     end
-    coaches_by_game_count
-
-    coaches_by_win_count = Hash.new{|h,k| h[k]=0}
-
-    games_by_season.each do |game|
-      if game[:result] == "WIN"
-        coaches_by_win_count[game[:head_coach]] += 1
-      else
-        coaches_by_win_count[game[:head_coach]] += 0
+    least_accurate_team_id = season_stats_hash.min_by do |team, array|
+      array[0].to_f / array[1].to_f
+    end[0]
+    least_accurate_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == least_accurate_team_id
+        least_accurate_team_name = row[:teamname]
       end
     end
-    coaches_by_win_count
-
-    wins_total_array = coaches_by_win_count.values.zip(coaches_by_game_count.values)
-
-    win_percentages = []
-    wins_total_array.each do |wins_total|
-      win_percentages << ((wins_total[0].to_f / wins_total[1]) * 100).round(2)
-    end
-    win_percentages
-
-    coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
-    winningest_coach = coaches_by_win_percentage.max_by{|k, v| v}[0]
+    least_accurate_team_name
   end
 
-  def worst_coach(season)
-    games_by_season = []
-
-    @all_data_hash[:game_teams].each do |row|
-      games_by_season << row if season[0..3] == row[:game_id][0..3]
+  def most_accurate_team(season)
+    season_stats = @all_data_hash[:game_teams].select do |game|
+      game[:game_id][0..3] == season[0..3]
     end
-    games_by_season
-
-    coaches_by_game_count = Hash.new(0)
-
-    games_by_season.each do |game|
-      coaches_by_game_count[game[:head_coach]] += 1
+    season_stats_hash = Hash.new{|h,k| h[k] = [0, 0]}
+    season_stats.each do |game|
+      season_stats_hash[game[:team_id]][0] += game[:goals].to_i
+      season_stats_hash[game[:team_id]][1] += game[:shots].to_i
     end
-    coaches_by_game_count
-
-    coaches_by_win_count = Hash.new{|h,k| h[k]=0}
-
-    games_by_season.each do |game|
-      if game[:result] == "WIN"
-        coaches_by_win_count[game[:head_coach]] += 1
-      else
-        coaches_by_win_count[game[:head_coach]] += 0
+    most_accurate_team_id = season_stats_hash.max_by do |team, array|
+      array[0].to_f / array[1].to_f
+    end[0]
+    most_accurate_team_name = nil
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == most_accurate_team_id
+        most_accurate_team_name = row[:teamname]
       end
     end
-    coaches_by_win_count
-
-    wins_total_array = coaches_by_win_count.values.zip(coaches_by_game_count.values)
-
-    win_percentages = []
-    wins_total_array.each do |wins_total|
-      win_percentages << ((wins_total[0].to_f / wins_total[1].to_f) * 100).round(2)
-    end
-    win_percentages
-
-    coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
-    worst_coach = coaches_by_win_percentage.min_by{|k, v| v}[0]
+    most_accurate_team_name
   end
 
-  def most_goals_scored(team_id)
-    games_by_id = []
-    @all_data_hash[:game_teams].each do |row|
-      games_by_id << row if team_id == row[:team_id]
-    end
-
-    goals = []
-    games_by_id.each do |game|
-      goals << game[:goals].to_i
-    end
-    goals.max
+  def team_info(given_team_id)
+    all_team_info = @all_data_hash[:teams].select do |team|
+      team[:team_id] == given_team_id
+    end[0]
+    team_info_hash = {
+      "team_id" => all_team_info[:team_id],
+      "franchise_id" => all_team_info[:franchiseid],
+      "team_name" => all_team_info[:teamname],
+      "abbreviation" => all_team_info[:abbreviation],
+      "link" => all_team_info[:link]
+    }
   end
 end
