@@ -190,4 +190,22 @@ describe StatTracker do
     expect(@stat_tracker.most_goals_scored("3")).to eq(2)
     expect(@stat_tracker.most_goals_scored("5")).to eq(1)
   end
+
+  it '#fewest_goals_scored' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/amm_edited_games_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker.fewest_goals_scored("6")).to eq(1)
+    expect(@stat_tracker.fewest_goals_scored("5")).to eq(0)
+    expect(@stat_tracker.fewest_goals_scored("3")).to eq(1)
+  end
 end
