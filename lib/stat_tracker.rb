@@ -311,23 +311,216 @@ class StatTracker
     lowest_home_team_name
   end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   def winningest_coach(season)
     games_by_season = []
-
     @all_data_hash[:game_teams].each do |row|
       games_by_season << row if season[0..3] == row[:game_id][0..3]
     end
     games_by_season
 
     coaches_by_game_count = Hash.new(0)
-
     games_by_season.each do |game|
       coaches_by_game_count[game[:head_coach]] += 1
     end
     coaches_by_game_count
 
     coaches_by_win_count = Hash.new{|h,k| h[k]=0}
-
     games_by_season.each do |game|
       if game[:result] == "WIN"
         coaches_by_win_count[game[:head_coach]] += 1
@@ -351,21 +544,18 @@ class StatTracker
 
   def worst_coach(season)
     games_by_season = []
-
     @all_data_hash[:game_teams].each do |row|
       games_by_season << row if season[0..3] == row[:game_id][0..3]
     end
     games_by_season
 
     coaches_by_game_count = Hash.new(0)
-
     games_by_season.each do |game|
       coaches_by_game_count[game[:head_coach]] += 1
     end
     coaches_by_game_count
 
     coaches_by_win_count = Hash.new{|h,k| h[k]=0}
-
     games_by_season.each do |game|
       if game[:result] == "WIN"
         coaches_by_win_count[game[:head_coach]] += 1
