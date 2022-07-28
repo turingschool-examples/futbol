@@ -34,27 +34,27 @@ RSpec.describe StatTracker do
     end
 
     it 'can find best offense' do
-      expect(@stat_tracker.best_offense).to eq "Columbus Crew SC"
+      expect(@stat_tracker.best_offense).to eq "FC Dallas"
     end
 
     it 'can find worst offense' do
-      expect(@stat_tracker.worst_offense).to eq "Portland Timbers"
+      expect(@stat_tracker.worst_offense).to eq "Sky Blue FC"
     end
 
     it 'can find highest scoring visitor' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq "Sky Blue FC"
+      expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
     end
 
     it 'can find highest scoring home team' do    
-      expect(@stat_tracker.highest_scoring_home_team).to eq "Columbus Crew SC"
+      expect(@stat_tracker.highest_scoring_home_team).to eq "San Jose Earthquakes"
     end
 
     it 'can find lowest scoring visitor' do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq "Portland Timbers"
+      expect(@stat_tracker.lowest_scoring_visitor).to eq "Chicago Fire"
     end
 
     it 'can find lowest scoring home team' do 
-      expect(@stat_tracker.lowest_scoring_home_team).to eq "Portland Timbers"
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Washington Spirit FC"
     end
   end
 end
