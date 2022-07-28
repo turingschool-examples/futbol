@@ -140,4 +140,15 @@ class StatTracker
     @teams.find { |team| team[:team_id] == lowest_visitor }[:teamname]
   end
 
+  def lowest_scoring_home_team
+    teams = (@games.map { |game| game[:home_team_id] }).uniq.sort_by { |num| num.to_i }
+    avgs = []
+    teams.each do |team|
+      home_goal = (@games.find_all { |game| team == game[:home_team_id]}.map { |game| game[:home_goals].to_i}).sum
+      avgs << ((home_goal).to_f / (@games.find_all { |game| game[:home_team_id] == team}).count).round(3)
+    end
+    lowest_home_team = (Hash[teams.zip(avgs)].min_by { |_k, v| v })[0]
+    @teams.find { |team| team[:team_id] == lowest_home_team }[:teamname]
+  end
+
 end
