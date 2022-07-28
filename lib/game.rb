@@ -3,9 +3,7 @@ class Game
   attr_reader :game_id,
               :season,
               :type,
-              :teams_game_stats,
-              :home_team,
-              :away_team
+              :teams_game_stats
 
   def initialize(game_csv_row, game_teams_csv_rows, home_name, away_name)
     @game_id = game_csv_row[:game_id]
@@ -45,8 +43,9 @@ class Game
       game_teams_csv_rows = game_teams_csv.find_all do |game_team|
         game_team[:game_id] == game[:game_id]
       end
-      home_team = teams.find{ |team| team.team_id == game[:home_team_id] }
-      away_team = teams.find{ |team| team.team_id == game[:away_team_id] }
+      home_team = teams.values.find{ |team| team.team_id == game[:home_team_id] }
+      away_team = teams.values.find{ |team| team.team_id == game[:away_team_id] }
+      require 'pry'; binding.pry
       this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name) 
       home_team.games_participated_in << this_game
       away_team.games_participated_in << this_game

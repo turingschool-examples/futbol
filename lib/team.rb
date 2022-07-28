@@ -20,11 +20,11 @@ class Team
   end
 
   def self.generate_teams(team_csv)
-    teams_array = []
+    teams_hash = {}
     team_csv.each do |team|
-      teams_array << Team.new(team)
+      teams_hash[team[:team_id]] = Team.new(team)
     end
-    teams_array
+    teams_hash
   end
 
 end
