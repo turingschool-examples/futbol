@@ -112,6 +112,48 @@ class StatTracker
     ((total_goals_per_game.sum.to_f) / (@games.size)).round(2)
   end
 
+  def average_goals_by_season
+    twelve_season = @games.find_all do |game|
+      game.season == "20122013"
+    end
+    sixteen_season = @games.find_all do |game|
+      game.season == "20162017"
+    end
+    fourteen_season = @games.find_all do |game|
+      game.season == "20142015"
+    end
+    fifteen_season = @games.find_all do |game|
+      game.season == "20152016"
+    end
+    thirteen_season = @games.find_all do |game|
+      game.season == "20132014"
+    end
+    seventeen_season = @games.find_all do |game|
+      game.season == "20172018"
+    end
+   hash = Hash.new(0)
+    @games.each do |game|
+      hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
+    end
+
+    hash.map do |season, total|
+        if season == "20122013"
+          hash[season] = total/(twelve_season.count).to_f.round(2)
+        elsif  season == "20162017"
+            hash[season] = total/(sixteen_season.count).to_f.round(2)
+        elsif  season == "20142015"
+            hash[season] = total/(fourteen_season.count).to_f.round(2)
+        elsif  season == "20152016"
+            hash[season] = total/(fifteen_season.count).to_f.round(2)
+        elsif  season == "20132014"
+            hash[season] = total/(thirteen_season.count).to_f.round(2)
+        elsif  season == "20172018"
+            hash[season] = total/(seventeen_season.count).to_f.round(2)
+        end
+      end
+      hash
+  end
+
   def count_of_teams
     @teams.count { |team| team.team_id }
   end
@@ -143,7 +185,7 @@ class StatTracker
   def highest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-    
+
     visitor_scores_average =
     away_team_scores.map do |id, scores|
       average = ((scores.sum) / (scores.length)).round(2)
@@ -167,7 +209,7 @@ class StatTracker
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-    
+
     visitor_scores_average =
     away_team_scores.map do |id, scores|
       average = ((scores.sum) / (scores.length)).round(2)
