@@ -96,11 +96,12 @@ class StatTracker
           games_won[half[:head_coach]] += 1
           games_played[half[:head_coach]] += 1
         else
+          games_won[half[:head_coach]] += 0
           games_played[half[:head_coach]] += 1
         end
       end
     end
-
+# require "pry"; binding.pry
     games_won.keys.each do |key|
       percent_won[key] = (games_won[key].to_f / games_played[key].to_f)
     end
@@ -111,4 +112,9 @@ class StatTracker
     coach_win_percentages_by_season(season_desired).max_by {|a, b| b }[0]
   end
 
+  def worst_coach(season_desired)
+    # require "pry"; binding.pry
+    wasd = coach_win_percentages_by_season(season_desired).min_by {|a, b| b }[0]
+    # require "pry"; binding.pry
+  end
 end
