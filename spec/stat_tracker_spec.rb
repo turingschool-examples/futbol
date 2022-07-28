@@ -59,6 +59,8 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
     end
 
-
+    it 'can return the most accurate team per season' do
+      expect(@stat_tracker.most_accurate_team).to eq('FC Dallas')
+    end
   end
 end
