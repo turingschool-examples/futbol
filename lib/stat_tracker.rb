@@ -22,6 +22,7 @@ class StatTracker
     team_search_info = @teams.find do |team|
       team[0] == search_team_id
     end
+
     {
       "team_id" => team_search_info[0],
       "franchise_id" => team_search_info[1],
@@ -30,6 +31,22 @@ class StatTracker
       "link" => team_search_info[5]
     }
   end
+
+  def best_season(search_team_id)
+    game_info = @game_teams.find do |game|
+      game[1] = search_team_id
+    end
+    # require "pry"; binding.pry
+    all_lost_info = []
+
+    @game_teams.each do |per_line|
+    if per_line[3] == "LOSS"
+      all_lost_info << per_line[0]
+      end
+    end
+    all_lost_info
+  end
+
 
 
 end

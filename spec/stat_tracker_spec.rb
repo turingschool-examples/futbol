@@ -38,4 +38,10 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.team_info("1")).to eq(expected)
   end
 
+  it "seasons with highest win percentange for team" do
+
+
+    expect(@stat_tracker.best_season("3")).to eq("")
+  end
+
 end
