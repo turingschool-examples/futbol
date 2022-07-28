@@ -94,4 +94,12 @@ describe StatTracker do
   it '#lowest_scoring_home_team' do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
+
+  it '#least_accurate_team' do
+    expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+  end
+
+  it '#most_accurate_team' do
+    expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+  end
 end
