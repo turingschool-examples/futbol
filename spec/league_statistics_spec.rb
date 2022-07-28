@@ -25,4 +25,8 @@ RSpec.describe(LeagueStatistics) do
     expect(@league_statistics.total_team_goal_averages).to be_a(Hash)
     expect(@league_statistics.total_team_goal_averages["19"]).to eq(3)
   end
+
+  it 'can return the name of the team with best offense' do
+    expect(@league_statistics.best_offense).to eq("Sporting Kansas City")
+  end
 end

@@ -28,4 +28,15 @@ class LeagueStatistics
     end
     average_teams_goals
   end
+
+  def best_offense
+    best_team = total_team_goal_averages.max_by {|team, average| average}
+    best_team_name = ""
+    @data_set[1].each do |row|
+      if row[:team_id] == best_team[0]
+        best_team_name = row[:teamname]
+      end
+    end
+    best_team_name
+  end
 end
