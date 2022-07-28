@@ -10,11 +10,9 @@ class TeamStatistics
     def best_season(team_id)
         # returns season with the highest win percentage for a team as string
         win_percentage(team_id, :highest_win)
-        require 'pry'; binding.pry
     end
     def worst_sesson(team_id)
         win_percentage(team_id, :lowest_win)
-        require 'pry'; binding.pry
     end
     def season_by_id(team_id)
         games = @statistics.games
