@@ -119,7 +119,7 @@ describe StatTracker do
     end
 
     xit 'can return Name of the team with the lowest average score per game across all seasons when they are at home' do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("New York City FC")
     end
   end
 
