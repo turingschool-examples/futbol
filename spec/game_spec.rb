@@ -1,12 +1,26 @@
-require 'csv'
-require './lib/team'
-require './lib/game'
-require './lib/season'
-require './lib/game_stats'
-require './lib/league_stats'
 
-RSpec.describe Game do 
+require './lib/stat_tracker'
 
+RSpec.describe Game do
+  before :each do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
 
-  
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    @game = stat_tracker.games[0]
+  end
+
+  it 'exists' do
+
+   expect(@game).to be_an(Game)
+   expect(@game.game_id).to eq(2012030221)
+ end
 end

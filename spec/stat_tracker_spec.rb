@@ -30,13 +30,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.total_scores_per_game).to eq(34)
     end
 
-    it 'has a lowest total score' do
-      expect(@stat_tracker.lowest_total_score).to eq(1)
-    end
-
-    it 'show highest_total_score' do
-     expect(@stat_tracker.highest_total_score).to eq(5)
-    end
+    # it 'has a lowest total score' do
+    #   expect(@stat_tracker.lowest_total_score).to eq(1)
+    # end
+    #
+    # it 'show highest_total_score' do
+    #  expect(@stat_tracker.highest_total_score).to eq(5)
+    # end
 
     it 'can return the number average_goals_per_game' do
       expect(@stat_tracker.average_goals_per_game).to eq(3.78)
@@ -101,7 +101,7 @@ RSpec.describe StatTracker do
     it 'can return the team with the fewest tackles in a given season' do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
     end
-    
+
     it 'can return the team with the most tackles in a given season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
     end
