@@ -67,7 +67,35 @@ RSpec.describe do
     }
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
+  #league stats tests v
+  it 'can return the total number of teams in the data' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
 
+  it 'can return team name with the highest average num of goals scored per games across all seasons' do
+    expect(@stat_tracker.best_offense).to eq("Reign FC")
+  end
+
+  it 'can return team name with lowest avg num of goals scored per game across all seasons' do
+    expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+  end
+
+  it 'can return team name with highest avg score per game across all season when they are AWAY' do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  it 'can return team name with the highest avg score per game across alls eason when they are HOME' do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+  end
+
+  it 'can return team name with lowest avg score per game across all seasons when they are a VISITOR' do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+  end
+
+  it 'can return team name with lowest avg score per game across all seasons when they are at HOME' do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
+  end
+end
   it 'can find winningest coach' do
     expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
     expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
