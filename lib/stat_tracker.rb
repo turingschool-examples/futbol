@@ -218,7 +218,6 @@ class StatTracker
     #hash with "team_id" key and [0,0] value. first element is total shots. second is total goals
     goal_stats = Hash.new { |team_id, stats| team_id[stats] = [0.0, 0.0] }
     contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-
     contents.each do |row|
       #iterates through every line checking to see if the game and season have the same 4 first chars
       if row[:game_id][0..3] == games_id_year
@@ -227,7 +226,6 @@ class StatTracker
         goal_stats[row[:team_id]][1] += row[:goals].to_i
       end
     end
-
     highest_goal_ratio = 0.0
     highest_goal_ratio_team = ""
     #iterates through each coach and finding the lowest win percentage
@@ -240,8 +238,37 @@ class StatTracker
         highest_goal_ratio_team = team_id
       end
     end
-
     team_names[highest_goal_ratio_team]
+  end
+
+  def least_accurate_team(season_id)
+    #first 4 char of season_id
+    games_id_year = season_id[0..3]
+
+    #hash with "team_id" key and [0,0] value. first element is total shots. second is total goals
+    goal_stats = Hash.new { |team_id, stats| team_id[stats] = [0.0, 0.0] }
+    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
+    contents.each do |row|
+      #iterates through every line checking to see if the game and season have the same 4 first chars
+      if row[:game_id][0..3] == games_id_year
+        #adding in the shots and goals into the hash into the array
+        goal_stats[row[:team_id]][0] += row[:shots].to_i
+        goal_stats[row[:team_id]][1] += row[:goals].to_i
+      end
+    end
+    lowest_goal_ratio = 1.0
+    lowest_goal_ratio_team = ""
+    #iterates through each coach and finding the lowest win percentage
+    goal_stats.each do |team_id, stats|
+      #checking if the teams ratio is better than the last highest
+      if lowest_goal_ratio > (stats[1] / stats[0])
+        lowest_goal_ratio = stats[1] / stats[0]
+
+        #setting new highest team
+        lowest_goal_ratio_team = team_id
+      end
+    end
+    team_names[lowest_goal_ratio_team]
   end
 
 end
