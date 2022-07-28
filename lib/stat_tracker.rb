@@ -148,7 +148,6 @@ class StatTracker
     @game_teams[:team_id].each do |id|
       scores_by_team_id[id] = []
     end
-
     home_scores.each do |game|
       scores_by_team_id[game[0]] << game[2].to_f
     end
@@ -169,9 +168,7 @@ class StatTracker
   end
 
   def highest_scoring_home_team #issue # 14
-
     max_average = average_home_scores_by_team_id.values.max
-
     team_by_id[average_home_scores_by_team_id.key(max_average)]
   end
 
