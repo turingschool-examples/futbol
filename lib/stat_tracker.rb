@@ -597,4 +597,6 @@ class StatTracker
       game[:goals].to_i
     end.min
   end
+
+
 end
