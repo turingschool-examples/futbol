@@ -7,7 +7,7 @@ class StatTracker
     @games = read_data(games)
     @teams = read_data(teams)
     @game_teams = read_data(game_teams)
-    #require "pry"; binding.pry
+    # require "pry"; binding.pry
   end
 
   def self.from_csv(locations)
@@ -68,7 +68,7 @@ class StatTracker
   def average_goals_per_game
     (@games.sum { |game| game[:away_goals].to_f + game[:home_goals].to_f } / @games.count).round(2)
   end
-  
+
   def average_goals_by_season
     seasons = count_of_games_by_season
     avg_arr = []
@@ -78,4 +78,37 @@ class StatTracker
     end
     Hash[seasons.keys.zip(avg_arr)]
   end
+
+  def coach_win_percentages_by_season(season_desired)
+    gretzy = []
+    games_won = Hash.new(0)
+    games_played = Hash.new(0)
+    percent_won = {}
+    season_dsrd = @games.select {|game| game[:season] == season_desired}
+    season_dsrd.each do |game|
+      gretzy << game[:game_id]
+    end
+
+    gretzy.each do |num|
+      stanley = @game_teams.select { |thing| thing[:game_id] ==num }
+      stanley.each do |half|
+        if half[:result] == "WIN"
+          games_won[half[:head_coach]] += 1
+          games_played[half[:head_coach]] += 1
+        else
+          games_played[half[:head_coach]] += 1
+        end
+      end
+    end
+
+    games_won.keys.each do |key|
+      percent_won[key] = (games_won[key].to_f / games_played[key].to_f)
+    end
+    percent_won
+  end
+
+  def winningest_coach(season_desired)
+    coach_win_percentages_by_season(season_desired).max_by {|a, b| b }[0]
+  end
+
 end
