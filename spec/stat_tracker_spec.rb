@@ -28,7 +28,7 @@ RSpec.describe(StatTracker) do
     expect(@stat_tracker.lowest_total_score).to(eq(0))
   end
 
-  it("#3 Percentage of games that a home team has won (rounded to the nearest 100th)") do
+  it("#3 Percentage of games that a home team has won ") do
     expect(@stat_tracker.percentage_home_wins).to(eq(0.44))
   end
 
@@ -50,5 +50,13 @@ RSpec.describe(StatTracker) do
       "20172018" => 1355,
     }
     expect(@stat_tracker.count_of_games_by_season).to(eq(expected))
+  end
+
+  it("total goals") do
+    expect(@stat_tracker.total_goals).to(eq(31413))
+  end
+
+  it("#7 average number of goals scored in a game across all seasons including both home and away goals") do
+    expect(@stat_tracker.average_goals_per_game).to(eq(4.22))
   end
 end
