@@ -28,7 +28,6 @@ class StatTracker
     @teams.each do |team|
       @id_and_team[team[:team_id]] = team[:teamname]
     end
-    @id_and_team
   end
 
   def number_of_games_played
@@ -42,8 +41,7 @@ class StatTracker
         if game[:home_team_id] == id
           games_played[:name] = team_name
           games_played[:home_games] += 1
-        end
-        if game[:away_team_id] == id
+        elsif game[:away_team_id] == id
           games_played[:name] = team_name
           games_played[:away_games] += 1
         end
@@ -68,20 +66,17 @@ class StatTracker
 
     @goals_scored.each do |id, team_name|
       goals = Hash.new{0}
-
       @games.each do |game|
         if game[:home_team_id] == id
           goals[:name] = team_name
           goals[:home_goals] += game[:home_goals].to_i
-        end
-        if game[:away_team_id] == id
+        elsif game[:away_team_id] == id
           goals[:name] = team_name
           goals[:away_goals] += game[:away_goals].to_i
         end
       end
       @goals_scored[id] = goals
     end
-    @goals_scored
   end
 
   def total_goals
@@ -98,7 +93,6 @@ class StatTracker
     id_team_hash; @id_and_team
     total_goals; @total_goals_by_team
     total_games; @total_games_by_team
-
      @total_goals_by_team.each do |goal_id, goals|
         @the_best = {}
         @total_games_by_team.each do |game_id, games|
@@ -126,9 +120,7 @@ class StatTracker
         @total_games_by_team.each do |game_id, games|
           @the_worst[game_id] = (goals.to_f/games).round(4)
         end
-      @the_worst
     end
-
     worst = @the_worst.sort_by do |id, ratio|
       ratio
     end
