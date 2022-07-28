@@ -505,4 +505,87 @@ class StatTracker
     end
     rival_team_name
   end
+
+  def winningest_coach(season)
+    games_by_season = []
+    @all_data_hash[:game_teams].each do |row|
+      games_by_season << row if season[0..3] == row[:game_id][0..3]
+    end
+    games_by_season
+
+    coaches_by_game_count = Hash.new(0)
+    games_by_season.each do |game|
+      coaches_by_game_count[game[:head_coach]] += 1
+    end
+    coaches_by_game_count
+
+    coaches_by_win_count = Hash.new{|h,k| h[k]=0}
+    games_by_season.each do |game|
+      if game[:result] == "WIN"
+        coaches_by_win_count[game[:head_coach]] += 1
+      else
+        coaches_by_win_count[game[:head_coach]] += 0
+      end
+    end
+    coaches_by_win_count
+
+    wins_total_array = coaches_by_win_count.values.zip(coaches_by_game_count.values)
+
+    win_percentages = []
+    wins_total_array.each do |wins_total|
+      win_percentages << ((wins_total[0].to_f / wins_total[1]) * 100).round(2)
+    end
+    win_percentages
+
+    coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
+    winningest_coach = coaches_by_win_percentage.max_by{|k, v| v}[0]
+  end
+
+  def worst_coach(season)
+    games_by_season = []
+    @all_data_hash[:game_teams].each do |row|
+      games_by_season << row if season[0..3] == row[:game_id][0..3]
+    end
+    games_by_season
+
+    coaches_by_game_count = Hash.new(0)
+    games_by_season.each do |game|
+      coaches_by_game_count[game[:head_coach]] += 1
+    end
+    coaches_by_game_count
+
+    coaches_by_win_count = Hash.new{|h,k| h[k]=0}
+    games_by_season.each do |game|
+      if game[:result] == "WIN"
+        coaches_by_win_count[game[:head_coach]] += 1
+      else
+        coaches_by_win_count[game[:head_coach]] += 0
+      end
+    end
+    coaches_by_win_count
+
+    wins_total_array = coaches_by_win_count.values.zip(coaches_by_game_count.values)
+
+    win_percentages = []
+    wins_total_array.each do |wins_total|
+      win_percentages << ((wins_total[0].to_f / wins_total[1].to_f) * 100).round(2)
+    end
+    win_percentages
+
+    coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
+    worst_coach = coaches_by_win_percentage.min_by{|k, v| v}[0]
+  end 
+
+  def most_goals_scored(team_id)
+    games_by_id = []
+    @all_data_hash[:game_teams].each do |row|
+      games_by_id << row if team_id == row[:team_id]
+    end
+
+    goals = []
+    games_by_id.each do |game|
+      goals << game[:goals].to_i
+    end
+    goals.max
+  end
 end
