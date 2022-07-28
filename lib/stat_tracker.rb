@@ -365,4 +365,11 @@ class StatTracker
       link: all_team_info[:link]
     }
   end
+
+  def favorite_opponent(given_team_id)
+    #hash that has for a key every other team in league
+    #values are an array that has total games won and the total games played against
+    #max_by [0]/[1]
+    #convert team id to name
+  end
 end

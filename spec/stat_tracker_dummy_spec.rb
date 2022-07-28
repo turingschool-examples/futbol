@@ -113,4 +113,14 @@ describe StatTracker do
     }
     expect(@stat_tracker.team_info("27")).to eq(expected)
   end
+
+  it '#favorite_opponent' do
+    expect(@stat_tracker.favorite_opponent("5")).to eq("Sky Blue FC")
+    expect(@stat_tracker.favorite_opponent("28")).to eq("Minnesota United FC")
+  end
+
+  it '#rival' do
+    expect(@stat_tracker.rival("5")).to eq("Philadelphia Union")
+    expect(@stat_tracker.rival("18")).to eq("Los Angeles FC")
+  end
 end
