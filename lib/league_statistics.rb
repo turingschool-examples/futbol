@@ -21,8 +21,11 @@ class LeagueStatistics
       if teams_goals_hash[row[:team_id]] == nil
         teams_goals_hash[row[:team_id]] = []
       end
-      teams_goals_hash[row[:team_id]] << row[:goals]
+      teams_goals_hash[row[:team_id]] << row[:goals].to_f
     end
-
+    average_teams_goals = teams_goals_hash.each do |team, goals|
+      teams_goals_hash[team] = (goals.sum / goals.count)
+    end
+    average_teams_goals
   end
 end

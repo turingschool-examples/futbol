@@ -21,8 +21,8 @@ RSpec.describe(LeagueStatistics) do
   it 'has a count of teams' do
     expect(@league_statistics.count_of_teams).to eq(11)
   end
-  it 'can return a hash of rounded average goals by team id' do
+  it 'can return a hash of average total goals by team id' do
     expect(@league_statistics.total_team_goal_averages).to be_a(Hash)
-    expect(@league_statistics.total_team_goal_averages[19]).to eq(3)
+    expect(@league_statistics.total_team_goal_averages["19"]).to eq(3)
   end
 end
