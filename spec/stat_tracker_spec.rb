@@ -160,8 +160,8 @@ describe StatTracker do
       expect(@stat_tracker.average_win_percentage).to eq#(float)
     end
 
-    xit 'can return hgihest number of goals a particular team has scored in a  single game' do
-      expect(@stat_tracker.most_goals_scored).to eq#(integer)
+    it 'can return hgihest number of goals a particular team has scored in a  single game' do
+      expect(@stat_tracker.most_goals_scored(1)).to eq(1)
     end
 
     xit 'can return lowest number of goals a particular team has scored in a single game' do

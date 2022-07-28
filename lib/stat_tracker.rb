@@ -264,10 +264,16 @@ class StatTracker
 
   end
 
-  def most_goals_scored #issue # 27
+  def most_goals_scored(team_id) #issue # 27
 
+    array_of_goals_for_specified_team = []
 
+    @games.each do |row|
+      array_of_goals_for_specified_team << row[:away_goals] if team_id == row[:away_team_id]
+      array_of_goals_for_specified_team << row[:home_goals] if team_id == row[:home_team_id]
+    end
 
+    array_of_goals_for_specified_team.max()
   end
 
   def fewest_goals_scored #issue # 28
