@@ -129,4 +129,43 @@ class StatTracker
     Hash[season_info.keys.zip(ordered_win_rate)]
   end
 
+  def most_goals_scored(team_id)
+    @game_teams.find_all { |game| game[:team_id] == team_id }.max_by { |game| game[:goals] }[:goals].to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    @game_teams.find_all { |game| game[:team_id] == team_id }.min_by { |game| game[:goals] }[:goals].to_i
+  end
+
+  def favorite_opponent(team_id) 
+    home_games = @games.find_all { |game| game[:home_team_id] == team_id}
+    away_games = @games.find_all { |game| game[:away_team_id] == team_id}
+    opponents = (home_games.map { |game| game[:away_team_id]} + away_games.map { |game| game[:home_team_id]}).uniq.sort_by { |num| num.to_i}
+    ordered_win_rate = []
+    opponents.each do |opponent, win_counter = 0|
+      win_counter += home_games.count { |game| game[:away_team_id] == opponent && game[:home_goals] > game[:away_goals]}
+      win_counter += away_games.count { |game| game[:home_team_id] == opponent && game[:home_goals] < game[:away_goals]}
+      ordered_win_rate << (win_counter.to_f / versus_games_counter(team_id, opponent))
+    end
+    @teams.find { |team| team[:team_id] == Hash[opponents.zip(ordered_win_rate)].max_by { |_k, v| v }[0] }[:team_name]
+  end
+
+  def rival(team_id)
+    home_games = @games.find_all { |game| game[:home_team_id] == team_id}
+    away_games = @games.find_all { |game| game[:away_team_id] == team_id}
+    opponents = (home_games.map { |game| game[:away_team_id]} + away_games.map { |game| game[:home_team_id]}).uniq.sort_by { |num| num.to_i}
+    ordered_win_rate = []
+    opponents.each do |opponent, win_counter = 0|
+      win_counter += home_games.count { |game| game[:away_team_id] == opponent && game[:home_goals] > game[:away_goals]}
+      win_counter += away_games.count { |game| game[:home_team_id] == opponent && game[:home_goals] < game[:away_goals]}
+      ordered_win_rate << (win_counter.to_f / versus_games_counter(team_id, opponent))
+    end
+    @teams.find { |team| team[:team_id] == Hash[opponents.zip(ordered_win_rate)].min_by { |_k, v| v }[0] }[:team_name]
+  end
+
+  def versus_games_counter(team_id, opponent)
+    counter = @games.count { |game| (game[:away_team_id] == opponent && game[:home_team_id] == team_id) }
+    counter += @games.count { |game| (game[:away_team_id] == team_id && game[:home_team_id] == opponent) }
+    counter
+  end
 end
