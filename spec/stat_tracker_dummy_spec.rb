@@ -115,7 +115,9 @@ describe StatTracker do
   end
 
   it '#favorite_opponent' do
+    game_path = './data/games_dummy.csv'
     team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
 
     locations = {
       games: game_path,
@@ -128,7 +130,18 @@ describe StatTracker do
     expect(@stat_tracker.favorite_opponent("28")).to eq("Minnesota United FC")
   end
 
-  xit '#rival' do
+  it '#rival' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+
     expect(@stat_tracker.rival("5")).to eq("Philadelphia Union")
     expect(@stat_tracker.rival("18")).to eq("Los Angeles FC")
   end
