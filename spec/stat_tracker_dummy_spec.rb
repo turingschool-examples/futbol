@@ -96,10 +96,15 @@ describe StatTracker do
   end
 
   it '#winningest_coach' do
-    expect(@stat_tracker.winningest_coach(20122013)).to eq("Claude Julien")
+    expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
   end
 
   it '#worst_coach' do
-    expect(@stat_tracker.worst_coach(20122013)).to eq("John Tortorella")
+    expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+  end
+
+  it '#most_goals_scored' do
+    expect(@stat_tracker.most_goals_scored("3")).to eq(2)
+    expect(@stat_tracker.most_goals_scored("5")).to eq(1)
   end
 end

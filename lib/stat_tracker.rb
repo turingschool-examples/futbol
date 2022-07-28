@@ -386,4 +386,17 @@ class StatTracker
     coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
     worst_coach = coaches_by_win_percentage.min_by{|k, v| v}[0]
   end
+
+  def most_goals_scored(team_id)
+    games_by_id = []
+    @all_data_hash[:game_teams].each do |row|
+      games_by_id << row if team_id == row[:team_id]
+    end
+
+    goals = []
+    games_by_id.each do |game|
+      goals << game[:goals].to_i
+    end
+    goals.max
+  end
 end
