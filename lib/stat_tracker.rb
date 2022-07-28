@@ -120,9 +120,7 @@ class StatTracker
     wasd = coach_win_percentages_by_season(season_desired).min_by {|a, b| b }[0]
   end
 
-  def most_accurate_team(season_desired)
-    # Name of the Team with the best ratio of shots to goals for the season	String
-
+  def team_accuracy(season_desired)
     @team_shots_1 = Hash.new(0)
     @team_goals_1 = Hash.new(0)
     @team_shot_percentage_1 = Hash.new
@@ -138,15 +136,19 @@ class StatTracker
     @team_shots_1.each do |thornton|
       # require "pry"; binding.pry
       @team_shot_percentage_1[thornton[0]] = @team_goals_1[thornton[0]].to_f / @team_shots_1[thornton[0]]
-      # require "pry"; binding.pry
     end
-    # require "pry"; binding.pry
-    wasd = @team_shot_percentage_1.max_by { |a, b| b }
+    @team_shot_percentage_1
+  end
+
+  def most_accurate_team(season_desired)
+    wasd = team_accuracy(season_desired).max_by { |a, b| b }
     (@teams.find { |this_team| this_team[:team_id] == wasd[0]})[:teamname]
+  end
 
-  end #method
-
-
+  def least_accurate_team(season_desired)
+    johnny = team_accuracy(season_desired).min_by { |a, b| b }
+    (@teams.find { |this_team_1| this_team_1[:team_id] == johnny[0]})[:teamname]
+  end
 
 
 end
