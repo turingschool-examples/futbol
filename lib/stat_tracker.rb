@@ -154,12 +154,11 @@ class StatTracker
     coaches = {}
     game_id_list = []
     @games.each do |game|
-
       if game.season == season_id
           game_id_list << game.game_id
-      
-      end
 
+      end
+    end
     coaches = Hash.new(0)
 
     @game_teams.each do |game_team|
@@ -181,5 +180,5 @@ class StatTracker
       end.to_h
       worst_coach= coach_percentage_lost.min {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
       worst_coach[0]
-    end
+    
   end
