@@ -27,11 +27,11 @@ RSpec.describe StatTracker do
     end
 
     it 'has a lowest total score' do
-       expect(@game.lowest_total_score).to eq(2)
+       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
 
     it 'show highest_total_score' do
-      expect(@game.highest_total_score).to eq(3)
+      expect(@stat_tracker.highest_total_score).to eq(8)
     end
 
     it 'can return average_goals_per_game' do
@@ -49,6 +49,5 @@ RSpec.describe StatTracker do
     it 'can return the percentage of ties as a decimal' do
       expect(@stat_tracker.percentage_ties).to eq(0.05)
     end
-
   end
 end
