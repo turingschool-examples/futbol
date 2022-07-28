@@ -26,18 +26,6 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
-  def total_scores_per_game
-    games[:away_goals].sum + games[:home_goals].sum
-  end
-
-  def lowest_total_score
-    @games.map {|game| game[:away_goals] + game[:home_goals]}.min
-  end
-
-  def highest_total_score
-    @games.map{|game| game[:away_goals] + game[:home_goals]}.max
-  end
-
   def average_goals_per_game
     total_goals = @games.sum{ |game| game[:away_goals] + game[:home_goals] }
     (total_goals.to_f / @games.length).round(2)
