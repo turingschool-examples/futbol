@@ -140,23 +140,23 @@ describe StatTracker do
    expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
-  it 'can isolate a single teams games in game_teams' do
-
+  it 'can isolate a single teams games in game_teams' do #game_teams helper
     expect(@stat_tracker.team_isolator("6")).to be_an(Array)
   end
 
-  it 'can isolate a single teams wins in game_teams' do
-    
+  it 'can isolate a single teams wins in game_teams' do #game_teams helper
     expect(@stat_tracker.win_isolator("6")).to be_an(Array)
   end
 
-  it 'can isolate a single teams games in games' do
-    
+  it 'can group games by season in games' do #game helper
+    expect(@stat_tracker.season_grouper).to be_a(Hash)
+  end
+
+  it 'can isolate a single teams games in games' do #game helper
     expect(@stat_tracker.all_team_games("6")).to be_an(Array)
   end
 
-  it 'can isolate a teams games by season in games' do
-    
+  it 'can isolate a teams games by season in games' do #game helper
     expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
   end
 

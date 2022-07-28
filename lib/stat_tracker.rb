@@ -73,7 +73,7 @@ class StatTracker
     goals_by_game.min
   end
 
-  def team_isolator(team_id)
+  def team_isolator(team_id) #game_teams helper, returns all of a team's games
     team_games = []
     @game_teams.each do |game|
       if team_id == game.team_id
@@ -83,9 +83,15 @@ class StatTracker
     team_games
   end
 
-  def win_isolator(team_id)
+  def win_isolator(team_id) #game_teams helper, returns all of a team's wins in an array
     @game_teams.find_all do |game|
       team_id == game.team_id && game.result == "WIN"
+    end
+  end
+
+  def season_grouper #games helper, returns a hash with the season as the key and array of all games for the season as the value
+    @games.group_by do |game|
+      game.season
     end
   end
 
@@ -95,7 +101,7 @@ class StatTracker
     (total_wins.to_f / total_games).round(2)
   end
 
-  def season(team_id, season)
+  def season(team_id, season) #games helper, returns array of all of a team's games for one season
     games_by_season = []
     @games.each do |game|
       if (game.home_team_id == team_id || game.away_team_id == team_id) && game.season == season
@@ -108,7 +114,7 @@ class StatTracker
 
 
 
-  def all_team_games(team_id)
+  def all_team_games(team_id) #games helper, returns all of a team's games
     all_games = []
     @games.each do |game|
       if game.home_team_id == team_id || game.away_team_id == team_id
