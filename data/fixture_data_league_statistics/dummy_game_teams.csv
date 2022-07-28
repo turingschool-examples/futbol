@@ -1,0 +1,14 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2012030221,3,away,LOSS,OT,John Tortorella,0,8,44,8,3,0,44.8,17,7
+2012030221,6,home,WIN,OT,Claude Julien,3,12,51,6,4,1,55.2,4,5
+2012030222,3,away,LOSS,REG,John Tortorella,0,9,33,11,5,0,51.7,1,4
+2014020643,26,home,TIE,REG,Darryl Sutter,3,6,31,13,4,0,50,10,3
+2014020427,2,away,LOSS,REG,Jack Capuano,3,7,26,8,3,0,42.3,4,7
+2014020427,19,home,WIN,REG,Ken Hitchcock,4,8,14,10,2,2,57.7,5,13
+2012020476,25,home,LOSS,REG,Glen Gulutzan,2,6,36,16,3,1,50.9,16,10
+2012020701,20,away,LOSS,REG,Bob Hartley,1,4,23,30,4,0,41.4,3,6
+2012020701,19,home,WIN,REG,Ken Hitchcock,2,5,19,18,5,1,58.6,5,7
+2015021069,28,home,WIN,REG,Peter DeBoer,2,13,24,6,3,1,42.9,15,7
+2017020813,54,away,LOSS,REG,Gerard Gallant,2,6,29,10,3,1,44.8,3,7
+2017020813,5,home,WIN,REG,Mike Sullivan,5,9,37,6,5,0,55.2,3,11
+2017020987,18,away,TIE,REG,Peter Laviolette,2,10,24,2,3,0,65.6,13,11
