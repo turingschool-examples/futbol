@@ -127,7 +127,7 @@ describe StatTracker do
   end
 
   it 'can name the coach with the worst winnig percentage' do
-    expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+    expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
@@ -154,9 +154,9 @@ describe StatTracker do
 
 
   it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
-    
-    
-   
+
+
+
     expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
@@ -167,14 +167,14 @@ describe StatTracker do
     end
 
   it 'can tell the most goals a team has scored in a game across all seasons' do
-    
-   
+
+
     expect(@stat_tracker.most_goals_scored("18")).to eq(7)
   end
 
   it 'can tell the fewest goals a team has scored in a game across all seasons' do
-   
-   
+
+
     expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 

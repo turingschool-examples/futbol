@@ -117,63 +117,69 @@ class StatTracker
   def winningest_coach(season_id)
 
     coaches = {}
-    win = []
     game_id_list = []
     @games.each do |game|
-
 
       if game.season == season_id
           game_id_list << game.game_id
         end
     end
     coaches = Hash.new(0)
-    #check game_id within game_id_list
-    #access the coach and the result
+
     @game_teams.each do |game_team|
       game_id = game_team.game_id
       coach = game_team.head_coach
       if !game_id_list.include?game_id
         next
       end
-        # puts "headcoachis", game_team.head_coach
-        # puts "winorloss", game_team.result
+
         if game_team.result == "WIN"
             coaches[coach]+=1
           end
         end
-      # if game.game_id == season_id
-      # coaches << game.head_coach
-      # win_or_loss << game.result
+
       coach_percentage_won =
       coaches.map do |coach_name, game_win|
         percentage_won = (game_win.to_f/game_id_list.length) * 100
         [coach_name, percentage_won]
-
-
       end.to_h
 
       winningest_coach= coach_percentage_won.max {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
       winningest_coach[0]
-
     end
-
   end
 
-    # result = coaches.zip(win_or_loss)
+  def worst_coach(season_id)
 
+    coaches = {}
+    game_id_list = []
+    @games.each do |game|
 
+      if game.season == season_id
+          game_id_list << game.game_id
+      
+      end
 
-    #find winning percentage of each coach then take max
-    #games won/games played per coach
-    #Best winning rate = winnigest coach
-    #worst winning rate = worst coach
-  #   game_wins = {}
-  #   total_games = {}
-  #
-  #   winning_rate = {}
-  #   game_wins/total_games
-  # end
-  #
-  # def worst_coach
-  #   #find winning percentage then take min
-  # end
+    coaches = Hash.new(0)
+
+    @game_teams.each do |game_team|
+      game_id = game_team.game_id
+      coach = game_team.head_coach
+      if !game_id_list.include?game_id
+        next
+      end
+
+        if game_team.result == "LOSS"
+            coaches[coach]+=1
+        end
+      end
+
+      coach_percentage_lost =
+      coaches.map do |coach_name, game_loss|
+        percentage_lost = (game_loss.to_f/game_id_list.length) * 100
+        [coach_name, percentage_lost]
+      end.to_h
+      worst_coach= coach_percentage_lost.min {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
+      worst_coach[0]
+    end
+  end
