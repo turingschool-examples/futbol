@@ -27,4 +27,8 @@ RSpec.describe Game do
   it 'can return total number of goals' do
     expect(@game.total_goals).to eq(5)
   end
+
+  it 'can return a winner symbol' do
+    expect(@game.winner).to eq(:home_team)
+  end
 end
