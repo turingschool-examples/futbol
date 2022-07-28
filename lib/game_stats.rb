@@ -6,6 +6,7 @@ module GameStats
 
   def highest_total_score
     @games.map {|game| game.total_goals}.max
+  end
 
   def average_goals_per_game
     total_goals = @games.sum{ |game| game.total_goals }
