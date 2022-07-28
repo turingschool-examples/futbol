@@ -115,6 +115,15 @@ describe StatTracker do
   end
 
   it '#favorite_opponent' do
+    team_path = './data/teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+
     expect(@stat_tracker.favorite_opponent("5")).to eq("Sky Blue FC")
     expect(@stat_tracker.favorite_opponent("28")).to eq("Minnesota United FC")
   end

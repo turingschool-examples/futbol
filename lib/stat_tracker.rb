@@ -399,16 +399,13 @@ class StatTracker
     favorite_opponent_team_id = team_opponent_hash.max_by do |team, array|
       array[0].to_f / array[1].to_f
     end[0]
-    #max_by [0]/[1]
     #convert team id to name
     favorite_opponent_team_name = nil
     @all_data_hash[:teams].each do |row|
-      require 'pry'; binding.pry
       if row[:team_id] == favorite_opponent_team_id
         favorite_opponent_team_name = row[:teamname]
       end
     end
-    require 'pry'; binding.pry
     favorite_opponent_team_name
   end
 end
