@@ -1,4 +1,4 @@
-game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
 2012030112,20122013,Postseason,5/3/13,2,5,2,3,Children's Mercy Park,/api/v1/venues/null
 2012030113,20122013,Postseason,5/5/13,5,2,3,2,Centruy Link Field,/api/v1/venues/null
 2012030114,20122013,Postseason,5/7/13,5,2,2,4,Centruy Link Field,/api/v1/venues/null
