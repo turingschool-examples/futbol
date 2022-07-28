@@ -25,4 +25,17 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.teams).to be_a(CSV::Table)
     expect(@stat_tracker.game_teams).to be_a(CSV::Table)
   end
+
+  it "A hash with key/value pairs for the following attributes" do
+    expected = {
+      "team_id" => "1",
+      "franchise_id" => "23",
+      "team_name" => "Atlanta United",
+      "abbreviation" => "ATL",
+      "link" => "/api/v1/teams/1"
+      }
+
+    expect(@stat_tracker.team_info("1")).to eq(expected)
+  end
+
 end
