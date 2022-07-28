@@ -134,18 +134,15 @@ class StatTracker
   end
 
   def highest_scoring_visitor #issue # 13
-      away_team_ids_array = (games[:away_team_id]).uniq.sort
+      away_team_ids_array = (@games[:away_team_id]).uniq.sort
 
       team_ids_hash = {}
       away_team_ids_array.each do |teamid|
         team_ids_hash[teamid] = {sum_away_goals: 0, count_of_away_games_played: 0}
       end
 
-      games.each do |row|
+      @games.each do |row|
         team_ids_hash[row[:away_team_id]][:sum_away_goals] += row[:away_goals]
-      end
-    
-      games.each do |row|
         team_ids_hash[row[:away_team_id]][:count_of_away_games_played] += 1
       end
 
