@@ -315,7 +315,7 @@ class StatTracker
     games_by_season = []
 
     @all_data_hash[:game_teams].each do |row|
-      games_by_season << row if season.to_s[0..3] == row[:game_id][0..3]
+      games_by_season << row if season[0..3] == row[:game_id][0..3]
     end
     games_by_season
 
