@@ -118,7 +118,8 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-  it "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
+  it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
+
     expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
@@ -128,13 +129,49 @@ describe StatTracker do
     })
   end
 
-  it "can tell the most goals a team has scored in a game across all seasons" do
+
+  it 'can tell the most goals a team has scored in a game across all seasons' do
     expect(@stat_tracker.most_goals_scored("18")).to eq(7)
   end
 
-  it "can tell the fewest goals a team has scored in a game across all seasons" do
-    expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
+  it 'can tell the fewest goals a team has scored in a game across all seasons' do
+   expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
+
+  it 'can isolate a single teams games in game_teams' do #game_teams helper
+    expect(@stat_tracker.team_isolator("6")).to be_an(Array)
+  end
+
+  it 'can isolate a single teams wins in game_teams' do #game_teams helper
+    expect(@stat_tracker.win_isolator("6")).to be_an(Array)
+  end
+
+  it 'can group games by season in games' do #game helper
+    expect(@stat_tracker.season_grouper).to be_a(Hash)
+  end
+
+  it 'can isolate a single teams games in games' do #game helper
+    expect(@stat_tracker.all_team_games("6")).to be_an(Array)
+  end
+
+  it 'can isolate a teams games by season in games' do #game helper
+    expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
+  end
+
+  it 'can find a teams average win percentage' do 
+    expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+  end
+
+  it 'can group a teams games by season in games' do
+    
+    expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
+  end
+
+  xit 'can tell which season is a teams best' do
+
+    
+    expect(@stat_tracker.best_season("6")).to eq("20132014")
+   end
 
   it "can count the total number of teams" do
     expect(@stat_tracker.count_of_teams).to eq(32)
