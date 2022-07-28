@@ -95,7 +95,7 @@ RSpec.describe do
   it 'can return team name with lowest avg score per game across all seasons when they are at HOME' do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
   end
-end
+
   it 'can find winningest coach' do
     expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
     expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"

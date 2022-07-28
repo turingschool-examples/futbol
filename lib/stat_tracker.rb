@@ -149,6 +149,8 @@ class StatTracker
     end
     lowest_home_team = (Hash[teams.zip(avgs)].min_by { |_k, v| v })[0]
     @teams.find { |team| team[:team_id] == lowest_home_team }[:teamname]
+  end
+
   def list_game_ids_by_season(season_desired) #every game_id associated with a season
     season_dsrd = @games.select {|game| game[:season] == season_desired}
     gretzy = []
@@ -164,7 +166,7 @@ class StatTracker
     games_played = Hash.new(0)
     percent_won = {}
 
-      list_game_ids_by_season(season_desired).each do |num|
+    list_game_ids_by_season(season_desired).each do |num|
       stanley = @game_teams.select { |thing| thing[:game_id] == num }
       stanley.each do |half|
         if half[:result] == "WIN"
