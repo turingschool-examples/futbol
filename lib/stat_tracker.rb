@@ -334,20 +334,19 @@ class StatTracker
     end
 
   def most_tackles(season)
-    game_id_array = []
-    season_grouper[season].each do |game|
-      game_id_array << [game.game_id, game]
-    end
-    @game_teams.each do |game_team|
+    seasons_grouped = season_grouper[season]
+
+      home_game_hash = seasons_grouped.group_by do |game|
         require 'pry' ; binding.pry
-    end
-    #Go into the game class & retrieve all the games with the season indicated in the arg. It also needs the season ID attatched with it.
+        game.home_team_id
+        # all_team_games(game.home_team_id)  #games helper, returns all of a team's games in an array
+      end
 
-    #then it should find all objects in the @game_teams class with a matching Team ID from the retrieved objects in the game_class.
-    #Question - home team or away team or both?
-
-    #then it should iterate through that array and find the game_team object with the highest tackle
-    #return the name of that object.
+      away_game_hash = seasons_grouped.group_by do |game|
+        require 'pry' ; binding.pry
+        game.away_team_id
+        # all_team_games(game.home_team_id)  #games helper, returns all of a team's games in an array
+      end
 
   end
 
