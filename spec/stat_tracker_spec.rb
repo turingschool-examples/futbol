@@ -102,15 +102,18 @@ RSpec.describe StatTracker do
 # # # Season Statistics
 
   it '#winningest_coach' do
-    expect(stat_tracker.winningest_coach).to eq("Dan Lacroix")
+    expect(stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+    expect(stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
   end
 
   it '#worst_coach' do
-    expect(stat_tracker.worst_coach).to eq("Martin Raymond")
+    expect(stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+    expect(stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))  
   end
 
   it '#most_accurate_team' do
-    expect(stat_tracker.most_accurate_team).to eq("Chicago Red Stars")
+    expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
   it '#least_accurate_team' do
@@ -157,6 +160,16 @@ RSpec.describe StatTracker do
   end
 
   xit '#rival' do
+
+  end
+
+  #helper methods
+
+  it '#games_by_season' do
+    expect(stat_tracker.games_by_season("20122013")).to include("2012030113")
+    expect(stat_tracker.games_by_season("20122013")).to include("2012030324")
+    expect(stat_tracker.games_by_season("20152016")).to include("2015030131")
+    expect(stat_tracker.games_by_season("20172018")).to include("2017030411")
 
   end
 end
