@@ -142,10 +142,40 @@ class StatTracker
 
   end
 
+  def home_scores_by_team_id #helper method for issue #14
+    scores_by_team_id = {}
+    home_scores = game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
+      game[1] == 'home'
+    end
+
+    @game_teams[:team_id].each do |id|
+      scores_by_team_id[id] = []
+    end
+
+    home_scores.each do |game|
+      scores_by_team_id[game[0]] << game[2].to_f
+    end
+    scores_by_team_id
+  end
+
+  def team_by_id #helper method for issue #14
+    @teams.values_at(:team_id, :teamname).to_h
+  end
+
+  def average_home_scores_by_team_id #helper method for issue #14
+    average_scores= {}
+    home_scores_by_team_id.each do |team, scores|
+      average = scores.sum/scores.count
+      average_scores[team] = average.round(1)
+    end
+    average_scores
+  end
+
   def highest_scoring_home_team #issue # 14
 
+    max_average = average_home_scores_by_team_id.values.max
 
-
+    team_by_id[average_home_scores_by_team_id.key(max_average)]
   end
 
   def lowest_scoring_visitor #issue # 15
