@@ -56,6 +56,10 @@ RSpec.describe(StatTracker) do
     expect(@stat_tracker.total_goals).to(eq(31413))
   end
 
+  it("total_games") do
+    expect(@stat_tracker.total_games).to(eq(7441))
+  end
+
   it("#7 average number of goals scored in a game across all seasons including both home and away goals") do
     expect(@stat_tracker.average_goals_per_game).to(eq(4.22))
   end
