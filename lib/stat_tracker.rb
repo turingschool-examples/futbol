@@ -122,7 +122,7 @@ class StatTracker
       team[:team_id].to_i == lowest_average[0].to_i
     end[:teamname]
   end
-  
+
   def average_goals_by_season
     goals_season_hash = Hash.new
     @all_data_hash[:games].each do |row|
@@ -351,5 +351,18 @@ class StatTracker
       end
     end
     most_accurate_team_name
+  end
+
+  def team_info(given_team_id)
+    all_team_info = @all_data_hash[:teams].select do |team|
+      team[:team_id] == given_team_id
+    end[0]
+    team_info_hash = {
+      "team_id" => all_team_info[:team_id],
+      "franchise_id" => all_team_info[:franchiseid],
+      "team_name" => all_team_info[:teamname],
+      "abbreviation" => all_team_info[:abbreviation],
+      "link" => all_team_info[:link]
+    }
   end
 end

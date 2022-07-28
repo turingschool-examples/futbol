@@ -102,4 +102,15 @@ describe StatTracker do
   it '#most_accurate_team' do
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
+
+  it '#team_info' do
+    expected = {
+      "team_id" => "27",
+      "franchise_id" => "28",
+      "team_name" => "San Jose Earthquakes",
+      "abbreviation" => "SJ",
+      "link" => "/api/v1/teams/27"
+    }
+    expect(@stat_tracker.team_info("27")).to eq(expected)
+  end
 end
