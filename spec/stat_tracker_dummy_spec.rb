@@ -102,4 +102,14 @@ describe StatTracker do
   it '#most_accurate_team' do
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
+
+  it '#best_season' do
+    expect(@stat_tracker.best_season("3")).to eq("20142015")
+    expect(@stat_tracker.best_season("6")).to eq("20122013")
+  end
+
+  it '#worst_season' do
+    expect(@stat_tracker.best_season("3")).to eq("20142015")
+    expect(@stat_tracker.best_season("6")).to eq("20122013")
+  end
 end
