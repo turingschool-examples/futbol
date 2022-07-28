@@ -33,18 +33,39 @@ class StatTracker
   end
 
   def best_season(search_team_id)
-    game_info = @game_teams.find do |game|
-      game[1] = search_team_id
+    ##search input##
+    game_info = @game_teams.select do |game_team|
+      game_team[1] = search_team_id
     end
-    # require "pry"; binding.pry
+    ## groups all games into one season
+    games_id_season = @games[:season].zip(@games[:game_id])
+    games_id_season_h = Hash.new{|hash, key| hash[key] = []}
+    games_id_season.each do |season, game|
+      games_id_season_h[season] << game
+    end
+    ## finds all the winning games
     all_win_info = []
 
-    @game_teams.each do |per_line|
-    if per_line[3] == "WIN" && per_line[1] == search_team_id
-      all_win_info << per_line[0]
+    @game_teams.each do |game_team|
+      if game_team[:result] == "WIN" && game_team[:team_id] == search_team_id
+      all_win_info << game_team[:game_id]
       end
+      require "pry"; binding.pry
     end
-    all_win_info
+    ## takeing 1 win from the list of wins
+    # season_won = []
+    # if all_win_info.each do |game_won|
+    #   @games.each do |game|
+    #     require "pry"; binding.pry
+    #     game[:game_id].include?(game_won) ##should be false.. but when true.. print season
+    #     end
+    #   end
+    # end
   end
+
+
+
+
+
 
 end
