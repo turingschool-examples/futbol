@@ -24,4 +24,8 @@ RSpec.describe Team do
     expect(@team.team_name).to eq("Houston Dynamo")
   end
 
+  it 'can return the total goals scored by a team over all games' do
+    expect(@team.total_overall_goals).to eq(13)
+  end
+
 end
