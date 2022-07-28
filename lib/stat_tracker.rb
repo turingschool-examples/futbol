@@ -352,4 +352,32 @@ class StatTracker
     end
     most_accurate_team_name
   end
+
+  def best_season(given_team_id)
+    all_team_games = @all_data_hash[:game_teams].select do |game|
+      game[:team_id] == given_team_id
+    end
+    team_season_hash = Hash.new{|h,k| h[k] = {
+      wins: 0,
+      ties: 0,
+      total_games: 0
+    }}
+    all_team_games.each do |game_team|
+      season = game_team[:game_id][0..3]+game_team[:game_id][0..2]+(game_team[:game_id][3].to_i + 1).to_s
+      if game_team[:result] == "WIN"
+        # team_season_hash[@all_data_hash[:games].select do |game|
+        #     game[:game_id] == game_team[:game_id]
+        #   end[0][:season]] += 1
+        team_season_hash[season][:wins] += 1
+        team_season_hash[season][:total_games] += 1
+      else
+        team_season_hash[season][:total_games] += 1
+      end
+    end
+    best_season = team_season_hash.max_by do | season, hash |
+      hash[:wins].to_f / hash[:total_games].to_f
+    end[0]
+    require 'pry'; binding.pry
+    best_season
+  end
 end

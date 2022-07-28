@@ -104,11 +104,23 @@ describe StatTracker do
   end
 
   it '#best_season' do
+  game_path = './data/games_dummy.csv'
+  team_path = './data/teams_dummy.csv'
+  game_teams_path = './data/amm_edited_games_teams_dummy.csv'
+
+  locations = {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+  }
+
+  @stat_tracker = StatTracker.from_csv(locations)
+
     expect(@stat_tracker.best_season("3")).to eq("20142015")
     expect(@stat_tracker.best_season("6")).to eq("20122013")
   end
 
-  it '#worst_season' do
+  xit '#worst_season' do
     expect(@stat_tracker.best_season("3")).to eq("20142015")
     expect(@stat_tracker.best_season("6")).to eq("20122013")
   end
