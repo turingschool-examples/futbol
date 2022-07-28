@@ -9,6 +9,7 @@ class StatTracker
     # locations.each_key do |key|
     #   data[key] = CSV.read locations[key]
     # end
+
     @game_path = game_path
     @team_path = team_path
     @game_teams_path = game_teams_path
@@ -205,8 +206,7 @@ class StatTracker
     id_to_names = {}
     contents = CSV.open(@team_path, headers: true, header_converters: :symbol)
     contents.each do |row|
-      id_to_names[row[:team_id]] = row[:teamName]
-      require "pry"; binding.pry
+      id_to_names[row[:team_id]] = row[:teamname]
     end
     id_to_names
   end
@@ -240,10 +240,8 @@ class StatTracker
         highest_goal_ratio_team = team_id
       end
     end
-    hash = team_names
-    require 'pry';binding.pry
 
-    hash[highest_goal_ratio_team]
+    team_names[highest_goal_ratio_team]
   end
 
 end
