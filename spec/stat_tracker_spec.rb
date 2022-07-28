@@ -49,5 +49,9 @@ RSpec.describe StatTracker do
     it 'can return the percentage of ties as a decimal' do
       expect(@stat_tracker.percentage_ties).to eq(0.05)
     end
+
+    it 'can return a hash of the count of games by season' do
+      expect(@stat_tracker.count_of_games_by_season).to eq({20122013=>5, 20142015=>7, 20132014=>4, 20152016=>4})
+    end
   end
 end
