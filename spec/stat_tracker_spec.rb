@@ -266,4 +266,31 @@ RSpec.describe StatTracker do
   #     :link => '/api/v1/teams/29'
   #   })
   # end
+
+  #league stats
+
+  #season stats
+  it 'returns winningestcoach' do
+    expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+  end
+
+  it 'returns worst_coach' do
+    expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+  end
+
+  it 'returns most_accurate_team' do
+    expect(stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+  end
+
+  it 'returns least_accurate_team' do
+    expect(stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+  end
+
+  it 'returns most_tackles' do
+    expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+  end
+
+  it 'returns fewest_tackles' do
+    expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+  end
 end
