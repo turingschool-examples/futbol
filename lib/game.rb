@@ -10,6 +10,7 @@ class Game
     @season = game_csv_row[:season]
     @type = game_csv_row[:type]
     @teams_game_stats = generate_team_stats(game_teams_csv_rows, home_name, away_name)
+# require 'pry'; binding.pry
   end
 
   def generate_team_stats(data, home_name, away_name)
@@ -40,7 +41,7 @@ class Game
   def total_goals #returns total number of goals scored by either team in a game
     @teams_game_stats[:home_team][:goals] + @teams_game_stats[:away_team][:goals]
   end
-
+  
   def winner #returns either :home_team or :away_team or :tie for winner
     if @teams_game_stats[:home_team][:result] == "WIN"
       :home_team
@@ -59,14 +60,16 @@ class Game
       end
       home_team = teams.values.find{ |team| team.team_id == game[:home_team_id] }
       away_team = teams.values.find{ |team| team.team_id == game[:away_team_id] }
-      this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name) 
+      this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name)
       home_team.games_participated_in << this_game
       away_team.games_participated_in << this_game
       game_array << this_game
+      # require 'pry'; binding.pry
     end
     game_array
   end
 
-  
 
+   
 end
+

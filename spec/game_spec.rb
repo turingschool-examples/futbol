@@ -1,4 +1,3 @@
-
 require './lib/stat_tracker'
 
 RSpec.describe Game do
@@ -22,7 +21,7 @@ RSpec.describe Game do
   it 'exists' do
    expect(@game).to be_an(Game)
    expect(@game.game_id).to eq(2012030221)
-  end
+ end
 
   it 'can return total number of goals' do
     expect(@game.total_goals).to eq(5)

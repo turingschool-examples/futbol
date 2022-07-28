@@ -26,25 +26,6 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
-  def total_scores_per_game
-    games[:away_goals].sum + games[:home_goals].sum
-  end
-
-  def lowest_total_score
-    @games.map {|game| game[:away_goals] + game[:home_goals]}.min
-  end
-
-  def highest_total_score
-    @games.map{|game| game[:away_goals] + game[:home_goals]}.max
-  end
-
-  def percentage_visitor_wins
-    total_away_wins = @game_teams.count do |game_team|
-      game_team[:hoa] == "away" && game_team[:result] == "WIN"
-    end
-    (total_away_wins/@games.length.to_f).round(2)
-  end
-
   def count_of_games_by_season
    games_by_season = Hash.new(0)
 

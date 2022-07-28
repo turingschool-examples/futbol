@@ -26,6 +26,14 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.seasons.values).to all(be_an(Season))
     end
 
+    it 'has a lowest total score' do
+       expect(@game.lowest_total_score).to eq(2)
+    end
+
+    it 'show highest_total_score' do
+      expect(@game.highest_total_score).to eq(3)
+    end
+
     it 'can return average_goals_per_game' do
       expect(@stat_tracker.average_goals_per_game).to eq(3.85)
     end
