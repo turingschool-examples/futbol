@@ -348,8 +348,17 @@ class StatTracker
 
   # Team Statistics
 
-  def team_info
-
+  def team_info(given_team_id)
+      all_team_info = @teams_data.select do |team|
+        team[:team_id] == given_team_id
+      end[0]
+      team_info_hash = {
+        team_id: all_team_info[:team_id],
+        franchise_id: all_team_info[:franchiseid],
+        team_name: all_team_info[:teamname],
+        abbreviation: all_team_info[:abbreviation],
+        link: all_team_info[:link]
+      }
   end
 
   def best_season
@@ -372,14 +381,88 @@ class StatTracker
 
   end
 
-  def favorite_opponent
+  def favorite_opponent(given_team_id)
+    #hash that has for a key every other team in league
+    all_away_games = @games_data.find_all do |team|
+      team[:away_team_id] == given_team_id.to_s
+    end
+    all_home_games = @games_data.find_all do |team|
+      team[:home_team_id] == given_team_id.to_s
+    end
 
+    all_team_games = all_home_games + all_away_games
+
+    team_opponent_hash = Hash.new{|h,k| h[k] = [0.0, 0.0]}
+      all_team_games.each do |game|
+      #home games
+      if game[:away_team_id] != given_team_id
+        if game[:away_goals] > game[:home_goals]
+          team_opponent_hash[game[:away_team_id]][1] += 1
+        elsif game[:away_goals] < game[:home_goals]
+          team_opponent_hash[game[:away_team_id]][0] += 1
+          #ties are counted as 0.5's or 0's
+        # else
+        #   team_opponent_hash[game[:away_team_id]][1] += 1
+        #   team_opponent_hash[game[:away_team_id]][0] += 0.5
+        end
+        #away games
+      elsif game[:home_team_id] != given_team_id
+          if game[:home_goals] > game[:away_goals]
+            team_opponent_hash[game[:home_team_id]][1] += 1
+          elsif game[:home_goals] < game[:away_goals]
+            team_opponent_hash[game[:home_team_id]][0] += 1
+          end
+      end
+    end
+    #values are an array that has total games won and the total games played against
+    team_opponent_hash.delete(given_team_id.to_s)
+    fav_opponent_array = team_opponent_hash.max_by { |team, array| (array[0] - array [1])}
+    rival_team_id = fav_opponent_array[0]
+    #convert team id to name
+    find_team_name_by_id(rival_team_id)
   end
 
-  def rival
 
+  def rival(given_team_id)
+    #hash that has for a key every other team in league
+    all_away_games = @games_data.find_all do |team|
+      team[:away_team_id] == given_team_id.to_s
+    end
+    all_home_games = @games_data.find_all do |team|
+      team[:home_team_id] == given_team_id.to_s
+    end
+
+    all_team_games = all_home_games + all_away_games
+
+    team_opponent_hash = Hash.new{|h,k| h[k] = [0.0, 0.0]}
+      all_team_games.each do |game|
+      #home games
+      if game[:away_team_id] != given_team_id
+        if game[:away_goals] > game[:home_goals]
+          team_opponent_hash[game[:away_team_id]][1] += 1
+        elsif game[:away_goals] < game[:home_goals]
+          team_opponent_hash[game[:away_team_id]][0] += 1
+          #ties are counted as 0.5's or 0's
+        # else
+        #   team_opponent_hash[game[:away_team_id]][1] += 1
+        #   team_opponent_hash[game[:away_team_id]][0] += 0.5
+        end
+        #away games
+      elsif game[:home_team_id] != given_team_id
+          if game[:home_goals] > game[:away_goals]
+            team_opponent_hash[game[:home_team_id]][1] += 1
+          elsif game[:home_goals] < game[:away_goals]
+            team_opponent_hash[game[:home_team_id]][0] += 1
+          end
+      end
+    end
+    #values are an array that has total games won and the total games played against
+    team_opponent_hash.delete(given_team_id.to_s)
+    rival_array = team_opponent_hash.min_by { |team, array| (array[0] - array [1])}
+    rival_team_id = rival_array[0]
+    #convert team id to name
+    p find_team_name_by_id(rival_team_id)
   end
-
   # Helper Methods Below
 
   def find_team_name_by_id(id_number)
@@ -399,6 +482,5 @@ class StatTracker
       coach.to_sym
     end
   end
-
 end
 
