@@ -28,42 +28,6 @@ class StatTracker
     high_low_added.max
   end
 
-<<<<<<< HEAD
-  def winningest_coach(season_id)
-
-    coaches = []
-    win_or_loss = []
-    @game_teams.each do |game|
-  require 'pry'; binding.pry
-      if game.game_id == season_id
-      coaches << game.head_coach
-      win_or_loss << game.result
-
-    end
-    end
-    result = coaches.zip(win_or_loss)
-    result
-      require 'pry'; binding.pry
-
-    #find winning percentage of each coach then take max
-    #games won/games played per coach
-    #Best winning rate = winnigest coach
-    #worst winning rate = worst coach
-    game_wins = {}
-    total_games = {}
-
-    winning_rate = {}
-    game_wins/total_games
-  end
-
-  def worst_coach
-    #find winning percentage then take min
-  end
-
-
-
-=======
-
   def team_info(team_id)
     team_hash = Hash.new(0)
     @teams.each do |team|
@@ -81,14 +45,14 @@ class StatTracker
   # def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
   #   @game_teams.map do |game|
   #     if team_id == game.team_id
-        
+
   #       game.goals.to_i
   #       require 'pry';binding.pry
   #       end
   #     end
   #   end
 
-  def most_goals_scored(team_id)  
+  def most_goals_scored(team_id)
     goals_by_game = []
     @game_teams.each do |game|
       if team_id == game.team_id
@@ -97,8 +61,8 @@ class StatTracker
     end
     goals_by_game.max
   end
-  
-  def fewest_goals_scored(team_id)  
+
+  def fewest_goals_scored(team_id)
     goals_by_game = []
     @game_teams.each do |game|
       if team_id == game.team_id
@@ -107,7 +71,7 @@ class StatTracker
     end
     goals_by_game.min
   end
-  
+
 
   def lowest_total_score
     high_low_added = @games.map do |game|
@@ -150,6 +114,64 @@ class StatTracker
     ((total_goals_per_game.sum.to_f)/(@games.size)).round(2)
   end
 
+  def winningest_coach(season_id)
 
->>>>>>> 5e3ae0d2dcc7e421afb7cbafc9fbbbf8016b71d2
+    coaches = {}
+    win = []
+    game_id_list = []
+    @games.each do |game|
+
+
+      if game.season == season_id
+          game_id_list << game.game_id
+        end
+    end
+    #check game_id within game_id_list
+    #access the coach and the result
+    @game_teams.each do |game_team|
+      game_id = game_team.game_id
+      if game_id_list.include?game_id
+        # puts "headcoachis", game_team.head_coach
+        # puts "winorloss", game_team.result
+        if game_team.result == "WIN"
+          if coaches.has_key? :game_team.head_coach
+            coaches[:game_team.head_coach]+=1
+          else
+            coaches[:game_team.head_coach]=1
+          end
+        end
+
+      end
+
+
+
+
+      # if game.game_id == season_id
+      # coaches << game.head_coach
+      # win_or_loss << game.result
+
+
+    end
+      puts "coaches", coaches
+    # result = coaches.zip(win_or_loss)
+    result=[]
+
+
+    #find winning percentage of each coach then take max
+    #games won/games played per coach
+    #Best winning rate = winnigest coach
+    #worst winning rate = worst coach
+    game_wins = {}
+    total_games = {}
+
+    winning_rate = {}
+    game_wins/total_games
+  end
+
+  def worst_coach
+    #find winning percentage then take min
+  end
+
+
+
 end
