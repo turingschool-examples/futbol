@@ -6,6 +6,8 @@ class Team
               :abbreviation,
               :stadium,
               :link
+              
+  attr_accessor :games_participated_in
 
   def initialize(teams_csv_row)
     @team_id = teams_csv_row[:team_id]
@@ -14,6 +16,7 @@ class Team
     @abbreviation = teams_csv_row[:abbreviation]
     @stadium = teams_csv_row[:stadium]
     @link = teams_csv_row[:link]
+    @games_participated_in = []
   end
 
   def self.generate_teams(team_csv)
