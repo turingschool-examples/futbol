@@ -15,12 +15,16 @@ RSpec.describe Game do
 
     stat_tracker = StatTracker.from_csv(locations)
 
+    #All tests in thie spec file are for game_id 2012030221 (the first one on the games_dummy)
     @game = stat_tracker.games[0]
   end
 
   it 'exists' do
-
    expect(@game).to be_an(Game)
    expect(@game.game_id).to eq(2012030221)
- end
+  end
+
+  it 'can return total number of goals' do
+    expect(@game.total_goals).to eq(5)
+  end
 end
