@@ -12,5 +12,3 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-
-stat_tracker.find_peter_laviolette("20132014")

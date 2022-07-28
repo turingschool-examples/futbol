@@ -85,28 +85,31 @@ class StatTracker
   end
 
   def most_accurate_team(target_season)
-    games = @games.to_a.select do |game|
-              game[1] == target_season
+    games = @games.select do |game|
+              game[:season] == target_season
             end
-    game_ids = games.map do |game|
-                game[0]
-               end
-    game_teams = @game_teams.to_a.select do |game_team|
-                    game_ids.include?(game_team[0])
-                  end
-    per_game_accuracy = game_teams.map do |game|
-                          [game[1], (game[6].to_f / game[7].to_f)]
-                        end
 
-    team_id_accuracy_h = Hash.new{|hash, key| hash[key] = []}
-    per_game_accuracy.each do |game|
-      team_id_accuracy_h[game[0]] << game[1] == 0 ? 0 : game[1]
+    game_ids = games.map do |game|
+                game[:game_id]
+               end
+
+    game_teams = @game_teams.select do |game|
+                    game_ids.include?(game[:game_id])
+                  end
+
+    goals = Hash.new(0)
+    shots = Hash.new(0)
+    game_teams.each do |game|
+      goals[game[:team_id]] += game[:goals].to_f
+      shots[game[:team_id]] += game[:shots].to_f
     end
-    # require "pry"; binding.pry
-    team_id_highest_accuracy = team_id_accuracy_h.map do |id, acc|
-      [id, acc.sum / acc.count]
-    end.max_by{|id, avg| avg}.first
-    # require "pry"; binding.pry
+
+    team_id_accuracy = Hash.new
+    goals.each do |team, goals|
+      team_id_accuracy[team] = goals / shots[team]
+    end
+
+    team_id_highest_accuracy = team_id_accuracy.max_by{|team, acc| acc}.first
 
     id_team_key = @teams[:team_id].zip(@teams[:teamname]).to_h
 
@@ -115,25 +118,32 @@ class StatTracker
   end
 
   def least_accurate_team(target_season)
-    games = @games.to_a.select do |game|
-              game[1] == target_season
+    games = @games.select do |game|
+              game[:season] == target_season
             end
+
     game_ids = games.map do |game|
-                game[0]
+                game[:game_id]
                end
-    game_teams = @game_teams.to_a.select do |game_team|
-                    game_ids.include?(game_team[0])
+
+    game_teams = @game_teams.select do |game|
+                    game_ids.include?(game[:game_id])
                   end
-    per_game_accuracy = game_teams.map do |game|
-                          [game[1], (game[6].to_f / game[7].to_f)]
-                        end
-    team_id_accuracy_h = Hash.new{|hash, key| hash[key] = []}
-    per_game_accuracy.each do |game|
-      team_id_accuracy_h[game[0]] << game[1]
+
+    goals = Hash.new(0)
+    shots = Hash.new(0)
+    game_teams.each do |game|
+      goals[game[:team_id]] += game[:goals].to_f
+      shots[game[:team_id]] += game[:shots].to_f
     end
-    team_id_lowest_accuracy = team_id_accuracy_h.map do |id, acc|
-      [id, acc.reduce(:+) / acc.length]
-    end.max_by{|id, avg| -avg}.first
+
+    team_id_accuracy = Hash.new
+    goals.each do |team, goals|
+      team_id_accuracy[team] = goals / shots[team]
+    end
+
+    team_id_lowest_accuracy = team_id_accuracy.max_by{|team, acc| -acc}.first
+
     id_team_key = @teams[:team_id].zip(@teams[:teamname]).to_h
 
     id_team_key[team_id_lowest_accuracy]
@@ -181,12 +191,6 @@ class StatTracker
     id_team_key = @teams[:team_id].zip(@teams[:teamname]).to_h
 
     id_team_key[fewest_tackles]
-  end
-
-  def find_peter_laviolette(target_season)
-    here_he_is = @game_teams.select{|game| game[:head_coach] == "Peter Laviolette"}
-    game_ids = here_he_is.map{|game| game[:game_id]}
-    puts game_ids
   end
 
 end
