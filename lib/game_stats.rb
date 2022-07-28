@@ -32,5 +32,9 @@ module GameStats
       average_goals_per_season[season] = total_goals_in_season.to_f / total_games_in_season
     end
     average_goals_per_season
+
+  def percentage_ties
+    total_tie_games = @games.count{ |game| game.winner == :tie }
+    (total_tie_games.to_f / @games.length).round(2)
   end
 end

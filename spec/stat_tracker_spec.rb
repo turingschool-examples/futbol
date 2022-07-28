@@ -37,5 +37,10 @@ RSpec.describe StatTracker do
     it 'can return percentage visitor wins as decimal' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.45)
     end
+
+    it 'can return the percentage of ties as a decimal' do
+      expect(@stat_tracker.percentage_ties).to eq(0.05)
+    end
+
   end
 end
