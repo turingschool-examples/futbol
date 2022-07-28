@@ -83,7 +83,17 @@ class StatTracker
     team_games
   end
 
-  
+  def win_isolator(team_id)
+    @game_teams.find_all do |game|
+      team_id == game.team_id && game.result == "WIN"
+    end
+  end
+
+  def average_win_percentage(team_id)
+    total_games = team_isolator(team_id).count
+    total_wins = win_isolator(team_id).count
+    (total_wins.to_f / total_games).round(2)
+  end
 
   def season(team_id, season)
     games_by_season = []
@@ -105,7 +115,7 @@ class StatTracker
         all_games << game
       end
     end
-    all_team_games
+    all_games
   end
 
 

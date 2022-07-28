@@ -145,6 +145,11 @@ describe StatTracker do
     expect(@stat_tracker.team_isolator("6")).to be_an(Array)
   end
 
+  it 'can isolate a single teams wins in game_teams' do
+    
+    expect(@stat_tracker.win_isolator("6")).to be_an(Array)
+  end
+
   it 'can isolate a single teams games in games' do
     
     expect(@stat_tracker.all_team_games("6")).to be_an(Array)
@@ -155,7 +160,7 @@ describe StatTracker do
     expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
   end
 
-  it 'can find a teams average win percentage' do
+  it 'can find a teams average win percentage' do 
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
