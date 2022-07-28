@@ -91,18 +91,17 @@ class StatTracker
 
   def best_offense
     id_team_hash; @id_and_team
-    total_goals; @total_goals_by_team
-    total_games; @total_games_by_team
-     @total_goals_by_team.each do |goal_id, goals|
-        @the_best = {}
-        @total_games_by_team.each do |game_id, games|
-          @the_best[game_id] = (goals.to_f/games).round(4)
-        end
-      @the_best
+    total_goals; h1 = @total_goals_by_team
+    total_games; h2 = @total_games_by_team
+
+    new_hash = h1.merge(h2) do |key, goals, games| 
+      goals.to_f / games
     end
-    best = @the_best.sort_by do |id, ratio|
+
+    best = new_hash.sort_by do |id, ratio|
       ratio
     end
+
    @id_and_team.find do |id, team|
       if id == best[-1][0]
        return team[:name]
@@ -112,16 +111,14 @@ class StatTracker
 
   def worst_offense
     id_team_hash; @id_and_team
-    total_goals; @total_goals_by_team
-    total_games; @total_games_by_team
-
-     @total_goals_by_team.each do |goal_id, goals|
-        @the_worst = {}
-        @total_games_by_team.each do |game_id, games|
-          @the_worst[game_id] = (goals.to_f/games).round(4)
-        end
+    total_goals; h1 = @total_goals_by_team
+    total_games; h2 = @total_games_by_team
+    
+    new_hash = h1.merge(h2) do |key, goals, games| 
+      goals.to_f / games
     end
-    worst = @the_worst.sort_by do |id, ratio|
+
+    worst = new_hash.sort_by do |team_id, ratio|
       ratio
     end
 
@@ -137,15 +134,25 @@ class StatTracker
     goals_by_id; @goals_scored
     number_of_games_played; @number_played
 
-    @goals_scored.each do |goal_id, goal_info|
-      @high_vis = {}
-      @number_played.each do |game_team_id, game_info|
-        @high_vis[game_team_id] = (goal_info[:away_goals].to_f / game_info[:away_games]).round(4)
-      end
+    h1 = {}
+    h2 = {}
+
+    @goals_scored.each do |id, goal_info|
+      h1[id] = goal_info[:away_goals]
     end
-    best_vis = @high_vis.sort_by do |id, ratio|
+
+    @number_played.each do |id, game_info|
+      h2[id] = game_info[:away_games]
+    end
+
+    new_hash = h1.merge(h2) do |key, goals, games| 
+      goals.to_f / games
+    end
+
+    best_vis = new_hash.sort_by do |id, ratio|
       ratio
     end
+    
     @id_and_team.find do |id, team|
       if id == best_vis[-1][0]
         return team[:name]
@@ -158,15 +165,25 @@ class StatTracker
     goals_by_id; @goals_scored
     number_of_games_played; @number_played
 
-    @goals_scored.each do |goal_id, goal_info|
-      @high_home = {}
-      @number_played.each do |game_team_id, game_info|
-        @high_home[game_team_id] = (goal_info[:home_goals].to_f / game_info[:home_games]).round(4)
-      end
+    h1 = {}
+    h2 = {}
+
+    @goals_scored.each do |id, goal_info|
+      h1[id] = goal_info[:home_goals]
     end
-    best_home = @high_home.sort_by do |id, ratio|
+
+    @number_played.each do |id, game_info|
+      h2[id] = game_info[:home_games]
+    end
+
+    new_hash = h1.merge(h2) do |key, goals, games| 
+      goals.to_f / games
+    end
+
+    best_home = new_hash.sort_by do |id, ratio|
       ratio
     end
+    
     @id_and_team.find do |id, team|
       if id == best_home[-1][0]
         return team[:name]
@@ -179,15 +196,25 @@ class StatTracker
     goals_by_id; @goals_scored
     number_of_games_played; @number_played
 
-    @goals_scored.each do |goal_id, goal_info|
-      @low_vis = {}
-      @number_played.each do |game_team_id, game_info|
-        @low_vis[game_team_id] = (goal_info[:away_goals].to_f / game_info[:away_games]).round(4)
-      end
+    h1 = {}
+    h2 = {}
+
+    @goals_scored.each do |id, goal_info|
+      h1[id] = goal_info[:away_goals]
     end
-    worst_vis = @low_vis.sort_by do |id, ratio|
+
+    @number_played.each do |id, game_info|
+      h2[id] = game_info[:away_games]
+    end
+
+    new_hash = h1.merge(h2) do |key, goals, games| 
+      goals.to_f / games
+    end
+
+    worst_vis = new_hash.sort_by do |id, ratio|
       ratio
     end
+
     @id_and_team.find do |id, team|
       if id == worst_vis[0][0]
         return team[:name]
@@ -201,15 +228,25 @@ class StatTracker
     goals_by_id; @goals_scored
     number_of_games_played; @number_played
 
-    @goals_scored.each do |goal_id, goal_info|
-      @low_home = {}
-      @number_played.each do |game_team_id, game_info|
-        @low_home[game_team_id] = (goal_info[:home_goals].to_f / game_info[:home_games]).round(4)
-      end
+    h1 = {}
+    h2 = {}
+
+    @goals_scored.each do |id, goal_info|
+      h1[id] = goal_info[:home_goals]
     end
-    worst_home = @low_home.sort_by do |id, ratio|
+
+    @number_played.each do |id, game_info|
+      h2[id] = game_info[:home_games]
+    end
+
+    new_hash = h1.merge(h2) do |key, goals, games| 
+      goals.to_f / games
+    end
+
+    worst_home = new_hash.sort_by do |id, ratio|
       ratio
     end
+
     @id_and_team.find do |id, team|
       if id == worst_home[0][0]
         return team[:name]
