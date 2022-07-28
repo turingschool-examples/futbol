@@ -68,4 +68,12 @@ RSpec.describe do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
+  it 'can find winningest coach' do
+    expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+    expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+  end
+
+
+
+
 end
