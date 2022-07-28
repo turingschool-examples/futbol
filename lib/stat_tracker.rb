@@ -37,16 +37,14 @@ class StatTracker
       game[1] = search_team_id
     end
     # require "pry"; binding.pry
-    all_lost_info = []
+    all_win_info = []
 
     @game_teams.each do |per_line|
-    if per_line[3] == "LOSS"
-      all_lost_info << per_line[0]
+    if per_line[3] == "WIN" && per_line[1] == search_team_id
+      all_win_info << per_line[0]
       end
     end
-    all_lost_info
+    all_win_info
   end
-
-
 
 end
