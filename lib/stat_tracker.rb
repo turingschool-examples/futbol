@@ -332,4 +332,26 @@ class StatTracker
   def team_id_to_name
     @teams.map { |team| [team.team_id, team.team_name] }.to_h
     end
+
+  def most_tackles(season)
+    game_id_array = []
+    season_grouper[season].each do |game|
+      game_id_array << [game.game_id, game]
+    end
+    @game_teams.each do |game_team|
+        require 'pry' ; binding.pry
+    end
+    #Go into the game class & retrieve all the games with the season indicated in the arg. It also needs the season ID attatched with it.
+
+    #then it should find all objects in the @game_teams class with a matching Team ID from the retrieved objects in the game_class.
+    #Question - home team or away team or both?
+
+    #then it should iterate through that array and find the game_team object with the highest tackle
+    #return the name of that object.
+
+  end
+
+
+
+
   end
