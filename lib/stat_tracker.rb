@@ -345,10 +345,10 @@ class StatTracker
     end
      merged_hash = home_game_hash.merge(away_game_hash) do |team_id, home_game_array, away_game_array|
            home_game_array << away_game_array
-            #Merge two hashes into one. {"3" => [game, game, game, game, game (away games &)]}
-            #All tackles for each game for a given key
+           #All tackles for each game for a given key
       end
       require 'pry' ; binding.pry
+    #for each set of values we need to add up the tackles that are in there &
 
   end
 
