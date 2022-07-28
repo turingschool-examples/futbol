@@ -74,24 +74,6 @@ class StatTracker
     Hash[seasons.keys.zip(avg_arr)]
   end
 
-
-# League Statistics Methods
-
-  def count_of_teams
-    @teams.count
-  end
-
-  def best_offense
-    teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by(&:to_i)
-    avgs = []
-    teams.each do |team|
-      home_goal = (@games.find_all { |game| team == game[:home_team_id] }.map { |game| game[:home_goals].to_i }).sum
-      away_goal = (@games.find_all { |game| team == game[:away_team_id] }.map { |game| game[:away_goals].to_i }).sum
-      avgs << ((home_goal + away_goal).to_f / (@games.count { |game| (game[:home_team_id || :away_team_id]) == team })).round(3)
-    end
-    @teams.find { |team| team[:team_id] == (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0] }[:team_name]
-  end
-
 # Team Statistics Methods
   def team_info(team_id)
     headers = @teams[0].headers.map!(&:to_s)
@@ -156,6 +138,23 @@ class StatTracker
     counter
   end
 
+# League Statistics Methods
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by(&:to_i)
+    avgs = []
+    teams.each do |team|
+      home_goal = (@games.find_all { |game| team == game[:home_team_id] }.map { |game| game[:home_goals].to_i }).sum
+      away_goal = (@games.find_all { |game| team == game[:away_team_id] }.map { |game| game[:away_goals].to_i }).sum
+      avgs << ((home_goal + away_goal).to_f / (@games.count { |game| (game[:home_team_id || :away_team_id]) == team })).round(3)
+    end
+    @teams.find { |team| team[:team_id] == (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0] }[:team_name]
+  end
+
   def worst_offense
     teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by { |num| num.to_i }
     avgs = []
@@ -164,8 +163,7 @@ class StatTracker
       away_goal = (@games.find_all { |game| team == game[:away_team_id]}.map { |game| game[:away_goals].to_i}).sum
       avgs << ((home_goal + away_goal).to_f / (@games.find_all { |game| game[:home_team_id] == team || game[:away_team_id] == team}).count).round(3)
     end
-    worst_o_id = (Hash[teams.zip(avgs)].min_by { |_k, v| v })[0]
-    @teams.find { |team| team[:team_id] == worst_o_id }[:teamname]
+    @teams.find { |team| team[:team_id] == (Hash[teams.zip(avgs)].min_by { |_k, v| v })[0] }[:team_name]
   end
 
   def highest_scoring_visitor
@@ -175,8 +173,8 @@ class StatTracker
       away_goal = (@games.find_all { |game| team == game[:away_team_id]}.map { |game| game[:away_goals].to_i}).sum
       avgs << ((away_goal).to_f / (@games.find_all { |game| game[:away_team_id] == team}).count).round(3)
     end
-      highest_visitor = (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0]
-    @teams.find { |team| team[:team_id] == highest_visitor }[:teamname]
+    highest_visitor = (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0]
+    @teams.find { |team| team[:team_id] == highest_visitor }[:team_name]
   end
 
   def highest_scoring_home_team
@@ -186,8 +184,8 @@ class StatTracker
       home_goal = (@games.find_all { |game| team == game[:home_team_id]}.map { |game| game[:home_goals].to_i}).sum
       avgs << ((home_goal).to_f / (@games.find_all { |game| game[:home_team_id] == team}).count).round(3)
     end
-      highest_home_team = (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0]
-    @teams.find { |team| team[:team_id] == highest_home_team }[:teamname]
+    highest_home_team = (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0]
+    @teams.find { |team| team[:team_id] == highest_home_team }[:team_name]
   end
 
   def lowest_scoring_visitor
@@ -198,7 +196,7 @@ class StatTracker
       avgs << ((away_goal).to_f / (@games.find_all { |game| game[:away_team_id] == team}).count).round(3)
     end
     lowest_visitor = (Hash[teams.zip(avgs)].min_by { |_k, v| v })[0]
-    @teams.find { |team| team[:team_id] == lowest_visitor }[:teamname]
+    @teams.find { |team| team[:team_id] == lowest_visitor }[:team_name]
   end
 
   def lowest_scoring_home_team
@@ -209,9 +207,10 @@ class StatTracker
       avgs << ((home_goal).to_f / (@games.find_all { |game| game[:home_team_id] == team}).count).round(3)
     end
     lowest_home_team = (Hash[teams.zip(avgs)].min_by { |_k, v| v })[0]
-    @teams.find { |team| team[:team_id] == lowest_home_team }[:teamname]
+    @teams.find { |team| team[:team_id] == lowest_home_team }[:team_name]
   end
 
+# Season statistics
   def list_game_ids_by_season(season_desired) #every game_id associated with a season
     season_dsrd = @games.select {|game| game[:season] == season_desired}
     gretzy = []
@@ -246,11 +245,11 @@ class StatTracker
   end
 
   def winningest_coach(season_desired)
-    coach_win_percentages_by_season(season_desired).max_by {|a, b| b }[0]
+    coach_win_percentages_by_season(season_desired).max_by {|_a, b| b }[0]
   end
 
   def worst_coach(season_desired)
-    wasd = coach_win_percentages_by_season(season_desired).min_by {|a, b| b }[0]
+    coach_win_percentages_by_season(season_desired).min_by {|_a, b| b }[0]
   end
 
   def team_accuracy(season_desired)
@@ -272,13 +271,13 @@ class StatTracker
   end
 
   def most_accurate_team(season_desired)
-    wasd = team_accuracy(season_desired).max_by { |a, b| b }
-    (@teams.find { |this_team| this_team[:team_id] == wasd[0]})[:teamname]
+    wasd = team_accuracy(season_desired).max_by { |_a, b| b }
+    (@teams.find { |this_team| this_team[:team_id] == wasd[0]})[:team_name]
   end
 
   def least_accurate_team(season_desired)
-    johnny = team_accuracy(season_desired).min_by { |a, b| b }
-    (@teams.find { |this_team_1| this_team_1[:team_id] == johnny[0]})[:teamname]
+    johnny = team_accuracy(season_desired).min_by { |_a, b| b }
+    (@teams.find { |this_team_1| this_team_1[:team_id] == johnny[0]})[:team_name]
   end
 
   def most_tackles(season_desired)
@@ -289,8 +288,8 @@ class StatTracker
         team_tackles_2[period[:team_id]] += period[:tackles].to_i
       end
     end
-    bobby = team_tackles_2.max_by { |a, b| b }
-    (@teams.find { |this_team_2| this_team_2[:team_id] == bobby[0]})[:teamname]
+    bobby = team_tackles_2.max_by { |_a, b| b }
+    (@teams.find { |this_team_2| this_team_2[:team_id] == bobby[0]})[:team_name]
 
   end
 
@@ -302,9 +301,7 @@ class StatTracker
         team_tackles_3[period[:team_id]] += period[:tackles].to_i
       end
     end
-    bobby = team_tackles_3.min_by { |a, b| b }
-    (@teams.find { |this_team_3| this_team_3[:team_id] == bobby[0]})[:teamname]
-
+    bobby = team_tackles_3.min_by { |_a, b| b }
+    (@teams.find { |this_team_3| this_team_3[:team_id] == bobby[0]})[:team_name]
   end
-
 end
