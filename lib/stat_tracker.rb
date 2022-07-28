@@ -26,23 +26,97 @@ class StatTracker
   end
 
   def lowest_total_score
-
+    scores = @games_data.map do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i 
+    end
+    scores.min
   end
 
   def percentage_home_wins
+    wins = 0
+    total_games = 0
 
+    @game_teams_data.each do |row|
+        if row[:hoa] == 'home'
+          
+          if row[:result] == 'WIN'
+            wins += 1
+            total_games += 1
+        
+          elsif row[:result] == 'LOSS' 
+            total_games += 1
+
+          elsif row[:result] == 'TIE'
+            total_games += 1
+          end
+        end
+    end
+      (wins / total_games.to_f).round(2)
   end
 
   def percentage_visitor_wins
+    wins = 0
+    total_games = 0
 
+    @game_teams_data.each do |row|
+        if row[:hoa] == 'away'
+          
+          if row[:result] == 'WIN'
+            wins += 1
+            total_games += 1
+        
+          elsif row[:result] == 'LOSS' 
+            total_games += 1
+
+          elsif row[:result] == 'TIE'
+            total_games += 1
+          end
+        end
+    end
+      (wins / total_games.to_f).round(2)
   end
 
   def percentage_ties
+    tie = 0
+    total_games = 0
 
+    @game_teams_data.each do |row|
+        if row[:hoa] == 'away'
+          
+          if row[:result] == 'TIE'
+            tie += 1
+            total_games += 1
+          elsif row[:result] == 'LOSS' 
+            total_games += 1
+          elsif row[:result] == 'WIN'
+            total_games += 1
+          end
+        end
+    end
+      (tie / total_games.to_f).round(2)
   end
 
-  def count_of_games_by_season
+  def count_of_games_by_season    
+    season_games = {}
 
+    seasons = @games_data.map do |row|
+      row[:season] 
+    end
+    seasons = seasons.uniq!
+  
+    seasons.each do |season|
+      season_games[season] = 0
+    end
+
+    season_games.each do |season, games|
+        @games_data.each do |row|
+          # require 'pry';binding.pry
+          if row[:season] == season
+            season_games[season] += 1
+          end 
+        end
+    end
+    return season_games
   end
 
   def average_goals_per_game
