@@ -21,9 +21,9 @@ RSpec.describe StatTracker do
     end
 
     it 'has data' do
-      expect(@stat_tracker.games).to be_an_instance_of(CSV::Table)
-      expect(@stat_tracker.teams).to be_an_instance_of(CSV::Table)
-      expect(@stat_tracker.game_teams).to be_an_instance_of(CSV::Table)
+      expect(@stat_tracker.games).to all(be_an(Game))
+      expect(@stat_tracker.teams.values).to all(be_an(Team))
+      expect(@stat_tracker.seasons.values).to all(be_an(Season))
     end
 
     it 'has a lowest total score' do
@@ -96,17 +96,21 @@ RSpec.describe StatTracker do
 
     it 'can return the team with the fewest tackles in a given season' do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+
+    it 'can return average_goals_per_game' do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.85)
     end
 
-    it 'can return the team with the most tackles in a given season' do
-      expect(@stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+    it 'can return percentage of home wins as decimal' do
+      expect(@stat_tracker.percentage_home_wins).to eq(0.5)
     end
 
-    it 'can show the team info' do
-      expect(@stat_tracker.team_info('FC Dallas')).to eq({"team_id" => "6", "franchise_id" => "6",
-        "team_name" => "FC Dallas",
-        "abbreviation" => "DAL",
-        "link" => "/api/v1/teams/6"})
+    it 'can return percentage visitor wins as decimal' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.45)
+    end
+
+    it 'can return the percentage of ties as a decimal' do
+      expect(@stat_tracker.percentage_ties).to eq(0.05)
     end
 
   end

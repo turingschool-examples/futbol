@@ -38,6 +38,20 @@ class Game
     }
   end
 
+  def total_goals #returns total number of goals scored by either team in a game
+    @teams_game_stats[:home_team][:goals] + @teams_game_stats[:away_team][:goals]
+  end
+  
+  def winner #returns either :home_team or :away_team or :tie for winner
+    if @teams_game_stats[:home_team][:result] == "WIN"
+      :home_team
+    elsif @teams_game_stats[:home_team][:result] == "TIE"
+      :tie
+    else
+      :away_team
+    end
+  end
+
   def self.generate_games(games_csv, game_teams_csv, teams)
     game_array = []
     games_csv.each do |game|
@@ -55,9 +69,7 @@ class Game
     game_array
   end
 
-  def total_scores_per_game
-    @teams_game_stats[:away_team][:goals] + @teams_game_stats[:home_team][:goals]
-  end
 
-  
+   
 end
+
