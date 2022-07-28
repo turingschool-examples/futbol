@@ -336,17 +336,19 @@ class StatTracker
   def most_tackles(season)
     seasons_grouped = season_grouper[season]
 
-      home_game_hash = seasons_grouped.group_by do |game|
-        require 'pry' ; binding.pry
-        game.home_team_id
-        # all_team_games(game.home_team_id)  #games helper, returns all of a team's games in an array
-      end
+    home_game_hash = seasons_grouped.group_by do |game|
+      game.home_team_id
+    end
 
-      away_game_hash = seasons_grouped.group_by do |game|
-        require 'pry' ; binding.pry
-        game.away_team_id
-        # all_team_games(game.home_team_id)  #games helper, returns all of a team's games in an array
+    away_game_hash = seasons_grouped.group_by do |game|
+      game.away_team_id
+    end
+     merged_hash = home_game_hash.merge(away_game_hash) do |team_id, home_game_array, away_game_array|
+           home_game_array << away_game_array
+            #Merge two hashes into one. {"3" => [game, game, game, game, game (away games &)]}
+            #All tackles for each game for a given key
       end
+      require 'pry' ; binding.pry
 
   end
 
