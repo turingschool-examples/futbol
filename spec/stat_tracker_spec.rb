@@ -56,6 +56,7 @@ RSpec.describe StatTracker do
   end
 
   it 'returns team with best offense' do
+    # allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(real_game_teams)
     expect(stat_tracker.best_offense).to eq("FC Dallas")
   end
 
@@ -101,4 +102,168 @@ RSpec.describe StatTracker do
     allow(CSV).to receive(:open).with(locations[:games], any_args).and_return(fake_data)
     expect(stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
+
+  it 'returns highest scoring home team' do
+    #Data has been mocked below since initial dummy data set did not have varying seasons.
+    fake_data = [
+      {
+        :season => "20142015",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20142015",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "1",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "2",
+      }
+    ]
+    #calls to the original CSV file where specified, in this case it was the second half of the method
+    allow(CSV).to receive(:open).with(any_args).and_call_original
+    #allows us to utilize the fake data instead of the referenced CSV in order to perform our test
+    allow(CSV).to receive(:open).with(locations[:games], any_args).and_return(fake_data)
+    expect(stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+    end
+
+
+  it 'returns lowest scoring visitor team' do
+    fake_data = [
+      {
+        :season => "20142015",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20142015",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "1",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "2",
+      }
+    ]
+    #calls to the original CSV file where specified, in this case it was the second half of the method
+    allow(CSV).to receive(:open).with(any_args).and_call_original
+    #allows us to utilize the fake data instead of the referenced CSV in order to perform our test
+    allow(CSV).to receive(:open).with(locations[:games], any_args).and_return(fake_data)
+    expect(stat_tracker.lowest_scoring_visitor).to eq("Houston Dynamo")
+  end
+
+  it 'returns lowest scoring home team' do
+    fake_data = [
+      {
+        :season => "20142015",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20142015",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "1",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "2",
+      }
+    ]
+    #calls to the original CSV file where specified, in this case it was the second half of the method
+    allow(CSV).to receive(:open).with(any_args).and_call_original
+    #allows us to utilize the fake data instead of the referenced CSV in order to perform our test
+    allow(CSV).to receive(:open).with(locations[:games], any_args).and_return(fake_data)
+    expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dynamo")
+  end
+
+  it 'returns lowest scoring home team' do
+    fake_data = [
+      {
+        :season => "20142015",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20142015",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "1",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "3",
+        :home_team_id => "6",
+        :away_goals => "2",
+        :home_goals => "3",
+      },
+      {
+        :season => "20122013",
+        :away_team_id => "6",
+        :home_team_id => "3",
+        :away_goals => "3",
+        :home_goals => "2",
+      }
+    ]
+    #calls to the original CSV file where specified, in this case it was the second half of the method
+    allow(CSV).to receive(:open).with(any_args).and_call_original
+    #allows us to utilize the fake data instead of the referenced CSV in order to perform our test
+    allow(CSV).to receive(:open).with(locations[:games], any_args).and_return(fake_data)
+    expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dynamo")
+    end
+
+  # it 'returns individual team info' do
+  #   expect(stat_tracker.team_info(29)).to eq({
+  #     :team_id => 29,
+  #     :franchiseid => '36',
+  #     :teamname => "Orlando Pride",
+  #     :abbreviation => 'FLP',
+  #     :link => '/api/v1/teams/29'
+  #   })
+  # end
 end
