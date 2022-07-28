@@ -3,7 +3,7 @@ require './lib/stat_tracker'
 RSpec.describe StatTracker do
   let(:locations) do {
     games: './data/dummy_games.csv',
-    teams: './data/dummy_teams.csv',
+    teams: './data/teams.csv',
     game_teams: './data/dummy_game_teams.csv'
   } end
 
@@ -50,4 +50,9 @@ RSpec.describe StatTracker do
   end
 
   #league stats
+
+  #season stats
+  it 'returns winningestcoach' do
+    expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+  end
 end
