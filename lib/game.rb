@@ -3,9 +3,7 @@ class Game
   attr_reader :game_id,
               :season,
               :type,
-              :teams_game_stats,
-              :home_team,
-              :away_team
+              :teams_game_stats
 
   def initialize(game_csv_row, game_teams_csv_rows, home_name, away_name)
     @game_id = game_csv_row[:game_id]

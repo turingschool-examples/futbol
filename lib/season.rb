@@ -5,7 +5,6 @@ class Season
   def initialize(season_id, games_in_season)
     @season_id = season_id
     @games_in_season = games_in_season
-
   end
 
   def self.generate_seasons(games)
