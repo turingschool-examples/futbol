@@ -315,22 +315,25 @@ class StatTracker
     (seasons.key(seasons.values.min)).to_s
   end
 
-  # def most_accurate_team(season)
-  #   accuracy_by_id = Hash.new(0)
-  #   games_by_season(season) do |game|
-  #     @game_teams_data.each do |row|
-  #       if game == row[:game_id]
-  #         goals = row[:goals].to_f
-  #         shots = row[:shots].to_f
-  #         team_id = row[:team_id]
-  #         accuracy = goals / shots
-  #         accuracy_by_id[team_id] = accuracy
-  #       end
-  #     end
-  #   end
-  #   accurate_id = accuracy_by_id.key(accuracy_by_id.values.max)
-  #   find_team_name_by_id(accurate_id)
-  # end
+  def most_accurate_team(season)
+    team_accuracy_record = {}
+    teams_by_season(season).each do |team|
+      team_accuracy_record[team.to_sym] = {shots: 0, goals: 0}
+    end
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          goals = row[:goals].to_i
+          shots = row[:shots].to_i
+          team_id = row[:team_id].to_sym
+          team_accuracy_record[team_id][:goals] += goals
+          team_accuracy_record[team_id][:shots] += shots
+        end
+      end
+    end
+    selected_team = team_accuracy_record.min_by { |team, hash| (hash[:shots] / hash[:goals]) }
+    find_team_name_by_id(selected_team[0])
+  end
 
   def least_accurate_team
     accuracy_by_id = Hash.new
