@@ -331,40 +331,62 @@ class StatTracker
         end
       end
     end
-    selected_team = team_accuracy_record.min_by { |team, hash| (hash[:shots] / hash[:goals]) }
+    selected_team = team_accuracy_record.max_by { |team, hash| (hash[:goals].to_f / hash[:shots].to_f) }
     find_team_name_by_id(selected_team[0])
   end
 
-  def least_accurate_team
-    accuracy_by_id = Hash.new
-    @game_teams_data.each do |row|
-      goals = row[:goals].to_f
-      shots = row[:shots].to_f
-      team_id = row[:team_id]
-      accuracy = goals / shots
-      accuracy_by_id[team_id] = accuracy
+  def least_accurate_team(season)
+    team_accuracy_record = {}
+    teams_by_season(season).each do |team|
+      team_accuracy_record[team.to_sym] = {shots: 0, goals: 0}
     end
-    accurate_id = accuracy_by_id.key(accuracy_by_id.values.min)
-    find_team_name_by_id(accurate_id)
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          goals = row[:goals].to_i
+          shots = row[:shots].to_i
+          team_id = row[:team_id].to_sym
+          team_accuracy_record[team_id][:goals] += goals
+          team_accuracy_record[team_id][:shots] += shots
+        end
+      end
+    end
+    selected_team = team_accuracy_record.min_by { |team, hash| (hash[:goals].to_f / hash[:shots].to_f) }
+    find_team_name_by_id(selected_team[0])
   end
 
-  def most_tackles
-
-    tackles_by_id = Hash.new
-    @game_teams_data.each do |row|
-      tackles_by_id[row[:team_id]] = row[:tackles]
+  def most_tackles(season)
+    team_tackles_record = {}
+    teams_by_season(season).each do |team|
+      team_tackles_record[team.to_sym] = 0
     end
-    most_tackle_id = tackles_by_id.key(tackles_by_id.values.max)
-    find_team_name_by_id(most_tackle_id)
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          tackles = row[:tackles].to_i
+          team_tackles_record[row[:team_id].to_sym] += tackles
+        end
+      end
+    end
+    selected_team = team_tackles_record.max_by { |team, hash| hash }
+    find_team_name_by_id(selected_team[0].to_s)
   end
 
-  def fewest_tackles
-    tackles_by_id = Hash.new
-    @game_teams_data.each do |row|
-      tackles_by_id[row[:team_id]] = row[:tackles]
+  def fewest_tackles(season)
+    team_tackles_record = {}
+    teams_by_season(season).each do |team|
+      team_tackles_record[team.to_sym] = 0
     end
-    least_tackle_id = tackles_by_id.key(tackles_by_id.values.min)
-    find_team_name_by_id(least_tackle_id)
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          tackles = row[:tackles].to_i
+          team_tackles_record[row[:team_id].to_sym] += tackles
+        end
+      end
+    end
+    selected_team = team_tackles_record.min_by { |team, hash| hash }
+    find_team_name_by_id(selected_team[0].to_s)
   end
 
   # Team Statistics
