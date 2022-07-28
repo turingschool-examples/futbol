@@ -149,20 +149,29 @@ class StatTracker
   end
 
   def most_tackles(season_desired)
-    @team_tackles_2 = Hash.new(0)
+    team_tackles_2 = Hash.new(0)
     list_game_ids_by_season(season_desired).each do |num|
       orr = @game_teams.select { |thing| thing[:game_id] == num }
       orr.each do |period|
-        @team_tackles_2[period[:team_id]] += period[:tackles].to_i
+        team_tackles_2[period[:team_id]] += period[:tackles].to_i
       end
     end
-    bobby = @team_tackles_2.max_by { |a, b| b }
+    bobby = team_tackles_2.max_by { |a, b| b }
     (@teams.find { |this_team_2| this_team_2[:team_id] == bobby[0]})[:teamname]
 
   end
 
-  # def most_tackles(season_desired)
-  #
-  # end
+  def fewest_tackles(season_desired)
+    team_tackles_3 = Hash.new(0)
+    list_game_ids_by_season(season_desired).each do |num|
+      orr = @game_teams.select { |thing| thing[:game_id] == num }
+      orr.each do |period|
+        team_tackles_3[period[:team_id]] += period[:tackles].to_i
+      end
+    end
+    bobby = team_tackles_3.min_by { |a, b| b }
+    (@teams.find { |this_team_3| this_team_3[:team_id] == bobby[0]})[:teamname]
+
+  end
 
 end
