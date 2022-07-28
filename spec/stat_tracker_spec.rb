@@ -118,5 +118,63 @@ RSpec.describe do
       expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
     end
   end
+  #league stats tests v
+  it 'can return the total number of teams in the data' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it 'can return team name with the highest average num of goals scored per games across all seasons' do
+    expect(@stat_tracker.best_offense).to eq("Reign FC")
+  end
+
+  it 'can return team name with lowest avg num of goals scored per game across all seasons' do
+    expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+  end
+
+  it 'can return team name with highest avg score per game across all season when they are AWAY' do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  it 'can return team name with the highest avg score per game across alls eason when they are HOME' do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+  end
+
+  it 'can return team name with lowest avg score per game across all seasons when they are a VISITOR' do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+  end
+
+  it 'can return team name with lowest avg score per game across all seasons when they are at HOME' do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
+  end
+
+  it 'can find winningest coach' do
+    expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+    expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+  end
+
+  it 'can return worst coach' do
+    expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
+    expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+  end
+
+  it 'can return most accurate team' do
+    expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+  end
+
+  it 'can return least accurate team' do
+    expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  end
+
+  it "can return team with most tackles" do
+    expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
+
+  it "can return team with the fewest tackles" do
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+    expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+  end
 
 end
