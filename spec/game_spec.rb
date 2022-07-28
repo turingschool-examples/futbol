@@ -23,10 +23,6 @@ RSpec.describe Game do
    expect(@game.game_id).to eq(2012030221)
  end
 
- it 'has a total score' do
-   expect(@game.total_scores_per_game).to eq(5)
- end
-
   it 'can return total number of goals' do
     expect(@game.total_goals).to eq(5)
   end
