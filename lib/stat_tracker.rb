@@ -265,19 +265,23 @@ class StatTracker
   
   # Season Statistics
   
-  def winningest_coach
+  def winningest_coach(season)
     coach_records = {}
-    all_coaches_array.each do |coach|
+    coaches_by_season(season).each do |coach|
       coach_records[coach] = {wins: 0, total_games: 0}
     end
-    @game_teams_data.each do |row|
-      result = row[:result]
-      coach = row[:head_coach].to_sym
-      if result == "WIN"
-        coach_records[coach][:wins] += 1
-        coach_records[coach][:total_games] += 1
-      else
-        coach_records[coach][:total_games] += 1
+    games_by_season(season).each do |game|
+      @game_teams_data.each do |row|
+        if game == row[:game_id]
+          result = row[:result]
+          coach = row[:head_coach].to_sym
+          if result == "WIN"
+            coach_records[coach][:wins] += 1
+            coach_records[coach][:total_games] += 1
+          else
+            coach_records[coach][:total_games] += 1
+          end
+        end
       end
     end
     seasons = coach_records.map do |coach, record|
@@ -286,19 +290,23 @@ class StatTracker
     (seasons.key(seasons.values.max)).to_s
   end
     
-  def worst_coach
+  def worst_coach(season)
     coach_records = {}
-    all_coaches_array.each do |coach|
+    coaches_by_season(season).each do |coach|
       coach_records[coach] = {wins: 0, total_games: 0}
     end
-    @game_teams_data.each do |row|
-      result = row[:result]
-      coach = row[:head_coach].to_sym
-      if result == "WIN"
-        coach_records[coach][:wins] += 1
-        coach_records[coach][:total_games] += 1
-      else
-        coach_records[coach][:total_games] += 1
+    games_by_season(season).each do |game|
+      @game_teams_data.each do |row|
+        if game == row[:game_id]
+          result = row[:result]
+          coach = row[:head_coach].to_sym
+          if result == "WIN"
+            coach_records[coach][:wins] += 1
+            coach_records[coach][:total_games] += 1
+          else
+            coach_records[coach][:total_games] += 1
+          end
+        end
       end
     end
     seasons = coach_records.map do |coach, record|
@@ -307,48 +315,78 @@ class StatTracker
     (seasons.key(seasons.values.min)).to_s
   end
 
-  def most_accurate_team
-    accuracy_by_id = Hash.new(0)
-    @game_teams_data.each do |row|
-      goals = row[:goals].to_f
-      shots = row[:shots].to_f
-      team_id = row[:team_id]
-      accuracy = goals / shots
-      accuracy_by_id[team_id] = accuracy
+  def most_accurate_team(season)
+    team_accuracy_record = {}
+    teams_by_season(season).each do |team|
+      team_accuracy_record[team.to_sym] = {shots: 0, goals: 0}
     end
-    accurate_id = accuracy_by_id.key(accuracy_by_id.values.max)
-    find_team_name_by_id(accurate_id)
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          goals = row[:goals].to_i
+          shots = row[:shots].to_i
+          team_id = row[:team_id].to_sym
+          team_accuracy_record[team_id][:goals] += goals
+          team_accuracy_record[team_id][:shots] += shots
+        end
+      end
+    end
+    selected_team = team_accuracy_record.max_by { |team, hash| (hash[:goals].to_f / hash[:shots].to_f) }
+    find_team_name_by_id(selected_team[0])
   end
 
-  def least_accurate_team
-    accuracy_by_id = Hash.new
-    @game_teams_data.each do |row|
-      goals = row[:goals].to_f
-      shots = row[:shots].to_f
-      team_id = row[:team_id]
-      accuracy = goals / shots
-      accuracy_by_id[team_id] = accuracy
+  def least_accurate_team(season)
+    team_accuracy_record = {}
+    teams_by_season(season).each do |team|
+      team_accuracy_record[team.to_sym] = {shots: 0, goals: 0}
     end
-    accurate_id = accuracy_by_id.key(accuracy_by_id.values.min)
-    find_team_name_by_id(accurate_id)
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          goals = row[:goals].to_i
+          shots = row[:shots].to_i
+          team_id = row[:team_id].to_sym
+          team_accuracy_record[team_id][:goals] += goals
+          team_accuracy_record[team_id][:shots] += shots
+        end
+      end
+    end
+    selected_team = team_accuracy_record.min_by { |team, hash| (hash[:goals].to_f / hash[:shots].to_f) }
+    find_team_name_by_id(selected_team[0])
   end
 
-  def most_tackles
-    tackles_by_id = Hash.new
-    @game_teams_data.each do |row|
-      tackles_by_id[row[:team_id]] = row[:tackles]
+  def most_tackles(season)
+    team_tackles_record = {}
+    teams_by_season(season).each do |team|
+      team_tackles_record[team.to_sym] = 0
     end
-    most_tackle_id = tackles_by_id.key(tackles_by_id.values.max)
-    find_team_name_by_id(most_tackle_id)
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          tackles = row[:tackles].to_i
+          team_tackles_record[row[:team_id].to_sym] += tackles
+        end
+      end
+    end
+    selected_team = team_tackles_record.max_by { |team, hash| hash }
+    find_team_name_by_id(selected_team[0].to_s)
   end
 
-  def fewest_tackles
-    tackles_by_id = Hash.new
-    @game_teams_data.each do |row|
-      tackles_by_id[row[:team_id]] = row[:tackles]
+  def fewest_tackles(season)
+    team_tackles_record = {}
+    teams_by_season(season).each do |team|
+      team_tackles_record[team.to_sym] = 0
     end
-    least_tackle_id = tackles_by_id.key(tackles_by_id.values.min)
-    find_team_name_by_id(least_tackle_id)
+    @game_teams_data.each do |row|
+      games_by_season(season).each do |game|
+        if game == row[:game_id]
+          tackles = row[:tackles].to_i
+          team_tackles_record[row[:team_id].to_sym] += tackles
+        end
+      end
+    end
+    selected_team = team_tackles_record.min_by { |team, hash| hash }
+    find_team_name_by_id(selected_team[0].to_s)
   end
 
   # Team Statistics
@@ -486,6 +524,36 @@ class StatTracker
     coach_array.uniq!.map do |coach|
       coach.to_sym
     end
+  end
+
+  def games_by_season(season)
+    games_array = []
+    @games_data.each do |row|
+    games_array <<row[:game_id] if row[:season] == season
+    end
+    games_array
+  end
+
+  def coaches_by_season(season)
+    coaches_array = []
+    games_by_season(season).each do |game|
+      @game_teams_data.each do |row|
+        coaches_array << row[:head_coach].to_sym if game == row[:game_id]
+      end
+    end
+    coaches_array.uniq
+  end
+
+  def teams_by_season(season)
+    teams_array = []
+    games_by_season(season).each do |game|
+      @game_teams_data.each do |row|
+        if game == row[:game_id]
+          teams_array << row[:team_id].to_sym
+        end
+      end
+    end
+    teams_array.uniq
   end
 end
 
