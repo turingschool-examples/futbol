@@ -348,7 +348,18 @@ class StatTracker
 
   # Team Statistics
 
-  def team_info
+  def team_info(given_team_id)
+      all_team_info = @teams_data.select do |team|
+        team[:team_id] == given_team_id
+      end[0]
+      team_info_hash = {
+        team_id: all_team_info[:team_id],
+        franchise_id: all_team_info[:franchiseid],
+        team_name: all_team_info[:teamname],
+        abbreviation: all_team_info[:abbreviation],
+        link: all_team_info[:link]
+      }
+    end
 
   end
 
@@ -399,6 +410,11 @@ class StatTracker
       coach.to_sym
     end
   end
+
+
+
+
+
 
 end
 
