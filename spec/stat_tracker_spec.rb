@@ -30,39 +30,31 @@ RSpec.describe StatTracker do
   describe 'League Methods' do
 
     it 'can count teams' do
-      # binding.pry
-      @stat_tracker.number_of_games_played
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-    xit 'can find best offense' do
-#does not account for ties in offenses with same number of points
-      expect(@stat_tracker.best_offense).to eq "Sporting Kansas City"
+    it 'can find best offense' do
+      expect(@stat_tracker.best_offense).to eq "Columbus Crew SC"
     end
 
-    xit 'can find worst offense' do
-    #does not account for ties in offenses with same number of points
-      expect(@stat_tracker.worst_offense).to eq "Columbus Crew SC"
+    it 'can find worst offense' do
+      expect(@stat_tracker.worst_offense).to eq "Portland Timbers"
     end
 
-    xit 'can find highest scoring visitor' do
-     
-      expect(@stat_tracker.highest_scoring_visitor).to eq "Name of the team with the highest average score per game across all seasons when they are away."
+    it 'can find highest scoring visitor' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq "Sky Blue FC"
     end
 
-    xit 'can find highest scoring home team' do
-     
-      expect(@stat_tracker.highest_scoring_home_team).to eq "Name of the team with the highest average score per game across all seasons when they are home."
+    it 'can find highest scoring home team' do    
+      expect(@stat_tracker.highest_scoring_home_team).to eq "Columbus Crew SC"
     end
 
-    xit 'can find lowest scoring visitor' do
-
-      expect(@stat_tracker.lowest_scoring_visitor).to eq "Name of the team with the lowest average score per game across all seasons when they are a visitor."
+    it 'can find lowest scoring visitor' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq "Portland Timbers"
     end
 
-    xit 'can find lowest scoring home team' do
-  
-      expect(@stat_tracker.lowest_scoring_home_team).to eq "Name of the team with the lowest average score per game across all seasons when they are at home."
+    it 'can find lowest scoring home team' do 
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Portland Timbers"
     end
   end
 end

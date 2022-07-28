@@ -22,7 +22,7 @@ class StatTracker
     @teams.count
   end
 
-  def id_team_hash # desired return {id: {name: "teamname", home_goals: num, away_goals: num}}
+  def id_team_hash
     @id_and_team = {}
 
     @teams.each do |team|
@@ -39,11 +39,11 @@ class StatTracker
       games_played = Hash.new{0}
 
       @games.each do |game|
-        if game[:home_team_id] == id #|| game[:away_team_id] == id
+        if game[:home_team_id] == id
           games_played[:name] = team_name
           games_played[:home_games] += 1
         end
-        if game[:away_team_id] == id #|| game[:away_team_id] == id
+        if game[:away_team_id] == id
           games_played[:name] = team_name
           games_played[:away_games] += 1
         end
@@ -63,7 +63,7 @@ class StatTracker
   end
 
   def goals_by_id
-    id_team_hash #method id_team_hash called to have access to @id_and_team
+    id_team_hash
     @goals_scored = @id_and_team
 
     @goals_scored.each do |id, team_name|
@@ -87,78 +87,141 @@ class StatTracker
   def total_goals
     goals_by_id
     @goals_scored
-   @total_goals_by_team = {}
+    @total_goals_by_team = {}
 
     @goals_scored.each do |id, team_goals|
       @total_goals_by_team[id] = (team_goals[:home_goals] + team_goals[:away_goals])
     end
   end
 
-  def best_offense#does not account for ties in offenses with same number of points
-  #highest average number of goals scored per game across all seasons.
-  # goals/games
+  def best_offense
     id_team_hash; @id_and_team
-    total_goals; @total_goals_by_team.sort
-    total_games; @total_games_by_team.sort
+    total_goals; @total_goals_by_team
+    total_games; @total_games_by_team
 
-     @total_goals_by_team.each do |id, goals|
-        the_best = {}
-        @total_games_by_team.each do |id, games|
-          the_best[id] = (goals/games)
-          binding.pry
+     @total_goals_by_team.each do |goal_id, goals|
+        @the_best = {}
+        @total_games_by_team.each do |game_id, games|
+          @the_best[game_id] = (goals.to_f/games).round(4)
         end
+      @the_best
     end
-    the_best
-    # Name of the team 
+    best = @the_best.sort_by do |id, ratio|
+      ratio
+    end
+   @id_and_team.find do |id, team|
+      if id == best[-1][0]
+       return team[:name]
+      end
+    end
   end
 
   def worst_offense
-    id_team_hash
-    goals_by_id
-    @id_and_team
-    the_worst = @id_and_team.sort_by do |id, team_info|
-      team_info[:home_goals]
+    id_team_hash; @id_and_team
+    total_goals; @total_goals_by_team
+    total_games; @total_games_by_team
+
+     @total_goals_by_team.each do |goal_id, goals|
+        @the_worst = {}
+        @total_games_by_team.each do |game_id, games|
+          @the_worst[game_id] = (goals.to_f/games).round(4)
+        end
+      @the_worst
     end
-    the_worst[0][1].values[0]
+
+    worst = @the_worst.sort_by do |id, ratio|
+      ratio
+    end
+
+    @id_and_team.find do |id, team|
+      if id == worst[0][0]
+       return team[:name]
+      end
+    end
   end
 
   def highest_scoring_visitor
-    id_team_hash
-    goals_by_id
-    @id_and_team
-    the_best = @id_and_team.sort_by do |id, team_info|
-      team_info[:away_goals]
+    id_team_hash; @id_and_team
+    goals_by_id; @goals_scored
+    number_of_games_played; @number_played
+
+    @goals_scored.each do |goal_id, goal_info|
+      @high_vis = {}
+      @number_played.each do |game_team_id, game_info|
+        @high_vis[game_team_id] = (goal_info[:away_goals].to_f / game_info[:away_games]).round(4)
+      end
     end
-    the_best[-1][1].values[0]
+    best_vis = @high_vis.sort_by do |id, ratio|
+      ratio
+    end
+    @id_and_team.find do |id, team|
+      if id == best_vis[-1][0]
+        return team[:name]
+      end
+    end
   end
   
   def highest_scoring_home_team
-    id_team_hash
-    goals_by_id
-    @id_and_team
-    the_best = @id_and_team.sort_by do |id, team_info|
-      team_info[:home_goals]
+    id_team_hash; @id_and_team
+    goals_by_id; @goals_scored
+    number_of_games_played; @number_played
+
+    @goals_scored.each do |goal_id, goal_info|
+      @high_home = {}
+      @number_played.each do |game_team_id, game_info|
+        @high_home[game_team_id] = (goal_info[:home_goals].to_f / game_info[:home_games]).round(4)
+      end
     end
-    the_best[-1][1].values[0]
+    best_home = @high_home.sort_by do |id, ratio|
+      ratio
+    end
+    @id_and_team.find do |id, team|
+      if id == best_home[-1][0]
+        return team[:name]
+      end
+    end
   end
 
   def lowest_scoring_visitor
-    id_team_hash
-    goals_by_id
-    @id_and_team
-    the_lowest = @id_and_team.sort_by do |id, team_info|
-      team_info[:away_goals]
+    id_team_hash; @id_and_team
+    goals_by_id; @goals_scored
+    number_of_games_played; @number_played
+
+    @goals_scored.each do |goal_id, goal_info|
+      @low_vis = {}
+      @number_played.each do |game_team_id, game_info|
+        @low_vis[game_team_id] = (goal_info[:away_goals].to_f / game_info[:away_games]).round(4)
+      end
     end
-    the_lowest[0][1].values[0]
+    worst_vis = @low_vis.sort_by do |id, ratio|
+      ratio
+    end
+    @id_and_team.find do |id, team|
+      if id == worst_vis[0][0]
+        return team[:name]
+      end
+    end
+
   end
 
   def lowest_scoring_home_team
-    id_team_hash
-    goals_by_id
-    @id_and_team
-    the_lowest = @id_and_team.sort_by do |id, team_info|
-      team_info[:home_goals]
+    id_team_hash; @id_and_team
+    goals_by_id; @goals_scored
+    number_of_games_played; @number_played
+
+    @goals_scored.each do |goal_id, goal_info|
+      @low_home = {}
+      @number_played.each do |game_team_id, game_info|
+        @low_home[game_team_id] = (goal_info[:home_goals].to_f / game_info[:home_games]).round(4)
+      end
     end
-    the_lowest[0][1].values[0]
+    worst_home = @low_home.sort_by do |id, ratio|
+      ratio
+    end
+    @id_and_team.find do |id, team|
+      if id == worst_home[0][0]
+        return team[:name]
+      end
+    end
   end
 end
