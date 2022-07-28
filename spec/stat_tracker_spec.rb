@@ -2,8 +2,11 @@ RSpec.describe StatTracker do
   let!(:game_path) { './data/games.csv' }
   let!(:team_path) { './data/teams.csv' }
   let!(:game_teams_path) { './data/game_teams.csv' }
+  let!(:mock_game_teams_path) { './data/mock_game_teams.csv' }
+  let!(:mock_games_path) { './data/mock_games.csv' }
+
   
-  let!(:locations) { {games: game_path, teams: team_path, game_teams: game_teams_path } }
+  let!(:locations) { {games: game_path, teams: team_path, game_teams: game_teams_path, mock_game_teams: mock_game_teams_path, mock_games: mock_games_path } }
 
   let!(:stat_tracker) { StatTracker.from_csv(locations) }
   
