@@ -7,7 +7,7 @@ class StatTracker
     @games = read_data(games)
     @teams = read_data(teams)
     @game_teams = read_data(game_teams)
-    #require "pry"; binding.pry
+    require "pry"
   end
 
   def self.from_csv(locations)
@@ -55,23 +55,10 @@ class StatTracker
   end
 
   def count_of_games_by_season(team_id = false)
-    seasons = Hash.new
-    @games.each do |game|
-      if team_id
-        if seasons[game[:season]] && (game[:home_team_id || :away_team_id]) == team_id
-          seasons[game[:season]] += 1
-        elsif (game[:home_team_id || :away_team_id]) == team_id
-          seasons[game[:season]] = 1
-        end
-      else
-        if seasons[game[:season]]
-          seasons[game[:season]] += 1
-        else
-          seasons[game[:season]] = 1
-        end
-      end
+    @games.reduce(Hash.new(0)) do |hash, game|
+      hash[game[:season]] += 1 if team_id == false || (team_id == game[:home_team_id || :away_team_id])
+      hash
     end
-    seasons
   end
 
   def average_goals_per_game
