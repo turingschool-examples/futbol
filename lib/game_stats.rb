@@ -9,5 +9,9 @@ module GameStats
     home_wins = @games.count{ |game| game.winner == :home_team }
     (home_wins.to_f / @games.length).round(2)
   end
-  
+
+  def percentage_ties
+    total_tie_games = @games.count{ |game| game.winner == :tie }
+    (total_tie_games.to_f / @games.length).round(2)
+  end
 end
