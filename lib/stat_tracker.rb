@@ -144,18 +144,20 @@ class StatTracker
 
   def home_scores_by_team_id #helper method for issue #14
     scores_by_team_id = {}
-    home_scores = game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
+    home_scores = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
       game[1] == 'home'
     end
 
     @game_teams[:team_id].each do |id|
       scores_by_team_id[id] = []
     end
-
+    
     home_scores.each do |game|
       scores_by_team_id[game[0]] << game[2].to_f
     end
     scores_by_team_id
+    require 'pry';binding.pry
+    
   end
 
   def team_by_id #helper method for issue #14
