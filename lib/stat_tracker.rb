@@ -1,4 +1,6 @@
 require 'csv'
+require './lib/team'
+require './lib/game'
 
 class StatTracker
   attr_reader :games,
@@ -7,8 +9,8 @@ class StatTracker
               :percentage_visitor_wins
 
   def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
+    @teams = Team.generate_teams(teams)
+    @games = Game.generate_games(games, game_teams, @teams)
     @game_teams = game_teams
   end
 
@@ -18,7 +20,6 @@ class StatTracker
     game_teams = CSV.table(locations[:game_teams], converters: :all)
     StatTracker.new(games, teams, game_teams)
   end
-
 
   def total_scores_per_game
     games[:away_goals].sum + games[:home_goals].sum

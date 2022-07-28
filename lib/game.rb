@@ -1,0 +1,55 @@
+class Game
+
+  attr_reader :game_id,
+              :season,
+              :type,
+              :teams_game_stats,
+              :home_team,
+              :away_team
+
+  def initialize(game_csv_row, game_teams_csv_rows, home_team, away_team)
+    @game_id = game_csv_row[:game_id]
+    @season = game_csv_row[:season]
+    @type = game_csv_row[:type]
+    @teams_game_stats = generate_team_stats(game_teams_csv_rows)
+    @home_team = home_team
+    @away_team = away_team
+  end
+
+  def generate_team_stats(data)
+    {
+      home_team: {
+        team_id: data[1][:team_id],
+        goals: data[1][:goals],
+        shots: data[1][:shots],
+        tackles: data[1][:tackles],
+        head_coach: data[1][:head_coach],
+        face_off_win_percentage: data[1][:faceoffwinpercentage],
+        result: data[1][:result]
+      },
+      away_team: {
+        team_id: data[0][:team_id],
+        goals: data[0][:goals],
+        shots: data[0][:shots],
+        tackles: data[0][:tackles],
+        head_coach: data[0][:head_coach],
+        face_off_win_percentage: data[0][:faceoffwinpercentage],
+        result: data[0][:result]
+      }
+    }
+  end
+
+  def self.generate_games(games_csv, game_teams_csv, teams)
+    game_array = []
+    games_csv.each do |game|
+      game_teams_csv_rows = game_teams_csv.find_all do |game_team|
+        game_team[:game_id] == game[:game_id]
+      end
+      home_team = teams.find{ |team| team.team_id == game[:home_team_id] }
+      away_team = teams.find{ |team| team.team_id == game[:away_team_id] }
+      game_array << Game.new(game, game_teams_csv_rows, home_team, away_team)        
+    end
+    game_array
+  end
+
+end
