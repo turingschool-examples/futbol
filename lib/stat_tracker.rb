@@ -1,10 +1,14 @@
 require 'csv'
 class StatTracker
   attr_reader :game_teams,
+              :games,
               :game_rows,
               :teams
 
   def initialize(locations)
+    @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
+    @games = CSV.read locations[:games], headers: true, header_converters: :symbol
+    @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
     @game_rows = CSV.read locations[:games], headers: true, header_converters: :symbol
   end
 
