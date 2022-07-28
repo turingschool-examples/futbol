@@ -7,19 +7,18 @@ class Game
               :home_team,
               :away_team
 
-  def initialize(game_csv_row, game_teams_csv_rows, home_team, away_team)
+  def initialize(game_csv_row, game_teams_csv_rows, home_name, away_name)
     @game_id = game_csv_row[:game_id]
     @season = game_csv_row[:season]
     @type = game_csv_row[:type]
-    @teams_game_stats = generate_team_stats(game_teams_csv_rows)
-    @home_team = home_team
-    @away_team = away_team
+    @teams_game_stats = generate_team_stats(game_teams_csv_rows, home_name, away_name)
   end
 
-  def generate_team_stats(data)
+  def generate_team_stats(data, home_name, away_name)
     {
       home_team: {
         team_id: data[1][:team_id],
+        team_name: home_name,
         goals: data[1][:goals],
         shots: data[1][:shots],
         tackles: data[1][:tackles],
@@ -29,6 +28,7 @@ class Game
       },
       away_team: {
         team_id: data[0][:team_id],
+        team_name: away_name,
         goals: data[0][:goals],
         shots: data[0][:shots],
         tackles: data[0][:tackles],
@@ -47,7 +47,10 @@ class Game
       end
       home_team = teams.find{ |team| team.team_id == game[:home_team_id] }
       away_team = teams.find{ |team| team.team_id == game[:away_team_id] }
-      game_array << Game.new(game, game_teams_csv_rows, home_team, away_team)        
+      this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name) 
+      home_team.games_participated_in << this_game
+      away_team.games_participated_in << this_game
+      game_array << this_game
     end
     game_array
   end
