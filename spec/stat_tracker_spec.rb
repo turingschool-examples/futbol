@@ -57,4 +57,37 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Washington Spirit FC"
     end
   end
+
+
+  context 'Season statistics' do
+    it 'S1. has a method for winningest_coach' do
+      expect(@stat_tracker.game_teams[:head_coach]).to include(@stat_tracker.winningest_coach("20122013"))
+      expect(@stat_tracker.winningest_coach("20122013")). to be_a String
+    end
+
+    it 'S2. has a method for worst_coach' do
+      expect(@stat_tracker.game_teams[:head_coach]).to include(@stat_tracker.worst_coach("20122013"))
+      expect(@stat_tracker.worst_coach("20122013")). to be_a String
+    end
+
+    it 'S3. can tell most_accurate_team' do
+      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.most_accurate_team("20122013"))
+      expect(@stat_tracker.most_accurate_team("20122013")). to be_a String
+    end
+
+    it 'S3. can tell least_accurate_team' do
+      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.least_accurate_team("20122013"))
+      expect(@stat_tracker.least_accurate_team("20122013")). to be_a String
+    end
+
+    it 'can tell the team with the most tackles in a season' do
+      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.most_tackles("20122013"))
+      expect(@stat_tracker.most_tackles("20122013")).to be_a String
+    end
+
+    it 'can tell the team with the fewest tackles in a season' do
+      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.fewest_tackles("20122013"))
+      expect(@stat_tracker.fewest_tackles("20122013")).to be_a String
+    end
+  end
 end
