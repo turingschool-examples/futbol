@@ -45,7 +45,7 @@ class Game
       end
       home_team = teams.values.find{ |team| team.team_id == game[:home_team_id] }
       away_team = teams.values.find{ |team| team.team_id == game[:away_team_id] }
-      this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name) 
+      this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name)
       home_team.games_participated_in << this_game
       away_team.games_participated_in << this_game
       game_array << this_game
@@ -53,4 +53,15 @@ class Game
     game_array
   end
 
+  def total_scores_per_game
+    @teams_game_stats[:away_team][:goals] + @teams_game_stats[:home_team][:goals]
+  end
+
+  def lowest_total_score
+    @teams_game_stats.min_by{ |team, goal| goal}
+  end
+
+  def highest_total_score
+    @teams_game_stats.max_by{ |team, goal|  goal}
+  end
 end

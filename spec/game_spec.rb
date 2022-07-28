@@ -24,14 +24,14 @@ RSpec.describe Game do
  end
 
  it 'has a total score' do
-   expect(@game.total_scores_per_game).to eq(34)
+   expect(@game.total_scores_per_game).to eq(5)
  end
 
  it 'has a lowest total score' do
-   expect(@game.lowest_total_score).to eq(1)
+   expect(@game.lowest_total_score).to eq(3)
  end
 
  it 'show highest_total_score' do
-  expect(@game.highest_total_score).to eq(5)
+  expect(@game.highest_total_score).to eq(3)
  end
 end
