@@ -184,7 +184,7 @@ class StatTracker
       #iterates through every line checking to see if the game and season have the same 4 first chars
       if row[:game_id][0..3] == games_id_year
         coach_stats[row[:head_coach]][0] += 1
-        coach_stats[row[:head_coach]][1] += 1 if row[:result] == "LOSS"
+        coach_stats[row[:head_coach]][1] += 1 if row[:result] == "WIN"
       end
     end
 
@@ -203,9 +203,10 @@ class StatTracker
   #*** returns hash {team_id => teamName}****
   def team_names
     id_to_names = {}
-    contents = CSV.open(@teams_path, headers: true, header_converters: :symbol)
+    contents = CSV.open(@team_path, headers: true, header_converters: :symbol)
     contents.each do |row|
       id_to_names[row[:team_id]] = row[:teamName]
+      require "pry"; binding.pry
     end
     id_to_names
   end
@@ -222,8 +223,8 @@ class StatTracker
       #iterates through every line checking to see if the game and season have the same 4 first chars
       if row[:game_id][0..3] == games_id_year
         #adding in the shots and goals into the hash into the array
-        goal_stats[row[:team_id]][0] += row[:shots]
-        goal_stats[row[:team_id]][1] += row[:goals]
+        goal_stats[row[:team_id]][0] += row[:shots].to_i
+        goal_stats[row[:team_id]][1] += row[:goals].to_i
       end
     end
 
@@ -235,11 +236,14 @@ class StatTracker
       if highest_goal_ratio < (stats[1] / stats[0])
         highest_goal_ratio = stats[1] / stats[0]
 
-        #setting new highest team        
+        #setting new highest team
         highest_goal_ratio_team = team_id
       end
     end
-    team_names[highest_goal_ratio_team]
+    hash = team_names
+    require 'pry';binding.pry
+
+    hash[highest_goal_ratio_team]
   end
 
 end
