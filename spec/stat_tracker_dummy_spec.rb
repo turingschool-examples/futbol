@@ -103,37 +103,80 @@ describe StatTracker do
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 
+  
+
+  it '#team_info' do
+    expected = {
+      "team_id" => "27",
+      "franchise_id" => "28",
+      "team_name" => "San Jose Earthquakes",
+      "abbreviation" => "SJ",
+      "link" => "/api/v1/teams/27"
+    }
+    expect(@stat_tracker.team_info("27")).to eq(expected)
+  end
+
+  it '#favorite_opponent' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+     @stat_tracker = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker.favorite_opponent("5")).to eq("Sky Blue FC")
+    expect(@stat_tracker.favorite_opponent("28")).to eq("Minnesota United FC")
+  end
+
+  it '#rival' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+     @stat_tracker = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker.rival("5")).to eq("Philadelphia Union")
+    expect(@stat_tracker.rival("18")).to eq("Los Angeles FC")
+  end
+
   it '#best_season' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'
-
-    locations = {
+    
+     locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }
-
-    @stat_tracker = StatTracker.from_csv(locations)
-
-    expect(@stat_tracker.best_season("3")).to eq("20142015")
-    expect(@stat_tracker.best_season("6")).to eq("20122013")
-  end
-
-  it '#worst_season' do
-    game_path = './data/games_dummy.csv'
-    team_path = './data/teams_dummy.csv'
-    game_teams_path = './data/amm_edited_games_teams_dummy.csv'
-
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-
     @stat_tracker = StatTracker.from_csv(locations)
     
     expect(@stat_tracker.best_season("3")).to eq("20142015")
     expect(@stat_tracker.best_season("6")).to eq("20122013")
+
   end
+  
+  it '#worst_season' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/amm_edited_games_teams_dummy.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+    expect(@stat_tracker.worst_season("3")).to eq("20122013")
+    expect(@stat_tracker.worst_season("6")).to eq("20142015")
+   end 
 end
