@@ -598,5 +598,20 @@ class StatTracker
     end.min
   end
 
-
+  def average_win_percentage(given_team_id)
+    games_by_team_hash = @all_data_hash[:game_teams].group_by do |game|
+      game[:team_id]
+    end
+    team_games_hash = {
+      wins: 0,
+      ties: 0,
+      total_games: 0
+    }
+    games_by_team_hash[given_team_id].map do |game|
+      team_games_hash[:wins] += 1 if game[:result] == "WIN"
+      team_games_hash[:ties] += 1 if game[:result] == "TIE"
+      team_games_hash[:total_games] += 1
+    end
+    (team_games_hash[:wins].to_f / team_games_hash[:total_games]).round(2)
+  end
 end

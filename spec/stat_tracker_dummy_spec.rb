@@ -223,6 +223,6 @@ describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
 
     expect(@stat_tracker.average_win_percentage("6")).to eq(0.67)
-    expect(@stat_tracker.average_win_percentage("5")).to eq(0.40)
+    expect(@stat_tracker.average_win_percentage("3")).to eq(0.40)
   end
 end
