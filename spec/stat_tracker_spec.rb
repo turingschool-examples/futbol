@@ -50,9 +50,15 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(0.05)
     end
 
+
+    it 'can return a hash of the count of games by season' do
+      expect(@stat_tracker.count_of_games_by_season).to eq({20122013=>5, 20142015=>7, 20132014=>4, 20152016=>4})
+    end
+
     it 'can return the team name of the Team with the worst offense' do
       expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
     end
+
 
   end
 end
