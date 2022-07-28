@@ -124,6 +124,9 @@ class StatTracker
   end
 
   def best_offense #issue # 11
+    #need: average number of goals per team (array:key of team name value of average?)
+    #get max of the listed averages
+    #return name of that team
 
 
 
