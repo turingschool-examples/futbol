@@ -25,7 +25,7 @@ class StatTracker
     list_of_data
   end
 
-  # Game Statistics Methods
+# Game Statistics Methods
   def highest_total_score
     max = @games.max_by { |game| game[:away_goals].to_i + game[:home_goals].to_i }
     max[:away_goals].to_i + max[:home_goals].to_i
@@ -87,7 +87,8 @@ class StatTracker
     end
     Hash[seasons.keys.zip(avg_arr)]
   end
-  # League Statistics Methods
+
+# League Statistics Methods
   def best_offense
     teams = ((@games.map { |game| game[:home_team_id] }) + (@games.map { |game| game[:away_team_id] })).uniq.sort_by(&:to_i)
     avgs = []
@@ -99,30 +100,33 @@ class StatTracker
     @teams.find { |team| team[:team_id] == (Hash[teams.zip(avgs)].max_by { |_k, v| v })[0] }[:team_name]
   end
 
-  # Team Statistics Methods
+# Team Statistics Methods
   def team_info(team_id)
     headers = @teams[0].headers.map!(&:to_s)
     Hash[headers.zip((@teams.find { |team| team[:team_id] == team_id }).field(0..-1))].reject { |k| k == 'stadium' }
   end
 
   def best_season(team_id)
-    win_ids = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN" }.map { |game| game[:game_id] } 
-    season_info = count_of_games_by_season(team_id)
-    ordered_win_rate = []
-    season_info.each do |season|
-      ordered_win_rate << ((@games.count { |game| game[:season] == season[0] && win_ids.include?(game[:game_id]) }) / season[1].to_f)
-    end
-    Hash[season_info.keys.zip(ordered_win_rate)].max_by { |_k, v| v }[0]
+    seasonal_winrates(team_id).max_by { |_k, v| v }[0]
   end
 
   def worst_season(team_id)
+    seasonal_winrates(team_id).min_by { |_k, v| v }[0]
+  end
+
+  def average_win_percentage(team_id)
+    (seasonal_winrates(team_id).values.reduce(:+) / count_of_games_by_season(team_id).count.to_f).round(2)
+  end
+
+  # Team helper method - returns hash of a given team's seasons & win rates
+  def seasonal_winrates(team_id)
     win_ids = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN" }.map { |game| game[:game_id] } 
     season_info = count_of_games_by_season(team_id)
     ordered_win_rate = []
     season_info.each do |season|
-      ordered_win_rate << ((@games.count { |game| game[:season] == season[0] && win_ids.include?(game[:game_id]) }) / season[1].to_f)
+      ordered_win_rate << ((@games.count { |game| game[:season] == season[0] && win_ids.include?(game[:game_id]) }) / (2 * season[1].to_f))
     end
-    Hash[season_info.keys.zip(ordered_win_rate)].min_by { |_k, v| v }[0]
+    Hash[season_info.keys.zip(ordered_win_rate)]
   end
 
 end
