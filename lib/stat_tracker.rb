@@ -325,6 +325,7 @@ class StatTracker
           if row[:game_id][0..3] = games_row[:game_id][0..3]
             team_id_tackles[row[:team_id]] += row[:tackles].to_i
           end
+          require "pry"; binding.pry
       end
     end
 
