@@ -39,4 +39,5 @@ class LeagueStatistics
     end
     best_team_name
   end
+
 end

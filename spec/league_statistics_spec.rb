@@ -29,4 +29,8 @@ RSpec.describe(LeagueStatistics) do
   it 'can return the name of the team with best offense' do
     expect(@league_statistics.best_offense).to eq("Sporting Kansas City")
   end
+
+  it 'can return the name of the team with worst offense' do
+    expect(@league_statistics.worst_offense).to eq("Houston Dynamo")
+  end
 end
