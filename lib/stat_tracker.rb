@@ -105,7 +105,7 @@ class StatTracker
       if (game.home_team_id == team_id || game.away_team_id == team_id) && game.season == season
         games_by_season << game
       end
-      
+
     end
     games_by_season
   end
@@ -159,7 +159,7 @@ class StatTracker
       elsif game.season == "20172018"
         season_6 << game
       end
-     
+
     end
     season_1
     season_2
@@ -329,9 +329,7 @@ class StatTracker
     team_id_to_name[home_scores_average[0]]
   end
 
-
-
   def team_id_to_name
     @teams.map { |team| [team.team_id, team.team_name] }.to_h
+    end
   end
-end

@@ -158,18 +158,18 @@ describe StatTracker do
     expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
   end
 
-  it 'can find a teams average win percentage' do 
+  it 'can find a teams average win percentage' do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
   it 'can group a teams games by season in games' do
-    
+
     expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
   end
 
   xit 'can tell which season is a teams best' do
 
-    
+
     expect(@stat_tracker.best_season("6")).to eq("20132014")
    end
 
@@ -205,4 +205,10 @@ describe StatTracker do
   it "it can calculate which team was the lowest scoring home team" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
+
+  it "it can calculate which team with the most_tackles in the season" do
+    expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
+
 end
