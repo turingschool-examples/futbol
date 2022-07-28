@@ -26,12 +26,4 @@ RSpec.describe Game do
  it 'has a total score' do
    expect(@game.total_scores_per_game).to eq(5)
  end
-
- it 'has a lowest total score' do
-   expect(@game.lowest_total_score).to eq(3)
- end
-
- it 'show highest_total_score' do
-  expect(@game.highest_total_score).to eq(3)
- end
 end

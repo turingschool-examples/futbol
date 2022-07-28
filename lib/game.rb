@@ -10,6 +10,7 @@ class Game
     @season = game_csv_row[:season]
     @type = game_csv_row[:type]
     @teams_game_stats = generate_team_stats(game_teams_csv_rows, home_name, away_name)
+# require 'pry'; binding.pry
   end
 
   def generate_team_stats(data, home_name, away_name)
@@ -49,6 +50,7 @@ class Game
       home_team.games_participated_in << this_game
       away_team.games_participated_in << this_game
       game_array << this_game
+      # require 'pry'; binding.pry
     end
     game_array
   end
@@ -57,11 +59,5 @@ class Game
     @teams_game_stats[:away_team][:goals] + @teams_game_stats[:home_team][:goals]
   end
 
-  def lowest_total_score
-    @teams_game_stats.min_by{ |team, goal| goal}
-  end
-
-  def highest_total_score
-    @teams_game_stats.max_by{ |team, goal|  goal}
-  end
+  
 end
