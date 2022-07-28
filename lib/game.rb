@@ -45,7 +45,6 @@ class Game
       end
       home_team = teams.values.find{ |team| team.team_id == game[:home_team_id] }
       away_team = teams.values.find{ |team| team.team_id == game[:away_team_id] }
-      require 'pry'; binding.pry
       this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name) 
       home_team.games_participated_in << this_game
       away_team.games_participated_in << this_game
