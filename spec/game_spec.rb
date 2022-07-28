@@ -1,4 +1,3 @@
-
 require './lib/stat_tracker'
 
 RSpec.describe Game do
@@ -22,5 +21,17 @@ RSpec.describe Game do
 
    expect(@game).to be_an(Game)
    expect(@game.game_id).to eq(2012030221)
+ end
+
+ it 'has a total score' do
+   expect(@game.total_scores_per_game).to eq(34)
+ end
+
+ it 'has a lowest total score' do
+   expect(@game.lowest_total_score).to eq(1)
+ end
+
+ it 'show highest_total_score' do
+  expect(@game.highest_total_score).to eq(5)
  end
 end
