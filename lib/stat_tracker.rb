@@ -331,7 +331,7 @@ class StatTracker
     games_by_season.each do |game|
       if game[:result] == "WIN"
         coaches_by_win_count[game[:head_coach]] += 1
-      elsif game[:result] == "LOSS"
+      else
         coaches_by_win_count[game[:head_coach]] += 0
       end
     end
@@ -341,7 +341,7 @@ class StatTracker
 
     win_percentages = []
     wins_total_array.each do |wins_total|
-      win_percentages << (wins_total[0].to_f / wins_total[1].to_f) * 100
+      win_percentages << ((wins_total[0].to_f / wins_total[1]) * 100).round(2)
     end
     win_percentages
 
@@ -353,7 +353,7 @@ class StatTracker
     games_by_season = []
 
     @all_data_hash[:game_teams].each do |row|
-      games_by_season << row if season.to_s[0..3] == row[:game_id][0..3]
+      games_by_season << row if season[0..3] == row[:game_id][0..3]
     end
     games_by_season
 
@@ -369,7 +369,7 @@ class StatTracker
     games_by_season.each do |game|
       if game[:result] == "WIN"
         coaches_by_win_count[game[:head_coach]] += 1
-      elsif game[:result] == "LOSS"
+      else
         coaches_by_win_count[game[:head_coach]] += 0
       end
     end
@@ -379,12 +379,11 @@ class StatTracker
 
     win_percentages = []
     wins_total_array.each do |wins_total|
-      win_percentages << (wins_total[0].to_f / wins_total[1].to_f) * 100
+      win_percentages << ((wins_total[0].to_f / wins_total[1].to_f) * 100).round(2)
     end
     win_percentages
 
     coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
     worst_coach = coaches_by_win_percentage.min_by{|k, v| v}[0]
   end
-
 end
