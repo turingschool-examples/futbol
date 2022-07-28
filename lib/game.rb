@@ -37,6 +37,10 @@ class Game
     }
   end
 
+  def total_goals
+    @teams_game_stats[:home_team][:goals] + @teams_game_stats[:away_team][:goals]
+  end
+
   def self.generate_games(games_csv, game_teams_csv, teams)
     game_array = []
     games_csv.each do |game|
