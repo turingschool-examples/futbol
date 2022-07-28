@@ -197,9 +197,8 @@ class StatTracker
   end
 
   def lowest_scoring_home_team #issue # 16
-
-
-
+    min_average = average_scores_by_team_id("away").values.min
+    team_by_id[average_scores_by_team_id("away").key(min_average)]
   end
 
 
