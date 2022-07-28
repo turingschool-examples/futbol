@@ -94,4 +94,9 @@ describe StatTracker do
   it '#lowest_scoring_home_team' do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
+
+  it '#most_tackles' do
+    expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    expect(@stat_tracker.most_tackles("20152016")).to eq("")
+  end
 end

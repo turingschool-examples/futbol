@@ -122,7 +122,7 @@ class StatTracker
       team[:team_id].to_i == lowest_average[0].to_i
     end[:teamname]
   end
-  
+
   def average_goals_by_season
     goals_season_hash = Hash.new
     @all_data_hash[:games].each do |row|
@@ -309,5 +309,33 @@ class StatTracker
       end
     end
     lowest_home_team_name
+  end
+
+  def most_tackles(season)
+    games_by_season = []
+    game_id =[]
+    team_id_tackles = Hash.new(0)
+    @all_data_hash[:games].each do |row|
+      if row[:season] == season
+        games_by_season << row
+      end
+    end
+    @all_data_hash[:game_teams].each do |row|
+      games_by_season.each do |games_row|
+          if row[:game_id][0..3] = games_row[:game_id][0..3]
+            team_id_tackles[row[:team_id]] += row[:tackles].to_i
+          end
+      end
+    end
+
+    team_with_most_tackles = nil
+    greatest_tackles_and_team_id = team_id_tackles.sort_by { |team_id, tackles| tackles}.last
+    @all_data_hash[:teams].each do |row|
+      if row[:team_id] == greatest_tackles_and_team_id[0]
+        team_with_most_tackles = row[:teamname]
+      end
+    end
+
+    team_with_most_tackles
   end
 end
