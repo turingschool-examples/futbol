@@ -118,9 +118,7 @@ class StatTracker
   # League Statistics
 
   def count_of_teams #issue # 10
-
-
-
+    @teams[:teamname].count
   end
 
   def best_offense #issue # 11
@@ -161,7 +159,7 @@ class StatTracker
 
 
   # Season Statistics
-  
+
   def winningest_coach #issue # 17
 
 
