@@ -96,33 +96,32 @@ RSpec.describe StatTracker do
    expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
 
-
 # # # Season Statistics
 
   it '#winningest_coach' do
-   expect(stat_tracker.winningest_coach).to be_a(String)
+    expect(stat_tracker.winningest_coach).to eq("Dan Lacroix")
   end
 
   it '#worst_coach' do
-   expect(stat_tracker.worst_coach).to be_a(String)
+    expect(stat_tracker.worst_coach).to eq("Martin Raymond")
   end
 
   it '#most_accurate_team' do
-   expect(stat_tracker.most_accurate_team).to be_a(String)
+    expect(stat_tracker.most_accurate_team).to eq("Chicago Red Stars")
   end
 
   it '#least_accurate_team' do
-   expect(stat_tracker.least_accurate_team).to be_a(String)
+    expect(stat_tracker.least_accurate_team).to eq("New England Revolution")
   end
 
   it '#most_tackles' do
-   expect(stat_tracker.most_tackles).to be_a(String)
+
+    expect(stat_tracker.most_tackles).to eq("Orlando Pride")
   end
 
   it '#fewest_tackles' do
-   expect(stat_tracker.fewest_tackles).to be_a(String)
+    expect(stat_tracker.fewest_tackles).to eq("Philadelphia Union")
   end
-
 
 # # # Team Statistics
 
@@ -157,5 +156,4 @@ RSpec.describe StatTracker do
   xit '#rival' do
 
   end
-
 end
