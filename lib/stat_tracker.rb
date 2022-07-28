@@ -588,4 +588,13 @@ class StatTracker
     end
     goals.max
   end
+
+  def fewest_goals_scored(given_team_id)
+    games_by_team_hash = @all_data_hash[:game_teams].group_by do |game|
+      game[:team_id]
+    end
+    games_by_team_hash[given_team_id].map do |game|
+      game[:goals].to_i
+    end.min
+  end
 end
