@@ -38,6 +38,10 @@ class StatTracker
     @games.map{|game| game[:away_goals] + game[:home_goals]}.max
   end
 
+  def percentage_ties
+    total_tie_games = @games.count{ |game| game[:away_goals] == game[:home_goals] }
+    (total_tie_games.to_f / @games.length).round(2)
+
   def percentage_visitor_wins
     total_away_wins = @game_teams.count do |game_team|
       game_team[:hoa] == "away" && game_team[:result] == "WIN"
@@ -71,7 +75,6 @@ class StatTracker
         end
       end
       average_goals_per_season[season] = total_goals_in_season.to_f / total_games_in_season
-      # require 'pry';binding.pry
     end
     average_goals_per_season
   end
