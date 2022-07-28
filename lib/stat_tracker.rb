@@ -138,17 +138,18 @@ class StatTracker
 
     hash.map do |season, total|
         if season == "20122013"
-          hash[season] = total/(twelve_season.count).to_f.round(2)
+          # require 'pry' ; binding.pry
+          hash[season] = (total/(twelve_season.count).to_f).round(2)
         elsif  season == "20162017"
-            hash[season] = total/(sixteen_season.count).to_f.round(2)
+            hash[season] = (total/(sixteen_season.count).to_f).round(2)
         elsif  season == "20142015"
-            hash[season] = total/(fourteen_season.count).to_f.round(2)
+            hash[season] = (total/(fourteen_season.count).to_f).round(2)
         elsif  season == "20152016"
-            hash[season] = total/(fifteen_season.count).to_f.round(2)
+            hash[season] = (total/(fifteen_season.count).to_f).round(2)
         elsif  season == "20132014"
-            hash[season] = total/(thirteen_season.count).to_f.round(2)
+            hash[season] = (total/(thirteen_season.count).to_f).round(2)
         elsif  season == "20172018"
-            hash[season] = total/(seventeen_season.count).to_f.round(2)
+            hash[season] = (total/(seventeen_season.count).to_f).round(2)
         end
       end
       hash
