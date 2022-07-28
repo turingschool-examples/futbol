@@ -155,19 +155,18 @@ class StatTracker
     scores_by_team_id
   end
 
-
   def team_by_id #helper method for issue #14
     @teams.values_at(:team_id, :teamname).to_h
   end
 
-def average_home_scores_by_team_id #helper method for issue #14
-  average_scores= {}
-  home_scores_by_team_id.each do |team, scores|
-    average = scores.sum/scores.count
-    average_scores[team] = average.round(1)
+  def average_home_scores_by_team_id #helper method for issue #14
+    average_scores= {}
+    home_scores_by_team_id.each do |team, scores|
+      average = scores.sum/scores.count
+      average_scores[team] = average.round(1)
+    end
+    average_scores
   end
-  average_scores
-end
 
   def highest_scoring_home_team #issue # 14
 
@@ -175,8 +174,6 @@ end
 
     team_by_id[average_home_scores_by_team_id.key(max_average)]
   end
-
-
 
   def lowest_scoring_visitor #issue # 15
 
