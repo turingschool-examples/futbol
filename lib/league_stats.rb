@@ -20,4 +20,8 @@ module LeagueStats
     @teams.values.max_by {|team| team.total_away_goals.to_f / team.games_participated_in.length}.team_name
   end
 
+  def lowest_scoring_visitor
+    @teams.values.min_by {|team| team.total_away_goals.to_f / team.games_participated_in.length}.team_name
+  end
+
 end
