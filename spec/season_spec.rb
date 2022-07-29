@@ -24,4 +24,11 @@ RSpec.describe Season do
     expect(@season.season_id).to eq(20142015)
   end
 
+  it 'can return the most accurate team per season' do
+    expect(@season.most_accurate_team).to eq('Sporting Kansas City')
+  end
+
+  it 'can return the least accurate team per season' do
+    expect(@season.least_accurate_team).to eq('DC United')
+  end
 end

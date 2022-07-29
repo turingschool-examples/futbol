@@ -18,4 +18,23 @@ class Season
     end
     seasons_hash
   end
+
+  def shots_by_team_per_season_avg
+    shots_by_teams = Hash.new(1)
+
+    @games_in_season.each do |game|
+      shots_by_teams[game.teams_game_stats[:home_team][:team_name]] *= game.teams_game_stats[:home_team][:shots].to_f / game.teams_game_stats[:home_team][:goals]
+
+      shots_by_teams[game.teams_game_stats[:away_team][:team_name]] *= game.teams_game_stats[:away_team][:shots].to_f / game.teams_game_stats[:away_team][:goals]
+    end
+    shots_by_teams
+  end
+
+  def most_accurate_team
+    shots_by_team_per_season_avg.max.first
+  end
+
+  def least_accurate_team
+    shots_by_team_per_season_avg.min.first
+  end
 end
