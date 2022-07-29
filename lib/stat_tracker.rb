@@ -157,11 +157,10 @@ class StatTracker
       visitor_team_name_with_highest_avg_score = team_by_id[visitor_with_highest_score_array[0]]
   end
 
-  def scores_by_team_id(*game_type) #helper method for issue #14
-    # require "pry"; binding.pry
+  def scores_by_team_id(game_type) #helper method for issue #14
     scores_by_team_id = {}
     scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
-      game[1] == game_type[0] || game_type[1]
+      game[1] == game_type
     end
 
     @game_teams[:team_id].each do |id|
