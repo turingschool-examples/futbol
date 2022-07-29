@@ -100,4 +100,8 @@ class StatTracker
     all_win_info = (all_win_info.count.to_f / game_teams.count.to_f).round(2)
   end
 
+  def most_goals_scored
+    
+  end
+
 end
