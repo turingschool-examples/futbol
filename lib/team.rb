@@ -77,6 +77,7 @@ class Team
       season_win_percent[season_id] = stats[:winning_games].to_f / stats[:total_games]
     end 
     season_win_percent
+    require 'pry' ; binding.pry
   end
 
   def best_season

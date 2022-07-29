@@ -103,5 +103,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.best_season("3")).to eq("20142015")
       expect(@stat_tracker.worst_season("3")).to eq("20122013")
     end
+
+    it 'can return the average win percentage over all seasons for a team' do
+      expect(@stat_tracker.average_win_percentage("Houston Dynamo")).to eq[0.3]
+    end
   end
 end
