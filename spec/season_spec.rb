@@ -29,4 +29,9 @@ RSpec.describe Season do
     expect(@season.games_in_season.length).to eq(7)
   end
 
+  it 'can return the team with the most/fewest tackes in the season' do
+    expect(@season.most_tackles).to eq("Sporting Kansas City")
+    expect(@season.least_tackles).to eq("DC United")
+  end
+
 end
