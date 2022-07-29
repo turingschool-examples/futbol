@@ -148,8 +148,15 @@ describe StatTracker do
 
   describe 'Team Statistics' do
 
-    xit 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do
-      expect(@stat_tracker.team_info).to eq({})
+    it 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do
+      expect(@stat_tracker.team_info("1")).to eq(
+        expected = {
+          "team_id" => "1",
+          "franchise_id" => "23",
+          "team_name" => "Atlanta United",
+          "abbreviation" => "ATL",
+          "link" => "/api/v1/teams/1"
+      })
     end
 
     xit 'can show season with the highest win percentage for a team' do
