@@ -417,50 +417,44 @@ class StatTracker
     fav_opponent_array = wins_and_losses.max_by { |team, array| (array[0] - array [1])}
     rival_team_id = fav_opponent_array[0]
     #convert team id to name
-    require 'pry'; binding.pry
     find_team_name_by_id(rival_team_id)
   end
 
 
   def rival(given_team_id)
     #hash that has for a key every other team in league
-    all_away_games = @games_data.find_all do |team|
-      team[:away_team_id] == given_team_id.to_s
-    end
-    all_home_games = @games_data.find_all do |team|
-      team[:home_team_id] == given_team_id.to_s
-    end
+    all_team_games = find_all_team_games(given_team_id)
+    home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
+    away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
 
-    all_team_games = all_home_games + all_away_games
-
-    team_opponent_hash = Hash.new{|h,k| h[k] = [0.0, 0.0]}
-      all_team_games.each do |game|
-      #home games
-      if game[:away_team_id] != given_team_id
-        if game[:away_goals] > game[:home_goals]
-          team_opponent_hash[game[:away_team_id]][1] += 1
-        elsif game[:away_goals] < game[:home_goals]
-          team_opponent_hash[game[:away_team_id]][0] += 1
-          #ties are counted as 0.5's or 0's
-        # else
-        #   team_opponent_hash[game[:away_team_id]][1] += 1
-        #   team_opponent_hash[game[:away_team_id]][0] += 0.5
-        end
-        #away games
-      elsif game[:home_team_id] != given_team_id
-          if game[:home_goals] > game[:away_goals]
-            team_opponent_hash[game[:home_team_id]][1] += 1
-          elsif game[:home_goals] < game[:away_goals]
-            team_opponent_hash[game[:home_team_id]][0] += 1
-          end
+    wins_and_losses = Hash.new{|opposing_id, head_to_head| opposing_id[head_to_head] = [0.0, 0.0]}
+    home_games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        wins_and_losses[game[:away_team_id]][1] += 1
+      elsif game[:away_goals] < game[:home_goals]
+        wins_and_losses[game[:away_team_id]][0] += 1
+      else
+        #tie
       end
     end
+
+    away_games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        wins_and_losses[game[:home_team_id]][0] += 1
+      elsif game[:away_goals] < game[:home_goals]
+        wins_and_losses[game[:home_team_id]][1] += 1
+      else
+        #tie
+      end
+    end
+
     #values are an array that has total games won and the total games played against
-    team_opponent_hash.delete(given_team_id.to_s)
-    rival_array = team_opponent_hash.min_by { |team, array| (array[0] - array [1])}
-    rival_team_id = rival_array[0]
+    wins_and_losses.delete(given_team_id.to_s)
+    fav_opponent_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
+    rival_team_id = fav_opponent_array[0]
     #convert team id to name
-    p find_team_name_by_id(rival_team_id)
+    require 'pry'; binding.pry
+    find_team_name_by_id(rival_team_id)
   end
   # Helper Methods Below
 
