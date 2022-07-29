@@ -49,10 +49,10 @@ class Season
   end
 
   def most_accurate_team
-    shots_by_team_per_season_avg.max.first
+    shots_by_team_per_season_avg.max_by{ |team_name, avg_shots | avg_shots}.first
   end
 
   def least_accurate_team
-    shots_by_team_per_season_avg.min.first
+    shots_by_team_per_season_avg.min_by{ |team_name, avg_shots| avg_shots}.first
   end
 end
