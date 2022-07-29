@@ -33,11 +33,11 @@ module LeagueStats
     @teams.values.each do |team|
       if team.team_id == team_id
         team.win_percentages_by_season.values.each do |value|
-        total_win_percent += value
+          total_win_percent += value
+        end
       end
     end
-  end
-  total_win_percent / @seasons.length
+    total_win_percent / @seasons.length
   end
 
 end
