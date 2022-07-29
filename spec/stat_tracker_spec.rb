@@ -62,6 +62,20 @@ RSpec.describe StatTracker do
 
     it "#highest_scoring_home_team" do
       expect(@stat_tracker.highest_scoring_home_team).to eq "Houston Dash"
+
+    it 'can return most/least tackles for different seasons' do
+      expect(@stat_tracker.most_tackles("20142015")).to eq("Sporting Kansas City")
+      expect(@stat_tracker.least_tackles("20142015")).to eq("DC United")
+      expect(@stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+      expect(@stat_tracker.least_tackles("20122013")).to eq("FC Dallas")
+    end
+
+    it 'can return the most accurate team per season' do
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq('Sporting Kansas City')
+    end
+
+    it 'can return the least accurate team per season' do
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq('DC United')
     end
   end
 end
