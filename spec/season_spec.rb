@@ -24,4 +24,9 @@ RSpec.describe Season do
     expect(@season.season_id).to eq(20142015)
   end
 
+  it 'has an array of games in the season' do
+    expect(@season.games_in_season).to all(be_an(Game))
+    expect(@season.games_in_season.length).to eq(7)
+  end
+
 end
