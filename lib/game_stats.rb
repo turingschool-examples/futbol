@@ -34,7 +34,7 @@ module GameStats
     games_by_season = Hash.new(0)
 
     @games.each do |game|
-      games_by_season[game.season] += 1
+      games_by_season[game.season.to_s] += 1
     end
     games_by_season
   end
