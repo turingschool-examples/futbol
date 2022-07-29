@@ -45,7 +45,7 @@ end
 
   it 'can return the team with the most/fewest tackes in the season' do
     expect(@season.most_tackles).to eq("Sporting Kansas City")
-    expect(@season.least_tackles).to eq("DC United")
+    expect(@season.fewest_tackles).to eq("DC United")
   end
 
 end

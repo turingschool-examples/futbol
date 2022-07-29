@@ -18,11 +18,11 @@ class Season
   end
 
   def most_tackles
-    tackles_by_team.max.first
+    tackles_by_team.max_by{|team, tackles| tackles}.first
   end
 
-  def least_tackles
-    tackles_by_team.min.first
+  def fewest_tackles
+    tackles_by_team.min_by{|team, tackles| tackles}.first
   end
 
   def self.generate_seasons(games)
