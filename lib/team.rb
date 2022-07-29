@@ -67,6 +67,10 @@ class Team
     end
   end
 
+  def rival
+    opponent_win_percentages.max_by{ |team_name, win_percent| win_percent }.first
+  end
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|
