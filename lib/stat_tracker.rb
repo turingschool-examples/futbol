@@ -67,13 +67,12 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    game_count_by_season = Hash.new {  }
+    game_count_by_season = Hash.new { 0 }
 
     games.each do |game|
       season_key = game[:season]
 
       if game_count_by_season[season_key].nil?
-        game_count_by_season[season_key] = 0
       end
 
       game_count_by_season[season_key] += 1
@@ -107,13 +106,12 @@ class StatTracker
   end
 
   def average_goals_by_season
-    test_hash = Hash.new {  }
+    test_hash = Hash.new { 0 }
 
     games.each do |game|
       season_key = game[:season]
 
       if test_hash[season_key].nil?
-        test_hash[season_key] = 0
       end
     end
   end
