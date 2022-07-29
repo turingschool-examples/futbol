@@ -106,8 +106,8 @@ describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq("")
     end
 
-    xit 'can return Name of the team with the highest average score per game across all seasons when they are away' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq("")
+    it 'can return Name of the team with the highest average score per game across all seasons when they are away' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Utah Royals FC")
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are home' do
@@ -119,7 +119,7 @@ describe StatTracker do
     end
 
     xit 'can return Name of the team with the lowest average score per game across all seasons when they are at home' do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
 
@@ -160,8 +160,8 @@ describe StatTracker do
       expect(@stat_tracker.average_win_percentage).to eq#(float)
     end
 
-    xit 'can return hgihest number of goals a particular team has scored in a  single game' do
-      expect(@stat_tracker.most_goals_scored).to eq#(integer)
+    it 'can return hgihest number of goals a particular team has scored in a  single game' do
+      expect(@stat_tracker.most_goals_scored(1)).to eq(1)
     end
 
     xit 'can return lowest number of goals a particular team has scored in a single game' do
