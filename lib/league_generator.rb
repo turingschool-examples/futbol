@@ -1,5 +1,10 @@
+require './lib/game'
+require './lib/season'
+require './lib/league'
+require './lib/team'
+
 class LeagueGenerator
-  attr_reader
+  attr_reader :league
   def initialize(all_data_hash)
     @teams_data = all_data_hash[:teams]
     @games_data = all_data_hash[:games]
@@ -9,7 +14,7 @@ class LeagueGenerator
       game[:season]
     end
 
-    league = League.new(@seasons = [], @games = [] @teams = [])
+    league = League.new
 
     games_by_season_hash.each do |season, games_by_season|
       league.seasons << Season.new(games_by_season)
