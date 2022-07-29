@@ -120,6 +120,7 @@ class StatTracker
       end
     end
     all_games
+    require 'pry' ; binding.pry
   end
 
   def team_season_grouper(team_id)  #groups all of a team's games by season in a hash: the key is the season and the values are the team's games for that season
@@ -334,4 +335,33 @@ class StatTracker
   def team_id_to_name
     @teams.map { |team| [team.team_id, team.team_name] }.to_h
   end
-end
+
+  def team_name_to_id
+    @teams.map { |team| [team.team_name, team.team_id] }.to_h
+  end
+
+  def favorite_opponent(team)
+  #name of the opponent that has the lowest win percentage against given team
+
+    team_id = 
+    team_name_to_id.find do |name, id|
+      team == id
+      end
+    team_isolator(team_id)
+    #team name => team id
+    #team id 
+    #helper method: find all team games for a given team id(away and home games)
+      #all team games = all home + all away games
+      #home games = all team games select game[home team id] == given team id
+      #same for away
+    # teams they've played => wins losses, ties
+    # if statment wins += 1
+    #   losses += 1
+    #   given team
+    #hash of team id they've player +> [number of wins, number of losses]
+    end
+  end
+
+  def rival(team)
+    #name of opponent with highest win percentage against given team
+  end
