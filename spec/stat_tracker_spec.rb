@@ -34,29 +34,23 @@ RSpec.describe StatTracker do
       "abbreviation" => "ATL",
       "link" => "/api/v1/teams/1"
       }
-
     expect(@stat_tracker.team_info("1")).to eq(expected)
   end
 
   it "seasons with highest win percentange for team" do
-
     expect(@stat_tracker.best_season("16")).to eq("1.8")
   end
 
   it "seasons with lowest win percentage for team" do
-
-
     expect(@stat_tracker.worst_season("16")).to eq("0.6")
   end
 
   it "average win percentage of all games for a team" do
-
     expect(@stat_tracker.average_win_percentage("16")).to eq(0.05)
   end
 
   it "highest number of goals scored in a game" do
-
-    expect(@stat_tracker.most_goals_scored("16")).to eq(50)
+    expect(@stat_tracker.most_goals_scored("16")).to eq(4)
   end
 
 end

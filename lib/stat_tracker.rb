@@ -33,9 +33,8 @@ class StatTracker
   end
 
   def best_season(search_team_id)
-    ##search input##
     game_info = @game_teams.find do |game_team|
-      game_team[1] = search_team_id
+      game_team = search_team_id
     end
 
     all_win_info = []
@@ -51,7 +50,6 @@ class StatTracker
       all_win_info.each do |per_game|
       if per_game == game[0]
         season_won << game[1]
-        # require "pry"; binding.pry
         end
       end
     end
@@ -60,7 +58,6 @@ class StatTracker
   end
 
   def worst_season(search_team_id)
-    ##search input##
     game_info = @game_teams.find do |game_team|
       game_team[1] = search_team_id
     end
@@ -78,7 +75,6 @@ class StatTracker
       all_win_info.each do |per_game|
       if per_game == game[0]
         season_won << game[1]
-        # require "pry"; binding.pry
         end
       end
     end
@@ -87,8 +83,8 @@ class StatTracker
   end
 
   def average_win_percentage(search_team_id)
-    team_search_info = @teams.find do |team|
-      team[0] == search_team_id
+    game_info = @game_teams.find do |game_team|
+      game_team = search_team_id
     end
 
     all_win_info = []
@@ -100,8 +96,18 @@ class StatTracker
     all_win_info = (all_win_info.count.to_f / game_teams.count.to_f).round(2)
   end
 
-  def most_goals_scored
-    
+  def most_goals_scored(search_team_id)
+    game_info = @game_teams.find do |game_team|
+      game_team = search_team_id
+    end
+
+    goals_scored = []
+      @game_teams.each do |game_team|
+      if game_team[1] == search_team_id
+        goals_scored << game_team[:goals]
+        end
+      end
+      goals_scored.sort.last.to_i
   end
 
 end
