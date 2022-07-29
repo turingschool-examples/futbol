@@ -33,8 +33,10 @@ RSpec.describe Team do
     expect(@team.opponent_win_percentages).to eq(expected)
   end
 
-  it 'can return the opponent team with the highest win percentage against them' do
+  it 'can return the opponent team with the highest/lowest win percentage against them' do
     expect(@team.rival).to eq("FC Dallas")
+    expect(@team.favorite_opponent).to eq("DC United")
   end
+
 
 end
