@@ -173,13 +173,6 @@ class StatTracker
         end
       end
 
-      coach_percentage_lost = coaches.map do |coach_name, game_loss|
-
-        percentage_lost = (game_loss.to_f/game_id_list.length) * 100
-        [coach_name, percentage_lost]
-      end.to_h
-      worst1_coach= coach_percentage_lost.min {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
-      worst1_coach[0]
 
   end
 end
