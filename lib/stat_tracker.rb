@@ -122,8 +122,8 @@ class StatTracker
   end
 
   def best_offense #issue # 11
-
-
+    max_average = average_scores_by_team_id("home", "away").values.max
+    team_by_id[average_scores_by_team_id("home", "away").key(max_average)]
 
   end
 
@@ -169,6 +169,7 @@ class StatTracker
       scores_by_team_id[game[0]] << game[2].to_f
     end
     scores_by_team_id
+   
   end
 
   def team_by_id #helper method for issue #14
