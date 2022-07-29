@@ -31,6 +31,6 @@ class StatTracker
   def least_accurate_team(season) @seasons[season.to_i].least_accurate_team end
 
   def most_tackles(season) @seasons[season.to_i].most_tackles end
-  def least_tackles(season) @seasons[season.to_i].least_tackles end
+  def fewest_tackles(season) @seasons[season.to_i].fewest_tackles end
 
 end
