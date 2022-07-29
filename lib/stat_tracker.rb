@@ -101,13 +101,28 @@ class StatTracker
       game_team = search_team_id
     end
 
-    goals_scored = []
+    highest_goals_scored = []
       @game_teams.each do |game_team|
       if game_team[1] == search_team_id
-        goals_scored << game_team[:goals]
+        highest_goals_scored << game_team[:goals]
         end
       end
-      goals_scored.sort.last.to_i
+      highest_goals_scored.sort.last.to_i
+  end
+
+  def fewest_goals_scored(search_team_id)
+    game_info = @game_teams.find do |game_team|
+      game_team = search_team_id
+    end
+
+    fewest_goals_scored = []
+      @game_teams.each do |game_team|
+      if game_team[1] == search_team_id
+        fewest_goals_scored << game_team[:goals]
+        end
+      end
+      require "pry"; binding.pry
+      fewest_goals_scored.sort.first.to_i
   end
 
 end
