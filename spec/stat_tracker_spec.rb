@@ -94,5 +94,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
       expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
     end
+
+    it 'can count the total teams in the league' do
+      expect(@stat_tracker.count_of_teams).to eq(9)
+    end
   end
 end
