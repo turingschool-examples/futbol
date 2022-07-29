@@ -102,8 +102,8 @@ describe StatTracker do
       expect(@stat_tracker.best_offense).to eq("")
     end
 
-    xit 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do
-      expect(@stat_tracker.worst_offense).to eq("")
+    it 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
     end
 
     xit 'can return Name of the team with the highest average score per game across all seasons when they are away' do

@@ -128,21 +128,20 @@ class StatTracker
   end
 
   def worst_offense #issue # 12
-
-
-
+    min_average = average_scores_by_team_id("home", "away").values.min
+    team_by_id[average_scores_by_team_id("home", "away").key(min_average)]
   end
-
+  
   def highest_scoring_visitor #issue # 13
 
 
 
   end
 
-  def scores_by_team_id(game_type) #helper method for issue #14
+  def scores_by_team_id(*game_type) #helper method for issue #14
     scores_by_team_id = {}
-    scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
-      game[1] == game_type
+      scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game| 
+      game[1] == game_type[0] || game_type[1]
     end
 
     @game_teams[:team_id].each do |id|
@@ -158,9 +157,9 @@ class StatTracker
     @teams.values_at(:team_id, :teamname).to_h
   end
 
-  def average_scores_by_team_id(game_type) #helper method for issue #14
+  def average_scores_by_team_id(*game_type) #helper method for issue #14
     average_scores= {}
-    scores_by_team_id(game_type).each do |team, scores|
+    scores_by_team_id(*game_type).each do |team, scores|
       average = scores.sum/scores.count
       average_scores[team] = average.round(1)
     end
