@@ -19,12 +19,6 @@ class TeamStatistics
     percentage(team_id, :lowest_win)
   end
 
-  def season_by_id(team_id)
-		# returns a list of seasons by ID, sorted by numerical order 
-    games = @statistics.games
-    season_by_id = (games.find_all { |row| row[:home_team_id] == team_id || row[:away_team_id] == team_id}).sort_by { |obj| obj[:season] }
-  end
-
   def percentage(team_id, data_choice)
 		# returns output based on data_choice input, calculates win and loss percentages
     game_by_season = season_by_id(team_id)
@@ -64,6 +58,13 @@ class TeamStatistics
 
     data_choice == :highest_win ? winning_season : losing_season
   end
+
+	def season_by_id(team_id)
+		# returns a list of seasons by ID, sorted by numerical order 
+    games = @statistics.games
+    season_by_id = (games.find_all { |row| row[:home_team_id] == team_id || row[:away_team_id] == team_id}).sort_by { |obj| obj[:season] }
+  end
+	
 	def update_total_count(season, total_count, row, team_id)
 		# updates total_count hash with new values based on conditions
 		total_count[season][0] += 1
