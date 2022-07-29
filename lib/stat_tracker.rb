@@ -68,6 +68,7 @@ class StatTracker
   end
 
   def count_of_games_by_season
+    #hash
     game_count_by_season = Hash.new { 0 }
 
     games.each do |game|
@@ -104,17 +105,15 @@ class StatTracker
   end
 
   def average_goals_by_season
-    test_hash = Hash.new { 0 }
+    total_games_per_season = Hash.new { |hash, season| hash[season] = [] }
 
-#goal is new_hash = {season_id => (total_goals_of_season / total_games_of_season)}
-    games.each do |game|
-      season_key = game[:season]
-
-      if test_hash[season_key].nil?
-        test_hash[season_key] = total_games
-      end
+    @games.each do |game|
+      home_goals = game[:home_goals].to_i
+      away_goals = game[:away_goals].to_i
+      total_game_goals = (home_goals + away_goals)
+      total_games_per_season[game[:season]] << total_game_goals
     end
 
-    average_goals_by_season
+    average_games_per_season = total_games_per_season.map { |season, games| [season, (games.sum / games.size.to_f).round(2)] }.to_h
   end
 end
