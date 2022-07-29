@@ -259,7 +259,7 @@ class StatTracker
     records = coach_records(season)
     games_by_season(season).each do |game|
       @game_teams_data.each do |row|
-        process_record(records, row) if game == row[:game_id]
+        process_coach_record(records, row) if game == row[:game_id]
       end
     end
     winning_record(records).max_by { |h,k| k }[0].to_s
@@ -269,84 +269,58 @@ class StatTracker
     records = coach_records(season)
     games_by_season(season).each do |game|
       @game_teams_data.each do |row|
-        process_record(records, row) if game == row[:game_id]
+        process_coach_record(records, row) if game == row[:game_id]
       end
     end
     winning_record(records).min_by { |h,k| k }[0].to_s
   end
 
   def most_accurate_team(season)
-    team_accuracy_record = {}
-    teams_by_season(season).each do |team|
-      team_accuracy_record[team.to_sym] = {shots: 0, goals: 0}
-    end
+    records = accuracy_records(season)
     @game_teams_data.each do |row|
       games_by_season(season).each do |game|
-        if game == row[:game_id]
-          goals = row[:goals].to_i
-          shots = row[:shots].to_i
-          team_id = row[:team_id].to_sym
-          team_accuracy_record[team_id][:goals] += goals
-          team_accuracy_record[team_id][:shots] += shots
-        end
+        process_accuracy_record(records, row) if game == row[:game_id]
       end
     end
-    selected_team = team_accuracy_record.max_by { |team, hash| (hash[:goals].to_f / hash[:shots].to_f) }
-    find_team_name_by_id(selected_team[0])
+    find_team_name_by_id(most_accurate(records))
   end
 
   def least_accurate_team(season)
-    team_accuracy_record = {}
-    teams_by_season(season).each do |team|
-      team_accuracy_record[team.to_sym] = {shots: 0, goals: 0}
-    end
+    records = accuracy_records(season)
     @game_teams_data.each do |row|
       games_by_season(season).each do |game|
-        if game == row[:game_id]
-          goals = row[:goals].to_i
-          shots = row[:shots].to_i
-          team_id = row[:team_id].to_sym
-          team_accuracy_record[team_id][:goals] += goals
-          team_accuracy_record[team_id][:shots] += shots
-        end
+        process_accuracy_record(records, row) if game == row[:game_id]
       end
     end
-    selected_team = team_accuracy_record.min_by { |team, hash| (hash[:goals].to_f / hash[:shots].to_f) }
-    find_team_name_by_id(selected_team[0])
+    find_team_name_by_id(least_accurate(records))
+  end
+
+  def tackle_records(season)
+    team_tackles_record = {}
+    teams_by_season(season).each do |team|
+      team_tackles_record[team.to_sym] = 0
+    end
+    team_tackles_record
   end
 
   def most_tackles(season)
-    team_tackles_record = {}
-    teams_by_season(season).each do |team|
-      team_tackles_record[team.to_sym] = 0
-    end
+    records = tackle_records(season)
     @game_teams_data.each do |row|
       games_by_season(season).each do |game|
-        if game == row[:game_id]
-          tackles = row[:tackles].to_i
-          team_tackles_record[row[:team_id].to_sym] += tackles
-        end
+        process_tackle_record(records, row) if game == row[:game_id]
       end
     end
-    selected_team = team_tackles_record.max_by { |team, hash| hash }
-    find_team_name_by_id(selected_team[0].to_s)
+    find_team_name_by_id(best_tackling_team(records))
   end
 
   def fewest_tackles(season)
-    team_tackles_record = {}
-    teams_by_season(season).each do |team|
-      team_tackles_record[team.to_sym] = 0
-    end
+    records = tackle_records(season)
     @game_teams_data.each do |row|
       games_by_season(season).each do |game|
-        if game == row[:game_id]
-          tackles = row[:tackles].to_i
-          team_tackles_record[row[:team_id].to_sym] += tackles
-        end
+        process_tackle_record(records, row) if game == row[:game_id]
       end
     end
-    selected_team = team_tackles_record.min_by { |team, hash| hash }
-    find_team_name_by_id(selected_team[0].to_s)
+    find_team_name_by_id(worst_tackling_team(records))
   end
 
   # Team Statistics
@@ -522,7 +496,7 @@ class StatTracker
     coach_records
   end
 
-  def process_record(records, row)
+  def process_coach_record(records, row)
     if row[:result] == "WIN"
       records[row[:head_coach].to_sym][:wins] += 1
       records[row[:head_coach].to_sym][:total_games] += 1
@@ -535,6 +509,39 @@ class StatTracker
     records.map do |coach, record|
       [coach, (record[:wins].to_f/record[:total_games].to_f)]
     end.to_h
+  end
+
+  def accuracy_records(season)
+    team_accuracy_record = {}
+    teams_by_season(season).each do |team|
+      team_accuracy_record[team.to_sym] = {shots: 0, goals: 0}
+    end
+    team_accuracy_record
+  end
+
+  def process_accuracy_record(records, row)
+    records[row[:team_id].to_sym][:goals] += row[:goals].to_i
+    records[row[:team_id].to_sym][:shots] += row[:shots].to_i
+  end
+
+  def most_accurate(records)
+    records.max_by { |h,k| (k[:goals].to_f / k[:shots].to_f) }[0]
+  end
+
+  def least_accurate(records)
+    records.min_by { |h,k| (k[:goals].to_f / k[:shots].to_f) }[0]
+  end
+
+  def process_tackle_record(records, row)
+    records[row[:team_id].to_sym] += row[:tackles].to_i
+  end
+
+  def best_tackling_team(records)
+    records.max_by { |team, tackles| tackles }[0]
+  end
+
+  def worst_tackling_team(records)
+    records.min_by { |team, tackles| tackles }[0]
   end
 
   def teams_by_season(season)
