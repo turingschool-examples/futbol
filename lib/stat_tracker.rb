@@ -86,4 +86,8 @@ class StatTracker
     best_season_percentage.round(2).to_s
   end
 
+  def average_win_percentage
+    
+  end
+
 end
