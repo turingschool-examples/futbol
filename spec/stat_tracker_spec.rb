@@ -55,8 +55,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_games_by_season).to eq({20122013=>5, 20142015=>7, 20132014=>4, 20152016=>4})
     end
 
-    it 'can return the team name of the Team with the worst offense' do
-      expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
+    it 'can return the team name of the Team with the worst/best offense' do
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+      expect(@stat_tracker.best_offense).to eq("Portland Timbers")
     end
 
 
