@@ -148,7 +148,7 @@ class StatTracker
 
       averages_hash = {}
 
-      team_ids_hash.keys.each do |teamid| 
+      team_ids_hash.keys.each do |teamid|
         averages_hash[teamid] = (team_ids_hash[teamid][:sum_away_goals]).to_f / (team_ids_hash[teamid][:count_of_away_games_played])
       end
 
@@ -247,47 +247,79 @@ class StatTracker
 
   end
 
-  def best_season (team_id) #issue # 18
-    season_hash = {}
-    season_holder = 0
+  def games_by_season # All game_ids sorted by season - helper method for issue #18
+    games_by_season = {}
     @games.values_at(:game_id, :season).each do |game|
-      if season_hash.include?(game[1])
-        season_hash[game[1]] << game[0]
+      if games_by_season.include?(game[1])
+        games_by_season[game[1]] << game[0]
       else
-        season_hash[game[1]] = [game[0]]
+        games_by_season[game[1]] = [game[0]]
       end
     end
+    games_by_season
+  end
 
-    results_array = @game_teams.values_at(:game_id, :team_id, :result)
-
-
-
-    result_by_team = @games.values_at(:game_id, :away_team_id, :home_team_id, :away_goals, :home_goals).find_all do |game|
+  def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18
+    @games.values_at(:game_id, :away_team_id, :home_team_id, :away_goals, :home_goals).find_all do |game|
       (game[3] > game[4] && game[1] == team_id) || (game[3] < game[4] && game[2] == team_id)
     end
-    #Option with full data set
-    # result_by_team = results_array.find_all do |game|
-    #   game[1] == team_id && game[2] == "WIN"
-    # end
 
-    win_by_season = Hash.new(0)
-    season_hash.each do |season, games|
-      result_by_team.each do |result_data|
+    # (this could be made dynamic for win or loss)
+
+    #def results_by_team(team_id, win_loss)
+    # result_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
+    #   game[1] == team_id && game[2] == "WIN" (win_loss).uppercase
+    # end
+  end
+
+  def games_by_team (team_id) # List of every game a team played - helper method for issue #18
+    @games.values_at(:game_id, :away_team_id, :home_team_id, :away_goals, :home_goals).find_all do |game|
+      (game[1] == team_id) || (game[2] == team_id)
+    end
+
+    # Option with full data set, but does not work with current dummy data
+
+    # games_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
+    #   game[1] == team_id
+    # end
+  end
+
+  def number_team_games_per_season(team_id) # Count of number of games a team played each season - helper method for issue #18
+    team_games_by_season = Hash.new(0)
+    games_by_season.each do |season, games|
+      games_by_team(team_id).each do |result_data|
         if games.include?(result_data[0])
-          win_by_season[season] += 1
+          team_games_by_season[season] += 1
         end
       end
     end
+    team_games_by_season
+  end
 
+  def number_team_wins_per_season(team_id) # Count of number of games a team won each season -helper method for issue #18
+    wins_by_season = Hash.new(0)
+    games_by_season.each do |season, games|
+      wins_by_team(team_id).each do |result_data|
+        if games.include?(result_data[0])
+          wins_by_season[season] += 1
+        end
+      end
+    end
+    wins_by_season
+  end
+
+  def season_win_percentage(team_id) # Percentage of won games per season by team - helper method for issue #18
     win_percentage = {}
-    win_by_season.each do |season, win_count|
-      game_count = season_hash[season].count.to_f
+    number_team_wins_per_season(team_id).each do |season, win_count|
+      game_count = number_team_games_per_season(team_id)[season].to_f
       percentage = ((win_count/game_count) * 100).round(1)
       win_percentage[season] = percentage
     end
+    win_percentage
+  end
 
-    win_percentage.key(win_percentage.values.max).to_s
-
+  def best_season (team_id) #issue # 18
+    season_win_percentage(team_id).key(season_win_percentage(team_id).values.max).to_s
   end
 
   def worst_season #issue # 25
