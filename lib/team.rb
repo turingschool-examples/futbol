@@ -45,14 +45,14 @@ class Team
       home_name = game.teams_game_stats[:home_team][:team_name]
       away_name = game.teams_game_stats[:away_team][:team_name]
       if home_name == @team_name
-        opp_win_percentages[away_name][:total_games] += 1 
+        opp_win_percentages[away_name][:total_games] += 1
         opp_win_percentages[away_name][:winning_games] += 1 if game.winner == :away_team
       elsif away_name == @team_name
         opp_win_percentages[home_name][:total_games] += 1
         opp_win_percentages[home_name][:winning_games] += 1 if game.winner == :home_team
       end
     end
-    opp_win_percentages.each do |team, stats| 
+    opp_win_percentages.each do |team, stats|
       opp_win_percentages[team] = stats[:winning_games].to_f / stats[:total_games]
     end
   end
@@ -75,7 +75,7 @@ class Team
     end
     season_win_percent.each do |season_id, stats|
       season_win_percent[season_id] = stats[:winning_games].to_f / stats[:total_games]
-    end 
+    end
     season_win_percent
   end
 
@@ -94,5 +94,6 @@ class Team
     end
     teams_hash
   end
+
 
 end

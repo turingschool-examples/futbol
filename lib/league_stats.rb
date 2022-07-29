@@ -28,4 +28,16 @@ module LeagueStats
     @teams.values.uniq.count
   end
 
+  def average_win_percentage(team_id)
+    total_win_percent = 0
+    @teams.values.each do |team|
+      if team.team_id == team_id
+        team.win_percentages_by_season.values.each do |value|
+          total_win_percent += value
+        end
+      end
+    end
+    total_win_percent / @seasons.length
+  end
+
 end

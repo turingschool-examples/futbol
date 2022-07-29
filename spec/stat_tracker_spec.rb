@@ -101,10 +101,15 @@ RSpec.describe StatTracker do
     it 'can count the total teams in the league' do
       expect(@stat_tracker.count_of_teams).to eq(9)
     end
-    
+
     it 'can return the best/worst seasons for a given team' do
       expect(@stat_tracker.best_season("3")).to eq("20142015")
       expect(@stat_tracker.worst_season("3")).to eq("20122013")
+    end
+
+    it 'can return the average win percentage over all seasons for a team' do
+      expect(@stat_tracker.average_win_percentage(3)).to eq (0.08333333333333333)
+      expect(@stat_tracker.average_win_percentage(6)).to eq (0.5)
     end
   end
 end
