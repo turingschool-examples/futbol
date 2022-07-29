@@ -17,6 +17,8 @@ class StatTracker
 
   def initialize(all_data_hash)
     @all_data_hash = all_data_hash
+
+    league_generator = LeagueGenerator.new(@all_data_hash)
   end
 
   def highest_total_score
