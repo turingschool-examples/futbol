@@ -111,5 +111,17 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_win_percentage(3)).to eq (0.08333333333333333)
       expect(@stat_tracker.average_win_percentage(6)).to eq (0.5)
     end
+
+    it "#team_info" do
+      expected = {
+        "team_id" => "18",
+        "franchise_id" => "34",
+        "team_name" => "Minnesota United FC",
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+      }
+      expect(@stat_tracker.team_info("18")).to eq expected
+    end
+
   end
 end
