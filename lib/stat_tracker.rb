@@ -26,4 +26,7 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
+  def most_tackles(season) @seasons[season.to_i].most_tackles end
+  def least_tackles(season) @seasons[season.to_i].least_tackles end
+
 end
