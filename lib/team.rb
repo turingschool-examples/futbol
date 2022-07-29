@@ -29,26 +29,15 @@ class Team
     end
   end
 
-  def total_home_goals
+  def total_goals_per_side(key_of_side)
     @games_participated_in.sum do |game|
-      if game.teams_game_stats[:home_team][:team_id] == @team_id
-        game.teams_game_stats[:home_team][:goals]
+      if game.teams_game_stats[key_of_side][:team_id] == @team_id
+        game.teams_game_stats[key_of_side][:goals]
       else
         0
       end
     end
   end
-
-  def total_away_goals
-    @games_participated_in.sum do |game|
-      if game.teams_game_stats[:away_team][:team_id] == @team_id
-        game.teams_game_stats[:away_team][:goals]
-      else
-        0
-      end
-    end
-  end
-
 
   def self.generate_teams(team_csv)
     teams_hash = {}
