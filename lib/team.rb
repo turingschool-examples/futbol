@@ -39,6 +39,38 @@ class Team
     end
   end
 
+  def total_away_goals
+    @games_participated_in.sum do |game|
+      if game.teams_game_stats[:away_team][:team_id] == @team_id
+        game.teams_game_stats[:away_team][:goals]
+      else
+        0
+      end
+    end
+  end
+
+  def opponent_win_percentages
+    opp_win_percentages = Hash.new {|hash, team| hash[team] = Hash.new(0)}
+    @games_participated_in.each do |game|
+      home_name = game.teams_game_stats[:home_team][:team_name]
+      away_name = game.teams_game_stats[:away_team][:team_name]
+      if home_name == @team_name
+        opp_win_percentages[away_name][:total_games] += 1 
+        opp_win_percentages[away_name][:winning_games] += 1 if game.winner == :away_team
+      elsif away_name == @team_name
+        opp_win_percentages[home_name][:total_games] += 1
+        opp_win_percentages[home_name][:winning_games] += 1 if game.winner == :home_team
+      end
+    end
+    opp_win_percentages.each do |team, stats| 
+      opp_win_percentages[team] = stats[:winning_games].to_f / stats[:total_games]
+    end
+  end
+
+  def rival
+    opponent_win_percentages.max_by{ |team_name, win_percent| win_percent }.first
+  end
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|

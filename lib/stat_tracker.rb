@@ -1,9 +1,9 @@
 require 'csv'
-require './lib/team'
-require './lib/game'
-require './lib/season'
-require './lib/game_stats'
-require './lib/league_stats'
+require_relative './team'
+require_relative './game'
+require_relative './season'
+require_relative './game_stats'
+require_relative './league_stats'
 
 class StatTracker
   include GameStats
@@ -26,11 +26,13 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
-
+  #Season Stats
   def most_accurate_team(season) @seasons[season.to_i].most_accurate_team end
   def least_accurate_team(season) @seasons[season.to_i].least_accurate_team end
-
   def most_tackles(season) @seasons[season.to_i].most_tackles end
   def fewest_tackles(season) @seasons[season.to_i].fewest_tackles end
+
+  #Team Stats
+  def rival(team) @teams[team.to_i].rival end
 
 end
