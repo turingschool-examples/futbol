@@ -111,5 +111,25 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_win_percentage(3)).to eq (0.08333333333333333)
       expect(@stat_tracker.average_win_percentage(6)).to eq (0.5)
     end
+
+    it "#team_info" do
+      expected = {
+        "team_id" => "14",
+        "franchise_id" => "31",
+        "team_name" => "DC United",
+        "abbreviation" => "DC",
+        "link" => "/api/v1/teams/14"
+      }
+      expected_2 = {
+        "team_id" => "21",
+        "franchise_id" => "27",
+        "team_name" => "Vancouver Whitecaps FC",
+        "abbreviation" => "VAN",
+        "link" => "/api/v1/teams/21"
+      }
+      expect(@stat_tracker.team_info("14")).to eq expected
+      expect(@stat_tracker.team_info("21")).to eq expected_2
+    end
+
   end
 end
