@@ -58,7 +58,11 @@ RSpec.describe StatTracker do
   end
 
   it "favorite opponent" do
-    expect(@stat_tracker.favorite_opponent("16")).to eq("")
+    expect(@stat_tracker.favorite_opponent("16")).to eq("Philadelphia Union")
+  end
+
+  it "rival" do
+    expect(@stat_tracker.rival("16")).to eq("LA Galaxy")
   end
 
 end

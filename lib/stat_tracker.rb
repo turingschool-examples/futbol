@@ -157,7 +157,41 @@ class StatTracker
       end
     end
     losing_team_name
-end
+  end
 
+  def rival(search_team_id)
+    game_info = @game_teams.find do |game_team|
+      game_team = search_team_id
+    end
+
+    all_games_won = []
+    @game_teams.each do |game_team|
+      if game_team[3] == "WIN" && game_team[1] == search_team_id
+        all_games_won << game_team[0]
+      end
+    end
+    all_games_won
+
+    losing_teams = []
+    @game_teams.each do |each_team|
+      all_games_won.each do |game_won|
+        if game_won == each_team[0] && each_team[3] == "LOSS"
+          losing_teams << each_team[1]
+      end
+    end
+  end
+    sorted_losing_teams = losing_teams.tally.sort_by do |key, value|
+    value
+  end
+    loser_team_id = sorted_losing_teams.first.first
+
+    losing_team_name = ""
+    @teams.each do |team|
+      if team[0] == loser_team_id
+        losing_team_name << team[2]
+      end
+    end
+    losing_team_name
+  end
 
 end
