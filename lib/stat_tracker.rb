@@ -231,10 +231,6 @@ class StatTracker
   end
 
   def best_season (team_id) #issue # 18
-    #{team_id => {:wins => {seasons => [games]}}}
-    #Call on nested hash with argument
-      #Itterate through wins hash to find season with highest games counts
-      #Return Season
     season_hash = {}
     season_holder = 0
     @games.values_at(:game_id, :season).each do |game|
@@ -244,10 +240,10 @@ class StatTracker
         season_hash[game[1]] = [game[0]]
       end
     end
-        # {20122013=> [2012030221, 2012030222, 2012030223, 2012030224, 2012030225,
+
     results_array = @game_teams.values_at(:game_id, :team_id, :result)
-      # [[2012030221, 3, "LOSS"]
-    win_count = 0
+
+
 
     result_by_team = @games.values_at(:game_id, :away_team_id, :home_team_id, :away_goals, :home_goals).find_all do |game|
       (game[3] > game[4] && game[1] == team_id) || (game[3] < game[4] && game[2] == team_id)
@@ -274,36 +270,6 @@ class StatTracker
     end
 
     win_percentage.key(win_percentage.values.max).to_s
-
-
-
-
-
-
-    # win_loss_hash = {}
-    # results_array.each do |game_data|
-    #   if game_data[3] == "WIN"
-    #     # season = season_hash.select {|season, game| game.include?(game[0])}
-    #   #finds season for game
-    #   end
-    #     season_hash.each do |season, games|
-    #       games.each do |game_id|
-    #         if game_id == game_data[0]
-    #           return season_holder = season
-    #         end
-    #       end
-    #     end
-    # end
-    #
-    #
-    # if win_loss_hash.include?(season.keys)
-    # end
-    #
-    # @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
-    #   game[2] == "WIN"
-    # end
-
-
 
   end
 
