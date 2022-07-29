@@ -46,7 +46,7 @@ RSpec.describe StatTracker do
   it "seasons with lowest win percentage for team" do
 
 
-    expect(@stat_tracker.worst_season("16")).to eq("1.8")
+    expect(@stat_tracker.worst_season("16")).to eq("0.6")
   end
 
 end

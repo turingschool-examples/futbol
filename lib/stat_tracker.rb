@@ -59,14 +59,32 @@ class StatTracker
     best_season_percentage.round(2).to_s
   end
 
+  def worst_season(search_team_id)
+    ##search input##
+    game_info = @game_teams.find do |game_team|
+      game_team[1] = search_team_id
+    end
+
+    all_win_info = []
+      @game_teams.each do |game_team|
+        if game_team[3] == "WIN" && game_team[1] == search_team_id
+          all_win_info << game_team[0]
+        end
+      end
+    all_win_info
+
+    season_won = []
+    @games.each do |game|
+      all_win_info.each do |per_game|
+      if per_game == game[0]
+        season_won << game[1]
+        # require "pry"; binding.pry
+        end
+      end
+    end
+    best_season_percentage = (season_won.tally.values.sort.first.to_f / @games.count) * 100
+    best_season_percentage.round(2).to_s
+    require "pry"; binding.pry
+  end
+
 end
-
-
-
-
-
-  # games_id_season = @games[:season].zip(@games[:game_id])
-  # games_id_season_h = Hash.new{|hash, key| hash[key] = []}
-  # games_id_season.each do |season, game|
-  #   games_id_season_h[season] << game
-  # end
