@@ -9,16 +9,9 @@ class StatTracker
     @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     @games = CSV.read locations[:games], headers: true, header_converters: :symbol
     @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
-    @game_rows = CSV.read locations[:games], headers: true, header_converters: :symbol
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-
-  def games
-    @games ||= game_rows.map do |row|
-      Game.new(row.to_h)
-    end
   end
 end
