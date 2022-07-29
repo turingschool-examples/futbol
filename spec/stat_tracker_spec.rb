@@ -52,11 +52,11 @@ RSpec.describe(StatTracker) do
     expect(@stat_tracker.count_of_games_by_season).to(eq(expected))
   end
 
-  it("total goals") do
+  it("(helper) total goals") do
     expect(@stat_tracker.total_goals).to(eq(31413))
   end
 
-  it("total_games") do
+  it("(helper)total_games") do
     expect(@stat_tracker.total_games).to(eq(7441))
   end
 
