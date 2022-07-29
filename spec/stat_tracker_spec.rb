@@ -58,5 +58,13 @@ RSpec.describe StatTracker do
     it 'can return the team name of the Team with the worst offense' do
       expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
     end
+
+    it 'can return the most accurate team per season' do
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq('Sporting Kansas City')
+    end
+
+    it 'can return the least accurate team per season' do
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq('DC United')
+    end
   end
 end

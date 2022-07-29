@@ -19,7 +19,7 @@ class Season
     seasons_hash
   end
 
-  def shots_by_team_per_season_avg
+  def shots_by_team_per_season_avg #helper method for most and least accurate
     shots_by_teams = Hash.new(1)
 
     @games_in_season.each do |game|
