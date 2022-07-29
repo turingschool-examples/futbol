@@ -82,6 +82,7 @@ RSpec.describe StatTracker do
 
     it 'can return the highest and lowest scoring visitor team' do
       expect(@stat_tracker.highest_scoring_visitor).to eq('Seattle Sounders FC')
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('FC Dallas')
     end
   end
 end
