@@ -29,7 +29,7 @@ class TeamStatistics
 		# returns output based on data_choice input, calculates win and loss percentages
     game_by_season = season_by_id(team_id)
     total_season = (game_by_season.uniq { |season| season[:season] }).map { |season| season[:season] }
-    total_count = {}
+    total_count = Hash.new
     total_season.each { |season| total_count.store(season, [0.0, 0.0, 0.0]) }
     # calculate total games in total_count[0], then wins in total_count[1], then loss in total_count[2]
     total_season.each do |season|
@@ -37,10 +37,11 @@ class TeamStatistics
 				update_total_count(season,total_count, row, team_id) if row[:season] == season
       end
     end
+		
     # changes floats to percent
     total_count.each do |_key, value|
       value[1] = ((value[1] / 100) * 100).round(2)
-      value[2] = value[0] - value[1]
+			value[2] = value[0] - value[1]
       value[2] = ((value[2] / 100) * 100).round(2)
     end
 
@@ -61,11 +62,7 @@ class TeamStatistics
       end
     end
 
-    if data_choice == :highest_win
-      winning_season
-    else
-      losing_season
-    end
+    data_choice == :highest_win ? winning_season : losing_season
   end
 	def update_total_count(season, total_count, row, team_id)
 		# updates total_count hash with new values based on conditions
