@@ -493,4 +493,30 @@ class StatTracker
 
       return "#{winningest_season}#{winningest_season.next}"
   end
+
+  def worst_season(team_id)
+    team_seasons = Hash.new { |season_id, games_lost| season_id[games_lost] = [0.0, 0.0] }
+    season = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
+    season.each do |row|
+      if row[:team_id] == team_id
+        team_seasons[row[:game_id][0..3]][0] += 1
+        if row[:result] == 'LOSS'
+          team_seasons[row[:game_id][0..3]][1] += 1
+        end
+      end
+    end
+    highest_loss_percentage = 0.0
+    losingest_season = ''
+    team_seasons.each do |season, lose_games|
+      if highest_loss_percentage < lose_games[1] / lose_games[0]
+        highest_loss_percentage = lose_games[1] / lose_games[0]
+        losingest_season = season
+        require 'pry';binding.pry
+      end
+    end
+    return "#{losingest_season}#{losingest_season.next}"
+
+  end
+
+
 end

@@ -322,4 +322,31 @@ RSpec.describe StatTracker do
    expect(stat_tracker.best_season('16')).to eq("20122013")
  end
 
+  it 'returns the worst season' do
+    fake_data = [
+      {
+        :game_id => "2014030411",
+        :team_id => '16',
+        :result => "WIN"
+      },
+      {
+        :game_id => "2014030411",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2014030412",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2012030412",
+        :team_id => '16',
+        :result => "WIN"
+      }
+    ]
+    allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(fake_data)
+    expect(stat_tracker.worst_season('16')).to eq("20142015")
+  end
+
 end
