@@ -417,12 +417,21 @@ class StatTracker
         wins_total_games[1] += 1
       end
     end
-    require 'pry'; binding.pry
-    win_percentage = (wins_total_games[0] / wins_total_games[1])*100
+    win_percentage = ((wins_total_games[0] / wins_total_games[1])*100).round(2)
   end
 
   def most_goals_scored(given_team_id)
-
+    all_team_games = find_all_team_games(given_team_id)
+    home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
+    away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
+    goals_by_game = []
+    home_games.each do |game|
+      goals_by_game << game[:home_goals]
+    end
+    away_games.each do |game|
+      goals_by_game << game[:away_goals]
+    end
+    goals_by_game.max
   end
 
   def fewest_goals_scored(given_team_id)
