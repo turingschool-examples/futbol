@@ -260,25 +260,33 @@ class StatTracker
   end
 
   def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18
-    @games.values_at(:game_id, :away_team_id, :home_team_id, :away_goals, :home_goals).find_all do |game|
-      (game[3] > game[4] && game[1] == team_id) || (game[3] < game[4] && game[2] == team_id)
+    wins = []
+    @games.each do |row|
+      if (row[:away_goals] > row[:home_goals] && row[:away_team_id] == team_id) ||
+        (row[:home_goals] < row[:away_goals] && row[:home_team_id] == team_id)
+        wins << [row[:game_id], team_id]
+      end
     end
+    wins
 
-    # (this could be made dynamic for win or loss)
-
+    # Option with full data set, but does not work with current dummy data
+    # (this could be made dynamic for win or loss):
     #def results_by_team(team_id, win_loss)
     # result_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
     #   game[1] == team_id && game[2] == "WIN" (win_loss).uppercase
     # end
   end
 
-  def games_by_team (team_id) # List of every game a team played - helper method for issue #18
-    @games.values_at(:game_id, :away_team_id, :home_team_id, :away_goals, :home_goals).find_all do |game|
-      (game[1] == team_id) || (game[2] == team_id)
+  def games_by_team(team_id) # List of every game a team played - helper method for issue #18
+    games = []
+    @games.each do |row|
+      if (row[:away_team_id] == team_id) || (row[:home_team_id] == team_id)
+        games <<[row[:game_id], team_id]
+      end
     end
+    games
 
-    # Option with full data set, but does not work with current dummy data
-
+    # Option with full data set, but does not work with current dummy data:
     # games_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
     #   game[1] == team_id
     # end
