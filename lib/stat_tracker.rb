@@ -110,10 +110,10 @@ class StatTracker
       season_key = game[:season]
 
       if test_hash[season_key].nil?
-        test_hash[season_key] && average_goals_per_game.tally
+        test_hash[season_key] = 0
       end
 
-      test_hash
+      test_hash[season_key] += average_goals_per_game
       require "pry"
 
       binding.pry
