@@ -17,8 +17,7 @@ module LeagueStats
   end
 
   def highest_scoring_visitor
-    high_scoring = teams_and_goals.max_by{|teams, stats| stats[:total_away_goals].to_f / stats[:total_away_games]}
-    high_scoring[1][:team_name]
+    @teams.values.max_by {|team| team.total_away_goals.to_f / team.games_participated_in.length}.team_name
   end
 
 end
