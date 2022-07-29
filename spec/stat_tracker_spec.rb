@@ -89,5 +89,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.rival("3")).to eq("FC Dallas")
       expect(@stat_tracker.rival("14")).to eq("Houston Dynamo")
     end
+
+    it 'can return the favorite opponent for any team' do
+      expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
+      expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
+    end
   end
 end
