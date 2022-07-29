@@ -7,6 +7,24 @@ class Season
     @games_in_season = games_in_season
   end
 
+  def tackles_by_team
+    team_tackles = Hash.new(0)
+    @games_in_season.each do |game|
+      game.teams_game_stats.values.each do |team_stats_hash|
+        team_tackles[team_stats_hash[:team_name]] += team_stats_hash[:tackles]
+      end
+    end
+    team_tackles
+  end
+
+  def most_tackles
+    tackles_by_team.max.first
+  end
+
+  def least_tackles
+    tackles_by_team.min.first
+  end
+
   def self.generate_seasons(games)
     seasons_ids = games.map{|game| game.season}.uniq
     seasons_hash = {}
