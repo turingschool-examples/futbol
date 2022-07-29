@@ -95,5 +95,4 @@ class Team
     teams_hash
   end
 
-
 end

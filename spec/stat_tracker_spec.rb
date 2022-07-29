@@ -114,13 +114,21 @@ RSpec.describe StatTracker do
 
     it "#team_info" do
       expected = {
-        "team_id" => "18",
-        "franchise_id" => "34",
-        "team_name" => "Minnesota United FC",
-        "abbreviation" => "MIN",
-        "link" => "/api/v1/teams/18"
+        "team_id" => "14",
+        "franchise_id" => "31",
+        "team_name" => "DC United",
+        "abbreviation" => "DC",
+        "link" => "/api/v1/teams/14"
       }
-      expect(@stat_tracker.team_info("18")).to eq expected
+      expected_2 = {
+        "team_id" => "21",
+        "franchise_id" => "27",
+        "team_name" => "Vancouver Whitecaps",
+        "abbreviation" => "VAN",
+        "link" => "/api/v1/teams/21"
+      }
+      expect(@stat_tracker.team_info("14")).to eq expected
+
     end
 
   end
