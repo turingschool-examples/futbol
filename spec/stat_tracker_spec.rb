@@ -99,7 +99,7 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the highest average number of goals scored per game across all seasons' do
-      expect(@stat_tracker.best_offense).to eq("")
+      expect(@stat_tracker.best_offense).to eq("New York City FC")
     end
 
     it 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do
