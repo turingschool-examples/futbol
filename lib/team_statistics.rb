@@ -5,8 +5,8 @@ class TeamStatistics
 
   def team_info(team_id)
     # returns hash with team_id, franchise_id, team_name, abbreviation, and link
-    team_index = @statistics.teams[:team_id].index(team_id)
-    team_info_return = @statistics.teams[team_index].to_h.reject { |key, _value| key == :stadium }
+    team_index = @statistics[:teams][:team_id].index(team_id)
+    team_info_return = @statistics[:teams][team_index].to_h.reject { |key, _value| key == :stadium }
   end
 
   def best_season(team_id)
@@ -61,7 +61,7 @@ class TeamStatistics
 
 	def season_by_id(team_id)
 		# returns a list of seasons by ID, sorted by numerical order 
-    games = @statistics.games
+    games = @statistics[:games]
     season_by_id = (games.find_all { |row| row[:home_team_id] == team_id || row[:away_team_id] == team_id}).sort_by { |obj| obj[:season] }
   end
 	

@@ -5,7 +5,7 @@ class LeagueStatistics
 
   def count_of_teams
     team_id_array = []
-    @data_set.game_teams.each do |row|
+    @data_set[:game_teams].each do |row|
       team_id_array << row[1]
     end
     team_id_array.uniq.count
@@ -13,7 +13,7 @@ class LeagueStatistics
 
   def total_team_goal_averages
     teams_goals_hash = {}
-    @data_set.game_teams.each do |row|
+    @data_set[:game_teams].each do |row|
       if teams_goals_hash[row[:team_id]] == nil
         teams_goals_hash[row[:team_id]] = []
       end
@@ -28,7 +28,7 @@ class LeagueStatistics
   def best_offense
     best_team = total_team_goal_averages.max_by {|team, average| average}
     best_team_name = ""
-    @data_set.teams.each do |row|
+    @data_set[:teams].each do |row|
       if row[:team_id] == best_team[0]
         best_team_name = row[:teamname]
       end
@@ -39,7 +39,7 @@ class LeagueStatistics
   def worst_offense
     worst_team = total_team_goal_averages.min_by {|team, average| average}
     worst_team_name = ""
-    @data_set.teams.each do |row|
+    @data_set[:teams].each do |row|
       if row[:team_id] == worst_team[0]
         worst_team_name = row[:teamname]
       end

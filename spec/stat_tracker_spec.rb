@@ -1,4 +1,4 @@
-require './spec_helper'
+require 'spec_helper'
 require_relative '../lib/stat_tracker'
 
 RSpec.describe StatTracker do
@@ -13,7 +13,9 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
 
+  
     @data_set = StatTracker.from_csv(@locations)
+    
   end
   describe ".from_csv" do
     it 'is instance of class' do

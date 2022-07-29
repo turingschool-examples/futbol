@@ -1,4 +1,4 @@
-require './spec_helper'
+require 'spec_helper'
 require_relative '../lib/team_statistics'
 require './lib/stat_tracker'
 
@@ -15,7 +15,7 @@ RSpec.describe TeamStatistics do
         }
 
         stat_tracker = StatTracker.from_csv(locations)
-        @team_statistics = TeamStatistics.new(stat_tracker)
+        @team_statistics = TeamStatistics.new(stat_tracker.data)
     end
     describe ".team_satistics instantiation" do
         it 'is instance of class' do
