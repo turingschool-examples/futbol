@@ -240,10 +240,24 @@ class StatTracker
 
   end
 
-  def team_info #issue # 23
+  def team_info(team_id) #issue # 23
 
+      info = {
+      "team_id" => team_id,
+      "franchise_id" => 0,     
+      "team_name" => 0,
+      "abbreviation" => 0, 
+      "link" => 0
+              }
 
-
+      @teams.each do |row|
+        info["franchise_id"] = row[:franchiseid].to_s if row[:team_id] == team_id.to_i
+        info["team_name"] = row[:teamname] if row[:team_id] == team_id.to_i
+        info["abbreviation"] = row[:abbreviation] if row[:team_id] == team_id.to_i
+        info["link"] = row[:link] if row[:team_id] == team_id.to_i
+      end
+      
+      info
   end
 
   def best_season #issue # 24
