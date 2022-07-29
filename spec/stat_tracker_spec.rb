@@ -98,5 +98,10 @@ RSpec.describe StatTracker do
     it 'can count the total teams in the league' do
       expect(@stat_tracker.count_of_teams).to eq(9)
     end
+    
+    it 'can return the best/worst seasons for a given team' do
+      expect(@stat_tracker.best_season("3")).to eq("20142015")
+      expect(@stat_tracker.worst_season("3")).to eq("20122013")
+    end
   end
 end
