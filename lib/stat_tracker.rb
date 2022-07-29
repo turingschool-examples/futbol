@@ -268,7 +268,7 @@ class StatTracker
     end
     total_games
   end
-  
+
 
 
   #season stats
@@ -456,4 +456,20 @@ class StatTracker
     team_names[tackle_stats.key(tackle_stats.values.min)]
   end
 
+  def team_info(team_id)
+    teams = CSV.open(@team_path, headers: true, header_converters: :symbol)
+    team_hash = Hash.new()
+    teams.each do |row|
+      if row[:team_id] == team_id
+        team_hash['team_name'] = row[:teamname]
+        team_hash['team_id'] = row[:team_id]
+        team_hash['franchise_id'] = row[:franchiseid]
+        team_hash['abbreviation'] = row[:abbreviation]
+        team_hash['link'] = row[:link]
+      end
+    end
+    team_hash
+  end
+
+  def best_season(team_id)
 end
