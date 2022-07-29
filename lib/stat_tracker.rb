@@ -25,7 +25,6 @@ class StatTracker
     games = @games.select do |game|
               game[:season] == target_season
             end
-
     game_ids = games.map do |game|
                 game[:game_id]
                end
@@ -212,11 +211,11 @@ class StatTracker
   def highest_scoring_visitor
     @league_stats.highest_scoring_visitor
   end
-  
+
   def highest_scoring_home_team
     @league_stats.highest_scoring_home_team
   end
-  
+
   def lowest_scoring_visitor
     @league_stats.lowest_scoring_visitor
   end
@@ -224,5 +223,5 @@ class StatTracker
   def lowest_scoring_home_team
     @league_stats.lowest_scoring_home_team
   end
- 
+
 end
