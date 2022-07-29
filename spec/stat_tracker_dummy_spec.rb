@@ -99,7 +99,7 @@ describe StatTracker do
     expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
   end
 
-  it 'least_tackles' do
-    expect(@stat_tracker.least_tackles("20122013")).to eq("LA Galaxy")
+  it 'fewest_tackles' do
+    expect(@stat_tracker.fewest_tackles("20122013")).to eq("LA Galaxy")
   end
 end
