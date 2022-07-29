@@ -102,12 +102,12 @@ describe StatTracker do
       expect(@stat_tracker.best_offense).to eq("")
     end
 
-    xit 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do
-      expect(@stat_tracker.worst_offense).to eq("")
+    it 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
     end
 
-    xit 'can return Name of the team with the highest average score per game across all seasons when they are away' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq("")
+    it 'can return Name of the team with the highest average score per game across all seasons when they are away' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Utah Royals FC")
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are home' do
@@ -119,7 +119,7 @@ describe StatTracker do
     end
 
     xit 'can return Name of the team with the lowest average score per game across all seasons when they are at home' do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
 
@@ -148,20 +148,27 @@ describe StatTracker do
 
   describe 'Team Statistics' do
 
-    xit 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do
-      expect(@stat_tracker.team_info).to eq({})
+    it 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do
+      expect(@stat_tracker.team_info("1")).to eq(
+        expected = {
+          "team_id" => "1",
+          "franchise_id" => "23",
+          "team_name" => "Atlanta United",
+          "abbreviation" => "ATL",
+          "link" => "/api/v1/teams/1"
+      })
     end
 
-    xit 'can show season with the highest win percentage for a team' do
-      expect(@stat_tracker.best_season).to eq("")
+    it 'can show season with the highest win percentage for a team' do
+      expect(@stat_tracker.best_season(16)).to eq("20132014")
     end
 
     xit 'can show season with the lowest win percentage for a team' do
       expect(@stat_tracker.average_win_percentage).to eq#(float)
     end
 
-    xit 'can return hgihest number of goals a particular team has scored in a  single game' do
-      expect(@stat_tracker.most_goals_scored).to eq#(integer)
+    it 'can return hgihest number of goals a particular team has scored in a  single game' do
+      expect(@stat_tracker.most_goals_scored(1)).to eq(1)
     end
 
     xit 'can return lowest number of goals a particular team has scored in a single game' do

@@ -164,21 +164,38 @@ class StatTracker
   end
 
   def worst_offense #issue # 12
-    
-
-
+    min_average = average_scores_by_team_id("home", "away").values.min
+    team_by_id[average_scores_by_team_id("home", "away").key(min_average)]
   end
-
+  
   def highest_scoring_visitor #issue # 13
+      away_team_ids_array = (@games[:away_team_id]).uniq.sort
 
+      team_ids_hash = {}
+      away_team_ids_array.each do |teamid|
+        team_ids_hash[teamid] = {sum_away_goals: 0, count_of_away_games_played: 0}
+      end
 
+      @games.each do |row|
+        team_ids_hash[row[:away_team_id]][:sum_away_goals] += row[:away_goals]
+        team_ids_hash[row[:away_team_id]][:count_of_away_games_played] += 1
+      end
 
+      averages_hash = {}
+
+      team_ids_hash.keys.each do |teamid|
+        averages_hash[teamid] = (team_ids_hash[teamid][:sum_away_goals]).to_f / (team_ids_hash[teamid][:count_of_away_games_played])
+      end
+
+      visitor_with_highest_score_array = averages_hash.max_by{|k,v| v}
+
+      visitor_team_name_with_highest_avg_score = team_by_id[visitor_with_highest_score_array[0]]
   end
 
-  def scores_by_team_id(game_type) #helper method for issue #14
+  def scores_by_team_id(*game_type) #helper method for issue #14
     scores_by_team_id = {}
-    scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
-      game[1] == game_type
+      scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game| 
+      game[1] == game_type[0] || game_type[1]
     end
 
     @game_teams[:team_id].each do |id|
@@ -195,10 +212,9 @@ class StatTracker
   def team_by_id #helper method for issue #14
     @teams.values_at(:team_id, :teamname).to_h
 
-  end
-  def average_scores_by_team_id(game_type) #helper method for issue #14
+  def average_scores_by_team_id(*game_type) #helper method for issue #14
     average_scores= {}
-    scores_by_team_id(game_type).each do |team, scores|
+    scores_by_team_id(*game_type).each do |team, scores|
       average = scores.sum/scores.count
       average_scores[team] = average.round(1)
     end
@@ -217,9 +233,8 @@ class StatTracker
   end
 
   def lowest_scoring_home_team #issue # 16
-
-
-
+    min_average = average_scores_by_team_id("away").values.min
+    team_by_id[average_scores_by_team_id("away").key(min_average)]
   end
 
 
@@ -261,16 +276,107 @@ class StatTracker
 
   end
 
-  def team_info #issue # 23
+  def team_info(team_id) #issue # 23
 
+      info = {
+      "team_id" => team_id,
+      "franchise_id" => 0,     
+      "team_name" => 0,
+      "abbreviation" => 0, 
+      "link" => 0
+              }
 
-
+      @teams.each do |row|
+        info["franchise_id"] = row[:franchiseid].to_s if row[:team_id] == team_id.to_i
+        info["team_name"] = row[:teamname] if row[:team_id] == team_id.to_i
+        info["abbreviation"] = row[:abbreviation] if row[:team_id] == team_id.to_i
+        info["link"] = row[:link] if row[:team_id] == team_id.to_i
+      end
+      
+      info
   end
 
-  def best_season #issue # 24
+  def games_by_season # All game_ids sorted by season - helper method for issue #18
+    games_by_season = {}
+    @games.values_at(:game_id, :season).each do |game|
+      if games_by_season.include?(game[1])
+        games_by_season[game[1]] << game[0]
+      else
+        games_by_season[game[1]] = [game[0]]
+      end
+    end
+    games_by_season
+  end
 
+  def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18
+    wins = []
+    @games.each do |row|
+      if (row[:away_goals] > row[:home_goals] && row[:away_team_id] == team_id) ||
+        (row[:home_goals] < row[:away_goals] && row[:home_team_id] == team_id)
+        wins << [row[:game_id], team_id]
+      end
+    end
+    wins
 
+    # Option with full data set, but does not work with current dummy data
+    # (this could be made dynamic for win or loss):
+    #def results_by_team(team_id, win_loss)
+    # result_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
+    #   game[1] == team_id && game[2] == "WIN" (win_loss).uppercase
+    # end
+  end
 
+  def games_by_team(team_id) # List of every game a team played - helper method for issue #18
+    games = []
+    @games.each do |row|
+      if (row[:away_team_id] == team_id) || (row[:home_team_id] == team_id)
+        games <<[row[:game_id], team_id]
+      end
+    end
+    games
+
+    # Option with full data set, but does not work with current dummy data:
+    # games_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
+    #   game[1] == team_id
+    # end
+  end
+
+  def number_team_games_per_season(team_id) # Count of number of games a team played each season - helper method for issue #18
+    team_games_by_season = Hash.new(0)
+    games_by_season.each do |season, games|
+      games_by_team(team_id).each do |result_data|
+        if games.include?(result_data[0])
+          team_games_by_season[season] += 1
+        end
+      end
+    end
+    team_games_by_season
+  end
+
+  def number_team_wins_per_season(team_id) # Count of number of games a team won each season -helper method for issue #18
+    wins_by_season = Hash.new(0)
+    games_by_season.each do |season, games|
+      wins_by_team(team_id).each do |result_data|
+        if games.include?(result_data[0])
+          wins_by_season[season] += 1
+        end
+      end
+    end
+    wins_by_season
+  end
+
+  def season_win_percentage(team_id) # Percentage of won games per season by team - helper method for issue #18
+    win_percentage = {}
+    number_team_wins_per_season(team_id).each do |season, win_count|
+      game_count = number_team_games_per_season(team_id)[season].to_f
+      percentage = ((win_count/game_count) * 100).round(1)
+      win_percentage[season] = percentage
+    end
+    win_percentage
+  end
+
+  def best_season (team_id) #issue # 18
+    season_win_percentage(team_id).key(season_win_percentage(team_id).values.max).to_s
   end
 
   def worst_season #issue # 25
@@ -285,10 +391,16 @@ class StatTracker
 
   end
 
-  def most_goals_scored #issue # 27
+  def most_goals_scored(team_id) #issue # 27
 
+    array_of_goals_for_specified_team = []
 
+    @games.each do |row|
+      array_of_goals_for_specified_team << row[:away_goals] if team_id == row[:away_team_id]
+      array_of_goals_for_specified_team << row[:home_goals] if team_id == row[:home_team_id]
+    end
 
+    array_of_goals_for_specified_team.max()
   end
 
   def fewest_goals_scored #issue # 28
