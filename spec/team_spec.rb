@@ -40,7 +40,7 @@ RSpec.describe Team do
 
   it 'can return its win percentages for each season' do
     expected = {
-      20122013 => 0.00
+      20122013 => 0.00,
       20142015 => 0.3333333333333333
     }
     expect(@team.win_percentages_by_season).to eq(expected)
