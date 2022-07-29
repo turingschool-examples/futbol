@@ -315,8 +315,8 @@ class StatTracker
     games_by_season = []
     game_id =[]
     team_id_tackles = Hash.new(0)
-    @all_data_hash[:games].each do |row|
-      if row[:season] == season
+    @all_data_hash[:game_teams].each do |row|
+      if row[:game_id][0..3] == season[0..3]
         games_by_season << row
       end
     end
@@ -331,6 +331,7 @@ class StatTracker
     team_with_most_tackles = nil
     greatest_tackles_and_team_id = team_id_tackles.sort_by { |team_id, tackles| tackles}.last
     @all_data_hash[:teams].each do |row|
+
       if row[:team_id] == greatest_tackles_and_team_id[0]
         team_with_most_tackles = row[:teamname]
       end
