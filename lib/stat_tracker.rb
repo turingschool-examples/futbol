@@ -15,11 +15,11 @@ class StatTracker
   end
 
   def total
-    total = @games.map do |row|
+    all_goals = @games.map do |row|
       row[:away_goals].to_i + row[:home_goals].to_i
     end
 
-    total
+    all_goals
   end
 
   def highest_total_score
@@ -27,11 +27,7 @@ class StatTracker
   end
 
   def lowest_total_score
-    lowest_total = @games.map do |row|
-      row[:away_goals].to_i + row[:home_goals].to_i
-    end
-
-    lowest_total.min
+    total.min
   end
 
   def percentage_home_wins
