@@ -84,5 +84,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_visitor).to eq('Seattle Sounders FC')
       expect(@stat_tracker.lowest_scoring_visitor).to eq('Houston Dash')
     end
+
+    it 'can return rival team for any team' do
+      expect(@stat_tracker.rival("3")).to eq("FC Dallas")
+      expect(@stat_tracker.rival("14")).to eq("Houston Dynamo")
+    end
   end
 end
