@@ -255,55 +255,24 @@ class StatTracker
   end
   
   # Season Statistics
-  
   def winningest_coach(season)
-    coach_records = {}
-    coaches_by_season(season).each do |coach|
-      coach_records[coach] = {wins: 0, total_games: 0}
-    end
+    records = coach_records(season)
     games_by_season(season).each do |game|
       @game_teams_data.each do |row|
-        if game == row[:game_id]
-          result = row[:result]
-          coach = row[:head_coach].to_sym
-          if result == "WIN"
-            coach_records[coach][:wins] += 1
-            coach_records[coach][:total_games] += 1
-          else
-            coach_records[coach][:total_games] += 1
-          end
-        end
+        process_record(records, row) if game == row[:game_id]
       end
     end
-    seasons = coach_records.map do |coach, record|
-      [coach, (record[:wins].to_f/record[:total_games].to_f)]
-    end.to_h
-    (seasons.key(seasons.values.max)).to_s
+    winning_record(records).max_by { |h,k| k }[0].to_s
   end
-    
+
   def worst_coach(season)
-    coach_records = {}
-    coaches_by_season(season).each do |coach|
-      coach_records[coach] = {wins: 0, total_games: 0}
-    end
+    records = coach_records(season)
     games_by_season(season).each do |game|
       @game_teams_data.each do |row|
-        if game == row[:game_id]
-          result = row[:result]
-          coach = row[:head_coach].to_sym
-          if result == "WIN"
-            coach_records[coach][:wins] += 1
-            coach_records[coach][:total_games] += 1
-          else
-            coach_records[coach][:total_games] += 1
-          end
-        end
+        process_record(records, row) if game == row[:game_id]
       end
     end
-    seasons = coach_records.map do |coach, record|
-      [coach, (record[:wins].to_f/record[:total_games].to_f)]
-    end.to_h
-    (seasons.key(seasons.values.min)).to_s
+    winning_record(records).min_by { |h,k| k }[0].to_s
   end
 
   def most_accurate_team(season)
@@ -494,15 +463,20 @@ class StatTracker
   # Helper Methods Below
 
   def find_all_team_games(given_team_id)
-    all_away_games = @games_data.find_all do |team|
-      team[:away_team_id] == given_team_id.to_s
-    end
-    all_home_games = @games_data.find_all do |team|
-      team[:home_team_id] == given_team_id.to_s
-    end
-    all_team_games = all_home_games + all_away_games
+    away_games_by_team(given_team_id) + home_games_by_team(given_team_id)
   end
 
+  def away_games_by_team(given_team_id)
+    @games_data.find_all do |team|
+      team[:away_team_id] == given_team_id.to_s
+    end
+  end
+
+  def home_games_by_team(given_team_id)
+    @games_data.find_all do |team|
+      team[:home_team_id] == given_team_id.to_s
+    end
+  end
 
   def find_team_name_by_id(id_number)
     team_name = nil
@@ -538,6 +512,29 @@ class StatTracker
       end
     end
     coaches_array.uniq
+  end
+
+  def coach_records(season)
+    coach_records = Hash.new
+    coaches_by_season(season).each do |coach|
+      coach_records.store(coach, {wins: 0, total_games: 0})
+    end
+    coach_records
+  end
+
+  def process_record(records, row)
+    if row[:result] == "WIN"
+      records[row[:head_coach].to_sym][:wins] += 1
+      records[row[:head_coach].to_sym][:total_games] += 1
+    else
+      records[row[:head_coach].to_sym][:total_games] += 1
+    end
+  end
+
+  def winning_record(records)
+    records.map do |coach, record|
+      [coach, (record[:wins].to_f/record[:total_games].to_f)]
+    end.to_h
   end
 
   def teams_by_season(season)
