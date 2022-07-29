@@ -38,5 +38,10 @@ RSpec.describe Team do
     expect(@team.favorite_opponent).to eq("DC United")
   end
 
+  it 'can return the teams best/worst seasons' do
+    expect(@team.best_season).to eq("20142015")
+    expect(@team.worst_season).to eq("20122013")
+  end
+
 
 end
