@@ -59,6 +59,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq("Seattle Sounders FC")
     end
 
+    it 'can return most/least tackles for different seasons' do
+      expect(@stat_tracker.most_tackles("20142015")).to eq("Sporting Kansas City")
+      expect(@stat_tracker.least_tackles("20142015")).to eq("DC United")
+      expect(@stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+      expect(@stat_tracker.least_tackles("20122013")).to eq("FC Dallas")
+    end
+
 
   end
 end
