@@ -60,8 +60,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.best_offense).to eq("Portland Timbers")
     end
 
-    it "can return the highest scoring home team" do
+    it "can return the highest and lowest scoring home team" do
       expect(@stat_tracker.highest_scoring_home_team).to eq "Houston Dash"
+      expect(@stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
     end
 
     it 'can return most/least tackles for different seasons' do
