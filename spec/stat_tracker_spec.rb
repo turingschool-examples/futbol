@@ -60,6 +60,8 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.best_offense).to eq("Portland Timbers")
     end
 
-
+    it "#highest_scoring_home_team" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq "Houston Dash"
+    end
   end
 end

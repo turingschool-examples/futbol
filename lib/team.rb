@@ -6,7 +6,7 @@ class Team
               :abbreviation,
               :stadium,
               :link
-              
+
   attr_accessor :games_participated_in
 
   def initialize(teams_csv_row)
@@ -25,6 +25,16 @@ class Team
         game.teams_game_stats[:home_team][:goals]
       else
         game.teams_game_stats[:away_team][:goals]
+      end
+    end
+  end
+
+  def total_home_goals
+    @games_participated_in.sum do |game|
+      if game.teams_game_stats[:home_team][:team_id] == @team_id
+        game.teams_game_stats[:home_team][:goals]
+      else
+        0
       end
     end
   end
