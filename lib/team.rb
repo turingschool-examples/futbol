@@ -39,6 +39,17 @@ class Team
     end
   end
 
+  def total_away_goals
+    @games_participated_in.sum do |game|
+      if game.teams_game_stats[:away_team][:team_id] == @team_id
+        game.teams_game_stats[:away_team][:goals]
+      else
+        0
+      end
+    end
+  end
+
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|

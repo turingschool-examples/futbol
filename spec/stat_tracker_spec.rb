@@ -79,5 +79,9 @@ RSpec.describe StatTracker do
     it 'can return the least accurate team per season' do
       expect(@stat_tracker.least_accurate_team("20142015")).to eq('DC United')
     end
+
+    it 'can return the highest and lowest scoring visitor team' do
+      expect(@stat_tracker.highest_scoring_vistor).to be('FC Dallas')
+    end
   end
 end
