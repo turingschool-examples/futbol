@@ -84,7 +84,6 @@ class StatTracker
     end
     best_season_percentage = (season_won.tally.values.sort.first.to_f / @games.count) * 100
     best_season_percentage.round(2).to_s
-    require "pry"; binding.pry
   end
 
 end
