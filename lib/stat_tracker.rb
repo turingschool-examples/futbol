@@ -268,7 +268,7 @@ class StatTracker
     end
     total_games
   end
-  
+
 
 
   #season stats
@@ -456,4 +456,41 @@ class StatTracker
     team_names[tackle_stats.key(tackle_stats.values.min)]
   end
 
+  def team_info(team_id)
+    teams = CSV.open(@team_path, headers: true, header_converters: :symbol)
+    team_hash = Hash.new()
+    teams.each do |row|
+      if row[:team_id] == team_id
+        team_hash['team_name'] = row[:teamname]
+        team_hash['team_id'] = row[:team_id]
+        team_hash['franchise_id'] = row[:franchiseid]
+        team_hash['abbreviation'] = row[:abbreviation]
+        team_hash['link'] = row[:link]
+      end
+    end
+    team_hash
+  end
+
+  def best_season(team_id)
+    team_seasons = Hash.new { |season_id, games_won| season_id[games_won] = [0.0, 0.0] }
+    season = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
+    season.each do |row|
+      if row[:team_id] == team_id
+        team_seasons[row[:game_id][0..3]][0] += 1
+        if row[:result] == 'WIN'
+          team_seasons[row[:game_id][0..3]][1] += 1
+        end
+      end
+    end
+    highest_win_percentage = 0.0
+    winningest_season = ''
+      team_seasons.each do |season, wins_games|
+        if highest_win_percentage < wins_games[1] / wins_games[0]
+          highest_win_percentage = wins_games[1] / wins_games[0]
+          winningest_season = season
+        end
+      end
+
+      return "#{winningest_season}#{winningest_season.next}"
+  end
 end

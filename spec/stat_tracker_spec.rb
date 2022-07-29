@@ -257,15 +257,6 @@ RSpec.describe StatTracker do
     expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dynamo")
     end
 
-  # it 'returns individual team info' do
-  #   expect(stat_tracker.team_info(29)).to eq({
-  #     :team_id => 29,
-  #     :franchiseid => '36',
-  #     :teamname => "Orlando Pride",
-  #     :abbreviation => 'FLP',
-  #     :link => '/api/v1/teams/29'
-  #   })
-  # end
 
   #league stats
 
@@ -293,4 +284,42 @@ RSpec.describe StatTracker do
   it 'returns fewest_tackles' do
     expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
   end
+
+  it 'returns individual team info' do
+    expect(stat_tracker.team_info('29')).to eq({
+      'team_id' => '29',
+      'franchise_id' => '36',
+      'team_name' => "Orlando Pride",
+      'abbreviation' => 'FLP',
+      'link' => '/api/v1/teams/29'
+    })
+  end
+
+ it 'returns the best season' do
+   fake_data = [
+     {
+       :game_id => "2014030411",
+       :team_id => '16',
+       :result => "WIN"
+     },
+     {
+       :game_id => "2014030411",
+       :team_id => '14',
+       :result => "LOSS"
+     },
+     {
+       :game_id => "2014030412",
+       :team_id => '16',
+       :result => "LOSS"
+     },
+     {
+       :game_id => "2012030412",
+       :team_id => '16',
+       :result => "WIN"
+     }
+   ]
+   allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(fake_data)
+   expect(stat_tracker.best_season('16')).to eq("20122013")
+ end
+
 end
