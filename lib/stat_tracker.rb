@@ -70,13 +70,13 @@ class StatTracker
     game_count_by_season = Hash.new {  }
 
     games.each do |game|
-      season_values = game[:season]
+      season_key = game[:season]
 
-      if game_count_by_season[season_values].nil?
-        game_count_by_season[season_values] = 0
+      if game_count_by_season[season_key].nil?
+        game_count_by_season[season_key] = 0
       end
 
-      game_count_by_season[season_values] += 1
+      game_count_by_season[season_key] += 1
     end
 
     game_count_by_season
@@ -92,7 +92,7 @@ class StatTracker
       away_goals += game[:away_goals].to_i
     end
 
-    (home_goals + away_goals)
+    total_goals = (home_goals + away_goals)
   end
 
   def total_games
@@ -101,5 +101,22 @@ class StatTracker
 
   def average_goals_per_game
     (total_goals / total_games.to_f).round(2)
+  end
+
+  def average_goals_by_season
+    test_hash = Hash.new {  }
+
+    games.each do |game|
+      season_key = game[:season]
+
+      if test_hash[season_key].nil?
+        test_hash[season_key] && average_goals_per_game.tally
+      end
+
+      test_hash
+      require "pry"
+
+      binding.pry
+    end
   end
 end
