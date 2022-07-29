@@ -68,6 +68,7 @@ class TeamStatistics
     end
   end
 	def update_total_count(season, total_count, row, team_id)
+		# updates total_count hash with new values based on conditions
 		total_count[season][0] += 1
 		if row[:home_team_id] == team_id
 			total_count[season][1] += 1 if row[:home_goals] > row[:away_goals]
