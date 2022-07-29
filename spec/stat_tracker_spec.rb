@@ -52,7 +52,11 @@ RSpec.describe StatTracker do
   it "average win percentage of all games for a team" do
 
     expect(@stat_tracker.average_win_percentage("16")).to eq(0.05)
+  end
 
+  it "highest number of goals scored in a game" do
+
+    expect(@stat_tracker.most_goals_scored("16")).to eq(50)
   end
 
 end
