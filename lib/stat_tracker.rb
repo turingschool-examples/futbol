@@ -35,5 +35,7 @@ class StatTracker
   #Team Stats
   def rival(team) @teams[team.to_i].rival end
   def favorite_opponent(team) @teams[team.to_i].favorite_opponent end
+  def best_season(team) @teams[team.to_i].best_season end
+  def worst_season(team) @teams[team.to_i].worst_season end
 
 end
