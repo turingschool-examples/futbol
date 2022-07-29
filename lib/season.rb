@@ -22,7 +22,7 @@ class Season
   end
 
   def least_tackles
-    "DC United"
+    tackles_by_team.min.first
   end
 
   def self.generate_seasons(games)
