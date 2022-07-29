@@ -121,17 +121,50 @@ class StatTracker
     @teams[:teamname].count
   end
 
+
+  def team_average_number_of_goals_per_game(team_id)
+    @game_count = 0
+    @game_score = 0
+    @game_teams.each do |row|
+      if row[:team_id].to_i == team_id.to_i
+        @game_count += 1
+        @game_score += row[:goals].to_i
+      end
+    end
+    if @game_count > 0
+      return @game_score.to_f / @game_count.to_f
+    end
+  end
+
+
   def best_offense #issue # 11
-    #need: average number of goals per team (array:key of team name value of average?)
+    #need: average scores by team (all season/games) key is team id => average
     #get max of the listed averages
     #return name of that team
+    #----- go through array of games, for home team add that to array of goals scored 
+    goals_per_team = Hash.new{|hash, key| hash[key]=[]}
+    average_goals_per_team = {}
+    #goals_per_team[3] << 2
+    #goals_per_team[6] << 3
+    @games.each do |game| 
+      goals_per_team[game[:away_team_id]] << game[:away_goals] 
+      goals_per_team[game[:home_team_id]] << game[:home_goals] 
+    end
+    
+    goals_per_team.each do |team_id, games| 
+      average_goals_per_team[@team_by_id[team_id] = team_average_number_of_goals_per_game(team_id) ]
+    end
+    goals_per_team.max 
+    
+    require'pry';binding.pry
+
 
 
 
   end
 
   def worst_offense #issue # 12
-
+    
 
 
   end
@@ -155,14 +188,14 @@ class StatTracker
       scores_by_team_id[game[0]] << game[2].to_f
     end
     scores_by_team_id
-    require 'pry';binding.pry
+   
     
   end
 
   def team_by_id #helper method for issue #14
     @teams.values_at(:team_id, :teamname).to_h
-  end
 
+  end
   def average_scores_by_team_id(game_type) #helper method for issue #14
     average_scores= {}
     scores_by_team_id(game_type).each do |team, scores|

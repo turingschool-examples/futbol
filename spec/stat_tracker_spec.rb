@@ -98,7 +98,7 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(32)
     end
 
-    xit 'can return Name of the team with the highest average number of goals scored per game across all seasons' do
+    it 'can return Name of the team with the highest average number of goals scored per game across all seasons' do
       expect(@stat_tracker.best_offense).to eq("")
     end
 
