@@ -131,7 +131,40 @@ class StatTracker
 
   def team_season_game_counter(team_id)  #incomplete helper
     games_by_season_hash = team_season_grouper(team_id)
+    require 'pry';binding.
   end
+
+  # all_games = all_team_games(team_id)
+  # seasons_hash = season_grouper
+  # season_1 = []
+  # season_2 = []
+  # season_3 = []
+  # season_4 = []
+  # season_5 = []
+  # season_6 = []
+  # all_games.each do |game|
+  #   if game.season == "20122013"
+  #     season_1 << game
+  #   elsif game.season == "20132014"
+  #     season_2 << game
+  #   elsif game.season == "20142015"
+  #     season_3 << game
+  #   elsif game.season == "20152016"
+  #     season_4 << game
+  #   elsif game.season == "20162017"
+  #     season_5 << game
+  #   elsif game.season == "20172018"
+  #     season_6 << game
+  #   end
+
+  # end
+  # season_1
+  # season_2
+  # season_3
+  # season_4
+  # season_5
+  # season_6
+
 
   def best_season(team_id)  #this is not done and the one below needs to be refactored or tossed out and become a helper. this groups a team's seasons into arrays
     # max of total number of wins (home wins and away wins) in a season/total number of games in a season
@@ -334,22 +367,42 @@ class StatTracker
     end
 
   def most_tackles(season)
-    seasons_grouped = season_grouper[season]
-
-    home_game_hash = seasons_grouped.group_by do |game|
+    seasons_grouped = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
+    require 'pry';binding.pry
+    home_game_hash = seasons_grouped.group_by do |game| 
       game.home_team_id
     end
 
     away_game_hash = seasons_grouped.group_by do |game|
       game.away_team_id
     end
-     merged_hash = home_game_hash.merge(away_game_hash) do |team_id, home_game_array, away_game_array|
+     merged_hash = home_game_hash.merge(away_game_hash) do |team_id, home_game_array, away_game_array| #merged hash has 30 keys: each team's id. values are all games for a given season 
            home_game_array << away_game_array
            #All tackles for each game for a given key
       end
-      require 'pry' ; binding.pry
+      # require 'pry' ; binding.pry
     #for each set of values we need to add up the tackles that are in there &
+    merged_hash.map do |team, games|
+      games.map do |game|
+        
+       
+        number_of_tackles(team, game.game_id)
+        
+      end
+    end
 
+
+  end
+
+  def number_of_tackles(team_id, game_id)
+    counter = 0
+    @game_teams.find_all do |game_team|
+      if team_id == game_team.team_id && game_id == game_team.game_id
+      
+        counter += game_team.tackles.to_i
+      end
+    end
+    counter
   end
 
 
