@@ -27,42 +27,40 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_total_score).to eq 1
     end
 
-    xit "#percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq 0.44
+    it "#percentage_home_wins" do
+      expect(stat_tracker.percentage_home_wins).to eq 0.71
     end
 
-    xit '#percentage_visitor_wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq 0.36
+    it '#percentage_visitor_wins' do
+      expect(stat_tracker.percentage_visitor_wins).to eq 0.29
     end
 
-    xit '#percentage_ties' do
-      expect(stat_tracker.percentage_ties).to eq 0.20
+    it '#percentage_ties' do
+      expect(stat_tracker.percentage_ties).to eq 0.03
     end
 
-    xit '#count_of_games_by_season' do
+    it '#count_of_games_by_season' do
       expected = {
-        "20122013"=>806,
-        "20162017"=>1317,
-        "20142015"=>1319,
-        "20152016"=>1321,
-        "20132014"=>1323,
-        "20172018"=>1355
+        "20122013"=>17,
+        "20162017"=>4,
+        "20142015"=>18,
+        "20152016"=>22,
+        "20132014"=>13
       }
       expect(stat_tracker.count_of_games_by_season).to eq expected
     end
 
-    xit '#average_goals_per_game' do
-      expect(stat_tracker.average_goals_per_game).to eq 4.22
+    it '#average_goals_per_game' do
+      expect(stat_tracker.average_goals_per_game).to eq 4.01
     end
 
-    xit '#average_goals_by_season' do
+    it '#average_goals_by_season' do
       expected = {
-      "20122013"=>4.12,
-      "20162017"=>4.23,
-      "20142015"=>4.14,
-      "20152016"=>4.16,
-      "20132014"=>4.19,
-      "20172018"=>4.44
+      "20122013"=>3.88,
+      "20162017"=>4.75,
+      "20142015"=>3.89,
+      "20152016"=>4.0,
+      "20132014"=>4.15
       }
       expect(stat_tracker.average_goals_by_season).to eq expected
     end
@@ -70,66 +68,66 @@ RSpec.describe StatTracker do
 # # # League Statistics
   context 'league statistics' do
 
-    xit '#count_of_teams' do
+    it '#count_of_teams' do
       expect(stat_tracker.count_of_teams).to eq 32
     end
 
-    xit '#best_offense' do
-      expect(stat_tracker.best_offense).to eq "Reign FC"
+    it '#best_offense' do
+      expect(stat_tracker.best_offense).to eq "New York City FC"
     end
 
-    xit '#worst_offense' do
-      expect(stat_tracker.worst_offense).to eq "Utah Royals FC"
+    it '#worst_offense' do
+      expect(stat_tracker.worst_offense).to eq "Orlando City SC"
     end
 
-    xit '#highest_scoring_visitor' do
-      expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+    it '#highest_scoring_visitor' do
+      expect(stat_tracker.highest_scoring_visitor).to eq "New York City FC"
     end
 
-    xit '#highest_scoring_home_team' do
-      expect(stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+    it '#highest_scoring_home_team' do
+      expect(stat_tracker.highest_scoring_home_team).to eq "New York City FC"
     end
 
-    xit '#lowest_scoring_visitor' do
-      expect(stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    it '#lowest_scoring_visitor' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq "Seattle Sounders FC"
     end
 
-    xit '#lowest_scoring_home_team' do
-      expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    it '#lowest_scoring_home_team' do
+      expect(stat_tracker.lowest_scoring_home_team).to eq "Orlando City SC"
     end
   end
 # # # Season Statistics
   context 'season statistics' do 
 
-    xit '#winningest_coach' do
-      expect(stat_tracker.winningest_coach).to eq("Dan Lacroix")
+    it '#winningest_coach' do
+      expect(stat_tracker.winningest_coach).to eq("Adam Oates")
     end
 
-    xit '#worst_coach' do
-      expect(stat_tracker.worst_coach).to eq("Martin Raymond")
+    it '#worst_coach' do
+      expect(stat_tracker.worst_coach).to eq("John Tortorella")
     end
 
-    xit '#most_accurate_team' do
-      expect(stat_tracker.most_accurate_team).to eq("Chicago Red Stars")
+    it '#most_accurate_team' do
+      expect(stat_tracker.most_accurate_team).to eq("New York City FC")
     end
 
-    xit '#least_accurate_team' do
-      expect(stat_tracker.least_accurate_team).to eq("New England Revolution")
+    it '#least_accurate_team' do
+      expect(stat_tracker.least_accurate_team).to eq("New York Red Bulls")
     end
 
-    xit '#most_tackles' do
+    it '#most_tackles' do
 
-      expect(stat_tracker.most_tackles).to eq("Orlando Pride")
+      expect(stat_tracker.most_tackles).to eq("FC Cincinnati")
     end
 
-    xit '#fewest_tackles' do
-      expect(stat_tracker.fewest_tackles).to eq("Philadelphia Union")
+    it '#fewest_tackles' do
+      expect(stat_tracker.fewest_tackles).to eq("New York City FC")
     end
   end
 # # # Team Statistics
   context 'team statistics' do 
 
-    xit '#team_info' do
+    it '#team_info' do
       expect(stat_tracker.team_info("1")).to eq({:abbreviation=>"ATL", :franchise_id=>"23", :link=>"/api/v1/teams/1", :team_id=>"1", :team_name=>"Atlanta United"})
     end
 
