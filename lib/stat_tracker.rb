@@ -322,10 +322,9 @@ class StatTracker
     end
     @all_data_hash[:game_teams].each do |row|
       games_by_season.each do |games_row|
-          if row[:game_id][0..3] = games_row[:game_id][0..3]
+          if row[:game_id][0..3] == games_row[:game_id][0..3]
             team_id_tackles[row[:team_id]] += row[:tackles].to_i
           end
-          require "pry"; binding.pry
       end
     end
 
