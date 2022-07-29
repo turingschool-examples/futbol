@@ -50,7 +50,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(0.05)
     end
 
-
     it 'can return a hash of the count of games by season' do
       expect(@stat_tracker.count_of_games_by_season).to eq({20122013=>5, 20142015=>7, 20132014=>4, 20152016=>4})
     end
@@ -93,6 +92,10 @@ RSpec.describe StatTracker do
     it 'can return the favorite opponent for any team' do
       expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
       expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
+    end
+
+    it 'can return a hash of the average goals by season' do
+      expect(@stat_tracker.average_goals_by_season).to eq("20122013" => 4.4, "20132014" => 3.25, "20142015" => 3.43, "20152016" => 4.5)
     end
 
     it 'can count the total teams in the league' do
