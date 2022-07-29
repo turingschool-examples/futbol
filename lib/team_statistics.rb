@@ -11,19 +11,22 @@ class TeamStatistics
 
   def best_season(team_id)
     # returns season with the highest win percentage for a team as string
-    win_percentage(team_id, :highest_win)
+    percentage(team_id, :highest_win)
   end
 
   def worst_season(team_id)
-    win_percentage(team_id, :lowest_win)
+		# returns season with the lowest win percentage for a team as string
+    percentage(team_id, :lowest_win)
   end
 
   def season_by_id(team_id)
+		# returns a list of seasons by ID, sorted by numerical order 
     games = @statistics.games
     season_by_id = (games.find_all { |row| row[:home_team_id] == team_id || row[:away_team_id] == team_id}).sort_by { |obj| obj[:season] }
   end
 
-  def win_percentage(team_id, data_choice)
+  def percentage(team_id, data_choice)
+		# returns output based on data_choice input, calculates win and loss percentages
     game_by_season = season_by_id(team_id)
     total_season = (game_by_season.uniq { |season| season[:season] }).map { |season| season[:season] }
     total_count = {}
@@ -31,7 +34,7 @@ class TeamStatistics
     # calculate total games in total_count[0], then wins in total_count[1], then loss in total_count[2]
     total_season.each do |season|
       game_by_season.each do |row|
-				season_eq_season(season,total_count, row, team_id) if row[:season] == season
+				update_total_count(season,total_count, row, team_id) if row[:season] == season
       end
     end
     # changes floats to percent
@@ -64,7 +67,7 @@ class TeamStatistics
       losing_season
     end
   end
-	def season_eq_season(season, total_count, row, team_id)
+	def update_total_count(season, total_count, row, team_id)
 		total_count[season][0] += 1
 		if row[:home_team_id] == team_id
 			total_count[season][1] += 1 if row[:home_goals] > row[:away_goals]
