@@ -71,6 +71,10 @@ class Team
     opponent_win_percentages.max_by{ |team_name, win_percent| win_percent }.first
   end
 
+  def favorite_opponent
+    opponent_win_percentages.min_by{ |team_name, win_percent| win_percent }.first
+  end
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|
