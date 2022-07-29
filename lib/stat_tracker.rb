@@ -110,8 +110,6 @@ class StatTracker
     games_by_season
   end
 
-
-
   def all_team_games(team_id) #games helper, returns all of a team's games in an array
     all_games = []
     @games.each do |game|
@@ -304,6 +302,74 @@ class StatTracker
     end.max { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
     team_id_to_name[home_scores_average[0]]
   end
+
+
+  def winningest_coach(season_id)
+
+    coaches = {}
+    game_id_list = []
+    @games.each do |game|
+
+      if game.season == season_id
+          game_id_list << game.game_id
+        end
+    end
+    coaches = Hash.new(0)
+
+    @game_teams.each do |game_team|
+      game_id = game_team.game_id
+      coach = game_team.head_coach
+      if !game_id_list.include?game_id
+        next
+      end
+
+        if game_team.result == "WIN"
+            coaches[coach]+=1
+          end
+        end
+
+      coach_percentage_won =
+      coaches.map do |coach_name, game_win|
+        percentage_won = (game_win.to_f/game_id_list.length) * 100
+        [coach_name, percentage_won]
+      end.to_h
+
+      winningest_coach= coach_percentage_won.max {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
+      winningest_coach[0]
+    end
+
+
+  def worst_coach(season_id)
+
+    coaches = {}
+    game_id_list = []
+    @games.each do |game|
+      if game.season == season_id
+          game_id_list << game.game_id
+
+      end
+    end
+    coaches = Hash.new(0)
+
+    @game_teams.each do |game_team|
+      game_id = game_team.game_id
+      coach = game_team.head_coach
+      if !game_id_list.include?game_id
+        next
+      end
+
+        if game_team.result == "LOSS"
+            coaches[coach]+=1
+        end
+      end
+
+      coach_percentage_lost = coaches.map do |coach_name, game_loss|
+
+        percentage_lost = (game_loss.to_f/game_id_list.length) * 100
+        [coach_name, percentage_lost]
+      end.to_h
+      worst1_coach= coach_percentage_lost.min {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
+      worst1_coach[0]
 
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }

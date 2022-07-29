@@ -118,8 +118,38 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-  it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
 
+  it 'can name the coach with the best winning percentage' do
+    expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
+    expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
+  end
+
+  it 'can name the coach with the worst winnig percentage' do
+    expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
+    expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+  end
+
+  it 'can name the team with the best shot accuracy' do
+    expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+  end
+
+  it 'can name the team with the worst shot accuracy' do
+    expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  end
+
+  it 'can name the team with the most tackles made' do
+    expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
+
+  it 'can name the team with the least tackles made' do
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+    expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+  end
+
+  it 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
     expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
