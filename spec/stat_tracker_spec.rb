@@ -53,4 +53,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.most_goals_scored("16")).to eq(4)
   end
 
+  it "lowest number of goals scored in a game" do
+    expect(@stat_tracker.fewest_goals_scored("16")).to eq(0)
+  end
+
 end
