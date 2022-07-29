@@ -28,4 +28,13 @@ RSpec.describe Team do
     expect(@team.total_overall_goals).to eq(13)
   end
 
+  it 'can return a hash of opponent_win_percentages' do
+    expected = {"DC United"=>0.6666666666666666, "FC Dallas"=>1.0}
+    expect(@team.opponent_win_percentages).to eq(expected)
+  end
+
+  it 'can return the opponent team with the highest win percentage against them' do
+    expect(@team.rival).to eq("FC Dallas")
+  end
+
 end
