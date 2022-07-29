@@ -93,8 +93,18 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
       expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
     end
+
     it 'can return a hash of the average goals by season' do
       expect(@stat_tracker.average_goals_by_season).to eq("20122013" => 4.4, "20132014" => 3.25, "20142015" => 3.43, "20152016" => 4.5)
+    end
+
+    it 'can count the total teams in the league' do
+      expect(@stat_tracker.count_of_teams).to eq(9)
+    end
+    
+    it 'can return the best/worst seasons for a given team' do
+      expect(@stat_tracker.best_season("3")).to eq("20142015")
+      expect(@stat_tracker.worst_season("3")).to eq("20122013")
     end
   end
 end

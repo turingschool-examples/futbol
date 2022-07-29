@@ -30,4 +30,23 @@ RSpec.describe Game do
   it 'can return a winner symbol' do
     expect(@game.winner).to eq(:home_team)
   end
+
+  it 'can tell whether a team participated' do
+    expect(@game.team_in_game?(3)).to be true
+    expect(@game.team_in_game?(6)).to be true
+    expect(@game.team_in_game?(5)).to be false
+  end
+
+  it 'can return a hash of only one teams game stats' do
+    expected = {
+      :face_off_win_percentage=>44.8, 
+      :goals=>2, :head_coach=>"John Tortorella", 
+      :result=>"LOSS", 
+      :shots=>8, 
+      :tackles=>44, 
+      :team_id=>3, 
+      :team_name=>"Houston Dynamo"
+    }
+    expect(@game.team_stats(3)).to eq(expected)
+  end
 end
