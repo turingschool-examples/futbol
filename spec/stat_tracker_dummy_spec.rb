@@ -135,7 +135,6 @@ describe StatTracker do
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_dummy.csv'
 
-
     locations = {
       games: game_path,
       teams: team_path,
@@ -176,7 +175,7 @@ describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
     expect(@stat_tracker.worst_season("3")).to eq("20122013")
     expect(@stat_tracker.worst_season("6")).to eq("20142015")
-   end
+  end
 
   it '#winningest_coach' do
     expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
@@ -208,6 +207,14 @@ describe StatTracker do
     expect(@stat_tracker.fewest_goals_scored("5")).to eq(0)
     expect(@stat_tracker.fewest_goals_scored("3")).to eq(1)
   end
+
+
+  it '#most_tackles' do
+    expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+  end
+
+  it 'fewest_tackles' do
+    expect(@stat_tracker.fewest_tackles("20122013")).to eq("LA Galaxy")
 
   it '#average_win_percentage' do
     game_path = './data/games_dummy.csv'
