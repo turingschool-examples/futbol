@@ -1,16 +1,15 @@
 require 'csv'
 require 'pry'
+require 'data_warehouse'
+require 'season_stats'
 
 class StatTracker
 
-  attr_reader :games, :teams, :game_teams
+  attr_reader :data_warehouse
 
 
   def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
-    @league_stats = LeagueStats.new(games, teams, game_teams)
+    @data_warehouse = DataWarehouse.new(games, teams, game_teams)
   end
 
   def self.from_csv(locations)
@@ -18,39 +17,15 @@ class StatTracker
     CSV.read(locations[:games], headers: true, header_converters: :symbol),
     CSV.read(locations[:teams], headers: true, header_converters: :symbol),
     CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
-  )
+    )
   end
 
   def winningest_coach(target_season)
-    games = @games.select do |game|
-              game[:season] == target_season
-            end
-    game_ids = games.map do |game|
-                game[:game_id]
-               end
 
-    game_teams = @game_teams.select do |game_team|
-                    game_ids.include?(game_team[:game_id])
-                  end
+    data = @data_warehouse.data_by_season(target_season)
+    season_stats = SeasonStats.new(data)
+    season_stats.winningest_coach
 
-    coaches_and_results= game_teams.map do |game|
-                            [game[:result], game[:head_coach]]
-                          end
-
-    wins = Hash.new(0)
-    all_games = Hash.new(0)
-
-    coaches_and_results.each do |result, coach|
-      wins[coach] += 1 if result == "WIN"
-      all_games[coach] += 1
-    end
-
-    win_percentage = Hash.new
-    wins.map do |coach, num_wins|
-      win_percentage[coach] = num_wins.to_f / all_games[coach]
-    end
-
-    win_percentage.max_by{|coach, percentage| percentage}.first
   end
 
   def worst_coach(target_season)
@@ -197,30 +172,42 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams.count
+    @data_warehouse.teams.count
   end
 
   def best_offense
+    data = @data_warehouse
+    @league_stats = LeagueStats.new(data)
     @league_stats.best_offense
   end
 
   def worst_offense
+    data = @data_warehouse
+    @league_stats = LeagueStats.new(data)
     @league_stats.worst_offense
   end
 
   def highest_scoring_visitor
+    data = @data_warehouse
+    @league_stats = LeagueStats.new(data)
     @league_stats.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
+    data = @data_warehouse
+    @league_stats = LeagueStats.new(data)
     @league_stats.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
+    data = @data_warehouse
+    @league_stats = LeagueStats.new(data)
     @league_stats.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
+    data = @data_warehouse
+    @league_stats = LeagueStats.new(data)
     @league_stats.lowest_scoring_home_team
   end
 

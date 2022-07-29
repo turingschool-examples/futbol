@@ -1,5 +1,7 @@
 require './lib/stat_tracker'
 require './lib/league_stats'
+require './lib/season_stats'
+require './lib/data_warehouse'
 
 require 'pry'
 
@@ -47,7 +49,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
     end
 
-    it 'can find highest scoring home team' do    
+    it 'can find highest scoring home team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq "San Jose Earthquakes"
     end
 
@@ -55,15 +57,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_visitor).to eq "Chicago Fire"
     end
 
-    it 'can find lowest scoring home team' do 
+    it 'can find lowest scoring home team' do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Washington Spirit FC"
     end
   end
 
 
   context 'Season statistics' do
-    xit 'S1. has a method for winningest_coach' do
-      expect(@stat_tracker.game_teams[:head_coach]).to include(@stat_tracker.winningest_coach("20122013"))
+    it 'S1. has a method for winningest_coach' do
+
+      expect(@stat_tracker.data_warehouse.game_teams[:head_coach]).to include(@stat_tracker.winningest_coach("20122013"))
       expect(@stat_tracker.winningest_coach("20122013")). to be_a String
     end
 

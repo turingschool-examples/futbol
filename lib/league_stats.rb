@@ -7,10 +7,10 @@ class LeagueStats
   include Calculable
   # attr_reader :games, :teams, :game_teams
 
-  def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
+  def initialize(data)
+    @games = data.games
+    @teams = data.teams
+    @game_teams = data.game_teams
     # super(games, teams, game_teams)
   end
 
@@ -88,7 +88,7 @@ class LeagueStats
     total_goals; h1 = @total_goals_by_team
     total_games; h2 = @total_games_by_team
 
-    new_hash = h1.merge(h2) do |key, goals, games| 
+    new_hash = h1.merge(h2) do |key, goals, games|
       goals.to_f / games
     end
 
@@ -107,8 +107,8 @@ class LeagueStats
     id_team_hash; @id_and_team
     total_goals; h1 = @total_goals_by_team
     total_games; h2 = @total_games_by_team
-    
-    new_hash = h1.merge(h2) do |key, goals, games| 
+
+    new_hash = h1.merge(h2) do |key, goals, games|
       goals.to_f / games
     end
 
@@ -139,14 +139,14 @@ class LeagueStats
       h2[id] = game_info[:away_games]
     end
 
-    new_hash = h1.merge(h2) do |key, goals, games| 
+    new_hash = h1.merge(h2) do |key, goals, games|
       goals.to_f / games
     end
 
     best_vis = new_hash.sort_by do |id, ratio|
       ratio
     end
-    
+
     @id_and_team.find do |id, team|
       if id == best_vis[-1][0]
         return team[:name]
@@ -170,14 +170,14 @@ class LeagueStats
       h2[id] = game_info[:home_games]
     end
 
-    new_hash = h1.merge(h2) do |key, goals, games| 
+    new_hash = h1.merge(h2) do |key, goals, games|
       goals.to_f / games
     end
 
     best_home = new_hash.sort_by do |id, ratio|
       ratio
     end
-    
+
     @id_and_team.find do |id, team|
       if id == best_home[-1][0]
         return team[:name]
@@ -201,7 +201,7 @@ class LeagueStats
       h2[id] = game_info[:away_games]
     end
 
-    new_hash = h1.merge(h2) do |key, goals, games| 
+    new_hash = h1.merge(h2) do |key, goals, games|
       goals.to_f / games
     end
 
@@ -233,7 +233,7 @@ class LeagueStats
       h2[id] = game_info[:home_games]
     end
 
-    new_hash = h1.merge(h2) do |key, goals, games| 
+    new_hash = h1.merge(h2) do |key, goals, games|
       goals.to_f / games
     end
 
