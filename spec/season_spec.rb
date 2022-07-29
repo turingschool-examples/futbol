@@ -31,7 +31,6 @@ RSpec.describe Season do
   it 'can return the least accurate team per season' do
     expect(@season.least_accurate_team).to eq('DC United')
   end
-end
 
   it 'has an array of games in the season' do
     expect(@season.games_in_season).to all(be_an(Game))
