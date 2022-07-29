@@ -65,6 +65,28 @@ class Team
     opponent_win_percentages.min_by{ |team_name, win_percent| win_percent }.first
   end
 
+  def win_percentages_by_season
+    season_win_percent = Hash.new{|hash, season| hash[season] = Hash.new(0)}
+    @games_participated_in.each do |game|
+      if game.team_in_game?(@team_id)
+        season_win_percent[game.season][:total_games] += 1
+        season_win_percent[game.season][:winning_games] += 1 if game.team_stats(@team_id)[:result] == "WIN"
+      end
+    end
+    season_win_percent.each do |season_id, stats|
+      season_win_percent[season_id] = stats[:winning_games].to_f / stats[:total_games]
+    end 
+    season_win_percent
+  end
+
+  def best_season
+    win_percentages_by_season.max_by{ |season, win_percent| win_percent }.first.to_s
+  end
+
+  def worst_season
+    win_percentages_by_season.min_by{ |season, win_percent| win_percent }.first.to_s
+  end
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|
