@@ -330,11 +330,54 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
+    #{game=>{teams => [team1, team2], winning_team = team1}}
+    game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
+
+    @game_teams.each do |game|
+      game_id = game.game_id
+      winner = nil
+      if game.result == "WIN"
+        winner = game.team_id
+      end
+      if game.team_id == team_id
+        game_hash[game_id][:is_our_team] = true
+      else 
+        game_hash[game_id][:other_team_id] = game.team_id
+      end
+      if winner
+        game_hash[game_id][:winning_team_id] = winner
+      end
+    end
+    game_hash = game_hash
+      .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
+      .to_h
+
+    team_scores = Hash.new { |h, k| h[k] = { wins: 0, losses: 0, ties: 0 } }
+    game_hash.each do |game_id, teams_hash|
+      other_team_id = teams_hash[:other_team_id]
+      if teams_hash[:winning_team_id] == team_id
+        team_scores[other_team_id][:losses] += 1
+      elsif teams_hash[:winning_team_id] == other_team_id
+        team_scores[other_team_id][:wins] += 1
+      else 
+        team_scores[other_team_id][:ties] += 1
+      end
+    end
+
+    min_win_percent =
+    team_scores.min do |team_win_1, team_win_2| 
+      win_percentage_1 = team_win_1[1][:wins] / (team_win_1[1][:losses] + team_win_1[1][:ties] + team_win_1[1][:wins])
+      win_percentage_2 = team_win_2[1][:wins] / (team_win_2[1][:losses] + team_win_2[1][:ties] + team_win_2[1][:wins])
+      win_percentage_1 <=> win_percentage_2
+    end
+    min_win_team_id = min_win_percent[0]
+    team_id_to_name[min_win_team_id]
+
+    
+    #minimum win percentage
+
     #name of the opponent that has the lowest win percentage against given team
     #{team_id=> [away games], [home games]}
-    
-
-    end
 
     #helper method: find all team games for a given team id(away and home games)
     #all team games = all home + all away games
@@ -347,12 +390,11 @@ class StatTracker
     #hash of team id they've played => [number of wins, number of losses]
   end
 end
+
 #name of opponent with highest win percentage against given team
 def rival(team_id)
 end
 
- 
-  
 #   most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
 # least_accurate_team	Name of the Team with the worst ratio of shots to goals for the season	String
 
@@ -365,10 +407,10 @@ def seasons_grouped(season)
   seasons_grouped =
     season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
 
-  home_game_hash = 
-  seasons_grouped.group_by do |game|
-    game.home_team_id
-  end
+  home_game_hash =
+    seasons_grouped.group_by do |game|
+      game.home_team_id
+    end
 
   away_game_hash = seasons_grouped.group_by do |game|
     game.away_team_id
