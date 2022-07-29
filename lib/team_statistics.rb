@@ -11,7 +11,7 @@ class TeamStatistics
         # returns season with the highest win percentage for a team as string
         win_percentage(team_id, :highest_win)
     end
-    def worst_sesson(team_id)
+    def worst_season(team_id)
         win_percentage(team_id, :lowest_win)
     end
     def season_by_id(team_id)
