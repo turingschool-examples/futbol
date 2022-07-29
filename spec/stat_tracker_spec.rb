@@ -152,8 +152,8 @@ describe StatTracker do
       expect(@stat_tracker.team_info).to eq({})
     end
 
-    xit 'can show season with the highest win percentage for a team' do
-      expect(@stat_tracker.best_season).to eq("")
+    it 'can show season with the highest win percentage for a team' do
+      expect(@stat_tracker.best_season(16)).to eq("20142015")
     end
 
     xit 'can show season with the lowest win percentage for a team' do

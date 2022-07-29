@@ -139,10 +139,11 @@ class StatTracker
 
   end
 
-  def scores_by_team_id(game_type) #helper method for issue #14
+  def scores_by_team_id(*game_type) #helper method for issue #14
+    # require "pry"; binding.pry
     scores_by_team_id = {}
     scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
-      game[1] == game_type
+      game[1] == game_type[0] || game_type[1]
     end
 
     @game_teams[:team_id].each do |id|
@@ -229,7 +230,78 @@ class StatTracker
 
   end
 
-  def best_season #issue # 24
+  def best_season (team_id) #issue # 18
+    #{team_id => {:wins => {seasons => [games]}}}
+    #Call on nested hash with argument
+      #Itterate through wins hash to find season with highest games counts
+      #Return Season
+    season_hash = {}
+    season_holder = 0
+    @games.values_at(:game_id, :season).each do |game|
+      if season_hash.include?(game[1])
+        season_hash[game[1]] << game[0]
+      else
+        season_hash[game[1]] = [game[0]]
+      end
+    end
+        # {20122013=> [2012030221, 2012030222, 2012030223, 2012030224, 2012030225,
+    results_array = @game_teams.values_at(:game_id, :team_id, :result)
+      # [[2012030221, 3, "LOSS"]
+    win_count = 0
+
+    result_by_team = @games.values_at(:game_id, :away_team_id, :home_team_id, :away_goals, :home_goals).find_all do |game|
+      (game[3] > game[4] && game[1] == team_id) || (game[3] < game[4] && game[2] == team_id)
+    end
+    #Option with full data set
+    # result_by_team = results_array.find_all do |game|
+    #   game[1] == team_id && game[2] == "WIN"
+    # end
+
+    win_by_season = Hash.new(0)
+    season_hash.each do |season, games|
+      result_by_team.each do |result_data|
+        if games.include?(result_data[0])
+          win_by_season[season] += 1
+        end
+      end
+    end
+
+    win_percentage = {}
+    win_by_season.each do |season, win_count|
+      game_count = season_hash[season].count.to_f
+      percentage = ((win_count/game_count) * 100).round(1)
+      win_percentage[season] = percentage
+    end
+
+    win_percentage.key(win_percentage.values.max).to_s
+
+
+
+
+
+
+    # win_loss_hash = {}
+    # results_array.each do |game_data|
+    #   if game_data[3] == "WIN"
+    #     # season = season_hash.select {|season, game| game.include?(game[0])}
+    #   #finds season for game
+    #   end
+    #     season_hash.each do |season, games|
+    #       games.each do |game_id|
+    #         if game_id == game_data[0]
+    #           return season_holder = season
+    #         end
+    #       end
+    #     end
+    # end
+    #
+    #
+    # if win_loss_hash.include?(season.keys)
+    # end
+    #
+    # @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
+    #   game[2] == "WIN"
+    # end
 
 
 
