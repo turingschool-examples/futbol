@@ -55,10 +55,9 @@ class StatTracker
         end
       end
     end
-    season_won
+    (season_won.tally.values.sort.last.to_f / @games.count) * 100
+    require "pry"; binding.pry
   end
-
-
 
 
 
