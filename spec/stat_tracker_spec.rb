@@ -94,5 +94,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
       expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
     end
+
+    it 'can return the best/worst seasons for a given team' do
+      expect(@stat_tracker.best_season("3")).to eq("20142015")
+      expect(@stat_tracker.worst_season("3")).to eq("20122013")
+    end
   end
 end
