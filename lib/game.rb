@@ -52,6 +52,18 @@ class Game
     end
   end
 
+  def team_stats(team_id)
+    if team_id == @teams_game_stats[:home_team][:team_id]
+      @teams_game_stats[:home_team]
+    elsif team_id == @teams_game_stats[:away_team][:team_id]
+      @teams_game_stats[:away_team]
+    end
+  end
+
+  def team_in_game?(team_id)
+    team_id == @teams_game_stats[:home_team][:team_id] || team_id == @teams_game_stats[:away_team][:team_id]
+  end
+
   def self.generate_games(games_csv, game_teams_csv, teams)
     game_array = []
     games_csv.each do |game|
