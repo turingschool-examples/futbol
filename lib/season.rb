@@ -18,7 +18,7 @@ class Season
   end
 
   def most_tackles
-    "Sporting Kansas City"
+    tackles_by_team.max.first
   end
 
   def least_tackles
