@@ -29,6 +29,47 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_teams).to be_a(CSV::Table)
   end
 
+
+  it "A hash with key/value pairs for the following attributes" do
+    expected = {
+      "team_id" => "1",
+      "franchise_id" => "23",
+      "team_name" => "Atlanta United",
+      "abbreviation" => "ATL",
+      "link" => "/api/v1/teams/1"
+      }
+    expect(@stat_tracker.team_info("1")).to eq(expected)
+  end
+
+  it "seasons with highest win percentange for team" do
+    expect(@stat_tracker.best_season("16")).to eq("1.8")
+  end
+
+  it "seasons with lowest win percentage for team" do
+    expect(@stat_tracker.worst_season("16")).to eq("0.6")
+  end
+
+  it "average win percentage of all games for a team" do
+    expect(@stat_tracker.average_win_percentage("16")).to eq(0.05)
+  end
+
+  it "highest number of goals scored in a game" do
+    expect(@stat_tracker.most_goals_scored("16")).to eq(4)
+  end
+
+  it "lowest number of goals scored in a game" do
+    expect(@stat_tracker.fewest_goals_scored("16")).to eq(0)
+  end
+
+  it "favorite opponent" do
+    expect(@stat_tracker.favorite_opponent("16")).to eq("Philadelphia Union")
+  end
+
+  it "rival" do
+    expect(@stat_tracker.rival("16")).to eq("LA Galaxy")
+  end
+
+
   describe 'League Methods' do
 
     it 'can count teams' do
@@ -92,4 +133,5 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles("20122013")).to be_a String
     end
   end
+
 end
