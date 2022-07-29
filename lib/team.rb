@@ -39,16 +39,6 @@ class Team
     end
   end
 
-  def total_away_goals
-    @games_participated_in.sum do |game|
-      if game.teams_game_stats[:away_team][:team_id] == @team_id
-        game.teams_game_stats[:away_team][:goals]
-      else
-        0
-      end
-    end
-  end
-
   def opponent_win_percentages
     opp_win_percentages = Hash.new {|hash, team| hash[team] = Hash.new(0)}
     @games_participated_in.each do |game|
