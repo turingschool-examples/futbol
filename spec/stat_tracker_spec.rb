@@ -57,4 +57,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.fewest_goals_scored("16")).to eq(0)
   end
 
+  it "favorite opponent" do
+    expect(@stat_tracker.favorite_opponent("16")).to eq("")
+  end
+
 end
