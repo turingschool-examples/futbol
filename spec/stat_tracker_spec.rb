@@ -96,7 +96,7 @@ RSpec.describe StatTracker do
     end
 
     it 'can count the total teams in the league' do
-      expect(@stat_tracker.count_of_teams).to eq(7)
+      expect(@stat_tracker.count_of_teams).to eq(9)
     end
   end
 end

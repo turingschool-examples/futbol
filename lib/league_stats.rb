@@ -24,4 +24,8 @@ module LeagueStats
     @teams.values.min_by {|team| team.total_goals_per_side(:away_team).to_f / team.games_participated_in.length}.team_name
   end
 
+  def count_of_teams
+    @teams.values.uniq.count
+  end
+
 end
