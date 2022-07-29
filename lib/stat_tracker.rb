@@ -14,12 +14,16 @@ class StatTracker
     StatTracker.new(CSV.read(locations[:games],     headers: true,     header_converters: :symbol), CSV.read(locations[:teams],     headers: true,     header_converters: :symbol), CSV.read(locations[:game_teams],     headers: true,     header_converters: :symbol))
   end
 
-  def highest_total_score
-    highest_total = @games.map do |row|
+  def total
+    total = @games.map do |row|
       row[:away_goals].to_i + row[:home_goals].to_i
     end
 
-    highest_total.max
+    total
+  end
+
+  def highest_total_score
+    total.max
   end
 
   def lowest_total_score
@@ -80,6 +84,9 @@ class StatTracker
     end
 
     game_count_by_season
+    require "pry"
+
+    binding.pry
   end
 
   def total_goals
@@ -112,11 +119,12 @@ class StatTracker
       if test_hash[season_key].nil?
         test_hash[season_key] = 0
       end
-
-      test_hash[season_key] += average_goals_per_game
-      require "pry"
-
-      binding.pry
     end
+  end
+
+  def average_goals_by_season
+    require "pry"
+
+    binding.pry
   end
 end
