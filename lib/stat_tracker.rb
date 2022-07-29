@@ -86,8 +86,18 @@ class StatTracker
     best_season_percentage.round(2).to_s
   end
 
-  def average_win_percentage
-    
+  def average_win_percentage(search_team_id)
+    team_search_info = @teams.find do |team|
+      team[0] == search_team_id
+    end
+
+    all_win_info = []
+      @game_teams.each do |game_team|
+        if game_team[3] == "WIN" && game_team[1] == search_team_id
+          all_win_info << game_team[0]
+        end
+      end
+    all_win_info = (all_win_info.count.to_f / game_teams.count.to_f).round(2)
   end
 
 end
