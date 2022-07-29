@@ -34,5 +34,6 @@ class StatTracker
 
   #Team Stats
   def rival(team) @teams[team.to_i].rival end
+  def favorite_opponent(team) @teams[team.to_i].favorite_opponent end
 
 end
