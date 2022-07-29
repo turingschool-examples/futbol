@@ -1,6 +1,5 @@
 require 'csv'
 
-
 class StatTracker
   attr_reader :games, :teams, :game_teams
   def initialize(games, teams, game_teams)
@@ -94,7 +93,7 @@ class StatTracker
 
   # Team helper method - returns hash of a given team's seasons & win rates
   def seasonal_winrates(team_id)
-    win_ids = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN" }.map { |game| game[:game_id] } 
+    win_ids = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN" }.map { |game| game[:game_id] }
     season_info = count_of_games_by_season(team_id)
     ordered_win_rate = []
     season_info.each do |season|

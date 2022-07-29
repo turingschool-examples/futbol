@@ -1,3 +1,4 @@
+require './spec/spec_helper'
 require '../futbol/lib/stat_tracker'
 
 RSpec.describe StatTracker do

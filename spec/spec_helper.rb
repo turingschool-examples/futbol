@@ -1,3 +1,3 @@
 require 'simplecov'
-SimpleCov.stat_tracker
+SimpleCov.start
 #require_relative files_to_come
