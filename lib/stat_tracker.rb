@@ -121,11 +121,10 @@ class StatTracker
     @teams[:teamname].count
   end
 
-
   def best_offense #issue # 11
     max_average = average_scores_by_team_id("home", "away").values.max
     team_by_id[average_scores_by_team_id("home", "away").key(max_average)]
-    require 'pry';binding.pry
+
   end
 
   def worst_offense #issue # 12
