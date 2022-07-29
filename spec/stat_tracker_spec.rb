@@ -123,12 +123,12 @@ RSpec.describe StatTracker do
       expected_2 = {
         "team_id" => "21",
         "franchise_id" => "27",
-        "team_name" => "Vancouver Whitecaps",
+        "team_name" => "Vancouver Whitecaps FC",
         "abbreviation" => "VAN",
         "link" => "/api/v1/teams/21"
       }
       expect(@stat_tracker.team_info("14")).to eq expected
-
+      expect(@stat_tracker.team_info("21")).to eq expected_2
     end
 
   end
