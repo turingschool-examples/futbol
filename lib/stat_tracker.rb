@@ -71,7 +71,7 @@ class StatTracker
     ((ties/total_games)*100).round(1)
   end
 
-  def count_of_games_by_season #issue 7
+  def count_of_games_by_season #issue 7, also helper for #9
     counts = {}
     games.each do |game|
         season = game[:season]
