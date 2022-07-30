@@ -129,8 +129,8 @@ describe StatTracker do
       expect(@stat_tracker.winningest_coach).to eq("")
     end
 
-    xit 'can show name with the worst win percentage for the season' do
-      expect(@stat_tracker.worst_coach).to eq("")
+    it 'can show name with the worst win percentage for the season' do
+      expect(@stat_tracker.worst_coach(20132014)).to eq("John Tortorella")
     end
 
     xit 'can show name of the team with the best ratio of shots to goals for the season' do
