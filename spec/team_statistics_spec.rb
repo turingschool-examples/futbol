@@ -1,4 +1,4 @@
-require './spec_helper'
+require 'spec_helper'
 require_relative '../lib/team_statistics'
 require './lib/stat_tracker'
 
@@ -15,7 +15,7 @@ RSpec.describe TeamStatistics do
         }
 
         stat_tracker = StatTracker.from_csv(locations)
-        @team_statistics = TeamStatistics.new(stat_tracker)
+        @team_statistics = TeamStatistics.new(stat_tracker.data)
     end
     describe ".team_satistics instantiation" do
         it 'is instance of class' do
@@ -24,11 +24,11 @@ RSpec.describe TeamStatistics do
     end
     describe ".team_info" do
         hash_output = {
-            team_id: "1",
-            franchiseid: "23",
-            teamname: "Atlanta United",
-            abbreviation: "ATL",
-            link: "/api/v1/teams/1"
+            "team_id" => "1",
+            "franchise_id" => "23",
+            "team_name" => "Atlanta United",
+            "abbreviation" => "ATL",
+            "link" => "/api/v1/teams/1"
         }
         it 'returns team_id, franchise_id, team_name, abbreviation, and link' do
             expect(@team_statistics.team_info("1")).to eq(hash_output)
