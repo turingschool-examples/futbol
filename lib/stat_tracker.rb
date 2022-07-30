@@ -338,9 +338,32 @@ class StatTracker
       }
   end
 
-  def best_season
+  def best_season(given_team_id)
+    all_team_games = find_all_team_games(given_team_id)
+    home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
+    away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
 
+    wins_ties_losses = Hash.new{ |season, record | season[record] = [0.0, 0.0, 0.0] }
+    home_games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        wins_ties_losses[2] += 1
+      elsif game[:away_goals] < game[:home_goals]
+        wins_ties_losses[0] += 1
+      else
+        wins_ties_losses[1] +=1
+        #tie
+      end
+    end
 
+    away_games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        wins_ties_losses[0] += 1
+      elsif game[:away_goals] < game[:home_goals]
+        wins_ties_losses[2] += 1
+      else
+        wins_ties_losses[1] += 1
+      end
+    end
   end
 
   def worst_season
@@ -349,22 +372,50 @@ class StatTracker
 
   def average_win_percentage(given_team_id)
     all_team_games = find_all_team_games(given_team_id)
+    home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
+    away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
 
+    wins_total_games = [0.0, 0.0]
+    home_games.each do |game|
+      if game[:away_goals] < game[:home_goals]
+        wins_total_games[1] += 1
+        wins_total_games[0] += 1
+      else
+        wins_total_games[1] +=1
+        #tie
+      end
+    end
 
-
-
+    away_games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        wins_total_games[0] += 1
+        wins_total_games[1] += 1
+      else
+        wins_total_games[1] += 1
+      end
+    end
+    win_percentage = ((wins_total_games[0] / wins_total_games[1])*100).round(2)
   end
 
-  def most_goals_scored
-
+  def most_goals_scored(given_team_id)
+    all_team_games = find_all_team_games(given_team_id)
+    home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
+    away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
+    goals_by_game = []
+    home_games.each do |game|
+      goals_by_game << game[:home_goals]
+    end
+    away_games.each do |game|
+      goals_by_game << game[:away_goals]
+    end
+    goals_by_game.max
   end
 
-  def fewest_goals_scored
-
+  def fewest_goals_scored(given_team_id)
+    0
   end
 
   def favorite_opponent(given_team_id)
-    #hash that has for a key every other team in league
     all_team_games = find_all_team_games(given_team_id)
     home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
     away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
@@ -399,8 +450,6 @@ class StatTracker
 
 
   def rival(given_team_id)
-    
-    #hash that has for a key every other team in league
     all_team_games = find_all_team_games(given_team_id)
     home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
     away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
@@ -431,7 +480,7 @@ class StatTracker
     fav_opponent_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
     rival_team_id = fav_opponent_array[0]
     #convert team id to name
-    require 'pry'; binding.pry
+
     find_team_name_by_id(rival_team_id)
   end
   # Helper Methods Below
