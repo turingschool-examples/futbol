@@ -131,7 +131,7 @@ class StatTracker
     min_average = average_scores_by_team_id("home", "away").values.min
     team_by_id[average_scores_by_team_id("home", "away").key(min_average)]
   end
-  
+
   def highest_scoring_visitor #issue # 13
       away_team_ids_array = (@games[:away_team_id]).uniq.sort
 
@@ -158,7 +158,7 @@ class StatTracker
 
   def scores_by_team_id(*game_type) #helper method for issue #14
     scores_by_team_id = {}
-      scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game| 
+      scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
       game[1] == game_type[0] || game_type[1]
     end
 
@@ -169,7 +169,7 @@ class StatTracker
       scores_by_team_id[game[0]] << game[2].to_f
     end
     scores_by_team_id
-   
+
   end
 
   def team_by_id #helper method for issue #14
@@ -204,16 +204,35 @@ class StatTracker
 
   # Season Statistics
 
-  def winningest_coach #issue # 17
+  def coach_by_team_id #Provides hash of coach names by team id - Helper method for issue #27
+    # Example hash: {3=>"John Tortorella", 6=>"Claude Julien",  5=>"Dan Bylsma",
+    @game_teams.values_at(:team_id, :head_coach).to_h
+  end
 
+  def team_win_percent_by_season # Provides hash of seasons with array of hashes for team id
+                                  #and win percentage for season - Helper for Issue #27
+    # Example hash: {20132014=> [{:team_id=>1, :win_perc=>50.0}, {:team_id=>4, :win_perc=>40.0}, {:team_id=>26, :win_perc=>100.0}
+    team_win_percent = Hash.new {0}
+    team_by_id.map do |id , team|
+      season_win_percentage(id).each do |season, win|
+        if team_win_percent[season] == 0
+          team_win_percent[season] = [{team_id: id, win_perc: win}]
+        else
+          team_win_percent[season] << {team_id: id, win_perc: win}
+        end
+      end
+    end
+    team_win_percent
+  end
+
+  def winningest_coach #issue # 17
 
 
   end
 
-  def worst_coach #issue # 18
-
-
-
+  def worst_coach(season)#issue # 27
+    lowest_percent_wins = team_win_percent_by_season[season.to_i].min_by {|stat| stat[:win_perc]}
+    coach_by_team_id[lowest_percent_wins[:team_id]]
   end
 
   def game_teams_for_game_id(game_id) #Helper method for issue #28, may be able to be used for other season stats
@@ -270,9 +289,9 @@ class StatTracker
 
       info = {
       "team_id" => team_id,
-      "franchise_id" => 0,     
+      "franchise_id" => 0,
       "team_name" => 0,
-      "abbreviation" => 0, 
+      "abbreviation" => 0,
       "link" => 0
               }
 
@@ -282,11 +301,12 @@ class StatTracker
         info["abbreviation"] = row[:abbreviation] if row[:team_id] == team_id.to_i
         info["link"] = row[:link] if row[:team_id] == team_id.to_i
       end
-      
+
       info
   end
 
   def games_by_season # All game_ids sorted by season - helper method for issue #18
+    # {20122013=> [2012030221, 2012030222, 2012030223, 2012030224,
     games_by_season = {}
     @games.values_at(:game_id, :season).each do |game|
       if games_by_season.include?(game[1])
@@ -299,6 +319,7 @@ class StatTracker
   end
 
   def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18
+    # [[2013020252, 16], [2014030166, 16], [2016030151, 16], [2016030152, 16]]
     wins = []
     @games.each do |row|
       if (row[:away_goals] > row[:home_goals] && row[:away_team_id] == team_id) ||
@@ -317,6 +338,7 @@ class StatTracker
   end
 
   def games_by_team(team_id) # List of every game a team played - helper method for issue #18
+    # [[2013020252, 16], [2013020987, 16], [2014020903, 16], [2012020574, 16], [2014030161, 16],
     games = []
     @games.each do |row|
       if (row[:away_team_id] == team_id) || (row[:home_team_id] == team_id)
@@ -332,6 +354,7 @@ class StatTracker
   end
 
   def number_team_games_per_season(team_id) # Count of number of games a team played each season - helper method for issue #18
+    # {20122013=>1, 20132014=>2, 20142015=>7, 20162017=>4}
     team_games_by_season = Hash.new(0)
     games_by_season.each do |season, games|
       games_by_team(team_id).each do |result_data|
@@ -344,6 +367,7 @@ class StatTracker
   end
 
   def number_team_wins_per_season(team_id) # Count of number of games a team won each season -helper method for issue #18
+    # {20132014=>1, 20142015=>1, 20162017=>2}
     wins_by_season = Hash.new(0)
     games_by_season.each do |season, games|
       wins_by_team(team_id).each do |result_data|
@@ -356,6 +380,7 @@ class StatTracker
   end
 
   def season_win_percentage(team_id) # Percentage of won games per season by team - helper method for issue #18
+    # {20132014=>50.0, 20142015=>14.3, 20162017=>50.0}
     win_percentage = {}
     number_team_wins_per_season(team_id).each do |season, win_count|
       game_count = number_team_games_per_season(team_id)[season].to_f
@@ -366,7 +391,7 @@ class StatTracker
   end
 
   def best_season (team_id) #issue # 18
-    season_win_percentage(team_id).key(season_win_percentage(team_id).values.max).to_s
+    season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
 
   def worst_season #issue # 25
