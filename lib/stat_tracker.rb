@@ -273,11 +273,31 @@ class StatTracker
 
   end
 
-  def most_tackles #issue # 21
+  def most_tackles(season_id) #issue # 21
 
+    all_season_ids = []
+    games.each do |row|
+      all_season_ids << row[:season]
+    end
 
+    unique_season_ids = all_season_ids.uniq
+    games_in_season_hash = {}
 
-  end
+    unique_season_ids.each do |season|
+      games_in_season_hash[season] = [[], {"team_id_and_tackles" => []}]
+    end
+
+    games.each do |row|
+      games_in_season_hash[row[:season]][0] << row[:game_id]
+    end 
+
+    games_in_season_hash.each do |season, games|
+      game_teams.each do |row|
+        if games[0].include?(row[:game_id])
+          games[1]["team_id_and_tackles"] << row.values_at(:team_id, :tackles)
+        end
+      end
+    end
 
   def fewest_tackles #issue # 22
 
