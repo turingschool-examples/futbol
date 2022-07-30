@@ -21,7 +21,7 @@ class LeagueStats
   end
 
   def total_games
-    games_by_id(:home_team_id).merge(:away_team_id) do |id, home_games, away_games|
+    games_by_id(:home_team_id).merge(games_by_id(:away_team_id)) do |id, home_games, away_games|
       home_games + away_games
     end
   end
@@ -35,11 +35,14 @@ class LeagueStats
   end
 
   def total_goals
-    total_goals_by_team = {}
-    goals_by_id.each do |id, team_goals|
-      total_goals_by_team[id] = (team_goals[:home_goals] + team_goals[:away_goals])
-    end
-    total_goals_by_team
+    goals_by_id(:home_team_id, :home_goals).merge(goals_by_id(:away_team_id,:away_goals)) do |id, home_goals, away_goals|
+      home_goals + away_goals
+    end 
+    # total_goals_by_team = {}
+    # goals_by_id.each do |id, team_goals|
+    #   total_goals_by_team[id] = (team_goals[:home_goals] + team_goals[:away_goals])
+    # end
+    # total_goals_by_team
   end
 
   def goals_per_game
@@ -48,12 +51,19 @@ class LeagueStats
     end
   end
 
-  def goals_per_game_place(place_team_id, place_goals)
+  def highest_goals_per_game_place(place_team_id, place_goals)
    goal_rate = goals_by_id(place_team_id, place_goals).merge(games_by_id(place_team_id)) do |key, goals, games|
       goals.to_f/games
     end
-    goal_rate.sort_by {|id,goals| goals}
+    goal_rate.max_by {|id,goals| goals}[0]
   end
+
+  def lowest_goals_per_game_place(place_team_id, place_goals)
+    goal_rate = goals_by_id(place_team_id, place_goals).merge(games_by_id(place_team_id)) do |key, goals, games|
+       goals.to_f/games
+     end
+     goal_rate.min_by {|id,goals| goals}[0]
+   end
   
   def count_of_teams
     @teams.count
@@ -73,25 +83,25 @@ class LeagueStats
 
   def highest_scoring_visitor
     id_team_hash.find do |id, team|
-      return team if id == goals_per_game_place(:away_team_id, :away_goals)[-1][0]
+      return team if id == highest_goals_per_game_place(:away_team_id, :away_goals)
     end
   end
 
   def highest_scoring_home_team
     id_team_hash.find do |id, team|
-      return team if id == goals_per_game_place(:home_team_id, :home_goals)[-1][0]
+      return team if id == highest_goals_per_game_place(:home_team_id, :home_goals)
     end
   end
 
   def lowest_scoring_visitor
     id_team_hash.find do |id, team|
-      return team if id == goals_per_game_place(:away_team_id, :away_goals)[0][0]
+      return team if id == lowest_goals_per_game_place(:away_team_id, :away_goals)
     end
   end
 
   def lowest_scoring_home_team
     id_team_hash.find do |id, team|
-      return team if id == goals_per_game_place(:home_team_id, :home_goals)[0][0]
+      return team if id == lowest_goals_per_game_place(:home_team_id, :home_goals)
     end
   end
 end
