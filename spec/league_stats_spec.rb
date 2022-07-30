@@ -14,15 +14,15 @@ RSpec.describe(StatTracker) do
   end
 
   context 'League Stats tests' do
-    xit 'can count teams' do
+    it 'can count teams' do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-    xit 'can find best offense' do
+    it 'can find best offense' do
       expect(@stat_tracker.best_offense).to eq "Reign FC"
     end
 
-    xit 'can find worst offense' do
+    it 'can find worst offense' do
       expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
     end
 
@@ -30,15 +30,15 @@ RSpec.describe(StatTracker) do
       expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
     end
 
-    xit 'can find highest scoring home team' do
+    it 'can find highest scoring home team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
     end
 
-    xit 'can find lowest scoring visitor' do
+    it 'can find lowest scoring visitor' do
       expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
 
-    xit 'can find lowest scoring home team' do
+    it 'can find lowest scoring home team' do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
   end

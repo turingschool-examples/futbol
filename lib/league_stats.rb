@@ -1,17 +1,15 @@
 require 'csv'
-require 'calculable'
 require 'stat_tracker'
-require 'pry'
 
 class LeagueStats
-  include Calculable
 
   def initialize(data)
     @games = data.games
     @teams = data.teams
     @game_teams = data.game_teams
+    @id_team_key = data.id_team_key
   end
-
+  
   def games_by_id(place_team_id)
     number_played = Hash.new(0)
     @games.each do |game|
@@ -49,13 +47,13 @@ class LeagueStats
   def highest_goals_per_game_place(place_team_id, place_goals)
    goal_rate = goals_by_id(place_team_id, place_goals).merge(games_by_id(place_team_id)) do |key, goals, games|
       goals.to_f/games
-    end.max_by {|id,goals| goals}[0]
+    end.max_by {|id,goals| goals}.first
   end
 
   def lowest_goals_per_game_place(place_team_id, place_goals)
     goals_by_id(place_team_id, place_goals).merge(games_by_id(place_team_id)) do |key, goals, games|
        goals.to_f/games
-     end.min_by {|id,goals| goals}[0]
+     end.min_by {|id,goals| goals}.first
    end
   
   def count_of_teams
@@ -63,37 +61,37 @@ class LeagueStats
   end
 
   def best_offense
-    id_team_hash.find do |id, team|
-      return team if id == goals_per_game.max_by {|id, goals| goals}[0]
+    @id_team_key.find do |id, team|
+      return team if id == goals_per_game.max_by {|id, goals| goals}.first
     end
   end
 
   def worst_offense
-    id_team_hash.find do |id, team|
-      return team if id == goals_per_game.min_by {|id, goals| goals}[0]
+    @id_team_key.find do |id, team|
+      return team if id == goals_per_game.min_by {|id, goals| goals}.first
     end
   end
 
   def highest_scoring_visitor
-    id_team_hash.find do |id, team|
+    @id_team_key.find do |id, team|
       return team if id == highest_goals_per_game_place(:away_team_id, :away_goals)
     end
   end
 
   def highest_scoring_home_team
-    id_team_hash.find do |id, team|
+    @id_team_key.find do |id, team|
       return team if id == highest_goals_per_game_place(:home_team_id, :home_goals)
     end
   end
 
   def lowest_scoring_visitor
-    id_team_hash.find do |id, team|
+    @id_team_key.find do |id, team|
       return team if id == lowest_goals_per_game_place(:away_team_id, :away_goals)
     end
   end
 
   def lowest_scoring_home_team
-    id_team_hash.find do |id, team|
+    @id_team_key.find do |id, team|
       return team if id == lowest_goals_per_game_place(:home_team_id, :home_goals)
     end
   end
