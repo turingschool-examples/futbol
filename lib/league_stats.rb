@@ -37,7 +37,7 @@ module LeagueStats
         end
       end
     end
-    total_win_percent / @seasons.length
+    (total_win_percent / @seasons.length).round(2)
   end
 
   def team_info(team_id)
