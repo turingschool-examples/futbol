@@ -369,11 +369,16 @@ class StatTracker
       home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
     #merged hash has 30 keys: each team's id. values are all games for a given season
 
-    games_by_team_id.map do |team, games|
+    total_tackles = Hash.new(0)
+    games_by_team_id.flat_map do |team_id, games|
       games.map do |game|
-        tackles = number_of_tackles(team, game.game_id)
+        tackles = number_of_tackles(team_id, game.game_id)
+        total_tackles[team_id] += tackles
       end
     end
+
+    most_tackles = total_tackles.max { |tackles_1, tackles_2| tackles_1[1] <=> tackles_2[1] }
+    team_id_to_name[most_tackles[0]] 
   end
 
   def number_of_tackles(team_id, game_id)
