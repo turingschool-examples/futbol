@@ -40,6 +40,11 @@ RSpec.describe LeagueStatistics do
       expect(@league_statistics.total_team_goal_stats["54"][0]).to eq(game_count_54)
       expect(@league_statistics.total_team_goal_stats["54"][2] + @league_statistics.total_team_goal_stats["54"][3]).to eq(game_count_54)
     end
+
+    it 'can return a hash of average goals for a team across all games when passed an argument' do
+    expect(@league_statistics.total_team_goal_stats("all")).to be_a(Hash)
+    expect(@league_statistics.total_team_goal_stats("all")["17"]).to eq(2.059)
+    end
   end
   describe '.best_offense' do
     it 'can return the name of the team with best offense' do
@@ -49,6 +54,16 @@ RSpec.describe LeagueStatistics do
   describe '.worst_offense' do
     it 'can return the name of the team with worst offense' do
       expect(@league_statistics.worst_offense).to eq("Utah Royals FC")
+    end
+  end
+  describe '.highest_scoring_visitor' do
+    it 'can return the name of the team with the highest average score while visiting' do
+      expect(@league_statistics.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+  describe '.highest_scoring_home_team' do
+    it 'can return the name of the team with the highest average score while home' do
+      expect(@league_statistics.highest_scoring_home_team).to eq("Reign FC")
     end
   end
 end
