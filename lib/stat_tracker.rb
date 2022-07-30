@@ -222,8 +222,8 @@ class StatTracker
     end
   end
   
-  def most_accurate_team(season_id) #issue # 28 
-    total_team_shots_and_goals = games_by_season.transform_values do |game_ids| 
+  def total_team_shots_and_goals(season_id) 
+    games_by_season.transform_values do |game_ids| 
       team_totals_for_season = {}
       game_ids.each do |game_id|
         game_teams_for_game_id(game_id).each do |game_team|
@@ -235,11 +235,17 @@ class StatTracker
         end
       end
       team_totals_for_season
-    end #lines above gives total shots and total goals in a season for each team
-    seasonal_team_accuracy = total_team_shots_and_goals[season_id].transform_values do |team_shots_and_goals|
+    end
+  end #lines above gives total shots and total goals in a season for each team
+
+  def seasonal_team_accuracy(season_id)
+     total_team_shots_and_goals(season_id)[season_id].transform_values do |team_shots_and_goals|
      team_shots_and_goals["goals"].to_f / team_shots_and_goals["shots"]
-    end # Lines above gives accuracy ratio of team id for a given season
-    team_by_id[seasonal_team_accuracy.key(seasonal_team_accuracy.values.max)]
+    end
+  end # Lines above gives accuracy ratio of team id for a given season
+  
+  def most_accurate_team(season_id) #issue # 28 
+    team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end 
 
   def least_accurate_team #issue # 20
