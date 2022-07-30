@@ -1,9 +1,7 @@
 require_relative './game_stats'
-require 'pry'
 
 module TeamStats
   include GameStats
-  
   def initialize(games, teams, game_teams)
     @games = games
     @teams = teams
@@ -30,12 +28,10 @@ module TeamStats
   # Team helper method - returns hash of a given team's seasons & win rates
   def seasonal_winrates(team_id)
     season_wins = @games.reduce(Hash.new(0)) do |hash, game|
-      (hash[game[:season]] += 1) if game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
-      (hash[game[:season]] += 1) if game[:away_team_id] == team_id && game[:home_goals] < game[:away_goals]
+      (hash[game[:season]] += 1) if home_win?(team_id, game) || away_win?(team_id, game)
       hash
     end
-    season_games = count_of_games_by_season(team_id)
-    season_wins.each { |k, v| season_wins[k] = v / (season_games[k] * 2).to_f }
+    Hash[season_wins.map { |k, v| [k, v / (count_of_games_by_season(team_id)[k] * 2).to_f] }]
   end
 
   def most_goals_scored(team_id)
@@ -54,15 +50,38 @@ module TeamStats
     @teams.find { |team| team[:team_id] == win_hash(team_id).min_by { |_k, v| v }[0] }[:team_name]
   end
 
+  # #fav & #rival helper method
   def win_hash(team_id)
-    game_against_counter = Hash.new(0)
     wins = @games.reduce(Hash.new(0)) do |hash, game|
-      (hash[game[:away_team_id]] += 1) if game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
-      (hash[game[:home_team_id]] += 1) if game[:away_team_id] == team_id && game[:home_goals] < game[:away_goals]
-      game_against_counter[game[:away_team_id]] += 1 if game[:home_team_id] == team_id
-      game_against_counter[game[:home_team_id]] += 1 if game[:away_team_id] == team_id
+      (hash[game[:away_team_id]] += 1) if home_win?(team_id, game)
+      (hash[game[:home_team_id]] += 1) if away_win?(team_id, game)
       hash
     end
-    wins.each { |k, v| wins[k] = v / game_against_counter[k].to_f }.sort_by { |k, _v| k.to_i }
+    Hash[wins.map { |k, v| [k, v / game_against_counter[k].to_f] }]
+  end
+
+  # #win_hash helper method
+  def games_against_counter(team_id)
+    @games.reduce(Hash.new(0)) do |hash, game|
+      game_against_counter[game[:away_team_id]] += 1 if home?(team_id, game)
+      game_against_counter[game[:home_team_id]] += 1 if away?(team_id, game)
+      hash
+    end
+  end
+
+  def home_win?(team_id, game)
+    game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
+  end
+
+  def away_win?(team_id, game)
+    game[:away_team_id] == team_id && game[:home_goals] < game[:away_goals]
+  end
+
+  def home?(team_id, game)
+    game[:home_team_id] == team_id
+  end
+
+  def away?(team_id, game)
+    game[:away_team_id] == team_id
   end
 end

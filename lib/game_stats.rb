@@ -1,5 +1,4 @@
 module GameStats
-
   def highest_total_score
     max = @games.max_by { |game| game[:away_goals].to_i + game[:home_goals].to_i }
     max[:away_goals].to_i + max[:home_goals].to_i
@@ -40,12 +39,10 @@ module GameStats
   end
 
   def average_goals_by_season
-    seasons = count_of_games_by_season
-    avg_arr = []
-    seasons.each do |season, count|
-      games_in_season = @games.find_all { |game| game[:season] == season }
-      avg_arr << ((games_in_season.sum { |game| game[:away_goals].to_i + game[:home_goals].to_i }) / count.to_f).round(2)
+    goals = @games.reduce(Hash.new(0)) do |hash, game|
+      hash[game[:season]] += [game[:away_goals], game[:home_goals]].sum(&:to_i)
+      hash
     end
-    Hash[seasons.keys.zip(avg_arr)]
+    Hash[goals.map { |k, v| [k, (v / count_of_games_by_season[k].to_f).round(2)] }]
   end
 end
