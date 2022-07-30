@@ -129,22 +129,22 @@ describe StatTracker do
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
-  it 'can name the team with the best shot accuracy' do
+  xit 'can name the team with the best shot accuracy' do
     expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  it 'can name the team with the worst shot accuracy' do
+  xit 'can name the team with the worst shot accuracy' do
     expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  it 'can name the team with the most tackles made' do
+  xit 'can name the team with the most tackles made' do
     expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  it 'can name the team with the least tackles made' do
+  xit 'can name the team with the least tackles made' do
     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
@@ -188,16 +188,16 @@ describe StatTracker do
     expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
   end
 
-  it 'can find a teams average win percentage' do 
+  it 'can find a teams average win percentage' do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
   it 'can group a teams games by season in games' do
-    
+
     expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
   end
 
-  xit 'can tell which season is a teams best' do 
+  xit 'can tell which season is a teams best' do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
    end
 

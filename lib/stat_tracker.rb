@@ -303,11 +303,9 @@ class StatTracker
 
 
   def winningest_coach(season_id)
-
     coaches = {}
     game_id_list = []
     @games.each do |game|
-
       if game.season == season_id
           game_id_list << game.game_id
         end
@@ -368,6 +366,7 @@ class StatTracker
       end.to_h
       worst1_coach= coach_percentage_lost.min {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
       worst1_coach[0]
+    end
 
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
@@ -485,4 +484,6 @@ class StatTracker
     max_win_team_id = max_win_percent[0]
     team_id_to_name[max_win_team_id]
   end
+
+  
 end
