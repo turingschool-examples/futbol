@@ -1,6 +1,6 @@
 require 'spec_helper'
 require_relative '../lib/stat_tracker'
-require_relative '../lib/game_statistics'
+require_relative '../lib/game'
 
 
 RSpec.describe Game do

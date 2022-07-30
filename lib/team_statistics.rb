@@ -7,6 +7,9 @@ class TeamStatistics
     # returns hash with team_id, franchise_id, team_name, abbreviation, and link
     team_index = @statistics[:teams][:team_id].index(team_id)
     team_info_return = @statistics[:teams][team_index].to_h.reject { |key, _value| key == :stadium }
+    team_info_return[:team_name] = team_info_return.delete(:teamname)
+    team_info_return[:franchise_id] = team_info_return.delete(:franchiseid)
+    team_info_return.transform_keys { |key| key.to_s rescue key }
   end
 
   def best_season(team_id)
