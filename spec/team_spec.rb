@@ -9,12 +9,12 @@ describe Team do
     end
   end
 
-  xit "exists" do
+  it "exists" do
     expect(@teams).to be_a(Array)
     expect(@teams[0]).to be_a(Team)
   end
 
-  xit "has attributes" do
+  it "has attributes" do
     expect(@teams[0].team_id).to eq("1")
     expect(@teams[0].franchise_id).to eq("23")
     expect(@teams[0].team_name).to eq("Atlanta United")
@@ -22,7 +22,7 @@ describe Team do
     expect(@teams[0].link).to eq("/api/v1/teams/1")
   end
 
-  xit "A hash with key/value pairs for the following attributes" do
+  it "A hash with key/value pairs for the following attributes" do
     expected = {
       "team_id": "1",
       "franchise_id": "23",
