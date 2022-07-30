@@ -126,11 +126,11 @@ RSpec.describe(StatTracker) do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-    it 'can find best offense' do
+    xit 'can find best offense' do
       expect(@stat_tracker.best_offense).to eq "Reign FC"
     end
 
-    it 'can find worst offense' do
+    xit 'can find worst offense' do
       expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
     end
 
