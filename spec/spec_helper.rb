@@ -1,6 +1,8 @@
 require 'simplecov'
 require './lib/stat_tracker'
 require './lib/season_helper_module'
+require './lib/league_helper_module'
+require './lib/league_statistics'
 # class files go here
 
 

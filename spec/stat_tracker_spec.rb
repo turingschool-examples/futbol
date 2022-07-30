@@ -1,3 +1,5 @@
+require './lib/league_helper_module'
+
 RSpec.describe StatTracker do
   mock_games_data = './data/mock_games.csv' 
   team_data = './data/teams.csv' 
