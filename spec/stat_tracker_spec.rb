@@ -100,28 +100,34 @@ RSpec.describe StatTracker do
   context 'season statistics' do 
 
     it '#winningest_coach' do
-      expect(stat_tracker.winningest_coach).to eq("Adam Oates")
+
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Adam Oates")
+      expect(stat_tracker.winningest_coach("20152016")).to eq("Lindy Ruff")
     end
 
     it '#worst_coach' do
-      expect(stat_tracker.worst_coach).to eq("John Tortorella")
+      expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+      expect(stat_tracker.worst_coach("20152016")).to eq("Paul Maurice")
     end
 
     it '#most_accurate_team' do
-      expect(stat_tracker.most_accurate_team).to eq("New York City FC")
+      expect(stat_tracker.most_accurate_team("20122013")).to eq("Portland Timbers")
+      expect(stat_tracker.most_accurate_team("20152016")).to eq("Chicago Red Stars")
     end
 
     it '#least_accurate_team' do
-      expect(stat_tracker.least_accurate_team).to eq("New York Red Bulls")
+      expect(stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+      expect(stat_tracker.least_accurate_team("20152016")).to eq("Portland Thorns FC")
     end
 
     it '#most_tackles' do
-
-      expect(stat_tracker.most_tackles).to eq("FC Cincinnati")
+      expect(stat_tracker.most_tackles("20122013")).to eq("Seattle Sounders FC")
+      expect(stat_tracker.most_tackles("20152016")).to eq("Chicago Red Stars")
     end
 
     it '#fewest_tackles' do
-      expect(stat_tracker.fewest_tackles).to eq("New York City FC")
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("Portland Timbers")
+      expect(stat_tracker.fewest_tackles("20152016")).to eq("Portland Thorns FC")
     end
 
   end
@@ -169,5 +175,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.games_by_season("20152016")).to include("2015030131")
       expect(stat_tracker.games_by_season("20172018")).to include("2017030411")
     end
+
+    it '#'
   
 end
