@@ -230,8 +230,8 @@ class StatTracker
 
   end
 
-  def worst_coach(season)#issue # 18
-    lowest_percent_wins = team_win_percent_by_season[season].min_by {|stat| stat[:win_perc]}
+  def worst_coach(season)#issue # 27
+    lowest_percent_wins = team_win_percent_by_season[season.to_i].min_by {|stat| stat[:win_perc]}
     coach_by_team_id[lowest_percent_wins[:team_id]]
   end
 
@@ -365,7 +365,7 @@ class StatTracker
   end
 
   def best_season (team_id) #issue # 18
-    season_win_percentage(team_id).key(season_win_percentage(team_id).values.max).to_s
+    season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
 
   def worst_season #issue # 25
