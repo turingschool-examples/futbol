@@ -24,6 +24,85 @@ class StatTracker
     @games.map { |game| [game.home_goals.to_i, game.away_goals.to_i].sum}.max
   end
 
+  def lowest_total_score
+    @games.map {|game| [game.home_goals.to_i, game.away_goals.to_i].sum}.min
+  end
+
+  def percentage_home_wins
+    ((@games.find_all { |game| game.home_goals.to_i > game.away_goals.to_i }.size)/(games.size).to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    numerator = @games.find_all { |game| game.home_goals.to_i < game.away_goals.to_i }.size
+    denominator = games.size
+    (numerator.to_f / denominator).round(2)
+  end
+
+  def percentage_ties
+    numerator = @games.find_all { |game| game.home_goals.to_i == game.away_goals.to_i }.size
+    denominator = games.size
+    (numerator.to_f / denominator).round(2)
+  end
+
+  def count_of_games_by_season
+    hash = Hash.new(0)
+    @games.each do |game|
+      hash[game.season] += 1
+    end
+    hash
+  end
+
+  def average_goals_per_game
+    total_goals_per_game = []
+    @games.map do |game|
+      total_goals_per_game << [game.home_goals.to_i, game.away_goals.to_i].sum
+    end
+    ((total_goals_per_game.sum.to_f) / (@games.size)).round(2)
+  end
+
+  def average_goals_by_season
+    twelve_season = @games.find_all do |game|
+      game.season == "20122013"
+    end
+    sixteen_season = @games.find_all do |game|
+      game.season == "20162017"
+    end
+    fourteen_season = @games.find_all do |game|
+      game.season == "20142015"
+    end
+    fifteen_season = @games.find_all do |game|
+      game.season == "20152016"
+    end
+    thirteen_season = @games.find_all do |game|
+      game.season == "20132014"
+    end
+    seventeen_season = @games.find_all do |game|
+      game.season == "20172018"
+    end
+    hash = Hash.new(0)
+    @games.each do |game|
+      hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
+    end
+
+    hash.map do |season, total|
+      if season == "20122013"
+        # require 'pry' ; binding.pry
+        hash[season] = (total / (twelve_season.count).to_f).round(2)
+      elsif season == "20162017"
+        hash[season] = (total / (sixteen_season.count).to_f).round(2)
+      elsif season == "20142015"
+        hash[season] = (total / (fourteen_season.count).to_f).round(2)
+      elsif season == "20152016"
+        hash[season] = (total / (fifteen_season.count).to_f).round(2)
+      elsif season == "20132014"
+        hash[season] = (total / (thirteen_season.count).to_f).round(2)
+      elsif season == "20172018"
+        hash[season] = (total / (seventeen_season.count).to_f).round(2)
+      end
+    end
+    hash
+  end
+
   # def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
   #   @game_teams.map do |game|
   #     if team_id == game.team_id
@@ -160,90 +239,6 @@ class StatTracker
     season_4
     season_5
     season_6
-  end
-
-  def lowest_total_score
-    high_low_added = @games.map do |game|
-      [game.home_goals.to_i, game.away_goals.to_i].sum
-    end
-    high_low_added.min
-  end
-
-  def percentage_home_wins
-    numerator = @games.find_all { |game| game.home_goals.to_i > game.away_goals.to_i }.size
-    denominator = games.size
-    (numerator.to_f / denominator).round(2)
-  end
-
-  def percentage_visitor_wins
-    numerator = @games.find_all { |game| game.home_goals.to_i < game.away_goals.to_i }.size
-    denominator = games.size
-    (numerator.to_f / denominator).round(2)
-  end
-
-  def percentage_ties
-    numerator = @games.find_all { |game| game.home_goals.to_i == game.away_goals.to_i }.size
-    denominator = games.size
-    (numerator.to_f / denominator).round(2)
-  end
-
-  def count_of_games_by_season
-    hash = Hash.new(0)
-    @games.each do |game|
-      hash[game.season] += 1
-    end
-    hash
-  end
-
-  def average_goals_per_game
-    total_goals_per_game = []
-    @games.map do |game|
-      total_goals_per_game << [game.home_goals.to_i, game.away_goals.to_i].sum
-    end
-    ((total_goals_per_game.sum.to_f) / (@games.size)).round(2)
-  end
-
-  def average_goals_by_season
-    twelve_season = @games.find_all do |game|
-      game.season == "20122013"
-    end
-    sixteen_season = @games.find_all do |game|
-      game.season == "20162017"
-    end
-    fourteen_season = @games.find_all do |game|
-      game.season == "20142015"
-    end
-    fifteen_season = @games.find_all do |game|
-      game.season == "20152016"
-    end
-    thirteen_season = @games.find_all do |game|
-      game.season == "20132014"
-    end
-    seventeen_season = @games.find_all do |game|
-      game.season == "20172018"
-    end
-    hash = Hash.new(0)
-    @games.each do |game|
-      hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
-    end
-
-    hash.map do |season, total|
-      if season == "20122013"
-        # require 'pry' ; binding.pry
-        hash[season] = (total / (twelve_season.count).to_f).round(2)
-      elsif season == "20162017"
-        hash[season] = (total / (sixteen_season.count).to_f).round(2)
-      elsif season == "20142015"
-        hash[season] = (total / (fourteen_season.count).to_f).round(2)
-      elsif season == "20152016"
-        hash[season] = (total / (fifteen_season.count).to_f).round(2)
-      elsif season == "20132014"
-        hash[season] = (total / (thirteen_season.count).to_f).round(2)
-      elsif season == "20172018"
-        hash[season] = (total / (seventeen_season.count).to_f).round(2)
-      end
-    end
-    hash
   end
 
   def count_of_teams
