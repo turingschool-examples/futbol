@@ -260,13 +260,13 @@ class StatTracker
   def winningest_coach(season)
     records = coach_records(season)
     populate_coach_records(season, records)
-    winning_record(records).max_by { |h,k| k }[0].to_s
+    winning_record(records).max_by { |team, win_percent| win_percent }[0].to_s
   end
 
   def worst_coach(season)
     records = coach_records(season)
     populate_coach_records(season, records)
-    winning_record(records).min_by { |h,k| k }[0].to_s
+    winning_record(records).min_by { |team, win_percent| win_percent }[0].to_s
   end
 
   def most_accurate_team(season)
@@ -429,17 +429,5 @@ class StatTracker
     end
     team_name
   end
-
-  # def all_coaches_array
-  #   coach_array = []
-  #   @game_teams_data.each do |row|
-  #     coach_array << row[:head_coach]
-  #   end
-  #   coach_array.uniq!.map do |coach|
-  #     coach.to_sym
-  #   end
-  # end
-
-  
 end
 
