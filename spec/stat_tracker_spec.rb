@@ -125,8 +125,8 @@ describe StatTracker do
 
   describe 'Season Statistics' do
 
-    xit 'can show name of coach witht he best win percentage of the season' do
-      expect(@stat_tracker.winningest_coach).to eq("")
+    it 'can show name of coach witht he best win percentage of the season' do
+      expect(@stat_tracker.winningest_coach("20132014")).to eq("Darryl Sutter")
     end
 
     it 'can show name with the worst win percentage for the season' do
@@ -141,7 +141,7 @@ describe StatTracker do
       expect(@stat_tracker.least_accurate_team).to eq("")
     end
 
-    it 'can show name of the team with most tackles in the season' do
+    xit 'can show name of the team with most tackles in the season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
     end
 

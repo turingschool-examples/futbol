@@ -225,9 +225,11 @@ class StatTracker
     team_win_percent
   end
 
-  def winningest_coach #issue # 17
-
-
+  def winningest_coach(season) #issue # 17
+   # Name of the Coach with the best win percentage for the season
+   highest_percent_wins = team_win_percent_by_season[season.to_i].max_by {|stat| stat[:win_perc]}
+   coach_by_team_id[highest_percent_wins[:team_id]]
+   require 'pry'; binding.pry
   end
 
   def worst_coach(season)#issue # 27
@@ -298,6 +300,7 @@ class StatTracker
         end
       end
     end
+  end
 
   def fewest_tackles #issue # 22
 
