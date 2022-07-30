@@ -366,31 +366,57 @@ class StatTracker
     home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
     away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
 
-    wins_ties_losses = Hash.new{ |season, record | season[record] = [0.0, 0.0, 0.0] }
+    season_record = Hash.new{ |season, record | season[record] = [0.0, 0.0, 0.0] }
     home_games.each do |game|
       if game[:away_goals] > game[:home_goals]
-        wins_ties_losses[2] += 1
+        season_record[game[:season]][2] += 1
       elsif game[:away_goals] < game[:home_goals]
-        wins_ties_losses[0] += 1
+        season_record[game[:season]][0] += 1
       else
-        wins_ties_losses[1] +=1
-        #tie
+        season_record[game[:season]][1] += 1
       end
     end
 
     away_games.each do |game|
       if game[:away_goals] > game[:home_goals]
-        wins_ties_losses[0] += 1
+        season_record[game[:season]][0] += 1
       elsif game[:away_goals] < game[:home_goals]
-        wins_ties_losses[2] += 1
+        season_record[game[:season]][2] += 1
       else
-        wins_ties_losses[1] += 1
+        season_record[game[:season]][1] += 1
       end
     end
+    best_season = season_record.max_by { |season, record| record[0] / (record[2] + record [1])}
+    best_season[0]
   end
 
   def worst_season
+    all_team_games = find_all_team_games(given_team_id)
+    home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
+    away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
 
+    season_record = Hash.new{ |season, record | season[record] = [0.0, 0.0, 0.0] }
+    home_games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        season_record[game[:season]][2] += 1
+      elsif game[:away_goals] < game[:home_goals]
+        season_record[game[:season]][0] += 1
+      else
+        season_record[game[:season]][1] += 1
+      end
+    end
+
+    away_games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        season_record[game[:season]][0] += 1
+      elsif game[:away_goals] < game[:home_goals]
+        season_record[game[:season]][2] += 1
+      else
+        season_record[game[:season]][1] += 1
+      end
+    end
+    worst_season = season_record.min_by { |season, record| record[0] / (record[2] + record [1])}
+    worst_season[0]
   end
 
   def average_win_percentage(given_team_id)
