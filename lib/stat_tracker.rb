@@ -132,21 +132,15 @@ class StatTracker
   def fewest_goals_scored(team_id)
     goals_by_game = []
     @game_teams.each do |game|
-      if team_id == game.team_id
-        goals_by_game << game.goals.to_i
-      end
+      goals_by_game << game.goals.to_i if team_id == game.team_id
     end
     goals_by_game.min
   end
 
   def team_isolator(team_id) #game_teams helper, returns all of a team's games
-    team_games = []
-    @game_teams.each do |game|
-      if team_id == game.team_id
-        team_games << game
-      end
+    @game_teams.find_all do |game|
+      team_id == game.team_id
     end
-    team_games
   end
 
   def win_isolator(team_id) #game_teams helper, returns all of a team's wins in an array
