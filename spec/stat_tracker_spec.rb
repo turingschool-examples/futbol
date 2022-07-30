@@ -134,36 +134,35 @@ RSpec.describe StatTracker do
 # # # Team Statistics
   context 'team statistics' do 
 
-    it '#team_info' do
-      expect(stat_tracker.team_info("1")).to eq({:abbreviation=>"ATL", :franchise_id=>"23", :link=>"/api/v1/teams/1", :team_id=>"1", :team_name=>"Atlanta United"})
-    end
+  it '#team_info' do
+    expect(stat_tracker.team_info(28)).to eq({:abbreviation=> "LFC", :franchise_id=> "29", :link=> "/api/v1/teams/28", :team_id=> "28", :team_name=> "Los Angeles FC"})
+  end
 
-    xit '#best_season' do
+  it '#best_season' do
+    expect(stat_tracker.best_season(28)).to eq '20152016'
+  end
 
-    end
+  it '#worst_season' do
+    expect(stat_tracker.worst_season(28)).to eq '20122013'
+  end
 
-    xit '#worst_season' do
+  it '#average_win_percentage' do
+    expect(stat_tracker.average_win_percentage(28)).to eq 44.77
+  end
 
-    end
+  it '#most_goals_scored' do
+    expect(stat_tracker.most_goals_scored(28)).to eq "7"
+  end
 
-    xit '#average_win_percentage' do
+  it '#fewest_goals_scored' do
+    expect(stat_tracker.fewest_goals_scored(28)).to eq 0
+  end
 
-    end
-
-    xit '#most_goals_scored' do
-
-    end
-
-    xit '#fewest_goals_scored' do
-
-    end
-
-    xit '#favorite_opponent' do
-
-    end
-
-    xit '#rival' do
-
-    end
+  it '#favorite_opponent' do
+    expect(stat_tracker.favorite_opponent(28)).to eq 'Montreal Impact'
+  end
+  
+  it '#rival' do
+    expect(stat_tracker.rival(28)).to eq 'Sporting Kansas City'
   end
 end
