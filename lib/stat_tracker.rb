@@ -390,7 +390,7 @@ class StatTracker
     best_season[0]
   end
 
-  def worst_season
+  def worst_season(given_team_id)
     all_team_games = find_all_team_games(given_team_id)
     home_games = all_team_games.select { |game| game[:home_team_id] == given_team_id.to_s }
     away_games = all_team_games.select { |game| game[:away_team_id] == given_team_id.to_s }
