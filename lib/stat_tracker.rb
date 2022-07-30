@@ -22,7 +22,7 @@ class StatTracker
 
     @all_data_hash = all_data_hash
 
-    league_generator = LeagueGenerator.new(@all_data_hash)
+    @league_generator = LeagueGenerator.new(@all_data_hash)
     require 'pry'; binding.pry
   end
 

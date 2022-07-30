@@ -14,7 +14,7 @@ class LeagueGenerator
       game[:season]
     end
 
-    league = League.new
+    @league = League.new
 
     games_by_season_hash.each do |season, games_by_season|
       league.seasons << Season.new(games_by_season)
@@ -31,5 +31,6 @@ class LeagueGenerator
     @games_data.each do |game|
       league.games << Game.new(game)
     end
+    require 'pry'; binding.pry
   end
 end
