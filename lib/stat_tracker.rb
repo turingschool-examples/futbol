@@ -235,10 +235,10 @@ class StatTracker
         end
       end
       team_totals_for_season
-    end #gives total shots and total goals in a season for each team
+    end #lines above gives total shots and total goals in a season for each team
     seasonal_team_accuracy = total_team_shots_and_goals[season_id].transform_values do |team_shots_and_goals|
      team_shots_and_goals["goals"].to_f / team_shots_and_goals["shots"]
-    end #Gives accuracy 
+    end # Lines above gives accuracy ratio of team id for a given season
     team_by_id[seasonal_team_accuracy.key(seasonal_team_accuracy.values.max)]
   end 
 
