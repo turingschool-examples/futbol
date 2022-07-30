@@ -94,22 +94,18 @@ class StatTracker
   end
 
   def average_goals_by_season #issue #9
-    my_hash = Hash.new { |h,k| h[k.to_s] = [] }
+    my_hash = Hash.new { |h,k| h[k] = [] }
 
       count_of_games_by_season.each do |season, game_count|
-        my_hash[season] = [] 
+        my_hash[season.to_s] = [] 
         game_sum_calc = []
         games.each do |row| 
           game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season
           my_hash[season.to_s] = (game_sum_calc.sum / game_count.to_f).round(2)
         end
       end
-
-      my_hash.each do |key, value| 
-        my_hash.delete(key) if value == [] 
-      end
+      my_hash
   end
-  
 
   def game_wins #Helper method not yet used
     win = 0.0
