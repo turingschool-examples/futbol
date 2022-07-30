@@ -21,11 +21,11 @@ class StatTracker
   end
 
   def highest_total_score
-    @games.map { |game| [game.home_goals.to_i, game.away_goals.to_i].sum}.max
+    @games.map { |game| [game.home_goals.to_i, game.away_goals.to_i].sum }.max
   end
 
   def lowest_total_score
-    @games.map {|game| [game.home_goals.to_i, game.away_goals.to_i].sum}.min
+    @games.map { |game| [game.home_goals.to_i, game.away_goals.to_i].sum }.min
   end
 
   def percentage_home_wins
@@ -33,30 +33,22 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    numerator = @games.find_all { |game| game.home_goals.to_i < game.away_goals.to_i }.size
-    denominator = games.size
-    (numerator.to_f / denominator).round(2)
+    ((@games.find_all { |game| game.home_goals.to_i < game.away_goals.to_i }.size.to_f)/(games.size)).round(2)
   end
 
   def percentage_ties
-    numerator = @games.find_all { |game| game.home_goals.to_i == game.away_goals.to_i }.size
-    denominator = games.size
-    (numerator.to_f / denominator).round(2)
+    ((@games.find_all { |game| game.home_goals.to_i == game.away_goals.to_i }.size.to_f)/(games.size)).round(2)
   end
 
   def count_of_games_by_season
     hash = Hash.new(0)
-    @games.each do |game|
-      hash[game.season] += 1
-    end
+    @games.each { |game| hash[game.season] += 1}
     hash
   end
 
   def average_goals_per_game
     total_goals_per_game = []
-    @games.map do |game|
-      total_goals_per_game << [game.home_goals.to_i, game.away_goals.to_i].sum
-    end
+    @games.map { |game| total_goals_per_game << [game.home_goals.to_i, game.away_goals.to_i].sum }
     ((total_goals_per_game.sum.to_f) / (@games.size)).round(2)
   end
 

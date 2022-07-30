@@ -108,6 +108,21 @@ describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
   end
 
+  it "can calculate the games count of games by season for different data" do
+    game_path = './spec/fixtures/dummy_game.csv'
+    team_path = './spec/fixtures/dummy_teams.csv'
+    game_teams_path = './spec/fixtures/dummy_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+    expected = { "20122013" => 9 }
+
+    expect(@stat_tracker_dummy.count_of_games_by_season).to eq(expected)
+  end
+
   it "can calculate the games average goals per game" do
     expect(@stat_tracker.average_goals_per_game).to eq(4.22)
   end
