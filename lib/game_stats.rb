@@ -1,30 +1,30 @@
 module GameStats
   def highest_total_score
-    max = @games.max_by { |game| game[:away_goals].to_i + game[:home_goals].to_i }
-    max[:away_goals].to_i + max[:home_goals].to_i
+    score_crawler[1]
   end
 
   def lowest_total_score
-    min = @games.min_by { |game| game[:away_goals].to_i + game[:home_goals].to_i }
-    min[:away_goals].to_i + min[:home_goals].to_i
+    score_crawler[0]
+  end
+
+  def score_crawler
+    @games.map { |game| [game[:away_goals], game[:home_goals]].sum(&:to_i) }.minmax
   end
 
   def percentage_home_wins
-    wins = @games.count { |game| game[:home_goals].to_i > game[:away_goals].to_i}
-    games = @games.count
-    (wins / games.to_f).round(2)
+    (@games.count { |game| game[:home_goals].to_i > game[:away_goals].to_i } / total_games).round(2)
   end
 
   def percentage_visitor_wins
-    wins = @games.count { |game| game[:home_goals].to_i < game[:away_goals].to_i}
-    games = @games.count
-    (wins / games.to_f).round(2)
+    (@games.count { |game| game[:home_goals].to_i < game[:away_goals].to_i } / total_games).round(2)
   end
 
   def percentage_ties
-    wins = @games.count { |game| game[:home_goals].to_i == game[:away_goals].to_i}
-    games = @games.count
-    (wins / games.to_f).round(2)
+    (@games.count { |game| game[:home_goals].to_i == game[:away_goals].to_i } / total_games).round(2)
+  end
+
+  def total_games
+    @games.count.to_f
   end
 
   def count_of_games_by_season(team_id = false)
