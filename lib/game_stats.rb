@@ -12,15 +12,19 @@ module GameStats
   end
 
   def percentage_home_wins
-    (@games.count { |game| game[:home_goals].to_i > game[:away_goals].to_i } / total_games).round(2)
+    (@games.count { |game| game_comp(game).positive? } / total_games).round(2)
   end
 
   def percentage_visitor_wins
-    (@games.count { |game| game[:home_goals].to_i < game[:away_goals].to_i } / total_games).round(2)
+    (@games.count { |game| game_comp(game).negative? } / total_games).round(2)
   end
 
   def percentage_ties
-    (@games.count { |game| game[:home_goals].to_i == game[:away_goals].to_i } / total_games).round(2)
+    (@games.count { |game| game_comp(game).zero? } / total_games).round(2)
+  end
+
+  def game_comp(game)
+    game[:home_goals].to_i - game[:away_goals].to_i
   end
 
   def total_games
