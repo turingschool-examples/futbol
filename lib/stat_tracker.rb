@@ -1,10 +1,8 @@
 require 'csv'
+require './lib/season_helper_module'
 
 class StatTracker
-  attr_reader :locations,
-              :games_data,
-              :teams_data,
-              :game_teams_data
+  include Seasonable
 
   def initialize(locations)
     @locations = locations
@@ -14,12 +12,12 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    new_stat_tracker = StatTracker.new(locations)#games_data, teams_data, game_teams_data)
+    StatTracker.new(locations)
   end
 
   # Game statistics 
   def highest_total_score
-    scores = @games_data.map do |row|
+    scores = @games_data.map do |row| 
       row[:away_goals].to_i + row[:home_goals].to_i 
     end
     scores.max
@@ -132,15 +130,15 @@ class StatTracker
   end
 
   def average_goals_by_season
-    new_hash = Hash.new()
+    seasons = Hash.new()
     @games_data.each do |row|
-      new_hash[row[:season]] = []
+      seasons[row[:season]] = []
     end
     @games_data.each do |row|
-      new_hash[row[:season]] << (row[:away_goals].to_i + row[:home_goals].to_i)
+      seasons[row[:season]] << (row[:away_goals].to_i + row[:home_goals].to_i)
     end
     average_goals_by_season = Hash.new()
-    new_hash.each do |season, goals|
+    seasons.each do |season, goals|
       average_goals_by_season[season] = (goals.sum.to_f / goals.length).round(2)  
     end
     average_goals_by_season
@@ -259,91 +257,40 @@ class StatTracker
   end
   
   # Season Statistics
-  
-  def winningest_coach
-    coach_records = {}
-    all_coaches_array.each do |coach|
-      coach_records[coach] = {wins: 0, total_games: 0}
-    end
-    @game_teams_data.each do |row|
-      result = row[:result]
-      coach = row[:head_coach].to_sym
-      if result == "WIN"
-        coach_records[coach][:wins] += 1
-        coach_records[coach][:total_games] += 1
-      else
-        coach_records[coach][:total_games] += 1
-      end
-    end
-    new_hash = coach_records.map do |coach, record|
-      [coach, (record[:wins].to_f/record[:total_games].to_f)]
-    end.to_h
-    (new_hash.key(new_hash.values.max)).to_s
-  end
-    
-  def worst_coach
-    coach_records = {}
-    all_coaches_array.each do |coach|
-      coach_records[coach] = {wins: 0, total_games: 0}
-    end
-    @game_teams_data.each do |row|
-      result = row[:result]
-      coach = row[:head_coach].to_sym
-      if result == "WIN"
-        coach_records[coach][:wins] += 1
-        coach_records[coach][:total_games] += 1
-      else
-        coach_records[coach][:total_games] += 1
-      end
-    end
-    new_hash = coach_records.map do |coach, record|
-      [coach, (record[:wins].to_f/record[:total_games].to_f)]
-    end.to_h
-    (new_hash.key(new_hash.values.min)).to_s
+  def winningest_coach(season)
+    records = coach_records(season)
+    populate_coach_records(season, records)
+    winning_record(records).max_by { |team, win_percent| win_percent }[0].to_s
   end
 
-  def most_accurate_team
-    accuracy_by_id = Hash.new(0)
-    @game_teams_data.each do |row|
-      goals = row[:goals].to_f
-      shots = row[:shots].to_f
-      team_id = row[:team_id]
-      accuracy = goals / shots
-      accuracy_by_id[team_id] = accuracy
-    end
-    accurate_id = accuracy_by_id.key(accuracy_by_id.values.max)
-    find_team_name_by_id(accurate_id)
+  def worst_coach(season)
+    records = coach_records(season)
+    populate_coach_records(season, records)
+    winning_record(records).min_by { |team, win_percent| win_percent }[0].to_s
   end
 
-  def least_accurate_team
-    accuracy_by_id = Hash.new
-    @game_teams_data.each do |row|
-      goals = row[:goals].to_f
-      shots = row[:shots].to_f
-      team_id = row[:team_id]
-      accuracy = goals / shots
-      accuracy_by_id[team_id] = accuracy
-    end
-    accurate_id = accuracy_by_id.key(accuracy_by_id.values.min)
-    find_team_name_by_id(accurate_id)
+  def most_accurate_team(season)
+    records = accuracy_records(season)
+    populate_accuracy_records(season, records)
+    find_team_name_by_id(most_accurate(records))
   end
 
-  def most_tackles
-    tackles_by_id = Hash.new
-    @game_teams_data.each do |row|
-      tackles_by_id[row[:team_id]] = row[:tackles]
-    end
-    most_tackle_id = tackles_by_id.key(tackles_by_id.values.max)
-    find_team_name_by_id(most_tackle_id)
+  def least_accurate_team(season)
+    records = accuracy_records(season)
+    populate_accuracy_records(season, records)
+    find_team_name_by_id(least_accurate(records))
   end
 
-  def fewest_tackles
-    tackles_by_id = Hash.new
-    @game_teams_data.each do |row|
-      tackles_by_id[row[:team_id]] = row[:tackles]
-    end
-    least_tackle_id = tackles_by_id.key(tackles_by_id.values.min)
-    find_team_name_by_id(least_tackle_id)
+  def most_tackles(season)
+    records = tackle_records(season)
+    populate_tackle_records(season, records)
+    find_team_name_by_id(best_tackling_team(records))
+  end
+
+  def fewest_tackles(season)
+    records = tackle_records(season)
+    populate_tackle_records(season, records)
+    find_team_name_by_id(worst_tackling_team(records))
   end
 
   # Team Statistics
@@ -535,13 +482,19 @@ class StatTracker
   # Helper Methods Below
 
   def find_all_team_games(given_team_id)
-    all_away_games = @games_data.find_all do |team|
+    away_games_by_team(given_team_id) + home_games_by_team(given_team_id)
+  end
+
+  def away_games_by_team(given_team_id)
+    @games_data.find_all do |team|
       team[:away_team_id] == given_team_id.to_s
     end
-    all_home_games = @games_data.find_all do |team|
+  end
+
+  def home_games_by_team(given_team_id)
+    @games_data.find_all do |team|
       team[:home_team_id] == given_team_id.to_s
     end
-    all_team_games = all_home_games + all_away_games
   end
 
   def find_team_name_by_id(id_number)
@@ -550,16 +503,6 @@ class StatTracker
       team_name = row[:teamname] if row[:team_id] == id_number.to_s
     end
     team_name
-  end
-
-  def all_coaches_array
-    coach_array = []
-    @game_teams_data.each do |row|
-      coach_array << row[:head_coach]
-    end
-    coach_array.uniq!.map do |coach|
-      coach.to_sym
-    end
   end
 end
 
