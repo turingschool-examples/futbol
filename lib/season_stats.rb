@@ -54,10 +54,8 @@ class SeasonStats
     coaches_and_results= @data.map do |game|
                             [game[:result], game[:head_coach]]
                           end
-
     wins = Hash.new(0)
     all_games = Hash.new(0)
-
     coaches_and_results.each do |result, coach|
       wins[coach] += 1 if result == "WIN"
       all_games[coach] += 1
