@@ -322,4 +322,64 @@ RSpec.describe StatTracker do
    expect(stat_tracker.best_season('16')).to eq("20122013")
  end
 
+  it 'returns the worst season' do
+    fake_data = [
+      {
+        :game_id => "2014030411",
+        :team_id => '16',
+        :result => "WIN"
+      },
+      {
+        :game_id => "2014030415",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2014030413",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2012030412",
+        :team_id => '16',
+        :result => "WIN"
+      }
+    ]
+    allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(fake_data)
+    expect(stat_tracker.worst_season('16')).to eq("20142015")
+  end
+
+  it 'returns average win percentage' do
+
+    fake_data = [
+      {
+        :game_id => "2014030411",
+        :team_id => '16',
+        :result => "WIN"
+      },
+      {
+        :game_id => "2014030415",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2014030413",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2012030412",
+        :team_id => '16',
+        :result => "WIN"
+      }
+    ]
+    allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(fake_data)
+    expect(stat_tracker.average_win_percentage('16')).to eq(0.5)
+
+  end
+
+  it 'returns most_goals_scored' do
+    expect(stat_tracker.most_goals_scored('6')).to eq(3)
+  end
+
 end
