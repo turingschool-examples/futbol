@@ -37,7 +37,6 @@ module LeagueStats
         end
       end
     end
-    require 'pry' ; binding.pry
     (total_win_percent / @seasons.length).round(2)
   end
 
