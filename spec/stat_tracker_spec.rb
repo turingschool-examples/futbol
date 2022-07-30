@@ -330,12 +330,12 @@ RSpec.describe StatTracker do
         :result => "WIN"
       },
       {
-        :game_id => "2014030411",
+        :game_id => "2014030415",
         :team_id => '16',
         :result => "LOSS"
       },
       {
-        :game_id => "2014030412",
+        :game_id => "2014030413",
         :team_id => '16',
         :result => "LOSS"
       },
@@ -347,6 +347,39 @@ RSpec.describe StatTracker do
     ]
     allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(fake_data)
     expect(stat_tracker.worst_season('16')).to eq("20142015")
+  end
+
+  it 'returns average win percentage' do
+
+    fake_data = [
+      {
+        :game_id => "2014030411",
+        :team_id => '16',
+        :result => "WIN"
+      },
+      {
+        :game_id => "2014030415",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2014030413",
+        :team_id => '16',
+        :result => "LOSS"
+      },
+      {
+        :game_id => "2012030412",
+        :team_id => '16',
+        :result => "WIN"
+      }
+    ]
+    allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(fake_data)
+    expect(stat_tracker.average_win_percentage('16')).to eq(0.5)
+
+  end
+
+  it 'returns most_goals_scored' do
+
   end
 
 end
