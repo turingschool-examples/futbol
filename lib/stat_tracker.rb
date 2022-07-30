@@ -208,6 +208,29 @@ class StatTracker
   end
 
 
+  def best_season(team_id)  
+    x = team_season_grouper(team_id) 
+
+    y = x.sort_by do |season, game|
+      game.season_id
+      if team_id == game.away_team_id
+        if game.away_goals > game.home_goals
+          1
+        else
+          0
+        end
+      elsif team_id == game.home_team_id
+        if game.home_goals > game.away_goals
+          1
+        else
+          0
+        end
+      end
+      require 'pry';binding.pry
+    end
+  end
+
+
   def best_season(team_id) #this is not done and the one below needs to be refactored or tossed out and become a helper. this groups a team's seasons into arrays
     # max of total number of wins (home wins and away wins) in a season/total number of games in a season
     #by using season_grouper, we get a hash with 6 keys(the seasons). the values of each key are the games in that season
