@@ -129,8 +129,8 @@ describe StatTracker do
       expect(@stat_tracker.winningest_coach).to eq("")
     end
 
-    xit 'can show name with the worst win percentage for the season' do
-      expect(@stat_tracker.worst_coach).to eq("")
+    it 'can show name with the worst win percentage for the season' do
+      expect(@stat_tracker.worst_coach("20132014")).to eq("John Tortorella")
     end
 
     it 'can show name of the team with the best ratio of shots to goals for the season' do
@@ -141,9 +141,10 @@ describe StatTracker do
       expect(@stat_tracker.least_accurate_team).to eq("")
     end
 
-    xit 'can show name of the team with most tackles in the season' do
-      expect(@stat_tracker.fewest_tackles).to eq("")
+    it 'can show name of the team with most tackles in the season' do
+      expect(@stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
     end
+
   end
 
   describe 'Team Statistics' do
@@ -160,7 +161,7 @@ describe StatTracker do
     end
 
     it 'can show season with the highest win percentage for a team' do
-      expect(@stat_tracker.best_season(16)).to eq("20132014")
+      expect(@stat_tracker.best_season("16")).to eq("20132014")
     end
 
     xit 'can show season with the lowest win percentage for a team' do
