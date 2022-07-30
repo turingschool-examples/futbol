@@ -51,6 +51,7 @@ RSpec.describe StatTracker do
     end
 
     it 'can return a hash of the count of games by season' do
+      expect(@stat_tracker.count_of_games_by_season).to eq({'20122013'=>5, '20142015'=>7, '20132014'=>4, '20152016'=>4})
       expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>5, "20142015"=>7, "20132014"=>4, "20152016"=>4})
     end
 
@@ -72,11 +73,11 @@ RSpec.describe StatTracker do
     end
 
     it 'can return the most accurate team per season' do
-      expect(@stat_tracker.most_accurate_team("20142015")).to eq('Sporting Kansas City')
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq("DC United")
     end
 
     it 'can return the least accurate team per season' do
-      expect(@stat_tracker.least_accurate_team("20142015")).to eq('DC United')
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq("Sporting Kansas City")
     end
 
     it 'can return the highest and lowest scoring visitor team' do

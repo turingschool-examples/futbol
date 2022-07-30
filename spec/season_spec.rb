@@ -25,11 +25,11 @@ RSpec.describe Season do
   end
 
   it 'can return the most accurate team per season' do
-    expect(@season.most_accurate_team).to eq('Sporting Kansas City')
+    expect(@season.most_accurate_team("20142015")).to eq("DC United")
   end
 
   it 'can return the least accurate team per season' do
-    expect(@season.least_accurate_team).to eq('DC United')
+    expect(@season.least_accurate_team("20142015")).to eq("Sporting Kansas City")
   end
 
   it 'has an array of games in the season' do
@@ -48,4 +48,3 @@ RSpec.describe Season do
   end
 
 end
-
