@@ -38,5 +38,18 @@ RSpec.describe Team do
     expect(@team.favorite_opponent).to eq("DC United")
   end
 
+  it 'can return its win percentages for each season' do
+    expected = {
+      20122013 => 0.00,
+      20142015 => 0.3333333333333333
+    }
+    expect(@team.win_percentages_by_season).to eq(expected)
+  end
+
+  it 'can return the teams best/worst seasons' do
+    expect(@team.best_season).to eq("20142015")
+    expect(@team.worst_season).to eq("20122013")
+  end
+
 
 end

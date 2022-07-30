@@ -38,4 +38,18 @@ module GameStats
     end
     games_by_season
   end
+
+  def average_goals_by_season
+    average_goals_per_season = Hash.new(0)
+    seasons = @seasons.values.each do |season|
+      goals_in_season = 0
+      season.games_in_season.each do |game|
+        goals_in_season += game.total_goals
+      end
+      average_goals = (goals_in_season.to_f / season.games_in_season.length).round(2)
+      average_goals_per_season[season.season_id.to_s] = average_goals
+    end
+    average_goals_per_season
+  end
+
 end

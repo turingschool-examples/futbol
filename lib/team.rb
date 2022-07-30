@@ -45,14 +45,14 @@ class Team
       home_name = game.teams_game_stats[:home_team][:team_name]
       away_name = game.teams_game_stats[:away_team][:team_name]
       if home_name == @team_name
-        opp_win_percentages[away_name][:total_games] += 1 
+        opp_win_percentages[away_name][:total_games] += 1
         opp_win_percentages[away_name][:winning_games] += 1 if game.winner == :away_team
       elsif away_name == @team_name
         opp_win_percentages[home_name][:total_games] += 1
         opp_win_percentages[home_name][:winning_games] += 1 if game.winner == :home_team
       end
     end
-    opp_win_percentages.each do |team, stats| 
+    opp_win_percentages.each do |team, stats|
       opp_win_percentages[team] = stats[:winning_games].to_f / stats[:total_games]
     end
   end
@@ -63,6 +63,28 @@ class Team
 
   def favorite_opponent
     opponent_win_percentages.min_by{ |team_name, win_percent| win_percent }.first
+  end
+
+  def win_percentages_by_season
+    season_win_percent = Hash.new{|hash, season| hash[season] = Hash.new(0)}
+    @games_participated_in.each do |game|
+      if game.team_in_game?(@team_id)
+        season_win_percent[game.season][:total_games] += 1
+        season_win_percent[game.season][:winning_games] += 1 if game.team_stats(@team_id)[:result] == "WIN"
+      end
+    end
+    season_win_percent.each do |season_id, stats|
+      season_win_percent[season_id] = stats[:winning_games].to_f / stats[:total_games]
+    end
+    season_win_percent
+  end
+
+  def best_season
+    win_percentages_by_season.max_by{ |season, win_percent| win_percent }.first.to_s
+  end
+
+  def worst_season
+    win_percentages_by_season.min_by{ |season, win_percent| win_percent }.first.to_s
   end
 
   def self.generate_teams(team_csv)

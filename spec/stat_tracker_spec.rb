@@ -50,9 +50,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(0.05)
     end
 
-
     it 'can return a hash of the count of games by season' do
       expect(@stat_tracker.count_of_games_by_season).to eq({'20122013'=>5, '20142015'=>7, '20132014'=>4, '20152016'=>4})
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>5, "20142015"=>7, "20132014"=>4, "20152016"=>4})
     end
 
     it 'can return the team name of the Team with the worst/best offense' do
@@ -95,8 +95,42 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
     end
 
+    it 'can return a hash of the average goals by season' do
+      expect(@stat_tracker.average_goals_by_season).to eq("20122013" => 4.4, "20132014" => 3.25, "20142015" => 3.43, "20152016" => 4.5)
+    end
+
     it 'can count the total teams in the league' do
       expect(@stat_tracker.count_of_teams).to eq(9)
     end
+
+    it 'can return the best/worst seasons for a given team' do
+      expect(@stat_tracker.best_season("3")).to eq("20142015")
+      expect(@stat_tracker.worst_season("3")).to eq("20122013")
+    end
+
+    it 'can return the average win percentage over all seasons for a team' do
+      expect(@stat_tracker.average_win_percentage("3")).to eq (0.08)
+      expect(@stat_tracker.average_win_percentage("6")).to eq (0.5)
+    end
+
+    it "#team_info" do
+      expected = {
+        "team_id" => "14",
+        "franchise_id" => "31",
+        "team_name" => "DC United",
+        "abbreviation" => "DC",
+        "link" => "/api/v1/teams/14"
+      }
+      expected_2 = {
+        "team_id" => "21",
+        "franchise_id" => "27",
+        "team_name" => "Vancouver Whitecaps FC",
+        "abbreviation" => "VAN",
+        "link" => "/api/v1/teams/21"
+      }
+      expect(@stat_tracker.team_info("14")).to eq expected
+      expect(@stat_tracker.team_info("21")).to eq expected_2
+    end
+
   end
 end
