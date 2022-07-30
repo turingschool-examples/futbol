@@ -197,9 +197,7 @@ describe StatTracker do
     expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
   end
 
-  xit 'can tell which season is a teams best' do
-
-    
+  xit 'can tell which season is a teams best' do 
     expect(@stat_tracker.best_season("6")).to eq("20132014")
    end
 
@@ -234,5 +232,13 @@ describe StatTracker do
 
   it "it can calculate which team was the lowest scoring home team" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+  end
+
+  it "can find favorite opponent for a given team" do
+    expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+  end
+
+  it "can find rival for a given team" do
+    expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
 end
