@@ -191,8 +191,9 @@ class StatTracker
   end
 
   def lowest_scoring_visitor #issue # 15
-
-
+    lowest_average = average_scores_by_team_id("away").values.min
+    team_by_id[average_scores_by_team_id("away").key(lowest_average)]
+    require 'pry'; binding.pry
 
   end
 
