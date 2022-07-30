@@ -166,16 +166,4 @@ RSpec.describe StatTracker do
 
     end
   end
-
-  #helper methods
-
-    it '#games_by_season' do
-      expect(stat_tracker.games_by_season("20122013")).to include("2012030113")
-      expect(stat_tracker.games_by_season("20122013")).to include("2012030324")
-      expect(stat_tracker.games_by_season("20152016")).to include("2015030131")
-      expect(stat_tracker.games_by_season("20172018")).to include("2017030411")
-    end
-
-    it '#'
-  
 end

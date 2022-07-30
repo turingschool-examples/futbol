@@ -1,5 +1,6 @@
 require 'simplecov'
 require './lib/stat_tracker'
+require './lib/season_helper_module'
 # class files go here
 
 
