@@ -40,4 +40,6 @@ class GameTeams
     @giveaways = game_team_info[:giveaways]
     @takeaways = game_team_info[:takeaways]
   end
+
+ 
 end

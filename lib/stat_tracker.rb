@@ -130,6 +130,7 @@ class StatTracker
     games_by_season_hash = team_season_grouper(team_id)
   end
 
+
   def best_season(team_id) #this is not done and the one below needs to be refactored or tossed out and become a helper. this groups a team's seasons into arrays
     # max of total number of wins (home wins and away wins) in a season/total number of games in a season
     #by using season_grouper, we get a hash with 6 keys(the seasons). the values of each key are the games in that season
@@ -232,7 +233,6 @@ class StatTracker
 
     hash.map do |season, total|
       if season == "20122013"
-        # require 'pry' ; binding.pry
         hash[season] = (total / (twelve_season.count).to_f).round(2)
       elsif season == "20162017"
         hash[season] = (total / (sixteen_season.count).to_f).round(2)
@@ -397,6 +397,61 @@ class StatTracker
     @teams.map { |team| [team.team_id, team.team_name] }.to_h
   end
 
+
+  def most_tackles(season)
+    games_by_season = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
+    home_games = games_by_season.group_by { |game| game.home_team_id }
+
+    away_games = games_by_season.group_by { |game| game.away_team_id }
+
+    games_by_team_id =
+      home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
+    #merged hash has 30 keys: each team's id. values are all games for a given season
+
+    total_tackles = Hash.new(0)
+    games_by_team_id.flat_map do |team_id, games|
+      games.map do |game|
+        tackles = number_of_tackles(team_id, game.game_id)
+        total_tackles[team_id] += tackles
+      end
+    end
+
+    most_tackles = total_tackles.max { |tackles_1, tackles_2| tackles_1[1] <=> tackles_2[1] }
+    team_id_to_name[most_tackles[0]]
+  end
+
+  def fewest_tackles(season)
+    games_by_season = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
+    home_games = games_by_season.group_by { |game| game.home_team_id }
+
+    away_games = games_by_season.group_by { |game| game.away_team_id }
+
+    games_by_team_id =
+      home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
+    #merged hash has 30 keys: each team's id. values are all games for a given season
+
+    total_tackles = Hash.new(0)
+    games_by_team_id.flat_map do |team_id, games|
+      games.map do |game|
+        tackles = number_of_tackles(team_id, game.game_id)
+        total_tackles[team_id] += tackles
+      end
+    end
+
+    most_tackles = total_tackles.min { |tackles_1, tackles_2| tackles_1[1] <=> tackles_2[1] }
+    team_id_to_name[most_tackles[0]]
+  end
+
+  def number_of_tackles(team_id, game_id)
+    tackles = 0
+    @game_teams.each do |game_team|
+      if team_id == game_team.team_id && game_id == game_team.game_id
+        tackles += game_team.tackles.to_i
+      end
+    end
+    tackles
+  end
+
   def favorite_opponent(team_id)
     #{game=>{teams => [team1, team2], winning_team = team1}}
     game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
@@ -484,5 +539,5 @@ class StatTracker
       end
     max_win_team_id = max_win_percent[0]
     team_id_to_name[max_win_team_id]
-  end
+   end
 end
