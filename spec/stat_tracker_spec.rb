@@ -382,4 +382,93 @@ RSpec.describe StatTracker do
     expect(stat_tracker.most_goals_scored('6')).to eq(3)
   end
 
+  it 'returns fewest_goals_scored' do
+    expect(stat_tracker.fewest_goals_scored('6')).to eq(2)
+  end
+
+  it 'returns favorite_opponent' do
+    fake_games = [
+      {
+        :away_team_id => '3', #6 wins vs 3
+        :home_team_id => '6',
+        :away_goals => "2",
+        :home_goals => "3"
+      },
+      {
+        :away_team_id => '6', #6 wins vs 3
+        :home_team_id => '3',
+        :away_goals => "3",
+        :home_goals => "2"
+      },
+      {
+        :away_team_id => '36', #6 loses vs 36
+        :home_team_id => '6',
+        :away_goals => "3",
+        :home_goals => "1"
+      },
+      {
+        :away_team_id => '6', #6 wins vs 36
+        :home_team_id => '36',
+        :away_goals => "4",
+        :home_goals => "3"
+      }
+    ]
+
+    fake_team_info = [
+      { :teamname => "Houston Dynamo",
+        :team_id => "3",
+        :franchiseid => "asd",
+        :abbreviation => "asd",
+        :link => "asd"
+      }
+    ]
+
+
+    allow(CSV).to receive(:open).with(locations[:games], any_args).and_return(fake_games)
+    allow(CSV).to receive(:open).with(locations[:teams], any_args).and_return(fake_team_info)
+    expect(stat_tracker.favorite_opponent('6')).to eq("Houston Dynamo")
+  end
+
+  it 'returns rival' do
+    fake_games = [
+      {
+        :away_team_id => '3',
+        :home_team_id => '6',
+        :away_goals => "2",
+        :home_goals => "3"
+      },
+      {
+        :away_team_id => '6',
+        :home_team_id => '3',
+        :away_goals => "3",
+        :home_goals => "2"
+      },
+      {
+        :away_team_id => '36',
+        :home_team_id => '6',
+        :away_goals => "3",
+        :home_goals => "1"
+      },
+      {
+        :away_team_id => '6',
+        :home_team_id => '36',
+        :away_goals => "4",
+        :home_goals => "3"
+      }
+    ]
+
+    fake_teams = [
+      { :teamname => "The Better Team",
+        :team_id => "36",
+        :franchiseid => "asd",
+        :abbreviation => "asd",
+        :link => "asd"
+      }
+    ]
+
+
+    allow(CSV).to receive(:open).with(locations[:games], any_args).and_return(fake_games)
+    allow(CSV).to receive(:open).with(locations[:teams], any_args).and_return(fake_teams)
+    expect(stat_tracker.rival('6')).to eq("The Better Team")
+  end
 end
