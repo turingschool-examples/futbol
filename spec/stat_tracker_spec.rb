@@ -379,7 +379,7 @@ RSpec.describe StatTracker do
   end
 
   it 'returns most_goals_scored' do
-
+    expect(stat_tracker.most_goals_scored('6')).to eq(3)
   end
 
 end

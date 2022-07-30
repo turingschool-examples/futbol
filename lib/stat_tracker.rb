@@ -531,4 +531,17 @@ class StatTracker
     (games_won / games_played).round(2)
   end
 
+  def most_goals_scored(team_id)
+    highest_goal = 0
+    game_teams_csv = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
+    game_teams_csv.each do |row|
+      if row[:team_id] == team_id
+        if row[:goals].to_i > highest_goal
+          highest_goal = row[:goals].to_i
+        end
+      end
+    end
+    highest_goal
+  end
+
 end
