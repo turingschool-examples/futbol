@@ -544,4 +544,82 @@ class StatTracker
     highest_goal
   end
 
+
+  def fewest_goals_scored(team_id)
+    lowest_goal = 100000
+    game_teams_csv = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
+    game_teams_csv.each do |row|
+      if row[:team_id] == team_id
+        if row[:goals].to_i < lowest_goal
+          lowest_goal = row[:goals].to_i
+        end
+      end
+    end
+    lowest_goal
+  end
+
+  def favorite_opponent(team_id)
+    opponent_stats = Hash.new { |opponent_id, stats| opponent_id[stats] = [0.0, 0.0, 0.0] } #[games_played, games_won]
+    games = CSV.open(@game_path, headers: true, header_converters: :symbol)
+    games.each do |row|
+      if row[:home_team_id] == team_id #|| row[:home_team_id] == team_id
+        opponent_stats[row[:away_team_id]][0] += 1
+        if row[:home_goals] > row[:away_goals]
+          opponent_stats[row[:away_team_id]][1] += 1
+        end
+      end
+
+      if row[:away_team_id] == team_id
+        opponent_stats[row[:home_team_id]][0] += 1
+        if row[:away_goals] > row[:home_goals]
+          opponent_stats[row[:home_team_id]][1] += 1
+        end
+      end
+    end
+
+    highest_win_percentage = 0.0
+    fav_opponent = ''
+    opponent_stats.each do |opponent_id, stats|
+      if highest_win_percentage < stats[1] / stats[0]
+        highest_win_percentage = stats[1] / stats[0]
+        fav_opponent = opponent_id
+        stats[2] = stats[1] / stats[0] #not needed for this method. but might be useful for making team class?
+      end
+    end
+    team_info(fav_opponent)['team_name']
+  end
+
+  def rival(team_id)
+    opponent_stats = Hash.new { |opponent_id, stats| opponent_id[stats] = [0.0, 0.0, 0.0] } #[games_played, games_won]
+    games = CSV.open(@game_path, headers: true, header_converters: :symbol)
+    games.each do |row|
+      if row[:home_team_id] == team_id #|| row[:home_team_id] == team_id
+        opponent_stats[row[:away_team_id]][0] += 1
+        if row[:home_goals] > row[:away_goals]
+          opponent_stats[row[:away_team_id]][1] += 1
+        end
+      end
+
+      if row[:away_team_id] == team_id
+        opponent_stats[row[:home_team_id]][0] += 1
+        if row[:away_goals] > row[:home_goals]
+          opponent_stats[row[:home_team_id]][1] += 1
+        end
+      end
+    end
+
+    lowest_win_percentage = 1.0
+    rival_id = ''
+    opponent_stats.each do |opponent_id, stats|
+      if lowest_win_percentage > stats[1] / stats[0]
+        lowest_win_percentage = stats[1] / stats[0]
+        rival_id = opponent_id
+        stats[2] = stats[1] / stats[0] #not needed for this method. but might be useful for making team class?
+      end
+    end
+    team_info(rival_id)['team_name']
+  end
+
+
+
 end
