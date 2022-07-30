@@ -94,10 +94,24 @@ class StatTracker
   end
 
   def average_goals_by_season #issue #9
+    my_hash = Hash.new { |h,k| h[k.to_s] = [] }
+    count_of_games_by_season.each do |season, game_count|
+      my_hash[season] = [] 
+    end
 
+      count_of_games_by_season.each do |season, game_count|
+        game_sum_calc = []
+        games.each do |row| 
+          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season
+          my_hash[season.to_s] = (game_sum_calc.sum / game_count.to_f).round(2)
+        end
+      end
+
+      my_hash.each do |key, value| 
+        my_hash.delete(key) if value == [] 
+      end
   end
-
-
+  
 
   def game_wins #Helper method not yet used
     win = 0.0
@@ -298,6 +312,18 @@ class StatTracker
         end
       end
     end
+  
+    all_tackles = [] 
+    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
+      all_tackles << pair[1]
+    end
+    highest_tackles = all_tackles.max()
+
+      highest_tackle_pair = games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].find_all do |pair|
+        pair[1] == highest_tackles
+      end
+      team_by_id[highest_tackle_pair[0][0]]
+  end
 
   def fewest_tackles #issue # 22
 

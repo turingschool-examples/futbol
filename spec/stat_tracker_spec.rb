@@ -82,6 +82,12 @@ describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq(4)
     end
 
+    it 'returns hash with season name and average goals for each season ' do
+
+      expected_hash = {"20122013"=>3.64, "20132014"=>4.15, "20142015"=>4.64, "20162017"=>3.75}      
+      expect(@stat_tracker.average_goals_by_season).to eq(expected_hash)
+    end
+
     it 'Has hash with season names as keys and counts of games as values' do
       expect(@stat_tracker.count_of_games_by_season).to eq({
           20122013 => 28,
@@ -142,7 +148,7 @@ describe StatTracker do
     end
 
     it 'can show name of the team with most tackles in the season' do
-      expect(@stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
     end
 
   end
