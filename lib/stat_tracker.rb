@@ -95,11 +95,9 @@ class StatTracker
 
   def average_goals_by_season #issue #9
     my_hash = Hash.new { |h,k| h[k.to_s] = [] }
-    count_of_games_by_season.each do |season, game_count|
-      my_hash[season] = [] 
-    end
 
       count_of_games_by_season.each do |season, game_count|
+        my_hash[season] = [] 
         game_sum_calc = []
         games.each do |row| 
           game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season
