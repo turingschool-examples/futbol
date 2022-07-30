@@ -38,11 +38,6 @@ class LeagueStats
     goals_by_id(:home_team_id, :home_goals).merge(goals_by_id(:away_team_id,:away_goals)) do |id, home_goals, away_goals|
       home_goals + away_goals
     end 
-    # total_goals_by_team = {}
-    # goals_by_id.each do |id, team_goals|
-    #   total_goals_by_team[id] = (team_goals[:home_goals] + team_goals[:away_goals])
-    # end
-    # total_goals_by_team
   end
 
   def goals_per_game
@@ -54,15 +49,13 @@ class LeagueStats
   def highest_goals_per_game_place(place_team_id, place_goals)
    goal_rate = goals_by_id(place_team_id, place_goals).merge(games_by_id(place_team_id)) do |key, goals, games|
       goals.to_f/games
-    end
-    goal_rate.max_by {|id,goals| goals}[0]
+    end.max_by {|id,goals| goals}[0]
   end
 
   def lowest_goals_per_game_place(place_team_id, place_goals)
-    goal_rate = goals_by_id(place_team_id, place_goals).merge(games_by_id(place_team_id)) do |key, goals, games|
+    goals_by_id(place_team_id, place_goals).merge(games_by_id(place_team_id)) do |key, goals, games|
        goals.to_f/games
-     end
-     goal_rate.min_by {|id,goals| goals}[0]
+     end.min_by {|id,goals| goals}[0]
    end
   
   def count_of_teams
