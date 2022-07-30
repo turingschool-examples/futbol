@@ -105,12 +105,9 @@ class StatTracker
       if (game.home_team_id == team_id || game.away_team_id == team_id) && game.season == season
         games_by_season << game
       end
-
     end
     games_by_season
   end
-
-
 
   def all_team_games(team_id) #games helper, returns all of a team's games in an array
     all_games = []
@@ -122,16 +119,15 @@ class StatTracker
     all_games
   end
 
-  def team_season_grouper(team_id)  #groups all of a team's games by season in a hash: the key is the season and the values are the team's games for that season
+  def team_season_grouper(team_id) #groups all of a team's games by season in a hash: the key is the season and the values are the team's games for that season
     all_games = all_team_games(team_id)
     all_games.group_by do |game|
       game.season
     end
   end
 
-  def team_season_game_counter(team_id)  #incomplete helper
+  def team_season_game_counter(team_id) #incomplete helper
     games_by_season_hash = team_season_grouper(team_id)
-    require 'pry';binding.
   end
 
   # all_games = all_team_games(team_id)
@@ -165,8 +161,7 @@ class StatTracker
   # season_5
   # season_6
 
-
-  def best_season(team_id)  #this is not done and the one below needs to be refactored or tossed out and become a helper. this groups a team's seasons into arrays
+  def best_season(team_id) #this is not done and the one below needs to be refactored or tossed out and become a helper. this groups a team's seasons into arrays
     # max of total number of wins (home wins and away wins) in a season/total number of games in a season
     #by using season_grouper, we get a hash with 6 keys(the seasons). the values of each key are the games in that season
     #we can use all_team_games to create an array of all of a team's games. how do we split this by season?
@@ -192,7 +187,6 @@ class StatTracker
       elsif game.season == "20172018"
         season_6 << game
       end
-
     end
     season_1
     season_2
@@ -262,28 +256,27 @@ class StatTracker
     seventeen_season = @games.find_all do |game|
       game.season == "20172018"
     end
-   hash = Hash.new(0)
+    hash = Hash.new(0)
     @games.each do |game|
       hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
     end
 
     hash.map do |season, total|
-        if season == "20122013"
-          # require 'pry' ; binding.pry
-          hash[season] = (total/(twelve_season.count).to_f).round(2)
-        elsif  season == "20162017"
-            hash[season] = (total/(sixteen_season.count).to_f).round(2)
-        elsif  season == "20142015"
-            hash[season] = (total/(fourteen_season.count).to_f).round(2)
-        elsif  season == "20152016"
-            hash[season] = (total/(fifteen_season.count).to_f).round(2)
-        elsif  season == "20132014"
-            hash[season] = (total/(thirteen_season.count).to_f).round(2)
-        elsif  season == "20172018"
-            hash[season] = (total/(seventeen_season.count).to_f).round(2)
-        end
+      if season == "20122013"
+        hash[season] = (total / (twelve_season.count).to_f).round(2)
+      elsif season == "20162017"
+        hash[season] = (total / (sixteen_season.count).to_f).round(2)
+      elsif season == "20142015"
+        hash[season] = (total / (fourteen_season.count).to_f).round(2)
+      elsif season == "20152016"
+        hash[season] = (total / (fifteen_season.count).to_f).round(2)
+      elsif season == "20132014"
+        hash[season] = (total / (thirteen_season.count).to_f).round(2)
+      elsif season == "20172018"
+        hash[season] = (total / (seventeen_season.count).to_f).round(2)
       end
-      hash
+    end
+    hash
   end
 
   def count_of_teams
@@ -319,10 +312,10 @@ class StatTracker
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
 
     visitor_scores_average =
-    away_team_scores.map do |id, scores|
-      average = ((scores.sum) / (scores.length)).round(2)
-      [id, average]
-    end.max { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
+      away_team_scores.map do |id, scores|
+        average = ((scores.sum) / (scores.length)).round(2)
+        [id, average]
+      end.max { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
     team_id_to_name[visitor_scores_average[0]]
   end
 
@@ -331,10 +324,10 @@ class StatTracker
     @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
 
     home_scores_average =
-    home_team_scores.map do |id, scores|
-      average = ((scores.sum) / (scores.length)).round(2)
-      [id, average]
-    end.max { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
+      home_team_scores.map do |id, scores|
+        average = ((scores.sum) / (scores.length)).round(2)
+        [id, average]
+      end.max { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
     team_id_to_name[home_scores_average[0]]
   end
 
@@ -343,10 +336,10 @@ class StatTracker
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
 
     visitor_scores_average =
-    away_team_scores.map do |id, scores|
-      average = ((scores.sum) / (scores.length)).round(2)
-      [id, average]
-    end.min { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
+      away_team_scores.map do |id, scores|
+        average = ((scores.sum) / (scores.length)).round(2)
+        [id, average]
+      end.min { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
     team_id_to_name[visitor_scores_average[0]]
   end
 
@@ -355,57 +348,41 @@ class StatTracker
     @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
 
     home_scores_average =
-    home_team_scores.map do |id, scores|
-      average = ((scores.sum) / (scores.length)).round(2)
-      [id, average]
-    end.min { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
+      home_team_scores.map do |id, scores|
+        average = ((scores.sum) / (scores.length)).round(2)
+        [id, average]
+      end.min { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
     team_id_to_name[home_scores_average[0]]
   end
 
   def team_id_to_name
     @teams.map { |team| [team.team_id, team.team_name] }.to_h
-    end
+  end
 
   def most_tackles(season)
-    seasons_grouped = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
-    require 'pry';binding.pry
-    home_game_hash = seasons_grouped.group_by do |game| 
-      game.home_team_id
-    end
+    games_by_season = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
+    home_games = games_by_season.group_by { |game| game.home_team_id }
 
-    away_game_hash = seasons_grouped.group_by do |game|
-      game.away_team_id
-    end
-     merged_hash = home_game_hash.merge(away_game_hash) do |team_id, home_game_array, away_game_array| #merged hash has 30 keys: each team's id. values are all games for a given season 
-           home_game_array << away_game_array
-           #All tackles for each game for a given key
-      end
-      # require 'pry' ; binding.pry
-    #for each set of values we need to add up the tackles that are in there &
-    merged_hash.map do |team, games|
+    away_games = games_by_season.group_by { |game| game.away_team_id }
+
+    games_by_team_id =
+      home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
+    #merged hash has 30 keys: each team's id. values are all games for a given season
+
+    games_by_team_id.map do |team, games|
       games.map do |game|
-        
-       
-        number_of_tackles(team, game.game_id)
-        
+        tackles = number_of_tackles(team, game.game_id)
       end
     end
-
-
   end
 
   def number_of_tackles(team_id, game_id)
-    counter = 0
-    @game_teams.find_all do |game_team|
+    tackles = 0
+    @game_teams.each do |game_team|
       if team_id == game_team.team_id && game_id == game_team.game_id
-      
-        counter += game_team.tackles.to_i
+        tackles += game_team.tackles.to_i
       end
     end
-    counter
+    tackles
   end
-
-
-
-
-  end
+end
