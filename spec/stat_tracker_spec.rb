@@ -64,6 +64,12 @@ describe StatTracker do
 
   it "has the right class when reading from csv" do
     expect(@stat_tracker).to be_a(StatTracker)
+    expect(@stat_tracker.games).to be_a(Array)
+    expect(@stat_tracker.teams).to be_a(Array)
+    expect(@stat_tracker.game_teams).to be_a(Array)
+  end
+
+  it "is reading the full csv file" do
     expect(@stat_tracker.games.length).to eq(7441)
     expect(@stat_tracker.teams.length).to eq(32)
     expect(@stat_tracker.game_teams.length).to eq(14882)
@@ -235,10 +241,10 @@ describe StatTracker do
   end
 
   it "can find favorite opponent for a given team" do
-    expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+    expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
   end
 
-  it "can find rival for a given team" do
+  xit "can find rival for a given team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
 end

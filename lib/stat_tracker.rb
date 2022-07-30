@@ -21,24 +21,7 @@ class StatTracker
   end
 
   def highest_total_score
-    high_low_added = @games.map do |game|
-      [game.home_goals.to_i, game.away_goals.to_i].sum
-    end
-    high_low_added.max
-  end
-
-  def team_info(team_id)
-    team_hash = Hash.new(0)
-    @teams.each do |team|
-      if team_id == team.team_id
-        team_hash["team_id"] = team.team_id
-        team_hash["franchise_id"] = team.franchise_id
-        team_hash["team_name"] = team.team_name
-        team_hash["abbreviation"] = team.abbreviation
-        team_hash["link"] = team.link
-      end
-    end
-    team_hash
+    @games.map { |game| [game.home_goals.to_i, game.away_goals.to_i].sum}.max
   end
 
   # def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
@@ -128,6 +111,20 @@ class StatTracker
 
   def team_season_game_counter(team_id) #incomplete helper
     games_by_season_hash = team_season_grouper(team_id)
+  end
+
+  def team_info(team_id)
+    team_hash = Hash.new(0)
+    @teams.each do |team|
+      if team_id == team.team_id
+        team_hash["team_id"] = team.team_id
+        team_hash["franchise_id"] = team.franchise_id
+        team_hash["team_name"] = team.team_name
+        team_hash["abbreviation"] = team.abbreviation
+        team_hash["link"] = team.link
+      end
+    end
+    team_hash
   end
 
   def best_season(team_id) #this is not done and the one below needs to be refactored or tossed out and become a helper. this groups a team's seasons into arrays
@@ -366,7 +363,7 @@ class StatTracker
       end.to_h
       worst1_coach= coach_percentage_lost.min {|coach_average_1, coach_average_2| coach_average_1[1]<=>coach_average_2[1]}
       worst1_coach[0]
-    end
+    end #there needs to be an end here or you're gonna have trouble
 
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
@@ -485,5 +482,5 @@ class StatTracker
     team_id_to_name[max_win_team_id]
   end
 
-  
+
 end
