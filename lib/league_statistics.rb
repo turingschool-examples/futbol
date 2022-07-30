@@ -12,19 +12,13 @@ class LeagueStatistics
   end
 
   def best_offense
-    best_team_id = total_team_goal_stats("all").max_by {|team, average| average}
-    return_team_name(best_team_id[0])
+    best_team = total_team_goal_stats("all").max_by {|team, average| average}
+    return_team_name(best_team[0])
   end
 
   def worst_offense
     worst_team = total_team_goal_stats("all").min_by {|team, average| average}
-    worst_team_name = ""
-    @data_set[:teams].each do |row|
-      if row[:team_id] == worst_team[0]
-        worst_team_name = row[:teamname]
-      end
-    end
-    worst_team_name
+    return_team_name(worst_team[0])
   end
 
   def total_team_goal_stats(hoa_type = nil)
