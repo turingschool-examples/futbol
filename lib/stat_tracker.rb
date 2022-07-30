@@ -216,13 +216,13 @@ class StatTracker
 
   end
 
-  def game_teams_for_game_id(game_id) #Helper method for issue #19, may be able to be used for other season stats
+  def game_teams_for_game_id(game_id) #Helper method for issue #28, may be able to be used for other season stats
     @game_teams.find_all do |game_team| #finds all stats for away and home team for a particular game
       game_team[:game_id] == game_id 
     end
   end
   
-  def most_accurate_team(season_id) #issue # 19 
+  def most_accurate_team(season_id) #issue # 28 
     total_team_shots_and_goals = games_by_season.transform_values do |game_ids| 
       team_totals_for_season = {}
       game_ids.each do |game_id|
