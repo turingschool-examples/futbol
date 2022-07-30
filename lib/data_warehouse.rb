@@ -23,5 +23,9 @@ class DataWarehouse
                  end
   end
 
+  def id_team_key
+    @teams[:team_id].zip(@teams[:teamname]).to_h
+  end
+
 
 end

@@ -1,59 +1,39 @@
 class SeasonStats
 
-  def initialize(data)
+  def initialize(data, id_team_key = {})
     @data = data
+    @id_team_key = id_team_key
   end
 
   def winningest_coach
     coach_win_percentage.max_by{|coach, percentage| percentage}.first
   end
 
-  def worst_coach(target_season)
+  def worst_coach
     coach_win_percentage.max_by{|coach, percentage| -percentage}.first
   end
 
-  def most_accurate_team(target_season)
+  def most_accurate_team
     team_id_highest_accuracy = team_id_accuracy.max_by{|team, acc| acc}.first
-    id_team_key[team_id_highest_accuracy]
-
+    @id_team_key[team_id_highest_accuracy]
   end
 
-  def least_accurate_team(target_season)
-    games = @games.select do |game|
-              game[:season] == target_season
-            end
+  def least_accurate_team
+    team_id_highest_accuracy = team_id_accuracy.max_by{|team, acc| acc}.first
+    @id_team_key[team_id_highest_accuracy]
+  end
 
-    game_ids = games.map do |game|
-                game[:game_id]
-               end
+  def most_tackles
+    most_tackles = num_tackles.max_by{|id, tackles| tackles}.first
+    @id_team_key[most_tackles]
+  end
 
-    game_teams = @game_teams.select do |game|
-                    game_ids.include?(game[:game_id])
-                  end
-
-    goals = Hash.new(0)
-    shots = Hash.new(0)
-    game_teams.each do |game|
-      goals[game[:team_id]] += game[:goals].to_f
-      shots[game[:team_id]] += game[:shots].to_f
-    end
-
-    team_id_accuracy = Hash.new
-    goals.each do |team, goals|
-      team_id_accuracy[team] = goals / shots[team]
-    end
-
-    team_id_lowest_accuracy = team_id_accuracy.max_by{|team, acc| -acc}.first
-
-    id_team_key = @teams[:team_id].zip(@teams[:teamname]).to_h
-
-    id_team_key[team_id_lowest_accuracy]
+  def fewest_tackles
+    least_tackles = num_tackles.max_by{|id, tackles| -tackles}.first
+    @id_team_key[least_tackles]
   end
 
   private
-
-  def id_team_key(key)
-    @teams[:team_id].zip(@teams[:teamname]).to_h
 
   def team_id_accuracy
     goals = Hash.new(0)
@@ -67,6 +47,7 @@ class SeasonStats
     goals.each do |team, goals|
       team_id_accuracy[team] = goals / shots[team]
     end
+    team_id_accuracy
   end
 
   def coach_win_percentage
@@ -87,6 +68,14 @@ class SeasonStats
       win_percentage[coach] = num_wins.to_f / all_games[coach]
     end
     win_percentage
+  end
+
+  def num_tackles
+    id_tackles = Hash.new(0)
+    @data.each do |game|
+      id_tackles[game[:team_id]] += game[:tackles].to_i
+    end
+    id_tackles
   end
 
 end

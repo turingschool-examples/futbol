@@ -21,14 +21,14 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  xit '1. exists' do
+  it '1. exists' do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
-  xit '3. can load an array of multiple CSVs' do
-    expect(@stat_tracker.games).to be_a(CSV::Table)
-    expect(@stat_tracker.teams).to be_a(CSV::Table)
-    expect(@stat_tracker.game_teams).to be_a(CSV::Table)
+  it '3. can load an array of multiple CSVs' do
+    expect(@stat_tracker.data_warehouse.games).to be_a(CSV::Table)
+    expect(@stat_tracker.data_warehouse.teams).to be_a(CSV::Table)
+    expect(@stat_tracker.data_warehouse.game_teams).to be_a(CSV::Table)
   end
 
   describe 'League Methods' do
@@ -70,28 +70,28 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.winningest_coach("20122013")). to be_a String
     end
 
-    xit 'S2. has a method for worst_coach' do
-      expect(@stat_tracker.game_teams[:head_coach]).to include(@stat_tracker.worst_coach("20122013"))
+    it 'S2. has a method for worst_coach' do
+      expect(@stat_tracker.data_warehouse.game_teams[:head_coach]).to include(@stat_tracker.worst_coach("20122013"))
       expect(@stat_tracker.worst_coach("20122013")). to be_a String
     end
 
-    xit 'S3. can tell most_accurate_team' do
-      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.most_accurate_team("20122013"))
+    it 'S3. can tell most_accurate_team' do
+      expect(@stat_tracker.data_warehouse.teams[:teamname]).to include(@stat_tracker.most_accurate_team("20122013"))
       expect(@stat_tracker.most_accurate_team("20122013")). to be_a String
     end
 
-    xit 'S3. can tell least_accurate_team' do
-      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.least_accurate_team("20122013"))
+    it 'S3. can tell least_accurate_team' do
+      expect(@stat_tracker.data_warehouse.teams[:teamname]).to include(@stat_tracker.least_accurate_team("20122013"))
       expect(@stat_tracker.least_accurate_team("20122013")). to be_a String
     end
 
-    xit 'can tell the team with the most tackles in a season' do
-      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.most_tackles("20122013"))
+    it 'can tell the team with the most tackles in a season' do
+      expect(@stat_tracker.data_warehouse.teams[:teamname]).to include(@stat_tracker.most_tackles("20122013"))
       expect(@stat_tracker.most_tackles("20122013")).to be_a String
     end
 
-    xit 'can tell the team with the fewest tackles in a season' do
-      expect(@stat_tracker.teams[:teamname]).to include(@stat_tracker.fewest_tackles("20122013"))
+    it 'can tell the team with the fewest tackles in a season' do
+      expect(@stat_tracker.data_warehouse.teams[:teamname]).to include(@stat_tracker.fewest_tackles("20122013"))
       expect(@stat_tracker.fewest_tackles("20122013")).to be_a String
     end
   end
