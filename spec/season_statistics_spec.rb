@@ -1,6 +1,7 @@
 require './spec_helper'
 require_relative '../lib/stat_tracker'
 require_relative '../lib/season_statistics'
+require 'pry'
 
 RSpec.describe SeasonStatistics do 
     before(:all) do 
@@ -34,10 +35,25 @@ RSpec.describe SeasonStatistics do
         expect(@season_statistics.winningest_coach("20142015")).to eq "Alain Vigneault"
       end
     end 
-
-
-
-
+    describe '.worst_coach' do 
+      it "returns the lowest winning percentage coach" do
+        expect(@season_statistics.worst_coach("20132014")).to eq "Peter Laviolette"
+        expect(@season_statistics.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+      end
+    end
+    # describe '.coach_percent' do 
+    #   it 'calculates the win percentage' do
+    #     expect(@season_statistics.coach_percent("20132014")["Lindy Ruff"]).to eq 0.39
+    #     expect(@season_statistics.coach_percent("20132014")["Ken Hitchcock"]).to eq 0.42
+    #     expect(@season_statistics.coach_percent("20132014")["Craig Berube"]).to eq 0.4
+    #   end
+    # end
+    # describe '.update_total_count' do 
+    #   it 'adds wins and losses to coaches_games' do 
+        
+    #     # 
+    #   end
+    # end
 end
 
 
