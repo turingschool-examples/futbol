@@ -54,26 +54,61 @@ class StatTracker
 
   def average_goals_by_season
     hash = Hash.new(0)
-    @games.each do |game|
+    @games.map do |game|
       hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
     end
-
-    hash.map do |season, total|
-      if season == "20122013"
-        hash[season] = (total / (season_grouper["20122013"].count).to_f).round(2)
-      elsif season == "20162017"
-        hash[season] = (total / (season_grouper["20162017"].count).to_f).round(2)
-      elsif season == "20142015"
-        hash[season] = (total / (season_grouper["20142015"].count).to_f).round(2)
-      elsif season == "20152016"
-        hash[season] = (total / (season_grouper["20152016"].count).to_f).round(2)
-      elsif season == "20132014"
-        hash[season] = (total / (season_grouper["20132014"].count).to_f).round(2)
-      elsif season == "20172018"
-        hash[season] = (total / (season_grouper["20172018"].count).to_f).round(2)
-      end
+    hash.each do |season, total|
+      hash[season] = (total / (season_grouper[season].count).to_f).round(2)
     end
     hash
+  end
+
+  def count_of_teams
+    @teams.count { |team| team.team_id }
+  end
+
+  def best_offense
+    team_scores = Hash.new { |h, k| h[k] = [] }
+    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
+
+    team_scores_average =
+      team_scores.map do |id, scores|
+        [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
+      end.max { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
+    team_id_to_name[team_scores_average[0]]
+  end
+
+  def worst_offense
+    team_scores = Hash.new { |h, k| h[k] = [] }
+    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
+
+    team_scores_average =
+      team_scores.map do |id, scores|
+        [id, ((scores.sum) / (scores.length)).round(2)] #creat an average out of the scores
+      end.min { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
+    team_id_to_name[team_scores_average[0]]
+  end
+
+  def highest_scoring_visitor
+    away_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
+
+    visitor_scores_average =
+      away_team_scores.map do |id, scores|
+        [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
+      end.max { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
+    team_id_to_name[visitor_scores_average[0]]
+  end
+
+  def highest_scoring_home_team
+    home_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
+
+    home_scores_average =
+      home_team_scores.map do |id, scores|
+        [id, ((scores.sum) / (scores.length)).round(2)]
+      end.max { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
+    team_id_to_name[home_scores_average[0]]
   end
 
   # def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
@@ -89,9 +124,7 @@ class StatTracker
   def most_goals_scored(team_id)
     goals_by_game = []
     @game_teams.each do |game|
-      if team_id == game.team_id
-        goals_by_game << game.goals.to_i
-      end
+      goals_by_game << game.goals.to_i if team_id == game.team_id
     end
     goals_by_game.max
   end
@@ -213,59 +246,6 @@ class StatTracker
     season_5
     season_6
   end
-
-  def count_of_teams
-    @teams.count { |team| team.team_id }
-  end
-
-  def best_offense
-    team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
-
-    team_scores_average =
-      team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end.max { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
-    team_id_to_name[team_scores_average[0]]
-  end
-
-  def worst_offense
-    team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
-
-    team_scores_average =
-      team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end.min { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
-    team_id_to_name[team_scores_average[0]]
-  end
-
-  def highest_scoring_visitor
-    away_team_scores = Hash.new { |h, k| h[k] = [] }
-    @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-
-    visitor_scores_average =
-      away_team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end.max { |visitor_avg_1, visitor_avg_2| visitor_avg_1[1] <=> visitor_avg_2[1] }
-    team_id_to_name[visitor_scores_average[0]]
-  end
-
-  def highest_scoring_home_team
-    home_team_scores = Hash.new { |h, k| h[k] = [] }
-    @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
-
-    home_scores_average =
-      home_team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end.max { |home_avg_1, home_avg_2| home_avg_1[1] <=> home_avg_2[1] }
-    team_id_to_name[home_scores_average[0]]
-  end
-
 
   def winningest_coach(season_id)
     coaches = {}

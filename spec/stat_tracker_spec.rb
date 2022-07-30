@@ -139,6 +139,48 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
+  it 'can calculate the games average goals by season for dummy data' do
+    game_path = './spec/fixtures/dummy_game.csv'
+    team_path = './spec/fixtures/dummy_teams.csv'
+    game_teams_path = './spec/fixtures/dummy_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+    expected = { "20122013" => 3.78 }
+
+    expect(@stat_tracker_dummy.average_goals_by_season).to eq(expected)
+  end
+
+  it "can count the total number of teams" do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+  
+  it "can calculate which team had the best offense" do
+    expect(@stat_tracker.best_offense).to eq "Reign FC"
+  end
+
+  it "can calculate which team had the worst offense" do
+    expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+  end
+
+  it "can calculate which team was the highest scoring visitor" do
+    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+  end
+
+  it "can calculate which team was the highest scoring home team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+  end
+
+  it "it can calculate which team was the lowest scoring visitor" do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+  end
+
+  it "it can calculate which team was the lowest scoring home team" do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+  end
 
   it 'can name the coach with the best winning percentage' do
     expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
@@ -222,37 +264,9 @@ describe StatTracker do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
    end
 
-  it "can count the total number of teams" do
-    expect(@stat_tracker.count_of_teams).to eq(32)
-  end
-
   it "gives a hash of team id to team name" do
     expect(@stat_tracker.team_id_to_name.length).to eq(32)
     expect(@stat_tracker.team_id_to_name).to be_a(Hash)
-  end
-
-  it "can calculate which team had the best offense" do
-    expect(@stat_tracker.best_offense).to eq "Reign FC"
-  end
-
-  it "can calculate which team had the worst offense" do
-    expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
-  end
-
-  it "can calculate which team was the highest scoring visitor" do
-    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
-  end
-
-  it "can calculate which team was the highest scoring home team" do
-    expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
-  end
-
-  it "it can calculate which team was the lowest scoring visitor" do
-    expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
-  end
-
-  it "it can calculate which team was the lowest scoring home team" do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
 
   it "can find favorite opponent for a given team" do
