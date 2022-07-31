@@ -238,8 +238,16 @@ describe StatTracker do
     expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
   end
 
-  xit "can tell which season is a teams best" do
+  it "can tell which season is a teams best" do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
+   end
+
+  it "can count the total number of teams" do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it "can tell which season is a teams worst" do
+    expect(@stat_tracker.worst_season("6")).to eq("20142015")
   end
 
   xit "gives a hash of team id to team name" do #team_id_to_name helper
@@ -259,15 +267,15 @@ describe StatTracker do
     expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
   end
 
-  it "it can calculate which team was the lowest scoring visitor" do
+  it "can calculate which team was the lowest scoring visitor" do
     expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
-  it "it can calculate which team was the lowest scoring home team" do
+  it "can calculate which team was the lowest scoring home team" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
 
-  it "it can calculate which team has the most tackles in the season" do
+  it "can calculate which team has the most tackles in the season" do
     expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
@@ -284,4 +292,5 @@ describe StatTracker do
   xit "can find rival for a given team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
+
 end
