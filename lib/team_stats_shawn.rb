@@ -22,7 +22,17 @@ class TeamStats
     end
     team_name
   end
-  
+
+  def rival(serach_team_id)
+    team_id = opponent_name(search_team_id).first.first
+    team_name = ""
+    @data.teams.each do |team|
+      if team[:team_id] == team_id
+        team_name << team[:teamname]
+      end
+    end
+    team_name
+  end
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   def season_stats(search_team_id)
 

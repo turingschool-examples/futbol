@@ -191,34 +191,9 @@ class StatTracker
   #=========================================================================
 
   def rival(search_team_id)
-    all_games_won = []
-    @data_warehouse.game_teams.each do |game_team|
-      if game_team[:result] == "WIN" && game_team[:team_id] == search_team_id
-        all_games_won << game_team[:game_id]
-      end
-    end
-    all_games_won
-
-    losing_teams = []
-    @data_warehouse.game_teams.each do |each_team|
-      all_games_won.each do |game_won|
-        if game_won == each_team[:game_id] && each_team[:result] == "LOSS"
-          losing_teams << each_team[:team_id]
-      end
-    end
-  end
-    sorted_losing_teams = losing_teams.tally.sort_by do |key, value|
-    value
-  end
-    loser_team_id = sorted_losing_teams.first.first
-
-    losing_team_name = ""
-    @data_warehouse.teams.each do |team|
-      if team[:team_id] == loser_team_id
-        losing_team_name << team[:teamname]
-      end
-    end
-    losing_team_name
+    data = @data_warehouse
+    team_stats = TeamStats.new(data)
+    team_stats.rival(search_team_id)
   end
 
 #######################
