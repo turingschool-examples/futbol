@@ -71,7 +71,7 @@ describe StatTracker do
     end
 
     it 'calculates percentage wins' do #FAIL - corrected game_teams_path
-      expect(@stat_tracker.percentage_home_wins).to eq(0.70)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.60)
     end
 
     it "returns the percentage of tied games" do #FAIL - corrected test output

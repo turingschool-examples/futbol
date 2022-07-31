@@ -44,7 +44,7 @@ class StatTracker
   end
 
   def percentage_home_wins #issue #4 - Need to make this test eq 0.99 not whole numbers
-    percentage = (home_wins/home_games) * 100
+    percentage = (home_wins/home_games).round(2)
   end
 
   def percentage_visitor_wins #issue #5 - Need to make this test eq 0.99 not whole numbers
