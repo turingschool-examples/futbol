@@ -205,15 +205,9 @@ class StatTracker
 
   end
 
-<<<<<<< HEAD
   def lowest_scoring_home_team #issue # 16
     min_average = average_scores_by_team_id("home").values.min
     team_by_id[average_scores_by_team_id("home").key(min_average)]
-=======
-  def lowest_scoring_home_team #issue # 16 - Fail wrong team being returned
-    min_average = average_scores_by_team_id("away").values.min
-    team_by_id[average_scores_by_team_id("away").key(min_average)]
->>>>>>> d0865e509973de36c56ff29fac1d0a8fae295d8e
   end
 
 
@@ -368,7 +362,7 @@ class StatTracker
     games_by_season
   end
 
-  def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18
+  def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18 #20
     # [[2013020252, 16], [2014030166, 16], [2016030151, 16], [2016030152, 16]]
     wins = []
     @games.each do |row|
@@ -387,7 +381,7 @@ class StatTracker
     # end
   end
 
-  def games_by_team(team_id) # List of every game a team played - helper method for issue #18
+  def games_by_team(team_id) # List of every game a team played - helper method for issue #18 #20
     # [[2013020252, 16], [2013020987, 16], [2014020903, 16], [2012020574, 16], [2014030161, 16],
     games = []
     @games.each do |row|
@@ -450,10 +444,8 @@ class StatTracker
 
   end
 
-  def average_win_percentage #issue # 26 - Fail due to not written
-
-
-
+  def average_win_percentage(team_id) #issue # 20
+    wins_by_team(team_id).count./games_by_team(team_id).count.to_f.round(2)
   end
 
   def most_goals_scored(team_id) #issue # 27 - FAIL returns nil on harness
