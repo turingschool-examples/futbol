@@ -71,11 +71,7 @@ class StatTracker
     ((ties/total_games)*100).round(1)
   end
 
-<<<<<<< HEAD
-  def count_of_games_by_season #issue 7 - season(key) out put nees to be string
-=======
-  def count_of_games_by_season #issue 7, also helper for #9
->>>>>>> 7eb9b5e0a931b4590999bad1e3492248acef2c96
+  def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
     counts = {}
     games.each do |game|
         season = game[:season]
@@ -97,23 +93,18 @@ class StatTracker
     total_scores_by_game.sum/@games.size
   end
 
-<<<<<<< HEAD
-  def average_goals_by_season #issue #9 - returning nil in spec harness
-
-=======
-  def average_goals_by_season #issue #9
+  def average_goals_by_season #issue #9 - Pass
     my_hash = Hash.new { |h,k| h[k] = [] }
 
       count_of_games_by_season.each do |season, game_count|
-        my_hash[season.to_s] = [] 
+        my_hash[season.to_s] = []
         game_sum_calc = []
-        games.each do |row| 
+        games.each do |row|
           game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season
           my_hash[season.to_s] = (game_sum_calc.sum / game_count.to_f).round(2)
         end
       end
       my_hash
->>>>>>> 7eb9b5e0a931b4590999bad1e3492248acef2c96
   end
 
   def game_wins #Helper method not yet used
@@ -134,22 +125,22 @@ class StatTracker
 
   # League Statistics
 
-  def count_of_teams #issue # 10
+  def count_of_teams #issue # 10 - PASS
     @teams[:teamname].count
   end
 
-  def best_offense #issue # 11
+  def best_offense #issue # 11 - Fail Wrong team returning
     max_average = average_scores_by_team_id("home", "away").values.max
     team_by_id[average_scores_by_team_id("home", "away").key(max_average)]
 
   end
 
-  def worst_offense #issue # 12
+  def worst_offense #issue # 12 - PASS
     min_average = average_scores_by_team_id("home", "away").values.min
     team_by_id[average_scores_by_team_id("home", "away").key(min_average)]
   end
 
-  def highest_scoring_visitor #issue # 13
+  def highest_scoring_visitor #issue # 13 - Pass
       away_team_ids_array = (@games[:away_team_id]).uniq.sort
 
       team_ids_hash = {}
@@ -202,19 +193,19 @@ class StatTracker
     average_scores
   end
 
-  def highest_scoring_home_team #issue # 14
+  def highest_scoring_home_team #issue # 14 - PASS
     max_average = average_scores_by_team_id("home").values.max
     team_by_id[average_scores_by_team_id("home").key(max_average)]
   end
 
-  def lowest_scoring_visitor #issue # 15
+  def lowest_scoring_visitor #issue # 15 - PASS
     lowest_average = average_scores_by_team_id("away").values.min
     team_by_id[average_scores_by_team_id("away").key(lowest_average)]
-  
+
 
   end
 
-  def lowest_scoring_home_team #issue # 16
+  def lowest_scoring_home_team #issue # 16 - Fail wrong team being returned
     min_average = average_scores_by_team_id("away").values.min
     team_by_id[average_scores_by_team_id("away").key(min_average)]
   end
@@ -243,12 +234,12 @@ class StatTracker
     team_win_percent
   end
 
-  def winningest_coach #issue # 17
+  def winningest_coach #issue # 17 - FAIL wrong name returns
 
 
   end
 
-  def worst_coach(season)#issue # 27
+  def worst_coach(season)#issue # 27 - FAIL wrong name returns
     lowest_percent_wins = team_win_percent_by_season[season.to_i].min_by {|stat| stat[:win_perc]}
     coach_by_team_id[lowest_percent_wins[:team_id]]
   end
@@ -277,23 +268,22 @@ class StatTracker
   end #lines above gives total shots and total goals in a season for each team
 
   def seasonal_team_accuracy(season_id)
-    require "pry"; binding.pry
      total_team_shots_and_goals[season_id].transform_values do |team_shots_and_goals|
      team_shots_and_goals["goals"].to_f / team_shots_and_goals["shots"]
     end
   end # Lines above gives accuracy ratio of team id for a given season
 
-  def most_accurate_team(season_id) #issue # 28
+  def most_accurate_team(season_id) #issue # 28 - NilClass Error on transform_values
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-  def least_accurate_team #issue # 20
+  def least_accurate_team #issue # 20 - FAIL not written yet
 
 
 
   end
 
-  def most_tackles(season_id) #issue # 21
+  def most_tackles(season_id) #issue # 21 - FAIL - Wrong team returning
 
     all_season_ids = []
     games.each do |row|
@@ -309,7 +299,7 @@ class StatTracker
 
     games.each do |row|
       games_in_season_hash[row[:season]][0] << row[:game_id]
-    end 
+    end
 
     games_in_season_hash.each do |season, games|
       game_teams.each do |row|
@@ -318,8 +308,8 @@ class StatTracker
         end
       end
     end
-  
-    all_tackles = [] 
+
+    all_tackles = []
     games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
       all_tackles << pair[1]
     end
@@ -331,13 +321,13 @@ class StatTracker
       team_by_id[highest_tackle_pair[0][0]]
   end
 
-  def fewest_tackles #issue # 22
+  def fewest_tackles #issue # 22 - not yet written
 
 
 
   end
 
-  def team_info(team_id) #issue # 23
+  def team_info(team_id) #issue # 23 - Pass
 
       info = {
       "team_id" => team_id,
@@ -442,23 +432,23 @@ class StatTracker
     win_percentage
   end
 
-  def best_season (team_id) #issue # 18
+  def best_season (team_id) #issue # 18 - Fail wrong season being returned
     season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
 
-  def worst_season #issue # 25
+  def worst_season #issue # 25 - Fail due to not written
 
 
 
   end
 
-  def average_win_percentage #issue # 26
+  def average_win_percentage #issue # 26 - Fail due to not written
 
 
 
   end
 
-  def most_goals_scored(team_id) #issue # 27
+  def most_goals_scored(team_id) #issue # 27 - FAIL returns nil on harness
 
     array_of_goals_for_specified_team = []
 
@@ -470,19 +460,19 @@ class StatTracker
     array_of_goals_for_specified_team.max()
   end
 
-  def fewest_goals_scored #issue # 28
+  def fewest_goals_scored #issue # 28 - Fail due to not written
 
 
 
   end
 
-  def favorite_opponent #issue # 29
+  def favorite_opponent #issue # 29 - Fail due to not written
 
 
 
   end
 
-  def rival #issue # 30
+  def rival #issue # 30 - Fail due to not written
 
 
 
