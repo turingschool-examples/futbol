@@ -184,7 +184,9 @@ class StatTracker
   #=========================================================================
 
   def favorite_opponent(search_team_id)
-
+    data = @data_warehouse
+    team_stats = TeamStats.new(data)
+    team_stats.favorite_opponent(search_team_id)
   end
   #=========================================================================
 

@@ -13,9 +13,16 @@ class TeamStats
   end
 
   def favorite_opponent(search_team_id)
-    opponent_name
-    require "pry"; binding.pry
+    team_id = opponent_name(search_team_id).last.first
+    team_name = ""
+    @data.teams.each do |team|
+      if team[:team_id] == team_id
+        team_name << team[:teamname]
+      end
+    end
+    team_name
   end
+  
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   def season_stats(search_team_id)
 
@@ -38,7 +45,7 @@ class TeamStats
       season_won
   end
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  def opponent_name
+  def opponent_name(search_team_id)
     all_games_won = []
     @data.game_teams.each do |game_team|
       if game_team[:result] == "WIN" && game_team[:team_id] == search_team_id
@@ -57,15 +64,6 @@ class TeamStats
   end
     sorted_losing_teams = losing_teams.tally.sort_by do |key, value|
     value
-  end
-    loser_team_id = sorted_losing_teams.last.first
-
-    losing_team_name = ""
-    @data.teams.each do |team|
-      if team[:team_id] == loser_team_id
-        losing_team_name << team[:teamname]
-      end
     end
-    losing_team_name
   end
 end
