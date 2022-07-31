@@ -456,7 +456,7 @@ class StatTracker
     (wins_by_team(team_id).count.to_f/games_by_team(team_id).count.to_f).round(2)
   end
 
-  def most_goals_scored(team_id) #issue # 27 - FAIL returns nil on harness
+  def most_goals_scored(team_id) #issue # 27 pass
 
     array_of_goals_for_specified_team = []
 
