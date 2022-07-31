@@ -1,8 +1,7 @@
 require 'csv'
 require 'pry'
 require 'data_warehouse'
-require 'season_stats'
-require 'team_stats_shawn'
+
 
 class StatTracker
 
@@ -127,7 +126,6 @@ class StatTracker
     team_search_info = @data_warehouse.teams.find do |team|
       team[:team_id] == search_team_id
     end
-
     {
       "team_id" => team_search_info[:team_id],
       "franchise_id" => team_search_info[:franchiseid],
@@ -136,20 +134,19 @@ class StatTracker
       "link" => team_search_info[:link]
     }
   end
-#=========================================================
+
   def best_season(search_team_id)
     data = @data_warehouse
     team_stats = TeamStats.new(data)
     team_stats.best_season(search_team_id)
   end
-#=========================================================================
+
   def worst_season(search_team_id)
     data = @data_warehouse
     team_stats = TeamStats.new(data)
     team_stats.worst_season(search_team_id)
   end
 
-  #=========================================================================
   def average_win_percentage(search_team_id)
     all_win_info = []
       @data_warehouse.game_teams.each do |game_team|
@@ -159,14 +156,12 @@ class StatTracker
       end
     all_win_info = (all_win_info.count.to_f / @data_warehouse.game_teams.count.to_f).round(2)
   end
-  #=========================================================================
 
   def most_goals_scored(search_team_id)
     data = @data_warehouse
     team_stats = TeamStats.new(data)
     team_stats.most_goals_scored(search_team_id)
   end
-  #=========================================================================
 
   def fewest_goals_scored(search_team_id)
     data = @data_warehouse
