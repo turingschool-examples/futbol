@@ -183,6 +183,7 @@ class StatTracker
   def team_by_id #helper method for issue #14
     @teams.values_at(:team_id, :teamname).to_h
   end
+require 'pry';binding.pry
 
   def average_scores_by_team_id(*game_type) #helper method for issue #14
     average_scores= {}
@@ -311,7 +312,7 @@ class StatTracker
         end
       end
     end
-  end
+  
 
     all_tackles = []
     games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
@@ -473,6 +474,7 @@ class StatTracker
   #issue # 29 - Fail due to not written
   def favorite_opponent(team_id)#issue # 29
     #Name of the opponent that has the lowest win percentage against the given team.
+
     #Need : total number of games between team id vs other teams 
     #     : games won by team id 
 
@@ -493,8 +495,11 @@ class StatTracker
 
     #for each 
    
-    
+    opponent_hash = Hash.new{|h,k| h[k] = [0.0, 0.0]}
+    games_by_team.each do |game|
+      require 'pry'; binding.pry 
 
+    end
 
   end
 
