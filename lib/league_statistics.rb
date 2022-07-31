@@ -17,14 +17,19 @@ class LeagueStatistics
     return_team_name(best_team[0])
   end
 
+  def worst_offense
+    worst_team = team_goal_stats_averages.min_by {|team, average| average}
+    return_team_name(worst_team[0])
+  end
+
   def highest_scoring_visitor
     best_team = team_goal_stats_averages("away").max_by {|team, average| average}
     return_team_name(best_team[0])
   end
 
-  def worst_offense
-    worst_team = team_goal_stats_averages.min_by {|team, average| average}
-    return_team_name(worst_team[0])
+  def highest_scoring_home_team
+    best_team = team_goal_stats_averages("home").max_by {|team, average| average}
+    return_team_name(best_team[0])
   end
 
   def team_goal_stats_averages(hoa_type = nil)
@@ -63,7 +68,7 @@ class LeagueStatistics
   end
 
   def return_team_name(team_id)
-    team_name = ""
+    team_name = nil
     @data_set[:teams].each do |row|
       if row[:team_id] == team_id
         team_name = row[:teamname]

@@ -52,8 +52,18 @@ RSpec.describe LeagueStatistics do
     end
   end
   describe '.highest_scoring_home_team' do
-    xit 'can return the name of the team with the highest average score while home' do
+    it 'can return the name of the team with the highest average score while home' do
       expect(@league_statistics.highest_scoring_home_team).to eq("Reign FC")
+    end
+  end
+  describe '.lowest_scoring_visitor' do
+    it 'can return the name of the team with the lowest average score while visiting' do
+      expect(@league_statistics.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
+  end
+  describe '.lowest_scoring_home_team' do
+    it 'can return the name of the team with the lowest average score while home' do
+      expect(@league_statistics.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
   end
 end
