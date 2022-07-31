@@ -31,6 +31,8 @@ class StatTracker
   def least_accurate_team(season) @seasons[season.to_i].least_accurate_team(season) end
   def most_tackles(season) @seasons[season.to_i].most_tackles end
   def fewest_tackles(season) @seasons[season.to_i].fewest_tackles end
+  def winningest_coach(season) @seasons[season.to_i].winningest_coach end
+  def worst_coach(season) @seasons[season.to_i].worst_coach end
 
   #Team Stats
   def rival(team) @teams[team.to_i].rival end
@@ -38,4 +40,25 @@ class StatTracker
   def best_season(team) @teams[team.to_i].best_season end
   def worst_season(team) @teams[team.to_i].worst_season end
 
+  # def winningest_coach
+  #   coaches_with_best_percentage = Hash.new(0)
+    
+  #   coaches = @game_teams[:head_coach].uniq
+  #   require 'pry'; binding.pry
+  #   coaches.each do |coach|
+  #     total_wins_in_season = 0
+  #     total_games_in_season = 0
+      
+  #     @game_teams.each do |game_team|
+  #       if game_team[:head_coach] == coach
+  #         game_team[:result] == "WIN" 
+  #         total_wins_in_season += 1
+  #      # "WIN" game_team[:coach] += 1
+  #         total_games_in_season += 1
+  #       end
+  #     end
+  #     best_win_percentage[season] = total_wins_in_season.to_f / total_games_in_season 
+  #   end
+  #   coaches_with_best_percentage
+  # end
 end
