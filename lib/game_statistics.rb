@@ -1,18 +1,13 @@
 require 'csv'
-require './lib/stat_tracker'
-require './lib/game_stat_module'
+require_relative './stat_tracker'
+require_relative './game_stat_module'
 
 class GameStatistics 
   include GameStatsable
 
-  def initialize(locations)
-    @locations = locations
-    @games_data = CSV.read(@locations[:games], headers: true, header_converters: :symbol)
-    @teams_data = CSV.read(@locations[:teams], headers: true, header_converters: :symbol)
-    @game_teams_data = CSV.read(@locations[:game_teams], headers: true, header_converters: :symbol)
-    
-    @game_location = game_location
-  
+  def initialize
+    @games_data = CSV.read './data/mock_games.csv', headers: true, header_converters: :symbol
+    @game_teams_data = CSV.read './data/mock_game_teams.csv', headers: true, header_converters: :symbol
   end
 
   def self.from_csv(locations)
@@ -29,48 +24,11 @@ class GameStatistics
   end
 
   def percentage_home_wins
-    percentage_wins_for_team_playing(home_or_away)
-    wins = 0
-    total_games = 0
-
-    @game_teams_data.each do |row|
-        if row[:hoa] == @game_location
-          
-          if row[:result] == 'WIN'
-            wins += 1
-            total_games += 1
-        
-          elsif row[:result] == 'LOSS' 
-            total_games += 1
-
-          elsif row[:result] == 'TIE'
-            total_games += 1
-          end
-        end
-    end
-      (wins / total_games.to_f).round(2)
+    percentage_wins_for_team_playing('home')
   end
 
   def percentage_visitor_wins
-    wins = 0
-    total_games = 0
-
-    @game_teams_data.each do |row|
-        if row[:hoa] == 'away'
-          
-          if row[:result] == 'WIN'
-            wins += 1
-            total_games += 1
-        
-          elsif row[:result] == 'LOSS' 
-            total_games += 1
-
-          elsif row[:result] == 'TIE'
-            total_games += 1
-          end
-        end
-    end
-      (wins / total_games.to_f).round(2)
+    percentage_wins_for_team_playing('away')
   end
 
   def percentage_ties
@@ -83,9 +41,7 @@ class GameStatistics
           if row[:result] == 'TIE'
             tie += 1
             total_games += 1
-          elsif row[:result] == 'LOSS' 
-            total_games += 1
-          elsif row[:result] == 'WIN'
+          elsif row[:result] == 'LOSS' || 'WIN'
             total_games += 1
           end
         end
@@ -96,14 +52,10 @@ class GameStatistics
   def count_of_games_by_season    
     season_games = {}
 
-    seasons = @games_data.map do |row|
-      row[:season] 
-    end
+    seasons = @games_data.map { |row|row[:season] }
     seasons = seasons.uniq!
   
-    seasons.each do |season|
-      season_games[season] = 0
-    end
+    seasons.each { |season| season_games[season] = 0 }
 
     season_games.each do |season, games|
         @games_data.each do |row|
