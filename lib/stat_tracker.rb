@@ -111,16 +111,6 @@ class StatTracker
     team_id_to_name[home_scores_average[0]]
   end
 
-  # def most_goals_scored(team_id)  #use game_teams, iterate thru game_teams and find the max
-  #   @game_teams.map do |game|
-  #     if team_id == game.team_id
-
-  #       game.goals.to_i
-  #       require 'pry';binding.pry
-  #       end
-  #     end
-  #   end
-
   def most_goals_scored(team_id)
     goals_by_game = []
     @game_teams.each do |game|
@@ -188,11 +178,6 @@ class StatTracker
     end
   end
 
-  def team_season_game_counter(team_id) #incomplete helper
-    games_by_season_hash = team_season_grouper(team_id)
-  end
-
-
   def team_info(team_id)
     team_hash = Hash.new(0)
     @teams.each do |team|
@@ -207,42 +192,37 @@ class StatTracker
     team_hash
   end
 
-
-  def best_season(team_id) #this is not done and the one below needs to be refactored or tossed out and become a helper. this groups a team's seasons into arrays
-    # max of total number of wins (home wins and away wins) in a season/total number of games in a season
-    #by using season_grouper, we get a hash with 6 keys(the seasons). the values of each key are the games in that season
-    #we can use all_team_games to create an array of all of a team's games. how do we split this by season?
-    all_games = all_team_games(team_id)
-    seasons_hash = season_grouper
-    season_1 = []
-    season_2 = []
-    season_3 = []
-    season_4 = []
-    season_5 = []
-    season_6 = []
-    all_games.each do |game|
-      if game.season == "20122013"
-        season_1 << game
-      elsif game.season == "20132014"
-        season_2 << game
-      elsif game.season == "20142015"
-        season_3 << game
-      elsif game.season == "20152016"
-        season_4 << game
-      elsif game.season == "20162017"
-        season_5 << game
-      elsif game.season == "20172018"
-        season_6 << game
-      end
+  def best_season(team_id)  #we need a hash with each season as the keys and the win % for the season as the value
+    games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the valueq
+    win_percent_hash = Hash.new([])
+    games_by_season.flat_map do |season, games|
+      game_count = games.count
+      home_wins = games.find_all {|game| (game.home_goals > game.away_goals) && team_id == game.home_team_id}.count
+      away_wins = games.find_all {|game| (game.away_goals > game.home_goals) && team_id == game.away_team_id}.count
+      win_percent =((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      win_percent_hash[season] = win_percent
     end
-    season_1
-    season_2
-    season_3
-    season_4
-    season_5
-    season_6
+    ranked_seasons = win_percent_hash.max_by do |season, win_percent|
+      win_percent
+    end
+    ranked_seasons[0]
   end
 
+  def worst_season(team_id)  #we need a hash with each season as the keys and the win % for the season as the value
+    games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the valueq
+    win_percent_hash = Hash.new([])
+    games_by_season.flat_map do |season, games|
+      game_count = games.count
+      home_wins = games.find_all {|game| (game.home_goals > game.away_goals) && team_id == game.home_team_id}.count
+      away_wins = games.find_all {|game| (game.away_goals > game.home_goals) && team_id == game.away_team_id}.count
+      win_percent =((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      win_percent_hash[season] = win_percent
+    end
+    ranked_seasons = win_percent_hash.min_by do |season, win_percent|
+      win_percent
+    end
+    ranked_seasons[0]
+  end
 
   def lowest_total_score
     high_low_added = @games.map do |game|
@@ -286,7 +266,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    twelve_season = @games.find_all do |game|
+    twelve_season = @games.find_all do |game| #returns an array of all games for the season
       game.season == "20122013"
     end
     sixteen_season = @games.find_all do |game|
@@ -306,8 +286,8 @@ class StatTracker
     end
     hash = Hash.new(0)
     @games.each do |game|
-      hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
-    end
+      hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i)) 
+    end  #hash is a hash with the season as the key (string) and the total goals for the season as the value
 
     hash.map do |season, total|
       if season == "20122013"
@@ -324,7 +304,8 @@ class StatTracker
         hash[season] = (total / (seventeen_season.count).to_f).round(2)
       end
     end
-    hash
+
+    hash #hash is now a hash with the season (string) as key and average goals as the value
   end
 
   def count_of_teams
@@ -332,13 +313,12 @@ class StatTracker
   end
 
   def best_offense
-    team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
-
+    team_scores = Hash.new { |h, k| h[k] = [] } #team_scores is a hash with team id as the key and an array of goals/game as values
+    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f } #using the shovel pushes the value into the empty array
     team_scores_average =
       team_scores.map do |id, scores|
         average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
+        [id, average]   #this creates a 2 item array with the team id (string) as the first thing and the team's average goald as the second
       end.max { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
     team_id_to_name[team_scores_average[0]]
   end

@@ -162,19 +162,20 @@ describe StatTracker do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
-  it 'can group a teams games by season in games' do
-
-    expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
+  it "can group a teams games by season in games" do
+    expect(@stat_tracker.team_season_grouper("6")).to be_a(Hash)
   end
 
-  xit 'can tell which season is a teams best' do
-
-
+  it "can tell which season is a teams best" do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
    end
 
   it "can count the total number of teams" do
     expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
+  it "can tell which season is a teams worst" do
+    expect(@stat_tracker.worst_season("6")).to eq("20142015")
   end
 
   it "gives a hash of team id to team name" do
