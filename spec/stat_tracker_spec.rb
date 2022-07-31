@@ -162,12 +162,12 @@ describe StatTracker do
     expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
   end
 
-  it "can calculate the lowest average of an array in an array of team_id, average" do
+  it "can calculate the lowest average of an array in an array of team_id, average" do #helper method
     average = [["3", 2.1], ["6", 2.28], ["16", 2.23], ["5", 2.39], ["8", 2.08]]
     expect(@stat_tracker.minimum(average)).to eq(["8", 2.08])
   end
 
-  it "can calculate the highest average of an array in an array of team_id, average" do
+  it "can calculate the highest average of an array in an array of team_id, average" do #helper method
     average = [["3", 2.1], ["6", 2.28], ["16", 2.23], ["5", 2.39], ["8", 2.08]]
     expect(@stat_tracker.maximum(average)).to eq(["5", 2.39])
   end
@@ -267,19 +267,64 @@ describe StatTracker do
   end
 
   it "can isolate a single teams games in games" do #game helper
-    expect(@stat_tracker.all_team_games("6")).to be_an(Array)
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker_dummy.all_team_games("3")).to be_an(Array)
+    expect(@stat_tracker_dummy.all_team_games("3").map {|game| game.game_id}).to eq(["2012030221",
+                                                                                     "2012030222",
+                                                                                     "2012030223",
+                                                                                     "2012030224",
+                                                                                     "2012030225"])
   end
 
   it "can isolate a teams games by season in games" do #game helper
-    expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker_dummy.get_teamgames_by_single_season("6", "20122013")).to be_an(Array)
+    expect(@stat_tracker_dummy.get_teamgames_by_single_season("6", "20122013").map {|game| game.date_time}).to eq(["5/16/13",
+                                                                                           "5/19/13",
+                                                                                           "5/21/13",
+                                                                                           "5/23/13",
+                                                                                           "5/25/13",
+                                                                                           "6/2/13",
+                                                                                           "6/4/13",
+                                                                                           "6/6/13",
+                                                                                           "6/8/13"])
   end
 
   it "can find a teams average win percentage" do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
-  it "can group a teams games by season in games" do
+  it "can group a teams games by season in games" do #helper
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+
     expect(@stat_tracker.team_season_grouper("6")).to be_a(Hash)
+    expect(@stat_tracker.team_season_grouper("6").keys).to eq(["20122013", "20172018", "20132014", "20142015", "20152016", "20162017"])
   end
 
   it "can tell which season is a teams best" do
@@ -295,8 +340,28 @@ describe StatTracker do
   end
 
   it "gives a hash of team id to team name" do #team_id_to_name helper
-    expect(@stat_tracker.team_id_to_name.length).to eq(32)
-    expect(@stat_tracker.team_id_to_name).to be_a(Hash)
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker_dummy.team_id_to_name.length).to eq(9)
+    expect(@stat_tracker_dummy.team_id_to_name).to be_a(Hash)
+    expect(@stat_tracker_dummy.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])
+    expect(@stat_tracker_dummy.team_id_to_name.values).to eq(["Atlanta United",
+                                                               "Chicago Fire",
+                                                               "FC Cincinnati",
+                                                               "DC United",
+                                                               "FC Dallas",
+                                                               "Houston Dynamo",
+                                                               "Sporting Kansas City",
+                                                               "LA Galaxy",
+                                                               "Los Angeles FC"])
   end
 
   it "can calculate which team had the best offense" do

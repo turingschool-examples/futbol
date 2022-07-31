@@ -140,7 +140,7 @@ class StatTracker
     (total_wins.to_f / total_games).round(2)
   end
 
-  def season(team_id, season) #games helper, returns array of all of a team's games for one season
+  def get_teamgames_by_single_season(team_id, season) #games helper, returns array of all of a team's games for one season
     games_by_season = []
     @games.each do |game|
       if (game.home_team_id == team_id || game.away_team_id == team_id) && game.season == season
