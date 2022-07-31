@@ -87,14 +87,26 @@ class Team
     win_percentages_by_season.min_by{ |season, win_percent| win_percent }.first.to_s
   end
 
+  def home_and_away_goals
+     total_home_goals_hash = Hash.new(0)
+     total_away_goals_hash = Hash.new(0)
+     @games_participated_in.each do |goal|
+       home_teams = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:team_id]}
+       home_goals = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:goals]}
+       away_teams = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:team_id]}
+       away_goals = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:goals]}
+       total_home_goals_hash[home_teams.zip(home_goals)]
+       total_away_goals_hash[away_teams.zip(away_goals)]
+       total_goals_hash = total_home_goals_hash.merge!(total_away_goals_hash)
+     end
+  end
+
   def most_goals_scored
-    home = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:goals]}.max
-    away = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:goals]}.max
+    home_and_away_goals.max_by{ |team, goal| goals }.first
   end
 
   def fewest_goals_scored
-    home = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:goals]}.min
-    away = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:goals]}.min
+    home_and_away_goals.min_by{ |team, goal| goals }.first
   end
 
   def self.generate_teams(team_csv)
