@@ -223,11 +223,13 @@ class StatTracker
     # Example hash: {20132014=> [{:team_id=>1, :win_perc=>50.0}, {:team_id=>4, :win_perc=>40.0}, {:team_id=>26, :win_perc=>100.0}
     team_win_percent = Hash.new {0}
     team_by_id.each do |id , team|
-      season_win_percentage(id).each do |season, win|
-        if team_win_percent[season] == 0
-          team_win_percent[season] = [{team_id: id, win_perc: win}]
-        else
-          team_win_percent[season] << {team_id: id, win_perc: win}
+        season_win_percentage(id).each do |season, win|
+          if number_team_games_per_season(id)[season] != (0.0 || 0)
+            if team_win_percent[season] == 0
+              team_win_percent[season] = [{team_id: id, win_perc: win}]
+            else
+              team_win_percent[season] << {team_id: id, win_perc: win}
+          end
         end
       end
     end
