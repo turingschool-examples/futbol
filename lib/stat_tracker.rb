@@ -90,7 +90,7 @@ class StatTracker
   end
 
   def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers
-    total_scores_by_game.sum/@games.size
+    (total_scores_by_game.sum/@games.count.to_f).round(2)    
   end
 
   def average_goals_by_season #issue #9 - Pass

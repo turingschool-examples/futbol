@@ -79,7 +79,7 @@ describe StatTracker do
     end
 
     it 'average goals' do #FAIL - Need to make this test eq 0.99 not whole numbers
-      expect(@stat_tracker.average_goals_per_game).to eq(4.__)
+      expect(@stat_tracker.average_goals_per_game).to eq(3.9)
     end
 
     it 'returns hash with season name and average goals for each season ' do #Pass
