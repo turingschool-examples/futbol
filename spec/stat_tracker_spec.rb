@@ -52,7 +52,6 @@ RSpec.describe StatTracker do
 
     it 'can return a hash of the count of games by season' do
       expect(@stat_tracker.count_of_games_by_season).to eq({'20122013'=>5, '20142015'=>7, '20132014'=>4, '20152016'=>4})
-      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>5, "20142015"=>7, "20132014"=>4, "20152016"=>4})
     end
 
     it 'can return the team name of the Team with the worst/best offense' do
@@ -96,11 +95,11 @@ RSpec.describe StatTracker do
     end
 
     it 'can show coach with highest win percentage for a season' do
-      expect(@stat_tracker.winningest_coach("20142015")).to eq("Jon Cooper")
+      expect(@stat_tracker.winningest_coach("20142015")).to eq("Claude Julien")
     end
 
     it 'can show coach with lowest win percentage for a season' do
-      expect(@stat_tracker.worst_coach("20142015")).to eq("Claude Julien") 
+      expect(@stat_tracker.worst_coach("20142015")).to eq("Dan Bylsma")
     end
 
     it 'can return a hash of the average goals by season' do
