@@ -162,13 +162,9 @@ class StatTracker
   #=========================================================================
 
   def most_goals_scored(search_team_id)
-    highest_goals_scored = []
-      @data_warehouse.game_teams.each do |game_team|
-      if game_team[:team_id] == search_team_id
-        highest_goals_scored << game_team[:goals]
-        end
-      end
-      highest_goals_scored.sort.last.to_i
+    data = @data_warehouse
+    team_stats = TeamStats.new(data)
+    team_stats.most_goals_scored(search_team_id)
   end
   #=========================================================================
 
@@ -181,14 +177,12 @@ class StatTracker
       end
       fewest_goals_scored.sort.first.to_i
   end
-  #=========================================================================
 
   def favorite_opponent(search_team_id)
     data = @data_warehouse
     team_stats = TeamStats.new(data)
     team_stats.favorite_opponent(search_team_id)
   end
-  #=========================================================================
 
   def rival(search_team_id)
     data = @data_warehouse
@@ -196,7 +190,6 @@ class StatTracker
     team_stats.rival(search_team_id)
   end
 
-#######################
   def winningest_coach(target_season)
     data = @data_warehouse.data_by_season(target_season)
     season_stats = SeasonStats.new(data)

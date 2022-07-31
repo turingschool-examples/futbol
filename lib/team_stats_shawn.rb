@@ -12,6 +12,10 @@ class TeamStats
     ((season_stats(search_team_id).tally.values.sort.first.to_f / @data.games.count) * 100).round(2).to_s
   end
 
+  def most_goals_scored(search_team_id)
+    goals_scored(search_team_id).sort.last.to_i
+  end
+
   def favorite_opponent(search_team_id)
     team_id = opponent_name(search_team_id).last.first
     team_name = ""
@@ -75,5 +79,15 @@ class TeamStats
     sorted_losing_teams = losing_teams.tally.sort_by do |key, value|
     value
     end
+  end
+
+  def goals_scored(search_team_id)
+    highest_goals_scored = []
+      @data.game_teams.each do |game_team|
+      if game_team[:team_id] == search_team_id
+        highest_goals_scored << game_team[:goals]
+        end
+      end
+      highest_goals_scored
   end
 end
