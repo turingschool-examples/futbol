@@ -27,5 +27,4 @@ class DataWarehouse
     @teams[:team_id].zip(@teams[:teamname]).to_h
   end
 
-
 end
