@@ -71,7 +71,11 @@ class StatTracker
     ((ties/total_games)*100).round(1)
   end
 
+<<<<<<< HEAD
   def count_of_games_by_season #issue 7 - season(key) out put nees to be string
+=======
+  def count_of_games_by_season #issue 7, also helper for #9
+>>>>>>> 7eb9b5e0a931b4590999bad1e3492248acef2c96
     counts = {}
     games.each do |game|
         season = game[:season]
@@ -93,11 +97,24 @@ class StatTracker
     total_scores_by_game.sum/@games.size
   end
 
+<<<<<<< HEAD
   def average_goals_by_season #issue #9 - returning nil in spec harness
 
+=======
+  def average_goals_by_season #issue #9
+    my_hash = Hash.new { |h,k| h[k] = [] }
+
+      count_of_games_by_season.each do |season, game_count|
+        my_hash[season.to_s] = [] 
+        game_sum_calc = []
+        games.each do |row| 
+          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season
+          my_hash[season.to_s] = (game_sum_calc.sum / game_count.to_f).round(2)
+        end
+      end
+      my_hash
+>>>>>>> 7eb9b5e0a931b4590999bad1e3492248acef2c96
   end
-
-
 
   def game_wins #Helper method not yet used
     win = 0.0
@@ -191,8 +208,9 @@ class StatTracker
   end
 
   def lowest_scoring_visitor #issue # 15
-
-
+    lowest_average = average_scores_by_team_id("away").values.min
+    team_by_id[average_scores_by_team_id("away").key(lowest_average)]
+  
 
   end
 
@@ -275,10 +293,42 @@ class StatTracker
 
   end
 
-  def most_tackles #issue # 21
+  def most_tackles(season_id) #issue # 21
 
+    all_season_ids = []
+    games.each do |row|
+      all_season_ids << row[:season]
+    end
 
+    unique_season_ids = all_season_ids.uniq
+    games_in_season_hash = {}
 
+    unique_season_ids.each do |season|
+      games_in_season_hash[season] = [[], {"team_id_and_tackles" => []}]
+    end
+
+    games.each do |row|
+      games_in_season_hash[row[:season]][0] << row[:game_id]
+    end 
+
+    games_in_season_hash.each do |season, games|
+      game_teams.each do |row|
+        if games[0].include?(row[:game_id])
+          games[1]["team_id_and_tackles"] << row.values_at(:team_id, :tackles)
+        end
+      end
+    end
+  
+    all_tackles = [] 
+    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
+      all_tackles << pair[1]
+    end
+    highest_tackles = all_tackles.max()
+
+      highest_tackle_pair = games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].find_all do |pair|
+        pair[1] == highest_tackles
+      end
+      team_by_id[highest_tackle_pair[0][0]]
   end
 
   def fewest_tackles #issue # 22
