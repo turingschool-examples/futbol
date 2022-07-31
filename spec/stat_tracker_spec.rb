@@ -6,9 +6,9 @@ describe StatTracker do
 
   before :each do
 
-    @game_path = './data/games_dummy.csv'
+    @game_path = './data/games_dummy_revised.csv'
     @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams_dummy.csv'
+    @game_teams_path = './data/game_teams_dummy_revised.csv'
 
     @locations = {
       games: @game_path,
@@ -151,12 +151,9 @@ describe StatTracker do
       expect(@stat_tracker.least_accurate_team).to eq("")
     end
 
-
-    it 'can show name of the team with most tackles in the season' do #FAIL - Wrong team returing
-      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    it 'can show name of the team with most tackles in the season' do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("Chicago Fire")
     end
-
-  end
 
   describe 'Team Statistics' do
 
