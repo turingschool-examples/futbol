@@ -16,11 +16,11 @@ describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  xit "exists" do
+  it "exists" do
     expect(@stat_tracker).to be_a(StatTracker)
   end
 
-  xit "has games" do
+  it "has games" do
     stat_tracker = StatTracker.new(
       [{ game_id: "2012030221",
          season: "20122013",
@@ -62,14 +62,14 @@ describe StatTracker do
     expect(stat_tracker.game_teams.length).to eq(1)
   end
 
-  xit "has the right class when reading from csv" do
+  it "has the right class when reading from csv" do
     expect(@stat_tracker).to be_a(StatTracker)
     expect(@stat_tracker.games).to be_a(Array)
     expect(@stat_tracker.teams).to be_a(Array)
     expect(@stat_tracker.game_teams).to be_a(Array)
   end
 
-  xit "is reading the full csv file" do
+  it "is reading the full csv file" do
     expect(@stat_tracker.games.length).to eq(7441)
     expect(@stat_tracker.teams.length).to eq(32)
     expect(@stat_tracker.game_teams.length).to eq(14882)
@@ -83,19 +83,19 @@ describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
-  xit "can calculate the games precentage home wins" do
+  it "can calculate the games precentage home wins" do
     expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
-  xit "can calculate the games percentage visitor wins" do
+  it "can calculate the games percentage visitor wins" do
     expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
   end
 
-  xit "can calculate the games percentage ties" do
+  it "can calculate the games percentage ties" do
     expect(@stat_tracker.percentage_ties).to eq(0.20)
   end
 
-  xit "can calculate the games count of games by season" do
+  it "can calculate the games count of games by season" do
     expected = {
       "20122013" => 806,
       "20162017" => 1317,
@@ -108,7 +108,7 @@ describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
   end
 
-  xit "can calculate the games count of games by season for different data" do
+  it "can calculate the games count of games by season for different data" do
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -123,11 +123,11 @@ describe StatTracker do
     expect(@stat_tracker_dummy.count_of_games_by_season).to eq(expected)
   end
 
-  xit "can calculate the games average goals per game" do
+  it "can calculate the games average goals per game" do
     expect(@stat_tracker.average_goals_per_game).to eq(4.22)
   end
 
-  xit "can calculate the games average goals by season" do
+  it "can calculate the games average goals by season" do
     expected = {
       "20122013" => 4.12,
       "20162017" => 4.23,
@@ -139,7 +139,7 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-  xit "can calculate the games average goals by season for dummy data" do
+  it "can calculate the games average goals by season for dummy data" do
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -154,7 +154,7 @@ describe StatTracker do
     expect(@stat_tracker_dummy.average_goals_by_season).to eq(expected)
   end
 
-  xit "can count the total number of teams" do
+  it "can count the total number of teams" do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
 
@@ -182,17 +182,17 @@ describe StatTracker do
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
-  xit "can name the team with the best shot accuracy" do
+  it "can name the team with the best shot accuracy" do
     expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  xit "can name the team with the worst shot accuracy" do
+  it "can name the team with the worst shot accuracy" do
     expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  xit "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
+  it "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
     expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
@@ -202,39 +202,51 @@ describe StatTracker do
     })
   end
 
-  xit "can tell the most goals a team has scored in a game across all seasons" do
+  it "can tell the most goals a team has scored in a game across all seasons" do
     expect(@stat_tracker.most_goals_scored("18")).to eq(7)
   end
 
-  xit "can tell the fewest goals a team has scored in a game across all seasons" do
+  it "can tell the fewest goals a team has scored in a game across all seasons" do
     expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
-  xit "can isolate a single teams games in game_teams" do #game_teams helper
-    expect(@stat_tracker.team_isolator("6")).to be_an(Array)
+  it "can isolate a single teams games in game_teams" do #game_teams helper
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+    # don't know how to reference games but this is an almost complete test.
+    # expect(@stat_tracker_dummy.team_isolator("6").size).to eq([game1, game2, game3, game4])
+    expect(@stat_tracker_dummy.team_isolator("6").size).to eq(4)
+    expect(@stat_tracker_dummy.team_isolator("6")).to be_an(Array)
   end
 
-  xit "can isolate a single teams wins in game_teams" do #game_teams helper
+  it "can isolate a single teams wins in game_teams" do #game_teams helper
     expect(@stat_tracker.win_isolator("6")).to be_an(Array)
   end
 
-  xit "can group games by season in games" do #game helper
+  it "can group games by season in games" do #game helper
     expect(@stat_tracker.season_grouper).to be_a(Hash)
   end
 
-  xit "can isolate a single teams games in games" do #game helper
+  it "can isolate a single teams games in games" do #game helper
     expect(@stat_tracker.all_team_games("6")).to be_an(Array)
   end
 
-  xit "can isolate a teams games by season in games" do #game helper
+  it "can isolate a teams games by season in games" do #game helper
     expect(@stat_tracker.season("6", "20122013")).to be_an(Array)
   end
 
-  xit "can find a teams average win percentage" do
+  it "can find a teams average win percentage" do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
-  xit "can group a teams games by season in games" do
+  it "can group a teams games by season in games" do
     expect(@stat_tracker.team_season_grouper("6")).to be_a(Hash)
   end
 
@@ -250,7 +262,7 @@ describe StatTracker do
     expect(@stat_tracker.worst_season("6")).to eq("20142015")
   end
 
-  xit "gives a hash of team id to team name" do #team_id_to_name helper
+  it "gives a hash of team id to team name" do #team_id_to_name helper
     expect(@stat_tracker.team_id_to_name.length).to eq(32)
     expect(@stat_tracker.team_id_to_name).to be_a(Hash)
   end
@@ -285,11 +297,11 @@ describe StatTracker do
     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
 
-  xit "can find favorite opponent for a given team" do
+  it "can find favorite opponent for a given team" do
     expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
   end
 
-  xit "can find rival for a given team" do
+  it "can find rival for a given team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
 
