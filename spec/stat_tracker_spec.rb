@@ -258,7 +258,7 @@ describe StatTracker do
     expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
   end
 
-  xit "can tell which season is a teams best" do
+  it "can tell which season is a teams best" do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
   end
 
