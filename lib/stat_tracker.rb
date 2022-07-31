@@ -252,12 +252,12 @@ class StatTracker
   def winningest_coach(season) #issue # 17 - FAIL wrong name returns
    # Name of the Coach with the best win percentage for the season
    highest_percent_wins = team_win_percent_by_season[season.to_i].max_by {|stat| stat[:win_perc]}
-   coach_by_team_id[highest_percent_wins[:team_id]]
+   coach_by_team_id[highest_percent_wins[:team_id]][season.to_i].sample
   end
 
   def worst_coach(season)#issue # 27 - FAIL wrong name returns
     lowest_percent_wins = team_win_percent_by_season[season.to_i].min_by {|stat| stat[:win_perc]}
-    coach_by_team_id[lowest_percent_wins[:team_id]]
+    coach_by_team_id[lowest_percent_wins[:team_id]][season.to_i].sample
   end
 
   def game_teams_for_game_id(game_id) #Helper method for issue #28, may be able to be used for other season stats
