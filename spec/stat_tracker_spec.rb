@@ -158,7 +158,7 @@ describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
   
-  xit "can calculate which team had the best offense" do
+  it "can calculate which team had the best offense" do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
   end
 
@@ -170,7 +170,7 @@ describe StatTracker do
     expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
   end
 
-  xit "can calculate which team was the highest scoring home team" do
+  it "can calculate which team was the highest scoring home team" do
     expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
   end
 
@@ -187,7 +187,12 @@ describe StatTracker do
     expect(@stat_tracker.minimum(average)).to eq(["8", 2.08])
   end
 
-  xit 'can name the coach with the best winning percentage' do
+  it 'can calculate the highest average of an array in an array of team_id, average' do
+    average = [["3", 2.1],["6", 2.28],["16", 2.23],["5", 2.39],["8", 2.08]]
+    expect(@stat_tracker.maximum(average)).to eq(["5", 2.39])
+  end
+
+  it 'can name the coach with the best winning percentage' do
     expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
     expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
   end
@@ -207,7 +212,7 @@ describe StatTracker do
     expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  xit 'can name the team with the most tackles made' do
+  it 'can name the team with the most tackles made' do
     expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
@@ -272,7 +277,7 @@ describe StatTracker do
     expect(@stat_tracker.team_id_to_name).to be_a(Hash)
   end
 
-  xit "can calculate which team had the best offense" do
+  it "can calculate which team had the best offense" do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
   end
 
@@ -282,10 +287,6 @@ describe StatTracker do
 
   it "can calculate which team was the highest scoring visitor" do
     expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
-  end
-
-  it "can calculate which team was the highest scoring home team" do
-    expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
   end
 
   it "it can calculate which team was the lowest scoring visitor" do
