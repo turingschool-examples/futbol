@@ -297,10 +297,11 @@ class StatTracker
         shots << [row[:shots]]
         end
       end
+      shots.flatten.sum
     end
 
 
-  def least_accurate_team #issue # 20 - FAIL not written yet
+  def least_accurate_team #issue # 29
 
 
 

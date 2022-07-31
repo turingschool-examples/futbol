@@ -143,6 +143,14 @@ describe StatTracker do
       expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
     end
 
+    it 'can count goals' do 
+      expect(@stat_tracker.goals_by_team(16)).to eq(31)
+    end
+
+    it 'can count shots' do 
+      expect(@stat_tracker.shots_by_team(16)).to eq(127)
+    end
+
     xit 'can show name of the team with the worst ratio of shots to goals for the season' do #FAIL - not yet written
       expect(@stat_tracker.least_accurate_team).to eq("")
     end
@@ -176,8 +184,7 @@ describe StatTracker do
       expect(@stat_tracker.most_goals_scored(1)).to eq(1)
     end
 
-    xit 'can return lowest number of goals a particular team has scored in a single game' do #FAIL - Fail due to not written
-       expect(@stat_tracker.fewest_goals_scored).to eq#(integer)
+    xit 'can return lowest number of goals a particular team has scored in a single game' do #FAIL - Fail due to not written31    expect(@stat_tracker.fewest_goals_scored).to eq#(integer)
     end
 
     xit 'can return name of the opponent that has the lowest win percentage against the given team' do #FAIL - Fail due to not written
