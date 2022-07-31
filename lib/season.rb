@@ -62,4 +62,30 @@ class Season
   def least_accurate_team(season_id)
     shots_by_team_per_season_avg(season_id).min_by{ |team_name, avg_shots| avg_shots}.first
   end
+
+  def winningest_coach
+   coach_percentages.max_by{|coach_name, percentage_wins| percentage_wins}.first
+  end
+
+  def worst_coach
+    coach_percentages.min_by{|coach_name, percentage_wins| percentage_wins}.first
+  end
+
+  def coach_percentages
+    games_results = Hash.new{|hash, coach| hash[coach] = []}
+    @games_in_season.each do |game|
+      away_team_stats = game.teams_game_stats[:away_team]
+      home_team_stats = game.teams_game_stats[:home_team]
+      games_results[away_team_stats[:head_coach]] << away_team_stats[:result]
+      games_results[home_team_stats[:head_coach]] << home_team_stats[:result]
+    end
+    coach_stats = {}
+    games_results.each do |coach_name, game_results|
+      wins = games_results["Jon Cooper"].select{|result| result == "WIN"}.count
+      coach_stats[coach_name] = (wins.to_f / game_results.length).round(2)
+    end
+    coach_stats
+  end
+  
+    
 end
