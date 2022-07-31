@@ -16,6 +16,10 @@ class TeamStats
     goals_scored(search_team_id).sort.last.to_i
   end
 
+  def fewest_goals_scored(search_team_id)
+    goals_scored(search_team_id).sort.first.to_i
+  end
+
   def favorite_opponent(search_team_id)
     team_id = opponent_name(search_team_id).last.first
     team_name = ""

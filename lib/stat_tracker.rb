@@ -169,13 +169,9 @@ class StatTracker
   #=========================================================================
 
   def fewest_goals_scored(search_team_id)
-    fewest_goals_scored = []
-      @data_warehouse.game_teams.each do |game_team|
-      if game_team[:team_id] == search_team_id
-        fewest_goals_scored << game_team[:goals]
-        end
-      end
-      fewest_goals_scored.sort.first.to_i
+    data = @data_warehouse
+    team_stats = TeamStats.new(data)
+    team_stats.fewest_goals_scored(search_team_id)
   end
 
   def favorite_opponent(search_team_id)
