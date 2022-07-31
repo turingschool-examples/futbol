@@ -31,6 +31,15 @@ class LeagueStatistics
     best_team = team_goal_stats_averages("home").max_by {|team, average| average}
     return_team_name(best_team[0])
   end
+  def lowest_scoring_visitor
+    worst_team = team_goal_stats_averages("away").min_by {|team, average| average}
+    return_team_name(worst_team[0])
+  end
+
+  def lowest_scoring_home_team
+    worst_team = team_goal_stats_averages("home").min_by {|team, average| average}
+    return_team_name(worst_team[0])
+  end
 
   def team_goal_stats_averages(hoa_type = nil)
     # hoa_type determines which hash is returned
