@@ -90,6 +90,7 @@ class Team
   def home_and_away_goals
      total_home_goals_hash = Hash.new(0)
      total_away_goals_hash = Hash.new(0)
+     total_goals_hash = Hash.new(0)
      @games_participated_in.each do |goal|
        home_teams = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:team_id]}
        home_goals = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:goals]}
@@ -102,11 +103,11 @@ class Team
   end
 
   def most_goals_scored
-    home_and_away_goals.max_by{ |team, goal| goals }.first
+    home_and_away_goals.max_by{ |team, goal| total_goals }.first
   end
 
   def fewest_goals_scored
-    home_and_away_goals.min_by{ |team, goal| goals }.first
+    home_and_away_goals.min_by{ |team, goal| total_goals }.first
   end
 
   def self.generate_teams(team_csv)
