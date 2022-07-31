@@ -19,9 +19,7 @@ module GameStats
   end
 
   def percentage_visitor_wins
-    total_away_wins = @games.count do |game|
-      game.winner == :away_team
-    end
+    total_away_wins = @games.count{|game| game.winner == :away_team }
     (total_away_wins/@games.length.to_f).round(2)
   end
 
@@ -32,7 +30,6 @@ module GameStats
 
   def count_of_games_by_season
     games_by_season = Hash.new(0)
-
     @games.each do |game|
       games_by_season[game.season.to_s] += 1
     end

@@ -39,7 +39,6 @@ class Season
 
   def shots_by_team_per_season_avg(season_id)
     shots_and_goals = Hash.new{|hash, team_name| hash[team_name] = Hash.new(0)}
-
     @games_in_season.each do |game|
       away_team = game.teams_game_stats[:away_team][:team_name]
       home_team = game.teams_game_stats[:home_team][:team_name]
@@ -64,7 +63,7 @@ class Season
   end
 
   def winningest_coach
-   coach_percentages.max_by{|coach_name, percentage_wins| percentage_wins}.first
+    coach_percentages.max_by{|coach_name, percentage_wins| percentage_wins}.first
   end
 
   def worst_coach
@@ -81,11 +80,9 @@ class Season
     end
     coach_stats = {}
     games_results.each do |coach_name, game_results|
-      wins = games_results["Jon Cooper"].select{|result| result == "WIN"}.count
+      wins = games_results[coach_name].select{|result| result == "WIN"}.count
       coach_stats[coach_name] = (wins.to_f / game_results.length).round(2)
     end
     coach_stats
   end
-  
-    
 end
