@@ -207,8 +207,8 @@ require 'pry';binding.pry
   end
 
   def lowest_scoring_home_team #issue # 16 - Fail wrong team being returned
-    min_average = average_scores_by_team_id("away").values.min
-    team_by_id[average_scores_by_team_id("away").key(min_average)]
+    min_average = average_scores_by_team_id("home").values.min
+    team_by_id[average_scores_by_team_id("home").key(min_average)]
   end
 
 
@@ -287,7 +287,7 @@ require 'pry';binding.pry
 
   end
 
-  def most_tackles(season_id) #issue # 21 - FAIL - Wrong team returning
+  def most_tackles(season_id) #issue # 21 PASS
 
     all_season_ids = []
     games.each do |row|
@@ -296,7 +296,6 @@ require 'pry';binding.pry
 
     unique_season_ids = all_season_ids.uniq
     games_in_season_hash = {}
-
     unique_season_ids.each do |season|
       games_in_season_hash[season] = [[], {"team_id_and_tackles" => []}]
     end
@@ -314,16 +313,25 @@ require 'pry';binding.pry
     end
   
 
-    all_tackles = []
-    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
-      all_tackles << pair[1]
-    end
-    highest_tackles = all_tackles.max()
+    team_id_and_tackles_hash = {}
+    all_team_ids = []
 
-      highest_tackle_pair = games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].find_all do |pair|
-        pair[1] == highest_tackles
-      end
-      team_by_id[highest_tackle_pair[0][0]]
+    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
+      all_team_ids << pair[0]
+    end
+
+    unique_team_ids = all_team_ids.uniq
+
+    unique_team_ids.each do |teamid|
+      team_id_and_tackles_hash[teamid] = 0
+    end
+
+    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
+      team_id_and_tackles_hash[pair[0]] += pair[1]
+    end
+
+    highest_tackle_pair = team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)
+    team_by_id[highest_tackle_pair]
   end
 
   def fewest_tackles #issue # 22 - not yet written
@@ -447,10 +455,8 @@ require 'pry';binding.pry
 
   end
 
-  def average_win_percentage #issue # 26 - Fail due to not written
-
-
-
+  def average_win_percentage(team_id) #issue # 20
+    (wins_by_team(team_id).count.to_f/games_by_team(team_id).count.to_f).round(2)
   end
 
   def most_goals_scored(team_id) #issue # 27 - FAIL returns nil on harness
