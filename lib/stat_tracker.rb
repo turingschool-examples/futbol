@@ -445,63 +445,63 @@ class StatTracker
     end #there needs to be an end here or you're gonna have trouble
 
 
-      def games_by_season(season_id)
-        game_id_list = []
-        @games.each do |game|
+  def games_by_season(season_id)
+    game_id_list = []
+    @games.each do |game|
 
-          if game.season == season_id
-              game_id_list << game.game_id
-            end
+      if game.season == season_id
+          game_id_list << game.game_id
         end
-        return game_id_list
+    end
+    return game_id_list
+  end
+
+  def most_accurate_team(season_id)
+    ratio = get_ratio(season_id)
+    max_ratio= ratio.max_by{|k,v| v}[0]
+    @teams.each do |team|
+      team_id = team.team_id
+      team_name = team.team_name
+
+      if team_id == max_ratio
+
+        return team_name
       end
+    end
+  end
 
-      def most_accurate_team(season_id)
-        ratio = get_ratio(season_id)
-        max_ratio= ratio.max_by{|k,v| v}[0]
-        @teams.each do |team|
-          team_id = team.team_id
-          team_name = team.team_name
+  def least_accurate_team(season_id)
+    ratio = get_ratio(season_id)
+    min_ratio = ratio.min_by{|k,v| v}[0]
+    @teams.each do |team|
+      team_id = team.team_id
+      team_name = team.team_name
 
-          if team_id == max_ratio
+      if team_id == min_ratio
+        return team_name
+      end
+    end
+  end
 
-            return team_name
-          end
+  def get_ratio(season_id)
+    goals = Hash.new(0)
+    shots = Hash.new(0)
+    ratio = Hash.new(0)
+    game_id_list= games_by_season(season_id)
+      @game_teams.each do |game_team|
+        game_id = game_team.game_id
+        current_team_id = game_team.team_id
+
+        if game_id_list.include?game_id
+
+          goals[current_team_id] += game_team.goals.to_f
+          shots[current_team_id] += game_team.shots.to_f
+          ratio[current_team_id] = goals[current_team_id]/shots[current_team_id]
+
         end
-      end
-
-      def least_accurate_team(season_id)
-        ratio = get_ratio(season_id)
-        min_ratio = ratio.min_by{|k,v| v}[0]
-        @teams.each do |team|
-          team_id = team.team_id
-          team_name = team.team_name
-
-          if team_id == min_ratio
-            return team_name
-          end
-        end
-      end
-
-      def get_ratio(season_id)
-        goals = Hash.new(0)
-        shots = Hash.new(0)
-        ratio = Hash.new(0)
-        game_id_list= games_by_season(season_id)
-          @game_teams.each do |game_team|
-            game_id = game_team.game_id
-            current_team_id = game_team.team_id
-
-            if game_id_list.include?game_id
-
-              goals[current_team_id] += game_team.goals.to_f
-              shots[current_team_id] += game_team.shots.to_f
-              ratio[current_team_id] = goals[current_team_id]/shots[current_team_id]
-
-            end
-        end
-        return ratio
-      end
+    end
+    return ratio
+  end
 
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
