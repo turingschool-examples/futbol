@@ -39,6 +39,8 @@ class StatTracker
   def favorite_opponent(team) @teams[team.to_i].favorite_opponent end
   def best_season(team) @teams[team.to_i].best_season end
   def worst_season(team) @teams[team.to_i].worst_season end
+  def most_goals_scored(team) @teams[team.to_i].most_goals_scored end
+  def fewest_goals_scored(team) @teams[team.to_i].fewest_goals_scored end
 
   # def winningest_coach
   #   coaches_with_best_percentage = Hash.new(0)
@@ -61,4 +63,5 @@ class StatTracker
   #   end
   #   coaches_with_best_percentage
   # end
+  
 end

@@ -87,6 +87,24 @@ class Team
     win_percentages_by_season.min_by{ |season, win_percent| win_percent }.first.to_s
   end
 
+  def home_and_away_goals
+    @games_participated_in.map do |game|
+      if game.teams_game_stats[:home_team][:team_id] == team_id
+        game.teams_game_stats[:home_team][:goals]
+      else
+        game.teams_game_stats[:away_team][:goals]
+      end
+    end
+  end
+
+  def most_goals_scored
+    home_and_away_goals.max
+  end
+
+  def fewest_goals_scored
+    home_and_away_goals.min
+  end
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|

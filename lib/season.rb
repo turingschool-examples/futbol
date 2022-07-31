@@ -50,7 +50,7 @@ class Season
     end
     team_avgs = {}
     shots_and_goals.each do |team_name, stats|
-      team_avgs[team_name] = (stats[:goals].to_f / stats[:shots]).round(2)
+      team_avgs[team_name] = (stats[:goals].to_f / stats[:shots]).round(4)
     end
     team_avgs
   end
