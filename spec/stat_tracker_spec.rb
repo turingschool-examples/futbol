@@ -182,6 +182,28 @@ describe StatTracker do
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
+  it "can identify all games that correspond to a certain season id" do #helper method
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+    expected = ["2012030221",
+               "2012030222",
+               "2012030223",
+               "2012030224",
+               "2012030225",
+               "2012030311",
+               "2012030312",
+               "2012030313",
+               "2012030314"]
+    expect(@stat_tracker_dummy.games_by_season("20122013")).to eq(expected)
+  end
+
   it "can name the team with the best shot accuracy" do
     expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
@@ -396,6 +418,32 @@ describe StatTracker do
 
   it "can find favorite opponent for a given team" do
     expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
+  end
+
+  it "can find number of tackles given a team id and game id" do
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+    expect(@stat_tracker_dummy.number_of_tackles("3", "2012030221")).to eq(44)
+  end
+
+  it "can get a ratio of goals to shots when given a season id number" do
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+    expect(@stat_tracker_dummy.get_ratio("20122013")).to eq({"3"=>0.21052631578947367, "6"=>0.2894736842105263})
   end
 
   it "can find rival for a given team" do
