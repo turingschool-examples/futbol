@@ -181,7 +181,7 @@ class StatTracker
   end
 
   def team_by_id #helper method for issue #14
-    @teams.values_at(:team_id, :teamname).to_h
+    @teams.values_at(:team_id, :teamname).uniq.to_h
   end
 
   def average_scores_by_team_id(*game_type) #helper method for issue #14
@@ -222,7 +222,7 @@ class StatTracker
                                   #and win percentage for season - Helper for Issue #27
     # Example hash: {20132014=> [{:team_id=>1, :win_perc=>50.0}, {:team_id=>4, :win_perc=>40.0}, {:team_id=>26, :win_perc=>100.0}
     team_win_percent = Hash.new {0}
-    team_by_id.map do |id , team|
+    team_by_id.each do |id , team|
       season_win_percentage(id).each do |season, win|
         if team_win_percent[season] == 0
           team_win_percent[season] = [{team_id: id, win_perc: win}]
@@ -364,21 +364,21 @@ class StatTracker
 
   def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18
     # [[2013020252, 16], [2014030166, 16], [2016030151, 16], [2016030152, 16]]
-    wins = []
-    @games.each do |row|
-      if (row[:away_goals] > row[:home_goals] && row[:away_team_id] == team_id) ||
-        (row[:home_goals] < row[:away_goals] && row[:home_team_id] == team_id)
-        wins << [row[:game_id], team_id]
-      end
-    end
-    wins
+    # wins = []
+    # @games.each do |row|
+    #   if (row[:away_goals] > row[:home_goals] && row[:away_team_id] == team_id) ||
+    #     (row[:home_goals] < row[:away_goals] && row[:home_team_id] == team_id)
+    #     wins << [row[:game_id], team_id]
+    #   end
+    # end
+    # wins
 
     # Option with full data set, but does not work with current dummy data
     # (this could be made dynamic for win or loss):
     #def results_by_team(team_id, win_loss)
-    # result_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
-    #   game[1] == team_id && game[2] == "WIN" (win_loss).uppercase
-    # end
+    result_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
+      game[1] == team_id && game[2] == "WIN"
+    end
   end
 
   def games_by_team(team_id) # List of every game a team played - helper method for issue #18
@@ -404,6 +404,8 @@ class StatTracker
       games_by_team(team_id).each do |result_data|
         if games.include?(result_data[0])
           team_games_by_season[season] += 1
+        else
+          team_games_by_season[season] = 0
         end
       end
     end
@@ -412,12 +414,15 @@ class StatTracker
 
   def number_team_wins_per_season(team_id) # Count of number of games a team won each season -helper method for issue #18
     # {20132014=>1, 20142015=>1, 20162017=>2}
-    wins_by_season = Hash.new(0)
+    wins_by_season = Hash.new{0}
     games_by_season.each do |season, games|
       wins_by_team(team_id).each do |result_data|
         if games.include?(result_data[0])
-          wins_by_season[season] += 1
+          wins_by_season[season] += 1.0
         end
+      end
+      if wins_by_season[season] == 0
+        wins_by_season[season] = 0.0
       end
     end
     wins_by_season
@@ -425,11 +430,19 @@ class StatTracker
 
   def season_win_percentage(team_id) # Percentage of won games per season by team - helper method for issue #18
     # {20132014=>50.0, 20142015=>14.3, 20162017=>50.0}
-    win_percentage = {}
-    number_team_wins_per_season(team_id).each do |season, win_count|
-      game_count = number_team_games_per_season(team_id)[season].to_f
-      percentage = ((win_count/game_count) * 100).round(1)
-      win_percentage[season] = percentage
+    team_id = 5
+    win_percentage = Hash.new
+    number_team_games_per_season(team_id).each do |game_season, game_count|
+      number_team_wins_per_season(team_id).each do |wins_season, win_count|
+        if game_season == wins_season
+          if win_count == 0
+            percentage = 0.0
+          else
+            percentage = ((win_count/game_count.to_f) * 100).round(1)
+          end
+          win_percentage[game_season] = percentage
+        end
+      end
     end
     win_percentage
   end
