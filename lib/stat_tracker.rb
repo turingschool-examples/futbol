@@ -285,7 +285,7 @@ class StatTracker
 
   end
 
-  def most_tackles(season_id) #issue # 21 - FAIL - Wrong team returning
+  def most_tackles(season_id) #issue # 21 PASS
 
     all_season_ids = []
     games.each do |row|
