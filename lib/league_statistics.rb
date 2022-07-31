@@ -1,3 +1,4 @@
+require 'pry'
 class LeagueStatistics
   def initialize(data_set)
     @data_set = data_set
@@ -11,39 +12,77 @@ class LeagueStatistics
     team_id_array.uniq.count
   end
 
-  def total_team_goal_averages
-    teams_goals_hash = {}
-    @data_set[:game_teams].each do |row|
-      if teams_goals_hash[row[:team_id]] == nil
-        teams_goals_hash[row[:team_id]] = []
-      end
-      teams_goals_hash[row[:team_id]] << row[:goals].to_f
-    end
-    average_teams_goals = teams_goals_hash.each do |team, goals|
-      teams_goals_hash[team] = (goals.sum / goals.count).round(2)
-    end
-    average_teams_goals
-  end
-
   def best_offense
-    best_team = total_team_goal_averages.max_by {|team, average| average}
-    best_team_name = ""
-    @data_set[:teams].each do |row|
-      if row[:team_id] == best_team[0]
-        best_team_name = row[:teamname]
-      end
-    end
-    best_team_name
+    best_team = team_goal_stats_averages.max_by {|team, average| average}
+    return_team_name(best_team[0])
   end
 
   def worst_offense
-    worst_team = total_team_goal_averages.min_by {|team, average| average}
-    worst_team_name = ""
+    worst_team = team_goal_stats_averages.min_by {|team, average| average}
+    return_team_name(worst_team[0])
+  end
+
+  def highest_scoring_visitor
+    best_team = team_goal_stats_averages("away").max_by {|team, average| average}
+    return_team_name(best_team[0])
+  end
+
+  def highest_scoring_home_team
+    best_team = team_goal_stats_averages("home").max_by {|team, average| average}
+    return_team_name(best_team[0])
+  end
+  def lowest_scoring_visitor
+    worst_team = team_goal_stats_averages("away").min_by {|team, average| average}
+    return_team_name(worst_team[0])
+  end
+
+  def lowest_scoring_home_team
+    worst_team = team_goal_stats_averages("home").min_by {|team, average| average}
+    return_team_name(worst_team[0])
+  end
+
+  def team_goal_stats_averages(hoa_type = nil)
+    # hoa_type determines which hash is returned
+    # "home" and "away" return average goals for the given game type
+    # defaults to total games
+    teams_goals_stats = Hash.new
+    @data_set[:game_teams].each do |row|
+      teams_goals_stats[row[:team_id]] = [0, 0]
+      # [games, goals]
+    end
+      if hoa_type == "home"
+        @data_set[:game_teams].each do |row|
+          if row[:hoa] == "home"
+          teams_goals_stats[row[:team_id]][0] += 1
+          teams_goals_stats[row[:team_id]][1] += row[:goals].to_f
+          end
+        end
+      elsif hoa_type == "away"
+        @data_set[:game_teams].each do |row|
+          if row[:hoa] == "away"
+            teams_goals_stats[row[:team_id]][0] += 1
+            teams_goals_stats[row[:team_id]][1] += row[:goals].to_f
+          end
+        end
+      else
+        @data_set[:game_teams].each do |row|
+        teams_goals_stats[row[:team_id]][0] += 1
+        teams_goals_stats[row[:team_id]][1] += row[:goals].to_f
+        end
+      end
+    teams_goals_stats.each do |team, stat|
+      teams_goals_stats[team] = (stat[1] / stat[0]).round(2)
+    end
+    teams_goals_stats
+  end
+
+  def return_team_name(team_id)
+    team_name = nil
     @data_set[:teams].each do |row|
-      if row[:team_id] == worst_team[0]
-        worst_team_name = row[:teamname]
+      if row[:team_id] == team_id
+        team_name = row[:teamname]
       end
     end
-    worst_team_name
+    return team_name
   end
 end

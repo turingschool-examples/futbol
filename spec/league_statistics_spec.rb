@@ -14,8 +14,8 @@ RSpec.describe LeagueStatistics do
       game_teams: game_teams_path
     }
 
-    data_set = StatTracker.from_csv(locations)
-    @league_statistics = LeagueStatistics.new(data_set.data)
+    @data_set = StatTracker.from_csv(locations)
+    @league_statistics = LeagueStatistics.new(@data_set.data)
   end
   describe '.LeagueStatistics instantiation' do
     it 'is instance of class' do
@@ -27,10 +27,13 @@ RSpec.describe LeagueStatistics do
       expect(@league_statistics.count_of_teams).to eq(32)
     end
   end
-  describe '.total_team_goal_averages' do
-    it 'can return a hash of average total goals by team id' do
-      expect(@league_statistics.total_team_goal_averages).to be_a(Hash)
-      expect(@league_statistics.total_team_goal_averages["54"]).to eq(2.34)
+  describe '.team_goal_stats_averages' do
+    it 'can return a hash of average goals for a team across all games when passed an argument' do
+      expect(@league_statistics.team_goal_stats_averages).to be_a(Hash)
+      expect(@league_statistics.team_goal_stats_averages["17"]).to eq(2.06)
+      expect(@league_statistics.team_goal_stats_averages("home") == @league_statistics.team_goal_stats_averages).to eq(false)
+      expect(@league_statistics.team_goal_stats_averages("home") == @league_statistics.team_goal_stats_averages("away")).to eq(false)
+
     end
   end
   describe '.best_offense' do
@@ -41,6 +44,26 @@ RSpec.describe LeagueStatistics do
   describe '.worst_offense' do
     it 'can return the name of the team with worst offense' do
       expect(@league_statistics.worst_offense).to eq("Utah Royals FC")
+    end
+  end
+  describe '.highest_scoring_visitor' do
+    it 'can return the name of the team with the highest average score while visiting' do
+      expect(@league_statistics.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+  describe '.highest_scoring_home_team' do
+    it 'can return the name of the team with the highest average score while home' do
+      expect(@league_statistics.highest_scoring_home_team).to eq("Reign FC")
+    end
+  end
+  describe '.lowest_scoring_visitor' do
+    it 'can return the name of the team with the lowest average score while visiting' do
+      expect(@league_statistics.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
+  end
+  describe '.lowest_scoring_home_team' do
+    it 'can return the name of the team with the lowest average score while home' do
+      expect(@league_statistics.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
   end
 end
