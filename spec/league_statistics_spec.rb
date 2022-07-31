@@ -27,23 +27,13 @@ RSpec.describe LeagueStatistics do
       expect(@league_statistics.count_of_teams).to eq(32)
     end
   end
-  describe '.total_team_goal_stats' do
-    it 'can return a hash of total games, total goals, home games, and away games by team id' do
-      game_count_54 = 0
-      @data_set.data[:game_teams].each do |row|
-        if row[:team_id] == "54"
-          game_count_54 += 1
-        end
-      end
-
-      expect(@league_statistics.total_team_goal_stats).to be_a(Hash)
-      expect(@league_statistics.total_team_goal_stats["54"][0]).to eq(game_count_54)
-      expect(@league_statistics.total_team_goal_stats["54"][2] + @league_statistics.total_team_goal_stats["54"][3]).to eq(game_count_54)
-    end
-
+  describe '.team_goal_stats_averages' do
     it 'can return a hash of average goals for a team across all games when passed an argument' do
-    expect(@league_statistics.total_team_goal_stats("all")).to be_a(Hash)
-    expect(@league_statistics.total_team_goal_stats("all")["17"]).to eq(2.059)
+      expect(@league_statistics.team_goal_stats_averages).to be_a(Hash)
+      expect(@league_statistics.team_goal_stats_averages["17"]).to eq(2.06)
+      expect(@league_statistics.team_goal_stats_averages("home") == @league_statistics.team_goal_stats_averages).to eq(false)
+      expect(@league_statistics.team_goal_stats_averages("home") == @league_statistics.team_goal_stats_averages("away")).to eq(false)
+
     end
   end
   describe '.best_offense' do
@@ -62,7 +52,7 @@ RSpec.describe LeagueStatistics do
     end
   end
   describe '.highest_scoring_home_team' do
-    it 'can return the name of the team with the highest average score while home' do
+    xit 'can return the name of the team with the highest average score while home' do
       expect(@league_statistics.highest_scoring_home_team).to eq("Reign FC")
     end
   end
