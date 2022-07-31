@@ -132,7 +132,11 @@ describe StatTracker do
     it 'can show name with the worst win percentage for the season' do
       expect(@stat_tracker.worst_coach("20132014")).to eq("John Tortorella")
     end
-
+    
+    it 'can return games won by a specific team' do
+      expect(@stat_tracker.wins_by_team(3)).to eq([[2013020226, 3], [2013020738, 3], [2013030141, 3], [2013030143, 3], [2013030147, 3], [2016030111, 3], [2016030112, 3], [2016030114, 3], [2016030115, 3]])
+    end
+    
     it 'can show name of the team with the best ratio of shots to goals for the season' do
       expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
     end
@@ -177,7 +181,7 @@ describe StatTracker do
     end
 
     xit 'can return name of the opponent that has the lowest win percentage against the given team' do
-      expect(@stat_tracker.favorite_opponent).to eq("")
+      expect(@stat_tracker.favorite_opponent(3)).to eq("psyduck")
     end
 
     xit 'can return name of the opponent that has the highest win percentage against the given team' do

@@ -240,6 +240,7 @@ class StatTracker
     @game_teams.find_all do |game_team| #finds all stats for away and home team for a particular game
       game_team[:game_id] == game_id 
     end
+  
   end
   
   def total_team_shots_and_goals(season_id) 
@@ -299,6 +300,7 @@ class StatTracker
         end
       end
     end
+  end
 
   def fewest_tackles #issue # 22
 
@@ -343,13 +345,13 @@ class StatTracker
     # [[2013020252, 16], [2014030166, 16], [2016030151, 16], [2016030152, 16]]
     wins = []
     @games.each do |row|
-      if (row[:away_goals] > row[:home_goals] && row[:away_team_id] == team_id) ||
-        (row[:home_goals] < row[:away_goals] && row[:home_team_id] == team_id)
+      if (row[:away_goals] > row[:home_goals] && row[:away_team_id] == team_id)||
+         (row[:home_goals] > row[:away_goals] && row[:home_team_id] == team_id)
         wins << [row[:game_id], team_id]
       end
     end
     wins
-
+    
     # Option with full data set, but does not work with current dummy data
     # (this could be made dynamic for win or loss):
     #def results_by_team(team_id, win_loss)
@@ -445,8 +447,29 @@ class StatTracker
 
   end
 
-  def favorite_opponent #issue # 29
+  def favorite_opponent(team_id)#issue # 29
+    #Name of the opponent that has the lowest win percentage against the given team.
+    #Need : total number of games between team id vs other teams 
+    #     : games won by team id 
 
+    #read through games.csv 
+    #for each game 
+      #if team id is in awway or home then 
+            # store games played against team. Key = opponent team id value = array of two [games won, total games]
+            
+    #for each row in games csv 
+      # * create a hash outside of before_each block
+    # if team_id == away_id || home_id 
+      #if away_id != team_id 
+          # feed away_id into hash, add +=1 to total_games array (line 459) 
+            # if home_goals > away_goals += 1 to games won 
+      #else 
+          # feed home_id into hash, add += 1 to total_games array 
+            # if away_goals > home_goals += 1 to games won 
+
+    #for each 
+   
+    
 
 
   end
