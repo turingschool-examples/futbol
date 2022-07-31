@@ -9,7 +9,49 @@ class LeagueStats
     @game_teams = data.game_teams
     @id_team_key = data.id_team_key
   end
-  
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    @id_team_key.find do |id, team|
+      return team if id == goals_per_game.max_by {|id, goals| goals}.first
+    end
+  end
+
+  def worst_offense
+    @id_team_key.find do |id, team|
+      return team if id == goals_per_game.min_by {|id, goals| goals}.first
+    end
+  end
+
+  def highest_scoring_visitor
+    @id_team_key.find do |id, team|
+      return team if id == highest_goals_per_game_place(:away_team_id, :away_goals)
+    end
+  end
+
+  def highest_scoring_home_team
+    @id_team_key.find do |id, team|
+      return team if id == highest_goals_per_game_place(:home_team_id, :home_goals)
+    end
+  end
+
+  def lowest_scoring_visitor
+    @id_team_key.find do |id, team|
+      return team if id == lowest_goals_per_game_place(:away_team_id, :away_goals)
+    end
+  end
+
+  def lowest_scoring_home_team
+    @id_team_key.find do |id, team|
+      return team if id == lowest_goals_per_game_place(:home_team_id, :home_goals)
+    end
+  end
+
+  private
+
   def games_by_id(place_team_id)
     number_played = Hash.new(0)
     @games.each do |game|
@@ -55,44 +97,4 @@ class LeagueStats
        goals.to_f/games
      end.min_by {|id,goals| goals}.first
    end
-  
-  def count_of_teams
-    @teams.count
-  end
-
-  def best_offense
-    @id_team_key.find do |id, team|
-      return team if id == goals_per_game.max_by {|id, goals| goals}.first
-    end
-  end
-
-  def worst_offense
-    @id_team_key.find do |id, team|
-      return team if id == goals_per_game.min_by {|id, goals| goals}.first
-    end
-  end
-
-  def highest_scoring_visitor
-    @id_team_key.find do |id, team|
-      return team if id == highest_goals_per_game_place(:away_team_id, :away_goals)
-    end
-  end
-
-  def highest_scoring_home_team
-    @id_team_key.find do |id, team|
-      return team if id == highest_goals_per_game_place(:home_team_id, :home_goals)
-    end
-  end
-
-  def lowest_scoring_visitor
-    @id_team_key.find do |id, team|
-      return team if id == lowest_goals_per_game_place(:away_team_id, :away_goals)
-    end
-  end
-
-  def lowest_scoring_home_team
-    @id_team_key.find do |id, team|
-      return team if id == lowest_goals_per_game_place(:home_team_id, :home_goals)
-    end
-  end
 end
