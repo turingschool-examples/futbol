@@ -235,7 +235,7 @@ describe StatTracker do
   end
 
   xit "can group a teams games by season in games" do
-    expect(@stat_tracker.team_season_game_counter("6")).to be_a(Hash)
+    expect(@stat_tracker.team_season_grouper("6")).to be_a(Hash)
   end
 
   it "can tell which season is a teams best" do
