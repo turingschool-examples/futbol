@@ -88,26 +88,21 @@ class Team
   end
 
   def home_and_away_goals
-     total_home_goals_hash = Hash.new(0)
-     total_away_goals_hash = Hash.new(0)
-     total_goals_hash = Hash.new(0)
-     @games_participated_in.each do |goal|
-       home_teams = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:team_id]}
-       home_goals = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:goals]}
-       away_teams = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:team_id]}
-       away_goals = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:goals]}
-       total_home_goals_hash[home_teams.zip(home_goals)]
-       total_away_goals_hash[away_teams.zip(away_goals)]
-       total_goals_hash = total_home_goals_hash.merge!(total_away_goals_hash)
-     end
+    @games_participated_in.map do |game|
+      if game.teams_game_stats[:home_team][:team_id] == team_id
+        game.teams_game_stats[:home_team][:goals]
+      else
+        game.teams_game_stats[:away_team][:goals]
+      end
+    end
   end
 
   def most_goals_scored
-    home_and_away_goals.max_by{ |team, goal| total_goals }.first
+    home_and_away_goals.max
   end
 
   def fewest_goals_scored
-    home_and_away_goals.min_by{ |team, goal| total_goals }.first
+    home_and_away_goals.min
   end
 
   def self.generate_teams(team_csv)

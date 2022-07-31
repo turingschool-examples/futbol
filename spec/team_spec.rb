@@ -52,7 +52,7 @@ RSpec.describe Team do
   end
 
   it 'can return the most/fewest goals of a team' do
-    expect(@team.most_goals_scored).to eq(0)
+    expect(@team.most_goals_scored).to eq(5)
     expect(@team.fewest_goals_scored).to eq(0)
   end
 
