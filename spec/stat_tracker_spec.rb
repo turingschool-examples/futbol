@@ -95,6 +95,14 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.favorite_opponent("14")).to eq("Houston Dynamo")
     end
 
+    it 'can show coach with highest win percentage for a season' do
+      expect(@stat_tracker.winningest_coach("20142015")).to eq("Jon Cooper")
+    end
+
+    it 'can show coach with lowest win percentage for a season' do
+      expect(@stat_tracker.worst_coach("20142015")).to eq("Claude Julien") 
+    end
+
     it 'can return a hash of the average goals by season' do
       expect(@stat_tracker.average_goals_by_season).to eq("20122013" => 4.4, "20132014" => 3.25, "20142015" => 3.43, "20152016" => 4.5)
     end
