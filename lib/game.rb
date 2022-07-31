@@ -1,4 +1,6 @@
+require_relative 'uniquable.rb'
 class Game
+  include Uniquable
   def initialize(data)
     @data = data
     @total_away_wins = (@data[:games].select {|row| row[:away_goals].to_i > row[:home_goals].to_i}).count
@@ -30,7 +32,7 @@ class Game
     (@total_ties.to_f / @total_games.to_f).round(2)
   end
   def count_of_games_by_season 
-    result = unique_seasons_hash()
+    result = Uniquable.unique_seasons_hash(@data)
     result[1].each do |key, value|
       result[0].each do |row|
         if key == row[:season]
@@ -48,18 +50,10 @@ class Game
 
   def average_goals_by_season
     #goals per season / season game count
-    result = unique_seasons_hash()
+    result = Uniquable.unique_seasons_hash(@data)
     result[1].map { |key, _value| result[0].map { |row| result[1][key] << (row[:home_goals].to_f + row[:away_goals].to_f) if row[:season] == key }}
     total = result[1].transform_values { |value| value.count }
     sum = result[1].transform_values { |value| value.sum }
     result[1].each { |key, _value| result[1][key] = (sum[key] / total[key]).round(2) }
-  end
-
-  def unique_seasons_hash
-    game_by_season = @data[:games]
-    total_season = (game_by_season.uniq { |season| season[:season] }).map { |season| season[:season] }
-    total_count = Hash.new
-    total_season.each { |season| total_count.store(season, []) }
-    return game_by_season, total_count
   end
 end
