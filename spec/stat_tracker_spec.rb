@@ -220,18 +220,50 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    # don't know how to reference games but this is an almost complete test.
-    # expect(@stat_tracker_dummy.team_isolator("6").size).to eq([game1, game2, game3, game4])
+    expect(@stat_tracker_dummy.team_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
     expect(@stat_tracker_dummy.team_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.team_isolator("6")).to be_an(Array)
   end
 
   it "can isolate a single teams wins in game_teams" do #game_teams helper
-    expect(@stat_tracker.win_isolator("6")).to be_an(Array)
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker_dummy.win_isolator("6")).to be_an(Array)
+    expect(@stat_tracker_dummy.win_isolator("6").size).to eq(4)
+    expect(@stat_tracker_dummy.win_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
   end
 
   it "can group games by season in games" do #game helper
-    expect(@stat_tracker.season_grouper).to be_a(Hash)
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path,
+    }
+    @stat_tracker_dummy = StatTracker.from_csv(locations)
+    values_array = ["2012030221",
+                     "2012030222",
+                     "2012030223",
+                     "2012030224",
+                     "2012030225",
+                     "2012030311",
+                     "2012030312",
+                     "2012030313",
+                     "2012030314"]
+
+    expect(@stat_tracker_dummy.season_grouper.keys).to eq(["20122013"])
+    expect(@stat_tracker_dummy.season_grouper.values[0].map {|game| game.game_id}).to eq(values_array)
+    expect(@stat_tracker_dummy.season_grouper).to be_a(Hash)
   end
 
   it "can isolate a single teams games in games" do #game helper
