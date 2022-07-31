@@ -2,7 +2,7 @@ require './lib/stat_tracker'
 require './lib/league_stats'
 require './lib/season_stats'
 require './lib/data_warehouse'
-require './lib/team_stats_shawn'
+require './lib/team_stats'
 require 'pry'
 
 RSpec.describe(StatTracker) do

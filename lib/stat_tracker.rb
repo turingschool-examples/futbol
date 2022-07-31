@@ -1,7 +1,7 @@
 require 'csv'
 require 'pry'
 require 'data_warehouse'
-
+require 'season_stats'
 
 class StatTracker
 
