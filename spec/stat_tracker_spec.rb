@@ -109,9 +109,9 @@ describe StatTracker do
   end
 
   xit "can calculate the games count of games by season for different data" do
-    game_path = './spec/fixtures/dummy_game.csv'
-    team_path = './spec/fixtures/dummy_teams.csv'
-    game_teams_path = './spec/fixtures/dummy_game_teams.csv'
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
     locations = {
       games: game_path,
       teams: team_path,
@@ -139,10 +139,10 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-  xit 'can calculate the games average goals by season for dummy data' do
-    game_path = './spec/fixtures/dummy_game.csv'
-    team_path = './spec/fixtures/dummy_teams.csv'
-    game_teams_path = './spec/fixtures/dummy_game_teams.csv'
+  xit "can calculate the games average goals by season for dummy data" do
+    game_path = "./spec/fixtures/dummy_game.csv"
+    team_path = "./spec/fixtures/dummy_teams.csv"
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
     locations = {
       games: game_path,
       teams: team_path,
@@ -162,37 +162,37 @@ describe StatTracker do
     expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
   end
 
-  it 'can calculate the lowest average of an array in an array of team_id, average' do
-    average = [["3", 2.1],["6", 2.28],["16", 2.23],["5", 2.39],["8", 2.08]]
+  it "can calculate the lowest average of an array in an array of team_id, average" do
+    average = [["3", 2.1], ["6", 2.28], ["16", 2.23], ["5", 2.39], ["8", 2.08]]
     expect(@stat_tracker.minimum(average)).to eq(["8", 2.08])
   end
 
-  it 'can calculate the highest average of an array in an array of team_id, average' do
-    average = [["3", 2.1],["6", 2.28],["16", 2.23],["5", 2.39],["8", 2.08]]
+  it "can calculate the highest average of an array in an array of team_id, average" do
+    average = [["3", 2.1], ["6", 2.28], ["16", 2.23], ["5", 2.39], ["8", 2.08]]
     expect(@stat_tracker.maximum(average)).to eq(["5", 2.39])
   end
 
-  it 'can name the coach with the best winning percentage' do
+  it "can name the coach with the best winning percentage" do
     expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
     expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
   end
 
-  it 'can name the coach with the worst winning percentage' do
+  it "can name the coach with the worst winning percentage" do
     expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
-  xit 'can name the team with the best shot accuracy' do
+  xit "can name the team with the best shot accuracy" do
     expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  xit 'can name the team with the worst shot accuracy' do
+  xit "can name the team with the worst shot accuracy" do
     expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  xit 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do
+  xit "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
     expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
