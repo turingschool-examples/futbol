@@ -188,7 +188,7 @@ describe StatTracker do
     end
 
     xit 'can return name of the opponent that has the highest win percentage against the given team' do
-      expect(@stat_tracker.rival).to eq("")
+      expect(@stat_tracker.rival("3")).to eq("FC Dallas")
     end
   end
 
