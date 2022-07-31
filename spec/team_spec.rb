@@ -56,4 +56,9 @@ RSpec.describe Team do
     expect(@team.fewest_goals_scored).to eq(0)
   end
 
+  it 'can return total goals when passed the argument of home or away key' do
+    expect(@team.total_goals_per_side(:home_team)).to eq 3
+    expect(@team.total_goals_per_side(:away_team)).to eq 10
+  end
+
 end
