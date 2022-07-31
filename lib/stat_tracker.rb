@@ -1,23 +1,24 @@
 require_relative "./teams"
 require_relative "./game"
 require_relative "./game_teams"
+require_relative "./game_stats"
 
 class StatTracker
-  attr_reader :games,
+  attr_reader :game_stats,
               :teams,
               :game_teams
 
-  def initialize(games, teams, game_teams)
-    @games = games
+  def initialize(game_stats, teams, game_teams)
+    @game_stats = game_stats
     @teams = teams
     @game_teams = game_teams
   end
 
   def self.from_csv(locations)
-    games = Game.create_multiple_games(locations[:games])
+    game_stats = GameStats.from_csv(locations[:games])
     teams = Teams.create_multiple_teams(locations[:teams])
     game_teams = GameTeams.create_multiple_game_teams(locations[:game_teams])
-    StatTracker.new(games, teams, game_teams)
+    StatTracker.new(game_stats, teams, game_teams)
   end
 
   def highest_total_score
