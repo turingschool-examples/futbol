@@ -47,4 +47,8 @@ RSpec.describe Season do
     expect(@season.fewest_tackles).to eq("DC United")
   end
 
+  it 'can return shots by team per season avg' do
+    expect(@season.shots_by_team_per_season_avg(20142015)). to eq({"DC United"=>0.35, "FC Dallas"=>0.3333, "Houston Dynamo"=>0.2632, "Sporting Kansas City"=>0.0625})
+  end
+
 end

@@ -14,7 +14,7 @@ RSpec.describe Game do
 
     stat_tracker = StatTracker.from_csv(locations)
 
-    #All tests in thie spec file are for game_id 2012030221 (the first one on the games_dummy)
+    #All tests in this spec file are for game_id 2012030221 (the first one on the games_dummy)
     @game = stat_tracker.games[0]
   end
 
@@ -49,4 +49,6 @@ RSpec.describe Game do
     }
     expect(@game.team_stats(3)).to eq(expected)
   end
+
+
 end
