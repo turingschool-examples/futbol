@@ -43,11 +43,11 @@ class StatTracker
     @game_teams[:hoa].map {|row| home += 1 if row == "home"}; home
   end
 
-  def percentage_home_wins #issue #4
+  def percentage_home_wins #issue #4 - Need to make this test eq 0.99 not whole numbers
     percentage = (home_wins/home_games) * 100
   end
 
-  def percentage_visitor_wins #issue #5
+  def percentage_visitor_wins #issue #5 - Need to make this test eq 0.99 not whole numbers
         #sum of visitor wins / total games played
 
     away_wins = []
@@ -61,7 +61,7 @@ class StatTracker
     ((away_wins.count / total_games_played)*100).round(2)
   end
 
-  def percentage_ties #issue #6
+  def percentage_ties #issue #6 - Need to make this test eq 0.99 not whole numbers
     ties = 0.0
     total_games = total_scores_by_game.count
 
@@ -71,7 +71,7 @@ class StatTracker
     ((ties/total_games)*100).round(1)
   end
 
-  def count_of_games_by_season #issue 7
+  def count_of_games_by_season #issue 7 - season(key) out put nees to be string
     counts = {}
     games.each do |game|
         season = game[:season]
@@ -89,11 +89,11 @@ class StatTracker
     # end
   end
 
-  def average_goals_per_game #issue #8
+  def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers
     total_scores_by_game.sum/@games.size
   end
 
-  def average_goals_by_season #issue #9
+  def average_goals_by_season #issue #9 - returning nil in spec harness
 
   end
 
@@ -237,12 +237,13 @@ class StatTracker
 
   def game_teams_for_game_id(game_id) #Helper method for issue #28, may be able to be used for other season stats
     @game_teams.find_all do |game_team| #finds all stats for away and home team for a particular game
-      game_team[:game_id] == game_id 
+      game_team[:game_id] == game_id
     end
   end
-  
-  def total_team_shots_and_goals(season_id) 
-    games_by_season.transform_values do |game_ids| 
+
+  def total_team_shots_and_goals
+    # {3=>{"shots"=>38, "goals"=>8}, 6=>{"shots"=>76, "goals"=>24}
+    games_by_season.transform_values do |game_ids|
       team_totals_for_season = {}
       game_ids.each do |game_id|
         game_teams_for_game_id(game_id).each do |game_team|
@@ -258,14 +259,15 @@ class StatTracker
   end #lines above gives total shots and total goals in a season for each team
 
   def seasonal_team_accuracy(season_id)
-     total_team_shots_and_goals(season_id)[season_id].transform_values do |team_shots_and_goals|
+    require "pry"; binding.pry
+     total_team_shots_and_goals[season_id].transform_values do |team_shots_and_goals|
      team_shots_and_goals["goals"].to_f / team_shots_and_goals["shots"]
     end
   end # Lines above gives accuracy ratio of team id for a given season
-  
-  def most_accurate_team(season_id) #issue # 28 
+
+  def most_accurate_team(season_id) #issue # 28
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
-  end 
+  end
 
   def least_accurate_team #issue # 20
 
