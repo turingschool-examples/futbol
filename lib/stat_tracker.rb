@@ -2,7 +2,7 @@ require 'csv'
 require './lib/league_generator'
 
 class StatTracker
-  attr_reader :league_generator
+  attr_reader :league
   def self.from_csv(locations)
     all_data_hash = Hash.new{ |h, k| h[k] = [] }
     CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
@@ -22,8 +22,7 @@ class StatTracker
 
     @all_data_hash = all_data_hash
 
-    @league_generator = LeagueGenerator.new(@all_data_hash)
-    require 'pry'; binding.pry
+    @league = LeagueGenerator.generate_league(@all_data_hash)
   end
 
   def highest_total_score
