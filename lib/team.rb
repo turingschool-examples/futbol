@@ -87,6 +87,16 @@ class Team
     win_percentages_by_season.min_by{ |season, win_percent| win_percent }.first.to_s
   end
 
+  def most_goals_scored
+    home = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:goals]}.max
+    away = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:goals]}.max
+  end
+
+  def fewest_goals_scored
+    home = @games_participated_in.map {|game| game.teams_game_stats[:home_team][:goals]}.min
+    away = @games_participated_in.map {|game| game.teams_game_stats[:away_team][:goals]}.min
+  end
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|
