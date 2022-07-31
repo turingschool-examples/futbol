@@ -206,8 +206,8 @@ class StatTracker
   end
 
   def lowest_scoring_home_team #issue # 16 - Fail wrong team being returned
-    min_average = average_scores_by_team_id("away").values.min
-    team_by_id[average_scores_by_team_id("away").key(min_average)]
+    min_average = average_scores_by_team_id("home").values.min
+    team_by_id[average_scores_by_team_id("home").key(min_average)]
   end
 
 
@@ -444,10 +444,8 @@ class StatTracker
 
   end
 
-  def average_win_percentage #issue # 26 - Fail due to not written
-
-
-
+  def average_win_percentage(team_id) #issue # 20
+    (wins_by_team(team_id).count.to_f/games_by_team(team_id).count.to_f).round(2)
   end
 
   def most_goals_scored(team_id) #issue # 27 - FAIL returns nil on harness
