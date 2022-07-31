@@ -85,8 +85,8 @@ class StatTracker
     team_scores_average =
       team_scores.map do |id, scores|
         [id, ((scores.sum) / (scores.length)).round(2)] #creat an average out of the scores
-      end.min { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
-    team_id_to_name[team_scores_average[0]]
+      end
+    team_id_to_name[minimum(team_scores_average)[0]]
   end
 
   def highest_scoring_visitor
@@ -340,18 +340,6 @@ class StatTracker
     team_id_to_name[team_scores_average[0]]
   end
 
-  def worst_offense
-    team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
-
-    team_scores_average =
-      team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end.min { |team_avg_1, team_avg_2| team_avg_1[1] <=> team_avg_2[1] }
-    team_id_to_name[team_scores_average[0]]
-  end
-
   def highest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
@@ -424,19 +412,16 @@ class StatTracker
       if !game_id_list.include? game_id
         next
       end
-
       if game_team.result == "LOSS"
         coaches[coach] += 1
       end
     end
-
     coach_percentage_lost = coaches.map do |coach_name, game_loss|
       percentage_lost = (game_loss.to_f / game_id_list.length) * 100
       [coach_name, percentage_lost]
     end.to_h
-    worst1_coach = coach_percentage_lost.min { |coach_average_1, coach_average_2| coach_average_1[1] <=> coach_average_2[1] }
-    worst1_coach[0]
-  end #there needs to be an end here or you're gonna have trouble
+    minimum(coach_percentage_lost)[0]
+  end
 
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
@@ -462,7 +447,7 @@ class StatTracker
     team_id_to_name[minimum(home_scores_average)[0]]
   end
 
-  def minimum(average)
+  def minimum(average) #helper method
     average.min { |avg_1, avg_2| avg_1[1] <=> avg_2[1] }
   end
 
@@ -509,9 +494,7 @@ class StatTracker
         total_tackles[team_id] += tackles
       end
     end
-
-    most_tackles = total_tackles.min { |tackles_1, tackles_2| tackles_1[1] <=> tackles_2[1] }
-    team_id_to_name[most_tackles[0]]
+    team_id_to_name[minimum(total_tackles)[0]]
   end
 
   def number_of_tackles(team_id, game_id)

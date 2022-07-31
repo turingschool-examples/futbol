@@ -184,7 +184,7 @@ describe StatTracker do
 
   it 'can calculate the lowest average of an array in an array of team_id, average' do
     average = [["3", 2.1],["6", 2.28],["16", 2.23],["5", 2.39],["8", 2.08]]
-    expect(@stat_tracker.minimum(average)).to eq(["3", 2.08])
+    expect(@stat_tracker.minimum(average)).to eq(["8", 2.08])
   end
 
   xit 'can name the coach with the best winning percentage' do
@@ -192,7 +192,7 @@ describe StatTracker do
     expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
   end
 
-  xit 'can name the coach with the worst winning percentage' do
+  it 'can name the coach with the worst winning percentage' do
     expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
@@ -212,7 +212,7 @@ describe StatTracker do
     expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  xit 'can name the team with the least tackles made' do
+  it 'can name the team with the least tackles made' do
     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
@@ -276,7 +276,7 @@ describe StatTracker do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
   end
 
-  xit "can calculate which team had the worst offense" do
+  it "can calculate which team had the worst offense" do
     expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
   end
 
