@@ -148,7 +148,7 @@ describe StatTracker do
     end
 
     it 'can show name of the team with most tackles in the season' do
-      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+      expect(@stat_tracker.most_tackles("201203")).to eq("FC Dallas")
     end
 
   end

@@ -238,7 +238,6 @@ class StatTracker
    # Name of the Coach with the best win percentage for the season
    highest_percent_wins = team_win_percent_by_season[season.to_i].max_by {|stat| stat[:win_perc]}
    coach_by_team_id[highest_percent_wins[:team_id]]
-   require 'pry'; binding.pry
   end
 
   def worst_coach(season)#issue # 27
@@ -309,8 +308,6 @@ class StatTracker
         end
       end
     end
-<<<<<<< HEAD
-=======
   
     all_tackles = [] 
     games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
@@ -322,7 +319,6 @@ class StatTracker
         pair[1] == highest_tackles
       end
       team_by_id[highest_tackle_pair[0][0]]
->>>>>>> 7eb9b5e0a931b4590999bad1e3492248acef2c96
   end
 
   def fewest_tackles #issue # 22
