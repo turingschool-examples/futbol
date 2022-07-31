@@ -10,7 +10,8 @@ class StatTracker
   attr_reader :data, 
               :game,
               :league_statistics, 
-              :team_statistics
+              :team_statistics,
+              :season_statistics
 
   def_delegators :@game, :percentage_home_wins, :percentage_visitor_wins, :lowest_total_score, :highest_total_score, :percentage_ties,
                  :count_of_games_by_season, :average_goals_per_game, :average_goals_by_season
@@ -18,6 +19,7 @@ class StatTracker
                  :lowest_scoring_visitor, :lowest_scoring_home_team
   def_delegators :@team_statistics, :team_info, :best_season, :worst_season, :average_win_percentage, :most_goals_scored, :fewest_goals_scored,
                  :favorite_opponent, :rival
+  def_delegators :@season_statistics, :winningest_coach, :worst_coach, :most_accurate_team, :least_accurate_team, :most_tackles, :fewest_tackles
 
   def initialize(locations)
     game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
