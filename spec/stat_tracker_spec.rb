@@ -150,7 +150,7 @@ describe StatTracker do
     it 'can show name of the team with most tackles in the season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("Chicago Fire")
     end
-
+  end 
   describe 'Team Statistics' do
 
     it 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do #Pass
@@ -168,8 +168,8 @@ describe StatTracker do
       expect(@stat_tracker.best_season("16")).to eq("20132014")
     end
 
-    xit 'can show season with the lowest win percentage for a team' do #FAIL
-      expect(@stat_tracker.average_win_percentage).to eq#(float)
+    it 'can show season with the lowest win percentage for a team' do #FAIL
+      expect(@stat_tracker.average_win_percentage(16)).to eq(0.27)
     end
 
     it 'can return hgihest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
