@@ -157,29 +157,9 @@ describe StatTracker do
   xit "can count the total number of teams" do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
-  
-  it "can calculate which team had the best offense" do
-    expect(@stat_tracker.best_offense).to eq "Reign FC"
-  end
-
-  xit "can calculate which team had the worst offense" do
-    expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
-  end
-
-  xit "can calculate which team was the highest scoring visitor" do
-    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
-  end
 
   it "can calculate which team was the highest scoring home team" do
     expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
-  end
-
-  it "it can calculate which team was the lowest scoring visitor" do
-    expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
-  end
-
-  it "it can calculate which team was the lowest scoring home team" do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
 
   it 'can calculate the lowest average of an array in an array of team_id, average' do
@@ -210,16 +190,6 @@ describe StatTracker do
   xit 'can name the team with the worst shot accuracy' do
     expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
-  end
-
-  it 'can name the team with the most tackles made' do
-    expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
-  end
-
-  it 'can name the team with the least tackles made' do
-    expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
-    expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
 
   xit 'can create a hash with team_id, franchise_id, team_name, abbreviation, and link ' do

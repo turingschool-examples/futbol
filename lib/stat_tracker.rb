@@ -313,22 +313,6 @@ class StatTracker
     hash
   end
 
-  def count_of_teams
-    @teams.count { |team| team.team_id }
-  end
-
-  def best_offense
-    team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
-
-    team_scores_average =
-      team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end
-    team_id_to_name[maximum(team_scores_average)[0]]
-  end
-
   def highest_scoring_home_team
     home_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
@@ -342,14 +326,13 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    coaches = {}
     game_id_list = []
+    coaches = Hash.new(0)
     @games.each do |game|
       if game.season == season_id
         game_id_list << game.game_id
       end
     end
-    coaches = Hash.new(0)
 
     @game_teams.each do |game_team|
       game_id = game_team.game_id
