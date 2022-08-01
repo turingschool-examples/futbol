@@ -1,21 +1,75 @@
 <html>
   <head>
     <title>Futbol Statistics</title>
+    <style>
+      td, th {padding:3px;}
+    </style>
   </head>
 
   <body>
     <h1>Futbol</h1>
     <h2>Game Statistics</h2>
-    <li>Highest total score: <%= stat_tracker.highest_total_score %></li>
-    <li>Lowest total score: <%= stat_tracker.lowest_total_score %></li>
-    <li>Percentage of home team wins: <%= stat_tracker.percentage_home_wins * 100 %>%</li>
-    <li>Percentage of visitor wins: <%= stat_tracker.percentage_visitor_wins * 100 %>%</li>
-    <li>Percentage of tie games: <%= stat_tracker.percentage_ties * 100 %>%</li>
-    <li>The count of games by season: <%= stat_tracker.count_of_games_by_season %></li>
-    <li>Average goals per game: <%= stat_tracker.average_goals_per_game %></li>
-    <li>Average goals by season: <%= stat_tracker.average_goals_by_season %></li>
+    <h4>Shown below are all the statistics per game that were calculated in the Futbol project.</h4>
+    <ul>
+      <li>Highest total score: <%= stat_tracker.highest_total_score %></li>
+      &nbsp; &nbsp; <li>Lowest total score: <%= stat_tracker.lowest_total_score %></li>
+      &nbsp; &nbsp; <li>Percentage of home team wins: <%= stat_tracker.percentage_home_wins * 100 %>%</li>
+      &nbsp; &nbsp; <li>Percentage of visitor wins: <%= stat_tracker.percentage_visitor_wins * 100 %>%</li>
+      &nbsp; &nbsp; <li>Percentage of tie games: <%= stat_tracker.percentage_ties * 100 %>%</li>
+      &nbsp; &nbsp; <li>The count of games by season: </li>
+      <ul>
+        <% stat_tracker.count_of_games_by_season.each do |season, count| %>
+        <li><%= season %>: <%= count %></li>
+        <% end %>
+      </ul>
+      &nbsp; &nbsp; <li>Average goals per game: <%= stat_tracker.average_goals_per_game %></li>
+      &nbsp; &nbsp; <li>Average goals by season: </li>
+      <ul>
+        <% stat_tracker.average_goals_by_season.each do |season, goal| %>
+        <li><%= season %>: <%= goal %></li>
+        <% end %>
+      </ul>
+    </ul>
     <h2>League Statistics</h2>
     <h2>Team Statistics</h2>
+      
+      <table border="1">
+      <tr><th colspan="5">Teams Info</th><th colspan="6">Team Stats</th></tr>
+      <tr>
+        <th>Team ID</th>
+        <th>Team Name</th>
+        <th>Franchise ID</th>
+        <th>Abbreviation</th>
+        <th>Link</th>
+        <th>Best Season</th>
+        <th>Worst Season</th>
+        <th>Most Goals Scored</th>
+        <th>Fewest Goals Scored</th>
+        <th>Favorite Opponent</th>
+        <th>Rival</th>
+      </tr>
+
+      <% stat_tracker.teams.values.each do |team| %>
+        <tr>
+          <td><%= team.team_info["team_id"] %></td>
+          <td><%= team.team_info["team_name"] %></td>
+          <td><%= team.team_info["franchise_id"] %></td>
+          <td><%= team.team_info["abbreviation"] %></td>
+          <td><%= team.team_info["link"] %></td>
+          <% best_season = team.best_season %>
+          <td><%= best_season[0..3] + " / " + best_season[4..7] %></td>
+          <% worst_season = team.worst_season%>
+          <td><%= worst_season[0..3] + " / " + worst_season[4..7] %></td>
+          <td><%= team.most_goals_scored %></td>
+          <td><%= team.fewest_goals_scored %></td>
+          <td><%= team.favorite_opponent %></td>
+          <td><%= team.rival %></td>
+        </tr>
+      <% end %>
+      </table>
+
+
+
     <h2>Season Statistics</h2>
   </body>
 </html>
