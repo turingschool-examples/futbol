@@ -40,8 +40,4 @@ class StatTracker
   def most_goals_scored(team) @teams[team.to_i].most_goals_scored end
   def fewest_goals_scored(team) @teams[team.to_i].fewest_goals_scored end
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 end
