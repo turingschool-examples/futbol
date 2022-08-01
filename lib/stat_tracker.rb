@@ -1,4 +1,6 @@
 require 'csv'
+require_relative './season_helper_module'
+require_relative './league_helper_module'
 require './lib/season_helper_module'
 require './lib/game_stat_module'
 require './lib/league_helper_module'
@@ -9,11 +11,13 @@ class StatTracker
   include GameStatsable
   
   def initialize(locations)
-    @x = 1
-    @locations = locations
     @games_data = CSV.read(@locations[:games], headers: true, header_converters: :symbol)
     @teams_data = CSV.read(@locations[:teams], headers: true, header_converters: :symbol)
     @game_teams_data = CSV.read(@locations[:game_teams], headers: true, header_converters: :symbol)
+    @league_statistics = LeagueStatistics.new(@teams_data, @game_teams_data)
+    # @season_statistics = SeasonStatistics.new(locations)
+    # @team_statistics = TeamStatistics.new(locations)
+    # @game_statistics = GameStatistics.new(locations)
   end
 
   def self.from_csv(locations)
@@ -23,6 +27,7 @@ class StatTracker
   # Game statistics 
   def highest_total_score
     scores = @games_data.map do |row| 
+      require 'pry'; binding.pry
       row[:away_goals].to_i + row[:home_goals].to_i 
     end
     scores.max

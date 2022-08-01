@@ -1,15 +1,9 @@
 RSpec.describe LeagueStatistics do
   context 'when a league statistics is created' do
-    mock_games_data = './data/mock_games.csv' 
-    team_data = './data/teams.csv' 
-    mock_game_teams_data = './data/mock_game_teams.csv' 
-    
-    let!(:mock_locations) {{games: mock_games_data, teams: team_data, game_teams: mock_game_teams_data}}
-  
-    let!(:stat_tracker) { StatTracker.from_csv(mock_locations) }
+    team_data = CSV.read './data/teams.csv', headers:true, header_converters: :symbol
+    mock_game_teams_data = CSV.read './data/mock_game_teams.csv', headers: true, header_converters: :symbol
+    let!(:league_statistics) { LeagueStatistics.new(team_data, mock_game_teams_data) }
 
-    let!(:league_statistics) { LeagueStatistics.new {extend Leagueable, TeamNameable}}
-    
     it 'instantiates' do
       expect(league_statistics).to be_a(LeagueStatistics)
     end
