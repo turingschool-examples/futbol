@@ -2,11 +2,18 @@
   <head>
     <title>Futbol Statistics</title>
   </head>
+
   <body>
     <h1>Futbol</h1>
     <h2>Game Statistics</h2>
     <li>Highest total score: <%= stat_tracker.highest_total_score %></li>
     <li>Lowest total score: <%= stat_tracker.lowest_total_score %></li>
+    <li>Percentage of home team wins: <%= stat_tracker.percentage_home_wins * 100 %>%</li>
+    <li>Percentage of visitor wins: <%= stat_tracker.percentage_visitor_wins * 100 %>%</li>
+    <li>Percentage of tie games: <%= stat_tracker.percentage_ties * 100 %>%</li>
+    <li>The count of games by season: <%= stat_tracker.count_of_games_by_season %></li>
+    <li>Average goals per game: <%= stat_tracker.average_goals_per_game %></li>
+    <li>Average goals by season: <%= stat_tracker.average_goals_by_season %></li>
+    <h2>League Statistics</h2>
   </body>
-
 </html>
