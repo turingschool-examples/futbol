@@ -1,4 +1,7 @@
+require 'calculable'
+
 class SeasonStats
+  include Calculable
 
   def initialize(data, id_team_key = {})
     @data = data
@@ -6,30 +9,36 @@ class SeasonStats
   end
 
   def winningest_coach
-    coach_win_percentage.max_by{|coach, percentage| percentage}.first
+    module_highest(coach_win_percentage)
+    # coach_win_percentage.max_by{|coach, percentage| percentage}.first
   end
 
   def worst_coach
-    coach_win_percentage.max_by{|coach, percentage| -percentage}.first
+    module_lowest(coach_win_percentage)
+    # coach_win_percentage.max_by{|coach, percentage| -percentage}.first
   end
 
   def most_accurate_team
-    team_id_highest_accuracy = team_id_accuracy.max_by{|team, acc| acc}.first
+    team_id_highest_accuracy = module_highest(team_id_accuracy)
+    # team_id_highest_accuracy = team_id_accuracy.max_by{|team, acc| acc}.first
     @id_team_key[team_id_highest_accuracy]
   end
 
   def least_accurate_team
-    team_id_highest_accuracy = team_id_accuracy.max_by{|team, acc| acc}.first
+    team_id_highest_accuracy = module_lowest(team_id_accuracy)
+    # team_id_highest_accuracy = team_id_accuracy.max_by{|team, acc| acc}.first
     @id_team_key[team_id_highest_accuracy]
   end
 
   def most_tackles
-    most_tackles = num_tackles.max_by{|id, tackles| tackles}.first
+    most_tackles = module_highest(num_tackles)
+    # most_tackles = num_tackles.max_by{|id, tackles| tackles}.first
     @id_team_key[most_tackles]
   end
 
   def fewest_tackles
-    least_tackles = num_tackles.max_by{|id, tackles| -tackles}.first
+    least_tackles = module_lowest(num_tackles)
+    # least_tackles = num_tackles.max_by{|id, tackles| -tackles}.first
     @id_team_key[least_tackles]
   end
 
@@ -43,11 +52,14 @@ class SeasonStats
       shots[game[:team_id]] += game[:shots].to_f
     end
 
-    team_id_accuracy = Hash.new
-    goals.each do |team, goals|
-      team_id_accuracy[team] = goals / shots[team]
-    end
-    team_id_accuracy
+    
+
+    module_ratio(goals, shots)
+    # team_id_accuracy = Hash.new
+    # goals.each do |team, goals|
+    #   team_id_accuracy[team] = goals / shots[team]
+    # end
+    # team_id_accuracy
   end
 
   def coach_win_percentage
@@ -61,11 +73,13 @@ class SeasonStats
       all_games[coach] += 1
     end
 
-    win_percentage = Hash.new
-    wins.map do |coach, num_wins|
-      win_percentage[coach] = num_wins.to_f / all_games[coach]
-    end
-    win_percentage
+    module_ratio(wins, all_games)
+
+    # win_percentage = Hash.new
+    # wins.map do |coach, num_wins|
+    #   win_percentage[coach] = num_wins.to_f / all_games[coach]
+    # end
+    # win_percentage
   end
 
   def num_tackles
