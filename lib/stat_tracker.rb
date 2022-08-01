@@ -405,7 +405,7 @@ class StatTracker
       hash[:wins].to_f / hash[:total_games].to_f
     end[0]
     worst_season
-  end 
+  end
 
   def team_info(given_team_id)
     all_team_info = @all_data_hash[:teams].select do |team|
@@ -574,7 +574,7 @@ class StatTracker
 
     coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
     worst_coach = coaches_by_win_percentage.min_by{|k, v| v}[0]
-  end 
+  end
 
   def most_goals_scored(team_id)
     games_by_id = []
@@ -649,7 +649,7 @@ class StatTracker
     end
     team_with_least_tackles
   end
-  
+
   def average_win_percentage(given_team_id)
     games_by_team_hash = @all_data_hash[:game_teams].group_by do |game|
       game[:team_id]

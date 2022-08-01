@@ -1,5 +1,5 @@
 # runner.rb
-require './lib/stat_tracker'
+require './lib/stat_tracker2'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
