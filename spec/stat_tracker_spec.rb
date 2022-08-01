@@ -1,3 +1,5 @@
+require 'simplecov'
+Simplecov.start
 require './lib/stat_tracker.rb'
 require_relative 'spec_helper.rb'
 
@@ -37,9 +39,9 @@ describe StatTracker do
 
 
 
-    xit 'percentage_visitor_wins' do #FAIL - corrected test to correct format but number returned is wrong too
+    it 'percentage_visitor_wins' do #FAIL - corrected test to correct format but number returned is wrong too
    #move to correct location
-        expect(@stat_tracker.percentage_visitor_wins).to eq(0.4)
+        expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
     end
 
     xit "finds highest total score" do #Pass
@@ -70,7 +72,7 @@ describe StatTracker do
       expect(@stat_tracker.home_wins).to eq(21)
     end
 
-    xit 'calculates percentage wins' do #FAIL - corrected game_teams_path
+    it 'calculates percentage wins' do #FAIL - corrected game_teams_path
       expect(@stat_tracker.percentage_home_wins).to eq(0.60)
     end
 
@@ -78,8 +80,8 @@ describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(0.00)
     end
 
-    xit 'average goals' do #FAIL - Need to make this test eq 0.99 not whole numbers
-      expect(@stat_tracker.average_goals_per_game).to eq(3.90)
+    it 'average goals' do #FAIL - Need to make this test eq 0.99 not whole numbers
+      expect(@stat_tracker.average_goals_per_game).to eq(3.9)
     end
 
     xit 'returns hash with season name and average goals for each season ' do #Pass
@@ -133,34 +135,33 @@ describe StatTracker do
 
 
     xit 'can show name of coach with the best win percentage of the season' do #FAIL - wrong name returns
-      expect(@stat_tracker.winningest_coach("20132013")).to eq("Claude Julien")
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
 
-    xit 'can show name with the worst win percentage for the season' do #FAIL - wrong name returns
-      expect(@stat_tracker.worst_coach("20132013")).to eq("John Tortorella", "Dan Bylsma")
-    end
-    
-    xit 'can return games won by a specific team' do
-      expect(@stat_tracker.wins_by_team(3)).to eq([[2013020226, 3], [2013020738, 3], [2013030141, 3], [2013030143, 3], [2013030147, 3], [2016030111, 3], [2016030112, 3], [2016030114, 3], [2016030115, 3]])
+    it 'can show name with the worst win percentage for the season' do #FAIL - wrong name returns
+      expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella").or(eq("Dan Bylsma"))
     end
 
     xit 'can show name of the team with the best ratio of shots to goals for the season' do #FAIL - NilClass Error
       expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
     end
 
-    xit 'can show name of the team with the worst ratio of shots to goals for the season' do #FAIL - not yet written
-      expect(@stat_tracker.least_accurate_team(20122013)).to eq("Sporting Kansas City")
+    it 'can show name of the team with the worst ratio of shots to goals for the season' do #passed dummy test and spec harness
+      expect(@stat_tracker.least_accurate_team("20152016")).to eq("New England Revolution")
+    end
+    
+    it 'can count goals' do 
+      expect(@stat_tracker.goals_by_team(16)).to eq(31)
+    end
+
+    it 'can count shots' do 
+      expect(@stat_tracker.shots_by_team(16)).to eq(127)
     end
 
     xit 'can show name of the team with most tackles in the season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
-
-    xit 'can show name of the team with fewest tackles in season' do 
-      expect(@stat_tracker.fewest_tackles(20122013)).to eq("Sporting Kansas City")
-    end
   end
-
   describe 'Team Statistics' do
 
     xit 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do #Pass
@@ -179,12 +180,11 @@ describe StatTracker do
     end
 
     xit 'can show season with the lowest win percentage for a team' do #FAIL
-       expect(@stat_tracker.average_win_percentage("3")).to eq 0.25
+       expect(@stat_tracker.average_win_percentage("3")).to eq(0.25)
     end
 
-    xit 'can return hgihest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
+    it 'can return hgihest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
       expect(@stat_tracker.most_goals_scored("3")).to eq(5)
-      #expect(@stat_tracker.most_goals_scored("18")).to eq 7         spec harness 
     end
 
     xit 'can return lowest number of goals a particular team has scored in a single game' do #FAIL - Fail due to not written
@@ -195,8 +195,16 @@ describe StatTracker do
       expect(@stat_tracker.favorite_opponent(3)).to eq("")
     end
 
-    xit 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
-       expect(@stat_tracker.rival("3")).to eq("FC Dallas")
+    it 'can determine number of rival wins' do 
+      expect(@stat_tracker.rival_wins("19")).to be_a Hash
+    end 
+
+    it 'can determine number of rival games' do 
+      expect(@stat_tracker.rival_games("19")).to be_a Hash
+    end 
+    
+    it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
+      expect(@stat_tracker.rival("19")).to eq("New England Revolution")
     end
   end
 
