@@ -25,18 +25,6 @@ class Season
     tackles_by_team.min_by{|team, tackles| tackles}.first
   end
 
-  def self.generate_seasons(games)
-    seasons_ids = games.map{|game| game.season}.uniq
-    seasons_hash = {}
-    seasons_ids.each do |season_id|
-      games_in_season = games.find_all do |game|
-        game.season == season_id
-      end
-      seasons_hash[season_id] = Season.new(season_id, games_in_season)
-    end
-    seasons_hash
-  end
-
   def shots_by_team_per_season_avg(season_id)
     shots_and_goals = Hash.new{|hash, team_name| hash[team_name] = Hash.new(0)}
     @games_in_season.each do |game|
@@ -84,5 +72,17 @@ class Season
       coach_stats[coach_name] = (wins.to_f / game_results.length).round(2)
     end
     coach_stats
+  end
+
+  def self.generate_seasons(games)
+    seasons_ids = games.map{|game| game.season}.uniq
+    seasons_hash = {}
+    seasons_ids.each do |season_id|
+      games_in_season = games.find_all do |game|
+        game.season == season_id
+      end
+      seasons_hash[season_id] = Season.new(season_id, games_in_season)
+    end
+    seasons_hash
   end
 end
