@@ -14,4 +14,5 @@ class GameTeamsStats
     GameTeamsStats.new(game_teams_as_objects)
   end
 
+
 end
