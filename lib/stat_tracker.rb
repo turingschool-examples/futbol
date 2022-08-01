@@ -1,4 +1,7 @@
 require 'csv'
+require_relative 'game'
+require_relative 'team'
+require_relative 'game_team'
 
 class StatTracker
   attr_reader :locations, :data
@@ -16,6 +19,27 @@ class StatTracker
     # games = Games.new(locations[:games])
   end
 
+  def games
+    games_csv = CSV.open(@game_path, headers: true, header_converters: :symbol)
+    @games ||= games_csv.map do |row|
+      Game.new(row)
+    end
+  end
+
+  def teams
+    teams_csv = CSV.open(@team_path, headers: true, header_converters: :symbol)
+    @teams ||= teams_csv.map do |row|
+      Team.new(row)
+    end
+  end
+
+  def game_teams
+    game_teams_csv = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
+    @game_teams ||= game_teams_csv.map do |row|
+      GameTeam.new(row)
+    end
+  end
+
   def self.from_csv(locations)
     StatTracker.new(
       locations[:games],
@@ -26,12 +50,9 @@ class StatTracker
 
   def highest_total_score
     score_sum = 0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if score_sum < (away_goals + home_goals)
-        score_sum = (away_goals + home_goals)
+    games.each do |game|
+      if score_sum < (game.away_goals.to_i + game.home_goals.to_i)
+        score_sum = (game.away_goals.to_i + game.home_goals.to_i)
       end
     end
     score_sum
