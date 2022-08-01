@@ -290,6 +290,7 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
+  
   def goals_by_team(team_id) #helper for 29
     goals = []
       @game_teams.each do |row|
@@ -512,11 +513,19 @@ class StatTracker
     array_of_goals_for_specified_team.max()
   end
 
-  def fewest_goals_scored #issue # 28 - Fail due to not written
+  def fewest_goals_scored(team_id) #issue # 28 - Fail due to not written
 
+    array_of_goals_for_specified_team = []
 
+      @games.each do |row|
+        array_of_goals_for_specified_team << row[:away_goals] if team_id.to_i == row[:away_team_id]
+        array_of_goals_for_specified_team << row[:home_goals] if team_id.to_i == row[:home_team_id]
+      end
 
+      array_of_goals_for_specified_team.min()
   end
+
+  
 
   def favorite_opponent #issue # 29 - Fail due to not written
 
