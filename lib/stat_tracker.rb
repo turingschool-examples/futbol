@@ -59,14 +59,14 @@ class StatTracker
     (away_wins.to_f / away_games_played).round(2)
   end
 
-  def percentage_ties #issue #6 - Need to make this test eq 0.99 not whole numbers
+  def percentage_ties #issue #6 - PASS
     ties = 0.0
     total_games = total_scores_by_game.count
 
     @games.values_at(:away_goals, :home_goals).each do |game|
       ties += 1 if game[0] == game[1]
     end
-    ((ties/total_games)*100).round(1)
+    (ties/total_games).round(1)
   end
 
   def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
@@ -88,7 +88,7 @@ class StatTracker
   end
 
   def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers
-    (total_scores_by_game.sum/@games.count.to_f).round(2)    
+    (total_scores_by_game.sum/@games.count.to_f).round(2)
   end
 
   def average_goals_by_season #issue #9 - Pass
@@ -199,8 +199,6 @@ class StatTracker
   def lowest_scoring_visitor #issue # 15 - PASS
     lowest_average = average_scores_by_team_id("away").values.min
     team_by_id[average_scores_by_team_id("away").key(lowest_average)]
-
-
   end
 
   def lowest_scoring_home_team #issue # 16 - Fail wrong team being returned
@@ -251,9 +249,10 @@ class StatTracker
    # Name of the Coach with the best win percentage for the season
    highest_percent_wins = team_win_percent_by_season[season.to_i].max_by {|stat| stat[:win_perc]}
    coach_by_team_id[highest_percent_wins[:team_id]][season.to_i].sample
+
   end
 
-  def worst_coach(season)#issue # 27 - FAIL wrong name returns
+  def worst_coach(season)#issue # 27 - FAIL 2/3 tests PASS - on fail it is providing diff team/name
     lowest_percent_wins = team_win_percent_by_season[season.to_i].min_by {|stat| stat[:win_perc]}
     coach_by_team_id[lowest_percent_wins[:team_id]][season.to_i].sample
   end
@@ -293,19 +292,19 @@ class StatTracker
 
   
   def goals_by_team(team_id) #helper for 29
-    goals = []  
-      @game_teams.each do |row|             
-        if (row[:team_id] == team_id) 
+    goals = []
+      @game_teams.each do |row|
+        if (row[:team_id] == team_id)
           goals << [row[:goals]]
         end
       end
       goals.flatten.sum
-    end 
+    end
 
   def shots_by_team(team_id) #helper for 29
   shots = []
     @game_teams.each do |row|
-      
+
       if row[:team_id] == team_id
       shots << [row[:shots]]
       end
@@ -324,7 +323,7 @@ class StatTracker
 
     game_teams.each do |row|
       teams_with_goals_n_shots[row[:team_id]]["goals"] << row[:goals] and teams_with_goals_n_shots[row[:team_id]]["shots"] << row[:shots] if games_by_season[season.to_i].include?(row[:game_id])
-    end  
+    end
 
     teams_with_goals_n_shots.keys.each do |team_id|
       teams_with_goals_n_shots[team_id] = teams_with_goals_n_shots[team_id]["goals"].sum.to_f / teams_with_goals_n_shots[team_id]["shots"].sum
@@ -488,7 +487,7 @@ class StatTracker
     win_percentage
   end
 
-  def best_season (team_id) #issue # 18 - Fail wrong season being returned
+  def best_season (team_id) #issue # 18 - PASS
     season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
 
@@ -581,7 +580,7 @@ class StatTracker
        if v == rival_opp.values.max
          return team_by_id[k.to_i]
        end
-       
+
      end
   end
 end
