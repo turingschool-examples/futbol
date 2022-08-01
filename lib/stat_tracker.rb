@@ -9,6 +9,7 @@ class StatTracker
 
   def initialize(games, teams, game_teams)
     @data_warehouse = DataWarehouse.new(games, teams, game_teams)
+    @league_stats = LeagueStats.new(@data_warehouse)
   end
 
   def self.from_csv(locations)
@@ -340,43 +341,31 @@ class StatTracker
   end
 
   def count_of_teams
-    @data_warehouse.teams.count
+    @league_stats.count_of_teams
   end
 
   def best_offense
-    data = @data_warehouse
-    league_stats = LeagueStats.new(data)
-    league_stats.best_offense
+    @league_stats.best_offense
   end
 
   def worst_offense
-    data = @data_warehouse
-    league_stats = LeagueStats.new(data)
-    league_stats.worst_offense
+    @league_stats.worst_offense
   end
 
   def highest_scoring_visitor
-    data = @data_warehouse
-    league_stats = LeagueStats.new(data)
-    league_stats.highest_scoring_visitor
+    @league_stats.highest_scoring_visitor
   end
 
   def highest_scoring_home_team
-    data = @data_warehouse
-    league_stats = LeagueStats.new(data)
-    league_stats.highest_scoring_home_team
+    @league_stats.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor
-    data = @data_warehouse
-    league_stats = LeagueStats.new(data)
-    league_stats.lowest_scoring_visitor
+    @league_stats.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team
-    data = @data_warehouse
-    league_stats = LeagueStats.new(data)
-    league_stats.lowest_scoring_home_team
+    @league_stats.lowest_scoring_home_team
   end
 
 end
