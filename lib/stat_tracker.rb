@@ -88,7 +88,7 @@ class StatTracker
   end
 
   def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers
-    (total_scores_by_game.sum/@games.count.to_f).round(2)    
+    (total_scores_by_game.sum/@games.count.to_f).round(2)
   end
 
   def average_goals_by_season #issue #9 - Pass
@@ -199,8 +199,6 @@ class StatTracker
   def lowest_scoring_visitor #issue # 15 - PASS
     lowest_average = average_scores_by_team_id("away").values.min
     team_by_id[average_scores_by_team_id("away").key(lowest_average)]
-
-
   end
 
   def lowest_scoring_home_team #issue # 16 - Fail wrong team being returned
@@ -293,19 +291,19 @@ class StatTracker
   end
 
   def goals_by_team(team_id) #helper for 29
-    goals = []  
-      @game_teams.each do |row|             
-        if (row[:team_id] == team_id) 
+    goals = []
+      @game_teams.each do |row|
+        if (row[:team_id] == team_id)
           goals << [row[:goals]]
         end
       end
       goals.flatten.sum
-    end 
+    end
 
   def shots_by_team(team_id) #helper for 29
   shots = []
     @game_teams.each do |row|
-      
+
       if row[:team_id] == team_id
       shots << [row[:shots]]
       end
@@ -324,7 +322,7 @@ class StatTracker
 
     game_teams.each do |row|
       teams_with_goals_n_shots[row[:team_id]]["goals"] << row[:goals] and teams_with_goals_n_shots[row[:team_id]]["shots"] << row[:shots] if games_by_season[season.to_i].include?(row[:game_id])
-    end  
+    end
 
     teams_with_goals_n_shots.keys.each do |team_id|
       teams_with_goals_n_shots[team_id] = teams_with_goals_n_shots[team_id]["goals"].sum.to_f / teams_with_goals_n_shots[team_id]["shots"].sum
@@ -573,7 +571,7 @@ class StatTracker
        if v == rival_opp.values.max
          return team_by_id[k.to_i]
        end
-       
+
      end
   end
 end
