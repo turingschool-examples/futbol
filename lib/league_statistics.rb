@@ -1,18 +1,16 @@
-require './lib/league_helper_module'
-require './lib/team_name_by_id_helper_module'
+require_relative './league_helper_module'
+require_relative './team_name_by_id_helper_module'
 
-class LeagueStatistics
+class LeagueStatistics < StatTracker
   include Leagueable
   include TeamNameable
-  def initialize
-    @teams_data = CSV.read "./data/teams.csv", headers: true, header_converters: :symbol
-    @game_teams_data = CSV.read "./data/mock_game_teams.csv", headers: true, header_converters: :symbol
+  def initialize(team_data, game_teams_data)
+    @teams_data = team_data
+    @game_teams_data = game_teams_data
   end
 
   def count_of_teams
-    @teams_data.select do |team|
-      team[:team_id]
-    end.count
+    @teams_data.select { |team| team[:team_id] }.count
   end
 
   def best_offense 
