@@ -197,7 +197,7 @@ describe StatTracker do
     end 
 
     it 'can determine number of rival games' do 
-      expect(@stat_tracker.rival_wins("19")).to be_a Hash
+      expect(@stat_tracker.rival_games("19")).to be_a Hash
     end 
     
     it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
