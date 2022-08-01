@@ -495,10 +495,8 @@ class StatTracker
     season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
 
-  def worst_season #issue # 25 - Fail due to not written
-
-
-
+  def worst_season(team_id) #issue # 25 - Fail due to not written
+    season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.min).to_s
   end
 
   def average_win_percentage(team_id) #issue # 20
