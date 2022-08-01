@@ -106,14 +106,8 @@ class Team
   end
 
   def team_info
-      team_info = Hash.new()
-      @teams.values.select do |individual_team|
-          if individual_team.team_id.to_s == team_id
-            team_info = {"team_id" => individual_team.team_id.to_s, "franchise_id" => individual_team.franchise_id.to_s, "team_name" => individual_team.team_name, "abbreviation" => individual_team.abbreviation, "link" => individual_team.link}
-          end
-        end
-        team_info
-    end
+    team_info = {"team_id" => @team_id.to_s, "franchise_id" => @franchise_id.to_s, "team_name" => @team_name, "abbreviation" => @abbreviation, "link" => @link}
+  end
 
   def self.generate_teams(team_csv)
     teams_hash = {}
