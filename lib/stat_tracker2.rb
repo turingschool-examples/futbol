@@ -141,7 +141,7 @@ class StatTracker
   end
 #Season Statistics Methods
   def winningest_coach(season)
-
+    games_team_win_count_by_stat(games_by_season)
 
 
 

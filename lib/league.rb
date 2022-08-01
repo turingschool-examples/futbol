@@ -49,4 +49,24 @@ class League
     end.team_name
   end
 
+  def games_team_win_count_by_head_coach(games_team_data_set)
+    data_set_by_head_coach = data_set.group_by do |game|
+      game.head_coach
+    end
+    coaches_by_win_percentage = Hash.new{|h,k| h[k] = 0}
+    data_set_by_head_coach.each do |coach, games|
+      game_outcomes_by_stat = {
+        wins: 0,
+        ties: 0,
+        total_games: 0
+      }
+      games.map do |game|
+        game_outcomes_by_stat[:wins] += 1 if game[:result] == "WIN"
+        game_outcomes_by_stat[:ties] += 1 if game[:result] == "TIE"
+        game_outcomes_by_stat[:total_games] += 1
+      end
+      coaches_by_win_percentage[coach] = (game_outcomes_by_stat[:wins].to_f / game_outcomes_by_stat[:total_games])
+    end
+    coaches_by_win_percentage
+  end
 end
