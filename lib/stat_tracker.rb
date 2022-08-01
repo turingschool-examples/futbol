@@ -1,8 +1,6 @@
 require 'csv'
-# require './lib/league_generator'
 
 class StatTracker
-  attr_reader :all_data_hash
   def self.from_csv(locations)
     all_data_hash = Hash.new{ |h, k| h[k] = [] }
     CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
