@@ -1,6 +1,9 @@
 <html>
   <head>
     <title>Futbol Statistics</title>
+    <style>
+      td, th {padding:3px;}
+    </style>
   </head>
 
   <body>
@@ -29,30 +32,15 @@
     </ul>
     <h2>League Statistics</h2>
     <h2>Team Statistics</h2>
-      <table style="margin-left:50px" border="1">
-      <tr><th colspan="5">Teams Info</th></tr>
-      <tr><b>
+      
+      <table border="1">
+      <tr><th colspan="5">Teams Info</th><th colspan="6">Team Stats</th></tr>
+      <tr>
         <th>Team ID</th>
-        <th>Franchise ID</th>
         <th>Team Name</th>
+        <th>Franchise ID</th>
         <th>Abbreviation</th>
         <th>Link</th>
-      </tr>
-
-      <% stat_tracker.teams.values.each do |team| %>
-        <tr>
-          <td><%= team.team_info["team_id"] %></td>
-          <td><%= team.team_info["franchise_id"] %></td>
-          <td><%= team.team_info["team_name"] %></td>
-          <td><%= team.team_info["abbreviation"] %></td>
-          <td><%= team.team_info["link"] %></td>
-        </tr>
-      <% end %>
-      </table><br>
-      <table style="margin-left:50px" border="1">
-      <tr><th colspan="7">Team Stats</th></tr>
-      <tr><b>
-        <th>Team Name</th>
         <th>Best Season</th>
         <th>Worst Season</th>
         <th>Most Goals Scored</th>
@@ -63,7 +51,11 @@
 
       <% stat_tracker.teams.values.each do |team| %>
         <tr>
-          <td><%= team.team_name %></td>
+          <td><%= team.team_info["team_id"] %></td>
+          <td><%= team.team_info["team_name"] %></td>
+          <td><%= team.team_info["franchise_id"] %></td>
+          <td><%= team.team_info["abbreviation"] %></td>
+          <td><%= team.team_info["link"] %></td>
           <% best_season = team.best_season %>
           <td><%= best_season[0..3] + " / " + best_season[4..7] %></td>
           <% worst_season = team.worst_season%>
