@@ -529,6 +529,7 @@ class StatTracker
       array_of_goals_for_specified_team.min()
   end
 
+
   #issue # 29 - Fail due to not written
   def favorite_opponent(team_id)#issue # 29
     rival_opp = {}
