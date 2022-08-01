@@ -277,7 +277,7 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-  def least_accurate_team(season) #issue # 20 - FAIL not written yet
+  def least_accurate_team(season) #issue # 20 - passed dummy and spec harness
     games_by_season
     teams_with_goals_n_shots = Hash.new { |h,k| h[k] = [] }
 

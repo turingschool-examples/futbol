@@ -143,7 +143,7 @@ describe StatTracker do
       expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
     end
 
-    it 'can show name of the team with the worst ratio of shots to goals for the season' do #FAIL - not yet written
+    it 'can show name of the team with the worst ratio of shots to goals for the season' do #passed dummy test and spec harness
       expect(@stat_tracker.least_accurate_team("20152016")).to eq("New England Revolution")
     end
 
