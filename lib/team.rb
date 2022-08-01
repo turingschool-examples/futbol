@@ -106,7 +106,7 @@ class Team
   end
 
   def team_info
-    team_info = {"team_id" => @team_id.to_s, "franchise_id" => @franchise_id.to_s, "team_name" => @team_name, "abbreviation" => @abbreviation, "link" => @link}
+    {"team_id" => @team_id.to_s, "franchise_id" => @franchise_id.to_s, "team_name" => @team_name, "abbreviation" => @abbreviation, "link" => @link}
   end
 
   def self.generate_teams(team_csv)
