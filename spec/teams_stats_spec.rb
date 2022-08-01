@@ -12,4 +12,29 @@ describe TeamsStats do
     expect(@team_stats).to be_a(TeamsStats)
   end
 
+  it "can count the total number of teams" do
+    expect(@team_stats.count_of_teams).to eq(32)
+  end
+
+  xit "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
+    expect(@team_stats.team_info("18")).to eq({
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18",
+    })
+  end
+
+  xit "can name the team with the best shot accuracy" do
+    expect(@team_stats.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(@team_stats.most_accurate_team("20142015")).to eq "Toronto FC"
+  end
+
+  xit "can name the team with the worst shot accuracy" do
+    expect(@team_stats.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(@team_stats.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  end
+
+
 end
