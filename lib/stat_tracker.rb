@@ -136,15 +136,15 @@ class StatTracker
   end
 
   def best_season(search_team_id)
-    data = @data_warehouse
+    data = @data_warehouse.season_stats(search_team_id)
     team_stats = TeamStats.new(data)
-    team_stats.best_season(search_team_id)
+    team_stats.best_season
   end
 
   def worst_season(search_team_id)
-    data = @data_warehouse
+    data = @data_warehouse.season_stats(search_team_id)
     team_stats = TeamStats.new(data)
-    team_stats.worst_season(search_team_id)
+    team_stats.worst_season
   end
 
   def average_win_percentage(search_team_id)

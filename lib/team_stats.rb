@@ -4,12 +4,12 @@ class TeamStats
     @data = data
   end
 
-  def best_season(search_team_id)
-    ((season_stats(search_team_id).tally.values.sort.last.to_f / @data.games.count) * 100).round(2).to_s
+  def best_season
+    ((@data[0].tally.values.sort.last.to_f / @data[1]) * 100).round(2).to_s
   end
 
-  def worst_season(search_team_id)
-    ((season_stats(search_team_id).tally.values.sort.first.to_f / @data.games.count) * 100).round(2).to_s
+  def worst_season
+    ((@data[0].tally.values.sort.first.to_f / @data[1]) * 100).round(2).to_s
   end
 
   def most_goals_scored(search_team_id)
@@ -42,26 +42,7 @@ class TeamStats
     team_name
   end
 
-  def season_stats(search_team_id)
 
-    all_win_info = []
-      @data.game_teams.each do |game_team|
-        if game_team[:result] == "WIN" && game_team[:team_id] == search_team_id
-          all_win_info << game_team[:game_id]
-        end
-      end
-    all_win_info
-
-    season_won = []
-    @data.games.each do |game|
-      all_win_info.each do |per_game|
-      if per_game == game[:game_id]
-        season_won << game[:season]
-        end
-      end
-    end
-      season_won
-  end
 
   def opponent_name(search_team_id)
     all_games_won = []

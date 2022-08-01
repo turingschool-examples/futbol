@@ -27,4 +27,21 @@ class DataWarehouse
     @teams[:team_id].zip(@teams[:teamname]).to_h
   end
 
+  def season_stats(search_team_id)
+
+    all_win_info = @game_teams.select do |game_team|
+      game_team[:result] == "WIN" && game_team[:team_id] == search_team_id
+    end
+
+    season_won = []
+    @games.each do |game|
+      all_win_info.each do |per_game|
+      if per_game[:game_id] == game[:game_id]
+        season_won << game[:season]
+        end
+      end
+    end
+    [season_won, @games.count]
+  end
+
 end
