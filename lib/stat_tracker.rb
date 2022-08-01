@@ -307,7 +307,7 @@ class StatTracker
 
   end
 
-  def most_tackles(season_id) #issue # 21 - FAIL - Wrong team returning
+  def most_tackles(season_id) #issue # 21 PASS
 
     all_season_ids = []
     games.each do |row|
@@ -316,7 +316,6 @@ class StatTracker
 
     unique_season_ids = all_season_ids.uniq
     games_in_season_hash = {}
-
     unique_season_ids.each do |season|
       games_in_season_hash[season] = [[], {"team_id_and_tackles" => []}]
     end
@@ -333,16 +332,25 @@ class StatTracker
       end
     end
 
-    all_tackles = []
-    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
-      all_tackles << pair[1]
-    end
-    highest_tackles = all_tackles.max()
+    team_id_and_tackles_hash = {}
+    all_team_ids = []
 
-      highest_tackle_pair = games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].find_all do |pair|
-        pair[1] == highest_tackles
-      end
-      team_by_id[highest_tackle_pair[0][0]]
+    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
+      all_team_ids << pair[0]
+    end
+
+    unique_team_ids = all_team_ids.uniq
+
+    unique_team_ids.each do |teamid|
+      team_id_and_tackles_hash[teamid] = 0
+    end
+
+    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
+      team_id_and_tackles_hash[pair[0]] += pair[1]
+    end
+
+    highest_tackle_pair = team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)
+    team_by_id[highest_tackle_pair]
   end
 
   def fewest_tackles #issue # 22 - not yet written
@@ -470,13 +478,13 @@ class StatTracker
     (wins_by_team(team_id).count.to_f/games_by_team(team_id).count.to_f).round(2)
   end
 
-  def most_goals_scored(team_id) #issue # 27 - FAIL returns nil on harness
+  def most_goals_scored(team_id) #issue # 27 pass
 
     array_of_goals_for_specified_team = []
 
     @games.each do |row|
-      array_of_goals_for_specified_team << row[:away_goals] if team_id == row[:away_team_id]
-      array_of_goals_for_specified_team << row[:home_goals] if team_id == row[:home_team_id]
+      array_of_goals_for_specified_team << row[:away_goals] if team_id.to_i == row[:away_team_id]
+      array_of_goals_for_specified_team << row[:home_goals] if team_id.to_i == row[:home_team_id]
     end
 
     array_of_goals_for_specified_team.max()
