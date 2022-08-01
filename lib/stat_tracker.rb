@@ -44,21 +44,19 @@ class StatTracker
   end
 
   def percentage_home_wins #issue #4 - Need to make this test eq 0.99 not whole numbers
-    percentage = (home_wins/home_games) * 100
+    percentage = (home_wins/home_games).round(2)
   end
 
-  def percentage_visitor_wins #issue #5 - Need to make this test eq 0.99 not whole numbers
-        #sum of visitor wins / total games played
+  def percentage_visitor_wins #issue #5 - passed spec harness and dummy
 
-    away_wins = []
-    game_results = game_teams.values_at(:hoa, :result)
-    total_games_played = game_results.count.to_f
+    away_wins = 0
+    away_games_played = 0
 
-    game_results.each do |game|
-    away_wins << game if game == ["away", "WIN"]
-
+    game_teams.each do |row|
+      away_games_played += 1 if row[:hoa] == "away"
+      away_wins += 1  if (row[:hoa] == "away" && row[:result] == "WIN")
     end
-    ((away_wins.count / total_games_played)*100).round(2)
+    (away_wins.to_f / away_games_played).round(2)
   end
 
   def percentage_ties #issue #6 - PASS
@@ -90,7 +88,7 @@ class StatTracker
   end
 
   def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers
-    total_scores_by_game.sum/@games.size
+    (total_scores_by_game.sum/@games.count.to_f).round(2)    
   end
 
   def average_goals_by_season #issue #9 - Pass
@@ -294,10 +292,45 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-  def least_accurate_team #issue # 20 - FAIL not written yet
+  def goals_by_team(team_id) #helper for 29
+    goals = []  
+      @game_teams.each do |row|             
+        if (row[:team_id] == team_id) 
+          goals << [row[:goals]]
+        end
+      end
+      goals.flatten.sum
+    end 
+
+  def shots_by_team(team_id) #helper for 29
+  shots = []
+    @game_teams.each do |row|
+      
+      if row[:team_id] == team_id
+      shots << [row[:shots]]
+      end
+    end
+    shots.flatten.sum
+  end
 
 
+  def least_accurate_team(season) #issue # 29 - passed dummy and spec harness
+    games_by_season
+    teams_with_goals_n_shots = Hash.new { |h,k| h[k] = [] }
 
+    game_teams.each do |row|
+      teams_with_goals_n_shots[row[:team_id]] = {"goals" => [], "shots" => []} if games_by_season[season.to_i].include?(row[:game_id])
+    end
+
+    game_teams.each do |row|
+      teams_with_goals_n_shots[row[:team_id]]["goals"] << row[:goals] and teams_with_goals_n_shots[row[:team_id]]["shots"] << row[:shots] if games_by_season[season.to_i].include?(row[:game_id])
+    end  
+
+    teams_with_goals_n_shots.keys.each do |team_id|
+      teams_with_goals_n_shots[team_id] = teams_with_goals_n_shots[team_id]["goals"].sum.to_f / teams_with_goals_n_shots[team_id]["shots"].sum
+    end
+
+    team_by_id[teams_with_goals_n_shots.key(teams_with_goals_n_shots.values.min)]
   end
 
   def most_tackles(season_id) #issue # 21 PASS
@@ -325,25 +358,13 @@ class StatTracker
       end
     end
 
-    team_id_and_tackles_hash = {}
-    all_team_ids = []
-
-    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
-      all_team_ids << pair[0]
-    end
-
-    unique_team_ids = all_team_ids.uniq
-
-    unique_team_ids.each do |teamid|
-      team_id_and_tackles_hash[teamid] = 0
-    end
+    team_id_and_tackles_hash = Hash.new {0}
 
     games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
       team_id_and_tackles_hash[pair[0]] += pair[1]
     end
 
-    highest_tackle_pair = team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)
-    team_by_id[highest_tackle_pair]
+    team_by_id[team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)]
   end
 
   def fewest_tackles #issue # 22 - not yet written
@@ -505,10 +526,54 @@ class StatTracker
 
   end
 
-  def rival #issue # 30 - Fail due to not written
-
-
-
+  def rival_wins(team_id) #helper for #24 and possibly fave opp
+    rivals_wins = []
+    @games.each do |row|
+      if row[:away_team_id] == team_id.to_i
+        if row[:away_goals] < row[:home_goals]
+          rivals_wins << row[:home_team_id]
+        end
+      end
+      if row[:home_team_id] == team_id.to_i
+        if row[:home_goals] < row[:away_goals]
+          rivals_wins << row[:away_team_id]
+        end
+      end
+    end
+      rivals_wins_hash = rivals_wins.tally
+      rivals_wins_hash
   end
 
+  def rival_game(team_id) #helper for #24 and possibly fave opp
+    rivals_games = []
+    games.each do |row|
+      if row[:home_team_id] == team_id.to_i
+      rivals_games << row[:away_team_id]
+      end
+      if row[:away_team_id] == team_id.to_i
+      rivals_games << row[:home_team_id]
+      end
+    end
+    rivals_games_hash = rivals_games.tally
+    rivals_games_hash
+  end
+
+  def rival(team_id) #issue 24 - Fail due to not written
+     rival_opp = {}
+     rival_opp_wins = rival_wins(team_id)
+     rival_opp_games = rival_game(team_id)
+     rival_opp_games.each do | rogk, rogv |
+       rival_opp_wins.each do | rowk, rowv |
+         if rogk == rowk
+           rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+         end
+       end
+     end
+    rival_opp.each do |k, v|
+       if v == rival_opp.values.max
+         return team_by_id[k.to_i]
+       end
+       
+     end
+  end
 end
