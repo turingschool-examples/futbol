@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/league_generator'
+# require './lib/league_generator'
 
 class StatTracker
-  attr_reader :league_generator
+  attr_reader :all_data_hash
   def self.from_csv(locations)
     all_data_hash = Hash.new{ |h, k| h[k] = [] }
     CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
@@ -18,12 +18,7 @@ class StatTracker
   end
 
   def initialize(all_data_hash)
-
-
     @all_data_hash = all_data_hash
-
-    @league_generator = LeagueGenerator.new(@all_data_hash)
-    require 'pry'; binding.pry
   end
 
   def highest_total_score
@@ -412,7 +407,7 @@ class StatTracker
       hash[:wins].to_f / hash[:total_games].to_f
     end[0]
     worst_season
-  end 
+  end
 
   def team_info(given_team_id)
     all_team_info = @all_data_hash[:teams].select do |team|
@@ -581,7 +576,7 @@ class StatTracker
 
     coaches_by_win_percentage = Hash[coaches_by_win_count.keys.zip(win_percentages)]
     worst_coach = coaches_by_win_percentage.min_by{|k, v| v}[0]
-  end 
+  end
 
   def most_goals_scored(team_id)
     games_by_id = []
@@ -656,7 +651,7 @@ class StatTracker
     end
     team_with_least_tackles
   end
-  
+
   def average_win_percentage(given_team_id)
     games_by_team_hash = @all_data_hash[:game_teams].group_by do |game|
       game[:team_id]

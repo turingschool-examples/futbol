@@ -1,12 +1,19 @@
+require './lib/stat_tracker2'
+
 class Team
-  attr_reader :team_general_info,
-              :games_by_team,
-              :team_id,
-              :team_name
-  def initialize(team_general_info, games_by_team)
-    @team_id = team_general_info[:team_id]
-    @team_name = team_general_info[:teamname]
-    @team_general_info = team_general_info
-    @games_by_team = games_by_team
+  attr_reader :team_id,
+              :franchise_id,
+              :team_name,
+              :abbreviation,
+              :stadium,
+              :link
+
+  def initialize(info)
+    @team_id = info[:team_id]
+    @franchise_id = info[:franchiseid]
+    @team_name = info[:teamname]
+    @abbreviation = info[:abbreviation]
+    @stadium = info[:stadium]
+    @link = info[:link]
   end
 end
