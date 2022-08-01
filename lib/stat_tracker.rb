@@ -1,4 +1,6 @@
 require 'csv'
+require_relative './season_helper_module'
+require_relative './league_helper_module'
 require './lib/season_helper_module'
 require './lib/game_stat_module'
 require './lib/league_helper_module'
@@ -9,11 +11,13 @@ class StatTracker
   include GameStatsable
   
   def initialize(locations)
-    @x = 1
-    @locations = locations
     @games_data = CSV.read(@locations[:games], headers: true, header_converters: :symbol)
     @teams_data = CSV.read(@locations[:teams], headers: true, header_converters: :symbol)
     @game_teams_data = CSV.read(@locations[:game_teams], headers: true, header_converters: :symbol)
+    @league_statistics = LeagueStatistics.new(@teams_data, @game_teams_data)
+    # @season_statistics = SeasonStatistics.new(locations)
+    # @team_statistics = TeamStatistics.new(locations)
+    # @game_statistics = GameStatistics.new(locations)
   end
 
   def self.from_csv(locations)
@@ -23,6 +27,7 @@ class StatTracker
   # Game statistics 
   def highest_total_score
     scores = @games_data.map do |row| 
+      require 'pry'; binding.pry
       row[:away_goals].to_i + row[:home_goals].to_i 
     end
     scores.max
@@ -149,76 +154,76 @@ class StatTracker
     average_goals_by_season
   end
 # League Statistics
-  def count_of_teams
-    @teams_data.select { |team| team[:team_id] }.count
-  end
+  # def count_of_teams
+  #   @teams_data.select { |team| team[:team_id] }.count
+  # end
 
-  def best_offense 
-    team_best_offense = team_average_goals.key(team_average_goals.values.max)
-    find_team_name_by_id(team_best_offense)
-  end 
+  # def best_offense 
+  #   team_best_offense = team_average_goals.key(team_average_goals.values.max)
+  #   find_team_name_by_id(team_best_offense)
+  # end 
 
-  def worst_offense
-    team_worst_offense = team_average_goals.key(team_average_goals.values.min)
-    find_team_name_by_id(team_worst_offense)
-  end
+  # def worst_offense
+  #   team_worst_offense = team_average_goals.key(team_average_goals.values.min)
+  #   find_team_name_by_id(team_worst_offense)
+  # end
 
-  def highest_scoring_visitor
-    highest_score_visitor = team_away_average_goals.key(team_away_average_goals.values.max)
-    find_team_name_by_id(highest_score_visitor)
-  end
+  # def highest_scoring_visitor
+  #   highest_score_visitor = team_away_average_goals.key(team_away_average_goals.values.max)
+  #   find_team_name_by_id(highest_score_visitor)
+  # end
 
-  def highest_scoring_home_team  
-    highest_score_home_team = team_home_average_goals.key(team_home_average_goals.values.max)
-    find_team_name_by_id(highest_score_home_team)
-  end
+  # def highest_scoring_home_team  
+  #   highest_score_home_team = team_home_average_goals.key(team_home_average_goals.values.max)
+  #   find_team_name_by_id(highest_score_home_team)
+  # end
 
-  def lowest_scoring_visitor
-    lowest_score_visitor = team_away_average_goals.key(team_away_average_goals.values.min)
-    find_team_name_by_id(lowest_score_visitor)
-  end
+  # def lowest_scoring_visitor
+  #   lowest_score_visitor = team_away_average_goals.key(team_away_average_goals.values.min)
+  #   find_team_name_by_id(lowest_score_visitor)
+  # end
 
-  def lowest_scoring_home_team
-    lowest_score_home_team = team_home_average_goals.key(team_home_average_goals.values.min)
-    find_team_name_by_id(lowest_score_home_team)
-  end
+  # def lowest_scoring_home_team
+  #   lowest_score_home_team = team_home_average_goals.key(team_home_average_goals.values.min)
+  #   find_team_name_by_id(lowest_score_home_team)
+  # end
   
-  # Season Statistics
-  def winningest_coach(season)
-    records = coach_records(season)
-    populate_coach_records(season, records)
-    winning_record(records).max_by { |team, win_percent| win_percent }[0].to_s
-  end
+  # # Season Statistics
+  # def winningest_coach(season)
+  #   records = coach_records(season)
+  #   populate_coach_records(season, records)
+  #   winning_record(records).max_by { |team, win_percent| win_percent }[0].to_s
+  # end
 
-  def worst_coach(season)
-    records = coach_records(season)
-    populate_coach_records(season, records)
-    winning_record(records).min_by { |team, win_percent| win_percent }[0].to_s
-  end
+  # def worst_coach(season)
+  #   records = coach_records(season)
+  #   populate_coach_records(season, records)
+  #   winning_record(records).min_by { |team, win_percent| win_percent }[0].to_s
+  # end
 
-  def most_accurate_team(season)
-    records = accuracy_records(season)
-    populate_accuracy_records(season, records)
-    find_team_name_by_id(most_accurate(records))
-  end
+  # def most_accurate_team(season)
+  #   records = accuracy_records(season)
+  #   populate_accuracy_records(season, records)
+  #   find_team_name_by_id(most_accurate(records))
+  # end
 
-  def least_accurate_team(season)
-    records = accuracy_records(season)
-    populate_accuracy_records(season, records)
-    find_team_name_by_id(least_accurate(records))
-  end
+  # def least_accurate_team(season)
+  #   records = accuracy_records(season)
+  #   populate_accuracy_records(season, records)
+  #   find_team_name_by_id(least_accurate(records))
+  # end
 
-  def most_tackles(season)
-    records = tackle_records(season)
-    populate_tackle_records(season, records)
-    find_team_name_by_id(best_tackling_team(records))
-  end
+  # def most_tackles(season)
+  #   records = tackle_records(season)
+  #   populate_tackle_records(season, records)
+  #   find_team_name_by_id(best_tackling_team(records))
+  # end
 
-  def fewest_tackles(season)
-    records = tackle_records(season)
-    populate_tackle_records(season, records)
-    find_team_name_by_id(worst_tackling_team(records))
-  end
+  # def fewest_tackles(season)
+  #   records = tackle_records(season)
+  #   populate_tackle_records(season, records)
+  #   find_team_name_by_id(worst_tackling_team(records))
+  # end
 
   # Team Statistics
 
