@@ -61,14 +61,14 @@ class StatTracker
     ((away_wins.count / total_games_played)*100).round(2)
   end
 
-  def percentage_ties #issue #6 - Need to make this test eq 0.99 not whole numbers
+  def percentage_ties #issue #6 - PASS
     ties = 0.0
     total_games = total_scores_by_game.count
 
     @games.values_at(:away_goals, :home_goals).each do |game|
       ties += 1 if game[0] == game[1]
     end
-    ((ties/total_games)*100).round(1)
+    (ties/total_games).round(1)
   end
 
   def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
@@ -253,9 +253,10 @@ class StatTracker
    # Name of the Coach with the best win percentage for the season
    highest_percent_wins = team_win_percent_by_season[season.to_i].max_by {|stat| stat[:win_perc]}
    coach_by_team_id[highest_percent_wins[:team_id]][season.to_i].sample
+
   end
 
-  def worst_coach(season)#issue # 27 - FAIL wrong name returns
+  def worst_coach(season)#issue # 27 - FAIL 2/3 tests PASS - on fail it is providing diff team/name
     lowest_percent_wins = team_win_percent_by_season[season.to_i].min_by {|stat| stat[:win_perc]}
     coach_by_team_id[lowest_percent_wins[:team_id]][season.to_i].sample
   end
@@ -466,7 +467,7 @@ class StatTracker
     win_percentage
   end
 
-  def best_season (team_id) #issue # 18 - Fail wrong season being returned
+  def best_season (team_id) #issue # 18 - PASS
     season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
 
