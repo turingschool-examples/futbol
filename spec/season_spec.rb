@@ -51,4 +51,8 @@ RSpec.describe Season do
     expect(@season.shots_by_team_per_season_avg(20142015)).to eq( {"DC United"=>0.35, "FC Dallas"=>0.3333333333333333, "Houston Dynamo"=>0.2631578947368421, "Sporting Kansas City"=>0.0625})
   end
 
+  it 'can show coach percentages' do
+    expect(@season.coach_percentages).to eq({"Claude Julien"=>1.0, "Dan Bylsma"=>0.0, "Jon Cooper"=>0.67, "Alain Vigneault"=>0.33})
+  end
+
 end
