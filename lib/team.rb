@@ -105,8 +105,17 @@ class Team
     home_and_away_goals.min
   end
 
+
+  def average_win_percentage
+    total_win_percent = 0
+    win_percentages_by_season.values.each do |value|
+      total_win_percent += value
+      end
+      (total_win_percent / win_percentages_by_season.length).round(2)
+
   def team_info
     {"team_id" => @team_id.to_s, "franchise_id" => @franchise_id.to_s, "team_name" => @team_name, "abbreviation" => @abbreviation, "link" => @link}
+
   end
 
   def self.generate_teams(team_csv)
