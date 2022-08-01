@@ -61,4 +61,12 @@ class StatTracker
   def count_of_games_by_season
     @league.games_by_season
   end
+
+  def count_of_teams
+    @league.team_names.count
+  end
+
+  # def best_offense
+  #   @league.avg_goals_by_team_id
+  # end
 end
