@@ -4,9 +4,9 @@ require_relative 'game_stat_module'
 class GameStatistics 
   include GameStatsable
 
-  def initialize
-    @games_data = CSV.read './data/mock_games.csv', headers: true, header_converters: :symbol
-    @game_teams_data = CSV.read './data/mock_game_teams.csv', headers: true, header_converters: :symbol
+  def initialize(games_data, game_teams_data)
+    @games_data = games_data
+    @game_teams_data = game_teams_data
   end
 
   def self.from_csv(locations)

@@ -15,10 +15,10 @@ class StatTracker
     @games_data = CSV.read(@locations[:games], headers: true, header_converters: :symbol)
     @teams_data = CSV.read(@locations[:teams], headers: true, header_converters: :symbol)
     @game_teams_data = CSV.read(@locations[:game_teams], headers: true, header_converters: :symbol)
-    @game_statistics = GameStatistics.new(locations)
+    @game_statistics = GameStatistics.new(@games_data, @game_teams_data)
     @league_statistics = LeagueStatistics.new(@teams_data, @game_teams_data)
     @season_statistics = SeasonStatistics.new(@teams_data, @games_data, @game_teams_data)
-    @team_statistics = TeamStatistics.new(locations)
+    @team_statistics = TeamStatistics.new(@teams_data, @games_data, @game_teams_data)
   end
 
   def self.from_csv(locations)
@@ -110,7 +110,7 @@ class StatTracker
   end
 
   def fewest_tackles(season)
-    @season_statistics(season)
+    @season_statistics.fewest_tackles(season)
   end
 
   # Team Statistics

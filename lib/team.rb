@@ -1,13 +1,14 @@
-# require './lib/team_module'
-# require './lib/team_name_by_id_helper_module'
+# require_relative 'team_module'
+require './lib/team_name_by_id_helper_module'
 
 class TeamStatistics
     # include Teamable
-    # include TeamNameable
-    def initialize
-      @teams_data = CSV.read "./data/teams.csv", headers: true, header_converters: :symbol
-      @game_teams_data = CSV.read "./data/game_teams.csv", headers: true, header_converters: :symbol
-      @games_data = CSV.read "./data/games.csv", headers: true, header_converters: :symbol
+    include TeamNameable
+
+    def initialize(teams_data, games_data, game_teams_data)
+      @teams_data = teams_data
+      @games_data = games_data
+      @game_teams_data = game_teams_data
     end
 
     def team_info(given_team_id)
@@ -23,8 +24,6 @@ class TeamStatistics
     def most_goals_scored(given_team_id)
         goals_scored_by_game(given_team_id).max
     end
-
-
 
     def worst_season(given_team_id)
       season_record(given_team_id).min_by { |season, record| record[0] / (record[2] + record [1]) }.first

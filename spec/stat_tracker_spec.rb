@@ -69,105 +69,105 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq expected
     end
   end
-# # # # League Statistics
-#   context 'league statistics' do
+# # # League Statistics
+  context 'league statistics' do
 
-#     it '#count_of_teams' do
-#       expect(stat_tracker.count_of_teams).to eq 32
-#     end
+    it '#count_of_teams' do
+      expect(stat_tracker.count_of_teams).to eq 32
+    end
 
-#     it '#best_offense' do
-#       expect(stat_tracker.best_offense).to eq 'Columbus Crew SC'
-#     end
+    it '#best_offense' do
+      expect(stat_tracker.best_offense).to eq 'Columbus Crew SC'
+    end
 
-#     it '#worst_offense' do
-#       expect(stat_tracker.worst_offense).to eq 'Houston Dynamo'
-#     end
+    it '#worst_offense' do
+      expect(stat_tracker.worst_offense).to eq 'Houston Dynamo'
+    end
 
-#     it '#highest_scoring_visitor' do
-#       expect(stat_tracker.highest_scoring_visitor).to eq 'Columbus Crew SC'
-#     end
+    it '#highest_scoring_visitor' do
+      expect(stat_tracker.highest_scoring_visitor).to eq 'Columbus Crew SC'
+    end
 
-#     it '#highest_scoring_home_team' do
-#       expect(stat_tracker.highest_scoring_home_team).to eq 'Chicago Red Stars'
-#     end
+    it '#highest_scoring_home_team' do
+      expect(stat_tracker.highest_scoring_home_team).to eq 'Chicago Red Stars'
+    end
 
-#     it '#lowest_scoring_visitor' do
-#       expect(stat_tracker.lowest_scoring_visitor).to eq 'Philadelphia Union'
-#     end
+    it '#lowest_scoring_visitor' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq 'Philadelphia Union'
+    end
 
-#     it '#lowest_scoring_home_team' do
-#       expect(stat_tracker.lowest_scoring_home_team).to eq 'Chicago Fire'
-#     end
-#   end
-# # # Season Statistics
-  # context 'season statistics' do 
+    it '#lowest_scoring_home_team' do
+      expect(stat_tracker.lowest_scoring_home_team).to eq 'Chicago Fire'
+    end
+  end
+# # Season Statistics
+  context 'season statistics' do 
 
-  #   it '#winningest_coach' do
+    it '#winningest_coach' do
 
-  #     expect(stat_tracker.winningest_coach("20122013")).to eq("Adam Oates")
-  #     expect(stat_tracker.winningest_coach("20152016")).to eq("Lindy Ruff")
-  #   end
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Adam Oates")
+      expect(stat_tracker.winningest_coach("20152016")).to eq("Lindy Ruff")
+    end
 
-  #   it '#worst_coach' do
-  #     expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
-  #     expect(stat_tracker.worst_coach("20152016")).to eq("Paul Maurice")
-  #   end
+    it '#worst_coach' do
+      expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+      expect(stat_tracker.worst_coach("20152016")).to eq("Paul Maurice")
+    end
 
-  #   it '#most_accurate_team' do
-  #     expect(stat_tracker.most_accurate_team("20122013")).to eq("Portland Timbers")
-  #     expect(stat_tracker.most_accurate_team("20152016")).to eq("Chicago Red Stars")
-  #   end
+    it '#most_accurate_team' do
+      expect(stat_tracker.most_accurate_team("20122013")).to eq("Portland Timbers")
+      expect(stat_tracker.most_accurate_team("20152016")).to eq("Chicago Red Stars")
+    end
 
-  #   it '#least_accurate_team' do
-  #     expect(stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
-  #     expect(stat_tracker.least_accurate_team("20152016")).to eq("Portland Thorns FC")
-  #   end
+    it '#least_accurate_team' do
+      expect(stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+      expect(stat_tracker.least_accurate_team("20152016")).to eq("Portland Thorns FC")
+    end
 
-  #   it '#most_tackles' do
-  #     expect(stat_tracker.most_tackles("20122013")).to eq("Seattle Sounders FC")
-  #     expect(stat_tracker.most_tackles("20152016")).to eq("Chicago Red Stars")
-  #   end
+    it '#most_tackles' do
+      expect(stat_tracker.most_tackles("20122013")).to eq("Seattle Sounders FC")
+      expect(stat_tracker.most_tackles("20152016")).to eq("Chicago Red Stars")
+    end
 
-  #   it '#fewest_tackles' do
-  #     expect(stat_tracker.fewest_tackles("20122013")).to eq("Portland Timbers")
-  #     expect(stat_tracker.fewest_tackles("20152016")).to eq("Portland Thorns FC")
-  #   end
+    it '#fewest_tackles' do
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("Portland Timbers")
+      expect(stat_tracker.fewest_tackles("20152016")).to eq("Portland Thorns FC")
+    end
 
-  # end
-# # # Team Statistics
-  # context 'team statistics' do 
+  end
+# # Team Statistics
+  context 'team statistics' do 
 
-  #   it '#team_info' do
-  #     expect(stat_tracker.team_info(28)).to eq({:abbreviation=> "LFC", :franchise_id=> "29", :link=> "/api/v1/teams/28", :team_id=> "28", :team_name=> "Los Angeles FC"})
-  #   end
+    it '#team_info' do
+      expect(stat_tracker.team_info(28)).to eq({:abbreviation=> "LFC", :franchise_id=> "29", :link=> "/api/v1/teams/28", :team_id=> "28", :team_name=> "Los Angeles FC"})
+    end
 
-  #   it '#best_season' do
-  #     expect(stat_tracker.best_season(28)).to eq '20162017'
-  #   end
+    it '#best_season' do
+      expect(stat_tracker.best_season(28)).to eq '20162017'
+    end
 
-  #   it '#worst_season' do
-  #     expect(stat_tracker.worst_season(28)).to eq '20172018'
-  #   end
+    it '#worst_season' do
+      expect(stat_tracker.worst_season(28)).to eq '20172018'
+    end
 
-  #   it '#average_win_percentage' do
-  #     expect(stat_tracker.average_win_percentage(28)).to eq 62.5
-  #   end
+    it '#average_win_percentage' do
+      expect(stat_tracker.average_win_percentage(28)).to eq 62.5
+    end
 
-  #   it '#most_goals_scored' do
-  #     expect(stat_tracker.most_goals_scored(28)).to eq '4'
-  #   end
+    it '#most_goals_scored' do
+      expect(stat_tracker.most_goals_scored(28)).to eq '4'
+    end
 
-  #   it '#fewest_goals_scored' do
-  #     expect(stat_tracker.fewest_goals_scored(28)).to eq 0
-  #   end
+    it '#fewest_goals_scored' do
+      expect(stat_tracker.fewest_goals_scored(28)).to eq 0
+    end
 
-  #   it '#favorite_opponent' do
-  #     expect(stat_tracker.favorite_opponent(28)).to eq 'FC Cincinnati'
-  #   end
+    it '#favorite_opponent' do
+      expect(stat_tracker.favorite_opponent(28)).to eq 'FC Cincinnati'
+    end
     
-  #   it '#rival' do
-  #     expect(stat_tracker.rival(28)).to eq 'Seattle Sounders FC'
-  #   end
-  # end
+    it '#rival' do
+      expect(stat_tracker.rival(28)).to eq 'Seattle Sounders FC'
+    end
+  end
 end
