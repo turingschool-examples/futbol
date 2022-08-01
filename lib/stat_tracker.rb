@@ -355,7 +355,7 @@ class StatTracker
     team_by_id[total_tackles_in_season_by_team[season_id.to_i].key(total_tackles_in_season_by_team[season_id.to_i].values.max)]
   end
 
-  def fewest_tackles (season_id)#issue # 31
+  def fewest_tackles (season_id)#issue # 31 PASS
     team_by_id[total_tackles_in_season_by_team[season_id.to_i].key(total_tackles_in_season_by_team[season_id.to_i].values.min)]
   end
 
