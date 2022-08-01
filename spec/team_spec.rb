@@ -1,4 +1,4 @@
-require './lib/stat_tracker'
+require 'spec_helper'
 
 RSpec.describe Team do
 
