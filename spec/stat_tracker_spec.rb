@@ -2,6 +2,7 @@ require "./lib/stat_tracker.rb"
 require "./lib/teams.rb"
 require "./lib/game"
 require "./lib/game_teams"
+require "./lib/helpable"
 
 describe StatTracker do
   before :each do
@@ -119,6 +120,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
+    @stat_tracker_dummy.extend(Helpable)
     expected = { "20122013" => 9 }
 
     expect(@stat_tracker_dummy.count_of_games_by_season).to eq(expected)
@@ -150,6 +152,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
+    @stat_tracker_dummy.extend(Helpable)
     expected = { "20122013" => 3.78 }
 
     expect(@stat_tracker_dummy.average_goals_by_season).to eq(expected)
@@ -193,6 +196,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
+    @stat_tracker_dummy.extend(Helpable)
     expected = ["2012030221",
                "2012030222",
                "2012030223",
@@ -243,6 +247,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.team_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
     expect(@stat_tracker_dummy.team_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.team_isolator("6")).to be_an(Array)
@@ -258,7 +263,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.win_isolator("6")).to be_an(Array)
     expect(@stat_tracker_dummy.win_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.win_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
@@ -274,6 +279,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
+    @stat_tracker_dummy.extend(Helpable)
     values_array = ["2012030221",
                      "2012030222",
                      "2012030223",
@@ -299,7 +305,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.all_team_games("3")).to be_an(Array)
     expect(@stat_tracker_dummy.all_team_games("3").map {|game| game.game_id}).to eq(["2012030221",
                                                                                      "2012030222",
@@ -318,7 +324,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.get_teamgames_by_single_season("6", "20122013")).to be_an(Array)
     expect(@stat_tracker_dummy.get_teamgames_by_single_season("6", "20122013").map {|game| game.date_time}).to eq(["5/16/13",
                                                                                            "5/19/13",
@@ -345,7 +351,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker.team_season_grouper("6")).to be_a(Hash)
     expect(@stat_tracker.team_season_grouper("6").keys).to eq(["20122013", "20172018", "20132014", "20142015", "20152016", "20162017"])
   end
@@ -372,7 +378,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.team_id_to_name.length).to eq(9)
     expect(@stat_tracker_dummy.team_id_to_name).to be_a(Hash)
     expect(@stat_tracker_dummy.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])
@@ -431,6 +437,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.number_of_tackles("3", "2012030221")).to eq(44)
   end
 
@@ -444,6 +451,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
+    @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.get_ratio("20122013")).to eq({"3"=>0.21052631578947367, "6"=>0.2894736842105263})
   end
 
