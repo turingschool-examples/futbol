@@ -14,8 +14,58 @@
     <li>The count of games by season: <%= stat_tracker.count_of_games_by_season %></li>
     <li>Average goals per game: <%= stat_tracker.average_goals_per_game %></li>
     <li>Average goals by season: <%= stat_tracker.average_goals_by_season %></li>
+    
     <h2>League Statistics</h2>
     <h2>Team Statistics</h2>
+      <table style="margin-left:50px" border="1">
+      <tr><th colspan="5">Teams Info</th></tr>
+      <tr><b>
+        <th>Team ID</th>
+        <th>Franchise ID</th>
+        <th>Team Name</th>
+        <th>Abbreviation</th>
+        <th>Link</th>
+      </tr>
+
+      <% stat_tracker.teams.values.each do |team| %>
+        <tr>
+          <td><%= team.team_info["team_id"] %></td>
+          <td><%= team.team_info["franchise_id"] %></td>
+          <td><%= team.team_info["team_name"] %></td>
+          <td><%= team.team_info["abbreviation"] %></td>
+          <td><%= team.team_info["link"] %></td>
+        </tr>
+      <% end %>
+      </table><br>
+      <table style="margin-left:50px" border="1">
+      <tr><th colspan="7">Team Stats</th></tr>
+      <tr><b>
+        <th>Team Name</th>
+        <th>Best Season</th>
+        <th>Worst Season</th>
+        <th>Most Goals Scored</th>
+        <th>Fewest Goals Scored</th>
+        <th>Favorite Opponent</th>
+        <th>Rival</th>
+      </tr>
+
+      <% stat_tracker.teams.values.each do |team| %>
+        <tr>
+          <td><%= team.team_name %></td>
+          <% best_season = team.best_season %>
+          <td><%= best_season[0..3] + " / " + best_season[4..7] %></td>
+          <% worst_season = team.worst_season%>
+          <td><%= worst_season[0..3] + " / " + worst_season[4..7] %></td>
+          <td><%= team.most_goals_scored %></td>
+          <td><%= team.fewest_goals_scored %></td>
+          <td><%= team.favorite_opponent %></td>
+          <td><%= team.rival %></td>
+        </tr>
+      <% end %>
+      </table>
+
+
+
     <h2>Season Statistics</h2>
   </body>
 </html>
