@@ -47,14 +47,6 @@ RSpec.describe(StatTracker) do
     expect(@stat_tracker.count_of_games_by_season).to(eq(expected))
   end
 
-  it("(helper) total goals") do
-    expect(@stat_tracker.total_goals).to(eq(31413))
-  end
-
-  it("(helper)total_games") do
-    expect(@stat_tracker.total_games).to(eq(7441))
-  end
-
   it("#7 average number of goals scored in a game across all seasons including both home and away goals") do
     expect(@stat_tracker.average_goals_per_game).to(eq(4.22))
   end
@@ -69,5 +61,13 @@ RSpec.describe(StatTracker) do
       "20172018" => 4.44,
     }
     expect(@stat_tracker.average_goals_by_season).to(eq(expected))
+  end
+
+  it("(helper) total goals") do
+    expect(@stat_tracker.total_goals).to(eq(31413))
+  end
+
+  it("(helper)total_games") do
+    expect(@stat_tracker.total_games).to(eq(7441))
   end
 end
