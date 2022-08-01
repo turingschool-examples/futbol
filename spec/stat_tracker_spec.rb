@@ -37,9 +37,9 @@ describe StatTracker do
 
 
 
-    xit 'percentage_visitor_wins' do #FAIL - corrected test to correct format but number returned is wrong too
+    it 'percentage_visitor_wins' do #FAIL - corrected test to correct format but number returned is wrong too
    #move to correct location
-        expect(@stat_tracker.percentage_visitor_wins).to eq(0.13)
+        expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
     end
 
     xit "finds highest total score" do #Pass

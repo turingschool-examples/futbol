@@ -47,18 +47,16 @@ class StatTracker
     percentage = (home_wins/home_games) * 100
   end
 
-  def percentage_visitor_wins #issue #5 - Need to make this test eq 0.99 not whole numbers
-        #sum of visitor wins / total games played
+  def percentage_visitor_wins #issue #5 - passed spec harness and dummy
 
-    away_wins = []
-    game_results = game_teams.values_at(:hoa, :result)
-    total_games_played = game_results.count.to_f
+    away_wins = 0
+    away_games_played = 0
 
-    game_results.each do |game|
-    away_wins << game if game == ["away", "WIN"]
-
+    game_teams.each do |row|
+      away_games_played += 1 if row[:hoa] == "away"
+      away_wins += 1  if (row[:hoa] == "away" && row[:result] == "WIN")
     end
-    ((away_wins.count / total_games_played)*100).round(2)
+    (away_wins.to_f / away_games_played).round(2)
   end
 
   def percentage_ties #issue #6 - Need to make this test eq 0.99 not whole numbers
