@@ -4,11 +4,6 @@ class StatTracker
   attr_reader :locations, :data
 
   def initialize(game_path, team_path, game_teams_path)
-    # @locations = locations
-    # @data = {}
-    # locations.each_key do |key|
-    #   data[key] = CSV.read locations[key]
-    # end
 
     @game_path = game_path
     @team_path = team_path
