@@ -13,7 +13,6 @@ RSpec.describe SeasonStatistics do
   context 'season statistics' do 
 
     it '#winningest_coach' do
-      require 'pry'; binding.pry
       expect(season_1213.winningest_coach).to eq("Adam Oates")
       expect(season_1516.winningest_coach).to eq("Lindy Ruff")
     end
@@ -42,6 +41,5 @@ RSpec.describe SeasonStatistics do
       expect(season_1213.fewest_tackles).to eq("Portland Timbers")
       expect(season_1516.fewest_tackles).to eq("Portland Thorns FC")
     end
-
   end
 end
