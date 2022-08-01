@@ -24,14 +24,17 @@ class TeamStatistics
         goals_scored_by_game(given_team_id).max
     end
 
-
-
     def worst_season(given_team_id)
       season_record(given_team_id).min_by { |season, record| record[0] / (record[2] + record [1]) }.first
     end
 
     def best_season(given_team_id)
       season_record(given_team_id).max_by { |season, record| record[0] / (record[2] + record [1]) }.first
+    end
+
+    def avg_win_pct(given_team_id)
+      overall_record = season_record(given_team_id).values.transpose.map(&:sum)
+      find_percentage(overall_record[0], (overall_record[0..2].sum))
     end
 
     ## HELPER METHODS
@@ -85,11 +88,11 @@ class TeamStatistics
 
       home_games.each do |game|
         if game[:away_goals] > game[:home_goals]
-          season_record_hash[game[:season]][2] += 1
+          season_record_hash[game[:season]][2] += 1 #losses
         elsif game[:away_goals] < game[:home_goals]
-          season_record_hash[game[:season]][0] += 1
+          season_record_hash[game[:season]][0] += 1 #wins
         else
-          season_record_hash[game[:season]][1] += 1
+          season_record_hash[game[:season]][1] += 1 #ties
         end
       end
 

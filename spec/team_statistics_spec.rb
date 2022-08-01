@@ -36,7 +36,9 @@ RSpec.describe TeamStatistics do
         expect(team_statistics.worst_season(9)).to eq '20172018'
       end
 
-      it 'can '
+      it 'knows the average win percentage of a given team' do
+        expect(team_statistics.avg_win_pct(17)).to eq 37.83231083844581
+      end
 
     end
 
