@@ -57,7 +57,7 @@ class GameStatistics
   
     seasons.each { |season| season_games[season] = 0 }
 
-    season_games.each do |season, games|
+    season_games.each do |season, games| #tally method work?
         @games_data.each do |row|
           # require 'pry';binding.pry
           if row[:season] == season

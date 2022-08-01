@@ -1,13 +1,14 @@
 require 'csv'
 require_relative './game_statistics'
 require_relative './game_stat_module'
+require 'spec_helper'
 
 RSpec.describe class GameStatistics do
   mock_games_data = './data/mock_games.csv' 
   team_data = './data/teams.csv' 
   mock_game_teams_data = './data/mock_game_teams.csv' 
   
-  # let!(:mock_locations) {{games: mock_games_data, teams: team_data, game_teams: mock_game_teams_data}}
+  let!(:mock_locations) {{games: mock_games_data, teams: team_data, game_teams: mock_game_teams_data}}
 
   let!(:stat_tracker) { StatTracker.from_csv(mock_locations) }
   
