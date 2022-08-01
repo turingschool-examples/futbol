@@ -1,4 +1,5 @@
 require './lib/stat_tracker2'
+require './lib/league'
 
 class Game
   attr_reader :game_id,
@@ -24,5 +25,4 @@ class Game
     @venue = info[:venue]
     @venue_link = info[:venue_link]
   end
-
 end

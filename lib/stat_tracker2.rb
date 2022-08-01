@@ -2,11 +2,13 @@ require 'csv'
 require './lib/game'
 require './lib/game_team'
 require './lib/team'
+require './lib/league'
 
 class StatTracker
   attr_reader :games,
               :teams,
-              :game_teams
+              :game_teams,
+              :league
 
   def self.from_csv(locations)
     new(locations)
@@ -16,6 +18,7 @@ class StatTracker
     @games = games_array_creator(locations[:games])
     @teams = teams_array_creator(locations[:teams])
     @game_teams = game_teams_array_creator(locations[:game_teams])
+    @league = League.new(@games, @teams, @game_teams)
   end
 
   def games_array_creator(path)
@@ -43,26 +46,24 @@ class StatTracker
   end
 
 #Statistics Methods
-  def total_goals_array
-    @games.map do |game|
-      game.home_goals.to_i + game.away_goals.to_i
-    end
-  end
-
   def highest_total_score
-    total_goals_array.max
+    @league.total_goals_array.max
   end
 
   def lowest_total_score
-    total_goals_array.min
+    @league.total_goals_array.min
   end
 
   def average_goals_per_game
-    (total_goals_array.sum(0.0) / total_goals_array.length).round(2)
+    (@league.total_goals_array.sum(0.0) / @league.total_goals_array.length).round(2)
   end
 
-  def method_name
-    require "pry"; binding.pry
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
 
+    @all_data_hash[:games].each do |row|
+      games_by_season[row[:season]] += 1
+    end
+    games_by_season
   end
 end
