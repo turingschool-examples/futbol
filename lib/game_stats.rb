@@ -50,3 +50,4 @@ module GameStats
     Hash[goals.map { |k, v| [k, (v / count_of_games_by_season[k].to_f).round(2)] }]
   end
 end
+

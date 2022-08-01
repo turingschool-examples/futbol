@@ -79,4 +79,5 @@ module TeamStats
   def away?(team_id, game)
     game[:away_team_id] == team_id
   end
+
 end

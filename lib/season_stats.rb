@@ -92,4 +92,5 @@ module SeasonStats
     bobby = team_tackles_3.min_by { |_a, b| b }
     (@teams.find { |this_team_3| this_team_3[:team_id] == bobby[0]})[:team_name]
   end
+
 end

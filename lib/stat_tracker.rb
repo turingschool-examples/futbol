@@ -1,4 +1,5 @@
 require 'csv'
+
 require_relative './game_stats'
 require_relative './league_stats'
 require_relative './season_stats'
@@ -23,4 +24,5 @@ class StatTracker
     game_teams = CSV.read(locations[:game_teams], {headers: true, header_converters: :symbol })
     StatTracker.new(games, teams, game_teams)
   end
+  
 end
