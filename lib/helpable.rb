@@ -1,4 +1,4 @@
-module Helpable
+module Helpable #each module should have a defined purpose/goal; think "addressable"; there could be value in using a certain thing on another class
 
   def team_isolator(team_id) #game_teams helper, returns all of a team's games
     @game_teams.find_all do |game|
