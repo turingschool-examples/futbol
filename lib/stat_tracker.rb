@@ -183,7 +183,7 @@ class StatTracker
   def team_by_id #helper method for issue #14
     @teams.values_at(:team_id, :teamname).to_h
   end
-require 'pry';binding.pry
+
 
   def average_scores_by_team_id(*game_type) #helper method for issue #14
     average_scores= {}
@@ -500,11 +500,18 @@ require 'pry';binding.pry
             # if away_goals > home_goals += 1 to games won 
 
     #for each 
-   
+   team_id_games = @games.select do |row|
+    row[:away_team_id] == team_id || row[:home_team_id] == team_id 
+   end
     opponent_hash = Hash.new{|h,k| h[k] = [0.0, 0.0]}
-    games_by_team.each do |game|
-      require 'pry'; binding.pry 
-
+    team_id_games.each do |game|
+      if game[:away_team_id] != team_id 
+        if game[:away_goals] > game[:home_goals]
+          opponent_hash[game[:away_team_id]][1]][1] += 1
+        elsif game[:away_goals] < game[game[:home_goals]] += 1
+          
+        end
+      end
     end
 
   end
