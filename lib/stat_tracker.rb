@@ -480,13 +480,13 @@ class StatTracker
     (wins_by_team(team_id).count.to_f/games_by_team(team_id).count.to_f).round(2)
   end
 
-  def most_goals_scored(team_id) #issue # 27 - FAIL returns nil on harness
+  def most_goals_scored(team_id) #issue # 27 pass
 
     array_of_goals_for_specified_team = []
 
     @games.each do |row|
-      array_of_goals_for_specified_team << row[:away_goals] if team_id == row[:away_team_id]
-      array_of_goals_for_specified_team << row[:home_goals] if team_id == row[:home_team_id]
+      array_of_goals_for_specified_team << row[:away_goals] if team_id.to_i == row[:away_team_id]
+      array_of_goals_for_specified_team << row[:home_goals] if team_id.to_i == row[:home_team_id]
     end
 
     array_of_goals_for_specified_team.max()

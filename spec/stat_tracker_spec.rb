@@ -172,8 +172,8 @@ describe StatTracker do
        expect(@stat_tracker.average_win_percentage("3")).to eq(0.25)
     end
 
-    xit 'can return hgihest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
-      expect(@stat_tracker.most_goals_scored(1)).to eq(1)
+    it 'can return hgihest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
+      expect(@stat_tracker.most_goals_scored("3")).to eq(5)
     end
 
     xit 'can return lowest number of goals a particular team has scored in a single game' do #FAIL - Fail due to not written
