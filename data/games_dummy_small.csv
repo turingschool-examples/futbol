@@ -1,0 +1,6 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2013020661,20132014,Regular Season,1/10/14,25,1,0,1,Mercedes-Benz Stadium,/api/v1/venues/null
+2014020868,20142015,Regular Season,2/8/14,3,5,3,3,Children's Mercy Park,/api/v1/venues/null
+2014020203,20142015,Regular Season,11/2/13,4,1,1,0,Mercedes-Benz Stadium,/api/v1/venues/null
+2015020983,20152016,Regular Season,3/12/14,22,30,3,3,Exploria Stadium,/api/v1/venues/null
+2015020955,20152016,Regular Season,3/9/14,4,10,3,2,WakeMed Soccer Park,/api/v1/venues/null
