@@ -160,7 +160,7 @@ class StatTracker
     all_games
   end
 
-  def team_season_grouper(team_id) #groups all of a team's games by season in a hash: the key is the season and the values are the team's games for that season
+  def team_season_grouper(team_id) #helper, groups all of a team's games by season in a hash: the key is the season and the values are the team's games for that season
     all_games = all_team_games(team_id)
     all_games.group_by do |game|
       game.season

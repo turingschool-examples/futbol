@@ -1,7 +1,10 @@
 require 'csv'
 require_relative './game_teams.rb'
+require './helpable'
 
 class GameTeamsStats
+  include Helpable
+  
   attr_reader :game_teams
 
   def initialize(game_teams)
