@@ -322,25 +322,13 @@ end
       end
     end
 
-    team_id_and_tackles_hash = {}
-    all_team_ids = []
-
-    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
-      all_team_ids << pair[0]
-    end
-
-    unique_team_ids = all_team_ids.uniq
-
-    unique_team_ids.each do |teamid|
-      team_id_and_tackles_hash[teamid] = 0
-    end
+    team_id_and_tackles_hash = Hash.new {0}
 
     games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
       team_id_and_tackles_hash[pair[0]] += pair[1]
     end
 
-    highest_tackle_pair = team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)
-    team_by_id[highest_tackle_pair]
+    team_by_id[team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)]
   end
 
   def fewest_tackles #issue # 22 - not yet written
