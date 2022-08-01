@@ -7,6 +7,7 @@ describe GameTeamsStats do
   before :each do
     game_teams_path = "./data/game_teams.csv"
     @game_teams_stats = GameTeamsStats.from_csv(game_teams_path)
+    @game_teams_stats.extend(Helpable)
   end
   
   it 'exists' do
