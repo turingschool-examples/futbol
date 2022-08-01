@@ -62,9 +62,7 @@ class Season
     games_results.each do |coach_name, game_results|
       wins = games_results[coach_name].select{|result| result == "WIN"}.count
       coach_stats[coach_name] = (wins.to_f / game_results.length).round(2)
-    # require 'pry'; binding.pry
     end
-    require 'pry'; binding.pry
     coach_stats
   end
 
