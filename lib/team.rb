@@ -105,6 +105,10 @@ class Team
     home_and_away_goals.min
   end
 
+  def team_info
+    {"team_id" => @team_id.to_s, "franchise_id" => @franchise_id.to_s, "team_name" => @team_name, "abbreviation" => @abbreviation, "link" => @link}
+  end
+
   def self.generate_teams(team_csv)
     teams_hash = {}
     team_csv.each do |team|

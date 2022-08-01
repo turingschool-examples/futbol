@@ -40,14 +40,4 @@ module LeagueStats
     (total_win_percent / @seasons.length).round(2)
   end
 
-  def team_info(team_id)
-    team_info = Hash.new()
-    @teams.values.select do |individual_team|
-        if individual_team.team_id.to_s == team_id
-          team_info = {"team_id" => individual_team.team_id.to_s, "franchise_id" => individual_team.franchise_id.to_s, "team_name" => individual_team.team_name, "abbreviation" => individual_team.abbreviation, "link" => individual_team.link}
-        end
-      end
-      team_info
-  end
-
 end
