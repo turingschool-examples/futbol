@@ -1,22 +1,40 @@
 module SeasonStats
 
-  def list_game_ids_by_season(season_desired) #every game_id associated with a season
-    season_dsrd = @games.select { |game| game[:season] == season_desired }
-    gretzy = []
-    season_dsrd.each do |game|
-      gretzy << game[:game_id]
-    end
-    gretzy
+
+  def list_game_ids_by_season(season_desired) #every game_id associated with a season, could separate into games.select and .map=> game_id
+    (@games.select { |game| game[:season] == season_desired }).map { |matchup| matchup[:game_id] }
   end
-  
+
+  # def coach_win_percentages_by_season(season_desired) #{coaches => win percentage}
+  #   games_won = Hash.new(0)
+  #   games_played = Hash.new(0)
+  #   percent_won = {}
+  #
+  #   list_game_ids_by_season(season_desired).each do |num|
+  #     stanley = @game_teams.select { |thing| thing[:game_id] == num }
+  #     stanley.each do |half|
+  #       if half[:result] == "WIN"
+  #         games_won[half[:head_coach]] += 1
+  #         games_played[half[:head_coach]] += 1
+  #       else
+  #         games_won[half[:head_coach]] += 0
+  #         games_played[half[:head_coach]] += 1
+  #       end
+  #     end
+  #   end
+  #   games_won.keys.each do |key|
+  #     percent_won[key] = (games_won[key].to_f / games_played[key].to_f)
+  #   end
+  #   percent_won
+  # end
+
   def coach_win_percentages_by_season(season_desired) #{coaches => win percentage}
     games_won = Hash.new(0)
     games_played = Hash.new(0)
     percent_won = {}
 
-    list_game_ids_by_season(season_desired).each do |num| 
-      stanley = @game_teams.select { |thing| thing[:game_id] == num }
-      stanley.each do |half|
+    list_game_ids_by_season(season_desired).each do |num|
+      @game_teams.select { |thing| thing[:game_id] == num }.each do |half|
         if half[:result] == "WIN"
           games_won[half[:head_coach]] += 1
           games_played[half[:head_coach]] += 1
@@ -26,9 +44,8 @@ module SeasonStats
         end
       end
     end
-    games_won.keys.each do |key|
-      percent_won[key] = (games_won[key].to_f / games_played[key].to_f)
-    end
+    games_won.keys.map { |key| percent_won[key] = (games_won[key].to_f / games_played[key].to_f) }
+    
     percent_won
   end
 
