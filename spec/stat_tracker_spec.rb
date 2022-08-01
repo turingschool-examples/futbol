@@ -143,6 +143,10 @@ describe StatTracker do
       expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
     end
 
+    it 'can show name of the team with the worst ratio of shots to goals for the season' do #passed dummy test and spec harness
+      expect(@stat_tracker.least_accurate_team("20152016")).to eq("New England Revolution")
+    end
+    
     it 'can count goals' do 
       expect(@stat_tracker.goals_by_team(16)).to eq(31)
     end
@@ -151,11 +155,7 @@ describe StatTracker do
       expect(@stat_tracker.shots_by_team(16)).to eq(127)
     end
 
-    xit 'can show name of the team with the worst ratio of shots to goals for the season' do #FAIL - not yet written
-      expect(@stat_tracker.least_accurate_team).to eq("")
-    end
-
-    it 'can show name of the team with most tackles in the season' do
+    xit 'can show name of the team with most tackles in the season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
   end
