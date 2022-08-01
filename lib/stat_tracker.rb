@@ -50,14 +50,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    hash = Hash.new(0)
-    @games.map do |game|
-      hash[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
-    end
-    hash.each do |season, total|
-      hash[season] = (total / (season_grouper[season].count).to_f).round(2)
-    end
-    hash
+    @game_stats.average_goals_by_season
   end
 
   def count_of_teams
@@ -126,9 +119,7 @@ class StatTracker
   end
 
   def season_grouper #games helper, returns a hash with the season as the key and array of all games for the season as the value
-    @games.group_by do |game|
-      game.season
-    end
+    @game_stats.season_grouper
   end
 
   def average_win_percentage(team_id)

@@ -127,7 +127,7 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_per_game).to eq(4.22)
   end
 
-  xit "can calculate the games average goals by season" do
+  it "can calculate the games average goals by season" do
     expected = {
       "20122013" => 4.12,
       "20162017" => 4.23,
