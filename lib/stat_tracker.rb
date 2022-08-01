@@ -40,5 +40,6 @@ class StatTracker
   def average_win_percentage(team) @teams[team.to_i].average_win_percentage  end
   def most_goals_scored(team) @teams[team.to_i].most_goals_scored end
   def fewest_goals_scored(team) @teams[team.to_i].fewest_goals_scored end
+  def team_info(team) @teams[team.to_i].team_info end
 
 end
