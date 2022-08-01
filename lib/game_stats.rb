@@ -87,52 +87,30 @@ class GameStats
       total_games_per_season[game[:season]] << total_game_goals
     end
 
-                                                                                      #-------refactor this------------------------#
-    average_games_per_season = total_games_per_season.map { |season, games| [season, (games.sum / games.size.to_f).round(2)] }.to_h
-    require "pry"
-
-    binding.pry
+    total_games_per_season.map { |season, games| [season, (games.sum / games.size.to_f).round(2)] }.to_h
   end
+end
 
-  private
+private
 
-  def all_goals
+def all_goals
     #array of all goals
-    goals = @games.map do |row|
-      row[:away_goals].to_i + row[:home_goals].to_i
-    end
-
-    goals
+  goals = @games.map do |row|
+    row[:away_goals].to_i + row[:home_goals].to_i
   end
 
-  def total_goals
-    home_goals = 0
-    away_goals = 0
-    total_goals = 0
+  goals
+end
 
-    @games.each do |game|
-      home_goals += game[:home_goals].to_i
-      away_goals += game[:away_goals].to_i
-    end
+def total_goals
+  home_goals = 0
+  away_goals = 0
+  total_goals = 0
 
-    total_goals = (home_goals + away_goals)
+  @games.each do |game|
+    home_goals += game[:home_goals].to_i
+    away_goals += game[:away_goals].to_i
   end
 
-  def helper
-    my_hash = Hash.new { |h, k| h[k] = [] }
-    my_hash[:some_key] << new_value
-
-    if row[:hoa] == "home" && row[:result] == "WIN"
-      team_record[:hoa][:wins] += 1
-      ((home_wins.count / all_home_games.count.to_f).round(2))
-    elsif row[:hoa] == "away" && row[:result] == "WIN"
-      team_record[:hoa][:losses] += 1
-      ((vistor_wins.count / all_vistor_games.count.to_f).round(2))
-    elsif row[:result] == "TIE"
-      team_record[:hoa][:ties] += 1
-      ((ties.count / all_games.count.to_f).round(2))
-    end
-
-    team_record = Hash.new { |h, k| h[k] = {wins: 0, losses: 0, ties: 0} }
-  end
+  total_goals = (home_goals + away_goals)
 end
