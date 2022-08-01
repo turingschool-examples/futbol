@@ -39,5 +39,6 @@ class StatTracker
   def worst_season(team) @teams[team.to_i].worst_season end
   def most_goals_scored(team) @teams[team.to_i].most_goals_scored end
   def fewest_goals_scored(team) @teams[team.to_i].fewest_goals_scored end
+  def team_info(team) @teams[team.to_i].team_info end
 
 end
