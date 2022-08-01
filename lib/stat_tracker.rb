@@ -291,7 +291,6 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-
   def goals_by_team(team_id) #helper for 29
     goals = []  
       @game_teams.each do |row|             
@@ -302,16 +301,16 @@ class StatTracker
       goals.flatten.sum
     end 
 
-    def shots_by_team(team_id) #helper for 29
-    shots = []
-      @game_teams.each do |row|
-        
-        if row[:team_id] == team_id
-        shots << [row[:shots]]
-        end
+  def shots_by_team(team_id) #helper for 29
+  shots = []
+    @game_teams.each do |row|
+      
+      if row[:team_id] == team_id
+      shots << [row[:shots]]
       end
-      shots.flatten.sum
     end
+    shots.flatten.sum
+  end
 
 
   def least_accurate_team(season) #issue # 29 - passed dummy and spec harness
@@ -326,13 +325,12 @@ class StatTracker
       teams_with_goals_n_shots[row[:team_id]]["goals"] << row[:goals] and teams_with_goals_n_shots[row[:team_id]]["shots"] << row[:shots] if games_by_season[season.to_i].include?(row[:game_id])
     end  
 
-     teams_with_goals_n_shots.keys.each do |team_id|
-         teams_with_goals_n_shots[team_id] = teams_with_goals_n_shots[team_id]["goals"].sum.to_f / teams_with_goals_n_shots[team_id]["shots"].sum
+    teams_with_goals_n_shots.keys.each do |team_id|
+      teams_with_goals_n_shots[team_id] = teams_with_goals_n_shots[team_id]["goals"].sum.to_f / teams_with_goals_n_shots[team_id]["shots"].sum
     end
 
     team_by_id[teams_with_goals_n_shots.key(teams_with_goals_n_shots.values.min)]
-    
-end
+  end
 
   def most_tackles(season_id) #issue # 21 PASS
 
@@ -359,25 +357,13 @@ end
       end
     end
 
-    team_id_and_tackles_hash = {}
-    all_team_ids = []
-
-    games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
-      all_team_ids << pair[0]
-    end
-
-    unique_team_ids = all_team_ids.uniq
-
-    unique_team_ids.each do |teamid|
-      team_id_and_tackles_hash[teamid] = 0
-    end
+    team_id_and_tackles_hash = Hash.new {0}
 
     games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
       team_id_and_tackles_hash[pair[0]] += pair[1]
     end
 
-    highest_tackle_pair = team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)
-    team_by_id[highest_tackle_pair]
+    team_by_id[team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)]
   end
 
   def fewest_tackles #issue # 22 - not yet written
