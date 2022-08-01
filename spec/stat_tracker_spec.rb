@@ -99,11 +99,7 @@ RSpec.describe StatTracker do
     end
 
     it 'can show coach with lowest win percentage for a season' do
-<<<<<<< Updated upstream
-      expect(@stat_tracker.worst_coach("20142015")).to eq("Dan Bylsma")
-=======
       expect(@stat_tracker.worst_coach("20142015")).to eq("Dan Bylsma") 
->>>>>>> Stashed changes
     end
 
     it 'can show coach percentages' do
