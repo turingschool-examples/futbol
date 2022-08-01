@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'games'
+require_relative 'game'
 
 class StatTracker
   attr_reader :locations, :data
@@ -15,6 +15,13 @@ class StatTracker
     @team_path = team_path
     @game_teams_path = game_teams_path
     # games = Games.new(locations[:games])
+  end
+
+  def games
+    games_csv = CSV.open(@game_path, headers: true, header_converters: :symbol)
+    @games ||= games_csv.map do |row|
+      Game.new(row)
+    end
   end
 
   def self.from_csv(locations)
