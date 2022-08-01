@@ -1,6 +1,7 @@
 require 'csv'
-require_relative './stat_tracker'
-require_relative './game_stat_module'
+require './lib/game_stat_module'
+require './lib/game_statistics'
+# require_relative '/spec_helper'
 
 class GameStatistics 
   include GameStatsable
@@ -32,66 +33,18 @@ class GameStatistics
   end
 
   def percentage_ties
-    tie = 0
-    total_games = 0
-
-    @game_teams_data.each do |row|
-        if row[:hoa] == 'away'
-          
-          if row[:result] == 'TIE'
-            tie += 1
-            total_games += 1
-          elsif row[:result] == 'LOSS' || 'WIN'
-            total_games += 1
-          end
-        end
-    end
-      (tie / total_games.to_f).round(2)
+    ties_percentage
   end
 
   def count_of_games_by_season    
-    season_games = {}
-
-    seasons = @games_data.map { |row|row[:season] }
-    seasons = seasons.uniq!
-  
-    seasons.each { |season| season_games[season] = 0 }
-
-    season_games.each do |season, games| #tally method work?
-        @games_data.each do |row|
-          # require 'pry';binding.pry
-          if row[:season] == season
-            season_games[season] += 1
-          end 
-        end
-    end
-    return season_games
+    season_game_count
   end
 
   def average_goals_per_game
-    total_games = []
-    @games_data.each do |row|
-      total_games << row[:game_id]
-    end
-    total_goals = 0
-    @games_data.each do |row|
-      total_goals += (row[:away_goals].to_i + row[:home_goals].to_i)
-    end
-    (total_goals.to_f / total_games.count).round(2)
+    ave_goals_a_game
   end
 
   def average_goals_by_season
-    seasons = Hash.new()
-    @games_data.each do |row|
-      seasons[row[:season]] = []
-    end
-    @games_data.each do |row|
-      seasons[row[:season]] << (row[:away_goals].to_i + row[:home_goals].to_i)
-    end
-    average_goals_by_season = Hash.new()
-    seasons.each do |season, goals|
-      average_goals_by_season[season] = (goals.sum.to_f / goals.length).round(2)  
-    end
-    average_goals_by_season
+    ave_goals_a_season
   end
 end 

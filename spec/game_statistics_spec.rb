@@ -1,9 +1,9 @@
 require 'csv'
-require_relative './game_statistics'
-require_relative './game_stat_module'
 require 'spec_helper'
+# require './lib/game_statistics'
+# require './lib/game_stat_module'
 
-RSpec.describe class GameStatistics do
+RSpec.describe GameStatistics do
   mock_games_data = './data/mock_games.csv' 
   team_data = './data/teams.csv' 
   mock_game_teams_data = './data/mock_game_teams.csv' 
@@ -72,3 +72,4 @@ RSpec.describe class GameStatistics do
       expect(stat_tracker.average_goals_by_season).to eq expected
     end
   end
+end
