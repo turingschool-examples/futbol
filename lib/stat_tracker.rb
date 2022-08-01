@@ -537,7 +537,6 @@ class StatTracker
           rivals_wins << row[:away_team_id]
         end
       end
-      # require "pry"; binding.pry 
     end
       rivals_wins_hash = rivals_wins.tally
       rivals_wins_hash
