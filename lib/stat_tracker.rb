@@ -332,38 +332,8 @@ class StatTracker
     team_by_id[teams_with_goals_n_shots.key(teams_with_goals_n_shots.values.min)]
   end
 
-  def total_tackles_in_season_by_team #Helper method for #21 and #31
-  # def total_tackles_in_season_by_team(season_id) #Helper method for #21 and #31
+  def total_tackles_in_season_by_team #Helper method for #30 and #31
     # Example: Output - {16=>299, 30=>165, 19=>161, 26=>174, 6=>271, 3=>179, 17=>219, 5=>150}
-    # all_season_ids = []
-    # games.each do |row|
-    #   all_season_ids << row[:season]
-    # end
-    #
-    # unique_season_ids = all_season_ids.uniq
-    # games_in_season_hash = {}
-    # unique_season_ids.each do |season|
-    #   games_in_season_hash[season] = [[], {"team_id_and_tackles" => []}]
-    # end
-    #
-    # games.each do |row|
-    #   games_in_season_hash[row[:season]][0] << row[:game_id]
-    # end
-    #
-    # games_in_season_hash.each do |season, games|
-    #   game_teams.each do |row|
-    #     if games[0].include?(row[:game_id])
-    #       games[1]["team_id_and_tackles"] << row.values_at(:team_id, :tackles)
-    #     end
-    #   end
-    # end
-    #
-    # team_id_and_tackles_hash = Hash.new {0}
-    #
-    #
-    # games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
-    #   team_id_and_tackles_hash[pair[0]] += pair[1]
-    # end
     team_id_and_tackles_hash = Hash.new {|h,k| h[k] = {}}
 
     games_by_season.each do |season, games|
@@ -381,13 +351,11 @@ class StatTracker
     team_id_and_tackles_hash
   end
 
-  def most_tackles(season_id) #issue # 21 PASS
-    # team_by_id[total_tackles_in_season_by_team(season_id).key(total_tackles_in_season_by_team(season_id).values.max)]
+  def most_tackles(season_id) #issue # 30 PASS
     team_by_id[total_tackles_in_season_by_team[season_id.to_i].key(total_tackles_in_season_by_team[season_id.to_i].values.max)]
   end
 
   def fewest_tackles (season_id)#issue # 31
-    # team_by_id[total_tackles_in_season_by_team(season_id).key(total_tackles_in_season_by_team(season_id).values.min)]
     team_by_id[total_tackles_in_season_by_team[season_id.to_i].key(total_tackles_in_season_by_team[season_id.to_i].values.min)]
   end
 
