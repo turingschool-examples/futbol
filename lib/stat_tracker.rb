@@ -494,10 +494,74 @@ class StatTracker
 
   end
 
-  def rival #issue # 30 - Fail due to not written
-
-
-
+  def rival(team_id) #issue # 30 - Fail due to not written
+     rival_opp = {}
+     rival_opp_wins = rival_wins(team_id)
+     rival_opp_games = rival_game(team_id)
+     rival_opp_games.each do | rogk, rogv |
+       rival_opp_wins.each do | rowk, rowv |
+         if rogk == rowk
+           rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+         end
+       end
+     end
+    rival_opp.each do |k, v|
+       if v == rival_opp.values.max
+         return team_by_id[k.to_i]
+       end
+       
+     end
   end
 
+  def rival_wins(team_id) #helper for #24 and possibly fave opp
+    rivals_wins = []
+    @games.each do |row|
+      if row[:away_team_id] == team_id.to_i
+        if row[:away_goals] < row[:home_goals]
+          rivals_wins << row[:home_team_id]
+        end
+      end
+      if row[:home_team_id] == team_id.to_i
+        if row[:home_goals] < row[:away_goals]
+          rivals_wins << row[:away_team_id]
+        end
+      end
+      # require "pry"; binding.pry 
+    end
+      rivals_wins_hash = rivals_wins.tally
+      rivals_wins_hash
+  end
+
+  def rival_game(team_id) #helper for #24 and possibly fave opp
+    rivals_games = []
+    games.each do |row|
+      if row[:home_team_id] == team_id.to_i
+      rivals_games << row[:away_team_id]
+      end
+      if row[:away_team_id] == team_id.to_i
+      rivals_games << row[:home_team_id]
+      end
+    end
+    rivals_games_hash = rivals_games.tally
+    rivals_games_hash
+  end
+
+  def rival(team_id) #issue 24 - Fail due to not written
+     rival_opp = {}
+     rival_opp_wins = rival_wins(team_id)
+     rival_opp_games = rival_game(team_id)
+     rival_opp_games.each do | rogk, rogv |
+       rival_opp_wins.each do | rowk, rowv |
+         if rogk == rowk
+           rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+         end
+       end
+     end
+    rival_opp.each do |k, v|
+       if v == rival_opp.values.max
+         return team_by_id[k.to_i]
+       end
+       
+     end
+  end
 end
