@@ -73,12 +73,13 @@ class StatTracker
     counts = {}
     games.each do |game|
         season = game[:season]
-        if counts[season].nil?
-             counts[season] = 0
+        if counts[season.to_s].nil?
+             counts[season.to_s] = 0
         end
-        counts[season] += 1
+        counts[season.to_s] += 1
     end
     counts
+
     # games.reduce({}) do |counts, game|
     #     season = game[:season]
     #     counts[season] = 0 if counts[season].nil?
@@ -95,11 +96,12 @@ class StatTracker
     my_hash = Hash.new { |h,k| h[k] = [] }
 
       count_of_games_by_season.each do |season, game_count|
-        my_hash[season.to_s] = []
+        my_hash[season] = []
         game_sum_calc = []
         games.each do |row|
-          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season
-          my_hash[season.to_s] = (game_sum_calc.sum / game_count.to_f).round(2)
+          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i 
+          #require 'pry';binding.pry
+          my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
         end
       end
       my_hash
@@ -175,7 +177,6 @@ class StatTracker
       scores_by_team_id[game[0]] << game[2].to_f
     end
     scores_by_team_id
-
   end
 
   def team_by_id #helper method for issue #14
@@ -191,7 +192,7 @@ class StatTracker
     end
     average_scores
   end
-
+  
   def highest_scoring_home_team #issue # 14 - PASS
     max_average = average_scores_by_team_id("home").values.max
     team_by_id[average_scores_by_team_id("home").key(max_average)]

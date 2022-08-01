@@ -51,31 +51,32 @@ describe StatTracker do
     end
 
     it "tracks wins" do
-      expect(@stat_tracker.game_wins).to eq(29)
+      expect(@stat_tracker.game_wins).to eq(40)
     end
 
     it "tracks losses" do
-      expect(@stat_tracker.game_losses).to eq(29)
+      expect(@stat_tracker.game_losses).to eq(40)
     end
 
     it "tracks home games" do
-      expect(@stat_tracker.home_games).to eq(30)
+      expect(@stat_tracker.home_games).to eq(40)
     end
 
     it "tracks away games" do
-      expect(@stat_tracker.away_games).to eq(30)
+      expect(@stat_tracker.away_games).to eq(40)
     end
 
     it "calculates home wins" do
-      expect(@stat_tracker.home_wins).to eq(21)
+      expect(@stat_tracker.home_wins).to eq(24)
     end
 
     it 'calculates percentage wins' do #FAIL - corrected game_teams_path
-      expect(@stat_tracker.percentage_home_wins).to eq(0.60)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.6)
     end
 
     it 'calculates percentage visitor wins' do 
-      expect(@stat_tracker.percentage_visitor_wins).to eq(.40)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
+    end
 
     it "returns the percentage of tied games" do #PASS
       expect(@stat_tracker.percentage_ties).to eq(0.0)
@@ -86,18 +87,12 @@ describe StatTracker do
     end
 
     it 'returns hash with season name and average goals for each season ' do #Pass
-      expected_hash = "20122013" => 89, "20132014" => 13, "20142015" => 14, "20152016" => 15, "20162017" => 14, "20172018" => 11
+      expected_hash = {"20122013"=>3.56, "20132014"=>4.33, "20142015"=>4.67, "20152016"=>5.0, "20162017"=>4.67, "20172018"=>3.67}
       expect(@stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
 
     it 'Has hash with season names as keys and counts of games as values' do
-      expect(@stat_tracker.count_of_games_by_season).to eq({
-          "20122013" => 25,
-          "20132014" => 3,
-          "20142015" => 3,
-          "20162017" => 3,
-          "20162018" => 3,
-      })
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>25, "20132014"=>3, "20142015"=>3, "20152016"=>3, "20162017"=>3, "20172018"=>3})
     end
   end
 
@@ -116,11 +111,11 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are away' do #Pass
-      expect(@stat_tracker.highest_scoring_visitor).to eq("Reign FC") .or("Los Angeles FC") .or("FC Dallas")
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are home' do #Pass
-      expect(@stat_tracker.highest_scoring_home_team).to eq("Chicago Red Stars") .or("Minnesota United FC")
+      expect(@stat_tracker.highest_scoring_home_team).to eq("Chicago Red Stars").or("Minnesota United FC")
     end
 
     it 'can return Name of the team with the lowest average score per game across all seasons when they are a visitor' do #Pass
@@ -128,7 +123,7 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the lowest average score per game across all seasons when they are at home' do #FAIL - Wrong team returning
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("Reign FC") .or("Los Angeles FC")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Reign FC").or("Los Angeles FC")
     end
   end
 
@@ -205,11 +200,9 @@ describe StatTracker do
     it 'can determine number of rival games' do
       expect(@stat_tracker.rival_game("19")).to be_a Hash
     end
-    
 
     it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
       expect(@stat_tracker.rival("19")).to eq("New England Revolution")
     end
   end
-
 end
