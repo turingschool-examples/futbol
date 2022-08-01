@@ -2,11 +2,6 @@ require_relative './game_stats'
 
 module TeamStats
   include GameStats
-  def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
-  end
 
   def team_info(team_id)
     headers = @teams[0].headers.map!(&:to_s)
