@@ -225,29 +225,11 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    ratio = get_ratio(season_id)
-    max_ratio = ratio.max_by { |k, v| v }[0]
-    @teams.each do |team|
-      team_id = team.team_id
-      team_name = team.team_name
-
-      if team_id == max_ratio
-        return team_name
-      end
-    end
+    @team_stats.most_accurate_team(season_id)
   end
 
   def least_accurate_team(season_id)
-    ratio = get_ratio(season_id)
-    min_ratio = ratio.min_by { |k, v| v }[0]
-    @teams.each do |team|
-      team_id = team.team_id
-      team_name = team.team_name
-
-      if team_id == min_ratio
-        return team_name
-      end
-    end
+    @team_stats.least_accurate_team(season_id)
   end
 
   def lowest_scoring_visitor

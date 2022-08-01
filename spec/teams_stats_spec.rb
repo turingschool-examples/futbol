@@ -16,7 +16,7 @@ describe TeamsStats do
     expect(@team_stats.count_of_teams).to eq(32)
   end
 
-  xit "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
+  it "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
     expect(@team_stats.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
