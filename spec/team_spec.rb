@@ -51,6 +51,11 @@ RSpec.describe Team do
     expect(@team.worst_season).to eq("20122013")
   end
 
+  it 'can return the total home and away goals' do
+    expected = [2, 2, 1, 2, 1, 0, 5, 0]
+    expect(@team.home_and_away_goals).to eq(expected)
+  end
+
   it 'can return the most/fewest goals of a team' do
     expect(@team.most_goals_scored).to eq(5)
     expect(@team.fewest_goals_scored).to eq(0)
