@@ -68,7 +68,7 @@ class Season
 
   def winningest_coach
     coach_percentages.max_by{|coach_name, percentage_wins| percentage_wins}.first
-   end
+  end
  
   def worst_coach
     coach_percentages.min_by{|coach_name, percentage_wins| percentage_wins}.first
