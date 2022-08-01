@@ -22,7 +22,7 @@ class StatTracker
   end
 
   def highest_total_score
-    @game_stats.highest_total_score 
+    @game_stats.highest_total_score
   end
 
   def lowest_total_score
@@ -50,7 +50,14 @@ class StatTracker
   end
 
   def average_goals_by_season
-    @game_stats.average_goals_by_season
+    goals_by_season = Hash.new(0)
+    @games.map do |game|
+      goals_by_season[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
+    end
+    goals_by_season.each do |season, total|
+      goals_by_season[season] = (total / (season_grouper[season].count).to_f).round(2)
+    end
+    goals_by_season
   end
 
   def count_of_teams
@@ -169,14 +176,14 @@ class StatTracker
     team_hash
   end
 
-  def best_season(team_id)  #we need a hash with each season as the keys and the win % for the season as the value
+  def best_season(team_id) #we need a hash with each season as the keys and the win % for the season as the value
     games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the valueq
     win_percent_hash = Hash.new([])
     games_by_season.flat_map do |season, games|
       game_count = games.count
-      home_wins = games.find_all {|game| (game.home_goals > game.away_goals) && team_id == game.home_team_id}.count
-      away_wins = games.find_all {|game| (game.away_goals > game.home_goals) && team_id == game.away_team_id}.count
-      win_percent =((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
+      away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
+      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
       win_percent_hash[season] = win_percent
     end
     ranked_seasons = win_percent_hash.max_by do |season, win_percent|
@@ -190,9 +197,9 @@ class StatTracker
     win_percent_hash = Hash.new([])
     games_by_season.flat_map do |season, games|
       game_count = games.count
-      home_wins = games.find_all {|game| (game.home_goals > game.away_goals) && team_id == game.home_team_id}.count
-      away_wins = games.find_all {|game| (game.away_goals > game.home_goals) && team_id == game.away_team_id}.count
-      win_percent =((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
+      away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
+      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
       win_percent_hash[season] = win_percent  #this is a hash with each season as the keys and the win % for the season as the value
     end
     ranked_seasons = win_percent_hash.min_by do |season, win_percent|
@@ -269,26 +276,24 @@ class StatTracker
     minimum(coach_percentage_lost)[0]
   end
 
-
   def games_by_season(season_id) #helper method
     game_id_list = []
     @games.each do |game|
       if game.season == season_id
-          game_id_list << game.game_id
-        end
+        game_id_list << game.game_id
+      end
     end
     return game_id_list
   end
 
   def most_accurate_team(season_id)
     ratio = get_ratio(season_id)
-    max_ratio= ratio.max_by{|k,v| v}[0]
+    max_ratio = ratio.max_by { |k, v| v }[0]
     @teams.each do |team|
       team_id = team.team_id
       team_name = team.team_name
 
       if team_id == max_ratio
-
         return team_name
       end
     end
@@ -296,7 +301,7 @@ class StatTracker
 
   def least_accurate_team(season_id)
     ratio = get_ratio(season_id)
-    min_ratio = ratio.min_by{|k,v| v}[0]
+    min_ratio = ratio.min_by { |k, v| v }[0]
     @teams.each do |team|
       team_id = team.team_id
       team_name = team.team_name
@@ -311,18 +316,16 @@ class StatTracker
     goals = Hash.new(0)
     shots = Hash.new(0)
     ratio = Hash.new(0)
-    game_id_list= games_by_season(season_id)
-      @game_teams.each do |game_team|
-        game_id = game_team.game_id
-        current_team_id = game_team.team_id
+    game_id_list = games_by_season(season_id)
+    @game_teams.each do |game_team|
+      game_id = game_team.game_id
+      current_team_id = game_team.team_id
 
-        if game_id_list.include?game_id
-
-          goals[current_team_id] += game_team.goals.to_f
-          shots[current_team_id] += game_team.shots.to_f
-          ratio[current_team_id] = goals[current_team_id]/shots[current_team_id]
-
-        end
+      if game_id_list.include? game_id
+        goals[current_team_id] += game_team.goals.to_f
+        shots[current_team_id] += game_team.shots.to_f
+        ratio[current_team_id] = goals[current_team_id] / shots[current_team_id]
+      end
     end
     return ratio
   end
