@@ -70,16 +70,16 @@ describe StatTracker do
       expect(@stat_tracker.home_wins).to eq(21)
     end
 
-    xit 'calculates percentage wins' do #FAIL - corrected game_teams_path
-      expect(@stat_tracker.percentage_home_wins).to eq(0.70)
+    it 'calculates percentage wins' do #FAIL - corrected game_teams_path
+      expect(@stat_tracker.percentage_home_wins).to eq(0.60)
     end
 
     xit "returns the percentage of tied games" do #FAIL - corrected test output
       expect(@stat_tracker.percentage_ties).to eq(0.17)
     end
 
-    xit 'average goals' do #FAIL - Need to make this test eq 0.99 not whole numbers
-      expect(@stat_tracker.average_goals_per_game).to eq(4.__)
+    it 'average goals' do #FAIL - Need to make this test eq 0.99 not whole numbers
+      expect(@stat_tracker.average_goals_per_game).to eq(3.9)
     end
 
     xit 'returns hash with season name and average goals for each season ' do #Pass
@@ -143,6 +143,14 @@ describe StatTracker do
       expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
     end
 
+    it 'can count goals' do 
+      expect(@stat_tracker.goals_by_team(16)).to eq(31)
+    end
+
+    it 'can count shots' do 
+      expect(@stat_tracker.shots_by_team(16)).to eq(127)
+    end
+
     xit 'can show name of the team with the worst ratio of shots to goals for the season' do #FAIL - not yet written
       expect(@stat_tracker.least_accurate_team).to eq("")
     end
@@ -184,8 +192,16 @@ describe StatTracker do
       expect(@stat_tracker.favorite_opponent).to eq("")
     end
 
-    xit 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
-       expect(@stat_tracker.rival("3")).to eq("FC Dallas")
+    it 'can determine number of rival wins' do 
+      expect(@stat_tracker.rival_wins("19")).to be_a Hash
+    end 
+
+    it 'can determine number of rival games' do 
+      expect(@stat_tracker.rival_games("19")).to be_a Hash
+    end 
+    
+    it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
+      expect(@stat_tracker.rival("19")).to eq("New England Revolution")
     end
   end
 

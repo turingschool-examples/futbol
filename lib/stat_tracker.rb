@@ -44,7 +44,7 @@ class StatTracker
   end
 
   def percentage_home_wins #issue #4 - Need to make this test eq 0.99 not whole numbers
-    percentage = (home_wins/home_games) * 100
+    percentage = (home_wins/home_games).round(2)
   end
 
   def percentage_visitor_wins #issue #5 - passed spec harness and dummy
@@ -88,7 +88,7 @@ class StatTracker
   end
 
   def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers
-    total_scores_by_game.sum/@games.size
+    (total_scores_by_game.sum/@games.count.to_f).round(2)    
   end
 
   def average_goals_by_season #issue #9 - Pass
@@ -291,7 +291,29 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-  def least_accurate_team #issue # 20 - FAIL not written yet
+  def goals_by_team(team_id) #helper for 29
+    goals = []  
+      @game_teams.each do |row|             
+        if (row[:team_id] == team_id) 
+          goals << [row[:goals]]
+        end
+      end
+      goals.flatten.sum
+    end 
+
+    def shots_by_team(team_id) #helper for 29
+    shots = []
+      @game_teams.each do |row|
+        
+        if row[:team_id] == team_id
+        shots << [row[:shots]]
+        end
+      end
+      shots.flatten.sum
+    end
+
+
+  def least_accurate_team #issue # 29
 
 
 
@@ -502,10 +524,54 @@ class StatTracker
 
   end
 
-  def rival #issue # 30 - Fail due to not written
-
-
-
+  def rival_wins(team_id) #helper for #24 and possibly fave opp
+    rivals_wins = []
+    @games.each do |row|
+      if row[:away_team_id] == team_id.to_i
+        if row[:away_goals] < row[:home_goals]
+          rivals_wins << row[:home_team_id]
+        end
+      end
+      if row[:home_team_id] == team_id.to_i
+        if row[:home_goals] < row[:away_goals]
+          rivals_wins << row[:away_team_id]
+        end
+      end
+    end
+      rivals_wins_hash = rivals_wins.tally
+      rivals_wins_hash
   end
 
+  def rival_game(team_id) #helper for #24 and possibly fave opp
+    rivals_games = []
+    games.each do |row|
+      if row[:home_team_id] == team_id.to_i
+      rivals_games << row[:away_team_id]
+      end
+      if row[:away_team_id] == team_id.to_i
+      rivals_games << row[:home_team_id]
+      end
+    end
+    rivals_games_hash = rivals_games.tally
+    rivals_games_hash
+  end
+
+  def rival(team_id) #issue 24 - Fail due to not written
+     rival_opp = {}
+     rival_opp_wins = rival_wins(team_id)
+     rival_opp_games = rival_game(team_id)
+     rival_opp_games.each do | rogk, rogv |
+       rival_opp_wins.each do | rowk, rowv |
+         if rogk == rowk
+           rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+         end
+       end
+     end
+    rival_opp.each do |k, v|
+       if v == rival_opp.values.max
+         return team_by_id[k.to_i]
+       end
+       
+     end
+  end
 end
