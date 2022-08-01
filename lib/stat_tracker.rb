@@ -1,11 +1,13 @@
 require 'csv'
 require './lib/season_helper_module'
+require './lib/game_stat_module'
 require './lib/league_helper_module'
 
 class StatTracker
   include Seasonable
   include Leagueable
-
+  include GameStatsable
+  
   def initialize(locations)
     @x = 1
     @locations = locations
