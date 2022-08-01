@@ -291,7 +291,6 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-  
   def goals_by_team(team_id) #helper for 29
     goals = []  
       @game_teams.each do |row|             
