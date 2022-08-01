@@ -1,5 +1,5 @@
-require_relative './league_helper_module'
-require_relative './team_name_by_id_helper_module'
+require_relative 'league_helper_module'
+require_relative 'team_name_by_id_helper_module'
 
 class LeagueStatistics < StatTracker
   include Leagueable
