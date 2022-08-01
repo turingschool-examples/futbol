@@ -290,7 +290,7 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-  
+
   def goals_by_team(team_id) #helper for 29
     goals = []
       @game_teams.each do |row|
@@ -332,8 +332,8 @@ class StatTracker
     team_by_id[teams_with_goals_n_shots.key(teams_with_goals_n_shots.values.min)]
   end
 
-  def most_tackles(season_id) #issue # 21 PASS
-
+  def total_tackles_in_season_by_team(season_id) #Helper method for #21 and #31
+    # Example: Output - {16=>299, 30=>165, 19=>161, 26=>174, 6=>271, 3=>179, 17=>219, 5=>150}
     all_season_ids = []
     games.each do |row|
       all_season_ids << row[:season]
@@ -362,14 +362,15 @@ class StatTracker
     games_in_season_hash[season_id.to_i][1]["team_id_and_tackles"].each do |pair|
       team_id_and_tackles_hash[pair[0]] += pair[1]
     end
-
-    team_by_id[team_id_and_tackles_hash.key(team_id_and_tackles_hash.values.max)]
+    team_id_and_tackles_hash
   end
 
-  def fewest_tackles #issue # 22 - not yet written
+  def most_tackles(season_id) #issue # 21 PASS
+    team_by_id[total_tackles_in_season_by_team(season_id).key(total_tackles_in_season_by_team(season_id).values.max)]
+  end
 
-
-
+  def fewest_tackles (season_id)#issue # 31
+    team_by_id[total_tackles_in_season_by_team(season_id).key(total_tackles_in_season_by_team(season_id).values.min)]
   end
 
   def team_info(team_id) #issue # 23 - Pass
@@ -525,7 +526,7 @@ class StatTracker
       array_of_goals_for_specified_team.min()
   end
 
-  
+
 
   def favorite_opponent #issue # 29 - Fail due to not written
 

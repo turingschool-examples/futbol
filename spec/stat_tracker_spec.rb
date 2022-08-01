@@ -160,7 +160,13 @@ describe StatTracker do
 
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
+
+    it 'can show name of the team with fewest tackles in the season' do
+
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Sporting Kansas City")
+    end
   end
+
   describe 'Team Statistics' do
 
     it 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do #Pass
@@ -202,7 +208,7 @@ describe StatTracker do
     it 'can determine number of rival games' do
       expect(@stat_tracker.rival_game("19")).to be_a Hash
     end
-    
+
 
     it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
       expect(@stat_tracker.rival("19")).to eq("New England Revolution")
