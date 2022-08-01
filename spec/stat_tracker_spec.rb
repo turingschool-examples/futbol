@@ -1,4 +1,4 @@
-require './lib/stat_tracker'
+require 'spec_helper'
 
 RSpec.describe StatTracker do
   context 'Iteration 1' do
