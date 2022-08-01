@@ -1,8 +1,10 @@
 require './lib/stat_tracker'
 require './lib/season_helper_module'
+require './lib/team_name_by_id_helper_module'
 
 class SeasonStatistics
   include Seasonable
+  include TeamNameable
 
   attr_reader :season
 

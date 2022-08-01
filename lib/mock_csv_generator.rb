@@ -37,7 +37,5 @@ class MockGenerator < StatTracker
         end
       end
     end
-    
   end
-
 end
