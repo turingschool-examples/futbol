@@ -139,7 +139,7 @@ describe StatTracker do
       "20132014" => 4.19,
       "20172018" => 4.44,
     }
-    expect(@stat_tracker.average_goals_by_season).to eq expected
+    expect(@stat_tracker.average_goals_by_season).to eq(expected)
   end
 
   it "can calculate the games average goals by season for dummy data" do
