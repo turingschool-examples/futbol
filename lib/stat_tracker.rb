@@ -277,11 +277,25 @@ class StatTracker
     team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
   end
 
-  def least_accurate_team #issue # 20 - FAIL not written yet
+  def least_accurate_team(season) #issue # 20 - FAIL not written yet
+    games_by_season
+    teams_with_goals_n_shots = Hash.new { |h,k| h[k] = [] }
 
+    game_teams.each do |row|
+      teams_with_goals_n_shots[row[:team_id]] = {"goals" => [], "shots" => []} if games_by_season[season.to_i].include?(row[:game_id])
+    end
 
+    game_teams.each do |row|
+      teams_with_goals_n_shots[row[:team_id]]["goals"] << row[:goals] and teams_with_goals_n_shots[row[:team_id]]["shots"] << row[:shots] if games_by_season[season.to_i].include?(row[:game_id])
+    end  
 
-  end
+     teams_with_goals_n_shots.keys.each do |team_id|
+         teams_with_goals_n_shots[team_id] = teams_with_goals_n_shots[team_id]["goals"].sum.to_f / teams_with_goals_n_shots[team_id]["shots"].sum
+    end
+
+    team_by_id[teams_with_goals_n_shots.key(teams_with_goals_n_shots.values.min)]
+    
+end
 
   def most_tackles(season_id) #issue # 21 PASS
 
