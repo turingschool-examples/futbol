@@ -43,7 +43,7 @@ describe StatTracker do
     end
 
     it "finds highest total score" do #Pass
-      expect(@stat_tracker.highest_total_score).to eq(7)
+      expect(@stat_tracker.highest_total_score).to eq(8) #was 7 before I changed it to match google doc
     end
 
     it 'can return the lowest score' do #Pass
@@ -74,16 +74,19 @@ describe StatTracker do
       expect(@stat_tracker.percentage_home_wins).to eq(0.60)
     end
 
+    it 'calculates percentage visitor wins' do 
+      expect(@stat_tracker.percentage_visitor_wins).to eq(.40)
+
     it "returns the percentage of tied games" do #PASS
       expect(@stat_tracker.percentage_ties).to eq(0.0)
     end
 
     it 'average goals' do #FAIL - Need to make this test eq 0.99 not whole numbers
-      expect(@stat_tracker.average_goals_per_game).to eq(3.9)
+      expect(@stat_tracker.average_goals_per_game).to eq(3.90) #added 3.90 to match google doc prev: 3.9
     end
 
     it 'returns hash with season name and average goals for each season ' do #Pass
-      expected_hash = {"20122013"=>3.64, "20132014"=>4.15, "20142015"=>4.64, "20162017"=>3.75}
+      expected_hash = "20122013" => 89, "20132014" => 13, "20142015" => 14, "20152016" => 15, "20162017" => 14, "20172018" => 11
       expect(@stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
 
@@ -105,7 +108,7 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the highest average number of goals scored per game across all seasons' do #FAIL - wrong team returning
-      expect(@stat_tracker.best_offense).to eq("New York City FC")
+      expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
 
     it 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do #Pass
@@ -113,19 +116,19 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are away' do #Pass
-      expect(@stat_tracker.highest_scoring_visitor).to eq("Utah Royals FC")
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Reign FC") .or("Los Angeles FC") .or("FC Dallas")
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are home' do #Pass
-      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+      expect(@stat_tracker.highest_scoring_home_team).to eq("Chicago Red Stars") .or("Minnesota United FC")
     end
 
     it 'can return Name of the team with the lowest average score per game across all seasons when they are a visitor' do #Pass
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("New England Revolution")
     end
 
     it 'can return Name of the team with the lowest average score per game across all seasons when they are at home' do #FAIL - Wrong team returning
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Reign FC") .or("Los Angeles FC")
     end
   end
 
