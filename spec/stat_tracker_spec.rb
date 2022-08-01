@@ -132,19 +132,11 @@ describe StatTracker do
 
 
     xit 'can show name of coach with the best win percentage of the season' do #FAIL - wrong name returns
-<<<<<<< HEAD
       expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
 
     it 'can show name with the worst win percentage for the season' do #FAIL - wrong name returns
       expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella").or(eq("Dan Bylsma"))
-=======
-      expect(@stat_tracker.winningest_coach("20132014")).to eq("Darryl Sutter")
-    end
-
-    xit 'can show name with the worst win percentage for the season' do #FAIL - wrong name returns
-      expect(@stat_tracker.worst_coach("20132014")).to eq("John Tortorella")
->>>>>>> bc7b26e499f2a595fe299af123624ddff699b5a2
     end
 
     xit 'can show name of the team with the best ratio of shots to goals for the season' do #FAIL - NilClass Error
@@ -155,13 +147,8 @@ describe StatTracker do
       expect(@stat_tracker.least_accurate_team).to eq("")
     end
 
-<<<<<<< HEAD
-    xit 'can show name of the team with most tackles in the season' do
-      expect(@stat_tracker.most_tackles("20122013")).to eq("Chicago Fire")
-=======
     it 'can show name of the team with most tackles in the season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
->>>>>>> bc7b26e499f2a595fe299af123624ddff699b5a2
     end
   end
   describe 'Team Statistics' do
@@ -178,19 +165,11 @@ describe StatTracker do
     end
 
     xit 'can show season with the highest win percentage for a team' do #FAIL - wrong season being returned
-<<<<<<< HEAD
-      expect(@stat_tracker.best_season("16")).to eq("20132014")
-    end
-
-    xit 'can show season with the lowest win percentage for a team' do #FAIL
-      expect(@stat_tracker.average_win_percentage(16)).to eq(0.27)
-=======
       expect(@stat_tracker.best_season("3")).to eq("20142015")
     end
 
     xit 'can show season with the lowest win percentage for a team' do #FAIL
-       expect(@stat_tracker.average_win_percentage("3")).to eq 0.25
->>>>>>> bc7b26e499f2a595fe299af123624ddff699b5a2
+       expect(@stat_tracker.average_win_percentage("3")).to eq(0.25)
     end
 
     xit 'can return hgihest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
