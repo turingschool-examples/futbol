@@ -3,8 +3,8 @@ require_relative './game'
 require './helpable'
 
 class GameStats
-  include Helpable 
-  
+  include Helpable
+
   attr_reader :games
   def initialize(games)
     @games = games
@@ -38,7 +38,7 @@ class GameStats
 
   def count_of_games_by_season
     game_count = Hash.new(0)
-    @games.each { |game| game_count[game.season] += 1 } 
+    @games.each { |game| game_count[game.season] += 1 }
     game_count
   end
 

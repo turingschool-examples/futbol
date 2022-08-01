@@ -2,23 +2,24 @@ require_relative "./teams"
 require_relative "./game"
 require_relative "./game_teams"
 require_relative "./game_stats"
+require_relative "./teams_stats.rb"
 
 class StatTracker
   attr_reader :game_stats,
               :teams,
               :game_teams
 
-  def initialize(game_stats, teams, game_teams)
+  def initialize(game_stats, teams_stats, game_teams)
     @game_stats = game_stats
-    @teams = teams
+    @teams_stats = teams_stats
     @game_teams = game_teams
   end
 
   def self.from_csv(locations)
     game_stats = GameStats.from_csv(locations[:games])
-    teams = Teams.create_multiple_teams(locations[:teams])
+    teams_stats = Teams.from_csv(locations[:teams])
     game_teams = GameTeams.create_multiple_game_teams(locations[:game_teams])
-    StatTracker.new(game_stats, teams, game_teams)
+    StatTracker.new(game_stats, teams_stats, game_teams)
   end
 
   def highest_total_score
@@ -258,7 +259,7 @@ class StatTracker
       end
     end
   end
- 
+
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
