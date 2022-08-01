@@ -7,7 +7,7 @@ class League
     @all_game_teams = all_game_teams
   end
 
-  def total_goals_array
+  def total_goals
     @all_games.map do |game|
       game.home_goals.to_i + game.away_goals.to_i
     end
@@ -41,6 +41,12 @@ class League
       avg_goals_by_team_id[team_id] = (goals.sum(0.0) / goals.length).round(2)
     end
     avg_goals_by_team_id
+  end
+
+  def team_id_to_team_name(team_id)
+    @all_teams.find do |team|
+      team.team_id == team_id
+    end.team_name
   end
 
 end

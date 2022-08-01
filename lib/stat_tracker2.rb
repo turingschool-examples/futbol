@@ -45,28 +45,210 @@ class StatTracker
     game_teams_array
   end
 
-#Statistics Methods
+#Game Statistics Methods
   def highest_total_score
-    @league.total_goals_array.max
+    @league.total_goals.max
   end
 
   def lowest_total_score
-    @league.total_goals_array.min
+    @league.total_goals.min
   end
 
-  def average_goals_per_game
-    (@league.total_goals_array.sum(0.0) / @league.total_goals_array.length).round(2)
+  def percentage_home_wins
+
+
+
+
+
+  end
+
+  def percentage_visitor_wins
+
+
+
+
+
+  end
+
+  def percentage_ties
+
+
+
+
+
   end
 
   def count_of_games_by_season
     @league.games_by_season
   end
 
+  def average_goals_per_game
+    (@league.total_goals.sum(0.0) / @league.total_goals.length).round(2)
+  end
+
+  def average_goals_by_season
+
+
+
+
+
+  end
+  #League Statistics Methods
   def count_of_teams
     @league.team_names.count
   end
 
-  # def best_offense
-  #   @league.avg_goals_by_team_id
-  # end
+  def best_offense
+    max = @league.avg_goals_by_team_id.max_by{|team_id, avg_goals| avg_goals}
+    @league.team_id_to_team_name(max[0])
+  end
+
+  def worst_offense
+    min = @league.avg_goals_by_team_id.min_by{|team_id, avg_goals| avg_goals}
+    @league.team_id_to_team_name(min[0])
+  end
+
+  def highest_scoring_visitor
+
+
+
+
+
+  end
+
+  def lowest_scoring_visitor
+
+
+
+
+
+  end
+
+  def highest_scoring_home_team
+
+
+
+
+
+  end
+
+  def lowest_scoring_home_team
+
+
+
+
+
+  end
+#Season Statistics Methods
+  def winningest_coach(season)
+
+
+
+
+
+  end
+
+  def worst_coach(season)
+
+
+
+
+
+  end
+
+  def most_accurate_team(season)
+
+
+
+
+
+  end
+
+  def least_accurate_team(season)
+
+
+
+
+
+  end
+
+  def most_tackles(season)
+
+
+
+
+
+  end
+
+  def fewest_tackles(season)
+
+
+
+
+
+  end
+#Team Statistics Methods
+  def team_info(given_team_id)
+
+
+
+
+
+  end
+
+  def best_season(given_team_id)
+
+
+
+
+
+  end
+
+  def worst_season(given_team_id)
+
+
+
+
+
+  end
+
+  def average_win_percentage(given_team_id)
+
+
+
+
+
+  end
+
+  def most_goals_scored(team_id)
+
+
+
+
+
+  end
+
+  def fewest_goals_scored(team_id)
+
+
+
+
+  end
+
+  def favorite_opponent(given_team_id)
+
+
+
+
+
+  end
+
+  def rival(given_team_id)
+
+
+
+
+
+  end
+
 end
