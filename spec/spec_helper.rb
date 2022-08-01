@@ -1,8 +1,11 @@
 require 'simplecov'
 require './lib/stat_tracker'
+require './lib/season_statistics'
 require './lib/season_helper_module'
-require './lib/league_helper_module'
 require './lib/league_statistics'
+require './lib/league_helper_module'
+require './lib/team'
+require './lib/team_name_by_id_helper_module'
 # class files go here
 
 
