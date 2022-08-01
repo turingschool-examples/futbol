@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe LeagueStatistics do
   context 'when a league statistics is created' do
     mock_games_data = './data/mock_games.csv' 

@@ -1,5 +1,3 @@
-require './lib/game_statistics'
-
 module GameStatsable
   def goals_scored
     @games_data.map do |row| 

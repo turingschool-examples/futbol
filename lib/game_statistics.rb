@@ -1,7 +1,5 @@
 require 'csv'
-require './lib/game_stat_module'
-require './lib/game_statistics'
-# require_relative '/spec_helper'
+require_relative 'game_stat_module'
 
 class GameStatistics 
   include GameStatsable
