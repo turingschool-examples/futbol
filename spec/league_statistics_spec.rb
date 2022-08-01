@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe LeagueStatistics do
   context 'when a league statistics is created' do
     team_data = CSV.read './data/teams.csv', headers:true, header_converters: :symbol
