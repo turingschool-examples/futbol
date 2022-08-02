@@ -76,6 +76,16 @@ class StatTracker
     @teams_stats.team_id_to_name[maximum(home_scores_average)[0]]
   end
 
+  def lowest_scoring_visitor
+    visitor_scores_average = @game_stats.visitor_teams_average_score
+    @teams_stats.team_id_to_name[minimum(visitor_scores_average)[0]]
+  end
+
+  def lowest_scoring_home_team
+    home_scores_average = @game_stats.home_teams_average_score
+    @teams_stats.team_id_to_name[minimum(home_scores_average)[0]]
+  end
+
   def most_goals_scored(team_id)
     @game_teams_stats.most_goals_scored(team_id)
   end
@@ -103,22 +113,13 @@ class StatTracker
   end
 
   def winningest_coach(season_id)
-    game_id_list = []
+    @game_stats.games_by_season(season_id)
     coaches = Hash.new(0)
-    @games.each do |game|
-      if game.season == season_id
-        game_id_list << game.game_id
-      end
-    end
 
-    @game_teams.each do |game_team|
+    @game_teams_stats.each do |game_team|
       game_id = game_team.game_id
       coach = game_team.head_coach
-      if !game_id_list.include? game_id
-        next
-      end
-
-      if game_team.result == "WIN"
+      if game_id_list.include?(game_id) && game_team.result == "WIN"
         coaches[coach] += 1
       end
     end
@@ -132,22 +133,13 @@ class StatTracker
   end
 
   def worst_coach(season_id)
-    coaches = {}
-    game_id_list = []
-    @games.each do |game|
-      if game.season == season_id
-        game_id_list << game.game_id
-      end
-    end
+    @game_stats.games_by_season(season_id)
     coaches = Hash.new(0)
 
-    @game_teams.each do |game_team|
+    @game_teams_stats.each do |game_team|
       game_id = game_team.game_id
       coach = game_team.head_coach
-      if !game_id_list.include? game_id
-        next
-      end
-      if game_team.result == "LOSS"
+      if game_id_list.include?(game_id) && game_team.result == "LOSS"
         coaches[coach] += 1
       end
     end
@@ -181,30 +173,6 @@ class StatTracker
         return team_name
       end
     end
-  end
-
-  def lowest_scoring_visitor
-    away_team_scores = Hash.new { |h, k| h[k] = [] }
-    @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-
-    visitor_scores_average =
-      away_team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end
-    team_id_to_name[minimum(visitor_scores_average)[0]]
-  end
-
-  def lowest_scoring_home_team
-    home_team_scores = Hash.new { |h, k| h[k] = [] }
-    @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
-
-    home_scores_average =
-      home_team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end
-    team_id_to_name[minimum(home_scores_average)[0]]
   end
 
   def most_tackles(season)

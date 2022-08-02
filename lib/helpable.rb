@@ -24,19 +24,6 @@ module Helpable #each module should have a defined purpose/goal; think "addressa
     games_by_season
   end
 
-  
-
-  def games_by_season(season_id) #helper method
-    game_id_list = []
-    @games.each do |game|
-      if game.season == season_id
-          game_id_list << game.game_id
-        end
-    end
-    return game_id_list
-  end
-
-
   def minimum(average) #helper method
     average.min { |avg_1, avg_2| avg_1[1] <=> avg_2[1] }
   end
