@@ -95,7 +95,7 @@ class StatTracker
     #     counts[season] = 0 if counts[season].nil?
     #     counts[season] += 1
     #     counts
-    # end
+    # end 
   end
 
   def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers

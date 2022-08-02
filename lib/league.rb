@@ -1,6 +1,9 @@
 require './lib/csv_loader'
+require './lib/details'
 
 class League < CsvLoader
+include Reuseables
+
 
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
