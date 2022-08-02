@@ -73,12 +73,13 @@ class StatTracker
     counts = {}
     games.each do |game|
         season = game[:season]
-        if counts[season].nil?
-             counts[season] = 0
+        if counts[season.to_s].nil?
+             counts[season.to_s] = 0
         end
-        counts[season] += 1
+        counts[season.to_s] += 1
     end
     counts
+
     # games.reduce({}) do |counts, game|
     #     season = game[:season]
     #     counts[season] = 0 if counts[season].nil?
@@ -95,11 +96,12 @@ class StatTracker
     my_hash = Hash.new { |h,k| h[k] = [] }
 
       count_of_games_by_season.each do |season, game_count|
-        my_hash[season.to_s] = []
+        my_hash[season] = []
         game_sum_calc = []
         games.each do |row|
-          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season
-          my_hash[season.to_s] = (game_sum_calc.sum / game_count.to_f).round(2)
+          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i 
+          #require 'pry';binding.pry
+          my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
         end
       end
       my_hash
@@ -175,12 +177,12 @@ class StatTracker
       scores_by_team_id[game[0]] << game[2].to_f
     end
     scores_by_team_id
-
   end
 
   def team_by_id #helper method for issue #14
     @teams.values_at(:team_id, :teamname).uniq.to_h
   end
+
 
   def average_scores_by_team_id(*game_type) #helper method for issue #14
     average_scores= {}
@@ -190,7 +192,7 @@ class StatTracker
     end
     average_scores
   end
-
+  
   def highest_scoring_home_team #issue # 14 - PASS
     max_average = average_scores_by_team_id("home").values.max
     team_by_id[average_scores_by_team_id("home").key(max_average)]
@@ -261,6 +263,7 @@ class StatTracker
     @game_teams.find_all do |game_team| #finds all stats for away and home team for a particular game
       game_team[:game_id] == game_id
     end
+  
   end
 
   def total_team_shots_and_goals
@@ -512,12 +515,23 @@ class StatTracker
       array_of_goals_for_specified_team.min()
   end
 
-
-
-  def favorite_opponent #issue # 29 - Fail due to not written
-
-
-
+  #issue # 29 - Fail due to not written
+  def favorite_opponent(team_id)#issue # 29
+    rival_opp = {}
+    rival_opp_wins = rival_wins(team_id)
+    rival_opp_games = rival_game(team_id)
+    rival_opp_games.each do | rogk, rogv |
+      rival_opp_wins.each do | rowk, rowv |
+        if rogk == rowk
+          rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+        end
+      end
+    end
+    rival_opp.each do |k, v|
+      if v == rival_opp.values.min
+        return team_by_id[k.to_i]
+      end
+    end
   end
 
   def rival_wins(team_id) #helper for #24 and possibly fave opp
@@ -553,21 +567,20 @@ class StatTracker
   end
 
   def rival(team_id) #issue 24 - Fail due to not written
-     rival_opp = {}
-     rival_opp_wins = rival_wins(team_id)
-     rival_opp_games = rival_game(team_id)
-     rival_opp_games.each do | rogk, rogv |
-       rival_opp_wins.each do | rowk, rowv |
-         if rogk == rowk
-           rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
-         end
-       end
-     end
+    rival_opp = {}
+    rival_opp_wins = rival_wins(team_id)
+    rival_opp_games = rival_game(team_id)
+    rival_opp_games.each do | rogk, rogv |
+      rival_opp_wins.each do | rowk, rowv |
+        if rogk == rowk
+          rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+        end
+      end
+    end
     rival_opp.each do |k, v|
-       if v == rival_opp.values.max
-         return team_by_id[k.to_i]
-       end
-
-     end
+      if v == rival_opp.values.max
+        return team_by_id[k.to_i]
+      end
+    end
   end
 end
