@@ -141,34 +141,34 @@ class StatTracker
   end
 #Season Statistics Methods
   def winningest_coach(season)
-    games_team_win_count_by_stat(games_by_season)
 
-
-
+    @league.coaches_by_win_percentage(season).max_by do |coach, win_percentage|
+      win_percentage
+    end[0]
 
   end
 
   def worst_coach(season)
 
-
-
-
+    @league.coaches_by_win_percentage(season).min_by do |coach, win_percentage|
+      win_percentage
+    end[0]
 
   end
 
   def most_accurate_team(season)
-
-
-
-
+    team_id = @league.teams_by_accuracy(season).max_by do |team, accuracy|
+      accuracy
+    end[0]
+    @league.team_id_to_team_name(team_id)
 
   end
 
   def least_accurate_team(season)
-
-
-
-
+    team_id = @league.teams_by_accuracy(season).min_by do |team, accuracy|
+      accuracy
+    end[0]
+    @league.team_id_to_team_name(team_id)
 
   end
 

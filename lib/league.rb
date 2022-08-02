@@ -49,8 +49,15 @@ class League
     end.team_name
   end
 
-  def games_team_win_count_by_head_coach(games_team_data_set)
-    data_set_by_head_coach = data_set.group_by do |game|
+  def game_team_group_by_season(season)
+    @all_game_teams.group_by do |game|
+      game.game_id[0..3]
+    end[season[0..3]]
+  end
+
+  def coaches_by_win_percentage(season)
+    games_team_sorted = game_team_group_by_season(season)
+    data_set_by_head_coach = games_team_sorted.group_by do |game|
       game.head_coach
     end
     coaches_by_win_percentage = Hash.new{|h,k| h[k] = 0}
@@ -60,13 +67,34 @@ class League
         ties: 0,
         total_games: 0
       }
-      games.map do |game|
-        game_outcomes_by_stat[:wins] += 1 if game[:result] == "WIN"
-        game_outcomes_by_stat[:ties] += 1 if game[:result] == "TIE"
+      games.each do |game|
+        game_outcomes_by_stat[:wins] += 1 if game.result == "WIN"
+        game_outcomes_by_stat[:ties] += 1 if game.result == "TIE"
         game_outcomes_by_stat[:total_games] += 1
       end
-      coaches_by_win_percentage[coach] = (game_outcomes_by_stat[:wins].to_f / game_outcomes_by_stat[:total_games])
+      coaches_by_win_percentage[coach] = ((game_outcomes_by_stat[:wins].to_f / game_outcomes_by_stat[:total_games])*100).round(2)
     end
     coaches_by_win_percentage
   end
+
+  def teams_by_accuracy(season)
+    games_team_sorted = game_team_group_by_season(season)
+    data_set_by_teams = games_team_sorted.group_by do |game|
+      game.team_id
+    end
+    teams_by_accuracy = Hash.new{|h,k| h[k] = 0}
+    data_set_by_teams.each do |team, games|
+      game_outcomes_by_stat = {
+        shots: 0,
+        goals: 0
+      }
+      games.each do |game|
+        game_outcomes_by_stat[:shots] += game.shots.to_i
+        game_outcomes_by_stat[:goals] += game.goals.to_i
+      end
+      teams_by_accuracy[team] = (game_outcomes_by_stat[:goals].to_f / game_outcomes_by_stat[:shots]).round(5)
+    end
+    teams_by_accuracy
+  end
+
 end

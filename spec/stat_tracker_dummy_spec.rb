@@ -92,11 +92,11 @@ describe StatTracker do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 
-  xit '#least_accurate_team' do
+  it '#least_accurate_team' do
     expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
   end
 
-  xit '#most_accurate_team' do
+  it '#most_accurate_team' do
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 
@@ -174,11 +174,11 @@ describe StatTracker do
     expect(@stat_tracker.worst_season("6")).to eq("20142015")
   end
 
-  xit '#winningest_coach' do
+  it '#winningest_coach' do
     expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
   end
 
-  xit '#worst_coach' do
+  it '#worst_coach' do
     expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
   end
 
