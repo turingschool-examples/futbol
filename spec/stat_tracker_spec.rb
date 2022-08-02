@@ -22,7 +22,7 @@ describe StatTracker do
     expect(@stat_tracker).to be_a(StatTracker)
   end
 
-  it "has games" do
+  it "has stats" do
     stat_tracker = StatTracker.new(
       [{ game_id: "2012030221",
          season: "20122013",
@@ -59,22 +59,22 @@ describe StatTracker do
          takeaways: "7" }]
       # Game Teams
     )
-    expect(stat_tracker.games.length).to eq(1)
-    expect(stat_tracker.teams.length).to eq(1)
-    expect(stat_tracker.game_teams.length).to eq(1)
+    expect(stat_tracker.game_stats.length).to eq(1)
+    expect(stat_tracker.teams_stats.length).to eq(1)
+    expect(stat_tracker.game_teams_stats.length).to eq(1)
   end
 
   it "has the right class when reading from csv" do
     expect(@stat_tracker).to be_a(StatTracker)
-    expect(@stat_tracker.games).to be_a(Array)
-    expect(@stat_tracker.teams).to be_a(Array)
-    expect(@stat_tracker.game_teams).to be_a(Array)
+    expect(@stat_tracker.game_stats).to be_a(Array)
+    expect(@stat_tracker.teams_stats).to be_a(Array)
+    expect(@stat_tracker.game_teams_stats).to be_a(Array)
   end
 
   it "is reading the full csv file" do
-    expect(@stat_tracker.games.length).to eq(7441)
-    expect(@stat_tracker.teams.length).to eq(32)
-    expect(@stat_tracker.game_teams.length).to eq(14882)
+    expect(@stat_tracker.game_stats.length).to eq(7441)
+    expect(@stat_tracker.teams_stats.length).to eq(32)
+    expect(@stat_tracker.game_teams_stats.length).to eq(14882)
   end
 
   it "can calculate the games highest total score" do
