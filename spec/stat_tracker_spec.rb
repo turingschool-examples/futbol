@@ -290,9 +290,9 @@ describe StatTracker do
                      "2012030313",
                      "2012030314"]
 
-    expect(@stat_tracker_dummy.season_grouper.keys).to eq(["20122013"])
-    expect(@stat_tracker_dummy.season_grouper.values[0].map {|game| game.game_id}).to eq(values_array)
-    expect(@stat_tracker_dummy.season_grouper).to be_a(Hash)
+    expect(@stat_tracker_dummy.game_stats.season_grouper.keys).to eq(["20122013"])
+    expect(@stat_tracker_dummy.game_stats.season_grouper.values[0].map {|game| game.game_id}).to eq(values_array)
+    expect(@stat_tracker_dummy.game_stats.season_grouper).to be_a(Hash)
   end
 
   it "can isolate a single teams games in games" do #game helper
