@@ -1,8 +1,8 @@
 require './lib/csv_loader'
-require './lib/details'
+require './lib/reuseable'
 
 class League < CsvLoader
-include Reuseables
+include Reuseable
 
 
   def initialize(games, teams, game_teams)
@@ -31,6 +31,10 @@ include Reuseables
       visitor_with_highest_score_array = averages_hash.max_by{|k,v| v}
 
       visitor_team_name_with_highest_avg_score = team_by_id[visitor_with_highest_score_array[0]]
+  end
+
+  def count_of_teams #issue # 10 - PASS
+    @teams[:teamname].count
   end
 
 end

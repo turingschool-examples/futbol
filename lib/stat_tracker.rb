@@ -40,103 +40,107 @@ class StatTracker
   end
 
   def lowest_total_score #issue #3
-    total_scores_by_game.min
+    # total_scores_by_game.min
+    @gamezz.lowest_total_score
   end
 
-  def home_wins #helper for issue #4
-    home_win = 0.0
-    @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
-  end
+  # def home_wins #helper for issue #4
+  #   # home_win = 0.0
+  #   # @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
+  # end
 
-  def home_games #helper for issue #4
-    home = 0.0
-    @game_teams[:hoa].map {|row| home += 1 if row == "home"}; home
-  end
+  # def home_games #helper for issue #4
+  #   home = 0.0
+  #   @game_teams[:hoa].map {|row| home += 1 if row == "home"}; home
+  # end
 
   def percentage_home_wins #issue #4 - Need to make this test eq 0.99 not whole numbers
-    percentage = (home_wins/home_games).round(2)
+    # percentage = (home_wins/home_games).round(2)
+    @gamezz.percentage_home_wins
   end
 
   def percentage_visitor_wins #issue #5 - passed spec harness and dummy
 
-    away_wins = 0
-    away_games_played = 0
+    # away_wins = 0
+    # away_games_played = 0
 
-    game_teams.each do |row|
-      away_games_played += 1 if row[:hoa] == "away"
-      away_wins += 1  if (row[:hoa] == "away" && row[:result] == "WIN")
-    end
-    (away_wins.to_f / away_games_played).round(2)
+    # game_teams.each do |row|
+    #   away_games_played += 1 if row[:hoa] == "away"
+    #   away_wins += 1  if (row[:hoa] == "away" && row[:result] == "WIN")
+    # end
+    # (away_wins.to_f / away_games_played).round(2)
+
+    @gamezz.percentage_visitor_wins
   end
 
   def percentage_ties #issue #6 - PASS
-    ties = 0.0
-    total_games = total_scores_by_game.count
+    # ties = 0.0
+    # total_games = total_scores_by_game.count
 
-    @games.values_at(:away_goals, :home_goals).each do |game|
-      ties += 1 if game[0] == game[1]
-    end
-    (ties/total_games).round(1)
+    # @games.values_at(:away_goals, :home_goals).each do |game|
+    #   ties += 1 if game[0] == game[1]
+    # end
+    # (ties/total_games).round(1)
+
+    @gamezz.percentage_ties
   end
 
   def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
-    counts = {}
-    games.each do |game|
-        season = game[:season]
-        if counts[season.to_s].nil?
-             counts[season.to_s] = 0
-        end
-        counts[season.to_s] += 1
-    end
-    counts
-
-    # games.reduce({}) do |counts, game|
+    # counts = {}
+    # games.each do |game|
     #     season = game[:season]
-    #     counts[season] = 0 if counts[season].nil?
-    #     counts[season] += 1
-    #     counts
-    # end 
+    #     if counts[season.to_s].nil?
+    #          counts[season.to_s] = 0
+    #     end
+    #     counts[season.to_s] += 1
+    # end
+    # counts
+    @gamezz.count_of_games_by_season
   end
 
   def average_goals_per_game #issue #8 - Need to make this test eq 0.99 not whole numbers
-    (total_scores_by_game.sum/@games.count.to_f).round(2)
+    # (total_scores_by_game.sum/@games.count.to_f).round(2)
+    @gamezz.average_goals_per_game
   end
 
   def average_goals_by_season #issue #9 - Pass
-    my_hash = Hash.new { |h,k| h[k] = [] }
+    # my_hash = Hash.new { |h,k| h[k] = [] }
 
-      count_of_games_by_season.each do |season, game_count|
-        my_hash[season] = []
-        game_sum_calc = []
-        games.each do |row|
-          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i
-          #require 'pry';binding.pry
-          my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
-        end
-      end
-      my_hash
+    #   count_of_games_by_season.each do |season, game_count|
+    #     my_hash[season] = []
+    #     game_sum_calc = []
+    #     games.each do |row|
+    #       game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i
+    #       #require 'pry';binding.pry
+    #       my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
+    #     end
+    #   end
+    #   my_hash
+    @gamezz.average_goals_by_season
+    
   end
 
-  def game_wins #Helper method not yet used
-    win = 0.0
-    @game_teams[:result].map {|row| win += 1 if row == "WIN"}; win
-  end
+  # def game_wins #Helper method not yet used
+  #   win = 0.0
+  #   @game_teams[:result].map {|row| win += 1 if row == "WIN"}; win
+  # end
 
-  def game_losses #Helper method not yet used
-    loss = 0.0
-    @game_teams[:result].map {|row| loss += 1 if row == "LOSS"}; loss
-  end
+  # def game_losses #Helper method not yet used
+  #   loss = 0.0
+  #   @game_teams[:result].map {|row| loss += 1 if row == "LOSS"}; loss
+  # end
 
-  def away_games #Helper method not yet used
-    away = 0.0
-    @game_teams[:hoa].map {|row| away += 1  if row == "away"}; away
-  end
+  # def away_games #Helper method not yet used
+  #   away = 0.0
+  #   @game_teams[:hoa].map {|row| away += 1  if row == "away"}; away
+  # end
 
 
   # League Statistics
 
   def count_of_teams #issue # 10 - PASS
-    @teams[:teamname].count
+    # @teams[:teamname].count
+    @league.count_of_teams
   end
 
   def best_offense #issue # 11 - Fail Wrong team returning
@@ -223,22 +227,22 @@ class StatTracker
 
   # Season Statistics
 
-  def coach_by_team_id #Provides hash of coach names by team id - Helper method for issue #27
-    # Example hash: {3=>"John Tortorella", 6=>"Claude Julien",  5=>"Dan Bylsma",
-    coaches = Hash.new {|h, k| h[k] = {}}
-    games_by_season.each do |season, games|
-      @game_teams.each do |row|
-        if games.include?(row[:game_id])
-          if !coaches[row[:team_id]].keys.include?(season)
-            coaches[row[:team_id]][season] = [row[:head_coach]]
-          elsif !coaches[row[:team_id]][season].include?(row[:head_coach])
-            coaches[row[:team_id]][season] << row[:head_coach]
-          end
-        end
-      end
-    end
-    coaches
-  end
+  # def coach_by_team_id #Provides hash of coach names by team id - Helper method for issue #27
+  #   # Example hash: {3=>"John Tortorella", 6=>"Claude Julien",  5=>"Dan Bylsma",
+  #   coaches = Hash.new {|h, k| h[k] = {}}
+  #   games_by_season.each do |season, games|
+  #     @game_teams.each do |row|
+  #       if games.include?(row[:game_id])
+  #         if !coaches[row[:team_id]].keys.include?(season)
+  #           coaches[row[:team_id]][season] = [row[:head_coach]]
+  #         elsif !coaches[row[:team_id]][season].include?(row[:head_coach])
+  #           coaches[row[:team_id]][season] << row[:head_coach]
+  #         end
+  #       end
+  #     end
+  #   end
+  #   coaches
+  # end
 
   def team_win_percent_by_season # Provides hash of seasons with array of hashes for team id
                                   #and win percentage for season - Helper for Issue #27
