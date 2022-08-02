@@ -2,6 +2,7 @@ require './lib/game_teams_stats'
 require './lib/game'
 require './lib/game_teams'
 require './lib/teams'
+require 'csv'
 
 describe GameTeamsStats do
   before :each do

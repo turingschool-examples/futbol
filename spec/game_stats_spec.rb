@@ -1,7 +1,7 @@
-require './lib/game_stats'
-require './lib/game'
-require './lib/game_teams'
-require './lib/teams'
+require "./lib/game_stats"
+require "./lib/game"
+require "./lib/game_teams"
+require "./lib/teams"
 
 describe GameStats do
   before :each do
@@ -9,8 +9,8 @@ describe GameStats do
     @game_stats = GameStats.from_csv(game_path)
     @game_stats.extend(Helpable)
   end
-  
-  it 'exists' do
+
+  it "exists" do
     expect(@game_stats).to be_a(GameStats)
   end
 
@@ -49,5 +49,29 @@ describe GameStats do
 
   it "can calculate the games average goals per game" do
     expect(@game_stats.average_goals_per_game).to eq(4.22)
+  end
+
+  it "can calculate the games average goals by season" do
+    expected = {
+      "20122013" => 4.12,
+      "20162017" => 4.23,
+      "20142015" => 4.14,
+      "20152016" => 4.16,
+      "20132014" => 4.19,
+      "20172018" => 4.44,
+    }
+    expect(@game_stats.average_goals_by_season).to eq(expected)
+  end
+
+  it "can calculate which team was the highest scoring visitor" do
+    expect(@game_stats.visitor_teams_average_score.count).to eq(32)
+  end
+
+  it "can tell which season is a teams best" do
+    expect(@game_stats.best_season("6")).to eq("20132014")
+  end
+
+  it "can calculate which team was the highest scoring home team" do
+    expect(@game_stats.home_teams_average_score.count).to eq(32)
   end
 end
