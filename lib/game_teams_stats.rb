@@ -33,7 +33,6 @@ class GameTeamsStats
     goals_by_game.min
   end
 
-
   def best_offense
     team_scores = Hash.new { |h, k| h[k] = [] }
     @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
@@ -53,6 +52,15 @@ class GameTeamsStats
       end
   end
 
+  def number_of_tackles(team_id, game_id)
+    tackles = 0
+    @game_teams.each do |game_team|
+      if team_id == game_team.team_id && game_id == game_team.game_id
+        tackles += game_team.tackles.to_i
+      end
+    end
+    tackles
+  end
 
   #methods go here
 end

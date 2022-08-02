@@ -63,21 +63,19 @@ class GameStats
   def visitor_teams_average_score #needs test?
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-    visitor_scores_average =
-      away_team_scores.map do |id, scores|
-        [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
-      end
+    #could split these into two?
+    away_team_scores.map do |id, scores|
+      [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
+    end
   end
 
   def home_teams_average_score #needs test?
     home_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
-
-    home_scores_average =
-      home_team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end
+    #could split these into two?
+    home_team_scores.map do |id, scores|
+      [id, ((scores.sum) / (scores.length)).round(2)]
+    end
   end
 
   def best_season(team_id) #we need a hash with each season as the keys and the win % for the season as the value
@@ -110,6 +108,15 @@ class GameStats
       win_percent
     end
     ranked_seasons[0]
+  end
+
+  def games_by_team_id_and_season(season) #needs test
+    games_by_season = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
+    home_games = games_by_season.group_by { |game| game.home_team_id }
+    away_games = games_by_season.group_by { |game| game.away_team_id }
+    games_by_team_id =
+    home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
+    #merged hash has 30 keys: each team's id. values are all games for a given season
   end
 
   def season_grouper #games helper, returns a hash with the season as the key and array of all games for the season as the value

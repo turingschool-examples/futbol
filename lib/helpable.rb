@@ -12,9 +12,7 @@ module Helpable #each module should have a defined purpose/goal; think "addressa
     end
   end
 
-  
-
-  def get_teamgames_by_single_season(team_id, season) #games helper, returns array of all of a team's games for one season
+  def get_team_games_by_single_season(team_id, season) #games helper, returns array of all of a team's games for one season
     games_by_season = []
     @games.each do |game|
       if (game.home_team_id == team_id || game.away_team_id == team_id) && game.season == season
@@ -50,16 +48,6 @@ module Helpable #each module should have a defined purpose/goal; think "addressa
         end
     end
     return ratio
-  end
-
-  def number_of_tackles(team_id, game_id)
-    tackles = 0
-    @game_teams.each do |game_team|
-      if team_id == game_team.team_id && game_id == game_team.game_id
-        tackles += game_team.tackles.to_i
-      end
-    end
-    tackles
   end
 
 end
