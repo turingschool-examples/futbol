@@ -6,5 +6,6 @@ class Team
     @team_name = row[:teamname]
     @abbv = row[:abbreviation]
     @link = row[:link]
+
   end
 end

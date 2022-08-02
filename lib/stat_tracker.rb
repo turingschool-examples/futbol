@@ -235,16 +235,13 @@ class StatTracker
   def winningest_coach(season_id)
     #first 4 char of season_id
     games_id_year = season_id[0..3]
-
     #hash with "coach" key and [0,0] value. first element is total games. second is games won
     coach_stats = Hash.new { |coach, stats| coach[stats] = [0.0, 0.0] }
-    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-
-    contents.each do |row|
+    game_teams.each do |game_team|
       #iterates through every line checking to see if the game and season have the same 4 first chars
-      if row[:game_id][0..3] == games_id_year
-        coach_stats[row[:head_coach]][0] += 1
-        coach_stats[row[:head_coach]][1] += 1 if row[:result] == "WIN"
+      if game_team.game_id[0..3] == games_id_year
+        coach_stats[game_team.head_coach][0] += 1
+        coach_stats[game_team.head_coach][1] += 1 if game_team.result == "WIN"
       end
     end
 
@@ -267,13 +264,11 @@ class StatTracker
 
     #hash with "coach" key and [0,0] value. first element is total games. second is games won
     coach_stats = Hash.new { |coach, stats| coach[stats] = [0.0, 0.0] }
-    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-
-    contents.each do |row|
+    game_teams.each do |game_team|
       #iterates through every line checking to see if the game and season have the same 4 first chars
-      if row[:game_id][0..3] == games_id_year
-        coach_stats[row[:head_coach]][0] += 1
-        coach_stats[row[:head_coach]][1] += 1 if row[:result] == "WIN"
+      if game_team.game_id[0..3] == games_id_year
+        coach_stats[game_team.head_coach][0] += 1
+        coach_stats[game_team.head_coach][1] += 1 if game_team.result == "WIN"
       end
     end
 
@@ -305,13 +300,12 @@ class StatTracker
 
     #hash with "team_id" key and [0,0] value. first element is total shots. second is total goals
     goal_stats = Hash.new { |team_id, stats| team_id[stats] = [0.0, 0.0] }
-    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    game_teams.each do |game_team|
       #iterates through every line checking to see if the game and season have the same 4 first chars
-      if row[:game_id][0..3] == games_id_year
+      if game_team.game_id[0..3] == games_id_year
         #adding in the shots and goals into the hash into the array
-        goal_stats[row[:team_id]][0] += row[:shots].to_i
-        goal_stats[row[:team_id]][1] += row[:goals].to_i
+        goal_stats[game_team.team_id][0] += game_team.shots.to_i
+        goal_stats[game_team.team_id][1] += game_team.goals.to_i
       end
     end
     highest_goal_ratio = 0.0
@@ -321,12 +315,12 @@ class StatTracker
       #checking if the teams ratio is better than the last highest
       if highest_goal_ratio < (stats[1] / stats[0])
         highest_goal_ratio = stats[1] / stats[0]
-
         #setting new highest team
         highest_goal_ratio_team = team_id
       end
     end
-    team_names[highest_goal_ratio_team]
+    # team_names[highest_goal_ratio_team]
+    team_info(highest_goal_ratio_team)["team_name"]
   end
 
   def least_accurate_team(season_id)
@@ -335,13 +329,12 @@ class StatTracker
 
     #hash with "team_id" key and [0,0] value. first element is total shots. second is total goals
     goal_stats = Hash.new { |team_id, stats| team_id[stats] = [0.0, 0.0] }
-    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    game_teams.each do |game_team|
       #iterates through every line checking to see if the game and season have the same 4 first chars
-      if row[:game_id][0..3] == games_id_year
+      if game_team.game_id[0..3] == games_id_year
         #adding in the shots and goals into the hash into the array
-        goal_stats[row[:team_id]][0] += row[:shots].to_i
-        goal_stats[row[:team_id]][1] += row[:goals].to_i
+        goal_stats[game_team.team_id][0] += game_team.shots.to_i
+        goal_stats[game_team.team_id][1] += game_team.goals.to_i
       end
     end
     lowest_goal_ratio = 1.0
@@ -356,7 +349,7 @@ class StatTracker
         lowest_goal_ratio_team = team_id
       end
     end
-    team_names[lowest_goal_ratio_team]
+    team_info(lowest_goal_ratio_team)['team_name']
   end
 
   def most_tackles(season_id)
@@ -365,36 +358,17 @@ class StatTracker
 
     #hash with "team_id" key and tackle int values.
     tackle_stats = Hash.new(0)
-    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+
+    game_teams.each do |game_team|
       #iterates through every line checking to see if the game and season have the same 4 first chars
-      if row[:game_id][0..3] == games_id_year
+      if game_team.game_id[0..3] == games_id_year
         #adding in the shots and goals into the hash into the array
-        tackle_stats[row[:team_id]] += row[:tackles].to_i
+        tackle_stats[game_team.team_id] += game_team.tackles.to_i
       end
     end
 
     #finds key with the max value and uses that same key for the team_names hash
-    team_names[tackle_stats.key(tackle_stats.values.max)]
-  end
-
-  def most_tackles(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-
-    #hash with "team_id" key and tackle int values.
-    tackle_stats = Hash.new(0)
-    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if row[:game_id][0..3] == games_id_year
-        #adding in the shots and goals into the hash into the array
-        tackle_stats[row[:team_id]] += row[:tackles].to_i
-      end
-    end
-
-    #finds key with the max value and uses that same key for the team_names hash
-    team_names[tackle_stats.key(tackle_stats.values.max)]
+    team_info(tackle_stats.key(tackle_stats.values.max))["team_name"]
   end
 
   def fewest_tackles(season_id)
@@ -403,29 +377,27 @@ class StatTracker
 
     #hash with "team_id" key and tackle int values.
     tackle_stats = Hash.new(0)
-    contents = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    game_teams.each do |game_team|
       #iterates through every line checking to see if the game and season have the same 4 first chars
-      if row[:game_id][0..3] == games_id_year
+      if game_team.game_id[0..3] == games_id_year
         #adding in the shots and goals into the hash into the array
-        tackle_stats[row[:team_id]] += row[:tackles].to_i
+        tackle_stats[game_team.team_id] += game_team.tackles.to_i
       end
     end
 
     #finds key with the max value and uses that same key for the team_names hash
-    team_names[tackle_stats.key(tackle_stats.values.min)]
+    team_info(tackle_stats.key(tackle_stats.values.min))["team_name"]
   end
 
   def team_info(team_id)
-    teams = CSV.open(@team_path, headers: true, header_converters: :symbol)
     team_hash = Hash.new()
-    teams.each do |row|
-      if row[:team_id] == team_id
-        team_hash['team_name'] = row[:teamname]
-        team_hash['team_id'] = row[:team_id]
-        team_hash['franchise_id'] = row[:franchiseid]
-        team_hash['abbreviation'] = row[:abbreviation]
-        team_hash['link'] = row[:link]
+    teams.each do |team|
+      if team.team_id == team_id
+        team_hash['team_name'] = team.team_name
+        team_hash['team_id'] = team.team_id
+        team_hash['franchise_id'] = team.franchise_id
+        team_hash['abbreviation'] = team.abbv
+        team_hash['link'] = team.link
         return team_hash
       end
     end
