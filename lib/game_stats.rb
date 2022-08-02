@@ -115,7 +115,7 @@ class GameStats
     home_games = games_by_season.group_by { |game| game.home_team_id }
     away_games = games_by_season.group_by { |game| game.away_team_id }
     games_by_team_id =
-    home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
+      home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
     #merged hash has 30 keys: each team's id. values are all games for a given season
   end
 

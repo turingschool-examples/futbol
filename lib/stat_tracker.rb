@@ -178,35 +178,23 @@ class StatTracker
   end
 
   def most_tackles(season)
-    games_by_season = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
-    home_games = games_by_season.group_by { |game| game.home_team_id }
-
-    away_games = games_by_season.group_by { |game| game.away_team_id }
-
-    games_by_team_id =
-      home_games.merge(away_games) { |team_id, home_game_array, away_game_array| home_game_array + away_game_array }
-    #merged hash has 30 keys: each team's id. values are all games for a given season
-
     total_tackles = Hash.new(0)
-    games_by_team_id.flat_map do |team_id, games|
+    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
       games.map do |game|
-        tackles = number_of_tackles(team_id, game.game_id)
-        total_tackles[team_id] += tackles
+        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
       end
     end
-    team_id_to_name[maximum(total_tackles)[0]]
+    @teams_stats.team_id_to_name[maximum(total_tackles)[0]]
   end
 
   def fewest_tackles(season)
     total_tackles = Hash.new(0)
-
     @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
       games.map do |game|
-        tackles = number_of_tackles(team_id, game.game_id)
-        total_tackles[team_id] += tackles
+        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
       end
     end
-    team_id_to_name[minimum(total_tackles)[0]]
+    @teams_stats.team_id_to_name[minimum(total_tackles)[0]]
   end
 
   def favorite_opponent(team_id)
