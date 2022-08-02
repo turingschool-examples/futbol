@@ -1,6 +1,6 @@
 module SeasonStats
 
-  def list_game_ids_by_season(season_desired) 
+  def list_game_ids_by_season(season_desired)
     (@games.select { |game| game[:season] == season_desired }).map { |matchup| matchup[:game_id] }
   end
 
@@ -38,7 +38,7 @@ module SeasonStats
 
   private
 
-  def coach_win_percentages_by_season(season_desired) #{coaches => win percentage}
+  def coach_win_percentages_by_season(season_desired)
     games_won = Hash.new(0)
     games_played = Hash.new(0)
     list_game_ids_by_season(season_desired).each do |num|
@@ -57,16 +57,16 @@ module SeasonStats
   end
 
   def team_accuracy(season_desired)
-    @team_shots_1 = Hash.new(0)
-    @team_goals_1 = Hash.new(0)
+    team_shots_1 = Hash.new(0)
+    team_goals_1 = Hash.new(0)
     list_game_ids_by_season(season_desired).each do |num|
       @game_teams.select { |thing| thing[:game_id] == num }.each do |period|
-        @team_shots_1[period[:team_id]] += period[:shots].to_i
-        @team_goals_1[period[:team_id]] += period[:goals].to_i
+        team_shots_1[period[:team_id]] += period[:shots].to_i
+        team_goals_1[period[:team_id]] += period[:goals].to_i
       end
     end
-    @team_shots_1.map { |thornton| @team_goals_1[thornton[0]] = @team_goals_1[thornton[0]].to_f / @team_shots_1[thornton[0]]}
-    @team_goals_1
+    team_shots_1.map { |thornton| team_goals_1[thornton[0]] = team_goals_1[thornton[0]].to_f / team_shots_1[thornton[0]]}
+    team_goals_1
   end
 
   def total_tackles(season_desired)
