@@ -265,7 +265,7 @@ class StatTracker
   def rival(team_id)
     game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
 
-    @game_teams.each do |game|
+    @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
       winner = nil
       if game.result == "WIN"

@@ -412,7 +412,7 @@ describe StatTracker do
   end
 
   it "can find favorite opponent for a given team" do
-    expect(@stat_tracker.game_teams_stats.favorite_opponent("18")).to eq("DC United")
+    expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
   end
 
   it "can find number of tackles given a team id and game id" do
@@ -426,7 +426,7 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.number_of_tackles("3", "2012030221")).to eq(44)
+    expect(@stat_tracker_dummy.game_teams_stats.number_of_tackles("3", "2012030221")).to eq(44)
   end
 
   it "can get a ratio of goals to shots when given a season id number" do
