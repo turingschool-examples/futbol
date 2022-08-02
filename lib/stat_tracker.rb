@@ -67,14 +67,12 @@ class StatTracker
 
   def best_offense
   result = @game_teams_stats.best_offense
-  #the rest relies on a helper method
-  team_id_to_name[minimum(result)[0]]
+  team_id_to_name[minimum(result)[0]]   #uses a helper method
   end
 
   def worst_offense
     result = @game_teams_stats.worst_offense
-    #below uses a helper method
-    team_id_to_name[minimum(result)[0]]
+    team_id_to_name[minimum(result)[0]]     #uses a helper method
   end
 
   def highest_scoring_visitor

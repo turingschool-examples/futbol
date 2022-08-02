@@ -29,7 +29,6 @@ describe GameTeamsStats do
   it "can calculate which team had the worst offense" do
     expect(@game_teams_stats.worst_offense.size).to eq 32
     expect(@game_teams_stats.worst_offense[0][0].to_i).to eq 3
-
   end
 
 end
