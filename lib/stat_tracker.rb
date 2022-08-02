@@ -66,25 +66,13 @@ class StatTracker
   end
 
   def best_offense
-    team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
-
-    team_scores_average =
-      team_scores.map do |id, scores|
-        [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
-      end
-    team_id_to_name[maximum(team_scores_average)[0]]
+  result = @game_teams_stats.best_offense
+  team_id_to_name[minimum(result)[0]]   #uses a helper method
   end
 
   def worst_offense
-    team_scores = Hash.new { |h, k| h[k] = [] }
-    @game_teams.each { |game_team| team_scores[game_team.team_id] << game_team.goals.to_f }
-
-    team_scores_average =
-      team_scores.map do |id, scores|
-        [id, ((scores.sum) / (scores.length)).round(2)] #creat an average out of the scores
-      end
-    team_id_to_name[minimum(team_scores_average)[0]]
+    result = @game_teams_stats.worst_offense
+    team_id_to_name[minimum(result)[0]]     #uses a helper method
   end
 
   def highest_scoring_visitor
@@ -99,19 +87,11 @@ class StatTracker
   end
 
   def most_goals_scored(team_id)
-    goals_by_game = []
-    @game_teams.each do |game|
-      goals_by_game << game.goals.to_i if team_id == game.team_id
-    end
-    goals_by_game.max
+    @game_teams_stats.most_goals_scored(team_id)
   end
 
   def fewest_goals_scored(team_id)
-    goals_by_game = []
-    @game_teams.each do |game|
-      goals_by_game << game.goals.to_i if team_id == game.team_id
-    end
-    goals_by_game.min
+    @game_teams_stats.most_goals_scored(team_id)
   end
 
   def average_win_percentage(team_id)
