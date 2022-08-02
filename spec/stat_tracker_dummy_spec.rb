@@ -206,11 +206,11 @@ describe StatTracker do
   end
 
 
-  xit '#most_tackles' do
+  it '#most_tackles' do
     expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
   end
 
-  xit 'fewest_tackles' do
+  it 'fewest_tackles' do
     expect(@stat_tracker.fewest_tackles("20122013")).to eq("LA Galaxy")
   end
 

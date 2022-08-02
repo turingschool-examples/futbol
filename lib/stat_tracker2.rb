@@ -173,18 +173,18 @@ class StatTracker
   end
 
   def most_tackles(season)
-
-
-
-
+    team_id = @league.teams_by_tackles(season).max_by do |team, tackles|
+      tackles
+    end[0]
+    @league.team_id_to_team_name(team_id)
 
   end
 
   def fewest_tackles(season)
-
-
-
-
+    team_id = @league.teams_by_tackles(season).min_by do |team, tackles|
+      tackles
+    end[0]
+    @league.team_id_to_team_name(team_id)
 
   end
 #Team Statistics Methods

@@ -56,5 +56,8 @@ describe League do
   it 'teams_by_accuracy' do
     expect(@stat_tracker.league.teams_by_accuracy("20122013")).to eq({"3" => 0.23529, "6" => 0.28571})
   end
-  
-end
+
+  it 'teams_by_tackles' do
+    expect(@stat_tracker.league.teams_by_tackles("20122013")).to eq({"3" => 77, "6" => 115})
+  end
+end 

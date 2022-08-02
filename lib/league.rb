@@ -97,4 +97,21 @@ class League
     teams_by_accuracy
   end
 
+  def teams_by_tackles(season)
+    games_team_sorted = game_team_group_by_season(season)
+    data_set_by_teams = games_team_sorted.group_by do |game|
+      game.team_id
+    end
+    teams_by_tackles = Hash.new{|h,k| h[k] = 0}
+    data_set_by_teams.each do |team, games|
+      game_outcomes_by_stat = {
+        tackles: 0,
+      }
+      games.each do |game|
+        game_outcomes_by_stat[:tackles] += game.tackles.to_i
+      end
+      teams_by_tackles[team] = game_outcomes_by_stat[:tackles]
+    end
+    teams_by_tackles
+  end
 end
