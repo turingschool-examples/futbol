@@ -1,5 +1,5 @@
-# require './lib/team_module'
-# require './lib/team_name_by_id_helper_module'
+# require_relative 'team_module'
+require './lib/team_name_by_id_helper_module'
 
 class TeamStatistics
     # include Teamable

@@ -1,4 +1,4 @@
-require './lib/league_helper_module'
+require 'spec_helper'
 
 RSpec.describe StatTracker do
   mock_games_data = './data/mock_games.csv' 
@@ -100,7 +100,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_home_team).to eq 'Chicago Fire'
     end
   end
-# # # Season Statistics
+# # Season Statistics
   context 'season statistics' do 
 
     it '#winningest_coach' do
@@ -135,7 +135,7 @@ RSpec.describe StatTracker do
     end
 
   end
-# # # Team Statistics
+# # Team Statistics
   context 'team statistics' do 
 
     it '#team_info' do

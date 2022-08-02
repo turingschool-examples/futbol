@@ -1,5 +1,4 @@
-require './lib/team.rb'
-require './lib/stat_tracker.rb'
+require 'spec_helper'
 
 RSpec.describe TeamStatistics do
     context 'when a team statistics tracker is created' do
