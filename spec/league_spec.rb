@@ -48,16 +48,28 @@ describe League do
     expect(@stat_tracker.league.game_team_group_by_season("20122013")[2].game_id).to eq("2012030222")
   end
 
-  it 'coaches_by_win_percentage' do
+  it '#coaches_by_win_percentage' do
     expect(@stat_tracker.league.coaches_by_win_percentage("20122013")).to eq({"John Tortorella" => 0.00,
                   "Claude Julien" => 100.00})
   end
 
-  it 'teams_by_accuracy' do
+  it '#teams_by_accuracy' do
     expect(@stat_tracker.league.teams_by_accuracy("20122013")).to eq({"3" => 0.23529, "6" => 0.28571})
   end
 
-  it 'teams_by_tackles' do
+  it '#teams_by_tackles' do
     expect(@stat_tracker.league.teams_by_tackles("20122013")).to eq({"3" => 77, "6" => 115})
   end
-end 
+
+  it '#home_wins_counter' do
+    expect(@stat_tracker.league.home_wins_counter).to eq(1)
+  end
+
+  it '#visitor_wins_counter' do
+    expect(@stat_tracker.league.visitor_wins_counter).to eq(2)
+  end
+
+  it '#tie_counter' do
+    expect(@stat_tracker.league.tie_counter).to eq(2)
+  end
+end

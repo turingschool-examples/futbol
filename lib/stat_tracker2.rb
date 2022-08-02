@@ -56,7 +56,7 @@ class StatTracker
 
   def percentage_home_wins
 
-
+    (@league.home_wins_counter.to_f / @games.count).round(2)
 
 
 
@@ -64,7 +64,7 @@ class StatTracker
 
   def percentage_visitor_wins
 
-
+    (@league.visitor_wins_counter.to_f / @games.count).round(2)
 
 
 
@@ -72,7 +72,7 @@ class StatTracker
 
   def percentage_ties
 
-
+    (@league.tie_counter.to_f / @games.count).round(2)
 
 
 
