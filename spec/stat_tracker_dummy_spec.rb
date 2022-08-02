@@ -214,7 +214,7 @@ describe StatTracker do
     expect(@stat_tracker.fewest_tackles("20122013")).to eq("LA Galaxy")
   end
 
-  xit '#average_win_percentage' do
+  it '#average_win_percentage' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'

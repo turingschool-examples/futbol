@@ -164,5 +164,18 @@ class League
     seasons_by_win_percentage
   end
 
-  
+  def wins_losses_tally(given_team_id)
+    teams_games = game_team_grouped_by_team(given_team_id)
+    all_games_tally = {
+      wins: 0,
+      ties: 0,
+      total_games: 0
+    }
+    teams_games.each do |game|
+        all_games_tally[:wins] += 1 if game.result == "WIN"
+        all_games_tally[:ties] += 1 if game.result == "TIE"
+        all_games_tally[:total_games] += 1
+      end
+    all_games_tally
+  end
 end
