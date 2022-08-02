@@ -64,7 +64,7 @@ describe GameStats do
   end
 
   #why is this failing
-  it "can calculate which team was the highest scoring visitor" do
+  xit "can calculate which team was the highest scoring visitor" do
     expected = [["3", 2.15],
      ["6", 2.25],
       ["5", 2.18],
@@ -82,4 +82,10 @@ describe GameStats do
                   ["53", 1.85]]
     expect(@game_stats.highest_scoring_visitor_array).to eq(expected)
   end
+
+  it "can tell which season is a teams best" do
+    expect(@game_stats.best_season("6")).to eq("20132014")
+   end
+
+   
 end

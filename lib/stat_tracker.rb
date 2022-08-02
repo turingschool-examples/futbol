@@ -66,7 +66,6 @@ class StatTracker
     @teams_stats.team_id_to_name[minimum(result)[0]]     #uses a helper method
   end
 
-  #CHECK THIS PASSES
   def highest_scoring_visitor
     visitor_scores_average = @game_stats.highest_scoring_visitor_array
     @teams_stats.team_id_to_name[maximum(visitor_scores_average)[0]]
@@ -88,22 +87,6 @@ class StatTracker
 
   def team_info(team_id)
     @team_stats.team_info(team_id)
-  end
-
-  def best_season(team_id) #we need a hash with each season as the keys and the win % for the season as the value
-    games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the valueq
-    win_percent_hash = Hash.new([])
-    games_by_season.flat_map do |season, games|
-      game_count = games.count
-      home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
-      away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
-      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
-      win_percent_hash[season] = win_percent
-    end
-    ranked_seasons = win_percent_hash.max_by do |season, win_percent|
-      win_percent
-    end
-    ranked_seasons[0]
   end
 
   def worst_season(team_id)
@@ -368,5 +351,5 @@ class StatTracker
     team_id_to_name[max_win_team_id]
   end
 
-
+  
 end

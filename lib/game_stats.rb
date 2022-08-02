@@ -70,7 +70,33 @@ class GameStats
       end
   end
 
+  def best_season(team_id) #we need a hash with each season as the keys and the win % for the season as the value
+    games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the valueq
+    win_percent_hash = Hash.new([])
+    games_by_season.flat_map do |season, games|
+      game_count = games.count
+      home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
+      away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
+      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      win_percent_hash[season] = win_percent
+    end
+    ranked_seasons = win_percent_hash.max_by do |season, win_percent|
+      win_percent
+    end
+    ranked_seasons[0]
+  end
+
   def season_grouper #games helper, returns a hash with the season as the key and array of all games for the season as the value
     @games.group_by { |game| game.season }
+  end
+
+  def all_team_games(team_id) #games helper, returns all of a team's games in an array
+    
+    @games.find_all { |game| game.home_team_id == team_id || game.away_team_id == team_id }
+  end
+
+  def team_season_grouper(team_id) #helper, groups all of a team's games by season in a hash: the key is the season and the values are the team's games for that season
+    all_games = all_team_games(team_id)
+    all_games.group_by { |game| game.season }
   end
 end
