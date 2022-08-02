@@ -73,10 +73,10 @@ class StatTracker
     counts = {}
     games.each do |game|
         season = game[:season]
-        if counts[season].nil?
-             counts[season] = 0
+        if counts[season.to_s].nil?
+             counts[season.to_s] = 0
         end
-        counts[season] += 1
+        counts[season.to_s] += 1
     end
     counts
     # games.reduce({}) do |counts, game|
@@ -104,22 +104,6 @@ class StatTracker
       end
       my_hash
   end
-
-  def game_wins #Helper method not yet used
-    win = 0.0
-    @game_teams[:result].map {|row| win += 1 if row == "WIN"}; win
-  end
-
-  def game_losses #Helper method not yet used
-    loss = 0.0
-    @game_teams[:result].map {|row| loss += 1 if row == "LOSS"}; loss
-  end
-
-  def away_games #Helper method not yet used
-    away = 0.0
-    @game_teams[:hoa].map {|row| away += 1  if row == "away"}; away
-  end
-
 
   # League Statistics
 
@@ -184,7 +168,8 @@ class StatTracker
 
   def average_scores_by_team_id(*game_type) #helper method for issue #14
     average_scores= {}
-    scores_by_team_id(*game_type).each do |team, scores|
+    scores_by_team_id(*game_type.to_i).each do |team, scores|
+      require 'pry'; binding.pry
       average = scores.sum/scores.count
       average_scores[team] = average.round(1)
     end
@@ -498,7 +483,7 @@ class StatTracker
   end
 
   def average_win_percentage(team_id) #issue # 20
-    (wins_by_team(team_id).count.to_f/games_by_team(team_id).count.to_f).round(2)
+    (wins_by_team(team_id.to_i).count.to_f/games_by_team(team_id.to_i).count.to_f).round(2)
   end
 
   def most_goals_scored(team_id) #issue # 27 pass
