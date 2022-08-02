@@ -16,7 +16,7 @@ RSpec.describe Team do
   describe '#initialize' do
     it 'exists' do
 
-      expect(@team).to be_an_instance_of(Team)
+      expect(@team).to be_instance_of(Team)
     end
   end
 
