@@ -99,7 +99,7 @@ class StatTracker
         my_hash[season] = []
         game_sum_calc = []
         games.each do |row|
-          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i 
+          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i
           #require 'pry';binding.pry
           my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
         end
@@ -193,7 +193,7 @@ class StatTracker
     end
     average_scores
   end
-  
+
   def highest_scoring_home_team #issue # 14 - PASS
     max_average = average_scores_by_team_id("home").values.max
     team_by_id[average_scores_by_team_id("home").key(max_average)]
@@ -264,7 +264,7 @@ class StatTracker
     @game_teams.find_all do |game_team| #finds all stats for away and home team for a particular game
       game_team[:game_id] == game_id
     end
-  
+
   end
 
   def total_team_shots_and_goals
@@ -291,7 +291,7 @@ class StatTracker
   end # Lines above gives accuracy ratio of team id for a given season
 
   def most_accurate_team(season_id) #issue # 28 - NilClass Error on transform_values
-    team_by_id[seasonal_team_accuracy(season_id).key(seasonal_team_accuracy(season_id).values.max)]
+    team_by_id[seasonal_team_accuracy(season_id.to_i).key(seasonal_team_accuracy(season_id.to_i).values.max)]
   end
 
 
@@ -523,6 +523,8 @@ class StatTracker
       rival_opp_wins.each do | rowk, rowv |
         if rogk == rowk
           rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+        elsif rival_opp_wins[rogk].nil?
+          rival_opp[rogk.to_s] = 0.0
         end
       end
     end
@@ -573,6 +575,8 @@ class StatTracker
       rival_opp_wins.each do | rowk, rowv |
         if rogk == rowk
           rival_opp.merge!("#{rowk}" => (rowv.to_f / rogv.to_f))
+        elsif rival_opp_wins[rogk].nil?
+          rival_opp[rogk.to_s] = 0.0
         end
       end
     end
