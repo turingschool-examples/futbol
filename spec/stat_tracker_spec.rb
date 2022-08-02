@@ -325,8 +325,8 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.get_teamgames_by_single_season("6", "20122013")).to be_an(Array)
-    expect(@stat_tracker_dummy.get_teamgames_by_single_season("6", "20122013").map {|game| game.date_time}).to eq(["5/16/13",                                                                                       "6/8/13"])
+    expect(@stat_tracker_dummy.get_team_games_by_single_season("6", "20122013")).to be_an(Array)
+    expect(@stat_tracker_dummy.get_team_games_by_single_season("6", "20122013").map {|game| game.date_time}).to eq(["5/16/13",                                                                                       "6/8/13"])
   end
 
   it "can find a teams average win percentage" do
@@ -367,10 +367,10 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.team_id_to_name.length).to eq(9)
-    expect(@stat_tracker_dummy.team_id_to_name).to be_a(Hash)
-    expect(@stat_tracker_dummy.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])
-    expect(@stat_tracker_dummy.team_id_to_name.values).to eq(["Atlanta United",
+    expect(@stat_tracker_dummy.teams_stats.team_id_to_name.length).to eq(9)
+    expect(@stat_tracker_dummy.teams_stats.team_id_to_name).to be_a(Hash)
+    expect(@stat_tracker_dummy.teams_stats.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])
+    expect(@stat_tracker_dummy.teams_stats.team_id_to_name.values).to eq(["Atlanta United",
                                                                "Chicago Fire",
                                                                "FC Cincinnati",
                                                                "DC United",
