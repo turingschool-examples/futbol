@@ -1,12 +1,10 @@
-require './lib/csv_loader'
-require './lib/reusables'
-
-class League < CsvLoader
-include Reuseable
-
-
+require './lib/details_loader'
+​
+class League < DetailsLoader
+​
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
+    @details = DetailsLoader.new(games, teams, game_teams)
   end
 
   def count_of_teams #issue # 10 - PASS
@@ -14,8 +12,9 @@ include Reuseable
   end
 
   def best_offense #issue # 11 - Fail Wrong team returning
-    max_average = average_scores_by_team_id("home", "away").values.max
-    team_by_id[average_scores_by_team_id("home", "away").key(max_average)]
+    # max_average = average_scores_by_team_id("home", "away").values.max
+    # team_by_id[average_scores_by_team_id("home", "away").key(max_average)]
+    @league.best_offense
   end
 
   def highest_scoring_visitor #issue # 13 - Pass

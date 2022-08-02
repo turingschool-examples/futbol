@@ -1,9 +1,10 @@
-require './lib/csv_loader'
+require './lib/details_loader'
 
-class Games < CsvLoader
-
+class Games < DetailsLoader
+​
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
+    @details = DetailsLoader.new(games, teams, game_teams)
   end
 
   def total_scores_by_game #helper for issue #2, #3, #6
