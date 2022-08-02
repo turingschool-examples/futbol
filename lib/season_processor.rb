@@ -42,7 +42,6 @@ module SeasonProcessor
         stats[game_team.team_id][1] += game_team.goals.to_i
       end
     end
-    # require "pry";binding.pry
     return stats
   end
 

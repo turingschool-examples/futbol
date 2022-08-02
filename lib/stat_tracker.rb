@@ -257,20 +257,7 @@ class StatTracker
   end
 
   def fewest_tackles(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-
-    #hash with "team_id" key and tackle int values.
-    tackle_stats = Hash.new(0)
-    game_teams.each do |game_team|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if game_team.game_id[0..3] == games_id_year
-        #adding in the shots and goals into the hash into the array
-        tackle_stats[game_team.team_id] += game_team.tackles.to_i
-      end
-    end
-
-    #finds key with the max value and uses that same key for the team_names hash
+    tackle_stats = tackle_stats(season_id[0..3], game_teams)
     team_info(tackle_stats.key(tackle_stats.values.min))["team_name"]
   end
 
@@ -430,7 +417,4 @@ class StatTracker
     end
     team_info(rival_id)['team_name']
   end
-
-
-
 end

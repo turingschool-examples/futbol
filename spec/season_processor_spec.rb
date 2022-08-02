@@ -52,4 +52,7 @@ RSpec.describe SeasonProcessor do
     expect(dummy_class.leastest_accurate_team(goal_stats)).to eq("3")
   end
 
+  it 'returns tackle_stats' do
+    expect(dummy_class.tackle_stats("2012", game_teams)).to eq({"3"=>44, "6"=>51})
+  end
 end
