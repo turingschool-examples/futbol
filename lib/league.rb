@@ -114,4 +114,22 @@ class League
     end
     teams_by_tackles
   end
+
+  def home_wins_counter
+    @all_games.count do |game|
+      game.home_goals.to_i > game.away_goals.to_i
+    end
+  end
+
+  def visitor_wins_counter
+    @all_games.count do |game|
+      game.home_goals.to_i < game.away_goals.to_i
+    end
+  end
+
+  def tie_counter
+    @all_games.count do |game|
+      game.home_goals.to_i == game.away_goals.to_i
+    end
+  end
 end
