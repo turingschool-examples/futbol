@@ -17,6 +17,6 @@ class GameTeamsStats
     GameTeamsStats.new(game_teams_as_objects)
   end
 
-  #methods
+  #methods go here
 
 end
