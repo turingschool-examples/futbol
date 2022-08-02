@@ -248,9 +248,9 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.team_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
-    expect(@stat_tracker_dummy.team_isolator("6").size).to eq(4)
-    expect(@stat_tracker_dummy.team_isolator("6")).to be_an(Array)
+    expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
+    expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").size).to eq(4)
+    expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6")).to be_an(Array)
   end
 
   it "can isolate a single teams wins in game_teams" do #game_teams helper
