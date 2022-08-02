@@ -100,15 +100,15 @@ describe StatTracker do
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 
-  xit '#team_info' do
+  it '#team_info' do
     expected = {
-      "team_id" => "27",
-      "franchise_id" => "28",
-      "team_name" => "San Jose Earthquakes",
-      "abbreviation" => "SJ",
-      "link" => "/api/v1/teams/27"
+      "team_id" => "26",
+      "franchise_id" => "14",
+      "team_name" => "FC Cincinnati",
+      "abbreviation" => "CIN",
+      "link" => "/api/v1/teams/26"
     }
-    expect(@stat_tracker.team_info("27")).to eq(expected)
+    expect(@stat_tracker.team_info("26")).to eq(expected)
   end
 
   xit '#favorite_opponent' do
@@ -143,7 +143,7 @@ describe StatTracker do
     expect(@stat_tracker.rival("18")).to eq("Los Angeles FC")
   end
 
-  xit '#best_season' do
+  it '#best_season' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'
@@ -160,7 +160,7 @@ describe StatTracker do
 
   end
 
-  xit '#worst_season' do
+  it '#worst_season' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'

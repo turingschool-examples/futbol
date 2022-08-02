@@ -60,4 +60,29 @@ describe League do
   it 'teams_by_tackles' do
     expect(@stat_tracker.league.teams_by_tackles("20122013")).to eq({"3" => 77, "6" => 115})
   end
+
+  it '#team_info' do
+    expected = {
+      "team_id" => "26",
+      "franchise_id" => "14",
+      "team_name" => "FC Cincinnati",
+      "abbreviation" => "CIN",
+      "link" => "/api/v1/teams/26"
+    }
+    expect(@stat_tracker.team_info("26")).to eq(expected)
+  end
+
+  it '#game_team_group_by_team' do
+    expect(@stat_tracker.league.game_team_grouped_by_team("3").length).to eq(2)
+  end
+
+  it '#data_sorted_by_season' do
+    data = @stat_tracker.league.all_game_teams
+    expect(@stat_tracker.league.data_sorted_by_season(data)["2012"].length).to eq(5)
+  end
+
+  it '#seasons_by_wins' do
+    expect(@stat_tracker.league.seasons_by_wins("3")).to eq({"20122013" => 0.00000})
+    expect(@stat_tracker.league.seasons_by_wins("6")).to eq({"20122013" => 1.00000})
+  end
 end 

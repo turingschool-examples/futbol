@@ -189,25 +189,25 @@ class StatTracker
   end
 #Team Statistics Methods
   def team_info(given_team_id)
-
-
+    selected_team = @league.find_team(given_team_id)
+    @league.display_team_info(selected_team)
 
 
 
   end
 
   def best_season(given_team_id)
-
-
-
+    @league.seasons_by_wins(given_team_id).max_by do |season, win_percentage|
+      win_percentage
+    end[0]
 
 
   end
 
   def worst_season(given_team_id)
-
-
-
+    @league.seasons_by_wins(given_team_id).min_by do |season, win_percentage|
+      win_percentage
+    end[0]
 
 
   end
