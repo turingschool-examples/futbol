@@ -67,8 +67,13 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    visitor_scores_average = @game_stats.highest_scoring_visitor_array
+    visitor_scores_average = @game_stats.visitor_teams_average_score
     @teams_stats.team_id_to_name[maximum(visitor_scores_average)[0]]
+  end
+
+  def highest_scoring_home_team
+    home_scores_average = @game_stats.home_teams_average_score
+    @teams_stats.team_id_to_name[maximum(home_scores_average)[0]]
   end
 
   def most_goals_scored(team_id)
@@ -89,32 +94,12 @@ class StatTracker
     @team_stats.team_info(team_id)
   end
 
-  def worst_season(team_id)
-    games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the value
-    win_percent_hash = Hash.new([])
-    games_by_season.flat_map do |season, games|
-      game_count = games.count
-      home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
-      away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
-      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
-      win_percent_hash[season] = win_percent  #this is a hash with each season as the keys and the win % for the season as the value
-    end
-    ranked_seasons = win_percent_hash.min_by do |season, win_percent|
-      win_percent
-    end
-    ranked_seasons[0]
+  def best_season(team_id)
+    @game_stats.best_season(team_id)
   end
 
-  def highest_scoring_home_team
-    home_team_scores = Hash.new { |h, k| h[k] = [] }
-    @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
-
-    home_scores_average =
-      home_team_scores.map do |id, scores|
-        average = ((scores.sum) / (scores.length)).round(2)
-        [id, average]
-      end
-    team_id_to_name[maximum(home_scores_average)[0]]
+  def worst_season(team_id)
+    @game_stats.worst_season(team_id)
   end
 
   def winningest_coach(season_id)

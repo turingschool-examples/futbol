@@ -60,13 +60,23 @@ class GameStats
     goals_by_season
   end
 
-  def highest_scoring_visitor_array #needs test
+  def visitor_teams_average_score #needs test?
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-
     visitor_scores_average =
       away_team_scores.map do |id, scores|
         [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
+      end
+  end
+
+  def home_teams_average_score #needs test?
+    home_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
+
+    home_scores_average =
+      home_team_scores.map do |id, scores|
+        average = ((scores.sum) / (scores.length)).round(2)
+        [id, average]
       end
   end
 
@@ -86,12 +96,27 @@ class GameStats
     ranked_seasons[0]
   end
 
+  def worst_season(team_id)
+    games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the value
+    win_percent_hash = Hash.new([])
+    games_by_season.flat_map do |season, games|
+      game_count = games.count
+      home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
+      away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
+      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      win_percent_hash[season] = win_percent  #this is a hash with each season as the keys and the win % for the season as the value
+    end
+    ranked_seasons = win_percent_hash.min_by do |season, win_percent|
+      win_percent
+    end
+    ranked_seasons[0]
+  end
+
   def season_grouper #games helper, returns a hash with the season as the key and array of all games for the season as the value
     @games.group_by { |game| game.season }
   end
 
   def all_team_games(team_id) #games helper, returns all of a team's games in an array
-    
     @games.find_all { |game| game.home_team_id == team_id || game.away_team_id == team_id }
   end
 

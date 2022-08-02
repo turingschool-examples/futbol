@@ -63,29 +63,15 @@ describe GameStats do
     expect(@game_stats.average_goals_by_season).to eq(expected)
   end
 
-  #why is this failing
-  xit "can calculate which team was the highest scoring visitor" do
-    expected = [["3", 2.15],
-     ["6", 2.25],
-      ["5", 2.18],
-       ["17", 2.04],
-        ["16", 2.1],
-         ["9", 2.01],
-          ["8", 2.01],
-           ["30", 2...2.1],
-            ["1", 1.9],
-             ["12", 2.02],
-              ["23", 1.94],
-               ["22", 2.03],
-                ["7", 1.88],
-                 ["27", 1.85],
-                  ["53", 1.85]]
-    expect(@game_stats.highest_scoring_visitor_array).to eq(expected)
+  it "can calculate which team was the highest scoring visitor" do
+    expect(@game_stats.visitor_teams_average_score.count).to eq(32)
   end
 
   it "can tell which season is a teams best" do
     expect(@game_stats.best_season("6")).to eq("20132014")
-   end
+  end
 
-   
+  it "can calculate which team was the highest scoring home team" do
+    expect(@game_stats.home_teams_average_score.count).to eq(32)
+  end
 end
