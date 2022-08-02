@@ -98,4 +98,9 @@ describe League do
       total_games: 3
     })
   end
+
+  it '#goals_scored_in_game' do
+    expect(@stat_tracker.league.goals_scored_in_game("3")).to eq([2,2])
+    expect(@stat_tracker.league.goals_scored_in_game("6")).to eq([3,3,2])
+  end
 end 

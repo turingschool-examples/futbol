@@ -145,10 +145,11 @@ class League
 
   def seasons_by_wins(given_team_id)
     teams_games = game_team_grouped_by_team(given_team_id)
+    require 'pry'; binding.pry
     team_games_by_season = data_sorted_by_season(teams_games)
     seasons_by_win_percentage = Hash.new{|h,k| h[k] = 0}
     team_games_by_season.each do |season, games|
-      full_season = games.first.game_id[0..3]+games.first.game_id[0..2]+(games.first.game_id[3].to_i + 1).to_s
+      full_season = games.first.game_id[0..3] + (games.first.game_id[0..3].to_i + 1).to_s
       game_outcomes_by_stat = {
         wins: 0,
         ties: 0,
@@ -177,5 +178,12 @@ class League
         all_games_tally[:total_games] += 1
       end
     all_games_tally
+  end
+
+  def goals_scored_in_game(given_team_id)
+    teams_games = game_team_grouped_by_team(given_team_id)
+    teams_games.map do |game|
+      game.goals.to_i
+    end
   end
 end

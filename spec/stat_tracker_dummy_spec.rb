@@ -182,12 +182,12 @@ describe StatTracker do
     expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
   end
 
-  xit '#most_goals_scored' do
+  it '#most_goals_scored' do
     expect(@stat_tracker.most_goals_scored("3")).to eq(2)
     expect(@stat_tracker.most_goals_scored("5")).to eq(1)
   end
 
-  xit '#fewest_goals_scored' do
+  it '#fewest_goals_scored' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'

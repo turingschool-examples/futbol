@@ -25,4 +25,16 @@ class Game
     @venue = info[:venue]
     @venue_link = info[:venue_link]
   end
+
+  def teams_in_game
+    teams = [@away_team_id.to_i, @home_team_id.to_i].sort
+  end
+
+  def winning_team_id
+    if @away_goals > @home_goals
+      @away_team_id
+    elsif @away_goals < @home_goals
+      @home_team_id
+    end
+  end
 end
