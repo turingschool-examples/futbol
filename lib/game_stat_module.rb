@@ -1,11 +1,11 @@
 module GameStatsable
+  
   def goals_scored
     @games_data.map do |row| 
     row[:away_goals].to_i + row[:home_goals].to_i
     end
   end
-
-
+  
   def percentage_wins_for_team_playing(home_or_away)
     wins = 0
     # total_games = 0

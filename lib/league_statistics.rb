@@ -1,9 +1,9 @@
 require_relative 'league_helper_module'
-require_relative 'team_name_by_id_helper_module'
+require_relative 'global_module'
 
-class LeagueStatistics < StatTracker
+class LeagueStatistics
   include Leagueable
-  include TeamNameable
+  include Globeable
   def initialize(team_data, game_teams_data)
     @teams_data = team_data
     @game_teams_data = game_teams_data

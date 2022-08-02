@@ -1,13 +1,12 @@
-# require_relative 'team_module'
-require './lib/team_name_by_id_helper_module'
+require_relative 'global_module'
 
 class TeamStatistics
-    # include Teamable
-    # include TeamNameable
-    def initialize()
-      @teams_data = CSV.read "./data/teams.csv", headers: true, header_converters: :symbol
-      @game_teams_data = CSV.read "./data/game_teams.csv", headers: true, header_converters: :symbol
-      @games_data = CSV.read "./data/games.csv", headers: true, header_converters: :symbol
+    include Globeable
+
+    def initialize(teams_data, games_data, game_teams_data)
+      @teams_data = teams_data
+      @games_data = games_data
+      @game_teams_data = game_teams_data
     end
 
     def team_info(given_team_id)
@@ -166,15 +165,3 @@ class TeamStatistics
       wins_and_losses
     end
 end
-
-
-
-
-
-
-
-
-
-
-#
-

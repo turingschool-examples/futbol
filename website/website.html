@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Futbol Stat Displayer</title>
+  </head>
+
+  <body>
+    League-wide Statistics
+    <p>Highest Total Score = <%= stat_tracker.highest_total_score %></p>
+
+    <p>Lowest Total Score = <%= stat_tracker.lowest_total_score %></p>
+
+    <p>Percentage Home Wins = <%= stat_tracker.percentage_home_wins %></p>
+    
+    <p>Percentage Visitor Wins = <%= stat_tracker.percentage_visitor_wins %>
+    </p>
+    
+    <p>Percentage Ties = <%= stat_tracker.percentage_ties %></p>
+
+    <p>Average Goals Per Game = <%= stat_tracker.average_goals_per_game %></p>
+
+    <p>
+    Average Goals By Season = 
+    <% stat_tracker.average_goals_by_season.each do |season, average| %>
+    <%= "#{season} = #{average}"
+    <% end %>
+    </p>
+
+    <% stat_tracker.count_of_games_by_season %>
+    <%= stat_tracker.count_of_teams %>
+    <%= stat_tracker.best_offense %>
+    <%= stat_tracker.worst_offense %>
+    <%= stat_tracker.highest_scoring_visitor %>
+    <%= stat_tracker.lowest_scoring_visitor %>
+  </body>
+</html>
+<button>hit this</button>

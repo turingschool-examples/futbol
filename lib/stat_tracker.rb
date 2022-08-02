@@ -1,6 +1,13 @@
 require 'csv'
+require_relative 'game_statistics'
+require_relative 'season_statistics'
+require_relative 'team'
+require_relative 'league_statistics'
+require_relative 'global_module'
+
 
 class StatTracker
+  include Globeable
   
   def initialize(locations)
     @locations = locations
@@ -16,7 +23,6 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
   # Game statistics 
   def highest_total_score
     @game_statistics.highest_total_score
