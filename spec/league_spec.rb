@@ -72,4 +72,12 @@ describe League do
   it '#tie_counter' do
     expect(@stat_tracker.league.tie_counter).to eq(2)
   end
+
+  it '#goals_by_season' do
+    expect(@stat_tracker.league.goals_by_season).to eq({"20132014" => [1], "20142015" => [6,1], "20152016" => [6,5]})
+  end
+
+  it '#avg_goals_by_season' do
+    expect(@stat_tracker.league.avg_goals_by_season).to eq({"20132014" => 1, "20142015" => 3.5, "20152016" => 5.5})
+  end
 end

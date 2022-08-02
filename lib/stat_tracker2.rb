@@ -88,7 +88,7 @@ class StatTracker
 
   def average_goals_by_season
 
-
+    @league.avg_goals_by_season
 
 
 

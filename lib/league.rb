@@ -132,4 +132,20 @@ class League
       game.home_goals.to_i == game.away_goals.to_i
     end
   end
+
+  def goals_by_season
+    goals_by_season = Hash.new {|h,k| h[k]=[]}
+    @all_games.each do |game|
+      goals_by_season[game.season] << (game.home_goals.to_i + game.away_goals.to_i)
+    end
+    goals_by_season
+  end
+
+  def avg_goals_by_season
+    avg_goals_by_season = Hash.new(0)
+    goals_by_season.each do |season, goals|
+      avg_goals_by_season[season] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    avg_goals_by_season
+  end
 end
