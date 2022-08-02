@@ -176,12 +176,12 @@ describe StatTracker do
     expect(@stat_tracker.maximum(average)).to eq(["5", 2.39])
   end
 
-  xit "can name the coach with the best winning percentage" do
+  it "can name the coach with the best winning percentage" do
     expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
     expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
   end
 
-  xit "can name the coach with the worst winning percentage" do
+  it "can name the coach with the worst winning percentage" do
     expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
@@ -206,15 +206,15 @@ describe StatTracker do
                "2012030312",
                "2012030313",
                "2012030314"]
-    expect(@stat_tracker_dummy.games_by_season("20122013")).to eq(expected)
+    expect(@stat_tracker_dummy.game_stats.games_by_season("20122013")).to eq(expected)
   end
 
-  xit "can name the team with the best shot accuracy" do
+  it "can name the team with the best shot accuracy" do
     expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  xit "can name the team with the worst shot accuracy" do
+  it "can name the team with the worst shot accuracy" do
     expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
@@ -237,7 +237,7 @@ describe StatTracker do
     expect(@stat_tracker.game_teams_stats.fewest_goals_scored("18")).to eq(0)
   end
 
-  xit "can isolate a single teams games in game_teams" do #game_teams helper
+  it "can isolate a single teams games in game_teams" do #game_teams helper
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -253,7 +253,7 @@ describe StatTracker do
     expect(@stat_tracker_dummy.team_isolator("6")).to be_an(Array)
   end
 
-  xit "can isolate a single teams wins in game_teams" do #game_teams helper
+  it "can isolate a single teams wins in game_teams" do #game_teams helper
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -269,7 +269,7 @@ describe StatTracker do
     expect(@stat_tracker_dummy.win_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
   end
 
-  xit "can group games by season in games" do #game helper
+  it "can group games by season in games" do #game helper
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -295,7 +295,7 @@ describe StatTracker do
     expect(@stat_tracker_dummy.season_grouper).to be_a(Hash)
   end
 
-  xit "can isolate a single teams games in games" do #game helper
+  it "can isolate a single teams games in games" do #game helper
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -314,7 +314,7 @@ describe StatTracker do
                                                                                      "2012030225"])
   end
 
-  xit "can isolate a teams games by season in games" do #game helper
+  it "can isolate a teams games by season in games" do #game helper
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -333,7 +333,7 @@ describe StatTracker do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
-  xit "can group a teams games by season in games" do #helper
+  it "can group a teams games by season in games" do #helper
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -356,7 +356,7 @@ describe StatTracker do
     expect(@stat_tracker.game_stats.worst_season("6")).to eq("20142015")
   end
 
-  xit "gives a hash of team id to team name" do #team_id_to_name helper
+  it "gives a hash of team id to team name" do #team_id_to_name helper
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -411,11 +411,11 @@ describe StatTracker do
     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
 
-  xit "can find favorite opponent for a given team" do
-    expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
+  it "can find favorite opponent for a given team" do
+    expect(@stat_tracker.game_teams_stats.favorite_opponent("18")).to eq("DC United")
   end
 
-  xit "can find number of tackles given a team id and game id" do
+  it "can find number of tackles given a team id and game id" do
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -429,7 +429,7 @@ describe StatTracker do
     expect(@stat_tracker_dummy.number_of_tackles("3", "2012030221")).to eq(44)
   end
 
-  xit "can get a ratio of goals to shots when given a season id number" do
+  it "can get a ratio of goals to shots when given a season id number" do
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -443,7 +443,7 @@ describe StatTracker do
     expect(@stat_tracker_dummy.get_ratio("20122013")).to eq({"3"=>0.21052631578947367, "6"=>0.2894736842105263})
   end
 
-  xit "can find rival for a given team" do
+  it "can find rival for a given team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
 
