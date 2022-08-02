@@ -5,8 +5,8 @@ RSpec.describe Team do
   it 'exists and has readable attributes' do
     info = {
       team_id: "1",
-      franchiseId: "23",
-      teamName: "Atlanta United",
+      franchiseid: "23",
+      teamname: "Atlanta United",
       abbreviation: "ATL",
       link: "/api/v1/teams/1"
             }
