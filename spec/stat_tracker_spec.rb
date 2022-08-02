@@ -53,27 +53,42 @@ describe StatTracker do
     end
 
     it "finds highest total score" do #Pass
-      expect(@stat_tracker.highest_total_score).to eq(8)
+
+      expect(@stat_tracker.highest_total_score).to eq(8) #was 7 before I changed it to match google doc
+
     end
 
     it 'can return the lowest score' do #Pass
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
 
-    it "tracks game wins" do
-      expect(@stat_tracker.game_wins).to eq(40.0)
+    it "tracks wins" do
+
+      expect(@stat_tracker.game_wins).to eq(40)
     end
 
-    it "calculates home game wins" do
-      expect(@stat_tracker.home_wins).to eq(24.0)
+    it "tracks losses" do
+      expect(@stat_tracker.game_losses).to eq(40)
     end
 
-    it 'calculates percentage home wins' do #FAIL - corrected game_teams_path
-      expect(@stat_tracker.percentage_home_wins).to eq(0.60)
+    it "tracks home games" do
+      expect(@stat_tracker.home_games).to eq(40)
     end
 
-    it 'calculates percentage visitor wins' do #FAIL - corrected game_teams_path
-      expect(@stat_tracker.percentage_home_wins).to eq(0.60)
+    it "tracks away games" do
+      expect(@stat_tracker.away_games).to eq(40)
+    end
+
+    it "calculates home wins" do
+      expect(@stat_tracker.home_wins).to eq(24)
+    end
+
+    it 'calculates percentage wins' do #FAIL - corrected game_teams_path
+      expect(@stat_tracker.percentage_home_wins).to eq(0.6)
+    end
+
+    it 'calculates percentage visitor wins' do 
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
     end
 
     it "returns the percentage of tied games" do #PASS
@@ -81,21 +96,16 @@ describe StatTracker do
     end
 
     it 'average goals' do #FAIL - Need to make this test eq 0.99 not whole numbers
-      expect(@stat_tracker.average_goals_per_game).to eq(3.9)
+      expect(@stat_tracker.average_goals_per_game).to eq(3.90) #added 3.90 to match google doc prev: 3.9
     end
 
     it 'returns hash with season name and average goals for each season ' do #Pass
-      expected_hash = {"20122013"=>0.0, "20132014"=>0.0, "20142015"=>0.0, "20152016"=>0.0, "20162017"=>0.0, "20172018"=>0.0}
+      expected_hash = {"20122013"=>3.56, "20132014"=>4.33, "20142015"=>4.67, "20152016"=>5.0, "20162017"=>4.67, "20172018"=>3.67}
       expect(@stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
 
     it 'Has hash with season names as keys and counts of games as values' do
-      expect(@stat_tracker.count_of_games_by_season).to eq({
-          "20122013" => 28,
-          "20132014" => 33,
-          "20142015" => 28,
-          "20162017" => 12,
-      })
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>25, "20132014"=>3, "20142015"=>3, "20152016"=>3, "20162017"=>3, "20172018"=>3})
     end
   end
 
@@ -110,11 +120,11 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the lowest average number of goals scored per game across all seasons' do #Pass
-      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City") or ("Los Angeles FC") or ("FC Dallas")
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are away' do #Pass
-      expect(@stat_tracker.highest_scoring_visitor).to eq("Minnesota United FC") or ("Chicago Red Stars")
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
 
     it 'returns an array of each teams scores' do
@@ -130,7 +140,7 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are home' do #Pass
-      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+      expect(@stat_tracker.highest_scoring_home_team).to eq("Chicago Red Stars").or("Minnesota United FC")
     end
 
     it 'can return Name of the team with the lowest average score per game across all seasons when they are a visitor' do #Pass
@@ -156,6 +166,7 @@ describe StatTracker do
       expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
     end
 
+
     it 'can show name of the team with the worst ratio of shots to goals for the season' do #passed dummy test and spec harness
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
     end
@@ -173,10 +184,10 @@ describe StatTracker do
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
 
-    xit 'can show name of the team with fewest tackles in the season' do
+    it 'can show name of the team with fewest tackles in the season' do
+
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Sporting Kansas City")
     end
-
   end
 
   describe 'Team Statistics' do
@@ -195,12 +206,12 @@ describe StatTracker do
     it 'can show season with the highest win percentage for a team' do #PASS
       expect(@stat_tracker.best_season("3")).to eq("20142015")
     end
-    
+
     xit 'can show season with the lowest win percentage for a team' do #PASS
       expect(@stat_tracker.worst_season("3")).to eq("20122013")
     end
 
-    xit 'can show season with the lowest win percentage for a team' do #FAIL
+    it 'can show season with the lowest win percentage for a team' do #FAIL
        expect(@stat_tracker.average_win_percentage("3")).to eq(0.25)
     end
 
@@ -212,21 +223,21 @@ describe StatTracker do
        expect(@stat_tracker.fewest_goals_scored('3')).to eq(0)
     end
 
-    xit 'can return name of the opponent that has the lowest win percentage against the given team' do #FAIL - Fail due to not written
-      expect(@stat_tracker.favorite_opponent).to eq("")
+    it 'can return name of the opponent that has the lowest win percentage against the given team' do #FAIL - Fail due to not written
+      expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
     end
 
     it 'can determine number of rival wins' do
       expect(@stat_tracker.rival_wins("19")).to be_a Hash
     end
 
+
     it 'can determine number of rival games' do
       expect(@stat_tracker.rival_game("19")).to be_a Hash
     end
-    
+
     it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
       expect(@stat_tracker.rival("3")).to eq("FC Dallas")
     end
   end
-
 end
