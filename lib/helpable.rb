@@ -12,11 +12,7 @@ module Helpable #each module should have a defined purpose/goal; think "addressa
     end
   end
 
-  def season_grouper #games helper, returns a hash with the season as the key and array of all games for the season as the value
-    @games.group_by do |game|
-      game.season
-    end
-  end
+  
 
   def get_teamgames_by_single_season(team_id, season) #games helper, returns array of all of a team's games for one season
     games_by_season = []
@@ -62,10 +58,6 @@ module Helpable #each module should have a defined purpose/goal; think "addressa
 
   def maximum(average) #helper method
     average.max { |avg_1, avg_2| avg_1[1] <=> avg_2[1] }
-  end
-
-  def team_id_to_name
-    @teams.map { |team| [team.team_id, team.team_name] }.to_h
   end
 
   def get_ratio(season_id)

@@ -1,8 +1,6 @@
-require_relative "./teams"
-require_relative "./game"
-require_relative "./game_teams"
+require_relative "./game_teams_stats"
 require_relative "./game_stats"
-require_relative "./teams_stats.rb"
+require_relative "./teams_stats"
 
 class StatTracker
   attr_reader :game_stats,
@@ -18,7 +16,7 @@ class StatTracker
   def self.from_csv(locations)
     game_stats = GameStats.from_csv(locations[:games])
     teams_stats = TeamsStats.from_csv(locations[:teams])
-    game_teams_stats = GameTeams.from_csv(locations[:game_teams])
+    game_teams_stats = GameTeamsStats.from_csv(locations[:game_teams])
     StatTracker.new(game_stats, teams_stats, game_teams_stats)
   end
 
@@ -51,14 +49,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    goals_by_season = Hash.new(0)
-    @games.map do |game|
-      goals_by_season[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
-    end
-    goals_by_season.each do |season, total|
-      goals_by_season[season] = (total / (season_grouper[season].count).to_f).round(2)
-    end
-    goals_by_season
+    @game_stats.average_goals_by_season
   end
 
   def count_of_teams
@@ -72,18 +63,13 @@ class StatTracker
 
   def worst_offense
     result = @game_teams_stats.worst_offense
-    team_id_to_name[minimum(result)[0]]     #uses a helper method
+    @teams_stats.team_id_to_name[minimum(result)[0]]     #uses a helper method
   end
 
+  #CHECK THIS PASSES
   def highest_scoring_visitor
-    away_team_scores = Hash.new { |h, k| h[k] = [] }
-    @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-
-    visitor_scores_average =
-      away_team_scores.map do |id, scores|
-        [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
-      end
-    team_id_to_name[maximum(visitor_scores_average)[0]]
+    visitor_scores_average = @game_stats.highest_scoring_visitor_array
+    @teams_stats.team_id_to_name[maximum(visitor_scores_average)[0]]
   end
 
   def most_goals_scored(team_id)
@@ -381,4 +367,6 @@ class StatTracker
     max_win_team_id = max_win_percent[0]
     team_id_to_name[max_win_team_id]
   end
+
+
 end

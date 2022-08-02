@@ -1,11 +1,12 @@
-require 'csv'
-require_relative './game'
-require './helpable'
+require "csv"
+require_relative "./game"
+require "./helpable"
 
 class GameStats
   include Helpable
 
   attr_reader :games
+
   def initialize(games)
     @games = games
   end
@@ -46,5 +47,30 @@ class GameStats
     total_goals_per_game = []
     @games.map { |game| total_goals_per_game << [game.home_goals.to_i, game.away_goals.to_i].sum }
     ((total_goals_per_game.sum.to_f) / (@games.size)).round(2)
+  end
+
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    @games.map do |game|
+      goals_by_season[game.season] += ((game.home_goals.to_i + game.away_goals.to_i))
+    end
+    goals_by_season.each do |season, total|
+      goals_by_season[season] = (total / (season_grouper[season].count).to_f).round(2)
+    end
+    goals_by_season
+  end
+
+  def highest_scoring_visitor_array #needs test
+    away_team_scores = Hash.new { |h, k| h[k] = [] }
+    @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
+
+    visitor_scores_average =
+      away_team_scores.map do |id, scores|
+        [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
+      end
+  end
+
+  def season_grouper #games helper, returns a hash with the season as the key and array of all games for the season as the value
+    @games.group_by { |game| game.season }
   end
 end
