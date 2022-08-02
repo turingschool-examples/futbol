@@ -119,11 +119,11 @@ describe StatTracker do
     end
 
     it 'can return Name of the team with the lowest average score per game across all seasons when they are a visitor' do #Pass
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("New England Revolution")
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Real Salt Lake")
     end
 
     it 'can return Name of the team with the lowest average score per game across all seasons when they are at home' do #FAIL - Wrong team returning
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("Reign FC").or("Los Angeles FC")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Reign FC").or(eq("Los Angeles FC"))
     end
   end
 
