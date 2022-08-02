@@ -1,16 +1,5 @@
 module Helpable #each module should have a defined purpose/goal; think "addressable"; there could be value in using a certain thing on another class
 
-  def team_isolator(team_id) #game_teams helper, returns all of a team's games
-    @game_teams.find_all do |game|
-      team_id == game.team_id
-    end
-  end
-
-  def win_isolator(team_id) #game_teams helper, returns all of a team's wins in an array
-    @game_teams.find_all do |game|
-      team_id == game.team_id && game.result == "WIN"
-    end
-  end
 
   def get_team_games_by_single_season(team_id, season) #games helper, returns array of all of a team's games for one season
     games_by_season = []

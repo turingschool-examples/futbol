@@ -57,8 +57,8 @@ class StatTracker
   end
 
   def best_offense
-  result = @game_teams_stats.best_offense
-  team_id_to_name[minimum(result)[0]]   #uses a helper method
+    result = @game_teams_stats.best_offense
+    @teams_stats.team_id_to_name[minimum(result)[0]]   #uses a helper method
   end
 
   def worst_offense
@@ -95,8 +95,8 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    total_games = team_isolator(team_id).count
-    total_wins = win_isolator(team_id).count
+    total_games = @game_teams_stats.team_isolator(team_id).count
+    total_wins = @game_teams_stats.win_isolator(team_id).count
     (total_wins.to_f / total_games).round(2)
   end
 
@@ -112,16 +112,33 @@ class StatTracker
     @game_stats.worst_season(team_id)
   end
 
-  def winningest_coach(season_id)
+  def most_tackles(season)
+    total_tackles = Hash.new(0)
+    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
+      games.map do |game|
+        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
+      end
+    end
+    @teams_stats.team_id_to_name[maximum(total_tackles)[0]]
+  end
+
+  def fewest_tackles(season)
+    total_tackles = Hash.new(0)
+    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
+      games.map do |game|
+        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
+      end
+    end
+    @teams_stats.team_id_to_name[minimum(total_tackles)[0]]
+  end
+
+  def winningest_coach(season_id) #pull out game_teams somehow
     @game_stats.games_by_season(season_id)
     coaches = Hash.new(0)
 
-    require 'pry' ; binding.pry
-
-    @game_teams_stats.each do |game_team|
-      game_id = game_team.game_id
+    @game_teams.each do |game_team|
       coach = game_team.head_coach
-      if game_id_list.include?(game_id) && game_team.result == "WIN"
+      if game_id_list.include?(game_team.game_id) && game_team.result == "WIN"
         coaches[coach] += 1
       end
     end
@@ -134,7 +151,7 @@ class StatTracker
     maximum(coach_percentage_won)[0]
   end
 
-  def worst_coach(season_id)
+  def worst_coach(season_id) #pull out game_teams somehow
     @game_stats.games_by_season(season_id)
     coaches = Hash.new(0)
 
@@ -175,26 +192,6 @@ class StatTracker
         return team_name
       end
     end
-  end
-
-  def most_tackles(season)
-    total_tackles = Hash.new(0)
-    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
-      games.map do |game|
-        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
-      end
-    end
-    @teams_stats.team_id_to_name[maximum(total_tackles)[0]]
-  end
-
-  def fewest_tackles(season)
-    total_tackles = Hash.new(0)
-    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
-      games.map do |game|
-        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
-      end
-    end
-    @teams_stats.team_id_to_name[minimum(total_tackles)[0]]
   end
 
   def favorite_opponent(team_id)
@@ -239,7 +236,7 @@ class StatTracker
         win_percentage_1 <=> win_percentage_2
       end
     min_win_team_id = min_win_percent[0]
-    team_id_to_name[min_win_team_id]
+    @teams_stats.team_id_to_name[min_win_team_id]
   end
 
   def rival(team_id)
@@ -283,8 +280,6 @@ class StatTracker
         win_percentage_1 <=> win_percentage_2
       end
     max_win_team_id = max_win_percent[0]
-    team_id_to_name[max_win_team_id]
+    @teams_stats.team_id_to_name[max_win_team_id]
   end
-
-  
 end

@@ -34,7 +34,7 @@ class TeamsStats
     team_hash
   end
 
-  def team_id_to_name #helper
+  def team_id_to_name
     @teams.map { |team| [team.team_id, team.team_name] }.to_h
   end
 end
