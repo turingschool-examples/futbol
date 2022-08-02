@@ -6,20 +6,20 @@ require_relative "./teams_stats.rb"
 
 class StatTracker
   attr_reader :game_stats,
-              :teams,
-              :game_teams
+              :teams_stats,
+              :game_teams_stats
 
-  def initialize(game_stats, teams_stats, game_teams)
+  def initialize(game_stats, teams_stats, game_teams_stats)
     @game_stats = game_stats
     @teams_stats = teams_stats
-    @game_teams = game_teams
+    @game_teams_stats = game_teams_stats
   end
 
   def self.from_csv(locations)
     game_stats = GameStats.from_csv(locations[:games])
-    teams_stats = Teams.from_csv(locations[:teams])
-    game_teams = GameTeams.create_multiple_game_teams(locations[:game_teams])
-    StatTracker.new(game_stats, teams_stats, game_teams)
+    teams_stats = TeamsStats.from_csv(locations[:teams])
+    game_teams_stats = GameTeams.from_csv(locations[:game_teams])
+    StatTracker.new(game_stats, teams_stats, game_teams_stats)
   end
 
   def highest_total_score
@@ -225,11 +225,28 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    @team_stats.most_accurate_team(season_id)
+    ratio = get_ratio(season_id)
+    max_ratio = ratio.max_by { |k, v| v }[0]
+    @teams.each do |team|
+      team_id = team.team_id
+      team_name = team.team_name
+      if team_id == max_ratio
+        return team_name
+      end
+    end
   end
 
   def least_accurate_team(season_id)
-    @team_stats.least_accurate_team(season_id)
+    ratio = get_ratio(season_id)
+    min_ratio = ratio.min_by { |k, v| v }[0]
+    @teams.each do |team|
+      team_id = team.team_id
+      team_name = team.team_name
+
+      if team_id == min_ratio
+        return team_name
+      end
+    end
   end
 
   def lowest_scoring_visitor

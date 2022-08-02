@@ -26,15 +26,4 @@ describe TeamsStats do
     })
   end
 
-  xit "can name the team with the best shot accuracy" do
-    expect(@team_stats.most_accurate_team("20132014")).to eq "Real Salt Lake"
-    expect(@team_stats.most_accurate_team("20142015")).to eq "Toronto FC"
-  end
-
-  xit "can name the team with the worst shot accuracy" do
-    expect(@team_stats.least_accurate_team("20132014")).to eq "New York City FC"
-    expect(@team_stats.least_accurate_team("20142015")).to eq "Columbus Crew SC"
-  end
-
-
 end
