@@ -77,7 +77,7 @@ describe StatTracker do
       expect(@stat_tracker.percentage_home_wins).to eq(0.6)
     end
 
-    it 'calculates percentage visitor wins' do 
+    it 'calculates percentage visitor wins' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
     end
 
@@ -141,7 +141,7 @@ describe StatTracker do
     end
 
     it 'can show name of the team with the best ratio of shots to goals for the season' do #FAIL - NilClass Error
-      expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
     end
 
 
@@ -185,7 +185,7 @@ describe StatTracker do
       expect(@stat_tracker.best_season("3")).to eq("20142015")
     end
 
-    it 'can show season with the lowest win percentage for a team' do 
+    it 'can show season with the lowest win percentage for a team' do
       expect(@stat_tracker.worst_season("3")).to eq("20122013")
     end
 
@@ -202,7 +202,7 @@ describe StatTracker do
     end
 
     it 'can return name of the opponent that has the lowest win percentage against the given team' do #FAIL - Fail due to not written
-      expect(@stat_tracker.favorite_opponent("3")).to eq("DC United")
+      expect(@stat_tracker.favorite_opponent("16")).to eq("Orlando City SC")
     end
 
     it 'can determine number of rival wins' do
