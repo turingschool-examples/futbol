@@ -1,9 +1,7 @@
-# require_relative 'team_module'
-require './lib/team_name_by_id_helper_module'
+require_relative 'global_module'
 
 class TeamStatistics
-    # include Teamable
-    include TeamNameable
+    include Globeable
 
     def initialize(teams_data, games_data, game_teams_data)
       @teams_data = teams_data
