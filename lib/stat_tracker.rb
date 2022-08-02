@@ -133,11 +133,13 @@ class StatTracker
   end
 
   def winningest_coach(season_id) #pull out game_teams somehow
-    @game_stats.games_by_season(season_id)
+    game_id_list = @game_stats.games_by_season(season_id)
     coaches = Hash.new(0)
-    @game_team.each do |game_team|
+
+    @game_teams_stats.game_teams.each do |game_team|
+      game_id = game_team.game_id
       coach = game_team.head_coach
-      if game_id_list.include?(game_team.game_id) && game_team.result == "WIN"
+      if !game_id_list.include?(game_id) && game_team.result == "WIN"
         coaches[coach] += 1
       end
     end
@@ -151,17 +153,18 @@ class StatTracker
   end
 
   def worst_coach(season_id) #pull out game_teams somehow
-    @game_stats.games_by_season(season_id)
+    game_id_list = @game_stats.games_by_season(season_id)
     coaches = Hash.new(0)
 
-    @game_teams_stats.each do |game_team|
+    @game_teams_stats.game_teams.each do |game_team|
       game_id = game_team.game_id
       coach = game_team.head_coach
       if game_id_list.include?(game_id) && game_team.result == "LOSS"
         coaches[coach] += 1
       end
     end
-    coach_percentage_lost = coaches.map do |coach_name, game_loss|
+    coach_percentage_lost =
+      coaches.map do |coach_name, game_loss|
       percentage_lost = (game_loss.to_f / game_id_list.length) * 100
       [coach_name, percentage_lost]
     end.to_h
@@ -197,12 +200,12 @@ class StatTracker
     goals = Hash.new(0)
     shots = Hash.new(0)
     ratio = Hash.new(0)
-    game_id_list= games_by_season(season_id)
-      @game_teams.each do |game_team|
+    game_id_list= @game_stats.games_by_season(season_id)
+      @game_teams_stats.game_teams.each do |game_team|
         game_id = game_team.game_id
         current_team_id = game_team.team_id
 
-        if game_id_list.include?game_id
+        if game_id_list.include?(game_id)
 
           goals[current_team_id] += game_team.goals.to_f
           shots[current_team_id] += game_team.shots.to_f
@@ -218,7 +221,7 @@ class StatTracker
     #{game=>{teams => [team1, team2], winning_team = team1}}
     game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
 
-    @game_teams.each do |game|
+    @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
       winner = nil
       if game.result == "WIN"
@@ -262,7 +265,7 @@ class StatTracker
   def rival(team_id)
     game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
 
-    @game_teams.each do |game|
+    @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
       winner = nil
       if game.result == "WIN"

@@ -2,6 +2,7 @@ require "./lib/game_stats"
 require "./lib/game"
 require "./lib/game_teams"
 require "./lib/teams"
+require "./lib/stat_tracker"
 
 describe GameStats do
   before :each do
@@ -73,5 +74,21 @@ describe GameStats do
 
   it "can calculate which team was the highest scoring home team" do
     expect(@game_stats.home_teams_average_score.count).to eq(32)
+  end
+
+  it "can identify all games that correspond to a certain season id" do #helper method
+    game_path_dummy = "./spec/fixtures/dummy_game.csv"
+    game_stats_dummy = GameStats.from_csv(game_path_dummy)
+    
+    expected = ["2012030221",
+               "2012030222",
+               "2012030223",
+               "2012030224",
+               "2012030225",
+               "2012030311",
+               "2012030312",
+               "2012030313",
+               "2012030314"]
+    expect(game_stats_dummy.games_by_season("20122013")).to eq(expected)
   end
 end
