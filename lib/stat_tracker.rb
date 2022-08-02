@@ -46,8 +46,8 @@ class StatTracker
   def highest_total_score
     score_sum = 0
     games.each do |game|
-      if score_sum < (game.away_goals.to_i + game.home_goals.to_i)
-        score_sum = (game.away_goals.to_i + game.home_goals.to_i)
+      if score_sum < game.total_goals_game
+        score_sum = game.total_goals_game
       end
     end
     score_sum
@@ -55,13 +55,10 @@ class StatTracker
 
 
   def lowest_total_score
-    score_sum = 10000 #need to update for csv file with no data
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if score_sum > (away_goals + home_goals)
-        score_sum = (away_goals + home_goals)
+    score_sum = Float::INFINITY
+    games.each do |game|
+        if score_sum > game.total_goals_game
+        score_sum = game.total_goals_game
       end
     end
     score_sum
