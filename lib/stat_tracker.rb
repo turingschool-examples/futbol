@@ -7,11 +7,6 @@ class StatTracker
   attr_reader :locations, :data
 
   def initialize(game_path, team_path, game_teams_path)
-    # @locations = locations
-    # @data = {}
-    # locations.each_key do |key|
-    #   data[key] = CSV.read locations[key]
-    # end
 
     @game_path = game_path
     @team_path = team_path
@@ -61,71 +56,54 @@ class StatTracker
 
   def lowest_total_score
     score_sum = 10000 #need to update for csv file with no data
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if score_sum > (away_goals + home_goals)
-        score_sum = (away_goals + home_goals)
+    games.each do |game|
+      if score_sum > (game.away_goals.to_i + game.home_goals.to_i)
+        score_sum = (game.away_goals.to_i + game.home_goals.to_i)
       end
     end
     score_sum
   end
 
-
   def percentage_home_wins
     total_games = 0.0
     home_wins = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if home_goals > away_goals
+      if game.home_goals.to_i > game.away_goals.to_i
         home_wins += 1
       end
     end
-
     (home_wins / total_games).round(2)
   end
 
   def percentage_visitor_wins
     total_games = 0.0
     visitor_wins = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if home_goals < away_goals
+      if game.home_goals.to_i < game.away_goals.to_i
         visitor_wins += 1
       end
     end
-
     (visitor_wins / total_games).round(2)
   end
 
   def percentage_ties
     total_games = 0.0
     ties = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if home_goals == away_goals
+      if game.home_goals.to_i == game.away_goals.to_i
         ties += 1
       end
     end
-
     (ties / total_games).round(2)
   end
 
   def count_of_games_by_season
     season_games = Hash.new(0)
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      season_games[row[:season]] += 1
+    games.each do |game|
+      season_games[game.season] += 1 #changed from row[:season]
     end
     season_games
   end
@@ -133,23 +111,17 @@ class StatTracker
   def average_goals_per_game
     total_goals = 0.0
     total_games = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      total_goals += (away_goals + home_goals)
+      total_goals += (game.away_goals.to_i + game.home_goals.to_i)
     end
     (total_goals / total_games).round(2)
   end
 
   def total_goals_by_season
     total_season_goals = Hash.new(0.0)
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      total_season_goals[row[:season]] += away_goals + home_goals
+    games.each do |game|
+      total_season_goals[game.season] += game.away_goals.to_i + game.home_goals.to_i #same as ln 115
     end
     total_season_goals
   end
@@ -163,13 +135,11 @@ class StatTracker
     end
     avg_season_goals
   end
-
+########
   def count_of_teams
     team_count = 0
-    contents = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      teams = row[:team_id].to_i
-      if teams != 0
+    teams.each do |team|
+      if team.team_id != 0
         team_count += 1
       end
     end
@@ -177,106 +147,75 @@ class StatTracker
   end
 
   def best_offense
-    game_teams_csv = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
     goals_by_team_id = Hash.new(0)
     game_count_by_team_id = Hash.new(0)
-    game_teams_csv.each do |row|
-      goals_by_team_id[row[:team_id].to_i] += row[:goals].to_i
-      game_count_by_team_id[row[:team_id].to_i] += 1
+    game_teams.each do |game_team|
+      goals_by_team_id[game_team.team_id.to_i] += game_team.goals.to_i
+      game_count_by_team_id[game_team.team_id.to_i] += 1
     end
     average_teamid_score = goals_by_team_id.map{|team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
     best_offense_team_id = average_teamid_score.max_by { |team_id, average_goals| average_goals  }[0]
-    teams_csv = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    team_row = teams_csv.find do |row|
-      row[:team_id].to_i == best_offense_team_id
-    end
-    team_row[:teamname]
+    team_info(best_offense_team_id.to_s)['team_name']
   end
 
   def worst_offense
-    game_teams_csv = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
     goals_by_team_id = Hash.new(0)
     game_count_by_team_id = Hash.new(0)
-    game_teams_csv.each do |row|
-      goals_by_team_id[row[:team_id].to_i] += row[:goals].to_i
-      game_count_by_team_id[row[:team_id].to_i] += 1
+    game_teams.each do |game_team|
+      goals_by_team_id[game_team.team_id.to_i] += game_team.goals.to_i
+      game_count_by_team_id[game_team.team_id.to_i] += 1
     end
     average_teamid_score = goals_by_team_id.map{|team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
-    #in the method below we are checking the lowest scoring team by accessing the key at the end "[0]"
-    best_offense_team_id = average_teamid_score.min_by { |team_id, average_goals| average_goals }[0]
-    teams_csv = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    team_row = teams_csv.find do |row|
-      row[:team_id].to_i == best_offense_team_id
-    end
-    team_row[:teamname]
+    worst_offense_team_id = average_teamid_score.min_by { |team_id, average_goals| average_goals }[0]
+    team_info(worst_offense_team_id.to_s)['team_name']
   end
 
   def highest_scoring_visitor
-    games_csv = CSV.open(@game_path, headers: true, header_converters: :symbol)
     away_goals_by_team_id = Hash.new(0)
     game_count_by_team_id = Hash.new(0)
-    games_csv.each do |row|
-      away_goals_by_team_id[row[:away_team_id].to_i] += row[:away_goals].to_i
-      game_count_by_team_id[row[:away_team_id].to_i] += 1
+    games.each do |game|
+      away_goals_by_team_id[game.away_team_id.to_i] += game.away_goals.to_i
+      game_count_by_team_id[game.away_team_id.to_i] += 1
     end
     average_teamid_score = away_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
     best_away_team_id = average_teamid_score.max_by { |away_team_id, average_goals| average_goals }[0]
-    teams_csv = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    visitor_team_row = teams_csv.find do |row|
-      row[:team_id].to_i == best_away_team_id
-    end
-    visitor_team_row[:teamname]
+    team_info(best_away_team_id.to_s)['team_name']
   end
 
   def highest_scoring_home_team
-    games_csv = CSV.open(@game_path, headers: true, header_converters: :symbol)
     home_goals_by_team_id = Hash.new(0)
     game_count_by_team_id = Hash.new(0)
-    games_csv.each do |row|
-      home_goals_by_team_id[row[:home_team_id].to_i] += row[:home_goals].to_i
-      game_count_by_team_id[row[:home_team_id].to_i] += 1
+    games.each do |game|
+      home_goals_by_team_id[game.home_team_id.to_i] += game.home_goals.to_i
+      game_count_by_team_id[game.home_team_id.to_i] += 1
     end
     average_teamid_score = home_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
     best_home_team_id = average_teamid_score.max_by { |home_team_id, average_goals| average_goals }[0]
-    teams_csv = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    visitor_team_row = teams_csv.find do |row|
-      row[:team_id].to_i == best_home_team_id
-    end
-    visitor_team_row[:teamname]
+    team_info(best_home_team_id.to_s)['team_name']
   end
 
   def lowest_scoring_visitor
-    games_csv = CSV.open(@game_path, headers: true, header_converters: :symbol)
     away_goals_by_team_id = Hash.new(0)
     game_count_by_team_id = Hash.new(0)
-    games_csv.each do |row|
-      away_goals_by_team_id[row[:away_team_id].to_i] += row[:away_goals].to_i
-      game_count_by_team_id[row[:away_team_id].to_i] += 1
+    games.each do |game|
+      away_goals_by_team_id[game.away_team_id.to_i] += game.away_goals.to_i
+      game_count_by_team_id[game.away_team_id.to_i] += 1
     end
     average_teamid_score = away_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
     worst_away_team_id = average_teamid_score.min_by { |away_team_id, average_goals| average_goals }[0]
-    teams_csv = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    visitor_team_row = teams_csv.find do |row|
-      row[:team_id].to_i == worst_away_team_id
-    end
-    visitor_team_row[:teamname]
+    team_info(worst_away_team_id.to_s)['team_name']
   end
 
   def lowest_scoring_home_team
-    games_csv = CSV.open(@game_path, headers: true, header_converters: :symbol)
     home_goals_by_team_id = Hash.new(0)
     game_count_by_team_id = Hash.new(0)
-    games_csv.each do |row|
-      home_goals_by_team_id[row[:home_team_id].to_i] += row[:home_goals].to_i
-      game_count_by_team_id[row[:home_team_id].to_i] += 1
+    games.each do |game|
+      home_goals_by_team_id[game.home_team_id.to_i] += game.home_goals.to_i
+      game_count_by_team_id[game.home_team_id.to_i] += 1
     end
     average_teamid_score = home_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
     worst_home_team_id = average_teamid_score.min_by { |home_team_id, average_goals| average_goals }[0]
-    teams_csv = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    visitor_team_row = teams_csv.find do |row|
-      row[:team_id].to_i == worst_home_team_id
-    end
-    visitor_team_row[:teamname]
+    team_info(worst_home_team_id.to_s)['team_name']
   end
 
   def total_games_by_team(team_id)
@@ -466,12 +405,11 @@ class StatTracker
 
   def best_season(team_id)
     team_seasons = Hash.new { |season_id, games_won| season_id[games_won] = [0.0, 0.0] }
-    season = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    season.each do |row|
-      if row[:team_id] == team_id
-        team_seasons[row[:game_id][0..3]][0] += 1
-        if row[:result] == 'WIN'
-          team_seasons[row[:game_id][0..3]][1] += 1
+    game_teams.each do |game_team|
+      if game_team.team_id == team_id
+        team_seasons[game_team.game_id[0..3]][0] += 1
+        if game_team.result == 'WIN'
+          team_seasons[game_team.game_id[0..3]][1] += 1
         end
       end
     end
@@ -489,34 +427,33 @@ class StatTracker
 
   def worst_season(team_id)
     team_seasons = Hash.new { |season_id, games_won| season_id[games_won] = [0.0, 0.0] }
-    season = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    season.each do |row|
-      if row[:team_id] == team_id
-        team_seasons[row[:game_id][0..3]][0] += 1
-        if row[:result] == 'WIN'
-          team_seasons[row[:game_id][0..3]][1] += 1
+    game_teams.each do |game_team|
+      if game_team.team_id == team_id
+        team_seasons[game_team.game_id[0..3]][0] += 1
+        if game_team.result == 'WIN'
+          team_seasons[game_team.game_id[0..3]][1] += 1
         end
       end
     end
-    highest_win_percentage = 1.0
+    lowest_win_percentage = 1.0
     losingest_season = ''
     team_seasons.each do |season, wins_games|
-      if highest_win_percentage > wins_games[1] / wins_games[0]
-        highest_win_percentage = wins_games[1] / wins_games[0]
+      if lowest_win_percentage > wins_games[1] / wins_games[0]
+        lowest_win_percentage = wins_games[1] / wins_games[0]
         losingest_season = season
       end
     end
+    # require 'pry'; binding.pry
     return "#{losingest_season}#{losingest_season.next}"
   end
 
   def average_win_percentage(team_id)
     games_played = 0.0
     games_won = 0.0
-    game_teams = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    game_teams.each do |row|
-      if row[:team_id] == team_id
+    game_teams.each do |game_team|
+      if game_team.team_id == team_id
         games_played += 1
-        if row[:result] == "WIN"
+        if game_team.result == "WIN"
           games_won += 1
         end
       end
@@ -526,11 +463,10 @@ class StatTracker
 
   def most_goals_scored(team_id)
     highest_goal = 0
-    game_teams_csv = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    game_teams_csv.each do |row|
-      if row[:team_id] == team_id
-        if row[:goals].to_i > highest_goal
-          highest_goal = row[:goals].to_i
+    game_teams.each do |game_team|
+      if game_team.team_id == team_id
+        if game_team.goals.to_i > highest_goal
+          highest_goal = game_team.goals.to_i
         end
       end
     end
@@ -540,11 +476,10 @@ class StatTracker
 
   def fewest_goals_scored(team_id)
     lowest_goal = 100000
-    game_teams_csv = CSV.open(@game_teams_path, headers: true, header_converters: :symbol)
-    game_teams_csv.each do |row|
-      if row[:team_id] == team_id
-        if row[:goals].to_i < lowest_goal
-          lowest_goal = row[:goals].to_i
+    game_teams.each do |game_team|
+      if game_team.team_id == team_id
+        if game_team.goals.to_i < lowest_goal
+          lowest_goal = game_team.goals.to_i
         end
       end
     end
@@ -553,19 +488,18 @@ class StatTracker
 
   def favorite_opponent(team_id)
     opponent_stats = Hash.new { |opponent_id, stats| opponent_id[stats] = [0.0, 0.0, 0.0] } #[games_played, games_won]
-    games = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    games.each do |row|
-      if row[:home_team_id] == team_id #|| row[:home_team_id] == team_id
-        opponent_stats[row[:away_team_id]][0] += 1
-        if row[:home_goals] > row[:away_goals]
-          opponent_stats[row[:away_team_id]][1] += 1
+    games.each do |game|
+      if game.home_team_id == team_id #|| row[:home_team_id] == team_id
+        opponent_stats[game.away_team_id][0] += 1
+        if game.home_goals > game.away_goals
+          opponent_stats[game.away_team_id][1] += 1
         end
       end
 
-      if row[:away_team_id] == team_id
-        opponent_stats[row[:home_team_id]][0] += 1
-        if row[:away_goals] > row[:home_goals]
-          opponent_stats[row[:home_team_id]][1] += 1
+      if game.away_team_id == team_id
+        opponent_stats[game.home_team_id][0] += 1
+        if game.away_goals > game.home_goals
+          opponent_stats[game.home_team_id][1] += 1
         end
       end
     end
@@ -584,19 +518,18 @@ class StatTracker
 
   def rival(team_id)
     opponent_stats = Hash.new { |opponent_id, stats| opponent_id[stats] = [0.0, 0.0, 0.0] } #[games_played, games_won]
-    games = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    games.each do |row|
-      if row[:home_team_id] == team_id #|| row[:home_team_id] == team_id
-        opponent_stats[row[:away_team_id]][0] += 1
-        if row[:home_goals] > row[:away_goals]
-          opponent_stats[row[:away_team_id]][1] += 1
+    games.each do |game|
+      if game.home_team_id == team_id #|| row[:home_team_id] == team_id
+        opponent_stats[game.away_team_id][0] += 1
+        if game.home_goals > game.away_goals
+          opponent_stats[game.away_team_id][1] += 1
         end
       end
 
-      if row[:away_team_id] == team_id
-        opponent_stats[row[:home_team_id]][0] += 1
-        if row[:away_goals] > row[:home_goals]
-          opponent_stats[row[:home_team_id]][1] += 1
+      if game.away_team_id == team_id
+        opponent_stats[game.home_team_id][0] += 1
+        if game.away_goals > game.home_goals
+          opponent_stats[game.home_team_id][1] += 1
         end
       end
     end
