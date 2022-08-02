@@ -162,10 +162,10 @@ describe StatTracker do
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
 
-    xit 'can show name of the team with fewest tackles in the season' do
+    it 'can show name of the team with fewest tackles in the season' do
+
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Sporting Kansas City")
     end
-
   end
 
   describe 'Team Statistics' do
@@ -184,7 +184,7 @@ describe StatTracker do
     it 'can show season with the highest win percentage for a team' do #PASS
       expect(@stat_tracker.best_season("3")).to eq("20142015")
     end
-    
+
     xit 'can show season with the lowest win percentage for a team' do #PASS
       expect(@stat_tracker.worst_season("3")).to eq("20122013")
     end
@@ -213,7 +213,7 @@ describe StatTracker do
     it 'can determine number of rival games' do
       expect(@stat_tracker.rival_game("19")).to be_a Hash
     end
-    
+
     it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
       expect(@stat_tracker.rival("3")).to eq("FC Dallas")
     end
