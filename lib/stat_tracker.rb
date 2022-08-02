@@ -1,12 +1,20 @@
 require 'csv'
+require './lib/csv_loader.rb'
+require './lib/games'
+require './lib/league'
 
 class StatTracker
 
-  attr_reader :games, :teams, :game_teams
+  # attr_reader :games, :teams, :game_teams
   def initialize (games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
+    @gamezz = Games.new(games, teams, game_teams)
+    @league = League.new(games, teams, game_teams)
+    # @csv = CsvLoader.new(games, teams, game_teams)
+    # @details = DetailsLoader.new.load_all
+    # @games = games
+    # @teams = teams
+    # @game_teams = game_teams
+    # require "pry"; binding.pry
   end
 
   def self.from_csv(locations)
@@ -19,14 +27,16 @@ class StatTracker
 
  # Game Statistics
 
-  def total_scores_by_game #helper for issue #2, #3, #6
-    @games.values_at(:away_goals, :home_goals).map do |game|
-      game[0] + game[1]
-    end
-  end
+  # def total_scores_by_game #helper for issue #2, #3, #6
+  #   @games.values_at(:away_goals, :home_goals).map do |game|
+  #     game[0] + game[1]
+  #   end
+  # end
 
   def highest_total_score #issue #2
-    total_scores_by_game.max
+    # require "pry"; binding.pry
+    @gamezz.highest_total_score
+    # total_scores_by_game.max
   end
 
   def lowest_total_score #issue #3
@@ -141,27 +151,28 @@ class StatTracker
   end
 
   def highest_scoring_visitor #issue # 13 - Pass
-      away_team_ids_array = (@games[:away_team_id]).uniq.sort
-
-      team_ids_hash = {}
-      away_team_ids_array.each do |teamid|
-        team_ids_hash[teamid] = {sum_away_goals: 0, count_of_away_games_played: 0}
-      end
-
-      @games.each do |row|
-        team_ids_hash[row[:away_team_id]][:sum_away_goals] += row[:away_goals]
-        team_ids_hash[row[:away_team_id]][:count_of_away_games_played] += 1
-      end
-
-      averages_hash = {}
-
-      team_ids_hash.keys.each do |teamid|
-        averages_hash[teamid] = (team_ids_hash[teamid][:sum_away_goals]).to_f / (team_ids_hash[teamid][:count_of_away_games_played])
-      end
-
-      visitor_with_highest_score_array = averages_hash.max_by{|k,v| v}
-
-      visitor_team_name_with_highest_avg_score = team_by_id[visitor_with_highest_score_array[0]]
+    @league.highest_scoring_visitor
+      # away_team_ids_array = (@games[:away_team_id]).uniq.sort
+      #
+      # team_ids_hash = {}
+      # away_team_ids_array.each do |teamid|
+      #   team_ids_hash[teamid] = {sum_away_goals: 0, count_of_away_games_played: 0}
+      # end
+      #
+      # @games.each do |row|
+      #   team_ids_hash[row[:away_team_id]][:sum_away_goals] += row[:away_goals]
+      #   team_ids_hash[row[:away_team_id]][:count_of_away_games_played] += 1
+      # end
+      #
+      # averages_hash = {}
+      #
+      # team_ids_hash.keys.each do |teamid|
+      #   averages_hash[teamid] = (team_ids_hash[teamid][:sum_away_goals]).to_f / (team_ids_hash[teamid][:count_of_away_games_played])
+      # end
+      #
+      # visitor_with_highest_score_array = averages_hash.max_by{|k,v| v}
+      #
+      # visitor_team_name_with_highest_avg_score = team_by_id[visitor_with_highest_score_array[0]]
   end
 
   def scores_by_team_id(*game_type) #helper method for issue #14
