@@ -1,11 +1,10 @@
-require './lib/csv_loader'
-require './lib/reuseable'
+require './lib/details_loader'
 
-class Games < CsvLoader
-  include Reuseable
-
+class Games < DetailsLoader
+​
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
+    @details = DetailsLoader.new(games, teams, game_teams)
   end
 
   def total_scores_by_game #helper for issue #2, #3, #6
@@ -18,13 +17,13 @@ class Games < CsvLoader
     total_scores_by_game.max
   end
 
-  def lowest_total_score #issue #3
+  def lowest_total_score
     total_scores_by_game.min
   end
 
-  def home_wins #helper for issue #4
-    home_win = 0.0
-    @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
+  def home_wins #create games_spec file to test this helper #helper for issue #4
+  home_win = 0.0
+  @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
   end
 
   def home_games #helper for issue #4
@@ -36,7 +35,7 @@ class Games < CsvLoader
     percentage = (home_wins/home_games).round(2)
   end
 
-   def percentage_visitor_wins #issue #5 - passed spec harness and dummy
+  def percentage_visitor_wins #issue #5 - passed spec harness and dummy
 
     away_wins = 0
     away_games_played = 0
@@ -75,20 +74,19 @@ class Games < CsvLoader
   end
 
   def average_goals_by_season #issue #9 - Pass
-    my_hash = Hash.new { |h,k| h[k] = [] }
+  my_hash = Hash.new { |h,k| h[k] = [] }
 
-      count_of_games_by_season.each do |season, game_count|
-        my_hash[season] = []
-        game_sum_calc = []
-        games.each do |row|
-          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i
-          #require 'pry';binding.pry
-          my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
-        end
+    count_of_games_by_season.each do |season, game_count|
+      my_hash[season] = []
+      game_sum_calc = []
+      games.each do |row|
+        game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i
+        #require 'pry';binding.pry
+        my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
       end
-      my_hash
+    end
+    my_hash
   end
-
 end
 
 
