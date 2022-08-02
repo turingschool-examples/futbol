@@ -306,8 +306,8 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.all_team_games("3")).to be_an(Array)
-    expect(@stat_tracker_dummy.all_team_games("3").map {|game| game.game_id}).to eq(["2012030221",
+    expect(@stat_tracker_dummy.game_stats.all_team_games("3")).to be_an(Array)
+    expect(@stat_tracker_dummy.game_stats.all_team_games("3").map {|game| game.game_id}).to eq(["2012030221",
                                                                                      "2012030222",
                                                                                      "2012030223",
                                                                                      "2012030224",
