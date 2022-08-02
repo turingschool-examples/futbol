@@ -37,11 +37,17 @@ RSpec.describe TeamStatistics do
       end
 
       it 'knows the average win percentage of a given team' do
-        expect(team_statistics.avg_win_pct(17)).to eq 37.83231083844581
+        expect(team_statistics.avg_win_pct(17)).to eq 37.83
       end
 
-    end
+      it 'can return the rival team of a given team' do
+        expect(team_statistics.rival(28)).to eq ''
+      end
 
+      it 'can return the favorite opponent of a team' do
+        expect(team_statistics.favorite_opponent(28)).to eq ''
+      end
+    end
 end
 
 
