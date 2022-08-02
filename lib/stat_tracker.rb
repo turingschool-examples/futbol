@@ -187,6 +187,7 @@ class StatTracker
   def average_scores_by_team_id(*game_type) #helper method for issue #14
     average_scores= {}
     scores_by_team_id(*game_type).each do |team, scores|
+      next if scores.count ==0
       average = scores.sum/scores.count
       average_scores[team] = average.round(1)
     end
@@ -481,14 +482,12 @@ class StatTracker
     season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
 
-  def worst_season #issue # 25 - Fail due to not written
-
-
-
+  def worst_season(team_id) #issue # 25 - Fail due to not written
+    season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.min).to_s
   end
 
   def average_win_percentage(team_id) #issue # 20
-    (wins_by_team(team_id).count.to_f/games_by_team(team_id).count.to_f).round(2)
+    (wins_by_team(team_id.to_i).count.to_f/games_by_team(team_id.to_i).count.to_f).round(2)
   end
 
   def most_goals_scored(team_id) #issue # 27 pass
