@@ -3,12 +3,11 @@ require './lib/team_name_by_id_helper_module'
 
 class TeamStatistics
     # include Teamable
-    include TeamNameable
-
-    def initialize(teams_data, games_data, game_teams_data)
-      @teams_data = teams_data
-      @games_data = games_data
-      @game_teams_data = game_teams_data
+    # include TeamNameable
+    def initialize()
+      @teams_data = CSV.read "./data/teams.csv", headers: true, header_converters: :symbol
+      @game_teams_data = CSV.read "./data/game_teams.csv", headers: true, header_converters: :symbol
+      @games_data = CSV.read "./data/games.csv", headers: true, header_converters: :symbol
     end
 
     def team_info(given_team_id)
@@ -32,6 +31,26 @@ class TeamStatistics
     def best_season(given_team_id)
       season_record(given_team_id).max_by { |season, record| record[0] / (record[2] + record [1]) }.first
     end
+
+    def avg_win_pct(given_team_id)
+      overall_record = season_record(given_team_id).values.transpose.map(&:sum)
+      find_percentage(overall_record[0], (overall_record[0..2].sum))
+    end
+
+    def rival(given_team_id)
+      wins_and_losses = head_to_head_records(given_team_id)
+      rival_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
+      rival_team_id = find_team_name_by_id(fav_opponent_array[0])
+      find_team_name_by_id(rival_team_id)
+    end
+
+    def favorite_opponent(given_team_id)
+      wins_and_losses = head_to_head_records(given_team_id)
+      fav_opponent_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
+      favorite_team_id = find_team_name_by_id(fav_opponent_array[0])
+      find_team_name_by_id(favorite_team_id)
+    end
+
 
     ## HELPER METHODS
     def find_all_team_games(given_team_id)
@@ -60,8 +79,9 @@ class TeamStatistics
     end
 
     def find_percentage(numerator,denominator)
-      (numerator/denominator)*100.round(2)
+      ((numerator/denominator)*100).round(2)
     end
+
 
     ## long helper methods -- continue shredding
     def goals_scored_by_game(given_team_id)
@@ -84,11 +104,11 @@ class TeamStatistics
 
       home_games.each do |game|
         if game[:away_goals] > game[:home_goals]
-          season_record_hash[game[:season]][2] += 1
+          season_record_hash[game[:season]][2] += 1 #losses
         elsif game[:away_goals] < game[:home_goals]
-          season_record_hash[game[:season]][0] += 1
+          season_record_hash[game[:season]][0] += 1 #wins
         else
-          season_record_hash[game[:season]][1] += 1
+          season_record_hash[game[:season]][1] += 1 #ties
         end
       end
 
@@ -104,6 +124,47 @@ class TeamStatistics
       season_record_hash
     end
 
+    def rival(given_team_id)
+      wins_and_losses = head_to_head_records(given_team_id)
+      rival_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
+      rival_team_id = find_team_name_by_id(fav_opponent_array[0])
+      find_team_name_by_id(rival_team_id)
+    end
+
+    def favorite_opponent(given_team_id)
+      wins_and_losses = head_to_head_records(given_team_id)
+      fav_opponent_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
+      favorite_team_id = find_team_name_by_id(fav_opponent_array[0])
+      find_team_name_by_id(favorite_team_id)
+    end
+
+    def head_to_head_records(given_team_id)
+      home_games = home_games_by_team(given_team_id)
+      away_games = away_games_by_team(given_team_id)
+      wins_and_losses = Hash.new{|opposing_id, head_to_head| opposing_id[head_to_head] = [0.0, 0.0]}
+
+      home_games.each do |game|
+        if game[:away_goals] > game[:home_goals]
+          wins_and_losses[game[:away_team_id]][1] += 1
+        elsif game[:away_goals] < game[:home_goals]
+          wins_and_losses[game[:away_team_id]][0] += 1
+        else
+          #tie
+        end
+      end
+
+      away_games.each do |game|
+        if game[:away_goals] > game[:home_goals]
+          wins_and_losses[game[:home_team_id]][0] += 1
+        elsif game[:away_goals] < game[:home_goals]
+          wins_and_losses[game[:home_team_id]][1] += 1
+        else
+          #tie
+        end
+      end
+      wins_and_losses.delete(given_team_id.to_s)
+      wins_and_losses
+    end
 end
 
 
@@ -115,8 +176,5 @@ end
 
 
 
-#     def team_id_to_name(id)
-#       @teams.find { |team| team.team_id == id }.team_name
-#     end
-#   end
+#
 
