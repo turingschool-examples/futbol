@@ -56,7 +56,6 @@ RSpec.describe StatTracker do
   end
 
   it 'returns team with best offense' do
-    # allow(CSV).to receive(:open).with(locations[:game_teams], any_args).and_return(real_game_teams)
     expect(stat_tracker.best_offense).to eq("FC Dallas")
   end
 
