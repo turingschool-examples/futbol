@@ -9,7 +9,7 @@ describe GameTeamsStats do
     @game_teams_stats = GameTeamsStats.from_csv(game_teams_path)
     @game_teams_stats.extend(Helpable)
   end
-  
+
   it 'exists' do
     expect(@game_teams_stats).to be_a(GameTeamsStats)
   end
@@ -17,10 +17,5 @@ describe GameTeamsStats do
   xit "can calculate which team had the best offense" do
     expect(@game_teams_stats.best_offense).to eq "Reign FC"
   end
-
-
-
-
-
 
 end

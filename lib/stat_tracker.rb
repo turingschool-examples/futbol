@@ -2,23 +2,24 @@ require_relative "./teams"
 require_relative "./game"
 require_relative "./game_teams"
 require_relative "./game_stats"
+require_relative "./teams_stats.rb"
 
 class StatTracker
   attr_reader :game_stats,
-              :teams,
-              :game_teams
+              :teams_stats,
+              :game_teams_stats
 
-  def initialize(game_stats, teams, game_teams)
+  def initialize(game_stats, teams_stats, game_teams_stats)
     @game_stats = game_stats
-    @teams = teams
-    @game_teams = game_teams
+    @teams_stats = teams_stats
+    @game_teams_stats = game_teams_stats
   end
 
   def self.from_csv(locations)
     game_stats = GameStats.from_csv(locations[:games])
-    teams = Teams.create_multiple_teams(locations[:teams])
-    game_teams = GameTeams.create_multiple_game_teams(locations[:game_teams])
-    StatTracker.new(game_stats, teams, game_teams)
+    teams_stats = TeamsStats.from_csv(locations[:teams])
+    game_teams_stats = GameTeams.from_csv(locations[:game_teams])
+    StatTracker.new(game_stats, teams_stats, game_teams_stats)
   end
 
   def highest_total_score
@@ -61,7 +62,7 @@ class StatTracker
   end
 
   def count_of_teams
-    @teams.count { |team| team.team_id }
+    @team_stats.count_of_teams
   end
 
   def best_offense
@@ -120,17 +121,7 @@ class StatTracker
   end
 
   def team_info(team_id)
-    team_hash = Hash.new(0)
-    @teams.each do |team|
-      if team_id == team.team_id
-        team_hash["team_id"] = team.team_id
-        team_hash["franchise_id"] = team.franchise_id
-        team_hash["team_name"] = team.team_name
-        team_hash["abbreviation"] = team.abbreviation
-        team_hash["link"] = team.link
-      end
-    end
-    team_hash
+    @team_stats.team_info(team_id)
   end
 
   def best_season(team_id) #we need a hash with each season as the keys and the win % for the season as the value
@@ -239,7 +230,6 @@ class StatTracker
     @teams.each do |team|
       team_id = team.team_id
       team_name = team.team_name
-
       if team_id == max_ratio
         return team_name
       end
@@ -258,7 +248,7 @@ class StatTracker
       end
     end
   end
- 
+
   def lowest_scoring_visitor
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }

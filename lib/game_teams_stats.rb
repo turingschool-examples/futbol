@@ -4,7 +4,7 @@ require './helpable'
 
 class GameTeamsStats
   include Helpable
-  
+
   attr_reader :game_teams
 
   def initialize(game_teams)
@@ -17,5 +17,6 @@ class GameTeamsStats
     GameTeamsStats.new(game_teams_as_objects)
   end
 
+  #methods go here
 
 end
