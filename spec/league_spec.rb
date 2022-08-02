@@ -80,4 +80,20 @@ describe League do
   it '#avg_goals_by_season' do
     expect(@stat_tracker.league.avg_goals_by_season).to eq({"20132014" => 1, "20142015" => 3.5, "20152016" => 5.5})
   end
+
+  it '#away_team_by_goals' do
+    expect(@stat_tracker.league.away_team_by_goals).to eq({"3" => [2, 2], "6" => [2]})
+  end
+
+  it '#avg_away_team_by_goals' do
+    expect(@stat_tracker.league.avg_away_team_by_goals).to eq({"3" => 2, "6" => 2})
+  end
+
+  it '#home_team_by_goals' do
+    expect(@stat_tracker.league.home_team_by_goals).to eq({"6" => [3, 3]})
+  end
+
+  it '#avg_home_team_by_goals' do
+    expect(@stat_tracker.league.avg_home_team_by_goals).to eq({"6" => 3})
+  end
 end

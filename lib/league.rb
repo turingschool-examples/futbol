@@ -148,4 +148,37 @@ class League
     end
     avg_goals_by_season
   end
+
+  def away_team_by_goals
+    away_team_by_goals = Hash.new {|h,k| h[k]=[]}
+    @all_game_teams.each do |game|
+      away_team_by_goals[game.team_id] << game.goals.to_i if game.hoa == "away"
+    end
+    away_team_by_goals
+  end
+
+  def avg_away_team_by_goals
+    avg_away_team_by_goals = Hash.new(0)
+    away_team_by_goals.each do |team_id, goals|
+      avg_away_team_by_goals[team_id] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    avg_away_team_by_goals
+  end
+
+  def home_team_by_goals
+    home_team_by_goals = Hash.new {|h,k| h[k]=[]}
+    @all_game_teams.each do |game|
+      home_team_by_goals[game.team_id] << game.goals.to_i if game.hoa == "home"
+    end
+    home_team_by_goals
+  end
+
+  def avg_home_team_by_goals
+    avg_home_team_by_goals = Hash.new(0)
+    home_team_by_goals.each do |team_id, goals|
+      avg_home_team_by_goals[team_id] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    avg_home_team_by_goals
+  end
+
 end
