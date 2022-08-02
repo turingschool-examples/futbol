@@ -61,71 +61,54 @@ class StatTracker
 
   def lowest_total_score
     score_sum = 10000 #need to update for csv file with no data
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if score_sum > (away_goals + home_goals)
-        score_sum = (away_goals + home_goals)
+    games.each do |game|
+      if score_sum > (game.away_goals.to_i + game.home_goals.to_i)
+        score_sum = (game.away_goals.to_i + game.home_goals.to_i)
       end
     end
     score_sum
   end
 
-
   def percentage_home_wins
     total_games = 0.0
     home_wins = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if home_goals > away_goals
+      if game.home_goals.to_i > game.away_goals.to_i
         home_wins += 1
       end
     end
-
     (home_wins / total_games).round(2)
   end
 
   def percentage_visitor_wins
     total_games = 0.0
     visitor_wins = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if home_goals < away_goals
+      if game.home_goals.to_i < game.away_goals.to_i
         visitor_wins += 1
       end
     end
-
     (visitor_wins / total_games).round(2)
   end
 
   def percentage_ties
     total_games = 0.0
     ties = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      if home_goals == away_goals
+      if game.home_goals.to_i == game.away_goals.to_i
         ties += 1
       end
     end
-
     (ties / total_games).round(2)
   end
 
   def count_of_games_by_season
     season_games = Hash.new(0)
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      season_games[row[:season]] += 1
+    games.each do |game|
+      season_games[game.season] += 1 #changed from row[:season]
     end
     season_games
   end
@@ -133,23 +116,17 @@ class StatTracker
   def average_goals_per_game
     total_goals = 0.0
     total_games = 0.0
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
+    games.each do |game|
       total_games += 1
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      total_goals += (away_goals + home_goals)
+      total_goals += (game.away_goals.to_i + game.home_goals.to_i)
     end
     (total_goals / total_games).round(2)
   end
 
   def total_goals_by_season
     total_season_goals = Hash.new(0.0)
-    contents = CSV.open(@game_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      away_goals = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      total_season_goals[row[:season]] += away_goals + home_goals
+    games.each do |game|
+      total_season_goals[game.season] += game.away_goals.to_i + game.home_goals.to_i #same as ln 115
     end
     total_season_goals
   end
@@ -163,7 +140,7 @@ class StatTracker
     end
     avg_season_goals
   end
-
+########
   def count_of_teams
     team_count = 0
     contents = CSV.open(@team_path, headers: true, header_converters: :symbol)
