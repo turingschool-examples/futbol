@@ -53,12 +53,12 @@ class StatTracker
   end
 
   def count_of_teams
-    @team_stats.count_of_teams
+    @teams_stats.count_of_teams
   end
 
   def best_offense
     result = @game_teams_stats.best_offense
-    @teams_stats.team_id_to_name[minimum(result)[0]]   #uses a helper method
+    @teams_stats.team_id_to_name[maximum(result)[0]]   #uses a helper method
   end
 
   def worst_offense
@@ -135,8 +135,7 @@ class StatTracker
   def winningest_coach(season_id) #pull out game_teams somehow
     @game_stats.games_by_season(season_id)
     coaches = Hash.new(0)
-
-    @game_teams.each do |game_team|
+    @game_team.each do |game_team|
       coach = game_team.head_coach
       if game_id_list.include?(game_team.game_id) && game_team.result == "WIN"
         coaches[coach] += 1
@@ -193,7 +192,7 @@ class StatTracker
       end
     end
   end
-  
+
   def get_ratio(season_id)
     goals = Hash.new(0)
     shots = Hash.new(0)
