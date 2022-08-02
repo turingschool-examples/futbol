@@ -344,8 +344,8 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker.team_season_grouper("6")).to be_a(Hash)
-    expect(@stat_tracker.team_season_grouper("6").keys).to eq(["20122013", "20172018", "20132014", "20142015", "20152016", "20162017"])
+    expect(@stat_tracker.game_stats.team_season_grouper("6")).to be_a(Hash)
+    expect(@stat_tracker.game_stats.team_season_grouper("6").keys).to eq(["20122013", "20172018", "20132014", "20142015", "20152016", "20162017"])
   end
 
   it "can tell which season is a teams best" do
