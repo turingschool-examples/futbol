@@ -38,4 +38,11 @@ class MockGenerator < StatTracker
       end
     end
   end
+
+  def generate_coaches_by_season
+    CSV.open('./data/coaches_seasons.csv', 'w') do |csv|
+      csv << "head_coach, season"
+      @game_teams_data.each do |row|
+    end
+  end
 end

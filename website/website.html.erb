@@ -1,6 +1,3 @@
-require 'erb'
-require './lib/stat_tracker'
-
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
@@ -13,42 +10,46 @@ require './lib/stat_tracker'
     <p>Highest Total Score = <%= stat_tracker.highest_total_score %></p>
 
     <p>Lowest Total Score = <%= stat_tracker.lowest_total_score %></p>
-
+<%if false%>
     <p>Percentage Home Wins = <%= stat_tracker.percentage_home_wins %></p>
     
     <p>Percentage Visitor Wins = <%= stat_tracker.percentage_visitor_wins %>
     </p>
     
     <p>Percentage Ties = <%= stat_tracker.percentage_ties %></p>
-
+<% end %>
     <p>Average Goals Per Game = <%= stat_tracker.average_goals_per_game %></p>
 
     <p>
-    Average Goals by Season = 
+    Average Goals by Season <br>
     <% stat_tracker.average_goals_by_season.each do |season, average| %>
-    <%= "#{season} = #{average}" %>
+    <%= "#{season} = #{average}" %> <br>
     <% end %>
     </p>
 
-    Count of Games by Season =
+    Count of Games by Season <br><br>
     <% stat_tracker.count_of_games_by_season.each do |season, games| %>
-    <% "#{season} = #{games}" %>
+    <%= "#{season} = #{games}" %> <br><br>
+    <% end %>
 
-    Count of Teams = <%= stat_tracker.count_of_teams %>
-    Best Offense = <%= stat_tracker.best_offense %>
-    Worst Offense = <%= stat_tracker.worst_offense %>
-    Highest Scoring Visitor = <%= stat_tracker.highest_scoring_visitor %>
-    Lowest Scoring Visitor = <%= stat_tracker.lowest_scoring_visitor %>
+    Count of Teams = <%= stat_tracker.count_of_teams %> <br> <br>
+    Best Offense = <%= stat_tracker.best_offense %> <br> <br>
+    Worst Offense = <%= stat_tracker.worst_offense %> <br> <br>
+    Highest Scoring Visitor = <%= stat_tracker.highest_scoring_visitor %> <br> <br>
+    Lowest Scoring Visitor = <%= stat_tracker.lowest_scoring_visitor %> <br> <br>
+  
 
-    Season Statistics
-    <% stat_tracker.seasons.each do |season|%>
-    Season = <%= season%>
-    Winningest Coach = <%= stat_tracker.winningest_coach(season)%>
-    Worst Coach = <%= stat_tracker.worst_coach(season)%>
-    Most Accurate Team = <%= stat_tracker.most_accurate_team(season)%>
+    Season Statistics <br>
+    <% stat_tracker.seasons.each do |season|%> <br>
+    Season = <%= season%> <br>
+    Winningest Coach = <%= stat_tracker.winningest_coach(season)%> <br>
+    Worst Coach = <%= stat_tracker.worst_coach(season)%> <br>
+    Most Accurate Team = <%= stat_tracker.most_accurate_team(season)%> <br>
     Least Accurate Team = <%= stat_tracker.least_accurate_team(season)%>
     Most Tackles = <%= stat_tracker.most_tackles(season)%>
     Fewest Tackles = <%= stat_tracker.fewest_tackles(season)%>
     <% end %>
+
+
   </body>
 </html>

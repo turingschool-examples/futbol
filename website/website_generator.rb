@@ -12,6 +12,7 @@ locations = {
             }
 
 stat_tracker = StatTracker.from_csv(locations)
+erb_file = File.expand_path('./website.html.erb', File.dirname(__FILE__))
+website = ERB.new(File.read(erb_file)).result(binding)
 
-
-require 'pry'; binding.pry
+File.open('./website/website.html', 'w') { |file| file.write(website) }
