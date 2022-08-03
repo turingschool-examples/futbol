@@ -1,4 +1,4 @@
-require './lib/details_loader'
+require_relative 'details_loader'
 
 
 class Team < DetailsLoader
