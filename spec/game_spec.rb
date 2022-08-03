@@ -76,6 +76,27 @@ RSpec.describe Game do
     end
   end
 
+  describe '#home_win?' do
+    it 'returns true with a home win' do
+
+      expect(@game.home_win?).to be true
+    end
+  end
+
+  describe '#visitor_win?' do
+    it 'returns true with a visitor win' do
+
+      expect(@game.visitor_win?).to be false
+    end
+  end
+
+  describe '#tie' do
+    it "returns true with a tie" do
+
+      expect(@game.tie?).to be false4
+    end
+  end
+
   describe 'opponent_id' do
     it 'gives the opponent based on a team_id argument' do
       expect(@game.opponent_id("3")).to eq("6")
