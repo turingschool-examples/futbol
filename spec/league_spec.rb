@@ -1,6 +1,6 @@
 require_relative 'spec_helper.rb'
 require 'csv'
-require './lib/legue'
+require './lib/league'
 require './lib/csv_loader'
 require './lib/details_loader'
 
@@ -24,7 +24,7 @@ describe League do
   describe 'Game Class initializes' do
     it 'Game Class exists'do
       expect(@league_stats).to be_an_instance_of(League)
-      expect(@gleague_stats).to be_kind_of(DetailsLoader)
+      expect(@league_stats).to be_kind_of(DetailsLoader)
       expect(@league_stats).to be_kind_of(CsvLoader)
     end
 
@@ -36,3 +36,18 @@ describe League do
   end
 
   describe 'Test Game Stats Helpers' do
+
+  it "average_scores_by_team_id" do
+    expect(@league_stats.average_scores_by_team_id("home", "away")).to have_key(24)
+    expect(@league_stats.average_scores_by_team_id("home")).to have_key(3)
+    expect(@league_stats.average_scores_by_team_id("away")).to have_key(54)
+  end
+
+  it "scores_by_team_id" do
+    expect(@league_stats.scores_by_team_id("home", "away")).to have_key(24)
+    expect(@league_stats.scores_by_team_id("home")).to have_key(3)
+    expect(@league_stats.scores_by_team_id("away")).to have_key(5)
+  end
+
+  end
+end
