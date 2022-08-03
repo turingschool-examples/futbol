@@ -1,7 +1,7 @@
 require "csv"
 require_relative "./game"
-require "./helpable"
-require "./groupable"
+require_relative "./helpable"
+require_relative "./groupable"
 
 class GameStats
   include Helpable

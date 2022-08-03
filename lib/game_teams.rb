@@ -1,6 +1,3 @@
-require_relative './stat_tracker'
-require 'csv'
-
 class GameTeams
   attr_reader :game_id,
               :team_id,
