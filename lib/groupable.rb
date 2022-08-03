@@ -30,5 +30,4 @@ module Groupable
     end
     game_id_list
   end
-
 end
