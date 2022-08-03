@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
+    <style>
+      background1 {
+        border: 2px solid black;
+        padding: 25px;
+        background: url(https://unsplash.com/photos/UiiHVEyxtyA);
+        background-repeat: no-repeat;
+        background-size: 300px 100px;
+      }
+      h1 {
+        border-bottom: 5px solid red;
+      }
+      table, td, th {
+        border: 1px solid black;
+      }
+    </style>
     <meta charset="utf-8">
     <title>Futbol Stat Displayer</title>
   </head>
 
   <body>
+  <div id="background1">
+    <h1>FUTBOL GROUP PROJECT WEBSITE</h1>
+  </div>
     League-wide Statistics
     <p>Highest Total Score = <%= stat_tracker.highest_total_score %></p>
 
@@ -38,7 +56,7 @@
     Highest Scoring Visitor = <%= stat_tracker.highest_scoring_visitor %> <br> <br>
     Lowest Scoring Visitor = <%= stat_tracker.lowest_scoring_visitor %> <br> <br><br>
   
-Season Statistics <br><br>
+<h2>Season Statistics</h2> <br><br>
  <table>
   <tr>
     <th>Season  </th>
@@ -62,7 +80,7 @@ Season Statistics <br><br>
   </tr>
 </table><br><br>
 
-<h1> Team Info Table </h1>
+<h2> Team Info Table </h2>
 <table>
   <tr>
     <th> Team </th>
@@ -84,7 +102,7 @@ Season Statistics <br><br>
   <% end %>
 </table>
 
-<h1> Team Statistics Table </h1>
+<h2> Team Statistics Table </h2>
 <table>
   <tr>
     <th> Team </th>

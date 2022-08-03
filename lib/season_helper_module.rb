@@ -2,45 +2,56 @@ module Seasonable
   def games_by_season(season)
     games_array = []
     @games_data.each do |row|
-    games_array <<row[:game_id] if row[:season] == season
+      games_array << row[:game_id] if row[:season] == season
     end
     games_array.uniq
   end
 
   def coaches_by_season(season)
     coaches_array = []
-    games_by_season(season).each do |game|
-      @game_teams_data.select { |row| row[:game_id] == game }.each do |row|
+    games_array = games_by_season(season)
+    @game_teams_data.each do |row|
+      if games_array.include?(row[:game_id])
         coaches_array << row[:head_coach].to_sym
       end
     end
     coaches_array.uniq
   end
+  
 
   def coach_records(season)
     coach_records = Hash.new
+    games_by_season(season)
     coaches_by_season(season).each do |coach|
       coach_records.store(coach, {wins: 0, total_games: 0})
     end
     coach_records
   end
 
-  def populate_coach_records(season, records)
-    games_by_season(season).each do |game|
-      @game_teams_data.each do |row|
-        process_coach_record(records, row) if game == row[:game_id]
+  def populate_coach_records(season)
+    records = coach_records(season)
+    games_array = games_by_season(season)
+    @game_teams_data.each do |row|
+      if games_array.include?(row[:game_id])
+        if row[:result] == "WIN"
+          records[row[:head_coach].to_sym][:wins] += 1
+          records[row[:head_coach].to_sym][:total_games] += 1
+        else
+          records[row[:head_coach].to_sym][:total_games] += 1
+        end
       end
     end
+    records
   end
 
-  def process_coach_record(records, row)
-    if row[:result] == "WIN"
-      records[row[:head_coach].to_sym][:wins] += 1
-      records[row[:head_coach].to_sym][:total_games] += 1
-    else
-      records[row[:head_coach].to_sym][:total_games] += 1
-    end
-  end
+  # def process_coach_record(records, row)
+  #   if row[:result] == "WIN"
+  #     records[row[:head_coach].to_sym][:wins] += 1
+  #     records[row[:head_coach].to_sym][:total_games] += 1
+  #   else
+  #     records[row[:head_coach].to_sym][:total_games] += 1
+  #   end
+  # end
 
   def winning_record(records)
     records.map do |coach, record|
@@ -57,17 +68,19 @@ module Seasonable
   end
 
   def populate_accuracy_records(season, records)
+    games_array = games_by_season(season)
     @game_teams_data.each do |row|
-      games_by_season(season).each do |game|
-        process_accuracy_record(records, row) if game == row[:game_id]
+      if games_array.include?(row[:game_id])
+        records[row[:team_id].to_sym][:goals] += row[:goals].to_i
+        records[row[:team_id].to_sym][:shots] += row[:shots].to_i
       end
     end
   end
 
-  def process_accuracy_record(records, row)
-    records[row[:team_id].to_sym][:goals] += row[:goals].to_i
-    records[row[:team_id].to_sym][:shots] += row[:shots].to_i
-  end
+  # def process_accuracy_record(records, row)
+  #   records[row[:team_id].to_sym][:goals] += row[:goals].to_i
+  #   records[row[:team_id].to_sym][:shots] += row[:shots].to_i
+  # end
 
   def most_accurate(records)
     records.max_by { |h,k| (k[:goals].to_f / k[:shots].to_f) }[0]
@@ -86,9 +99,10 @@ module Seasonable
   end
 
   def populate_tackle_records(season, records)
+    games_array = games_by_season(season)
     @game_teams_data.each do |row|
-      games_by_season(season).each do |game|
-        process_tackle_record(records, row) if game == row[:game_id]
+      if games_array.include?(row[:game_id])
+        process_tackle_record(records, row) 
       end
     end
   end
@@ -107,14 +121,13 @@ module Seasonable
 
   def teams_by_season(season)
     teams_array = []
-    games_by_season(season).each do |game|
-      @game_teams_data.each do |row|
-        if game == row[:game_id]
-          teams_array << row[:team_id].to_sym
-        end
+    games_array = games_by_season(season)
+    @game_teams_data.each do |row|
+      if games_array.include?(row[:game_id])
+        teams_array << row[:team_id].to_sym
       end
     end
-    teams_array.uniq
+    teams_array
   end
 
   def find_team_name_by_id(id_number)
