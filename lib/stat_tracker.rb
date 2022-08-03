@@ -10,9 +10,7 @@ class StatTracker
   include Isolatable
   include Helpable
 
-  attr_reader :game_stats,
-              :teams_stats,
-              :game_teams_stats
+  attr_reader :game_stats, :teams_stats, :game_teams_stats
 
   def initialize(game_stats, teams_stats, game_teams_stats)
     @game_stats = game_stats
@@ -64,33 +62,27 @@ class StatTracker
   end
 
   def best_offense
-    result = @game_teams_stats.best_offense
-    @teams_stats.team_id_to_name[maximum(result)[0]]   #uses a helper method
+    @teams_stats.team_id_to_name[maximum(@game_teams_stats.best_offense)[0]] #uses a helper method
   end
 
   def worst_offense
-    result = @game_teams_stats.worst_offense
-    @teams_stats.team_id_to_name[minimum(result)[0]]     #uses a helper method
+    @teams_stats.team_id_to_name[minimum(@game_teams_stats.worst_offense)[0]] #uses a helper method
   end
 
   def highest_scoring_visitor
-    visitor_scores_average = @game_stats.visitor_teams_average_score
-    @teams_stats.team_id_to_name[maximum(visitor_scores_average)[0]]
+    @teams_stats.team_id_to_name[maximum(@game_stats.visitor_teams_average_score)[0]]
   end
 
   def highest_scoring_home_team
-    home_scores_average = @game_stats.home_teams_average_score
-    @teams_stats.team_id_to_name[maximum(home_scores_average)[0]]
+    @teams_stats.team_id_to_name[maximum(@game_stats.home_teams_average_score)[0]]
   end
 
   def lowest_scoring_visitor
-    visitor_scores_average = @game_stats.visitor_teams_average_score
-    @teams_stats.team_id_to_name[minimum(visitor_scores_average)[0]]
+    @teams_stats.team_id_to_name[minimum(@game_stats.visitor_teams_average_score)[0]]
   end
 
   def lowest_scoring_home_team
-    home_scores_average = @game_stats.home_teams_average_score
-    @teams_stats.team_id_to_name[minimum(home_scores_average)[0]]
+    @teams_stats.team_id_to_name[minimum(@game_stats.home_teams_average_score)[0]]
   end
 
   def most_goals_scored(team_id)
@@ -102,9 +94,7 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    total_games = @game_teams_stats.team_isolator(team_id).count
-    total_wins = @game_teams_stats.win_isolator(team_id).count
-    (total_wins.to_f / total_games).round(2)
+    ((@game_teams_stats.win_isolator(team_id).count).to_f / (@game_teams_stats.team_isolator(team_id).count)).round(2)
   end
 
   def team_info(team_id)
@@ -128,7 +118,7 @@ class StatTracker
     tackles_by_team = all_tackles_this_season(season)
     @teams_stats.team_id_to_name[minimum(tackles_by_team)[0]]
   end
-
+  
   def winningest_coach(season_id)
     game_id_list = @game_stats.games_by_season(season_id)
     coaches = @game_teams_stats.isolate_coach_wins(game_id_list)
@@ -142,27 +132,16 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    ratio = get_ratio(season_id)
-    max_ratio = ratio.max_by { |k, v| v }[0]
+    max_ratio = get_ratio(season_id).max_by { |k, v| v }[0]
     @teams_stats.teams.each do |team|
-      team_id = team.team_id
-      team_name = team.team_name
-      if team_id == max_ratio
-        return team_name
-      end
+      return team.team_name if team.team_id == max_ratio
     end
   end
 
   def least_accurate_team(season_id)
-    ratio = get_ratio(season_id)
-    min_ratio = ratio.min_by { |k, v| v }[0]
+    min_ratio = get_ratio(season_id).min_by { |k, v| v }[0]
     @teams_stats.teams.each do |team|
-      team_id = team.team_id
-      team_name = team.team_name
-
-      if team_id == min_ratio
-        return team_name
-      end
+    return team.team_name if team.team_id == min_ratio
     end
   end
 
@@ -170,24 +149,22 @@ class StatTracker
     goals = Hash.new(0)
     shots = Hash.new(0)
     ratio = Hash.new(0)
-    game_id_list = @game_stats.games_by_season(season_id)
-    @game_teams_stats.game_teams.each do |game_team|
-      game_id = game_team.game_id
-      current_team_id = game_team.team_id
 
-      if game_id_list.include?(game_id)
-        goals[current_team_id] += game_team.goals.to_f
-        shots[current_team_id] += game_team.shots.to_f
-        ratio[current_team_id] = goals[current_team_id] / shots[current_team_id]
-      end
+    game_id_list= @game_stats.games_by_season(season_id)
+      @game_teams_stats.game_teams.each do |game_team|
+        game_id = game_team.game_id
+        current_team_id = game_team.team_id
+        if game_id_list.include?(game_id)
+          goals[current_team_id] += game_team.goals.to_f
+          shots[current_team_id] += game_team.shots.to_f
+          ratio[current_team_id] = goals[current_team_id]/shots[current_team_id]
+        end
     end
     return ratio
   end
 
   def favorite_opponent(team_id)
-    #{game=>{teams => [team1, team2], winning_team = team1}}
     game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
-
     @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
       winner = nil
@@ -206,7 +183,6 @@ class StatTracker
     game_hash = game_hash
       .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
       .to_h
-
     team_scores = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
     game_hash.each do |game_id, teams_hash|
       other_team_id = teams_hash[:other_team_id]
@@ -231,7 +207,6 @@ class StatTracker
 
   def rival(team_id)
     game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
-
     @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
       winner = nil
@@ -250,7 +225,6 @@ class StatTracker
     game_hash = game_hash
       .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
       .to_h
-
     team_scores = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
     game_hash.each do |game_id, teams_hash|
       other_team_id = teams_hash[:other_team_id]
@@ -262,7 +236,6 @@ class StatTracker
         team_scores[other_team_id][:ties] += 1
       end
     end
-
     max_win_percent =
       team_scores.max do |team_win_1, team_win_2|
         win_percentage_1 = (team_win_1[1][:wins] / (team_win_1[1][:losses] + team_win_1[1][:ties] + team_win_1[1][:wins])) * 100
