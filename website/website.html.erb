@@ -91,7 +91,7 @@
   </tr>
   <% stat_tracker.team_ids.each do |team| %>
   <tr>
-    <td><%= stat_tracker.team_info(team)["teamname"]%></td>
+    <td><%= stat_tracker.team_info(team)["team_name"]%></td>
     <td><%= stat_tracker.team_info(team)["abbreviation"]%></td>
     <td><%= stat_tracker.team_info(team)["team_id"]%></td>
     <td><%= stat_tracker.team_info(team)["franchise_id"]%></td>
@@ -114,7 +114,7 @@
   </tr>
   <% stat_tracker.team_ids.each do |team| %>
   <tr>
-    <td><%= stat_tracker.team_info(team)["teamname"]%></td>
+    <td><%= stat_tracker.team_info(team)["team_name"]%></td>
     <td><%= stat_tracker.best_season(team)%></td>
     <td><%= stat_tracker.worst_season(team)%></td>
     <td><%= stat_tracker.most_goals_scored(team)%></td>

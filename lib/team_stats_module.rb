@@ -29,7 +29,7 @@ module Teamable
       "franchise_id" => team_info[:franchiseid],
       "link" => team_info[:link],
       "team_id" => team_info[:team_id],
-      "teamname" => team_info[:teamname],
+      "team_name" => team_info[:teamname],
     }
   end
 
