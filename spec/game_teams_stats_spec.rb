@@ -1,17 +1,20 @@
-require './lib/game_teams_stats'
-require './lib/game'
-require './lib/game_teams'
-require './lib/teams'
-require 'csv'
+require "./game_teams_stats"
+require "./game"
+require "./game_teams"
+require "./teams"
+require "csv"
+require "./isolatable"
+require "./helpable"
 
 describe GameTeamsStats do
   before :each do
     game_teams_path = "./data/game_teams.csv"
     @game_teams_stats = GameTeamsStats.from_csv(game_teams_path)
     @game_teams_stats.extend(Helpable)
+    @game_teams_stats.extend(Isolatable)
   end
 
-  it 'exists' do
+  it "exists" do
     expect(@game_teams_stats).to be_a(GameTeamsStats)
   end
 
@@ -32,4 +35,95 @@ describe GameTeamsStats do
     expect(@game_teams_stats.worst_offense[0][0].to_i).to eq 3
   end
 
+  it "can isolate coach wins" do
+    game_id_list = ["2013030161",
+      "2013030162",
+      "2013030163",
+      "2013030164",
+      "2013030165",
+      "2013030166",
+      "2013030151",
+      "2013030152",
+      "2013030153",
+      "2013030154",
+      "2013030155"]
+    expect(@game_teams_stats.isolate_coach_wins(game_id_list).length).to eq(4)
+    expect(@game_teams_stats.isolate_coach_wins(game_id_list).keys[0]).to eq("Joel Quenneville")
+    expect(@game_teams_stats.isolate_coach_wins(game_id_list)).to be_a(Hash)
+  end
+
+  it "can calculate game percentage won for a coach" do
+    game_id_list = ["2013030161",
+      "2013030162",
+      "2013030163",
+      "2013030164",
+      "2013030165",
+      "2013030166",
+      "2013030151",
+      "2013030152",
+      "2013030153",
+      "2013030154",
+      "2013030155"]
+      coaches =
+      {"Ken Hitchcock"=>28,
+        "Joel Quenneville"=>30,
+        "Mike Yeo"=>35,
+        "Patrick Roy"=>33,
+        "Bruce Boudreau"=>26,
+        "Darryl Sutter"=>35,
+        "Lindy Ruff"=>36,
+        "Craig Berube"=>31,
+        "Mike Babcock"=>31,
+        "Dan Bylsma"=>34,
+        "Jack Capuano"=>34 }
+    expect(@game_teams_stats.coach_percentage_won(coaches, game_id_list)).to be_a(Hash)
+    expect(@game_teams_stats.coach_percentage_won(coaches, game_id_list).length).to eq(4)
+    expect(@game_teams_stats.coach_percentage_won(coaches, game_id_list).keys[0]).to eq("Joel Quenneville")
+  end
+
+  it "can isolate coach losses" do
+    game_id_list = ["2013030161",
+      "2013030162",
+      "2013030163",
+      "2013030164",
+      "2013030165",
+      "2013030166",
+      "2013030151",
+      "2013030152",
+      "2013030153",
+      "2013030154",
+      "2013030155"]
+    expect(@game_teams_stats.isolate_coach_loss(game_id_list).length).to eq(4)
+    expect(@game_teams_stats.isolate_coach_loss(game_id_list).keys[0]).to eq("Ken Hitchcock")
+    expect(@game_teams_stats.isolate_coach_loss(game_id_list)).to be_a(Hash)
+  end
+
+  it "can calculate game percentage lost for a coach" do
+    game_id_list = ["2013030161",
+      "2013030162",
+      "2013030163",
+      "2013030164",
+      "2013030165",
+      "2013030166",
+      "2013030151",
+      "2013030152",
+      "2013030153",
+      "2013030154",
+      "2013030155"]
+      coaches =
+      {"Ken Hitchcock"=>28,
+        "Joel Quenneville"=>30,
+        "Mike Yeo"=>35,
+        "Patrick Roy"=>33,
+        "Bruce Boudreau"=>26,
+        "Darryl Sutter"=>35,
+        "Lindy Ruff"=>36,
+        "Craig Berube"=>31,
+        "Mike Babcock"=>31,
+        "Dan Bylsma"=>34,
+        "Jack Capuano"=>34 }
+    expect(@game_teams_stats.coach_percentage_loss(coaches, game_id_list)).to be_a(Hash)
+    expect(@game_teams_stats.coach_percentage_loss(coaches, game_id_list).length).to eq(4)
+    expect(@game_teams_stats.coach_percentage_loss(coaches, game_id_list).keys[0]).to eq("Ken Hitchcock")
+  end
 end

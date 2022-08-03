@@ -1,12 +1,15 @@
 require_relative "./game_teams_stats"
 require_relative "./game_stats"
 require_relative "./teams_stats"
-require './groupable'
-require './isolatable'
+require_relative "./groupable"
+require_relative "./isolatable"
+require_relative "./helpable"
 
 class StatTracker
   include Groupable
   include Isolatable
+  include Helpable
+
   attr_reader :game_stats, :teams_stats, :game_teams_stats
 
   def initialize(game_stats, teams_stats, game_teams_stats)
@@ -87,7 +90,7 @@ class StatTracker
   end
 
   def fewest_goals_scored(team_id)
-    @game_teams_stats.most_goals_scored(team_id)
+    @game_teams_stats.fewest_goals_scored(team_id)
   end
 
   def average_win_percentage(team_id)
@@ -95,7 +98,7 @@ class StatTracker
   end
 
   def team_info(team_id)
-    @team_stats.team_info(team_id)
+    @teams_stats.team_info(team_id)
   end
 
   def best_season(team_id)
@@ -107,54 +110,25 @@ class StatTracker
   end
 
   def most_tackles(season)
-    total_tackles = Hash.new(0)
-    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
-      games.map do |game|
-        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
-      end
-    end
-    @teams_stats.team_id_to_name[maximum(total_tackles)[0]]
+    tackles_by_team = all_tackles_this_season(season)
+    @teams_stats.team_id_to_name[maximum(tackles_by_team)[0]]
   end
 
   def fewest_tackles(season)
-    total_tackles = Hash.new(0)
-    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
-      games.map do |game|
-        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
-      end
-    end
-    @teams_stats.team_id_to_name[minimum(total_tackles)[0]]
+    tackles_by_team = all_tackles_this_season(season)
+    @teams_stats.team_id_to_name[minimum(tackles_by_team)[0]]
   end
-
-
+  
   def winningest_coach(season_id)
-    coaches = Hash.new(0)
-    @game_teams_stats.game_teams.each do |game_team|
-      if @game_stats.games_by_season(season_id).include?(game_team.game_id) && game_team.result == "WIN"
-        coaches[game_team.head_coach] += 1
-      end
-    end
-    coach_percentage_won =
-      coaches.map do |coach_name, game_win|
-        percentage_won = (game_win.to_f / @game_stats.games_by_season(season_id).length) * 100
-        [coach_name, percentage_won]
-      end.to_h
-    maximum(coach_percentage_won)[0]
+    game_id_list = @game_stats.games_by_season(season_id)
+    coaches = @game_teams_stats.isolate_coach_wins(game_id_list)
+    maximum(@game_teams_stats.coach_percentage_won(coaches, game_id_list))[0]
   end
 
   def worst_coach(season_id)
-    coaches = Hash.new(0)
-    @game_teams_stats.game_teams.each do |game_team|
-      if @game_stats.games_by_season(season_id).include?(game_team.game_id) && game_team.result == "LOSS"
-        coaches[game_team.head_coach] += 1
-      end
-    end
-    coach_percentage_lost =
-      coaches.map do |coach_name, game_loss|
-      percentage_lost = (game_loss.to_f / @game_stats.games_by_season(season_id).length) * 100
-      [coach_name, percentage_lost]
-    end.to_h
-    minimum(coach_percentage_lost)[0]
+    game_id_list = @game_stats.games_by_season(season_id)
+    coaches = @game_teams_stats.isolate_coach_loss(game_id_list)
+    minimum(@game_teams_stats.coach_percentage_loss(coaches, game_id_list))[0]
   end
 
   def most_accurate_team(season_id)
@@ -175,6 +149,7 @@ class StatTracker
     goals = Hash.new(0)
     shots = Hash.new(0)
     ratio = Hash.new(0)
+
     game_id_list= @game_stats.games_by_season(season_id)
       @game_teams_stats.game_teams.each do |game_team|
         game_id = game_team.game_id
