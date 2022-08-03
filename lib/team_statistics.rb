@@ -12,20 +12,20 @@ class TeamStatistics
     end
 
     def team_info(given_team_id)
-
       all_team_info = @teams_data.select do |team|
         team[:team_id].to_s == given_team_id.to_s
       end[0]
 
-      team_info_hash = {
-        "abbreviation" => all_team_info[:abbreviation],
-        "franchise_id" => all_team_info[:franchiseid],
-        "link" => all_team_info[:link],
-        "stadium" => all_team_info[:stadium],
-        "team_id" => all_team_info[:team_id],
-        "teamname" => all_team_info[:teamname],
-      }
+      create_team_info_hash(all_team_info)
     end
+
+      # team_info_hash = {
+      #   "abbreviation" => all_team_info[:abbreviation],
+      #   "franchise_id" => all_team_info[:franchiseid],
+      #   "link" => all_team_info[:link],
+      #   "team_id" => all_team_info[:team_id],
+      #   "teamname" => all_team_info[:teamname],
+      # }
 
     def fewest_goals_scored(given_team_id)
       goals_scored_by_game(given_team_id).min
@@ -45,8 +45,10 @@ class TeamStatistics
 
     def average_win_percentage(given_team_id)
       overall_record = season_record(given_team_id).values.transpose.map(&:sum)
-      find_percentage(overall_record[0], (overall_record[0..2].sum))
+      percentage = find_percentage(overall_record[0], (overall_record[0..2].sum))
+      not_a_percentage =  (percentage/100).round(2)
     end
+
 
     def rival(given_team_id)
       wins_and_losses = head_to_head_records(given_team_id)

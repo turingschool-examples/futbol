@@ -13,7 +13,7 @@ RSpec.describe TeamStatistics do
       end
 
       it 'can return info on teams' do
-        expect(team_statistics.team_info(28)).to eq({"abbreviation" => "LFC", "franchise_id" => "29", "link" => "/api/v1/teams/28", "stadium" => "Banc of California Stadium", "team_id" => "28", "teamname" => "Los Angeles FC"})
+        expect(team_statistics.team_info(28)).to eq({"abbreviation" => "LFC", "franchise_id" => "29", "link" => "/api/v1/teams/28", "team_id" => "28", "teamname" => "Los Angeles FC"})
       end
 
       it 'can return the fewest goals scored in a game by a given team' do
@@ -32,7 +32,7 @@ RSpec.describe TeamStatistics do
       end
 
       it 'knows the average win percentage of a given team' do
-        expect(team_statistics.average_win_percentage(17)).to eq 37.83
+        expect(team_statistics.average_win_percentage(6)).to eq 0.49
       end
 
       it 'can return the rival team of a given team' do
