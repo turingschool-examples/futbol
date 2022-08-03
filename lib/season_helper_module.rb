@@ -4,14 +4,14 @@ module Seasonable
     @games_data.each do |row|
     games_array <<row[:game_id] if row[:season] == season
     end
-    games_array
+    games_array.uniq
   end
 
   def coaches_by_season(season)
     coaches_array = []
     games_by_season(season).each do |game|
-      @game_teams_data.each do |row|
-        coaches_array << row[:head_coach].to_sym if game == row[:game_id]
+      @game_teams_data.select { |row| row[:game_id] == game }.each do |row|
+        coaches_array << row[:head_coach].to_sym
       end
     end
     coaches_array.uniq

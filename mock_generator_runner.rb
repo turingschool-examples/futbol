@@ -15,3 +15,6 @@ locations = {
             }
 
 generator = MockGenerator.from_csv(locations)
+
+require 'pry'; binding.pry
+generator.generate_coaches_by_season

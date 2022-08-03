@@ -11,12 +11,18 @@ module Globeable
     seasons_ary = @games_data.map do |row|
       row[:season]
     end
-    seasons_ary.uniq
+    seasons_ary.uniq.sort
   end
 
   def team_names
-    teams = @teams_data.map do |row|
+    @teams_data.map do |row|
       row[:teamname]
-    end
+    end.sort
+  end
+
+  def team_ids
+    @teams_data.map do |row|
+      row[:team_id]
+    end.sort
   end
 end
