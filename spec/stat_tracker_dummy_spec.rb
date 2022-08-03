@@ -100,18 +100,18 @@ describe StatTracker do
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 
-  xit '#team_info' do
+  it '#team_info' do
     expected = {
-      "team_id" => "27",
-      "franchise_id" => "28",
-      "team_name" => "San Jose Earthquakes",
-      "abbreviation" => "SJ",
-      "link" => "/api/v1/teams/27"
+      "team_id" => "26",
+      "franchise_id" => "14",
+      "team_name" => "FC Cincinnati",
+      "abbreviation" => "CIN",
+      "link" => "/api/v1/teams/26"
     }
-    expect(@stat_tracker.team_info("27")).to eq(expected)
+    expect(@stat_tracker.team_info("26")).to eq(expected)
   end
 
-  xit '#favorite_opponent' do
+  it '#favorite_opponent' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_dummy.csv'
@@ -127,7 +127,7 @@ describe StatTracker do
     expect(@stat_tracker.favorite_opponent("28")).to eq("Minnesota United FC")
   end
 
-  xit '#rival' do
+  it '#rival' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_dummy.csv'
@@ -139,11 +139,11 @@ describe StatTracker do
     }
      @stat_tracker = StatTracker.from_csv(locations)
 
-    expect(@stat_tracker.rival("5")).to eq("Philadelphia Union")
+    expect(@stat_tracker.rival("5")).to eq("Philadelphia Union").or eq("Houston Dynamo")
     expect(@stat_tracker.rival("18")).to eq("Los Angeles FC")
   end
 
-  xit '#best_season' do
+  it '#best_season' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'
@@ -160,7 +160,7 @@ describe StatTracker do
 
   end
 
-  xit '#worst_season' do
+  it '#worst_season' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'
@@ -182,12 +182,12 @@ describe StatTracker do
     expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
   end
 
-  xit '#most_goals_scored' do
+  it '#most_goals_scored' do
     expect(@stat_tracker.most_goals_scored("3")).to eq(2)
     expect(@stat_tracker.most_goals_scored("5")).to eq(1)
   end
 
-  xit '#fewest_goals_scored' do
+  it '#fewest_goals_scored' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'
@@ -214,7 +214,7 @@ describe StatTracker do
     expect(@stat_tracker.fewest_tackles("20122013")).to eq("LA Galaxy")
   end
 
-  xit '#average_win_percentage' do
+  it '#average_win_percentage' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams_dummy.csv'
     game_teams_path = './data/amm_edited_games_teams_dummy.csv'
@@ -229,5 +229,6 @@ describe StatTracker do
 
     expect(@stat_tracker.average_win_percentage("6")).to eq(0.67)
     expect(@stat_tracker.average_win_percentage("3")).to eq(0.40)
+
   end
 end

@@ -61,6 +61,80 @@ describe League do
     expect(@stat_tracker.league.teams_by_tackles("20122013")).to eq({"3" => 77, "6" => 115})
   end
 
+  it '#team_info' do
+    expected = {
+      "team_id" => "26",
+      "franchise_id" => "14",
+      "team_name" => "FC Cincinnati",
+      "abbreviation" => "CIN",
+      "link" => "/api/v1/teams/26"
+    }
+    expect(@stat_tracker.team_info("26")).to eq(expected)
+  end
+
+  it '#game_team_group_by_team' do
+    expect(@stat_tracker.league.game_team_grouped_by_team("3").length).to eq(2)
+  end
+
+  it '#data_sorted_by_season' do
+    data = @stat_tracker.league.all_game_teams
+    expect(@stat_tracker.league.data_sorted_by_season(data)["2012"].length).to eq(5)
+  end
+
+  it '#seasons_by_wins' do
+    expect(@stat_tracker.league.seasons_by_wins("3")).to eq({"20122013" => 0.00000})
+    expect(@stat_tracker.league.seasons_by_wins("6")).to eq({"20122013" => 1.00000})
+  end
+
+  it '#wins_losses_tally' do
+    expect(@stat_tracker.league.wins_losses_tally("3")).to eq({
+      wins: 0,
+      ties: 0,
+      total_games: 2
+    })
+    expect(@stat_tracker.league.wins_losses_tally("6")).to eq({
+      wins: 3,
+      ties: 0,
+      total_games: 3
+    })
+  end
+
+  it '#goals_scored_in_game' do
+    expect(@stat_tracker.league.goals_scored_in_game("3")).to eq([2,2])
+    expect(@stat_tracker.league.goals_scored_in_game("6")).to eq([3,3,2])
+  end
+
+  it '#games_by_opponent' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker.league.games_by_opponent("28")["18"].length).to eq(4)
+  end
+
+  it '#win_percentage_by_opponent' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker.league.win_percentage_by_opponent("28")).to eq({"17" => 0.0, "18" => 100.0,})
+    expect(@stat_tracker.league.win_percentage_by_opponent("1")).to eq({"25" => 100.0, "4" => 0.0})
+  end 
+
   it '#home_wins_counter' do
     expect(@stat_tracker.league.home_wins_counter).to eq(1)
   end

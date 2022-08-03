@@ -13,6 +13,7 @@ class Game
               :venue,
               :venue_link
 
+
   def initialize(info)
     @game_id = info[:game_id]
     @season = info[:season]
@@ -24,5 +25,16 @@ class Game
     @home_goals = info[:home_goals]
     @venue = info[:venue]
     @venue_link = info[:venue_link]
+  end
+
+
+  def did_team_win?(team_id)
+    if @away_team_id == team_id
+      @away_goals > @home_goals
+    elsif @home_team_id == team_id
+      @home_goals > @away_goals
+    else
+      "that team didn't play"
+    end
   end
 end
