@@ -1,7 +1,7 @@
 require './lib/details_loader'
-​
+
 class League < DetailsLoader
-​
+
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
     @details = DetailsLoader.new(games, teams, game_teams)
