@@ -138,12 +138,12 @@ class StatTracker
 
   def winningest_coach(season_id) #pull out game_teams somehow
     game_id_list = @game_stats.games_by_season(season_id)
+    
     coaches = Hash.new(0)
-
     @game_teams_stats.game_teams.each do |game_team|
       game_id = game_team.game_id
       coach = game_team.head_coach
-      if !game_id_list.include?(game_id) && game_team.result == "WIN"
+      if game_id_list.include?(game_id) && game_team.result == "WIN"
         coaches[coach] += 1
       end
     end
@@ -178,7 +178,7 @@ class StatTracker
   def most_accurate_team(season_id)
     ratio = get_ratio(season_id)
     max_ratio = ratio.max_by { |k, v| v }[0]
-    @teams.each do |team|
+    @teams_stats.teams.each do |team|
       team_id = team.team_id
       team_name = team.team_name
       if team_id == max_ratio
@@ -190,7 +190,7 @@ class StatTracker
   def least_accurate_team(season_id)
     ratio = get_ratio(season_id)
     min_ratio = ratio.min_by { |k, v| v }[0]
-    @teams.each do |team|
+    @teams_stats.teams.each do |team|
       team_id = team.team_id
       team_name = team.team_name
 
