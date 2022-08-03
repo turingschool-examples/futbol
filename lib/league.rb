@@ -1,4 +1,7 @@
+require './lib/sortable'
+
 class League
+  include Sortable
   attr_reader :all_games, :all_teams, :all_game_teams
 
   def initialize(all_games, all_teams, all_game_teams)
@@ -15,8 +18,8 @@ class League
 
   def games_by_season
     games_by_season = Hash.new(0)
-    @all_games.each do |game|
-      games_by_season[game.season] += 1
+    sort_games_by_season(@all_games).each do |season, games|
+      games_by_season[season] = games.count
     end
     games_by_season
   end
@@ -47,12 +50,6 @@ class League
     @all_teams.find do |team|
       team.team_id == team_id
     end.team_name
-  end
-
-  def game_team_group_by_season(season)
-    @all_game_teams.group_by do |game|
-      game.game_id[0..3]
-    end[season[0..3]]
   end
 
   def coaches_by_win_percentage(season)
@@ -104,18 +101,6 @@ class League
       "abbreviation" => selected_team.abbreviation,
       "link" => selected_team.link
     }
-  end
-
-  def game_team_grouped_by_team(given_team_id)
-    @all_game_teams.group_by do |game|
-      game.team_id
-    end[given_team_id]
-  end
-
-  def data_sorted_by_season(data)
-    data_set_by_teams = data.group_by do |game|
-      game.game_id[0..3]
-    end
   end
 
   def seasons_by_wins(given_team_id)
@@ -185,14 +170,6 @@ class League
     end
   end
 
-  def goals_by_season
-    goals_by_season = Hash.new {|h,k| h[k]=[]}
-    @all_games.each do |game|
-      goals_by_season[game.season] << (game.home_goals.to_i + game.away_goals.to_i)
-    end
-    goals_by_season
-  end
-
   def avg_goals_by_season
     avg_goals_by_season = Hash.new(0)
     goals_by_season.each do |season, goals|
@@ -201,28 +178,12 @@ class League
     avg_goals_by_season
   end
 
-  def away_team_by_goals
-    away_team_by_goals = Hash.new {|h,k| h[k]=[]}
-    @all_game_teams.each do |game|
-      away_team_by_goals[game.team_id] << game.goals.to_i if game.hoa == "away"
-    end
-    away_team_by_goals
-  end
-
   def avg_away_team_by_goals
     avg_away_team_by_goals = Hash.new(0)
     away_team_by_goals.each do |team_id, goals|
       avg_away_team_by_goals[team_id] = (goals.sum(0.0) / goals.length).round(2)
     end
     avg_away_team_by_goals
-  end
-
-  def home_team_by_goals
-    home_team_by_goals = Hash.new {|h,k| h[k]=[]}
-    @all_game_teams.each do |game|
-      home_team_by_goals[game.team_id] << game.goals.to_i if game.hoa == "home"
-    end
-    home_team_by_goals
   end
 
   def avg_home_team_by_goals
