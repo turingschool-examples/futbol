@@ -139,7 +139,7 @@ RSpec.describe StatTracker do
   context 'team statistics' do 
 
     it '#team_info' do
-      expect(stat_tracker.team_info(28)).to eq({:abbreviation=> "LFC", :franchise_id=> "29", :link=> "/api/v1/teams/28", :team_id=> "28", :team_name=> "Los Angeles FC"})
+      expect(stat_tracker.team_info(28)).to eq({"abbreviation"=>"LFC", "franchise_id"=>"29", "link"=>"/api/v1/teams/28", "stadium"=>"Banc of California Stadium", "team_id"=>"28", "teamname"=>"Los Angeles FC"})
     end
 
     it '#best_season' do
@@ -155,7 +155,7 @@ RSpec.describe StatTracker do
     end
 
     it '#most_goals_scored' do
-      expect(stat_tracker.most_goals_scored(28)).to eq '4'
+      expect(stat_tracker.most_goals_scored(28)).to eq 4
     end
 
     it '#fewest_goals_scored' do
