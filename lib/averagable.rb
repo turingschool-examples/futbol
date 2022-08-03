@@ -1,9 +1,9 @@
-module Averagable 
-  def minimum(average) 
+module Averagable
+  def minimum(average)
     average.min { |avg_1, avg_2| avg_1[1] <=> avg_2[1] }
   end
 
-  def maximum(average) 
+  def maximum(average)
     average.max { |avg_1, avg_2| avg_1[1] <=> avg_2[1] }
   end
 

@@ -62,19 +62,18 @@ class GameStats
     goals_by_season
   end
 
-  def visitor_teams_average_score 
+  def visitor_teams_average_score
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-    #could split these into two?
     away_team_scores.map do |id, scores|
-      [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
+      [id, ((scores.sum) / (scores.length)).round(2)]
     end
   end
 
-  def home_teams_average_score 
+  def home_teams_average_score
     home_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
-    
+
     home_team_scores.map do |id, scores|
       [id, ((scores.sum) / (scores.length)).round(2)]
     end

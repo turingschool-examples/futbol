@@ -437,4 +437,10 @@ describe StatTracker do
   it "can find rival for a given team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
+
+  it "can find all tackles for a team" do
+    season = "20132014"
+    expect(@stat_tracker.all_tackles_this_season(season).count).to eq(30)
+    expect(@stat_tracker.all_tackles_this_season(season).keys[0]).to eq("19")
+  end
 end
