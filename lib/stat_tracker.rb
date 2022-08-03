@@ -163,8 +163,8 @@ class StatTracker
     return ratio
   end
 
-  def create_game_hash(team_id)
-    all_game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
+  def all_game_results(team_id)
+    all_game_results = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
     @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
       winner = nil
@@ -172,53 +172,51 @@ class StatTracker
         winner = game.team_id
       end
       if game.team_id == team_id
-        all_game_hash[game_id][:is_our_team] = true
+        all_game_results[game_id][:is_our_team] = true
       else
-        all_game_hash[game_id][:other_team_id] = game.team_id
+        all_game_results[game_id][:other_team_id] = game.team_id
       end
       if winner
-        game_hash[game_id][:winning_team_id] = winner
+        all_game_results[game_id][:winning_team_id] = winner
       end
     end
-    
-    game_hash
+    all_game_results
   end
 
-  def create_team_scores(team_id)  #think about renaming to team records or something like this, returns a hash of the given team's record against each team
-    game_hash = create_game_hash(team_id)
-    game_hash = game_hash
+  def record_vs_our_team(team_id)  
+    all_game_results = all_game_results(team_id)
+    our_team_results = all_game_results
     .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
     .to_h
-    require 'pry';binding.pry
-    team_scores = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
-    game_hash.each do |game_id, teams_hash|
+    record_vs_our_team = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
+    our_team_results.each do |game_id, teams_hash|
       other_team_id = teams_hash[:other_team_id]
       if teams_hash[:winning_team_id] == team_id
-        team_scores[other_team_id][:losses] += 1
+        record_vs_our_team[other_team_id][:losses] += 1
       elsif teams_hash[:winning_team_id] == other_team_id
-        team_scores[other_team_id][:wins] += 1
+        record_vs_our_team[other_team_id][:wins] += 1
       else
-        team_scores[other_team_id][:ties] += 1
+        record_vs_our_team[other_team_id][:ties] += 1
       end
     end
-    team_scores
+    record_vs_our_team
   end
 
   def min_win_percent(team_id)
-    team_scores = create_team_scores(team_id)
-    mini_win_percent =                            
-    team_scores.min do |team_win_1, team_win_2|
+    record_vs_our_team = record_vs_our_team(team_id)
+    our_favorite_opponent =                            
+    record_vs_our_team.min do |team_win_1, team_win_2|
       win_percentage_1 = (team_win_1[1][:wins] / (team_win_1[1][:losses] + team_win_1[1][:ties] + team_win_1[1][:wins])) * 100
       win_percentage_2 = (team_win_2[1][:wins] / (team_win_2[1][:losses] + team_win_2[1][:ties] + team_win_2[1][:wins])) * 100
       win_percentage_1 <=> win_percentage_2
     end
-    mini_win_percent
+    our_favorite_opponent
   end
   
   def favorite_opponent(team_id)
-    mini_win_percent = min_win_percent(team_id)
-    min_win_team_id = mini_win_percent[0]
-    @teams_stats.team_id_to_name[min_win_team_id]
+    our_favorite_opponent = min_win_percent(team_id)
+    favorite_opponent_team_id = our_favorite_opponent[0]
+    @teams_stats.team_id_to_name[favorite_opponent_team_id]
   end
 
   def rival(team_id)
@@ -242,19 +240,19 @@ class StatTracker
       .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
       .to_h
   
-    team_scores = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
+    record_vs_our_team = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
     game_hash.each do |game_id, teams_hash|
       other_team_id = teams_hash[:other_team_id]
       if teams_hash[:winning_team_id] == team_id
-        team_scores[other_team_id][:losses] += 1
+        record_vs_our_team[other_team_id][:losses] += 1
       elsif teams_hash[:winning_team_id] == other_team_id
-        team_scores[other_team_id][:wins] += 1
+        record_vs_our_team[other_team_id][:wins] += 1
       else
-        team_scores[other_team_id][:ties] += 1
+        record_vs_our_team[other_team_id][:ties] += 1
       end
     end
     max_win_percent =
-      team_scores.max do |team_win_1, team_win_2|
+      record_vs_our_team.max do |team_win_1, team_win_2|
         win_percentage_1 = (team_win_1[1][:wins] / (team_win_1[1][:losses] + team_win_1[1][:ties] + team_win_1[1][:wins])) * 100
         win_percentage_2 = (team_win_2[1][:wins] / (team_win_2[1][:losses] + team_win_2[1][:ties] + team_win_2[1][:wins])) * 100
         win_percentage_1 <=> win_percentage_2
