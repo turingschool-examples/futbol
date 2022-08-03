@@ -193,4 +193,4 @@ class Team < DetailsLoader
       end
     end
   end
-end 
+end

@@ -52,18 +52,18 @@ describe StatTracker do
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
 
-    xit "tracks wins" do #helper method not used yet
-
-    #   expect(@stat_tracker.game_wins).to eq(40)
-     end
+    # xit "tracks wins" do #helper method not used yet
+    #
+    # #   expect(@stat_tracker.game_wins).to eq(40)
+    #  end
 
     xit "tracks losses" do #helper method not used yet
       expect(@stat_tracker.game_losses).to eq(40)
     end
 
-    xit "tracks home games" do #may need separate test in game_spec
-      expect(@stat_tracker.home_games).to eq(40)
-    end
+    # xit "tracks home games" do #may need separate test in game_spec
+    #   expect(@stat_tracker.home_games).to eq(40)
+    # end
 
     xit "tracks away games" do #helper method not used yet
       expect(@stat_tracker.away_games).to eq(40)
