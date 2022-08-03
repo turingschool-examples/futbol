@@ -132,11 +132,11 @@ describe StatTracker do
 
   describe 'Season Statistics' do
 
-    xit 'can show name of coach with the best win percentage of the season' do #FAIL - wrong name returns
+    it 'can show name of coach with the best win percentage of the season' do #FAIL - wrong name returns
       expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
 
-    xit 'can show name with the worst win percentage for the season' do #FAIL - wrong name returns
+    it 'can show name with the worst win percentage for the season' do #FAIL - wrong name returns
       expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella").or(eq("Dan Bylsma"))
     end
 
