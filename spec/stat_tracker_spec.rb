@@ -315,21 +315,6 @@ describe StatTracker do
                                                                                                   "2012030225"])
   end
 
-  it "can isolate a teams games by season in games" do #game helper
-    game_path = "./spec/fixtures/dummy_game.csv"
-    team_path = "./spec/fixtures/dummy_teams.csv"
-    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path,
-    }
-    @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.get_team_games_by_single_season("6", "20122013")).to be_an(Array)
-    expect(@stat_tracker_dummy.get_team_games_by_single_season("6", "20122013").map { |game| game.date_time }).to eq(["5/16/13", "6/8/13"])
-  end
-
   it "can find a teams average win percentage" do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
