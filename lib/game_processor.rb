@@ -20,34 +20,44 @@ module GameProcessor
   end
 
   def win_percentage(value, games)
-    total_games = 0.0
     if value == 'home'
       home_wins = 0.0
       games.each do |game|
-        total_games += 1
         if game.home_goals.to_i > game.away_goals.to_i
           home_wins += 1
         end
       end
-      (home_wins / total_games).round(2)
+      (home_wins / games.count).round(2)
+
     elsif value == 'visitor'
       visitor_wins = 0.0
       games.each do |game|
-        total_games += 1
         if game.home_goals.to_i < game.away_goals.to_i
           visitor_wins += 1
         end
       end
-      (visitor_wins / total_games).round(2)
+      (visitor_wins / games.count).round(2)
+
     else
       ties = 0.0
       games.each do |game|
-        total_games += 1
         if game.home_goals.to_i == game.away_goals.to_i
           ties += 1
         end
       end
-      (ties / total_games).round(2)
+      (ties / games.count).round(2)
     end
   end
+
+  def total_goals_by_season(games)
+    total_season_goals = Hash.new(0.0)
+    games.each do |game|
+      total_season_goals[game.season] += game.total_goals_game
+    end
+    total_season_goals
+  end
+
+
+
+
 end
