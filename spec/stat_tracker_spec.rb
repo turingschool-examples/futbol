@@ -37,12 +37,12 @@ describe StatTracker do
 
 
 
-    xit 'percentage_visitor_wins' do #FAIL - corrected test to correct format but number returned is wrong too
+    it 'percentage_visitor_wins' do #FAIL - corrected test to correct format but number returned is wrong too
    #move to correct location
         expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
     end
 
-    xit "finds highest total score" do #Pass
+    it "finds highest total score" do #Pass
 
       expect(@stat_tracker.highest_total_score).to eq(8) #was 7 before I changed it to match google doc
 
@@ -105,7 +105,7 @@ describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(32)
     end
 
-    xit 'can return Name of the team with the highest average number of goals scored per game across all seasons' do #FAIL - wrong team returning
+    it 'can return Name of the team with the highest average number of goals scored per game across all seasons' do #FAIL - wrong team returning
       expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
 
@@ -140,35 +140,35 @@ describe StatTracker do
       expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella").or(eq("Dan Bylsma"))
     end
 
-    xit 'can show name of the team with the best ratio of shots to goals for the season' do #FAIL - NilClass Error
+    it 'can show name of the team with the best ratio of shots to goals for the season' do #FAIL - NilClass Error
       expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
     end
 
 
-    xit 'can show name of the team with the worst ratio of shots to goals for the season' do #passed dummy test and spec harness
+    it 'can show name of the team with the worst ratio of shots to goals for the season' do #passed dummy test and spec harness
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
     end
 
-    xit 'can count goals' do
+    xit 'can count goals' do #Helper test
       expect(@stat_tracker.goals_by_team(16)).to eq(31)
     end
 
-    xit 'can count shots' do
+    xit 'can count shots' do #Helper test??
       expect(@stat_tracker.shots_by_team(16)).to eq(127)
     end
 
-    xit 'can show name of the team with most tackles in the season' do
+    it 'can show name of the team with most tackles in the season' do
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
 
-    xit 'can show name of the team with fewest tackles in the season' do
+    it 'can show name of the team with fewest tackles in the season' do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Sporting Kansas City")
     end
   end
 
   describe 'Team Statistics' do
 
-    xit 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do #Pass
+    it 'can return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link' do #Pass
       expect(@stat_tracker.team_info("1")).to eq(
         expected = {
           "team_id" => "1",
@@ -212,7 +212,7 @@ describe StatTracker do
       expect(@stat_tracker.rival_game("19")).to be_a Hash
     end
 
-    xit 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
+    it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
       expect(@stat_tracker.rival("3")).to eq("FC Dallas")
     end
   end

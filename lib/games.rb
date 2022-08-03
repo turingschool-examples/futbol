@@ -1,6 +1,4 @@
-require './lib/details_loader'
-
-
+require_relative 'details_loader'
 class Games < DetailsLoader
 
   def initialize(games, teams, game_teams)
@@ -15,6 +13,7 @@ class Games < DetailsLoader
   def lowest_total_score
     total_scores_by_game.min
   end
+
 
   def total_scores_by_game
     @games.values_at(:away_goals, :home_goals).map do |game|
@@ -53,7 +52,7 @@ class Games < DetailsLoader
     (ties/total_games).round(1)
   end
 
-    def count_of_games_by_season
+  def count_of_games_by_season
     counts = {}
     games.each do |game|
         season = game[:season]
@@ -68,7 +67,7 @@ class Games < DetailsLoader
   end
 
   def average_goals_by_season
-  goals = Hash.new { |h,k| h[k] = [] }
+    goals = Hash.new { |h,k| h[k] = [] }
     count_of_games_by_season.each do |season, game_count|
       goals[season] = []
       game_sum_calc = []

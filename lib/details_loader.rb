@@ -1,5 +1,4 @@
-require './lib/csv_loader'
-
+require_relative 'csv_loader'
 class DetailsLoader < CsvLoader
 
   attr_reader :team_by_id, :coach_by_team_id, :games_by_season
