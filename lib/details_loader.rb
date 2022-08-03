@@ -38,8 +38,4 @@ class DetailsLoader < CsvLoader
     end
     games_by_season
   end
-<<<<<<< HEAD
-=======
-
->>>>>>> 7ab43844f1441cc650598c684e6315dad8d68e09
 end
