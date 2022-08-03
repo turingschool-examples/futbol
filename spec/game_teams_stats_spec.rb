@@ -4,13 +4,13 @@ require "./game_teams"
 require "./teams"
 require "csv"
 require "./isolatable"
-require "./helpable"
+require "./averagable"
 
 describe GameTeamsStats do
   before :each do
     game_teams_path = "./data/game_teams.csv"
     @game_teams_stats = GameTeamsStats.from_csv(game_teams_path)
-    @game_teams_stats.extend(Helpable)
+    @game_teams_stats.extend(Averagable)
     @game_teams_stats.extend(Isolatable)
   end
 

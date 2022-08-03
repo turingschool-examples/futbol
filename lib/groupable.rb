@@ -1,5 +1,5 @@
 module Groupable
-  def games_by_team_id_and_season(season) #needs test
+  def games_by_team_id_and_season(season) 
     games_by_season = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
     home_games = games_by_season.group_by { |game| game.home_team_id }
     away_games = games_by_season.group_by { |game| game.away_team_id }

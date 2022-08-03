@@ -1,9 +1,7 @@
 require 'csv'
 require_relative './teams'
-require_relative './helpable'
 
 class TeamsStats
-  include Helpable
 
   attr_reader :teams
   def initialize(teams)
