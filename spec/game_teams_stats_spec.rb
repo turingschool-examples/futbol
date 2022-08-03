@@ -32,4 +32,27 @@ describe GameTeamsStats do
     expect(@game_teams_stats.worst_offense[0][0].to_i).to eq 3
   end
 
+  it "can isolate coach wins" do 
+    expect(@game_teams_stats.isolate_coach_wins(game_id_list).length).to eq(34)
+    expect(@game_teams_stats.isolate_coach_wins(game_id_list).keys[0]).to eq(""Joel Quenneville"")
+    expect(@game_teams_stats.isolate_coach_wins(game_id_list)).to be_a(Hash)
+  end
+
+  it "can isolate coach losses" do 
+    expect(@game_teams_stats.isolate_coach_loss(game_id_list).length).to eq(34)
+    expect(@game_teams_stats.isolate_coach_loss(game_id_list).keys[0]).to eq("Ken Hitchcock")
+    expect(@game_teams_stats.isolate_coach_loss(game_id_list)).to be_a(Hash)
+  end
+
+  it "can calculate game percentage lost for a coach" do
+    expect(@game_team_stats.coach_percentage_loss(coaches, game_id_list)).to be_a(Hash)
+    expect(@game_team_stats.coach_percentage_loss(coaches, game_id_list).length).to eq(34)
+
+  end
+
+  it "can calculate game percentage won for a coach" do
+    expect(@game_team_stats.coach_percentage_won(coaches, game_id_list)).to be_a(Hash)
+    expect(@game_team_stats.coach_percentage_won(coaches, game_id_list).length).to eq(34)
+  end
+
 end

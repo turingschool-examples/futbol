@@ -93,6 +93,7 @@ class GameTeamsStats
       percentage_lost = (game_loss.to_f / game_id_list.length) * 100
       [coach_name, percentage_lost]
     end.to_h
+    require 'pry' ; binding.pry
   end
 
   def coach_percentage_won(coaches, game_id_list)
