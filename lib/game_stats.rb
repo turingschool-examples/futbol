@@ -3,7 +3,6 @@ require_relative "./game"
 require_relative "./season_groupable"
 require_relative "./team_groupable"
 
-
 class GameStats
   include SeasonGroupable
   include TeamGroupable
