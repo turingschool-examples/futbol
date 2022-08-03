@@ -1,17 +1,16 @@
 require './lib/csv_loader'
-​
+
 class DetailsLoader < CsvLoader
-​
+
   attr_reader :team_by_id, :coach_by_team_id, :games_in_season
-​
+
   def initialize (games, teams, game_teams)
     super(games, teams, game_teams)
     @games_by_season = add_games_in_season
     @coach_by_team_id = add_coach_by_team_id
     @team_by_id = @teams.values_at(:team_id, :teamname).uniq.to_h
   end
-​
-​
+
   def add_coach_by_team_id
     coaches = Hash.new {|h, k| h[k] = {}}
     @games_by_season.each do |season, games|
@@ -27,7 +26,7 @@ class DetailsLoader < CsvLoader
     end
     coaches
   end
-​
+
   def add_games_in_season
     games_by_season = {}
     @games.values_at(:game_id, :season).each do |game|
@@ -39,5 +38,5 @@ class DetailsLoader < CsvLoader
     end
     games_by_season
   end
-​
+
 end
