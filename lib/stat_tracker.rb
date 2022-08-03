@@ -164,7 +164,7 @@ class StatTracker
   end
 
   def create_game_hash(team_id)
-    game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
+    all_game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
     @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
       winner = nil
@@ -172,25 +172,24 @@ class StatTracker
         winner = game.team_id
       end
       if game.team_id == team_id
-        game_hash[game_id][:is_our_team] = true
+        all_game_hash[game_id][:is_our_team] = true
       else
-        game_hash[game_id][:other_team_id] = game.team_id
+        all_game_hash[game_id][:other_team_id] = game.team_id
       end
       if winner
         game_hash[game_id][:winning_team_id] = winner
       end
     end
+    
     game_hash
   end
 
-  
-  
-  
-  def favorite_opponent(team_id)
+  def create_team_scores(team_id)  #think about renaming to team records or something like this, returns a hash of the given team's record against each team
     game_hash = create_game_hash(team_id)
     game_hash = game_hash
     .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
     .to_h
+    require 'pry';binding.pry
     team_scores = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
     game_hash.each do |game_id, teams_hash|
       other_team_id = teams_hash[:other_team_id]
@@ -202,14 +201,23 @@ class StatTracker
         team_scores[other_team_id][:ties] += 1
       end
     end
+    team_scores
+  end
 
-    min_win_percent =
-      team_scores.min do |team_win_1, team_win_2|
-        win_percentage_1 = (team_win_1[1][:wins] / (team_win_1[1][:losses] + team_win_1[1][:ties] + team_win_1[1][:wins])) * 100
-        win_percentage_2 = (team_win_2[1][:wins] / (team_win_2[1][:losses] + team_win_2[1][:ties] + team_win_2[1][:wins])) * 100
-        win_percentage_1 <=> win_percentage_2
-      end
-    min_win_team_id = min_win_percent[0]
+  def min_win_percent(team_id)
+    team_scores = create_team_scores(team_id)
+    mini_win_percent =                            
+    team_scores.min do |team_win_1, team_win_2|
+      win_percentage_1 = (team_win_1[1][:wins] / (team_win_1[1][:losses] + team_win_1[1][:ties] + team_win_1[1][:wins])) * 100
+      win_percentage_2 = (team_win_2[1][:wins] / (team_win_2[1][:losses] + team_win_2[1][:ties] + team_win_2[1][:wins])) * 100
+      win_percentage_1 <=> win_percentage_2
+    end
+    mini_win_percent
+  end
+  
+  def favorite_opponent(team_id)
+    mini_win_percent = min_win_percent(team_id)
+    min_win_team_id = mini_win_percent[0]
     @teams_stats.team_id_to_name[min_win_team_id]
   end
 
