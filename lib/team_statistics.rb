@@ -12,9 +12,19 @@ class TeamStatistics
     end
 
     def team_info(given_team_id)
+
       all_team_info = @teams_data.select do |team|
         team[:team_id].to_s == given_team_id.to_s
-      end[0].to_h
+      end[0]
+
+      team_info_hash = {
+        "abbreviation" => all_team_info[:abbreviation],
+        "franchise_id" => all_team_info[:franchiseid],
+        "link" => all_team_info[:link],
+        "stadium" => all_team_info[:stadium],
+        "team_id" => all_team_info[:team_id],
+        "teamname" => all_team_info[:teamname],
+      }
     end
 
     def fewest_goals_scored(given_team_id)
