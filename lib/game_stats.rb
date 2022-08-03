@@ -133,6 +133,12 @@ class GameStats
   end
 
   def games_by_season(season_id) #helper method
-    @games.find_all { |game| game.season == season_id }
+    game_id_list = []
+    @games.each do |game|
+      if game.season == season_id
+        game_id_list << game.game_id
+      end
+    end
+    game_id_list
   end
 end
