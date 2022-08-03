@@ -1,7 +1,4 @@
 require 'csv'
-require './lib/game'
-require './lib/game_team'
-require './lib/team'
 require './lib/league'
 require './lib/object_generator'
 
