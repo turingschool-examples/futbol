@@ -2,11 +2,8 @@ require 'csv'
 require './lib/csv_loader.rb'
 require './lib/games'
 require './lib/league'
-<<<<<<< HEAD
 require './lib/season_stats'
-=======
 require './lib/team_stats'
->>>>>>> 426477d374b983b4b471b435ae26d2022a49bb36
 
 
 class StatTracker
@@ -15,11 +12,8 @@ class StatTracker
   def initialize (games, teams, game_teams)
     @gamezz = Games.new(games, teams, game_teams)
     @league = League.new(games, teams, game_teams)
-<<<<<<< HEAD
     @season_stats = SeasonStats.new(games, teams, game_teams)
-=======
     @team_stat = Team.new(games, teams, game_teams)
->>>>>>> 426477d374b983b4b471b435ae26d2022a49bb36
     # @csv = CsvLoader.new(games, teams, game_teams)
     # @details = DetailsLoader.new.load_all
     # @games = games
@@ -402,12 +396,8 @@ class StatTracker
   end
 
   # def games_by_season # All game_ids sorted by season - helper method for issue #18
-<<<<<<< HEAD
   #   # {20122013=> [2012030221, 2012030222, 2012030223, 2012030224,
-=======
-    
   #  # {20122013=> [2012030221, 2012030222, 2012030223, 2012030224,
->>>>>>> 426477d374b983b4b471b435ae26d2022a49bb36
   #   games_by_season = {}
   #   @games.values_at(:game_id, :season).each do |game|
   #     if games_by_season.include?(game[1])
@@ -417,11 +407,8 @@ class StatTracker
   #     end
   #   end
   #   games_by_season
-<<<<<<< HEAD
   # end
-=======
   #  end
->>>>>>> 426477d374b983b4b471b435ae26d2022a49bb36
 
   # def wins_by_team(team_id) # List of every game that was a win for a team - helper method for issue #18
   #   # [[2013020252, 16], [2014030166, 16], [2016030151, 16], [2016030152, 16]]
@@ -449,8 +436,6 @@ class StatTracker
   #     games <<[row[:game_id], team_id] if (row[:team_id] == team_id)
   #   end
   #   games
-
-<<<<<<< HEAD
   #   # Option with full data set, but does not work with current dummy data:
   #   # games_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
   #   #   game[1] == team_id
@@ -512,12 +497,11 @@ class StatTracker
 
   def worst_season(team_id) #issue # 25 - Fail due to not written
     season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.min).to_s
-=======
     # Option with full data set, but does not work with current dummy data:
     # games_by_team = @game_teams.values_at(:game_id, :team_id, :result).find_all do |game|
     #   game[1] == team_id
     # end
-  # end
+  end
 
   # def number_team_games_per_season(team_id) # Count of number of games a team played each season - helper method for issue #18
   #   # {20122013=>1, 20132014=>2, 20142015=>7, 20162017=>4}
@@ -568,7 +552,7 @@ class StatTracker
   #   win_percentage
   # end
 
-   def best_season(team_id) #issue # 18 - PASS
+  def best_season(team_id) #issue # 18 - PASS
    @team_stat.best_season(team_id)
     # season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.max).to_s
   end
@@ -576,7 +560,6 @@ class StatTracker
   def worst_season(team_id)#issue # 25 - Fail due to not written
     @team_stat.worst_season(team_id)
     # season_win_percentage(team_id.to_i).key(season_win_percentage(team_id.to_i).values.min).to_s
->>>>>>> 426477d374b983b4b471b435ae26d2022a49bb36
   end
 
   def average_win_percentage(team_id) #issue # 20

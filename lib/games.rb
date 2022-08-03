@@ -2,11 +2,7 @@ require './lib/details_loader'
 
 
 class Games < DetailsLoader
-<<<<<<< HEAD
-  
 
-=======
->>>>>>> 426477d374b983b4b471b435ae26d2022a49bb36
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
     @details = DetailsLoader.new(games, teams, game_teams)
@@ -93,5 +89,3 @@ class Games < DetailsLoader
     my_hash
   end
 end
-
-
