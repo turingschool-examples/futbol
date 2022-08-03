@@ -1,7 +1,6 @@
 require './lib/details_loader'
 
 class Games < DetailsLoader
-
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
     @details = DetailsLoader.new(games, teams, game_teams)
@@ -57,7 +56,7 @@ class Games < DetailsLoader
     (ties/total_games).round(1)
   end
 
-  def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
+    def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
     counts = {}
     games.each do |game|
         season = game[:season]
@@ -73,18 +72,20 @@ class Games < DetailsLoader
     (total_scores_by_game.sum/@games.count.to_f).round(2)
   end
 
-    def average_goals_by_season #issue #9 - Pass
-    my_hash = Hash.new { |h,k| h[k] = [] }
+  def average_goals_by_season #issue #9 - Pass
+  my_hash = Hash.new { |h,k| h[k] = [] }
 
-      count_of_games_by_season.each do |season, game_count|
-        my_hash[season] = []
-        game_sum_calc = []
-        games.each do |row|
-          game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i
-          #require 'pry';binding.pry
-          my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
-        end
+    count_of_games_by_season.each do |season, game_count|
+      my_hash[season] = []
+      game_sum_calc = []
+      games.each do |row|
+        game_sum_calc << (row[:away_goals] + row[:home_goals]) if row[:season] == season.to_i
+        #require 'pry';binding.pry
+        my_hash[season] = (game_sum_calc.sum / game_count.to_f).round(2)
       end
-      my_hash
+    end
+    my_hash
   end
 end
+
+

@@ -54,8 +54,8 @@ describe StatTracker do
 
     xit "tracks wins" do #helper method not used yet
 
-      expect(@stat_tracker.game_wins).to eq(40)
-    end
+    #   expect(@stat_tracker.game_wins).to eq(40)
+     end
 
     xit "tracks losses" do #helper method not used yet
       expect(@stat_tracker.game_losses).to eq(40)
@@ -158,12 +158,10 @@ describe StatTracker do
     end
 
     xit 'can show name of the team with most tackles in the season' do
-
       expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
 
     xit 'can show name of the team with fewest tackles in the season' do
-
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Sporting Kansas City")
     end
   end
@@ -181,27 +179,27 @@ describe StatTracker do
       })
     end
 
-    xit 'can show season with the highest win percentage for a team' do #PASS
+    it 'can show season with the highest win percentage for a team' do #PASS
       expect(@stat_tracker.best_season("3")).to eq("20142015")
     end
 
-    xit 'can show season with the lowest win percentage for a team' do
+    it 'can show season with the lowest win percentage for a team' do
       expect(@stat_tracker.worst_season("3")).to eq("20122013")
     end
 
-    xit 'can show season with the lowest win percentage for a team' do #FAIL
+    it 'can show season with the lowest win percentage for a team' do #FAIL
        expect(@stat_tracker.average_win_percentage("3")).to eq(0.25)
     end
 
-    xit 'can return hgihest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
+    it 'can return highest number of goals a particular team has scored in a  single game' do #FAIL - retuning nill on harness
       expect(@stat_tracker.most_goals_scored("3")).to eq(5)
     end
 
-    xit 'can return lowest number of goals a particular team has scored in a single game' do #FAIL - Fail due to not written
+    it 'can return lowest number of goals a particular team has scored in a single game' do #FAIL - Fail due to not written
        expect(@stat_tracker.fewest_goals_scored('3')).to eq(0)
     end
 
-    xit 'can return name of the opponent that has the lowest win percentage against the given team' do #FAIL - Fail due to not written
+    it 'can return name of the opponent that has the lowest win percentage against the given team' do #FAIL - Fail due to not written
       expect(@stat_tracker.favorite_opponent("16")).to eq("Orlando City SC")
     end
 
