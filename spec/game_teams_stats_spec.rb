@@ -126,4 +126,12 @@ describe GameTeamsStats do
     expect(@game_teams_stats.coach_percentage_loss(coaches, game_id_list).length).to eq(4)
     expect(@game_teams_stats.coach_percentage_loss(coaches, game_id_list).keys[0]).to eq("Ken Hitchcock")
   end
+
+  it "can find number of tackles given a team id and game id" do
+    game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
+  
+    @game_teams_stats_dummy = GameTeamsStats.from_csv(game_teams_path)
+    @game_teams_stats_dummy.extend(Averagable)
+    expect(@game_teams_stats_dummy.number_of_tackles("3", "2012030221")).to eq(44)
+  end
 end
