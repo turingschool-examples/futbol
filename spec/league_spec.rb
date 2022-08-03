@@ -86,17 +86,14 @@ describe League do
     expect(@stat_tracker.league.seasons_by_wins("6")).to eq({"20122013" => 1.00000})
   end
 
-  it '#wins_losses_tally' do
-    expect(@stat_tracker.league.wins_losses_tally("3")).to eq({
-      wins: 0,
-      ties: 0,
-      total_games: 2
-    })
-    expect(@stat_tracker.league.wins_losses_tally("6")).to eq({
-      wins: 3,
-      ties: 0,
-      total_games: 3
-    })
+  it '#team_wins' do
+    expect(@stat_tracker.league.team_wins("3")).to eq(0)
+    expect(@stat_tracker.league.team_wins("6")).to eq(3)
+  end
+
+  it '#team_total_games' do
+    expect(@stat_tracker.league.team_total_games("3")).to eq(2)
+    expect(@stat_tracker.league.team_total_games("6")).to eq(3)
   end
 
   it '#goals_scored_in_game' do
