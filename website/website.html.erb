@@ -21,35 +21,96 @@
     <p>Average Goals Per Game = <%= stat_tracker.average_goals_per_game %></p>
 
     <p>
-    Average Goals by Season <br>
+    Average Goals by Season <br><br>
     <% stat_tracker.average_goals_by_season.each do |season, average| %>
-    <%= "#{season} = #{average}" %> <br>
+    <%= "#{season[0..3]}-#{season[-4..-1]} = #{average}" %> <br>
     <% end %>
     </p>
 
     Count of Games by Season <br><br>
     <% stat_tracker.count_of_games_by_season.each do |season, games| %>
-    <%= "#{season} = #{games}" %> <br><br>
+    <%= "#{season[0..3]}-#{season[-4..-1]} = #{games}" %> <br><br>
     <% end %>
 
     Count of Teams = <%= stat_tracker.count_of_teams %> <br> <br>
     Best Offense = <%= stat_tracker.best_offense %> <br> <br>
     Worst Offense = <%= stat_tracker.worst_offense %> <br> <br>
     Highest Scoring Visitor = <%= stat_tracker.highest_scoring_visitor %> <br> <br>
-    Lowest Scoring Visitor = <%= stat_tracker.lowest_scoring_visitor %> <br> <br>
+    Lowest Scoring Visitor = <%= stat_tracker.lowest_scoring_visitor %> <br> <br><br>
   
-
-    Season Statistics <br>
-    <% stat_tracker.seasons.each do |season|%> <br>
-    Season = <%= season%> <br>
-    Winningest Coach = <%= stat_tracker.winningest_coach(season)%> <br>
-    Worst Coach = <%= stat_tracker.worst_coach(season)%> <br>
-    Most Accurate Team = <%= stat_tracker.most_accurate_team(season)%> <br>
-    Least Accurate Team = <%= stat_tracker.least_accurate_team(season)%>
-    Most Tackles = <%= stat_tracker.most_tackles(season)%>
-    Fewest Tackles = <%= stat_tracker.fewest_tackles(season)%>
+Season Statistics <br><br>
+ <table>
+  <tr>
+    <th>Season  </th>
+    <th>  Winningest Coach  </th>
+    <th>  Worst Coach  </th>
+    <th>  Least Accurate Team  </th>
+    <th>  Most Accurate Team  </th>
+    <th>  Most Tackles  </th>
+    <th>  Fewest Tackles  </th>
+  </tr>
+  <tr>
+    <td>2012 - 2013</td>
+    <% if false %>
+    <td><%= stat_tracker.winningest_coach("20122013")%></td>
+    <td><%= stat_tracker.worst_coach("20122013")%></td>
+    <td><%= stat_tracker.most_accurate_team("20122013")%></td>
+    <td><%= stat_tracker.least_accurate_team("20122013")%></td>
+    <td><%= stat_tracker.most_tackles("20122013")%></td>
+    <td><%= stat_tracker.fewest_tackles("20122013")%></td>
     <% end %>
+  </tr>
+</table><br><br>
 
+<h1> Team Info Table </h1>
+<table>
+  <tr>
+    <th> Team </th>
+    <th> Abbrev. </th>
+    <th> Stadium </th>
+    <th> Team ID </th>
+    <th> Franchise ID </th>
+    <th> Website </th>
+  </tr>
+  <% stat_tracker.team_ids.each do |team| %>
+  <tr>
+    <td><%= stat_tracker.team_info(team)[:teamname]%></td>
+    <td><%= stat_tracker.team_info(team)[:abbreviation]%></td>
+    <td><%= stat_tracker.team_info(team)[:stadium]%></td>
+    <td><%= stat_tracker.team_info(team)[:team_id]%></td>
+    <td><%= stat_tracker.team_info(team)[:franchiseid]%></td>
+    <td><%= stat_tracker.team_info(team)[:link]%></td>
+  </tr>
+  <% end %>
+</table>
+
+<h1> Team Statistics Table </h1>
+<table>
+  <tr>
+    <th> Team </th>
+    <th> Best Season </th>
+    <th> Worst Season </th>
+    <th> Most Goals Scored </th>
+    <th> Fewest Goals Scored </th>
+    <th> Avg. Win % </th>
+    <th> Favorite Opponent </th>
+    <th> Rival </th>
+  </tr>
+  <% stat_tracker.team_ids.each do |team| %>
+  <tr>
+    <td><%= stat_tracker.team_info(team)[:teamname]%></td>
+    <td><%= stat_tracker.best_season(team)%></td>
+    <td><%= stat_tracker.worst_season(team)%></td>
+    <td><%= stat_tracker.most_goals_scored(team)%></td>
+    <td><%= stat_tracker.fewest_goals_scored(team)%></td>
+    <% if false %>
+    <td><%= stat_tracker.average_win_percentage(team)%></td>
+    <td><%= stat_tracker.favorite_opponent(team)%></td>
+    <td><%= stat_tracker.rival(team)%></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
 
   </body>
 </html>
