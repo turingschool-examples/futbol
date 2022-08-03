@@ -103,12 +103,6 @@ class League
     }
   end
 
-  def data_sorted_by_season(data)
-    data_set_by_teams = data.group_by do |game|
-      game.game_id[0..3]
-    end
-  end
-
   def seasons_by_wins(given_team_id)
     teams_games = game_team_grouped_by_team(given_team_id)
     team_games_by_season = data_sorted_by_season(teams_games)

@@ -37,6 +37,12 @@ module Sortable
     end[given_team_id]
   end
 
+  def data_sorted_by_season(game_team_data)
+    data_set_by_teams = game_team_data.group_by do |game|
+      game.game_id[0..3]
+    end
+  end
+
   def game_team_group_by_season(season)
     @all_game_teams.group_by do |game|
       game.game_id[0..3]
