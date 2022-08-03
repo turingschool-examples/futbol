@@ -153,8 +153,9 @@ class StatTracker
   end
 
   def worst_offense #issue # 12 - PASS
-    min_average = average_scores_by_team_id("home", "away").values.min
-    team_by_id[average_scores_by_team_id("home", "away").key(min_average)]
+    # min_average = average_scores_by_team_id("home", "away").values.min
+    # team_by_id[average_scores_by_team_id("home", "away").key(min_average)]
+    @league.worst_offense
   end
 
   def highest_scoring_visitor #issue # 13 - Pass
@@ -182,49 +183,52 @@ class StatTracker
       # visitor_team_name_with_highest_avg_score = team_by_id[visitor_with_highest_score_array[0]]
   end
 
-  def scores_by_team_id(*game_type) #helper method for issue #14
-    scores_by_team_id = {}
-      scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
-      game[1] == game_type[0] || game_type[1]
-    end
+  # def scores_by_team_id(*game_type) #helper method for issue #14
+  #   scores_by_team_id = {}
+  #     scores_by_game_type = @game_teams.values_at(:team_id, :hoa, :goals).find_all do |game|
+  #     game[1] == game_type[0] || game_type[1]
+  #   end
 
-    @game_teams[:team_id].each do |id|
-      scores_by_team_id[id] = []
-    end
-    scores_by_game_type.each do |game|
-      scores_by_team_id[game[0]] << game[2].to_f
-    end
-    scores_by_team_id
-  end
+  #   @game_teams[:team_id].each do |id|
+  #     scores_by_team_id[id] = []
+  #   end
+  #   scores_by_game_type.each do |game|
+  #     scores_by_team_id[game[0]] << game[2].to_f
+  #   end
+  #   scores_by_team_id
+  # end
 
-  def team_by_id #helper method for issue #14
-    @teams.values_at(:team_id, :teamname).uniq.to_h
-  end
+  # def team_by_id #helper method for issue #14
+  #   @teams.values_at(:team_id, :teamname).uniq.to_h
+  # end
 
 
-  def average_scores_by_team_id(*game_type) #helper method for issue #14
-    average_scores= {}
-    scores_by_team_id(*game_type).each do |team, scores|
-      next if scores.count ==0
-      average = scores.sum/scores.count
-      average_scores[team] = average.round(1)
-    end
-    average_scores
-  end
+  # def average_scores_by_team_id(*game_type) #helper method for issue #14
+  #   average_scores= {}
+  #   scores_by_team_id(*game_type).each do |team, scores|
+  #     next if scores.count ==0
+  #     average = scores.sum/scores.count
+  #     average_scores[team] = average.round(1)
+  #   end
+  #   average_scores
+  # end
 
   def highest_scoring_home_team #issue # 14 - PASS
-    max_average = average_scores_by_team_id("home").values.max
-    team_by_id[average_scores_by_team_id("home").key(max_average)]
+    # max_average = average_scores_by_team_id("home").values.max
+    # team_by_id[average_scores_by_team_id("home").key(max_average)]
+    @league.highest_scoring_home_team
   end
 
   def lowest_scoring_visitor #issue # 15 - PASS
-    lowest_average = average_scores_by_team_id("away").values.min
-    team_by_id[average_scores_by_team_id("away").key(lowest_average)]
+    # lowest_average = average_scores_by_team_id("away").values.min
+    # team_by_id[average_scores_by_team_id("away").key(lowest_average)]
+    @league.lowest_scoring_visitor
   end
 
   def lowest_scoring_home_team #issue # 16 - Fail wrong team being returned
-    min_average = average_scores_by_team_id("home").values.min
-    team_by_id[average_scores_by_team_id("home").key(min_average)]
+    # min_average = average_scores_by_team_id("home").values.min
+    # team_by_id[average_scores_by_team_id("home").key(min_average)]
+    @league.lowest_scoring_home_team
   end
 
 
