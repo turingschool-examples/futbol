@@ -171,11 +171,15 @@ describe StatTracker do
   it "can calculate the lowest average of an array in an array of team_id, average" do #helper method
     average = [["3", 2.1], ["6", 2.28], ["16", 2.23], ["5", 2.39], ["8", 2.08]]
     expect(@stat_tracker.minimum(average)).to eq(["8", 2.08])
+    expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+
   end
 
   it "can calculate the highest average of an array in an array of team_id, average" do #helper method
     average = [["3", 2.1], ["6", 2.28], ["16", 2.23], ["5", 2.39], ["8", 2.08]]
     expect(@stat_tracker.maximum(average)).to eq(["5", 2.39])
+    expect(@stat_tracker.best_offense).to eq("Reign FC")
+
   end
 
   it "can name the coach with the best winning percentage" do
@@ -254,6 +258,8 @@ describe StatTracker do
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").map { |game| game.game_id }).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6")).to be_an(Array)
+    expect(@stat_tracker_dummy.average_win_percentage("6")).to eq(1.0)
+
   end
 
   it "can isolate a single teams wins in game_teams" do #game_teams helper
@@ -270,6 +276,8 @@ describe StatTracker do
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6")).to be_an(Array)
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6").map { |game| game.game_id }).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
+    expect(@stat_tracker_dummy.average_win_percentage("6")).to eq(1.0)
+
   end
 
   it "can group games by season in games" do #game helper
@@ -296,6 +304,7 @@ describe StatTracker do
     expect(@stat_tracker_dummy.game_stats.season_grouper.keys).to eq(["20122013"])
     expect(@stat_tracker_dummy.game_stats.season_grouper.values[0].map { |game| game.game_id }).to eq(values_array)
     expect(@stat_tracker_dummy.game_stats.season_grouper).to be_a(Hash)
+    expect(@stat_tracker_dummy.worst_season("6")).to eq("20122013")
   end
 
   it "can isolate a single teams games in games" do #game helper
@@ -369,6 +378,8 @@ describe StatTracker do
                                                                           "Sporting Kansas City",
                                                                           "LA Galaxy",
                                                                           "Los Angeles FC"])
+    expect(@stat_tracker_dummy.best_offense).to eq("FC Dallas")
+    expect(@stat_tracker_dummy.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 
   it "can calculate which team had the best offense" do
@@ -431,6 +442,7 @@ describe StatTracker do
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Averagable)
     expect(@stat_tracker_dummy.season_ratio_by_team("20122013")).to eq({ "3" => 0.21052631578947367, "6" => 0.2894736842105263 })
+    expect(@stat_tracker_dummy.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 
   it "can find rival for a given team" do
