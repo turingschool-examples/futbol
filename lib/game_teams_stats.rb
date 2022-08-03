@@ -143,7 +143,4 @@ class GameTeamsStats
     end
     our_rival
   end
-
-
-
 end

@@ -145,10 +145,10 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    @teams_stats.team_id_to_name[min_win_percent(team_id)[0]]
+    @teams_stats.team_id_to_name[@game_teams_stats.min_win_percent(team_id)[0]]
   end
 
   def rival(team_id)
-    @teams_stats.team_id_to_name[max_win_percent(team_id)[0]]
+    @teams_stats.team_id_to_name[@game_teams_stats.max_win_percent(team_id)[0]]
   end
 end
