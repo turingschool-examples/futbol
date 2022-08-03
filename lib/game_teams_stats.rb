@@ -1,7 +1,7 @@
 require "csv"
-require "./lib/game_teams.rb"
-require "./lib/isolatable"
-require "./lib/helpable"
+require_relative "./game_teams"
+require_relative "./isolatable"
+require_relative "./helpable"
 
 class GameTeamsStats
   include Helpable

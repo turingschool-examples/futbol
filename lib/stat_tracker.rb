@@ -1,12 +1,15 @@
 require_relative "./game_teams_stats"
 require_relative "./game_stats"
 require_relative "./teams_stats"
-require "./groupable"
-require "./isolatable"
+require_relative "./groupable"
+require_relative "./isolatable"
+require_relative "./helpable"
 
 class StatTracker
   include Groupable
   include Isolatable
+  include Helpable
+
   attr_reader :game_stats,
               :teams_stats,
               :game_teams_stats
@@ -95,7 +98,7 @@ class StatTracker
   end
 
   def fewest_goals_scored(team_id)
-    @game_teams_stats.most_goals_scored(team_id)
+    @game_teams_stats.fewest_goals_scored(team_id)
   end
 
   def average_win_percentage(team_id)
@@ -105,7 +108,7 @@ class StatTracker
   end
 
   def team_info(team_id)
-    @team_stats.team_info(team_id)
+    @teams_stats.team_info(team_id)
   end
 
   def best_season(team_id)

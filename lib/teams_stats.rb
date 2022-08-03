@@ -1,6 +1,6 @@
 require 'csv'
 require_relative './teams'
-require './helpable'
+require_relative './helpable'
 
 class TeamsStats
   include Helpable

@@ -340,11 +340,11 @@ describe StatTracker do
   end
 
   it "can tell which season is a teams best" do
-    expect(@stat_tracker.game_stats.best_season("6")).to eq("20132014")
+    expect(@stat_tracker.best_season("6")).to eq("20132014")
   end
 
   it "can tell which season is a teams worst" do
-    expect(@stat_tracker.game_stats.worst_season("6")).to eq("20142015")
+    expect(@stat_tracker.worst_season("6")).to eq("20142015")
   end
 
   it "gives a hash of team id to team name" do #team_id_to_name helper
