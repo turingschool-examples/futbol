@@ -31,4 +31,11 @@ module Groupable
     game_id_list
   end
 
+  def all_tackles_this_season(season)
+    tackles_by_team = Hash.new(0)
+    @game_stats.games_by_team_id_and_season(season).flat_map { |team_id, games| games.map { |game| tackles_by_team[team_id] += 
+      @game_teams_stats.number_of_tackles(team_id, game.game_id) }}
+    tackles_by_team
+  end
+
 end

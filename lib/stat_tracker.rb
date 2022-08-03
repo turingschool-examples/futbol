@@ -117,23 +117,13 @@ class StatTracker
   end
 
   def most_tackles(season)
-    total_tackles = Hash.new(0)
-    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
-      games.map do |game|
-        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
-      end
-    end
-    @teams_stats.team_id_to_name[maximum(total_tackles)[0]]
+    tackles_by_team = all_tackles_this_season(season)
+    @teams_stats.team_id_to_name[maximum(tackles_by_team)[0]]
   end
 
   def fewest_tackles(season)
-    total_tackles = Hash.new(0)
-    @game_stats.games_by_team_id_and_season(season).flat_map do |team_id, games|
-      games.map do |game|
-        total_tackles[team_id] += @game_teams_stats.number_of_tackles(team_id, game.game_id)
-      end
-    end
-    @teams_stats.team_id_to_name[minimum(total_tackles)[0]]
+    tackles_by_team = all_tackles_this_season(season)
+    @teams_stats.team_id_to_name[minimum(tackles_by_team)[0]]
   end
 
   def winningest_coach(season_id) #pull out game_teams somehow
@@ -219,7 +209,6 @@ class StatTracker
     end
     return ratio
   end
-
 
   def favorite_opponent(team_id)
     #{game=>{teams => [team1, team2], winning_team = team1}}
