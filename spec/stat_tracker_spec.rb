@@ -3,7 +3,9 @@ require "./lib/teams.rb"
 require "./lib/game"
 require "./lib/game_teams"
 require "./lib/averageable"
-require "./lib/groupable"
+require "./lib/team_groupable"
+require "./lib/season_groupable"
+
 
 describe StatTracker do
   before :each do
@@ -17,7 +19,8 @@ describe StatTracker do
     }
     @stat_tracker = StatTracker.from_csv(locations)
     @stat_tracker.extend(Averageable)
-    @stat_tracker.extend(Groupable)
+    @stat_tracker.extend(TeamGroupable)
+    @stat_tracker.extend(SeasonGroupable)
   end
 
   it "exists" do
@@ -309,7 +312,8 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Averageable)
-    @stat_tracker_dummy.extend(Groupable)
+    @stat_tracker_dummy.extend(TeamGroupable)
+    @stat_tracker_dummy.extend(SeasonGroupable)
     expect(@stat_tracker_dummy.game_stats.all_team_games("3")).to be_an(Array)
 
     expect(@stat_tracker_dummy.game_stats.all_team_games("3").map { |game| game.game_id }).to eq(["2012030221",

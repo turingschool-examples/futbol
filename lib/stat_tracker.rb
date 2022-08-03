@@ -1,12 +1,14 @@
 require_relative "./game_teams_stats"
 require_relative "./game_stats"
 require_relative "./teams_stats"
-require_relative "./groupable"
+require_relative "./team_groupable"
+require_relative "./season_groupable"
 require_relative "./isolatable"
 require_relative "./averageable"
 
 class StatTracker
-  include Groupable
+  include SeasonGroupable
+  include TeamGroupable
   include Isolatable
   include Averageable
 
