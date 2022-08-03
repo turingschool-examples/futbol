@@ -199,6 +199,7 @@ class StatTracker
         record_vs_our_team[other_team_id][:ties] += 1
       end
     end
+    require 'pry';binding.pry
     record_vs_our_team
   end
 
