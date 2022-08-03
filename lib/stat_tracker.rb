@@ -1,4 +1,3 @@
-require 'csv'
 require_relative 'csv_loader.rb'
 require_relative 'games'
 require_relative 'league'
