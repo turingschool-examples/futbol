@@ -27,7 +27,6 @@ class Game
     @venue_link = info[:venue_link]
   end
 
-
   def did_team_win?(team_id)
     if @away_team_id == team_id
       @away_goals > @home_goals
@@ -46,5 +45,17 @@ class Game
     else
       "that team didn't play"
     end
+  end
+
+  def home_win?
+    @home_goals.to_i > @away_goals.to_i
+  end
+
+  def visitor_win?
+    @home_goals.to_i < @away_goals.to_i
+  end
+
+  def tie?
+    @home_goals.to_i == @away_goals.to_i
   end
 end

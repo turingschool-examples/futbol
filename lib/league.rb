@@ -169,19 +169,19 @@ class League
 
   def home_wins_counter
     @all_games.count do |game|
-      game.home_goals.to_i > game.away_goals.to_i
+      game.home_win?
     end
   end
 
   def visitor_wins_counter
     @all_games.count do |game|
-      game.home_goals.to_i < game.away_goals.to_i
+      game.visitor_win?
     end
   end
 
   def tie_counter
     @all_games.count do |game|
-      game.home_goals.to_i == game.away_goals.to_i
+      game.tie?
     end
   end
 
