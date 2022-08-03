@@ -3,6 +3,7 @@ require "./lib/teams.rb"
 require "./lib/game"
 require "./lib/game_teams"
 require "./lib/helpable"
+require "./lib/groupable"
 
 describe StatTracker do
   before :each do
@@ -16,6 +17,7 @@ describe StatTracker do
     }
     @stat_tracker = StatTracker.from_csv(locations)
     @stat_tracker.extend(Helpable)
+    @stat_tracker.extend(Groupable)
   end
 
   it "exists" do
@@ -307,12 +309,15 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
+    @stat_tracker_dummy.extend(Groupable)
     expect(@stat_tracker_dummy.game_stats.all_team_games("3")).to be_an(Array)
+
     expect(@stat_tracker_dummy.game_stats.all_team_games("3").map { |game| game.game_id }).to eq(["2012030221",
                                                                                                   "2012030222",
                                                                                                   "2012030223",
                                                                                                   "2012030224",
                                                                                                   "2012030225"])
+
   end
 
   it "can find a teams average win percentage" do

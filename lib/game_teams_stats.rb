@@ -1,9 +1,11 @@
 require 'csv'
 require_relative './game_teams.rb'
+require './isolatable'
 require './helpable'
 
 class GameTeamsStats
   include Helpable
+  include Isolatable
 
   attr_reader :game_teams
 
@@ -62,11 +64,4 @@ class GameTeamsStats
     tackles
   end
 
-  def team_isolator(team_id) #game_teams helper, returns all of a team's games
-    @game_teams.find_all { |game| team_id == game.team_id }
-  end
-
-  def win_isolator(team_id) #game_teams helper, returns all of a team's wins in an array
-    @game_teams.find_all { |game| team_id == game.team_id && game.result == "WIN" }
-  end
 end
