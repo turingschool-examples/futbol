@@ -1,3 +1,7 @@
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
+
 module ObjectGenerator
 
   def games_array_creator(path)
