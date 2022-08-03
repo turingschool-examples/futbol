@@ -186,7 +186,7 @@ describe StatTracker do
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
-  xit "can identify all games that correspond to a certain season id" do #helper method
+  it "can identify all games that correspond to a certain season id" do #helper method
     game_path = "./spec/fixtures/dummy_game.csv"
     team_path = "./spec/fixtures/dummy_teams.csv"
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
@@ -197,16 +197,17 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expected = ["2012030221",
-               "2012030222",
-               "2012030223",
-               "2012030224",
-               "2012030225",
-               "2012030311",
-               "2012030312",
-               "2012030313",
-               "2012030314"]
-    expect(@stat_tracker_dummy.game_stats.games_by_season("20122013")).to eq(expected)
+    expected = ["20122013",
+                "20122013",
+                "20122013",
+                "20122013",
+                "20122013",
+                "20122013",
+                "20122013",
+                "20122013",
+                "20122013"]
+
+    expect(@stat_tracker_dummy.game_stats.games_by_season("20122013").map { |game| game.season }).to eq(expected)
   end
 
   it "can name the team with the best shot accuracy" do
@@ -248,7 +249,7 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
+    expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").map { |game| game.game_id }).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6")).to be_an(Array)
   end
@@ -266,7 +267,7 @@ describe StatTracker do
     @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6")).to be_an(Array)
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6").size).to eq(4)
-    expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6").map {|game| game.game_id}).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
+    expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6").map { |game| game.game_id }).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
   end
 
   it "can group games by season in games" do #game helper
@@ -281,17 +282,17 @@ describe StatTracker do
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
     values_array = ["2012030221",
-                     "2012030222",
-                     "2012030223",
-                     "2012030224",
-                     "2012030225",
-                     "2012030311",
-                     "2012030312",
-                     "2012030313",
-                     "2012030314"]
+                    "2012030222",
+                    "2012030223",
+                    "2012030224",
+                    "2012030225",
+                    "2012030311",
+                    "2012030312",
+                    "2012030313",
+                    "2012030314"]
 
     expect(@stat_tracker_dummy.game_stats.season_grouper.keys).to eq(["20122013"])
-    expect(@stat_tracker_dummy.game_stats.season_grouper.values[0].map {|game| game.game_id}).to eq(values_array)
+    expect(@stat_tracker_dummy.game_stats.season_grouper.values[0].map { |game| game.game_id }).to eq(values_array)
     expect(@stat_tracker_dummy.game_stats.season_grouper).to be_a(Hash)
   end
 
@@ -307,11 +308,11 @@ describe StatTracker do
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.game_stats.all_team_games("3")).to be_an(Array)
-    expect(@stat_tracker_dummy.game_stats.all_team_games("3").map {|game| game.game_id}).to eq(["2012030221",
-                                                                                     "2012030222",
-                                                                                     "2012030223",
-                                                                                     "2012030224",
-                                                                                     "2012030225"])
+    expect(@stat_tracker_dummy.game_stats.all_team_games("3").map { |game| game.game_id }).to eq(["2012030221",
+                                                                                                  "2012030222",
+                                                                                                  "2012030223",
+                                                                                                  "2012030224",
+                                                                                                  "2012030225"])
   end
 
   it "can isolate a teams games by season in games" do #game helper
@@ -326,7 +327,7 @@ describe StatTracker do
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
     expect(@stat_tracker_dummy.get_team_games_by_single_season("6", "20122013")).to be_an(Array)
-    expect(@stat_tracker_dummy.get_team_games_by_single_season("6", "20122013").map {|game| game.date_time}).to eq(["5/16/13",                                                                                       "6/8/13"])
+    expect(@stat_tracker_dummy.get_team_games_by_single_season("6", "20122013").map { |game| game.date_time }).to eq(["5/16/13", "6/8/13"])
   end
 
   it "can find a teams average win percentage" do
@@ -350,7 +351,7 @@ describe StatTracker do
 
   it "can tell which season is a teams best" do
     expect(@stat_tracker.game_stats.best_season("6")).to eq("20132014")
-   end
+  end
 
   it "can tell which season is a teams worst" do
     expect(@stat_tracker.game_stats.worst_season("6")).to eq("20142015")
@@ -371,14 +372,14 @@ describe StatTracker do
     expect(@stat_tracker_dummy.teams_stats.team_id_to_name).to be_a(Hash)
     expect(@stat_tracker_dummy.teams_stats.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])
     expect(@stat_tracker_dummy.teams_stats.team_id_to_name.values).to eq(["Atlanta United",
-                                                               "Chicago Fire",
-                                                               "FC Cincinnati",
-                                                               "DC United",
-                                                               "FC Dallas",
-                                                               "Houston Dynamo",
-                                                               "Sporting Kansas City",
-                                                               "LA Galaxy",
-                                                               "Los Angeles FC"])
+                                                                          "Chicago Fire",
+                                                                          "FC Cincinnati",
+                                                                          "DC United",
+                                                                          "FC Dallas",
+                                                                          "Houston Dynamo",
+                                                                          "Sporting Kansas City",
+                                                                          "LA Galaxy",
+                                                                          "Los Angeles FC"])
   end
 
   it "can calculate which team had the best offense" do
@@ -440,11 +441,10 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expect(@stat_tracker_dummy.get_ratio("20122013")).to eq({"3"=>0.21052631578947367, "6"=>0.2894736842105263})
+    expect(@stat_tracker_dummy.get_ratio("20122013")).to eq({ "3" => 0.21052631578947367, "6" => 0.2894736842105263 })
   end
 
   it "can find rival for a given team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
-
 end
