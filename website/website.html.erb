@@ -28,14 +28,14 @@
     <p>Highest Total Score = <%= stat_tracker.highest_total_score %></p>
 
     <p>Lowest Total Score = <%= stat_tracker.lowest_total_score %></p>
-<%if false%>
+
     <p>Percentage Home Wins = <%= stat_tracker.percentage_home_wins %></p>
     
     <p>Percentage Visitor Wins = <%= stat_tracker.percentage_visitor_wins %>
     </p>
     
     <p>Percentage Ties = <%= stat_tracker.percentage_ties %></p>
-<% end %>
+
     <p>Average Goals Per Game = <%= stat_tracker.average_goals_per_game %></p>
 
     <p>
@@ -69,14 +69,12 @@
   </tr>
   <tr>
     <td>2012 - 2013</td>
-    <% if false %>
     <td><%= stat_tracker.winningest_coach("20122013")%></td>
     <td><%= stat_tracker.worst_coach("20122013")%></td>
     <td><%= stat_tracker.most_accurate_team("20122013")%></td>
     <td><%= stat_tracker.least_accurate_team("20122013")%></td>
     <td><%= stat_tracker.most_tackles("20122013")%></td>
     <td><%= stat_tracker.fewest_tackles("20122013")%></td>
-    <% end %>
   </tr>
 </table><br><br>
 
