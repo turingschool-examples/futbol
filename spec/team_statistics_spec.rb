@@ -1,16 +1,12 @@
 require 'spec_helper'
+require 'csv'
 
 RSpec.describe TeamStatistics do
-    context 'when a team statistics tracker is created' do
-      mock_games_data = './data/mock_games.csv'
-      team_data = './data/teams.csv'
-      mock_game_teams_data = './data/mock_game_teams.csv'
+  team_data = CSV.read './data/teams.csv', headers:true, header_converters: :symbol
+  game_teams_data = CSV.read './data/game_teams.csv', headers: true, header_converters: :symbol
+  games_data = CSV.read './data/games.csv', headers: true, header_converters: :symbol
 
-      let!(:mock_locations) {{games: mock_games_data, teams: team_data, game_teams: mock_game_teams_data}}
-
-      let!(:stat_tracker) { StatTracker.from_csv(mock_locations) }
-
-      let!(:team_statistics) { TeamStatistics.new }
+      let!(:team_statistics) { TeamStatistics.new(team_data, games_data, game_teams_data) }
 
       it 'is an instance of team stats tracker' do
         expect(team_statistics).to be_a(TeamStatistics)
@@ -40,13 +36,12 @@ RSpec.describe TeamStatistics do
       end
 
       it 'can return the rival team of a given team' do
-        expect(team_statistics.rival(28)).to eq ''
+        expect(team_statistics.rival(28)).to eq 'Sporting Kansas City'
       end
 
       it 'can return the favorite opponent of a team' do
-        expect(team_statistics.favorite_opponent(28)).to eq ''
+        expect(team_statistics.favorite_opponent(28)).to eq 'Montreal Impact'
       end
-    end
 end
 
 

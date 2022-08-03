@@ -1,13 +1,13 @@
-# require_relative 'team_module'
-require './lib/team_name_by_id_helper_module'
 
+require_relative 'team_stats_module'
+require_relative 'team_name_by_id_helper_module'
 class TeamStatistics
-    # include Teamable
-    # include TeamNameable
-    def initialize()
-      @teams_data = CSV.read "./data/teams.csv", headers: true, header_converters: :symbol
-      @game_teams_data = CSV.read "./data/game_teams.csv", headers: true, header_converters: :symbol
-      @games_data = CSV.read "./data/games.csv", headers: true, header_converters: :symbol
+    include Teamable
+
+    def initialize(teams_data, games_data, game_teams_data)
+      @teams_data = teams_data
+      @games_data = games_data
+      @game_teams_data = game_teams_data
     end
 
     def team_info(given_team_id)
@@ -127,15 +127,13 @@ class TeamStatistics
     def rival(given_team_id)
       wins_and_losses = head_to_head_records(given_team_id)
       rival_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
-      rival_team_id = find_team_name_by_id(fav_opponent_array[0])
-      find_team_name_by_id(rival_team_id)
+      find_team_name_by_id(rival_array[0])
     end
 
     def favorite_opponent(given_team_id)
       wins_and_losses = head_to_head_records(given_team_id)
-      fav_opponent_array = wins_and_losses.min_by { |team, array| (array[0] - array [1])}
-      favorite_team_id = find_team_name_by_id(fav_opponent_array[0])
-      find_team_name_by_id(favorite_team_id)
+      fav_opponent_array = wins_and_losses.max_by { |team, array| (array[0] - array [1])}
+      find_team_name_by_id(fav_opponent_array[0])
     end
 
     def head_to_head_records(given_team_id)
