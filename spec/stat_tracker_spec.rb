@@ -199,17 +199,17 @@ describe StatTracker do
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Helpable)
-    expected = ["20122013",
-                "20122013",
-                "20122013",
-                "20122013",
-                "20122013",
-                "20122013",
-                "20122013",
-                "20122013",
-                "20122013"]
+    expected = ["2012030221",
+             "2012030222",
+             "2012030223",
+             "2012030224",
+             "2012030225",
+             "2012030311",
+             "2012030312",
+             "2012030313",
+             "2012030314"]
 
-    expect(@stat_tracker_dummy.game_stats.games_by_season("20122013").map { |game| game.season }).to eq(expected)
+    expect(@stat_tracker_dummy.game_stats.games_by_season("20122013")).to eq(expected)
   end
 
   it "can name the team with the best shot accuracy" do
