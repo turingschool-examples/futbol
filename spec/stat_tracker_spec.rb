@@ -80,23 +80,23 @@ describe StatTracker do
   end
 
   it "can calculate the games highest total score" do
-    expect(@stat_tracker.game_stats.highest_total_score).to eq(11)
+    expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
   it "can calculate the games lowest total score" do
-    expect(@stat_tracker.game_stats.lowest_total_score).to eq(0)
+    expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
   it "can calculate the games precentage home wins" do
-    expect(@stat_tracker.game_stats.percentage_home_wins).to eq(0.44)
+    expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
 
   it "can calculate the games percentage visitor wins" do
-    expect(@stat_tracker.game_stats.percentage_visitor_wins).to eq(0.36)
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
   end
 
   it "can calculate the games percentage ties" do
-    expect(@stat_tracker.game_stats.percentage_ties).to eq(0.20)
+    expect(@stat_tracker.percentage_ties).to eq(0.20)
   end
 
   it "can calculate the games count of games by season" do
@@ -109,7 +109,7 @@ describe StatTracker do
       "20172018" => 1355,
     }
 
-    expect(@stat_tracker.game_stats.count_of_games_by_season).to eq(expected)
+    expect(@stat_tracker.count_of_games_by_season).to eq(expected)
   end
 
   it "can calculate the games count of games by season for different data" do
@@ -125,11 +125,11 @@ describe StatTracker do
     @stat_tracker_dummy.extend(Helpable)
     expected = { "20122013" => 9 }
 
-    expect(@stat_tracker_dummy.game_stats.count_of_games_by_season).to eq(expected)
+    expect(@stat_tracker_dummy.count_of_games_by_season).to eq(expected)
   end
 
   it "can calculate the games average goals per game" do
-    expect(@stat_tracker.game_stats.average_goals_per_game).to eq(4.22)
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
   end
 
   it "can calculate the games average goals by season" do
@@ -141,7 +141,7 @@ describe StatTracker do
       "20132014" => 4.19,
       "20172018" => 4.44,
     }
-    expect(@stat_tracker.game_stats.average_goals_by_season).to eq(expected)
+    expect(@stat_tracker.average_goals_by_season).to eq(expected)
   end
 
   it "can calculate the games average goals by season for dummy data" do
@@ -223,7 +223,7 @@ describe StatTracker do
   end
 
   it "can create a hash with team_id, franchise_id, team_name, abbreviation, and link " do
-    expect(@stat_tracker.teams_stats.team_info("18")).to eq({
+    expect(@stat_tracker.team_info("18")).to eq({
       "team_id" => "18",
       "franchise_id" => "34",
       "team_name" => "Minnesota United FC",
@@ -237,7 +237,7 @@ describe StatTracker do
   end
 
   it "can tell the fewest goals a team has scored in a game across all seasons" do
-    expect(@stat_tracker.game_teams_stats.fewest_goals_scored("18")).to eq(0)
+    expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
   end
 
   it "can isolate a single teams games in game_teams" do #game_teams helper
