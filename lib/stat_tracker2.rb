@@ -144,9 +144,8 @@ class StatTracker
     end[0]
   end
 
-  def average_win_percentage(given_team_id)
-    team_tally = @league.wins_losses_tally(given_team_id)
-    (team_tally[:wins].to_f / team_tally[:total_games]).round(2)
+  def average_win_percentage(team_id)
+    (@league.team_wins(team_id).to_f / @league.team_total_games(team_id)).round(2)
   end
 
   def most_goals_scored(team_id)

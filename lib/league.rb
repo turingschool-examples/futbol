@@ -57,60 +57,35 @@ class League
 
   def coaches_by_win_percentage(season)
     games_team_sorted = game_team_group_by_season(season)
-    data_set_by_head_coach = games_team_sorted.group_by do |game|
-      game.head_coach
-    end
-    coaches_by_win_percentage = Hash.new{|h,k| h[k] = 0}
+    data_set_by_head_coach = games_team_sorted.group_by(&:head_coach)
+    coaches_by_win_pct = Hash.new{|h,k| h[k] = 0}
     data_set_by_head_coach.each do |coach, games|
-      game_outcomes_by_stat = {
-        wins: 0,
-        ties: 0,
-        total_games: 0
-      }
-      games.each do |game|
-        game_outcomes_by_stat[:wins] += 1 if game.result == "WIN"
-        game_outcomes_by_stat[:ties] += 1 if game.result == "TIE"
-        game_outcomes_by_stat[:total_games] += 1
-      end
-      coaches_by_win_percentage[coach] = ((game_outcomes_by_stat[:wins].to_f / game_outcomes_by_stat[:total_games])*100).round(2)
+      wins = games.count { |game| game.result == "WIN"}
+      total_games = games.count.to_f
+      coaches_by_win_pct[coach] = ((wins / total_games)*100).round(2)
     end
-    coaches_by_win_percentage
+    coaches_by_win_pct
   end
 
   def teams_by_accuracy(season)
     games_team_sorted = game_team_group_by_season(season)
-    data_set_by_teams = games_team_sorted.group_by do |game|
-      game.team_id
-    end
+    data_set_by_teams = games_team_sorted.group_by(&:team_id)
     teams_by_accuracy = Hash.new{|h,k| h[k] = 0}
     data_set_by_teams.each do |team, games|
-      game_outcomes_by_stat = {
-        shots: 0,
-        goals: 0
-      }
-      games.each do |game|
-        game_outcomes_by_stat[:shots] += game.shots.to_i
-        game_outcomes_by_stat[:goals] += game.goals.to_i
-      end
-      teams_by_accuracy[team] = (game_outcomes_by_stat[:goals].to_f / game_outcomes_by_stat[:shots]).round(5)
+        shots = games.reduce(0) { |total, game| total + game.shots.to_i}
+        goals = games.reduce(0) { |total, game| total + game.goals.to_i}
+      teams_by_accuracy[team] = (goals.to_f / shots).round(5)
     end
     teams_by_accuracy
   end
 
   def teams_by_tackles(season)
     games_team_sorted = game_team_group_by_season(season)
-    data_set_by_teams = games_team_sorted.group_by do |game|
-      game.team_id
-    end
+    data_set_by_teams = games_team_sorted.group_by(&:team_id)
     teams_by_tackles = Hash.new{|h,k| h[k] = 0}
     data_set_by_teams.each do |team, games|
-      game_outcomes_by_stat = {
-        tackles: 0,
-      }
-      games.each do |game|
-        game_outcomes_by_stat[:tackles] += game.tackles.to_i
-      end
-      teams_by_tackles[team] = game_outcomes_by_stat[:tackles]
+      tackles = games.reduce(0) { |total, game| total + game.tackles.to_i}
+      teams_by_tackles[team] = tackles
     end
     teams_by_tackles
   end
@@ -149,34 +124,21 @@ class League
     seasons_by_win_percentage = Hash.new{|h,k| h[k] = 0}
     team_games_by_season.each do |season, games|
       full_season = games.first.game_id[0..3] + (games.first.game_id[0..3].to_i + 1).to_s
-      game_outcomes_by_stat = {
-        wins: 0,
-        ties: 0,
-        total_games: 0
-      }
-      games.each do |game|
-        game_outcomes_by_stat[:wins] += 1 if game.result == "WIN"
-        game_outcomes_by_stat[:ties] += 1 if game.result == "TIE"
-        game_outcomes_by_stat[:total_games] += 1
-      end
-      seasons_by_win_percentage[full_season] = (game_outcomes_by_stat[:wins].to_f / game_outcomes_by_stat[:total_games]).round(5)
+      wins = games.count { |game| game.result == "WIN"}
+      total_games = games.count.to_f
+      seasons_by_win_percentage[full_season] = (wins.to_f / total_games).round(5)
     end
     seasons_by_win_percentage
   end
 
-  def wins_losses_tally(given_team_id)
+  def team_wins(given_team_id)
     teams_games = game_team_grouped_by_team(given_team_id)
-    all_games_tally = {
-      wins: 0,
-      ties: 0,
-      total_games: 0
-    }
-    teams_games.each do |game|
-        all_games_tally[:wins] += 1 if game.result == "WIN"
-        all_games_tally[:ties] += 1 if game.result == "TIE"
-        all_games_tally[:total_games] += 1
-      end
-    all_games_tally
+    wins = teams_games.count { |game| game.result == "WIN"}
+  end
+
+  def team_total_games(given_team_id)
+    teams_games = game_team_grouped_by_team(given_team_id)
+    total_games = teams_games.count.to_f
   end
 
   def goals_scored_in_game(given_team_id)
