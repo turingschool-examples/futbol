@@ -437,4 +437,30 @@ describe StatTracker do
   it "can find rival for a given team" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
+
+  it 'can find the results for all game ids' do #length should be 7441
+    expect(@stat_tracker.all_game_results("3")).to be_a(Hash)
+    expect(@stat_tracker.all_game_results("18").length).to eq((@stat_tracker.game_teams_stats.game_teams.length)/2)
+    expect(@stat_tracker.all_game_results("1").length).to eq((@stat_tracker.game_teams_stats.game_teams.length)/2)
+  end
+
+  it 'can find all teams overall records against a given team' do
+    expect(@stat_tracker.record_vs_our_team("18")).to be_a(Hash)
+    expect(@stat_tracker.record_vs_our_team("18").length).to eq(31)
+    expect(@stat_tracker.record_vs_our_team("1").length).to eq((@stat_tracker.teams_stats.teams.length)-1)
+  end
+
+  it 'can find the team id of the team with the worst overall record against a given team' do
+    expect(@stat_tracker.min_win_percent("1")).to be_a(Array)
+    expect(@stat_tracker.min_win_percent("18")[0]).to eq("14")
+    expect(@stat_tracker.min_win_percent("1")[0]).to eq("25")
+  end
+
+  it 'can find the team id of the team with the best overall record against a given team' do
+    expect(@stat_tracker.max_win_percent("1")).to be_a(Array)
+    expect(@stat_tracker.max_win_percent("18")[0]).to eq("14").or eq("17")
+    expect(@stat_tracker.max_win_percent("1")[0]).to eq("17")
+  end
+
+
 end
