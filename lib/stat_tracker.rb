@@ -110,31 +110,26 @@ class StatTracker
   end
 
   def most_tackles(season)
-    tackles_by_team = all_tackles_this_season(season)
-    @teams_stats.team_id_to_name[maximum(tackles_by_team)[0]]
+    @teams_stats.team_id_to_name[maximum(all_tackles_this_season(season))[0]]
   end
 
   def fewest_tackles(season)
-    tackles_by_team = all_tackles_this_season(season)
-    @teams_stats.team_id_to_name[minimum(tackles_by_team)[0]]
+    @teams_stats.team_id_to_name[minimum(all_tackles_this_season(season))[0]]
   end
-  
+
   def winningest_coach(season_id)
-    game_id_list = @game_stats.games_by_season(season_id)
-    coaches = @game_teams_stats.isolate_coach_wins(game_id_list)
-    maximum(@game_teams_stats.coach_percentage_won(coaches, game_id_list))[0]
+    coaches = @game_teams_stats.isolate_coach_wins(@game_stats.games_by_season(season_id))
+    maximum(@game_teams_stats.coach_percentage_won(coaches, @game_stats.games_by_season(season_id)))[0]
   end
 
   def worst_coach(season_id)
-    game_id_list = @game_stats.games_by_season(season_id)
-    coaches = @game_teams_stats.isolate_coach_loss(game_id_list)
-    minimum(@game_teams_stats.coach_percentage_loss(coaches, game_id_list))[0]
+    coaches = @game_teams_stats.isolate_coach_loss(@game_stats.games_by_season(season_id))
+    minimum(@game_teams_stats.coach_percentage_loss(coaches, @game_stats.games_by_season(season_id)))[0]
   end
 
   def most_accurate_team(season_id)
-    max_ratio = get_ratio(season_id).max_by { |k, v| v }[0]
     @teams_stats.teams.each do |team|
-      return team.team_name if team.team_id == max_ratio
+      return team.team_name if team.team_id == get_ratio(season_id).max_by { |k, v| v }[0]
     end
   end
 
@@ -149,7 +144,6 @@ class StatTracker
     goals = Hash.new(0)
     shots = Hash.new(0)
     ratio = Hash.new(0)
-
     game_id_list= @game_stats.games_by_season(season_id)
       @game_teams_stats.game_teams.each do |game_team|
         game_id = game_team.game_id
