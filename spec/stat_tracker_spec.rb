@@ -35,10 +35,6 @@ describe StatTracker do
 
   describe 'Game Statistics' do
 
-    it 'calculates total scores by game' do 
-      expect(@stat_tracker.total_scores_by_game).to be_a Array
-    end
-
     it 'calculates the hights score' do 
       expect(@stat_tracker.highest_total_score).to be_a Integer
     end 
@@ -125,18 +121,6 @@ describe StatTracker do
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are away' do #Pass
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
-    end
-
-    it 'returns an array of each teams scores' do
-      expect(@stat_tracker.scores_by_team_id("6")).to be_a Hash
-    end
-
-    it 'returns a hash of team id and name' do 
-      expect(@stat_tracker.team_by_id).to be_a Hash
-    end 
-
-    it 'returns an array of each teams average score' do
-      expect(@stat_tracker.average_scores_by_team_id("6")).to be_a Hash
     end
 
     it 'can return Name of the team with the highest average score per game across all seasons when they are home' do #Pass
