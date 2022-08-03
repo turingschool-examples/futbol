@@ -23,6 +23,16 @@ module Teamable
     ((numerator/denominator)*100).round(2)
   end
 
+  def create_team_info_hash(team_info)
+    team_info_hash = {
+      "abbreviation" => team_info[:abbreviation],
+      "franchise_id" => team_info[:franchiseid],
+      "link" => team_info[:link],
+      "team_id" => team_info[:team_id],
+      "teamname" => team_info[:teamname],
+    }
+  end
+
 
   ## long helper methods -- continue shredding
   def goals_scored_by_game(given_team_id)
