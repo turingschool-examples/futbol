@@ -2,9 +2,11 @@ require_relative "./game_teams_stats"
 require_relative "./game_stats"
 require_relative "./teams_stats"
 require './groupable'
+require './isolatable'
 
 class StatTracker
   include Groupable
+  include Isolatable
   attr_reader :game_stats,
               :teams_stats,
               :game_teams_stats
