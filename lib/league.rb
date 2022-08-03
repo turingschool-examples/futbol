@@ -72,8 +72,8 @@ class League
     data_set_by_teams = games_team_sorted.group_by(&:team_id)
     teams_by_accuracy = Hash.new{|h,k| h[k] = 0}
     data_set_by_teams.each do |team, games|
-        shots = games.reduce(0) { |total, game| total + game.shots.to_i}
-        goals = games.reduce(0) { |total, game| total + game.goals.to_i}
+      shots = games.reduce(0) { |total, game| total + game.shots.to_i}
+      goals = games.reduce(0) { |total, game| total + game.goals.to_i}
       teams_by_accuracy[team] = (goals.to_f / shots).round(5)
     end
     teams_by_accuracy
@@ -152,26 +152,9 @@ class League
     games_by_team = @all_games.select do |game|
       game.home_team_id == team_id || game.away_team_id == team_id
     end
-    away_games = games_by_team.group_by {|game| game.away_team_id}
-    home_games = games_by_team.group_by {|game| game.home_team_id}
-    games_by_opponent = Hash.new{|h,k| h[k] = []}
-    home_games.each do |opponent, games|
-      games_by_opponent[opponent] =
-        if games.nil?
-          away_games[opponent]
-        elsif away_games[opponent].nil?
-          games
-        else
-          games + away_games[opponent]
-        end
+    games_by_team.group_by do |game|
+      game.opponent_id(team_id)
     end
-    away_games.each do |opponent, games|
-      unless games_by_opponent.keys.include?(opponent)
-        games_by_opponent[opponent] = games
-      end
-    end
-    games_by_opponent.delete(team_id)
-    games_by_opponent
   end
 
   def win_percentage_by_opponent(team_id)
