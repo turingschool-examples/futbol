@@ -212,7 +212,7 @@ describe StatTracker do
       expect(@stat_tracker.rival_game("19")).to be_a Hash
     end
 
-    xit 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
+    it 'can return name of the opponent that has the highest win percentage against the given team' do #FAIL - Fail due to not written
       expect(@stat_tracker.rival("3")).to eq("FC Dallas")
     end
   end
