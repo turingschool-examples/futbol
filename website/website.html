@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
+    <style>
+      background1 {
+        border: 2px solid black;
+        padding: 25px;
+        background: url(https://unsplash.com/photos/UiiHVEyxtyA);
+        background-repeat: no-repeat;
+        background-size: 300px 100px;
+      }
+      h1 {
+        border-bottom: 5px solid red;
+      }
+      table, td, th {
+        border: 1px solid black;
+      }
+    </style>
     <meta charset="utf-8">
     <title>Futbol Stat Displayer</title>
   </head>
 
   <body>
+  <div id="background1">
+    <h1>FUTBOL GROUP PROJECT WEBSITE</h1>
+  </div>
     League-wide Statistics
     <p>Highest Total Score = 11</p>
 
     <p>Lowest Total Score = 0</p>
+
+    <p>Percentage Home Wins = 0.44</p>
+    
+    <p>Percentage Visitor Wins = 0.36
+    </p>
+    
+    <p>Percentage Ties = 0.2</p>
 
     <p>Average Goals Per Game = 4.22</p>
 
@@ -51,7 +76,7 @@
     Highest Scoring Visitor = FC Dallas <br> <br>
     Lowest Scoring Visitor = San Jose Earthquakes <br> <br><br>
   
-Season Statistics <br><br>
+<h2>Season Statistics</h2> <br><br>
  <table>
   <tr>
     <th>Season  </th>
@@ -63,17 +88,68 @@ Season Statistics <br><br>
     <th>  Fewest Tackles  </th>
   </tr>
   <tr>
-    <td>2012 - 2013</td>
     
+      <td>2012-2013 </td>
+      <td>Dan Lacroix</td>
+      <td>Martin Raymond</td>
+      <td>DC United</td>
+      <td>New York City FC</td>
+      <td>FC Cincinnati</td>
+      <td>Atlanta United</td>
   </tr>
+    
+      <td>2013-2014 </td>
+      <td>Dan Lacroix</td>
+      <td>Martin Raymond</td>
+      <td>DC United</td>
+      <td>New York City FC</td>
+      <td>FC Cincinnati</td>
+      <td>Atlanta United</td>
+  </tr>
+    
+      <td>2014-2015 </td>
+      <td>Dan Lacroix</td>
+      <td>Martin Raymond</td>
+      <td>DC United</td>
+      <td>New York City FC</td>
+      <td>FC Cincinnati</td>
+      <td>Atlanta United</td>
+  </tr>
+    
+      <td>2015-2016 </td>
+      <td>Dan Lacroix</td>
+      <td>Martin Raymond</td>
+      <td>DC United</td>
+      <td>New York City FC</td>
+      <td>FC Cincinnati</td>
+      <td>Atlanta United</td>
+  </tr>
+    
+      <td>2016-2017 </td>
+      <td>Dan Lacroix</td>
+      <td>Martin Raymond</td>
+      <td>DC United</td>
+      <td>New York City FC</td>
+      <td>FC Cincinnati</td>
+      <td>Atlanta United</td>
+  </tr>
+    
+      <td>2017-2018 </td>
+      <td>Dan Lacroix</td>
+      <td>Martin Raymond</td>
+      <td>DC United</td>
+      <td>New York City FC</td>
+      <td>FC Cincinnati</td>
+      <td>Atlanta United</td>
+  </tr>
+    
 </table><br><br>
 
-<h1> Team Info Table </h1>
+<h2> Team Info Table </h2>
 <table>
   <tr>
     <th> Team </th>
     <th> Abbrev. </th>
-    <th> Stadium </th>
     <th> Team ID </th>
     <th> Franchise ID </th>
     <th> Website </th>
@@ -82,7 +158,6 @@ Season Statistics <br><br>
   <tr>
     <td>Atlanta United</td>
     <td>ATL</td>
-    <td>Mercedes-Benz Stadium</td>
     <td>1</td>
     <td>23</td>
     <td>/api/v1/teams/1</td>
@@ -91,7 +166,6 @@ Season Statistics <br><br>
   <tr>
     <td>North Carolina Courage</td>
     <td>NCC</td>
-    <td>WakeMed Soccer Park</td>
     <td>10</td>
     <td>5</td>
     <td>/api/v1/teams/10</td>
@@ -100,7 +174,6 @@ Season Statistics <br><br>
   <tr>
     <td>Sky Blue FC</td>
     <td>SBL</td>
-    <td>Yurcak Field</td>
     <td>12</td>
     <td>26</td>
     <td>/api/v1/teams/12</td>
@@ -109,7 +182,6 @@ Season Statistics <br><br>
   <tr>
     <td>Houston Dash</td>
     <td>HOD</td>
-    <td>BBVA Stadium</td>
     <td>13</td>
     <td>33</td>
     <td>/api/v1/teams/13</td>
@@ -118,7 +190,6 @@ Season Statistics <br><br>
   <tr>
     <td>DC United</td>
     <td>DC</td>
-    <td>Audi Field</td>
     <td>14</td>
     <td>31</td>
     <td>/api/v1/teams/14</td>
@@ -127,7 +198,6 @@ Season Statistics <br><br>
   <tr>
     <td>Portland Timbers</td>
     <td>POR</td>
-    <td>Providence Park</td>
     <td>15</td>
     <td>24</td>
     <td>/api/v1/teams/15</td>
@@ -136,7 +206,6 @@ Season Statistics <br><br>
   <tr>
     <td>New England Revolution</td>
     <td>NE</td>
-    <td>Gillette Stadium</td>
     <td>16</td>
     <td>11</td>
     <td>/api/v1/teams/16</td>
@@ -145,7 +214,6 @@ Season Statistics <br><br>
   <tr>
     <td>LA Galaxy</td>
     <td>LA</td>
-    <td>Dignity Health Sports Park</td>
     <td>17</td>
     <td>12</td>
     <td>/api/v1/teams/17</td>
@@ -154,7 +222,6 @@ Season Statistics <br><br>
   <tr>
     <td>Minnesota United FC</td>
     <td>MIN</td>
-    <td>Allianz Field</td>
     <td>18</td>
     <td>34</td>
     <td>/api/v1/teams/18</td>
@@ -163,7 +230,6 @@ Season Statistics <br><br>
   <tr>
     <td>Philadelphia Union</td>
     <td>PHI</td>
-    <td>Talen Energy Stadium</td>
     <td>19</td>
     <td>18</td>
     <td>/api/v1/teams/19</td>
@@ -172,7 +238,6 @@ Season Statistics <br><br>
   <tr>
     <td>Seattle Sounders FC</td>
     <td>SEA</td>
-    <td>Centruy Link Field</td>
     <td>2</td>
     <td>22</td>
     <td>/api/v1/teams/2</td>
@@ -181,7 +246,6 @@ Season Statistics <br><br>
   <tr>
     <td>Toronto FC</td>
     <td>TOR</td>
-    <td>BMO Field</td>
     <td>20</td>
     <td>21</td>
     <td>/api/v1/teams/20</td>
@@ -190,7 +254,6 @@ Season Statistics <br><br>
   <tr>
     <td>Vancouver Whitecaps FC</td>
     <td>VAN</td>
-    <td>BC Place</td>
     <td>21</td>
     <td>27</td>
     <td>/api/v1/teams/21</td>
@@ -199,7 +262,6 @@ Season Statistics <br><br>
   <tr>
     <td>Washington Spirit FC</td>
     <td>WAS</td>
-    <td>Maryland SoccerPlex</td>
     <td>22</td>
     <td>25</td>
     <td>/api/v1/teams/22</td>
@@ -208,7 +270,6 @@ Season Statistics <br><br>
   <tr>
     <td>Montreal Impact</td>
     <td>MTL</td>
-    <td>Saputo Stadium</td>
     <td>23</td>
     <td>20</td>
     <td>/api/v1/teams/23</td>
@@ -217,7 +278,6 @@ Season Statistics <br><br>
   <tr>
     <td>Real Salt Lake</td>
     <td>RSL</td>
-    <td>Rio Tinto Stadium</td>
     <td>24</td>
     <td>32</td>
     <td>/api/v1/teams/24</td>
@@ -226,7 +286,6 @@ Season Statistics <br><br>
   <tr>
     <td>Chicago Red Stars</td>
     <td>CRS</td>
-    <td>SeatGeek Stadium</td>
     <td>25</td>
     <td>15</td>
     <td>/api/v1/teams/25</td>
@@ -235,7 +294,6 @@ Season Statistics <br><br>
   <tr>
     <td>FC Cincinnati</td>
     <td>CIN</td>
-    <td>Nippert Stadium</td>
     <td>26</td>
     <td>14</td>
     <td>/api/v1/teams/26</td>
@@ -244,7 +302,6 @@ Season Statistics <br><br>
   <tr>
     <td>San Jose Earthquakes</td>
     <td>SJ</td>
-    <td>Avaya Stadium</td>
     <td>27</td>
     <td>28</td>
     <td>/api/v1/teams/27</td>
@@ -253,7 +310,6 @@ Season Statistics <br><br>
   <tr>
     <td>Los Angeles FC</td>
     <td>LFC</td>
-    <td>Banc of California Stadium</td>
     <td>28</td>
     <td>29</td>
     <td>/api/v1/teams/28</td>
@@ -262,7 +318,6 @@ Season Statistics <br><br>
   <tr>
     <td>Orlando Pride</td>
     <td>FLP</td>
-    <td>Exploria Stadium</td>
     <td>29</td>
     <td>36</td>
     <td>/api/v1/teams/29</td>
@@ -271,7 +326,6 @@ Season Statistics <br><br>
   <tr>
     <td>Houston Dynamo</td>
     <td>HOU</td>
-    <td>BBVA Stadium</td>
     <td>3</td>
     <td>10</td>
     <td>/api/v1/teams/3</td>
@@ -280,7 +334,6 @@ Season Statistics <br><br>
   <tr>
     <td>Orlando City SC</td>
     <td>ORL</td>
-    <td>Exploria Stadium</td>
     <td>30</td>
     <td>37</td>
     <td>/api/v1/teams/30</td>
@@ -289,7 +342,6 @@ Season Statistics <br><br>
   <tr>
     <td>Chicago Fire</td>
     <td>CHI</td>
-    <td>SeatGeek Stadium</td>
     <td>4</td>
     <td>16</td>
     <td>/api/v1/teams/4</td>
@@ -298,7 +350,6 @@ Season Statistics <br><br>
   <tr>
     <td>Sporting Kansas City</td>
     <td>SKC</td>
-    <td>Children's Mercy Park</td>
     <td>5</td>
     <td>17</td>
     <td>/api/v1/teams/5</td>
@@ -307,7 +358,6 @@ Season Statistics <br><br>
   <tr>
     <td>Portland Thorns FC</td>
     <td>ORT</td>
-    <td>Providence Park</td>
     <td>52</td>
     <td>35</td>
     <td>/api/v1/teams/52</td>
@@ -316,7 +366,6 @@ Season Statistics <br><br>
   <tr>
     <td>Columbus Crew SC</td>
     <td>CCS</td>
-    <td>Mapfre Stadium</td>
     <td>53</td>
     <td>28</td>
     <td>/api/v1/teams/53</td>
@@ -325,7 +374,6 @@ Season Statistics <br><br>
   <tr>
     <td>Reign FC</td>
     <td>RFC</td>
-    <td>Cheney Stadium</td>
     <td>54</td>
     <td>38</td>
     <td>/api/v1/teams/54</td>
@@ -334,7 +382,6 @@ Season Statistics <br><br>
   <tr>
     <td>FC Dallas</td>
     <td>DAL</td>
-    <td>Toyota Stadium</td>
     <td>6</td>
     <td>6</td>
     <td>/api/v1/teams/6</td>
@@ -343,7 +390,6 @@ Season Statistics <br><br>
   <tr>
     <td>Utah Royals FC</td>
     <td>URF</td>
-    <td>Rio Tinto Stadium</td>
     <td>7</td>
     <td>19</td>
     <td>/api/v1/teams/7</td>
@@ -352,7 +398,6 @@ Season Statistics <br><br>
   <tr>
     <td>New York Red Bulls</td>
     <td>NY</td>
-    <td>Red Bull Arena</td>
     <td>8</td>
     <td>1</td>
     <td>/api/v1/teams/8</td>
@@ -361,7 +406,6 @@ Season Statistics <br><br>
   <tr>
     <td>New York City FC</td>
     <td>NYC</td>
-    <td>Yankee Stadium</td>
     <td>9</td>
     <td>30</td>
     <td>/api/v1/teams/9</td>
@@ -369,7 +413,7 @@ Season Statistics <br><br>
   
 </table>
 
-<h1> Team Statistics Table </h1>
+<h2> Team Statistics Table </h2>
 <table>
   <tr>
     <th> Team </th>
