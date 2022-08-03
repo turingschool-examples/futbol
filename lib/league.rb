@@ -175,18 +175,11 @@ class League
   end
 
   def win_percentage_by_opponent(team_id)
-    win_percentage_by_opponent = Hash.new{|h,k| h[k] = 0}
+    win_percentage_by_opponent = Hash.new { |h, k| h[k] = 0 }
     games_by_opponent(team_id).each do |opponent, games|
-      game_outcomes_by_stat = {
-        wins: 0,
-        ties: 0,
-        total_games: 0
-      }
-      games.each do |game|
-        game_outcomes_by_stat[:wins] += 1 if game.did_team_win?(team_id)
-        game_outcomes_by_stat[:total_games] += 1
-      end
-      win_percentage_by_opponent[opponent] = ((game_outcomes_by_stat[:wins].to_f / game_outcomes_by_stat[:total_games])*100).round(2)
+      wins = games.count { |game| game.did_team_win?(team_id) }
+      total_games = games.count
+      win_percentage_by_opponent[opponent] = (wins.to_f / total_games * 100).round(2)
     end
     win_percentage_by_opponent
   end
