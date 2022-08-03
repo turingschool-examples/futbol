@@ -118,7 +118,7 @@ class StatTracker
     tackles_by_team = all_tackles_this_season(season)
     @teams_stats.team_id_to_name[minimum(tackles_by_team)[0]]
   end
-  
+
   def winningest_coach(season_id)
     game_id_list = @game_stats.games_by_season(season_id)
     coaches = @game_teams_stats.isolate_coach_wins(game_id_list)
@@ -141,12 +141,12 @@ class StatTracker
   def least_accurate_team(season_id)
     min_ratio = season_ratio_by_team(season_id).min_by { |k, v| v }[0]
     @teams_stats.teams.each do |team|
-    return team.team_name if team.team_id == min_ratio
+      return team.team_name if team.team_id == min_ratio
     end
   end
 
   def season_ratio_by_team(season_id)
-    game_id_list= @game_stats.games_by_season(season_id)
+    game_id_list = @game_stats.games_by_season(season_id)
     average_goals_to_shots_by_season(season_id, game_id_list)
   end
 

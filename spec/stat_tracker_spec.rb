@@ -200,14 +200,14 @@ describe StatTracker do
     @stat_tracker_dummy = StatTracker.from_csv(locations)
     @stat_tracker_dummy.extend(Averagable)
     expected = ["2012030221",
-             "2012030222",
-             "2012030223",
-             "2012030224",
-             "2012030225",
-             "2012030311",
-             "2012030312",
-             "2012030313",
-             "2012030314"]
+                "2012030222",
+                "2012030223",
+                "2012030224",
+                "2012030225",
+                "2012030311",
+                "2012030312",
+                "2012030313",
+                "2012030314"]
 
     expect(@stat_tracker_dummy.game_stats.games_by_season("20122013")).to eq(expected)
   end
@@ -317,7 +317,6 @@ describe StatTracker do
                                                                                                   "2012030223",
                                                                                                   "2012030224",
                                                                                                   "2012030225"])
-
   end
 
   it "can find a teams average win percentage" do
