@@ -163,7 +163,7 @@ class StatTracker
     return ratio
   end
 
-  def favorite_opponent(team_id)
+  def create_game_hash(team_id)
     game_hash = Hash.new { |h, k| h[k] = { is_our_team: false, other_team_id: nil, winning_team_id: nil } }
     @game_teams_stats.game_teams.each do |game|
       game_id = game.game_id
@@ -180,9 +180,13 @@ class StatTracker
         game_hash[game_id][:winning_team_id] = winner
       end
     end
-    game_hash = game_hash
-      .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
-      .to_h
+    game_hash
+  end
+  
+  
+  def favorite_opponent(team_id)
+    game_hash = create_game_hash(team_id)
+    
     team_scores = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
     game_hash.each do |game_id, teams_hash|
       other_team_id = teams_hash[:other_team_id]
@@ -225,6 +229,7 @@ class StatTracker
     game_hash = game_hash
       .find_all { |game_id, teams_hash| teams_hash[:is_our_team] }
       .to_h
+      require 'pry';binding.pry
     team_scores = Hash.new { |h, k| h[k] = { wins: 0.0, losses: 0.0, ties: 0.0 } }
     game_hash.each do |game_id, teams_hash|
       other_team_id = teams_hash[:other_team_id]
