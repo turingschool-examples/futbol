@@ -5,7 +5,7 @@ describe TeamsStats do
   before :each do
     teams_path = "./data/teams.csv"
     @team_stats = TeamsStats.from_csv(teams_path)
-    @team_stats.extend(Helpable)
+    @team_stats.extend(Averageable)
   end
 
   it 'exists' do

@@ -3,12 +3,12 @@ require_relative "./game_stats"
 require_relative "./teams_stats"
 require_relative "./groupable"
 require_relative "./isolatable"
-require_relative "./helpable"
+require_relative "./averageable"
 
 class StatTracker
   include Groupable
   include Isolatable
-  include Helpable
+  include Averageable
 
   attr_reader :game_stats, :teams_stats, :game_teams_stats
 

@@ -8,7 +8,7 @@ describe GameStats do
   before :each do
     game_path = "./data/games.csv"
     @game_stats = GameStats.from_csv(game_path)
-    @game_stats.extend(Helpable)
+    @game_stats.extend(Averageable)
   end
 
   it "exists" do
