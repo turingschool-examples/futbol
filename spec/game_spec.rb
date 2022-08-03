@@ -93,7 +93,15 @@ RSpec.describe Game do
   describe '#tie' do
     it "returns true with a tie" do
 
-      expect(@game.tie?).to be false
+      expect(@game.tie?).to be false4
+    end
+  end
+
+  describe 'opponent_id' do
+    it 'gives the opponent based on a team_id argument' do
+      expect(@game.opponent_id("3")).to eq("6")
+      expect(@game.opponent_id("6")).to eq("3")
+      expect(@game.opponent_id("7")).to eq("that team didn't play")
     end
   end
 end

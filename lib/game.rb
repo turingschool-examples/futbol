@@ -33,6 +33,16 @@ class Game
     elsif @home_team_id == team_id
       @home_goals > @away_goals
     else
+      "it was a tie or that team didn't win"
+    end
+  end
+
+  def opponent_id(team_id)
+    if @away_team_id == team_id
+      @home_team_id
+    elsif @home_team_id == team_id
+      @away_team_id
+    else
       "that team didn't play"
     end
   end
