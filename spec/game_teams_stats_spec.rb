@@ -138,13 +138,13 @@ describe GameTeamsStats do
   it 'can find the results for all game ids' do 
     expect(@game_teams_stats.all_game_results("3")).to be_a(Hash)
     expect(@game_teams_stats.all_game_results("18").length).to eq((@game_teams_stats.game_teams.length)/2)
-    expect(@game_teams_stats.all_game_results("1").length).to eq((@game_teams_stats.length)/2)
+    expect(@game_teams_stats.all_game_results("1").length).to eq((@game_teams_stats.game_teams.length)/2)
   end
 
-  xit 'can find all teams overall records against a given team' do
+  it 'can find all teams overall records against a given team' do
     expect(@game_teams_stats.record_vs_our_team("18")).to be_a(Hash)
     expect(@game_teams_stats.record_vs_our_team("18").length).to eq(31)
-    expect(@game_teams_stats.record_vs_our_team("1").length).to eq(((@game_teams_stats.teams_stats.teams.length)-1))
+    expect(@game_teams_stats.record_vs_our_team("1").length).to eq(31)
   end
 
   it 'can find the team id of the team with the worst overall record against a given team' do
