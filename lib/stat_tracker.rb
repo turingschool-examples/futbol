@@ -3,12 +3,12 @@ require_relative "./game_stats"
 require_relative "./teams_stats"
 require_relative "./groupable"
 require_relative "./isolatable"
-require_relative "./helpable"
+require_relative "./averagable"
 
 class StatTracker
   include Groupable
   include Isolatable
-  include Helpable
+  include Averagable
 
   attr_reader :game_stats, :teams_stats, :game_teams_stats
 
@@ -118,7 +118,7 @@ class StatTracker
     tackles_by_team = all_tackles_this_season(season)
     @teams_stats.team_id_to_name[minimum(tackles_by_team)[0]]
   end
-  
+
   def winningest_coach(season_id)
     game_id_list = @game_stats.games_by_season(season_id)
     coaches = @game_teams_stats.isolate_coach_wins(game_id_list)
@@ -132,35 +132,22 @@ class StatTracker
   end
 
   def most_accurate_team(season_id)
-    max_ratio = get_ratio(season_id).max_by { |k, v| v }[0]
+    max_ratio = season_ratio_by_team(season_id).max_by { |k, v| v }[0]
     @teams_stats.teams.each do |team|
       return team.team_name if team.team_id == max_ratio
     end
   end
 
   def least_accurate_team(season_id)
-    min_ratio = get_ratio(season_id).min_by { |k, v| v }[0]
+    min_ratio = season_ratio_by_team(season_id).min_by { |k, v| v }[0]
     @teams_stats.teams.each do |team|
-    return team.team_name if team.team_id == min_ratio
+      return team.team_name if team.team_id == min_ratio
     end
   end
 
-  def get_ratio(season_id)
-    goals = Hash.new(0)
-    shots = Hash.new(0)
-    ratio = Hash.new(0)
-
-    game_id_list= @game_stats.games_by_season(season_id)
-      @game_teams_stats.game_teams.each do |game_team|
-        game_id = game_team.game_id
-        current_team_id = game_team.team_id
-        if game_id_list.include?(game_id)
-          goals[current_team_id] += game_team.goals.to_f
-          shots[current_team_id] += game_team.shots.to_f
-          ratio[current_team_id] = goals[current_team_id]/shots[current_team_id]
-        end
-    end
-    return ratio
+  def season_ratio_by_team(season_id)
+    game_id_list = @game_stats.games_by_season(season_id)
+    average_goals_to_shots_by_season(season_id, game_id_list)
   end
 
   def all_game_results(team_id)

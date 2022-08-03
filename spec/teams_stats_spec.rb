@@ -1,14 +1,13 @@
-require './lib/teams_stats'
-require './lib/teams'
+require "./lib/teams_stats"
+require "./lib/teams"
 
 describe TeamsStats do
   before :each do
     teams_path = "./data/teams.csv"
     @team_stats = TeamsStats.from_csv(teams_path)
-    @team_stats.extend(Helpable)
   end
 
-  it 'exists' do
+  it "exists" do
     expect(@team_stats).to be_a(TeamsStats)
   end
 
@@ -26,6 +25,22 @@ describe TeamsStats do
     })
   end
 
-  #Team id to name needs a test here
+  it "gives a hash of team id to team name" do
+    team_path = "./spec/fixtures/dummy_teams.csv"
 
+    @teams_stats_dummy = TeamsStats.from_csv(team_path)
+    @teams_stats_dummy.extend(Averagable)
+    expect(@teams_stats_dummy.team_id_to_name.length).to eq(9)
+    expect(@teams_stats_dummy.team_id_to_name).to be_a(Hash)
+    expect(@teams_stats_dummy.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])
+    expect(@teams_stats_dummy.team_id_to_name.values).to eq(["Atlanta United",
+                                                             "Chicago Fire",
+                                                             "FC Cincinnati",
+                                                             "DC United",
+                                                             "FC Dallas",
+                                                             "Houston Dynamo",
+                                                             "Sporting Kansas City",
+                                                             "LA Galaxy",
+                                                             "Los Angeles FC"])
+  end
 end

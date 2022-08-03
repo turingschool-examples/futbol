@@ -1,5 +1,5 @@
-require './lib/game_teams'
-require 'csv'
+require "./lib/game_teams"
+require "csv"
 
 describe GameTeams do
   before :each do
@@ -18,20 +18,19 @@ describe GameTeams do
       powerPlayGoals: "0",
       faceOffWinPercentage: "44.8",
       giveaways: "17",
-      takeaways: "7" })
+      takeaways: "7",
+    })
   end
 
-  it 'exists' do
+  it "exists" do
     expect(@game_team).to be_an(GameTeams)
   end
 
-  it 'reads the correct team id' do
+  it "reads the correct team id" do
     expect(@game_team.team_id).to eq("3")
   end
 
-  it 'reads the correct result' do
+  it "reads the correct result" do
     expect(@game_team.result).to eq("LOSS")
   end
-
-
 end

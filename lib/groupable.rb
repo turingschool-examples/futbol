@@ -1,5 +1,5 @@
 module Groupable
-  def games_by_team_id_and_season(season) #needs test
+  def games_by_team_id_and_season(season)
     games_by_season = season_grouper[season] #season grouper is all games from the games csv grouped by season in arrays
     home_games = games_by_season.group_by { |game| game.home_team_id }
     away_games = games_by_season.group_by { |game| game.away_team_id }
@@ -21,7 +21,7 @@ module Groupable
     all_games.group_by { |game| game.season }
   end
 
- def games_by_season(season_id) #helper method
+  def games_by_season(season_id) #helper method
     game_id_list = []
     @games.each do |game|
       if game.season == season_id
@@ -31,11 +31,14 @@ module Groupable
     game_id_list
   end
 
-  def all_tackles_this_season(season) #needs test
+  def all_tackles_this_season(season)
     tackles_by_team = Hash.new(0)
-    @game_stats.games_by_team_id_and_season(season).flat_map { |team_id, games| games.map { |game| tackles_by_team[team_id] += 
-      @game_teams_stats.number_of_tackles(team_id, game.game_id) }}
+    @game_stats.games_by_team_id_and_season(season).flat_map { |team_id, games|
+      games.map { |game|
+        tackles_by_team[team_id] +=
+          @game_teams_stats.number_of_tackles(team_id, game.game_id)
+      }
+    }
     tackles_by_team
   end
-
 end

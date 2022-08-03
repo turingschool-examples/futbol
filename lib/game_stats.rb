@@ -1,10 +1,10 @@
 require "csv"
 require_relative "./game"
-require_relative "./helpable"
+require_relative "./averagable"
 require_relative "./groupable"
 
 class GameStats
-  include Helpable
+  include Averagable
   include Groupable
 
   attr_reader :games
@@ -62,19 +62,18 @@ class GameStats
     goals_by_season
   end
 
-  def visitor_teams_average_score #needs test?
+  def visitor_teams_average_score
     away_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| away_team_scores[game.away_team_id] << game.away_goals.to_f }
-    #could split these into two?
     away_team_scores.map do |id, scores|
-      [id, ((scores.sum) / (scores.length)).round(2)] #create an average out of the scores
+      [id, ((scores.sum) / (scores.length)).round(2)]
     end
   end
 
-  def home_teams_average_score #needs test?
+  def home_teams_average_score
     home_team_scores = Hash.new { |h, k| h[k] = [] }
     @games.each { |game| home_team_scores[game.home_team_id] << game.home_goals.to_f }
-    #could split these into two?
+
     home_team_scores.map do |id, scores|
       [id, ((scores.sum) / (scores.length)).round(2)]
     end
@@ -84,15 +83,12 @@ class GameStats
     games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the valueq
     win_percent_hash = Hash.new([])
     games_by_season.flat_map do |season, games|
-      game_count = games.count
       home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
       away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
-      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      win_percent = ((home_wins.to_f + away_wins.to_f) / games.count).round(2)
       win_percent_hash[season] = win_percent
     end
-    ranked_seasons = win_percent_hash.max_by do |season, win_percent|
-      win_percent
-    end
+    ranked_seasons = win_percent_hash.max_by { |season, win_percent| win_percent }
     ranked_seasons[0]
   end
 
@@ -100,16 +96,12 @@ class GameStats
     games_by_season = team_season_grouper(team_id)  #hash with season as key and all the team's games for that season as the value
     win_percent_hash = Hash.new([])
     games_by_season.flat_map do |season, games|
-      game_count = games.count
       home_wins = games.find_all { |game| (game.home_goals > game.away_goals) && team_id == game.home_team_id }.count
       away_wins = games.find_all { |game| (game.away_goals > game.home_goals) && team_id == game.away_team_id }.count
-      win_percent = ((home_wins.to_f + away_wins.to_f) / game_count).round(2)
+      win_percent = ((home_wins.to_f + away_wins.to_f) / games.count).round(2)
       win_percent_hash[season] = win_percent  #this is a hash with each season as the keys and the win % for the season as the value
     end
-    ranked_seasons = win_percent_hash.min_by do |season, win_percent|
-      win_percent
-    end
+    ranked_seasons = win_percent_hash.min_by { |season, win_percent| win_percent }
     ranked_seasons[0]
   end
-
 end

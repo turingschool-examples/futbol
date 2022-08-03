@@ -3,12 +3,13 @@ require "./lib/game"
 require "./lib/game_teams"
 require "./lib/teams"
 require "./lib/stat_tracker"
+require "./lib/averagable"
 
 describe GameStats do
   before :each do
     game_path = "./data/games.csv"
     @game_stats = GameStats.from_csv(game_path)
-    @game_stats.extend(Helpable)
+    @game_stats.extend(Averagable)
   end
 
   it "exists" do
@@ -72,6 +73,10 @@ describe GameStats do
     expect(@game_stats.best_season("6")).to eq("20132014")
   end
 
+  it "can tell which season is a teams worst" do
+    expect(@game_stats.worst_season("6")).to eq("20142015")
+  end
+
   it "can calculate which team was the highest scoring home team" do
     expect(@game_stats.home_teams_average_score.count).to eq(32)
   end
@@ -81,14 +86,14 @@ describe GameStats do
     game_stats_dummy = GameStats.from_csv(game_path_dummy)
 
     expected = ["2012030221",
-               "2012030222",
-               "2012030223",
-               "2012030224",
-               "2012030225",
-               "2012030311",
-               "2012030312",
-               "2012030313",
-               "2012030314"]
+                "2012030222",
+                "2012030223",
+                "2012030224",
+                "2012030225",
+                "2012030311",
+                "2012030312",
+                "2012030313",
+                "2012030314"]
     expect(game_stats_dummy.games_by_season("20122013")).to eq(expected)
   end
 end
