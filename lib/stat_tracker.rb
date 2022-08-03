@@ -2,12 +2,12 @@ require 'csv'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
+require_relative './game_processor'
 require_relative './league_processor'
-
-require './season_processor'
+require_relative './season_processor'
 
 class StatTracker
-
+  include GameProcessor
   include LeagueProcessor
   include SeasonProcessor
 
@@ -18,7 +18,7 @@ class StatTracker
     @game_path = game_path
     @team_path = team_path
     @game_teams_path = game_teams_path
-    # games = Games.new(locations[:games])
+
   end
 
   def games
@@ -51,90 +51,84 @@ class StatTracker
   end
 
   def highest_total_score
-    score_sum = 0
-    games.each do |game|
-      if score_sum < (game.away_goals.to_i + game.home_goals.to_i)
-        score_sum = (game.away_goals.to_i + game.home_goals.to_i)
-      end
-    end
-    score_sum
+    total_score('highest', games)
+    # score_sum = 0
+    # games.each do |game|
+    #   if score_sum < game.total_goals_game
+    #     score_sum = game.total_goals_game
+    #   end
+    # end
+    # score_sum
   end
 
 
   def lowest_total_score
-    score_sum = 10000 #need to update for csv file with no data
-    games.each do |game|
-      if score_sum > (game.away_goals.to_i + game.home_goals.to_i)
-        score_sum = (game.away_goals.to_i + game.home_goals.to_i)
-      end
-    end
-    score_sum
+    total_score('lowest', games)
+    # score_sum = Float::INFINITY
+    # games.each do |game|
+    #     if score_sum > game.total_goals_game
+    #     score_sum = game.total_goals_game
+    #   end
+    # end
+    # score_sum
   end
 
   def percentage_home_wins
-    total_games = 0.0
-    home_wins = 0.0
-    games.each do |game|
-      total_games += 1
-      if game.home_goals.to_i > game.away_goals.to_i
-        home_wins += 1
-      end
-    end
-    (home_wins / total_games).round(2)
+    win_percentage('home', games)
+    # total_games = 0.0
+    # home_wins = 0.0
+    # games.each do |game|
+    #   total_games += 1
+    #   if game.home_goals.to_i > game.away_goals.to_i
+    #     home_wins += 1
+    #   end
+    # end
+    # (home_wins / total_games).round(2)
   end
 
   def percentage_visitor_wins
-    total_games = 0.0
-    visitor_wins = 0.0
-    games.each do |game|
-      total_games += 1
-      if game.home_goals.to_i < game.away_goals.to_i
-        visitor_wins += 1
-      end
-    end
-    (visitor_wins / total_games).round(2)
+    win_percentage('visitor', games)
+    # total_games = 0.0
+    # visitor_wins = 0.0
+    # games.each do |game|
+    #   total_games += 1
+    #   if game.home_goals.to_i < game.away_goals.to_i
+    #     visitor_wins += 1
+    #   end
+    # end
+    # (visitor_wins / total_games).round(2)
   end
 
   def percentage_ties
-    total_games = 0.0
-    ties = 0.0
-    games.each do |game|
-      total_games += 1
-      if game.home_goals.to_i == game.away_goals.to_i
-        ties += 1
-      end
-    end
-    (ties / total_games).round(2)
+    win_percentage('ties', games)
+    # total_games = 0.0
+    # ties = 0.0
+    # games.each do |game|
+    #   total_games += 1
+    #   if game.home_goals.to_i == game.away_goals.to_i
+    #     ties += 1
+    #   end
+    # end
+    # (ties / total_games).round(2)
   end
 
   def count_of_games_by_season
     season_games = Hash.new(0)
     games.each do |game|
-      season_games[game.season] += 1 #changed from row[:season]
     end
     season_games
   end
 
   def average_goals_per_game
     total_goals = 0.0
-    total_games = 0.0
     games.each do |game|
-      total_games += 1
-      total_goals += (game.away_goals.to_i + game.home_goals.to_i)
+      total_goals += game.total_goals_game
     end
     (total_goals / total_games).round(2)
   end
 
-  def total_goals_by_season
-    total_season_goals = Hash.new(0.0)
-    games.each do |game|
-      total_season_goals[game.season] += game.away_goals.to_i + game.home_goals.to_i #same as ln 115
-    end
-    total_season_goals
-  end
-
   def average_goals_by_season
-    total_goals = total_goals_by_season
+    total_goals = total_goals_by_season(games)
     count = count_of_games_by_season
     avg_season_goals = Hash.new(0.0)
     total_goals.each do |season, goal|
@@ -142,7 +136,7 @@ class StatTracker
     end
     avg_season_goals
   end
-########
+
   def count_of_teams
     teams.count
   end
@@ -236,7 +230,6 @@ class StatTracker
     total_games
   end
 
-  #season stats
   def winningest_coach(season_id)
     best_coach(coach_stats(season_id[0..3], game_teams))
   end
@@ -258,8 +251,6 @@ class StatTracker
   def most_tackles(season_id)
     tackle_stats = tackle_stats(season_id[0..3], game_teams)
     team_info(tackle_stats.key(tackle_stats.values.max))["team_name"]
-
-  end
 
   def fewest_tackles(season_id)
     tackle_stats = tackle_stats(season_id[0..3], game_teams)

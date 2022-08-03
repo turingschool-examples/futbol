@@ -9,4 +9,8 @@ class Game
     @away_goals = row[:away_goals]
     @home_goals = row[:home_goals]
   end
+
+  def total_goals_game
+    @home_goals.to_i + @away_goals.to_i
+  end 
 end
