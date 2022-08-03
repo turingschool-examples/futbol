@@ -28,20 +28,20 @@ module Seasonable
     coach_records
   end
 
-  def populate_coach_records(season, records)
+  def populate_coach_records(season)
+    records = coach_records(season)
     games_array = games_by_season(season)
-    games_array.each do |game|
-      @game_teams_data.each do |row|
-        if games_array.include?(row[:game_id])
-          if row[:result] == "WIN"
-            records[row[:head_coach].to_sym][:wins] += 1
-            records[row[:head_coach].to_sym][:total_games] += 1
-          else
-            records[row[:head_coach].to_sym][:total_games] += 1
-          end
+    @game_teams_data.each do |row|
+      if games_array.include?(row[:game_id])
+        if row[:result] == "WIN"
+          records[row[:head_coach].to_sym][:wins] += 1
+          records[row[:head_coach].to_sym][:total_games] += 1
+        else
+          records[row[:head_coach].to_sym][:total_games] += 1
         end
       end
     end
+    records
   end
 
   # def process_coach_record(records, row)
@@ -70,16 +70,17 @@ module Seasonable
   def populate_accuracy_records(season, records)
     games_array = games_by_season(season)
     @game_teams_data.each do |row|
-      games_array.each do |game|
-        process_accuracy_record(records, row) if game == row[:game_id]
+      if games_array.include?(row[:game_id])
+        records[row[:team_id].to_sym][:goals] += row[:goals].to_i
+        records[row[:team_id].to_sym][:shots] += row[:shots].to_i
       end
     end
   end
 
-  def process_accuracy_record(records, row)
-    records[row[:team_id].to_sym][:goals] += row[:goals].to_i
-    records[row[:team_id].to_sym][:shots] += row[:shots].to_i
-  end
+  # def process_accuracy_record(records, row)
+  #   records[row[:team_id].to_sym][:goals] += row[:goals].to_i
+  #   records[row[:team_id].to_sym][:shots] += row[:shots].to_i
+  # end
 
   def most_accurate(records)
     records.max_by { |h,k| (k[:goals].to_f / k[:shots].to_f) }[0]
@@ -100,8 +101,8 @@ module Seasonable
   def populate_tackle_records(season, records)
     games_array = games_by_season(season)
     @game_teams_data.each do |row|
-      games_array.each do |game|
-        process_tackle_record(records, row) if game == row[:game_id]
+      if games_array.include?(row[:game_id])
+        process_tackle_record(records, row) 
       end
     end
   end
