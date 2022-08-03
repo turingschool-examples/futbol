@@ -1,10 +1,8 @@
 require "csv"
 require_relative "./game_teams"
 require_relative "./isolatable"
-require_relative "./averageable"
 
 class GameTeamsStats
-  include Averageable
   include Isolatable
 
   attr_reader :game_teams
@@ -129,7 +127,6 @@ class GameTeamsStats
       win_percentage_2 = (team_win_2[1][:wins] / (team_win_2[1][:losses] + team_win_2[1][:ties] + team_win_2[1][:wins])) * 100
       win_percentage_1 <=> win_percentage_2
     end
-  
     our_favorite_opponent
   end
 
