@@ -13,6 +13,7 @@ class Game
               :venue,
               :venue_link
 
+
   def initialize(info)
     @game_id = info[:game_id]
     @season = info[:season]
@@ -26,15 +27,14 @@ class Game
     @venue_link = info[:venue_link]
   end
 
-  def teams_in_game
-    teams = [@away_team_id.to_i, @home_team_id.to_i].sort
-  end
 
-  def winning_team_id
-    if @away_goals > @home_goals
-      @away_team_id
-    elsif @away_goals < @home_goals
-      @home_team_id
+  def did_team_win?(team_id)
+    if @away_team_id == team_id
+      @away_goals > @home_goals
+    elsif @home_team_id == team_id
+      @home_goals > @away_goals
+    else
+      "that team didn't play"
     end
   end
 end

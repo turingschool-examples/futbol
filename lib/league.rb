@@ -145,7 +145,6 @@ class League
 
   def seasons_by_wins(given_team_id)
     teams_games = game_team_grouped_by_team(given_team_id)
-    require 'pry'; binding.pry
     team_games_by_season = data_sorted_by_season(teams_games)
     seasons_by_win_percentage = Hash.new{|h,k| h[k] = 0}
     team_games_by_season.each do |season, games|
@@ -185,5 +184,48 @@ class League
     teams_games.map do |game|
       game.goals.to_i
     end
+  end
+
+  def games_by_opponent(team_id)
+    games_by_team = @all_games.select do |game|
+      game.home_team_id == team_id || game.away_team_id == team_id
+    end
+    away_games = games_by_team.group_by {|game| game.away_team_id}
+    home_games = games_by_team.group_by {|game| game.home_team_id}
+    games_by_opponent = Hash.new{|h,k| h[k] = []}
+    home_games.each do |opponent, games|
+      games_by_opponent[opponent] =
+        if games.nil?
+          away_games[opponent]
+        elsif away_games[opponent].nil?
+          games
+        else
+          games + away_games[opponent]
+        end
+    end
+    away_games.each do |opponent, games|
+      unless games_by_opponent.keys.include?(opponent)
+        games_by_opponent[opponent] = games
+      end
+    end
+    games_by_opponent.delete(team_id)
+    games_by_opponent
+  end
+
+  def win_percentage_by_opponent(team_id)
+    win_percentage_by_opponent = Hash.new{|h,k| h[k] = 0}
+    games_by_opponent(team_id).each do |opponent, games|
+      game_outcomes_by_stat = {
+        wins: 0,
+        ties: 0,
+        total_games: 0
+      }
+      games.each do |game|
+        game_outcomes_by_stat[:wins] += 1 if game.did_team_win?(team_id)
+        game_outcomes_by_stat[:total_games] += 1
+      end
+      win_percentage_by_opponent[opponent] = ((game_outcomes_by_stat[:wins].to_f / game_outcomes_by_stat[:total_games])*100).round(2)
+    end
+    win_percentage_by_opponent
   end
 end

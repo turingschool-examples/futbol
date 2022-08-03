@@ -236,18 +236,18 @@ class StatTracker
   end
 
   def favorite_opponent(given_team_id)
-
-
-
-
+    fav_opponent_team_id = @league.win_percentage_by_opponent(given_team_id).max_by do |opp, win_percentage|
+      win_percentage
+    end[0]
+    @league.team_id_to_team_name(fav_opponent_team_id)
 
   end
 
   def rival(given_team_id)
-
-
-
-
+    rival_team_id = @league.win_percentage_by_opponent(given_team_id).min_by do |opp, win_percentage|
+      win_percentage
+    end[0]
+    @league.team_id_to_team_name(rival_team_id)
 
   end
 

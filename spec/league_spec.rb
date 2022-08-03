@@ -103,4 +103,35 @@ describe League do
     expect(@stat_tracker.league.goals_scored_in_game("3")).to eq([2,2])
     expect(@stat_tracker.league.goals_scored_in_game("6")).to eq([3,3,2])
   end
+
+  it '#games_by_opponent' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker.league.games_by_opponent("28")["18"].length).to eq(4)
+  end
+
+  it '#win_percentage_by_opponent' do
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+
+    expect(@stat_tracker.league.win_percentage_by_opponent("28")).to eq({"17" => 0.0, "18" => 100.0,})
+    expect(@stat_tracker.league.win_percentage_by_opponent("1")).to eq({"25" => 100.0, "4" => 0.0})
+  end
 end 

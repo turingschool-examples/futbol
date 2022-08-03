@@ -111,7 +111,7 @@ describe StatTracker do
     expect(@stat_tracker.team_info("26")).to eq(expected)
   end
 
-  xit '#favorite_opponent' do
+  it '#favorite_opponent' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_dummy.csv'
@@ -127,7 +127,7 @@ describe StatTracker do
     expect(@stat_tracker.favorite_opponent("28")).to eq("Minnesota United FC")
   end
 
-  xit '#rival' do
+  it '#rival' do
     game_path = './data/games_dummy.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_dummy.csv'
@@ -139,7 +139,7 @@ describe StatTracker do
     }
      @stat_tracker = StatTracker.from_csv(locations)
 
-    expect(@stat_tracker.rival("5")).to eq("Philadelphia Union")
+    expect(@stat_tracker.rival("5")).to eq("Philadelphia Union").or eq("Houston Dynamo")
     expect(@stat_tracker.rival("18")).to eq("Los Angeles FC")
   end
 
@@ -229,5 +229,6 @@ describe StatTracker do
 
     expect(@stat_tracker.average_win_percentage("6")).to eq(0.67)
     expect(@stat_tracker.average_win_percentage("3")).to eq(0.40)
+
   end
 end
