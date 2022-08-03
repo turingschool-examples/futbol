@@ -29,7 +29,6 @@ describe TeamsStats do
     team_path = "./spec/fixtures/dummy_teams.csv"
 
     @teams_stats_dummy = TeamsStats.from_csv(team_path)
-    @teams_stats_dummy.extend(Averagable)
     expect(@teams_stats_dummy.team_id_to_name.length).to eq(9)
     expect(@teams_stats_dummy.team_id_to_name).to be_a(Hash)
     expect(@teams_stats_dummy.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])

@@ -1,14 +1,16 @@
 require_relative "./game_teams_stats"
 require_relative "./game_stats"
 require_relative "./teams_stats"
-require_relative "./groupable"
+require_relative "./team_groupable"
+require_relative "./season_groupable"
 require_relative "./isolatable"
-require_relative "./averagable"
+require_relative "./averageable"
 
 class StatTracker
-  include Groupable
+  include SeasonGroupable
+  include TeamGroupable
   include Isolatable
-  include Averagable
+  include Averageable
 
   attr_reader :game_stats, :teams_stats, :game_teams_stats
 
@@ -110,39 +112,31 @@ class StatTracker
   end
 
   def most_tackles(season)
-    tackles_by_team = all_tackles_this_season(season)
-    @teams_stats.team_id_to_name[maximum(tackles_by_team)[0]]
+    @teams_stats.team_id_to_name[maximum(all_tackles_this_season(season))[0]]
   end
 
   def fewest_tackles(season)
-    tackles_by_team = all_tackles_this_season(season)
-    @teams_stats.team_id_to_name[minimum(tackles_by_team)[0]]
+    @teams_stats.team_id_to_name[minimum(all_tackles_this_season(season))[0]]
   end
 
   def winningest_coach(season_id)
-    game_id_list = @game_stats.games_by_season(season_id)
-    coaches = @game_teams_stats.isolate_coach_wins(game_id_list)
-    maximum(@game_teams_stats.coach_percentage_won(coaches, game_id_list))[0]
+    coaches = @game_teams_stats.isolate_coach_wins(@game_stats.games_by_season(season_id))
+    maximum(@game_teams_stats.coach_percentage_won(coaches, @game_stats.games_by_season(season_id)))[0]
   end
 
   def worst_coach(season_id)
-    game_id_list = @game_stats.games_by_season(season_id)
-    coaches = @game_teams_stats.isolate_coach_loss(game_id_list)
-    minimum(@game_teams_stats.coach_percentage_loss(coaches, game_id_list))[0]
+    coaches = @game_teams_stats.isolate_coach_loss(@game_stats.games_by_season(season_id))
+    minimum(@game_teams_stats.coach_percentage_loss(coaches, @game_stats.games_by_season(season_id)))[0]
   end
 
   def most_accurate_team(season_id)
     max_ratio = season_ratio_by_team(season_id).max_by { |k, v| v }[0]
-    @teams_stats.teams.each do |team|
-      return team.team_name if team.team_id == max_ratio
-    end
+    @teams_stats.teams.each { |team| return team.team_name if team.team_id == max_ratio }
   end
 
   def least_accurate_team(season_id)
     min_ratio = season_ratio_by_team(season_id).min_by { |k, v| v }[0]
-    @teams_stats.teams.each do |team|
-      return team.team_name if team.team_id == min_ratio
-    end
+    @teams_stats.teams.each { |team| return team.team_name if team.team_id == min_ratio }
   end
 
   def season_ratio_by_team(season_id)
@@ -213,17 +207,10 @@ class StatTracker
   end
   
   def favorite_opponent(team_id)
-    our_favorite_opponent = min_win_percent(team_id)
-    favorite_opponent_team_id = our_favorite_opponent[0]
-    @teams_stats.team_id_to_name[favorite_opponent_team_id]
+    @teams_stats.team_id_to_name[min_win_percent(team_id)[0]]
   end
 
   def rival(team_id)
-    our_rival = max_win_percent(team_id)
-    our_rival_team_id = our_rival[0]
-    @teams_stats.team_id_to_name[our_rival_team_id]
+    @teams_stats.team_id_to_name[max_win_percent(team_id)[0]]
   end
-
-
-
 end

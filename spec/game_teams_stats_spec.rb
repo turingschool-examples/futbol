@@ -4,13 +4,13 @@ require "./game_teams"
 require "./teams"
 require "csv"
 require "./isolatable"
-require "./averagable"
+require "./averageable"
 
 describe GameTeamsStats do
   before :each do
     game_teams_path = "./data/game_teams.csv"
     @game_teams_stats = GameTeamsStats.from_csv(game_teams_path)
-    @game_teams_stats.extend(Averagable)
+    @game_teams_stats.extend(Averageable)
     @game_teams_stats.extend(Isolatable)
   end
 
@@ -131,7 +131,7 @@ describe GameTeamsStats do
     game_teams_path = "./spec/fixtures/dummy_game_teams.csv"
 
     @game_teams_stats_dummy = GameTeamsStats.from_csv(game_teams_path)
-    @game_teams_stats_dummy.extend(Averagable)
+    @game_teams_stats_dummy.extend(Averageable)
     expect(@game_teams_stats_dummy.number_of_tackles("3", "2012030221")).to eq(44)
   end
 end

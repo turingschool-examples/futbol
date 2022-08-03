@@ -1,4 +1,4 @@
-module Averagable
+module Averageable
   def minimum(average)
     average.min { |avg_1, avg_2| avg_1[1] <=> avg_2[1] }
   end

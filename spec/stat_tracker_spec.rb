@@ -2,8 +2,10 @@ require "./lib/stat_tracker.rb"
 require "./lib/teams.rb"
 require "./lib/game"
 require "./lib/game_teams"
-require "./lib/averagable"
-require "./lib/groupable"
+require "./lib/averageable"
+require "./lib/team_groupable"
+require "./lib/season_groupable"
+
 
 describe StatTracker do
   before :each do
@@ -16,8 +18,9 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @stat_tracker.extend(Averagable)
-    @stat_tracker.extend(Groupable)
+    @stat_tracker.extend(Averageable)
+    @stat_tracker.extend(TeamGroupable)
+    @stat_tracker.extend(SeasonGroupable)
   end
 
   it "exists" do
@@ -122,7 +125,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expected = { "20122013" => 9 }
 
     expect(@stat_tracker_dummy.count_of_games_by_season).to eq(expected)
@@ -154,7 +157,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expected = { "20122013" => 3.78 }
 
     expect(@stat_tracker_dummy.game_stats.average_goals_by_season).to eq(expected)
@@ -202,7 +205,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expected = ["2012030221",
                 "2012030222",
                 "2012030223",
@@ -254,7 +257,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").map { |game| game.game_id }).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.game_teams_stats.team_isolator("6")).to be_an(Array)
@@ -272,7 +275,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6")).to be_an(Array)
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6").size).to eq(4)
     expect(@stat_tracker_dummy.game_teams_stats.win_isolator("6").map { |game| game.game_id }).to eq(["2012030221", "2012030222", "2012030223", "2012030224"])
@@ -290,7 +293,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     values_array = ["2012030221",
                     "2012030222",
                     "2012030223",
@@ -317,8 +320,9 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
-    @stat_tracker_dummy.extend(Groupable)
+    @stat_tracker_dummy.extend(Averageable)
+    @stat_tracker_dummy.extend(TeamGroupable)
+    @stat_tracker_dummy.extend(SeasonGroupable)
     expect(@stat_tracker_dummy.game_stats.all_team_games("3")).to be_an(Array)
 
     expect(@stat_tracker_dummy.game_stats.all_team_games("3").map { |game| game.game_id }).to eq(["2012030221",
@@ -342,7 +346,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expect(@stat_tracker.game_stats.team_season_grouper("6")).to be_a(Hash)
     expect(@stat_tracker.game_stats.team_season_grouper("6").keys).to eq(["20122013", "20172018", "20132014", "20142015", "20152016", "20162017"])
   end
@@ -365,7 +369,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expect(@stat_tracker_dummy.teams_stats.team_id_to_name.length).to eq(9)
     expect(@stat_tracker_dummy.teams_stats.team_id_to_name).to be_a(Hash)
     expect(@stat_tracker_dummy.teams_stats.team_id_to_name.keys).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28"])
@@ -426,7 +430,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expect(@stat_tracker_dummy.game_teams_stats.number_of_tackles("3", "2012030221")).to eq(44)
   end
 
@@ -440,7 +444,7 @@ describe StatTracker do
       game_teams: game_teams_path,
     }
     @stat_tracker_dummy = StatTracker.from_csv(locations)
-    @stat_tracker_dummy.extend(Averagable)
+    @stat_tracker_dummy.extend(Averageable)
     expect(@stat_tracker_dummy.season_ratio_by_team("20122013")).to eq({ "3" => 0.21052631578947367, "6" => 0.2894736842105263 })
     expect(@stat_tracker_dummy.most_accurate_team("20122013")).to eq("FC Dallas")
   end
