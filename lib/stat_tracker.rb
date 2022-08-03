@@ -3,9 +3,14 @@ require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
 require_relative './game_processor'
+require_relative './league_processor'
+require_relative './season_processor'
 
 class StatTracker
   include GameProcessor
+  include LeagueProcessor
+  include SeasonProcessor
+
   attr_reader :locations, :data
 
   def initialize(game_path, team_path, game_teams_path)
@@ -110,7 +115,6 @@ class StatTracker
   def count_of_games_by_season
     season_games = Hash.new(0)
     games.each do |game|
-      season_games[game.season] += 1
     end
     season_games
   end
@@ -120,7 +124,7 @@ class StatTracker
     games.each do |game|
       total_goals += game.total_goals_game
     end
-    (total_goals / games.count).round(2)
+    (total_goals / total_games).round(2)
   end
 
   def average_goals_by_season
@@ -138,75 +142,81 @@ class StatTracker
   end
 
   def best_offense
-    goals_by_team_id = Hash.new(0)
-    game_count_by_team_id = Hash.new(0)
-    game_teams.each do |game_team|
-      goals_by_team_id[game_team.team_id.to_i] += game_team.goals.to_i
-      game_count_by_team_id[game_team.team_id.to_i] += 1
-    end
-    average_teamid_score = goals_by_team_id.map{|team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
-    best_offense_team_id = average_teamid_score.max_by { |team_id, average_goals| average_goals  }[0]
-    team_info(best_offense_team_id.to_s)['team_name']
+    best_team_id = offense("best", game_teams)
+    # goals_by_team_id = Hash.new(0)
+    # game_count_by_team_id = Hash.new(0)
+    # game_teams.each do |game_team|
+    #   goals_by_team_id[game_team.team_id.to_i] += game_team.goals.to_i
+    #   game_count_by_team_id[game_team.team_id.to_i] += 1
+    # end
+    # average_teamid_score = goals_by_team_id.map{|team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
+    # best_offense_team_id = average_teamid_score.max_by { |team_id, average_goals| average_goals  }[0]
+    team_info(best_team_id.to_s)['team_name']
   end
 
   def worst_offense
-    goals_by_team_id = Hash.new(0)
-    game_count_by_team_id = Hash.new(0)
-    game_teams.each do |game_team|
-      goals_by_team_id[game_team.team_id.to_i] += game_team.goals.to_i
-      game_count_by_team_id[game_team.team_id.to_i] += 1
-    end
-    average_teamid_score = goals_by_team_id.map{|team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
-    worst_offense_team_id = average_teamid_score.min_by { |team_id, average_goals| average_goals }[0]
-    team_info(worst_offense_team_id.to_s)['team_name']
+    worst_team_id = offense("worst", game_teams)
+    # goals_by_team_id = Hash.new(0)
+    # game_count_by_team_id = Hash.new(0)
+    # game_teams.each do |game_team|
+    #   goals_by_team_id[game_team.team_id.to_i] += game_team.goals.to_i
+    #   game_count_by_team_id[game_team.team_id.to_i] += 1
+    # end
+    # average_teamid_score = goals_by_team_id.map{|team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
+    # worst_offense_team_id = average_teamid_score.min_by { |team_id, average_goals| average_goals }[0]
+    team_info(worst_team_id.to_s)['team_name']
   end
 
   def highest_scoring_visitor
-    away_goals_by_team_id = Hash.new(0)
-    game_count_by_team_id = Hash.new(0)
-    games.each do |game|
-      away_goals_by_team_id[game.away_team_id.to_i] += game.away_goals.to_i
-      game_count_by_team_id[game.away_team_id.to_i] += 1
-    end
-    average_teamid_score = away_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
-    best_away_team_id = average_teamid_score.max_by { |away_team_id, average_goals| average_goals }[0]
-    team_info(best_away_team_id.to_s)['team_name']
+    best_visitor_id = visitor_scoring_outcome("highest_scoring", games)
+    # away_goals_by_team_id = Hash.new(0)
+    # game_count_by_team_id = Hash.new(0)
+    # games.each do |game|
+    #   away_goals_by_team_id[game.away_team_id.to_i] += game.away_goals.to_i
+    #   game_count_by_team_id[game.away_team_id.to_i] += 1
+    # end
+    # average_teamid_score = away_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
+    # best_away_team_id = average_teamid_score.max_by { |away_team_id, average_goals| average_goals }[0]
+    team_info(best_visitor_id.to_s)['team_name']
   end
 
   def highest_scoring_home_team
-    home_goals_by_team_id = Hash.new(0)
-    game_count_by_team_id = Hash.new(0)
-    games.each do |game|
-      home_goals_by_team_id[game.home_team_id.to_i] += game.home_goals.to_i
-      game_count_by_team_id[game.home_team_id.to_i] += 1
-    end
-    average_teamid_score = home_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
-    best_home_team_id = average_teamid_score.max_by { |home_team_id, average_goals| average_goals }[0]
-    team_info(best_home_team_id.to_s)['team_name']
+    best_home_id = home_scoring_outcome("highest_scoring", games)
+    # home_goals_by_team_id = Hash.new(0)
+    # game_count_by_team_id = Hash.new(0)
+    # games.each do |game|
+    #   home_goals_by_team_id[game.home_team_id.to_i] += game.home_goals.to_i
+    #   game_count_by_team_id[game.home_team_id.to_i] += 1
+    # end
+    # average_teamid_score = home_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
+    # best_home_team_id = average_teamid_score.max_by { |home_team_id, average_goals| average_goals }[0]
+    team_info(best_home_id.to_s)['team_name']
   end
 
   def lowest_scoring_visitor
-    away_goals_by_team_id = Hash.new(0)
-    game_count_by_team_id = Hash.new(0)
-    games.each do |game|
-      away_goals_by_team_id[game.away_team_id.to_i] += game.away_goals.to_i
-      game_count_by_team_id[game.away_team_id.to_i] += 1
-    end
-    average_teamid_score = away_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
-    worst_away_team_id = average_teamid_score.min_by { |away_team_id, average_goals| average_goals }[0]
-    team_info(worst_away_team_id.to_s)['team_name']
+    worst_visitor_id = visitor_scoring_outcome("lowest_scoring", games)
+    # away_goals_by_team_id = Hash.new(0)
+    # game_count_by_team_id = Hash.new(0)
+    # games.each do |game|
+    #   away_goals_by_team_id[game.away_team_id.to_i] += game.away_goals.to_i
+    #   game_count_by_team_id[game.away_team_id.to_i] += 1
+    # end
+    # average_teamid_score = away_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
+    # worst_away_team_id = average_teamid_score.min_by { |away_team_id, average_goals| average_goals }[0]
+    team_info(worst_visitor_id.to_s)['team_name']
   end
 
   def lowest_scoring_home_team
-    home_goals_by_team_id = Hash.new(0)
-    game_count_by_team_id = Hash.new(0)
-    games.each do |game|
-      home_goals_by_team_id[game.home_team_id.to_i] += game.home_goals.to_i
-      game_count_by_team_id[game.home_team_id.to_i] += 1
-    end
-    average_teamid_score = home_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
-    worst_home_team_id = average_teamid_score.min_by { |home_team_id, average_goals| average_goals }[0]
-    team_info(worst_home_team_id.to_s)['team_name']
+    worst_home_id = home_scoring_outcome("lowest_scoring", games)
+    # home_goals_by_team_id = Hash.new(0)
+    # game_count_by_team_id = Hash.new(0)
+    # games.each do |game|
+    #   home_goals_by_team_id[game.home_team_id.to_i] += game.home_goals.to_i
+    #   game_count_by_team_id[game.home_team_id.to_i] += 1
+    # end
+    # average_teamid_score = home_goals_by_team_id.map { |team_id, goals| [team_id, goals.to_f / game_count_by_team_id[team_id]] }.to_h
+    # worst_home_team_id = average_teamid_score.min_by { |home_team_id, average_goals| average_goals }[0]
+    team_info(worst_home_id.to_s)['team_name']
   end
 
   def total_games_by_team(team_id)
@@ -220,163 +230,30 @@ class StatTracker
     total_games
   end
 
-
-
-  #season stats
   def winningest_coach(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-    #hash with "coach" key and [0,0] value. first element is total games. second is games won
-    coach_stats = Hash.new { |coach, stats| coach[stats] = [0.0, 0.0] }
-    game_teams.each do |game_team|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if game_team.game_id[0..3] == games_id_year
-        coach_stats[game_team.head_coach][0] += 1
-        coach_stats[game_team.head_coach][1] += 1 if game_team.result == "WIN"
-      end
-    end
-
-    highest_win_percentage = 0.0
-    highest_win_percentage_coach = ""
-    #iterates through each coach and finding the highest win percentage
-    coach_stats.each do |coach, stats|
-      if highest_win_percentage < (stats[1] / stats[0])
-        highest_win_percentage = stats[1] / stats[0]
-        highest_win_percentage_coach = coach
-      end
-    end
-    highest_win_percentage_coach
+    best_coach(coach_stats(season_id[0..3], game_teams))
   end
-
 
   def worst_coach(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-
-    #hash with "coach" key and [0,0] value. first element is total games. second is games won
-    coach_stats = Hash.new { |coach, stats| coach[stats] = [0.0, 0.0] }
-    game_teams.each do |game_team|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if game_team.game_id[0..3] == games_id_year
-        coach_stats[game_team.head_coach][0] += 1
-        coach_stats[game_team.head_coach][1] += 1 if game_team.result == "WIN"
-      end
-    end
-
-    lowest_win_percentage = 1.0
-    lowest_win_percentage_coach = ""
-    #iterates through each coach and finding the lowest win percentage
-    coach_stats.each do |coach, stats|
-      if lowest_win_percentage > (stats[1] / stats[0])
-        lowest_win_percentage = stats[1] / stats[0]
-        lowest_win_percentage_coach = coach
-      end
-    end
-    lowest_win_percentage_coach
-  end
-
-  #*** returns hash {team_id => teamName}****
-  def team_names
-    id_to_names = {}
-    contents = CSV.open(@team_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      id_to_names[row[:team_id]] = row[:teamname]
-    end
-    id_to_names
+    worstest_coach(coach_stats(season_id[0..3], game_teams))
   end
 
   def most_accurate_team(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-
-    #hash with "team_id" key and [0,0] value. first element is total shots. second is total goals
-    goal_stats = Hash.new { |team_id, stats| team_id[stats] = [0.0, 0.0] }
-    game_teams.each do |game_team|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if game_team.game_id[0..3] == games_id_year
-        #adding in the shots and goals into the hash into the array
-        goal_stats[game_team.team_id][0] += game_team.shots.to_i
-        goal_stats[game_team.team_id][1] += game_team.goals.to_i
-      end
-    end
-    highest_goal_ratio = 0.0
-    highest_goal_ratio_team = ""
-    #iterates through each coach and finding the goal ratio
-    goal_stats.each do |team_id, stats|
-      #checking if the teams ratio is better than the last highest
-      if highest_goal_ratio < (stats[1] / stats[0])
-        highest_goal_ratio = stats[1] / stats[0]
-        #setting new highest team
-        highest_goal_ratio_team = team_id
-      end
-    end
-    # team_names[highest_goal_ratio_team]
-    team_info(highest_goal_ratio_team)["team_name"]
+    team_id = mostest_accurate_team(goal_stats(season_id[0..3], game_teams))
+    team_info(team_id)["team_name"]
   end
 
   def least_accurate_team(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-
-    #hash with "team_id" key and [0,0] value. first element is total shots. second is total goals
-    goal_stats = Hash.new { |team_id, stats| team_id[stats] = [0.0, 0.0] }
-    game_teams.each do |game_team|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if game_team.game_id[0..3] == games_id_year
-        #adding in the shots and goals into the hash into the array
-        goal_stats[game_team.team_id][0] += game_team.shots.to_i
-        goal_stats[game_team.team_id][1] += game_team.goals.to_i
-      end
-    end
-    lowest_goal_ratio = 1.0
-    lowest_goal_ratio_team = ""
-    #iterates through each coach and finding the lowest goal ratio
-    goal_stats.each do |team_id, stats|
-      #checking if the teams ratio is worse than the last lowest
-      if lowest_goal_ratio > (stats[1] / stats[0])
-        lowest_goal_ratio = stats[1] / stats[0]
-
-        #setting new worst ratio team
-        lowest_goal_ratio_team = team_id
-      end
-    end
-    team_info(lowest_goal_ratio_team)['team_name']
+    team_id = leastest_accurate_team(goal_stats(season_id[0..3], game_teams))
+    team_info(team_id)["team_name"]
   end
 
   def most_tackles(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-
-    #hash with "team_id" key and tackle int values.
-    tackle_stats = Hash.new(0)
-
-    game_teams.each do |game_team|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if game_team.game_id[0..3] == games_id_year
-        #adding in the shots and goals into the hash into the array
-        tackle_stats[game_team.team_id] += game_team.tackles.to_i
-      end
-    end
-
-    #finds key with the max value and uses that same key for the team_names hash
+    tackle_stats = tackle_stats(season_id[0..3], game_teams)
     team_info(tackle_stats.key(tackle_stats.values.max))["team_name"]
-  end
 
   def fewest_tackles(season_id)
-    #first 4 char of season_id
-    games_id_year = season_id[0..3]
-
-    #hash with "team_id" key and tackle int values.
-    tackle_stats = Hash.new(0)
-    game_teams.each do |game_team|
-      #iterates through every line checking to see if the game and season have the same 4 first chars
-      if game_team.game_id[0..3] == games_id_year
-        #adding in the shots and goals into the hash into the array
-        tackle_stats[game_team.team_id] += game_team.tackles.to_i
-      end
-    end
-
-    #finds key with the max value and uses that same key for the team_names hash
+    tackle_stats = tackle_stats(season_id[0..3], game_teams)
     team_info(tackle_stats.key(tackle_stats.values.min))["team_name"]
   end
 
@@ -536,7 +413,4 @@ class StatTracker
     end
     team_info(rival_id)['team_name']
   end
-
-
-
 end
