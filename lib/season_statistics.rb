@@ -13,6 +13,7 @@ class SeasonStatistics
   end
 
   def winningest_coach(season)
+    require 'pry'; binding.pry
     records = coach_records(season)
     populate_coach_records(season, records)
     winning_record(records).max_by { |team, win_percent| win_percent }[0].to_s
