@@ -79,7 +79,7 @@ describe GameStats do
   it "can identify all games that correspond to a certain season id" do #helper method
     game_path_dummy = "./spec/fixtures/dummy_game.csv"
     game_stats_dummy = GameStats.from_csv(game_path_dummy)
-    
+
     expected = ["2012030221",
                "2012030222",
                "2012030223",
