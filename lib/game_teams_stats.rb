@@ -1,7 +1,7 @@
-require 'csv'
-require_relative './game_teams.rb'
-require './isolatable'
-require './helpable'
+require "csv"
+require_relative "./game_teams"
+require_relative "./isolatable"
+require_relative "./helpable"
 
 class GameTeamsStats
   include Helpable
@@ -64,4 +64,21 @@ class GameTeamsStats
     tackles
   end
 
+  def coach_percentage_loss(coaches, game_id_list)
+    coaches = isolate_coach_loss(game_id_list)
+    coach_percentage_lost =
+      coaches.map do |coach_name, game_loss|
+        percentage_lost = (game_loss.to_f / game_id_list.length) * 100
+        [coach_name, percentage_lost]
+      end.to_h
+  end
+
+  def coach_percentage_won(coaches, game_id_list)
+    coaches = isolate_coach_wins(game_id_list)
+    coach_percentage_won =
+      coaches.map do |coach_name, game_won|
+        percentage_won = (game_won.to_f / game_id_list.length) * 100
+        [coach_name, percentage_won]
+      end.to_h
+  end
 end
