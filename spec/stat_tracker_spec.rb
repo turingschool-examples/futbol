@@ -35,7 +35,13 @@ describe StatTracker do
 
   describe 'Game Statistics' do
 
-
+    it 'calculates the hights score' do 
+      expect(@stat_tracker.highest_total_score).to be_a Integer
+    end 
+    
+    it 'calculates the highest score' do 
+      expect(@stat_tracker.lowest_total_score).to be_a Integer
+    end 
 
     it 'percentage_visitor_wins' do #FAIL - corrected test to correct format but number returned is wrong too
    #move to correct location
