@@ -1,12 +1,10 @@
 require "csv"
 require_relative "./game"
-require_relative "./averageable"
 require_relative "./season_groupable"
 require_relative "./team_groupable"
 
 
 class GameStats
-  include Averageable
   include SeasonGroupable
   include TeamGroupable
 
