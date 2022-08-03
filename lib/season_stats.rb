@@ -1,6 +1,5 @@
 require_relative 'details_loader'
 require_relative 'reusable'
-
 class SeasonStats < DetailsLoader
   include Reusables
 
@@ -13,7 +12,6 @@ class SeasonStats < DetailsLoader
    # Name of the Coach with the best win percentage for the season
    highest_percent_wins = team_win_percent_by_season[season.to_i].max_by {|stat| stat[:win_perc]}
    coach_by_team_id[highest_percent_wins[:team_id]][season.to_i].sample
-
   end
 
   def worst_coach(season)#issue # 27 - FAIL 2/3 tests PASS - on fail it is providing diff team/name
@@ -25,7 +23,6 @@ class SeasonStats < DetailsLoader
     @game_teams.find_all do |game_team| #finds all stats for away and home team for a particular game
       game_team[:game_id] == game_id
     end
-
   end
 
   def total_team_shots_and_goals
@@ -100,5 +97,4 @@ class SeasonStats < DetailsLoader
   def fewest_tackles (season_id)#issue # 31 PASS
     team_by_id[total_tackles_in_season_by_team[season_id.to_i].key(total_tackles_in_season_by_team[season_id.to_i].values.min)]
   end
-
 end

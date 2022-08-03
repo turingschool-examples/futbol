@@ -1,7 +1,6 @@
 require_relative 'details_loader'
-
-
 class Games < DetailsLoader
+
   def initialize(games, teams, game_teams)
     super(games, teams, game_teams)
     @details = DetailsLoader.new(games, teams, game_teams)
@@ -22,8 +21,8 @@ class Games < DetailsLoader
   end
 
   def home_wins #create games_spec file to test this helper #helper for issue #4
-  home_win = 0.0
-  @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
+    home_win = 0.0
+    @game_teams.values_at(:result, :hoa).flat_map {|row| home_win += 1 if row == ["WIN", "home"]}; home_win
   end
 
   def home_games #helper for issue #4
@@ -36,7 +35,6 @@ class Games < DetailsLoader
   end
 
   def percentage_visitor_wins #issue #5 - passed spec harness and dummy
-
     away_wins = 0
     away_games_played = 0
 
@@ -57,14 +55,14 @@ class Games < DetailsLoader
     (ties/total_games).round(1)
   end
 
-    def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
+  def count_of_games_by_season #issue 7, also helper for #9 - - season(key) out put nees to be string
     counts = {}
     games.each do |game|
-        season = game[:season]
-        if counts[season.to_s].nil?
-             counts[season.to_s] = 0
-        end
-        counts[season.to_s] += 1
+      season = game[:season]
+      if counts[season.to_s].nil?
+            counts[season.to_s] = 0
+      end
+      counts[season.to_s] += 1
     end
     counts
   end
@@ -74,7 +72,7 @@ class Games < DetailsLoader
   end
 
   def average_goals_by_season #issue #9 - Pass
-  my_hash = Hash.new { |h,k| h[k] = [] }
+    my_hash = Hash.new { |h,k| h[k] = [] }
 
     count_of_games_by_season.each do |season, game_count|
       my_hash[season] = []
