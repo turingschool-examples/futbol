@@ -1,7 +1,8 @@
 require_relative 'team_stats_module'
-require_relative 'team_name_by_id_helper_module'
+require_relative 'global_module'
 class TeamStatistics
     include Teamable
+    include Globeable
 
 
     def initialize(teams_data, games_data, game_teams_data)
@@ -32,7 +33,7 @@ class TeamStatistics
       season_record(given_team_id).max_by { |season, record| record[0] / (record[2] + record [1]) }.first
     end
 
-    def avg_win_pct(given_team_id)
+    def average_win_percentage(given_team_id)
       overall_record = season_record(given_team_id).values.transpose.map(&:sum)
       find_percentage(overall_record[0], (overall_record[0..2].sum))
     end
