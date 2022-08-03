@@ -1,7 +1,7 @@
 require 'csv'
 require_relative 'game_statistics'
 require_relative 'season_statistics'
-require_relative 'team'
+require_relative 'team_statistics'
 require_relative 'league_statistics'
 require_relative 'global_module'
 
