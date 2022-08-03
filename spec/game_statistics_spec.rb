@@ -33,15 +33,15 @@ RSpec.describe GameStatistics do
     end
 
     it "#percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq 0.57
+      expect(stat_tracker.percentage_home_wins).to eq 0.55
     end
 
     it '#percentage_visitor_wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq 0.36
+      expect(stat_tracker.percentage_visitor_wins).to eq 0.34
     end
 
     it '#percentage_ties' do
-      expect(stat_tracker.percentage_ties).to eq 0.09
+      expect(stat_tracker.percentage_ties).to eq 0.11
     end
 
     it '#count_of_games_by_season' do
