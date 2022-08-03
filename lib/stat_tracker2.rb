@@ -56,7 +56,7 @@ class StatTracker
 
   def percentage_home_wins
 
-
+    (@league.home_wins_counter.to_f / @games.count).round(2)
 
 
 
@@ -64,7 +64,7 @@ class StatTracker
 
   def percentage_visitor_wins
 
-
+    (@league.visitor_wins_counter.to_f / @games.count).round(2)
 
 
 
@@ -72,7 +72,7 @@ class StatTracker
 
   def percentage_ties
 
-
+    (@league.tie_counter.to_f / @games.count).round(2)
 
 
 
@@ -88,7 +88,7 @@ class StatTracker
 
   def average_goals_by_season
 
-
+    @league.avg_goals_by_season
 
 
 
@@ -110,24 +110,24 @@ class StatTracker
 
   def highest_scoring_visitor
 
-
-
+    max = @league.avg_away_team_by_goals.max_by{|team_id, avg_goals| avg_goals}
+    @league.team_id_to_team_name(max[0])
 
 
   end
 
   def lowest_scoring_visitor
 
-
-
+    min = @league.avg_away_team_by_goals.min_by{|team_id, avg_goals| avg_goals}
+    @league.team_id_to_team_name(min[0])
 
 
   end
 
   def highest_scoring_home_team
 
-
-
+    max = @league.avg_home_team_by_goals.max_by{|team_id, avg_goals| avg_goals}
+    @league.team_id_to_team_name(max[0])
 
 
   end
@@ -135,8 +135,8 @@ class StatTracker
   def lowest_scoring_home_team
 
 
-
-
+    min = @league.avg_home_team_by_goals.min_by{|team_id, avg_goals| avg_goals}
+    @league.team_id_to_team_name(min[0])
 
   end
 #Season Statistics Methods

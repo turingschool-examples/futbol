@@ -228,4 +228,70 @@ class League
     end
     win_percentage_by_opponent
   end
+
+  def home_wins_counter
+    @all_games.count do |game|
+      game.home_goals.to_i > game.away_goals.to_i
+    end
+  end
+
+  def visitor_wins_counter
+    @all_games.count do |game|
+      game.home_goals.to_i < game.away_goals.to_i
+    end
+  end
+
+  def tie_counter
+    @all_games.count do |game|
+      game.home_goals.to_i == game.away_goals.to_i
+    end
+  end
+
+  def goals_by_season
+    goals_by_season = Hash.new {|h,k| h[k]=[]}
+    @all_games.each do |game|
+      goals_by_season[game.season] << (game.home_goals.to_i + game.away_goals.to_i)
+    end
+    goals_by_season
+  end
+
+  def avg_goals_by_season
+    avg_goals_by_season = Hash.new(0)
+    goals_by_season.each do |season, goals|
+      avg_goals_by_season[season] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    avg_goals_by_season
+  end
+
+  def away_team_by_goals
+    away_team_by_goals = Hash.new {|h,k| h[k]=[]}
+    @all_game_teams.each do |game|
+      away_team_by_goals[game.team_id] << game.goals.to_i if game.hoa == "away"
+    end
+    away_team_by_goals
+  end
+
+  def avg_away_team_by_goals
+    avg_away_team_by_goals = Hash.new(0)
+    away_team_by_goals.each do |team_id, goals|
+      avg_away_team_by_goals[team_id] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    avg_away_team_by_goals
+  end
+
+  def home_team_by_goals
+    home_team_by_goals = Hash.new {|h,k| h[k]=[]}
+    @all_game_teams.each do |game|
+      home_team_by_goals[game.team_id] << game.goals.to_i if game.hoa == "home"
+    end
+    home_team_by_goals
+  end
+
+  def avg_home_team_by_goals
+    avg_home_team_by_goals = Hash.new(0)
+    home_team_by_goals.each do |team_id, goals|
+      avg_home_team_by_goals[team_id] = (goals.sum(0.0) / goals.length).round(2)
+    end
+    avg_home_team_by_goals
+  end
 end

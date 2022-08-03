@@ -27,15 +27,15 @@ describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq 1
   end
 
-  xit '#returns the percentage of home team wins' do
+  it '#returns the percentage of home team wins' do
     expect(@stat_tracker.percentage_home_wins).to eq 0.35
   end
 
-  xit '#returns the percentage of visitor team wins' do
+  it '#returns the percentage of visitor team wins' do
     expect(@stat_tracker.percentage_visitor_wins).to eq 0.3
   end
 
-  xit '#returns the percentage of games tied' do
+  it '#returns the percentage of games tied' do
     expect(@stat_tracker.percentage_ties).to eq 0.35
   end
 
@@ -66,7 +66,7 @@ describe StatTracker do
     expect(@stat_tracker.worst_offense).to eq ("Sporting Kansas City")
   end
 
-  xit '#average_goals_by_season' do
+  it '#average_goals_by_season' do
     expected = {
       "20122013" => 2.50,
       "20132014" => 3.67,
@@ -76,19 +76,19 @@ describe StatTracker do
     expect(@stat_tracker.average_goals_by_season).to eq(expected)
   end
 
-  xit '#highest_scoring_visitor' do
+  it '#highest_scoring_visitor' do
     expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 
-  xit '#lowest_scoring_visitor' do
+  it '#lowest_scoring_visitor' do
     expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
   end
 
-  xit '#highest_scoring_home_team' do
+  it '#highest_scoring_home_team' do
     expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
   end
 
-  xit '#lowest_scoring_home_team' do
+  it '#lowest_scoring_home_team' do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 
