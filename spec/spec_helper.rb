@@ -9,6 +9,7 @@ require './lib/game_stat_module'
 require './lib/team'
 require './lib/team_name_by_id_helper_module'
 require './lib/team_stats_module'
+require './lib/global_module'
 # class files go here
 
 

@@ -3,6 +3,7 @@ require_relative 'team_name_by_id_helper_module'
 class TeamStatistics
     include Teamable
 
+
     def initialize(teams_data, games_data, game_teams_data)
       @teams_data = teams_data
       @games_data = games_data
@@ -48,15 +49,3 @@ class TeamStatistics
       find_team_name_by_id(fav_opponent_array[0])
     end
 end
-
-
-
-
-
-
-
-
-
-
-#
-

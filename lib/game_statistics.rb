@@ -39,10 +39,12 @@ class GameStatistics
   end
 
   def average_goals_per_game
-    ave_goals_a_game
+    total_goals = @games_data.sum { |row| sum_of_goals(row) }
+    (total_goals.to_f / total_games_array.count).round(2)
   end
 
   def average_goals_by_season
+    build_ave_goal_hash
     ave_goals_a_season
   end
 end 
