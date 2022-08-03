@@ -13,10 +13,10 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-#stat_tracker.game_teams[0][:result]
-#stat_tracker.teams[0][:team_id]
-#stat_tracker.games[0][:date_time]
- 
-require 'pry' ; binding.pry
+puts stat_tracker.highest_scoring_home_team
+puts stat_tracker.lowest_scoring_home_team
+puts stat_tracker.most_accurate_team("20142015")
+puts stat_tracker.most_goals_scored("18")
+puts stat_tracker.best_offense
 
 

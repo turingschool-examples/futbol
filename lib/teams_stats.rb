@@ -1,11 +1,9 @@
 require 'csv'
 require_relative './teams'
-require_relative './averageable'
 
 class TeamsStats
-  include Averageable
-
   attr_reader :teams
+
   def initialize(teams)
     @teams = teams
   end
