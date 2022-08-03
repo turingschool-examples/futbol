@@ -199,7 +199,6 @@ class StatTracker
         record_vs_our_team[other_team_id][:ties] += 1
       end
     end
-    require 'pry';binding.pry
     record_vs_our_team
   end
 
@@ -211,6 +210,7 @@ class StatTracker
       win_percentage_2 = (team_win_2[1][:wins] / (team_win_2[1][:losses] + team_win_2[1][:ties] + team_win_2[1][:wins])) * 100
       win_percentage_1 <=> win_percentage_2
     end
+  
     our_favorite_opponent
   end
 

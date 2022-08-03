@@ -447,6 +447,20 @@ describe StatTracker do
   it 'can find all teams overall records against a given team' do
     expect(@stat_tracker.record_vs_our_team("18")).to be_a(Hash)
     expect(@stat_tracker.record_vs_our_team("18").length).to eq(31)
+    expect(@stat_tracker.record_vs_our_team("1").length).to eq((@stat_tracker.teams_stats.teams.length)-1)
   end
+
+  it 'can find the team id of the team with the worst overall record against a given team' do
+    expect(@stat_tracker.min_win_percent("1")).to be_a(Array)
+    expect(@stat_tracker.min_win_percent("18")[0]).to eq("14")
+    expect(@stat_tracker.min_win_percent("1")[0]).to eq("25")
+  end
+
+  it 'can find the team id of the team with the best overall record against a given team' do
+    expect(@stat_tracker.max_win_percent("1")).to be_a(Array)
+    expect(@stat_tracker.max_win_percent("18")[0]).to eq("14").or eq("17")
+    expect(@stat_tracker.max_win_percent("1")[0]).to eq("17")
+  end
+
 
 end
