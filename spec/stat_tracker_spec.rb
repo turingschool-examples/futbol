@@ -1,4 +1,5 @@
-# require 'rspec'
+require 'rspec'
+require './spec/spec_helper.rb'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
@@ -17,5 +18,6 @@ RSpec.describe StatTracker do
 
   it 'exists' do
     expect(@stat_tracker).to be_a(StatTracker)
+    require 'pry'; binding.pry
   end
 end

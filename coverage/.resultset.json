@@ -1,41 +1,65 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/naomiyocum/Desktop/turing_work/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/mackenzieleng/Desktop/turing_work/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
-          null,
-          1,
-          null,
-          1,
-          1,
           1,
           1,
           1,
           null,
-          null,
           1,
-          null,
+          1,
+          1,
+          1,
+          1,
           null,
           null,
           1,
           null,
           null,
+          null,
+          1,
+          null,
+          null,
+          1,
           1,
           1,
           null,
           null
         ]
       },
-      "/Users/naomiyocum/Desktop/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/mackenzieleng/Desktop/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
+          null,
           1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1663018590
+    "timestamp": 1663026759
   }
 }
