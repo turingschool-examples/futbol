@@ -18,4 +18,10 @@ class StatTracker
     StatTracker.new(games_data, teams_data, game_teams_data)
 
   end
+
+  def test
+    @games_data.map do|row|
+      row["game_id"]
+    end
+  end
 end
