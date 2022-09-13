@@ -25,6 +25,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#percentage_ties' do
+    it 'returns the percent that the games have ended in a tie' do
+      expect(@stat_tracker.percentage_ties).to eq(5.88)
+    end
+  end
+
   describe '#return_column' do 
     it 'is an integer' do 
       # allow(fake_data).to receive(:)

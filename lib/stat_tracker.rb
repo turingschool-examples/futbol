@@ -17,6 +17,12 @@ class StatTracker
     sum_goals_array.max
   end
 
+  def percentage_ties
+    # Percentage of games that have resulted in a tie rounded to the nearest 100th
+    results = return_column(@game_teams, :result)
+    tie_results = results.find_all { |result| result == "TIE"}
+    ((tie_results.length.to_f / results.length.to_f) * 100).round(2)
+  end
   def return_column(data_set, column)
     all_results = []
     data_set.each do |rows|
