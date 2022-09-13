@@ -3,9 +3,46 @@ require 'pry'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
-  it "Test 1: exists" do
-    tracker = StatTracker.new
+  before(:all) do
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(locations)
+  end
+  it "exists" do
+    tracker = StatTracker.new('file input 1', 'file input 2', 'file input 3')
 
     expect(tracker).to be_a(StatTracker)
+  end
+
+  it "has readable attributes" do
+    tracker = StatTracker.new('file input 1', 'file input 2', 'file input 3')
+
+    expect(tracker.games).to eq('file input 1')
+    expect(tracker.teams).to eq('file input 2')
+    expect(tracker.game_teams).to eq('file input 3')
+  end
+
+  it "can find the highest scoring game" do
+    expect(@stat_tracker.highest_total_score).to eq(11)
+  end
+
+  it "can find the lowest scoring game" do
+    expect(@stat_tracker.lowest_total_score).to eq(0)
+  end
+
+  it "can find the average score per game" do
+    expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/10.0)
+  end
+
+  xit "can find the highest scoring visitor team" do
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 end
