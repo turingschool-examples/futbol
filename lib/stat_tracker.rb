@@ -22,4 +22,23 @@ class StatTracker
     scores.max
   end
 
+  def total_games 
+    games = []
+    @game_teams.each do |row|
+      games << row[:game_id]  
+    end
+    games.uniq.count
+  end
+
+  def total_home_wins
+    home_wins = 0
+    @games.each do |row|
+      if row[:home_goals] >= row[:away_goals]
+        home_wins += 1
+      end
+    end
+    home_wins
+  end
+
+
 end

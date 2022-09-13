@@ -17,10 +17,20 @@ RSpec.describe StatTracker do
 
   it 'exists' do
     expect(@stat_tracker).to be_a(StatTracker)
-    require 'pry'; binding.pry
   end
 
   it '#highest_total_score' do
     expect(@stat_tracker.highest_total_score).to eq(11)
   end
+  
+  it '#total_games' do
+    expect(@stat_tracker.total_games).to eq(7441)
+  end
+
+  it '#total_home_wins' do 
+    expect(@stat_tracker.total_home_wins).to be(4754)
+    require 'pry'; binding.pry
+  end
+
+
 end
