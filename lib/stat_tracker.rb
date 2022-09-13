@@ -29,4 +29,9 @@ class StatTracker
     scores.min
   end
 
+  def percentage_home_wins
+    @game_teams.map do |row|
+      row[:result]
+    end
+  end
 end
