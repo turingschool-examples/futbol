@@ -107,5 +107,9 @@ RSpec.describe StatTracker do
     it 'has a average_goals_per_game method which returns a float rounded to nearest 100th' do
       expect(@stat_tracker.average_goals_per_game).to eq 3.78
     end
+
+    it 'has average_goals_by_season method which returns a hash' do
+      expect(@stat_tracker.average_goals_by_season).to eq ({20122013 => 3.78})
+    end
   end
 end

@@ -28,12 +28,13 @@ class StatTracker
   def highest_total_score
     @games_data.map {|row| (row["away_goals"].to_i + row["home_goals"].to_i)}.max
   end
+
   def lowest_total_score
     @games_data.map {|row| (row["away_goals"].to_i + row["home_goals"].to_i)}.min
   end
 
-  def total_goals
-    @games_data.map {|row| row["away_goals"].to_i + row["home_goals"].to_i}.sum
+  def get_seasons
+    @games_data.map {|row| row["season"].to_i}.uniq
   end
 
   def total_home_wins
@@ -48,8 +49,20 @@ class StatTracker
     @games_data.count { |row| row["away_goals"].to_i == row["home_goals"].to_i }
   end
 
+  def total_goals
+    @games_data.map {|row| row["away_goals"].to_i + row["home_goals"].to_i}.sum
+  end
+
   def total_games
     @games_data.count
+  end
+
+  def total_goals_by_season(season)
+    @games_data.reject {|row| row["season"].to_i != season}.map {|row| row["away_goals"].to_i + row["home_goals"].to_i}.sum
+  end
+
+  def total_games_by_season(season)
+    @games_data.count {|row| row["season"].to_i == season}
   end
 
   def percentage_home_wins
@@ -66,5 +79,13 @@ class StatTracker
 
   def average_goals_per_game
     (total_goals / total_games.to_f).round(2)
+  end
+
+  def average_goals_by_season
+    averages = {}
+    get_seasons.each do |season|
+      averages[season] = (total_goals_by_season(season) / total_games_by_season(season).to_f).round(2)
+    end
+    averages
   end
 end
