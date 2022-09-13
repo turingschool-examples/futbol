@@ -1,5 +1,3 @@
-require 'csv'
-require 'simplecov'
 class Team
   attr_reader :team_id, :franchiseid, :teamname, :abbreviation, :stadium, :link
 

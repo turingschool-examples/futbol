@@ -1,7 +1,13 @@
 class StatTracker
 
-    def self.from_csv(locations)
-        locations
-    end
+  attr_reader
+
+  def initialize()
+
+  end
+
+  def self.from_csv(locations)
+  locations
+  end
 
 end
