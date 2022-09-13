@@ -26,5 +26,13 @@ class StatTracker
    end
    counter
   end
-end
 
+  def average_goals_per_game
+    total_goals = 0
+    @games_reader.each do |game|
+      total_goals += game[:away_goals].to_f
+      total_goals += game[:home_goals].to_f
+    end
+    (total_goals / @games_reader.count).round(2)  
+  end
+end
