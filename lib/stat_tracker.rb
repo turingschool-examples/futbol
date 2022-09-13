@@ -35,7 +35,7 @@ class StatTracker
     (wins.to_f/games_data.count).round(2)
   end
 
-  def percentage_away_wins
+  def percentage_visitor_wins
     wins =0
     @games_data.each do |row| 
       if row[:away_goals].to_i > row[:home_goals].to_i
