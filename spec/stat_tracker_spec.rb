@@ -27,16 +27,32 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
-  it "#percentage_home_wins" do
-    expect(@stat_tracker.percentage_home_wins).to eq(0.44)
-  end
+  # it "#percentage_home_wins" do
+  #   expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+  # end
   
   it '#total_games' do
     expect(@stat_tracker.total_games).to eq(7441)
   end
 
   it '#total_home_wins' do 
-    expect(@stat_tracker.total_home_wins).to be(4754)
-    require 'pry'; binding.pry
+    expect(@stat_tracker.total_home_wins).to eq(4754)
   end
+  
+  it '#total_home_losses' do
+    expect(@stat_tracker.total_home_losses).to eq(4204)
+  end
+  
+  it '#total_ties' do
+    expect(@stat_tracker.total_ties).to eq(1517)
+  end
+  
+  it '#total_away_losses' do
+    expect(@stat_tracker.total_away_losses).to eq(@stat_tracker.total_home_wins)
+  end
+  
+  it '#total_away_wins' do
+    expect(@stat_tracker.total_away_wins).to eq(@stat_tracker.total_home_losses)
+  end
+
 end
