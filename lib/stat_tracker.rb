@@ -10,6 +10,10 @@ class StatTracker
   
   def highest_total_score
     #highest sum of winning and losing teams scores
+    sum_goals_array = @games.map do |game|
+      game[:home_goals].to_i + game[:away_goals].to_i
+    end
+    sum_goals_array.max
   end
 
   def return_column(data_set, column)
