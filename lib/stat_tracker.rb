@@ -84,4 +84,9 @@ class StatTracker
     total_home_losses
   end
 
+  def count_of_games_by_season
+    season = @games.map {|row| row[:season]}
+    season.tally
+  end
+
 end
