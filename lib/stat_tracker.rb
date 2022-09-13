@@ -16,6 +16,14 @@ class StatTracker
     end
     sum_goals_array.max
   end
+  
+  def lowest_total_score
+    sum_goals_array = @games.map do |game|
+      game[:home_goals].to_i + game[:away_goals].to_i
+    end
+    sum_goals_array.min
+  end
+
 
   def percentage_ties
     # Percentage of games that have resulted in a tie rounded to the nearest 100th
@@ -30,6 +38,9 @@ class StatTracker
     end
     sum_goals_array = goals_array.sum
     (sum_goals_array / @games.length).round(2)
+
+  def count_of_teams
+    @teams.length
   end
 
   def return_column(data_set, column)
