@@ -89,4 +89,10 @@ class StatTracker
     season.tally
   end
 
+  def average_goals_per_game
+    goals = @games.map {|row| row[:away_goals].to_f + row[:home_goals].to_f}
+    goals = goals.sum
+    (goals / total_games).round(2)
+  end
+
 end

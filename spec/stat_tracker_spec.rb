@@ -66,4 +66,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>10})
   end
 
+  it '#average_goals_per_game' do
+    require 'pry';binding.pry
+    expect(@stat_tracker.average_goals_per_game).to eq(3.7)
+  end
+
 end
