@@ -30,4 +30,13 @@ RSpec.describe StatTracker do
   it "#percentage_home_wins" do
     expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
+  
+  it '#total_games' do
+    expect(@stat_tracker.total_games).to eq(7441)
+  end
+
+  it '#total_home_wins' do 
+    expect(@stat_tracker.total_home_wins).to be(4754)
+    require 'pry'; binding.pry
+  end
 end
