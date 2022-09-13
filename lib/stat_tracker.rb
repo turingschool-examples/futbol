@@ -15,7 +15,7 @@ class StatTracker
     stat_tracker = new
     stat_tracker.teams_reader = CSV.read locations[:teams], headers: true, header_converters: :symbol
     stat_tracker.games_reader = CSV.read locations[:games], headers: true, header_converters: :symbol
-    stat_tracker.games_teams_reader = CSV.read locations[:games_teams], headers: true, header_converters: :symbol
+    stat_tracker.game_teams_reader = CSV.read locations[:games_teams], headers: true, header_converters: :symbol
     stat_tracker
   end
 
