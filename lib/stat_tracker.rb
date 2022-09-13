@@ -1,25 +1,30 @@
 require "csv"
 
 class StatTracker
-  attr_reader :games,
-              :game_teams,
-              :teams
+  attr_accessor :games_reader,
+              :game_teams_reader,
+              :teams_reader
 
   def initialize
-    @teams = []
-    @games = []
-    @game_teams = []
+    @teams_reader = nil
+    @games_reader = nil
+    @game_teams_reader = nil
   end
 
-  def self.from_csv()
+  def self.from_csv(locations)
+    stat_tracker = new
+    stat_tracker.teams_reader = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    stat_tracker.games_reader = CSV.read locations[:games], headers: true, header_converters: :symbol
+    stat_tracker.games_teams_reader = CSV.read locations[:games_teams], headers: true, header_converters: :symbol
+    stat_tracker
   end
 
-  def team_import(file_name)
-    content = CSV.open file_name, headers: true
-    content.each do |line|
-      next if line == ["team_id", "franchiseId", "teamName", "abbreviation", "Stadium", "link"]
-      @teams << Team.new(line)
-    end
-
+  def count_of_teams
+   counter = 0
+   @teams_reader.each do |row|
+    counter += 1
+   end
+   counter
   end
 end
+

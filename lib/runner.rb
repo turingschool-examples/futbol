@@ -11,3 +11,6 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
+
+p stat_tracker.count_of_teams
+
