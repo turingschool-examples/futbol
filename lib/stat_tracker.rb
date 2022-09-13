@@ -1,5 +1,5 @@
 require 'csv'
-
+require 'pry'
 class StatTracker
   attr_reader :games_data, :teams_data, :game_teams_data
   def initialize(locations)
@@ -12,7 +12,7 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
+#game class
   def highest_total_score
     @games_data.map do |row| 
     row[:away_goals].to_i + row[:home_goals].to_i
@@ -54,4 +54,378 @@ class StatTracker
     end
     (ties.to_f/games_data.count).round(2)
   end
+#end of game class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #league statistics 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #team class
+
+  def team_info(index)
+    team_info_hash = {}
+    @teams_data.map do|row|
+      if row[:team_id] == index
+      team_info_hash[:team_id.to_s] = row[:team_id]
+      team_info_hash[:franchise_id.to_s] = row[:franchiseid]
+      team_info_hash[:team_name.to_s] = row[:teamname]
+      team_info_hash[:abbreviation.to_s] = row[:abbreviation]
+      team_info_hash[:link.to_s] = row[:link]
+      end
+    end
+    team_info_hash
+  end
+  def best_season
+  end
+  def worst_season
+  end
+  def avera
+  end
+  def average_win_percentage
+  end	
+  def most_goals_scored	
+  end
+  def fewest_goals_scored
+  end
+  def favorite_opponent	
+  end
+  def rival
+  end
+  #end of team class
 end
