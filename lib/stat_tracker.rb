@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -9,9 +10,29 @@ class StatTracker
   end
 
   def self.from_csv(csv_hash)
-    games_input = CSV.read(csv_hash[:games], headers: true, header_converters: :symbol).take(200)
-    teams_input = CSV.read(csv_hash[:teams], headers: true, header_converters: :symbol).take(200)
-    game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol).take(200)
-    stats_tracker = StatTracker.new(games_input.map {|row| row}, teams_input.map {|row| row}, game_teams_input.map {|row| row})
+    games_input = CSV.read(csv_hash[:games], headers: true, header_converters: :symbol)
+    teams_input = CSV.read(csv_hash[:teams], headers: true, header_converters: :symbol)
+    game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
+    stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
+  
+  def total_games
+    games_teams.length
+  end
+
+  def ties
+    games_teams.each {|game_team| game_team[:result]}
+      if game_team == TIE 
+    end
+  end
+
+  # take game_teams -> HoA = home -> if win, +=1. Divide by total number of games, multiply by 100.
+  # def percentage_home_wins
+  #   home_team = []
+  #   games_teams.each { |game_team| game_team[:HoA] }
+  #     if game_team == home
+  #       home_team << game_team
+  #     end
+  #     binding.pry
+  # end
 end
