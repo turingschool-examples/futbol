@@ -53,4 +53,25 @@ class StatTracker
     end
     home_wins
   end
+  
+  def total_home_losses
+    home_losses = 0
+    @games.each do |row|
+      if row[:away_goals] >= row[:home_goals]
+        home_losses += 1
+      end
+    end
+    home_losses
+  end
+  
+  def total_ties
+    total_ties = 0
+    @games.each do |row|
+      if row[:away_goals] == row[:home_goals]
+        total_ties += 1
+      end
+    end
+    total_ties
+  end
+
 end
