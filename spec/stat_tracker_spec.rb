@@ -81,9 +81,14 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq 5
     end
 
-    it 'lostest_total_score, lowest sum of winning and losing teams scores' do 
+    it 'lowest_total_score, lowest sum of winning and losing teams scores' do 
       expect(@stat_tracker.lowest_total_score).to eq 1
 
     end
+
+    it 'lowest_scoring_visitor, name of team with lowest avg score per game' do 
+      expect(@stat_tracker.lowest_scoring_visitor).to eq()
+    end
+
   end 
 end
