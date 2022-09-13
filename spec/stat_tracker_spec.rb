@@ -40,8 +40,11 @@ RSpec.describe StatTracker do
     "20162017"=>1317,
     "20172018"=>1355
   }
-    # binding.pry
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
+  end
+
+  it "#average_goals_per_game" do
+    expect(@stat_tracker.average_goals_per_game).to eq 4.22
   end
 
 end

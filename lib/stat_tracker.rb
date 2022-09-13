@@ -18,4 +18,11 @@ class StatTracker
   def count_of_games_by_season
     games[:season].tally.sort.to_h
   end
+
+  def average_goals_per_game
+    goals = @games[:away_goals].map(&:to_i).sum.to_f + @games[:home_goals].map(&:to_i).sum
+    games = @games.length
+    (goals / games).round(2)
+  end
+
 end
