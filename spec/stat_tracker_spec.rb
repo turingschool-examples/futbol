@@ -31,6 +31,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#average_goals_per_game' do
+    it 'returns the average number of goals scored in a game across all seasons' do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.78)
+    end
+  end
+
   describe '#return_column' do 
     it 'is an integer' do 
       # allow(fake_data).to receive(:)

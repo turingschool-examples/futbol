@@ -23,6 +23,15 @@ class StatTracker
     tie_results = results.find_all { |result| result == "TIE"}
     ((tie_results.length.to_f / results.length.to_f) * 100).round(2)
   end
+
+  def average_goals_per_game
+    goals_array = @games.map do |game|
+      game[:home_goals].to_f + game[:away_goals].to_f
+    end
+    sum_goals_array = goals_array.sum
+    (sum_goals_array / @games.length).round(2)
+  end
+
   def return_column(data_set, column)
     all_results = []
     data_set.each do |rows|
