@@ -198,8 +198,6 @@ class StatTracker
 
 
   def count_of_teams
-    @teams_data.count do |row|
-      row
-    end
+    @teams_data.count 
   end
 end
