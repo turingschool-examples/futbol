@@ -3,16 +3,15 @@ require 'csv'
 class StatTracker
   attr_reader :games, :teams, :game_teams
   def initialize
-    @games = nil
-    @teams = nil
-    @game_teams = nil
   end
 
   def self.from_csv(csv_hash)
-    @games = CSV.open csv_hash[:games], headers: true, header_converters: :symbol
-    @teams = CSV.open csv_hash[:teams], headers: true, header_converters: :symbol
-    @game_teams = CSV.open csv_hash[:game_teams], headers: true, header_converters: :symbol
+    # @games_input = CSV.open csv_hash[:games], headers: true, header_converters: :symbol
+    @games_input = CSV.foreach(csv_hash[:games], headers: true, header_converters: :symbol).take(200)
+    # @teams_input = CSV.open csv_hash[:teams], headers: true, header_converters: :symbol
+    @teams_input = CSV.foreach(csv_hash[:teams], headers: true, header_converters: :symbol).take(200)
+    # @game_teams_input = CSV.open csv_hash[:game_teams], headers: true, header_converters: :symbol
+    @game_teams_input = CSV.foreach(csv_hash[:game_teams], headers: true, header_converters: :symbol).take(200)
+    @stats = [@games_input.map {|row| row}, @teams_input.map {|row| row}, @game_teams_input.map {|row| row}]
   end
 end
-
-# csv_preview_data = CSV.foreach(csv_path, headers: false).take(100)
