@@ -38,6 +38,10 @@ class StatTracker
     (total_away_wins.to_f / total_games.to_f).round(2)
   end
 
+  def percentage_ties
+    (total_ties.to_f / total_games.to_f).round(2)
+  end
+
   def total_games
     @games.count
   end
