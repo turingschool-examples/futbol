@@ -17,6 +17,17 @@ class StatTracker
     sum_goals_array.max
   end
 
+  def lowest_total_score
+    sum_goals_array = @games.map do |game|
+      game[:home_goals].to_i + game[:away_goals].to_i
+    end
+    sum_goals_array.min
+  end
+
+  def count_of_teams
+    @teams.length
+  end
+
   def return_column(data_set, column)
     all_results = []
     data_set.each do |rows|

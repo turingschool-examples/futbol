@@ -20,8 +20,20 @@ RSpec.describe StatTracker do
   end
 
   describe '#highest_total_score' do
-    it 'returns highest total score of seasons games' do
+    it 'returns highest total score of all games' do
       expect(@stat_tracker.highest_total_score).to eq(5)
+    end
+  end
+
+  describe '#lowest_total_score' do 
+    it 'returns lowest total score of all games' do 
+      expect(@stat_tracker.lowest_total_score).to eq(1)
+    end
+  end
+
+  describe '#count_of_teams' do 
+    it 'counts all unique teams' do 
+      expect(@stat_tracker.count_of_teams).to eq(9)
     end
   end
 
