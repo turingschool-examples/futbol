@@ -46,4 +46,13 @@ RSpec.describe StatTracker do
   it '#total_ties' do
     expect(@stat_tracker.total_ties).to eq(1517)
   end
+  
+  it '#total_away_losses' do
+    expect(@stat_tracker.total_away_losses).to eq(@stat_tracker.total_home_wins)
+  end
+  
+  it '#total_away_wins' do
+    expect(@stat_tracker.total_away_wins).to eq(@stat_tracker.total_home_losses)
+  end
+
 end

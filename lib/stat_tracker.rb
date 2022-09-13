@@ -73,5 +73,13 @@ class StatTracker
     end
     total_ties
   end
+  
+  def total_away_losses
+    total_home_wins
+  end
+  
+  def total_away_wins
+    total_home_losses
+  end
 
 end
