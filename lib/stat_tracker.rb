@@ -38,6 +38,7 @@ class StatTracker
     end
     sum_goals_array = goals_array.sum
     (sum_goals_array / @games.length).round(2)
+  end
 
   def count_of_teams
     @teams.length
