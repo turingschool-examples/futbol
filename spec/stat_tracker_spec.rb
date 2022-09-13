@@ -36,6 +36,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
 
+    it ' can calculate the percentage of games that an away team has won (to nearest 100th)' do 
+      expect(@stat_tracker.percentage_away_wins).to eq(0.36)
+    end
   end
 
 end
