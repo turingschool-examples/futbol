@@ -1,0 +1,2 @@
+echo coverage >> .gitignore.txt
+
