@@ -95,4 +95,17 @@ class StatTracker
     (goals / total_games).round(2)
   end
 
+  def average_goals_by_season
+    hash = Hash.new(0)
+    goals = @games.map do |row|
+      goals = row[:away_goals].to_f + row[:home_goals].to_f
+      season = row[:season]
+      hash[season] += goals
+    end
+
+    nested_arr = count_of_games_by_season.values.zip(hash.values)
+    arr = nested_arr.map {|array| (array[1] / array[0]).round(2)}
+    avg = Hash[count_of_games_by_season.keys.zip(arr)]
+  end
+
 end
