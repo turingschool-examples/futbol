@@ -31,9 +31,7 @@ class StatTracker
   end
 
   def percentage_home_wins
-    @game_teams.map do |row|
-      row[:result]
-    end
+    (total_home_wins.to_f / total_games.to_f).round(2)
   end
   
   def total_games 
