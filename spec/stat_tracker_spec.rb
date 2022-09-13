@@ -34,8 +34,11 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.list_team_names_by_id(13)).to eq("Houston Dash")
     end
 
-    it "5. returns #highest_total_score" do
+    it '5. returns #highest_total_score' do
         expect(@stat_tracker.highest_total_score).to eq 11
       end
-
+    
+    it '6. #lowest_total_score' do
+        expect(@stat_tracker.lowest_total_score).to eq 0
+    end
 end

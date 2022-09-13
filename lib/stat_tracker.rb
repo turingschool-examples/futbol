@@ -25,11 +25,11 @@ class StatTracker
     @team_csv.each { |row| return row[:teamname] if id.to_s == row[:team_id] }           
   end
 
-  # def highest_total_score
-  #   @game_csv.each do |row|
+  def highest_total_score
+    @game_csv.map { |row| row[:away_goals].to_i + row[:home_goals].to_i }.max
+  end
 
-  #   end
-
-  # end
-
+  def lowest_total_score
+    @game_csv.map { |row| row[:away_goals].to_i + row[:home_goals].to_i }.min
+  end
 end
