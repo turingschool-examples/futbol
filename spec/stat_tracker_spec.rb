@@ -15,11 +15,22 @@ RSpec.describe StatTracker do
 
     @stat_tracker = StatTracker.from_csv(locations)
   end
+
   describe '#initialize' do
   end
+
   describe '#highest_total_score' do
     it 'returns highest total score of seasons games' do
       expect(@stat_tracker.highest_total_score).to eq(5)
+    end
+  end
+
+  describe '#return_column' do 
+    it 'is an integer' do 
+      # allow(fake_data).to receive(:)
+      # return_column(fake_data, header)
+      
+
     end
   end
 end
