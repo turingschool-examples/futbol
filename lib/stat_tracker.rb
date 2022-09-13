@@ -38,9 +38,8 @@ class StatTracker
   end
 
   def total_games
-    count = 0
-    @games_data.each { |row| count += 1}
-    count
+    @games_data.count
+    
   end
 
   def percentage_home_wins
