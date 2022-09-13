@@ -19,16 +19,7 @@ RSpec.describe StatTracker do
 
   describe '#initialize' do
     it 'exists' do
-      # stat_tracker = StatTracker.new
-      expect(@stat_tracker).to be_instance_of StatTracker
-    end
-  end
-
-  describe '#self.from_csv' do
-    it 'makes data accessible in class' do
-      expect(@stat_tracker.games_data).to be_instance_of CSV
-      expect(@stat_tracker.teams_data).to be_instance_of CSV
-      expect(@stat_tracker.game_teams_data).to be_instance_of CSV
+      expect(@stat_tracker).to be_an_instance_of(StatTracker)
     end
   end
 
@@ -36,6 +27,11 @@ RSpec.describe StatTracker do
     it 'can calculate the highest sum of the winning and losing teams scores' do 
         expect(@stat_tracker.highest_total_score).to eq 11
     end
+
+    it 'can calculate the lowest sum of the winning and losing teams scores' do 
+        expect(@stat_tracker.lowest_total_score).to eq 0
+    end
+
   end
 
 end
