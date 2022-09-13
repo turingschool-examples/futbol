@@ -28,6 +28,9 @@ class StatTracker
   def highest_total_score
     @games_data.map {|row| (row["away_goals"].to_i + row["home_goals"].to_i)}.max
   end
+  def lowest_total_score
+    @games_data.map {|row| (row["away_goals"].to_i + row["home_goals"].to_i)}.min 
+  end
 
   def total_home_wins 
     @games_data.count { |row| row["home_goals"].to_i > row["away_goals"].to_i }

@@ -80,5 +80,10 @@ RSpec.describe StatTracker do
     it 'highest_total_score method, sum of winning and losing team scores' do 
       expect(@stat_tracker.highest_total_score).to eq 5
     end
+
+    it 'lostest_total_score, lowest sum of winning and losing teams scores' do 
+      expect(@stat_tracker.lowest_total_score).to eq 1
+
+    end
   end 
 end
