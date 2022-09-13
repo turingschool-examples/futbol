@@ -63,4 +63,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq 0.00
     end
   end
+
+  describe "highest total scores method" do
+    before(:each) do 
+      dummy_game_path = './data/dummy_games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
+      locations = {
+        games: dummy_game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      @stat_tracker = StatTracker.from_csv(locations)
+    end
+
+    it 'highest_total_score method, sum of winning and losing team scores' do 
+      expect(@stat_tracker.highest_total_score).to eq 5
+    end
+  end 
 end
