@@ -1,9 +1,9 @@
 require "csv"
 
 class StatTracker
-  attr_reader :teams,
-              :games,
-              :game_teams
+  attr_reader :games,
+              :game_teams,
+              :teams
 
   def initialize
     @teams = []
@@ -14,12 +14,11 @@ class StatTracker
   def self.from_csv()
   end
 
-  def self.team_import(file_name)
-    content = CSV.open file_name, headers: false, header_converters: :symbol
-  # require "pry";binding.pry
+  def team_import(file_name)
+    content = CSV.open file_name, headers: true
     content.each do |line|
-          require "pry";binding.pry
-    @teams << Team.new(line)
+      next if line == ["team_id", "franchiseId", "teamName", "abbreviation", "Stadium", "link"]
+      @teams << Team.new(line)
     end
 
   end
