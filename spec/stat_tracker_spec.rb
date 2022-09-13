@@ -3,9 +3,9 @@ require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = './data/games.csv'
+    game_path = './data/dummy_games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/dummy_game_teams.csv'
 
     locations = {
       games: game_path,
@@ -20,37 +20,41 @@ RSpec.describe StatTracker do
   end
 
   it '#highest_total_score' do
-    expect(@stat_tracker.highest_total_score).to eq(11)
+    expect(@stat_tracker.highest_total_score).to eq(5)
   end
 
   it "#lowest_total_score" do
-    expect(@stat_tracker.lowest_total_score).to eq(0)
+    expect(@stat_tracker.lowest_total_score).to eq(1)
   end
 
   it "#percentage_home_wins" do
     expect(@stat_tracker.percentage_home_wins).to eq(0.44)
   end
   
+  # it "#percentage_home_wins" do
+  #   expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+  # end
+
   it '#total_games' do
-    expect(@stat_tracker.total_games).to eq(7441)
+    expect(@stat_tracker.total_games).to eq(10)
   end
 
-  it '#total_home_wins' do 
-    expect(@stat_tracker.total_home_wins).to eq(4754)
+  it '#total_home_wins' do
+    expect(@stat_tracker.total_home_wins).to eq(6)
   end
-  
+
   it '#total_home_losses' do
-    expect(@stat_tracker.total_home_losses).to eq(4204)
+    expect(@stat_tracker.total_home_losses).to eq(4)
   end
-  
+
   it '#total_ties' do
-    expect(@stat_tracker.total_ties).to eq(1517)
+    expect(@stat_tracker.total_ties).to eq(0)
   end
-  
+
   it '#total_away_losses' do
     expect(@stat_tracker.total_away_losses).to eq(@stat_tracker.total_home_wins)
   end
-  
+
   it '#total_away_wins' do
     expect(@stat_tracker.total_away_wins).to eq(@stat_tracker.total_home_losses)
   end

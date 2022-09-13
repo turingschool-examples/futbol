@@ -33,13 +33,9 @@ class StatTracker
   def percentage_home_wins
     (total_home_wins.to_f / total_games.to_f).round(2)
   end
-  
-  def total_games 
-    games = []
-    @game_teams.each do |row|
-      games << row[:game_id]  
-    end
-    games.uniq.count
+
+  def total_games
+    @games.count
   end
 
   def total_home_wins
@@ -51,7 +47,7 @@ class StatTracker
     end
     home_wins
   end
-  
+
   def total_home_losses
     home_losses = 0
     @games.each do |row|
@@ -61,7 +57,7 @@ class StatTracker
     end
     home_losses
   end
-  
+
   def total_ties
     total_ties = 0
     @games.each do |row|
@@ -71,11 +67,11 @@ class StatTracker
     end
     total_ties
   end
-  
+
   def total_away_losses
     total_home_wins
   end
-  
+
   def total_away_wins
     total_home_losses
   end
