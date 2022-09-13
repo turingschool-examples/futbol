@@ -4,12 +4,12 @@ require 'csv'
 
 RSpec.describe Team do
   it 'exists' do
-    team = Team.new(1, 23, "Atlanta United", "ATL", "Mercedes-Benz Stadium", "/api/v1/teams/1" )
+    team = Team.new({team_id: 1, franchiseid: 23, teamname: "Atlanta United", abbreviation: "ATL", stadium: "Mercedes-Benz Stadium", link: "/api/v1/teams/1"})
     expect(team).to be_an_instance_of(Team)
   end
 
   it "has readable atrributes" do
-    team = Team.new(1, 23, "Atlanta United", "ATL", "Mercedes-Benz Stadium", "/api/v1/teams/1" )
+    team = Team.new({team_id: 1, franchiseid: 23, teamname: "Atlanta United", abbreviation: "ATL", stadium: "Mercedes-Benz Stadium", link: "/api/v1/teams/1"})
 
     expect(team.team_id).to eq(1)
     expect(team.franchiseid).to eq(23)
