@@ -108,4 +108,8 @@ class StatTracker
     avg = Hash[count_of_games_by_season.keys.zip(arr)]
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
 end

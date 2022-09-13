@@ -73,4 +73,8 @@ RSpec.describe StatTracker do
   it '#average_goals_by_season' do
     expect(@stat_tracker.average_goals_by_season).to eq({"20122013" => 3.70})
   end
+
+  it '#count_of_teams' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
 end
