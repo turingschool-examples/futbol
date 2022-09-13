@@ -25,11 +25,15 @@ RSpec.describe StatTracker do
 
   describe '#game stats' do
     it 'can calculate the highest sum of the winning and losing teams scores' do 
-        expect(@stat_tracker.highest_total_score).to eq 11
+      expect(@stat_tracker.highest_total_score).to eq(11)
     end
 
     it 'can calculate the lowest sum of the winning and losing teams scores' do 
-        expect(@stat_tracker.lowest_total_score).to eq 0
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
+
+    it ' can calculate the percentage of games that a home team has won (to nearest 100th)' do 
+      expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
 
   end

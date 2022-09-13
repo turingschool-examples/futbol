@@ -24,4 +24,14 @@ class StatTracker
     row[:away_goals].to_i + row[:home_goals].to_i
     end.min
   end
+
+  def percentage_home_wins
+    wins =0
+    @games_data.each do |row| 
+      if row[:away_goals].to_i < row[:home_goals].to_i
+        wins += 1
+      end
+    end
+    (wins.to_f/games_data.count).round(2)
+  end
 end
