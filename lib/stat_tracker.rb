@@ -14,4 +14,8 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
+
+  def count_of_games_by_season
+    games[:season].tally.sort.to_h
+  end
 end
