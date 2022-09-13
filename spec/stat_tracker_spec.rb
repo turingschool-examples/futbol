@@ -39,6 +39,10 @@ RSpec.describe StatTracker do
     it ' can calculate the percentage of games that an visitor team has won (to nearest 100th)' do 
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
+
+    it ' can calculate percentage of games that has resulted in a tie (rounded to the nearest 100th)' do 
+      expect(@stat_tracker.percentage_ties).to eq(0.2)
+    end
   end
 
 end
