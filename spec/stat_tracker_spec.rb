@@ -1,5 +1,4 @@
-require 'rspec'
-require './spec/spec_helper.rb'
+# require 'rspec'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
@@ -13,11 +12,15 @@ RSpec.describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-    @stat_tracker = StatTracker.new
+    @stat_tracker = StatTracker.from_csv(locations)
   end
 
   it 'exists' do
     expect(@stat_tracker).to be_a(StatTracker)
     require 'pry'; binding.pry
+  end
+
+  it '#highest_total_score' do
+    expect(@stat_tracker.highest_total_score).to eq(11)
   end
 end
