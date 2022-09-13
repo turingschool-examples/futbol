@@ -1,5 +1,5 @@
 # runner.rb
-require './lib/stat_tracker'
+require_relative './stat_tracker'
 require 'csv'
 
 game_path = CSV.open './data/games.csv', headers: true, header_converters: :symbol

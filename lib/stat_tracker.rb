@@ -1,13 +1,11 @@
+require 'csv'
+
 class StatTracker
 
-  attr_reader
-
-  def initialize()
-
-  end
-
-  def self.from_csv(locations)
-  locations
+    def self.from_csv(locations)
+    @game_path = locations[:games]
+    @team_path = locations[:teams]
+    @game_teams_path = locations[:game_teams]
   end
 
 end
