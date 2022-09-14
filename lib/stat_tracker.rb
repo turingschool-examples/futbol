@@ -15,7 +15,8 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-  
+
+#-----------------------------------Game Statistics-----------------------------------
    # Origional method from Iteration 2
   def highest_total_score
     highest_scoring_game = @games.max_by do |game|
@@ -31,13 +32,13 @@ class StatTracker
     end
     lowest_scoring_game[:away_goals].to_i + lowest_scoring_game[:home_goals].to_i
   end
-  
+
   # Helper method used in percentage_ties & percentage_home_wins & percentage_visitor_wins
   # Recommend refactor?
   def total_games
     @games.count
   end
-  
+
   # Origional method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_home_wins
@@ -49,7 +50,7 @@ class StatTracker
     end
     (home_wins.to_f / @games.count).round(2)
   end
-  
+
   # Origional method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_visitor_wins
@@ -61,7 +62,7 @@ class StatTracker
     end
     (visitor_wins.to_f / @games.count).round(2)
   end
-  
+
   # Origional method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_ties
@@ -72,6 +73,43 @@ class StatTracker
       end
     end
     (ties.to_f / @games.count).round(2)
+  end
+
+#-----------------------------------League Statistics-----------------------------------
+  #Original method from iteration 2
+  def count_of_teams
+    @teams.length
+  end
+
+  # Original method from iteration 2
+  # Could refactor and split up into several helper methods
+  def best_offense
+    hash = {}
+    # Create a hash representing each team containing a hash with each team's total games and goals
+    @game_teams.each do |row|
+      if hash[row[:team_id]] == nil
+        hash[row[:team_id]] = {games: 1, goals: row[:goals].to_i}
+      else
+        hash[row[:team_id]][:games] += 1
+        hash[row[:team_id]][:goals] += row[:goals].to_i
+      end
+    end
+
+    # Create a hash with each team and their avg goals per game
+    @avg_goals_per_game = hash.map do |team_id, games_goals_hash|
+      [team_id, (games_goals_hash[:goals].to_f/games_goals_hash[:games])]
+    end
+
+    # Find the team_id and name of the team w/ highest avg goals
+    best_offense_id = @avg_goals_per_game.max_by {|team_id, avg_goals| avg_goals}[0]
+    @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
+  end
+
+  #Original method from iteration 2
+  def worst_offense
+    #uses @avg_goals_per_game hash from best_offense
+    worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
+    @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
 
   # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
@@ -129,7 +167,7 @@ class StatTracker
     end
     highest_scoring_team[:teamname]
   end
-  
+
   # Origional method from Iteration 2
   def highest_scoring_home_team
     average_scores_for_all_home_teams
@@ -155,41 +193,5 @@ class StatTracker
       team[:team_id].to_i == @home_hash.key(@home_hash.values.min)
     end
     highest_scoring_team[:teamname]
-  end
-
-  #Original method from iteration 2
-  #Could refactor and split up into several helper methods
-  def best_offense
-    hash = {}
-    #create a hash representing each team containing a hash with each team's total games and goals
-    @game_teams.each do |row|
-      if hash[row[:team_id]] == nil
-        hash[row[:team_id]] = {games: 1, goals: row[:goals].to_i}
-      else
-        hash[row[:team_id]][:games] += 1
-        hash[row[:team_id]][:goals] += row[:goals].to_i
-      end
-    end
-
-    #create a hash with each team and their avg goals per game
-    @avg_goals_per_game = hash.map do |team_id, games_goals_hash|
-      [team_id, (games_goals_hash[:goals].to_f/games_goals_hash[:games])]
-    end
-
-    #find the team_id and name of the team w/ highest avg goals
-    best_offense_id = @avg_goals_per_game.max_by {|team_id, avg_goals| avg_goals}[0]
-    @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
-  end
-
-  #Original method from iteration 2
-  def worst_offense
-    #uses @avg_goals_per_game hash from best_offense
-    worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
-    @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
-  end
-
-  #Original method from iteration 2
-  def count_of_teams
-    @teams.length
   end
 end

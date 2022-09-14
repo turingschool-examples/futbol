@@ -16,7 +16,7 @@ RSpec.describe StatTracker do
 
     @stat_tracker = StatTracker.from_csv(locations)
   end
-  
+
   context "Initialize" do
     describe "#initialize" do
       it "exists" do
@@ -61,6 +61,18 @@ RSpec.describe StatTracker do
   end
 
   context "League Statistics" do
+    it "#count_of_teams" do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+
+    it "#best_offense" do
+      expect(@stat_tracker.best_offense).to eq("Reign FC")
+    end
+
+    it "#worst_offense" do
+      expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+
     it "#helper average_score_per_game" do
       # Stat_tracker has 2 lines / game. That is wy there are 10 lines and only 5.0 games.
       expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
@@ -101,17 +113,5 @@ RSpec.describe StatTracker do
     it "#lowest_scoring_home_team" do
       expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
-  end
-
-  it "#best_offense" do
-    expect(@stat_tracker.best_offense).to eq("Reign FC")
-  end
-
-  it "#worst_offense" do
-    expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
-  end
-
-  it "#count_of_teams" do
-    expect(@stat_tracker.count_of_teams).to eq(32)
   end
 end
