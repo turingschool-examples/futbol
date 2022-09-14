@@ -137,4 +137,16 @@ class StatTracker
     num1[0]
   end
 
+  def worst_offense
+    worst = average_goals.min_by {|key,value| value}
+    hash = Hash.new
+    @teams.map do |row|
+      team_id = row[:team_id]
+      team_name = row[:teamname]
+      hash[team_id] = team_name
+    end
+    the_worst = hash.filter_map {|key,value| value if key == worst[0] }
+    the_worst[0]
+  end
+
 end
