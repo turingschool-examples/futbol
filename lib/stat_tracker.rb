@@ -15,7 +15,7 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-
+  
 #-----------------------------------Game Statistics-----------------------------------
    # Origional method from Iteration 2
   def highest_total_score
@@ -73,6 +73,23 @@ class StatTracker
       end
     end
     (ties.to_f / @games.count).round(2)
+  end
+  
+  # Origional method from Iteration 2
+  def count_of_games_by_season
+    games[:season].tally
+  end
+
+  # Origional method from Iteration 2
+  def average_goals_per_game
+    total_goals = @games[:away_goals].map(&:to_i).sum.to_f + @games[:home_goals].map(&:to_i).sum
+    total_games = @games.length
+    (total_goals / total_games).round(2)
+  end
+
+  # Origional method from Iteration 2
+  def average_goals_by_season
+    season_goal_averages = Hash.new(0)
   end
 
 #-----------------------------------League Statistics-----------------------------------
