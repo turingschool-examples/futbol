@@ -91,6 +91,10 @@ RSpec.describe StatTracker do
   end
 
   it '#highest_scoring_visitor' do
-    expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
+    expect(@stat_tracker.highest_scoring_visitor).to eq('New York City FC')
+  end
+
+  it '#highest_scoring_home_team' do
+    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
   end
 end
