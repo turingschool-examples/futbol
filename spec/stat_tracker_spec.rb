@@ -18,12 +18,72 @@ RSpec.describe StatTracker do
   it "3. can parse CSV data" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games.csv',
-                      games_teams: './data/game_teams.csv'
+                      game_teams: './data/game_teams.csv'
     
     }
-    stat_tracker_teams = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker_teams.teams_reader[0][:team_id]).to eq("1")
-    expect(stat_tracker_teams.teams_reader[0][:franchiseid]).to eq("23")
-    expect(stat_tracker_teams.teams_reader[4][:link]).to eq("/api/v1/teams/6")
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.teams_reader[0][:team_id]).to eq("1")
+    expect(stat_tracker.teams_reader[0][:franchiseid]).to eq("23")
+    expect(stat_tracker.teams_reader[4][:link]).to eq("/api/v1/teams/6")
+  end
+
+  it "4. #count_of_teams" do
+
+  end
+
+  it "#. calculates total goals in a game across all games" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams.csv'
+    
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.total_goals).to be_a(Array)
+    #we'll test the third element, which should have 1 home goal and 2 away goals
+    expect(stat_tracker.total_goals[2]).to eq(3)
+
+  end
+
+
+
+  it "#. highest_total_score" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams.csv'
+
+    }
+    stat_tracker= StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.highest_total_score).to eq(5)
+  end
+
+  it "#. lowest_total_score" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams.csv'
+    
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.lowest_total_score).to eq(1)
+  end
+
+  it "#. total_number_of_games" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.total_number_of_games).to eq(10)
+  end 
+
+  it "#. percentage_home_wins" do
+    expect(stat_tracker.percentage_home_wins).to eq(30.0)
+  end
+
+  it "#. percentage_visitor_wins" do
+    expect(stat_tracker.percentage_home_wins).to eq(20.0)
+  end
+
+  it "#. percentage_ties" do
+    expect(stat_tracker.percentage_ties).to eq(10.0)
   end
 end
