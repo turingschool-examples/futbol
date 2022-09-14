@@ -44,8 +44,6 @@ RSpec.describe StatTracker do
     end
   end
 
-
-
   describe '#count_of_teams' do 
     it 'counts all unique teams' do 
       expect(@stat_tracker.count_of_teams).to eq(9)
@@ -70,6 +68,13 @@ RSpec.describe StatTracker do
     it 'tabulates average goals by season' do
       # require 'pry'; binding.pry
       expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.78})
+    end
+  end
+
+  describe '#average_win_percentage' do 
+    it 'calculates average win percentage of a single team' do 
+      expect(@stat_tracker.average_win_percentage(3)).to eq (0)
+      expect(@stat_tracker.average_win_percentage(16)).to eq (42.86)
     end
   end
 end
