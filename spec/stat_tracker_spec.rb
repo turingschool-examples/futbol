@@ -59,7 +59,6 @@ RSpec.describe StatTracker do
   describe '#count_of_teams' do
     it 'counts all unique teams' do
       expect(@stat_tracker.count_of_teams).to eq(9)
-
     end
   end
 
@@ -93,6 +92,25 @@ RSpec.describe StatTracker do
       it 'finds the percetage of home wins' do
 
       end
+    end
+  end
+
+  describe '#average_win_percentage' do 
+    it 'calculates average win percentage of a single team' do 
+      expect(@stat_tracker.average_win_percentage(3)).to eq (0)
+      expect(@stat_tracker.average_win_percentage(16)).to eq (42.86)
+    end
+  end
+
+  describe '#most_accurate_team' do 
+    it 'returns name of team with the best shots to goals ratio' do 
+      expect(@stat_tracker.most_accurate_team).to eq('FC Dallas')
+    end
+  end
+
+  describe '#least_accurate_team' do 
+    it 'returns name of team with the worst shots to goals ratio' do 
+      expect(@stat_tracker.least_accurate_team).to eq('Sporting Kansas City')
     end
   end
 end

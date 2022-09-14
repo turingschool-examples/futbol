@@ -38,7 +38,6 @@ class StatTracker
     sum_goals_array.min
   end
 
-
   def percentage_ties
     # Percentage of games that have resulted in a tie rounded to the nearest 100th
     results = return_column(@game_teams, :result)
@@ -102,8 +101,47 @@ class StatTracker
     count
   end
 
+  def average_win_percentage(team_id)
+    games_played = @game_teams.count { |row| row[:team_id] == team_id.to_s }
+    games_won = @game_teams.count { |row| row[:team_id] == team_id.to_s && row[:result] == 'WIN'}
+    (games_won.to_f / games_played * 100).round(2)
+  end
+
+  def most_accurate_team
+    team_shots_goals = Hash.new({shots: 0, goals: 0})
+    @game_teams.each do |game|
+      team_shots_goals.default = {shots: 0, goals: 0}
+      team_shots_goals[game[:team_id]] = {
+        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
+        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
+      }
+    end
+    team_id = team_shots_goals.max_by do |team, stats|
+      stats[:goals].to_f / stats[:shots] 
+    end
+    team_finder(team_id[0])
+  end
+
+  def least_accurate_team
+    team_shots_goals = Hash.new({shots: 0, goals: 0})
+    @game_teams.each do |game|
+      team_shots_goals.default = {shots: 0, goals: 0}
+      team_shots_goals[game[:team_id]] = {
+        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
+        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
+      }
+    end
+    team_id = team_shots_goals.min_by do |team, stats|
+      stats[:goals].to_f / stats[:shots] 
+    end
+    team_finder(team_id[0])
+  end
+
+  def team_finder(team_id)
+    @teams.find { |team| team[:team_id] == team_id }[:teamname]
+  end
+
   def best_offense
     @teams[0][:name]
   end
-
 end

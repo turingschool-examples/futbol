@@ -12,4 +12,7 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
+p stat_tracker.least_accurate_team
+
 p stat_tracker.percentage_home_wins
+
