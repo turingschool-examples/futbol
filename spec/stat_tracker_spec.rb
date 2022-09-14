@@ -39,7 +39,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#average_goals_per_game' do
-    it 'returns the average number of goals scored in a game across all seasons' do
+    xit 'returns the average number of goals scored in a game across all seasons' do
       expect(@stat_tracker.average_goals_per_game).to eq(3.78)
     end
   end
@@ -74,9 +74,16 @@ RSpec.describe StatTracker do
   end
 
   describe '#best_offense'  do
-    xit 'can return Name of the team with the highest avg # of goals/game scored across all seasons' do
+    it 'can return Name of the team with the highest avg # of goals/game scored across all seasons' do
       # require 'pry'; binding.pry
-      expect(@stat_tracker.best_offense).to eq('team')
+      expect(@stat_tracker.best_offense).to be_a String
+    end
+  end
+
+  describe '#worst_offense' do
+    it 'can return Name of the team with the lowest avg # of goals/game scored across all seasons' do
+      # require 'pry'; binding.pry
+      expect(@stat_tracker.worst_offense).to be_a String
     end
   end
 end

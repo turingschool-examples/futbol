@@ -24,11 +24,10 @@ class StatTracker
     sum_goals_array.min
   end
 
-
   def percentage_ties
     # Percentage of games that have resulted in a tie rounded to the nearest 100th
     results = return_column(@game_teams, :result)
-    tie_results = results.find_all { |result| result == "TIE"}
+    tie_results = results.find_all { |result| result == 'TIE' }
     ((tie_results.length.to_f / results.length.to_f) * 100).round(2)
   end
 
@@ -68,12 +67,13 @@ class StatTracker
     StatTracker.new(dummy_array[0], dummy_array[1], dummy_array[2])
   end
 
+  # could this be re-factored to accept an optional argument equal to :teamname?
   def average_goals_by_season
     dummy = []
     avg_goals_per_game_by_season = {}
 
     @games.each do |game|
-      dummy << game[:home_goals].to_i + game[:away_goals].to_i
+      dummy << (game[:home_goals].to_i + game[:away_goals].to_i)
       avg_goals_per_game_by_season[game[:season]] = (dummy.sum / dummy.count.to_f).round(2)
     end
 
@@ -89,7 +89,57 @@ class StatTracker
   end
 
   def best_offense
-    @teams[0][:name]
+    # hash to store {team_id => avg goals/game}
+    team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
+    end
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
+    end
+
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.max_by { |k,v| v }.first }[:teamname]
   end
 
+  def worst_offense
+    # hash to store {team_id => avg goals/game}
+    team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
+    end
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
+    end
+
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
+  end
+
+
+  def most_goals_scored(particular_team)
+    # vvv kewl code goes hear
+  end
+
+  def fewest_goals_scored(particular_team)
+    # vvv kewl code goes hear
+  end
+
+  def winningest_coach
+    # vvv kewl code goes hear
+  end
+
+  def worst_coach
+    # vvv kewl code goes hear
+  end
 end
