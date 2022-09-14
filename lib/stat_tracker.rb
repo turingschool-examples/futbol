@@ -96,6 +96,7 @@ class StatTracker
   end
 
   def most_accurate_team
+    #refactor to take in a season argument
     team_shots_goals = Hash.new({shots: 0, goals: 0})
     @game_teams.each do |game|
       team_shots_goals.default = {shots: 0, goals: 0}
@@ -111,6 +112,7 @@ class StatTracker
   end
 
   def least_accurate_team
+    #refactor to take in a season argument
     team_shots_goals = Hash.new({shots: 0, goals: 0})
     @game_teams.each do |game|
       team_shots_goals.default = {shots: 0, goals: 0}
@@ -129,36 +131,59 @@ class StatTracker
     @teams.find { |team| team[:team_id] == team_id }[:teamname]
   end
 
+  # def favorite_opponent(team_id)
+  #   #use pry to solve why this isn't working with full data set
+  #   wins_hash = Hash.new([])
+  #   all_games_played = @games.find_all { |game| [game[:home_team_id], game[:away_team_id]].include?(team_id.to_s) }
+
+  #   all_games_played.each do |game|
+  #     wins_hash.default = []
+  #     opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id.to_s }
+  #     wins_hash[opponent[0]] = wins_hash[opponent] << game[:game_id]
+  #   end
+
+  #   wins_hash.each do |key, value|
+  #     wins_hash[key] = value.map do |game_id|
+  #       row = @game_teams.find { |game| game[:game_id] == game_id && game[:team_id] == team_id.to_s }
+  #       row[:result]
+  #     end
+  #   end
+    
+  #   opp_id = wins_hash.max_by { |key, value| value.count { |result| result == 'WIN'} / value.length }[0]
+
+  #   team_finder(opp_id)
+  # end
+
+
   def favorite_opponent(team_id)
-    wins_hash = Hash.new([])
-    all_games_played = @games.find_all { |game| [game[:home_team_id], game[:away_team_id]].include?(team_id.to_s) }
+    #use pry to solve why this isn't working with full data set
+    wins_hash = Hash.new { |h,k| h[k] = [] }
+    all_games_played = @games.find_all { |game| [game[:home_team_id], game[:away_team_id]].include?(team_id) }
 
     all_games_played.each do |game|
-      wins_hash.default = []
-      opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id.to_s }
-      wins_hash[opponent[0]] = wins_hash[opponent] << game[:game_id]
+      opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id }
+      wins_hash[opponent] << game[:game_id]
     end
 
-    wins_hash.each do |key, value|
-      wins_hash[key] = value.map do |game_id|
+    wins_hash.each do |opponent, game_ids|
+      wins_hash[opponent] = game_ids.map do |game_id|
         row = @game_teams.find { |game| game[:game_id] == game_id && game[:team_id] == team_id.to_s }
         row[:result]
       end
     end
-    
-    opp_id = wins_hash.max_by { |key, value| value.count { |result| result == 'WIN'} / value.length }[0]
 
-    team_finder(opp_id)
+    fave_opp_id = wins_hash.max_by { |key, value| value.count { |result| result == 'WIN'}.to_f / value.length }[0]
+
+    team_finder(fave_opp_id)
   end
 
   def rival(team_id)
-    wins_hash = Hash.new([])
+    wins_hash = Hash.new { |h,k| h[k] = [] }
     all_games_played = @games.find_all { |game| [game[:home_team_id], game[:away_team_id]].include?(team_id.to_s) }
 
     all_games_played.each do |game|
-      wins_hash.default = []
-      opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id.to_s }
-      wins_hash[opponent[0]] = wins_hash[opponent] << game[:game_id]
+      opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id }
+      wins_hash[opponent] << game[:game_id]
     end
 
     wins_hash.each do |key, value|
@@ -168,7 +193,7 @@ class StatTracker
       end
     end
     
-    opp_id = wins_hash.min_by { |key, value| value.count { |result| result == 'WIN'} / value.length }[0]
+    opp_id = wins_hash.min_by { |key, value| value.count { |result| result == 'WIN'}.to_f / value.length }[0]
 
     team_finder(opp_id)
   end
