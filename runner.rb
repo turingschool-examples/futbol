@@ -12,4 +12,4 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-p stat_tracker.rival('18')
+p stat_tracker.least_accurate_team('20132014')

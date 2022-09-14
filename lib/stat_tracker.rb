@@ -95,10 +95,11 @@ class StatTracker
     (games_won.to_f / games_played * 100).round(2)
   end
 
-  def most_accurate_team
-    #refactor to take in a season argument
+  def most_accurate_team(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+
     team_shots_goals = Hash.new({shots: 0, goals: 0})
-    @game_teams.each do |game|
+    season_games.each do |game|
       team_shots_goals.default = {shots: 0, goals: 0}
       team_shots_goals[game[:team_id]] = {
         shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
@@ -111,10 +112,11 @@ class StatTracker
     team_finder(team_id[0])
   end
 
-  def least_accurate_team
-    #refactor to take in a season argument
+  def least_accurate_team(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+
     team_shots_goals = Hash.new({shots: 0, goals: 0})
-    @game_teams.each do |game|
+    season_games.each do |game|
       team_shots_goals.default = {shots: 0, goals: 0}
       team_shots_goals[game[:team_id]] = {
         shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
