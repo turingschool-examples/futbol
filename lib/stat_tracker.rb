@@ -150,4 +150,26 @@ class StatTracker
 
     team_finder(opp_id)
   end
+
+  def rival(team_id)
+    wins_hash = Hash.new([])
+    all_games_played = @games.find_all { |game| [game[:home_team_id], game[:away_team_id]].include?(team_id.to_s) }
+
+    all_games_played.each do |game|
+      wins_hash.default = []
+      opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id.to_s }
+      wins_hash[opponent[0]] = wins_hash[opponent] << game[:game_id]
+    end
+
+    wins_hash.each do |key, value|
+      wins_hash[key] = value.map do |game_id|
+        row = @game_teams.find { |game| game[:game_id] == game_id && game[:team_id] == team_id.to_s }
+        row[:result]
+      end
+    end
+    
+    opp_id = wins_hash.min_by { |key, value| value.count { |result| result == 'WIN'} / value.length }[0]
+
+    team_finder(opp_id)
+  end
 end
