@@ -63,4 +63,12 @@ class StatTracker
     return (ties.to_f/total_wins.to_f).round(2)
   end
 
+  def count_of_games_by_season
+    seasons_with_games = Hash.new(0)
+    @game_csv.each do |row|
+      seasons_with_games[row[:season]] += 1
+    end
+    seasons_with_games
+  end
+
 end
