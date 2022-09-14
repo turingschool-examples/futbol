@@ -13,26 +13,33 @@ class StatTracker
     games_input = CSV.read(csv_hash[:games], headers: true, header_converters: :symbol)
     teams_input = CSV.read(csv_hash[:teams], headers: true, header_converters: :symbol)
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
-    stat_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
+    stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-  #total_games is helper method used in percentage_ties & percentage_home_wins & percentage_visitor_wins
-  #Recommend refactor?
+  
+   # Origional method from Iteration 2
+  def highest_total_score
+    highest_scoring_game = @games.max_by do |game|
+      game[:away_goals].to_i + game[:home_goals].to_i
+    end
+    highest_scoring_game[:away_goals].to_i + highest_scoring_game[:home_goals].to_i
+  end
+
+  # Origional method from Iteration 2
+  def lowest_total_score
+    lowest_scoring_game = @games.min_by do |game|
+      game[:away_goals].to_i + game[:home_goals].to_i
+    end
+    lowest_scoring_game[:away_goals].to_i + lowest_scoring_game[:home_goals].to_i
+  end
+  
+  # Helper method used in percentage_ties & percentage_home_wins & percentage_visitor_wins
+  # Recommend refactor?
   def total_games
     @games.count
   end
-#percentage_ties is used to calclulate percentage of tie games
-#Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
-  def percentage_ties
-    ties = 0
-    @games.each do |row|
-      if [row[:away_goals]] == [row[:home_goals]]
-       ties += 1
-      end
-    end
-    (ties.to_f / @games.count).round(2)
-  end
-#percentage_ties is used to calclulate percentage of home wins
-#Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  
+  # Origional method from Iteration 2
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_home_wins
     home_wins = 0
    @games.each do |row|
@@ -42,8 +49,9 @@ class StatTracker
     end
     (home_wins.to_f / @games.count).round(2)
   end
-#percentage_ties is used to calclulate percentage of visitor wins
-#Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  
+  # Origional method from Iteration 2
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_visitor_wins
     visitor_wins = 0
    @games.each do |row|
@@ -52,5 +60,100 @@ class StatTracker
       end
     end
     (visitor_wins.to_f / @games.count).round(2)
+  end
+  
+  # Origional method from Iteration 2
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  def percentage_ties
+    ties = 0
+    @games.each do |row|
+      if [row[:away_goals]] == [row[:home_goals]]
+       ties += 1
+      end
+    end
+    (ties.to_f / @games.count).round(2)
+  end
+
+  # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
+  # Recomend refactor by mixin 'calculator'
+  def average_score_per_game(game_teams_selection)
+    goals = game_teams_selection.sum {|game| game[:goals].to_f}
+    # You need to / 2. The game_teams CSV has 2 lines to represent one game.
+    games = (game_teams_selection.length.to_f/2.0)
+    goals / games
+  end
+
+  # Helper method is used in average_scores_for_all_visitors
+  def away_games_by_team_id
+    away_games_list = @game_teams.find_all {|game| game[:hoa] == "away"}
+    away_games_hash = Hash.new([])
+    away_games_list.each do |game|
+      away_games_hash[game[:team_id].to_i] += [game]
+    end
+    away_games_hash
+  end
+
+  # Helper method is used in used in average_scores_for_all_home_teams
+  def home_games_by_team_id
+    home_games_list = @game_teams.find_all {|game| game[:hoa] == "home"}
+    home_games_hash = Hash.new([])
+    home_games_list.each do |game|
+      home_games_hash[game[:team_id].to_i] += [game]
+    end
+    home_games_hash
+  end
+
+  # Helper method is used in highest_scoring_visitor & lowest_scoring_visitor
+  def average_scores_for_all_visitors
+    @visitor_hash = {}
+    away_games_by_team_id.each do |team_id, games_array|
+      @visitor_hash[team_id] = average_score_per_game(games_array)
+    end
+    @visitor_hash
+  end
+
+  # Helper method is used in highest_scoring_home_team & lowest_scoring_home_team
+  def average_scores_for_all_home_teams
+    @home_hash = {}
+    home_games_by_team_id.each do |team_id, games_array|
+      @home_hash[team_id] = average_score_per_game(games_array)
+    end
+    @home_hash
+  end
+
+  # Origional method from Iteration 2
+  def highest_scoring_visitor
+    average_scores_for_all_visitors
+    highest_scoring_team = @teams.find do |team|
+      team[:team_id].to_i == @visitor_hash.key(@visitor_hash.values.max)
+    end
+    highest_scoring_team[:teamname]
+  end
+  
+  # Origional method from Iteration 2
+  def highest_scoring_home_team
+    average_scores_for_all_home_teams
+    highest_scoring_team = @teams.find do |team|
+      team[:team_id].to_i == @home_hash.key(@home_hash.values.max)
+    end
+    highest_scoring_team[:teamname]
+  end
+
+  # Origional method from Iteration 2
+  def lowest_scoring_visitor
+    average_scores_for_all_visitors
+    lowest_scoring_team = @teams.find do |team|
+      team[:team_id].to_i == @visitor_hash.key(@visitor_hash.values.min)
+    end
+    lowest_scoring_team[:teamname]
+  end
+
+  # Origional method from Iteration 2
+  def lowest_scoring_home_team
+    average_scores_for_all_home_teams
+    highest_scoring_team = @teams.find do |team|
+      team[:team_id].to_i == @home_hash.key(@home_hash.values.min)
+    end
+    highest_scoring_team[:teamname]
   end
 end

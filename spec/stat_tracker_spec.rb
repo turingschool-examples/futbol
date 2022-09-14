@@ -3,7 +3,7 @@ require 'pry'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
-  before(:each) do
+  before(:all) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -13,42 +13,94 @@ RSpec.describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-  
+
     @stat_tracker = StatTracker.from_csv(locations)
   end
+  
+  context "Initialize" do
+    describe "#initialize" do
+      it "exists" do
+        tracker = StatTracker.new('file input 1', 'file input 2', 'file input 3')
+        expect(tracker).to be_a(StatTracker)
+      end
 
-  it "exists" do
-    tracker = StatTracker.new('file_games', 'file_teams', 'file_game_teams')
+      it "has readable attributes" do
+        tracker = StatTracker.new('file input 1', 'file input 2', 'file input 3')
 
-    expect(tracker).to be_a(StatTracker)
+        expect(tracker.games).to eq('file input 1')
+        expect(tracker.teams).to eq('file input 2')
+        expect(tracker.game_teams).to eq('file input 3')
+      end
+    end
   end
 
-  it "has readable attributes" do
-    tracker = StatTracker.new('file_games', 'file_teams', 'file_game_teams')
+  context "Game Statistics" do
+    it "#highest_total_score" do
+      expect(@stat_tracker.highest_total_score).to eq(11)
+    end
 
-    expect(tracker.games).to eq('file_games')
-    expect(tracker.teams).to eq('file_teams')
-    expect(tracker.game_teams).to eq('file_game_teams')
+    it "#lowest_total_score" do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
+
+    it "#helper total_games" do
+      expect(@stat_tracker.total_games).to eq 7441
+    end
+
+    it "#percentage_home_wins" do
+      expect(@stat_tracker.percentage_home_wins).to eq 0.44
+    end
+
+    it "#percentage_visitor_wins" do
+      expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
+    end
+
+    it "#percentage_ties" do
+      expect(@stat_tracker.percentage_ties).to eq 0.20
+    end
   end
 
-  it "#total_games" do
-   
-    expect(@stat_tracker.total_games).to eq 7441
-  end
+  context "League Statistics" do
+    it "#helper average_score_per_game" do
+      # Stat_tracker has 2 lines / game. That is wy there are 10 lines and only 5.0 games.
+      expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
+    end
 
-  it "#percentage_ties" do
+    it "#helper away_games_by_team_id in a hash" do
+      expect(@stat_tracker.away_games_by_team_id.length).to eq(@stat_tracker.teams.length)
+      expect(@stat_tracker.away_games_by_team_id).to be_a(Hash)
+    end
 
-    expect(@stat_tracker.percentage_ties).to eq 0.20
-  end
+    it "#helper home_games_by_team_id in a hash" do
+      expect(@stat_tracker.home_games_by_team_id.length).to eq(@stat_tracker.teams.length)
+      expect(@stat_tracker.home_games_by_team_id).to be_a(Hash)
+    end
 
+    it "#helper average_scores_for_all_visitors" do
+      expect(@stat_tracker.average_scores_for_all_visitors.length).to eq(@stat_tracker.teams.length)
+      expect(@stat_tracker.average_scores_for_all_visitors).to be_a(Hash)
+    end
 
-  it "#percentage_home_wins" do
+    it "#helper average_scores_for_all_home_teams" do
+      expect(@stat_tracker.average_scores_for_all_home_teams.length).to eq(@stat_tracker.teams.length)
+      expect(@stat_tracker.average_scores_for_all_home_teams).to be_a(Hash)
+    end
 
-    expect(@stat_tracker.percentage_home_wins).to eq 0.44
-  end
+    it "#highest_scoring_visitor team" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
 
-  it "#percentage_visitor_wins" do
+    it "#lowest_scoring_visitor team" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
 
-    expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
+    it "#highest_scoring_home_team" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+    end
+
+    it "#lowest_scoring_home_team" do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
+    end
   end
 end
+
