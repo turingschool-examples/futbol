@@ -119,4 +119,16 @@ class StatTracker
   def worst_coach(season_id)
     sorted_wins_by_coach(season_id)[-1][0]
   end
+
+  def get_team_ids 
+    @teams_data.map { |row| row["team_id"] }
+  end
+
+  def best_season 
+
+  end
+
+  def worst_season
+
+  end
 end

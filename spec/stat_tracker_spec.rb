@@ -159,4 +159,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
     end
   end
+
+  describe "best and worst teams methods" do 
+    before(:each) do 
+      dummy_game_path = './data/dummy_games.csv'
+      dummy_team_path = './data/dummy_teams.csv'
+      dummy_game_teams_path = './data/dummy_game_teams.csv'
+      locations = {
+        games: dummy_game_path,
+        teams: dummy_team_path,
+        game_teams: dummy_game_teams_path
+      }
+      @stat_tracker = StatTracker.from_csv(locations)
+    end 
+
+    it "has get_team_ids which returns an array of all team ids" do 
+      expect(@stat_tracker.get_team_ids).to eq ["1", "4", "26", "14", "6", "3", "5", "17", "28"]
+    end
+  end
 end
