@@ -77,4 +77,12 @@ RSpec.describe StatTracker do
   it '#count_of_teams' do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
+
+  it '#average_goals' do
+    expect(@stat_tracker.average_goals).to eq({"17"=>2.0, "16"=>1.5, "9"=>2.0, "8"=>2.5})
+  end
+
+  it '#best_offense' do
+    expect(@stat_tracker.best_offense).to eq('New York Red Bulls')
+  end
 end
