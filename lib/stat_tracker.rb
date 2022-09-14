@@ -27,8 +27,7 @@ class StatTracker
 
   def average_goals_by_season
     season_goal_averages = Hash.new(0)
-    require 'pry'; binding.pry
-    @games
+    
   end
-
+  
 end
