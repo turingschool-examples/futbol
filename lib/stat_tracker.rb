@@ -92,7 +92,7 @@ class StatTracker
   def average_win_percentage(team_id)
     games_played = @game_teams.count { |row| row[:team_id] == team_id.to_s }
     games_won = @game_teams.count { |row| row[:team_id] == team_id.to_s && row[:result] == 'WIN'}
-    (games_won.to_f / games_played * 100).round(2)
+    (games_won.to_f / games_played).round(2)
   end
 
   def most_accurate_team(season)
