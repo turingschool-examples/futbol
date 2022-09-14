@@ -112,6 +112,8 @@ class StatTracker
     highest_scoring_team[:teamname]
   end
 
+  #Original method from iteration 2
+  #Could refactor and split up into several helper methods
   def best_offense
     hash = {}
     #create a hash representing each team containing a hash with each team's total games and goals
@@ -134,12 +136,14 @@ class StatTracker
     @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
   end
 
-  #uses @avg_goals_per_game hash from best_offense
+  #Original method from iteration 2
   def worst_offense
+    #uses @avg_goals_per_game hash from best_offense
     worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
     @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
 
+  #Original method from iteration 2
   def count_of_teams
     @teams.length
   end
