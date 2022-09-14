@@ -44,7 +44,17 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#percentage_home_wins' do
+    it 'returns the percentage of the home team wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(55.56)
+    end
+  end
 
+  describe '#percentage_visitor_wins' do
+    it 'returns the percentage of the visitor team wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(44.44)
+    end
+  end
 
   describe '#count_of_teams' do
     it 'counts all unique teams' do
@@ -77,6 +87,12 @@ RSpec.describe StatTracker do
     xit 'can return Name of the team with the highest avg # of goals/game scored across all seasons' do
       # require 'pry'; binding.pry
       expect(@stat_tracker.best_offense).to eq('team')
+    end
+
+    describe '#percentage_home_wins' do
+      it 'finds the percetage of home wins' do
+
+      end
     end
   end
 end
