@@ -40,8 +40,16 @@ class StatTracker
       home_wins += 1 if row[:home_goals].to_f > row[:away_goals].to_f
       total_wins += 1
     end
-    p home_wins
-    p total_wins
     return (home_wins.to_f/total_wins.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = 0
+    total_wins = 0
+    @game_csv.each do |row|
+      visitor_wins += 1 if row[:home_goals].to_f < row[:away_goals].to_f
+      total_wins += 1
+    end
+    return (visitor_wins.to_f/total_wins.to_f).round(2)
   end
 end
