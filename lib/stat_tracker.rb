@@ -88,4 +88,35 @@ class StatTracker
     end
     averages
   end
+
+  def games_by_season(season_id)
+    @games_data.each_with_object([]) do |row, array|
+      array << row["game_id"] if row["season"] == season_id
+    end
+  end
+
+  def data_by_season(season_id)
+    games = games_by_season(season_id)
+    @game_teams_data.each_with_object([]) do |row, array| 
+      array << row if games.include?(row["game_id"])
+    end
+  end
+
+  def wins_by_coach(season_id) 
+    data_by_season(season_id).each_with_object(Hash.new(0)) do |row, hash|
+      row["result"] == "WIN" ? hash[row["head_coach"]] += 1 : hash[row["head_coach"]] += 0
+    end
+  end
+
+  def sorted_wins_by_coach(season_id)
+    wins_by_coach(season_id).sort_by { |coach, wins| wins }.reverse
+  end
+
+  def winningest_coach(season_id)
+    sorted_wins_by_coach(season_id)[0][0]
+  end
+
+  def worst_coach(season_id)
+    sorted_wins_by_coach(season_id)[-1][0]
+  end
 end
