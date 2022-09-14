@@ -18,14 +18,19 @@ class StatTracker
   
   def total_games
     @games.count
-    # binding.pry
   end
 
-  # def ties
-  #   game_teams.each {|game_team| game_team[:result]}
-  #     if game_team == TIE 
-  #   end
-  # end
+  def percentage_ties
+    ties = 0
+    @games.each do |row|
+      # binding.pry
+      if [row[:away_goals]] == [row[:home_goals]]
+       ties += 1
+      end
+    end
+    ((ties.to_f / @games.count).round(2) * 100).to_i
+    # binding.pry
+  end
 
   # take game_teams -> HoA = home -> if win, +=1. Divide by total number of games, multiply by 100.
   # def percentage_home_wins
