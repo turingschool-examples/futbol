@@ -15,11 +15,13 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stat_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-  
+  #total_games is helper method used in percentage_ties & percentage_home_wins & percentage_visitor_wins
+  #Recommend refactor?
   def total_games
     @games.count
   end
-
+#percentage_ties is used to calclulate percentage of tie games
+#Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_ties
     ties = 0
     @games.each do |row|
@@ -29,7 +31,8 @@ class StatTracker
     end
     (ties.to_f / @games.count).round(2)
   end
-
+#percentage_ties is used to calclulate percentage of home wins
+#Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_home_wins
     home_wins = 0
    @games.each do |row|
@@ -39,7 +42,8 @@ class StatTracker
     end
     (home_wins.to_f / @games.count).round(2)
   end
-
+#percentage_ties is used to calclulate percentage of visitor wins
+#Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_visitor_wins
     visitor_wins = 0
    @games.each do |row|

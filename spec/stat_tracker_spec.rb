@@ -31,7 +31,7 @@ RSpec.describe StatTracker do
     expect(tracker.game_teams).to eq('file_game_teams')
   end
 
-  it "has a total number of games played" do
+  it "#total_games" do
    
     expect(@stat_tracker.total_games).to eq 7441
   end
