@@ -79,15 +79,15 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
   end
 
-  it "Can return team with best offense" do
+  it "#best_offense" do
     expect(@stat_tracker.best_offense).to eq("Reign FC")
   end
 
-  it "Can return team with worst offense" do
+  it "#worst_offense" do
     expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
   end
 
-  it "Can return number of teams" do
+  it "#count_of_teams" do
     expect(@stat_tracker.count_of_teams).to eq(32)
   end
 end
