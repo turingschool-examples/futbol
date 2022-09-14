@@ -1,5 +1,5 @@
 require 'csv'
-
+require 'pry'
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -15,6 +15,20 @@ class StatTracker
       game[:home_goals].to_i + game[:away_goals].to_i
     end
     sum_goals_array.max
+  end
+  
+  def percentage_home_wins
+    home_wins = @games.count do |game|
+      game[:home_goals] > game[:away_goals]
+    end
+    ((home_wins.to_f / @games.length) * 100).round(2)
+  end
+  
+  def percentage_visitor_wins
+    visitor_wins = @games.count do |game|
+      game[:home_goals] < game[:away_goals]
+    end
+    ((visitor_wins.to_f / @games.length) * 100).round(2)
   end
   
   def lowest_total_score
