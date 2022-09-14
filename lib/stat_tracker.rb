@@ -23,22 +23,30 @@ class StatTracker
   def percentage_ties
     ties = 0
     @games.each do |row|
-      # binding.pry
       if [row[:away_goals]] == [row[:home_goals]]
        ties += 1
       end
     end
-    ((ties.to_f / @games.count).round(2) * 100).to_i
-    # binding.pry
+    (ties.to_f / @games.count).round(2)
   end
 
-  # take game_teams -> HoA = home -> if win, +=1. Divide by total number of games, multiply by 100.
-  # def percentage_home_wins
-  #   home_team = []
-  #   games_teams.each { |game_team| game_team[:HoA] }
-  #     if game_team == home
-  #       home_team << game_team
-  #     end
-  #     binding.pry
-  # end
+  def percentage_home_wins
+    home_wins = 0
+   @games.each do |row|
+      if row[:away_goals] < row[:home_goals]
+        home_wins += 1
+      end
+    end
+    (home_wins.to_f / @games.count).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = 0
+   @games.each do |row|
+      if row[:away_goals] > row[:home_goals]
+        visitor_wins += 1
+      end
+    end
+    (visitor_wins.to_f / @games.count).round(2)
+  end
 end

@@ -36,15 +36,19 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.total_games).to eq 7441
   end
 
-  it '#percentage_ties' do
-  # binding.pry
-    expect(@stat_tracker.percentage_ties).to eq 20
+  it "#percentage_ties" do
+
+    expect(@stat_tracker.percentage_ties).to eq 0.20
   end
 
 
-  # it "#percentage_home_wins" do
-  #   tracker = StatTracker.new('file_games', 'file_teams', 'file_game_teams')
+  it "#percentage_home_wins" do
 
-  #   expect(tracker.percentage_home_wins).to eq .44
-  # end
+    expect(@stat_tracker.percentage_home_wins).to eq 0.44
+  end
+
+  it "#percentage_visitor_wins" do
+
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
+  end
 end
