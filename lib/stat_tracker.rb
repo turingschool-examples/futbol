@@ -111,4 +111,36 @@ class StatTracker
     end
     highest_scoring_team[:teamname]
   end
+
+  def best_offense
+    hash = {}
+    #create a hash representing each team containing a hash with each team's total games and goals
+    @game_teams.each do |row|
+      if hash[row[:team_id]] == nil
+        hash[row[:team_id]] = {games: 1, goals: row[:goals].to_i}
+      else
+        hash[row[:team_id]][:games] += 1
+        hash[row[:team_id]][:goals] += row[:goals].to_i
+      end
+    end
+
+    #create a hash with each team and their avg goals per game
+    @avg_goals_per_game = hash.map do |team_id, games_goals_hash|
+      [team_id, (games_goals_hash[:goals].to_f/games_goals_hash[:games])]
+    end
+
+    #find the team_id and name of the team w/ highest avg goals
+    best_offense_id = @avg_goals_per_game.max_by {|team_id, avg_goals| avg_goals}[0]
+    @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
+  end
+
+  #uses @avg_goals_per_game hash from best_offense
+  def worst_offense
+    worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
+    @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
+  end
+
+  def count_of_teams
+    @teams.length
+  end
 end
