@@ -19,7 +19,6 @@ RSpec.describe StatTracker do
 
   it "exists" do
     tracker = StatTracker.new('file input 1', 'file input 2', 'file input 3')
-
     expect(tracker).to be_a(StatTracker)
   end
 
@@ -80,3 +79,4 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
   end
 end
+
