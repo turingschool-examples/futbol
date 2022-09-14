@@ -1,3 +1,4 @@
+require './spec_helper.rb'
 require './lib/stat_tracker.rb'
 require 'csv'
 
@@ -86,7 +87,7 @@ RSpec.describe StatTracker do
 
     end
 
-    it 'lowest_scoring_visitor, name of team with lowest avg score per game' do
+    xit 'lowest_scoring_visitor, name of team with lowest avg score per game' do
       expect(@stat_tracker.lowest_scoring_visitor).to eq()
     end
 
