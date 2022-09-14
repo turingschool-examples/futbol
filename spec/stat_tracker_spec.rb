@@ -77,4 +77,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_win_percentage(16)).to eq (42.86)
     end
   end
+
+  describe '#most_accurate_team' do 
+    it 'returns name of team with the best shots to goals ratio' do 
+      expect(@stat_tracker.most_accurate_team).to eq('FC Dallas')
+    end
+  end
+
+  describe '#least_accurate_team' do 
+    it 'returns name of team with the worst shots to goals ratio' do 
+      expect(@stat_tracker.least_accurate_team).to eq('Sporting Kansas City')
+    end
+  end
 end

@@ -24,7 +24,6 @@ class StatTracker
     sum_goals_array.min
   end
 
-
   def percentage_ties
     # Percentage of games that have resulted in a tie rounded to the nearest 100th
     results = return_column(@game_teams, :result)
@@ -108,7 +107,7 @@ class StatTracker
     team_id = team_shots_goals.max_by do |team, stats|
       stats[:goals].to_f / stats[:shots] 
     end
-    @teams.find { |team| team[:team_id] == team_id[0] }[:teamname]
+    team_finder(team_id[0])
   end
 
   def least_accurate_team
@@ -123,6 +122,10 @@ class StatTracker
     team_id = team_shots_goals.min_by do |team, stats|
       stats[:goals].to_f / stats[:shots] 
     end
-    @teams.find { |team| team[:team_id] == team_id[0] }[:teamname]
+    team_finder(team_id[0])
+  end
+
+  def team_finder(team_id)
+    @teams.find { |team| team[:team_id] == team_id }[:teamname]
   end
 end
