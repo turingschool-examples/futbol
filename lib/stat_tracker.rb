@@ -84,4 +84,69 @@ class StatTracker
     total_home_losses
   end
 
+  def count_of_games_by_season
+    season = @games.map {|row| row[:season]}
+    season.tally
+  end
+
+  def average_goals_per_game
+    goals = @games.map {|row| row[:away_goals].to_f + row[:home_goals].to_f}
+    goals = goals.sum
+    (goals / total_games).round(2)
+  end
+
+  def average_goals_by_season
+    hash = Hash.new(0)
+    @games.map do |row|
+      goals = row[:away_goals].to_f + row[:home_goals].to_f
+      season = row[:season]
+      hash[season] += goals
+    end
+
+    nested_arr = count_of_games_by_season.values.zip(hash.values)
+    arr = nested_arr.map {|array| (array[1] / array[0]).round(2)}
+    avg = Hash[count_of_games_by_season.keys.zip(arr)]
+  end
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def average_goals
+    team_goals = Hash.new(0)
+    @game_teams.map do |row|
+      team_id = row[:team_id]
+      goals = row[:goals].to_f
+      team_goals[team_id] += goals
+    end
+    team_game = @game_teams.map {|row| row[:team_id]}.tally
+    nested_arr = team_game.values.zip(team_goals.values)
+    arr = nested_arr.map {|array| array[1] / array[0]}
+    avg = Hash[team_game.keys.zip(arr)]
+  end
+
+  def best_offense
+    best = average_goals.max_by {|key,value| value}
+    hash = Hash.new
+    @teams.map do |row|
+      team_id = row[:team_id]
+      team_name = row[:teamname]
+      hash[team_id] = team_name
+    end
+    num1 = hash.filter_map {|key,value| value if key == best[0] }
+    num1[0]
+  end
+
+  def worst_offense
+    worst = average_goals.min_by {|key,value| value}
+    hash = Hash.new
+    @teams.map do |row|
+      team_id = row[:team_id]
+      team_name = row[:teamname]
+      hash[team_id] = team_name
+    end
+    the_worst = hash.filter_map {|key,value| value if key == worst[0] }
+    the_worst[0]
+  end
+
 end
