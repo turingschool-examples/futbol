@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -14,7 +15,8 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-
+  
+   # Origional method from Iteration 2
   def highest_total_score
     highest_scoring_game = @games.max_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
@@ -22,14 +24,57 @@ class StatTracker
     highest_scoring_game[:away_goals].to_i + highest_scoring_game[:home_goals].to_i
   end
 
+  # Origional method from Iteration 2
   def lowest_total_score
     lowest_scoring_game = @games.min_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
     end
     lowest_scoring_game[:away_goals].to_i + lowest_scoring_game[:home_goals].to_i
   end
+  
+  # Helper method used in percentage_ties & percentage_home_wins & percentage_visitor_wins
+  # Recommend refactor?
+  def total_games
+    @games.count
+  end
+  
+  # Origional method from Iteration 2
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  def percentage_home_wins
+    home_wins = 0
+   @games.each do |row|
+      if row[:away_goals] < row[:home_goals]
+        home_wins += 1
+      end
+    end
+    (home_wins.to_f / @games.count).round(2)
+  end
+  
+  # Origional method from Iteration 2
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  def percentage_visitor_wins
+    visitor_wins = 0
+   @games.each do |row|
+      if row[:away_goals] > row[:home_goals]
+        visitor_wins += 1
+      end
+    end
+    (visitor_wins.to_f / @games.count).round(2)
+  end
+  
+  # Origional method from Iteration 2
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  def percentage_ties
+    ties = 0
+    @games.each do |row|
+      if [row[:away_goals]] == [row[:home_goals]]
+       ties += 1
+      end
+    end
+    (ties.to_f / @games.count).round(2)
+  end
 
-  # Method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
+  # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
   # Recomend refactor by mixin 'calculator'
   def average_score_per_game(game_teams_selection)
     goals = game_teams_selection.sum {|game| game[:goals].to_f}
@@ -38,7 +83,7 @@ class StatTracker
     goals / games
   end
 
-  # Method is used in average_scores_for_all_visitors
+  # Helper method is used in average_scores_for_all_visitors
   def away_games_by_team_id
     away_games_list = @game_teams.find_all {|game| game[:hoa] == "away"}
     away_games_hash = Hash.new([])
@@ -48,7 +93,7 @@ class StatTracker
     away_games_hash
   end
 
-  # Method is used in used in average_scores_for_all_home_teams
+  # Helper method is used in used in average_scores_for_all_home_teams
   def home_games_by_team_id
     home_games_list = @game_teams.find_all {|game| game[:hoa] == "home"}
     home_games_hash = Hash.new([])
@@ -58,7 +103,7 @@ class StatTracker
     home_games_hash
   end
 
-  # Method is used in highest_scoring_visitor & lowest_scoring_visitor
+  # Helper method is used in highest_scoring_visitor & lowest_scoring_visitor
   def average_scores_for_all_visitors
     @visitor_hash = {}
     away_games_by_team_id.each do |team_id, games_array|
@@ -67,7 +112,7 @@ class StatTracker
     @visitor_hash
   end
 
-  # Method is used in highest_scoring_home_team & lowest_scoring_home_team
+  # Helper method is used in highest_scoring_home_team & lowest_scoring_home_team
   def average_scores_for_all_home_teams
     @home_hash = {}
     home_games_by_team_id.each do |team_id, games_array|
@@ -84,6 +129,15 @@ class StatTracker
     end
     highest_scoring_team[:teamname]
   end
+  
+  # Origional method from Iteration 2
+  def highest_scoring_home_team
+    average_scores_for_all_home_teams
+    highest_scoring_team = @teams.find do |team|
+      team[:team_id].to_i == @home_hash.key(@home_hash.values.max)
+    end
+    highest_scoring_team[:teamname]
+  end
 
   # Origional method from Iteration 2
   def lowest_scoring_visitor
@@ -92,15 +146,6 @@ class StatTracker
       team[:team_id].to_i == @visitor_hash.key(@visitor_hash.values.min)
     end
     lowest_scoring_team[:teamname]
-  end
-
-  # Origional method from Iteration 2
-  def highest_scoring_home_team
-    average_scores_for_all_home_teams
-    highest_scoring_team = @teams.find do |team|
-      team[:team_id].to_i == @home_hash.key(@home_hash.values.max)
-    end
-    highest_scoring_team[:teamname]
   end
 
   # Origional method from Iteration 2
