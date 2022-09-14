@@ -1,5 +1,5 @@
 require 'csv'
-
+require 'pry'
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -17,6 +17,20 @@ class StatTracker
     sum_goals_array.max
   end
   
+  def percentage_home_wins
+    home_wins = @games.count do |game|
+      game[:home_goals] > game[:away_goals]
+    end
+    ((home_wins.to_f / @games.length) * 100).round(2)
+  end
+  
+  def percentage_visitor_wins
+    visitor_wins = @games.count do |game|
+      game[:home_goals] < game[:away_goals]
+    end
+    ((visitor_wins.to_f / @games.length) * 100).round(2)
+  end
+
   def lowest_total_score
     sum_goals_array = @games.map do |game|
       game[:home_goals].to_i + game[:away_goals].to_i
@@ -81,11 +95,9 @@ class StatTracker
 
   def count_of_games_by_season
     count = Hash.new(0)
-
     @games.each do |game|
       count[game[:season]] += 1
     end
-    
     count
   end
 
@@ -127,5 +139,9 @@ class StatTracker
 
   def team_finder(team_id)
     @teams.find { |team| team[:team_id] == team_id }[:teamname]
+  end
+
+  def best_offense
+    @teams[0][:name]
   end
 end

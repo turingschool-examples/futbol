@@ -24,9 +24,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq(5)
     end
   end
-  
-  describe '#lowest_total_score' do 
-    it 'returns lowest total score of all games' do 
+
+  describe '#lowest_total_score' do
+    it 'returns lowest total score of all games' do
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
   end
@@ -44,10 +44,21 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#count_of_teams' do 
-    it 'counts all unique teams' do 
-      expect(@stat_tracker.count_of_teams).to eq(9)
+  describe '#percentage_home_wins' do
+    it 'returns the percentage of the home team wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(55.56)
+    end
+  end
 
+  describe '#percentage_visitor_wins' do
+    it 'returns the percentage of the visitor team wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(44.44)
+    end
+  end
+
+  describe '#count_of_teams' do
+    it 'counts all unique teams' do
+      expect(@stat_tracker.count_of_teams).to eq(9)
     end
   end
 
@@ -59,15 +70,28 @@ RSpec.describe StatTracker do
   end
 
   describe 'count_of_games_by_season' do
-    it 'does something' do
-      expect(@stat_tracker.count_of_games_by_season).to eq(1)
+    it 'counts games by season' do
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014" => 1})
     end
   end
 
   describe '#average_goals_by_season' do
     it 'tabulates average goals by season' do
       # require 'pry'; binding.pry
-      expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.78})
+      expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.78, '20132014' => 3.9})
+    end
+  end
+
+  describe '#best_offense'  do
+    xit 'can return Name of the team with the highest avg # of goals/game scored across all seasons' do
+      # require 'pry'; binding.pry
+      expect(@stat_tracker.best_offense).to eq('team')
+    end
+
+    describe '#percentage_home_wins' do
+      it 'finds the percetage of home wins' do
+
+      end
     end
   end
 
