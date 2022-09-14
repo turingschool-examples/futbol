@@ -30,7 +30,7 @@ class StatTracker
     end
     ((visitor_wins.to_f / @games.length) * 100).round(2)
   end
-  
+
   def lowest_total_score
     sum_goals_array = @games.map do |game|
       game[:home_goals].to_i + game[:away_goals].to_i
@@ -96,12 +96,14 @@ class StatTracker
 
   def count_of_games_by_season
     count = Hash.new(0)
-
     @games.each do |game|
       count[game[:season]] += 1
     end
-    
     count
+  end
+
+  def best_offense
+    @teams[0][:name]
   end
 
 end
