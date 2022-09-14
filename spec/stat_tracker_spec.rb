@@ -18,7 +18,7 @@ RSpec.describe StatTracker do
   it "3. can parse CSV data" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games.csv',
-                      games_teams: './data/game_teams.csv'
+                      game_teams: './data/game_teams.csv'
 
     }
     stat_tracker_teams = StatTracker.from_csv(dummy_filepath)
@@ -30,11 +30,26 @@ RSpec.describe StatTracker do
   it "#average_goals_per_game" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games_dummy1.csv',
-                      games_teams: './data/game_teams.csv'
+                      game_teams: './data/game_teams.csv'
 
     }
     stat_tracker1 = StatTracker.from_csv(dummy_filepath)
 
     expect(stat_tracker1.average_goals_per_game).to eq(5.00)
+  end
+  
+  it "#average_goals_by_season" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy1.csv',
+                      game_teams: './data/game_teams.csv'
+
+    }
+    stat_tracker1 = StatTracker.from_csv(dummy_filepath)
+    
+    result = {
+      '20122013' => 5.00,
+      '20132014' => 5.00
+    }
+    expect(stat_tracker1.average_goals_by_season).to eq(result)
   end
 end

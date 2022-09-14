@@ -15,7 +15,7 @@ class StatTracker
     stat_tracker = new
     stat_tracker.teams_reader = CSV.read locations[:teams], headers: true, header_converters: :symbol
     stat_tracker.games_reader = CSV.read locations[:games], headers: true, header_converters: :symbol
-    stat_tracker.game_teams_reader = CSV.read locations[:games_teams], headers: true, header_converters: :symbol
+    stat_tracker.game_teams_reader = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     stat_tracker
   end
 
@@ -34,5 +34,16 @@ class StatTracker
       total_goals += game[:home_goals].to_f
     end
     (total_goals / @games_reader.count).round(2)  
+  end
+  
+  def average_goals_by_season
+    goals_per_season = Hash.new(0)
+    @games_reader.each do |game|
+      goals_per_season[game[:season]] += (game[:away_goals]).to_f 
+      goals_per_season[game[:season]] += (game[:home_goals]).to_f
+    end
+    goals_per_season.update(goals_per_season) do |season, total_goals|
+      total_goals / ((@games_reader[:season].find_all {|element| element == season}).count)
+    end
   end
 end
