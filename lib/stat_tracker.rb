@@ -95,4 +95,34 @@ class StatTracker
     games_won = @game_teams.count { |row| row[:team_id] == team_id.to_s && row[:result] == 'WIN'}
     (games_won.to_f / games_played * 100).round(2)
   end
+
+  def most_accurate_team
+    team_shots_goals = Hash.new({shots: 0, goals: 0})
+    @game_teams.each do |game|
+      team_shots_goals.default = {shots: 0, goals: 0}
+      team_shots_goals[game[:team_id]] = {
+        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
+        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
+      }
+    end
+    team_id = team_shots_goals.max_by do |team, stats|
+      stats[:goals].to_f / stats[:shots] 
+    end
+    @teams.find { |team| team[:team_id] == team_id[0] }[:teamname]
+  end
+
+  def least_accurate_team
+    team_shots_goals = Hash.new({shots: 0, goals: 0})
+    @game_teams.each do |game|
+      team_shots_goals.default = {shots: 0, goals: 0}
+      team_shots_goals[game[:team_id]] = {
+        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
+        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
+      }
+    end
+    team_id = team_shots_goals.min_by do |team, stats|
+      stats[:goals].to_f / stats[:shots] 
+    end
+    @teams.find { |team| team[:team_id] == team_id[0] }[:teamname]
+  end
 end
