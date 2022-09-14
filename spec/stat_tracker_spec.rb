@@ -39,10 +39,28 @@ RSpec.describe StatTracker do
   end
 
   it "can find the average score per game" do
-    expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/10.0)
+    expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
   end
 
-  xit "can find the highest scoring visitor team" do
+  xit "can list away games in a hash" do
+    expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
+  end
+
+  xit "can list home games in a hash" do
+
+  end
+
+  it "can find the highest_scoring_visitor_team" do
     expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
+
+  it "#lowest_scoring_visitor" do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+  end
+
+  xit "can find the highest_scoring_home_team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+  end
+
+
 end
