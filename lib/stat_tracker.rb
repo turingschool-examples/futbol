@@ -52,4 +52,15 @@ class StatTracker
     end
     return (visitor_wins.to_f/total_wins.to_f).round(2)
   end
+
+  def percentage_ties
+    ties = 0
+    total_wins = 0
+    @game_csv.each do |row|
+      ties += 1 if row[:home_goals].to_f == row[:away_goals].to_f
+      total_wins += 1
+    end
+    return (ties.to_f/total_wins.to_f).round(2)
+  end
+
 end
