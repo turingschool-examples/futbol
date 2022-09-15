@@ -17,8 +17,7 @@ class StatTracker
   end
 
 #------------------------------------Game Statistics------------------------------------
-
-   # Origional method from Iteration 2
+  # Origional method from Iteration 2
   def highest_total_score
     highest_scoring_game = @games.max_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
@@ -214,7 +213,6 @@ class StatTracker
   end
 
 #-----------------------------------Season Statistics-----------------------------------
-  
   # Helper method is used in most_accurate_team & least_accurate_team
   # Returns an array of all @game_teams rows from a given season
   # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
@@ -241,7 +239,7 @@ class StatTracker
     end
     most_accurate_team[:teamname]
   end
-  
+
   # Original method from Iteration 2
   def least_accurate_team(season)
     season_game_teams = season_game_teams(season)
@@ -257,13 +255,14 @@ class StatTracker
     end
     least_accurate_team[:teamname]
   end
-  
+
   # Helper method is used in tackles_by_team
   def games_by_season
     @games_by_season_hash = Hash.new([])
     @games.each do |game|
       @games_by_season_hash[game[:season]] += [game[:game_id]]
     end
+    @games_by_season_hash
   end
 
   # Helper method is used in most_tackles & fewest_tackles
@@ -278,6 +277,7 @@ class StatTracker
         end
       end
     end
+    @tackles_counter
   end
 
   # Origional method from Iteration 2
@@ -298,5 +298,4 @@ class StatTracker
     team_with_least_tackles[:teamname]
   end
 #------------------------------------Team Statistics------------------------------------
-
 end
