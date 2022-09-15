@@ -21,14 +21,14 @@ class StatTracker
     home_wins = @games.count do |game|
       game[:home_goals] > game[:away_goals]
     end
-    ((home_wins.to_f / @games.length) * 100).round(2)
+    (home_wins.to_f / @games.length).round(2)
   end
   
   def percentage_visitor_wins
     visitor_wins = @games.count do |game|
       game[:home_goals] < game[:away_goals]
     end
-    ((visitor_wins.to_f / @games.length) * 100).round(2)
+    (visitor_wins.to_f / @games.length).round(2)
   end
 
   def lowest_total_score
@@ -42,7 +42,7 @@ class StatTracker
     # Percentage of games that have resulted in a tie rounded to the nearest 100th
     results = return_column(@game_teams, :result)
     tie_results = results.find_all { |result| result == "TIE"}
-    ((tie_results.length.to_f / results.length.to_f) * 100).round(2)
+    (tie_results.length.to_f / results.length.to_f).round(2)
   end
 
   def average_goals_per_game
@@ -188,9 +188,24 @@ class StatTracker
   end
 
   def best_offense
-    @teams[0][:name]
-  end
+    # hash to store {team_id => avg goals/game}
+    team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
+    end
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
+    end
 
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.max_by { |k,v| v }.first }[:teamname]
+  end
+  
   def highest_scoring_visitor
     away_team_score = Hash.new(0)
     away_team_count = Hash.new(0)
