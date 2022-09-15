@@ -345,5 +345,14 @@ class StatTracker
     favorite_opponent[:teamname]
   end
 
-  
+  # Original method from Iteration 2
+  def rival(team_id)
+    opponent_win_loss = opponent_win_loss(team_id)
+
+    rival_id = opponent_win_loss.max_by{|opponent, win_loss| win_loss[0].to_f/win_loss[1]}[0]
+    rival = @teams.find do |team|
+      team[:team_id] == rival_id
+    end
+    rival[:teamname]
+  end
 end
