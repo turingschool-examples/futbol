@@ -291,5 +291,15 @@ class StatTracker
     (total_wins / total_games_played(team_id)).round(2)
   end
 
+  def most_goals_scored(team_id)
+    most_goals = []
+    @game_teams.map do |row|
+      if row[:team_id] == team_id
+        most_goals << row[:goals]
+      end
+    end
+    most_goals.max.to_i
+  end
+
 
 end
