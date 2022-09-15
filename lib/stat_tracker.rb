@@ -54,4 +54,292 @@ class StatTracker
     end
     (ties.to_f/games_data.count).round(2)
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#GameClass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #LeagueClass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#end
+  #SeasonClass
+
+  #Method groups game_id by season in a hash
+  def season_games
+    season = {}
+    @games_data.each do |row|
+      season[row[:season]] #= row[:game_id]
+      require 'pry';binding.pry
+    end
+  end
+
+
+#Method returns the name Coach with the best win percentage for the season in a string
+  #look at every season
+  #find coach name
+  #accumulate coach's win/loss/tie
+  #compare coach records with other for each season
+  def winningest_coach(season)
+    
+    #different seasons individually to compare them to each other
+    #Method compares a season
+    
+
+
+
+
+
+
+
+
+  def season_all_game_id(season)
+    season_games = {}
+    @games_data.flat_map do |row|
+      if season == row[:season]
+        if season_games.include?(row[:season])
+          season_games[row[:season]].push(row[:game_id])
+        elsif #!season_games.include?(row[:season])
+          season_games[row[:season]] = [row[:game_id]]
+        end
+      end
+    end
+    season_games
+  end
+
+
 end
