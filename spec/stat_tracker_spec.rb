@@ -158,18 +158,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
-    
-    xit "#helper games_by_season" do
-      binding.pry
-      expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)
+
+    it "#helper games_by_season" do
+      expect(@stat_tracker.games_by_season.keys).to eq(@stat_tracker.games[:season].uniq)
     end
 
-    xit "#most_tackles" do
+    it "#helper tackles_by_team" do
+      # Team_id 53 & 54 not in this season.
+      expect(@stat_tracker.tackles_by_team("20122013").keys.length).to eq(30)
+    end
+
+    it "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
-    xit "#fewest_tackles" do
+    it "#fewest_tackles" do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
