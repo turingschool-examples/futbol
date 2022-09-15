@@ -58,7 +58,7 @@ RSpec.describe StatTracker do
     it "#percentage_ties" do
       expect(@stat_tracker.percentage_ties).to eq 0.20
     end
-    
+
     it "#count_of_games_by_season" do
     expected = {
       "20122013"=>806,
@@ -141,5 +141,20 @@ RSpec.describe StatTracker do
     it "#lowest_scoring_home_team" do
       expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
+  end
+
+  context "Season Statistics" do
+    it "#most_tackles" do
+      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    end
+
+    it "#fewest_tackles" do
+      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+    end
+  end
+
+  context "Team Statistics" do
   end
 end
