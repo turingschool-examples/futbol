@@ -27,7 +27,7 @@ class StatTracker
    counter
   end
   
-  # Method to return the Average number of goals scored in a game across all 
+  # Method to return the average number of goals scored in a game across all 
   # seasons including both home and away goals (rounded to the nearest 100th)
   def average_goals_per_game
     total_goals = 0
@@ -38,7 +38,7 @@ class StatTracker
     (total_goals / @games_reader.count).round(2)
   end
   
-  # Method to return the Average number of goals scored in a game organized in 
+  # Method to return the average number of goals scored in a game organized in 
   # a hash with season names as keys and a float representing the average number
   # of goals in a game for that season as values (rounded to the nearest 100th)
   def average_goals_by_season
@@ -52,7 +52,7 @@ class StatTracker
     end
   end
   
-  # Method to return Name of the team with the highest average number of goals
+  # Method to return name of the team with the highest average number of goals
   # scored per game across all seasons.
   def best_offense
     teams_hash = total_goals_by_team
@@ -115,7 +115,7 @@ class StatTracker
     team_name_from_id(teams_hash.key(teams_hash.values.min))
   end
   
-  # Helper method to retun hash with teams_id as key and total goals at
+  # Helper method to retun hash with team_id as key and total goals at
   # home or away depending on the argument passed.
   def total_goals_by_team_by_at(at)
     teams_hash = Hash.new(0)
