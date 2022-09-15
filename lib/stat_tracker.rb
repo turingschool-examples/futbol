@@ -256,4 +256,28 @@ class StatTracker
       end
     end
   end
+
+  def highest_scoring_visitor
+    away_team_goals = Hash.new
+    @game_teams_data.each do |row|
+      if away_team_goals[row[:team_id]] != nil && row[:hoa] == 'away'
+        away_team_goals[row[:team_id]].push(row[:goals].to_i)
+      elsif row[:hoa] == 'away'
+        away_team_goals[row[:team_id]] = [row[:goals].to_i]
+      end
+    end
+
+    away_team_average = Hash.new
+    away_team_goals.each do |team_id, goals_per_game|
+      away_team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
+    end
+
+    highest_average = away_team_average.max_by{ |id, average| average }
+
+    @teams_data.each do |row|
+      if highest_average[0] == row[:team_id]
+        return row[:teamname]
+      end
+    end
+  end
 end
