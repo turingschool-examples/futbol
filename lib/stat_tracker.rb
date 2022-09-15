@@ -3,10 +3,10 @@ require 'csv'
 class StatTracker
   attr_reader :games_data, :teams_data, :game_teams_data
   def initialize(locations)
-    @locations = locations
-    @games_data = CSV.read(@locations[:games], headers: true, header_converters: :symbol)
-    @teams_data = CSV.read(@locations[:teams], headers: true, header_converters: :symbol)
-    @game_teams_data = CSV.read(@locations[:game_teams], headers: true, header_converters: :symbol)
+    @games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
+    @teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
+    @game_teams_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
+  
   end
   
   def self.from_csv(locations)
@@ -67,8 +67,178 @@ class StatTracker
     games_by_season
   end
 
-  def 
+  def average_goals_per_game
+    total_goals = @games_data.map do |row| 
+      (row[:away_goals].to_i + row[:home_goals].to_i)
+    end
+    (total_goals.sum / @games_data.count.to_f).round(2)
+  end
+
+  def average_goals_by_season
+    average_goals = {}
+    goals_by_season = {}
+  
+    @games_data.each do |row|
+      if goals_by_season.include?(row[:season])
+        goals_by_season[row[:season]] += ([row[:away_goals].to_f]+[row[:home_goals].to_i]).sum
+      elsif goals_by_season.include?(row[:season]) == false
+        goals_by_season[row[:season]] = ([row[:away_goals].to_f]+[row[:home_goals].to_i]).sum
+      end
+    end
+    
+    goals_by_season.each do |season, wins|
+      count_of_games_by_season.each do |season_number, games|
+        if season_number == season
+          games
+          average_goals[season_number] = (wins/games).round(2)
+        end 
+      end
+    end
+    average_goals
+  end
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def count_of_teams
+    @teams_data.count 
+  end
 end
