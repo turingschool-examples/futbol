@@ -212,9 +212,12 @@ class StatTracker
     highest_scoring_team[:teamname]
   end
 
-  # Helper method is used to return an array of all @game_teams rows from a given season
+  #-----------------------------------Season Statistics-----------------------------------
+
+  # Helper method is used in most_accurate_team & least_accurate_team
+  # Returns an array of all @game_teams rows from a given season
   # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
-  # First line returns an array of all @games rows from a given season
+  # First commented out line returns an array of all @games rows from a given season
   def season_game_teams(season)
     # season_games = @games.find_all{|row| row[:season] == season}
     # season_game_ids = season_games.map {|row| row[:game_id]}
