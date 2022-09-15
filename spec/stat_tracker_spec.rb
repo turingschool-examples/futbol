@@ -108,6 +108,17 @@ RSpec.describe StatTracker do
     expect(stat_tracker.percentage_ties).to eq(10.00)
   end
 
+  it "#. team_finder" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.team_finder("4")).to eq(stat_tracker.teams_reader[1])
+    expect(stat_tracker.team_finder("6")).to eq(stat_tracker.teams_reader[4])
+    expect(stat_tracker.team_finder("4")[0]).to eq("4")
+  end
+
   it "#. team_info" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games_dummy_2.csv',
@@ -158,6 +169,3 @@ RSpec.describe StatTracker do
     expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
 end
-
-
-#create test for team_finder
