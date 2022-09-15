@@ -280,5 +280,16 @@ class StatTracker
     best[0]
   end
 
+  def total_games_played(team_id)
+    all_games = 0
+    @games.filter_map {|row| all_games += 1 if row[:home_team_id] == team_id || row[:away_team_id] == team_id}
+    all_games
+  end
+
+  def average_win_percentage(team_id)
+    total_wins = total_wins_per_season(team_id).values.sum.to_f
+    (total_wins / total_games_played(team_id)).round(2)
+  end
+
 
 end
