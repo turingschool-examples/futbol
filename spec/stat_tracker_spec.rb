@@ -58,15 +58,15 @@ RSpec.describe StatTracker do
     it "#percentage_ties" do
       expect(@stat_tracker.percentage_ties).to eq 0.20
     end
-    
+
     it "#count_of_games_by_season" do
     expected = {
-      "20122013"=>806,
-      "20162017"=>1317,
-      "20142015"=>1319,
-      "20152016"=>1321,
-      "20132014"=>1323,
-      "20172018"=>1355
+        "20122013"=>806,
+        "20162017"=>1317,
+        "20142015"=>1319,
+        "20152016"=>1321,
+        "20132014"=>1323,
+        "20172018"=>1355
       }
       expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
@@ -140,6 +140,20 @@ RSpec.describe StatTracker do
 
     it "#lowest_scoring_home_team" do
       expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
+    end
+  end
+
+  context "Season Statistics" do
+    
+
+    it "#most_accurate_team" do
+      expect(@stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq("Toronto FC")
+    end
+
+    it "#least_accurate_team" do
+      expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
   end
 end
