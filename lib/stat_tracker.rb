@@ -69,37 +69,40 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    team_accuracy = Hash.new { |team, accuracy| team[accuracy]=[] }
+    team_goals = Hash.new { |team, goals| team[goals]=[] }
+    team_shots = Hash.new { |team, shots| team[shots]=[] }
+    team_accuracy = Hash.new
     @game_teams_csv.each do |row|
       if row[:game_id].start_with?(season[0..3])
-        team_accuracy[row[:team_id]].push(row[:goals].to_f/row[:shots].to_f)
+        team_goals[row[:team_id]].push(row[:goals].to_f)
+        team_shots[row[:team_id]].push(row[:shots].to_f)
       end
     end
-    accuracy_percent = Hash.new
-    team_accuracy.each do |team, accuracy|
-      accuracy_percent[team] = (accuracy.sum/accuracy.size)
-    end
-    teamid = accuracy_percent.max_by { |_, percent| percent }.first
+    goals_sum = team_goals.transform_values(&:sum)
+    shot_sum = team_shots.transform_values(&:sum)
+    team_accuracy = goals_sum.merge(shot_sum) { |team, goals, shots | goals/shots }
+    teamid = team_accuracy.max_by { |_, percent| percent }.first
     @team_csv.each do |row|
       return row[:teamname] if row[:team_id] == teamid
     end
   end
 
   def least_accurate_team(season)
-    team_accuracy = Hash.new { |team, accuracy| team[accuracy]=[] }
+    team_goals = Hash.new { |team, goals| team[goals]=[] }
+    team_shots = Hash.new { |team, shots| team[shots]=[] }
+    team_accuracy = Hash.new
     @game_teams_csv.each do |row|
       if row[:game_id].start_with?(season[0..3])
-        team_accuracy[row[:team_id]].push(row[:goals].to_f/row[:shots].to_f)
+        team_goals[row[:team_id]].push(row[:goals].to_f)
+        team_shots[row[:team_id]].push(row[:shots].to_f)
       end
     end
-    accuracy_percent = Hash.new
-    team_accuracy.each do |team, accuracy|
-      accuracy_percent[team] = (accuracy.sum/accuracy.size)
-    end
-    teamid = accuracy_percent.min_by { |_, percent| percent }.first
+    goals_sum = team_goals.transform_values(&:sum)
+    shot_sum = team_shots.transform_values(&:sum)
+    team_accuracy = goals_sum.merge(shot_sum) { |team, goals, shots | goals/shots }
+    teamid = team_accuracy.min_by { |_, percent| percent }.first
     @team_csv.each do |row|
       return row[:teamname] if row[:team_id] == teamid
     end
-  end
-
+  end 
 end
