@@ -69,5 +69,6 @@ RSpec.describe StatTracker do
 
     it '19. returns the lowest_scoring_home_team' do
        expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+      
     end
 end
