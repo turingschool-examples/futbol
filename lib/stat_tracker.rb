@@ -121,15 +121,18 @@ class StatTracker
     total_team_games = @game_teams_reader.count {|row| row[:team_id] == team_id}
     team_win_total*100/total_team_games
   end
-end
 
-
-  def team_info(team_id)
-      {team_id: team_id.team_id,
-      franchise_id: team_id.franchise_id,
-      team_name: team_id.team_name,
-      abbreviation: team_id.abbreviation,
-      stadium: team_id.stadium,
-      link: team_id.link}
+  def count_of_games_by_season
+    seasons = {}
+    @games_reader.each do |row|
+      if seasons.include?(row[:season]) == false
+        seasons[row[:season]] = 1
+      else
+        seasons[row[:season]] += 1
+      end
+    end
+    seasons
   end
+
+
 end
