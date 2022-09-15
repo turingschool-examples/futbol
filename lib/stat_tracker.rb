@@ -311,17 +311,44 @@ class StatTracker
     fewest_goals.min.to_i
   end
 
-  def favorite_opponent(team_id)
-    total_losses_hash = Hash.new(0)
+  def total_times_won_against(team_id)
+    teams_win_count = Hash.new(0)
     @games.map do |row|
-      if row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]
-        total_losses_hash[row[:home_team_id]] += 1
-      elsif row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals]
-        total_losses_hash[row[:away_team_id]] += 1
+      if row[:away_team_id] == team_id && row[:away_goals] < row[:home_goals]
+        teams_win_count[row[:home_team_id]] += 1
+      elsif row[:home_team_id] == team_id && row[:home_goals] < row[:away_goals]
+        teams_win_count[row[:away_team_id]] += 1
       end
     end
-    total_games_played_against_team = Hash.new(0)
-    
+    teams_win_count
+  end
+
+  def total_times_played_against(team_id)
+    total_times_played = Hash.new(0)
+    @games.map do |row|
+      if row[:home_team_id] == team_id
+        total_times_played[row[:away_team_id]] += 1
+      elsif row[:away_team_id] == team_id
+        total_times_played[row[:home_team_id]] += 1
+      end
+    end
+    total_times_played
+  end
+
+  def favorite_opponent(team_id)
+    wins = total_times_won_against(team_id)
+    total_games = total_times_played_against(team_id)
+
+    wins_and_totals = wins.values.zip(total_games.values)
+    percentage_wins = wins_and_totals.map {|array| array[0].to_f / array[1]}
+
+    hash_percentages = Hash[wins.keys.zip(percentage_wins)]
+
+    # nested_arr = total_wins_hash.values.zip(total_games_played_against_team.values)
+    # percentages = nested_arr.map {|array| array[0].to_f / array [1]}
+    # percentages_hash = total_games_played_against_team.keys.zip(percentages)
+    # lost_most = percentages_hash.min_by {|key,value| value}
+    # fav_oppt = team_name(lost_most[0].to_i)
   end
 
 
