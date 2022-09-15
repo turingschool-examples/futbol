@@ -145,5 +145,12 @@ class StatTracker
   end
 
   def fewest_goals_scored(team_id)
+    unique_goal_totals = []
+      @game_teams_reader.each do |row|
+        if row[:team_id] == team_id && unique_goal_totals.include?(row[:goals].to_i) == false
+          unique_goal_totals << row[:goals].to_i
+        end
+      end
+    unique_goal_totals.min
   end
 end

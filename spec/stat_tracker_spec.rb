@@ -149,13 +149,13 @@ RSpec.describe StatTracker do
     expect(stat_tracker.most_goals_scored("3")).to eq(2)
   end
 
-  xit "#. fewest_goals_scored" do
+  it "#. fewest_goals_scored" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games_dummy_2.csv',
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.fewest_goals_scored(team_id)).to eq()
+    expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
 end
 
