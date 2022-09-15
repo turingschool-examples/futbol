@@ -236,4 +236,49 @@ class StatTracker
     team_hash
   end
 
+  def total_wins_per_season(team_id)
+    season_wins = Hash.new(0)
+    @games.map do |row|
+      if row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals]
+        season_wins[row[:season]] += 1
+      elsif row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]
+        season_wins[row[:season]] += 1
+      end
+    end
+    season_wins
+  end
+
+  def total_games_played_per_season(team_id)
+    season_tally = Hash.new(0)
+    @games.map do |row|
+      if row[:home_team_id] == team_id || row[:away_team_id] == team_id
+        season_tally[row[:season]] += 1
+      end
+    end
+    season_tally
+  end
+
+  def best_season(team_id)
+    season_wins = total_wins_per_season(team_id)
+    games_played = total_games_played_per_season(team_id)
+
+    nested_arr = season_wins.values.zip(games_played.values)
+    divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
+    percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
+    best = percentages_hash.max_by {|key,value| value}
+    best[0]
+  end
+
+  def worst_season(team_id)
+    season_wins = total_wins_per_season(team_id)
+    games_played = total_games_played_per_season(team_id)
+
+    nested_arr = season_wins.values.zip(games_played.values)
+    divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
+    percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
+    best = percentages_hash.min_by {|key,value| value}
+    best[0]
+  end
+
+
 end

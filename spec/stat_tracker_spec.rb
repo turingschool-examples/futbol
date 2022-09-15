@@ -3,9 +3,9 @@ require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = './data/games.csv'
+    game_path = './data/dummy_games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/dummy_game_teams.csv'
 
     locations = {
       games: game_path,
@@ -106,13 +106,29 @@ RSpec.describe StatTracker do
   #   expect(@stat_tracker.lowest_scoring_home_team).to eq('Utah Royals FC')
   # end
 
-  it '#team_info' do
-    expect(@stat_tracker.team_info('18')).to eq({
-      "team_id" => "18",
-      "franchise_id" => "34",
-      "team_name" => "Minnesota United FC",
-      "abbreviation" => "MIN",
-      "link" => "/api/v1/teams/18"
-    })
+  # it '#team_info' do
+  #   expect(@stat_tracker.team_info('18')).to eq({
+  #     "team_id" => "18",
+  #     "franchise_id" => "34",
+  #     "team_name" => "Minnesota United FC",
+  #     "abbreviation" => "MIN",
+  #     "link" => "/api/v1/teams/18"
+  #   })
+  # end
+
+  # it '#total_wins_per_season' do
+  #   expect(@stat_tracker.total_wins_per_season('6')).to eq({"20122013"=>9, "20132014"=>1, "20172018"=>2})
+  # end
+
+  # it '#total_games_played_per_season' do
+  #   expect(@stat_tracker.total_games_played_per_season('6')).to eq({"20122013"=>9, "20132014"=>2, "20172018"=>5})
+  # end
+  #
+  # it '#best_season' do
+  #   expect(@stat_tracker.best_season('6')).to eq("20122013")
+  # end
+
+  it '#worst_season' do
+    expect(@stat_tracker.worst_season('6')).to eq("20172018")
   end
 end
