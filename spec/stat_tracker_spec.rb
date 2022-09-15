@@ -221,8 +221,6 @@ RSpec.describe StatTracker do
 
 
 
-
-
   describe '#League Statistics' do
     it 'returns the number of teams in the league' do
       expect(@stat_tracker.count_of_teams).to eq 32
