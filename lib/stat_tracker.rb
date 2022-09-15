@@ -82,16 +82,17 @@ class StatTracker
   end
 
   # could this be re-factored to accept an optional argument equal to :teamname?
-  def average_goals_by_season
-    dummy = []
-    avg_goals_per_game_by_season = {}
+  def average_goals_by_season # mm
+    # dummy = []
+    # avg_goals_per_game_by_season = {}
 
-    @games.each do |game|
-      dummy << (game[:home_goals].to_i + game[:away_goals].to_i)
-      avg_goals_per_game_by_season[game[:season]] = (dummy.sum / dummy.count.to_f).round(2)
-    end
+    # @games.each do |game|
+    #   dummy << (game[:home_goals].to_i + game[:away_goals].to_i)
+    #   avg_goals_per_game_by_season[game[:season]] = (dummy.sum / dummy.count.to_f).round(2)
+    # end
 
-    avg_goals_per_game_by_season
+    # avg_goals_per_game_by_season
+    
   end
 
   def count_of_games_by_season
@@ -188,7 +189,7 @@ class StatTracker
     team_finder(opp_id)
   end
 
-  def best_offense
+  def best_offense # mm
     # hash to store {team_id => avg goals/game}
     team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
     # turn CSV::Rows => Hashes
@@ -207,7 +208,7 @@ class StatTracker
     @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.max_by { |k,v| v }.first }[:teamname]
   end
 
-  def worst_offense
+  def worst_offense # mm
     # hash to store {team_id => avg goals/game}
     team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
     # turn CSV::Rows => Hashes
@@ -226,7 +227,7 @@ class StatTracker
     @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
   end
 
-  def winningest_coach(season)
+  def winningest_coach(season) #mm
     # select all games for desired season
     szn_games = @games.select { |game| game[:season] == season.to_s }
     # turn szn_games into an arry of just their game_ids
@@ -250,7 +251,7 @@ class StatTracker
     winningest.first
   end
 
-  def worst_coach(season)
+  def worst_coach(season) # mm
     # select all games for desired season
     szn_games = @games.select { |game| game[:season] == season.to_s }
     # turn szn_games into an arry of just their game_ids
@@ -273,12 +274,12 @@ class StatTracker
     worst.first
   end
 
-  def most_goals_scored(team_id)
+  def most_goals_scored(team_id) # mm
     # find all games for team_id, turn them into the goals scored, grab the max, 2 eyes
     @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.max.to_i
   end
 
-  def fewest_goals_scored(team_id)
+  def fewest_goals_scored(team_id) ## mm
     # find all games for team_id, turn them into the goals scored, grab the min, 2 eyes
     @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.min.to_i
   end
