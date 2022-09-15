@@ -168,17 +168,33 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.tackles_by_team("20122013").keys.length).to eq(30)
     end
 
-    it "#most_tackles" do
+    xit "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
-    it "#fewest_tackles" do
+    xit "#fewest_tackles" do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
   end
 
   context "Team Statistics" do
+    it "#helper games_by_team" do
+      expect(@stat_tracker.games_by_team.keys.length).to eq(@stat_tracker.teams[:team_id].length)
+    end
+
+    it "#average_win_percentage" do
+      expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+    end
+
+    xit "#most_goals_scored" do
+      expect(@stat_tracker.most_goals_scored("18")).to eq 7
+    end
+
+    xit "#fewest_goals_scored" do
+      expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+
   end
 end
