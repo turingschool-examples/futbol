@@ -16,14 +16,14 @@ class StatTracker
     end
     sum_goals_array.max
   end
-  
+
   def percentage_home_wins
     home_wins = @games.count do |game|
       game[:home_goals] > game[:away_goals]
     end
     (home_wins.to_f / @games.length).round(2)
   end
-  
+
   def percentage_visitor_wins
     visitor_wins = @games.count do |game|
       game[:home_goals] < game[:away_goals]
@@ -81,16 +81,18 @@ class StatTracker
     StatTracker.new(dummy_array[0], dummy_array[1], dummy_array[2])
   end
 
-  def average_goals_by_season
-    dummy = []
-    avg_goals_per_game_by_season = {}
+  # could this be re-factored to accept an optional argument equal to :teamname?
+  def average_goals_by_season # mm
+    szns = Hash.new { |h,k| h[k] = [] }
 
-    @games.each do |game|
-      dummy << game[:home_goals].to_i + game[:away_goals].to_i
-      avg_goals_per_game_by_season[game[:season]] = (dummy.sum / dummy.count.to_f).round(2)
+    @games.each do |csv_row|
+      szns[csv_row[:season]] << csv_row[:away_goals].to_i + csv_row[:home_goals].to_i
     end
 
-    avg_goals_per_game_by_season
+    szns.each do |k,v|
+      szns[k] = (szns[k].sum / szns[k].count.to_f).round(2)
+    end
+    szns
   end
 
   def count_of_games_by_season
@@ -119,7 +121,7 @@ class StatTracker
       }
     end
     team_id = team_shots_goals.max_by do |team, stats|
-      stats[:goals].to_f / stats[:shots] 
+      stats[:goals].to_f / stats[:shots]
     end
     team_finder(team_id[0])
   end
@@ -136,7 +138,7 @@ class StatTracker
       }
     end
     team_id = team_shots_goals.min_by do |team, stats|
-      stats[:goals].to_f / stats[:shots] 
+      stats[:goals].to_f / stats[:shots]
     end
     team_finder(team_id[0])
   end
@@ -202,13 +204,13 @@ class StatTracker
         row[:result]
       end
     end
-    
+
     opp_id = wins_hash.min_by { |key, value| value.count { |result| result == 'WIN'}.to_f / value.length }[0]
 
     team_finder(opp_id)
   end
 
-  def best_offense
+  def best_offense # mm
     # hash to store {team_id => avg goals/game}
     team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
     # turn CSV::Rows => Hashes
@@ -227,10 +229,86 @@ class StatTracker
     @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.max_by { |k,v| v }.first }[:teamname]
   end
 
+  def worst_offense # mm
+    # hash to store {team_id => avg goals/game}
+    team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
+    end
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
+    end
+
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
+  end
+
+  def winningest_coach(season) #mm
+    # select all games for desired season
+    szn_games = @games.select { |game| game[:season] == season.to_s }
+    # turn szn_games into an arry of just their game_ids
+    szn_game_ids = szn_games.map { |game| game[:game_id] }
+    # select game_teams results that have game_ids for specific szn
+    szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
+    # the hash
+    coaches_hash = Hash.new { |h,k| h[k] = [] }
+    # group the coaches with their results
+    szn_game_results.group_by do |csv_row|
+      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+    end
+    # convert the values to winning percentages
+    win_pct = coaches_hash.each do |k,v|
+      # for a given coach, divide wins(float) by total games and round to 3 decimal places
+      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    end
+    # find the best
+    winningest = win_pct.max_by { |k,v| v }
+    # say my name
+    winningest.first
+  end
+
+  def worst_coach(season) # mm
+    # select all games for desired season
+    szn_games = @games.select { |game| game[:season] == season.to_s }
+    # turn szn_games into an arry of just their game_ids
+    szn_game_ids = szn_games.map { |game| game[:game_id] }
+    # grab the results of those game_ids
+    szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
+    # a hash to be populated
+    coaches_hash = Hash.new { |h,k| h[k] = [] }
+    # group the coaches with their results arrays
+    szn_game_results.group_by do |csv_row|
+      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+    end
+    # convert the values to winning percentages
+    win_pct = coaches_hash.each do |k,v|
+      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    end
+    # find the worst
+    worst = win_pct.min_by { |k,v| v }
+    # put him on blast
+    worst.first
+  end
+
+  def most_goals_scored(team_id) # mm
+    # find all games for team_id, turn them into the goals scored, grab the max, 2 eyes
+    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.max.to_i
+  end
+
+  def fewest_goals_scored(team_id) ## mm
+    # find all games for team_id, turn them into the goals scored, grab the min, 2 eyes
+    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.min.to_i
+  end
+
   def highest_scoring_visitor
     away_team_score = Hash.new(0)
     away_team_count = Hash.new(0)
-    @games.map do |game| 
+    @games.map do |game|
       away_team_score[game[:away_team_id]] += game[:away_goals].to_i
       away_team_count[game[:away_team_id]] += 1
     end
@@ -252,7 +330,7 @@ class StatTracker
   def lowest_scoring_visitor
     away_team_score = Hash.new(0)
     away_team_count = Hash.new(0)
-    @games.map do |game| 
+    @games.map do |game|
       away_team_score[game[:away_team_id]] += game[:away_goals].to_i
       away_team_count[game[:away_team_id]] += 1
     end
@@ -274,7 +352,7 @@ class StatTracker
   def highest_scoring_home_team
     home_team_score = Hash.new(0)
     home_team_count = Hash.new(0)
-    @games.map do |game| 
+    @games.map do |game|
       home_team_score[game[:home_team_id]] += game[:home_goals].to_i
       home_team_count[game[:home_team_id]] += 1
     end
@@ -296,7 +374,7 @@ class StatTracker
   def lowest_scoring_home_team
     home_team_score = Hash.new(0)
     home_team_count = Hash.new(0)
-    @games.map do |game| 
+    @games.map do |game|
       home_team_score[game[:home_team_id]] += game[:home_goals].to_i
       home_team_count[game[:home_team_id]] += 1
     end
