@@ -98,19 +98,19 @@ RSpec.describe StatTracker do
   describe '#average_win_percentage' do 
     it 'calculates average win percentage of a single team' do 
       expect(@stat_tracker.average_win_percentage(3)).to eq (0)
-      expect(@stat_tracker.average_win_percentage(16)).to eq (42.86)
+      expect(@stat_tracker.average_win_percentage(16)).to eq (0.43)
     end
   end
 
   describe '#most_accurate_team' do 
     it 'returns name of team with the best shots to goals ratio' do 
-      expect(@stat_tracker.most_accurate_team).to eq('FC Dallas')
+      expect(@stat_tracker.most_accurate_team('20122013')).to eq('FC Dallas')
     end
   end
 
   describe '#least_accurate_team' do 
     it 'returns name of team with the worst shots to goals ratio' do 
-      expect(@stat_tracker.least_accurate_team).to eq('Sporting Kansas City')
+      expect(@stat_tracker.least_accurate_team('20122013')).to eq('Sporting Kansas City')
     end
   end
 end
