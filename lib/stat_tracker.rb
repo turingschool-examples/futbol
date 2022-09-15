@@ -83,16 +83,16 @@ class StatTracker
 
   # could this be re-factored to accept an optional argument equal to :teamname?
   def average_goals_by_season # mm
-    # dummy = []
-    # avg_goals_per_game_by_season = {}
+    szns = Hash.new { |h,k| h[k] = [] }
 
-    # @games.each do |game|
-    #   dummy << (game[:home_goals].to_i + game[:away_goals].to_i)
-    #   avg_goals_per_game_by_season[game[:season]] = (dummy.sum / dummy.count.to_f).round(2)
-    # end
+    @games.each do |csv_row|
+      szns[csv_row[:season]] << csv_row[:away_goals].to_i + csv_row[:home_goals].to_i
+    end
 
-    # avg_goals_per_game_by_season
-    
+    szns.each do |k,v|
+      szns[k] = (szns[k].sum / szns[k].count.to_f).round(2)
+    end
+    szns
   end
 
   def count_of_games_by_season
