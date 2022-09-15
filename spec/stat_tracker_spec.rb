@@ -158,23 +158,31 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
-    
+
     xit "#helper games_by_season" do
-      binding.pry
       expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)
     end
 
-    xit "#most_tackles" do
+    it "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
-    xit "#fewest_tackles" do
+    it "#fewest_tackles" do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
   end
 
   context "Team Statistics" do
+    
+
+    it "#favorite_opponent" do
+      expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+    end
+
+    it "#rival" do
+      expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))  #why or LA Galaxy in the spec harness?
+    end
   end
 end
