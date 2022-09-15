@@ -26,7 +26,9 @@ class StatTracker
    end
    counter
   end
-
+  
+  # Method to return the Average number of goals scored in a game across all 
+  # seasons including both home and away goals (rounded to the nearest 100th)
   def average_goals_per_game
     total_goals = 0
     @games_reader.each do |game|
@@ -35,7 +37,10 @@ class StatTracker
     end
     (total_goals / @games_reader.count).round(2)
   end
-
+  
+  # Method to return the Average number of goals scored in a game organized in 
+  # a hash with season names as keys and a float representing the average number
+  # of goals in a game for that season as values (rounded to the nearest 100th)
   def average_goals_by_season
     goals_per_season = Hash.new(0)
     @games_reader.each do |game|
@@ -46,16 +51,20 @@ class StatTracker
       total_goals / ((@games_reader[:season].find_all {|element| element == season}).count)
     end
   end
-
+  
+  # Method to return Name of the team with the highest average number of goals
+  # scored per game across all seasons.
   def best_offense
     teams_hash = total_goals_by_team
     teams_hash.update(teams_hash) do |team_id, total_goals|
       total_goals / ((@games_reader[:away_team_id].find_all {|element| element == team_id}).count +
-    @games_reader[:home_team_id].find_all {|element| element == team_id}.count)
+      @games_reader[:home_team_id].find_all {|element| element == team_id}.count)
     end
     team_name_from_id(teams_hash.key(teams_hash.values.max))
   end
-
+  
+  # Helper method to return a hash with team ID keys and total goals by team
+  # values
   def total_goals_by_team
     teams_hash = Hash.new(0)
     @teams_reader[:team_id].each do |team|
@@ -69,8 +78,20 @@ class StatTracker
     end
     teams_hash
   end
-
+  
+  # Helper method to return a team name from a team ID argument
   def team_name_from_id(team_id)
-    @teams_reader[:teamname][@teams_reader[:team_id].index('20')]
+    @teams_reader[:teamname][@teams_reader[:team_id].index(team_id)]
+  end
+  
+  # Name of the team with the lowest average number of goals scored per game
+  # across all seasons.
+  def worst_offense
+    teams_hash = total_goals_by_team
+    teams_hash.update(teams_hash) do |team_id, total_goals|
+      total_goals / ((@games_reader[:away_team_id].find_all {|element| element == team_id}).count +
+      @games_reader[:home_team_id].find_all {|element| element == team_id}.count)
+    end
+    team_name_from_id(teams_hash.key(teams_hash.values.min))
   end
 end
