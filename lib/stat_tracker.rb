@@ -211,43 +211,45 @@ class StatTracker
     end
     highest_scoring_team[:teamname]
   end
-end
 #-----------------------------------Season Statistics-----------------------------------
-# Helper method is used in most_tackles & fewest_tackles
-def season_game_ids
-  @season_game_ids_hash = Hash.new('')
-  @games.each do |game|
-    binding.pry
-    @season_game_ids_hash[game[:season]] += game[:game_id]
+  # Helper method is used in tackles_by_team
+  def games_by_season
+    @games_by_season_hash = Hash.new([])
+    @games.each do |game|
+      @games_by_season_hash[game[:season]] += [game[:game_id]]
+    end
   end
-end
 
-# Helper method is used in most_tackles & fewest_tackles
-def games_by_season
-  season_game_ids
-  @games_by_season_hash = Hash.new([])
-  @season_game_ids_hash.each do |game_season, game_id|
-    games_by_season_hash
+  # Helper method is used in most_tackles & fewest_tackles
+  def tackles_by_team(season)
+    games_by_season
+    @tackles_counter = Hash.new(0)
+    games_in_select_season = @games_by_season_hash[season]
+    games_in_select_season.each do |game_id|
+      @game_teams.each do |game|
+        if game_id == game[:game_id]
+          @tackles_counter[game[:team_id]] += game[:tackles].to_i
+        end
+      end
+    end
   end
-end
 
-# Helper method is used in most_tackles & fewest_tackles
-def tackles_by_team(season)
-  game_by_season
-  @tackles_counter = Hash.new(0)
-  @games_by_season_hash.find do |game_season, game_id|
-    @tackles_counter[game[:team_id]] += game[:tackles]
+  # Origional method from Iteration 2
+  def most_tackles(season)
+    tackles_by_team(season)
+    team_with_most_tackles = @teams.find do |team|
+      team[:team_id] == @tackles_counter.key(@tackles_counter.values.max)
+    end
+    team_with_most_tackles[:teamname]
   end
-end
 
-# Origional method from Iteration 2
-def most_tackles
-  tackles_by_team
-  @tackles_counter
-end
-
-# Origional method from Iteration 2
-def fewest_tackles
-
-end
+  # Origional method from Iteration 2
+  def fewest_tackles(season)
+    tackles_by_team(season)
+    team_with_least_tackles = @teams.find do |team|
+      team[:team_id] == @tackles_counter.key(@tackles_counter.values.min)
+    end
+    team_with_least_tackles[:teamname]
+  end
 #------------------------------------Team Statistics------------------------------------
+end

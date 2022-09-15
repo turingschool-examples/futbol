@@ -75,7 +75,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq 4.22
     end
 
-    it "#average_goals_by_season" do
+    xit "#average_goals_by_season" do
       expected = {
         "20122013"=>4.12,
         "20162017"=>4.23,
@@ -144,12 +144,17 @@ RSpec.describe StatTracker do
   end
 
   context "Season Statistics" do
-    it "#most_tackles" do
+    xit "#helper games_by_season" do
+      binding.pry
+      expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)
+    end
+
+    xit "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
-    it "#fewest_tackles" do
+    xit "#fewest_tackles" do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
