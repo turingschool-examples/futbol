@@ -141,6 +141,27 @@ class StatTracker
     team_finder(team_id[0])
   end
 
+  def most_tackles(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+    team_tackles = Hash.new(0)
+    season_games.each do |game|
+       team_tackles[game[:team_id]] += game[:tackles].to_i
+    end
+    team_id = team_tackles.max_by { |team_id, tackles| tackles }
+    team_finder(team_id[0])
+  end
+
+  def fewest_tackles(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+    team_tackles = Hash.new(0)
+    season_games.each do |game|
+       team_tackles[game[:team_id]] += game[:tackles].to_i
+    end
+    team_id = team_tackles.min_by { |team_id, tackles| tackles }
+    team_finder(team_id[0])
+  end
+
+
   def team_finder(team_id)
     @teams.find { |team| team[:team_id] == team_id }[:teamname]
   end
