@@ -200,4 +200,22 @@ class StatTracker
   def count_of_teams
     @teams_data.count 
   end
+
+  def best_offense
+    team_goals = Hash.new
+    @game_teams_data.each do |row|
+      if team_goals[row[:team_id]] != nil
+        team_goals[row[:team_id]].push(row[:goals].to_i)
+      else
+        team_goals[row[:team_id]] = [row[:goals].to_i]
+      end
+    end
+
+    x = team_goals.map do |team_id, goals_per_game|
+      hash = {}
+      hash[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
+      hash
+    end
+    require 'pry'; binding.pry
+  end
 end
