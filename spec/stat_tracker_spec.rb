@@ -44,7 +44,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(0.2)
     end
 
-    it "#count_of_games_by_season" do
+    it 'can calculate number of games by season' do
       expected = {
         "20122013"=>806,
         "20162017"=>1317,
