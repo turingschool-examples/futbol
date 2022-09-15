@@ -125,4 +125,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
     end
   end
+
+  describe '#highest_scoring_home_team' do
+    it 'returns the name of the team with the highest average score per game across all seasons when they are home' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq('FC Dallas')
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns the name of the team with the lowest average score per game across all seasons when they are home' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
+    end
+  end
 end
