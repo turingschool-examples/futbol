@@ -227,19 +227,56 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    # vvv kewl code goes hear
-    # Name of the Coach with the best win percentage for the season
+    # select all games for desired season
+    szn_games = @games.select { |game| game[:season] == season.to_s }
+    # turn szn_games into an arry of just their game_ids
+    szn_game_ids = szn_games.map { |game| game[:game_id] }
+    # grab an array from the game_teams dataset of the game results that have game_ids for specific szn
+    szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
+    # the hash
+    coaches_hash = Hash.new { |h,k| h[k] = [] }
+    # group the coaches with their results
+    szn_game_results.group_by do |csv_row|
+      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+    end
+    # convert the values to winning percentages
+    win_pct = coaches_hash.each do |k,v|
+      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    end
+    # find the best
+    winningest = win_pct.max_by { |k,v| v }
+    # say my name
+    winningest.first
   end
 
   def worst_coach(season)
-    # vvv kewl code goes hear
+    # select all games for desired season
+    szn_games = @games.select { |game| game[:season] == season.to_s }
+    # turn szn_games into an arry of just their game_ids
+    szn_game_ids = szn_games.map { |game| game[:game_id] }
+    # grab an array from the game_teams dataset of the game results that have game_ids for specific szn
+    szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
+    # the hash
+    coaches_hash = Hash.new { |h,k| h[k] = [] }
+    # group the coaches with their results
+    szn_game_results.group_by do |csv_row|
+      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+    end
+    # convert the values to winning percentages
+    win_pct = coaches_hash.each do |k,v|
+      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    end
+    # find the best
+    winningest = win_pct.min_by { |k,v| v }
+    # say my name
+    winningest.first
   end
 
-  def most_goals_scored(particular_team)
-    # vvv kewl code goes hear
+  def most_goals_scored(team_id)
+    
   end
 
-  def fewest_goals_scored(particular_team)
+  def fewest_goals_scored(team_id)
     # vvv kewl code goes hear
   end
 end
