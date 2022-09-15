@@ -148,4 +148,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
+
+  describe '#team_info' do
+    it 'returns a hash with the team info' do
+      expect(@stat_tracker.team_info('1')).to eq({'team_id' => '1', 'franchise_id' => '23', 'team_name' => 'Atlanta United', 'abbreviation' => 'ATL', 'link' => '/api/v1/teams/1'})
+    end
+  end
 end
