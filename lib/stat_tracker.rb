@@ -71,4 +71,17 @@ class StatTracker
     seasons_with_games
   end
 
+  def average_goals_by_season
+    seasons_with_games = Hash.new(0)
+    @game_csv.each do |row|
+      seasons_with_games[row[:season]] += (row[:away_goals].to_f + row[:home_goals].to_f)
+    end
+    seasons_averages = Hash.new(0)
+    seasons_with_games.map do |season_id, total_games|
+      seasons_averages[season_id] = (total_games/self.count_of_games_by_season[season_id]).round(2)
+    end
+   p seasons_averages
+
+  end
+
 end
