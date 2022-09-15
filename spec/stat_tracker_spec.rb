@@ -86,4 +86,41 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_offense).to be_a String
     end
   end
+
+  describe '#winningest_coach' do
+    it 'can return Name of the Coach with the best win percentage for the season' do
+      # array_of_hashes = @stat_tracker.game_teams.map { |x| x.to_h }
+      # coaches_hash = Hash.new { |h,k| h[k] = 0 }
+      # array_of_hashes.each do |hash|
+      #   coaches_hash[hash[:head_coach]] += 1
+      # end
+
+      # win_percentages = coaches_hash.each do |k,v|
+      #   coaches_hash[k] = ((array_of_hashes.find_all { |hash| hash[:head_coach] == k && hash[:result] == "WIN" }.count) / v).to_f.round(2)
+      # end
+      # this just grabs the coach name and want to use this for the key
+      # this ends up gathering all the results of games they coached
+      # this iterates over the data and grabs all the results and pushes to the array
+      
+      @stat_tracker.game_teams.each do |csv_row|
+        coach = csv_row[:head_coach]
+        all_results = []
+        if csv_row[:head_coach] == coach
+          all_results << csv_row[:result]
+        end
+      end
+      # this grabs the total number of games
+      j_torts_total_games = j_torts.count
+      # this counts the total number of wins
+      j_torts_wins = j_torts.count { |x| x == "WIN" }
+      # this returns the win_percentage as a float
+      win_percentage = (j_torts_wins / j_torts_total_games.to_f).round(2)
+      # returns the hash
+      coach_and_win_percentage = {
+        @stat_tracker.game_teams[19][:head_coach] => (win_percentage) * 100
+      }
+      require 'pry'; binding.pry
+      expect(@stat_tracker.winningest_coach).to eq('someone')
+    end
+  end
 end

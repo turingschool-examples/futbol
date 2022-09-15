@@ -126,20 +126,20 @@ class StatTracker
     @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
   end
 
+  def winningest_coach(season)
+    # vvv kewl code goes hear
+    # Name of the Coach with the best win percentage for the season
+  end
+
+  def worst_coach(season)
+    # vvv kewl code goes hear
+  end
 
   def most_goals_scored(particular_team)
     # vvv kewl code goes hear
   end
 
   def fewest_goals_scored(particular_team)
-    # vvv kewl code goes hear
-  end
-
-  def winningest_coach
-    # vvv kewl code goes hear
-  end
-
-  def worst_coach
     # vvv kewl code goes hear
   end
 end
