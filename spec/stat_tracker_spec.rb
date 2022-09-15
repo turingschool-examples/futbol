@@ -82,18 +82,19 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#best_offense'  do
-    xit 'can return Name of the team with the highest avg # of goals/game scored across all seasons' do
-      # require 'pry'; binding.pry
-      expect(@stat_tracker.best_offense).to eq('team')
+  describe "#best_offense" do
+    it 'returns the name of the team with the highest goal average' do
+    expect(@stat_tracker.best_offense).to eq "Reign FC"
     end
+  end
+  
 
     describe '#percentage_home_wins' do
       it 'finds the percetage of home wins' do
 
       end
     end
-  end
+  
 
   describe '#average_win_percentage' do 
     it 'calculates average win percentage of a single team' do 
@@ -113,4 +114,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.least_accurate_team).to eq('Sporting Kansas City')
     end
   end
+  
+  it "#most_tackles" do
+    expect(@stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
+    # expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
+
+  it "#fewest_tackles" do
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+    expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+  end
+
+
 end
