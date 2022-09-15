@@ -105,5 +105,21 @@ class StatTracker
     tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}.to_f.round(2)
     tie_total*100/total_number_of_games
   end
+
+  def team_finder(team_id)
+    @teams_reader.find do |row|
+      row[:team_id] == team_id
+    end
+  end
+
+  def team_info(team_id) 
+    Team.new(team_finder(team_id)).team_labels
+  end
+
+  def average_win_percentage(team_id)
+    team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}.to_f.round(2)
+    total_team_games = @game_teams_reader.count {|row| row[:team_id] == team_id}
+    team_win_total*100/total_team_games
+  end
 end
 
