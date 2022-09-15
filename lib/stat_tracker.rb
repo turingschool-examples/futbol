@@ -126,6 +126,7 @@ class StatTracker
   #Original method from iteration 2
   def worst_offense
     #uses @avg_goals_per_game hash from best_offense
+    #needs to be refactored to include instantiation of @avg_goals_per_game
     worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
     @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
@@ -214,7 +215,7 @@ class StatTracker
   end
 
 #-----------------------------------Season Statistics-----------------------------------
-  
+
   # Helper method is used in most_accurate_team & least_accurate_team
   # Returns an array of all @game_teams rows from a given season
   # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
@@ -241,7 +242,7 @@ class StatTracker
     end
     most_accurate_team[:teamname]
   end
-  
+
   # Original method from Iteration 2
   def least_accurate_team(season)
     season_game_teams = season_game_teams(season)
@@ -257,7 +258,7 @@ class StatTracker
     end
     least_accurate_team[:teamname]
   end
-  
+
   # Helper method is used in tackles_by_team
   def games_by_season
     @games_by_season_hash = Hash.new([])
@@ -299,4 +300,50 @@ class StatTracker
   end
 #------------------------------------Team Statistics------------------------------------
 
+  # Helper method is used in favorite_opponent & rival
+  # Can be further refactored into more helper methods
+  def opponent_win_loss(team_id)
+    # keys of team_games_opponents hould be game_ids of games team is involved in
+    # values of team_games_opponents should be the team_id of their opponent in that game
+    team_games_opponents = {}
+    @games.each do |game|
+      if game[:away_team_id] == team_id
+        team_games_opponents[game[:game_id]] = game[:home_team_id]
+      elsif game[:home_team_id] == team_id
+        team_games_opponents[game[:game_id]] = game[:away_team_id]
+      end
+    end
+
+    # keys of opponent_win_loss should be the team_id of their opponents
+    # values of opponent_win_loss should be an array with 1st element being wins, 2nd element being losses
+    opponent_win_loss = {}
+    #instantiating each key-value pair
+    team_games_opponents.values.uniq.each do |opponent_id|
+      opponent_win_loss[opponent_id] = [0,0]
+    end
+
+    @game_teams.each do |game|
+      if team_games_opponents.keys.include?(game[:game_id]) && team_games_opponents.values.include?(game[:team_id])
+        if game[:result] == "WIN"
+          opponent_win_loss[game[:team_id]][0] += 1
+        elsif game[:result] =="LOSS"
+          opponent_win_loss[game[:team_id]][1] += 1
+        end
+      end
+    end
+    opponent_win_loss
+  end
+
+  # Original method from Iteration 2
+  def favorite_opponent(team_id)
+    opponent_win_loss = opponent_win_loss(team_id)
+
+    favorite_opponent_id = opponent_win_loss.min_by{|opponent, win_loss| win_loss[0].to_f/win_loss[1]}[0]
+    favorite_opponent = @teams.find do |team|
+      team[:team_id] == favorite_opponent_id
+    end
+    favorite_opponent[:teamname]
+  end
+
+  
 end
