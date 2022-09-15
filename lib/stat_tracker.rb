@@ -249,12 +249,8 @@ class StatTracker
   end
 
   def winningest_coach(season) #mm
-    # select all games for desired season
-    szn_games = @games.select { |game| game[:season] == season.to_s }
-    # turn szn_games into an arry of just their game_ids
-    szn_game_ids = szn_games.map { |game| game[:game_id] }
-    # select game_teams results that have game_ids for specific szn
-    szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
+    szn = season.to_s[0..3]
+    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
     # the hash
     coaches_hash = Hash.new { |h,k| h[k] = [] }
     # group the coaches with their results
@@ -266,19 +262,16 @@ class StatTracker
       # for a given coach, divide wins(float) by total games and round to 3 decimal places
       coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
     end
+    # win_pct
     # find the best
     winningest = win_pct.max_by { |k,v| v }
-    # say my name
+    # return the name
     winningest.first
   end
 
   def worst_coach(season) # mm
-    # select all games for desired season
-    szn_games = @games.select { |game| game[:season] == season.to_s }
-    # turn szn_games into an arry of just their game_ids
-    szn_game_ids = szn_games.map { |game| game[:game_id] }
-    # grab the results of those game_ids
-    szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
+    szn = season.to_s[0..3]
+    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
     # a hash to be populated
     coaches_hash = Hash.new { |h,k| h[k] = [] }
     # group the coaches with their results arrays
