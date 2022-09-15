@@ -187,5 +187,22 @@ class StatTracker
     best_home = home_avg.max_by {|key,value| value}
     team_name(best_home[0].to_i)
   end
+  
+  def lowest_scoring_visitor
+    team_goals = Hash.new(0)
+    @game_teams.map do |row|
+      if row[:hoa] == 'away'
+        team_id = row[:team_id]
+        goals = row[:goals].to_f
+        team_goals[team_id] += goals
+      end
+    end
+    team_game = @game_teams.filter_map {|row| row[:team_id] if row[:hoa] == 'away'}.tally
+    nested_arr = team_game.values.zip(team_goals.values)
+    arr = nested_arr.map {|array| array[1] / array[0]}
+    away_avg = Hash[team_game.keys.zip(arr)]
+    best_away = away_avg.min_by {|key,value| value}
+    team_name(best_away[0].to_i)
+  end
 
 end
