@@ -37,8 +37,37 @@ RSpec.describe StatTracker do
     it '5. returns #highest_total_score' do
         expect(@stat_tracker.highest_total_score).to eq 11
       end
-    
+
     it '6. #lowest_total_score' do
         expect(@stat_tracker.lowest_total_score).to eq 0
+    end
+
+    it '13. returns count_of_teams'do
+       expect(@stat_tracker.count_of_teams).to eq 32
+
+    end
+
+    it '14. #best_offense returns the team with the best_offense' do
+       expect(@stat_tracker.best_offense).to be ""
+    end
+
+    xit '15. #worst_offense returns the team with the worst_offense' do
+       expect(@stat_tracker.worst_offense).to be ""
+    end
+
+    xit '16. #highest_scoring_visitor eturns the highest scoring visitor' do
+       expect(@stat_tracker.highest_scoring_visitor).to be""
+    end
+
+    xit '17. returns the highest_scoring_home_team' do
+       expect(@stat_tracker.highest_scoring_home_team).to be ""
+    end
+
+    xit '18. returns the lowest_scoring_visitor' do
+       expect(@stat_tracker.lowest_scoring_visitor).to be ""
+    end
+
+    xit '19. returns the lowest_scoring_home_team' do
+       expect(@stat_tracker.lowest_scoring_home_team).to be ""
     end
 end
