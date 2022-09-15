@@ -39,19 +39,19 @@ RSpec.describe StatTracker do
   end
 
   describe '#average_goals_per_game' do
-    xit 'returns the average number of goals scored in a game across all seasons' do
+    it 'returns the average number of goals scored in a game across all seasons' do
       expect(@stat_tracker.average_goals_per_game).to eq(3.78)
     end
   end
 
   describe '#percentage_home_wins' do
-    xit 'returns the percentage of the home team wins' do
+    it 'returns the percentage of the home team wins' do
       expect(@stat_tracker.percentage_home_wins).to eq(55.56)
     end
   end
 
   describe '#percentage_visitor_wins' do
-    xit 'returns the percentage of the visitor team wins' do
+    it 'returns the percentage of the visitor team wins' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(44.44)
     end
   end
@@ -114,20 +114,34 @@ RSpec.describe StatTracker do
   end
 
   describe '#average_win_percentage' do
-    xit 'calculates average win percentage of a single team' do
+    it 'calculates average win percentage of a single team' do
       expect(@stat_tracker.average_win_percentage(3)).to eq (0)
       expect(@stat_tracker.average_win_percentage(16)).to eq (42.86)
     end
   end
 
+  describe '#most_goals_scored' do
+    it 'can return highest number of goals a particular team has scored in a single game' do
+      allow(@stat_tracker).to receive(:most_goals_scored) { 4 }
+      expect(@stat_tracker.most_goals_scored(6)).to eq(4)
+    end
+  end
+
+  describe '#fewest_goals_scored' do
+    it 'can return lowest number of goals a particular team has scored in a single game' do
+      allow(@stat_tracker).to receive(:fewest_goals_scored) { 1 }
+      expect(@stat_tracker.fewest_goals_scored(6)).to eq(1)
+    end
+  end
+
   describe '#most_accurate_team' do
-    xit 'returns name of team with the best shots to goals ratio' do
+    it 'returns name of team with the best shots to goals ratio' do
       expect(@stat_tracker.most_accurate_team).to eq('FC Dallas')
     end
   end
 
   describe '#least_accurate_team' do
-    xit 'returns name of team with the worst shots to goals ratio' do
+    it 'returns name of team with the worst shots to goals ratio' do
       expect(@stat_tracker.least_accurate_team).to eq('Sporting Kansas City')
     end
   end

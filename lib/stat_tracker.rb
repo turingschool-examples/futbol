@@ -254,11 +254,11 @@ class StatTracker
     szn_games = @games.select { |game| game[:season] == season.to_s }
     # turn szn_games into an arry of just their game_ids
     szn_game_ids = szn_games.map { |game| game[:game_id] }
-    # grab an array from the game_teams dataset of the game results that have game_ids for specific szn
+    # grab the results of those game_ids
     szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
-    # the hash
+    # a hash to be populated
     coaches_hash = Hash.new { |h,k| h[k] = [] }
-    # group the coaches with their results
+    # group the coaches with their results arrays
     szn_game_results.group_by do |csv_row|
       coaches_hash[csv_row[:head_coach]] << csv_row[:result]
     end
@@ -266,17 +266,19 @@ class StatTracker
     win_pct = coaches_hash.each do |k,v|
       coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
     end
-    # find the best
-    winningest = win_pct.min_by { |k,v| v }
-    # say my name
-    winningest.first
+    # find the worst
+    worst = win_pct.min_by { |k,v| v }
+    # put him on blast
+    worst.first
   end
 
   def most_goals_scored(team_id)
-    
+    # find all games for team_id, turn them into the goals scored, grab the max, 2 eyes
+    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.max.to_i
   end
 
   def fewest_goals_scored(team_id)
-    # vvv kewl code goes hear
+    # find all games for team_id, turn them into the goals scored, grab the min, 2 eyes
+    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.min.to_i
   end
 end
