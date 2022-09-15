@@ -311,7 +311,18 @@ class StatTracker
     fewest_goals.min.to_i
   end
 
-
+  def favorite_opponent(team_id)
+    total_losses_hash = Hash.new(0)
+    @games.map do |row|
+      if row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]
+        total_losses_hash[row[:home_team_id]] += 1
+      elsif row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals]
+        total_losses_hash[row[:away_team_id]] += 1
+      end
+    end
+    total_games_played_against_team = Hash.new(0)
+    
+  end
 
 
 end

@@ -143,4 +143,9 @@ RSpec.describe StatTracker do
   it "#fewest_goals_scored" do
     expect(@stat_tracker.fewest_goals_scored('16')).to eq(0)
   end
+
+  it '#favorite_opponent' do
+    require 'pry';binding.pry
+    expect(@stat_tracker.favorite_opponent('16')).to be_a String
+  end
 end
