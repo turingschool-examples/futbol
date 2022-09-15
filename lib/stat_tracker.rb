@@ -95,7 +95,7 @@ class StatTracker
       end
     end
     average_goals
-
+  end
 
 
 
