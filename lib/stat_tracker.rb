@@ -326,7 +326,7 @@ class StatTracker
 
 
 
-
+  #method creates a hash with the season as the key and all games id for that season as values in string
   def season_all_game_id(season)
     season_games = {}
     @games_data.flat_map do |row|
