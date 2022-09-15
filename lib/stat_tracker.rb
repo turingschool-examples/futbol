@@ -49,7 +49,7 @@ class StatTracker
   def total_home_wins
     home_wins = 0
     @games.each do |row|
-      if row[:home_goals] >= row[:away_goals]
+      if row[:home_goals] > row[:away_goals]
         home_wins += 1
       end
     end
@@ -59,7 +59,7 @@ class StatTracker
   def total_home_losses
     home_losses = 0
     @games.each do |row|
-      if row[:away_goals] >= row[:home_goals]
+      if row[:away_goals] > row[:home_goals]
         home_losses += 1
       end
     end
@@ -187,7 +187,7 @@ class StatTracker
     best_home = home_avg.max_by {|key,value| value}
     team_name(best_home[0].to_i)
   end
-  
+
   def lowest_scoring_visitor
     team_goals = Hash.new(0)
     @game_teams.map do |row|
@@ -204,7 +204,7 @@ class StatTracker
     best_away = away_avg.min_by {|key,value| value}
     team_name(best_away[0].to_i)
   end
-  
+
   def lowest_scoring_home_team
     team_goals = Hash.new(0)
     @game_teams.map do |row|
@@ -221,5 +221,64 @@ class StatTracker
     best_home = home_avg.min_by {|key,value| value}
     team_name(best_home[0].to_i)
   end
+
+  def team_info(team_id)
+    team_hash = Hash.new
+    @teams.map do |row|
+      if row[:team_id] == team_id
+        team_hash["team_id"] = row[:team_id]
+        team_hash["franchise_id"] = row[:franchiseid]
+        team_hash["team_name"] = row[:teamname]
+        team_hash["abbreviation"] = row[:abbreviation]
+        team_hash["link"] = row[:link]
+      end
+    end
+    team_hash
+  end
+
+  def total_wins_per_season(team_id)
+    season_wins = Hash.new(0)
+    @games.map do |row|
+      if row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals]
+        season_wins[row[:season]] += 1
+      elsif row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]
+        season_wins[row[:season]] += 1
+      end
+    end
+    season_wins
+  end
+
+  def total_games_played_per_season(team_id)
+    season_tally = Hash.new(0)
+    @games.map do |row|
+      if row[:home_team_id] == team_id || row[:away_team_id] == team_id
+        season_tally[row[:season]] += 1
+      end
+    end
+    season_tally
+  end
+
+  def best_season(team_id)
+    season_wins = total_wins_per_season(team_id)
+    games_played = total_games_played_per_season(team_id)
+
+    nested_arr = season_wins.values.zip(games_played.values)
+    divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
+    percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
+    best = percentages_hash.max_by {|key,value| value}
+    best[0]
+  end
+
+  def worst_season(team_id)
+    season_wins = total_wins_per_season(team_id)
+    games_played = total_games_played_per_season(team_id)
+
+    nested_arr = season_wins.values.zip(games_played.values)
+    divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
+    percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
+    best = percentages_hash.min_by {|key,value| value}
+    best[0]
+  end
+
 
 end
