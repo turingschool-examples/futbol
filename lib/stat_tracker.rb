@@ -105,5 +105,14 @@ class StatTracker
     tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}.to_f.round(2)
     tie_total*100/total_number_of_games
   end
-end
 
+
+  def team_info(team)
+      {team_id: team.team_id,
+      franchise_id: team.franchise_id,
+      team_name: team.team_name,
+      abbreviation: team.abbreviation,
+      stadium: team.stadium,
+      link: team.link}
+  end
+end
