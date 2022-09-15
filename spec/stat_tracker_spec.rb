@@ -139,6 +139,24 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.count_of_games_by_season).to eq({"20112012" => 2, "20122013" => 6, "20132014" => 2})
   end
+
+  it "#. most_goals_scored" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.most_goals_scored("3")).to eq(2)
+  end
+
+  xit "#. fewest_goals_scored" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.fewest_goals_scored(team_id)).to eq()
+  end
 end
 
 
