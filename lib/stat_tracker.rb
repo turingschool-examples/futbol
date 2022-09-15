@@ -212,8 +212,6 @@ class StatTracker
     highest_scoring_team[:teamname]
   end
 
-  #-----------------------------------Season Statistics-----------------------------------
-
   # Helper method is used in most_accurate_team & least_accurate_team
   # Returns an array of all @game_teams rows from a given season
   # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
