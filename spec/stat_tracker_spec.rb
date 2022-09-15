@@ -195,6 +195,19 @@ RSpec.describe StatTracker do
     it "#fewest_goals_scored" do
       expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
     end
+    
+    it "#helper opponent_win_loss" do
+      #Could probably write better tests after mocks/stubs lesson
+      expect(@stat_tracker.opponent_win_loss("18")).to be_a(Hash)
+      expect(@stat_tracker.opponent_win_loss("18")["19"]).to be_a(Array)
+    end
 
+    it "#favorite_opponent" do
+      expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+    end
+
+    it "#rival" do
+      expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))  #why or LA Galaxy in the spec harness?
+    end
   end
 end
