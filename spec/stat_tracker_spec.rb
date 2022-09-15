@@ -101,43 +101,36 @@ RSpec.describe StatTracker do
 
   it "#. percentage_ties" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
-    games: './data/games_dummy_2.csv',
-    game_teams: './data/game_teams_dumdum.csv'
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.percentage_ties).to eq(10.00)
   end
 
-
-
-
-
-  xdescribe "#highest_scoring_visitor" do
-    it "will return the name of the team with the highest average score per game accross all seasons when they are away" do
-      dummy_filepath = {teams: "./data/team_dummy.csv",
-                        games: './data/games_dummy_2.csv',
-                        game_teams: './data/game_teams_dumdum.csv'
-                        }
-      stat_tracker = StatTracker.from_csv(dummy_filepath)
-
-    end
+  it "#. team_info" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.team_info("1")).to eq({team_id: "1",
+                                                   franchise_id: "23",
+                                                   team_name: "Atlanta United",
+                                                   abbreviation: "ATL",
+                                                   link: "/api/v1/teams/1"
+    })
   end
 
-
-  describe "#team_info" do
-    it "will return a hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link" do
-        dummy_filepath = {teams: "./data/team_dummy.csv",
-                          games: './data/games_dummy_2.csv',
-                          game_teams: './data/game_teams_dumdum.csv'
-                          }
-        stat_tracker = StatTracker.from_csv(dummy_filepath)
-        "1" = Team.new(stat_tracker.teams_reader[0])
-        expect(stat_tracker.team_info("1")).to eq({team_id: "1",
-                                                      franchise_id: "23",
-                                                      team_name: "Atlanta United",
-                                                      abbreviation: "ATL",
-                                                      stadium: "Mercedes-Benz Stadium",
-                                                      link: "/api/v1/teams/1"})
-    end
+  it "#. average_win_percentage" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.average_win_percentage("6")).to eq(100.00)
   end
 end
+
+
+#create test for team_finder
