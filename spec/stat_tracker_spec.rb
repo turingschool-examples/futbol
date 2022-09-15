@@ -33,26 +33,26 @@ RSpec.describe StatTracker do
 
 
   describe '#percentage_ties' do
-    xit 'returns the percent that the games have ended in a tie' do
-      expect(@stat_tracker.percentage_ties).to eq(5.88)
+    it 'returns the percent that the games have ended in a tie' do
+      expect(@stat_tracker.percentage_ties).to eq(0.06)
     end
   end
 
   describe '#average_goals_per_game' do
-    xit 'returns the average number of goals scored in a game across all seasons' do
-      expect(@stat_tracker.average_goals_per_game).to eq(3.78)
+    it 'returns the average number of goals scored in a game across all seasons' do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.9)
     end
   end
 
   describe '#percentage_home_wins' do
-    xit 'returns the percentage of the home team wins' do
-      expect(@stat_tracker.percentage_home_wins).to eq(55.56)
+    it 'returns the percentage of the home team wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(0.5)
     end
   end
 
   describe '#percentage_visitor_wins' do
-    xit 'returns the percentage of the visitor team wins' do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(44.44)
+    it 'returns the percentage of the visitor team wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.5)
     end
   end
 
@@ -107,12 +107,19 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_coach(20122013)).to be_a String
     end
   end
+  describe "#best_offense" do
+    it 'returns the name of the team with the highest goal average' do
+    expect(@stat_tracker.best_offense).to eq "Reign FC"
+    end
+  end
+
 
   describe '#percentage_home_wins' do
     xit 'finds the percetage of home wins' do
-
+      # cool code goes here
     end
   end
+
 
   describe '#average_win_percentage' do
     xit 'calculates average win percentage of a single team' do
@@ -150,6 +157,34 @@ RSpec.describe StatTracker do
   describe '#highest_scoring_visitor' do
     it 'returns the name of the team with the highest average score per game across all seasons when they are away' do
       expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
+    end
+  end
+
+  it "#most_tackles" do
+    expect(@stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
+    # expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
+
+  it "#fewest_tackles" do
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+    expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+  end
+
+  describe '#lowest_scoring_visitor' do
+    it 'returns the name of the team with the lowest average score per game across all seasons when they are away' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
+    end
+  end
+
+  describe '#highest_scoring_home_team' do
+    it 'returns the name of the team with the highest average score per game across all seasons when they are home' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq('FC Dallas')
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns the name of the team with the lowest average score per game across all seasons when they are home' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
 end
