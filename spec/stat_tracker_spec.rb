@@ -41,4 +41,9 @@ RSpec.describe StatTracker do
     it '6. #lowest_total_score' do
         expect(@stat_tracker.lowest_total_score).to eq 0
     end
+
+   it "#winningest_coach" do
+        expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+        expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+      end
 end
