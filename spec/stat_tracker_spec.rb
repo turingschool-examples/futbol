@@ -117,7 +117,7 @@ RSpec.describe StatTracker do
   describe '#average_win_percentage' do
     xit 'calculates average win percentage of a single team' do
       expect(@stat_tracker.average_win_percentage(3)).to eq (0)
-      expect(@stat_tracker.average_win_percentage(16)).to eq (42.86)
+      expect(@stat_tracker.average_win_percentage(16)).to eq (0.43)
     end
   end
 
@@ -136,14 +136,20 @@ RSpec.describe StatTracker do
   end
 
   describe '#most_accurate_team' do
-    xit 'returns name of team with the best shots to goals ratio' do
-      expect(@stat_tracker.most_accurate_team).to eq('FC Dallas')
+    it 'returns name of team with the best shots to goals ratio' do
+      expect(@stat_tracker.most_accurate_team('20122013')).to eq('FC Dallas')
     end
   end
 
   describe '#least_accurate_team' do
-    xit 'returns name of team with the worst shots to goals ratio' do
-      expect(@stat_tracker.least_accurate_team).to eq('Sporting Kansas City')
+    it 'returns name of team with the worst shots to goals ratio' do
+      expect(@stat_tracker.least_accurate_team('20122013')).to eq('Sporting Kansas City')
+    end
+  end
+
+  describe '#highest_scoring_visitor' do
+    it 'returns the name of the team with the highest average score per game across all seasons when they are away' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
     end
   end
 end

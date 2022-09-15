@@ -283,4 +283,26 @@ class StatTracker
     # find all games for team_id, turn them into the goals scored, grab the min, 2 eyes
     @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.min.to_i
   end
+
+  def highest_scoring_visitor
+    away_team_score = Hash.new(0)
+    away_team_count = Hash.new(0)
+    @games.map do |game| 
+      away_team_score[game[:away_team_id]] += game[:away_goals].to_i
+      away_team_count[game[:away_team_id]] += 1
+    end
+    away_score_average = away_team_score.map do |id, score|
+      {id => (score.to_f / away_team_count[id].to_f).round(2)}
+    end
+    away_score_hash = {}
+    away_score_average.each do |average|
+      away_score_hash[average.keys[0]] = average.values[0]
+    end
+    team_id_highest_average = away_score_hash.key(away_score_hash.values.max)
+
+    team_highest_average = @teams.find do |team|
+      team[:team_id] == team_id_highest_average
+    end
+    team_highest_average[:teamname]
+  end
 end
