@@ -139,6 +139,7 @@ class StatTracker
   end
 
   # Helper method is used in average_scores_for_all_visitors
+  # Recomend refactor as similar to method home_games_by_team_id & winning_as_coach
   def away_games_by_team_id
     away_games_list = @game_teams.find_all {|game| game[:hoa] == "away"}
     away_games_hash = Hash.new([])
