@@ -211,11 +211,17 @@ class StatTracker
       end
     end
 
-    x = team_goals.map do |team_id, goals_per_game|
-      hash = {}
-      hash[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
-      hash
+    team_average = Hash.new
+    team_goals.each do |team_id, goals_per_game|
+      team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
     end
-    require 'pry'; binding.pry
+    
+    highest_average = team_average.max_by{ |id, average| average }
+
+    @teams_data.each do |row|
+      if highest_average[0] == row[:team_id]
+        return row[:teamname]
+      end
+    end
   end
 end
