@@ -44,12 +44,21 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#percentage_home_wins' do
+    it 'returns the percentage of the home team wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(55.56)
+    end
+  end
 
+  describe '#percentage_visitor_wins' do
+    it 'returns the percentage of the visitor team wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(44.44)
+    end
+  end
 
   describe '#count_of_teams' do
     it 'counts all unique teams' do
       expect(@stat_tracker.count_of_teams).to eq(9)
-
     end
   end
 
@@ -121,6 +130,31 @@ RSpec.describe StatTracker do
       }
       require 'pry'; binding.pry
       expect(@stat_tracker.winningest_coach).to eq('someone')
+    end
+
+    describe '#percentage_home_wins' do
+      it 'finds the percetage of home wins' do
+
+      end
+    end
+  end
+
+  describe '#average_win_percentage' do 
+    it 'calculates average win percentage of a single team' do 
+      expect(@stat_tracker.average_win_percentage(3)).to eq (0)
+      expect(@stat_tracker.average_win_percentage(16)).to eq (42.86)
+    end
+  end
+
+  describe '#most_accurate_team' do 
+    it 'returns name of team with the best shots to goals ratio' do 
+      expect(@stat_tracker.most_accurate_team).to eq('FC Dallas')
+    end
+  end
+
+  describe '#least_accurate_team' do 
+    it 'returns name of team with the worst shots to goals ratio' do 
+      expect(@stat_tracker.least_accurate_team).to eq('Sporting Kansas City')
     end
   end
 end
