@@ -48,26 +48,26 @@ RSpec.describe StatTracker do
     end
 
     it '14. #best_offense returns the team with the best_offense' do
-       expect(@stat_tracker.best_offense).to be ""
+       expect(@stat_tracker.best_offense).to eq "Reign FC"
     end
 
-    xit '15. #worst_offense returns the team with the worst_offense' do
-       expect(@stat_tracker.worst_offense).to be ""
+    it '15. #worst_offense returns the team with the worst_offense' do
+       expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
     end
 
-    xit '16. #highest_scoring_visitor eturns the highest scoring visitor' do
-       expect(@stat_tracker.highest_scoring_visitor).to be""
+    it '16. #highest_scoring_visitor returns the highest scoring visitor' do
+       expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
     end
 
-    xit '17. returns the highest_scoring_home_team' do
-       expect(@stat_tracker.highest_scoring_home_team).to be ""
+    it '17. returns the highest_scoring_home_team' do
+       expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
     end
 
-    xit '18. returns the lowest_scoring_visitor' do
-       expect(@stat_tracker.lowest_scoring_visitor).to be ""
+    it '18. returns the lowest_scoring_visitor' do
+       expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
 
-    xit '19. returns the lowest_scoring_home_team' do
-       expect(@stat_tracker.lowest_scoring_home_team).to be ""
+    it '19. returns the lowest_scoring_home_team' do
+       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
 end
