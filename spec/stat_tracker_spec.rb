@@ -144,7 +144,10 @@ RSpec.describe StatTracker do
   end
 
   context "Season Statistics" do
-    
+    it "#helper season_game_teams" do
+      expect(@stat_tracker.season_game_teams("20132014")).to be_a(Array)
+      expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
+    end
 
     it "#most_accurate_team" do
       expect(@stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
