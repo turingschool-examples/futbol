@@ -301,5 +301,17 @@ class StatTracker
     most_goals.max.to_i
   end
 
+  def fewest_goals_scored(team_id)
+    fewest_goals = []
+    @game_teams.map do |row|
+      if row[:team_id] == team_id
+        fewest_goals << row[:goals]
+      end
+    end
+    fewest_goals.min.to_i
+  end
+
+
+
 
 end
