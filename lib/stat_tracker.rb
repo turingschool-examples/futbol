@@ -231,7 +231,7 @@ class StatTracker
     szn_games = @games.select { |game| game[:season] == season.to_s }
     # turn szn_games into an arry of just their game_ids
     szn_game_ids = szn_games.map { |game| game[:game_id] }
-    # grab an array from the game_teams dataset of the game results that have game_ids for specific szn
+    # select game_teams results that have game_ids for specific szn
     szn_game_results = @game_teams.select { |game| szn_game_ids.find(game[:game_id]) }
     # the hash
     coaches_hash = Hash.new { |h,k| h[k] = [] }
@@ -241,6 +241,7 @@ class StatTracker
     end
     # convert the values to winning percentages
     win_pct = coaches_hash.each do |k,v|
+      # for a given coach, divide wins(float) by total games and round to 3 decimal places
       coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
     end
     # find the best
