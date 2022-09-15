@@ -300,6 +300,39 @@ class StatTracker
     team_with_least_tackles[:teamname]
   end
 #------------------------------------Team Statistics------------------------------------
+  # Helper method is used in average_win_percentage & most_goals_scored & fewest_goals_scored
+  def games_by_team
+    @games_by_team_hash = Hash.new([])
+    @game_teams.each do |game|
+      @games_by_team_hash[game[:team_id]] += [game]
+    end
+    @games_by_team_hash
+  end
+
+  # Average win percentage of all games for a team
+  # Original method from Iteration 2
+  def average_win_percentage(team_id)
+    # binding.pry
+    games_to_check = @games_by_team_hash[team_id]
+    (games_to_check.count {|game| game[:result] == 'WIN'}.to_f / games_to_check.length.to_f).round(2)
+  end
+
+  # Highest number of goals a particular team has scored in a single game
+  # Original method from Iteration 2
+  def most_goals_scored(team_id)
+    games_to_check = @games_by_team_hash[team_id]
+    game_most_goals = games_to_check.max_by {|game| game[:goals].to_i}
+    game_most_goals[:goals].to_i
+  end
+
+  # Lowest numer of goals a particular team has scored in a single game
+  # Original method from Iteration 2
+  def fewest_goals_scored(team_id)
+    games_to_check = @games_by_team_hash[team_id]
+    game_least_goals = games_to_check.min_by {|game| game[:goals].to_i}
+    game_least_goals[:goals].to_i
+  end
+
   # Helper method is used in favorite_opponent & rival
   # Can be further refactored into more helper methods
   def opponent_win_loss(team_id)

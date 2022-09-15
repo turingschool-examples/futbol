@@ -180,6 +180,22 @@ RSpec.describe StatTracker do
   end
 
   context "Team Statistics" do
+    it "#helper games_by_team" do
+      expect(@stat_tracker.games_by_team.keys.length).to eq(@stat_tracker.teams[:team_id].length)
+    end
+
+    it "#average_win_percentage" do
+      expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+    end
+
+    it "#most_goals_scored" do
+      expect(@stat_tracker.most_goals_scored("18")).to eq 7
+    end
+
+    it "#fewest_goals_scored" do
+      expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+    
     it "#helper opponent_win_loss" do
       #Could probably write better tests after mocks/stubs lesson
       expect(@stat_tracker.opponent_win_loss("18")).to be_a(Hash)
