@@ -173,8 +173,38 @@ RSpec.describe StatTracker do
       @stat_tracker = StatTracker.from_csv(locations)
     end 
 
-    it "has get_team_ids which returns an array of all team ids" do 
-      expect(@stat_tracker.get_team_ids).to eq ["1", "4", "26", "14", "6", "3", "5", "17", "28"]
+    it "has a season_ids method which returns an array of all season_ids" do 
+      expect(@stat_tracker.season_ids).to eq ["20122013"]
+    end
+
+    it "has win_totals_by_season which returns a hash of team_ids => number of wins" do
+      expect(@stat_tracker.win_totals_by_season("20122013")).to eq({"3"=>0, "6"=>4})
+    end
+
+    it "has total_games_played_by_season which returns a hash of team_ids => total games played" do 
+      expect(@stat_tracker.total_games_played_by_season("20122013")).to eq({"3"=>5, "6"=>4})
+    end
+
+    it "has team_percentage_wins_by_season which takes a team_id and season_id and returns a percentage" do 
+      expect(@stat_tracker.team_percentage_wins_by_season("3", "20122013")).to eq 0.0
+      expect(@stat_tracker.team_percentage_wins_by_season("6", "20122013")).to eq 1.0
+    end
+
+    it "has team_percentage_wins_all_seasons which takes a team_id and returns a hash of season_ids => win percentage" do 
+      expect(@stat_tracker.team_percentage_wins_all_seasons("3")).to eq({"20122013"=>0.0})
+      expect(@stat_tracker.team_percentage_wins_all_seasons("6")).to eq({"20122013"=>1.0})
+    end
+
+    #these two tests need refactoring - we need better dummy files with multiple seasons
+    #didn't want to change now since we're all using the same files to write our tests
+    #but definitely should happen during iteration 3
+    
+    it "has best_season which takes a team_id and returns the season_id with highest win percentage" do 
+      expect(@stat_tracker.best_season("3")).to eq "20122013"
+    end
+
+    it "has best_season which takes a team_id and returns the season_id with lowestwin percentage" do 
+      expect(@stat_tracker.worst_season("3")).to eq "20122013"
     end
   end
 end
