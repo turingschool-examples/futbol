@@ -1,1 +1,1 @@
-gem 'simplecov', require: false, group: :testrso
+gem 'simplecov', require: false, group: :test
