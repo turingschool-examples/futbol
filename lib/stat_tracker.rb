@@ -105,4 +105,31 @@ class StatTracker
       return row[:teamname] if row[:team_id] == teamid
     end
   end 
+
+  def most_tackles(season)
+    tackle_records = Hash.new(0)
+    @game_teams_csv.each do |row|
+      if row[:game_id].start_with?(season[0..3])
+        tackle_records[row[:team_id]] += row[:tackles].to_i
+      end
+    end
+    teamid = tackle_records.max_by { |_, tackles| tackles }.first
+    @team_csv.each do |row|
+      return row[:teamname] if row[:team_id] == teamid
+    end
+  end
+
+  def fewest_tackles(season)
+    tackle_records = Hash.new(0)
+    @game_teams_csv.each do |row|
+      if row[:game_id].start_with?(season[0..3])
+        tackle_records[row[:team_id]] += row[:tackles].to_i
+      end
+    end
+    teamid = tackle_records.min_by { |_, tackles| tackles }.first
+    @team_csv.each do |row|
+      return row[:teamname] if row[:team_id] == teamid
+    end
+  end
+
 end
