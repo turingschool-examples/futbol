@@ -237,4 +237,20 @@ class StatTracker
     end
     most_accurate_team[:teamname]
   end
+
+  # Original method from Iteration 2
+  def least_accurate_team(season)
+    season_game_teams = season_game_teams(season)
+    shots_to_goals = Hash.new(0)
+    season_shots = Hash.new(0)
+    season_goals = Hash.new(0)
+    season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
+    season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
+    season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    least_accurate_team_id = (shots_to_goals.max_by {|team_id, ratio| ratio})[0]
+    least_accurate_team = @teams.find do |team|
+      team[:team_id] == least_accurate_team_id
+    end
+    least_accurate_team[:teamname]
+  end
 end
