@@ -56,7 +56,7 @@ RSpec.describe StatTracker do
       }
       expect(@stat_tracker.count_of_games_by_season).to eq expected
     end
-
+  end
 
 
 
