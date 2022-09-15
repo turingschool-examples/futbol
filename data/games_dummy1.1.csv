@@ -1,0 +1,8 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030314,20122013,Postseason,6/8/13,5,6,0,1,Toyota Stadium,/api/v1/venues/null
+2016030172,20162017,Postseason,4/16/17,20,24,7,3,Rio Tinto Stadium,/api/v1/venues/null
+2016030173,20162017,Postseason,4/18/17,24,20,3,2,BMO Field,/api/v1/venues/null
+2015030141,20152016,Postseason,4/14/16,3,5,2,3,Children's Mercy Park,/api/v1/venues/null
+2015030142,20152016,Postseason,4/16/16,3,5,2,2,Children's Mercy Park,/api/v1/venues/null
+2013030157,20132014,Postseason,5/1/14,30,21,0,2,BC Place,/api/v1/venues/null
