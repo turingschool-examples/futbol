@@ -202,12 +202,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
 
-    # it 'returns the team with highest average number of goals scored per game all seasons' do
-    #   expect(@stat_tracker.best_offense).to eq "Reign FC"
-    # end
+    it 'returns the team with highest average number of goals scored per game all seasons' do
+      expect(@stat_tracker.best_offense).to eq "Reign FC"
+    end
 
-    # it 'returns the worst offense' do
-    #   expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
-    # end
+    xit 'returns the worst offense' do
+      expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+    end
   end
 end
