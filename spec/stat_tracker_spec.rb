@@ -61,12 +61,12 @@ RSpec.describe StatTracker do
 
     it "#count_of_games_by_season" do
     expected = {
-      "20122013"=>806,
-      "20162017"=>1317,
-      "20142015"=>1319,
-      "20152016"=>1321,
-      "20132014"=>1323,
-      "20172018"=>1355
+        "20122013"=>806,
+        "20162017"=>1317,
+        "20142015"=>1319,
+        "20152016"=>1321,
+        "20132014"=>1323,
+        "20172018"=>1355
       }
       expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
@@ -144,6 +144,21 @@ RSpec.describe StatTracker do
   end
 
   context "Season Statistics" do
+    it "#helper season_game_teams" do
+      expect(@stat_tracker.season_game_teams("20132014")).to be_a(Array)
+      expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
+    end
+
+    it "#most_accurate_team" do
+      expect(@stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq("Toronto FC")
+    end
+
+    it "#least_accurate_team" do
+      expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
+    
     xit "#helper games_by_season" do
       binding.pry
       expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)

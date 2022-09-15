@@ -17,6 +17,7 @@ class StatTracker
   end
 
 #------------------------------------Game Statistics------------------------------------
+
    # Origional method from Iteration 2
   def highest_total_score
     highest_scoring_game = @games.max_by do |game|
@@ -211,7 +212,52 @@ class StatTracker
     end
     highest_scoring_team[:teamname]
   end
+
 #-----------------------------------Season Statistics-----------------------------------
+  
+  # Helper method is used in most_accurate_team & least_accurate_team
+  # Returns an array of all @game_teams rows from a given season
+  # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
+  # First commented out line returns an array of all @games rows from a given season
+  def season_game_teams(season)
+    # season_games = @games.find_all{|row| row[:season] == season}
+    # season_game_ids = season_games.map {|row| row[:game_id]}
+    # season_game_teams = @game_teams.find_all {|row| season_game_ids.include?(row[:game_id])}
+    season_game_teams = @game_teams.find_all {|row| row[:game_id].start_with?(season[0..3])}
+  end
+
+  # Original method from Iteration 2
+  def most_accurate_team(season)
+    season_game_teams = season_game_teams(season)
+    shots_to_goals = Hash.new(0)
+    season_shots = Hash.new(0)
+    season_goals = Hash.new(0)
+    season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
+    season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
+    season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    most_accurate_team_id = (shots_to_goals.min_by {|team_id, ratio| ratio})[0]
+    most_accurate_team = @teams.find do |team|
+      team[:team_id] == most_accurate_team_id
+    end
+    most_accurate_team[:teamname]
+  end
+  
+  # Original method from Iteration 2
+  def least_accurate_team(season)
+    season_game_teams = season_game_teams(season)
+    shots_to_goals = Hash.new(0)
+    season_shots = Hash.new(0)
+    season_goals = Hash.new(0)
+    season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
+    season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
+    season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    least_accurate_team_id = (shots_to_goals.max_by {|team_id, ratio| ratio})[0]
+    least_accurate_team = @teams.find do |team|
+      team[:team_id] == least_accurate_team_id
+    end
+    least_accurate_team[:teamname]
+  end
+  
   # Helper method is used in tackles_by_team
   def games_by_season
     @games_by_season_hash = Hash.new([])
@@ -252,4 +298,5 @@ class StatTracker
     team_with_least_tackles[:teamname]
   end
 #------------------------------------Team Statistics------------------------------------
+
 end
