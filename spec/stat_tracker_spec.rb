@@ -108,4 +108,66 @@ RSpec.describe StatTracker do
     expect(stat_tracker1.worst_offense).to eq('Orlando City SC')
   end
   
+  it "#highest_scoring_home_team returns name of the team with the highest
+  average score per game across all seasons when they are home." do
+  dummy_filepath = {teams: "./data/teams.csv",
+    games: './data/games_dummy1.2.csv',
+    game_teams: './data/game_teams.csv'
+    
+  }
+  stat_tracker1 = StatTracker.from_csv(dummy_filepath)
+  
+  expect(stat_tracker1.highest_scoring_home_team).to eq('Real Salt Lake')
+  end
+  
+  it "#lowest_scoring_home_team returns name of the team with the lowest
+  average score per game across all seasons when they are home." do
+  dummy_filepath = {teams: "./data/teams.csv",
+    games: './data/games_dummy1.2.csv',
+    game_teams: './data/game_teams.csv'
+    
+  }
+  stat_tracker1 = StatTracker.from_csv(dummy_filepath)
+  
+  expect(stat_tracker1.lowest_scoring_home_team).to eq('Toronto FC')
+  end
+  
+  it "#total_goals_by_team_by_at returns hash with each team as a key
+  and total goals for the argument passed as values" do
+  dummy_filepath = {teams: "./data/teams.csv",
+    games: './data/games_dummy1.2.csv',
+    game_teams: './data/game_teams.csv'
+    
+  }
+  stat_tracker1 = StatTracker.from_csv(dummy_filepath)
+  
+  home = {'6' => 4.0, '24' => 3.0, '20' => 0.0, '5' => 5.0, '21' => 2.0}
+  expect(stat_tracker1.total_goals_by_team_by_at(:home_team_id)).to eq(home)
+  
+  away = {'3' => 6.0, '5' => 0.0, '20' => 7.0, '24' => 3.0, '30' => 1.0}
+  expect(stat_tracker1.total_goals_by_team_by_at(:away_team_id)).to eq(away)
+  
+  end
+  
+  it "#highest_scoring_visitor returns name of the team with the highest
+  average score per game across all seasons when they are away." do
+  dummy_filepath = {teams: "./data/teams.csv",
+    games: './data/games_dummy1.2.csv',
+    game_teams: './data/game_teams.csv'
+    
+  }
+  stat_tracker1 = StatTracker.from_csv(dummy_filepath)
+  expect(stat_tracker1.highest_scoring_visitor).to eq('Toronto FC')
+  end
+  
+  it "#lowest_scoring_visitor returns name of the team with the lowest
+  average score per game across all seasons when they are away." do
+  dummy_filepath = {teams: "./data/teams.csv",
+    games: './data/games_dummy1.2.csv',
+    game_teams: './data/game_teams.csv'
+    
+  }
+  stat_tracker1 = StatTracker.from_csv(dummy_filepath)
+  expect(stat_tracker1.lowest_scoring_visitor).to eq('Sporting Kansas City')
+  end
 end
