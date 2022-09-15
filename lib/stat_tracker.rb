@@ -15,7 +15,7 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-  
+
 #-----------------------------------Game Statistics-----------------------------------
    # Origional method from Iteration 2
   def highest_total_score
@@ -74,7 +74,7 @@ class StatTracker
     end
     (ties.to_f / @games.count).round(2)
   end
-  
+
   # Origional method from Iteration 2
   def count_of_games_by_season
     games[:season].tally
@@ -210,5 +210,31 @@ class StatTracker
       team[:team_id].to_i == @home_hash.key(@home_hash.values.min)
     end
     highest_scoring_team[:teamname]
+  end
+
+  # Helper method is used to return an array of all @game_teams rows from a given season
+  # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
+  # First line returns an array of all @games rows from a given season
+  def season_game_teams(season)
+    # season_games = @games.find_all{|row| row[:season] == season}
+    # season_game_ids = season_games.map {|row| row[:game_id]}
+    # season_game_teams = @game_teams.find_all {|row| season_game_ids.include?(row[:game_id])}
+    season_game_teams = @game_teams.find_all {|row| row[:game_id].start_with?(season[0..3])}
+  end
+
+  # Original method from Iteration 2
+  def most_accurate_team(season)
+    season_game_teams = season_game_teams(season)
+    shots_to_goals = Hash.new(0)
+    season_shots = Hash.new(0)
+    season_goals = Hash.new(0)
+    season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
+    season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
+    season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    most_accurate_team_id = (shots_to_goals.min_by {|team_id, ratio| ratio})[0]
+    most_accurate_team = @teams.find do |team|
+      team[:team_id] == most_accurate_team_id
+    end
+    most_accurate_team[:teamname]
   end
 end
