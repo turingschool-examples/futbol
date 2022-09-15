@@ -107,12 +107,12 @@ class StatTracker
   end
 
 
-  def team_info(team)
-      {team_id: team.team_id,
-      franchise_id: team.franchise_id,
-      team_name: team.team_name,
-      abbreviation: team.abbreviation,
-      stadium: team.stadium,
-      link: team.link}
+  def team_info(team_id)
+      {team_id: team_id.team_id,
+      franchise_id: team_id.franchise_id,
+      team_name: team_id.team_name,
+      abbreviation: team_id.abbreviation,
+      stadium: team_id.stadium,
+      link: team_id.link}
   end
 end

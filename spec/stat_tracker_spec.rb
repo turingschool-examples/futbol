@@ -131,8 +131,8 @@ RSpec.describe StatTracker do
                           game_teams: './data/game_teams_dumdum.csv'
                           }
         stat_tracker = StatTracker.from_csv(dummy_filepath)
-        atlanta = Team.new(stat_tracker.teams_reader[0])
-        expect(stat_tracker.team_info(atlanta)).to eq({team_id: "1",
+        "1" = Team.new(stat_tracker.teams_reader[0])
+        expect(stat_tracker.team_info("1")).to eq({team_id: "1",
                                                       franchise_id: "23",
                                                       team_name: "Atlanta United",
                                                       abbreviation: "ATL",
