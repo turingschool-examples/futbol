@@ -21,11 +21,7 @@ class StatTracker
   end
 
   def count_of_teams
-   counter = 0
-   @teams_reader.each do |row|
-    counter += 1
-   end
-   counter
+   @teams_reader.length
   end
 
 
@@ -73,37 +69,41 @@ class StatTracker
 
 
 
-  def total_goals
+  def unique_total_goals
     goal_totals = []
       @games_reader.each do |row|
-        goal_totals << row[:away_goals].to_i + row[:home_goals].to_i
+        if goal_totals.include?(row[:away_goals].to_i + row[:home_goals].to_i) == false
+          goal_totals << row[:away_goals].to_i + row[:home_goals].to_i
+        end
       end
     goal_totals
   end
 
   def highest_total_score
-    total_goals.sort.last
+    unique_total_goals.max
   end
 
   def lowest_total_score
-    total_goals.sort.first
+    unique_total_goals.min
   end
 
   def total_number_of_games
-    count = 0
-    @games_reader.each do |row|
-      count += 1
-    end
-    count
+    @games_reader.length
   end
 
   def percentage_home_wins
+   home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}.to_f.round(2)
+   home_win_total*100/total_number_of_games
   end
 
   def percentage_visitor_wins
+    home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}.to_f.round(2)
+    home_visitor_total*100/total_number_of_games
   end
 
   def percentage_ties
+    tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}.to_f.round(2)
+    tie_total*100/total_number_of_games
   end
 end
 

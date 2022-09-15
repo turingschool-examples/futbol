@@ -19,8 +19,8 @@ RSpec.describe StatTracker do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games.csv',
                       game_teams: './data/game_teams.csv'
-    
     }
+
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.teams_reader[0][:team_id]).to eq("1")
     expect(stat_tracker.teams_reader[0][:franchiseid]).to eq("23")
@@ -28,20 +28,26 @@ RSpec.describe StatTracker do
   end
 
   it "4. #count_of_teams" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+    games: './data/games_dummy_2.csv',
+    game_teams: './data/game_teams.csv'
+    }
 
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.count_of_teams).to eq(5)
   end
 
-  it "#. calculates total goals in a game across all games" do
+  it "#. calculates without duplicates total goals in a game across all games" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games_dummy_2.csv',
                       game_teams: './data/game_teams.csv'
-    
     }
-    stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.total_goals).to be_a(Array)
-    #we'll test the third element, which should have 1 home goal and 2 away goals
-    expect(stat_tracker.total_goals[2]).to eq(3)
 
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.unique_total_goals).to be_a(Array)
+    #we'll test the third element, which should have 1 home goal and 2 away goals
+    expect(stat_tracker.unique_total_goals[2]).to eq(4)
+    expect(stat_tracker.unique_total_goals.length).to eq(4)
   end
 
 
@@ -76,14 +82,29 @@ RSpec.describe StatTracker do
   end 
 
   it "#. percentage_home_wins" do
-    expect(stat_tracker.percentage_home_wins).to eq(30.0)
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.percentage_home_wins).to eq(30.00)
   end
 
   it "#. percentage_visitor_wins" do
-    expect(stat_tracker.percentage_home_wins).to eq(20.0)
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.percentage_visitor_wins).to eq(20.00)
   end
 
   it "#. percentage_ties" do
-    expect(stat_tracker.percentage_ties).to eq(10.0)
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+    games: './data/games_dummy_2.csv',
+    game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.percentage_ties).to eq(10.00)
   end
 end
