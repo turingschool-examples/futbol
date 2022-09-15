@@ -34,25 +34,25 @@ RSpec.describe StatTracker do
 
   describe '#percentage_ties' do
     it 'returns the percent that the games have ended in a tie' do
-      expect(@stat_tracker.percentage_ties).to eq(5.88)
+      expect(@stat_tracker.percentage_ties).to eq(0.06)
     end
   end
 
   describe '#average_goals_per_game' do
     it 'returns the average number of goals scored in a game across all seasons' do
-      expect(@stat_tracker.average_goals_per_game).to eq(3.78)
+      expect(@stat_tracker.average_goals_per_game).to eq(3.9)
     end
   end
 
   describe '#percentage_home_wins' do
     it 'returns the percentage of the home team wins' do
-      expect(@stat_tracker.percentage_home_wins).to eq(55.56)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.5)
     end
   end
 
   describe '#percentage_visitor_wins' do
     it 'returns the percentage of the visitor team wins' do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(44.44)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.5)
     end
   end
 
@@ -117,6 +117,24 @@ RSpec.describe StatTracker do
   describe '#highest_scoring_visitor' do
     it 'returns the name of the team with the highest average score per game across all seasons when they are away' do
       expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do
+    it 'returns the name of the team with the lowest average score per game across all seasons when they are away' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
+    end
+  end
+
+  describe '#highest_scoring_home_team' do
+    it 'returns the name of the team with the highest average score per game across all seasons when they are home' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq('FC Dallas')
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns the name of the team with the lowest average score per game across all seasons when they are home' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
 end
