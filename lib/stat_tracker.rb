@@ -392,4 +392,16 @@ class StatTracker
     end
     team_lowest_average[:teamname]
   end
+
+  def team_info(id)
+  info = {}
+  team = @teams.find { |team_row| team_row[:team_id] == id}
+  info['team_id'] = team[:team_id]
+  info['franchise_id'] = team[:franchiseid]
+  info['team_name'] = team[:teamname]
+  info['abbreviation'] = team[:abbreviation]
+  info['link'] = team[:link]
+  info
+  # require 'pry'; binding.pry
+  end
 end
