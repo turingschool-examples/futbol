@@ -96,4 +96,83 @@ class StatTracker
 
   end
 
+  def team_info(id)
+    team_hash = Hash.new(0)
+
+    @team_csv.each { |row| 
+      if row[:team_id] == id
+        team_hash['team_id'] = row[:team_id]
+        team_hash['franchise_id'] = row[:franchiseid]
+        team_hash['team_name'] = row[:teamname]
+        team_hash['abbreviation'] = row[:abbreviation]
+        team_hash['link'] = row[:link]
+      end
+    }
+    
+    return team_hash
+  end
+
+  def best_season(id)
+    team_seasons = Hash.new(0)
+    @game_teams_csv.each do |row| 
+      if row[:team_id] == id
+        if row[:result] == "WIN"
+          season = @game_csv.find { |game| game[:game_id] == row[:game_id] }
+          team_seasons[season[:season]] += 1
+        end
+      end
+    end
+    team_seasons.key(team_seasons.values.max)
+  end
+
+  def worst_season(id)
+    team_seasons = Hash.new(0)
+    @game_teams_csv.each do |row| 
+      if row[:team_id] == id
+        if row[:result] == "WIN" 
+          season = @game_csv.find { |game| game[:game_id] == row[:game_id] }
+          team_seasons[season[:season]] += 1
+        end
+      end
+    end
+    team_seasons.key(team_seasons.values.min)
+  end
+
+  def average_win_percentage(id)
+    total_games = 0
+    total_wins = 0 
+    
+    @game_teams_csv.each do |row|
+      if row[:team_id] == id 
+        total_wins += 1 if row[:result] == "WIN"
+        total_games += 1
+      end
+    end
+    
+    return (total_wins.to_f / total_games.to_f).round(2)
+  end
+
+  def most_goals_scored(id)
+    highest_score = 0 
+    @game_teams_csv.each do |row|
+      if row[:team_id] == id 
+        highest_score = row[:goals].to_i if row[:goals].to_i > highest_score
+      end
+    end
+    return highest_score
+  end
+
+  def fewest_goals_scored(id)
+    lowest_score = self.most_goals_scored(id)
+    @game_teams_csv.each do |row|
+      if row[:team_id] == id 
+        lowest_score = row[:goals].to_i if row[:goals].to_i < lowest_score
+      end
+    end
+    return lowest_score
+  end
+
+  def favorite_opponent(id)
+    
+  end
 end

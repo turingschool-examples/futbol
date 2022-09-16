@@ -18,43 +18,43 @@ RSpec.describe StatTracker do
 
     end
 
-    it '1. exists' do
+    xit '1. exists' do
         expect(@stat_tracker).to be_an_instance_of(StatTracker)
     end
 
-    it '2. knows CSV locations' do
+    xit '2. knows CSV locations' do
         expect(@stat_tracker.game_path).to eq('./data/games.csv')
     end
 
-    it '3. can read the CSV files' do
+    xit '3. can read the CSV files' do
         expect(@stat_tracker.list_team_ids.length).to eq(32)
     end
 
-    it '4. can return team name from id' do
+    xit '4. can return team name from id' do
         expect(@stat_tracker.list_team_names_by_id(13)).to eq("Houston Dash")
     end
 
-    it '5. returns #highest_total_score' do
+    xit '5. returns #highest_total_score' do
         expect(@stat_tracker.highest_total_score).to eq 11
       end
 
-    it '6. #lowest_total_score' do
+    xit '6. #lowest_total_score' do
         expect(@stat_tracker.lowest_total_score).to eq 0
     end
 
-    it "#percentage_home_wins" do
+    xit "#percentage_home_wins" do
         expect(@stat_tracker.percentage_home_wins).to eq 0.44
       end
 
-      it "#percentage_visitor_wins" do
+      xit "#percentage_visitor_wins" do
         expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
       end
 
-      it "#percentage_ties" do
+      xit "#percentage_ties" do
         expect(@stat_tracker.percentage_ties).to eq 0.20
       end
 
-      it "#count_of_games_by_season" do
+      xit "#count_of_games_by_season" do
         expected = {
           "20122013"=>806,
           "20162017"=>1317,
@@ -66,11 +66,11 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.count_of_games_by_season).to eq expected
       end
 
-      it "#average_goals_per_game" do
+      xit "#average_goals_per_game" do
         expect(@stat_tracker.average_goals_per_game).to eq 4.22
       end
 
-     it "#average_goals_by_season" do
+     xit "#average_goals_by_season" do
         expected = {
           "20122013"=>4.12,
           "20162017"=>4.23,
@@ -80,5 +80,41 @@ RSpec.describe StatTracker do
           "20172018"=>4.44
         }
         expect(@stat_tracker.average_goals_by_season).to eq expected
+      end
+
+      xit "#team_info" do
+        expected = {
+          "team_id" => "18",
+          "franchise_id" => "34",
+          "team_name" => "Minnesota United FC",
+          "abbreviation" => "MIN",
+          "link" => "/api/v1/teams/18"
+        }
+    
+        expect(@stat_tracker.team_info("18")).to eq expected
+      end
+
+      xit "#best_season" do
+        expect(@stat_tracker.best_season("6")).to eq "20132014"
+      end    
+
+      xit "#worst_season" do
+        expect(@stat_tracker.worst_season("6")).to eq "20142015"
+      end    
+
+      xit "#average_win_percentage" do
+        expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+      end
+
+      xit "#most_goals_scored" do
+        expect(@stat_tracker.most_goals_scored("18")).to eq 7
+      end
+
+      xit "#fewest_goals_scored" do
+        expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
+      end
+
+      it "#favorite_opponent" do
+        expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
       end
 end
