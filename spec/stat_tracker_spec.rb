@@ -78,7 +78,7 @@ RSpec.describe StatTracker do
   describe '#average_goals_by_season' do
     it 'tabulates average goals by season' do
 
-      expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.78, '20132014' => 3.9})
+      expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.78, "20132014"=>5.0})
 
     end
   end
@@ -98,8 +98,8 @@ RSpec.describe StatTracker do
   end
 
   describe '#winningest_coach' do
-    xit 'can return Name of the Coach with the best win percentage for the season' do
-      expect(@stat_tracker.winningest_coach(20122013)).to be_a String
+    it 'can return Name of the Coach with the best win percentage for the season' do
+      expect(@stat_tracker.winningest_coach(20122013)).to eq("Claude Julien")
     end
   end
   describe '#worst_coach' do
@@ -108,7 +108,7 @@ RSpec.describe StatTracker do
     end
   end
   describe "#best_offense" do
-    it 'returns the name of the team with the highest goal average' do
+  xit 'returns the name of the team with the highest goal average' do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
     end
   end
