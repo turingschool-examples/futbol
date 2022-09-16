@@ -20,13 +20,13 @@ RSpec.describe StatTracker do
   end
 
   describe '#highest_total_score' do
-    it 'returns highest total score of all games' do
+    xit 'returns highest total score of all games' do
       expect(@stat_tracker.highest_total_score).to eq(5)
     end
   end
 
   describe '#lowest_total_score' do
-    it 'returns lowest total score of all games' do
+    xit 'returns lowest total score of all games' do
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
   end
@@ -57,60 +57,99 @@ RSpec.describe StatTracker do
   end
 
   describe '#count_of_teams' do
-    it 'counts all unique teams' do
+    xit 'counts all unique teams' do
       expect(@stat_tracker.count_of_teams).to eq(9)
     end
   end
 
   describe '#return_column' do
-    it 'is an integer' do
+    xit 'is an integer' do
       # allow(fake_data).to receive(:)
       # return_column(fake_data, header)
     end
   end
 
   describe 'count_of_games_by_season' do
-    it 'counts games by season' do
+    xit 'counts games by season' do
       expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014" => 1})
     end
   end
 
   describe '#average_goals_by_season' do
     it 'tabulates average goals by season' do
-      # require 'pry'; binding.pry
+
       expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.78, '20132014' => 3.9})
+
     end
   end
 
+  describe '#best_offense'  do
+    xit 'can return Name of the team with the highest avg # of goals/game scored across all seasons' do
+      # require 'pry'; binding.pry
+      expect(@stat_tracker.best_offense).to be_a String
+    end
+  end
+
+  describe '#worst_offense' do
+    xit 'can return Name of the team with the lowest avg # of goals/game scored across all seasons' do
+      # require 'pry'; binding.pry
+      expect(@stat_tracker.worst_offense).to be_a String
+    end
+  end
+
+  describe '#winningest_coach' do
+    xit 'can return Name of the Coach with the best win percentage for the season' do
+      expect(@stat_tracker.winningest_coach(20122013)).to be_a String
+    end
+  end
+  describe '#worst_coach' do
+    xit 'can return Name of the Coach with the best win percentage for the season' do
+      expect(@stat_tracker.worst_coach(20122013)).to be_a String
+    end
+  end
   describe "#best_offense" do
     it 'returns the name of the team with the highest goal average' do
     expect(@stat_tracker.best_offense).to eq "Reign FC"
     end
   end
-  
 
-    describe '#percentage_home_wins' do
-      it 'finds the percetage of home wins' do
 
-      end
+  describe '#percentage_home_wins' do
+    xit 'finds the percetage of home wins' do
+      # cool code goes here
     end
-  
+  end
 
-  describe '#average_win_percentage' do 
-    it 'calculates average win percentage of a single team' do 
+
+  describe '#average_win_percentage' do
+    xit 'calculates average win percentage of a single team' do
       expect(@stat_tracker.average_win_percentage(3)).to eq (0)
       expect(@stat_tracker.average_win_percentage(16)).to eq (0.43)
     end
   end
 
-  describe '#most_accurate_team' do 
-    it 'returns name of team with the best shots to goals ratio' do 
+  describe '#most_goals_scored' do
+    xit 'can return highest number of goals a particular team has scored in a single game' do
+      allow(@stat_tracker).to receive(:most_goals_scored) { 4 }
+      expect(@stat_tracker.most_goals_scored(6)).to eq(4)
+    end
+  end
+
+  describe '#fewest_goals_scored' do
+    xit 'can return lowest number of goals a particular team has scored in a single game' do
+      allow(@stat_tracker).to receive(:fewest_goals_scored) { 1 }
+      expect(@stat_tracker.fewest_goals_scored(6)).to eq(1)
+    end
+  end
+
+  describe '#most_accurate_team' do
+    it 'returns name of team with the best shots to goals ratio' do
       expect(@stat_tracker.most_accurate_team('20122013')).to eq('FC Dallas')
     end
   end
 
-  describe '#least_accurate_team' do 
-    it 'returns name of team with the worst shots to goals ratio' do 
+  describe '#least_accurate_team' do
+    it 'returns name of team with the worst shots to goals ratio' do
       expect(@stat_tracker.least_accurate_team('20122013')).to eq('Sporting Kansas City')
     end
   end
@@ -120,7 +159,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
     end
   end
-  
+
   it "#most_tackles" do
     expect(@stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
     # expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
@@ -155,3 +194,4 @@ RSpec.describe StatTracker do
     end
   end
 end
+
