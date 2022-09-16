@@ -350,6 +350,61 @@ class StatTracker
     # lost_most = percentages_hash.min_by {|key,value| value}
     # fav_oppt = team_name(lost_most[0].to_i)
   end
+  
+  def total_goals
+    total_goals = Hash.new(0)
+    @game_teams.each do |row|
+      if !total_goals.key?(row[:team_id])
+        total_goals[row[:team_id]] = row[:goals].to_f
+      else
+        team_id = row[:team_id]
+        goals = row[:goals].to_f
+        total_goals[team_id] += goals
+      end
+    end
+    total_goals
+  end
+
+  def total_shots
+    total_shots = Hash.new(0)
+    @game_teams.each do |row|
+      if !total_shots.key?(row[:team_id])
+        total_shots[row[:team_id]] = row[:shots].to_f
+      else
+        team_id = row[:team_id]
+        shots = row[:shots].to_f
+        total_shots[team_id] += shots
+      end
+    end
+    total_shots
+  end
+  
+  def shot_accuracy
+    shot_accuracy = Hash.new(0)
+    self.total_goals.each do |team|
+      key = team.first
+      shot_accuracy[key] = (team.last / self.total_shots[key]).round(2)
+    end
+    shot_accuracy
+  end
+  
+  def most_accurate_team
+    accuracy = []
+    self.shot_accuracy.each do |team|
+      accuracy << team.last
+    end
+    # require 'pry';binding.pry
+    team_name(self.shot_accuracy.key(accuracy.max).to_i)
+  end
+  
+  def least_accurate_team
+    accuracy = []
+    self.shot_accuracy.each do |team|
+      accuracy << team.last
+    end
+    # require 'pry';binding.pry
+    team_name(self.shot_accuracy.key(accuracy.min).to_i)
+  end
 
 
 end

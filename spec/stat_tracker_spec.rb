@@ -147,4 +147,40 @@ RSpec.describe StatTracker do
   # it '#favorite_opponent' do
   #   expect(@stat_tracker.favorite_opponent('6')).to eq("Houston Dynamo")
   # end
+  it '#total_goals' do
+    expect(@stat_tracker.total_goals).to be_a(Hash)
+  end
+  
+  it '#total_shots' do
+    expect(@stat_tracker.total_shots).to be_a(Hash)
+  end
+  
+  it '#shot_accuracy' do
+    
+    expect(@stat_tracker.shot_accuracy).to be_a(Hash)
+  end
+  
+  it '#most_accurate_team' do
+    
+    expect(@stat_tracker.most_accurate_team).to eq('FC Cincinnati')
+  end
+  
+  it '#least_accurate_team' do
+    
+    expect(@stat_tracker.least_accurate_team).to eq('New England Revolution')
+  end
+
+
+  # it '#shot_accuracy' do
+  # 
+  # end
+  # 
+  # it '#most_accurate_team' do
+  #   require'pry';binding.pry
+  #   expect(@stat_tracker.most_accurate_team).to eq('LA Galaxy') #dummy data
+  # end
+  
+  # it '#least_accurate_team' do
+  #   expect(@stat_tracker.least_accurate_team).to eq('New England Revolution') #dummy data
+  # end
 end
