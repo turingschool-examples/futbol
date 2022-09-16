@@ -222,6 +222,8 @@ class StatTracker
     team_name(best_home[0].to_i)
   end
 
+
+
   def team_info(team_id)
     team_hash = Hash.new
     @teams.map do |row|
@@ -351,5 +353,16 @@ class StatTracker
     # fav_oppt = team_name(lost_most[0].to_i)
   end
 
-
+  def most_tackles(season)
+    highest_tackles = 0
+    team_with_highest_tackles = nil
+    @game_teams.map do |row|
+      if row[:tackles].to_i > highest_tackles && row[:game_id][0..3] == season[0..3]
+        highest_tackles = row[:tackles].to_i
+        team_with_highest_tackles = row[:team_id]
+      end
+    end 
+    # require 'pry'; binding.pry
+    return team_name(team_with_highest_tackles.to_i)
+  end 
 end
