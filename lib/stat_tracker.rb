@@ -26,8 +26,8 @@ class StatTracker
    end
    counter
   end
-  
-  # Method to return the average number of goals scored in a game across all 
+
+  # Method to return the average number of goals scored in a game across all
   # seasons including both home and away goals (rounded to the nearest 100th)
   def average_goals_per_game
     total_goals = 0
@@ -37,8 +37,8 @@ class StatTracker
     end
     (total_goals / @games_reader.count).round(2)
   end
-  
-  # Method to return the average number of goals scored in a game organized in 
+
+  # Method to return the average number of goals scored in a game organized in
   # a hash with season names as keys and a float representing the average number
   # of goals in a game for that season as values (rounded to the nearest 100th)
   def average_goals_by_season
@@ -51,7 +51,7 @@ class StatTracker
       (total_goals / ((@games_reader[:season].find_all {|element| element == season}).count)).round(2)
     end
   end
-  
+
   # Method to return name of the team with the highest average number of goals
   # scored per game across all seasons.
   def best_offense
@@ -62,7 +62,7 @@ class StatTracker
     end
     team_name_from_id(teams_hash.key(teams_hash.values.max))
   end
-  
+
   # Helper method to return a hash with team ID keys and total goals by team
   # values
   def total_goals_by_team
@@ -78,12 +78,12 @@ class StatTracker
     end
     teams_hash
   end
-  
+
   # Helper method to return a team name from a team ID argument
   def team_name_from_id(team_id)
     @teams_reader[:teamname][@teams_reader[:team_id].index(team_id)]
   end
-  
+
   # Method to return the name of the team with the lowest average number of
   # goals scored per game across all seasons.
   def worst_offense
@@ -94,7 +94,7 @@ class StatTracker
     end
     team_name_from_id(teams_hash.key(teams_hash.values.min))
   end
-  
+
   # Method to return name of the team with the highest average score per game
   # across all seasons when they are home.
   def highest_scoring_home_team
@@ -104,7 +104,7 @@ class StatTracker
     end
     team_name_from_id(teams_hash.key(teams_hash.values.max))
   end
-  
+
   # Method to return name of the team with the lowest average score per game
   # across all seasons when they are home.
   def lowest_scoring_home_team
@@ -114,7 +114,7 @@ class StatTracker
     end
     team_name_from_id(teams_hash.key(teams_hash.values.min))
   end
-  
+
   # Helper method to retun hash with team_id as key and total goals at
   # home or away depending on the argument passed.
   def total_goals_by_team_by_at(at)
@@ -126,7 +126,7 @@ class StatTracker
     end
     teams_hash
   end
-  
+
   # Method to return name of the team with the highest average score per game
   # across all seasons when they are away.
   def highest_scoring_visitor
@@ -136,7 +136,7 @@ class StatTracker
     end
     team_name_from_id(teams_hash.key(teams_hash.values.max))
   end
-  
+
   # Method to return name of the team with the lowest average score per game
   # across all seasons when they are away.
   def lowest_scoring_visitor
@@ -145,5 +145,25 @@ class StatTracker
       total_goals / @games_reader[:away_team_id].find_all {|element| element == team_id}.count
     end
     team_name_from_id(teams_hash.key(teams_hash.values.min))
+  end
+
+  def most_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.max))
+  end
+
+  def fewest_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.min))
   end
 end
