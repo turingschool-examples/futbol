@@ -15,9 +15,9 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-  
-#-----------------------------------Game Statistics-----------------------------------
-   # Origional method from Iteration 2
+
+#------------------------------------Game Statistics------------------------------------
+  # Origional method from Iteration 2
   def highest_total_score
     highest_scoring_game = @games.max_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
@@ -74,7 +74,7 @@ class StatTracker
     end
     (ties.to_f / @games.count).round(2)
   end
-  
+
   # Origional method from Iteration 2
   def count_of_games_by_season
     @games[:season].tally
@@ -143,6 +143,7 @@ class StatTracker
   #Original method from iteration 2
   def worst_offense
     #uses @avg_goals_per_game hash from best_offense
+    #needs to be refactored to include instantiation of @avg_goals_per_game
     worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
     @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
@@ -157,6 +158,7 @@ class StatTracker
   end
 
   # Helper method is used in average_scores_for_all_visitors
+  # Recomend refactor as similar to method home_games_by_team_id & winning_as_coach
   def away_games_by_team_id
     away_games_list = @game_teams.find_all {|game| game[:hoa] == "away"}
     away_games_hash = Hash.new([])
@@ -228,5 +230,180 @@ class StatTracker
       team[:team_id].to_i == @home_hash.key(@home_hash.values.min)
     end
     highest_scoring_team[:teamname]
+  end
+
+#-----------------------------------Season Statistics-----------------------------------
+  # Helper method is used in most_accurate_team & least_accurate_team
+  # Returns an array of all @game_teams rows from a given season
+  # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
+  # First commented out line returns an array of all @games rows from a given season
+  def season_game_teams(season)
+    # season_games = @games.find_all{|row| row[:season] == season}
+    # season_game_ids = season_games.map {|row| row[:game_id]}
+    # season_game_teams = @game_teams.find_all {|row| season_game_ids.include?(row[:game_id])}
+    season_game_teams = @game_teams.find_all {|row| row[:game_id].start_with?(season[0..3])}
+  end
+
+  # Original method from Iteration 2
+  def most_accurate_team(season)
+    season_game_teams = season_game_teams(season)
+    shots_to_goals = Hash.new(0)
+    season_shots = Hash.new(0)
+    season_goals = Hash.new(0)
+    season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
+    season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
+    season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    most_accurate_team_id = (shots_to_goals.min_by {|team_id, ratio| ratio})[0]
+    most_accurate_team = @teams.find do |team|
+      team[:team_id] == most_accurate_team_id
+    end
+    most_accurate_team[:teamname]
+  end
+
+  # Original method from Iteration 2
+  def least_accurate_team(season)
+    season_game_teams = season_game_teams(season)
+    shots_to_goals = Hash.new(0)
+    season_shots = Hash.new(0)
+    season_goals = Hash.new(0)
+    season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
+    season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
+    season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    least_accurate_team_id = (shots_to_goals.max_by {|team_id, ratio| ratio})[0]
+    least_accurate_team = @teams.find do |team|
+      team[:team_id] == least_accurate_team_id
+    end
+    least_accurate_team[:teamname]
+  end
+
+  # Helper method is used in tackles_by_team
+  def games_by_season
+    @games_by_season_hash = Hash.new([])
+    @games.each do |game|
+      @games_by_season_hash[game[:season]] += [game[:game_id]]
+    end
+    @games_by_season_hash
+  end
+
+  # Helper method is used in most_tackles & fewest_tackles
+  def tackles_by_team(season)
+    games_by_season
+    @tackles_counter = Hash.new(0)
+    games_in_select_season = @games_by_season_hash[season]
+    games_in_select_season.each do |game_id|
+      @game_teams.each do |game|
+        if game_id == game[:game_id]
+          @tackles_counter[game[:team_id]] += game[:tackles].to_i
+        end
+      end
+    end
+    @tackles_counter
+  end
+
+  # Origional method from Iteration 2
+  def most_tackles(season)
+    tackles_by_team(season)
+    team_with_most_tackles = @teams.find do |team|
+      team[:team_id] == @tackles_counter.key(@tackles_counter.values.max)
+    end
+    team_with_most_tackles[:teamname]
+  end
+
+  # Origional method from Iteration 2
+  def fewest_tackles(season)
+    tackles_by_team(season)
+    team_with_least_tackles = @teams.find do |team|
+      team[:team_id] == @tackles_counter.key(@tackles_counter.values.min)
+    end
+    team_with_least_tackles[:teamname]
+  end
+#------------------------------------Team Statistics------------------------------------
+  # Helper method is used in average_win_percentage & most_goals_scored & fewest_goals_scored
+  def games_by_team
+    @games_by_team_hash = Hash.new([])
+    @game_teams.each do |game|
+      @games_by_team_hash[game[:team_id]] += [game]
+    end
+    @games_by_team_hash
+  end
+
+  # Average win percentage of all games for a team
+  # Original method from Iteration 2
+  def average_win_percentage(team_id)
+    # binding.pry
+    games_to_check = @games_by_team_hash[team_id]
+    (games_to_check.count {|game| game[:result] == 'WIN'}.to_f / games_to_check.length.to_f).round(2)
+  end
+
+  # Highest number of goals a particular team has scored in a single game
+  # Original method from Iteration 2
+  def most_goals_scored(team_id)
+    games_to_check = @games_by_team_hash[team_id]
+    game_most_goals = games_to_check.max_by {|game| game[:goals].to_i}
+    game_most_goals[:goals].to_i
+  end
+
+  # Lowest numer of goals a particular team has scored in a single game
+  # Original method from Iteration 2
+  def fewest_goals_scored(team_id)
+    games_to_check = @games_by_team_hash[team_id]
+    game_least_goals = games_to_check.min_by {|game| game[:goals].to_i}
+    game_least_goals[:goals].to_i
+  end
+
+  # Helper method is used in favorite_opponent & rival
+  # Can be further refactored into more helper methods
+  def opponent_win_loss(team_id)
+    # keys of team_games_opponents hould be game_ids of games team is involved in
+    # values of team_games_opponents should be the team_id of their opponent in that game
+    team_games_opponents = {}
+    @games.each do |game|
+      if game[:away_team_id] == team_id
+        team_games_opponents[game[:game_id]] = game[:home_team_id]
+      elsif game[:home_team_id] == team_id
+        team_games_opponents[game[:game_id]] = game[:away_team_id]
+      end
+    end
+
+    # keys of opponent_win_loss should be the team_id of their opponents
+    # values of opponent_win_loss should be an array with 1st element being wins, 2nd element being losses
+    opponent_win_loss = {}
+    #instantiating each key-value pair
+    team_games_opponents.values.uniq.each do |opponent_id|
+      opponent_win_loss[opponent_id] = [0,0]
+    end
+
+    @game_teams.each do |game|
+      if team_games_opponents.keys.include?(game[:game_id]) && team_games_opponents.values.include?(game[:team_id])
+        if game[:result] == "WIN"
+          opponent_win_loss[game[:team_id]][0] += 1
+        elsif game[:result] =="LOSS"
+          opponent_win_loss[game[:team_id]][1] += 1
+        end
+      end
+    end
+    opponent_win_loss
+  end
+
+  # Original method from Iteration 2
+  def favorite_opponent(team_id)
+    opponent_win_loss = opponent_win_loss(team_id)
+
+    favorite_opponent_id = opponent_win_loss.min_by{|opponent, win_loss| win_loss[0].to_f/win_loss[1]}[0]
+    favorite_opponent = @teams.find do |team|
+      team[:team_id] == favorite_opponent_id
+    end
+    favorite_opponent[:teamname]
+  end
+
+  # Original method from Iteration 2
+  def rival(team_id)
+    opponent_win_loss = opponent_win_loss(team_id)
+
+    rival_id = opponent_win_loss.max_by{|opponent, win_loss| win_loss[0].to_f/win_loss[1]}[0]
+    rival = @teams.find do |team|
+      team[:team_id] == rival_id
+    end
+    rival[:teamname]
   end
 end
