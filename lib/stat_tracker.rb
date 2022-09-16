@@ -229,23 +229,21 @@ class StatTracker
 
  #Helper method is used in winningest_coach & worst_coach
   def game_wins_by_season(season)
-    season_game_teams = season_game_teams(season)
-    game_wins_hash = Hash.new([])
-    season_game_teams.find_all {|game| game[:result] == "WIN"}
+    games_by_season
+    game_id_by_season = @games_by_season_hash[season]
+    wins_by_season = @game_teams.find_all {|game| game[:result] == "WIN" && game_id_by_season.include?(game[:game_id])}
+    # season_game_teams = season_game_teams(season)
+    # game_wins_hash = Hash.new([])
+    # season_game_teams.find_all {|game| game[:result] == "WIN"}
+    # game_wins_hash << game
+  #   binding.pry
   end
 
-  # def winningest_coach(season)
-  
-  
-  #   end
-  #   game_wins_hash
-  # end
-  
+  def winningest_coach(season)
+    wins_by_season(season)
+    coach_with_most_wins = @game_teams.each do |coach|
     
-  #   wins_hash.each { |coach| coach[:head_coach]}
-  #   # binding.pry
-  #   coach_wins_hash = Hash.new ([])
-  # end
+  end
 
   # def worst_coach
 
