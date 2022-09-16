@@ -290,13 +290,15 @@ class StatTracker
     
     lowest_average = team_average.min_by{ |id, average| average }
 
-  def percentage_ties
-    ties = 0
-    @games_data.each do |row|
-      ties += 1 if row[:away_goals].to_i == row[:home_goals].to_i
+    @teams_data.each do |row|
+      if lowest_average[0] == row[:team_id]
+        return row[:teamname]
+      end
     end
-    (ties.to_f / games_data.count).round(2)
   end
+end
+
+
   # end of game class
 
   # league statistics
