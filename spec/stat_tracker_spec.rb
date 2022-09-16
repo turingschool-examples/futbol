@@ -144,6 +144,21 @@ RSpec.describe StatTracker do
   end
 
   context "Season Statistics" do
+
+    it "#game_wins_by_season" do
+      expect(@stat_tracker.game_wins_by_season("20132014")).to be_a(Array)
+    end
+
+    # xit "#winningest_coach" do
+    #   expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+    #   expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+    # end
+
+    # it "#worst_coach" do
+    #   expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+    #   expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    # end
+
     it "#helper season_game_teams" do
       expect(@stat_tracker.season_game_teams("20132014")).to be_a(Array)
       expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)

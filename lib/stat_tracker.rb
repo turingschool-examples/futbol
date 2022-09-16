@@ -224,7 +224,32 @@ class StatTracker
     # season_game_ids = season_games.map {|row| row[:game_id]}
     # season_game_teams = @game_teams.find_all {|row| season_game_ids.include?(row[:game_id])}
     season_game_teams = @game_teams.find_all {|row| row[:game_id].start_with?(season[0..3])}
+    # binding.pry
   end
+
+ #Helper method is used in winningest_coach & worst_coach
+  def game_wins_by_season(season)
+    season_game_teams = season_game_teams(season)
+    game_wins_hash = Hash.new([])
+    season_game_teams.find_all {|game| game[:result] == "WIN"}
+  end
+
+  # def winningest_coach(season)
+  
+  
+  #   end
+  #   game_wins_hash
+  # end
+  
+    
+  #   wins_hash.each { |coach| coach[:head_coach]}
+  #   # binding.pry
+  #   coach_wins_hash = Hash.new ([])
+  # end
+
+  # def worst_coach
+
+  # end
 
   # Original method from Iteration 2
   def most_accurate_team(season)
