@@ -242,7 +242,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
     end
 
-    xit "#lowest_scoring_visitor" do
+    it "#lowest_scoring_visitor" do
       expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
 
