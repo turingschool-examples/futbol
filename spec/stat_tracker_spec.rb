@@ -24,6 +24,12 @@ RSpec.describe StatTracker do
   end
 
   describe '#game stats' do
+    it 'can find total game score for each game' do 
+      expect(@stat_tracker.total_game_goals.count).to eq(7441)
+      expect(@stat_tracker.total_game_goals[4]).to eq(4)
+      expect(@stat_tracker.total_game_goals[399]).to eq(6)
+    end
+
     it 'can calculate the highest sum of the winning and losing teams scores' do 
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
