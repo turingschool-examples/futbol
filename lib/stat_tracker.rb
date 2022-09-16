@@ -15,7 +15,6 @@ class StatTracker
     game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
-
 #------------------------------------Game Statistics------------------------------------
   # Origional method from Iteration 2
   def highest_total_score
@@ -40,10 +39,10 @@ class StatTracker
   end
 
   # Origional method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_home_wins
     home_wins = 0
-   @games.each do |row|
+    @games.each do |row|
       if row[:away_goals] < row[:home_goals]
         home_wins += 1
       end
@@ -52,10 +51,10 @@ class StatTracker
   end
 
   # Origional method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_visitor_wins
     visitor_wins = 0
-   @games.each do |row|
+    @games.each do |row|
       if row[:away_goals] > row[:home_goals]
         visitor_wins += 1
       end
@@ -64,7 +63,7 @@ class StatTracker
   end
 
   # Origional method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_ties
     ties = 0
     @games.each do |row|
@@ -109,7 +108,6 @@ class StatTracker
     end
     season_goal_averages
   end
-
 #-----------------------------------League Statistics-----------------------------------
   #Original method from iteration 2
   def count_of_teams
@@ -140,10 +138,10 @@ class StatTracker
     @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
   end
 
-  #Original method from iteration 2
+  # Original method from iteration 2
   def worst_offense
-    #uses @avg_goals_per_game hash from best_offense
-    #needs to be refactored to include instantiation of @avg_goals_per_game
+    # Uses @avg_goals_per_game hash from best_offense
+    # Needs to be refactored to include instantiation of @avg_goals_per_game
     worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
     @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
@@ -231,7 +229,6 @@ class StatTracker
     end
     highest_scoring_team[:teamname]
   end
-
 #-----------------------------------Season Statistics-----------------------------------
   # Helper method is used in most_accurate_team & least_accurate_team
   # Returns an array of all @game_teams rows from a given season
@@ -286,15 +283,14 @@ class StatTracker
   end
 
   # Helper method is used in most_tackles & fewest_tackles
+  # Recomend refactor into 2 methods. 1. Selects games in a given season. 2. Finds tackles in that set of games.
   def tackles_by_team(season)
     games_by_season
-    @tackles_counter = Hash.new(0)
     games_in_select_season = @games_by_season_hash[season]
-    games_in_select_season.each do |game_id|
-      @game_teams.each do |game|
-        if game_id == game[:game_id]
-          @tackles_counter[game[:team_id]] += game[:tackles].to_i
-        end
+    @tackles_counter = Hash.new(0)
+    @game_teams.each do |game|
+      if games_in_select_season.include?(game[:game_id])
+        @tackles_counter[game[:team_id]] += game[:tackles].to_i
       end
     end
     @tackles_counter
@@ -327,15 +323,12 @@ class StatTracker
     @games_by_team_hash
   end
 
-  # Average win percentage of all games for a team
   # Original method from Iteration 2
   def average_win_percentage(team_id)
-    # binding.pry
     games_to_check = @games_by_team_hash[team_id]
     (games_to_check.count {|game| game[:result] == 'WIN'}.to_f / games_to_check.length.to_f).round(2)
   end
 
-  # Highest number of goals a particular team has scored in a single game
   # Original method from Iteration 2
   def most_goals_scored(team_id)
     games_to_check = @games_by_team_hash[team_id]
@@ -343,7 +336,6 @@ class StatTracker
     game_most_goals[:goals].to_i
   end
 
-  # Lowest numer of goals a particular team has scored in a single game
   # Original method from Iteration 2
   def fewest_goals_scored(team_id)
     games_to_check = @games_by_team_hash[team_id]
@@ -354,8 +346,8 @@ class StatTracker
   # Helper method is used in favorite_opponent & rival
   # Can be further refactored into more helper methods
   def opponent_win_loss(team_id)
-    # keys of team_games_opponents hould be game_ids of games team is involved in
-    # values of team_games_opponents should be the team_id of their opponent in that game
+    # Keys of team_games_opponents hould be game_ids of games team is involved in
+    # Values of team_games_opponents should be the team_id of their opponent in that game
     team_games_opponents = {}
     @games.each do |game|
       if game[:away_team_id] == team_id
@@ -365,10 +357,10 @@ class StatTracker
       end
     end
 
-    # keys of opponent_win_loss should be the team_id of their opponents
-    # values of opponent_win_loss should be an array with 1st element being wins, 2nd element being losses
+    # Keys of opponent_win_loss should be the team_id of their opponents
+    # Values of opponent_win_loss should be an array with 1st element being wins, 2nd element being losses
     opponent_win_loss = {}
-    #instantiating each key-value pair
+    # Instantiating each key-value pair
     team_games_opponents.values.uniq.each do |opponent_id|
       opponent_win_loss[opponent_id] = [0,0]
     end
