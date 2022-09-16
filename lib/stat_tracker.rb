@@ -1,5 +1,5 @@
 require "csv"
-
+require_relative './team'
 
 class StatTracker
   attr_accessor :games_reader,
@@ -168,17 +168,17 @@ class StatTracker
 
   def percentage_home_wins
    home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}
-   home_win_total.to_f.round(2)*100/total_number_of_games
+   (home_win_total.to_f/total_number_of_games).round(2)
   end
 
   def percentage_visitor_wins
     home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}
-    home_visitor_total.to_f.round(2)*100/total_number_of_games
+    (home_visitor_total.to_f/total_number_of_games).round(2)
   end
 
   def percentage_ties
     tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}
-    tie_total.to_f.round(2)*100/total_number_of_games
+    (tie_total.to_f/total_number_of_games).round(2)
   end
 
   def team_finder(team_id)
@@ -194,17 +194,13 @@ class StatTracker
   def average_win_percentage(team_id)
     team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}
     total_team_games = @game_teams_reader.count {|row| row[:team_id] == team_id}
-    team_win_total.to_f.round(2)*100/total_team_games
+    (team_win_total.to_f/total_team_games).round(2)
   end
 
   def count_of_games_by_season
-    seasons = {}
+    seasons = Hash.new(0)
     @games_reader.each do |row|
-      if seasons.include?(row[:season]) == false
-        seasons[row[:season]] = 1
-      else
-        seasons[row[:season]] += 1
-      end
+      seasons[row[:season]] += 1
     end
     seasons
   end
