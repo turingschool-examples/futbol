@@ -12,5 +12,3 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-p stat_tracker.fewest_tackles('20122013')
-

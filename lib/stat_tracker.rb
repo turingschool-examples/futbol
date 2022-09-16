@@ -160,7 +160,6 @@ class StatTracker
        team_tackles[game[:team_id]] += game[:tackles].to_i
     end
     team_id = team_tackles.min_by { |team_id, tackles| tackles }
-    require 'pry'; binding.pry
     team_finder(team_id[0])
   end
 
