@@ -39,7 +39,7 @@ class StatTracker
   end
 
   # Origional method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_home_wins
     home_wins = 0
     @games.each do |row|
@@ -51,7 +51,7 @@ class StatTracker
   end
 
   # Origional method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_visitor_wins
     visitor_wins = 0
     @games.each do |row|
@@ -63,7 +63,7 @@ class StatTracker
   end
 
   # Origional method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
+  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_ties
     ties = 0
     @games.each do |row|
@@ -266,16 +266,13 @@ class StatTracker
 
   # Helper method is used in most_tackles & fewest_tackles
   # Recomend refactor into 2 methods. 1. Selects games in a given season. 2. Finds tackles in that set of games.
-  # Find a way to avoid double iteration
   def tackles_by_team(season)
     games_by_season
-    @tackles_counter = Hash.new(0)
     games_in_select_season = @games_by_season_hash[season]
-    games_in_select_season.each do |game_id|
-      @game_teams.each do |game|
-        if game_id == game[:game_id]
-          @tackles_counter[game[:team_id]] += game[:tackles].to_i
-        end
+    @tackles_counter = Hash.new(0)
+    @game_teams.each do |game|
+      if games_in_select_season.include?(game[:game_id])
+        @tackles_counter[game[:team_id]] += game[:tackles].to_i
       end
     end
     @tackles_counter
