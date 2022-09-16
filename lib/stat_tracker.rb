@@ -1,9 +1,10 @@
 require "csv"
+require_relative './team'
 
 class StatTracker
   attr_accessor :games_reader,
-              :game_teams_reader,
-              :teams_reader
+                :game_teams_reader,
+                :teams_reader
 
   def initialize
     @teams_reader = nil
@@ -19,13 +20,6 @@ class StatTracker
     stat_tracker
   end
 
-  def count_of_teams
-   counter = 0
-   @teams_reader.each do |row|
-    counter += 1
-   end
-   counter
-  end
 
   # Method to return the average number of goals scored in a game across all
   # seasons including both home and away goals (rounded to the nearest 100th)
@@ -145,6 +139,91 @@ class StatTracker
       total_goals / @games_reader[:away_team_id].find_all {|element| element == team_id}.count
     end
     team_name_from_id(teams_hash.key(teams_hash.values.min))
+  end
+
+  def count_of_teams
+   @teams_reader.length
+  end
+
+  def unique_total_goals
+    goal_totals = []
+      @games_reader.each do |row|
+        if goal_totals.include?(row[:away_goals].to_i + row[:home_goals].to_i) == false
+          goal_totals << row[:away_goals].to_i + row[:home_goals].to_i
+        end
+      end
+    goal_totals
+  end
+
+  def highest_total_score
+    unique_total_goals.max
+  end
+
+  def lowest_total_score
+    unique_total_goals.min
+  end
+
+  def total_number_of_games
+    @games_reader.length
+  end
+
+  def percentage_home_wins
+   home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}
+   (home_win_total.to_f/total_number_of_games).round(2)
+  end
+
+  def percentage_visitor_wins
+    home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}
+    (home_visitor_total.to_f/total_number_of_games).round(2)
+  end
+
+  def percentage_ties
+    tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}
+    (tie_total.to_f/total_number_of_games).round(2)
+  end
+
+  def team_finder(team_id)
+    @teams_reader.find do |row|
+      row[:team_id] == team_id
+    end
+  end
+
+  def team_info(team_id)
+    Team.new(team_finder(team_id)).team_labels
+  end
+
+  def average_win_percentage(team_id)
+    team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}
+    total_team_games = @game_teams_reader.count {|row| row[:team_id] == team_id}
+    (team_win_total.to_f/total_team_games).round(2)
+  end
+
+  def count_of_games_by_season
+    seasons = Hash.new(0)
+    @games_reader.each do |row|
+      seasons[row[:season]] += 1
+    end
+    seasons
+  end
+
+  def most_goals_scored(team_id)
+    unique_goal_totals = []
+      @game_teams_reader.each do |row|
+        if row[:team_id] == team_id && unique_goal_totals.include?(row[:goals].to_i) == false
+          unique_goal_totals << row[:goals].to_i
+        end
+      end
+    unique_goal_totals.max
+  end
+
+  def fewest_goals_scored(team_id)
+    unique_goal_totals = []
+      @game_teams_reader.each do |row|
+        if row[:team_id] == team_id && unique_goal_totals.include?(row[:goals].to_i) == false
+          unique_goal_totals << row[:goals].to_i
+        end
+      end
+    unique_goal_totals.min
   end
 
   def most_tackles(season)
