@@ -75,7 +75,19 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq 4.22
     end
 
-    xit "#average_goals_by_season" do
+    it "#helper total_goals_per_season" do
+      expected = {
+        "20122013"=>3322.0,
+        "20162017"=>5565.0,
+        "20142015"=>5461.0,
+        "20152016"=>5499.0,
+        "20132014"=>5547.0,
+        "20172018"=>6019.0
+      }
+      expect(@stat_tracker.total_goals_per_season).to eq(expected)
+    end
+
+    it "#average_goals_by_season" do
       expected = {
         "20122013"=>4.12,
         "20162017"=>4.23,
