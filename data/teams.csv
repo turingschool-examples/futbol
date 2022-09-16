@@ -30,4 +30,4 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 12,26,Sky Blue FC,SBL,Yurcak Field,/api/v1/teams/12
 7,19,Utah Royals FC,URF,Rio Tinto Stadium,/api/v1/teams/7
 22,25,Washington Spirit FC,WAS,Maryland SoccerPlex,/api/v1/teams/22
-53,2x,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
+53,28,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
