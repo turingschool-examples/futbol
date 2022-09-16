@@ -167,18 +167,18 @@ class StatTracker
   end
 
   def percentage_home_wins
-   home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}.to_f.round(2)
-   home_win_total*100/total_number_of_games
+   home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}
+   home_win_total.to_f.round(2)*100/total_number_of_games
   end
 
   def percentage_visitor_wins
-    home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}.to_f.round(2)
-    home_visitor_total*100/total_number_of_games
+    home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}
+    home_visitor_total.to_f.round(2)*100/total_number_of_games
   end
 
   def percentage_ties
-    tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}.to_f.round(2)
-    tie_total*100/total_number_of_games
+    tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}
+    tie_total.to_f.round(2)*100/total_number_of_games
   end
 
   def team_finder(team_id)
@@ -192,9 +192,9 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}.to_f.round(2)
+    team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}
     total_team_games = @game_teams_reader.count {|row| row[:team_id] == team_id}
-    team_win_total*100/total_team_games
+    team_win_total.to_f.round(2)*100/total_team_games
   end
 
   def count_of_games_by_season
