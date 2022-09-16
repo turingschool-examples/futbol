@@ -228,4 +228,56 @@ class StatTracker
       end
     unique_goal_totals.min
   end
-end 
+
+
+#right now there is only 1 return value being given though for our
+#test there are 2 seasons that should be returned. Consider refactoring
+  def best_season(team_id)
+    season_wins = Hash.new(0)
+    @games_reader.each do |row|
+      row[:season]
+        if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
+          season_wins[row[:season]] += 1
+        end
+      end
+    season_wins.update(season_wins) do |season, win_count|
+      win_count / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
+    end
+    season_wins.key(season_wins.values.max)
+  end
+
+  def worst_season(team_id)
+    season_losses = Hash.new(0)
+    @games_reader.each do |row|
+      row[:season]
+        if (row[:away_team_id] == team_id && row[:away_goals] < row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] < row[:away_goals])
+          season_losses[row[:season]] += 1
+        end
+      end
+    season_losses.update(season_losses) do |season, loss_count|
+      loss_count / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
+    end
+    season_losses.key(season_losses.values.max)
+  end
+end
+
+
+
+  # def best_season(team_id)
+  #   season_wins = Hash.new(0)
+  #   wins_per_season = 0
+  #   games_per_season = 0
+  #   @games_reader.each do |row|
+  #     row[:season]
+  #       if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
+  #       wins_per_season += 1
+  #       games_per_season += 1
+  #       else
+  #         games_per_season += 1
+  #       end
+  #       season_win_percentage = (wins_per_season*100/games_per_season).to_f.round(2)
+  #         season_wins[:season] = season_win_percentage
+  #     end
+  #         # require "pry";binding.pry
+  #   end
+  # end

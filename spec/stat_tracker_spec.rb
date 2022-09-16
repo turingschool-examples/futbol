@@ -236,4 +236,22 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
+
+  it "# best_season: season with the hightest win percentage for a team" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.best_season("6")).to eq("20112012") #also has 100% for "20122013" as well
+  end
+
+  it "# worst_season: season with the lowest win percentage for a team" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.worst_season("3")).to eq("20112012") #team "17" also has 100% loss  for "20132014" as well
+  end
 end
