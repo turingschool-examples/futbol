@@ -86,9 +86,28 @@ class StatTracker
     (total_goals / @games.size).round(2)
   end
 
+  # Helper method used in average_goals_by_season
+  def total_goals_per_season
+    goals_per_season = Hash.new
+    @games.each do |game|
+      if goals_per_season.include?(game[:season])
+        goals_per_season[game[:season]] += ([game[:away_goals].to_f]+[game[:home_goals].to_f]).sum
+      elsif !goals_per_season.include?(game[:season])
+        goals_per_season[game[:season]] = ([game[:away_goals].to_f]+[game[:home_goals].to_f]).sum
+      end
+    end
+    goals_per_season
+  end
+
   # Origional method from Iteration 2
   def average_goals_by_season
-    season_goal_averages = Hash.new(0)
+    season_goal_averages = Hash.new
+    total_goals_per_season.each do |season, goals|
+      count_of_games_by_season.each do |season_number, games|
+        season_goal_averages[season_number] = (goals/games).round(2) if season_number == season
+      end
+    end
+    season_goal_averages
   end
 
 #-----------------------------------League Statistics-----------------------------------
