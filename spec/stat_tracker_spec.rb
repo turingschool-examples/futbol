@@ -42,6 +42,37 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.lowest_total_score).to eq 0
     end
 
+
+    it '13. returns count_of_teams'do
+       expect(@stat_tracker.count_of_teams).to eq 32
+
+    end
+
+    it '14. #best_offense returns the team with the best_offense' do
+       expect(@stat_tracker.best_offense).to eq "Reign FC"
+    end
+
+    it '15. #worst_offense returns the team with the worst_offense' do
+       expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+    end
+
+    it '16. #highest_scoring_visitor returns the highest scoring visitor' do
+       expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+    end
+
+    it '17. returns the highest_scoring_home_team' do
+       expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+    end
+
+    it '18. returns the lowest_scoring_visitor' do
+       expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    end
+
+    it '19. returns the lowest_scoring_home_team' do
+       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+      
+    end
+    
     it "#percentage_home_wins" do
         expect(@stat_tracker.percentage_home_wins).to eq 0.44
       end
@@ -81,4 +112,5 @@ RSpec.describe StatTracker do
         }
         expect(@stat_tracker.average_goals_by_season).to eq expected
       end
+
 end
