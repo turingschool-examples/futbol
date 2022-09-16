@@ -155,7 +155,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.percentage_home_wins).to eq(30.00)
+    expect(stat_tracker.percentage_home_wins).to eq(0.30)
   end
 
   it "#. percentage_visitor_wins" do
@@ -164,7 +164,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.percentage_visitor_wins).to eq(20.00)
+    expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
   end
 
   it "#. percentage_ties" do
@@ -173,7 +173,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.percentage_ties).to eq(10.00)
+    expect(stat_tracker.percentage_ties).to eq(0.10)
   end
 
   it "#. team_finder" do
@@ -193,11 +193,11 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.team_info("1")).to eq({team_id: "1",
-                                                   franchise_id: "23",
-                                                   team_name: "Atlanta United",
-                                                   abbreviation: "ATL",
-                                                   link: "/api/v1/teams/1"
+    expect(stat_tracker.team_info("1")).to eq({"team_id" => "1",
+                                                   "franchise_id" => "23",
+                                                   "team_name" => "Atlanta United",
+                                                   "abbreviation" => "ATL",
+                                                   "link" => "/api/v1/teams/1"
     })
   end
 
@@ -207,7 +207,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.average_win_percentage("6")).to eq(100.00)
+    expect(stat_tracker.average_win_percentage("6")).to eq(1.00)
   end
 
   it "#. count_of_games_by_season" do
