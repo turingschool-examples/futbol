@@ -6,14 +6,22 @@ class Team
               :stadium,
               :link
 
-  def initialize(team_info)
-    @team_id = team_info[0].to_i
-    @franchise_id = team_info[1].to_i
-    @team_name = team_info[2]
-    @abbreviation = team_info[3]
-    @stadium = team_info[4]
-    @link = team_info[5]
+  def initialize(team_data)
+    @team_id = team_data[0]
+    @franchise_id = team_data[1]
+    @team_name = team_data[2]
+    @abbreviation = team_data[3]
+    @stadium = team_data[4]
+    @link = team_data[5]
   end
 
+  def team_labels
+    {"team_id" => @team_id,
+     "franchise_id" => @franchise_id,
+     "team_name" => @team_name,
+     "abbreviation" => @abbreviation,
+     "link" => @link
+    }
+  end
 
 end
