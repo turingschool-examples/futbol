@@ -147,4 +147,16 @@ RSpec.describe StatTracker do
   # it '#favorite_opponent' do
   #   expect(@stat_tracker.favorite_opponent('6')).to eq("Houston Dynamo")
   # end
+
+  it '#total_games_played_per_team(season)' do
+    expect(@stat_tracker.total_games_played_per_team("20122013")).to eq({"6"=>4, "3"=>4})                                                                
+  end
+
+  it '#total_wins_per_team(season)' do
+    expect(@stat_tracker.total_wins_per_team('20122013')).to eq({"6"=>2, "3"=>2})
+  end
+  
+  # it '#winningest_coach' do 
+  #   expect(@stat_tracker.winningest_coach('20122013')).to eq("Mike Babcock")
+  # end
 end

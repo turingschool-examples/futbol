@@ -351,5 +351,48 @@ class StatTracker
     # fav_oppt = team_name(lost_most[0].to_i)
   end
 
+  def total_games_played_per_team(season)
+    game_tally = Hash.new(0)
+    @games.map do |row|
+      if row[:season] == season
+        game_tally[row[:home_team_id]] += 1
+        game_tally[row[:away_team_id]] += 1
+      end
+    end
+    game_tally
+  end
+
+  def total_wins_per_team(season)
+    team_wins_hash = Hash.new(0)
+    @games.map do |row|
+      if row[:season] == season && row[:away_goals] < row[:home_goals]
+        team_wins_hash[row[:away_team_id]] += 1
+      elsif row[:season] == season && row[:home_goals] < row[:away_goals]
+        team_wins_hash[row[:home_team_id]] += 1
+      end
+    end
+    team_wins_hash
+  end
+
+  # def winningest_coach(season)
+
+  # end
+
+  
+
+  # def best_season(team_id)
+  #   season_wins = total_wins_per_season(team_id)
+  #   games_played = total_games_played_per_season(team_id)
+
+  #   nested_arr = season_wins.values.zip(games_played.values)
+  #   divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
+  #   percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
+  #   best = percentages_hash.max_by {|key,value| value}
+  #   best[0]
+  # end
+
+  
+
+
 
 end
