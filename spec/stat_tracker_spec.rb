@@ -144,7 +144,19 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.fewest_goals_scored('16')).to eq(0)
   end
 
-  # it '#favorite_opponent' do
-  #   expect(@stat_tracker.favorite_opponent('6')).to eq("Houston Dynamo")
-  # end
+  it '#total_times_won_against' do
+    expect(@stat_tracker.total_times_won_against('6')).to eq({3=>2})
+  end
+
+  it '#total_times_played_against' do
+    expect(@stat_tracker.total_times_played_against('6')).to eq({3=>4})
+  end
+
+  it '#favorite_opponent' do
+    expect(@stat_tracker.favorite_opponent('6')).to eq("Houston Dynamo")
+  end
+
+  it '#rival' do
+    expect(@stat_tracker.rival('6')).to eq('Houston Dynamo')
+  end
 end
