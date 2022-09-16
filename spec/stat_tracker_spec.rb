@@ -27,8 +27,8 @@ RSpec.describe StatTracker do
     expect(stat_tracker1.teams_reader[4][:link]).to eq("/api/v1/teams/6")
   end
 
-  it "#average_goals_per_game returns the average number of goals scored in a 
-  game across all seasons including both home and away goals (rounded to the 
+  it "#average_goals_per_game returns the average number of goals scored in a
+  game across all seasons including both home and away goals (rounded to the
   nearest 100th)" do
     expect(stat_tracker1.average_goals_per_game).to eq(4.43)
   end
@@ -60,38 +60,180 @@ RSpec.describe StatTracker do
   it "#team_name_from_id returns team name from ID passed as argument." do
     expect(stat_tracker1.team_name_from_id('20')).to eq('Toronto FC')
   end
-  
+
   it "#worst_offense name of the team with the lowest average number of goals
   scored per game across all seasons." do
     expect(stat_tracker1.worst_offense).to eq('Orlando City SC')
   end
-  
+
   it "#highest_scoring_home_team returns name of the team with the highest
   average score per game across all seasons when they are home." do
     expect(stat_tracker1.highest_scoring_home_team).to eq('Real Salt Lake')
   end
-  
+
   it "#lowest_scoring_home_team returns name of the team with the lowest
   average score per game across all seasons when they are home." do
     expect(stat_tracker1.lowest_scoring_home_team).to eq('Toronto FC')
   end
-  
+
   it "#total_goals_by_team_by_at returns hash with each team as a key
   and total goals for the argument passed as values" do
     home = {'6' => 4.0, '24' => 3.0, '20' => 0.0, '5' => 5.0, '21' => 2.0}
     expect(stat_tracker1.total_goals_by_team_by_at(:home_team_id)).to eq(home)
-    
+
     away = {'3' => 6.0, '5' => 0.0, '20' => 7.0, '24' => 3.0, '30' => 1.0}
     expect(stat_tracker1.total_goals_by_team_by_at(:away_team_id)).to eq(away)
   end
-  
+
   it "#highest_scoring_visitor returns name of the team with the highest
   average score per game across all seasons when they are away." do
     expect(stat_tracker1.highest_scoring_visitor).to eq('Toronto FC')
   end
-  
+
   it "#lowest_scoring_visitor returns name of the team with the lowest
   average score per game across all seasons when they are away." do
     expect(stat_tracker1.lowest_scoring_visitor).to eq('Sporting Kansas City')
+  end
+
+  it "4. #count_of_teams" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+    games: './data/games_dummy_2.csv',
+    game_teams: './data/game_teams.csv'
+    }
+
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.count_of_teams).to eq(5)
+  end
+
+  it "#. calculates without duplicates total goals in a game across all games" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams.csv'
+    }
+
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.unique_total_goals).to be_a(Array)
+    #we'll test the third element, which should have 1 home goal and 2 away goals
+    expect(stat_tracker.unique_total_goals[2]).to eq(4)
+    expect(stat_tracker.unique_total_goals.length).to eq(4)
+  end
+
+
+
+  it "#. highest_total_score" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams.csv'
+
+    }
+    stat_tracker= StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.highest_total_score).to eq(5)
+  end
+
+  it "#. lowest_total_score" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams.csv'
+
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.lowest_total_score).to eq(1)
+  end
+
+  it "#. total_number_of_games" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.total_number_of_games).to eq(10)
+  end
+
+  it "#. percentage_home_wins" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.percentage_home_wins).to eq(0.30)
+  end
+
+  it "#. percentage_visitor_wins" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
+  end
+
+  it "#. percentage_ties" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.percentage_ties).to eq(0.10)
+  end
+
+  it "#. team_finder" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.team_finder("4")).to eq(stat_tracker.teams_reader[1])
+    expect(stat_tracker.team_finder("6")).to eq(stat_tracker.teams_reader[4])
+    expect(stat_tracker.team_finder("4")[0]).to eq("4")
+  end
+
+  it "#. team_info" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.team_info("1")).to eq({"team_id" => "1",
+                                                   "franchise_id" => "23",
+                                                   "team_name" => "Atlanta United",
+                                                   "abbreviation" => "ATL",
+                                                   "link" => "/api/v1/teams/1"
+    })
+  end
+
+  it "#. average_win_percentage" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.average_win_percentage("6")).to eq(1.00)
+  end
+
+  it "#. count_of_games_by_season" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.count_of_games_by_season).to eq({"20112012" => 2, "20122013" => 6, "20132014" => 2})
+  end
+
+  it "#. most_goals_scored" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.most_goals_scored("3")).to eq(2)
+  end
+
+  it "#. fewest_goals_scored" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
 end
