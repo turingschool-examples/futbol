@@ -35,26 +35,23 @@ module TeamStatistics
     season_tally
   end
 
-  def best_season(team_id)
+  def calculate_percentages(team_id)
     season_wins = total_wins_per_season(team_id)
     games_played = total_games_played_per_season(team_id)
 
     nested_arr = season_wins.values.zip(games_played.values)
     divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
     percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
-    best = percentages_hash.max_by {|key,value| value}
+  end
+
+  def best_season(team_id)
+    best = calculate_percentages(team_id).max_by {|key,value| value}
     best[0]
   end
 
   def worst_season(team_id)
-    season_wins = total_wins_per_season(team_id)
-    games_played = total_games_played_per_season(team_id)
-
-    nested_arr = season_wins.values.zip(games_played.values)
-    divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
-    percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
-    best = percentages_hash.min_by {|key,value| value}
-    best[0]
+    worst = calculate_percentages(team_id).min_by {|key,value| value}
+    worst[0]
   end
 
   def total_games_played(team_id)

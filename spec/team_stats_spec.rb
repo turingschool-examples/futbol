@@ -39,6 +39,12 @@ RSpec.describe TeamStatistics do
     end
   end
 
+  describe '#calculate_percentages' do
+    it 'returns a hash of the winning percentages for each team against a specific team' do
+      expect(@stat_tracker.calculate_percentages('6')).to eq({"20122013"=>0.5})
+    end
+  end
+
   describe '#best_season' do
     it 'returns the season with the highest win percentage for a team' do
       expect(@stat_tracker.best_season('6')).to eq("20122013")
