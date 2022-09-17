@@ -245,13 +245,13 @@ class StatTracker
     list_of_totals
   end
 
-  def all_games_by_team(team_id) #need test
+  def all_games_by_team(team_id) 
     @game_teams_reader.find_all do |row|
       row[:team_id] == team_id 
     end
   end
  
-  def team_all_game_ids(team_id) #need test
+  def team_all_game_ids(team_id) 
     all_games_by_team(team_id).map do |game|
       game[0]
     end
