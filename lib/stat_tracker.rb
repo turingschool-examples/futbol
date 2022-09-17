@@ -373,17 +373,6 @@ class StatTracker
     end
     team_wins_hash
   end
-  # def winningest_coach(season)
-  #   coach_stats(season).max_by{|head_coach, win_percent| win_percent}[0]
-  # end
-
-  # def coach_stats(season)
-  #   coach_stats_hash = Hash.new(0)
-  #   @game_teams.map do |row|
-  #     coach_stats_hash[row[:head_coach]] = nil 
-  #   end
-  #   coach_stats_hash
-  # end
 
   def head_coach(team_id)
     coach = @game_teams.filter_map do |row| 
@@ -391,8 +380,6 @@ class StatTracker
     end
     coach[0]
   end
-
-  # team_id = @games[row[:team_id]] if season == row[:season]
 
   def winningest_coach(season)
     team_season_wins = total_wins_per_team(season)
@@ -405,49 +392,16 @@ class StatTracker
     winningest = win_percent_hash.max_by {|key, value| key}
     head_coach(winningest[0].to_i)
   end
-  
-     
 
-
-  # def best_offense
-  #   best = average_goals.max_by {|key,value| value}
-  #   hash = Hash.new
-  #   @teams.map do |row|
-  #     team_id = row[:team_id]
-  #     team_name = row[:teamname]
-  #     hash[team_id] = team_name
-  #   end
-  #   num1 = hash.filter_map {|key,value| value if key == best[0] }
-  #   num1[0]
-  # end
-  
-
-  # def best_season(team_id)
-  #   season_wins = total_wins_per_season(team_id)
-  #   games_played = total_games_played_per_season(team_id)
-
-  #   nested_arr = season_wins.values.zip(games_played.values)
-  #   divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
-  #   percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
-  #   best = percentages_hash.max_by {|key,value| value}
-  #   best[0]
-  # end
-
-  # def worst_season(team_id)
-  #   season_wins = total_wins_per_season(team_id)
-  #   games_played = total_games_played_per_season(team_id)
-
-  #   nested_arr = season_wins.values.zip(games_played.values)
-  #   divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
-  #   percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
-  #   best = percentages_hash.min_by {|key,value| value}
-  #   best[0]
-  # end
-
-  
-
-  
-
-
-
+  def worst_coach(season)
+    team_season_wins = total_wins_per_team(season)
+    team_total_season_games = total_games_played_per_team(season)
+    nested_arr = team_season_wins.values.zip(team_total_season_games.values)
+      win_percent = nested_arr.map do |array| 
+        array[0].to_f / array[1]
+      end
+    win_percent_hash = Hash[team_total_season_games.keys.zip(win_percent)]
+    worst = win_percent_hash.min_by {|key, value| key}
+    head_coach(worst[0].to_i)
+  end
 end
