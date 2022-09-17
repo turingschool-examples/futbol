@@ -47,22 +47,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
   end
 
-  xit "#worst_coach" do
+  it "#worst_coach" do
       expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
       expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
-  xit "#most_accurate_team" do
+  it "#most_accurate_team" do
       expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
       expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  xit "#least_accurate_team" do
+  it "#least_accurate_team" do
       expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  xit "#most_tackles" do
+  it "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
@@ -151,7 +151,6 @@ RSpec.describe StatTracker do
         "abbreviation" => "MIN",
         "link" => "/api/v1/teams/18"
       }
-
       expect(@stat_tracker.team_info("18")).to eq expected
     end
 
