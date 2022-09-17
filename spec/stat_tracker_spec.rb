@@ -104,7 +104,7 @@ RSpec.describe StatTracker do
 
     expect(stat_tracker1.fewest_tackles('20122013')).to eq('New England Revolution')
   end
-  
+
   it "4. #count_of_teams" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
     games: './data/games_dummy_2.csv',
@@ -238,14 +238,39 @@ RSpec.describe StatTracker do
     expect(stat_tracker.most_goals_scored("3")).to eq(2)
   end
 
-  it "#. fewest_goals_scored" do
-    dummy_filepath = {teams: "./data/team_dummy.csv",
-                      games: './data/games_dummy_2.csv',
-                      game_teams: './data/game_teams_dumdum.csv'
-    }
-    stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
-  end
+    it "#. fewest_goals_scored" do
+      dummy_filepath = {teams: "./data/team_dummy.csv",
+                        games: './data/games_dummy_2.csv',
+                        game_teams: './data/game_teams_dumdum.csv'
+      }
+      stat_tracker = StatTracker.from_csv(dummy_filepath)
+      expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
+    end
 
+
+    #coach results
+
+    #games by head coach
+
+
+    it "#. winningest_coach" do
+      	# Name of the Coach with the best win percentage for the season (string)
+      dummy_filepath = {teams: "./data/team_dummy.csv",
+                        games: './data/games_dummy_2.csv',
+                        game_teams: './data/game_teams 3.csv'
+      }
+      stat_tracker = StatTracker.from_csv(dummy_filepath)
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+
+    xit "#. worst_coach" do
+      	# Name of the Coach with the worst win percentage for the season (string)
+      dummy_filepath = {teams: "./data/team_dummy.csv",
+                        games: './data/games_dummy_2.csv',
+                        game_teams: './data/game_teams 3.csv'
+      }
+      stat_tracker = StatTracker.from_csv(dummy_filepath)
+      expect(stat_tracker.worst_coach("20112012")).to eq("John Tortorella")
+    end
 
 end
