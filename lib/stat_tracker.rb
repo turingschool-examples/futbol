@@ -268,16 +268,10 @@ class StatTracker
     opponent_history = Hash.new {|h, k| h[k] = {"wins"=>0, "losses"=>0, "ties"=>0, "total games played" => 0}}
     @game_teams_csv.each do |row|
       if games_played.include?(row[:game_id]) && if row[:team_id] != id
-          if row[:result] == "WIN"
-            opponent_history[row[:team_id]]["wins"] += 1
-          end
-          if row[:result] == "LOSS"
-            opponent_history[row[:team_id]]["losses"] += 1
-          end
-          if row[:result] == "TIE"
-            opponent_history[row[:team_id]]["ties"] += 1
-          end
-          opponent_history[row[:team_id]]["total games played"] += 1
+        opponent_history[row[:team_id]]["wins"] += 1 if row[:result] == "WIN"
+        opponent_history[row[:team_id]]["losses"] += 1 if row[:result] == "LOSS"
+        opponent_history[row[:team_id]]["ties"] += 1 if row[:result] == "TIE"
+        opponent_history[row[:team_id]]["total games played"] += 1
         end
       end
     end
@@ -307,16 +301,10 @@ class StatTracker
     opponent_history = Hash.new {|h, k| h[k] = {"wins"=>0, "losses"=>0, "ties"=>0, "total games played" => 0}}
     @game_teams_csv.each do |row|
       if games_played.include?(row[:game_id]) && row[:team_id] != id
-          if row[:result] == "WIN"
-            opponent_history[row[:team_id]]["wins"] += 1
-          end
-          if row[:result] == "LOSS"
-            opponent_history[row[:team_id]]["losses"] += 1
-          end
-          if row[:result] == "TIE"
-            opponent_history[row[:team_id]]["ties"] += 1
-          end
-          opponent_history[row[:team_id]]["total games played"] += 1
+        opponent_history[row[:team_id]]["wins"] += 1 if row[:result] == "WIN"
+        opponent_history[row[:team_id]]["losses"] += 1 if row[:result] == "LOSS"
+        opponent_history[row[:team_id]]["ties"] += 1 if row[:result] == "TIE"
+        opponent_history[row[:team_id]]["total games played"] += 1
       end
     end
     winless_opponents = Hash.new {|h, k| h[k] = 0}
