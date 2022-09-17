@@ -131,7 +131,7 @@ class StatTracker
   end
 
   # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
-  # Recomend refactor by mixin 'calculator'
+  # Recommend refactor by mixin 'calculator'
   def average_score_per_game(game_teams_selection)
     goals = game_teams_selection.sum {|game| game[:goals].to_f}
     # You need to / 2. The game_teams CSV has 2 lines to represent one game.
@@ -230,24 +230,29 @@ class StatTracker
  #Helper method is used in winningest_coach & worst_coach
   def game_wins_by_season(season)
     games_by_season
+  
     game_id_by_season = @games_by_season_hash[season]
-    wins_by_season = @game_teams.find_all {|game| game[:result] == "WIN" && game_id_by_season.include?(game[:game_id])}
-    # season_game_teams = season_game_teams(season)
-    # game_wins_hash = Hash.new([])
-    # season_game_teams.find_all {|game| game[:result] == "WIN"}
-    # game_wins_hash << game
-  #   binding.pry
-  end
-
-  def winningest_coach(season)
-    wins_by_season(season)
-    coach_with_most_wins = @game_teams.each do |coach|
+    @wins_by_season = @game_teams.find_all {|game| game[:result] == "WIN" && game_id_by_season.include?(game[:game_id])}
     
   end
 
-  # def worst_coach
+  def winningest_coach(season)
+    game_wins_by_season(season)
+    @wins_counter = Hash.new(0)
+    @wins_by_season.each do |game| 
+      @wins_counter[game[:head_coach]] += 1
+    end
+    @wins_counter.key(@wins_counter.values.max)
+  end
 
-  # end
+  def worst_coach(season)
+    game_wins_by_season(season)
+    @wins_counter = Hash.new(0)
+    @wins_by_season.each do |game| 
+      @wins_counter[game[:head_coach]] += 1
+    end
+    @wins_counter.key(@wins_counter.values.min)
+  end
 
   # Original method from Iteration 2
   def most_accurate_team(season)
