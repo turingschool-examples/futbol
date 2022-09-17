@@ -283,7 +283,7 @@ RSpec.describe StatTracker do
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
    
-    expect(stat_tracker.favorite_opponent("3")).to eq("8")
+    expect(stat_tracker.favorite_opponent("3")).to eq("New York Red Bulls")
   end
 
   it "#. rival" do
@@ -292,7 +292,6 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum_2.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.rival("3")).to eq("6")
+    expect(stat_tracker.rival("3")).to eq("FC Dallas")
   end
-
 end

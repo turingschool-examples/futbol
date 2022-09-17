@@ -258,18 +258,19 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-    percentage_of_wins = Hash.new(0)
+    percentage_of_wins = Hash.new(0.0)
     game_totals_by_team(team_id).each do |opponent, total_games|
       percentage_of_wins[opponent] = (games_by_team_by_result(team_id, "WIN")[opponent]).to_f/(total_games)
     end
-    percentage_of_wins.key(percentage_of_wins.values.max)
+    team_finder(percentage_of_wins.key(percentage_of_wins.values.max))[:teamname]
   end
 
   def rival(team_id)
-    percentage_of_wins = Hash.new(0)
+    percentage_of_losses = Hash.new(0.0)
     game_totals_by_team(team_id).each do |opponent, total_games|
-      percentage_of_wins[opponent] = (games_by_team_by_result(team_id, "LOSS")[opponent]).to_f/(total_games)
+      percentage_of_losses[opponent] = (games_by_team_by_result(team_id, "LOSS")[opponent]).to_f/(total_games)
     end
-    percentage_of_wins.key(percentage_of_wins.values.max)
+    team_finder(percentage_of_losses.key(percentage_of_losses.values.max))[:teamname]
   end
 end 
+
