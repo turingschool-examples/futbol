@@ -20,6 +20,7 @@ class StatTracker
     stat_tracker
   end
 
+
   # Method to return the average number of goals scored in a game across all
   # seasons including both home and away goals (rounded to the nearest 100th)
   def average_goals_per_game
@@ -224,4 +225,24 @@ class StatTracker
       end
     unique_goal_totals.min
   end
-end 
+
+  def most_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.max))
+  end
+
+  def fewest_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.min))
+  end
+end
