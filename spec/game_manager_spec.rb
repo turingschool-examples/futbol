@@ -1,28 +1,43 @@
 require'csv'
 require'rspec'
-require'./lib/games.rb'
+require'./lib/game_manager.rb'
 
 
-RSpec.describe Game do
-  it 'exists' do
-  #game = CSV.open './data/games.csv'
-   game = Game.new({game_id: 2012030221, season: 20122013, type: "Postseason", date_time: 5/16/13, away_team_id: 3, home_team_id: 6, away_goals: 2, home_goals: 3, venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"})
-   expect(game).to be_an_instance_of(Game)
- end
+RSpec.describe GameManager do
+  before(:each) do
+    GameManager.from_csv_path('./data/games.csv')
+  end
 
-  it' has readable info' do
-   game = Game.new({game_id: 2012030221, season: 20122013, type: "Postseason", date_time: 5/16/13, away_team_id: 3, home_team_id: 6, away_goals: 2, home_goals: 3, venue: "Toyota Stadium", venue_link: "/api/v1/venues/null"})
-   expect(game.game_id).to eq(2012030221)
-   expect(game.season).to eq(20122013)
-   expect(game.type).to eq("Postseason")
-   expect(game.date_time).to eq(5/16/13)
-   expect(game.away_team_id).to eq(3)
-   expect(game.home_team_id).to eq(6)
-   expect(game.away_goals).to eq(2)
-   expect(game.home_goals).to eq(3)
-   expect(game.venue).to eq("Toyota Stadium")
-   expect(game.venue_link).to eq("/api/v1/venues/null")
+  it '#highest_total_score' do
+    expect(GameManager.highest_total_score).to eq 11
+  end
+ 
+  it '#lowest_total_score' do
+    expect(GameManager.lowest_total_score).to eq 0
+  end
 
+  it "#percentage_home_wins" do
+    expect(GameManager.percentage_home_wins).to eq 0.44
+  end
+
+  it "#percentage_visitor_wins" do
+    expect(GameManager.percentage_visitor_wins).to eq 0.36
+  end
+
+  it "#percentage_ties" do
+    expect(GameManager.percentage_ties).to eq 0.20
+  end
+
+  it "#count_of_games_by_season" do
+    expected = {
+      "20122013"=>806,
+      "20162017"=>1317,
+      "20142015"=>1319,
+      "20152016"=>1321,
+      "20132014"=>1323,
+      "20172018"=>1355
+    }
+    expect(GameManager.count_of_games_by_season).to eq expected
   end
 end
 
