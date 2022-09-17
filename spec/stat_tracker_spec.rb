@@ -6,7 +6,7 @@ RSpec.describe StatTracker do
   let(:stat_tracker) {StatTracker.new}
   dummy_filepath = {teams: "./data/teams.csv",
                     games: './data/games_dummy1.2.csv',
-                    game_teams: './data/game_teams.csv'
+                    game_teams: './data/game_teams_dummy1.csv'
 
   }
   let(:stat_tracker1) {StatTracker.from_csv(dummy_filepath)}
@@ -93,6 +93,16 @@ RSpec.describe StatTracker do
   it "#lowest_scoring_visitor returns name of the team with the lowest
   average score per game across all seasons when they are away." do
     expect(stat_tracker1.lowest_scoring_visitor).to eq('Sporting Kansas City')
+  end
+
+  it '#most_tackles name of the Team with the most tackles in the season' do
+
+    expect(stat_tracker1.most_tackles('20122013')).to eq('Philadelphia Union')
+  end
+
+  it '#fewest_tackles name of the Team with the fewest tackles in the season' do
+
+    expect(stat_tracker1.fewest_tackles('20122013')).to eq('New England Revolution')
   end
 
   it "4. #count_of_teams" do
