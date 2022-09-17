@@ -259,7 +259,7 @@ class StatTracker
   end
 
   def worst_coach
-    
+
   end
 
   def most_tackles(season)
@@ -280,5 +280,36 @@ class StatTracker
       end
     end
     team_name_from_id(team_tackles.key(team_tackles.values.min))
+  end
+
+  def coach_results(result, season_id)
+    coaches = Hash.new(0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result
+        coaches[row[:head_coach]] += 1
+      else
+        coaches[row[:head_coach]] += 0
+      end
+    end
+    coaches
+  end
+
+  def games_by_head_coach(season_id)
+    games_by_coach = Hash.new(0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3]
+        games_by_coach[row[:head_coach]] += 1
+      end
+    end
+    games_by_coach
+  end
+
+  def winningest_coach(season_id)
+    coaches = coach_results("WIN", season_id)
+    games_by_coach = games_by_head_coach(season_id)
+    coaches.update(coaches) do |coach, wins|
+      wins.to_f / games_by_coach[coach]
+    end
+    coaches.key(coaches.values.max)
   end
 end

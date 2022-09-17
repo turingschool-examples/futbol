@@ -272,5 +272,8 @@ RSpec.describe StatTracker do
       stat_tracker = StatTracker.from_csv(dummy_filepath)
       expect(stat_tracker.worst_coach("20112012")).to eq("John Tortorella")
     end
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb5131b367162cc0aabe0823afb9613eb22078fd
 end
