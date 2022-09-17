@@ -236,4 +236,63 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
+
+  it "#. games_by_team_by_result" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"8" => 1}
+    expect(stat_tracker.games_by_team_by_result("3", "WIN")).to eq(result)
+    result = {"6" => 5}
+    expect(stat_tracker.games_by_team_by_result("3", "LOSS")).to eq(result)
+  end
+
+  it "#. games_totals_by_team for team" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.game_totals_by_team("3")).to eq({"6" => 5, "8" => 1})
+  end
+
+  it "#. all_games_by_team" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.all_games_by_team("3")).to include(stat_tracker.game_teams_reader[0], stat_tracker.game_teams_reader[2], stat_tracker.game_teams_reader[5], stat_tracker.game_teams_reader[7], stat_tracker.game_teams_reader[8], stat_tracker.game_teams_reader[10])
+  end
+
+  it "#. team_all_game_ids" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.team_all_game_ids("3")).to eq(["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", "2012030121"])
+  end
+
+  it "#. favorite_opponent" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+   
+    expect(stat_tracker.favorite_opponent("3")).to eq("8")
+  end
+
+  it "#. rival" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.rival("3")).to eq("6")
+  end
+
 end

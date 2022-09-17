@@ -224,4 +224,52 @@ class StatTracker
       end
     unique_goal_totals.min
   end
+
+  def games_by_team_by_result(team_id, game_result)
+    result_by_team = Hash.new(0)
+    @game_teams_reader.each do |line|
+      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id]) && ![game_result, "TIE"].include?(line[:result])
+        result_by_team[line[:team_id]] += 1
+      end
+    end
+    result_by_team
+  end
+
+  def game_totals_by_team(team_id)
+    list_of_totals = Hash.new(0)
+    @game_teams_reader.each do |line|
+      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id])
+        list_of_totals[line[:team_id]] += 1
+      end
+    end
+    list_of_totals
+  end
+
+  def all_games_by_team(team_id) #need test
+    @game_teams_reader.find_all do |row|
+      row[:team_id] == team_id 
+    end
+  end
+ 
+  def team_all_game_ids(team_id) #need test
+    all_games_by_team(team_id).map do |game|
+      game[0]
+    end
+  end
+
+  def favorite_opponent(team_id)
+    percentage_of_wins = Hash.new(0)
+    game_totals_by_team(team_id).each do |opponent, total_games|
+      percentage_of_wins[opponent] = (games_by_team_by_result(team_id, "WIN")[opponent]).to_f/(total_games)
+    end
+    percentage_of_wins.key(percentage_of_wins.values.max)
+  end
+
+  def rival(team_id)
+    percentage_of_wins = Hash.new(0)
+    game_totals_by_team(team_id).each do |opponent, total_games|
+      percentage_of_wins[opponent] = (games_by_team_by_result(team_id, "LOSS")[opponent]).to_f/(total_games)
+    end
+    percentage_of_wins.key(percentage_of_wins.values.max)
+  end
 end 
