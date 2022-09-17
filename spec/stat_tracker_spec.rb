@@ -162,8 +162,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.total_shots('20122013')).to eq({"17"=>19.0, "16"=>18.0})
   end
   
-  xit '#shot_accuracy' do
-    expect(@stat_tracker.shot_accuracy('20122013')).to be_a(Hash)
+  it '#shot_accuracy' do
+    expect(@stat_tracker.shot_accuracy('17')).to be_a(Hash)
   end
   
   xit '#most_accurate_team' do

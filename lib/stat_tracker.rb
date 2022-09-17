@@ -383,19 +383,18 @@ class StatTracker
     t_shots
   end
   
-  def shot_accuracy(team)
-    
+  def shot_accuracy(team_id)
     shot_accuracy = Hash.new(0)
+
+    season = @games.filter_map {|row| row[:season] if season == row[:team_id]}
+    # season = self.find_season(season).total_goals.each do |team_id|
     require'pry';binding.pry
-    season = self.find_season(season).total_goals.each do |team|
-      #
-      key = team.first
-      #
-      shot_accuracy[key] = (team.last / season.total_shots[key]).round(2)
-      #
-    end
-    shot_accuracy
+    key = team_id.first
+    
+    shot_accuracy[key] = (team_id.last / season.total_shots[key]).round(2)
   end
+  
+  #kenz season = @games.filter_map {|row| row[:season] if season == row[:team_id]}
   
   # def most_accurate_team(season)
   #   accuracy = {}
