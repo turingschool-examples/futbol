@@ -42,72 +42,72 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_total_score).to eq 0
   end
 
-  it "#winningest_coach" do
+  xit "#winningest_coach" do
       expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
       expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
   end
 
-  it "#worst_coach" do
+  xit "#worst_coach" do
       expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
       expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
-  it "#most_accurate_team" do
+  xit "#most_accurate_team" do
       expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
       expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  it "#least_accurate_team" do
+  xit "#least_accurate_team" do
       expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  it "#most_tackles" do
+  xit "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
-  
-  it "#fewest_tackles" do
+
+  xit "#fewest_tackles" do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
 
 
-  it '13. returns count_of_teams'do
+  xit '13. returns count_of_teams'do
       expect(@stat_tracker.count_of_teams).to eq 32
 
   end
 
-  it '14. #best_offense returns the team with the best_offense' do
+  xit '14. #best_offense returns the team with the best_offense' do
       expect(@stat_tracker.best_offense).to eq "Reign FC"
   end
 
-  it '15. #worst_offense returns the team with the worst_offense' do
+  xit '15. #worst_offense returns the team with the worst_offense' do
       expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
   end
 
-  it '16. #highest_scoring_visitor returns the highest scoring visitor' do
+  xit '16. #highest_scoring_visitor returns the highest scoring visitor' do
       expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
   end
 
-  it '17. returns the highest_scoring_home_team' do
+  xit '17. returns the highest_scoring_home_team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
   end
 
-  it '18. returns the lowest_scoring_visitor' do
+  xit '18. returns the lowest_scoring_visitor' do
       expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
-  it '19. returns the lowest_scoring_home_team' do
+  xit '19. returns the lowest_scoring_home_team' do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
-    
+
   end
-  
-  it "#percentage_home_wins" do
+
+  xit "#percentage_home_wins" do
       expect(@stat_tracker.percentage_home_wins).to eq 0.44
     end
 
-    xit "#percentage_visitor_wins" do
+   xit "#percentage_visitor_wins" do
       expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
     end
 
@@ -127,7 +127,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_games_by_season).to eq expected
     end
 
-    xit "#average_goals_per_game" do
+    it "#average_goals_per_game" do
       expect(@stat_tracker.average_goals_per_game).to eq 4.22
     end
 
@@ -151,17 +151,17 @@ RSpec.describe StatTracker do
         "abbreviation" => "MIN",
         "link" => "/api/v1/teams/18"
       }
-  
+
       expect(@stat_tracker.team_info("18")).to eq expected
     end
 
     xit "#best_season" do
       expect(@stat_tracker.best_season("6")).to eq "20132014"
-    end    
+    end
 
     xit "#worst_season" do
       expect(@stat_tracker.worst_season("6")).to eq "20142015"
-    end    
+    end
 
     xit "#average_win_percentage" do
       expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
@@ -175,11 +175,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
     end
 
-    it "#favorite_opponent" do
+    xit "#favorite_opponent" do
       expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
     end
 
-    it "#rival" do
+    xit "#rival" do
       expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
     end
 end

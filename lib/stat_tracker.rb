@@ -36,55 +36,39 @@ class StatTracker
   def count_of_teams
     @team_csv.count { |row| row[:team_id] }
   end
-     
+
   def percentage_home_wins
-    home_wins = 0
-    total_wins = 0
-    @game_csv.each do |row|
-      home_wins += 1 if row[:home_goals].to_f > row[:away_goals].to_f
-      total_wins += 1
-    end
+    home_wins = 0 && total_wins = 0
+    @game_csv.each { |row| home_wins += 1 if row[:home_goals].to_f > row[:away_goals].to_f
+      total_wins += 1 }
     return (home_wins.to_f/total_wins.to_f).round(2)
   end
 
   def percentage_visitor_wins
-    visitor_wins = 0
-    total_wins = 0
-    @game_csv.each do |row|
-      visitor_wins += 1 if row[:home_goals].to_f < row[:away_goals].to_f
-      total_wins += 1
-    end
+    visitor_wins = 0 && total_wins = 0
+    @game_csv.each { |row|visitor_wins += 1 if row[:home_goals].to_f < row[:away_goals].to_f
+      total_wins += 1 }
     return (visitor_wins.to_f/total_wins.to_f).round(2)
   end
 
   def percentage_ties
-    ties = 0
-    total_wins = 0
-    @game_csv.each do |row|
-      ties += 1 if row[:home_goals].to_f == row[:away_goals].to_f
-      total_wins += 1
-    end
+    ties = 0 && total_wins = 0
+    @game_csv.each { |row| ties += 1 if row[:home_goals].to_f == row[:away_goals].to_f
+      total_wins += 1 }
     return (ties.to_f/total_wins.to_f).round(2)
   end
 
   def count_of_games_by_season
     seasons_with_games = Hash.new(0)
-    @game_csv.each do |row|
-      seasons_with_games[row[:season]] += 1
-    end
-    seasons_with_games
+    @game_csv.each { |row| seasons_with_games[row[:season]] += 1 }
+    return seasons_with_games
   end
 
   def average_goals_per_game
-    total_games = 0
-    average = 0
-    total_goals = 0
-    @game_csv.each do |row|
-     total_goals += row[:home_goals].to_i + row[:away_goals].to_i
-      total_games += 1
-      average = (total_goals.to_f/total_games.to_f).round(2)
-    end
-    average
+    total_games = 0 && average = 0 && total_goals = 0
+    @game_csv.each { |row| total_goals += row[:home_goals].to_i + row[:away_goals].to_i
+      total_games += 1 }
+      return average = (total_goals.to_f/total_games.to_f).round(2)
   end
 
   def average_goals_by_season
@@ -98,7 +82,7 @@ class StatTracker
     end
    p seasons_averages
 
-  end  
+  end
 
   #Name of the team with the highest average number of goals scored per game across all seasons.
   def best_offense
@@ -115,7 +99,7 @@ class StatTracker
       return row[:teamname] if row[:team_id] == teamid
      end
   end
-  
+
 #Name of the team with the lowest average number of goals scored per game across all seasons.
   def worst_offense
     team_offense = Hash.new(0)
@@ -131,7 +115,7 @@ class StatTracker
       return row[:teamname] if row[:team_id] == teamid
      end
    end
-   
+
   #Name of the team with the lowest average number of goals scored per game across all seasons. FC Dallas
    def highest_scoring_visitor
      team_offense = Hash.new(0)
@@ -147,7 +131,7 @@ class StatTracker
        return row[:teamname] if row[:team_id] == teamid
       end
     end
-    
+
     # returns the highest_scoring_home_team'
     def highest_scoring_home_team
       team_offense = Hash.new(0)
@@ -163,7 +147,7 @@ class StatTracker
         return row[:teamname] if row[:team_id] == teamid
        end
      end
-     
+
     #returns the lowest_scoring_visitor
     def lowest_scoring_visitor
       team_offense = Hash.new(0)
@@ -215,7 +199,7 @@ class StatTracker
   def team_info(id)
     team_hash = Hash.new(0)
 
-    @team_csv.each { |row| 
+    @team_csv.each { |row|
       if row[:team_id] == id
         team_hash['team_id'] = row[:team_id]
         team_hash['franchise_id'] = row[:franchiseid]
@@ -224,13 +208,13 @@ class StatTracker
         team_hash['link'] = row[:link]
       end
     }
-    
+
     return team_hash
   end
 
   def best_season(id)
     team_seasons = Hash.new(0)
-    @game_teams_csv.each do |row| 
+    @game_teams_csv.each do |row|
       if row[:team_id] == id
         if row[:result] == "WIN"
           season = @game_csv.find { |game| game[:game_id] == row[:game_id] }
@@ -243,9 +227,9 @@ class StatTracker
 
   def worst_season(id)
     team_seasons = Hash.new(0)
-    @game_teams_csv.each do |row| 
+    @game_teams_csv.each do |row|
       if row[:team_id] == id
-        if row[:result] == "WIN" 
+        if row[:result] == "WIN"
           season = @game_csv.find { |game| game[:game_id] == row[:game_id] }
           team_seasons[season[:season]] += 1
         end
@@ -256,22 +240,22 @@ class StatTracker
 
   def average_win_percentage(id)
     total_games = 0
-    total_wins = 0 
-    
+    total_wins = 0
+
     @game_teams_csv.each do |row|
-      if row[:team_id] == id 
+      if row[:team_id] == id
         total_wins += 1 if row[:result] == "WIN"
         total_games += 1
       end
     end
-    
+
     return (total_wins.to_f / total_games.to_f).round(2)
   end
 
   def most_goals_scored(id)
-    highest_score = 0 
+    highest_score = 0
     @game_teams_csv.each do |row|
-      if row[:team_id] == id 
+      if row[:team_id] == id
         highest_score = row[:goals].to_i if row[:goals].to_i > highest_score
       end
     end
@@ -281,7 +265,7 @@ class StatTracker
   def fewest_goals_scored(id)
     lowest_score = self.most_goals_scored(id)
     @game_teams_csv.each do |row|
-      if row[:team_id] == id 
+      if row[:team_id] == id
         lowest_score = row[:goals].to_i if row[:goals].to_i < lowest_score
       end
     end
@@ -341,7 +325,7 @@ class StatTracker
     @team_csv.each do |row|
       return row[:teamname] if row[:team_id] == teamid
     end
-  end 
+  end
 
   def most_tackles(season)
     tackle_records = Hash.new(0)
@@ -369,26 +353,26 @@ class StatTracker
     end
   end
 
-  def favorite_opponent(id) 
+  def favorite_opponent(id)
     games_played = []
     @game_teams_csv.each do |row|
-      if row[:team_id] == id 
+      if row[:team_id] == id
         games_played << row[:game_id]
       end
     end
 
     opponent_history = Hash.new {|h, k| h[k] = {"wins"=>0, "losses"=>0, "ties"=>0, "total games played" => 0}}
 
-    @game_teams_csv.each do |row| 
+    @game_teams_csv.each do |row|
 
       if games_played.include?(row[:game_id])
 
-        if row[:team_id] != id 
-          
+        if row[:team_id] != id
+
           if row[:result] == "WIN"
             opponent_history[row[:team_id]]["wins"] += 1
           end
-      
+
           if row[:result] == "LOSS"
             opponent_history[row[:team_id]]["losses"] += 1
           end
@@ -405,19 +389,19 @@ class StatTracker
 
     winless_opponents = Hash.new {|h, k| h[k] = 0}
 
-    win_ratios_against_opponents = Hash.new {|h, k| h[k] = 0.0}  
+    win_ratios_against_opponents = Hash.new {|h, k| h[k] = 0.0}
 
-    opponent_history.each do |team_id, opponent_results| 
+    opponent_history.each do |team_id, opponent_results|
       if opponent_results["wins"] == 0 && opponent_results["losses"] > 0
         winless_opponents[team_id] += 1
-      else 
+      else
         win_ratios_against_opponents[team_id] = opponent_results["losses"].to_f / opponent_results["wins"].to_f
       end
-    end 
-    
-    opponent_history.each do |k, v| 
+    end
+
+    opponent_history.each do |k, v|
       print @team_csv.find {|row| row[:team_id] == k}[:teamname]
-      v.each do |k2, v2| 
+      v.each do |k2, v2|
         print " #{k2} = #{v2} "
       end
       puts "\n\n"
@@ -425,7 +409,7 @@ class StatTracker
 
     puts "\n\n\n"
 
-    win_ratios_against_opponents.each do |k, v| 
+    win_ratios_against_opponents.each do |k, v|
       print @team_csv.find {|row| row[:team_id] == k}[:teamname]
       print " : #{v}"
       puts "\n\n"
@@ -435,8 +419,8 @@ class StatTracker
       sorted_winless_opponents = winless_opponents.sort_by {|k, v| v}
       favorite_id = sorted_winless_opponents.first[0]
       return @team_csv.find {|row| row[:team_id] == favorite_id}[:teamname]
-    else  
-      sorted_opponents = win_ratios_against_opponents.sort_by {|k, v| v} 
+    else
+      sorted_opponents = win_ratios_against_opponents.sort_by {|k, v| v}
       favorite_id = sorted_winless_opponents.first[0]
       return @team_csv.find {|row| row[:team_id] == favorite_id}[:teamname]
     end
@@ -459,26 +443,26 @@ class StatTracker
 
 
 
-  def rival(id) 
+  def rival(id)
     games_played = []
     @game_teams_csv.each do |row|
-      if row[:team_id] == id 
+      if row[:team_id] == id
         games_played << row[:game_id]
       end
     end
 
     opponent_history = Hash.new {|h, k| h[k] = {"wins"=>0, "losses"=>0, "ties"=>0, "total games played" => 0}}
 
-    @game_teams_csv.each do |row| 
+    @game_teams_csv.each do |row|
 
       if games_played.include?(row[:game_id])
 
-        if row[:team_id] != id 
-          
+        if row[:team_id] != id
+
           if row[:result] == "WIN"
             opponent_history[row[:team_id]]["wins"] += 1
           end
-      
+
           if row[:result] == "LOSS"
             opponent_history[row[:team_id]]["losses"] += 1
           end
@@ -495,19 +479,19 @@ class StatTracker
 
     winless_opponents = Hash.new {|h, k| h[k] = 0}
 
-    win_ratios_against_opponents = Hash.new {|h, k| h[k] = 0.0}  
+    win_ratios_against_opponents = Hash.new {|h, k| h[k] = 0.0}
 
-    opponent_history.each do |team_id, opponent_results| 
+    opponent_history.each do |team_id, opponent_results|
       if opponent_results["losses"] == 0 && opponent_results["wins"] > 0
         winless_opponents[team_id] += 1
-      else 
+      else
         win_ratios_against_opponents[team_id] = opponent_results["wins"].to_f / opponent_results["total games played"].to_f
       end
-    end 
-    
-    opponent_history.each do |k, v| 
+    end
+
+    opponent_history.each do |k, v|
       print @team_csv.find {|row| row[:team_id] == k}[:teamname]
-      v.each do |k2, v2| 
+      v.each do |k2, v2|
         print " #{k2} = #{v2} "
       end
       puts "\n\n"
@@ -515,7 +499,7 @@ class StatTracker
 
     puts "\n\n\n"
 
-    win_ratios_against_opponents.each do |k, v| 
+    win_ratios_against_opponents.each do |k, v|
       print @team_csv.find {|row| row[:team_id] == k}[:teamname]
       print " : #{v}"
       puts "\n\n"
@@ -525,8 +509,8 @@ class StatTracker
       sorted_winless_opponents = winless_opponents.sort_by {|k, v| v}
       favorite_id = sorted_winless_opponents.last[0]
       return @team_csv.find {|row| row[:team_id] == favorite_id}[:teamname]
-    else  
-      sorted_opponents = win_ratios_against_opponents.sort_by {|k, v| v} 
+    else
+      sorted_opponents = win_ratios_against_opponents.sort_by {|k, v| v}
       favorite_id = sorted_opponents.last[0]
       return @team_csv.find {|row| row[:team_id] == favorite_id}[:teamname]
     end
