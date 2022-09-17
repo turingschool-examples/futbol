@@ -57,6 +57,12 @@ class GameManager
       (total_goals.to_f / total_games.to_f).round(2)
   end
 
-  
+  def self.average_goals_by_season
+    seasons_with_games = Hash.new(0) && seasons_averages = Hash.new(0)
+    @@all_games.each { |row| seasons_with_games[row[:season]] += (row[:away_goals].to_f + row[:home_goals].to_f) }
+    seasons_with_games.map { |season_id, total_games| seasons_averages[season_id] = (total_games / self.count_of_games_by_season[season_id]).round(2) }
+    seasons_averages
+  end
+
 end
  
