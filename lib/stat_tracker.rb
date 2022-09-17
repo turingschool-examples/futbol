@@ -16,7 +16,7 @@ class StatTracker
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
 #------------------------------------Game Statistics------------------------------------
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def highest_total_score
     highest_scoring_game = @games.max_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
@@ -24,7 +24,7 @@ class StatTracker
     highest_scoring_game[:away_goals].to_i + highest_scoring_game[:home_goals].to_i
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def lowest_total_score
     lowest_scoring_game = @games.min_by do |game|
       game[:away_goals].to_i + game[:home_goals].to_i
@@ -38,7 +38,7 @@ class StatTracker
     @games.count
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_home_wins
     home_wins = 0
@@ -50,7 +50,7 @@ class StatTracker
     (home_wins.to_f / @games.count).round(2)
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_visitor_wins
     visitor_wins = 0
@@ -62,7 +62,7 @@ class StatTracker
     (visitor_wins.to_f / @games.count).round(2)
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_ties
     ties = 0
@@ -74,12 +74,12 @@ class StatTracker
     (ties.to_f / @games.count).round(2)
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def count_of_games_by_season
     @games[:season].tally
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def average_goals_per_game
     total_goals = @games[:away_goals].map(&:to_i).sum.to_f + @games[:home_goals].map(&:to_i).sum
     (total_goals / @games.size).round(2)
@@ -98,7 +98,7 @@ class StatTracker
     goals_per_season
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def average_goals_by_season
     season_goal_averages = Hash.new
     total_goals_per_season.each do |season, goals|
@@ -147,7 +147,7 @@ class StatTracker
   end
 
   # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
-  # Recomend refactor by mixin 'calculator'
+  # Recommend refactor by mixin 'calculator'
   def average_score_per_game(game_teams_selection)
     goals = game_teams_selection.sum {|game| game[:goals].to_f}
     # You need to / 2. The game_teams CSV has 2 lines to represent one game.
@@ -156,7 +156,7 @@ class StatTracker
   end
 
   # Helper method is used in average_scores_for_all_visitors
-  # Recomend refactor as similar to method home_games_by_team_id & winning_as_coach
+  # Recommend refactor as similar to method home_games_by_team_id & winning_as_coach
   def away_games_by_team_id
     away_games_list = @game_teams.find_all {|game| game[:hoa] == "away"}
     away_games_hash = Hash.new([])
@@ -194,7 +194,7 @@ class StatTracker
     @home_hash
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def highest_scoring_visitor
     average_scores_for_all_visitors
     highest_scoring_team = @teams.find do |team|
@@ -203,7 +203,7 @@ class StatTracker
     highest_scoring_team[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def highest_scoring_home_team
     average_scores_for_all_home_teams
     highest_scoring_team = @teams.find do |team|
@@ -212,7 +212,7 @@ class StatTracker
     highest_scoring_team[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def lowest_scoring_visitor
     average_scores_for_all_visitors
     lowest_scoring_team = @teams.find do |team|
@@ -221,7 +221,7 @@ class StatTracker
     lowest_scoring_team[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def lowest_scoring_home_team
     average_scores_for_all_home_teams
     highest_scoring_team = @teams.find do |team|
@@ -283,7 +283,7 @@ class StatTracker
   end
 
   # Helper method is used in most_tackles & fewest_tackles
-  # Recomend refactor into 2 methods. 1. Selects games in a given season. 2. Finds tackles in that set of games.
+  # Recommend refactor into 2 methods. 1. Selects games in a given season. 2. Finds tackles in that set of games.
   def tackles_by_team(season)
     games_by_season
     games_in_select_season = @games_by_season_hash[season]
@@ -296,7 +296,7 @@ class StatTracker
     @tackles_counter
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def most_tackles(season)
     tackles_by_team(season)
     team_with_most_tackles = @teams.find do |team|
@@ -305,7 +305,7 @@ class StatTracker
     team_with_most_tackles[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def fewest_tackles(season)
     tackles_by_team(season)
     team_with_least_tackles = @teams.find do |team|
