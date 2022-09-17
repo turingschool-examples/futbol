@@ -49,5 +49,14 @@ class GameManager
     @@all_games.each { |row| seasons_with_games[row[:season]] += 1 }
     seasons_with_games
   end
+
+  def self.average_goals_per_game
+    total_games = 0 && average = 0 && total_goals = 0
+    @@all_games.each { |row| total_goals += row[:home_goals].to_i + row[:away_goals].to_i
+      total_games += 1 }
+      (total_goals.to_f / total_games.to_f).round(2)
+  end
+
+  
 end
  

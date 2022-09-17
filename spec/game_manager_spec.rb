@@ -39,6 +39,10 @@ RSpec.describe GameManager do
     }
     expect(GameManager.count_of_games_by_season).to eq expected
   end
+
+  it "#average_goals_per_game" do
+    expect(GameManager.average_goals_per_game).to eq 4.22
+  end
 end
 
 
