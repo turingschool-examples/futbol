@@ -325,12 +325,14 @@ class StatTracker
 
   # Original method from Iteration 2
   def average_win_percentage(team_id)
+    games_by_team
     games_to_check = @games_by_team_hash[team_id]
     (games_to_check.count {|game| game[:result] == 'WIN'}.to_f / games_to_check.length.to_f).round(2)
   end
 
   # Original method from Iteration 2
   def most_goals_scored(team_id)
+    games_by_team
     games_to_check = @games_by_team_hash[team_id]
     game_most_goals = games_to_check.max_by {|game| game[:goals].to_i}
     game_most_goals[:goals].to_i
@@ -338,6 +340,7 @@ class StatTracker
 
   # Original method from Iteration 2
   def fewest_goals_scored(team_id)
+    games_by_team
     games_to_check = @games_by_team_hash[team_id]
     game_least_goals = games_to_check.min_by {|game| game[:goals].to_i}
     game_least_goals[:goals].to_i
