@@ -159,12 +159,8 @@ RSpec.describe StatTracker do
   it '#head_coach(team_id)' do 
    expect(@stat_tracker.head_coach(3)).to eq('John Tortorella')
   end
-
-  it '#coach_stats(season)' do
-    expect(@stat_tracker.coach_stats("20122013")).to eq({"Claude Julien"=>0.60, "John Tortorella"=>0.40})
-  end
   
-  # it '#winningest_coach' do 
-  #   expect(@stat_tracker.winningest_coach('20122013')).to eq("Mike Babcock")
-  # end
+  it '#winningest_coach' do 
+    expect(@stat_tracker.winningest_coach('20122013')).to eq("Claude Julien")
+  end
 end

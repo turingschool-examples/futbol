@@ -392,19 +392,18 @@ class StatTracker
     coach[0]
   end
 
-  def coach_stats(season)
-    coach_stats_hash = Hash.new(0)
+  # team_id = @games[row[:team_id]] if season == row[:season]
+
+  def winningest_coach(season)
     team_season_wins = total_wins_per_team(season)
     team_total_season_games = total_games_played_per_team(season)
     nested_arr = team_season_wins.values.zip(team_total_season_games.values)
       win_percent = nested_arr.map do |array| 
         array[0].to_f / array[1]
       end
-        @game_teams.map do |row|
-          coach_stats_hash[row[:head_coach]] = win_percent
-        end
-        coach_stats_hash
-      
+    win_percent_hash = Hash[team_total_season_games.keys.zip(win_percent)]
+    winningest = win_percent_hash.max_by {|key, value| key}
+    head_coach(winningest[0].to_i)
   end
   
      
