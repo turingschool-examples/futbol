@@ -351,60 +351,70 @@ class StatTracker
     # fav_oppt = team_name(lost_most[0].to_i)
   end
   
-  def total_goals
-    total_goals = Hash.new(0)
+  def find_season(season)
+    games = []
     @game_teams.each do |row|
-      if !total_goals.key?(row[:team_id])
-        total_goals[row[:team_id]] = row[:goals].to_f
-      else
-        team_id = row[:team_id]
-        goals = row[:goals].to_f
-        total_goals[team_id] += goals
-      end
+      games << row if row[:game_id][0, 4] == season[0,4]
     end
-    total_goals
-  end
-
-  def total_shots
-    total_shots = Hash.new(0)
-    @game_teams.each do |row|
-      if !total_shots.key?(row[:team_id])
-        total_shots[row[:team_id]] = row[:shots].to_f
-      else
-        team_id = row[:team_id]
-        shots = row[:shots].to_f
-        total_shots[team_id] += shots
-      end
-    end
-    total_shots
+    games
   end
   
-  def shot_accuracy
+  def total_goals(season)
+    t_goals = Hash.new(0)
+    self.find_season(season).each do |row|
+      if !t_goals.key?(row[:team_id])
+        t_goals[row[:team_id]] = row[:goals].to_f
+      else
+        t_goals[row[:team_id]] += row[:goals].to_f
+      end
+    end
+    t_goals
+  end
+
+  def total_shots(season)
+    t_shots = Hash.new(0)
+    self.find_season(season).each do |row|
+      if !t_shots.key?(row[:team_id])
+        t_shots[row[:team_id]] = row[:shots].to_f
+      else
+        t_shots[row[:team_id]] += row[:shots].to_f
+      end
+    end
+    t_shots
+  end
+  
+  def shot_accuracy(team)
+    
     shot_accuracy = Hash.new(0)
-    self.total_goals.each do |team|
+    require'pry';binding.pry
+    season = self.find_season(season).total_goals.each do |team|
+      #
       key = team.first
-      shot_accuracy[key] = (team.last / self.total_shots[key]).round(2)
+      #
+      shot_accuracy[key] = (team.last / season.total_shots[key]).round(2)
+      #
     end
     shot_accuracy
   end
   
-  def most_accurate_team
-    accuracy = []
-    self.shot_accuracy.each do |team|
-      accuracy << team.last
-    end
-    # require 'pry';binding.pry
-    team_name(self.shot_accuracy.key(accuracy.max).to_i)
-  end
-  
-  def least_accurate_team
-    accuracy = []
-    self.shot_accuracy.each do |team|
-      accuracy << team.last
-    end
-    # require 'pry';binding.pry
-    team_name(self.shot_accuracy.key(accuracy.min).to_i)
-  end
+  # def most_accurate_team(season)
+  #   accuracy = {}
+  #   self.find_season(season).each do |team|
+  #     accuracy[team[:id]] = team.shot_accuracy
+  #     # team.last
+  #   end
+  #   # require 'pry';binding.pry
+  #   team_name(season.shot_accuracy.key(accuracy.max).to_i)
+  # end
+  # 
+  # def least_accurate_team(season)
+  #   accuracy = []
+  #   season = self.find_season(season).shot_accuracy.each do |team|
+  #     accuracy << team.last
+  #   end
+  #   # require 'pry';binding.pry
+  #   team_name(season.shot_accuracy.key(accuracy.min).to_i)
+  # end
 
 
 end
