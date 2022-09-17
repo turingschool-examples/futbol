@@ -276,3 +276,4 @@ class StatTracker
     end
     coaches.key(coaches.values.max)
 end
+end 
