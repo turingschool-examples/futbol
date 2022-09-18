@@ -15,15 +15,6 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
 
-    # fixture_game_path = 'spec/fixture/games_fixture.csv'
-    # fixture_team_path = 'spec/fixture/teams_fixture.csv'
-    # fixture_game_teams_path = 'spec/fixture/game_teams_fixture.csv'
-
-    # locations = {
-    #   games: fixture_game_path,
-    #   teams: fixture_team_path,
-    #   game_teams: fixture_game_teams_path
-    # }
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
