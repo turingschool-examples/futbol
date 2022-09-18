@@ -163,7 +163,8 @@ RSpec.describe StatTracker do
   end
   
   it '#shot_accuracy' do
-    expect(@stat_tracker.shot_accuracy('17')).to be_a(Hash)
+    # require'pry';binding.pry
+    expect(@stat_tracker.shot_accuracy('9', '20142015')).to be_a(Float)
   end
   
   xit '#most_accurate_team' do
