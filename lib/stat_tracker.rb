@@ -335,12 +335,10 @@ class StatTracker
   end
 
   def coach_results(result, season_id)
-    coaches = Hash.new(0)
+    coaches = Hash.new(0.0)
     @game_teams_reader.each do |row|
-      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result
-        coaches[row[:head_coach]] += 1
-      else
-        coaches[row[:head_coach]] += 0
+      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result 
+        coaches[row[:head_coach]] += 1.0
       end
     end
     coaches
@@ -349,7 +347,7 @@ class StatTracker
   def games_by_head_coach(season_id)
     games_by_coach = Hash.new(0)
     @game_teams_reader.each do |row|
-      if row[:game_id][0..3] == season_id[0..3]
+      if row[:game_id][0..3] == season_id[0..3] 
         games_by_coach[row[:head_coach]] += 1
       end
     end
@@ -359,19 +357,21 @@ class StatTracker
   def winningest_coach(season_id)
     coaches = coach_results("WIN", season_id)
     games_by_coach = games_by_head_coach(season_id)
-    coaches.update(coaches) do |coach, wins|
-      wins.to_f / games_by_coach[coach]
+    coach_win_percentages = Hash.new(0.0)
+    games_by_coach.each do |coach, games|
+      coach_win_percentages[coach] = (coaches[coach])/(games_by_coach[coach])
     end
-    coaches.key(coaches.values.max)
+    coach_win_percentages.key(coach_win_percentages.values.max)
   end
 
   def worst_coach(season_id)
     coaches = coach_results("WIN", season_id)
     games_by_coach = games_by_head_coach(season_id)
-    coaches.update(coaches) do |coach, wins|
-      wins.to_f / games_by_coach[coach]
+    coach_win_percentages = Hash.new(0.0)
+    games_by_coach.each do |coach, games|
+      coach_win_percentages[coach] = (coaches[coach])/(games_by_coach[coach])
     end
-    coaches.key(coaches.values.min)
+    coach_win_percentages.key(coach_win_percentages.values.min)
   end
   
   # Helper method to return hash of teams with team id keys and values of
@@ -424,5 +424,4 @@ class StatTracker
     end
     team_scores
   end
-  
 end
