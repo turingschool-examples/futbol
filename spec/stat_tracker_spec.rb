@@ -1,6 +1,6 @@
 require 'rspec'
 require 'pry'
-require'./lib/stat_tracker'
+require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:all) do
