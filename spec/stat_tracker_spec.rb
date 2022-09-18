@@ -6,7 +6,7 @@ RSpec.describe StatTracker do
   let(:stat_tracker) {StatTracker.new}
   dummy_filepath = {teams: "./data/teams.csv",
                     games: './data/games_dummy1.2.csv',
-                    game_teams: './data/game_teams.csv'
+                    game_teams: './data/game_teams_dummy1.csv'
 
   }
   let(:stat_tracker1) {StatTracker.from_csv(dummy_filepath)}
@@ -95,6 +95,16 @@ RSpec.describe StatTracker do
     expect(stat_tracker1.lowest_scoring_visitor).to eq('Sporting Kansas City')
   end
 
+  it '#most_tackles name of the Team with the most tackles in the season' do
+
+    expect(stat_tracker1.most_tackles('20122013')).to eq('Philadelphia Union')
+  end
+
+  it '#fewest_tackles name of the Team with the fewest tackles in the season' do
+
+    expect(stat_tracker1.fewest_tackles('20122013')).to eq('New England Revolution')
+  end
+
   it "4. #count_of_teams" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
     games: './data/games_dummy_2.csv',
@@ -155,7 +165,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.percentage_home_wins).to eq(30.00)
+    expect(stat_tracker.percentage_home_wins).to eq(0.30)
   end
 
   it "#. percentage_visitor_wins" do
@@ -164,7 +174,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.percentage_visitor_wins).to eq(20.00)
+    expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
   end
 
   it "#. percentage_ties" do
@@ -173,7 +183,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.percentage_ties).to eq(10.00)
+    expect(stat_tracker.percentage_ties).to eq(0.10)
   end
 
   it "#. team_finder" do
@@ -193,11 +203,11 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.team_info("1")).to eq({team_id: "1",
-                                                   franchise_id: "23",
-                                                   team_name: "Atlanta United",
-                                                   abbreviation: "ATL",
-                                                   link: "/api/v1/teams/1"
+    expect(stat_tracker.team_info("1")).to eq({"team_id" => "1",
+                                                   "franchise_id" => "23",
+                                                   "team_name" => "Atlanta United",
+                                                   "abbreviation" => "ATL",
+                                                   "link" => "/api/v1/teams/1"
     })
   end
 
@@ -207,7 +217,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.average_win_percentage("6")).to eq(100.00)
+    expect(stat_tracker.average_win_percentage("6")).to eq(1.00)
   end
 
   it "#. count_of_games_by_season" do
@@ -237,6 +247,116 @@ RSpec.describe StatTracker do
     expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
 
+
+  it "#. games_by_team_by_result" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"8" => 1}
+    expect(stat_tracker.games_by_team_by_result("3", "WIN")).to eq(result)
+    result = {"6" => 5}
+    expect(stat_tracker.games_by_team_by_result("3", "LOSS")).to eq(result)
+  end
+
+  it "#. games_totals_by_team for team" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.game_totals_by_team("3")).to eq({"6" => 5, "8" => 1})
+  end
+
+  it "#. all_games_by_team" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.all_games_by_team("3")).to include(stat_tracker.game_teams_reader[0], stat_tracker.game_teams_reader[2], stat_tracker.game_teams_reader[5], stat_tracker.game_teams_reader[7], stat_tracker.game_teams_reader[8], stat_tracker.game_teams_reader[10])
+  end
+
+  it "#. team_all_game_ids" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.team_all_game_ids("3")).to eq(["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", "2012030121"])
+  end
+
+  it "#. favorite_opponent" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+   
+    expect(stat_tracker.favorite_opponent("3")).to eq("New York Red Bulls")
+  end
+
+  it "#. rival" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_3.csv',
+                      game_teams: './data/game_teams_dumdum_2.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.rival("3")).to eq("FC Dallas")
+  end
+
+  #Below is Rich's code for a parallel attempt on a helper method and favorite_opponent. We added to retain in case it works better with our I3 structure/Framework.
+
+  # it "#. w_l_by_team" do
+  #   dummy_filepath = {teams: "./data/teams.csv",
+  #                     games: './data/games_dummy_2.csv',
+  #                     game_teams: './data/game_teams_dumdum_rk.csv'
+  #   }
+    
+  #   result = {'8' => 1}
+  #   stat_tracker = StatTracker.from_csv(dummy_filepath)
+  #   expect(stat_tracker.w_l_by_team("3", 'WIN')).to eq(result)
+  # end
+
+  # it "#favorite_opponent" do
+  #   dummy_filepath = {teams: "./data/teams.csv",
+  #                     games: './data/games_dummy_2_rk.csv',
+  #                     game_teams: './data/game_teams_dumdum_rk.csv'
+  #   }
+    
+  #   result = {'8' => 1}
+  #   stat_tracker = StatTracker.from_csv(dummy_filepath)
+  #   expect(stat_tracker.favorite_opponent('3')).to eq('New York Red Bulls')
+  #   expect(stat_tracker.favorite_opponent('6')).to eq('Houston Dynamo')
+  # end
+
+  #coach results
+
+  #games by head coach
+
+  it "#. winningest_coach" do
+      # Name of the Coach with the best win percentage for the season (string)
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_3.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+  end
+
+  it "#. worst_coach" do
+      # Name of the Coach with the worst win percentage for the season (string)
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_3.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+  end
+
+
+
   it "# best_season: season with the hightest win percentage for a team" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games_dummy_2.csv',
@@ -245,13 +365,85 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.best_season("6")).to eq("20112012") #also has 100% for "20122013" as well
   end
-
+  
   it "# worst_season: season with the lowest win percentage for a team" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
-                      games: './data/games_dummy_2.csv',
-                      game_teams: './data/game_teams_dumdum.csv'
+      games: './data/games_dummy_2.csv',
+      game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.worst_season("3")).to eq("20112012") #team "17" also has 100% loss  for "20132014" as well
   end
+
+  it "#. fewest_goals_scored" do
+    expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
+  end
+
+  it "#most_accurate_team returns the name of the Team with the best ratio
+  of shots to goals for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker1.most_accurate_team('20122013')).to eq('New York Red Bulls')
+  end
+
+  it "#least_accurate_team returns the name of the Team with the best ratio
+  of shots to goals for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker1.least_accurate_team('20122013')).to eq('New York City FC')
+  end
+
+  it "#total_goals_by_team_season returns hash of teams as keys and values
+  of goals for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"6"=>3, "3"=>2, "5"=>1, "17"=>3, "16"=>2, "9"=>1, "8"=>3, "19"=>3}
+    expect(stat_tracker1.total_goals_by_team_season('20122013')).to eq(result)
+  end
+
+  it "#total_shots_by_team_season returns hash of teams as keys and values
+  of shots for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"6"=>12.0,
+             "3"=>8.0,
+             "5"=>6.0,
+             "17"=>12.0,
+             "16"=>10.0,
+             "9"=>7.0,
+             "8"=>8.0,
+             "19"=>14.0}
+    expect(stat_tracker1.total_shots_by_team_season('20122013')).to eq(result)
+  end
+
+  it "#accuracy_by_team_season returns hash of teams as keys and values
+  of goals / shots for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"6"=> 3/12.0,
+             "3"=> 2/8.0,
+             "5"=> 1/6.0,
+             "17"=> 3/12.0,
+             "16"=> 2/10.0,
+             "9"=> 1/7.0,
+             "8"=> 3/8.0,
+             "19"=> 3/14.0}
+    expect(stat_tracker1.accuracy_by_team_season('20122013')).to eq(result)
+  end
+
 end

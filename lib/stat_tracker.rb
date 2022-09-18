@@ -1,5 +1,5 @@
 require "csv"
-
+require_relative './team'
 
 class StatTracker
   attr_accessor :games_reader,
@@ -19,6 +19,7 @@ class StatTracker
     stat_tracker.game_teams_reader = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     stat_tracker
   end
+
 
   # Method to return the average number of goals scored in a game across all
   # seasons including both home and away goals (rounded to the nearest 100th)
@@ -167,18 +168,18 @@ class StatTracker
   end
 
   def percentage_home_wins
-   home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}.to_f.round(2)
-   home_win_total*100/total_number_of_games
+   home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}
+   (home_win_total.to_f/total_number_of_games).round(2)
   end
 
   def percentage_visitor_wins
-    home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}.to_f.round(2)
-    home_visitor_total*100/total_number_of_games
+    home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}
+    (home_visitor_total.to_f/total_number_of_games).round(2)
   end
 
   def percentage_ties
-    tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}.to_f.round(2)
-    tie_total*100/total_number_of_games
+    tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}
+    (tie_total.to_f/total_number_of_games).round(2)
   end
 
   def team_finder(team_id)
@@ -192,19 +193,15 @@ class StatTracker
   end
 
   def average_win_percentage(team_id)
-    team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}.to_f.round(2)
+    team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}
     total_team_games = @game_teams_reader.count {|row| row[:team_id] == team_id}
-    team_win_total*100/total_team_games
+    (team_win_total.to_f/total_team_games).round(2)
   end
 
   def count_of_games_by_season
-    seasons = {}
+    seasons = Hash.new(0)
     @games_reader.each do |row|
-      if seasons.include?(row[:season]) == false
-        seasons[row[:season]] = 1
-      else
-        seasons[row[:season]] += 1
-      end
+      seasons[row[:season]] += 1
     end
     seasons
   end
@@ -228,7 +225,6 @@ class StatTracker
       end
     unique_goal_totals.min
   end
-
 
 #right now there is only 1 return value being given though for our
 #test there are 2 seasons that should be returned. Consider refactoring
@@ -259,25 +255,203 @@ class StatTracker
     end
     season_losses.key(season_losses.values.min)
   end
-end
+
+  def games_by_team_by_result(team_id, game_result)
+    result_by_team = Hash.new(0)
+    @game_teams_reader.each do |line|
+      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id]) && ![game_result, "TIE"].include?(line[:result])
+        result_by_team[line[:team_id]] += 1
+      end
+    end
+    result_by_team
+  end
+
+  def game_totals_by_team(team_id)
+    list_of_totals = Hash.new(0)
+    @game_teams_reader.each do |line|
+      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id])
+        list_of_totals[line[:team_id]] += 1
+      end
+    end
+    list_of_totals
+  end
+
+  def all_games_by_team(team_id) 
+    @game_teams_reader.find_all do |row|
+      row[:team_id] == team_id 
+    end
+  end
+ 
+  def team_all_game_ids(team_id) 
+    all_games_by_team(team_id).map do |game|
+      game[0]
+    end
+  end
+
+  def favorite_opponent(team_id)
+    percentage_of_wins = Hash.new(0.0)
+    game_totals_by_team(team_id).each do |opponent, total_games|
+      percentage_of_wins[opponent] = (games_by_team_by_result(team_id, "WIN")[opponent]).to_f/(total_games)
+    end
+    team_finder(percentage_of_wins.key(percentage_of_wins.values.max))[:teamname]
+  end
+
+  def rival(team_id)
+    percentage_of_losses = Hash.new(0.0)
+    game_totals_by_team(team_id).each do |opponent, total_games|
+      percentage_of_losses[opponent] = (games_by_team_by_result(team_id, "LOSS")[opponent]).to_f/(total_games)
+    end
+    team_finder(percentage_of_losses.key(percentage_of_losses.values.max))[:teamname]
+  end
 
 
+  #Below is Rich's code for a parallel attempt on a helper method and favorite_opponent. We added to retain in case it works better with our I3 structure/Framework.
 
-  # def best_season(team_id)
-  #   season_wins = Hash.new(0)
-  #   wins_per_season = 0
-  #   games_per_season = 0
-  #   @games_reader.each do |row|
-  #     row[:season]
-  #       if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
-  #       wins_per_season += 1
-  #       games_per_season += 1
-  #       else
-  #         games_per_season += 1
+
+  # def w_l_by_team(teamid, wol)     
+  #   wol_by_team = Hash.new(0)
+  #   @teams_reader[:team_id].each do |opponent|
+  #     next if opponent == teamid
+  #     @game_teams_reader.each do |line|
+  #       if line[:team_id] == teamid && line[:result] == wol
+  #         game_played_id = line[:game_id]
+  #         @game_teams_reader.each do |row|
+  #           if row[:team_id] == opponent && row[:game_id] == game_played_id
+  #             wol_by_team[opponent] += 1
+  #           end
+  #         end
   #       end
-  #       season_win_percentage = (wins_per_season*100/games_per_season).to_f.round(2)
-  #         season_wins[:season] = season_win_percentage
   #     end
-  #         # require "pry";binding.pry
   #   end
+  #   wol_by_team
   # end
+  
+  # def favorite_opponent(teamid)
+  #   wol_by_team = w_l_by_team(teamid, 'WIN')
+  #   total_games = Hash.new(0)
+  #   wol_by_team.keys.each do |opponent|
+  #     @games_reader.each do |game|
+  #       if game[:away_team_id] == opponent || game[:home_team_id] == opponent
+  #         if game[:away_team_id] == teamid || game[:home_team_id] == teamid
+  #           total_games[opponent] += 1
+  #         end
+  #       end
+  #     end
+  #   end
+  #   wol_by_team.update(wol_by_team, total_games) do |key, wins, total|
+  #     wins / total
+  #   end
+  #   team_name_from_id(wol_by_team.key(wol_by_team.values.max))
+  # end
+
+  def most_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.max))
+  end
+
+  def fewest_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.min))
+  end
+
+  def coach_results(result, season_id)
+    coaches = Hash.new(0.0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result 
+        coaches[row[:head_coach]] += 1.0
+      end
+    end
+    coaches
+  end
+
+  def games_by_head_coach(season_id)
+    games_by_coach = Hash.new(0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3] 
+        games_by_coach[row[:head_coach]] += 1
+      end
+    end
+    games_by_coach
+  end
+
+  def winningest_coach(season_id)
+    coaches = coach_results("WIN", season_id)
+    games_by_coach = games_by_head_coach(season_id)
+    coach_win_percentages = Hash.new(0.0)
+    games_by_coach.each do |coach, games|
+      coach_win_percentages[coach] = (coaches[coach])/(games_by_coach[coach])
+    end
+    coach_win_percentages.key(coach_win_percentages.values.max)
+  end
+
+  def worst_coach(season_id)
+    coaches = coach_results("WIN", season_id)
+    games_by_coach = games_by_head_coach(season_id)
+    coach_win_percentages = Hash.new(0.0)
+    games_by_coach.each do |coach, games|
+      coach_win_percentages[coach] = (coaches[coach])/(games_by_coach[coach])
+    end
+    coach_win_percentages.key(coach_win_percentages.values.min)
+  end
+  
+  # Helper method to return hash of teams with team id keys and values of
+  # total goals for the season
+  def total_goals_by_team_season(season)
+    team_scores = Hash.new(0)
+    teams_array = @teams_reader[:team_id]
+    teams_array.each do |team|
+      @game_teams_reader.each do |line|
+        team_scores[team] += (line[:goals]).to_i if line[:team_id] == team && line[:game_id][0..3] == season[0..3]
+      end
+    end
+    team_scores
+  end
+  
+  # Helper method to return hash of teams with team id keys and values of
+  # total shots for the season
+  def total_shots_by_team_season(season)
+    teams_array = @teams_reader[:team_id]
+    team_shots = Hash.new(0)
+    teams_array.each do |team|
+      @game_teams_reader.each do |line|
+        team_shots[team] += line[:shots].to_f if line[:team_id] == team && line[:game_id][0..3] == season[0..3]
+      end
+    end
+    team_shots
+  end
+  
+  # Method to return the name of the Team with the best ratio of shots to goals 
+  # for the season
+  def most_accurate_team(season)
+    team_scores = accuracy_by_team_season(season)
+    team_name_from_id(team_scores.key(team_scores.values.max))
+  end
+  
+  # Method to return the name of the Team with the worst ratio of shots to goals 
+  # for the season
+  def least_accurate_team(season)
+    team_scores = accuracy_by_team_season(season)
+    team_name_from_id(team_scores.key(team_scores.values.min))
+  end
+  
+  # Helper method to return hash of teams with team id keys and values of
+  # goals / shots for the season
+  def accuracy_by_team_season(season)
+    team_scores = total_goals_by_team_season(season)
+    team_shots = total_shots_by_team_season(season)
+    team_scores.update(team_scores) do |team, goals|
+      goals / team_shots[team]
+    end
+    team_scores
+  end
+end
