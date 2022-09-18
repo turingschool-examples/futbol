@@ -468,6 +468,24 @@ class StatTracker
       team_name_from_id_average(team_efficiency)
   end
 
+  def most_tackles(campaign)
+    campaign = "20122013"
+    team_total_tackles = Hash.new(0)
+    season_data(campaign)
+    
+    season_data(campaign).each do |row|
+      tackles = row[:tackles].to_i
+      team_total_tackles[row[:team_id]] += tackles
+    end
+    team_total_tackles.max
+    require 'pry';binding.pry
+
+
+  end
+
+  def fewest_tackles(campaign)
+  end
+
   #helper method from Darby - team_id used to find team name
   def team_name_from_id_average(data)
     @teams_data.each do |row|
@@ -476,6 +494,19 @@ class StatTracker
       end
     end
   end
+
+  def season_data(campaign)
+    season = Set.new
+    @game_teams_data.each do |row|      
+      row.find_all do |game_id|
+        if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
+          season << row
+        end
+      end
+    end
+    season 
+  end
+
     
   #method creates hash-season(key) and all games_id(values) in string
   def season_all_game_id
