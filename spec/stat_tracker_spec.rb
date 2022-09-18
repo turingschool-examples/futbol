@@ -165,6 +165,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
     end
 
+    it "#helper season_shots_to_goals" do
+      expect(@stat_tracker.season_shots_to_goals("20132014")).to be_a(Hash)
+    end
+
     it "#most_accurate_team" do
       expect(@stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
       expect(@stat_tracker.most_accurate_team("20142015")).to eq("Toronto FC")
@@ -228,6 +232,10 @@ RSpec.describe StatTracker do
 
     it "#fewest_goals_scored" do
       expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+
+    it "#helper team_games_opponents" do
+      expect(@stat_tracker.team_games_opponents("18")).to be_a(Hash)
     end
 
     it "#helper opponent_win_loss" do

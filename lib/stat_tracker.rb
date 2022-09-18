@@ -244,8 +244,8 @@ class StatTracker
     season_game_teams = @game_teams.find_all {|row| row[:game_id].start_with?(season[0..3])}
   end
 
-  # Original method from Iteration 2
-  def most_accurate_team(season)
+  # Helper method used in most_accurate_team and least_accurate_team
+  def season_shots_to_goals(season)
     season_game_teams = season_game_teams(season)
     shots_to_goals = Hash.new(0)
     season_shots = Hash.new(0)
@@ -253,6 +253,12 @@ class StatTracker
     season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
     season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
     season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    shots_to_goals
+  end
+
+  # Original method from Iteration 2
+  def most_accurate_team(season)
+    shots_to_goals = season_shots_to_goals(season)
     most_accurate_team_id = (shots_to_goals.min_by {|team_id, ratio| ratio})[0]
     most_accurate_team = @teams.find do |team|
       team[:team_id] == most_accurate_team_id
@@ -262,13 +268,7 @@ class StatTracker
 
   # Original method from Iteration 2
   def least_accurate_team(season)
-    season_game_teams = season_game_teams(season)
-    shots_to_goals = Hash.new(0)
-    season_shots = Hash.new(0)
-    season_goals = Hash.new(0)
-    season_game_teams.each { |row| season_goals[row[:team_id]] += row[:goals].to_f }
-    season_game_teams.each { |row| season_shots[row[:team_id]] += row[:shots].to_f }
-    season_shots.keys.each {|team_id| shots_to_goals[team_id] = season_shots[team_id]/season_goals[team_id]}
+    shots_to_goals = season_shots_to_goals(season)
     least_accurate_team_id = (shots_to_goals.max_by {|team_id, ratio| ratio})[0]
     least_accurate_team = @teams.find do |team|
       team[:team_id] == least_accurate_team_id
@@ -392,12 +392,12 @@ class StatTracker
     game_least_goals[:goals].to_i
   end
 
-  # Helper method is used in favorite_opponent & rival
-  # Can be further refactored into more helper methods
-  def opponent_win_loss(team_id)
+
+  # Helper method is used in opponent_win_loss
+  def team_games_opponents(team_id)
+    team_games_opponents = {}
     # Keys of team_games_opponents should be game_ids of games team is involved in
     # Values of team_games_opponents should be the team_id of their opponent in that game
-    team_games_opponents = {}
     @games.each do |game|
       if game[:away_team_id] == team_id
         team_games_opponents[game[:game_id]] = game[:home_team_id]
@@ -405,7 +405,12 @@ class StatTracker
         team_games_opponents[game[:game_id]] = game[:away_team_id]
       end
     end
+    team_games_opponents
+  end
 
+  # Helper method is used in favorite_opponent & rival
+  def opponent_win_loss(team_id)
+    team_games_opponents = team_games_opponents(team_id)
     # Keys of opponent_win_loss should be the team_id of their opponents
     # Values of opponent_win_loss should be an array with 1st element being wins, 2nd element being losses
     opponent_win_loss = {}
