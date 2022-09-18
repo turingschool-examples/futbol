@@ -26,7 +26,7 @@ class SeasonStats
         team_goals[row[:team_id]].push(row[:goals].to_f) && team_shots[row[:team_id]].push(row[:shots].to_f)
       end
     end
-    team_accuracy = team_goals.transform_values(&:sum).merge(team_shots.transform_values(&:sum)) { |team, goals, shots | goals / shots }
+    team_goals.transform_values(&:sum).merge(team_shots.transform_values(&:sum)) { |team, goals, shots | goals / shots }
   end
 
   def self.winningest_coach(season)
