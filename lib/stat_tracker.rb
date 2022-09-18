@@ -7,7 +7,7 @@ class StatTracker
     @teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     # @data = { games: @games_data, teams: @teams_data,game_teams: @game_teams_data }
-    # @league = League.new(@data)
+    @league = League.new()
   end
   
   def self.from_csv(locations)
@@ -241,75 +241,10 @@ class StatTracker
   def count_of_teams
     @teams_data.count 
   end
-# # helper methods 
-  def team_goal_average(hoa = nil)
-    team_goals = Hash.new
-    if hoa == nil  
-      @game_teams_data.each do |row|
-        if team_goals[row[:team_id]] != nil
-          team_goals[row[:team_id]].push(row[:goals].to_i)
-        else
-          team_goals[row[:team_id]] = [row[:goals].to_i]
-        end
-      end
-    else
-      @game_teams_data.each do |row|
-        if team_goals[row[:team_id]] != nil && row[:hoa] == hoa
-          team_goals[row[:team_id]].push(row[:goals].to_i)
-        elsif row[:hoa] == hoa
-          team_goals[row[:team_id]] = [row[:goals].to_i]
-        end
-      end
-    end
-    
-    team_average = Hash.new
-    team_goals.each do |team_id, goals_per_game|
-      team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
-    end
-    team_average
-  end
-  # def team_goals_per_game
-  #   team_goals = Hash.new
-  #   @game_teams_data.each do |row|
-  #     if team_goals[row[:team_id]] != nil
-  #       team_goals[row[:team_id]].push(row[:goals].to_i)
-  #     else
-  #       team_goals[row[:team_id]] = [row[:goals].to_i]
-  #     end
-  #   end
-  #   team_goals
-  # end
-
-  # def team_average_goals_per_game
-  #   team_average = Hash.new
-  #   team_goals_per_game.each do |team_id, goals_per_game|
-  #     team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
-  #   end
-  #   team_average
-  # end
-
-  def team_name_from_id_average(average)
-    @teams_data.each do |row|
-      if average[0] == row[:team_id]
-        return row[:teamname]
-      end
-    end
-  end
-
-  # def hoa_goals_per_team(hoa)
-  #   away_team_goals = Hash.new
-  #   @game_teams_data.each do |row|
-  #     if away_team_goals[row[:team_id]] != nil && row[:hoa] == hoa
-  #       away_team_goals[row[:team_id]].push(row[:goals].to_i)
-  #     elsif row[:hoa] == hoa
-  #       away_team_goals[row[:team_id]] = [row[:goals].to_i]
-  #     end
-  #   end
-  #   away_team_goals
-  # end
-# stat methods 
 
   def best_offense
+    average = team_goal_average.max_by{ |id, average| average }
+    team_name_from_id_average(average)
     # team_goals = Hash.new
     # @game_teams_data.each do |row|
     #   if team_goals[row[:team_id]] != nil
@@ -331,12 +266,11 @@ class StatTracker
     #     return row[:teamname]
     #   end
     # end
-
-    average = team_goal_average.max_by{ |id, average| average }
-    team_name_from_id_average(average)
   end
 
   def worst_offense
+    averages = team_goal_average.min_by{ |id, average| average }
+    team_name_from_id_average(averages)
     # team_goals = Hash.new
     # @game_teams_data.each do |row|
     #   if team_goals[row[:team_id]] != nil
@@ -358,12 +292,11 @@ class StatTracker
     #     return row[:teamname]
     #   end
     # end
-
-    averages = team_goal_average.min_by{ |id, average| average }
-    team_name_from_id_average(averages)
   end
 
   def highest_scoring_visitor
+    averages = team_goal_average('away').max_by{ |id, average| average }
+    team_name_from_id_average(averages)
     # away_team_goals = Hash.new
     # @game_teams_data.each do |row|
     #   if away_team_goals[row[:team_id]] != nil && row[:hoa] == 'away'
@@ -385,13 +318,11 @@ class StatTracker
     #     return row[:teamname]
     #   end
     # end
-
-    averages = team_goal_average('away').max_by{ |id, average| average }
-    team_name_from_id_average(averages)
-
   end
 
   def highest_scoring_home_team
+    averages = team_goal_average('home').max_by{ |id, average| average }
+    team_name_from_id_average(averages)
     # home_team_goals = Hash.new
     # @game_teams_data.each do |row|
     #   if home_team_goals[row[:team_id]] != nil && row[:hoa] == 'home'
@@ -413,11 +344,11 @@ class StatTracker
     #     return row[:teamname]
     #   end
     # end
-    averages = team_goal_average('home').max_by{ |id, average| average }
-    team_name_from_id_average(averages)
   end
 
   def lowest_scoring_visitor
+    averages = team_goal_average('away').min_by{ |id, average| average }
+    team_name_from_id_average(averages)
     # away_team_goals = Hash.new
     # @game_teams_data.each do |row|
     #   if away_team_goals[row[:team_id]] != nil && row[:hoa] == 'away'
@@ -439,13 +370,12 @@ class StatTracker
     #     return row[:teamname]
     #   end
     # end
-
-    averages = team_goal_average('away').min_by{ |id, average| average }
-    team_name_from_id_average(averages)
   end
 
   def lowest_scoring_home_team
-  #   home_team_goals = Hash.new
+    averages = team_goal_average('home').min_by{ |id, average| average }
+    team_name_from_id_average(averages)
+    #   home_team_goals = Hash.new
   #   @game_teams_data.each do |row|
   #     if home_team_goals[row[:team_id]] != nil && row[:hoa] == 'home'
   #       home_team_goals[row[:team_id]].push(row[:goals].to_i)
@@ -465,10 +395,45 @@ class StatTracker
   #     if lowest_average[0] == row[:team_id]
   #       return row[:teamname]
   #     end
-#     end
-
-    averages = team_goal_average('home').min_by{ |id, average| average }
-    team_name_from_id_average(averages)
+  #   end
   end
+
+
+  #HELPER METHODS BELOW
+
+  # def team_goal_average(hoa = nil)
+  #   team_goals = Hash.new
+  #   if hoa == nil  
+  #     @game_teams_data.each do |row|
+  #       if team_goals[row[:team_id]] != nil
+  #         team_goals[row[:team_id]].push(row[:goals].to_i)
+  #       else
+  #         team_goals[row[:team_id]] = [row[:goals].to_i]
+  #       end
+  #     end
+  #   else
+  #     @game_teams_data.each do |row|
+  #       if team_goals[row[:team_id]] != nil && row[:hoa] == hoa
+  #         team_goals[row[:team_id]].push(row[:goals].to_i)
+  #       elsif row[:hoa] == hoa
+  #         team_goals[row[:team_id]] = [row[:goals].to_i]
+  #       end
+  #     end
+  #   end
+    
+  #   team_average = Hash.new
+  #   team_goals.each do |team_id, goals_per_game|
+  #     team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
+  #   end
+  #   team_average
+  # end
+
+    # def team_name_from_id_average(average)
+  #   @teams_data.each do |row|
+  #     if average[0] == row[:team_id]
+  #       return row[:teamname]
+  #     end
+  #   end
+  # end
 end
 
