@@ -34,19 +34,19 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
 
-    it 'can calculate the lowest sum of the winning and losing teams scores' do 
+    it 'can calculate the lowest sum of the winning and losing teams scores' do
       expect(@stat_tracker.lowest_total_score).to eq(0)
     end
 
-    it 'can calculate the percentage of games that a home team has won (to nearest 100th)' do 
+    it 'can calculate the percentage of games that a home team has won (to nearest 100th)' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
 
-    it 'can calculate the percentage of games that an visitor team has won (to nearest 100th)' do 
+    it 'can calculate the percentage of games that an visitor team has won (to nearest 100th)' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
 
-    it 'can calculate percentage of games that has resulted in a tie (rounded to the nearest 100th)' do 
+    it 'can calculate percentage of games that has resulted in a tie (rounded to the nearest 100th)' do
       expect(@stat_tracker.percentage_ties).to eq(0.2)
     end
 
@@ -243,4 +243,381 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
     end
   end
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  describe 'team statistics' do
+    it 'can make a hash with key/value pairs for the following attributes' do
+      expected = {
+        'team_id' => '18',
+        'franchise_id' => '34',
+        'team_name' => 'Minnesota United FC',
+        'abbreviation' => 'MIN',
+        'link' => '/api/v1/teams/18'
+      }
+      expect(@stat_tracker.team_info('18')).to eq(expected)
+    end
+  end
+    # describe '#best_season' do
+    #   it 'can return season with highest wins' do
+    #     expect(@stat_tracker.best_season("6")).to eq "20132014"
+    #   end
+    # end   
+  describe '#average_win_percentage' do
+    it 'can tell the average win rate of a given team' do
+    expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+    end
+  end
+  describe '#most_goals_scored' do
+    it "can show what game a team scored the most goals" do
+      expect(@stat_tracker.most_goals_scored("18")).to eq 7
+    end
+  end
 end
+
+
