@@ -241,6 +241,8 @@ RSpec.describe StatTracker do
 
     it 'returns the worst offense' do
       expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+    end
+  end
       
 
 
