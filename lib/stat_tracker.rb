@@ -345,7 +345,6 @@ class StatTracker
         winning_coach[0]
   end
 
-
   #Coach with the worst win percentage for the season
   def worst_coach(campaign)
 
