@@ -301,10 +301,6 @@ class StatTracker
 
 
   #Method returns the name Coach with the best win percentage for the season in a string
-  #look at every season
-  #find coach name
-  #accumulate coach's win/loss/tie
-  #compare coach records with other for each season
   def winningest_coach(campaign)
     
     coached_games_in_season = Hash.new(0)
@@ -350,7 +346,7 @@ class StatTracker
   end
 
 
-
+  #Coach with the worst win percentage for the season
   def worst_coach(campaign)
 
     coached_games_in_season = Hash.new(0)
@@ -396,62 +392,35 @@ class StatTracker
         worst_coach[0]
   end
 
+  #Team with the best ratio of shots to goals for the season (goals/shots)
+  def most_accurate_team(campaign)
+    campaign = "2012030223"
+    season = Set.new
+    team_season_goals_count = Hash.new(0)
+    team_season_shots_count = Hash.new(0)
+    goals = 0
+
+    #collects all rows within the given campaign
+    @game_teams_data.each do |row|      
+      row.find_all do |game_id|
+        if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
+          season << row
+        end
+      end
+    end
+    season
+
+    season.each do |row|
+      goals = row[:goals].to_i
+      team_season_goals_count[row[:team_id]] += goals
+    end
+    team_season_goals_count
 
 
 
 
+  end
 
-                  # coach_games 
-                  # require 'pry';binding.pry
-
-          
-                            # require 'pry';binding.pry
-          #  coaches.each do |coach|
-          # require 'pry';binding.pry
-          # if coach_games.include?(row[:head_coach])
-          #   coach_games[row[:head_coach]] = [row[:game_id]]
-          # else
-          #   coach_games[row[:season]] = [row[:game_id]]
-          # end
-          #     end
-
-  # end
-
-            # if coach_games.include?(game[:head_coach])
-            #   coach_games[game[:head_coach]] = (games += 1)
-            #       else
-            #         coach_games[game[:head_coach]] = (games + 1) 
-            #       end
-            #       coach_games
-            #       require 'pry';binding.pry
-                # end
-
-          
-          # end
-          # coaches_for_each_game.each do |game, result|
-          #     # if row[:result] == "WIN"
-          #     require 'pry';binding.pry
-          #     if coach.include?(game[:head_coach])
-          #       coach[game[:head_coach]] += 1 
-          #       # && row[:result] == "WIN" 
-          #           # wins += 1
-          #     else
-          #       coach[game[:head_coach]] = 1 
-          #     end
-          #     coach
-          #     require 'pry';binding.pry
-          #   end
-          # end
-        # end
-      # end
-          #   if row[:result] == "WIN" 
-          #     wins += 1
-          #  coach [ wins, total_games ]
-          #         values[0]/values[1]
-          #   coach [%]
-
-    
-  
   
     
   #method creates hash-season(key) and all games_id(values) in string
