@@ -612,7 +612,7 @@ RSpec.describe StatTracker do
   
   describe '#average_win_percentage' do
     it 'can tell the average win rate of a given team' do
-    expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+      expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
     end
   end
   
@@ -639,6 +639,5 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
     end
   end
-
 end
 
