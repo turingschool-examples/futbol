@@ -272,5 +272,47 @@ class StatTracker
     end
     team_finder(percentage_of_losses.key(percentage_of_losses.values.max))[:teamname]
   end
+
+
+  #Below is Rich's code for a parallel attempt on a helper method and favorite_opponent. We added to retain in case it works better with our I3 structure/Framework.
+
+
+  # def w_l_by_team(teamid, wol)     
+  #   wol_by_team = Hash.new(0)
+  #   @teams_reader[:team_id].each do |opponent|
+  #     next if opponent == teamid
+  #     @game_teams_reader.each do |line|
+  #       if line[:team_id] == teamid && line[:result] == wol
+  #         game_played_id = line[:game_id]
+  #         @game_teams_reader.each do |row|
+  #           if row[:team_id] == opponent && row[:game_id] == game_played_id
+  #             wol_by_team[opponent] += 1
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
+  #   wol_by_team
+  # end
+  
+  # def favorite_opponent(teamid)
+  #   wol_by_team = w_l_by_team(teamid, 'WIN')
+  #   total_games = Hash.new(0)
+  #   wol_by_team.keys.each do |opponent|
+  #     @games_reader.each do |game|
+  #       if game[:away_team_id] == opponent || game[:home_team_id] == opponent
+  #         if game[:away_team_id] == teamid || game[:home_team_id] == teamid
+  #           total_games[opponent] += 1
+  #         end
+  #       end
+  #     end
+  #   end
+  #   wol_by_team.update(wol_by_team, total_games) do |key, wins, total|
+  #     wins / total
+  #   end
+  #   team_name_from_id(wol_by_team.key(wol_by_team.values.max))
+  # end
+
+
 end 
 

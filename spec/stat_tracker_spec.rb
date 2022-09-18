@@ -294,4 +294,29 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.from_csv(dummy_filepath)
     expect(stat_tracker.rival("3")).to eq("FC Dallas")
   end
+
+  #Below is Rich's code for a parallel attempt on a helper method and favorite_opponent. We added to retain in case it works better with our I3 structure/Framework.
+
+  # it "#. w_l_by_team" do
+  #   dummy_filepath = {teams: "./data/teams.csv",
+  #                     games: './data/games_dummy_2.csv',
+  #                     game_teams: './data/game_teams_dumdum_rk.csv'
+  #   }
+    
+  #   result = {'8' => 1}
+  #   stat_tracker = StatTracker.from_csv(dummy_filepath)
+  #   expect(stat_tracker.w_l_by_team("3", 'WIN')).to eq(result)
+  # end
+
+  # it "#favorite_opponent" do
+  #   dummy_filepath = {teams: "./data/teams.csv",
+  #                     games: './data/games_dummy_2_rk.csv',
+  #                     game_teams: './data/game_teams_dumdum_rk.csv'
+  #   }
+    
+  #   result = {'8' => 1}
+  #   stat_tracker = StatTracker.from_csv(dummy_filepath)
+  #   expect(stat_tracker.favorite_opponent('3')).to eq('New York Red Bulls')
+  #   expect(stat_tracker.favorite_opponent('6')).to eq('Houston Dynamo')
+  # end
 end
