@@ -1,31 +1,30 @@
 require'csv'
 require'rspec'
-require'./lib/game_manager.rb'
+require'./lib/game_stats.rb'
 
-
-RSpec.describe GameManager do
+RSpec.describe GameStats do
   before(:each) do
-    GameManager.from_csv_path('./data/games.csv')
+    GameStats.from_csv_paths({game_csv:'./data/games.csv', gameteam_csv:'./data/game_teams.csv', team_csv:'./data/teams.csv'})
   end
 
   it '#highest_total_score' do
-    expect(GameManager.highest_total_score).to eq 11
+    expect(GameStats.highest_total_score).to eq 11
   end
  
   it '#lowest_total_score' do
-    expect(GameManager.lowest_total_score).to eq 0
+    expect(GameStats.lowest_total_score).to eq 0
   end
 
   it "#percentage_home_wins" do
-    expect(GameManager.percentage_home_wins).to eq 0.44
+    expect(GameStats.percentage_home_wins).to eq 0.44
   end
 
   it "#percentage_visitor_wins" do
-    expect(GameManager.percentage_visitor_wins).to eq 0.36
+    expect(GameStats.percentage_visitor_wins).to eq 0.36
   end
 
   it "#percentage_ties" do
-    expect(GameManager.percentage_ties).to eq 0.20
+    expect(GameStats.percentage_ties).to eq 0.20
   end
 
   it "#count_of_games_by_season" do
@@ -37,11 +36,11 @@ RSpec.describe GameManager do
       "20132014"=>1323,
       "20172018"=>1355
     }
-    expect(GameManager.count_of_games_by_season).to eq expected
+    expect(GameStats.count_of_games_by_season).to eq expected
   end
 
   it "#average_goals_per_game" do
-    expect(GameManager.average_goals_per_game).to eq 4.22
+    expect(GameStats.average_goals_per_game).to eq 4.22
   end
 
   it "#average_goals_by_season" do
@@ -53,7 +52,7 @@ RSpec.describe GameManager do
       "20132014"=>4.19,
       "20172018"=>4.44
     }
-    expect(GameManager.average_goals_by_season).to eq expected
+    expect(GameStats.average_goals_by_season).to eq expected
   end
 end
 

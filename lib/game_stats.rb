@@ -1,18 +1,22 @@
 require 'csv'
 
-class GameManager
+class GameStats
   @@all_games 
 
   attr_reader :all_games
 
-  def self.from_csv_path(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-    return GameManager.new(csv)
+  def self.from_csv_paths(file_paths)
+    files = {
+      game_csv: CSV.read(file_paths[:game_csv], headers: true, header_converters: :symbol),
+      gameteam_csv: CSV.read(file_paths[:gameteam_csv], headers: true, header_converters: :symbol),
+      team_csv:CSV.read(file_paths[:team_csv], headers: true, header_converters: :symbol)
+    }
+    GameStats.new(files)
   end
 
-  def initialize(csv)
+  def initialize(csvs)
     @@all_games = []
-    csv.each {|row| @@all_games << row}
+    csvs[:game_csv].each {|row| @@all_games << row}
   end
 
   def self.highest_total_score
@@ -63,6 +67,5 @@ class GameManager
     seasons_with_games.map { |season_id, total_games| seasons_averages[season_id] = (total_games / self.count_of_games_by_season[season_id]).round(2) }
     seasons_averages
   end
-
 end
  
