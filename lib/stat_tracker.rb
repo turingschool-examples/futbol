@@ -259,7 +259,6 @@ class StatTracker
   def winningest_coach(season)
     coach_stats_by_season(season)
     @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.max)
-    # binding.pry
   end
 
    #Original method from Iteration 2
@@ -283,7 +282,7 @@ class StatTracker
     end
     most_accurate_team[:teamname]
   end
-  
+
   # Original method from Iteration 2
   def least_accurate_team(season)
     season_game_teams = season_game_teams(season)

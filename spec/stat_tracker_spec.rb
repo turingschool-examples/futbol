@@ -75,7 +75,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq 4.22
     end
 
-    xit "#average_goals_by_season" do
+    it "#average_goals_by_season" do
       expected = {
         "20122013"=>4.12,
         "20162017"=>4.23,
@@ -149,7 +149,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_wins_by_season("20132014")).to be_a(Array)
     end
 
-    xit "#total_games_by_coaches_by_season" do
+    it "#total_games_by_coaches_by_season" do
       expect(@stat_tracker.total_games_by_coaches_by_season("20132014")).to be_a(Array)
     end
 
@@ -158,9 +158,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
     end
 
-    # it "#game_losses_by_season" do
-    # expect(@stat_tracker.game_losses_by_season("20132014")).to be_a(Array)
-    # end
+    it "#game_losses_by_season" do
+    expect(@stat_tracker.game_losses_by_season("20132014")).to be_a(Array)
+    end
 
     it "#worst_coach" do
       expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
@@ -182,17 +182,17 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
     
-    xit "#helper games_by_season" do
-      binding.pry
+    it "#helper games_by_season" do
+      # binding.pry
       expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)
     end
 
-    xit "#most_tackles" do
+    it "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
-    xit "#fewest_tackles" do
+    it "#fewest_tackles" do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
