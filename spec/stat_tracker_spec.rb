@@ -14,6 +14,15 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
 
+    # fixture_game_path = 'spec/fixture/games_fixture.csv'
+    # fixture_team_path = 'spec/fixture/teams_fixture.csv'
+    # fixture_game_teams_path = 'spec/fixture/game_teams_fixture.csv'
+
+    # locations = {
+    #   games: fixture_game_path,
+    #   teams: fixture_team_path,
+    #   game_teams: fixture_game_teams_path
+    # }
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
@@ -247,7 +256,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
     end
 
-    xit "#highest_scoring_home_team" do
+    it "#highest_scoring_home_team" do
       expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
     end
 
@@ -255,7 +264,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
 
-    xit "#lowest_scoring_home_team" do
+    it "#lowest_scoring_home_team" do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
   end
