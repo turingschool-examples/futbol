@@ -227,31 +227,45 @@ class StatTracker
     # binding.pry
   end
 
- #Helper method is used in winningest_coach & worst_coach
+ #Helper method is used in winningest_coach 
   def game_wins_by_season(season)
     games_by_season
-  
     game_id_by_season = @games_by_season_hash[season]
     @wins_by_season = @game_teams.find_all {|game| game[:result] == "WIN" && game_id_by_season.include?(game[:game_id])}
-    
+  end
+
+  #Helper method is used in winningest_coach 
+  def total_games_by_coaches_by_season(season)
+    games_by_season
+    game_id_by_season = @games_by_season_hash[season]
+    @games_by_coaches_by_season = Hash.new([])
+    @game_teams.each do |game| 
+      if game_id_by_season.include?(game[:game_id]) 
+        @games_by_coaches_by_season[game[:head_coach]] += [game]
+      end
+    end
+  end
+
+ #Helper method is used in winningest_coach 
+  def coach_stats_by_season(season)
+    game_wins_by_season(season)
+    total_games_by_coaches_by_season(season)
+    @coaches_wins_to_losses = Hash.new
+    @games_by_coaches_by_season.each do |coach, game|
+      @coaches_wins_to_losses[coach] = (@wins_by_season.count {|game| game[:head_coach] == coach }.to_f / @games_by_coaches_by_season[coach].length).round(2)
+    end
   end
 
   def winningest_coach(season)
-    game_wins_by_season(season)
-    @wins_counter = Hash.new(0)
-    @wins_by_season.each do |game| 
-      @wins_counter[game[:head_coach]] += 1
-    end
-    @wins_counter.key(@wins_counter.values.max)
+    coach_stats_by_season(season)
+    @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.max)
+    # binding.pry
   end
 
-  def worst_coach(season)
-    game_wins_by_season(season)
-    @wins_counter = Hash.new(0)
-    @wins_by_season.each do |game| 
-      @wins_counter[game[:head_coach]] += 1
-    end
-    @wins_counter.key(@wins_counter.values.min)
+   #Original method from Iteration 2
+   def worst_coach(season)
+    coach_stats_by_season(season)
+    @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.min)
   end
 
   # Original method from Iteration 2
