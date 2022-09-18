@@ -109,7 +109,7 @@ class StatTracker
     season_goal_averages
   end
 #-----------------------------------League Statistics-----------------------------------
-  #Original method from iteration 2
+  # Original method from iteration 2
   def count_of_teams
     @teams.length
   end
@@ -242,29 +242,28 @@ class StatTracker
     # season_game_ids = season_games.map {|row| row[:game_id]}
     # season_game_teams = @game_teams.find_all {|row| season_game_ids.include?(row[:game_id])}
     season_game_teams = @game_teams.find_all {|row| row[:game_id].start_with?(season[0..3])}
-    # binding.pry
   end
 
- #Helper method is used in winningest_coach 
+ # Helper method is used in winningest_coach
   def game_wins_by_season(season)
     games_by_season
     game_id_by_season = @games_by_season_hash[season]
     @wins_by_season = @game_teams.find_all {|game| game[:result] == "WIN" && game_id_by_season.include?(game[:game_id])}
   end
 
-  #Helper method is used in winningest_coach 
+  # Helper method is used in winningest_coach
   def total_games_by_coaches_by_season(season)
     games_by_season
     game_id_by_season = @games_by_season_hash[season]
     @games_by_coaches_by_season = Hash.new([])
-    @game_teams.each do |game| 
-      if game_id_by_season.include?(game[:game_id]) 
+    @game_teams.each do |game|
+      if game_id_by_season.include?(game[:game_id])
         @games_by_coaches_by_season[game[:head_coach]] += [game]
       end
     end
   end
 
- #Helper method is used in winningest_coach 
+ # Helper method is used in winningest_coach
   def coach_stats_by_season(season)
     game_wins_by_season(season)
     total_games_by_coaches_by_season(season)
@@ -274,13 +273,13 @@ class StatTracker
     end
   end
 
+  # Original method from Iteration 2
   def winningest_coach(season)
     coach_stats_by_season(season)
     @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.max)
-    # binding.pry
   end
 
-   #Original method from Iteration 2
+   # Original method from Iteration 2
    def worst_coach(season)
     coach_stats_by_season(season)
     @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.min)
@@ -361,14 +360,16 @@ class StatTracker
   end
 #------------------------------------Team Statistics------------------------------------
   # Original method from Iteration 2
-  def team_info
-    team_info_hash = Hash.new([])
+  def team_info(team_id)
+    team_info_hash = Hash.new
     @teams.each do |team|
-      team_info_hash['team_id'] += [team[:team_id]]
-      team_info_hash['franchise_id'] += [team[:franchiseid]]
-      team_info_hash['team_name'] += [team[:teamname]]
-      team_info_hash['abbreviation'] += [team[:abbreviation]]
-      team_info_hash['link'] += [team[:link]]
+      if team[:team_id] == team_id
+        team_info_hash['team_id'] = team[:team_id]
+        team_info_hash['franchise_id'] = team[:franchiseid]
+        team_info_hash['team_name'] = team[:teamname]
+        team_info_hash['abbreviation'] = team[:abbreviation]
+        team_info_hash['link'] = team[:link]
+      end
     end
     team_info_hash
   end
@@ -393,6 +394,7 @@ class StatTracker
     game_wins_by_team_by_season.key(game_wins_by_team_by_season.values.max)
   end
 
+  # Original method from Iteration 2
   def worst_season(team_id)
     games_by_team_by_season(team_id)
     game_wins_by_team_by_season = Hash.new

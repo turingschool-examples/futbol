@@ -122,12 +122,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
     end
 
-    it "#helper away_games_by_team_id in a hash" do
+    it "#helper away_games_by_team_id" do
       expect(@stat_tracker.away_games_by_team_id.length).to eq(@stat_tracker.teams.length)
       expect(@stat_tracker.away_games_by_team_id).to be_a(Hash)
     end
 
-    it "#helper home_games_by_team_id in a hash" do
+    it "#helper home_games_by_team_id" do
       expect(@stat_tracker.home_games_by_team_id.length).to eq(@stat_tracker.teams.length)
       expect(@stat_tracker.home_games_by_team_id).to be_a(Hash)
     end
@@ -146,12 +146,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
 
-    it "#lowest_scoring_visitor team" do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
-    end
-
     it "#highest_scoring_home_team" do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+    end
+
+    it "#lowest_scoring_visitor team" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
     end
 
     it "#lowest_scoring_home_team" do
@@ -160,13 +160,20 @@ RSpec.describe StatTracker do
   end
 
   context "Season Statistics" do
+    it "#helper season_game_teams" do
+      expect(@stat_tracker.season_game_teams("20132014")).to be_a(Array)
+      expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
+    end
 
-    it "#game_wins_by_season" do
+    it "#helper game_wins_by_season" do
       expect(@stat_tracker.game_wins_by_season("20132014")).to be_a(Array)
     end
 
-    xit "#total_games_by_coaches_by_season" do
+    xit "#helper total_games_by_coaches_by_season" do
       expect(@stat_tracker.total_games_by_coaches_by_season("20132014")).to be_a(Array)
+    end
+
+    xit "#helper coach_stats_by_season" do
     end
 
     it "#winningest_coach" do
@@ -174,18 +181,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
     end
 
-    # it "#game_losses_by_season" do
-    # expect(@stat_tracker.game_losses_by_season("20132014")).to be_a(Array)
-    # end
-
     it "#worst_coach" do
       expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
       expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
-    end
-
-    it "#helper season_game_teams" do
-      expect(@stat_tracker.season_game_teams("20132014")).to be_a(Array)
-      expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
     end
 
     it "#helper season_shots_to_goals" do
@@ -231,6 +229,10 @@ RSpec.describe StatTracker do
       "abbreviation" => "MIN",
       "link" => "/api/v1/teams/18"
     }
+    expect(@stat_tracker.team_info("18")).to eq expected
+    end
+
+    xit "#helper games_by_team_by_season" do
     end
 
     it "#best_season" do
