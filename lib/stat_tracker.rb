@@ -328,147 +328,147 @@ class StatTracker
   # end
   # def worst_season
   # end
-    def average_win_percentage(team)
-    win_count = 0
-    loss_count = 0
-    total_games = 0
-      @games_data.map do |row|
-        if row[:away_team_id] == team
-          if row[:away_goals] > row[:home_goals]
-            win_count += 1
-          else
-            loss_count += 1
-          end
-        elsif row[:home_team_id] == team
-          if row[:home_goals] > row[:away_goals]
-            win_count += 1
-          else
-            loss_count += 1
-          end
+  def average_win_percentage(team)
+  win_count = 0
+  loss_count = 0
+  total_games = 0
+    @games_data.map do |row|
+      if row[:away_team_id] == team
+        if row[:away_goals] > row[:home_goals]
+          win_count += 1
+        else
+          loss_count += 1
         end
-      end    
-      total_games = (win_count + loss_count)
-      (win_count.to_f / total_games.to_f).round(2)
-    end
-    def most_goals_scored(team)
-      score_array = [] 
-      @games_data.map do |row|
-        if row[:away_team_id] == team
-          score_array << row[:away_goals]
-        elsif row[:home_team_id] == team
-          score_array << row[:home_goals]
+      elsif row[:home_team_id] == team
+        if row[:home_goals] > row[:away_goals]
+          win_count += 1
+        else
+          loss_count += 1
         end
       end
-      score_array.sort!
-      score_array.pop.to_i
-    end
+    end    
+    total_games = (win_count + loss_count)
+    (win_count.to_f / total_games.to_f).round(2)
+  end
 
-    def fewest_goals_scored(team) 
-      score_array = [] 
-      @games_data.map do |row|
-        if row[:away_team_id] == team
-          score_array << row[:away_goals]
-        elsif row[:home_team_id] == team
-          score_array << row[:home_goals]
-        end
+  def most_goals_scored(team)
+    score_array = [] 
+    @games_data.map do |row|
+      if row[:away_team_id] == team
+        score_array << row[:away_goals]
+      elsif row[:home_team_id] == team
+        score_array << row[:home_goals]
       end
-      score_array.sort!
-      score_array.shift.to_i
     end
+    score_array.sort!
+    score_array.pop.to_i
+  end
 
-    def favorite_opponent(team)
-      team_wins = {}
-      team_losses = {}
-      @games_data.map do |row|
-        if !team_wins.has_key?(row[:home_team_id])
-          team_wins[row[:home_team_id]] = 0 
-        elsif !team_wins.has_key?(row[:away_team_id])
-          team_wins[row[:away_team_id]] = 0 
-        end  
-        if !team_losses.has_key?(row[:home_team_id])  
-          team_losses[row[:home_team_id]] = 0
-        elsif !team_losses.has_key?(row[:away_team_id])
-          team_losses[row[:away_team_id]] = 0
-        end
-      end 
-      @games_data.map do |row|
-        if row[:away_team_id] == team
-          if row[:away_goals] >= row[:home_goals]
-            team_losses[row[:home_team_id]] += 1  
-          else
-            team_wins[row[:home_team_id]] += 1
-          end
-        elsif row[:home_team_id] == team
-          if row[:home_goals] >= row[:away_goals]
-            team_losses[row[:away_team_id]] += 1
-          else
-            team_wins[row[:away_team_id]] += 1
-          end
-        end
+  def fewest_goals_scored(team) 
+    score_array = [] 
+    @games_data.map do |row|
+      if row[:away_team_id] == team
+        score_array << row[:away_goals]
+      elsif row[:home_team_id] == team
+        score_array << row[:home_goals]
       end
-      min_win_rate = 100
-      min_win_rate_team = nil
-      team_wins.each do |key, value|
-        if key != team
-
-          total_games = value + team_losses[key]
-          win_rate = value.to_f / total_games
-          if win_rate < min_win_rate
-            min_win_rate = win_rate
-            min_win_rate_team = key
-          end
-        end
-      end
-      # team_name_from_id_average
-      min_win_rate_team
     end
+    score_array.sort!
+    score_array.shift.to_i
+  end
 
-    def rival(team)
-      team_wins = {}
-      team_losses = {}
-      @games_data.map do |row|
-        if !team_wins.has_key?(row[:home_team_id])
-          team_wins[row[:home_team_id]] = 0 
-        elsif !team_wins.has_key?(row[:away_team_id])
-          team_wins[row[:away_team_id]] = 0 
-        end  
-        if !team_losses.has_key?(row[:home_team_id])  
-          team_losses[row[:home_team_id]] = 0
-        elsif !team_losses.has_key?(row[:away_team_id])
-          team_losses[row[:away_team_id]] = 0
+  def favorite_opponent(team)
+    team_wins = {}
+    team_losses = {}
+    @games_data.map do |row|
+      if !team_wins.has_key?(row[:home_team_id])
+        team_wins[row[:home_team_id]] = 0 
+      elsif !team_wins.has_key?(row[:away_team_id])
+        team_wins[row[:away_team_id]] = 0 
+      end  
+      if !team_losses.has_key?(row[:home_team_id])  
+        team_losses[row[:home_team_id]] = 0
+      elsif !team_losses.has_key?(row[:away_team_id])
+        team_losses[row[:away_team_id]] = 0
+      end
+    end 
+    @games_data.map do |row|
+      if row[:away_team_id] == team
+        if row[:away_goals] >= row[:home_goals]
+          team_losses[row[:home_team_id]] += 1  
+        else
+          team_wins[row[:home_team_id]] += 1
         end
-      end 
-      @games_data.map do |row|
-        if row[:away_team_id] == team
-          if row[:away_goals] >= row[:home_goals]
-            team_losses[row[:home_team_id]] += 1  
-          else
-            team_wins[row[:home_team_id]] += 1
-          end
-        elsif row[:home_team_id] == team
-          if row[:home_goals] >= row[:away_goals]
-            team_losses[row[:away_team_id]] += 1
-          else
-            team_wins[row[:away_team_id]] += 1
-          end
+      elsif row[:home_team_id] == team
+        if row[:home_goals] >= row[:away_goals]
+          team_losses[row[:away_team_id]] += 1
+        else
+          team_wins[row[:away_team_id]] += 1
         end
       end
-    
-      max_win_rate = 0
-      max_win_rate_team = nil
-      team_wins.each do |key, value|
-        if key != team
-
-          total_games = value + team_losses[key]
-          win_rate = value.to_f / total_games
-          if win_rate > max_win_rate
-            max_win_rate = win_rate
-            max_win_rate_team = key
-          end
-        end
-      end
-      # team_name_from_id_average
-      max_win_rate_team
     end
+    min_win_rate = 100
+    min_win_rate_team = nil
+    team_wins.each do |key, value|
+      if key != team
+        total_games = value + team_losses[key]
+        win_rate = value.to_f / total_games
+        if win_rate < min_win_rate
+          min_win_rate = win_rate
+          min_win_rate_team = key
+        end
+      end
+    end
+    # team_name_from_id_average
+    min_win_rate_team
+  end
+
+  def rival(team)
+    team_wins = {}
+    team_losses = {}
+    @games_data.map do |row|
+      if !team_wins.has_key?(row[:home_team_id])
+        team_wins[row[:home_team_id]] = 0 
+      elsif !team_wins.has_key?(row[:away_team_id])
+        team_wins[row[:away_team_id]] = 0 
+      end  
+      if !team_losses.has_key?(row[:home_team_id])  
+        team_losses[row[:home_team_id]] = 0
+      elsif !team_losses.has_key?(row[:away_team_id])
+        team_losses[row[:away_team_id]] = 0
+      end
+    end 
+    @games_data.map do |row|
+      if row[:away_team_id] == team
+        if row[:away_goals] >= row[:home_goals]
+          team_losses[row[:home_team_id]] += 1  
+        else
+          team_wins[row[:home_team_id]] += 1
+        end
+      elsif row[:home_team_id] == team
+        if row[:home_goals] >= row[:away_goals]
+          team_losses[row[:away_team_id]] += 1
+        else
+          team_wins[row[:away_team_id]] += 1
+        end
+      end
+    end
+  
+    max_win_rate = 0
+    max_win_rate_team = nil
+    team_wins.each do |key, value|
+      if key != team
+
+        total_games = value + team_losses[key]
+        win_rate = value.to_f / total_games
+        if win_rate > max_win_rate
+          max_win_rate = win_rate
+          max_win_rate_team = key
+        end
+      end
+    end
+    # team_name_from_id_average
+    max_win_rate_team
+  end
     # end of team class
 end
