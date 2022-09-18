@@ -10,25 +10,15 @@ class SeasonStats
     team_csv:CSV.read(file_paths[:team_csv], headers: true, header_converters: :symbol)
     }
     SeasonStats.new(files)
-  end
+  end  
 
-  def self.winningest_coach(season)
+  def self.season_id(season)
     coach_records = Hash.new { |coach, outcomes| coach[outcomes]=[] }
     @@all_game_teams.each { |row| coach_records[row[:head_coach]].push(row[:result]) if row[:game_id].start_with?(season[0..3]) }
-    winning_percent = Hash.new
-    coach_records.each { |coach, outcomes| winning_percent[coach] = ((outcomes.count("WIN").to_f)/(outcomes.count)) }
-    winning_percent.max_by { |_, percent| percent }.first
-  end
+    coach_records.map { |coach, outcomes| [coach, outcomes = ((outcomes.count("WIN").to_f)/(outcomes.count))] }
+   end
 
-  def self.worst_coach(season)
-    coach_records = Hash.new { |coach, outcomes| coach[outcomes]=[] }
-    @@all_game_teams.each { |row| coach_records[row[:head_coach]].push(row[:result]) if row[:game_id].start_with?(season[0..3]) }
-    winning_percent = Hash.new
-    coach_records.each { |coach, outcomes| winning_percent[coach] = ((outcomes.count("WIN").to_f)/(outcomes.count)) }
-    winning_percent.min_by { |_, percent| percent }.first
-  end
-
-  def self.most_accurate_team(season)
+  def self.team_accuracy(season)
     team_goals = Hash.new { |team, goals| team[goals] = [] }
     team_shots = Hash.new { |team, shots| team[shots] = [] }
     @@all_game_teams.each do |row|
@@ -36,26 +26,24 @@ class SeasonStats
         team_goals[row[:team_id]].push(row[:goals].to_f) && team_shots[row[:team_id]].push(row[:shots].to_f)
       end
     end
-    goals_sum = team_goals.transform_values(&:sum)
-    shot_sum = team_shots.transform_values(&:sum)
-    team_accuracy = goals_sum.merge(shot_sum) { |_, goals, shots | goals / shots }
-    teamid = team_accuracy.max_by { |_, percent| percent }.first
+    team_accuracy = team_goals.transform_values(&:sum).merge(team_shots.transform_values(&:sum)) { |team, goals, shots | goals / shots }
+  end
+
+  def self.winningest_coach(season)
+    season_id(season).max_by { |_, percent| percent }.first
+  end
+
+  def self.worst_coach(season)
+    season_id(season).min_by { |_, percent| percent }.first
+  end  
+
+  def self.most_accurate_team(season)
+    teamid = team_accuracy(season).max_by { |_, percent| percent }.first
     @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
   end
 
   def self.least_accurate_team(season)
-    team_goals = Hash.new { |team, goals| team[goals] = [] }
-    team_shots = Hash.new { |team, shots| team[shots] = [] }
-    @@all_game_teams.each do |row|
-      if row[:game_id].start_with?(season[0..3])
-        team_goals[row[:team_id]].push(row[:goals].to_f)
-        team_shots[row[:team_id]].push(row[:shots].to_f)
-      end
-    end
-    goals_sum = team_goals.transform_values(&:sum)
-    shot_sum = team_shots.transform_values(&:sum)
-    team_accuracy = goals_sum.merge(shot_sum) { |_, goals, shots | goals/shots }
-    teamid = team_accuracy.min_by { |_, percent| percent }.first
+    teamid = team_accuracy(season).min_by { |_, percent| percent }.first
     @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
   end
 
