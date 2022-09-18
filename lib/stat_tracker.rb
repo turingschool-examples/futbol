@@ -337,7 +337,7 @@ class StatTracker
 
     #method merges the wins and coached games hashes for comparison
         game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
-            (games_won.to_f / (games_coached.to_f)).round(4)
+            (games_won.fdiv(games_coached)).round(4)
         end
        winning_coach = game_results_percentage.max_by do |coach, percentage| 
           percentage 
@@ -383,7 +383,7 @@ class StatTracker
 
     #method merges the wins and coached games hashes for comparison
         game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
-            (games_won.to_f / (games_coached.to_f)).round(4)
+            (games_won.fdiv(games_coached)).round(4)
         end
         worst_coach = game_results_percentage.max_by do |coach, percentage| 
           percentage 
@@ -394,11 +394,11 @@ class StatTracker
 
   #Team with the best ratio of shots to goals for the season (goals/shots)
   def most_accurate_team(campaign)
-    campaign = "2012030223"
+    # campaign = "20142015"
     season = Set.new
     team_season_goals_count = Hash.new(0)
     team_season_shots_count = Hash.new(0)
-    goals = 0
+    shot_efficiency = Hash.new
 
     #collects all rows within the given campaign
     @game_teams_data.each do |row|      
@@ -410,18 +410,73 @@ class StatTracker
     end
     season
 
+    #hash with team (key) and goals (value) in given season
     season.each do |row|
       goals = row[:goals].to_i
+      shots = row[:shots].to_i
+
       team_season_goals_count[row[:team_id]] += goals
+      team_season_shots_count[row[:team_id]] += shots
     end
     team_season_goals_count
+    team_season_shots_count
 
+    #merge shots, goal hashes; calculate team efficiecy; return team neame
+    shot_efficiency.update(team_season_goals_count,team_season_shots_count) do |team, goals_made, shots_taken|
+      goals_made.fdiv(shots_taken).round(4)
+    end
+    team_efficiency = shot_efficiency.max_by do |coach, percentage| 
+      percentage end
 
-
-
+      team_name_from_id_average(team_efficiency)
   end
 
-  
+  def least_accurate_team	(campaign)
+    # campaign = "20142015"
+    season = Set.new
+    team_season_goals_count = Hash.new(0)
+    team_season_shots_count = Hash.new(0)
+    shot_efficiency = Hash.new
+
+    #collects all rows within the given campaign
+    @game_teams_data.each do |row|      
+      row.find_all do |game_id|
+        if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
+          season << row
+        end
+      end
+    end
+    season
+
+    #hash with team (key) and goals (value) in given season
+    season.each do |row|
+      goals = row[:goals].to_i
+      shots = row[:shots].to_i
+
+      team_season_goals_count[row[:team_id]] += goals
+      team_season_shots_count[row[:team_id]] += shots
+    end
+    team_season_goals_count
+    team_season_shots_count
+
+    #merge shots, goal hashes; calculate team efficiecy; return team neame
+    shot_efficiency.update(team_season_goals_count,team_season_shots_count) do |team, goals_made, shots_taken|
+      goals_made.fdiv(shots_taken).round(4)
+    end
+    team_efficiency = shot_efficiency.min_by do |coach, percentage| 
+      percentage end
+
+      team_name_from_id_average(team_efficiency)
+  end
+
+  #helper method from Darby - team_id used to find team name
+  def team_name_from_id_average(data)
+    @teams_data.each do |row|
+      if data[0] == row[:team_id]
+        return row[:teamname]
+      end
+    end
+  end
     
   #method creates hash-season(key) and all games_id(values) in string
   def season_all_game_id
