@@ -75,7 +75,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq 4.22
     end
 
-    it "#average_goals_by_season" do
+    xit "#average_goals_by_season" do
       expected = {
         "20122013"=>4.12,
         "20162017"=>4.23,
@@ -150,11 +150,11 @@ RSpec.describe StatTracker do
     end
 
     it "#helper total_games_by_coaches_by_season" do
-      expect(@stat_tracker.total_games_by_coaches_by_season("20132014")).to exist
+      expect(@stat_tracker.total_games_by_coaches_by_season("20132014")[0]).to be_a(CSV::Row)
     end
 
     it "#helper coach_stats_by_season" do
-      expect(@stat_tracker.coach_stats_by_season).to eq 
+    expect(@stat_tracker.coach_stats_by_season("20132014")).to be_a(Hash)
     end
 
     it "#winningest_coach" do
@@ -182,7 +182,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
     
-    it "#helper games_by_season" do
+    xit "#helper games_by_season" do
       expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)
     end
 
