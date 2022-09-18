@@ -314,6 +314,31 @@ class StatTracker
     team_with_least_tackles[:teamname]
   end
 #------------------------------------Team Statistics------------------------------------
+  # Original method from Iteration 2
+  def team_info
+    team_info_hash = Hash.new([])
+    @teams.each do |team|
+      team_info_hash['team_id'] += [team[:team_id]]
+      team_info_hash['franchise_id'] += [team[:franchiseid]]
+      team_info_hash['team_name'] += [team[:teamname]]
+      team_info_hash['abbreviation'] += [team[:abbreviation]]
+      team_info_hash['link'] += [team[:link]]
+    end
+    team_info_hash
+  end
+
+  # Original method from Iteration 2
+  # Returns Hash with
+  def best_season(team_id)
+    games_by_season
+    @games_of_team_by_season = Hash.new([])
+    @games_by_season_hash.each do |season, games_array|
+      @games_of_team_by_season[season] += average_score_per_game([@game_teams.find_all {|game| team_id == game[:team_id] && games_array.include?(game[:game_id])}])
+    end
+    @games_of_team_by_season
+  end
+
+
   # Helper method is used in average_win_percentage & most_goals_scored & fewest_goals_scored
   def games_by_team
     @games_by_team_hash = Hash.new([])
