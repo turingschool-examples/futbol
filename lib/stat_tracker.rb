@@ -477,14 +477,22 @@ class StatTracker
       tackles = row[:tackles].to_i
       team_total_tackles[row[:team_id]] += tackles
     end
-    x = team_total_tackles.max_by do |coach, percentage| 
+    number_of_team_tackle = team_total_tackles.max_by do |coach, percentage| 
       percentage end
-      team_name_from_id_average(x)
+      team_name_from_id_average(number_of_team_tackle)
   end
 
   def fewest_tackles(campaign)
-
-
+    team_total_tackles = Hash.new(0)
+    season_data(campaign)
+    
+    season_data(campaign).each do |row|
+      tackles = row[:tackles].to_i
+      team_total_tackles[row[:team_id]] += tackles
+    end
+    team_tackle = team_total_tackles.min_by do |coach, percentage| 
+      percentage end
+      team_name_from_id_average(team_tackle)
   end
 
   #helper method from Darby - team_id used to find team name
