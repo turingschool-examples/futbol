@@ -145,21 +145,21 @@ RSpec.describe StatTracker do
 
   context "Season Statistics" do
 
-    it "#game_wins_by_season" do
+    it "#helper game_wins_by_season" do
       expect(@stat_tracker.game_wins_by_season("20132014")).to be_a(Array)
     end
 
-    it "#total_games_by_coaches_by_season" do
-      expect(@stat_tracker.total_games_by_coaches_by_season("20132014")).to be_a(Array)
+    it "#helper total_games_by_coaches_by_season" do
+      expect(@stat_tracker.total_games_by_coaches_by_season("20132014")).to exist
+    end
+
+    it "#helper coach_stats_by_season" do
+      expect(@stat_tracker.coach_stats_by_season).to eq 
     end
 
     it "#winningest_coach" do
       expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
       expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
-    end
-
-    it "#game_losses_by_season" do
-    expect(@stat_tracker.game_losses_by_season("20132014")).to be_a(Array)
     end
 
     it "#worst_coach" do
@@ -183,7 +183,6 @@ RSpec.describe StatTracker do
     end
     
     it "#helper games_by_season" do
-      # binding.pry
       expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)
     end
 

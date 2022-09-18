@@ -35,7 +35,6 @@ class StatTracker
   end
 
   # Helper method used in percentage_ties & percentage_home_wins & percentage_visitor_wins
-  # Recommend refactor?
   def total_games
     @games.count
   end
@@ -43,11 +42,8 @@ class StatTracker
   # Original method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_home_wins
-    home_wins = 0
-   @games.each do |row|
-      if row[:away_goals] < row[:home_goals]
-        home_wins += 1
-      end
+    home_wins = @games.count do |row|
+      row[:away_goals] < row[:home_goals]
     end
     (home_wins.to_f / @games.count).round(2)
   end
@@ -55,11 +51,8 @@ class StatTracker
   # Original method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_visitor_wins
-    visitor_wins = 0
-   @games.each do |row|
-      if row[:away_goals] > row[:home_goals]
-        visitor_wins += 1
-      end
+    visitor_wins = @games.count do |row|
+      row[:away_goals] > row[:home_goals]
     end
     (visitor_wins.to_f / @games.count).round(2)
   end
@@ -67,11 +60,8 @@ class StatTracker
   # Original method from Iteration 2
   # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or ?
   def percentage_ties
-    ties = 0
-    @games.each do |row|
-      if [row[:away_goals]] == [row[:home_goals]]
-       ties += 1
-      end
+    ties = @games.count do |row|
+      [row[:away_goals]] == [row[:home_goals]]
     end
     (ties.to_f / @games.count).round(2)
   end
@@ -227,14 +217,14 @@ class StatTracker
     # binding.pry
   end
 
- #Helper method is used in winningest_coach 
+  # Helper method is used in winningest_coach & worst_coach
   def game_wins_by_season(season)
     games_by_season
     game_id_by_season = @games_by_season_hash[season]
     @wins_by_season = @game_teams.find_all {|game| game[:result] == "WIN" && game_id_by_season.include?(game[:game_id])}
   end
 
-  #Helper method is used in winningest_coach 
+  # Helper method is used in winningest_coach & worst_coach
   def total_games_by_coaches_by_season(season)
     games_by_season
     game_id_by_season = @games_by_season_hash[season]
@@ -243,10 +233,11 @@ class StatTracker
       if game_id_by_season.include?(game[:game_id]) 
         @games_by_coaches_by_season[game[:head_coach]] += [game]
       end
+      binding.pry
     end
   end
 
- #Helper method is used in winningest_coach 
+  # Helper method is used in winningest_coach & worst_coach
   def coach_stats_by_season(season)
     game_wins_by_season(season)
     total_games_by_coaches_by_season(season)
@@ -256,6 +247,7 @@ class StatTracker
     end
   end
 
+  # Original method from Iteration 2
   def winningest_coach(season)
     coach_stats_by_season(season)
     @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.max)
