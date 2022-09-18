@@ -327,15 +327,33 @@ class StatTracker
     team_info_hash
   end
 
-  # Original method from Iteration 2
-  # Returns Hash with
-  def best_season(team_id)
+  # Helper method is used in best_season & worst_season
+  def games_by_team_by_season(team_id)
     games_by_season
-    @games_of_team_by_season = Hash.new([])
+    @games_by_team_by_season_hash = Hash.new([])
     @games_by_season_hash.each do |season, games_array|
-      @games_of_team_by_season[season] += average_score_per_game([@game_teams.find_all {|game| team_id == game[:team_id] && games_array.include?(game[:game_id])}])
+      @games_by_team_by_season_hash[season] += @game_teams.find_all {|game| team_id == game[:team_id] && games_array.include?(game[:game_id])}
     end
-    @games_of_team_by_season
+    @games_by_team_by_season_hash
+  end
+
+  # Original method from Iteration 2
+  def best_season(team_id)
+    games_by_team_by_season(team_id)
+    game_wins_by_team_by_season = Hash.new
+    @games_by_team_by_season_hash.each do |season, games_by_team|
+      game_wins_by_team_by_season[season] = ((games_by_team.count {|game| game[:result] == "WIN"}.to_f/games_by_team.length.to_f) * 100).round(2)
+    end
+    game_wins_by_team_by_season.key(game_wins_by_team_by_season.values.max)
+  end
+
+  def worst_season(team_id)
+    games_by_team_by_season(team_id)
+    game_wins_by_team_by_season = Hash.new
+    @games_by_team_by_season_hash.each do |season, games_by_team|
+      game_wins_by_team_by_season[season] = ((games_by_team.count {|game| game[:result] == "WIN"}.to_f/games_by_team.length.to_f) * 100).round(2)
+    end
+    game_wins_by_team_by_season.key(game_wins_by_team_by_season.values.min)
   end
 
 
@@ -374,7 +392,7 @@ class StatTracker
   # Helper method is used in favorite_opponent & rival
   # Can be further refactored into more helper methods
   def opponent_win_loss(team_id)
-    # Keys of team_games_opponents hould be game_ids of games team is involved in
+    # Keys of team_games_opponents should be game_ids of games team is involved in
     # Values of team_games_opponents should be the team_id of their opponent in that game
     team_games_opponents = {}
     @games.each do |game|
