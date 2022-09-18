@@ -294,6 +294,7 @@ class StatTracker
       if lowest_average[0] == row[:team_id]
         return row[:teamname]
       end
+<<<<<<< HEAD
     end
   end
 
@@ -301,9 +302,13 @@ class StatTracker
     ties = 0
     @games_data.each do |row|
       ties += 1 if row[:away_goals].to_i == row[:home_goals].to_i
+=======
+>>>>>>> 051fb435048bdf6d5090e506ab93ab49a952eba1
     end
-    (ties.to_f / games_data.count).round(2)
   end
+
+
+
   # end of game class
 
   # league statistics
