@@ -25,11 +25,11 @@ class StatTracker
   end
   
   def self.create_game_class(locations, stat_tracker)
+    game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     CSV.foreach locations[:games], headers: true, header_converters: :symbol do |row|
-      stat_tracker.games[row[0].to_sym] = Game.new(row) 
+      game_teams_info = game_teams.select {|line| line[0] == row[0]}
+      stat_tracker.games[row[0].to_sym] = Game.new(row, game_teams_info[0], )
     end
-    
-    
   end
 
 

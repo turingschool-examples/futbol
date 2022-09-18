@@ -1,24 +1,30 @@
 require './lib/stat_tracker'
 
 class Game #< StatTracker
-  attr_reader :info
+  attr_reader :game_id,
+              :season,
+              :away_goals,
+              :home_goals,
+              :away_team,
+              :home_team
   
-  def initialize(info)
-    @info = {info[0].to_sym => {
-      season: info[1],
-      type: info[2],
-      date_time: info[3],
-      away_team_id: info[4],
-      home_team_id: info[5],
-      away_goals: info[6],
-      home_goals: info[7],
-      venue: info[8],
-      venue_link: info[9]
-      }}
-    #@games = games
-  end
-  
-  def highest_total_score
-    
+  def initialize(info, game_teams_data_0, game_teams_data_1)
+    @game_id = info[0]
+    @season = info[1]
+    @away_goals = info [6].to_i
+    @home_goals = info [7].to_i
+    @away_team = {team_id: game_teams_data_0[1],
+                  result: game_teams_data_0[3],
+                  head_coach: game_teams_data_0[5],
+                  # goals: game_teams_data_0[6],
+                  shots: game_teams_data_0[7].to_f,
+                  tackles: game_teams_data_0[8].to_f
+                  }
+    @home_team = {team_id: game_teams_data_1[1],
+                  result: game_teams_data_1[3],
+                  head_coach: game_teams_data_1[5],
+                  # goals: game_teams_data_1[6],
+                  shots: game_teams_data_1[7].to_f,
+                  tackles: game_teams_data_1[8].to_f}
   end
 end
