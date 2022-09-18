@@ -1,5 +1,4 @@
 require 'spec_helper'
-require './lib/league'
 
 RSpec.describe League do
   before (:all) do
