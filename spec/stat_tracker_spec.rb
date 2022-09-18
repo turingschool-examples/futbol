@@ -155,10 +155,6 @@ RSpec.describe StatTracker do
   it '#total_wins_per_team(season)' do
     expect(@stat_tracker.total_wins_per_team('20122013')).to eq({"Mike Babcock"=>2, "Joel Quenneville"=>1})
   end
-
-  # it '#head_coach(team_id)' do 
-  #  expect(@stat_tracker.head_coach(3)).to eq('John Tortorella')
-  # end
   
   it '#winningest_coach(season)' do 
     expect(@stat_tracker.winningest_coach('20122013')).to eq("Mike Babcock")
