@@ -383,23 +383,17 @@ class StatTracker
     t_shots
   end
   
-  def shot_accuracy(team_id, season_id)
+  def shot_accuracy(season_id)
     shot_accuracy = Hash.new(0)
     season = self.find_season(season_id)
-    key = team_id
-    
-    shot_accuracy[key] = (self.total_goals(season_id)[key] / self.total_shots(season_id)[key]).round(2)
+    team_id = row[:team_id]
     # require'pry';binding.pry
+    shot_accuracy[team_id] = (self.total_goals(season_id)[team_id] / self.total_shots(season_id)[team_id]).round(2)
+    
   end
-  
+  # 
   # def most_accurate_team(season)
-  #   accuracy = {}
-  #   self.find_season(season).each do |team|
-  #     accuracy[team[:id]] = team.shot_accuracy
-  #     # team.last
-  #   end
-  #   # require 'pry';binding.pry
-  #   team_name(season.shot_accuracy.key(accuracy.max).to_i)
+  #   self.shot_accuracy(season).values.max
   # end
   # 
   # def least_accurate_team(season)
