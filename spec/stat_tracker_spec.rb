@@ -165,11 +165,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
     end
 
-    it "#game_wins_by_season" do
+    it "#helper game_wins_by_season" do
       expect(@stat_tracker.game_wins_by_season("20132014")).to be_a(Array)
     end
 
-    xit "#total_games_by_coaches_by_season" do
+    xit "#helper total_games_by_coaches_by_season" do
       expect(@stat_tracker.total_games_by_coaches_by_season("20132014")).to be_a(Array)
     end
 
