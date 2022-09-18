@@ -241,7 +241,7 @@ class StatTracker
         end
       end
     season_wins.update(season_wins) do |season, win_count|
-      win_count / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
+      win_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
     end
     season_wins.key(season_wins.values.max)
   end
@@ -250,14 +250,14 @@ class StatTracker
     season_losses = Hash.new(0)
     @games_reader.each do |row|
       row[:season]
-        if (row[:away_team_id] == team_id && row[:away_goals] < row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] < row[:away_goals])
+        if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
           season_losses[row[:season]] += 1
         end
       end
     season_losses.update(season_losses) do |season, loss_count|
-      loss_count / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
+      loss_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
     end
-    season_losses.key(season_losses.values.max)
+    season_losses.key(season_losses.values.min)
   end
 end
 
