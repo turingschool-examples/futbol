@@ -114,7 +114,7 @@ class StatTracker
     @teams.length
   end
 
-  # Helper method used in best_offense, worst_offense
+  # Helper method used in best_offense, worst_offense - Added as part of I3 refactor
   def avg_goals_per_game
     hash = {}
     # Create a hash representing each team containing a hash with each team's total games and goals
