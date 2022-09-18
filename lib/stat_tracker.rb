@@ -114,9 +114,8 @@ class StatTracker
     @teams.length
   end
 
-  # Original method from iteration 2
-  # Could refactor and split up into several helper methods
-  def best_offense
+  # Helper method used in best_offense, worst_offense
+  def avg_goals_per_game
     hash = {}
     # Create a hash representing each team containing a hash with each team's total games and goals
     @game_teams.each do |row|
@@ -127,22 +126,26 @@ class StatTracker
         hash[row[:team_id]][:goals] += row[:goals].to_i
       end
     end
-
-    # Create a hash with each team and their avg goals per game
-    @avg_goals_per_game = hash.map do |team_id, games_goals_hash|
+    # Create an array with each team and their avg goals per game in nested arrays
+    # Refactor to return a hash?
+    avg_goals_per_game = hash.map do |team_id, games_goals_hash|
       [team_id, (games_goals_hash[:goals].to_f/games_goals_hash[:games])]
     end
+    avg_goals_per_game
+  end
 
+  # Original method from iteration 2
+  def best_offense
+    team_goals_per_game = avg_goals_per_game
     # Find the team_id and name of the team w/ highest avg goals
-    best_offense_id = @avg_goals_per_game.max_by {|team_id, avg_goals| avg_goals}[0]
+    best_offense_id = team_goals_per_game.max_by {|team_id, avg_goals| avg_goals}[0]
     @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
   end
 
   # Original method from iteration 2
   def worst_offense
-    # Uses @avg_goals_per_game hash from best_offense
-    # Needs to be refactored to include instantiation of @avg_goals_per_game
-    worst_offense_id = @avg_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
+    team_goals_per_game = avg_goals_per_game
+    worst_offense_id = team_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
     @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
 
@@ -194,7 +197,7 @@ class StatTracker
     @home_hash
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def highest_scoring_visitor
     average_scores_for_all_visitors
     highest_scoring_team = @teams.find do |team|
@@ -203,7 +206,7 @@ class StatTracker
     highest_scoring_team[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def highest_scoring_home_team
     average_scores_for_all_home_teams
     highest_scoring_team = @teams.find do |team|
@@ -212,7 +215,7 @@ class StatTracker
     highest_scoring_team[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def lowest_scoring_visitor
     average_scores_for_all_visitors
     lowest_scoring_team = @teams.find do |team|
@@ -221,7 +224,7 @@ class StatTracker
     lowest_scoring_team[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def lowest_scoring_home_team
     average_scores_for_all_home_teams
     highest_scoring_team = @teams.find do |team|
@@ -296,7 +299,7 @@ class StatTracker
     @tackles_counter
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def most_tackles(season)
     tackles_by_team(season)
     team_with_most_tackles = @teams.find do |team|
@@ -305,7 +308,7 @@ class StatTracker
     team_with_most_tackles[:teamname]
   end
 
-  # Origional method from Iteration 2
+  # Original method from Iteration 2
   def fewest_tackles(season)
     tackles_by_team(season)
     team_with_least_tackles = @teams.find do |team|
