@@ -307,18 +307,13 @@ class StatTracker
   #compare coach records with other for each season
   def winningest_coach(campaign)
     
-    campaign = "20132014"
-    
-    # season_all_game_id
-    coach_games = Hash.new(0)
-    coach_wins = Hash.new(0)
-    win_percentage = Hash.new
-    games = 0
-    games_played = 
+    coached_games_in_season = Hash.new(0)
+    coach_wins_in_season = Hash.new(0)
+    game_results_percentage = Hash.new
     season = Set.new
 
+    #collects all rows within the given campaign
     @game_teams_data.each do |row|      
-      #collects all rows within the given season
       row.find_all do |game_id|
         if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
           season << row
@@ -327,28 +322,81 @@ class StatTracker
     end
     season
     
-    #method return a hash: coach(key), count of games coached in a season (value)
-      season.each do |row|
-        coach_games[row[:head_coach]] += 1
+    #method returns hash: coach (key), count fo RESULT(WIN) (value)
+    season.select do |row|
+      if row[:result] == "WIN"
+        coach_wins_in_season [row[:head_coach]] += 1
       end
-        coach_games 
-    #method returns hash: coach (key), count fo RESULT(win) (value)
-        season.each do |row|
-          if row[:result] == "WIN"
-            coach_wins [row[:head_coach]] += 1
-          end
-        end
-        coach_wins 
+    end
+    coach_wins_in_season 
 
-    #
-        win_percentage.update(coach_games,coach_wins) do |coach, games_coached, games_won| 
-          (games_won.to_f / (games_coached)).round(4)
 
+    #method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
+      season.find_all do |row|
+        if coach_wins_in_season.has_key?(row[:head_coach])
+          coached_games_in_season[row[:head_coach]] += 1
         end
-        win_percentage.max_by { |coach, percentage| percentage } 
-      
-        require 'pry';binding.pry
+      end
+        coached_games_in_season 
+
+    #method merges the wins and coached games hashes for comparison
+        game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
+            (games_won.to_f / (games_coached.to_f)).round(4)
+        end
+       winning_coach = game_results_percentage.max_by do |coach, percentage| 
+          percentage 
+        end
+        winning_coach[0]
   end
+
+
+
+  def worst_coach(campaign)
+
+    coached_games_in_season = Hash.new(0)
+    coach_wins_in_season = Hash.new(0)
+    game_results_percentage = Hash.new
+    season = Set.new
+
+    #collects all rows within the given campaign
+    @game_teams_data.each do |row|      
+      row.find_all do |game_id|
+        if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
+          season << row
+        end
+      end
+    end
+    season
+    
+    #method returns hash: coach (key), count fo RESULT(WIN) (value)
+    season.select do |row|
+      if row[:result] != "WIN"
+        coach_wins_in_season [row[:head_coach]] += 1
+      end
+    end
+    coach_wins_in_season 
+
+
+    #method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
+      season.find_all do |row|
+        # if coach_wins_in_season.has_key?(row[:head_coach])
+          coached_games_in_season[row[:head_coach]] += 1
+        # end
+      end
+        coached_games_in_season 
+
+    #method merges the wins and coached games hashes for comparison
+        game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
+            (games_won.to_f / (games_coached.to_f)).round(4)
+        end
+        worst_coach = game_results_percentage.max_by do |coach, percentage| 
+          percentage 
+          # require 'pry';binding.pry
+        end
+        worst_coach[0]
+  end
+
+
 
 
 
