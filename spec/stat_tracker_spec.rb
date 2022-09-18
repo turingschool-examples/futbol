@@ -263,17 +263,13 @@ RSpec.describe StatTracker do
       expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
 
-    xit "#. worst_coach" do
+    it "#. worst_coach" do
       	# Name of the Coach with the worst win percentage for the season (string)
       dummy_filepath = {teams: "./data/team_dummy.csv",
                         games: './data/games_dummy_2.csv',
                         game_teams: './data/game_teams_3.csv'
       }
       stat_tracker = StatTracker.from_csv(dummy_filepath)
-      expect(stat_tracker.worst_coach("20112012")).to eq("John Tortorella")
+      expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
     end
-<<<<<<< HEAD
-
-=======
->>>>>>> eb5131b367162cc0aabe0823afb9613eb22078fd
 end
