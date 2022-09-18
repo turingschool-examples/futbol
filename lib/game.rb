@@ -1,4 +1,6 @@
-class Game
+require './lib/stat_tracker'
+
+class Game #< StatTracker
   attr_reader :info
   
   def initialize(info)
@@ -13,5 +15,10 @@ class Game
       venue: info[8],
       venue_link: info[9]
       }}
+    #@games = games
+  end
+  
+  def highest_total_score
+    
   end
 end

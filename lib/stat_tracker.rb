@@ -1,23 +1,35 @@
 require "csv"
 require_relative './team'
+require_relative './game'
 
 class StatTracker
   attr_accessor :games_reader,
                 :game_teams_reader,
-                :teams_reader
+                :teams_reader,
+                :games
 
   def initialize
     @teams_reader = nil
     @games_reader = nil
     @game_teams_reader = nil
+    @games = {}
   end
 
-  def self.from_csv(locations)
+  def self.from_csv(locations) # Talk about setting instantiation differently
     stat_tracker = new
-    stat_tracker.teams_reader = CSV.read locations[:teams], headers: true, header_converters: :symbol
-    stat_tracker.games_reader = CSV.read locations[:games], headers: true, header_converters: :symbol
-    stat_tracker.game_teams_reader = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
+    create_game_class(locations, stat_tracker)
+    # stat_tracker.teams_reader = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    # stat_tracker.games_reader = CSV.read locations[:games], headers: true, header_converters: :symbol
+    # stat_tracker.game_teams_reader = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     stat_tracker
+  end
+  
+  def self.create_game_class(locations, stat_tracker)
+    CSV.foreach locations[:games], headers: true, header_converters: :symbol do |row|
+      stat_tracker.games[row[0].to_sym] = Game.new(row) 
+    end
+    
+    
   end
 
 
