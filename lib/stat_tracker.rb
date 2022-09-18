@@ -238,6 +238,127 @@ class StatTracker
     unique_goal_totals.min
   end
 
+#right now there is only 1 return value being given though for our
+#test there are 2 seasons that should be returned. Consider refactoring
+  def best_season(team_id)
+    season_wins = Hash.new(0)
+    @games_reader.each do |row|
+      row[:season]
+        if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
+          season_wins[row[:season]] += 1
+        end
+      end
+    season_wins.update(season_wins) do |season, win_count|
+      win_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
+    end
+    season_wins.key(season_wins.values.max)
+  end
+  
+  def worst_season(team_id)
+    season_wins = Hash.new(0)
+    @games_reader[:season].uniq.each do |season|
+      season_wins[season] = 0
+    end
+    @games_reader.each do |row|
+      row[:season]
+        if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
+          season_wins[row[:season]] += 1
+        end
+      end
+    season_wins.update(season_wins) do |season, win_count|
+      win_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
+    end
+    season_wins.key(season_wins.values.min)
+  end
+
+  def games_by_team_by_result(team_id, game_result)
+    result_by_team = Hash.new(0)
+    @game_teams_reader.each do |line|
+      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id]) && ![game_result, "TIE"].include?(line[:result])
+        result_by_team[line[:team_id]] += 1
+      end
+    end
+    result_by_team
+  end
+
+  def game_totals_by_team(team_id)
+    list_of_totals = Hash.new(0)
+    @game_teams_reader.each do |line|
+      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id])
+        list_of_totals[line[:team_id]] += 1
+      end
+    end
+    list_of_totals
+  end
+
+  def all_games_by_team(team_id) 
+    @game_teams_reader.find_all do |row|
+      row[:team_id] == team_id 
+    end
+  end
+ 
+  def team_all_game_ids(team_id) 
+    all_games_by_team(team_id).map do |game|
+      game[0]
+    end
+  end
+
+  def favorite_opponent(team_id)
+    percentage_of_wins = Hash.new(0.0)
+    game_totals_by_team(team_id).each do |opponent, total_games|
+      percentage_of_wins[opponent] = (games_by_team_by_result(team_id, "WIN")[opponent]).to_f/(total_games)
+    end
+    team_finder(percentage_of_wins.key(percentage_of_wins.values.max))[:teamname]
+  end
+
+  def rival(team_id)
+    percentage_of_losses = Hash.new(0.0)
+    game_totals_by_team(team_id).each do |opponent, total_games|
+      percentage_of_losses[opponent] = (games_by_team_by_result(team_id, "LOSS")[opponent]).to_f/(total_games)
+    end
+    team_finder(percentage_of_losses.key(percentage_of_losses.values.max))[:teamname]
+  end
+
+
+  #Below is Rich's code for a parallel attempt on a helper method and favorite_opponent. We added to retain in case it works better with our I3 structure/Framework.
+
+
+  # def w_l_by_team(teamid, wol)     
+  #   wol_by_team = Hash.new(0)
+  #   @teams_reader[:team_id].each do |opponent|
+  #     next if opponent == teamid
+  #     @game_teams_reader.each do |line|
+  #       if line[:team_id] == teamid && line[:result] == wol
+  #         game_played_id = line[:game_id]
+  #         @game_teams_reader.each do |row|
+  #           if row[:team_id] == opponent && row[:game_id] == game_played_id
+  #             wol_by_team[opponent] += 1
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
+  #   wol_by_team
+  # end
+  
+  # def favorite_opponent(teamid)
+  #   wol_by_team = w_l_by_team(teamid, 'WIN')
+  #   total_games = Hash.new(0)
+  #   wol_by_team.keys.each do |opponent|
+  #     @games_reader.each do |game|
+  #       if game[:away_team_id] == opponent || game[:home_team_id] == opponent
+  #         if game[:away_team_id] == teamid || game[:home_team_id] == teamid
+  #           total_games[opponent] += 1
+  #         end
+  #       end
+  #     end
+  #   end
+  #   wol_by_team.update(wol_by_team, total_games) do |key, wins, total|
+  #     wins / total
+  #   end
+  #   team_name_from_id(wol_by_team.key(wol_by_team.values.max))
+  # end
+
   def most_tackles(season)
     team_tackles = Hash.new(0)
     @teams_reader[:team_id].each do |team|
@@ -256,6 +377,46 @@ class StatTracker
       end
     end
     team_name_from_id(team_tackles.key(team_tackles.values.min))
+  end
+
+  def coach_results(result, season_id)
+    coaches = Hash.new(0.0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result 
+        coaches[row[:head_coach]] += 1.0
+      end
+    end
+    coaches
+  end
+
+  def games_by_head_coach(season_id)
+    games_by_coach = Hash.new(0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3] 
+        games_by_coach[row[:head_coach]] += 1
+      end
+    end
+    games_by_coach
+  end
+
+  def winningest_coach(season_id)
+    coaches = coach_results("WIN", season_id)
+    games_by_coach = games_by_head_coach(season_id)
+    coach_win_percentages = Hash.new(0.0)
+    games_by_coach.each do |coach, games|
+      coach_win_percentages[coach] = (coaches[coach])/(games_by_coach[coach])
+    end
+    coach_win_percentages.key(coach_win_percentages.values.max)
+  end
+
+  def worst_coach(season_id)
+    coaches = coach_results("WIN", season_id)
+    games_by_coach = games_by_head_coach(season_id)
+    coach_win_percentages = Hash.new(0.0)
+    games_by_coach.each do |coach, games|
+      coach_win_percentages[coach] = (coaches[coach])/(games_by_coach[coach])
+    end
+    coach_win_percentages.key(coach_win_percentages.values.min)
   end
   
   # Helper method to return hash of teams with team id keys and values of
@@ -308,5 +469,4 @@ class StatTracker
     end
     team_scores
   end
-  
 end
