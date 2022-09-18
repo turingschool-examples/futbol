@@ -247,5 +247,72 @@ RSpec.describe StatTracker do
     expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
 
+  it "#most_accurate_team returns the name of the Team with the best ratio
+  of shots to goals for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker1.most_accurate_team('20122013')).to eq('New York Red Bulls')
+  end
 
+  it "#least_accurate_team returns the name of the Team with the best ratio
+  of shots to goals for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker1.least_accurate_team('20122013')).to eq('New York City FC')
+  end
+
+  it "#total_goals_by_team_season returns hash of teams as keys and values
+  of goals for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"6"=>3, "3"=>2, "5"=>1, "17"=>3, "16"=>2, "9"=>1, "8"=>3, "19"=>3}
+    expect(stat_tracker1.total_goals_by_team_season('20122013')).to eq(result)
+  end
+
+  it "#total_shots_by_team_season returns hash of teams as keys and values
+  of shots for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"6"=>12.0,
+             "3"=>8.0,
+             "5"=>6.0,
+             "17"=>12.0,
+             "16"=>10.0,
+             "9"=>7.0,
+             "8"=>8.0,
+             "19"=>14.0}
+    expect(stat_tracker1.total_shots_by_team_season('20122013')).to eq(result)
+  end
+
+  it "#accuracy_by_team_season returns hash of teams as keys and values
+  of goals / shots for the season" do
+    dummy_filepath = {teams: "./data/teams.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dummy1.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    result = {"6"=> 3/12.0,
+             "3"=> 2/8.0,
+             "5"=> 1/6.0,
+             "17"=> 3/12.0,
+             "16"=> 2/10.0,
+             "9"=> 1/7.0,
+             "8"=> 3/8.0,
+             "19"=> 3/14.0}
+    expect(stat_tracker1.accuracy_by_team_season('20122013')).to eq(result)
+  end
+  
+  
 end
