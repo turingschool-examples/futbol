@@ -241,19 +241,22 @@ class StatTracker
     end
     season_wins.key(season_wins.values.max)
   end
-
+  
   def worst_season(team_id)
-    season_losses = Hash.new(0)
+    season_wins = Hash.new(0)
+    @games_reader[:season].uniq.each do |season|
+      season_wins[season] = 0
+    end
     @games_reader.each do |row|
       row[:season]
         if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
-          season_losses[row[:season]] += 1
+          season_wins[row[:season]] += 1
         end
       end
-    season_losses.update(season_losses) do |season, loss_count|
-      loss_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
+    season_wins.update(season_wins) do |season, win_count|
+      win_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
     end
-    season_losses.key(season_losses.values.min)
+    season_wins.key(season_wins.values.min)
   end
 
   def games_by_team_by_result(team_id, game_result)

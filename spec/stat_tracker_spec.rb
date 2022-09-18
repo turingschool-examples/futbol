@@ -375,9 +375,6 @@ RSpec.describe StatTracker do
     expect(stat_tracker.worst_season("3")).to eq("20112012") #team "17" also has 100% loss  for "20132014" as well
   end
 
-  it "#. fewest_goals_scored" do
-    expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
-  end
 
   it "#most_accurate_team returns the name of the Team with the best ratio
   of shots to goals for the season" do
