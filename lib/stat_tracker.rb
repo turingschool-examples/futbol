@@ -431,7 +431,7 @@ class StatTracker
   end
 
   def least_accurate_team	(campaign)
-    # campaign = "20142015"
+    
     season = Set.new
     team_season_goals_count = Hash.new(0)
     team_season_shots_count = Hash.new(0)
@@ -469,7 +469,7 @@ class StatTracker
   end
 
   def most_tackles(campaign)
-    campaign = "20122013"
+    # campaign = "20142015"
     team_total_tackles = Hash.new(0)
     season_data(campaign)
     
@@ -477,13 +477,14 @@ class StatTracker
       tackles = row[:tackles].to_i
       team_total_tackles[row[:team_id]] += tackles
     end
-    team_total_tackles.max
-    require 'pry';binding.pry
-
-
+    x = team_total_tackles.max_by do |coach, percentage| 
+      percentage end
+      team_name_from_id_average(x)
   end
 
   def fewest_tackles(campaign)
+
+
   end
 
   #helper method from Darby - team_id used to find team name
