@@ -354,15 +354,25 @@ class StatTracker
   end
 
   def most_tackles(season)
-    highest_tackles = 0
-    team_with_highest_tackles = nil
+    tackles_hash = Hash.new(0)
     @game_teams.map do |row|
-      if row[:tackles].to_i > highest_tackles && row[:game_id][0..3] == season[0..3]
-        highest_tackles = row[:tackles].to_i
-        team_with_highest_tackles = row[:team_id]
+      if row[:game_id][0..3] == season[0..3]
+        tackles_hash[row[:team_id]] += row[:tackles].to_i
       end
-    end 
-    # require 'pry'; binding.pry
-    return team_name(team_with_highest_tackles.to_i)
-  end 
+    end
+    most = tackles_hash.max_by {|team_id, tackles| tackles}
+    team_name(most[0].to_i)
+  end
+
+  def fewest_tackles(season)
+    tackles_hash = Hash.new(0)
+    @game_teams.map do |row|
+      if row[:game_id][0..3] == season[0..3]
+        tackles_hash[row[:team_id]] += row[:tackles].to_i
+      end
+    end
+    least = tackles_hash.min_by {|team_id, tackles| tackles}
+    team_name(least[0].to_i)
+  end
 end
+#need to work out edge cases for the spec harness in most and fewest tackles. 

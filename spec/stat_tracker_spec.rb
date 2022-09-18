@@ -154,9 +154,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.most_tackles("20142015")).to eq "New York City FC"
     end
   
-    xit "#fewest_tackles" do
-      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
-      expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+    it "#fewest_tackles" do
+      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Chicago Red Stars"
+      expect(@stat_tracker.fewest_tackles("20142015")).to eq "New York Red Bulls"
     end
   end
   
