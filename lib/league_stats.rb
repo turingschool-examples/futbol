@@ -77,5 +77,13 @@ class LeagueStats
     @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
   end
 
-
+  def self.lowest_scoring_home_team
+    team_offense = Hash.new(0)
+    games = Hash.new(0)
+    @@all_games.each { |row| team_offense[row[:home_team_id]] += row[:home_goals].to_f
+    games[row[:home_team_id]] += 1 }
+    lowest_scoring_home_team = team_offense.merge(games) { |_, home_goals, games| home_goals / games }
+    teamid = lowest_scoring_home_team.min_by { |_, percent| percent }.first
+    @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+  end
 end

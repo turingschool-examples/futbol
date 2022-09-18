@@ -31,4 +31,8 @@ RSpec.describe LeagueStats do
     expect(LeagueStats.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
+   
+  it '#lowest_scoring_home_team' do
+    expect(LeagueStats.lowest_scoring_home_team).to eq "Utah Royals FC"
+  end
 end
