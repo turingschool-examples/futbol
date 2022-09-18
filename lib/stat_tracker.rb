@@ -7,6 +7,7 @@ class StatTracker
     @games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
+    @league = League.new(@teams_data, @game_teams_data)
   end
 
   def self.from_csv(locations)
@@ -238,63 +239,31 @@ class StatTracker
 
 
   def count_of_teams
-    @teams_data.count 
+    @league.count_of_teams
   end
 
-  # def team_goals_per_game
-
-  # end
-
-  # def team_average_goals_per_game
-
-  # end
-
   def best_offense
-    team_goals = Hash.new
-    @game_teams_data.each do |row|
-      if team_goals[row[:team_id]] != nil
-        team_goals[row[:team_id]].push(row[:goals].to_i)
-      else
-        team_goals[row[:team_id]] = [row[:goals].to_i]
-      end
-    end
-
-    team_average = Hash.new
-    team_goals.each do |team_id, goals_per_game|
-      team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
-    end
-    
-    highest_average = team_average.max_by{ |id, average| average }
-
-    @teams_data.each do |row|
-      if highest_average[0] == row[:team_id]
-        return row[:teamname]
-      end
-    end
+    @league.best_offense
   end
 
   def worst_offense
-    team_goals = Hash.new
-    @game_teams_data.each do |row|
-      if team_goals[row[:team_id]] != nil
-        team_goals[row[:team_id]].push(row[:goals].to_i)
-      else
-        team_goals[row[:team_id]] = [row[:goals].to_i]
-      end
-    end
+    @league.worst_offense
+  end
 
-    team_average = Hash.new
-    team_goals.each do |team_id, goals_per_game|
-      team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
-    end
-    
-    lowest_average = team_average.min_by{ |id, average| average }
+  def highest_scoring_visitor
+    @league.highest_scoring_visitor
+  end
 
-    @teams_data.each do |row|
-      if lowest_average[0] == row[:team_id]
-        return row[:teamname]
-      end
-    end
+  def highest_scoring_home_team
+    @league.highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+    @league.lowest_scoring_visitor
+  end
+
+  def lowest_scoring_home_team
+    @league.lowest_scoring_home_team
   end
 
 
