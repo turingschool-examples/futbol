@@ -20,6 +20,7 @@ class StatTracker
     stat_tracker
   end
 
+
   # Method to return the average number of goals scored in a game across all
   # seasons including both home and away goals (rounded to the nearest 100th)
   def average_goals_per_game
@@ -313,6 +314,115 @@ class StatTracker
   #   team_name_from_id(wol_by_team.key(wol_by_team.values.max))
   # end
 
+  def most_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.max))
+  end
 
-end 
+  def fewest_tackles(season)
+    team_tackles = Hash.new(0)
+    @teams_reader[:team_id].each do |team|
+      @game_teams_reader.each do |line|
+        team_tackles[team] += line[:tackles].to_i if line[:game_id][0..3] == season[0..3] && line[:team_id] == team
+      end
+    end
+    team_name_from_id(team_tackles.key(team_tackles.values.min))
+  end
 
+  def coach_results(result, season_id)
+    coaches = Hash.new(0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result
+        coaches[row[:head_coach]] += 1
+      else
+        coaches[row[:head_coach]] += 0
+      end
+    end
+    coaches
+  end
+
+  def games_by_head_coach(season_id)
+    games_by_coach = Hash.new(0)
+    @game_teams_reader.each do |row|
+      if row[:game_id][0..3] == season_id[0..3]
+        games_by_coach[row[:head_coach]] += 1
+      end
+    end
+    games_by_coach
+  end
+
+  def winningest_coach(season_id)
+    coaches = coach_results("WIN", season_id)
+    games_by_coach = games_by_head_coach(season_id)
+    coaches.update(coaches) do |coach, wins|
+      wins.to_f / games_by_coach[coach]
+    end
+    coaches.key(coaches.values.max)
+  end
+
+  def worst_coach(season_id)
+    coaches = coach_results("WIN", season_id)
+    games_by_coach = games_by_head_coach(season_id)
+    coaches.update(coaches) do |coach, wins|
+      wins.to_f / games_by_coach[coach]
+    end
+    coaches.key(coaches.values.min)
+  end
+  
+  # Helper method to return hash of teams with team id keys and values of
+  # total goals for the season
+  def total_goals_by_team_season(season)
+    team_scores = Hash.new(0)
+    teams_array = @teams_reader[:team_id]
+    teams_array.each do |team|
+      @game_teams_reader.each do |line|
+        team_scores[team] += (line[:goals]).to_i if line[:team_id] == team && line[:game_id][0..3] == season[0..3]
+      end
+    end
+    team_scores
+  end
+  
+  # Helper method to return hash of teams with team id keys and values of
+  # total shots for the season
+  def total_shots_by_team_season(season)
+    teams_array = @teams_reader[:team_id]
+    team_shots = Hash.new(0)
+    teams_array.each do |team|
+      @game_teams_reader.each do |line|
+        team_shots[team] += line[:shots].to_f if line[:team_id] == team && line[:game_id][0..3] == season[0..3]
+      end
+    end
+    team_shots
+  end
+  
+  # Method to return the name of the Team with the best ratio of shots to goals 
+  # for the season
+  def most_accurate_team(season)
+    team_scores = accuracy_by_team_season(season)
+    team_name_from_id(team_scores.key(team_scores.values.max))
+  end
+  
+  # Method to return the name of the Team with the worst ratio of shots to goals 
+  # for the season
+  def least_accurate_team(season)
+    team_scores = accuracy_by_team_season(season)
+    team_name_from_id(team_scores.key(team_scores.values.min))
+  end
+  
+  # Helper method to return hash of teams with team id keys and values of
+  # goals / shots for the season
+  def accuracy_by_team_season(season)
+    team_scores = total_goals_by_team_season(season)
+    team_shots = total_shots_by_team_season(season)
+    team_scores.update(team_scores) do |team, goals|
+      goals / team_shots[team]
+    end
+    team_scores
+  end
+  
+end

@@ -1,0 +1,11 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7
+2012030221,6,home,WIN,OT,Claude Julien,3,12,51,6,4,1,55.2,4,5
+2012030312,5,home,LOSS,REG,Dan Bylsma,1,6,37,4,2,0,49.1,12,5
+2012030231,16,home,WIN,REG,Joel Quenneville,2,10,24,10,3,1,47.5,2,11
+2012030232,17,away,WIN,REG,Mike Babcock,2,7,26,6,4,0,55.4,6,6
+2012030122,9,away,LOSS,REG,Paul MacLean,1,7,26,8,4,0,42.1,4,0
+2012030122,8,home,WIN,REG,Michel Therrien,3,8,37,12,2,0,57.9,7,6
+2012030185,19,home,LOSS,OT,Ken Hitchcock,2,9,41,4,1,0,50,7,7
+2012030186,19,away,LOSS,REG,Ken Hitchcock,1,5,36,2,1,0,47.2,7,2
+2012030161,17,away,LOSS,REG,Mike Babcock,1,5,24,8,4,1,51.8,13,3
