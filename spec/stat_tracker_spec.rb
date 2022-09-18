@@ -618,11 +618,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.most_goals_scored("18")).to eq 7
     end
   end
-
-
-
-
 end
-  end
-end
+
 
