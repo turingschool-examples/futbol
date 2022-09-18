@@ -296,7 +296,7 @@ class StatTracker
       end
     end
   end
-end
+
 
 
   # end of game class
