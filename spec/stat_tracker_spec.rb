@@ -603,19 +603,40 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.team_info('18')).to eq(expected)
     end
   end
-    # describe '#best_season' do
+  
+  # describe '#best_season' do
     #   it 'can return season with highest wins' do
     #     expect(@stat_tracker.best_season("6")).to eq "20132014"
     #   end
     # end   
+  
   describe '#average_win_percentage' do
     it 'can tell the average win rate of a given team' do
-    expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+      expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
     end
   end
+  
   describe '#most_goals_scored' do
     it "can show what game a team scored the most goals" do
       expect(@stat_tracker.most_goals_scored("18")).to eq 7
+    end
+  end
+  
+  describe '#fewest_goals_scored' do
+    it "#fewest_goals_scored" do
+      expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+  end
+  
+  describe '#favorite_opponent' do
+    it "#favorite_opponent" do
+      expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+    end
+  end
+  
+  describe '#rival' do
+    it "#rival" do
+      expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
     end
   end
 end
