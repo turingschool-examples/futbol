@@ -105,6 +105,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(32)
     end
 
+    it "#helper avg_goals_per_game" do
+      expect(@stat_tracker.avg_goals_per_game).to be_a(Array)
+    end
+
     it "#best_offense" do
       expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
@@ -227,9 +231,8 @@ RSpec.describe StatTracker do
     end
 
     it "#helper opponent_win_loss" do
-      #Could probably write better tests after mocks/stubs lesson
-      expect(@stat_tracker.opponent_win_loss("18")).to be_a(Hash)
-      expect(@stat_tracker.opponent_win_loss("18")["19"]).to be_a(Array)
+      expect(@stat_tracker.opponent_win_loss("18").size).to eq(31)
+      expect(@stat_tracker.opponent_win_loss("18")["14"]).to eq([0, 8])
     end
 
     it "#favorite_opponent" do
