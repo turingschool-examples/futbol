@@ -363,7 +363,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.best_season("6")).to eq("20112012") #also has 100% for "20122013" as well
+    expect(stat_tracker.best_season("6")).to eq("20112012").or(eq("20122013")) #also has 100% for "20122013" as well
   end
   
   it "# worst_season: season with the lowest win percentage for a team" do
