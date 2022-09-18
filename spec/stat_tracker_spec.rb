@@ -200,6 +200,24 @@ RSpec.describe StatTracker do
   end
 
   context "Team Statistics" do
+    it "#team_info" do
+    expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+    end
+
+    it "#best_season" do
+      expect(@stat_tracker.best_season("6")).to eq "20132014"
+    end
+
+    it "#worst_season" do
+      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    end
+
     it "#helper games_by_team" do
       expect(@stat_tracker.games_by_team.keys.length).to eq(@stat_tracker.teams[:team_id].length)
     end
