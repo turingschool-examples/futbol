@@ -1,9 +1,7 @@
-require 'csv'
+require './lib/initiable'
 
 class GameStats
-  @@all_games 
-
-  attr_reader :all_games
+  include Initiable
 
   def self.from_csv_paths(file_paths)
     files = {
@@ -12,11 +10,6 @@ class GameStats
       team_csv:CSV.read(file_paths[:team_csv], headers: true, header_converters: :symbol)
     }
     GameStats.new(files)
-  end
-
-  def initialize(csvs)
-    @@all_games = []
-    csvs[:game_csv].each {|row| @@all_games << row}
   end
 
   def self.highest_total_score
@@ -68,4 +61,3 @@ class GameStats
     seasons_averages
   end
 end
- 

@@ -1,9 +1,7 @@
-require 'csv'
+require 'initiable'
 
-class SeasonStats 
-  @@all_teams
-  @@all_games
-  @@all_game_teams 
+class SeasonStats
+  include Initiable
 
   def self.from_csv_paths(file_paths)
     files = {
@@ -13,16 +11,6 @@ class SeasonStats
     }
     SeasonStats.new(files)
   end
-
-  def initialize(csvs)
-    @@all_teams = []
-    @@all_games = []
-    @@all_game_teams = []
-    csvs[:game_csv].each {|row| @@all_games << row}
-    csvs[:gameteam_csv].each {|row| @@all_game_teams << row}
-    csvs[:team_csv].each {|row| @@all_teams << row}
-  end
-
 
   def self.winningest_coach(season)
     coach_records = Hash.new { |coach, outcomes| coach[outcomes]=[] }

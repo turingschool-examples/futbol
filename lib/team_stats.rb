@@ -1,8 +1,7 @@
-class TeamStats 
-  @@all_teams
-  @@all_games
-  @@all_game_teams 
+require './lib/initiable'
 
+class TeamStats
+  include Initiable
   def self.from_csv_paths(file_paths)
     files = {
     game_csv: CSV.read(file_paths[:game_csv], headers: true, header_converters: :symbol),
@@ -10,15 +9,6 @@ class TeamStats
     team_csv:CSV.read(file_paths[:team_csv], headers: true, header_converters: :symbol)
     }
     TeamStats.new(files)
-  end
-
-  def initialize(csvs)
-    @@all_teams = []
-    @@all_games = []
-    @@all_game_teams = []
-    csvs[:game_csv].each {|row| @@all_games << row}
-    csvs[:gameteam_csv].each {|row| @@all_game_teams << row}
-    csvs[:team_csv].each {|row| @@all_teams << row}
   end
 
   def self.team_info(id)
