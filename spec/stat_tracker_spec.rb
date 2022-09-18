@@ -17,11 +17,11 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-   describe '#initialize' do
-     it 'exists' do
-       expect(@stat_tracker).to be_an_instance_of(StatTracker)
-     end
-   end
+  describe '#initialize' do
+    it 'exists' do
+      expect(@stat_tracker).to be_an_instance_of(StatTracker)
+    end
+  end
 
    describe '#game stats' do
      it 'can find total game score for each game' do 
