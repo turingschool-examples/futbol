@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+require_relative './league_stats'
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -8,6 +9,8 @@ class StatTracker
     @teams = teams
     @game_teams = game_teams
   end
+
+  include LeagueStats
 
   def highest_total_score
     # highest sum of winning and losing teams scores
