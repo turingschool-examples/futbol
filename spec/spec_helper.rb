@@ -1,3 +1,7 @@
 require 'simplecov'
-require './lib/season'
 SimpleCov.start
+
+require 'rspec'
+require './lib/stat_tracker'
+require './lib/league'
+require './lib/season'
