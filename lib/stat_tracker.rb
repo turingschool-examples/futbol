@@ -275,5 +275,5 @@ class StatTracker
       wins.to_f / games_by_coach[coach]
     end
     coaches.key(coaches.values.max)
+  end
 end
-end 
