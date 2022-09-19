@@ -1,7 +1,9 @@
 require 'csv'
 
 class CSV_loader
-  attr_reader :all_game_teams
+  attr_reader :all_game_teams,
+              :all_games, 
+              :all_teams
 
   @all_teams
   @all_games
