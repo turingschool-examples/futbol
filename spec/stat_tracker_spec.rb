@@ -204,4 +204,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.rival('6')).to eq('Houston Dynamo')
     end
   end
+
+  describe '#best_season' do
+    it 'returns the season with the highest win percentage for a team' do
+      expect(@stat_tracker.best_season("6")).to eq "20122013"
+    end
+    it "#worst_season" do
+      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    end
+  end
 end
