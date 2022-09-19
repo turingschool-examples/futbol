@@ -588,4 +588,38 @@ class StatTracker
     end
     season 
   end
+
+  #Method returns best season for each team
+  def best_season(team)
+    team = "6"
+    campaign = "20142015"
+    played_games_in_season = Hash.new(0)
+    wins_in_season = Hash.new(0)
+    season_win_percentage = Hash.new
+    
+    season_data(campaign).find_all do |row|
+      if team == row[:team_id]
+        played_games_in_season[row[:team_id]] += 1
+        if row[:result] == "WIN"
+          wins_in_season[row[:team_id]] += 1
+          # require 'pry';binding.pry
+        end
+      end
+    end
+    wins_in_season 
+    played_games_in_season
+    # require 'pry';binding.pry
+
+    season_win_percentage.update(played_games_in_season,wins_in_season) do |coach, games_played, games_won| 
+      (games_won.fdiv(games_played)).round(4)
+    end
+    season_record = season_win_percentage.max_by { |coach, percentage| percentage }
+require 'pry';binding.pry
+    # season_record[0]
+  end
+
+  #Method returns best season for each team
+  def worst_season (team)
+  end
+
 end
