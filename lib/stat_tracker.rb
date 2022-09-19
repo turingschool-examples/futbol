@@ -256,8 +256,7 @@ class StatTracker
         end
       end
     end
-    # team_name_from_id_average
-    max_win_rate_team
+    team_name_from_id_average(max_win_rate_team.split)
   end
   
   def winningest_coach(campaign)
