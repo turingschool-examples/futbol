@@ -104,12 +104,12 @@ RSpec.describe StatTracker do
 
   describe '#winningest_coach' do
     it 'can return Name of the Coach with the best win percentage for the season' do
-      expect(@stat_tracker.winningest_coach(20122013)).to eq("Claude Julien")
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
   end
   describe '#worst_coach' do
     it 'can return Name of the Coach with the best win percentage for the season' do
-      expect(@stat_tracker.worst_coach(20122013)).to be_a String
+      expect(@stat_tracker.worst_coach("20122013")).to be_a String
     end
   end
 
@@ -124,8 +124,8 @@ RSpec.describe StatTracker do
 
   describe '#average_win_percentage' do
     it 'calculates average win percentage of a single team' do
-      expect(@stat_tracker.average_win_percentage(3)).to eq (0)
-      expect(@stat_tracker.average_win_percentage(16)).to eq (0.43)
+      expect(@stat_tracker.average_win_percentage('3')).to eq (0)
+      expect(@stat_tracker.average_win_percentage('16')).to eq (0.43)
     end
   end
 
@@ -210,8 +210,17 @@ RSpec.describe StatTracker do
     it 'returns the season with the highest win percentage for a team' do
       expect(@stat_tracker.best_season("6")).to eq "20122013"
     end
-    it "#worst_season" do
+  end
+
+  describe '#worst_season' do
+    it "returns the season with the lowest win percentage for a team" do
       expect(@stat_tracker.worst_season("6")).to eq "20122013"
+    end
+  end
+
+  describe '#game_data_for_a_season' do
+    it 'returns an array of csv_rows' do
+      expect(@stat_tracker.game_data_for_a_season('20122013')).to be_an Array
     end
   end
 end
