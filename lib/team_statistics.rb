@@ -1,6 +1,5 @@
 require 'csv'
 require 'pry'
-
 module TeamStatistics
   # Original method from Iteration 2
   def team_info(team_id)
