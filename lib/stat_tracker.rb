@@ -351,17 +351,17 @@ class StatTracker
     # fav_oppt = team_name(lost_most[0].to_i)
   end
   
-  def find_season(season)
+  def find_season(season_id)
     games = []
     @game_teams.each do |row|
-      games << row if row[:game_id][0, 4] == season[0,4]
+      games << row if row[:game_id][0, 4] == season_id[0,4]
     end
     games
   end
   
-  def total_goals(season)
+  def total_goals(season_id)
     t_goals = Hash.new(0)
-    self.find_season(season).each do |row|
+    self.find_season(season_id).each do |row|
       if !t_goals.key?(row[:team_id])
         t_goals[row[:team_id]] = row[:goals].to_f
       else
@@ -371,9 +371,9 @@ class StatTracker
     t_goals
   end
 
-  def total_shots(season)
+  def total_shots(season_id)
     t_shots = Hash.new(0)
-    self.find_season(season).each do |row|
+    self.find_season(season_id).each do |row|
       if !t_shots.key?(row[:team_id])
         t_shots[row[:team_id]] = row[:shots].to_f
       else
@@ -383,27 +383,28 @@ class StatTracker
     t_shots
   end
   
-  def shot_accuracy(season_id)
-    shot_accuracy = Hash.new(0)
-    season = self.find_season(season_id)
-    team_id = row[:team_id]
-    # require'pry';binding.pry
-    shot_accuracy[team_id] = (self.total_goals(season_id)[team_id] / self.total_shots(season_id)[team_id]).round(2)
-    
+  def most_accurate_team(season_id)
+    total_shots = total_shots(season_id)
+    total_goals = total_goals(season_id)
+  
+    shots_and_goals = total_shots.values.zip(total_goals.values)
+    shots_to_goals_ratio = shots_and_goals.map {|array| array[1] / array[0]}
+  
+    ratio_hash = Hash[total_shots.keys.zip(shots_to_goals_ratio)]
+    most_accurate = ratio_hash.max_by {|team_id, ratio| ratio}
+    team_name(most_accurate[0].to_i)
   end
-  # 
-  # def most_accurate_team(season)
-  #   self.shot_accuracy(season).values.max
-  # end
-  # 
-  # def least_accurate_team(season)
-  #   accuracy = []
-  #   season = self.find_season(season).shot_accuracy.each do |team|
-  #     accuracy << team.last
-  #   end
-  #   # require 'pry';binding.pry
-  #   team_name(season.shot_accuracy.key(accuracy.min).to_i)
-  # end
-
+  
+  def least_accurate_team(season_id)
+    total_shots = total_shots(season_id)
+    total_goals = total_goals(season_id)
+  
+    shots_and_goals = total_shots.values.zip(total_goals.values)
+    shots_to_goals_ratio = shots_and_goals.map {|array| array[1] / array[0]}
+  
+    ratio_hash = Hash[total_shots.keys.zip(shots_to_goals_ratio)]
+    most_accurate = ratio_hash.min_by {|team_id, ratio| ratio}
+    team_name(most_accurate[0].to_i)
+  end
 
 end

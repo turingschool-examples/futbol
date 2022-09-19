@@ -162,20 +162,11 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.total_shots('20122013')).to eq({"17"=>19.0, "16"=>18.0})
   end
   
-  it '#shot_accuracy' do
-    # require'pry';binding.pry
-    expect(@stat_tracker.shot_accuracy('20142015')).to be_a(Hash)
-  end
-  
-  xit '#most_accurate_team' do
+  it '#most_accurate_team' do
     expect(@stat_tracker.most_accurate_team('20142015')).to eq('New York Red Bulls')
   end
-  
-  # def highest_total_score
-    # scores = @games.map do |row|
-    #   row[:away_goals].to_i + row[:home_goals].to_i
-  
-  xit '#least_accurate_team' do
+
+  it '#least_accurate_team' do
     expect(@stat_tracker.least_accurate_team('20142015')).to eq('New York City FC')
   end
 
