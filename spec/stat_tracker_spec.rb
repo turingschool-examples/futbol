@@ -247,7 +247,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
 
-    it "#. coach results" do
+    it "#. coach_results" do
       dummy_filepath = {teams: "./data/team_dummy.csv",
                         games: './data/games_dummy_2.csv',
                         game_teams: './data/game_teams_dumdum.csv'
@@ -469,4 +469,4 @@ RSpec.describe StatTracker do
                "19"=> 3/14.0}
       expect(stat_tracker1.accuracy_by_team_season('20122013')).to eq(result)
     end
-  end 
+  end
