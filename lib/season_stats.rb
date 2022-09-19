@@ -56,23 +56,23 @@ module SeasonStatistics
   end
   
   def total_games_played_per_team(season)
-  game_tally = Hash.new(0)
-  @game_teams.map do |row|
-    if row[:game_id][0..3] == season[0..3]
-      game_tally[row[:head_coach]] += 1
+    game_tally = Hash.new(0)
+    @game_teams.map do |row|
+      if row[:game_id][0..3] == season[0..3]
+        game_tally[row[:head_coach]] += 1
+      end
     end
-  end
-  game_tally
+    game_tally
   end
   
   def total_wins_per_team(season)
-  team_wins_hash = Hash.new(0)
-  @game_teams.map do |row|
-    if row[:game_id][0..3] == season[0..3] && row[:result] == "WIN"
-      team_wins_hash[row[:head_coach]] += 1
+    team_wins_hash = Hash.new(0)
+    @game_teams.map do |row|
+     if row[:game_id][0..3] == season[0..3] && row[:result] == "WIN"
+        team_wins_hash[row[:head_coach]] += 1
+      end
     end
-  end
-  team_wins_hash
+    team_wins_hash
   end
   
   def winningest_coach(season)
