@@ -213,6 +213,42 @@ class StatTracker
   def best_offense # mm
     # hash to store {team_id => avg goals/game}
     team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
+    end
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
+    end
+
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.max_by { |k,v| v }.first }[:teamname]
+  end
+
+  def worst_offense # mm
+    # hash to store {team_id => avg goals/game}
+    team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
+    end
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
+    end
+
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
+  end
+
+  def winningest_coach(season) #mm
     szn = season.to_s[0..3]
     szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
     # the hash
