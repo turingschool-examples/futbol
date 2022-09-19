@@ -1,7 +1,9 @@
 require 'csv'
 require 'pry'
 require './lib/season_stats'
+require_relative './team_stats.rb'
 require_relative './league_stats'
+
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -11,6 +13,7 @@ class StatTracker
     @game_teams = game_teams
   end
 
+  include TeamStats
   include LeagueStats
   include SeasonStats
 
@@ -104,15 +107,64 @@ class StatTracker
     count
   end
 
-  def average_win_percentage(team_id)
-    games_played = @game_teams.count { |row| row[:team_id] == team_id.to_s }
-    games_won = @game_teams.count { |row| row[:team_id] == team_id.to_s && row[:result] == 'WIN'}
-    (games_won.to_f / games_played).round(2)
+  def most_accurate_team(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+
+    team_shots_goals = Hash.new({shots: 0, goals: 0})
+    season_games.each do |game|
+      team_shots_goals.default = {shots: 0, goals: 0}
+      team_shots_goals[game[:team_id]] = {
+        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
+        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
+      }
+    end
+    team_id = team_shots_goals.max_by do |team, stats|
+      stats[:goals].to_f / stats[:shots]
+    end
+    team_finder(team_id[0])
+  end
+
+  def least_accurate_team(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+
+    team_shots_goals = Hash.new({shots: 0, goals: 0})
+    season_games.each do |game|
+      team_shots_goals.default = {shots: 0, goals: 0}
+      team_shots_goals[game[:team_id]] = {
+        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
+        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
+      }
+    end
+    team_id = team_shots_goals.min_by do |team, stats|
+      stats[:goals].to_f / stats[:shots]
+    end
+    team_finder(team_id[0])
+  end
+
+  def most_tackles(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+    team_tackles = Hash.new(0)
+    season_games.each do |game|
+       team_tackles[game[:team_id]] += game[:tackles].to_i
+    end
+    team_id = team_tackles.max_by { |team_id, tackles| tackles }
+    team_finder(team_id[0])
+  end
+
+  def fewest_tackles(season)
+    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
+    team_tackles = Hash.new(0)
+    season_games.each do |game|
+       team_tackles[game[:team_id]] += game[:tackles].to_i
+    end
+    team_id = team_tackles.min_by { |team_id, tackles| tackles }
+    team_finder(team_id[0])
   end
 
   def team_finder(team_id)
     @teams.find { |team| team[:team_id] == team_id }[:teamname]
   end
+
 
   def favorite_opponent(team_id)
     wins_hash = Hash.new { |h,k| h[k] = [] }
@@ -194,16 +246,6 @@ class StatTracker
     @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
   end
 
-  def most_goals_scored(team_id) # mm
-    # find all games for team_id, turn them into the goals scored, grab the max, 2 eyes
-    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.max.to_i
-  end
-
-  def fewest_goals_scored(team_id) ## mm
-    # find all games for team_id, turn them into the goals scored, grab the min, 2 eyes
-    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.min.to_i
-  end
-
   def team_info(id)
   info = {}
   team = @teams.find { |team_row| team_row[:team_id] == id}
@@ -214,83 +256,5 @@ class StatTracker
   info['link'] = team[:link]
   info
   # require 'pry'; binding.pry
-  end
-
-  #helper method for best/worst season
-  def find_all_games_for_a_team(team_id)
-     @games.find_all do |game|
-      (game[:home_team_id] == team_id) || (game[:away_team_id] == team_id)
-     end
-  end
-  #helper method for best/worst season
-  def games_grouped_by_season(all_games)
-    all_games.group_by do |game|
-      game[:season]
-    end
-  end
-
-  #helper method for best/worst season
-  def season_game_count(season_games)
-    game_count = Hash.new(0)
-    season_games.each do |season, games|
-      game_count[season] = games.length
-    end
-    game_count
-  end
-  #helper method for best/worst season
-  def wins_count(season_games, team_id)
-    wins_count = Hash.new(0)
-    season_games.map do |season, games|
-      games.map do |game|
-        @game_teams.map do |game_team|
-          if game_team[:game_id] == game[:game_id] && game_team[:team_id] == team_id && game_team[:result] == "WIN"
-                wins_count[season] = 1 if wins_count[season].nil?
-                wins_count[season] += 1 if !wins_count[season].nil?
-          else
-            next
-          end
-        end
-      end
-    end
-    wins_count
-  end
-  #helper method for best/worst season
-  def win_percent_by_season(wins_count, season_game_count)
-    season_game_count.merge(wins_count) do |season, game_count, wins_count|
-      # binding.pry
-      ((wins_count.to_f / game_count) * 100).round(2)
-    end
-  end
-  #helper method for best/worst season
-  def season_win_percentage(win_percent_by_season, use_max)
-    if use_max
-      result = win_percent_by_season.max_by do |season, percentage|
-        percentage
-      end
-    else
-      result = win_percent_by_season.min_by do |season, percentage|
-      percentage
-    end
-    end
-    result[0]
-  end
-
-  def best_season(team_id)
-    all_games = find_all_games_for_a_team(team_id)
-    season_games = games_grouped_by_season(all_games)
-    season_game_count = season_game_count(season_games)
-    wins_count = wins_count(season_games, team_id)
-    win_percent_by_season = win_percent_by_season(wins_count, season_game_count)
-     season_win_percentage(win_percent_by_season, true)
-    #  binding.pry
-  end
-
-  def worst_season(team_id)
-    all_games = find_all_games_for_a_team(team_id)
-    season_games = games_grouped_by_season(all_games)
-    season_game_count = season_game_count(season_games)
-    wins_count = wins_count(season_games, team_id)
-    win_percent_by_season = win_percent_by_season(wins_count, season_game_count)
-     season_win_percentage(win_percent_by_season, false)
   end
 end
