@@ -24,7 +24,7 @@ class StatHelper
     @games_by_season_hash
   end
 
-    # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
+  # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
   def average_score_per_game(game_teams_selection)
     goals = game_teams_selection.sum {|game| game[:goals].to_f}
     # You need to / 2. The game_teams CSV has 2 lines to represent one game.
