@@ -3,7 +3,6 @@ require 'pry'
 require './lib/season_stats'
 require_relative './league_stats'
 class StatTracker
-  include SeasonStats
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
