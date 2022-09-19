@@ -45,44 +45,30 @@ module TeamStats
   end
 
   def favorite_opponent(team_id)
-    wins_hash = Hash.new { |h,k| h[k] = [] }
-    all_games_played = @games.find_all { |game| [game[:home_team_id], game[:away_team_id]].include?(team_id) }
-
-    all_games_played.each do |game|
-      opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id }
-      wins_hash[opponent] << game[:game_id]
-    end
-
-    wins_hash.each do |opponent, game_ids|
-      wins_hash[opponent] = game_ids.map do |game_id|
-        row = @game_teams.find { |game| game[:game_id] == game_id && game[:team_id] == team_id.to_s }
-        row[:result]
+    record_by_team = Hash.new { |h,k| h[k] = [] }
+    @games.each do |game|
+      next if game[:away_team_id] != team_id && game[:home_team_id] != team_id
+      if game[:away_team_id] == team_id && game[:away_goals] > game[:home_goals] || game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
+        record_by_team[[game[:away_team_id], game[:home_team_id]].find { |team| team != team_id }] << 'win'
+      else
+        record_by_team[[game[:away_team_id], game[:home_team_id]].find { |team| team != team_id }] << 'loss'
       end
     end
-
-    fave_opp_id = wins_hash.max_by { |key, value| value.count { |result| result == 'WIN'}.to_f / value.length }[0]
-
-    team_finder(fave_opp_id)
+    opp_id = record_by_team.max_by { |team, results| results.count { |result| result == 'win'} / results.length.to_f }[0]
+    team_finder(opp_id)
   end
 
   def rival(team_id)
-    wins_hash = Hash.new { |h,k| h[k] = [] }
-    all_games_played = @games.find_all { |game| [game[:home_team_id], game[:away_team_id]].include?(team_id.to_s) }
-
-    all_games_played.each do |game|
-      opponent = [game[:home_team_id], game[:away_team_id]].find{ |team| team != team_id }
-      wins_hash[opponent] << game[:game_id]
-    end
-
-    wins_hash.each do |key, value|
-      wins_hash[key] = value.map do |game_id|
-        row = @game_teams.find { |game| game[:game_id] == game_id && game[:team_id] == team_id.to_s }
-        row[:result]
+    record_by_team = Hash.new { |h,k| h[k] = [] }
+    @games.each do |game|
+      next if game[:away_team_id] != team_id && game[:home_team_id] != team_id
+      if game[:away_team_id] == team_id && game[:away_goals] > game[:home_goals] || game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
+        record_by_team[[game[:away_team_id], game[:home_team_id]].find { |team| team != team_id }] << 'win'
+      else
+        record_by_team[[game[:away_team_id], game[:home_team_id]].find { |team| team != team_id }] << 'loss'
       end
     end
-
-    opp_id = wins_hash.min_by { |key, value| value.count { |result| result == 'WIN'}.to_f / value.length }[0]
-
+    opp_id = record_by_team.min_by { |team, results| results.count { |result| result == 'win'} / results.length.to_f }[0]
     team_finder(opp_id)
   end
 end
