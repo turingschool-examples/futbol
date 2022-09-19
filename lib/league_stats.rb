@@ -1,6 +1,8 @@
 require 'csv_loader'
+require 'teamid'
 
 class LeagueStats < CSV_loader
+  include TeamId
 
   def team_offense(team_header, goals_header, csv)
     team_offense = Hash.new(0)
@@ -15,32 +17,26 @@ class LeagueStats < CSV_loader
   end
 
   def best_offense
-    teamid = team_offense(:team_id, :goals, @all_game_teams).max_by { |_, percent| percent }.first
-    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    team_id(team_offense(:team_id, :goals, @all_game_teams).max_by { |_, percent| percent }.first)
   end
 
   def worst_offense
-    teamid = team_offense(:team_id, :goals, @all_game_teams).min_by { |_, percent| percent }.first
-    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    team_id(team_offense(:team_id, :goals, @all_game_teams).min_by { |_, percent| percent }.first)
   end
 
   def highest_scoring_visitor
-    teamid = team_offense(:away_team_id, :away_goals, @all_games).max_by { |_, percent| percent }.first
-    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    team_id(team_offense(:away_team_id, :away_goals, @all_games).max_by { |_, percent| percent }.first)
   end
 
   def highest_scoring_home_team
-    teamid = team_offense(:home_team_id, :home_goals, @all_games).max_by { |_, percent| percent }.first
-    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    team_id(team_offense(:home_team_id, :home_goals, @all_games).max_by { |_, percent| percent }.first)
   end
 
   def lowest_scoring_visitor
-    teamid = team_offense(:away_team_id, :away_goals, @all_games).min_by { |_, percent| percent }.first
-    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    team_id(team_offense(:away_team_id, :away_goals, @all_games).min_by { |_, percent| percent }.first)
   end
 
   def lowest_scoring_home_team
-    teamid = team_offense(:home_team_id, :home_goals, @all_games).min_by { |_, percent| percent }.first
-    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    team_id(team_offense(:home_team_id, :home_goals, @all_games).min_by { |_, percent| percent }.first)
   end 
 end
