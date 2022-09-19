@@ -1,6 +1,8 @@
 require 'csv'
 require 'pry'
+require_relative './game_statistics'
 class StatTracker
+  include Game_statistics
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -9,60 +11,10 @@ class StatTracker
     @game_teams = game_teams
   end
 
-  def highest_total_score
-    # highest sum of winning and losing teams scores
-    sum_goals_array = @games.map do |game|
-      game[:home_goals].to_i + game[:away_goals].to_i
-    end
-    sum_goals_array.max
-  end
-
-  def percentage_home_wins
-    home_wins = @games.count do |game|
-      game[:home_goals] > game[:away_goals]
-    end
-    (home_wins.to_f / @games.length).round(2)
-  end
-
-  def percentage_visitor_wins
-    visitor_wins = @games.count do |game|
-      game[:home_goals] < game[:away_goals]
-    end
-    (visitor_wins.to_f / @games.length).round(2)
-  end
-
-  def lowest_total_score
-    sum_goals_array = @games.map do |game|
-      game[:home_goals].to_i + game[:away_goals].to_i
-    end
-    sum_goals_array.min
-  end
-
-  def percentage_ties
-    # Percentage of games that have resulted in a tie rounded to the nearest 100th
-    results = return_column(@game_teams, :result)
-    tie_results = results.find_all { |result| result == "TIE"}
-    (tie_results.length.to_f / results.length.to_f).round(2)
-  end
-
-  def average_goals_per_game
-    goals_array = @games.map do |game|
-      game[:home_goals].to_f + game[:away_goals].to_f
-    end
-    sum_goals_array = goals_array.sum
-    (sum_goals_array / @games.length).round(2)
-  end
+  
 
   def count_of_teams
     @teams.length
-  end
-
-  def return_column(data_set, column)
-    all_results = []
-    data_set.each do |rows|
-      all_results << rows[column]
-    end
-    all_results
   end
 
   def self.from_csv(locations)
@@ -79,28 +31,6 @@ class StatTracker
       end
     end
     StatTracker.new(dummy_array[0], dummy_array[1], dummy_array[2])
-  end
-
-  # could this be re-factored to accept an optional argument equal to :teamname?
-  def average_goals_by_season # mm
-    szns = Hash.new { |h,k| h[k] = [] }
-
-    @games.each do |csv_row|
-      szns[csv_row[:season]] << csv_row[:away_goals].to_i + csv_row[:home_goals].to_i
-    end
-
-    szns.each do |k,v|
-      szns[k] = (szns[k].sum / szns[k].count.to_f).round(2)
-    end
-    szns
-  end
-
-  def count_of_games_by_season
-    count = Hash.new(0)
-    @games.each do |game|
-      count[game[:season]] += 1
-    end
-    count
   end
 
   def average_win_percentage(team_id)
