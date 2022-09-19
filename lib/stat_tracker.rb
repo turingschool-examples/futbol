@@ -1,7 +1,7 @@
 require 'csv'
 require 'pry'
 require_relative './game_stats'
-require './lib/season_stats'
+require_relative './season_stats'
 require_relative './team_stats.rb'
 require_relative './league_stats'
 
@@ -26,7 +26,11 @@ class StatTracker
     end
     all_results
   end
-   
+  
+  def team_finder(team_id)
+    @teams.find { |team| team[:team_id] == team_id }[:teamname]
+  end
+
   def self.from_csv(locations)
     games = CSV.open locations[:games], headers: true, header_converters: :symbol
     teams = CSV.open locations[:teams], headers: true, header_converters: :symbol
