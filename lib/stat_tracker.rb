@@ -222,6 +222,8 @@ class StatTracker
     team_name(best_home[0].to_i)
   end
 
+
+
   def team_info(team_id)
     team_hash = Hash.new
     @teams.map do |row|
@@ -350,6 +352,28 @@ class StatTracker
     # lost_most = percentages_hash.min_by {|key,value| value}
     # fav_oppt = team_name(lost_most[0].to_i)
   end
+
+
+  def most_tackles(season)
+    tackles_hash = Hash.new(0)
+    @game_teams.map do |row|
+      if row[:game_id][0..3] == season[0..3]
+        tackles_hash[row[:team_id]] += row[:tackles].to_i
+      end
+    end
+    most = tackles_hash.max_by {|team_id, tackles| tackles}
+    team_name(most[0].to_i)
+  end
+
+  def fewest_tackles(season)
+    tackles_hash = Hash.new(0)
+    @game_teams.map do |row|
+      if row[:game_id][0..3] == season[0..3]
+        tackles_hash[row[:team_id]] += row[:tackles].to_i
+      end
+    end
+    least = tackles_hash.min_by {|team_id, tackles| tackles}
+    team_name(least[0].to_i)
 
   def total_games_played_per_team(season)
     game_tally = Hash.new(0)
