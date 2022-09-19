@@ -15,7 +15,6 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    # require 'pry';binding.pry
   end
 
   xdescribe '#initialize' do
@@ -44,10 +43,6 @@ RSpec.describe StatTracker do
     it 'can calculate percentage of games that has resulted in a tie (rounded to the nearest 100th)' do 
       expect(@stat_tracker.percentage_ties).to eq(0.2)
     end
-
-    # it 'A hash with season names (e.g. 20122013) as keys and counts of games as values' do 
-    #   expect(@stat_tracker.count_of_games_by_season).to eq({20122013: 10, 20122014: 8})
-    # end
   end
 
   
@@ -290,99 +285,106 @@ RSpec.describe StatTracker do
     end
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  context
+    it "#best_season" do
+      expect(@stat_tracker.best_season("6")).to eq "20132014"
+    end
+
+    it "#worst_season" do
+      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    end
   end
-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
