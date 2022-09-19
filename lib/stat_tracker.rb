@@ -591,6 +591,41 @@ class StatTracker
 
   #Method returns best season for each team
   def best_season(team)
+    campaign = @games_data.map { |row| row[:season] }.uniq
+  
+    hash = Hash.new do |h,k| 
+      h[k] = { games_won: 0, games_played: 0 } 
+    end
+    
+    campaign.each do |year|
+      a = @games_data.find_all do |row|
+        row[:season] == year &&
+        (row[:away_team_id] == team || row[:home_team_id] == team)
+      end
+
+      a.each do |game_row|
+        b = @game_teams_data.find do |game_team_row|
+          game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team 
+        end 
+        hash[year][:games_won] += 1 if b[:result] == "WIN"
+        hash[year][:games_played] += 1
+      end
+    end
+    
+    season_average_percentage = Hash.new
+    
+    hash.each do |year, totals| 
+      season_average_percentage[year] = (totals[:games_won].to_f / totals[:games_played]).round(4) 
+    end
+    
+    season_record = season_average_percentage.max_by { |year, percentage| percentage }
+    season_record[0]
+    # require 'pry';binding.pry
+
+  end
+
+  #Method returns best season for each team
+  def worst_season (team)
     team = "6"
     campaign = @games_data.map { |row| row[:season] }.uniq
   
@@ -612,20 +647,15 @@ class StatTracker
         hash[year][:games_played] += 1
       end
     end
-    require 'pry';binding.pry
-
-    hash.
-
-    season_win_percentage.update(played_games_in_season,wins_in_season) do |coach, games_played, games_won| 
-      (games_won.fdiv(games_played)).round(4)
+    
+    season_average_percentage = Hash.new
+    
+    hash.each do |year, totals| 
+      season_average_percentage[year] = (totals[:games_won].to_f / totals[:games_played]).round(4) 
     end
-    season_record = season_win_percentage.max_by { |coach, percentage| percentage }
-require 'pry';binding.pry
-    # season_record[0]
-  end
-
-  #Method returns best season for each team
-  def worst_season (team)
+    
+    season_record = season_average_percentage.min_by { |year, percentage| percentage }
+    season_record[0]
   end
 
 end
