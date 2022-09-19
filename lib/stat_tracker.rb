@@ -4,6 +4,7 @@ require_relative 'game_stats'
 
 class StatTracker
   include TeamStatistics
+  include GameStats
   attr_reader :games,
               :teams,
               :game_teams
