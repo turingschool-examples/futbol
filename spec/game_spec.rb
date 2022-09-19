@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Game do
-  before (: ) do
+  before (:all) do
     fixture_game_path = 'spec/fixture/games_fixture.csv'
 
     locations = {
