@@ -44,7 +44,6 @@ class StatTracker < StatHelper
   end
 
   # Original method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_home_wins
     home_wins = @games.count do |row|
       row[:away_goals] < row[:home_goals]
@@ -53,7 +52,6 @@ class StatTracker < StatHelper
   end
 
   # Original method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_visitor_wins
     visitor_wins = @games.count do |row|
       row[:away_goals] > row[:home_goals]
@@ -62,7 +60,6 @@ class StatTracker < StatHelper
   end
 
   # Original method from Iteration 2
-  # Recommend combining percentage_ties, percentage_home_wins, percentage_visitor_wins methods using mixins or (look at count iterator)
   def percentage_ties
     ties = @games.count do |row|
       [row[:away_goals]] == [row[:home_goals]]
@@ -268,19 +265,17 @@ class StatTracker < StatHelper
   # Original method from Iteration 2
   def most_tackles(season)
     tackles_by_team(season)
-    team_with_most_tackles = @teams.find do |team|
+    @teams.find do |team|
       team[:team_id] == @tackles_counter.key(@tackles_counter.values.max)
-    end
-    team_with_most_tackles[:teamname]
+    end[:teamname]
   end
 
   # Original method from Iteration 2
   def fewest_tackles(season)
     tackles_by_team(season)
-    team_with_least_tackles = @teams.find do |team|
+    @teams.find do |team|
       team[:team_id] == @tackles_counter.key(@tackles_counter.values.min)
-    end
-    team_with_least_tackles[:teamname]
+    end[:teamname]
   end
 #------------------------------------Team Statistics------------------------------------
   # Helper method is used in best_season & worst_season
