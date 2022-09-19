@@ -169,11 +169,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_wins_by_season("20132014")).to be_a(Array)
     end
 
-    xit "#helper total_games_by_coaches_by_season" do
-      expect(@stat_tracker.total_games_by_coaches_by_season("20132014")).to be_a(Array)
+    it "#helper total_games_by_coaches_by_season" do
+      expect(@stat_tracker.total_games_by_coaches_by_season("20132014")[0]).to be_a(CSV::Row)
     end
 
-    xit "#helper coach_stats_by_season" do
+    it "#helper coach_stats_by_season" do
+      expect(@stat_tracker.coach_stats_by_season("20132014")).to be_a(Hash)
     end
 
     it "#winningest_coach" do
