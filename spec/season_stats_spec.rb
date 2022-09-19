@@ -1,6 +1,6 @@
-require'csv'
-require'rspec'
-require'./lib/season_stats.rb'
+require 'csv'
+require 'rspec'
+require './lib/season_stats'
 
 RSpec.describe SeasonStats do
   before(:each) do
@@ -44,7 +44,7 @@ RSpec.describe SeasonStats do
     ["Ron Rolston", 0.1],
     ["Peter Laviolette", 0.0]]
 
-    expect(@seasonstats.season_id("20132014")).to eq(expected)
+    expect(@seasonstats.coach_stats("20132014")).to eq(expected)
   end
 
   it "calculates team accuracy for a season" do
@@ -113,5 +113,4 @@ RSpec.describe SeasonStats do
     expect(@seasonstats.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@seasonstats.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
-
 end

@@ -8,8 +8,7 @@ RSpec.describe LeagueStats do
   end
 
   it 'calculates offensive percent'do
-    ## unable to call @@ variable?
-  
+ 
     expected = {"3"=>2.1261770244821094,
       "6"=>2.2627450980392156,
       "5"=>2.286231884057971,

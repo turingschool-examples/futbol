@@ -32,5 +32,4 @@ RSpec.describe StatTracker do
   it '4. can return team name from id' do
       expect(@stat_tracker.list_team_names_by_id(13)).to eq("Houston Dash")
   end
-
 end
