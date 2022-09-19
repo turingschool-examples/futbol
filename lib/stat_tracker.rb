@@ -292,7 +292,7 @@ class StatTracker
     @tackles_counter
   end
 
- #------------------------------------Team Statistics------------------------------------
+#------------------------------------Team Statistics------------------------------------
   # Helper method is used in best_season & worst_season
   def games_by_team_by_season(team_id)
     games_by_season
