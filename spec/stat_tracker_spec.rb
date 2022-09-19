@@ -256,8 +256,14 @@ RSpec.describe StatTracker do
       expect(stat_tracker.coach_results("WIN", "20122013")).to eq({"John Tortorella"=>0, "Claude Julien"=>5, "Paul MacLean"=>0, "Michel Therrien"=>0})
     end
 
-    #games by head coach
-
+    it "#. games_by_head_coach" do
+      dummy_filepath = {teams: "./data/team_dummy.csv",
+                        games: './data/games_dummy_2.csv',
+                        game_teams: './data/game_teams_dumdum.csv'
+      }
+      stat_tracker = StatTracker.from_csv(dummy_filepath)
+      expect(stat_tracker.games_by_head_coach("20122013")).to eq({"John Tortorella"=>5, "Claude Julien"=>5, "Paul MacLean"=>1, "Michel Therrien"=>1})
+    end
 
     it "#. winningest_coach" do
       	# Name of the Coach with the best win percentage for the season (string)
