@@ -34,6 +34,7 @@ RSpec.describe TeamStatistics do
     end
 
     it "#worst_season" do
+      allow(@stat_tracker).to receive(:games_by_season).and_return(:games_by_season_save)
       expect(@stat_tracker.worst_season("6")).to eq "20142015"
     end
 

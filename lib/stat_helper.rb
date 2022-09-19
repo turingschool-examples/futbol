@@ -17,7 +17,17 @@ class StatHelper
     @games_by_season_hash
   end
 
+  # Used for Stub on winningest_coach & worst_coach, most_tackles, fewest_tackles, best_season & worst_season
+  # allow(@stat_tracker).to receive(:games_by_season).and_return(:games_by_season_save)
   def games_by_season_save
     @games_by_season_hash
+  end
+
+    # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
+  def average_score_per_game(game_teams_selection)
+    goals = game_teams_selection.sum {|game| game[:goals].to_f}
+    # You need to / 2. The game_teams CSV has 2 lines to represent one game.
+    games = (game_teams_selection.length.to_f/2.0)
+    goals / games
   end
 end

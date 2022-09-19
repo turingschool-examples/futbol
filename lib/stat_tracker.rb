@@ -137,7 +137,6 @@ class StatTracker < StatHelper
   end
 
   # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
-  # Recommend refactor by mixin 'calculator'
   def average_score_per_game(game_teams_selection)
     goals = game_teams_selection.sum {|game| game[:goals].to_f}
     # You need to / 2. The game_teams CSV has 2 lines to represent one game.
@@ -317,7 +316,6 @@ class StatTracker < StatHelper
     end
     @tackles_counter
   end
-
 
   # Original method from Iteration 2
   def most_tackles(season)
