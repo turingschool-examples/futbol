@@ -3,7 +3,7 @@ require './lib/season_stats'
 require './lib/stat_tracker'
 
 
-RSpec.describe TeamStatistics do
+RSpec.describe SeasonStatistics do
   before(:all) do
     game_path = './data/dummy_games.csv'
     team_path = './data/teams.csv'
