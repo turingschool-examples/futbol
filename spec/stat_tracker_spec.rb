@@ -222,42 +222,12 @@ RSpec.describe StatTracker do
   end
 
   context "Team Statistics" do
-    it "#team_info" do
-    expected = {
-      "team_id" => "18",
-      "franchise_id" => "34",
-      "team_name" => "Minnesota United FC",
-      "abbreviation" => "MIN",
-      "link" => "/api/v1/teams/18"
-    }
-    expect(@stat_tracker.team_info("18")).to eq expected
-    end
-
-    xit "#helper games_by_team_by_season" do
-    end
-
-    it "#best_season" do
-      expect(@stat_tracker.best_season("6")).to eq "20132014"
-    end
-
-    it "#worst_season" do
-      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    it "#helper games_by_team_by_season" do
+      expect(@stat_tracker.games_by_team_by_season("6").keys.length).to eq(6)
     end
 
     it "#helper games_by_team" do
       expect(@stat_tracker.games_by_team.keys.length).to eq(@stat_tracker.teams[:team_id].length)
-    end
-
-    it "#average_win_percentage" do
-      expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
-    end
-
-    it "#most_goals_scored" do
-      expect(@stat_tracker.most_goals_scored("18")).to eq 7
-    end
-
-    it "#fewest_goals_scored" do
-      expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
     end
 
     it "#helper team_games_opponents" do
@@ -267,14 +237,6 @@ RSpec.describe StatTracker do
     it "#helper opponent_win_loss" do
       expect(@stat_tracker.opponent_win_loss("18").size).to eq(31)
       expect(@stat_tracker.opponent_win_loss("18")["14"]).to eq([0, 8])
-    end
-
-    it "#favorite_opponent" do
-      expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
-    end
-
-    it "#rival" do
-      expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))  #why or LA Galaxy in the spec harness?
     end
   end
 end
