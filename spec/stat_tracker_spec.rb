@@ -158,7 +158,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "New York Red Bulls"
     end
   end
-  
+ 
   # it '#team_info' do
   #   expect(@stat_tracker.team_info('18')).to eq({
   #     "team_id" => "18",
@@ -216,5 +216,6 @@ RSpec.describe StatTracker do
   it '#worst_coach(season)' do
     expect(@stat_tracker.worst_coach('20122013')).to eq("Joel Quenneville")
   end
+
 end
 

@@ -1,18 +1,23 @@
 require 'csv'
+require_relative 'team_stats'
 
 class StatTracker
+  include TeamStatistics
   attr_reader :games,
               :teams,
               :game_teams
 
-  def initialize(locations)
-    @games = CSV.read locations[:games], headers: true, header_converters: :symbol
-    @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
-    @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
 
   def self.from_csv(locations)
-    StatTracker.new(locations)
+    games = CSV.read locations[:games], headers: true, header_converters: :symbol
+    teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
+    StatTracker.new(games, teams, game_teams)
   end
 
   def highest_total_score
@@ -222,8 +227,6 @@ class StatTracker
     team_name(best_home[0].to_i)
   end
 
-
-
   def team_info(team_id)
     team_hash = Hash.new
     @teams.map do |row|
@@ -292,67 +295,6 @@ class StatTracker
     total_wins = total_wins_per_season(team_id).values.sum.to_f
     (total_wins / total_games_played(team_id)).round(2)
   end
-
-  def most_goals_scored(team_id)
-    most_goals = []
-    @game_teams.map do |row|
-      if row[:team_id] == team_id
-        most_goals << row[:goals]
-      end
-    end
-    most_goals.max.to_i
-  end
-
-  def fewest_goals_scored(team_id)
-    fewest_goals = []
-    @game_teams.map do |row|
-      if row[:team_id] == team_id
-        fewest_goals << row[:goals]
-      end
-    end
-    fewest_goals.min.to_i
-  end
-
-  def total_times_won_against(team_id)
-    teams_win_count = Hash.new(0)
-    @games.map do |row|
-      if row[:away_team_id] == team_id && row[:away_goals] < row[:home_goals]
-        teams_win_count[row[:home_team_id]] += 1
-      elsif row[:home_team_id] == team_id && row[:home_goals] < row[:away_goals]
-        teams_win_count[row[:away_team_id]] += 1
-      end
-    end
-    teams_win_count
-  end
-
-  def total_times_played_against(team_id)
-    total_times_played = Hash.new(0)
-    @games.map do |row|
-      if row[:home_team_id] == team_id
-        total_times_played[row[:away_team_id]] += 1
-      elsif row[:away_team_id] == team_id
-        total_times_played[row[:home_team_id]] += 1
-      end
-    end
-    total_times_played
-  end
-
-  def favorite_opponent(team_id)
-    wins = total_times_won_against(team_id)
-    total_games = total_times_played_against(team_id)
-
-    wins_and_totals = wins.values.zip(total_games.values)
-    percentage_wins = wins_and_totals.map {|array| array[0].to_f / array[1]}
-
-    hash_percentages = Hash[wins.keys.zip(percentage_wins)]
-
-    # nested_arr = total_wins_hash.values.zip(total_games_played_against_team.values)
-    # percentages = nested_arr.map {|array| array[0].to_f / array [1]}
-    # percentages_hash = total_games_played_against_team.keys.zip(percentages)
-    # lost_most = percentages_hash.min_by {|key,value| value}
-    # fav_oppt = team_name(lost_most[0].to_i)
-  end
-
 
   def most_tackles(season)
     tackles_hash = Hash.new(0)
