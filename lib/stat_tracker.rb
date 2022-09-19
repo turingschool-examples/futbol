@@ -263,7 +263,7 @@ class StatTracker
     end
     season_wins.key(season_wins.values.max)
   end
-  
+
   def worst_season(team_id)
     season_wins = Hash.new(0)
     @games_reader[:season].uniq.each do |season|
@@ -301,13 +301,13 @@ class StatTracker
     list_of_totals
   end
 
-  def all_games_by_team(team_id) 
+  def all_games_by_team(team_id)
     @game_teams_reader.find_all do |row|
-      row[:team_id] == team_id 
+      row[:team_id] == team_id
     end
   end
- 
-  def team_all_game_ids(team_id) 
+
+  def team_all_game_ids(team_id)
     all_games_by_team(team_id).map do |game|
       game[0]
     end
@@ -333,7 +333,7 @@ class StatTracker
   #Below is Rich's code for a parallel attempt on a helper method and favorite_opponent. We added to retain in case it works better with our I3 structure/Framework.
 
 
-  # def w_l_by_team(teamid, wol)     
+  # def w_l_by_team(teamid, wol)
   #   wol_by_team = Hash.new(0)
   #   @teams_reader[:team_id].each do |opponent|
   #     next if opponent == teamid
@@ -350,7 +350,7 @@ class StatTracker
   #   end
   #   wol_by_team
   # end
-  
+
   # def favorite_opponent(teamid)
   #   wol_by_team = w_l_by_team(teamid, 'WIN')
   #   total_games = Hash.new(0)
@@ -392,7 +392,7 @@ class StatTracker
   def coach_results(result, season_id)
     coaches = Hash.new(0.0)
     @game_teams_reader.each do |row|
-      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result 
+      if row[:game_id][0..3] == season_id[0..3] && row[:result] == result
         coaches[row[:head_coach]] += 1.0
       end
     end
@@ -402,7 +402,7 @@ class StatTracker
   def games_by_head_coach(season_id)
     games_by_coach = Hash.new(0)
     @game_teams_reader.each do |row|
-      if row[:game_id][0..3] == season_id[0..3] 
+      if row[:game_id][0..3] == season_id[0..3]
         games_by_coach[row[:head_coach]] += 1
       end
     end
@@ -428,7 +428,7 @@ class StatTracker
     end
     coach_win_percentages.key(coach_win_percentages.values.min)
   end
-  
+
   # Helper method to return hash of teams with team id keys and values of
   # total goals for the season
   def total_goals_by_team_season(season)
@@ -441,7 +441,7 @@ class StatTracker
     end
     team_scores
   end
-  
+
   # Helper method to return hash of teams with team id keys and values of
   # total shots for the season
   def total_shots_by_team_season(season)
@@ -454,21 +454,21 @@ class StatTracker
     end
     team_shots
   end
-  
-  # Method to return the name of the Team with the best ratio of shots to goals 
+
+  # Method to return the name of the Team with the best ratio of shots to goals
   # for the season
   def most_accurate_team(season)
     team_scores = accuracy_by_team_season(season)
     team_name_from_id(team_scores.key(team_scores.values.max))
   end
-  
-  # Method to return the name of the Team with the worst ratio of shots to goals 
+
+  # Method to return the name of the Team with the worst ratio of shots to goals
   # for the season
   def least_accurate_team(season)
     team_scores = accuracy_by_team_season(season)
     team_name_from_id(team_scores.key(team_scores.values.min))
   end
-  
+
   # Helper method to return hash of teams with team id keys and values of
   # goals / shots for the season
   def accuracy_by_team_season(season)

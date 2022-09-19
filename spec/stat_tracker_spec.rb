@@ -8,7 +8,7 @@ RSpec.describe StatTracker do
   dummy_filepath = {teams: "./data/teams.csv",
                     games: './data/games_dummy1.2.csv',
                     game_teams: './data/game_teams_dummy1.csv'
-  
+
   }
   let(:stat_tracker1) {StatTracker.from_csv(dummy_filepath)}
 
@@ -249,6 +249,32 @@ RSpec.describe StatTracker do
     expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
   end
 
+  it "#. coach_results" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.coach_results("WIN", "20122013")).to eq({"Claude Julien"=>5.0})
+  end
+
+  it "#. games_by_head_coach" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_dumdum.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.games_by_head_coach("20122013")).to eq({"John Tortorella"=>5, "Claude Julien"=>5, "Paul MacLean"=>1, "Michel Therrien"=>1})
+  end
+
+  it "#. winningest_coach" do
+    dummy_filepath = {teams: "./data/team_dummy.csv",
+                      games: './data/games_dummy_2.csv',
+                      game_teams: './data/game_teams_3.csv'
+    }
+    stat_tracker = StatTracker.from_csv(dummy_filepath)
+    expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+  end
 
   it "#. games_by_team_by_result" do
     dummy_filepath = {teams: "./data/teams.csv",
@@ -295,7 +321,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum_2.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-   
+
     expect(stat_tracker.favorite_opponent("3")).to eq("New York Red Bulls")
   end
 
@@ -315,7 +341,7 @@ RSpec.describe StatTracker do
   #                     games: './data/games_dummy_2.csv',
   #                     game_teams: './data/game_teams_dumdum_rk.csv'
   #   }
-    
+
   #   result = {'8' => 1}
   #   stat_tracker = StatTracker.from_csv(dummy_filepath)
   #   expect(stat_tracker.w_l_by_team("3", 'WIN')).to eq(result)
@@ -326,19 +352,14 @@ RSpec.describe StatTracker do
   #                     games: './data/games_dummy_2_rk.csv',
   #                     game_teams: './data/game_teams_dumdum_rk.csv'
   #   }
-    
+
   #   result = {'8' => 1}
   #   stat_tracker = StatTracker.from_csv(dummy_filepath)
   #   expect(stat_tracker.favorite_opponent('3')).to eq('New York Red Bulls')
   #   expect(stat_tracker.favorite_opponent('6')).to eq('Houston Dynamo')
   # end
 
-  #coach results
-
-  #games by head coach
-
   it "#. winningest_coach" do
-      # Name of the Coach with the best win percentage for the season (string)
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games_dummy_2.csv',
                       game_teams: './data/game_teams_3.csv'
@@ -348,7 +369,6 @@ RSpec.describe StatTracker do
   end
 
   it "#. worst_coach" do
-      # Name of the Coach with the worst win percentage for the season (string)
     dummy_filepath = {teams: "./data/team_dummy.csv",
                       games: './data/games_dummy_2.csv',
                       game_teams: './data/game_teams_3.csv'
@@ -365,9 +385,9 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
-    expect(stat_tracker.best_season("6")).to eq("20112012").or(eq("20122013")) #also has 100% for "20122013" as well
+    expect(stat_tracker.best_season("6")).to eq("20112012").or eq('20122013') #also has 100% for "20122013" as well
   end
-  
+
   it "# worst_season: season with the lowest win percentage for a team" do
     dummy_filepath = {teams: "./data/team_dummy.csv",
       games: './data/games_dummy_2.csv',
@@ -444,5 +464,4 @@ RSpec.describe StatTracker do
              "19"=> 3/14.0}
     expect(stat_tracker1.accuracy_by_team_season('20122013')).to eq(result)
   end
-
 end
