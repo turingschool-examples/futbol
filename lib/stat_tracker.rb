@@ -3,16 +3,14 @@ require_relative './team'
 require_relative './game'
 
 class StatTracker
-  attr_accessor :games_reader,
-                :game_teams_reader,
-                :teams_reader,
-                :games
+  attr_accessor :games
 
   def initialize
-    @teams_reader = nil
-    @games_reader = nil
-    @game_teams_reader = nil
-    @games = {}
+    # @teams_reader = nil
+    # @games_reader = nil
+    # @game_teams_reader = nil
+    @games = Hash.new(0)
+    
   end
 
   def self.from_csv(locations) # Talk about setting instantiation differently
@@ -27,11 +25,11 @@ class StatTracker
   def self.create_game_class(locations, stat_tracker)
     game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     CSV.foreach locations[:games], headers: true, header_converters: :symbol do |row|
+      # require "pry"; binding.pry
       game_teams_info = game_teams.select {|line| line[0] == row[0]}
-      stat_tracker.games[row[0].to_sym] = Game.new(row, game_teams_info[0], )
+      stat_tracker.games[row[0].to_sym] = Game.new(row, game_teams_info[0], game_teams_info[1])
     end
   end
-
 
   # Method to return the average number of goals scored in a game across all
   # seasons including both home and away goals (rounded to the nearest 100th)
@@ -210,10 +208,22 @@ class StatTracker
     (team_win_total.to_f/total_team_games).round(2)
   end
 
+  # def count_of_games_by_season
+  #   seasons = Hash.new(0)
+  #   @games_reader.each do |row|
+  #     seasons[row[:season]] += 1
+  #   end
+  #   seasons
+  # end
+  # def count_of_games_by_season
+  #   'empty string'
+  # end
+  
   def count_of_games_by_season
+    # require "pry"; binding.pry
     seasons = Hash.new(0)
-    @games_reader.each do |row|
-      seasons[row[:season]] += 1
+    @games.each do |game_id, game_data|
+      seasons[game_data.season] += 1
     end
     seasons
   end

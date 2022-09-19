@@ -1,13 +1,14 @@
 require "rspec"
 require './lib/stat_tracker'
 require "./lib/team"
+require './lib/game'
 
 RSpec.describe StatTracker do
   let(:stat_tracker) {StatTracker.new}
   dummy_filepath = {teams: "./data/teams.csv",
                     games: './data/games_dummy1.2.csv',
                     game_teams: './data/game_teams_dummy1.csv'
-
+  
   }
   let(:stat_tracker1) {StatTracker.from_csv(dummy_filepath)}
 
@@ -226,6 +227,7 @@ RSpec.describe StatTracker do
                       game_teams: './data/game_teams_dumdum.csv'
     }
     stat_tracker = StatTracker.from_csv(dummy_filepath)
+    require "pry"; binding.pry
     expect(stat_tracker.count_of_games_by_season).to eq({"20112012" => 2, "20122013" => 6, "20132014" => 2})
   end
 
