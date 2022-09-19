@@ -1,15 +1,14 @@
 require 'csv'
 require 'rspec'
 require './lib/league_stats.rb'
-# require './lib/initiable'
+require './lib/initiable'
 
 RSpec.describe LeagueStats do 
   before(:each) do 
-    LeagueStats.from_csv_paths({game_csv:'./data/games.csv', gameteam_csv:'./data/game_teams.csv', team_csv:'./data/teams.csv'})
+    @leaguestats = LeagueStats.from_csv_paths({game_csv:'./data/games.csv', gameteam_csv:'./data/game_teams.csv', team_csv:'./data/teams.csv'})
   end
 
-  xit 'calculates offensive percent'do
-    include Initiable
+  it 'calculates offensive percent'do
     ## unable to call @@ variable?
   
     expected = {"3"=>2.1261770244821094,
@@ -45,35 +44,35 @@ RSpec.describe LeagueStats do
       "22"=>2.0467091295116773,
       "53"=>1.8902439024390243}
 
-      expect(LeagueStats.team_offense(:team_id, :goals, @@all_game_teams).to eq(expected))
+      expect(@leaguestats.team_offense(:team_id, :goals, @leaguestats.all_game_teams)).to eq(expected)
   end
 
   it '#count_of_teams'do
-      expect(LeagueStats.count_of_teams).to eq 32
+      expect(@leaguestats.count_of_teams).to eq 32
   end
 
   it '#best_offense' do
-    expect(LeagueStats.best_offense).to eq "Reign FC"
+    expect(@leaguestats.best_offense).to eq "Reign FC"
   end
 
   it '#worst_offense' do
-    expect(LeagueStats.worst_offense).to eq "Utah Royals FC"
+    expect(@leaguestats.worst_offense).to eq "Utah Royals FC"
   end
 
   it '#highest_scoring_visitor' do
-    expect(LeagueStats.highest_scoring_visitor).to eq "FC Dallas"
+    expect(@leaguestats.highest_scoring_visitor).to eq "FC Dallas"
   end
 
   it '#highest_scoring_home_team' do
-    expect(LeagueStats.highest_scoring_home_team).to eq "Reign FC"
+    expect(@leaguestats.highest_scoring_home_team).to eq "Reign FC"
   end
 
   it '#lowest_scoring_visitor' do
-    expect(LeagueStats.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    expect(@leaguestats.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
    
   it '#lowest_scoring_home_team' do
-    expect(LeagueStats.lowest_scoring_home_team).to eq "Utah Royals FC"
+    expect(@leaguestats.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
 end

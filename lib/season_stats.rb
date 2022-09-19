@@ -1,7 +1,6 @@
 require 'initiable'
 
-class SeasonStats
-  include Initiable
+class SeasonStats < CSV_loader
 
   def self.from_csv_paths(file_paths)
     files = {
@@ -12,16 +11,16 @@ class SeasonStats
     SeasonStats.new(files)
   end  
 
-  def self.season_id(season)
+  def season_id(season)
     coach_records = Hash.new { |coach, outcomes| coach[outcomes]=[] }
-    @@all_game_teams.each { |row| coach_records[row[:head_coach]].push(row[:result]) if row[:game_id].start_with?(season[0..3]) }
+    @all_game_teams.each { |row| coach_records[row[:head_coach]].push(row[:result]) if row[:game_id].start_with?(season[0..3]) }
     coach_records.map { |coach, outcomes| [coach, outcomes = ((outcomes.count("WIN").to_f)/(outcomes.count))] }
    end
 
-  def self.team_accuracy(season)
+  def team_accuracy(season)
     team_goals = Hash.new { |team, goals| team[goals] = [] }
     team_shots = Hash.new { |team, shots| team[shots] = [] }
-    @@all_game_teams.each do |row|
+    @all_game_teams.each do |row|
       if row[:game_id].start_with?(season[0..3])
         team_goals[row[:team_id]].push(row[:goals].to_f) && team_shots[row[:team_id]].push(row[:shots].to_f)
       end
@@ -29,35 +28,35 @@ class SeasonStats
     team_goals.transform_values(&:sum).merge(team_shots.transform_values(&:sum)) { |team, goals, shots | goals / shots }
   end
 
-  def self.winningest_coach(season)
+  def winningest_coach(season)
     season_id(season).max_by { |_, percent| percent }.first
   end
 
-  def self.worst_coach(season)
+  def worst_coach(season)
     season_id(season).min_by { |_, percent| percent }.first
   end  
 
-  def self.most_accurate_team(season)
+  def most_accurate_team(season)
     teamid = team_accuracy(season).max_by { |_, percent| percent }.first
-    @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
   end
 
-  def self.least_accurate_team(season)
+  def least_accurate_team(season)
     teamid = team_accuracy(season).min_by { |_, percent| percent }.first
-    @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
   end
 
-  def self.most_tackles(season)
+  def most_tackles(season)
     tackle_records = Hash.new(0)
-    @@all_game_teams.each { |row| tackle_records[row[:team_id]] += row[:tackles].to_i if row[:game_id].start_with?(season[0..3]) }
+    @all_game_teams.each { |row| tackle_records[row[:team_id]] += row[:tackles].to_i if row[:game_id].start_with?(season[0..3]) }
     teamid = tackle_records.max_by { |_, tackles| tackles }.first
-    @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
   end
 
-  def self.fewest_tackles(season)
+  def fewest_tackles(season)
     tackle_records = Hash.new(0)
-    @@all_game_teams.each { |row| tackle_records[row[:team_id]] += row[:tackles].to_i if row[:game_id].start_with?(season[0..3]) }
+    @all_game_teams.each { |row| tackle_records[row[:team_id]] += row[:tackles].to_i if row[:game_id].start_with?(season[0..3]) }
     teamid = tackle_records.min_by { |_, tackles| tackles }.first
-    @@all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
+    @all_teams.each { |row| return row[:teamname] if row[:team_id] == teamid }
   end
 end
