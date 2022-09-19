@@ -107,11 +107,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_coach(20122013)).to be_a String
     end
   end
-  describe "#best_offense" do
-  it 'returns the name of the team with the highest goal average' do
-    expect(@stat_tracker.best_offense).to eq "Reign FC"
-    end
-  end
+
 
 
   describe '#percentage_home_wins' do
@@ -210,7 +206,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.best_season("6")).to eq "20122013"
     end
     it "#worst_season" do
-      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+      expect(@stat_tracker.worst_season("6")).to eq "20122013"
     end
   end
 end
