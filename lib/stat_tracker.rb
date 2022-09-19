@@ -233,7 +233,6 @@ class StatTracker
       if game_id_by_season.include?(game[:game_id]) 
         @games_by_coaches_by_season[game[:head_coach]] += [game]
       end
-      # binding.pry
     end
   end
 
