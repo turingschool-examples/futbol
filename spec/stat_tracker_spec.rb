@@ -101,20 +101,8 @@ RSpec.describe StatTracker do
   end
 
   context "League Statistics" do
-    it "#count_of_teams" do
-      expect(@stat_tracker.count_of_teams).to eq(32)
-    end
-
     it "#helper avg_goals_per_game" do
       expect(@stat_tracker.avg_goals_per_game).to be_a(Array)
-    end
-
-    it "#best_offense" do
-      expect(@stat_tracker.best_offense).to eq("Reign FC")
-    end
-
-    it "#worst_offense" do
-      expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
 
     it "#helper away_games_by_team_id" do
@@ -135,22 +123,6 @@ RSpec.describe StatTracker do
     it "#helper average_scores_for_all_home_teams" do
       expect(@stat_tracker.average_scores_for_all_home_teams.length).to eq(@stat_tracker.teams.length)
       expect(@stat_tracker.average_scores_for_all_home_teams).to be_a(Hash)
-    end
-
-    it "#highest_scoring_visitor team" do
-      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
-    end
-
-    it "#highest_scoring_home_team" do
-      expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
-    end
-
-    it "#lowest_scoring_visitor team" do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
-    end
-
-    it "#lowest_scoring_home_team" do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
   end
 
