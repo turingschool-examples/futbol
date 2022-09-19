@@ -137,14 +137,6 @@ class StatTracker < StatHelper
     @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
 
-  # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
-  def average_score_per_game(game_teams_selection)
-    goals = game_teams_selection.sum {|game| game[:goals].to_f}
-    # You need to / 2. The game_teams CSV has 2 lines to represent one game.
-    games = (game_teams_selection.length.to_f/2.0)
-    goals / games
-  end
-
   # Helper method is used in average_scores_for_all_visitors
   # Recommend refactor as similar to method home_games_by_team_id & winning_as_coach
   def away_games_by_team_id
