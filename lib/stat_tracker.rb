@@ -1,6 +1,8 @@
 require 'csv'
 require 'pry'
+require './lib/season_stats'
 class StatTracker
+  include SeasonStats
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
@@ -109,61 +111,6 @@ class StatTracker
     (games_won.to_f / games_played).round(2)
   end
 
-  def most_accurate_team(season)
-    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
-
-    team_shots_goals = Hash.new({shots: 0, goals: 0})
-    season_games.each do |game|
-      team_shots_goals.default = {shots: 0, goals: 0}
-      team_shots_goals[game[:team_id]] = {
-        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
-        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
-      }
-    end
-    team_id = team_shots_goals.max_by do |team, stats|
-      stats[:goals].to_f / stats[:shots]
-    end
-    team_finder(team_id[0])
-  end
-
-  def least_accurate_team(season)
-    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
-
-    team_shots_goals = Hash.new({shots: 0, goals: 0})
-    season_games.each do |game|
-      team_shots_goals.default = {shots: 0, goals: 0}
-      team_shots_goals[game[:team_id]] = {
-        shots: team_shots_goals[game[:team_id]][:shots] += game[:shots].to_i,
-        goals: team_shots_goals[game[:team_id]][:goals] += game[:goals].to_i
-      }
-    end
-    team_id = team_shots_goals.min_by do |team, stats|
-      stats[:goals].to_f / stats[:shots]
-    end
-    team_finder(team_id[0])
-  end
-
-  def most_tackles(season)
-    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
-    team_tackles = Hash.new(0)
-    season_games.each do |game|
-       team_tackles[game[:team_id]] += game[:tackles].to_i
-    end
-    team_id = team_tackles.max_by { |team_id, tackles| tackles }
-    team_finder(team_id[0])
-  end
-
-  def fewest_tackles(season)
-    season_games = @game_teams.select { |game| game[:game_id].start_with?(season[0..3])}
-    team_tackles = Hash.new(0)
-    season_games.each do |game|
-       team_tackles[game[:team_id]] += game[:tackles].to_i
-    end
-    team_id = team_tackles.min_by { |team_id, tackles| tackles }
-    team_finder(team_id[0])
-  end
-
-
   def team_finder(team_id)
     @teams.find { |team| team[:team_id] == team_id }[:teamname]
   end
@@ -246,46 +193,6 @@ class StatTracker
 
     # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
     @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
-  end
-
-  def winningest_coach(season) #mm
-    szn = season.to_s[0..3]
-    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
-    # the hash
-    coaches_hash = Hash.new { |h,k| h[k] = [] }
-    # group the coaches with their results
-    szn_game_results.group_by do |csv_row|
-      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
-    end
-    # convert the values to winning percentages
-    win_pct = coaches_hash.each do |k,v|
-      # for a given coach, divide wins(float) by total games and round to 3 decimal places
-      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
-    end
-    # win_pct
-    # find the best
-    winningest = win_pct.max_by { |k,v| v }
-    # return the name
-    winningest.first
-  end
-
-  def worst_coach(season) # mm
-    szn = season.to_s[0..3]
-    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
-    # a hash to be populated
-    coaches_hash = Hash.new { |h,k| h[k] = [] }
-    # group the coaches with their results arrays
-    szn_game_results.group_by do |csv_row|
-      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
-    end
-    # convert the values to winning percentages
-    win_pct = coaches_hash.each do |k,v|
-      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
-    end
-    # find the worst
-    worst = win_pct.min_by { |k,v| v }
-    # put him on blast
-    worst.first
   end
 
   def most_goals_scored(team_id) # mm
@@ -401,7 +308,7 @@ class StatTracker
   #helper method for best/worst season
   def find_all_games_for_a_team(team_id)
      @games.find_all do |game|
-      (game[:home_team_id] == team_id) || (game[:away_team_id] == team_id) 
+      (game[:home_team_id] == team_id) || (game[:away_team_id] == team_id)
      end
   end
   #helper method for best/worst season
@@ -428,7 +335,7 @@ class StatTracker
           if game_team[:game_id] == game[:game_id] && game_team[:team_id] == team_id && game_team[:result] == "WIN"
                 wins_count[season] = 1 if wins_count[season].nil?
                 wins_count[season] += 1 if !wins_count[season].nil?
-          else 
+          else
             next
           end
         end
@@ -449,14 +356,14 @@ class StatTracker
       result = win_percent_by_season.max_by do |season, percentage|
         percentage
       end
-    else 
+    else
       result = win_percent_by_season.min_by do |season, percentage|
       percentage
     end
     end
     result[0]
   end
-  
+
   def best_season(team_id)
     all_games = find_all_games_for_a_team(team_id)
     season_games = games_grouped_by_season(all_games)
