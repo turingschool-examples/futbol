@@ -1,5 +1,7 @@
 # require 'rspec'
 require './lib/season_stats'
+require './lib/stat_tracker'
+
 
 RSpec.describe TeamStatistics do
   before(:all) do
