@@ -19,9 +19,23 @@ RSpec.describe StatHelper do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
+  context "Initialize" do
+    describe "#initialize" do
+      it "exists" do
+        tracker = StatHelper.new
+        expect(tracker).to be_a(StatHelper)
+      end
+    end
+  end
+
   context "Multi-Class Helper Methods" do
     it "#helper games_by_season" do
       expect(@stat_tracker.games_by_season.keys).to eq(@stat_tracker.games[:season].uniq)
+    end
+
+    it "#helper average_score_per_game" do
+      # Stat_tracker has 2 lines / game. That is wy there are 10 lines and only 5.0 games.
+      expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
     end
   end
 end
