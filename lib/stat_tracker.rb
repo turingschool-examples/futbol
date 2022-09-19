@@ -12,7 +12,9 @@ class StatTracker
   
   def self.from_csv(locations) 
     stat_tracker = new
-    create_instances(locations, stat_tracker)
+    game_csv_reader(locations, stat_tracker)
+    game_teams_csv_reader(locations, stat_tracker)
+    team_csv_reader(locations, stat_tracker)
     stat_tracker
   end
 
@@ -38,12 +40,6 @@ class StatTracker
     CSV.foreach locations[:teams], headers: true, header_converters: :symbol do |row|
       stat_tracker.teams[row[0].to_sym] = Team.new(row)
     end
-  end
-  
-  def self.create_instances(locations, stat_tracker)
-    game_csv_reader(locations, stat_tracker)
-    game_teams_csv_reader(locations, stat_tracker)
-    team_csv_reader(locations, stat_tracker)
   end
 
   # Method to return the average number of goals scored in a game across all
