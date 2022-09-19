@@ -1,6 +1,6 @@
 require 'rspec'
 require 'pry'
-require'./lib/stat_tracker'
+require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:all) do
@@ -75,7 +75,19 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to eq 4.22
     end
 
-    xit "#average_goals_by_season" do
+    it "#helper total_goals_per_season" do
+      expected = {
+        "20122013"=>3322.0,
+        "20162017"=>5565.0,
+        "20142015"=>5461.0,
+        "20152016"=>5499.0,
+        "20132014"=>5547.0,
+        "20172018"=>6019.0
+      }
+      expect(@stat_tracker.total_goals_per_season).to eq(expected)
+    end
+
+    it "#average_goals_by_season" do
       expected = {
         "20122013"=>4.12,
         "20162017"=>4.23,
@@ -93,6 +105,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(32)
     end
 
+    it "#helper avg_goals_per_game" do
+      expect(@stat_tracker.avg_goals_per_game).to be_a(Array)
+    end
+
     it "#best_offense" do
       expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
@@ -106,12 +122,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
     end
 
-    it "#helper away_games_by_team_id in a hash" do
+    it "#helper away_games_by_team_id" do
       expect(@stat_tracker.away_games_by_team_id.length).to eq(@stat_tracker.teams.length)
       expect(@stat_tracker.away_games_by_team_id).to be_a(Hash)
     end
 
-    it "#helper home_games_by_team_id in a hash" do
+    it "#helper home_games_by_team_id" do
       expect(@stat_tracker.home_games_by_team_id.length).to eq(@stat_tracker.teams.length)
       expect(@stat_tracker.home_games_by_team_id).to be_a(Hash)
     end
@@ -130,12 +146,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
 
-    it "#lowest_scoring_visitor team" do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
-    end
-
     it "#highest_scoring_home_team" do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+    end
+
+    it "#lowest_scoring_visitor team" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
     end
 
     it "#lowest_scoring_home_team" do
@@ -144,6 +160,10 @@ RSpec.describe StatTracker do
   end
 
   context "Season Statistics" do
+    it "#helper season_game_teams" do
+      expect(@stat_tracker.season_game_teams("20132014")).to be_a(Array)
+      expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
+    end
 
     it "#helper game_wins_by_season" do
       expect(@stat_tracker.game_wins_by_season("20132014")).to be_a(Array)
@@ -154,7 +174,7 @@ RSpec.describe StatTracker do
     end
 
     it "#helper coach_stats_by_season" do
-    expect(@stat_tracker.coach_stats_by_season("20132014")).to be_a(Hash)
+      expect(@stat_tracker.coach_stats_by_season("20132014")).to be_a(Hash)
     end
 
     it "#winningest_coach" do
@@ -167,9 +187,8 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
     end
 
-    it "#helper season_game_teams" do
-      expect(@stat_tracker.season_game_teams("20132014")).to be_a(Array)
-      expect(@stat_tracker.season_game_teams("20132014")[0]).to be_a(CSV::Row)
+    it "#helper season_shots_to_goals" do
+      expect(@stat_tracker.season_shots_to_goals("20132014")).to be_a(Hash)
     end
 
     it "#most_accurate_team" do
@@ -181,9 +200,14 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
-    
-    xit "#helper games_by_season" do
-      expect(@stat_tracker.games.find_all {|game| game[:season]}.uniq).to eq(@stat_tracker.games_by_season.keys)
+
+    it "#helper games_by_season" do
+      expect(@stat_tracker.games_by_season.keys).to eq(@stat_tracker.games[:season].uniq)
+    end
+
+    it "#helper tackles_by_team" do
+      # Team_id 53 & 54 not in this season.
+      expect(@stat_tracker.tackles_by_team("20122013").keys.length).to eq(30)
     end
 
     it "#most_tackles" do
@@ -198,6 +222,60 @@ RSpec.describe StatTracker do
   end
 
   context "Team Statistics" do
-  end
+    it "#team_info" do
+    expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+    expect(@stat_tracker.team_info("18")).to eq expected
+    end
 
+    xit "#helper games_by_team_by_season" do
+    end
+
+    it "#best_season" do
+      expect(@stat_tracker.best_season("6")).to eq "20132014"
+    end
+
+    it "#worst_season" do
+      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    end
+
+    it "#helper games_by_team" do
+      expect(@stat_tracker.games_by_team.keys.length).to eq(@stat_tracker.teams[:team_id].length)
+    end
+
+    it "#average_win_percentage" do
+      expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+    end
+
+    it "#most_goals_scored" do
+      expect(@stat_tracker.most_goals_scored("18")).to eq 7
+    end
+
+    it "#fewest_goals_scored" do
+      expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+
+    it "#helper team_games_opponents" do
+      expect(@stat_tracker.team_games_opponents("18")).to be_a(Hash)
+    end
+
+    it "#helper opponent_win_loss" do
+      expect(@stat_tracker.opponent_win_loss("18").size).to eq(31)
+      expect(@stat_tracker.opponent_win_loss("18")["14"]).to eq([0, 8])
+    end
+
+    it "#favorite_opponent" do
+      expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+    end
+
+    it "#rival" do
+      expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))  #why or LA Galaxy in the spec harness?
+    end
+  end
 end
+
