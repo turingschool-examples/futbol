@@ -247,8 +247,14 @@ RSpec.describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("6")).to eq(2)
     end
 
-
-    #coach results
+    it "#. coach results" do
+      dummy_filepath = {teams: "./data/team_dummy.csv",
+                        games: './data/games_dummy_2.csv',
+                        game_teams: './data/game_teams_dumdum.csv'
+      }
+      stat_tracker = StatTracker.from_csv(dummy_filepath)
+      expect(stat_tracker.coach_results("WIN", "20122013")).to eq({"John Tortorella"=>0, "Claude Julien"=>5, "Paul MacLean"=>0, "Michel Therrien"=>0})
+    end
 
     #games by head coach
 
@@ -270,6 +276,6 @@ RSpec.describe StatTracker do
                         game_teams: './data/game_teams_3.csv'
       }
       stat_tracker = StatTracker.from_csv(dummy_filepath)
-      expect(stat_tracker.worst_coach("20112012")).to eq("John Tortorella")
+      expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
     end
 end
