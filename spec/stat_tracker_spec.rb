@@ -200,6 +200,28 @@ RSpec.describe StatTracker do
   # it '#favorite_opponent' do
   #   expect(@stat_tracker.favorite_opponent('6')).to eq("Houston Dynamo")
   # end
+  
+  it '#find_season' do
+    expect(@stat_tracker.find_season('20122013').first).to be_a(CSV::Row)
+
+    expect(@stat_tracker.find_season('20102011')).to eq([])
+  end
+  
+  it '#total_goals' do
+    expect(@stat_tracker.total_goals('20122013')).to eq({"17"=>6.0, "16"=>2.0})
+  end
+  
+  it '#total_shots' do
+    expect(@stat_tracker.total_shots('20122013')).to eq({"17"=>19.0, "16"=>18.0})
+  end
+  
+  it '#most_accurate_team' do
+    expect(@stat_tracker.most_accurate_team('20142015')).to eq('New York Red Bulls')
+  end
+
+  it '#least_accurate_team' do
+    expect(@stat_tracker.least_accurate_team('20142015')).to eq('New York City FC')
+
 
   it '#total_games_played_per_team(season)' do
     expect(@stat_tracker.total_games_played_per_team("20122013")).to eq({"Mike Babcock"=>3, "Joel Quenneville"=>2})                                                                
