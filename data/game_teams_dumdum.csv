@@ -11,3 +11,13 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030225,6,home,WIN,REG,Claude Julien,3,8,35,11,3,1,49.1,12,9
 2012030121,9,away,TIE,REG,Paul MacLean,2,7,31,23,2,0,39.4,9,1
 2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10
+2012030237,17,away,LOSS,OT,Mike Babcock,1,6,38,10,2,0,52.5,6,6
+2012030237,16,home,WIN,OT,Joel Quenneville,2,8,36,6,4,0,47.5,14,9
+2012030121,9,away,TIE,REG,Paul MacLean,2,7,31,23,2,0,39.4,9,1
+2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10
+2012030122,9,away,LOSS,REG,Paul MacLean,1,7,26,8,4,0,42.1,4,0
+2012030122,8,home,WIN,REG,Michel Therrien,3,8,37,12,2,0,57.9,7,6
+2012030123,8,away,LOSS,REG,Michel Therrien,1,8,44,129,6,1,47.7,13,8
+2012030123,9,home,WIN,REG,Paul MacLean,4,7,47,107,11,3,52.3,8,6
+2012030124,8,away,LOSS,OT,Michel Therrien,2,7,46,6,1,0,44.3,6,3
+2012030124,9,home,WIN,OT,Paul MacLean,3,8,61,2,3,0,55.7,12,5

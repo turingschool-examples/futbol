@@ -6,28 +6,28 @@ class StatTracker
   attr_accessor :games
 
   def initialize
-    # @teams_reader = nil
-    # @games_reader = nil
-    # @game_teams_reader = nil
     @games = Hash.new(0)
-    
+    @teams = Hash.new(0)
   end
 
-  def self.from_csv(locations) # Talk about setting instantiation differently
+  def self.from_csv(locations) 
     stat_tracker = new
     create_game_class(locations, stat_tracker)
-    # stat_tracker.teams_reader = CSV.read locations[:teams], headers: true, header_converters: :symbol
-    # stat_tracker.games_reader = CSV.read locations[:games], headers: true, header_converters: :symbol
-    # stat_tracker.game_teams_reader = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     stat_tracker
   end
   
   def self.create_game_class(locations, stat_tracker)
-    game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     CSV.foreach locations[:games], headers: true, header_converters: :symbol do |row|
-      # require "pry"; binding.pry
-      game_teams_info = game_teams.select {|line| line[0] == row[0]}
-      stat_tracker.games[row[0].to_sym] = Game.new(row, game_teams_info[0], game_teams_info[1])
+      stat_tracker.games[row[0].to_sym] = Game.new(row)
+    end
+    count = 0
+    CSV.foreach locations[:game_teams], headers: true, header_converters: :symbol do |row|
+      if count.even? 
+        stat_tracker.games[row[0].to_sym].import_away_team_data(row)
+      else count.odd?
+        stat_tracker.games[row[0].to_sym].import_home_team_data(row)
+      end
+      count += 1
     end
   end
 
