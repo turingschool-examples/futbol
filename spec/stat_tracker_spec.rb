@@ -253,7 +253,7 @@ RSpec.describe StatTracker do
                         game_teams: './data/game_teams_dumdum.csv'
       }
       stat_tracker = StatTracker.from_csv(dummy_filepath)
-      expect(stat_tracker.coach_results("WIN", "20122013")).to eq({"John Tortorella"=>0, "Claude Julien"=>5, "Paul MacLean"=>0, "Michel Therrien"=>0})
+      expect(stat_tracker.coach_results("WIN", "20122013")).to eq({"Claude Julien"=>5.0})
     end
 
     it "#. games_by_head_coach" do
