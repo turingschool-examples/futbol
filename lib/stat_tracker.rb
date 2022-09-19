@@ -209,7 +209,7 @@ class StatTracker
       end
     end
     # team_name_from_id_average
-    min_win_rate_team
+    team_name_from_id_average(min_win_rate_team.split)
   end
 
   def rival(team)
