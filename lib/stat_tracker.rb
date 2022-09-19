@@ -6,7 +6,7 @@ require_relative 'game_stats'
 
 class StatTracker
   include TeamStatistics
-  include LeagueStatistics 
+  include LeagueStatistics
   include SeasonStatistics
   include GameStats
 
@@ -25,11 +25,6 @@ class StatTracker
     teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
     game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     StatTracker.new(games, teams, game_teams)
-  end
-
-
-  def total_games
-    @games.count
   end
 
   def team_name(team_id)

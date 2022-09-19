@@ -15,12 +15,17 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  it 'exists' do
-    expect(@stat_tracker).to be_a(StatTracker)
+  describe '#initialize' do
+    it 'exists' do
+      expect(@stat_tracker).to be_a(StatTracker)
+    end
   end
 
-  it '#total_games' do
-    expect(@stat_tracker.total_games).to eq(9)
+  describe '#team_name' do
+    it 'take in a team_id and returns the team name' do
+      expect(@stat_tracker.team_name(6)).to eq('FC Dallas')
+      expect(@stat_tracker.team_name(3)).to eq('Houston Dynamo')
+    end
   end
 
 end
