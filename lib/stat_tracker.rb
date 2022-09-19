@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+require './lib/season_stats'
 require_relative './team_stats.rb'
 require_relative './league_stats'
 
@@ -14,6 +15,7 @@ class StatTracker
 
   include TeamStats
   include LeagueStats
+  include SeasonStats
 
   def highest_total_score
     # highest sum of winning and losing teams scores
@@ -159,7 +161,6 @@ class StatTracker
     team_finder(team_id[0])
   end
 
-
   def team_finder(team_id)
     @teams.find { |team| team[:team_id] == team_id }[:teamname]
   end
@@ -207,48 +208,43 @@ class StatTracker
     team_finder(opp_id)
   end
 
-  def winningest_coach(season) #mm
-    szn = season.to_s[0..3]
-    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
-    # the hash
-    coaches_hash = Hash.new { |h,k| h[k] = [] }
-    # group the coaches with their results
-    szn_game_results.group_by do |csv_row|
-      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+  def best_offense # mm
+    # hash to store {team_id => avg goals/game}
+    team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
     end
-    # convert the values to winning percentages
-    win_pct = coaches_hash.each do |k,v|
-      # for a given coach, divide wins(float) by total games and round to 3 decimal places
-      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
     end
-    # win_pct
-    # find the best
-    winningest = win_pct.max_by { |k,v| v }
-    # return the name
-    winningest.first
+
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.max_by { |k,v| v }.first }[:teamname]
   end
 
-  def worst_coach(season) # mm
-    szn = season.to_s[0..3]
-    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
-    # a hash to be populated
-    coaches_hash = Hash.new { |h,k| h[k] = [] }
-    # group the coaches with their results arrays
-    szn_game_results.group_by do |csv_row|
-      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+  def worst_offense # mm
+    # hash to store {team_id => avg goals/game}
+    team_id_goals_hash = Hash.new { |h, k| h[k] = [] }
+    # turn CSV::Rows => Hashes
+    game_teams_hash_elements = @game_teams.map(&:to_h)
+    # iterate through the Hash elements
+    game_teams_hash_elements.each do |x|
+      # create team_id keys => array of goals scored
+      team_id_goals_hash[x[:team_id]] << x[:goals].to_i
     end
-    # convert the values to winning percentages
-    win_pct = coaches_hash.each do |k,v|
-      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    # turn the value arrays => avg goals/game
+    team_id_goals_hash.map do |k,v|
+      team_id_goals_hash[k] = (v.sum / v.length.to_f).round(2)
     end
-    # find the worst
-    worst = win_pct.min_by { |k,v| v }
-    # put him on blast
-    worst.first
+
+    # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
+    @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
   end
-
-
-
 
   def team_info(id)
   info = {}
