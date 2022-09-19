@@ -1,7 +1,11 @@
 require 'csv'
 require 'pry'
+# require_relative used so program still works when run from spec_harness
+require_relative 'stat_helper'
+require_relative 'team_statistics'
 
-class StatTracker
+class StatTracker < StatHelper
+  include TeamStatistics
   attr_reader :games, :teams, :game_teams
   def initialize(games, teams, game_teams)
     @games = games
@@ -88,7 +92,7 @@ class StatTracker
   def average_goals_by_season
     season_goal_averages = Hash.new
     total_goals_per_season.each do |season, goals|
-      season_goal_averages[season] = (goals / count_of_games_by_season[season]).round(2) 
+      season_goal_averages[season] = (goals / count_of_games_by_season[season]).round(2)
     end
     season_goal_averages
   end
@@ -134,7 +138,6 @@ class StatTracker
   end
 
   # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
-  # Recommend refactor by mixin 'calculator'
   def average_score_per_game(game_teams_selection)
     goals = game_teams_selection.sum {|game| game[:goals].to_f}
     # You need to / 2. The game_teams CSV has 2 lines to represent one game.
@@ -301,15 +304,6 @@ class StatTracker
     least_accurate_team[:teamname]
   end
 
-  # Helper method is used in tackles_by_team
-  def games_by_season
-    @games_by_season_hash = Hash.new([])
-    @games.each do |game|
-      @games_by_season_hash[game[:season]] += [game[:game_id]]
-    end
-    @games_by_season_hash
-  end
-
   # Helper method is used in most_tackles & fewest_tackles
   # Recommend refactor into 2 methods. 1. Selects games in a given season. 2. Finds tackles in that set of games.
   def tackles_by_team(season)
@@ -323,7 +317,6 @@ class StatTracker
     end
     @tackles_counter
   end
-
 
   # Original method from Iteration 2
   def most_tackles(season)
