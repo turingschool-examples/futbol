@@ -8,6 +8,8 @@ class StatTracker
     @teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     @league = League.new(@teams_data, @game_teams_data)
+    @game = Game.new(@games_data)
+
   end
 
   def self.from_csv(locations)
@@ -15,228 +17,48 @@ class StatTracker
   end
 
   def total_game_goals
-    @games_data.map {|row| row[:away_goals].to_i + row[:home_goals].to_i}
+    @game.total_game_goals
   end
 
   def highest_total_score
-    total_game_goals.max
+    @game.highest_total_score
   end
 
   def lowest_total_score
-    total_game_goals.min
+    @game.lowest_total_score
   end
 
   def percentage_home_wins
-    home_wins =0
-    @games_data.each { |game| home_wins += 1 if game[:away_goals].to_i < game[:home_goals].to_i}
-    (home_wins.to_f/games_data.count).round(2)
+    @game.percentage_home_wins
   end
 
   def percentage_visitor_wins
-    visitor_wins =0
-    @games_data.each { |game| visitor_wins += 1 if game[:away_goals].to_i > game[:home_goals].to_i}
-    (visitor_wins.to_f/games_data.count).round(2)
+    @game.percentage_visitor_wins
   end
 
   def percentage_ties
-    ties =0 
-    @games_data.each {|game| ties += 1 if game[:away_goals].to_i == game[:home_goals].to_i}
-    (ties.to_f/games_data.count).round(2)
+    @game.percentage_ties
   end
 
   def count_of_games_by_season
-    games_by_season = {}
-    @games_data.each {|game|
-      games_by_season[game[:season]] += 1 if games_by_season.include?(game[:season])
-      games_by_season[game[:season]] = 1 if !games_by_season.include?(game[:season])
-    }
-    games_by_season
+    @game.count_of_games_by_season
   end
   
   def count_of_goals_by_season
-    goals_by_season = {}
-    @games_data.each { |game|
-      if goals_by_season.include?(game[:season])
-        goals_by_season[game[:season]] += ([game[:away_goals].to_f]+[game[:home_goals].to_f]).sum
-      elsif !goals_by_season.include?(game[:season])
-        goals_by_season[game[:season]] = ([game[:away_goals].to_f]+[game[:home_goals].to_f]).sum
-      end
-    }
-    goals_by_season
+    @game.count_of_goals_by_season
   end
   
   def average_goals_per_game
-    (total_game_goals.sum / @games_data.count.to_f).round(2)
+    @game.average_goals_per_game
   end
   
   def average_goals_by_season
-    average_goals = {}  
-    count_of_goals_by_season.each {|season, goals|
-      count_of_games_by_season.each {|season_number, games|
-        average_goals[season_number] = (goals/games).round(2) if season_number == season
-        }}
-    average_goals
+    @game.average_goals_by_season
   end
 
   def count_of_games_by_season
-    games_by_season = {}
-    @games_data.each do |row|
-      if games_by_season.include?(row[:season])
-        games_by_season[row[:season]] += 1
-      elsif games_by_season.include?(row[:season]) == false
-        games_by_season[row[:season]] = 1
-      end
-    end
-    games_by_season
+    @game.count_of_games_by_season
   end
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   def count_of_teams
     @league.count_of_teams
@@ -267,10 +89,6 @@ class StatTracker
   end
 
 
-
-  # end of game class
-
-  # league statistics
 
   # team class
 
@@ -440,399 +258,7 @@ class StatTracker
     end
     # team_name_from_id_average
     max_win_rate_team
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  end
   
   def winningest_coach(campaign)
     coached_games_in_season = Hash.new(0)
@@ -1042,7 +468,4 @@ class StatTracker
     season_record = season_average_percentage.min_by { |year, percentage| percentage }
     season_record[0]
   end
-
-end
-    # end of team class
 end

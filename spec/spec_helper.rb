@@ -5,3 +5,5 @@ require 'rspec'
 require './lib/stat_tracker'
 require './lib/league'
 require './lib/season'
+require './lib/game'
+

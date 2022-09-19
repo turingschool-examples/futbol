@@ -1,14 +1,13 @@
 require 'csv'
 
 class Season
-  # attr_reader :team_data,:game_teams_data
+  attr_reader :team_data,:game_teams_data
              
-  def initialize(locations)
-    def initialize(teams_data, game_teams_data)
-      @teams_data = teams_data
-      @game_teams_data = game_teams_data
-      
-    end
+  def initialize(teams_data, game_teams_data)
+    @teams_data = teams_data
+    @game_teams_data = game_teams_data
+  end
+
   #Method returns the name Coach with the best win percentage for the season in a string
   def winningest_coach(campaign)
     coached_games_in_season = Hash.new(0)
