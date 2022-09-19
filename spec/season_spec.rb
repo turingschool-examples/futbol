@@ -1,6 +1,4 @@
-require 'simplecov'
-require './lib/season'
-require './lib/stat_tracker'
+require 'spec_helper'
 
 RSpec.describe Season do
   before(:all) do
@@ -14,9 +12,10 @@ RSpec.describe Season do
       game_teams: game_teams_path
     }
     
-    @stat_tracker = StatTracker.from_csv(locations)
-    require 'pry';binding.pry
-    # @season = StatTracker.new(:game)
+    @season = StatTracker.new(:game)
+
+    
+
   end
 
   it 'should be a class' do

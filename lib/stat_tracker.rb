@@ -626,7 +626,6 @@ class StatTracker
 
   #Method returns best season for each team
   def worst_season (team)
-    team = "6"
     campaign = @games_data.map { |row| row[:season] }.uniq
   
     hash = Hash.new do |h,k| 

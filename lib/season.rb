@@ -7,6 +7,7 @@ class Season
     def initialize(teams_data, game_teams_data)
       @teams_data = teams_data
       @game_teams_data = game_teams_data
+      
     end
   #Method returns the name Coach with the best win percentage for the season in a string
   def winningest_coach(campaign)

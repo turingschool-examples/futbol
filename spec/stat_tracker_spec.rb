@@ -17,13 +17,13 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  xdescribe '#initialize' do
+  describe '#initialize' do
     it 'exists' do
       expect(@stat_tracker).to be_an_instance_of(StatTracker)
     end
   end
 
-  xdescribe '#game stats' do
+  describe '#game stats' do
     it 'can calculate the highest sum of the winning and losing teams scores' do 
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
@@ -253,7 +253,7 @@ RSpec.describe StatTracker do
 
 
 
-  xdescribe 'it handles the Season methods' do
+  describe 'it handles the Season methods' do
     it "#winningest_coach" do
       expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
       expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
