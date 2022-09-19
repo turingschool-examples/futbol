@@ -16,6 +16,7 @@ RSpec.describe GameStats do
   end
 
     it '#highest_total_score' do
+        # expect(game_path.row[:away_goals]).to eq Integer
         expect(@stat_tracker.highest_total_score).to eq(5)
     end
 
