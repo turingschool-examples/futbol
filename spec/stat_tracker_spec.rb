@@ -266,7 +266,6 @@ RSpec.describe StatTracker do
     end
 
     it "#. winningest_coach" do
-      	# Name of the Coach with the best win percentage for the season (string)
       dummy_filepath = {teams: "./data/team_dummy.csv",
                         games: './data/games_dummy_2.csv',
                         game_teams: './data/game_teams_3.csv'
@@ -358,12 +357,7 @@ RSpec.describe StatTracker do
     #   expect(stat_tracker.favorite_opponent('6')).to eq('Houston Dynamo')
     # end
 
-    #coach results
-
-    #games by head coach
-
     it "#. winningest_coach" do
-        # Name of the Coach with the best win percentage for the season (string)
       dummy_filepath = {teams: "./data/team_dummy.csv",
                         games: './data/games_dummy_2.csv',
                         game_teams: './data/game_teams_3.csv'
@@ -373,7 +367,6 @@ RSpec.describe StatTracker do
     end
 
     it "#. worst_coach" do
-        # Name of the Coach with the worst win percentage for the season (string)
       dummy_filepath = {teams: "./data/team_dummy.csv",
                         games: './data/games_dummy_2.csv',
                         game_teams: './data/game_teams_3.csv'
