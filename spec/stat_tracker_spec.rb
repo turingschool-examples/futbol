@@ -31,6 +31,11 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#sum_goals_array' do
+    it 'returns an array of the sums of home goals and away goals' do
+      expect(@stat_tracker.sum_goals_array).to be_an(Array)
+    end
+  end
 
   describe '#percentage_ties' do
     it 'returns the percent that the games have ended in a tie' do
