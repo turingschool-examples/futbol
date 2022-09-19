@@ -18,7 +18,7 @@ class StatHelper
     @games_by_season_hash
   end
 
-  # Used for Stub to spec_helper on worst_season(line 115), winningest_coach(line 139), worst_coach(line 146), most_tackles(line 162), & fewest_tackles(line 168).
+  # Used for Stub to spec_harness on worst_season(line 115), winningest_coach(line 139), worst_coach(line 146), most_tackles(line 162), & fewest_tackles(line 168).
   # allow(@stat_tracker).to receive(:games_by_season).and_return(:games_by_season_save)
   def games_by_season_save
     @games_by_season_hash
