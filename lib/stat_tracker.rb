@@ -1,6 +1,7 @@
 require 'csv'
 require 'pry'
 require './lib/season_stats'
+require_relative './league_stats'
 class StatTracker
   include SeasonStats
   attr_reader :games, :teams, :game_teams
@@ -10,6 +11,8 @@ class StatTracker
     @teams = teams
     @game_teams = game_teams
   end
+
+  include LeagueStats
 
   def highest_total_score
     # highest sum of winning and losing teams scores
@@ -53,10 +56,6 @@ class StatTracker
     end
     sum_goals_array = goals_array.sum
     (sum_goals_array / @games.length).round(2)
-  end
-
-  def count_of_teams
-    @teams.length
   end
 
   def return_column(data_set, column)
@@ -194,6 +193,46 @@ class StatTracker
     # find @teams the team_id that corresponds to the maximum value in the team_id_goals_hash
     @teams.find { |x| x.fetch(:team_id) == team_id_goals_hash.min_by { |k,v| v }.first }[:teamname]
   end
+  
+  def winningest_coach(season) #mm
+    szn = season.to_s[0..3]
+    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
+    # the hash
+    coaches_hash = Hash.new { |h,k| h[k] = [] }
+    # group the coaches with their results
+    szn_game_results.group_by do |csv_row|
+      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+    end
+    # convert the values to winning percentages
+    win_pct = coaches_hash.each do |k,v|
+      # for a given coach, divide wins(float) by total games and round to 3 decimal places
+      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    end
+    # win_pct
+    # find the best
+    winningest = win_pct.max_by { |k,v| v }
+    # return the name
+    winningest.first
+  end
+
+  def worst_coach(season) # mm
+    szn = season.to_s[0..3]
+    szn_game_results = @game_teams.select { |game| game[:game_id][0..3] == szn }
+    # a hash to be populated
+    coaches_hash = Hash.new { |h,k| h[k] = [] }
+    # group the coaches with their results arrays
+    szn_game_results.group_by do |csv_row|
+      coaches_hash[csv_row[:head_coach]] << csv_row[:result]
+    end
+    # convert the values to winning percentages
+    win_pct = coaches_hash.each do |k,v|
+      coaches_hash[k] = (coaches_hash[k].find_all { |x| x == "WIN" }.count.to_f / coaches_hash[k].count).round(3)
+    end
+    # find the worst
+    worst = win_pct.min_by { |k,v| v }
+    # put him on blast
+    worst.first
+  end
 
   def most_goals_scored(team_id) # mm
     # find all games for team_id, turn them into the goals scored, grab the max, 2 eyes
@@ -203,94 +242,6 @@ class StatTracker
   def fewest_goals_scored(team_id) ## mm
     # find all games for team_id, turn them into the goals scored, grab the min, 2 eyes
     @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.min.to_i
-  end
-
-  def highest_scoring_visitor
-    away_team_score = Hash.new(0)
-    away_team_count = Hash.new(0)
-    @games.map do |game|
-      away_team_score[game[:away_team_id]] += game[:away_goals].to_i
-      away_team_count[game[:away_team_id]] += 1
-    end
-    away_score_average = away_team_score.map do |id, score|
-      {id => (score.to_f / away_team_count[id].to_f).round(2)}
-    end
-    away_score_hash = {}
-    away_score_average.each do |average|
-      away_score_hash[average.keys[0]] = average.values[0]
-    end
-    team_id_highest_average = away_score_hash.key(away_score_hash.values.max)
-
-    team_highest_average = @teams.find do |team|
-      team[:team_id] == team_id_highest_average
-    end
-    team_highest_average[:teamname]
-  end
-
-  def lowest_scoring_visitor
-    away_team_score = Hash.new(0)
-    away_team_count = Hash.new(0)
-    @games.map do |game|
-      away_team_score[game[:away_team_id]] += game[:away_goals].to_i
-      away_team_count[game[:away_team_id]] += 1
-    end
-    away_score_average = away_team_score.map do |id, score|
-      {id => (score.to_f / away_team_count[id].to_f).round(2)}
-    end
-    away_score_hash = {}
-    away_score_average.each do |average|
-      away_score_hash[average.keys[0]] = average.values[0]
-    end
-    team_id_lowest_average = away_score_hash.key(away_score_hash.values.min)
-
-    team_lowest_average = @teams.find do |team|
-      team[:team_id] == team_id_lowest_average
-    end
-    team_lowest_average[:teamname]
-  end
-
-  def highest_scoring_home_team
-    home_team_score = Hash.new(0)
-    home_team_count = Hash.new(0)
-    @games.map do |game|
-      home_team_score[game[:home_team_id]] += game[:home_goals].to_i
-      home_team_count[game[:home_team_id]] += 1
-    end
-    home_score_average = home_team_score.map do |id, score|
-      {id => (score.to_f / home_team_count[id].to_f).round(2)}
-    end
-    home_score_hash = {}
-    home_score_average.each do |average|
-      home_score_hash[average.keys[0]] = average.values[0]
-    end
-    team_id_highest_average = home_score_hash.key(home_score_hash.values.max)
-
-    team_highest_average = @teams.find do |team|
-      team[:team_id] == team_id_highest_average
-    end
-    team_highest_average[:teamname]
-  end
-
-  def lowest_scoring_home_team
-    home_team_score = Hash.new(0)
-    home_team_count = Hash.new(0)
-    @games.map do |game|
-      home_team_score[game[:home_team_id]] += game[:home_goals].to_i
-      home_team_count[game[:home_team_id]] += 1
-    end
-    home_score_average = home_team_score.map do |id, score|
-      {id => (score.to_f / home_team_count[id].to_f).round(2)}
-    end
-    home_score_hash = {}
-    home_score_average.each do |average|
-      home_score_hash[average.keys[0]] = average.values[0]
-    end
-    team_id_lowest_average = home_score_hash.key(home_score_hash.values.min)
-
-    team_lowest_average = @teams.find do |team|
-      team[:team_id] == team_id_lowest_average
-    end
-    team_lowest_average[:teamname]
   end
 
   def team_info(id)
