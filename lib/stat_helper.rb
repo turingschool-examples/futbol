@@ -1,6 +1,8 @@
 require 'csv'
 require 'pry'
 
+# Class was made as parent class (vice module) for grading, as both were needed. Only helper methods were moved here for two reasons: 1. helper methods require no change to spec_harness and 2. moving helper methods used across multiple modules will let us create a vrb after its fist use that can be passed into a stub to reduce test time (module can't store the class vrb).
+# This does break the 'is-a' convention.
 class StatHelper
   # Was line 307 in stat_tracker
   # Helper method is used in:
@@ -8,7 +10,6 @@ class StatHelper
   # 2. total_games_by_coaches_by_season(coach_status_by_season (winningest_coach & worst_coach)),
   # 3. tackles_by_team (most_tackles, fewest_tackles)
   # 4. games_by_team_by_season (best_season, worst_season)
-
   def games_by_season
     @games_by_season_hash = Hash.new([])
     @games.each do |game|

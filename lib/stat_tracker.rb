@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+# require_relative used so program still works when run from spec_harness
 require_relative 'stat_helper'
 require_relative 'team_statistics'
 
