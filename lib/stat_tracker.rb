@@ -316,6 +316,7 @@ class StatTracker
     end
     least = tackles_hash.min_by {|team_id, tackles| tackles}
     team_name(least[0].to_i)
+  end
 
   def total_games_played_per_team(season)
     game_tally = Hash.new(0)
@@ -338,7 +339,7 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    team_season_wins = total_wins_per_team(season) 
+    team_season_wins = total_wins_per_team(season)
     team_total_season_games = total_games_played_per_team(season)
     missing_coaches = team_total_season_games.keys - team_season_wins.keys
     act_total_wins = missing_coaches.map do |coach|
@@ -347,14 +348,14 @@ class StatTracker
     team_season_wins = team_season_wins.sort.to_h
     team_total_season_games = team_total_season_games.sort.to_h
     nested_arr = team_season_wins.values.zip(team_total_season_games.values)
-    win_percent = nested_arr.map do |array| 
+    win_percent = nested_arr.map do |array|
       array[0].to_f / array[1]
     end
     win_percent_hash = Hash[team_total_season_games.keys.zip(win_percent)]
     winningest = win_percent_hash.max_by {|key, value| value}
     winningest[0].to_s
   end
- 
+
   def worst_coach(season)
     team_season_wins = total_wins_per_team(season)
     team_total_season_games = total_games_played_per_team(season)
@@ -365,14 +366,14 @@ class StatTracker
     team_season_wins = team_season_wins.sort.to_h
     team_total_season_games = team_total_season_games.sort.to_h
     nested_arr = team_season_wins.values.zip(team_total_season_games.values)
-      win_percent = nested_arr.map do |array| 
+      win_percent = nested_arr.map do |array|
         array[0].to_f / array[1]
       end
     win_percent_hash = Hash[team_total_season_games.keys.zip(win_percent)]
     worst = win_percent_hash.min_by {|key, value| value}
     worst[0].to_s
   end
-  
+
   def find_season(season_id)
     games = []
     @game_teams.each do |row|
@@ -380,7 +381,7 @@ class StatTracker
     end
     games
   end
-  
+
   def total_goals(season_id)
     t_goals = Hash.new(0)
     self.find_season(season_id).each do |row|
@@ -404,29 +405,28 @@ class StatTracker
     end
     t_shots
   end
-  
+
   def most_accurate_team(season_id)
     total_shots = total_shots(season_id)
     total_goals = total_goals(season_id)
-  
+
     shots_and_goals = total_shots.values.zip(total_goals.values)
     shots_to_goals_ratio = shots_and_goals.map {|array| array[1] / array[0]}
-  
+
     ratio_hash = Hash[total_shots.keys.zip(shots_to_goals_ratio)]
     most_accurate = ratio_hash.max_by {|team_id, ratio| ratio}
     team_name(most_accurate[0].to_i)
   end
-  
+
   def least_accurate_team(season_id)
     total_shots = total_shots(season_id)
     total_goals = total_goals(season_id)
-  
+
     shots_and_goals = total_shots.values.zip(total_goals.values)
     shots_to_goals_ratio = shots_and_goals.map {|array| array[1] / array[0]}
-  
+
     ratio_hash = Hash[total_shots.keys.zip(shots_to_goals_ratio)]
     most_accurate = ratio_hash.min_by {|team_id, ratio| ratio}
     team_name(most_accurate[0].to_i)
   end
 end
-
