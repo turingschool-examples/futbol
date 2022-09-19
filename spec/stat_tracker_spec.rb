@@ -119,8 +119,8 @@ RSpec.describe StatTracker do
 
   describe '#average_win_percentage' do
     it 'calculates average win percentage of a single team' do
-      expect(@stat_tracker.average_win_percentage(3)).to eq (0)
-      expect(@stat_tracker.average_win_percentage(16)).to eq (0.43)
+      expect(@stat_tracker.average_win_percentage('3')).to eq (0)
+      expect(@stat_tracker.average_win_percentage('16')).to eq (0.43)
     end
   end
 
