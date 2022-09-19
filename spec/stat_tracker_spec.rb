@@ -1,6 +1,6 @@
 require 'rspec'
-require './lib/stat_tracker'
 require 'csv'
+require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -15,7 +15,6 @@ RSpec.describe StatTracker do
       }
 
       @stat_tracker = StatTracker.from_csv(@locations)
-
   end
 
   it '1. exists' do

@@ -26,5 +26,4 @@ class CSV_loader
     }
     self.new(files)
   end
-
 end
