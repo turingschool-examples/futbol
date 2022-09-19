@@ -1,5 +1,4 @@
-
-module GameStatistics
+module GameStats
   
   def highest_total_score
     sum_goals_array.max

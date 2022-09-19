@@ -1,7 +1,8 @@
 require 'csv'
 require 'pry'
-require_relative './game_statistics'
+require_relative './game_stats'
 require_relative './league_stats'
+
 class StatTracker
   attr_reader :games, :teams, :game_teams
   
@@ -10,13 +11,14 @@ class StatTracker
     @teams = teams
     @game_teams = game_teams
   end
+  include GameStats
+  include LeagueStats
   
   
   def count_of_teams
     @teams.length
+  end
    
-    include LeagueStats
-    include GameStatistics
 
   def self.from_csv(locations)
     games = CSV.open locations[:games], headers: true, header_converters: :symbol
