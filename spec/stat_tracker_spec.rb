@@ -117,11 +117,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
 
-    it "#helper average_score_per_game" do
-      # Stat_tracker has 2 lines / game. That is wy there are 10 lines and only 5.0 games.
-      expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
-    end
-
     it "#helper away_games_by_team_id" do
       expect(@stat_tracker.away_games_by_team_id.length).to eq(@stat_tracker.teams.length)
       expect(@stat_tracker.away_games_by_team_id).to be_a(Hash)
@@ -178,11 +173,13 @@ RSpec.describe StatTracker do
     end
 
     it "#winningest_coach" do
+      allow(@stat_tracker).to receive(:games_by_season).and_return(:games_by_season_save)
       expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
       expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
     end
 
     it "#worst_coach" do
+      allow(@stat_tracker).to receive(:games_by_season).and_return(:games_by_season_save)
       expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
       expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
     end
@@ -211,11 +208,13 @@ RSpec.describe StatTracker do
     end
 
     it "#most_tackles" do
+      allow(@stat_tracker).to receive(:games_by_season).and_return(:games_by_season_save)
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
     it "#fewest_tackles" do
+      allow(@stat_tracker).to receive(:games_by_season).and_return(:games_by_season_save)
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
@@ -240,4 +239,3 @@ RSpec.describe StatTracker do
     end
   end
 end
-

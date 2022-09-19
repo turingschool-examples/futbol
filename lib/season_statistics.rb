@@ -1,18 +1,7 @@
 require 'csv'
 require 'pry'
 
-class SeasonStatistics < StatTracker
-    attr_reader :games, :teams, :team_games
-    def initialize(games, teams, team_games)
-        super(games, teams, team_games)
-    end
-
-  def self.from_csv(csv_hash)
-    games_input = CSV.read(csv_hash[:games], headers: true, header_converters: :symbol)
-    teams_input = CSV.read(csv_hash[:teams], headers: true, header_converters: :symbol)
-    game_teams_input = CSV.read(csv_hash[:game_teams], headers: true, header_converters: :symbol)
-    stats_tracker = TeamStatistics.new(games_input, teams_input, game_teams_input)
-  end
+module SeasonStatistics 
 
   # Original method from Iteration 2
   def winningest_coach(season)
