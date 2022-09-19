@@ -227,7 +227,95 @@ class StatTracker
     team_name(best_home[0].to_i)
   end
 
+  def team_info(team_id)
+    team_hash = Hash.new
+    @teams.map do |row|
+      if row[:team_id] == team_id
+        team_hash["team_id"] = row[:team_id]
+        team_hash["franchise_id"] = row[:franchiseid]
+        team_hash["team_name"] = row[:teamname]
+        team_hash["abbreviation"] = row[:abbreviation]
+        team_hash["link"] = row[:link]
+      end
+    end
+    team_hash
+  end
 
+  def total_wins_per_season(team_id)
+    season_wins = Hash.new(0)
+    @games.map do |row|
+      if row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals]
+        season_wins[row[:season]] += 1
+      elsif row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]
+        season_wins[row[:season]] += 1
+      end
+    end
+    season_wins
+  end
+
+  def total_games_played_per_season(team_id)
+    season_tally = Hash.new(0)
+    @games.map do |row|
+      if row[:home_team_id] == team_id || row[:away_team_id] == team_id
+        season_tally[row[:season]] += 1
+      end
+    end
+    season_tally
+  end
+
+  def best_season(team_id)
+    season_wins = total_wins_per_season(team_id)
+    games_played = total_games_played_per_season(team_id)
+
+    nested_arr = season_wins.values.zip(games_played.values)
+    divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
+    percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
+    best = percentages_hash.max_by {|key,value| value}
+    best[0]
+  end
+
+  def worst_season(team_id)
+    season_wins = total_wins_per_season(team_id)
+    games_played = total_games_played_per_season(team_id)
+
+    nested_arr = season_wins.values.zip(games_played.values)
+    divide_wins_to_games = nested_arr.map {|array| array[0].to_f / array[1]}
+    percentages_hash = Hash[games_played.keys.zip(divide_wins_to_games)]
+    best = percentages_hash.min_by {|key,value| value}
+    best[0]
+  end
+
+  def total_games_played(team_id)
+    all_games = 0
+    @games.filter_map {|row| all_games += 1 if row[:home_team_id] == team_id || row[:away_team_id] == team_id}
+    all_games
+  end
+
+  def average_win_percentage(team_id)
+    total_wins = total_wins_per_season(team_id).values.sum.to_f
+    (total_wins / total_games_played(team_id)).round(2)
+  end
+
+  def most_tackles(season)
+    tackles_hash = Hash.new(0)
+    @game_teams.map do |row|
+      if row[:game_id][0..3] == season[0..3]
+        tackles_hash[row[:team_id]] += row[:tackles].to_i
+      end
+    end
+    most = tackles_hash.max_by {|team_id, tackles| tackles}
+    team_name(most[0].to_i)
+  end
+
+  def fewest_tackles(season)
+    tackles_hash = Hash.new(0)
+    @game_teams.map do |row|
+      if row[:game_id][0..3] == season[0..3]
+        tackles_hash[row[:team_id]] += row[:tackles].to_i
+      end
+    end
+    least = tackles_hash.min_by {|team_id, tackles| tackles}
+    team_name(least[0].to_i)
 
   def total_games_played_per_team(season)
     game_tally = Hash.new(0)

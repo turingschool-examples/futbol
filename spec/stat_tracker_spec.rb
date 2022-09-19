@@ -105,8 +105,60 @@ RSpec.describe StatTracker do
   # it '#lowest_scoring_home_team' do
   #   expect(@stat_tracker.lowest_scoring_home_team).to eq('New York City FC')
   # end
+  
+  it '#team_info' do
+    expect(@stat_tracker.team_info('18')).to eq({
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+      })
+    end
+    
+    it '#total_wins_per_season' do
+      expect(@stat_tracker.total_wins_per_season('6')).to eq({"20122013"=>2})
+    end
+    
+    it '#total_games_played_per_season' do
+      expect(@stat_tracker.total_games_played_per_season('6')).to eq({"20122013"=>4})
+    end
+    
+    it '#best_season' do
+      expect(@stat_tracker.best_season('6')).to eq("20122013")
+    end
+    
+    it '#worst_season' do
+      expect(@stat_tracker.worst_season('6')).to eq("20122013")
+    end
+    
+    it '#average_win_percentage' do
+      expect(@stat_tracker.average_win_percentage('6')).to eq(0.5)
+    end
+    
+    it '#most_goals_scored' do
+      expect(@stat_tracker.most_goals_scored('8')).to eq(3)
+    end
+    
+    it "#fewest_goals_scored" do
+      expect(@stat_tracker.fewest_goals_scored('16')).to eq(0)
+    end
+    
+    # it '#favorite_opponent' do
+    #   expect(@stat_tracker.favorite_opponent('6')).to eq("Houston Dynamo")
+    # end
 
-
+    it "#most_tackles" do
+      expect(@stat_tracker.most_tackles("20122013")).to eq "LA Galaxy"
+      expect(@stat_tracker.most_tackles("20142015")).to eq "New York City FC"
+    end
+  
+    it "#fewest_tackles" do
+      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Chicago Red Stars"
+      expect(@stat_tracker.fewest_tackles("20142015")).to eq "New York Red Bulls"
+    end
+  end
+ 
   # it '#team_info' do
   #   expect(@stat_tracker.team_info('18')).to eq({
   #     "team_id" => "18",
@@ -166,3 +218,4 @@ RSpec.describe StatTracker do
   end
 
 end
+
