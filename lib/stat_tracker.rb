@@ -592,23 +592,29 @@ class StatTracker
   #Method returns best season for each team
   def best_season(team)
     team = "6"
-    campaign = "20142015"
-    played_games_in_season = Hash.new(0)
-    wins_in_season = Hash.new(0)
-    season_win_percentage = Hash.new
+    campaign = @games_data.map { |row| row[:season] }.uniq
+  
+    hash = Hash.new do |h,k| 
+      h[k] = { games_won: 0, games_played: 0 } 
+    end
     
-    season_data(campaign).find_all do |row|
-      if team == row[:team_id]
-        played_games_in_season[row[:team_id]] += 1
-        if row[:result] == "WIN"
-          wins_in_season[row[:team_id]] += 1
-          # require 'pry';binding.pry
-        end
+    campaign.each do |year|
+      a = @games_data.find_all do |row|
+        row[:season] == year &&
+        (row[:away_team_id] == team || row[:home_team_id] == team)
+      end
+
+      a.each do |game_row|
+        b = @game_teams_data.find do |game_team_row|
+          game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team 
+        end 
+        hash[year][:games_won] += 1 if b[:result] == "WIN"
+        hash[year][:games_played] += 1
       end
     end
-    wins_in_season 
-    played_games_in_season
-    # require 'pry';binding.pry
+    require 'pry';binding.pry
+
+    hash.
 
     season_win_percentage.update(played_games_in_season,wins_in_season) do |coach, games_played, games_won| 
       (games_won.fdiv(games_played)).round(4)
