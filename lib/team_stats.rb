@@ -1,16 +1,7 @@
-require './lib/initiable'
+require 'csv_loader'
 
 class TeamStats < CSV_loader
   
-  def self.from_csv_paths(file_paths)
-    files = {
-    game_csv: CSV.read(file_paths[:game_csv], headers: true, header_converters: :symbol),
-    gameteam_csv: CSV.read(file_paths[:gameteam_csv], headers: true, header_converters: :symbol),
-    team_csv:CSV.read(file_paths[:team_csv], headers: true, header_converters: :symbol)
-    }
-    TeamStats.new(files)
-  end
-
   def team_info(id)
     team_hash = Hash.new(0)
     @all_teams.each { |row|

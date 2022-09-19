@@ -1,15 +1,6 @@
-require './lib/initiable'
+require 'csv_loader'
 
 class LeagueStats < CSV_loader
-
-  def self.from_csv_paths(file_paths)
-    files = {
-    game_csv: CSV.read(file_paths[:game_csv], headers: true, header_converters: :symbol),
-    gameteam_csv: CSV.read(file_paths[:gameteam_csv], headers: true, header_converters: :symbol),
-    team_csv:CSV.read(file_paths[:team_csv], headers: true, header_converters: :symbol)
-    }
-    LeagueStats.new(files)
-  end
 
   def team_offense(team_header, goals_header, csv)
     team_offense = Hash.new(0)

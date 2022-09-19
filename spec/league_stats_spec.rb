@@ -1,7 +1,6 @@
 require 'csv'
 require 'rspec'
 require './lib/league_stats.rb'
-require './lib/initiable'
 
 RSpec.describe LeagueStats do 
   before(:each) do 

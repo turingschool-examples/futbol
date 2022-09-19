@@ -1,15 +1,6 @@
-require 'initiable'
+require 'csv_loader'
 
 class SeasonStats < CSV_loader
-
-  def self.from_csv_paths(file_paths)
-    files = {
-    game_csv: CSV.read(file_paths[:game_csv], headers: true, header_converters: :symbol),
-    gameteam_csv: CSV.read(file_paths[:gameteam_csv], headers: true, header_converters: :symbol),
-    team_csv:CSV.read(file_paths[:team_csv], headers: true, header_converters: :symbol)
-    }
-    SeasonStats.new(files)
-  end  
 
   def season_id(season)
     coach_records = Hash.new { |coach, outcomes| coach[outcomes]=[] }
