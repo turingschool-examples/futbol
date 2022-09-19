@@ -259,5 +259,213 @@ class StatTracker
     # team_name_from_id_average
     max_win_rate_team
   end
-    # end of team class
+  
+  def winningest_coach(campaign)
+    coached_games_in_season = Hash.new(0)
+    coach_wins_in_season = Hash.new(0)
+    game_results_percentage = Hash.new
+    
+    season_data(campaign).find_all do |row|
+      if row[:result] == "WIN"
+        coach_wins_in_season [row[:head_coach]] += 1
+      end
+    end
+    coach_wins_in_season 
+
+    season_data(campaign).find_all do |row|
+      if coach_wins_in_season.has_key?(row[:head_coach])
+        coached_games_in_season[row[:head_coach]] += 1
+      end
+    end
+    coached_games_in_season 
+
+    game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
+      (games_won.fdiv(games_coached)).round(4)
+    end
+    winning_coach = game_results_percentage.max_by { |coach, percentage| percentage }
+
+    winning_coach[0]
+  end
+
+  def worst_coach(campaign)
+    coached_games_in_season = Hash.new(0)
+    coach_wins_in_season = Hash.new(0)
+    game_results_percentage = Hash.new
+    
+    season_data(campaign).select do |row|
+      if row[:result] != "WIN"
+        coach_wins_in_season [row[:head_coach]] += 1
+      end
+    end
+    coach_wins_in_season 
+
+    season_data(campaign).select { |row| coached_games_in_season[row[:head_coach]] += 1}
+      coached_games_in_season 
+
+    game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
+      (games_won.fdiv(games_coached)).round(4)
+    end
+    worst_coach = game_results_percentage.max_by { |coach, percentage| percentage }
+      
+    worst_coach[0]
+  end
+
+  def most_accurate_team(campaign)
+    team_season_goals_count = Hash.new(0)
+    team_season_shots_count = Hash.new(0)
+    shot_efficiency = Hash.new
+
+    season_data(campaign).find_all do |row|
+      goals = row[:goals].to_i
+      shots = row[:shots].to_i
+
+      team_season_goals_count[row[:team_id]] += goals
+      team_season_shots_count[row[:team_id]] += shots
+    end
+    team_season_goals_count
+    team_season_shots_count
+
+    shot_efficiency.update(team_season_goals_count,team_season_shots_count) do |team, goals_made, shots_taken|
+      goals_made.fdiv(shots_taken).round(4)
+    end
+    team_efficiency = shot_efficiency.max_by { |coach, percentage| percentage }
+    
+    team_name_from_id_average(team_efficiency)
+  end
+
+  def least_accurate_team	(campaign)
+    team_season_goals_count = Hash.new(0)
+    team_season_shots_count = Hash.new(0)
+    shot_efficiency = Hash.new
+
+    season_data(campaign).each do |row|
+      goals = row[:goals].to_i
+      shots = row[:shots].to_i
+
+      team_season_goals_count[row[:team_id]] += goals
+      team_season_shots_count[row[:team_id]] += shots
+    end
+    team_season_goals_count
+    team_season_shots_count
+
+    shot_efficiency.update(team_season_goals_count,team_season_shots_count) do |team, goals_made, shots_taken|
+      goals_made.fdiv(shots_taken).round(4)
+    end
+    team_efficiency = shot_efficiency.min_by { |coach, percentage| percentage }
+
+    team_name_from_id_average(team_efficiency)
+  end
+
+  def most_tackles(campaign)
+    team_total_tackles = Hash.new(0)
+    season_data(campaign)
+    
+    season_data(campaign).each do |row|
+      tackles = row[:tackles].to_i
+      team_total_tackles[row[:team_id]] += tackles
+    end
+    number_of_team_tackle = team_total_tackles.max_by { |coach, percentage| percentage }
+    
+    team_name_from_id_average(number_of_team_tackle)
+  end
+
+  def fewest_tackles(campaign)
+    team_total_tackles = Hash.new(0)
+    season_data(campaign)
+    
+    season_data(campaign).each do |row|
+      tackles = row[:tackles].to_i
+      team_total_tackles[row[:team_id]] += tackles
+    end
+    team_tackle = team_total_tackles.min_by { |coach, percentage| percentage }
+    team_name_from_id_average(team_tackle)
+  end
+
+  def team_name_from_id_average(data)
+    @teams_data.each do |row|
+      if data[0] == row[:team_id]
+        return row[:teamname]
+      end
+    end
+  end
+
+  def season_data(campaign)
+    season = Set.new
+    @game_teams_data.each do |row|      
+      row.find_all do |game_id|
+        if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
+          season << row
+        end
+      end
+    end
+    season 
+  end
+
+  #Method returns best season for each team
+  def best_season(team)
+    campaign = @games_data.map { |row| row[:season] }.uniq
+  
+    hash = Hash.new do |h,k| 
+      h[k] = { games_won: 0, games_played: 0 } 
+    end
+    
+    campaign.each do |year|
+      a = @games_data.find_all do |row|
+        row[:season] == year &&
+        (row[:away_team_id] == team || row[:home_team_id] == team)
+      end
+
+      a.each do |game_row|
+        b = @game_teams_data.find do |game_team_row|
+          game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team 
+        end 
+        hash[year][:games_won] += 1 if b[:result] == "WIN"
+        hash[year][:games_played] += 1
+      end
+    end
+    
+    season_average_percentage = Hash.new
+    
+    hash.each do |year, totals| 
+      season_average_percentage[year] = (totals[:games_won].to_f / totals[:games_played]).round(4) 
+    end
+    
+    season_record = season_average_percentage.max_by { |year, percentage| percentage }
+    season_record[0]
+    # require 'pry';binding.pry
+
+  end
+
+  #Method returns best season for each team
+  def worst_season (team)
+    campaign = @games_data.map { |row| row[:season] }.uniq
+  
+    hash = Hash.new do |h,k| 
+      h[k] = { games_won: 0, games_played: 0 } 
+    end
+    
+    campaign.each do |year|
+      a = @games_data.find_all do |row|
+        row[:season] == year &&
+        (row[:away_team_id] == team || row[:home_team_id] == team)
+      end
+
+      a.each do |game_row|
+        b = @game_teams_data.find do |game_team_row|
+          game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team 
+        end 
+        hash[year][:games_won] += 1 if b[:result] == "WIN"
+        hash[year][:games_played] += 1
+      end
+    end
+    
+    season_average_percentage = Hash.new
+    
+    hash.each do |year, totals| 
+      season_average_percentage[year] = (totals[:games_won].to_f / totals[:games_played]).round(4) 
+    end
+    
+    season_record = season_average_percentage.min_by { |year, percentage| percentage }
+    season_record[0]
+  end
 end

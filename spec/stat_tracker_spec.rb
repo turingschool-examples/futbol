@@ -47,6 +47,7 @@ RSpec.describe StatTracker do
     it 'can calculate percentage of games that has resulted in a tie (rounded to the nearest 100th)' do
       expect(@stat_tracker.percentage_ties).to eq(0.2)
     end
+  end
 
     it 'can calculate number of games by season' do
       expected = {
@@ -75,158 +76,38 @@ RSpec.describe StatTracker do
       }
       expect(@stat_tracker.average_goals_by_season).to eq expected
     end
+  
+  describe 'it handles the Season methods' do
+    it "#winningest_coach" do
+      expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+      expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+    end
+
+    it "#worst_coach" do
+      expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+      expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    end
+
+    it "#most_accurate_team" do
+      expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+    end
+
+    it "#least_accurate_team" do
+      expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
+
+    it "#most_tackles" do
+      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    end
+
+    it "#fewest_tackles" do
+      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+    end
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   describe '#League Statistics' do
     it 'returns the number of teams in the league' do
@@ -257,353 +138,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
   end
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   describe 'team statistics' do
     it 'can make a hash with key/value pairs for the following attributes' do
@@ -617,12 +151,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.team_info('18')).to eq(expected)
     end
   end
-  
-  # describe '#best_season' do
-    #   it 'can return season with highest wins' do
-    #     expect(@stat_tracker.best_season("6")).to eq "20132014"
-    #   end
-    # end   
   
   describe '#average_win_percentage' do
     it 'can tell the average win rate of a given team' do
@@ -653,6 +181,15 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
     end
   end
+
+
+  describe 'Team statistics-best & worse season methods'do
+    it "#best_season" do
+      expect(@stat_tracker.best_season("6")).to eq "20132014"
+    end
+
+    it "#worst_season" do
+      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    end
+  end
 end
-
-
