@@ -3,6 +3,7 @@ require_relative 'league_stats'
 require_relative 'game_stats'
 require_relative 'season_stats'
 require_relative 'team_stats'
+require_relative 'attr_readable'
 
 class StatTracker
  include AttrReadable
