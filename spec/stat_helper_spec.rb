@@ -37,5 +37,9 @@ RSpec.describe StatHelper do
       # Stat_tracker has 2 lines / game. That is wy there are 10 lines and only 5.0 games.
       expect(@stat_tracker.average_score_per_game(@stat_tracker.game_teams.take(10))).to eq(22.0/5.0)
     end
+
+    it "#helper total_games" do
+      expect(@stat_tracker.total_games).to eq 7441
+    end
   end
 end

@@ -35,10 +35,6 @@ RSpec.describe StatTracker do
   end
 
   context "Game Statistics" do
-    it "#helper total_games" do
-      expect(@stat_tracker.total_games).to eq 7441
-    end
-
     it "#helper total_goals_per_season" do
       expected = {
         "20122013"=>3322.0,

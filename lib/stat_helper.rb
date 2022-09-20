@@ -31,4 +31,8 @@ class StatHelper
     games = (game_teams_selection.length.to_f/2.0)
     goals / games
   end
+
+  def total_games
+    @games.size
+  end
 end

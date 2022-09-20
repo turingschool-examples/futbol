@@ -1,12 +1,10 @@
 require 'csv'
-require 'pry'
-# require_relative used so program still works when run from spec_harness
 require_relative 'stat_helper'
 require_relative 'team_statistics'
 require_relative 'league_statistics'
 require_relative 'season_statistics'
 require_relative 'game_statistics'
-  
+
 class StatTracker < StatHelper
   include GameStatistics
   include TeamStatistics
@@ -26,12 +24,6 @@ class StatTracker < StatHelper
     stats_tracker = StatTracker.new(games_input, teams_input, game_teams_input)
   end
 #------------------------------------Game Statistics------------------------------------
-  # Helper method used in percentage_ties & percentage_home_wins & percentage_visitor_wins
-  def total_games
-    @games.size
-  end
-
-  # Helper method used in average_goals_by_season
   def total_goals_per_season
     goals_per_season = Hash.new(0.0)
     @games.each do |game|
@@ -40,10 +32,8 @@ class StatTracker < StatHelper
     goals_per_season
   end
 #-----------------------------------League Statistics-----------------------------------
-  # Helper method used in best_offense, worst_offense - Added as part of I3 refactor
   def avg_goals_per_game
     hash = {}
-    # Create a hash representing each team containing a hash with each team's total games and goals
     @game_teams.each do |row|
       if hash[row[:team_id]] == nil
         hash[row[:team_id]] = {games: 1, goals: row[:goals].to_i}
@@ -52,16 +42,12 @@ class StatTracker < StatHelper
         hash[row[:team_id]][:goals] += row[:goals].to_i
       end
     end
-    # Create an array with each team and their avg goals per game in nested arrays
-    # Refactor to return a hash?
     avg_goals_per_game = hash.map do |team_id, games_goals_hash|
       [team_id, (games_goals_hash[:goals].to_f/games_goals_hash[:games])]
     end
     avg_goals_per_game
   end
 
-  # Helper method is used in average_scores_for_all_visitors
-  # Recommend refactor as similar to method home_games_by_team_id & winning_as_coach
   def away_games_by_team_id
     away_games_list = @game_teams.find_all {|game| game[:hoa] == "away"}
     away_games_hash = Hash.new([])
@@ -71,7 +57,6 @@ class StatTracker < StatHelper
     away_games_hash
   end
 
-  # Helper method is used in used in average_scores_for_all_home_teams
   def home_games_by_team_id
     home_games_list = @game_teams.find_all {|game| game[:hoa] == "home"}
     home_games_hash = Hash.new([])
@@ -81,7 +66,6 @@ class StatTracker < StatHelper
     home_games_hash
   end
 
-  # Helper method is used in highest_scoring_visitor & lowest_scoring_visitor
   def average_scores_for_all_visitors
     @visitor_hash = {}
     away_games_by_team_id.each do |team_id, games_array|
@@ -90,7 +74,6 @@ class StatTracker < StatHelper
     @visitor_hash
   end
 
-  # Helper method is used in highest_scoring_home_team & lowest_scoring_home_team
   def average_scores_for_all_home_teams
     @home_hash = {}
     home_games_by_team_id.each do |team_id, games_array|
@@ -98,27 +81,17 @@ class StatTracker < StatHelper
     end
     @home_hash
   end
-
 #-----------------------------------Season Statistics-----------------------------------
-  # Helper method is used in most_accurate_team & least_accurate_team
-  # Returns an array of all @game_teams rows from a given season
-  # Commented out lines are unnecessary as the game_id's first 4 digits correspond to the first year of the season
-  # First commented out line returns an array of all @games rows from a given season
   def season_game_teams(season)
-    # season_games = @games.find_all{|row| row[:season] == season}
-    # season_game_ids = season_games.map {|row| row[:game_id]}
-    # season_game_teams = @game_teams.find_all {|row| season_game_ids.include?(row[:game_id])}
     season_game_teams = @game_teams.find_all {|row| row[:game_id].start_with?(season[0..3])}
   end
 
-  # Helper method is used in winningest_coach & worst_coach
   def game_wins_by_season(season)
     games_by_season
     game_id_by_season = @games_by_season_hash[season]
     @wins_by_season = @game_teams.find_all {|game| game[:result] == "WIN" && game_id_by_season.include?(game[:game_id])}
   end
 
-  # Helper method is used in winningest_coach & worst_coach
   def total_games_by_coaches_by_season(season)
     games_by_season
     game_id_by_season = @games_by_season_hash[season]
@@ -130,7 +103,6 @@ class StatTracker < StatHelper
     end
   end
 
-  # Helper method is used in winningest_coach & worst_coach
   def coach_stats_by_season(season)
     game_wins_by_season(season)
     total_games_by_coaches_by_season(season)
@@ -140,7 +112,6 @@ class StatTracker < StatHelper
     end
   end
 
-  # Helper method used in most_accurate_team and least_accurate_team
   def season_shots_to_goals(season)
     season_game_teams = season_game_teams(season)
     shots_to_goals = Hash.new(0)
@@ -152,8 +123,6 @@ class StatTracker < StatHelper
     shots_to_goals
   end
 
-
-  # Helper method is used in tackles_by_team
   def games_by_season
     @games_by_season_hash = Hash.new([])
     @games.each do |game|
@@ -162,8 +131,6 @@ class StatTracker < StatHelper
     @games_by_season_hash
   end
 
-  # Helper method is used in most_tackles & fewest_tackles
-  # Recommend refactor into 2 methods. 1. Selects games in a given season. 2. Finds tackles in that set of games.
   def tackles_by_team(season)
     games_by_season
     games_in_select_season = @games_by_season_hash[season]
@@ -176,7 +143,6 @@ class StatTracker < StatHelper
     @tackles_counter
   end
 #------------------------------------Team Statistics------------------------------------
-  # Helper method is used in best_season & worst_season
   def games_by_team_by_season(team_id)
     games_by_season
     @games_by_team_by_season_hash = Hash.new([])
@@ -186,7 +152,6 @@ class StatTracker < StatHelper
     @games_by_team_by_season_hash
   end
 
-  # Helper method is used in average_win_percentage & most_goals_scored & fewest_goals_scored
   def games_by_team
     @games_by_team_hash = Hash.new([])
     @game_teams.each do |game|
@@ -195,11 +160,8 @@ class StatTracker < StatHelper
     @games_by_team_hash
   end
 
-  # Helper method is used in opponent_win_loss
   def team_games_opponents(team_id)
     team_games_opponents = {}
-    # Keys of team_games_opponents should be game_ids of games team is involved in
-    # Values of team_games_opponents should be the team_id of their opponent in that game
     @games.each do |game|
       if game[:away_team_id] == team_id
         team_games_opponents[game[:game_id]] = game[:home_team_id]
@@ -210,13 +172,9 @@ class StatTracker < StatHelper
     team_games_opponents
   end
 
-  # Helper method is used in favorite_opponent & rival
   def opponent_win_loss(team_id)
     team_games_opponents = team_games_opponents(team_id)
-    # Keys of opponent_win_loss should be the team_id of their opponents
-    # Values of opponent_win_loss should be an array with 1st element being wins, 2nd element being losses
     opponent_win_loss = {}
-    # Instantiating each key-value pair
     team_games_opponents.values.uniq.each do |opponent_id|
       opponent_win_loss[opponent_id] = [0,0]
     end
