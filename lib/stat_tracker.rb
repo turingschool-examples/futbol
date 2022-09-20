@@ -3,7 +3,8 @@ require_relative './team'
 require_relative './game'
 
 class StatTracker
-  attr_accessor :games
+  attr_accessor :games,
+                :teams
 
   def initialize
     @games = Hash.new(0)
