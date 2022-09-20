@@ -3,11 +3,15 @@ require 'pry'
 # require_relative used so program still works when run from spec_harness
 require_relative 'stat_helper'
 require_relative 'team_statistics'
+require_relative 'league_statistics'
+require_relative 'season_statistics'
 require_relative 'game_statistics'
 
 class StatTracker < StatHelper
   include TeamStatistics
   include GameStatistics
+  include LeagueStatistics
+  include SeasonStatistics
   attr_reader :games, :teams, :game_teams
   def initialize(games, teams, game_teams)
     @games = games
