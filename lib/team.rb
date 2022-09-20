@@ -1,5 +1,5 @@
-require 'league'
-
+require_relative "id.rb"
+include Id
 class Team
   attr_reader :team_data, :game_teams_data, :games_data
 
@@ -171,6 +171,6 @@ class Team
         max_win_rate_team = key
       end
     end
-    team_name_from_id_average(max_win_rate_team.split)
+    Id.team_name_from_id_average(max_win_rate_team.split)
   end
 end
