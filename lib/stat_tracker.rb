@@ -160,15 +160,7 @@ class StatTracker
     end
   end
 
-  def team_info(team_id)
-    Team.new(team_finder(team_id)).team_labels
-  end
 
-  def average_win_percentage(team_id)
-    team_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:team_id] == team_id}
-    total_team_games = @game_teams_reader.count {|row| row[:team_id] == team_id}
-    (team_win_total.to_f/total_team_games).round(2)
-  end
 
   # def count_of_games_by_season
   #   seasons = Hash.new(0)
@@ -181,58 +173,8 @@ class StatTracker
   #   'empty string'
   # end
 
-  def most_goals_scored(team_id)
-    unique_goal_totals = []
-      @game_teams_reader.each do |row|
-        if row[:team_id] == team_id && unique_goal_totals.include?(row[:goals].to_i) == false
-          unique_goal_totals << row[:goals].to_i
-        end
-      end
-    unique_goal_totals.max
-  end
+ 
 
-  def fewest_goals_scored(team_id)
-    unique_goal_totals = []
-      @game_teams_reader.each do |row|
-        if row[:team_id] == team_id && unique_goal_totals.include?(row[:goals].to_i) == false
-          unique_goal_totals << row[:goals].to_i
-        end
-      end
-    unique_goal_totals.min
-  end
-
-#right now there is only 1 return value being given though for our
-#test there are 2 seasons that should be returned. Consider refactoring
-  def best_season(team_id)
-    season_wins = Hash.new(0)
-    @games_reader.each do |row|
-      row[:season]
-        if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
-          season_wins[row[:season]] += 1
-        end
-      end
-    season_wins.update(season_wins) do |season, win_count|
-      win_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
-    end
-    season_wins.key(season_wins.values.max)
-  end
-
-  def worst_season(team_id)
-    season_wins = Hash.new(0)
-    @games_reader[:season].uniq.each do |season|
-      season_wins[season] = 0
-    end
-    @games_reader.each do |row|
-      row[:season]
-        if (row[:away_team_id] == team_id && row[:away_goals] > row[:home_goals]) || (row[:home_team_id] == team_id && row[:home_goals] > row[:away_goals])
-          season_wins[row[:season]] += 1
-        end
-      end
-    season_wins.update(season_wins) do |season, win_count|
-      win_count.to_f / (@games_reader[:home_team_id].find_all {|element| element == team_id}.size + @games_reader[:away_team_id].find_all {|element| element == team_id}.size)
-    end
-    season_wins.key(season_wins.values.min)
-  end
 
   def games_by_team_by_result(team_id, game_result)
     result_by_team = Hash.new(0)
@@ -252,34 +194,6 @@ class StatTracker
       end
     end
     list_of_totals
-  end
-
-  def all_games_by_team(team_id)
-    @game_teams_reader.find_all do |row|
-      row[:team_id] == team_id
-    end
-  end
-
-  def team_all_game_ids(team_id)
-    all_games_by_team(team_id).map do |game|
-      game[0]
-    end
-  end
-
-  def favorite_opponent(team_id)
-    percentage_of_wins = Hash.new(0.0)
-    game_totals_by_team(team_id).each do |opponent, total_games|
-      percentage_of_wins[opponent] = (games_by_team_by_result(team_id, "WIN")[opponent]).to_f/(total_games)
-    end
-    team_finder(percentage_of_wins.key(percentage_of_wins.values.max))[:teamname]
-  end
-
-  def rival(team_id)
-    percentage_of_losses = Hash.new(0.0)
-    game_totals_by_team(team_id).each do |opponent, total_games|
-      percentage_of_losses[opponent] = (games_by_team_by_result(team_id, "LOSS")[opponent]).to_f/(total_games)
-    end
-    team_finder(percentage_of_losses.key(percentage_of_losses.values.max))[:teamname]
   end
 
 

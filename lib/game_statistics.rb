@@ -5,7 +5,7 @@ module GameStatistics
   def unique_total_goals
     goal_totals = []
       @games.each do |game_id, game_data|
-        if goal_totals.include?(game_data.away_goals + game_data.home_goals) == false
+        if goal_totals.include?(game_data.away_goals + game_data.home_goals) == false 
           goal_totals << game_data.away_goals + game_data.home_goals
         end
       end
