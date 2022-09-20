@@ -171,6 +171,6 @@ class Team
         max_win_rate_team = key
       end
     end
-    Id.team_name_from_id_average(max_win_rate_team.split)
+    team_name_from_id_average(max_win_rate_team.split)
   end
 end
