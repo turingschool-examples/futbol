@@ -4,10 +4,12 @@ require 'pry'
 require_relative 'stat_helper'
 require_relative 'team_statistics'
 require_relative 'league_statistics'
+require_relative 'season_statistics'
 
 class StatTracker < StatHelper
   include TeamStatistics
   include LeagueStatistics
+  include SeasonStatistics
   attr_reader :games, :teams, :game_teams
   def initialize(games, teams, game_teams)
     @games = games
@@ -114,14 +116,6 @@ class StatTracker < StatHelper
       [team_id, (games_goals_hash[:goals].to_f/games_goals_hash[:games])]
     end
     avg_goals_per_game
-  end
-
-  # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
-  def average_score_per_game(game_teams_selection)
-    goals = game_teams_selection.sum {|game| game[:goals].to_f}
-    # You need to / 2. The game_teams CSV has 2 lines to represent one game.
-    games = (game_teams_selection.length.to_f/2.0)
-    goals / games
   end
 
   # Helper method is used in average_scores_for_all_visitors
