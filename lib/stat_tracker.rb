@@ -4,8 +4,9 @@ require_relative './game_stats'
 require_relative './season_stats'
 require_relative './team_stats.rb'
 require_relative './league_stats'
+require_relative './file_opener'
 
-class StatTracker
+class StatTracker < FileOpener
   attr_reader :games, :teams, :game_teams
   
   def initialize(games, teams, game_teams)
@@ -33,18 +34,6 @@ class StatTracker
 
   #REFACTOR INTO A SUPERCLASS CALLED FILEOPENER
   def self.from_csv(locations)
-    games = CSV.open locations[:games], headers: true, header_converters: :symbol
-    teams = CSV.open locations[:teams], headers: true, header_converters: :symbol
-    game_teams = CSV.open locations[:game_teams], headers: true, header_converters: :symbol
-    make_rows([games, teams, game_teams])
-  end
-
-  def self.make_rows(array)
-    dummy_array = array.map do |file|
-      file.map do |row|
-        row
-      end
-    end
-    StatTracker.new(dummy_array[0], dummy_array[1], dummy_array[2])
+    open_files(locations)
   end
 end
