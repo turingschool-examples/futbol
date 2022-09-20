@@ -5,9 +5,7 @@ require_relative 'season_stats'
 require_relative 'team_stats'
 
 class StatTracker
-  attr_reader :game_path,
-              :team_path,
-              :game_teams_path
+ include AttrReadable
 
   def initialize(game_path, team_path, game_teams_path)
     @game_path = game_path
@@ -20,7 +18,7 @@ class StatTracker
     @locations = {
       game_csv: @game_path,
       team_csv: @team_path,
-      gameteam_csv: @game_teams_path 
+      gameteam_csv: @game_teams_path
     }
 
     @league_stats = LeagueStats.from_csv_paths(@locations)
