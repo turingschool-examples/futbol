@@ -1,3 +1,5 @@
+require 'league'
+
 class Team
   attr_reader :team_data, :game_teams_data, :games_data
 
@@ -6,7 +8,14 @@ class Team
     @game_teams_data = game_teams_data
     @games_data = games_data
   end
-
+  #temporary
+  def team_name_from_id_average(average)
+    @teams_data.each do |row|
+      if average[0] == row[:team_id]
+        return row[:teamname]
+      end
+    end
+  end
   def team_info(index)
     team_info_hash = {}
     @teams_data.map do |row|
