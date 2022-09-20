@@ -7,8 +7,8 @@ class Game #< StatTracker
               :home_goals,
               :away_team,
               :home_team
-  
-    def initialize(info)
+
+  def initialize(info)
     @game_id = info[0]
     @season = info[1]
     @away_goals = info[6].to_i

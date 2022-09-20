@@ -1,8 +1,11 @@
 require "csv"
 require_relative './team'
 require_relative './game'
+require_relative './game_statistics'
 
 class StatTracker
+  include GameStatistics
+
   attr_accessor :games,
                 :teams
 
@@ -10,8 +13,8 @@ class StatTracker
     @games = Hash.new(0)
     @teams = Hash.new(0)
   end
-  
-  def self.from_csv(locations) 
+
+  def self.from_csv(locations)
     stat_tracker = new
     game_csv_reader(locations, stat_tracker)
     game_teams_csv_reader(locations, stat_tracker)
@@ -28,7 +31,7 @@ class StatTracker
   def self.game_teams_csv_reader(locations, stat_tracker)
     count = 0
     CSV.foreach locations[:game_teams], headers: true, header_converters: :symbol do |row|
-      if count.even? 
+      if count.even?
         stat_tracker.games[row[0].to_sym].import_away_team_data(row)
       else count.odd?
         stat_tracker.games[row[0].to_sym].import_home_team_data(row)
@@ -45,28 +48,12 @@ class StatTracker
 
   # Method to return the average number of goals scored in a game across all
   # seasons including both home and away goals (rounded to the nearest 100th)
-  def average_goals_per_game
-    total_goals = 0
-    @games_reader.each do |game|
-      total_goals += game[:away_goals].to_f
-      total_goals += game[:home_goals].to_f
-    end
-    (total_goals / @games_reader.count).round(2)
-  end
+
 
   # Method to return the average number of goals scored in a game organized in
   # a hash with season names as keys and a float representing the average number
   # of goals in a game for that season as values (rounded to the nearest 100th)
-  def average_goals_by_season
-    goals_per_season = Hash.new(0)
-    @games_reader.each do |game|
-      goals_per_season[game[:season]] += (game[:away_goals]).to_f
-      goals_per_season[game[:season]] += (game[:home_goals]).to_f
-    end
-    goals_per_season.update(goals_per_season) do |season, total_goals|
-      (total_goals / ((@games_reader[:season].find_all {|element| element == season}).count)).round(2)
-    end
-  end
+
 
   # Method to return name of the team with the highest average number of goals
   # scored per game across all seasons.
@@ -167,43 +154,6 @@ class StatTracker
    @teams_reader.length
   end
 
-  def unique_total_goals
-    goal_totals = []
-      @games_reader.each do |row|
-        if goal_totals.include?(row[:away_goals].to_i + row[:home_goals].to_i) == false
-          goal_totals << row[:away_goals].to_i + row[:home_goals].to_i
-        end
-      end
-    goal_totals
-  end
-
-  def highest_total_score
-    unique_total_goals.max
-  end
-
-  def lowest_total_score
-    unique_total_goals.min
-  end
-
-  def total_number_of_games
-    @games_reader.length
-  end
-
-  def percentage_home_wins
-   home_win_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "home"}
-   (home_win_total.to_f/total_number_of_games).round(2)
-  end
-
-  def percentage_visitor_wins
-    home_visitor_total = @game_teams_reader.count {|row| row[:result] == "WIN" && row[:hoa] == "away"}
-    (home_visitor_total.to_f/total_number_of_games).round(2)
-  end
-
-  def percentage_ties
-    tie_total = @game_teams_reader.count {|row| row[:result] == "TIE" && row[:hoa] == "home"}
-    (tie_total.to_f/total_number_of_games).round(2)
-  end
-
   def team_finder(team_id)
     @teams_reader.find do |row|
       row[:team_id] == team_id
@@ -230,15 +180,6 @@ class StatTracker
   # def count_of_games_by_season
   #   'empty string'
   # end
-  
-  def count_of_games_by_season
-    # require "pry"; binding.pry
-    seasons = Hash.new(0)
-    @games.each do |game_id, game_data|
-      seasons[game_data.season] += 1
-    end
-    seasons
-  end
 
   def most_goals_scored(team_id)
     unique_goal_totals = []
