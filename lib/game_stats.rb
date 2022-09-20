@@ -19,6 +19,7 @@ module GameStats
       game[:home_goals] > game[:away_goals]
     end
     (home_wins.to_f / @games.length).round(2)
+
   end
 
   def percentage_visitor_wins

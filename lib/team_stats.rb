@@ -10,9 +10,17 @@ module TeamStats
     info
   end
 
+  def all_games(team_id)
+    @game_teams.find_all{ |game| game[:team_id] == team_id }
+  end
+
+  def games_by_season(all_games)
+    all_games.group_by { |game| game[:game_id][0..3]}
+  end
+
   def best_season(team_id)
-    all_games = @game_teams.find_all{ |game| game[:team_id] == team_id }
-    games_by_season = all_games.group_by { |game| game[:game_id][0..3]}
+    all_games = all_games(team_id) 
+    games_by_season = games_by_season(all_games) 
     best_season = games_by_season.max_by do |season, games|
       games.count { |game| game[:result] == 'WIN'} / games.length.to_f
     end[0]
@@ -20,8 +28,8 @@ module TeamStats
   end
 
   def worst_season(team_id)
-    all_games = @game_teams.find_all{ |game| game[:team_id] == team_id }
-    games_by_season = all_games.group_by { |game| game[:game_id][0..3]}
+    all_games = all_games(team_id)
+    games_by_season = games_by_season(all_games)
     best_season = games_by_season.min_by do |season, games|
       games.count { |game| game[:result] == 'WIN'} / games.length.to_f
     end[0]
@@ -34,14 +42,16 @@ module TeamStats
     (games_won.to_f / games_played).round(2)
   end
 
-  def most_goals_scored(team_id) # mm
-    # find all games for team_id, turn them into the goals scored, grab the max, 2 eyes
-    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.max.to_i
+  def goals_scored(team_id)
+    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }
   end
 
-  def fewest_goals_scored(team_id) ## mm
-    # find all games for team_id, turn them into the goals scored, grab the min, 2 eyes
-    @game_teams.find_all { |x| x[:team_id] == team_id.to_s }.map { |x| x[:goals] }.min.to_i
+  def most_goals_scored(team_id) 
+    goals_scored = goals_scored(team_id).max.to_i
+  end
+
+  def fewest_goals_scored(team_id) 
+    goals_scored = goals_scored(team_id).min.to_i
   end
 
   def favorite_opponent(team_id)
