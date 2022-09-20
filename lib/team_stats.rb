@@ -1,4 +1,4 @@
-require 'csv_loader'
+require_relative 'csv_loader'
 
 class TeamStats < CSV_loader
   

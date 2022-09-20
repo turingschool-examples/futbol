@@ -1,5 +1,5 @@
-require 'csv_loader'
-require 'teamid'
+require_relative 'csv_loader'
+require_relative 'teamid'
 
 class SeasonStats < CSV_loader
   include TeamId
