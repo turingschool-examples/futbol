@@ -31,6 +31,7 @@ class StatTracker
     @teams.find { |team| team[:team_id] == team_id }[:teamname]
   end
 
+  #REFACTOR INTO A SUPERCLASS CALLED FILEOPENER
   def self.from_csv(locations)
     games = CSV.open locations[:games], headers: true, header_converters: :symbol
     teams = CSV.open locations[:teams], headers: true, header_converters: :symbol
