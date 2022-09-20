@@ -6,10 +6,10 @@ require_relative 'team_statistics'
 require_relative 'league_statistics'
 require_relative 'season_statistics'
 require_relative 'game_statistics'
-
+  
 class StatTracker < StatHelper
-  include TeamStatistics
   include GameStatistics
+  include TeamStatistics
   include LeagueStatistics
   include SeasonStatistics
   attr_reader :games, :teams, :game_teams
@@ -40,11 +40,6 @@ class StatTracker < StatHelper
     goals_per_season
   end
 #-----------------------------------League Statistics-----------------------------------
-  # Original method from iteration 2
-  def count_of_teams
-    @teams.length
-  end
-
   # Helper method used in best_offense, worst_offense - Added as part of I3 refactor
   def avg_goals_per_game
     hash = {}
@@ -63,29 +58,6 @@ class StatTracker < StatHelper
       [team_id, (games_goals_hash[:goals].to_f/games_goals_hash[:games])]
     end
     avg_goals_per_game
-  end
-
-  # Original method from iteration 2
-  def best_offense
-    team_goals_per_game = avg_goals_per_game
-    # Find the team_id and name of the team w/ highest avg goals
-    best_offense_id = team_goals_per_game.max_by {|team_id, avg_goals| avg_goals}[0]
-    @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
-  end
-
-  # Original method from iteration 2
-  def worst_offense
-    team_goals_per_game = avg_goals_per_game
-    worst_offense_id = team_goals_per_game.min_by {|team_id, avg_goals| avg_goals}[0]
-    @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
-  end
-
-  # Helper method is used in average_scores_for_all_visitors & average_scores_for_all_home_teams
-  def average_score_per_game(game_teams_selection)
-    goals = game_teams_selection.sum {|game| game[:goals].to_f}
-    # You need to / 2. The game_teams CSV has 2 lines to represent one game.
-    games = (game_teams_selection.length.to_f/2.0)
-    goals / games
   end
 
   # Helper method is used in average_scores_for_all_visitors
@@ -127,41 +99,6 @@ class StatTracker < StatHelper
     @home_hash
   end
 
-  # Original method from Iteration 2
-  def highest_scoring_visitor
-    average_scores_for_all_visitors
-    highest_scoring_team = @teams.find do |team|
-      team[:team_id].to_i == @visitor_hash.key(@visitor_hash.values.max)
-    end
-    highest_scoring_team[:teamname]
-  end
-
-  # Original method from Iteration 2
-  def highest_scoring_home_team
-    average_scores_for_all_home_teams
-    highest_scoring_team = @teams.find do |team|
-      team[:team_id].to_i == @home_hash.key(@home_hash.values.max)
-    end
-    highest_scoring_team[:teamname]
-  end
-
-  # Original method from Iteration 2
-  def lowest_scoring_visitor
-    average_scores_for_all_visitors
-    lowest_scoring_team = @teams.find do |team|
-      team[:team_id].to_i == @visitor_hash.key(@visitor_hash.values.min)
-    end
-    lowest_scoring_team[:teamname]
-  end
-
-  # Original method from Iteration 2
-  def lowest_scoring_home_team
-    average_scores_for_all_home_teams
-    highest_scoring_team = @teams.find do |team|
-      team[:team_id].to_i == @home_hash.key(@home_hash.values.min)
-    end
-    highest_scoring_team[:teamname]
-  end
 #-----------------------------------Season Statistics-----------------------------------
   # Helper method is used in most_accurate_team & least_accurate_team
   # Returns an array of all @game_teams rows from a given season
@@ -203,18 +140,6 @@ class StatTracker < StatHelper
     end
   end
 
-  # Original method from Iteration 2
-  def winningest_coach(season)
-    coach_stats_by_season(season)
-    @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.max)
-  end
-
-   # Original method from Iteration 2
-   def worst_coach(season)
-    coach_stats_by_season(season)
-    @coaches_wins_to_losses.key(@coaches_wins_to_losses.values.min)
-  end
-
   # Helper method used in most_accurate_team and least_accurate_team
   def season_shots_to_goals(season)
     season_game_teams = season_game_teams(season)
@@ -227,24 +152,14 @@ class StatTracker < StatHelper
     shots_to_goals
   end
 
-  # Original method from Iteration 2
-  def most_accurate_team(season)
-    shots_to_goals = season_shots_to_goals(season)
-    most_accurate_team_id = (shots_to_goals.min_by {|team_id, ratio| ratio})[0]
-    most_accurate_team = @teams.find do |team|
-      team[:team_id] == most_accurate_team_id
-    end
-    most_accurate_team[:teamname]
-  end
 
-  # Original method from Iteration 2
-  def least_accurate_team(season)
-    shots_to_goals = season_shots_to_goals(season)
-    least_accurate_team_id = (shots_to_goals.max_by {|team_id, ratio| ratio})[0]
-    least_accurate_team = @teams.find do |team|
-      team[:team_id] == least_accurate_team_id
+  # Helper method is used in tackles_by_team
+  def games_by_season
+    @games_by_season_hash = Hash.new([])
+    @games.each do |game|
+      @games_by_season_hash[game[:season]] += [game[:game_id]]
     end
-    least_accurate_team[:teamname]
+    @games_by_season_hash
   end
 
   # Helper method is used in most_tackles & fewest_tackles
@@ -259,24 +174,6 @@ class StatTracker < StatHelper
       end
     end
     @tackles_counter
-  end
-
-  # Original method from Iteration 2
-  def most_tackles(season)
-    tackles_by_team(season)
-    team_with_most_tackles = @teams.find do |team|
-      team[:team_id] == @tackles_counter.key(@tackles_counter.values.max)
-    end
-    team_with_most_tackles[:teamname]
-  end
-
-  # Original method from Iteration 2
-  def fewest_tackles(season)
-    tackles_by_team(season)
-    team_with_least_tackles = @teams.find do |team|
-      team[:team_id] == @tackles_counter.key(@tackles_counter.values.min)
-    end
-    team_with_least_tackles[:teamname]
   end
 #------------------------------------Team Statistics------------------------------------
   # Helper method is used in best_season & worst_season

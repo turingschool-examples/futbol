@@ -8,8 +8,6 @@ require_relative 'season_statistics_spec'
 require_relative 'league_statistics_spec'
 require_relative 'game_statistics_spec'
 
-
-
 RSpec.configure do |config|
   config.formatter = :documentation
 end
