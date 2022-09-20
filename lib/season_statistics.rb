@@ -1,7 +1,7 @@
 require 'csv'
 require 'pry'
 
-module SeasonStatistics 
+module SeasonStatistics
 
   # Original method from Iteration 2
   def winningest_coach(season)

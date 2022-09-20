@@ -4,10 +4,12 @@ require 'pry'
 require_relative 'stat_helper'
 require_relative 'team_statistics'
 require_relative 'league_statistics'
+require_relative 'season_statistics'
 
 class StatTracker < StatHelper
   include TeamStatistics
   include LeagueStatistics
+  include SeasonStatistics
   attr_reader :games, :teams, :game_teams
   def initialize(games, teams, game_teams)
     @games = games
