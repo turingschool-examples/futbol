@@ -1,10 +1,9 @@
-class TeamStatTracker < StatTracker
+module TeamStatTracking
   attr_reader :team_id,
               :team_games
 
   def initialize
     @team_games = {}
-    super()
   end
 
   def team_games_import(team_id)

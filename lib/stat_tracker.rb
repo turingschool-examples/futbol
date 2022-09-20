@@ -2,6 +2,7 @@ require "csv"
 require_relative './team'
 require_relative './game'
 require_relative './game_statistics'
+# require './lib/team_statistics'
 
 class StatTracker
   include GameStatistics
@@ -42,7 +43,7 @@ class StatTracker
 
   def self.team_csv_reader(locations, stat_tracker)
     CSV.foreach locations[:teams], headers: true, header_converters: :symbol do |row|
-      stat_tracker.teams[row[0].to_sym] = Team.new(row)
+      stat_tracker.teams[row[0]] = Team.new(row)
     end
   end
 

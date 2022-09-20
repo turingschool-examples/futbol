@@ -1,6 +1,6 @@
 # require './lib/stat_tracker.rb'
 
-module GameStatistics
+module GameStatTracking
 
   def unique_total_goals
     goal_totals = []

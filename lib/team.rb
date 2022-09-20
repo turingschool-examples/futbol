@@ -13,7 +13,7 @@ class Team
     @abbreviation = team_data[3]
     @stadium = team_data[4]
     @link = team_data[5]
-    # @games = 
+    @team_games = {}
   end
 
   def team_labels
