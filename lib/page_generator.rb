@@ -179,4 +179,4 @@ template = %(
 html = ERB.new(template).result(binding)
 puts html
 
-File.write('site/index.html.erb', html)
+File.write('site/index.html', html)
