@@ -6,29 +6,24 @@ class Season < FutbolData
   def winningest_coach(campaign)
     coached_games = Hash.new(0)
     coach_wins = Hash.new(0)
+    game_results_percentage = Hash.new
     
     # method returns hash: coach (key),count fo RESULT(WIN) (value)
     season_data(campaign).select do |row|
-      coach_wins [row[:head_coach]] += 1 if row[:result] == "WIN"
+      coach_wins[row[:head_coach]] += 1 if row[:result] == "WIN"
     end
     coach_wins 
 
-    # method return a hash: coach(key),count of games coached in a season (value)-if coach had a WIN
-    season_data(campaign).select do |row|
-      coached_games[row[:head_coach]] += 1 if coach_wins.has_key?(row[:head_coach])
+    # method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
+    season_data(campaign).find_all do |row|
+      if coach_wins.has_key?(row[:head_coach])
+        coached_games[row[:head_coach]] += 1
+      end
     end
     coached_games 
 
-    # method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
-    season_data(campaign).find_all do |row|
-      if coach_wins_in_season.has_key?(row[:head_coach])
-        coached_games_in_season[row[:head_coach]] += 1
-      end
-    end
-        coached_games_in_season 
-
     #method merges the wins and coached games hashes for comparison
-    game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
+    game_results_percentage.update(coached_games,coach_wins) do |coach, games_coached, games_won| 
             (games_won.fdiv(games_coached)).round(4)
         end
     
@@ -56,7 +51,7 @@ class Season < FutbolData
     merge_hashes_and_divide(coach_loss_tie, coached_games).max_by do |coach,percentage| 
       percentage 
     end
-        worst_coach[0]
+    worst_coach[0]
   end
 
   #Team with the best ratio of shots to goals for the season (goals/shots)
