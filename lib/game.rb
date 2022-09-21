@@ -1,7 +1,7 @@
 class Game
   attr_reader :games_data
   
-  def initialize(games_data)
+  def initialize(games_data)  
     @games_data = games_data
   end
 
