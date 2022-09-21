@@ -8,7 +8,7 @@ class Season < FutbolData
     game_results_percentage.update(season_coached_games(campaign),season_coach_wins(campaign)) do |coach, games_coached, games_won| 
       (games_won.fdiv(games_coached)).round(4)
     end
-  
+
     winning_coach = highest_success_rate(game_results_percentage) 
     winning_coach[0]
   end
@@ -84,10 +84,8 @@ class Season < FutbolData
   #collects all rows within the given campaign
   def season_data(campaign)
     season = Set.new
-    @game_teams_data.select do |row|      
-      row.select do |game_id|
-        season << row if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
-      end
+    @game_teams_data.select do |row|  
+      season << row if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
     end
     season 
   end
@@ -112,18 +110,22 @@ class Season < FutbolData
   def season_coach_wins(campaign)
     coach_wins = Hash.new(0)
     season_data(campaign).select do |row|
-      coach_wins[row[:head_coach]] += 1 if row[:result] == "WIN"
+      if row[:result] == "WIN"
+        coach_wins[row[:head_coach]] += 1 
+      elsif coach_wins[row[:head_coach]] == 0
+        coach_wins[row[:head_coach]] = 0
+      end
     end
+
     coach_wins 
   end
 
   # method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
   def  season_coached_games(campaign)
     coached_games = Hash.new(0)
-    season_data(campaign).find_all do |row|
-      if season_coach_wins(campaign).has_key?(row[:head_coach])
-        coached_games[row[:head_coach]] += 1
-      end
+    data = season_data(campaign).group_by { |row| row[:head_coach]}
+    data.each do |coach, games|
+      coached_games[coach] += games.count
     end
     coached_games 
   end
