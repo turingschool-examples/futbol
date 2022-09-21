@@ -1,12 +1,12 @@
-require 'csv'
+require './lib/futbol_data.rb'
 
-class Season
-  attr_reader :team_data,:game_teams_data
+class Season < FutbolData
+  # attr_reader :team_data,:game_teams_data
              
-  def initialize(teams_data, game_teams_data)
-    @teams_data = teams_data
-    @game_teams_data = game_teams_data
-  end
+  # def initialize(teams_data, game_teams_data)
+  #   @teams_data = teams_data
+  #   @game_teams_data = game_teams_data
+  # end
 
   #Method returns the name Coach with the best win percentage for the season in a string
   def winningest_coach(campaign)
@@ -24,14 +24,14 @@ class Season
 
     # method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
     season_data(campaign).find_all do |row|
-        if coach_wins_in_season.has_key?(row[:head_coach])
-          coached_games_in_season[row[:head_coach]] += 1
-        end
+      if coach_wins_in_season.has_key?(row[:head_coach])
+        coached_games_in_season[row[:head_coach]] += 1
       end
+    end
         coached_games_in_season 
 
     #method merges the wins and coached games hashes for comparison
-        game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
+    game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
             (games_won.fdiv(games_coached)).round(4)
         end
       winning_coach = game_results_percentage.max_by do |coach, percentage| 
