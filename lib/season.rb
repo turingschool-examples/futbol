@@ -40,26 +40,21 @@ class Season
     # method returns 2 hash: coach (key),count fo RESULT(WIN) (value) and total games in season
     season_data(campaign).select do |row|
       coached_games[row[:head_coach]] += 1
-        if row[:result] != "WIN"
-          coach_loss_tie [row[:head_coach]] += 1
-        end
+      coach_loss_tie [row[:head_coach]] += 1 if row[:result] != "WIN"
     end
     coach_loss_tie
     coached_games 
 
-    worst_coach =
+    worst_coach = 
     merge_hashes_and_divide(coach_loss_tie, coached_games).max_by do |coach,percentage| 
       percentage 
     end
-    worst_coach[0]
+        worst_coach[0]
   end
 
   #Team with the best ratio of shots to goals for the season (goals/shots)
   def most_accurate_team(campaign)
-    x = (team_accuracy(campaign).max_by do |coach,percentage| 
-      percentage end)
-
-    team_name_from_team_id(x)
+    team_name_from_team_id(highest_success_rate(team_accuracy(campaign)))
   end
 
   #Team with the worst ratio of shots to goals for the season
@@ -81,21 +76,8 @@ class Season
     merge_hashes_and_divide(season_goals,team_shots)
   end
 
-  def merge_hashes_and_divide(objective, attempts)
-    efficiency = Hash.new
-
-    efficiency.update(objective,attempts) do |team,goal,attempts|
-      goal.fdiv(attempts).round(4)
-    end
-    efficiency
-  end
-
   #Team with the most tackles in the season
   def most_tackles(campaign)
-    # team_tackle = team_tackles(campaign).max_by { |team,percentage| percentage }
-
-    # highest_success_rate(team_tackles(campaign))
-
     team_name_from_team_id(highest_success_rate(team_tackles(campaign)))
   end
 
@@ -141,4 +123,14 @@ class Season
   def lowest_success_rate(data)
     data.min_by { |team,percentage| percentage }
   end
+
+  def merge_hashes_and_divide(objective, attempts)
+    efficiency = Hash.new
+
+    efficiency.update(objective,attempts) do |team,goal,attempts|
+      goal.fdiv(attempts).round(4)
+    end
+    efficiency
+  end
+
 end
