@@ -1,3 +1,4 @@
+require 'erb'
 require './lib/stat_tracker'
 
 game_path = './data/games_dummy.csv'
