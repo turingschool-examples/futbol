@@ -96,19 +96,17 @@ class Season
 
   #Team with the most tackles in the season
   def most_tackles(campaign)
-    team_tackle = team_tackles_calculation(campaign).max_by { |team,percentage| percentage }
+    team_tackle = team_tackles(campaign).max_by { |team,percentage| percentage }
 
     team_name_from_team_id(team_tackle)
   end
 
   #Team with the fewest tackles in the season
-  def fewest_tackles(campaign)
-    team_tackle = lowest_success_rate(team_tackles_calculation(campaign))
-    
-    team_name_from_team_id(team_tackle)
+  def fewest_tackles(campaign)    
+    team_name_from_team_id(lowest_success_rate(team_tackles(campaign)))
   end
 
-  def team_tackles_calculation(campaign)
+  def team_tackles(campaign)
     team_total_tackles = Hash.new(0)
       
     season_data(campaign).select do |row|
