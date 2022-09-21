@@ -11,7 +11,6 @@ class Game
               :home_team_id
 
   def initialize(info)
-    # require "pry"; binding.pry
     @game_id = info[0]
     @season = info[1]
     @away_team_id = info[4]
@@ -38,13 +37,3 @@ class Game
                  }
   end
 end
-
-
-
-# a team game that inherits id, season
-
-# has opponent, result(for team), and goals scored.
-
-
-
-# a season game
