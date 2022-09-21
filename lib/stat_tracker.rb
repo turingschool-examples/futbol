@@ -2,10 +2,11 @@ require "csv"
 require_relative './team'
 require_relative './game'
 require_relative './game_statistics'
-# require './lib/team_statistics'
+require './lib/team_statistics'
 
 class StatTracker
-  include GameStatistics
+  include GameStatTracking
+  include TeamStatTracking
 
   attr_accessor :games,
                 :teams
@@ -17,15 +18,52 @@ class StatTracker
 
   def self.from_csv(locations)
     stat_tracker = new
+    team_csv_reader(locations, stat_tracker)
     game_csv_reader(locations, stat_tracker)
     game_teams_csv_reader(locations, stat_tracker)
-    team_csv_reader(locations, stat_tracker)
+    consolidate_team_data(stat_tracker)
     stat_tracker
   end
+
+  # def self.import_team_data(stat_tracker)
+  #   stat_tracker.games.each do |game_id, game_data|
+  #     stat_tracker.teams.each do |team_id, team_data|
+  #       if game_data.away_team_id != team_id && game_data.home_team_id == team_id
+  #         # require "pry"; binding.pry
+  #         team_data.team_games[game_id] = TeamGame.new(game_data.away_team_id, game_data.home_goals, game_data.home_team[:result], game_data.season)
+  #       elsif game_data.away_team_id == team_id && game_data.home_team_id != team_id
+  #         team_data.team_games[game_id] = TeamGame.new(game_data.home_team_id, game_data.away_goals, game_data.away_team[:result], game_data.season)
+  #       end
+  #     end
+  #     # require "pry"; binding.pry
+  #   end
+  # end
+
+  def self.consolidate_team_data(stat_tracker)
+    stat_tracker.games.each do |game_id, game_instance|
+      stat_tracker.teams.each do |team_id, team_instance|
+        if team_instance.team_games[game_id] != 0 && team_id == game_instance.away_team_id
+          team_instance.team_games[game_id].opponent = game_instance.home_team_id
+          team_instance.team_games[game_id].goals = game_instance.away_goals
+          team_instance.team_games[game_id].result = game_instance.away_team[:result]
+        elsif team_instance.team_games[game_id] != 0 && team_id == game_instance.home_team_id
+          team_instance.team_games[game_id].opponent = game_instance.away_team_id
+          team_instance.team_games[game_id].goals = game_instance.home_goals
+          team_instance.team_games[game_id].result = game_instance.home_team[:result]
+        end
+      end
+    end
+  end
+  # require "pry"; binding.pry
 
   def self.game_csv_reader(locations, stat_tracker)
     CSV.foreach locations[:games], headers: true, header_converters: :symbol do |row|
       stat_tracker.games[row[0].to_sym] = Game.new(row)
+      stat_tracker.teams.each do |team_id, team_data|
+        if team_id == stat_tracker.games[row[0].to_sym].away_team_id || team_id == stat_tracker.games[row[0].to_sym].home_team_id
+          team_data.team_games[row[0].to_sym] = TeamGame.new(row)
+        end
+      end
     end
   end
 
@@ -34,7 +72,7 @@ class StatTracker
     CSV.foreach locations[:game_teams], headers: true, header_converters: :symbol do |row|
       if count.even?
         stat_tracker.games[row[0].to_sym].import_away_team_data(row)
-      else count.odd?
+      elsif count.odd?
         stat_tracker.games[row[0].to_sym].import_home_team_data(row)
       end
       count += 1
@@ -155,12 +193,6 @@ class StatTracker
    @teams_reader.length
   end
 
-  def team_finder(team_id)
-    @teams_reader.find do |row|
-      row[:team_id] == team_id
-    end
-  end
-
 
 
   # def count_of_games_by_season
@@ -174,28 +206,8 @@ class StatTracker
   #   'empty string'
   # end
 
- 
 
 
-  def games_by_team_by_result(team_id, game_result)
-    result_by_team = Hash.new(0)
-    @game_teams_reader.each do |line|
-      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id]) && ![game_result, "TIE"].include?(line[:result])
-        result_by_team[line[:team_id]] += 1
-      end
-    end
-    result_by_team
-  end
-
-  def game_totals_by_team(team_id)
-    list_of_totals = Hash.new(0)
-    @game_teams_reader.each do |line|
-      if line[:team_id] != team_id && team_all_game_ids(team_id).include?(line[:game_id])
-        list_of_totals[line[:team_id]] += 1
-      end
-    end
-    list_of_totals
-  end
 
 
   #Below is Rich's code for a parallel attempt on a helper method and favorite_opponent. We added to retain in case it works better with our I3 structure/Framework.

@@ -1,14 +1,17 @@
 require './lib/stat_tracker'
 
-class Game 
+class Game
   attr_reader :game_id,
               :season,
               :away_goals,
               :home_goals,
               :away_team,
-              :home_team
+              :home_team,
+              :away_team_id,
+              :home_team_id
 
   def initialize(info)
+    # require "pry"; binding.pry
     @game_id = info[0]
     @season = info[1]
     @away_team_id = info[4]
@@ -38,15 +41,10 @@ end
 
 
 
-# a team game that inherits id, season 
+# a team game that inherits id, season
 
 # has opponent, result(for team), and goals scored.
 
 
 
-# a season game 
-
-
-
-
-
+# a season game

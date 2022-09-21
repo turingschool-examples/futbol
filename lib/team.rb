@@ -5,7 +5,7 @@ class Team
               :abbreviation,
               :stadium,
               :link
-
+  attr_accessor :team_games
   def initialize(team_data)
     @team_id = team_data[0]
     @franchise_id = team_data[1]
@@ -13,7 +13,7 @@ class Team
     @abbreviation = team_data[3]
     @stadium = team_data[4]
     @link = team_data[5]
-    @team_games = {}
+    @team_games = Hash.new(0)
   end
 
   def team_labels
