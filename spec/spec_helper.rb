@@ -1,5 +1,5 @@
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 
 require 'rspec'
 require './lib/futbol_data'
