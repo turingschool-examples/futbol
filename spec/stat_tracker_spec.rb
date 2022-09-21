@@ -18,19 +18,19 @@ RSpec.describe StatTracker do
   end
 
   it '1. exists' do
-      expect(@stat_tracker).to be_an_instance_of(StatTracker)
+    expect(@stat_tracker).to be_an_instance_of(StatTracker)
   end
 
   it '2. knows CSV locations' do
-      expect(@stat_tracker.game_path).to eq('./data/games.csv')
+    expect(@stat_tracker.game_path).to eq('./data/games.csv')
   end
 
   it '3. can read the CSV files' do
-      expect(@stat_tracker.list_team_ids.length).to eq(32)
+    expect(@stat_tracker.list_team_ids.length).to eq(32)
   end
 
   it '4. can return team name from id' do
-      expect(@stat_tracker.list_team_names_by_id(13)).to eq("Houston Dash")
+    expect(@stat_tracker.list_team_names_by_id(13)).to eq("Houston Dash")
   end
 
   it '#highest_total_score' do
@@ -82,7 +82,7 @@ RSpec.describe StatTracker do
   end
 
   it '#count_of_teams'do
-      expect(@stat_tracker.count_of_teams).to eq 32
+    expect(@stat_tracker.count_of_teams).to eq 32
   end
 
   it '#best_offense' do
