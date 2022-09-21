@@ -9,7 +9,8 @@ class StatTracker
     @game_teams_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     @league = League.new(@teams_data, @game_teams_data)
     @game = Game.new(@games_data)
-
+    @season = Season.new(@teams_data, @game_teams_data)
+    @team = Team.new(@games_data, @teams_data, @game_teams_data)
   end
 
   def self.from_csv(locations)
@@ -261,121 +262,27 @@ class StatTracker
   end
   
   def winningest_coach(campaign)
-    coached_games_in_season = Hash.new(0)
-    coach_wins_in_season = Hash.new(0)
-    game_results_percentage = Hash.new
-    
-    season_data(campaign).find_all do |row|
-      if row[:result] == "WIN"
-        coach_wins_in_season [row[:head_coach]] += 1
-      end
-    end
-    coach_wins_in_season 
-
-    season_data(campaign).find_all do |row|
-      if coach_wins_in_season.has_key?(row[:head_coach])
-        coached_games_in_season[row[:head_coach]] += 1
-      end
-    end
-    coached_games_in_season 
-
-    game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
-      (games_won.fdiv(games_coached)).round(4)
-    end
-    winning_coach = game_results_percentage.max_by { |coach, percentage| percentage }
-
-    winning_coach[0]
+    @season.winningest_coach(campaign)
   end
 
   def worst_coach(campaign)
-    coached_games_in_season = Hash.new(0)
-    coach_wins_in_season = Hash.new(0)
-    game_results_percentage = Hash.new
-    
-    season_data(campaign).select do |row|
-      coached_games_in_season[row[:head_coach]] += 1
-        if row[:result] != "WIN"
-          coach_wins_in_season [row[:head_coach]] += 1
-        end
-    end
-    coach_wins_in_season 
-    coached_games_in_season 
-
-    game_results_percentage.update(coached_games_in_season,coach_wins_in_season) do |coach, games_coached, games_won| 
-      (games_won.fdiv(games_coached)).round(4)
-    end
-    worst_coach = game_results_percentage.max_by { |coach, percentage| percentage }
-      
-    worst_coach[0]
+    @season.worst_coach(campaign)
   end
 
   def most_accurate_team(campaign)
-    team_season_goals_count = Hash.new(0)
-    team_season_shots_count = Hash.new(0)
-    shot_efficiency = Hash.new
-
-    season_data(campaign).select do |row|
-      goals = row[:goals].to_i
-      shots = row[:shots].to_i
-
-      team_season_goals_count[row[:team_id]] += goals
-      team_season_shots_count[row[:team_id]] += shots
-    end
-    team_season_goals_count
-    team_season_shots_count
-
-    shot_efficiency.update(team_season_goals_count,team_season_shots_count) do |team, goals_made, shots_taken|
-      goals_made.fdiv(shots_taken).round(4)
-    end
-    team_efficiency = shot_efficiency.max_by { |coach, percentage| percentage }
-    
-    team_name_from_id_average(team_efficiency)
+    @season.most_accurate_team(campaign)
   end
 
   def least_accurate_team	(campaign)
-    team_season_goals_count = Hash.new(0)
-    team_season_shots_count = Hash.new(0)
-    shot_efficiency = Hash.new
-
-    season_data(campaign).select do |row|
-      goals = row[:goals].to_i
-      shots = row[:shots].to_i
-
-      team_season_goals_count[row[:team_id]] += goals
-      team_season_shots_count[row[:team_id]] += shots
-    end
-    team_season_goals_count
-    team_season_shots_count
-
-    shot_efficiency.update(team_season_goals_count,team_season_shots_count) do |team, goals_made, shots_taken|
-      goals_made.fdiv(shots_taken).round(4)
-    end
-    team_efficiency = shot_efficiency.min_by { |coach, percentage| percentage }
-
-    team_name_from_id_average(team_efficiency)
+    @season.least_accurate_team(campaign)
   end
 
   def most_tackles(campaign)
-    team_total_tackles = Hash.new(0)
-    
-    season_data(campaign).select do |row|
-      tackles = row[:tackles].to_i
-      team_total_tackles[row[:team_id]] += tackles
-    end
-    number_of_team_tackle = team_total_tackles.max_by { |coach, percentage| percentage }
-    
-    team_name_from_id_average(number_of_team_tackle)
+    @season.most_tackles(campaign)
   end
 
   def fewest_tackles(campaign)
-    team_total_tackles = Hash.new(0)
-    
-    season_data(campaign).select do |row|
-      tackles = row[:tackles].to_i
-      team_total_tackles[row[:team_id]] += tackles
-    end
-    team_tackle = team_total_tackles.min_by { |coach, percentage| percentage }
-    team_name_from_id_average(team_tackle)
+    @season.fewest_tackles(campaign)
   end
 
   def team_name_from_id_average(data)
