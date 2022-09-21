@@ -224,71 +224,24 @@ class StatTracker
     season
   end
 
-  # Method returns best season for each team
-  def best_season(team)
-    campaign = @games_data.map { |row| row[:season] }.uniq
-
-    hash = Hash.new do |h, k|
-      h[k] = { games_won: 0, games_played: 0 }
-    end
-    
-    campaign.select do |year|
-      a = @games_data.select do |row|
-        row[:season] == year &&
-          (row[:away_team_id] == team || row[:home_team_id] == team)
-      end
-
-      a.select do |game_row|
-        b = @game_teams_data.find do |game_team_row|
-          game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team
-        end
-        hash[year][:games_won] += 1 if b[:result] == 'WIN'
-        hash[year][:games_played] += 1
-      end
-    end
-
-    season_average_percentage = {}
-
-    hash.each do |year, totals|
-      season_average_percentage[year] = (totals[:games_won].to_f / totals[:games_played]).round(4)
-    end
-
-    season_record = season_average_percentage.max_by { |_year, percentage| percentage }
-    season_record[0]
-    # require 'pry';binding.pry
+  def season
+    @team.season
   end
 
-  # Method returns best season for each team
+  def season_hash(team)
+    @team.season_hash(team)
+  end
+
+  def season_average_percentage(team)
+    @team.season_average_percentage(team)
+  end
+
+  def best_season(team)
+    @team.best_season(team)
+  end
+
   def worst_season(team)
-    campaign = @games_data.map { |row| row[:season] }.uniq
-
-    hash = Hash.new do |h, k|
-      h[k] = { games_won: 0, games_played: 0 }
-    end
-    
-    campaign.select do |year|
-      team_games_played_in_a_season = @games_data.select do |row|
-        row[:season] == year &&
-          (row[:away_team_id] == team || row[:home_team_id] == team)
-      end
-
-      team_games_played_in_a_season.select do |game_row|
-        b = @game_teams_data.find do |game_team_row|
-          game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team
-        end
-        hash[year][:games_won] += 1 if b[:result] == 'WIN'
-        hash[year][:games_played] += 1
-      end
-    end
-
-    season_average_percentage = {}
-
-    hash.each do |year, totals|
-      season_average_percentage[year] = (totals[:games_won].to_f / totals[:games_played]).round(4)
-    end
-
-    season_record = season_average_percentage.min_by { |_year, percentage| percentage }
-    season_record[0]
+    @team.worst_season(team)
   end
 
   def team_info(team)
