@@ -442,12 +442,12 @@ class StatTracker
     end
     
     campaign.select do |year|
-      a = @games_data.select do |row|
+      team_games_played_in_a_season = @games_data.select do |row|
         row[:season] == year &&
         (row[:away_team_id] == team || row[:home_team_id] == team)
       end
 
-      a.select do |game_row|
+      team_games_played_in_a_season.select do |game_row|
         b = @game_teams_data.find do |game_team_row|
           game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team 
         end 
