@@ -67,13 +67,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#return_column' do
-    it 'is an integer' do
-      # allow(fake_data).to receive(:)
-      # return_column(fake_data, header)
-    end
-  end
-
   describe 'count_of_games_by_season' do
     it 'counts games by season' do
       expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014" => 1})
@@ -221,6 +214,19 @@ RSpec.describe StatTracker do
   describe '#game_data_for_a_season' do
     it 'returns an array of csv_rows' do
       expect(@stat_tracker.game_data_for_a_season('20122013')).to be_an Array
+    end
+  end
+
+  describe '#return_column' do 
+    it 'returns column of information from data set' do 
+      data_set = [
+        {team: 1, goals: 2, wins: 4},
+        {team: 2, goals: 2, wins: 4},
+        {team: 3, goals: 2, wins: 4},
+        {team: 4, goals: 2, wins: 4}
+      ]
+
+      expect(@stat_tracker.return_column(data_set, :goals)).to eq([2, 2, 2, 2])
     end
   end
 end
