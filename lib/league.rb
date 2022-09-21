@@ -37,25 +37,40 @@ class League < FutbolData
   end
 
   def team_goal_average(hoa = nil)
-    team_goals = Hash.new
     if hoa == nil  
-      @game_teams_data.each do |row|
-        if team_goals[row[:team_id]] != nil
-          team_goals[row[:team_id]].push(row[:goals].to_i)
-        else
-          team_goals[row[:team_id]] = [row[:goals].to_i]
-        end
-      end
+      team_goals = team_all_goals
+      average_goals(team_goals)
     else
-      @game_teams_data.each do |row|
-        if team_goals[row[:team_id]] != nil && row[:hoa] == hoa
-          team_goals[row[:team_id]].push(row[:goals].to_i)
-        elsif row[:hoa] == hoa
-          team_goals[row[:team_id]] = [row[:goals].to_i]
-        end
+      team_goals = team_hoa_goals(hoa)
+      average_goals(team_goals)
+    end
+  end
+
+  def team_all_goals
+    team_goals = Hash.new
+    @game_teams_data.each do |row|
+      if team_goals[row[:team_id]] != nil
+        team_goals[row[:team_id]].push(row[:goals].to_i)
+      else
+        team_goals[row[:team_id]] = [row[:goals].to_i]
       end
     end
-    
+    team_goals
+  end
+
+  def team_hoa_goals(hoa)
+    team_goals = Hash.new
+    @game_teams_data.each do |row|
+      if team_goals[row[:team_id]] != nil && row[:hoa] == hoa
+        team_goals[row[:team_id]].push(row[:goals].to_i)
+      elsif row[:hoa] == hoa
+        team_goals[row[:team_id]] = [row[:goals].to_i]
+      end
+    end
+    team_goals
+  end
+
+  def average_goals(team_goals)
     team_average = Hash.new
     team_goals.each do |team_id, goals_per_game|
       team_average[team_id] = (goals_per_game.sum.to_f / goals_per_game.size.to_f).round(3)
