@@ -48,15 +48,20 @@ RSpec.describe Team do
     end
   end
 
-  describe '#favorite_opponent' do
-    it '#favorite_opponent' do
-      expect(@team.favorite_opponent('18')).to eq 'DC United'
-    end
-  end
+  # describe '#favorite_opponent' do
+  #   it '#favorite_opponent' do
+  #     expect(@team.favorite_opponent('18')).to eq 'DC United'
+  #   end
+  # end
 
-  describe '#rival' do
-    it '#rival' do
-      expect(@team.rival('18')).to eq('Houston Dash').or(eq('LA Galaxy'))
+  # describe '#rival' do
+  #   it '#rival' do
+  #     expect(@team.rival('18')).to eq('Houston Dash').or(eq('LA Galaxy'))
+  #   end
+  # end
+  describe '#win_loss_hashes' do
+    it 'can make hashes' do
+      expect(@team.win_loss_hashes("18").length).to eq(31)
     end
   end
 end

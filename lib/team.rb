@@ -84,41 +84,7 @@ class Team
   end
 
   def favorite_opponent(team)
-    team_wins = Hash.new(0)
-    team_losses = Hash.new(0)
-    # @games_data.map do |row|
-    #   if !team_wins.has_key?(row[:home_team_id])
-    #     team_wins[row[:home_team_id]] = 0
-    #   elsif !team_wins.has_key?(row[:away_team_id])
-    #     team_wins[row[:away_team_id]] = 0
-    #   end
-    #   if !team_losses.has_key?(row[:home_team_id])
-    #     team_losses[row[:home_team_id]] = 0
-    #   elsif !team_losses.has_key?(row[:away_team_id])
-    #     team_losses[row[:away_team_id]] = 0
-    #   end
-    # end
-    @games_data.map do |row|
-      if row[:away_team_id] == team
-        if row[:away_goals] >= row[:home_goals]
-          team_losses[row[:home_team_id]] += 1
-          if !team_wins.include?(row[:home_team_id])
-            team_wins[row[:home_team_id]] += 0
-          end
-        else
-          team_wins[row[:home_team_id]] += 1
-        end
-      elsif row[:home_team_id] == team
-        if row[:home_goals] >= row[:away_goals]
-          team_losses[row[:away_team_id]] += 1
-          if !team_wins.include?(row[:home_team_id])
-            team_wins[row[:home_team_id]] += 0
-          end
-        else
-          team_wins[row[:away_team_id]] += 1
-        end
-      end
-    end
+    win_loss_hashes
     min_win_rate = 100
     min_win_rate_team = nil
     team_wins.each do |key, value|
@@ -135,25 +101,6 @@ class Team
   end
 
   def rival(team)
-    team_wins = Hash.new(0)
-    team_losses = Hash.new(0)
-
-    @games_data.map do |row|
-      if row[:away_team_id] == team
-        if row[:away_goals] >= row[:home_goals]
-          team_losses[row[:home_team_id]] += 1
-        else
-          team_wins[row[:home_team_id]] += 1
-        end
-      elsif row[:home_team_id] == team
-        if row[:home_goals] >= row[:away_goals]
-          team_losses[row[:away_team_id]] += 1
-        else
-          team_wins[row[:away_team_id]] += 1
-        end
-      end
-    end
-
     max_win_rate = 0
     max_win_rate_team = nil
     team_wins.each do |key, value|
@@ -167,5 +114,32 @@ class Team
       end
     end
     team_name_from_id_average(max_win_rate_team.split)
+  end
+  def win_loss_hashes(team)
+    team_wins = Hash.new(0)
+    team_losses = Hash.new(0)
+    @games_data.map do |row|
+      if row[:away_team_id] == team
+        if row[:away_goals] >= row[:home_goals]
+          team_losses[row[:home_team_id]] += 1
+          if !team_wins.include?(row[:home_team_id])
+            team_wins[row[:home_team_id]] += 0
+          end
+        else
+          team_wins[row[:home_team_id]] += 1
+        end
+      elsif row[:home_team_id] == team
+        if row[:home_goals] >= row[:away_goals]
+          team_losses[row[:away_team_id]] += 1
+          if !team_wins.include?(row[:home_team_id])
+            team_wins[row[:home_team_id]] += 0
+          end
+        else
+          team_wins[row[:away_team_id]] += 1
+        end
+      end
+    end
+    team_wins
+    team_losses
   end
 end
