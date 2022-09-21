@@ -1,4 +1,3 @@
-
 module Id
   def team_name_from_id_average(average)
     @teams_data.each do |row|
