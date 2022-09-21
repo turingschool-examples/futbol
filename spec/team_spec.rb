@@ -48,20 +48,83 @@ RSpec.describe Team do
     end
   end
 
-  # describe '#favorite_opponent' do
-  #   it '#favorite_opponent' do
-  #     expect(@team.favorite_opponent('18')).to eq 'DC United'
-  #   end
-  # end
+  describe '#favorite_opponent' do
+    it '#favorite_opponent' do
+      expect(@team.favorite_opponent('18')).to eq 'DC United'
+    end
+  end
 
-  # describe '#rival' do
-  #   it '#rival' do
-  #     expect(@team.rival('18')).to eq('Houston Dash').or(eq('LA Galaxy'))
-  #   end
-  # end
+  describe '#rival' do
+    it '#rival' do
+      expect(@team.rival('18')).to eq('Houston Dash').or(eq('LA Galaxy'))
+    end
+  end
   describe '#win_loss_hashes' do
-    it 'can make hashes' do
-      expect(@team.win_loss_hashes("18").length).to eq(31)
+    it 'gathers the opponents win/loss information against given team' do
+      rival_stats = [{"19"=>15,
+        "18"=>0,
+        "52"=>14,
+        "21"=>12,
+        "17"=>9,
+        "29"=>6,
+        "25"=>10,
+        "20"=>7,
+        "30"=>11,
+        "16"=>14,
+        "3"=>3,
+        "22"=>4,
+        "28"=>11,
+        "24"=>8,
+        "5"=>9,
+        "8"=>3,
+        "23"=>7,
+        "15"=>5,
+        "26"=>8,
+        "27"=>2,
+        "6"=>3,
+        "13"=>6,
+        "10"=>5,
+        "7"=>3,
+        "2"=>4,
+        "14"=>0,
+        "4"=>2,
+        "9"=>2,
+        "12"=>4,
+        "1"=>4,
+        "53"=>3,
+        "54"=>1},
+       {"19"=>19,
+        "52"=>17,
+        "21"=>20,
+        "20"=>11,
+        "16"=>24,
+        "1"=>6,
+        "29"=>9,
+        "8"=>7,
+        "23"=>11,
+        "14"=>10,
+        "15"=>5,
+        "25"=>17,
+        "28"=>14,
+        "22"=>14,
+        "24"=>23,
+        "5"=>7,
+        "2"=>6,
+        "7"=>7,
+        "27"=>4,
+        "6"=>7,
+        "3"=>7,
+        "30"=>16,
+        "13"=>4,
+        "10"=>5,
+        "9"=>8,
+        "26"=>10,
+        "12"=>6,
+        "54"=>2,
+        "4"=>8,
+        "17"=>5,
+        "53"=>9}]
+      expect(@team.win_loss_hashes("18")).to eq(rival_stats)
     end
   end
 end

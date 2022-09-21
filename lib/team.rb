@@ -1,4 +1,4 @@
-require_relative "id.rb"
+require_relative 'id'
 require 'pry'
 include Id
 class Team
@@ -9,6 +9,7 @@ class Team
     @game_teams_data = game_teams_data
     @games_data = games_data
   end
+
   def team_info(index)
     team_info_hash = {}
     @teams_data.map do |row|
@@ -84,7 +85,8 @@ class Team
   end
 
   def favorite_opponent(team)
-    win_loss_hashes
+    team_wins = win_loss_hashes(team)[0]
+    team_losses = win_loss_hashes(team)[1]
     min_win_rate = 100
     min_win_rate_team = nil
     team_wins.each do |key, value|
@@ -101,6 +103,8 @@ class Team
   end
 
   def rival(team)
+    team_wins = win_loss_hashes(team)[0]
+    team_losses = win_loss_hashes(team)[1]
     max_win_rate = 0
     max_win_rate_team = nil
     team_wins.each do |key, value|
@@ -115,6 +119,7 @@ class Team
     end
     team_name_from_id_average(max_win_rate_team.split)
   end
+
   def win_loss_hashes(team)
     team_wins = Hash.new(0)
     team_losses = Hash.new(0)
@@ -122,24 +127,22 @@ class Team
       if row[:away_team_id] == team
         if row[:away_goals] >= row[:home_goals]
           team_losses[row[:home_team_id]] += 1
-          if !team_wins.include?(row[:home_team_id])
-            team_wins[row[:home_team_id]] += 0
-          end
+          team_wins[row[:home_team_id]] += 0 unless team_wins.include?(row[:home_team_id])
         else
           team_wins[row[:home_team_id]] += 1
         end
       elsif row[:home_team_id] == team
         if row[:home_goals] >= row[:away_goals]
           team_losses[row[:away_team_id]] += 1
-          if !team_wins.include?(row[:home_team_id])
-            team_wins[row[:home_team_id]] += 0
-          end
+          team_wins[row[:home_team_id]] += 0 unless team_wins.include?(row[:home_team_id])
         else
           team_wins[row[:away_team_id]] += 1
         end
       end
     end
-    team_wins
-    team_losses
+    rival_wins_and_losses = []
+    rival_wins_and_losses << team_wins
+    rival_wins_and_losses << team_losses
+    rival_wins_and_losses
   end
 end
