@@ -90,15 +90,13 @@ class Season
     efficiency
   end
 
-  def lowest_success_rate(data)
-    data.min_by { |team,percentage| percentage }
-  end
-
   #Team with the most tackles in the season
   def most_tackles(campaign)
-    team_tackle = team_tackles(campaign).max_by { |team,percentage| percentage }
+    # team_tackle = team_tackles(campaign).max_by { |team,percentage| percentage }
 
-    team_name_from_team_id(team_tackle)
+    # highest_success_rate(team_tackles(campaign))
+
+    team_name_from_team_id(highest_success_rate(team_tackles(campaign)))
   end
 
   #Team with the fewest tackles in the season
@@ -134,5 +132,13 @@ class Season
       end
     end
     season 
+  end
+
+  def highest_success_rate(data)
+    data.max_by { |team,percentage| percentage }
+  end
+
+  def lowest_success_rate(data)
+    data.min_by { |team,percentage| percentage }
   end
 end
