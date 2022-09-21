@@ -154,6 +154,88 @@ RSpec.describe League do
     end
   end
 
+  describe '#team_all_goals' do
+    it 'returns a hash of goals for each game per team' do
+      team_with_goals = {
+        "6" => [3,3,2,3,3,3,4,2,1,2],    
+        "3" => [2,2,1,2,1,2,2,2,2,1],    
+        "5" => [0,1,1,0,3],    
+        "17" => [1],    
+        "16" => [2,5,3],    
+        "25" => [3,3,2],    
+        "30" => [2,2,1,3,1,2,2,1],    
+        "19" => [2,2,0,4,1,1],    
+        "15" => [3,1,3,3,3,3,2,2,2,4,1,2,2],    
+        "14" => [2,4,2,2,1,2,2],    
+        "8" => [1,2,1,4,2,1],    
+        "10" => [2,2,2,2,1,1],    
+        "29" => [1,1,3,3,1,2],    
+        "52" => [2,2,5,1,4,2],    
+        "18" => [1,3,2,2,2,2],    
+        "20" => [3,1],    
+        "28" => [4,2],    
+        "4" => [2,2],    
+        "26" => [2],    
+        "24" => [2],    
+        "22" => [2],    
+        "12" => [3],    
+        "13" => [0]    
+      }
+      expect(@league.team_all_goals).to eq(team_with_goals)
+    end
+  end
+
+  describe '#team_hoa_goals' do
+    it 'returns a hash with goals for given away games per team' do
+      away_goals = {
+        "6" => [2,3,3,4,2],    
+        "3" => [2,2,1,2],    
+        "5" => [1,0],    
+        "17" => [1],    
+        "16" => [3],    
+        "25" => [3,3],    
+        "30" => [2,1,2,1],    
+        "19" => [0,4,1],    
+        "15" => [1,3,3,2,4,1,2],    
+        "14" => [2,4,1],    
+        "8" => [1,4,1],    
+        "10" => [2,2,1],    
+        "29" => [1,1,3,1,2],    
+        "52" => [2,2,4],    
+        "18" => [2,2,2],    
+        "20" => [3,1],    
+        "4" => [2,2],      
+        "13" => [0] 
+      }
+      expect(@league.team_hoa_goals('away')).to eq(away_goals)
+    end
+
+    it 'returns a hash with goals for given home games per team' do
+      home_goals = {
+        "6" => [3,3,3,2,1],    
+        "3" => [1,2,2,2,2,1],    
+        "5" => [0,1,3],      
+        "16" => [2,5],    
+        "25" => [2],    
+        "30" => [2,3,1,2],    
+        "19" => [2,2,1],    
+        "15" => [3,3,3,2,2,2],    
+        "14" => [2,2,2,2],    
+        "8" => [1,2,2],    
+        "10" => [2,2,1],    
+        "29" => [3],    
+        "52" => [5,1,2],    
+        "18" => [1,3,2],  
+        "28" => [4,2],     
+        "26" => [2],    
+        "24" => [2],    
+        "22" => [2],    
+        "12" => [3],    
+      }
+      expect(@league.team_hoa_goals('home')).to eq(home_goals)
+    end
+  end
+
   describe '#team_name_from_id_average' do
     it 'returns the team name for the given array of team id and average goals' do
       team_with_goal_average = {
