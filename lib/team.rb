@@ -1,4 +1,5 @@
 require_relative "id.rb"
+require 'pry'
 include Id
 class Team
   attr_reader :team_data, :game_teams_data, :games_data
@@ -83,30 +84,36 @@ class Team
   end
 
   def favorite_opponent(team)
-    team_wins = {}
-    team_losses = {}
-    @games_data.map do |row|
-      if !team_wins.has_key?(row[:home_team_id])
-        team_wins[row[:home_team_id]] = 0
-      elsif !team_wins.has_key?(row[:away_team_id])
-        team_wins[row[:away_team_id]] = 0
-      end
-      if !team_losses.has_key?(row[:home_team_id])
-        team_losses[row[:home_team_id]] = 0
-      elsif !team_losses.has_key?(row[:away_team_id])
-        team_losses[row[:away_team_id]] = 0
-      end
-    end
+    team_wins = Hash.new(0)
+    team_losses = Hash.new(0)
+    # @games_data.map do |row|
+    #   if !team_wins.has_key?(row[:home_team_id])
+    #     team_wins[row[:home_team_id]] = 0
+    #   elsif !team_wins.has_key?(row[:away_team_id])
+    #     team_wins[row[:away_team_id]] = 0
+    #   end
+    #   if !team_losses.has_key?(row[:home_team_id])
+    #     team_losses[row[:home_team_id]] = 0
+    #   elsif !team_losses.has_key?(row[:away_team_id])
+    #     team_losses[row[:away_team_id]] = 0
+    #   end
+    # end
     @games_data.map do |row|
       if row[:away_team_id] == team
         if row[:away_goals] >= row[:home_goals]
           team_losses[row[:home_team_id]] += 1
+          if !team_wins.include?(row[:home_team_id])
+            team_wins[row[:home_team_id]] += 0
+          end
         else
           team_wins[row[:home_team_id]] += 1
         end
       elsif row[:home_team_id] == team
         if row[:home_goals] >= row[:away_goals]
           team_losses[row[:away_team_id]] += 1
+          if !team_wins.include?(row[:home_team_id])
+            team_wins[row[:home_team_id]] += 0
+          end
         else
           team_wins[row[:away_team_id]] += 1
         end
@@ -124,25 +131,13 @@ class Team
         min_win_rate_team = key
       end
     end
-    # team_name_from_id_average
     team_name_from_id_average(min_win_rate_team.split)
   end
 
   def rival(team)
-    team_wins = {}
-    team_losses = {}
-    @games_data.map do |row|
-      if !team_wins.has_key?(row[:home_team_id])
-        team_wins[row[:home_team_id]] = 0
-      elsif !team_wins.has_key?(row[:away_team_id])
-        team_wins[row[:away_team_id]] = 0
-      end
-      if !team_losses.has_key?(row[:home_team_id])
-        team_losses[row[:home_team_id]] = 0
-      elsif !team_losses.has_key?(row[:away_team_id])
-        team_losses[row[:away_team_id]] = 0
-      end
-    end
+    team_wins = Hash.new(0)
+    team_losses = Hash.new(0)
+
     @games_data.map do |row|
       if row[:away_team_id] == team
         if row[:away_goals] >= row[:home_goals]
