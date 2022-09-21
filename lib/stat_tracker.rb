@@ -119,12 +119,13 @@ class StatTracker
     game_results_percentage = {}
 
     season_data(campaign).select do |row|
-      coach_wins_in_season [row[:head_coach]] += 1 if row[:result] != 'WIN'
+      coached_games_in_season[row[:head_coach]] += 1
+        if row[:result] != "WIN"
+          coach_wins_in_season [row[:head_coach]] += 1
+        end
     end
-    coach_wins_in_season
-
-    season_data(campaign).select { |row| coached_games_in_season[row[:head_coach]] += 1 }
-    coached_games_in_season
+    coach_wins_in_season 
+    coached_games_in_season 
 
     game_results_percentage.update(coached_games_in_season, coach_wins_in_season) do |_coach, games_coached, games_won|
       games_won.fdiv(games_coached).round(4)
@@ -139,7 +140,7 @@ class StatTracker
     team_season_shots_count = Hash.new(0)
     shot_efficiency = {}
 
-    season_data(campaign).find_all do |row|
+    season_data(campaign).select do |row|
       goals = row[:goals].to_i
       shots = row[:shots].to_i
 
@@ -162,7 +163,7 @@ class StatTracker
     team_season_shots_count = Hash.new(0)
     shot_efficiency = {}
 
-    season_data(campaign).each do |row|
+    season_data(campaign).select do |row|
       goals = row[:goals].to_i
       shots = row[:shots].to_i
 
@@ -182,9 +183,8 @@ class StatTracker
 
   def most_tackles(campaign)
     team_total_tackles = Hash.new(0)
-    season_data(campaign)
-
-    season_data(campaign).each do |row|
+    
+    season_data(campaign).select do |row|
       tackles = row[:tackles].to_i
       team_total_tackles[row[:team_id]] += tackles
     end
@@ -195,9 +195,8 @@ class StatTracker
 
   def fewest_tackles(campaign)
     team_total_tackles = Hash.new(0)
-    season_data(campaign)
-
-    season_data(campaign).each do |row|
+    
+    season_data(campaign).select do |row|
       tackles = row[:tackles].to_i
       team_total_tackles[row[:team_id]] += tackles
     end
@@ -206,16 +205,20 @@ class StatTracker
   end
 
   def team_name_from_id_average(data)
-    @teams_data.each do |row|
-      return row[:teamname] if data[0] == row[:team_id]
+    @teams_data.find do |row|
+      if data[0] == row[:team_id]
+        return row[:teamname]
+      end
     end
   end
 
   def season_data(campaign)
     season = Set.new
-    @game_teams_data.each do |row|
-      row.find_all do |_game_id|
-        season << row if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
+    @game_teams_data.select do |row|      
+      row.select do |game_id|
+        if campaign.scan(/.{4}/).shift == row[:game_id].scan(/.{4}/).shift
+          season << row
+        end
       end
     end
     season
@@ -228,14 +231,14 @@ class StatTracker
     hash = Hash.new do |h, k|
       h[k] = { games_won: 0, games_played: 0 }
     end
-
-    campaign.each do |year|
-      a = @games_data.find_all do |row|
+    
+    campaign.select do |year|
+      a = @games_data.select do |row|
         row[:season] == year &&
           (row[:away_team_id] == team || row[:home_team_id] == team)
       end
 
-      a.each do |game_row|
+      a.select do |game_row|
         b = @game_teams_data.find do |game_team_row|
           game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team
         end
@@ -262,14 +265,14 @@ class StatTracker
     hash = Hash.new do |h, k|
       h[k] = { games_won: 0, games_played: 0 }
     end
-
-    campaign.each do |year|
-      a = @games_data.find_all do |row|
+    
+    campaign.select do |year|
+      team_games_played_in_a_season = @games_data.select do |row|
         row[:season] == year &&
           (row[:away_team_id] == team || row[:home_team_id] == team)
       end
 
-      a.each do |game_row|
+      team_games_played_in_a_season.select do |game_row|
         b = @game_teams_data.find do |game_team_row|
           game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team
         end
