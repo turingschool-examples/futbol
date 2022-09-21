@@ -1,6 +1,7 @@
-require_relative 'id'
-require 'pry'
+require_relative 'id.rb'
+require_relative 'sucess_rate.rb'
 include Id
+include SuccessRate
 class Team
   attr_reader :team_data, :game_teams_data, :games_data
 
@@ -133,4 +134,35 @@ class Team
     rival_wins_and_losses << team_losses
     rival_wins_and_losses
   end
+
+  def season 
+    @games_data.map { |row| row[:season] }.uniq
+  end
+
+  def season_hash(team)
+    hash = Hash.new {|h, k| h[k] = { games_won: 0, games_played: 0 }}
+    season.select { |year| team_games_played_in_a_season = @games_data.select { |row| row[:season] == year && (row[:away_team_id] == team || row[:home_team_id] == team)}
+    team_games_played_in_a_season.select { |game_row|
+      games_played = @game_teams_data.find { |game_team_row| game_team_row[:game_id] == game_row[:game_id] && game_team_row[:team_id] == team}
+        hash[year][:games_won] += 1 if games_played[:result] == 'WIN'
+        hash[year][:games_played] += 1}}
+    hash
+  end 
+
+  def season_average_percentage(team)
+    season_average_percentage = Hash.new
+    season_hash(team).each {|year, totals| season_average_percentage[year] = (totals[:games_won].to_f / totals[:games_played]).round(4)}
+    season_average_percentage
+  end
+
+  def best_season(team)
+    season_record = highest_success_rate(season_average_percentage(team))
+    season_record[0]
+  end
+
+  def worst_season (team)
+    season_record = lowest_success_rate(season_average_percentage(team))
+    season_record[0]
+  end
+
 end

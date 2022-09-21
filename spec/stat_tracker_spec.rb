@@ -184,12 +184,24 @@ RSpec.describe StatTracker do
 
 
   describe 'Team statistics-best & worse season methods'do
+    it "#season" do
+      expect(@stat_tracker.season).to eq(["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"])
+    end
+    
+    it "#season_average_percentage" do
+      expect(@stat_tracker.season_average_percentage('6')).to eq({"20122013"=>0.5429, "20132014"=>0.5745, "20142015"=>0.378, "20152016"=>0.4024, "20162017"=>0.5114, "20172018"=>0.5319})
+    end
+    
+    it "#season_hash" do
+      expect(@stat_tracker.season_hash('6')).to be_a Hash
+    end
+    
     it "#best_season" do
-      expect(@stat_tracker.best_season("6")).to eq "20132014"
+      expect(@stat_tracker.best_season("6")).to eq("20132014")
     end
 
     it "#worst_season" do
-      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+      expect(@stat_tracker.worst_season("6")).to eq("20142015")
     end
   end
 end
