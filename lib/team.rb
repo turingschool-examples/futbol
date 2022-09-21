@@ -23,18 +23,6 @@ class Team
     end
     team_info_hash
   end
-  # def best_season(team)
-  #   @games_data.map do |row|
-  #     if row[:team_id] == team
-  #       if row[:result] == WIN
-  #         row[:seasonid] += 1
-  #       end
-  #     end
-  #   end
-
-  # end
-  # def worst_season
-  # end
   def average_win_percentage(team)
     win_count = 0
     loss_count = 0
