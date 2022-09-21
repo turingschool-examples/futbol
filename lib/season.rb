@@ -4,33 +4,15 @@ class Season < FutbolData
 
   #Method returns the name Coach with the best win percentage for the season in a string
   def winningest_coach(campaign)
-    coached_games = Hash.new(0)
-    coach_wins = Hash.new(0)
     game_results_percentage = Hash.new
-    
-    # method returns hash: coach (key),count fo RESULT(WIN) (value)
-    season_data(campaign).select do |row|
-      coach_wins[row[:head_coach]] += 1 if row[:result] == "WIN"
-    end
-    coach_wins 
-
-    # method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
-    season_data(campaign).find_all do |row|
-      if coach_wins.has_key?(row[:head_coach])
-        coached_games[row[:head_coach]] += 1
-      end
-    end
-    coached_games 
 
     #method merges the wins and coached games hashes for comparison
-    game_results_percentage.update(coached_games,coach_wins) do |coach, games_coached, games_won| 
-            (games_won.fdiv(games_coached)).round(4)
-        end
-    
-    winning_coach = game_results_percentage.max_by do |coach, percentage| 
-       percentage 
+    game_results_percentage.update(season_coached_games(campaign),season_coach_wins(campaign)) do |coach, games_coached, games_won| 
+      (games_won.fdiv(games_coached)).round(4)
     end
-      
+    
+    winning_coach = highest_success_rate(game_results_percentage) 
+
     winning_coach[0]
   end
 
@@ -134,5 +116,25 @@ class Season < FutbolData
     end
     efficiency
   end
+
+    # method returns hash: coach (key),count fo RESULT(WIN) (value)
+    def season_coach_wins(campaign)
+      coach_wins = Hash.new(0)
+      season_data(campaign).select do |row|
+        coach_wins[row[:head_coach]] += 1 if row[:result] == "WIN"
+      end
+      coach_wins 
+    end
+  
+    # method return a hash: coach(key), count of games coached in a season (value)-if coach had a WIN
+    def  season_coached_games(campaign)
+      coached_games = Hash.new(0)
+      season_data(campaign).find_all do |row|
+        if season_coach_wins(campaign).has_key?(row[:head_coach])
+          coached_games[row[:head_coach]] += 1
+        end
+      end
+      coached_games 
+    end
 
 end
