@@ -54,40 +54,18 @@ class Season
     worst_coach[0]
   end
 
-  # def coached_games_and_none_wins_count(campaign)
-  #   coached_games = Hash.new(0)
-  #   coach_loss_tie = Hash.new(0)
-
-  #   season_data(campaign).select do |row|
-  #     coached_games[row[:head_coach]] += 1
-  #       if row[:result] != "WIN"
-  #         coach_loss_tie [row[:head_coach]] += 1
-  #       end
-  #   end
-  #   coach_loss_tie 
-  #   coached_games 
-  # end
-
   #Team with the best ratio of shots to goals for the season (goals/shots)
   def most_accurate_team(campaign)
-
     x = (team_accuracy(campaign).max_by do |coach,percentage| 
-      # require 'pry';binding.pry
       percentage end)
 
     team_name_from_team_id(x)
-
   end
 
   #Team with the worst ratio of shots to goals for the season
-  def least_accurate_team_for(campaign)
-      # team_name_from_team_id(team_accuracy(campaign).min_by do |coach,percentage| 
-      #   percentage end)
-    
-      analysis = minimum_success_rate_for(team_accuracy(campaign))
-
-      team_name_from_team_id(analysis)
-    end
+  def least_accurate_team(campaign)
+    team_name_from_team_id(lowest_success_rate(team_accuracy(campaign)))
+  end
 
   def team_accuracy(campaign)
     season_goals = Hash.new(0)
@@ -112,7 +90,7 @@ class Season
     efficiency
   end
 
-  def minimum_success_rate_for(data)
+  def lowest_success_rate(data)
     data.min_by { |team,percentage| percentage }
   end
 
@@ -125,7 +103,7 @@ class Season
 
   #Team with the fewest tackles in the season
   def fewest_tackles(campaign)
-    team_tackle = team_tackles_calculation(campaign).min_by { |team,percentage| percentage }
+    team_tackle = lowest_success_rate(team_tackles_calculation(campaign))
     
     team_name_from_team_id(team_tackle)
   end
