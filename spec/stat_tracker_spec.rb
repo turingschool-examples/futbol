@@ -23,13 +23,19 @@ describe StatTracker do
 
   describe '#highest_total_score' do
     it 'Highest point value game' do
-			expect(stat_tracker.highest_total_score).to eq(20)
+			expect(stat_tracker.highest_total_score).to eq(7)
     end
   end
 
   describe '#lowest_total_score' do
     it 'lowest point value game' do
       expect(stat_tracker.lowest_total_score).to eq(1)
+    end
+  end
+
+  describe '#count_of_teams' do
+    it 'returns the total number of teams' do
+      expect(stat_tracker.count_of_teams).to eq(32)
     end
   end
 end

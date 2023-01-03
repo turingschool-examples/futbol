@@ -38,5 +38,8 @@ class StatTracker
 		total_scores.min
 	end
 
-  
+  def count_of_teams
+    
+  end
+
 end
