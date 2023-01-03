@@ -13,6 +13,10 @@ describe StatTracker do
       game_teams: game_teams_path
     }}
 
+
+  it 'can pull in new data from files' do
+    expect(StatTracker.from_csv(locations)).to be_an_instance_of(StatTracker)
+  end
   describe 'game' do
     
     it 'can pull in games csv data' do
@@ -62,4 +66,6 @@ describe StatTracker do
       expect(StatTracker.game_teams_csv(locations)[0].takeaways).to eq('7')
     end
   end
+
+  
 end

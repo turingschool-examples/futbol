@@ -1,19 +1,22 @@
 require 'csv'
 
 class StatTracker
-  attr_reader :games
+  attr_reader :games,
+              :teams,
+              :game_teams
 
-  def initialize
-
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
   
   def self.from_csv(locations)
     games = games_csv(locations)
-    require 'pry'; binding.pry
     teams = teams_csv(locations)
     game_teams = game_teams_csv(locations)
 
-    self.New(games, teams, game_teams)
+    self.new(games, teams, game_teams)
   end
 
   def self.games_csv(locations)
