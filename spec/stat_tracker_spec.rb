@@ -38,4 +38,11 @@ describe StatTracker do
       expect(stat_tracker.count_of_teams).to eq(32)
     end
   end
+
+  describe '#average_goals_per_game' do
+    it 'can return the average total score of all games played rounded to the 100th' do
+      expect(stat_tracker.average_goals_per_game).to eq(4.029)
+    end
+  end
+
 end
