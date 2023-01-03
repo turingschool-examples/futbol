@@ -17,8 +17,8 @@ describe StatTracker do
   it 'can pull in new data from files' do
     expect(StatTracker.from_csv(locations)).to be_an_instance_of(StatTracker)
   end
-  describe 'game' do
-    
+
+  describe 'game' do  
     it 'can pull in games csv data' do
       expect(StatTracker.games_csv(locations).length).to eq(19)
       expect(StatTracker.games_csv(locations)[0].game_id).to eq('2012030221')
@@ -66,6 +66,30 @@ describe StatTracker do
       expect(StatTracker.game_teams_csv(locations)[0].takeaways).to eq('7')
     end
   end
+
+  describe 'game statistics' do
+    before(:each) do
+      stat_tracker = StatTracker.from_csv(locations)
+    end
+
+    it "can determine #average_goals_per_game" do
+      expect(stat_tracker.average_goals_per_game).to eq(4.22)
+    end
+
+    it "can determine #average_goals_by_season" do
+      expected = {
+        "20122013"=>4.12,
+        "20162017"=>4.23,
+        "20142015"=>4.14,
+        "20152016"=>4.16,
+        "20132014"=>4.19,
+        "20172018"=>4.44
+      }
+      expect(stat_tracker.average_goals_by_season).to eq(expected)
+    end
+    
+  end
+
 
   
 end
