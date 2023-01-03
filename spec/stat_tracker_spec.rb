@@ -4,7 +4,7 @@ describe StatTracker do
   
   let(:game_path){'./data/fixtures/games_i1.csv'}
   let(:team_path){'./data/fixtures/teams_i1.csv'}
-  let(:game_teams_path){'./data/game_teams.csv'}
+  let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
   
 
   let(:locations){{
@@ -39,6 +39,27 @@ describe StatTracker do
       expect(StatTracker.teams_csv(locations)[0].abbreviation).to eq('ATL')
       expect(StatTracker.teams_csv(locations)[0].stadium).to eq('Mercedes-Benz Stadium')
       expect(StatTracker.teams_csv(locations)[0].link).to eq('/api/v1/teams/1')
+    end
+  end
+
+  describe 'game_team' do
+    it 'can pull in game_teams csv data' do
+      expect(StatTracker.game_teams_csv(locations).length).to eq(19) 
+      expect(StatTracker.game_teams_csv(locations)[0].game_id).to eq('2012030221')
+      expect(StatTracker.game_teams_csv(locations)[0].team_id).to eq('3')
+      expect(StatTracker.game_teams_csv(locations)[0].hoa).to eq('away')
+      expect(StatTracker.game_teams_csv(locations)[0].result).to eq('LOSS')
+      expect(StatTracker.game_teams_csv(locations)[0].settled_in).to eq('OT')
+      expect(StatTracker.game_teams_csv(locations)[0].head_coach).to eq('John Tortorella')
+      expect(StatTracker.game_teams_csv(locations)[0].goals).to eq('2')
+      expect(StatTracker.game_teams_csv(locations)[0].shots).to eq('8')
+      expect(StatTracker.game_teams_csv(locations)[0].tackles).to eq('44')
+      expect(StatTracker.game_teams_csv(locations)[0].pim).to eq('8')
+      expect(StatTracker.game_teams_csv(locations)[0].power_play_opportunities).to eq('3')
+      expect(StatTracker.game_teams_csv(locations)[0].power_play_goals).to eq('0')
+      expect(StatTracker.game_teams_csv(locations)[0].face_off_win_percentage).to eq('44.8')
+      expect(StatTracker.game_teams_csv(locations)[0].giveaways).to eq('17')
+      expect(StatTracker.game_teams_csv(locations)[0].takeaways).to eq('7')
     end
   end
 end
