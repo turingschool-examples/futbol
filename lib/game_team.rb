@@ -12,8 +12,8 @@ class GameTeam
                 :power_play_opportunities,
                 :power_play_goals,
                 :faceoff_win_percentage,
-                :give_aways,
-                :take_aways
+                :giveaways,
+                :takeaways
 
   def initialize(info)
     @game_id = info[:game_id]
@@ -29,7 +29,7 @@ class GameTeam
     @power_play_opportunities = info[:power_play_opportunities].to_i
     @power_play_goals = info[:power_play_goals].to_i
     @faceoff_win_percentage = info[:faceoff_win_percentage].to_f
-    @give_aways = info[:give_aways].to_i
-    @take_aways = info[:take_aways].to_i
+    @giveaways = info[:giveaways].to_i
+    @takeaways = info[:takeaways].to_i
   end
 end
