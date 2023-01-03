@@ -32,4 +32,10 @@ describe StatTracker do
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
   end
+
+	describe '#most_goals_scored' do
+		it 'returns an integer of the most goals scored by a particular team in a single game' do
+			expect(stat_tracker.most_goals_scored).to eq(9)
+		end
+	end
 end
