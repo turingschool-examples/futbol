@@ -5,8 +5,8 @@ RSpec.describe Team do
   let(:info) do
     { 
       team_id: "1",
-      franchiseid: "1",
-      teamname: "teamname",
+      franchise_id: "1",
+      team_name: "teamname",
       abbreviation: "ABC",
       stadium: "Stadium name",
       link: "link"
@@ -20,8 +20,8 @@ RSpec.describe Team do
 
     it 'has readable attributes' do
       expect(team.team_id).to eq("1")
-      expect(team.franchiseid).to eq("1")
-      expect(team.teamname).to eq("teamname")
+      expect(team.franchise_id).to eq("1")
+      expect(team.team_name).to eq("teamname")
       expect(team.abbreviation).to eq("ABC")
       expect(team.stadium).to eq("Stadium name")
       expect(team.link).to eq("link")
