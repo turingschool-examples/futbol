@@ -49,4 +49,9 @@ class StatTracker
     all_team_names.count
   end
 
+  def average_goals_per_game
+    average_score = total_scores.sum.to_f / total_scores.count
+    average_score.round(3)
+  end
+
 end
