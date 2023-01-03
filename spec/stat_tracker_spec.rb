@@ -29,4 +29,16 @@ describe StatTracker do
       expect(StatTracker.games_csv(locations)[0].venue_link).to eq('/api/v1/venues/null')
     end
   end
+
+  describe 'team' do
+    it 'can pull in teams csv data' do
+      expect(StatTracker.teams_csv(locations).length).to eq(19)
+      expect(StatTracker.teams_csv(locations)[0].team_id).to eq('1')
+      expect(StatTracker.teams_csv(locations)[0].franchise_id).to eq('23')
+      expect(StatTracker.teams_csv(locations)[0].team_name).to eq('Atlanta United')
+      expect(StatTracker.teams_csv(locations)[0].abbreviation).to eq('ATL')
+      expect(StatTracker.teams_csv(locations)[0].stadium).to eq('Mercedes-Benz Stadium')
+      expect(StatTracker.teams_csv(locations)[0].link).to eq('/api/v1/teams/1')
+    end
+  end
 end
