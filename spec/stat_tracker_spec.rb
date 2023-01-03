@@ -45,4 +45,10 @@ describe StatTracker do
     end
   end
 
+  describe '#average_win_percentage' do
+    it 'can take a teamid argument and return total win percentage across all games played' do
+      expect(stat_tracker.average_win_percentage(52)).to eq(0.500)
+    end
+  end
+
 end
