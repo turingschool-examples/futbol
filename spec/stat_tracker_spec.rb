@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 
 describe StatTracker do
-	before do
+  before do
 		game_path = './data/games_sample.csv'
 		team_path = './data/teams.csv'
 		game_teams_path = './data/game_teams_sample.csv'
@@ -13,15 +13,17 @@ describe StatTracker do
 		}
 	end
 
+  let(:stat_tracker) { StatTracker.from_csv(@locations) }
+
 	describe '#initialize' do
 		it 'exists' do
-			stat_tracker = StatTracker.from_csv(@locations)
 			expect(stat_tracker).to be_a(StatTracker)
 		end
 	end
 
-  # describe '#highest_total_score' do
-  #   it 'Highest sum of the winning and losing teams scores' do
-
-	
+  xdescribe '#highest_total_score' do
+    it 'Highest point value in a game' do
+			expect(stat_tracker.highest_total_score).to eq(20)
+    end
+  end
 end
