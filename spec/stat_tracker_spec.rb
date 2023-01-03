@@ -68,10 +68,8 @@ describe StatTracker do
   end
 
   describe 'game statistics' do
-    before(:each) do
-      stat_tracker = StatTracker.from_csv(locations)
-    end
-
+    let(:stat_tracker) {StatTracker.from_csv(locations)}
+    
     it "can determine #average_goals_per_game" do
       expect(stat_tracker.average_goals_per_game).to eq(4.22)
     end
@@ -87,7 +85,7 @@ describe StatTracker do
       }
       expect(stat_tracker.average_goals_by_season).to eq(expected)
     end
-    
+
   end
 
 
