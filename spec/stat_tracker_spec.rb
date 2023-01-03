@@ -21,8 +21,8 @@ describe StatTracker do
 		end
 	end
 
-  xdescribe '#highest_total_score' do
-    it 'Highest point value in a game' do
+  describe '#highest_total_score' do
+    it 'Highest point value game' do
 			expect(stat_tracker.highest_total_score).to eq(20)
     end
   end
