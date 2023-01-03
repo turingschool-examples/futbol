@@ -1,3 +1,5 @@
+# require 'csv'
+
 class StatTracker 
     attr_reader :locations, 
                 :games_array,
