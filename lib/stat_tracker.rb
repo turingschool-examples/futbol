@@ -1,3 +1,5 @@
+# require 'csv'
+
 class StatTracker 
     attr_reader :locations, 
                 :games_array,
@@ -9,18 +11,20 @@ class StatTracker
     @games_array = []
     @teams_array = []
     @game_teams_array = []
+
+    CSV.foreach(locations[:games], headers: true) do |info|
+      @games_array << Game.new(info)
+    end
+    CSV.foreach(locations[:teams], headers: true) do |info|
+      @teams_array << Teams.new(info)
+    end
+    CSV.foreach(locations[:game_teams], headers: true) do |info|
+      @game_teams_array << GameTeams.new(info)
+    end
   end
 
     def self.from_csv(locations)
-      CSV.foreach(locations[:games], headers: true) do |info|
-        @games_array << Game.new(info)
-      end
-      CSV.foreach(locations[:teams], headers: true) do |info|
-        @teams_array << Teams.new(info)
-      end
-      CSV.foreach(locations[:game_teams], headers: true) do |info|
-        @game_teams_array << GameTeams.new(info)
-      end
+      new(locations)
     end
 end
 
