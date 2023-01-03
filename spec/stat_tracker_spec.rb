@@ -68,10 +68,20 @@ describe StatTracker do
   end
 
   describe 'game statistics' do
-    let(:stat_tracker) {StatTracker.from_csv(locations)}
+    let(:game_path_2){'./data/fixtures/games_i2.csv'}
+    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
+    
+    let(:locations_2){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path
+    }}
+
+    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
+
 
     it "can determine #average_goals_per_game" do
-      expect(stat_tracker.average_goals_per_game).to eq(3.68)
+      expect(stat_tracker.average_goals_per_game).to eq(4.45)
     end
 
     it "can determine #average_goals_by_season" do
