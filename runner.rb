@@ -1,3 +1,4 @@
+require 'csv'
 require './lib/stat_tracker'
 
 game_path = './data/games.csv'
