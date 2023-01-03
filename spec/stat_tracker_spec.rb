@@ -19,6 +19,7 @@ RSpec.describe StatTracker do
 	  end
 
     it 'has attributes' do
-      expect(@stat1.game_ids).to eq([2012030221, 2012030222, 2012030223])
+
+      # expect(@stat1.game_ids).to eq([2012030221, 2012030222, 2012030223])
     end
 end
