@@ -22,14 +22,14 @@ class GameTeam
     @result = info[:result]
     @settled_in = info[:settled_in]
     @head_coach = info[:head_coach]
-    @goals = info[:goals]
-    @shots = info[:shots]
-    @tackles = info[:tackles]
-    @pim = info[:pim]
-    @power_play_opportunities = info[:power_play_opportunities]
-    @power_play_goals = info[:power_play_goals]
-    @faceoff_win_percentage = info[:faceoff_win_percentage]
-    @give_aways = info[:give_aways]
-    @take_aways = info[:take_aways]
+    @goals = info[:goals].to_i
+    @shots = info[:shots].to_i
+    @tackles = info[:tackles].to_i
+    @pim = info[:pim].to_i
+    @power_play_opportunities = info[:power_play_opportunities].to_i
+    @power_play_goals = info[:power_play_goals].to_i
+    @faceoff_win_percentage = info[:faceoff_win_percentage].to_f
+    @give_aways = info[:give_aways].to_i
+    @take_aways = info[:take_aways].to_i
   end
 end
