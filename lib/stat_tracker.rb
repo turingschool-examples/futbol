@@ -23,4 +23,19 @@ class StatTracker
 			row[:game_id]
 		end
 	end
+
+	def total_scores
+		@games.map do |row|
+			row[:away_goals].to_i + row[:home_goals].to_i
+		end
+	end
+
+	def highest_total_score
+		total_scores.max
+	end
+
+	def lowest_total_score
+		total_scores.min
+	end
+
 end
