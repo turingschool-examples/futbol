@@ -43,6 +43,12 @@ describe StatTracker do
       expect(stat_tracker.percentage_visitor_wins).to eq(0.50)
     end
   end
+
+  describe '#percentage_ties' do
+    it 'returns percent of tied games' do
+      expect(stat_tracker.percentage_ties).to eq(0.17)
+    end
+  end
 end
 
 
