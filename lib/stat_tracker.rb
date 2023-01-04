@@ -64,7 +64,8 @@ class StatTracker
 	def average_goals_by_season
 		hash = all_game_scores_by_season
 		hash.each do |k, v|
-			hash[k] = (v.reduce(&:+) / v.size.to_f).round(2)
+			# require 'pry'; binding.pry
+			hash[k] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
 		end
 		hash
 	end
