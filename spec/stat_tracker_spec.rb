@@ -2,9 +2,9 @@ require 'csv'
 require 'spec_helper.rb'
 
 RSpec.describe StatTracker do
-  let(:game_path) { './data/games.csv' }
-  let(:team_path) { './data/teams.csv' }
-  let(:game_teams_path) { './data/game_teams.csv' }
+  let(:game_path) { './data/games_fixture.csv' }
+  let(:team_path) { './data/teams_fixture.csv' }
+  let(:game_teams_path) { './data/game_teams_fixture.csv' }
   let(:locations) do 
     {
     games: game_path,
@@ -30,9 +30,9 @@ RSpec.describe StatTracker do
 
     it "all of the objects in the respective arrays are of one specific object type consistent with the array" do 
 
-      expect(stat_tracker.game_teams[0..14882]).to all(be_an_instance_of(Hash))
+      expect(stat_tracker.game_teams[0..49]).to all(be_an_instance_of(Hash))
 
-      expect(stat_tracker.games[0..7441]).to all(be_an_instance_of(Hash))
+      expect(stat_tracker.games[0..47]).to all(be_an_instance_of(Hash))
         
       expect(stat_tracker.teams[0..32]).to all(be_an_instance_of(Hash))
 
@@ -41,22 +41,23 @@ RSpec.describe StatTracker do
 
     it "the objects all have the correct attributes" do 
     
-      expect(stat_tracker.game_teams[rand(0..14882)][:game_id]).to be_a(Integer)
+      expect(stat_tracker.game_teams[rand(0..49)][:game_id]).to be_a(Integer)
 
-      expect(stat_tracker.games[rand(0..7441)][:home_goals]).to be_a(Integer)
+      expect(stat_tracker.games[rand(0..47)][:home_goals]).to be_a(Integer)
 
       expect(stat_tracker.teams[rand(0..32)][:team_id]).to be_a(Integer)
     
-      expect(stat_tracker.game_teams[rand(0..14882)][:hoa]).to be_a(String)
+      expect(stat_tracker.game_teams[rand(0..49)][:hoa]).to be_a(String)
 
-      expect(stat_tracker.game_teams[rand(0..14882)][:faceoff_win_percentage]).to be_a(Float)
+      expect(stat_tracker.game_teams[rand(0..49)][:faceoff_win_percentage]).to be_a(Float)
 
-      expect(stat_tracker.games[rand(0..7441)][:venue]).to be_a(String)
+      expect(stat_tracker.games[rand(0..47)][:venue]).to be_a(String)
 
       expect(stat_tracker.teams[rand(0..32)][:abbreviation]).to be_a(String)
 
     end 
-
-  
   end
+  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
+
+
 end
