@@ -132,6 +132,7 @@ describe StatTracker do
 
     it "can determine #percentage_ties" do
       expect(stat_tracker.percentage_ties).to eq(12.24)
+    end
 
     it "can determine highest_total_score" do
       expect(stat_tracker.highest_total_score).to eq(8)
@@ -158,12 +159,12 @@ describe StatTracker do
       expect(stat_tracker.count_of_teams).to eq(19)
     end
 
-    
+    it 'can calculate the lowest_scoring_home' do
+      expect(stat_tracker.lowest_scoring_home).to eq("New York City FC, San Jose Earthquakes")
+    end
+
     it 'can calculate the lowest_scoring_visitor' do
       expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
     end
   end
-
-
-  
 end
