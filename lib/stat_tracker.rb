@@ -88,19 +88,24 @@ class StatTracker
     
     end
     games_array
-    require 'pry'; binding.pry
   end
 
   def self.teams_from_csv(locations)
     teams_array = []
     CSV.foreach(locations[:teams], headers: true) do |info|
-      info = info.to_h
-      hash2= info.map do |value, key|
-        [value.to_sym, key]
-      end
-      info = hash2.to_h
-      teams_array << Team.new(info)
+
+      new_info = {
+        team_id: info["team_id"].to_i,
+        franchise_id: info["franchiseId"].to_i,
+        team_name: info["teamName"],
+        abbreviation: info["abbreviation"],
+        stadium: info["Stadium"],
+        link: info["link"]
+      }
+
+      teams_array << new_info
     end
+    require 'pry'; binding.pry
     teams_array
   end
 end
