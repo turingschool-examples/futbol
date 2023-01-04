@@ -39,18 +39,18 @@ class StatTracker
 	end
 
 	def most_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].max.to_i
+		all_game_scores_by_team[team_id.to_s].max
 	end
 	
 	def fewest_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].min.to_i
+		all_game_scores_by_team[team_id.to_s].min
 	end
 
 	def all_game_scores_by_team
 		hash = Hash.new {|k, v| k[v] = []}
 		@games.each do |row|
-			hash[row[:home_team_id]] << row[:home_goals]
-			hash[row[:away_team_id]] << row[:away_goals]
+			hash[row[:home_team_id]] << row[:home_goals].to_i
+			hash[row[:away_team_id]] << row[:away_goals].to_i
 		end
 		hash
 	end
@@ -59,6 +59,23 @@ class StatTracker
 		@games.map do |row|
 			row[:season]
 		end.tally
+	end
+
+	def average_goals_by_season
+		hash = all_game_scores_by_season
+		hash.each do |k, v|
+			hash[k] = (v.reduce(&:+) / v.size.to_f).round(2)
+		end
+		hash
+	end
+
+	def all_game_scores_by_season
+		hash = Hash.new {|k, v| k[v] = []}
+		@games.each do |row|
+			hash[row[:season]] << row[:home_goals].to_i
+			hash[row[:season]] << row[:away_goals].to_i
+		end
+		hash
 	end
   
 end
