@@ -1,5 +1,5 @@
 
-class GameTeams
+class GameTeam
     def initialize
 
     end
