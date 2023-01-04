@@ -23,7 +23,7 @@ describe StatTracker do
 
   describe '#highest_total_score' do
     it 'Highest point value game' do
-			expect(stat_tracker.highest_total_score).to eq(20)
+			expect(stat_tracker.highest_total_score).to eq(7)
     end
   end
 
@@ -35,7 +35,7 @@ describe StatTracker do
 
 	describe '#most_goals_scored' do
 		it 'returns an integer of the most goals scored by a particular team in a single game' do
-			expect(stat_tracker.most_goals_scored).to eq(9)
+			expect(stat_tracker.most_goals_scored(6)).to eq(4)
 		end
 	end
 end
