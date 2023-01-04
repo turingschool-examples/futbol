@@ -1,59 +1,59 @@
-# require 'csv'
+require 'csv'
 
 class StatTracker 
-    attr_reader :locations, 
-                :games_array,
-                :teams_array,
-                :game_teams_array
+    attr_reader :game_teams,
+                :games,
+                :teams
 
-  def initialize(locations)
-    @locations = locations
-    @games_array = []
-    @teams_array = []
-    @game_teams_array = []
-
-    CSV.foreach(locations[:games], headers: true) do |info|
-      @games_array << Game.new(info)
-    end
-    CSV.foreach(locations[:teams], headers: true) do |info|
-      @teams_array << Teams.new(info)
-    end
-    CSV.foreach(locations[:game_teams], headers: true) do |info|
-      @game_teams_array << GameTeams.new(info)
-    end
+  def initialize(game_teams, games, teams)
+    @game_teams = game_teams
+    @games = games
+    @teams = teams
   end
 
-    def self.from_csv(locations)
-      new(locations)
+  def self.from_csv(locations)
+    game_teams = game_teams_from_csv(locations)
+    games = games_from_csv(locations)
+    teams = teams_from_csv(locations)
+    self.new(game_teams, games, teams)
+  end
+
+  def self.game_teams_from_csv(locations)
+    game_teams_array = []
+    CSV.foreach(locations[:game_teams], headers: true) do |info|
+      info = info.to_h
+      hash2= info.map do |value, key|
+        [value.to_sym, key]
+      end
+      info = hash2.to_h
+      game_teams_array << GameTeam.new(info)
     end
+    game_teams_array
+  end
+
+  def self.games_from_csv(locations)
+    games_array = []
+    CSV.foreach(locations[:games], headers: true) do |info|
+      info = info.to_h
+      hash2= info.map do |value, key|
+        [value.to_sym, key]
+      end
+      info = hash2.to_h
+      games_array << Game.new(info)
+    end
+    games_array
+  end
+
+  def self.teams_from_csv(locations)
+    teams_array = []
+    CSV.foreach(locations[:teams], headers: true) do |info|
+      info = info.to_h
+      hash2= info.map do |value, key|
+        [value.to_sym, key]
+      end
+      info = hash2.to_h
+      teams_array << Team.new(info)
+    end
+    teams_array
+  end
 end
-
-
-# def initialize(locations)
-#   # This instance of StatTracker will hold all of 
-#   # the information you need for the methods included 
-#   # in the remainder of the project description.
-#   games_array = []
-#   teams_array = []
-#   game_teams_array = []
-# require 'pry'; binding.pry
-#   # maybe this makes sense:
-#   CSV.foreach(locations[:games], headers: true) do |info|
-#     games_array << Game.new(info)
-#   end
-
-#   # general idea: 
-#   CSV.foreach(locations[:teams]) do
-#     teams_array << teams
-#   end
-
-#   # general idea: 
-#   CSV.foreach(locations[:game_teams]) do
-#     game_teams_array << game_teams
-#   end
-# end
-# require 'pry'; binding.pry
-#   def self.from_csv(locations)
-#      new(locations)
-#      require 'pry'; binding.pry
-#   end
