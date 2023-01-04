@@ -76,14 +76,15 @@ class StatTracker
 		h_wins = @game_teams.count do |row|
 			row if row[:hoa] == "home" && row[:result] == "WIN"
 		end
-		(h_wins/@game_teams.count.to_f).round(2)
+		# require 'pry'; binding.pry
+		(h_wins/@game_teams.count.to_f).round(2)*2
 	end
 
 	def percentage_visitor_wins
 		v_wins = @game_teams.count do |row|
 			row if row[:hoa] == "away" && row[:result] == "WIN"
 		end
-		(v_wins/@game_teams.count.to_f).round(2)
+		(v_wins/@game_teams.count.to_f).round(2)*2
 	end
 
 	def percentage_ties
@@ -136,6 +137,16 @@ class StatTracker
 		hash
 	end
 
+	def find_team_by_id
+		@find_team_by_id ||= @teams.group_by do |row|
+			# require 'pry'; binding.pry
+			row[:team_id]
+		end
+	end
+
+	def most_tackles
+		# use games_played_by_season
+end
 	def winningest_coach(season_id)
 		coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
 		coach_game_results.each do |k, v|
