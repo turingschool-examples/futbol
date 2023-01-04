@@ -63,14 +63,20 @@ describe StatTracker do
 	describe '#average_goals_by_season' do
 		it 'returns a hash with seasons as keys and average goals per season as values' do
 			expected = {
-				"20122013" => 2.06,
-				"20132014" => 2.5,
-				"20152016" => 1.5,
-				"20162017" => 2.19,
-				"20172018" => 1.94
+				"20122013" => 4.13,
+				"20132014" => 5.0,
+				"20152016" => 3.0,
+				"20162017" => 4.38,
+				"20172018" => 3.89
 			}
 
 			expect(stat_tracker.average_goals_by_season).to eq(expected)
+		end
+	end
+
+	describe '#winingest_coach' do
+		it 'names the coach with the best win percentage for the season' do
+			expect(winingest_coach(20172018)).to eq()
 		end
 	end
 end
