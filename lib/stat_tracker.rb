@@ -51,7 +51,7 @@ class StatTracker
 
   def average_goals_per_game
     average_score = total_scores.sum.to_f / total_scores.count
-    average_score.round(3)
+    average_score.round(2)
   end
 
   def average_win_percentage(team_id)
@@ -139,14 +139,38 @@ class StatTracker
 
 	def find_team_by_id
 		@find_team_by_id ||= @teams.group_by do |row|
-			# require 'pry'; binding.pry
 			row[:team_id]
 		end
 	end
 
-	def most_tackles
-		# use games_played_by_season
-end
+	def most_tackles(season_id)
+		tackles_hash = tackles_by_team_id(game_ids_for_season(season_id))
+		tackles_hash.each do |k,v|
+			tackles_hash[k] = v.sum
+		end
+		team_id = tackles_hash.key(tackles_hash.values.max)
+		find_team_by_id[team_id].first[:teamname]
+	end
+
+	def fewest_tackles(season_id)
+		tackles_hash = tackles_by_team_id(game_ids_for_season(season_id))
+		tackles_hash.each do |k,v|
+			tackles_hash[k] = v.sum
+		end
+		team_id = tackles_hash.key(tackles_hash.values.min)
+		find_team_by_id[team_id].first[:teamname]
+	end
+
+	def tackles_by_team_id(array_of_game_id)
+		hash = Hash.new {|k, v| k[v] = []}
+		array_of_game_id.each do |game_id|
+			games_by_game_id[game_id].each do |game|
+				hash[game[:team_id]] << game[:tackles].to_i
+			end
+		end
+		hash
+	end
+
 	def winningest_coach(season_id)
 		coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
 		coach_game_results.each do |k, v|
@@ -189,5 +213,4 @@ end
 			row[:game_id]
 		end
 	end
-
 end
