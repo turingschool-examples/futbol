@@ -87,4 +87,10 @@ class StatTracker
     end
     teams_array
   end
+ #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
+ #Percentage of games that a home team has won (rounded to the nearest 100th)
+ def percentage_home_wins
+
+
+ end
 end
