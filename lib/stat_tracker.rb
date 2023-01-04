@@ -29,6 +29,7 @@ class StatTracker
     (total_goals.to_f / total_games).round(2)
   end
 
+
   def average_goals_by_season
     # average_goals_by_season = {}
     # goal_amounts = []
@@ -49,6 +50,34 @@ class StatTracker
     # end
   end 
 
+   def count_of_games_by_season
+    count_of_games_by_season = Hash.new(0)
+         seasons = @games.map { |row| row[:season]}.tally
+   end
+
+  def percentage_home_wins
+    tally = 0
+    @game_teams.find_all do |row|
+       tally += 1 if (row[:hoa] == "home" && row[:result] == "WIN") || (row[:hoa] == "away" && row[:result] == "LOSS")
+    end
+    (tally.to_f / @game_teams.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    tally = 0
+    @game_teams.find_all do |row|
+       tally += 1 if (row[:hoa] == "away" && row[:result] == "WIN") || (row[:hoa] == "home" && row[:result] == "LOSS")
+    end
+    (tally.to_f / @game_teams.count.to_f).round(2)
+  end
+
+  def percentage_ties
+    tally = 0 
+    @game_teams.find_all do |row|
+       tally += 1 if (row[:hoa] == "away" && row[:result] == "TIE") || (row[:hoa] == "home" && row[:result] == "TIE")
+    end
+    (tally.to_f / @game_teams.count.to_f).round(2)
+  end
 end
 
 
