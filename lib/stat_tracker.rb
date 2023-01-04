@@ -15,7 +15,7 @@ class StatTracker
     game_teams = game_teams_from_csv(locations)
     games = games_from_csv(locations)
     teams = teams_from_csv(locations)
-    self.new(game_teams, games, teams)
+    StatTracker.new(game_teams, games, teams)
   end
 
   def self.game_teams_from_csv(locations)
@@ -26,10 +26,46 @@ class StatTracker
         [value.to_sym, key]
       end
       info = hash2.to_h
+      info_updated= []
+      info.each do |key, value|
+        if key == :game_id
+          info_updated << [key, value.to_i]
+        elsif key == :team_id
+          info_updated << [key, value.to_i]
+        elsif key == :HoA
+          info_updated << [key, value]
+        elsif key == :result
+          info_updated << [key, value]
+        elsif key == :settled_in
+          info_updated << [key, value]
+        elsif key == :head_coach
+          info_updated << [key, value]
+        elsif key == :goals
+          info_updated << [key, value.to_i]
+        elsif key == :shots
+          info_updated << [key, value.to_i]
+        elsif key == :tackles
+          info_updated << [key, value.to_i]
+        elsif key == :pim
+          info_updated << [key, value.to_i]
+        elsif key == :powerPlayOpportunities
+          info_updated << [key, value.to_i]
+        elsif key == :powerPlayGoals
+          info_updated << [key, value.to_i]
+        elsif key == :faceOffWinPercentage
+          info_updated << [key, value.to_f]
+        elsif key == :giveaways
+          info_updated << [key, value.to_i]
+        elsif key == :takeaways
+          info_updated << [key, value.to_i]
+        end
+      end 
+      info = info_updated.to_h
       game_teams_array << GameTeam.new(info)
     end
     game_teams_array
-  end
+    end
+  
 
   def self.games_from_csv(locations)
     games_array = []

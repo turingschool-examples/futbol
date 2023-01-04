@@ -6,21 +6,21 @@ RSpec.describe Team do
 
   let(:team){Team.new(info)}
   let(:info){{
-    "team_id"=>"1",
-    "franchiseId"=>"23",
-    "teamName"=>"Atlanta United",
-    "abbreviation"=>"ATL",
-    "Stadium"=>"Mercedes-Benz Stadium",
-    "link"=>"/api/v1/teams/1"
+    :team_id=>"1",
+    :franchiseId=>"23",
+    :teamName=>"Atlanta United",
+    :abbreviation=>"ATL",
+    :Stadium=>"Mercedes-Benz Stadium",
+    :link=>"/api/v1/teams/1"
   }} 
   let(:team_2){Team.new(info_2)}
   let(:info_2){{
-    "team_id"=>"4",
-    "franchiseId"=>"16",
-    "teamName"=>"Chicago Fire",
-    "abbreviation"=>"CHI",
-    "Stadium"=>"SeatGeek Stadium",
-    "link"=>"/api/v1/teams/4"
+    :team_id=>"4",
+    :franchiseId=>"16",
+    :teamName=>"Chicago Fire",
+    :abbreviation=>"CHI",
+    :Stadium=>"SeatGeek Stadium",
+    :link=>"/api/v1/teams/4"
   }} 
 
     it "exists as a Game object" do 
@@ -47,16 +47,6 @@ RSpec.describe Team do
       expect(team_2.stadium).to eq("SeatGeek Stadium")
       expect(team_2.link).to eq("/api/v1/teams/4")
 
-    end
-
-
-
-    # it "pushes the information to a new array after creating the team" do
-
-
-
-    # end
-
-      
+    end      
 
   end
