@@ -70,7 +70,7 @@ class StatTracker
 	end
    
   def average_goals_per_game
-    (all_scores.sum / @game_path.count).to_f.round(2)
+    (all_scores.sum / @game_path.count.to_f).round(2)
   end
 
   def average_goals_by_season
@@ -88,4 +88,38 @@ class StatTracker
   def count_of_teams
     @team_path.count
   end
+
+  def best_offense
+    best = average_goals_by_team_hash.max_by {|k,v| v}
+
+    @team_path.map do |team| 
+      if team[:team_id] == best[0]
+        team[:teamname]
+      end
+    end.compact.pop
+  end
+
+  def worst_offense 
+     worst = average_goals_by_team_hash.min_by {|k,v| v}
+     
+     @team_path.map do |team| 
+      if team[:team_id] == worst[0]
+        team[:teamname]
+      end
+    end.compact.pop
+  end
+
+  def average_goals_by_team_hash #HELPER for best and worst offense methods
+    games_grouped_by_team = @game_teams_path.group_by {|row| row[:team_id]}
+    average_goals_per_team = {}
+
+    games_grouped_by_team.each do |team, games| 
+      total_goals = games.sum do |game| 
+        game[:goals].to_i 
+      end
+      average_goals_per_team[team] = (total_goals / games.count.to_f).round(2)
+    end
+    average_goals_per_team
+  end
+
 end
