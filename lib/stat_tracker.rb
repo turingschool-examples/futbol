@@ -29,6 +29,8 @@ class StatTracker
     (total_goals.to_f/ total_games).round(2)
   end
 
+  
+
 end
 
 
