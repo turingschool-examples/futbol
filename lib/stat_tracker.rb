@@ -71,9 +71,8 @@ class StatTracker
 
 
   def find_team_id
-    team = teams.each do |row|
-      row[:team_id].to_i
-      # require 'pry'; binding.pry
+    team = teams.map do |row|
+      row[:team_id]
     end
   end
   # def best_offense
