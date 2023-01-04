@@ -138,6 +138,7 @@ class StatTracker
       (total_goals.to_f/games.length).round(2)
     end
 
+
     #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
     def count_of_games_by_season
       hash = {}
@@ -179,6 +180,25 @@ class StatTracker
         end
       end
       goal_counter
+      
+    def game_score_totals_sorted #Helper method for highest and lowest total score
+      games.map do |game|
+        game.home_goals.to_i + game.away_goals.to_i
+      end.sort
     end
-  
+
+    def highest_total_score
+      game_score_totals_sorted.last
+    end
+
+    def lowest_total_score
+      game_score_totals_sorted.first
+    end
+
+  ## LEAGUE STATISTIC METHODS
+
+    def count_of_teams
+      teams.count
+
+    end
 end
