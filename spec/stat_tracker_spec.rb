@@ -48,4 +48,24 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.home_wins_array.class).to eq(Array)
     end
   end
+  
+  describe '#average_goals_per_game' do
+    it 'finds the average number of goals per game' do
+      expect(@stat_tracker.average_goals_per_game).to eq(4.00)
+    end
+  end
+
+  describe '#average_goals_by_season' do
+    it 'finds the average goals per game per season' do
+      expect(@stat_tracker.average_goals_by_season.class).to eq(Hash)
+      expect(@stat_tracker.average_goals_by_season).to eq(
+        {"20122013"=>4.05, "20132014"=>3.88} )
+    end
+  end
+
+  describe '#count_of_teams' do
+    it 'finds the total number of teams' do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+  end
 end
