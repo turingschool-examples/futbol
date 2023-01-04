@@ -121,6 +121,10 @@ describe StatTracker do
       expect(stat_tracker.count_of_teams).to eq(19)
     end
 
+    
+    it 'can calculate the lowest_scoring_visitor' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
+    end
   end
 
 
