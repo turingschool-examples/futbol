@@ -18,7 +18,7 @@ RSpec.describe StatTracker do
   it "exists" do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
-
+  # Game
   it "can calculate the highest total game score" do
     expect(@stat_tracker.highest_total_score).to eq(5)
   end
@@ -30,6 +30,10 @@ RSpec.describe StatTracker do
   # League
   it "can list the total number of teams" do
     expect(@stat_tracker.count_of_teams).to eq(5)
+  end
+
+  it "can name the team with the highest average score" do
+    expect(@stat_tracker.best_offense).to eq("1")
   end
 
 
