@@ -1,0 +1,6 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2012030221,6,home,WIN,OT,Claude Julien,3,12,51,6,4,1,55.2,4,5
+2012030223,3,home,LOSS,REG,John Tortorella,1,6,37,2,2,0,38.2,7,9
+2012030312,5,home,LOSS,REG,Dan Bylsma,1,6,37,4,2,0,49.1,12,5
+2012030233,17,home,WIN,REG,Mike Babcock,3,7,28,10,5,0,56.1,9,3
+2012030323,16,away,LOSS,REG,Joel Quenneville,1,5,26,12,2,0,41.4,15,1
