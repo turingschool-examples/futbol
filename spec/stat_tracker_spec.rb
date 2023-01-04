@@ -27,5 +27,11 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_total_score).to eq(3)
   end
 
+  # League
+  it "can list the total number of teams" do
+    expect(@stat_tracker.count_of_teams).to eq(5)
+  end
+
+
 
 end
