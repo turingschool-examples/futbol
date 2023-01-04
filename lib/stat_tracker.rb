@@ -31,6 +31,15 @@ class StatTracker
    @teams.count
   end
 
+  def nested_hash_creator
+    Hash.new {|h,k| h[k] = Hash.new(0) }
+  end
+
+
+
+
+
+ 
 
   
 
