@@ -49,6 +49,20 @@ describe StatTracker do
       expect(stat_tracker.percentage_ties).to eq(0.17)
     end
   end
+
+  describe '#count_of_games_by_season' do
+    it 'creates a hash with season names as keys and counts of games as values' do
+      expected_hash = {
+                        "20142015" => 3,
+                        "20162017" => 1,
+                        "20172018" => 1,
+                        "20122013" => 1
+                      }
+      expect(stat_tracker.count_of_games_by_season).to eq(expected_hash)
+    end
+  end
+
+  describe ''
 end
 
 
