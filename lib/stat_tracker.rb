@@ -74,6 +74,7 @@ class StatTracker
     team = teams.map do |row|
       row[:team_id]
     end
+    team
   end
   # def best_offense
 
