@@ -137,14 +137,17 @@ class StatTracker
 	end
 
 	def winningest_coach(season_id)
-		games = games_played_by_season[season_id.to_s]
-		game_ids_for_season = games.map do |row|
-			row[:game_id]
-		end
-		coach_game_results = coach_game_results_by_game(game_ids_for_season)
+		coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
 		coach_game_results.each do |k, v|
 			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
 		end.key(coach_game_results.values.max)
+	end
+
+	def game_ids_for_season(season_id)
+		games = games_played_by_season[season_id.to_s]
+		games.map do |row|
+			row[:game_id]
+		end
 	end
   
 	def games_played_by_season
