@@ -11,7 +11,6 @@ class Game
                 :venue_link
 
     def initialize(info)
-        # require 'pry'; binding.pry
         @game_id = info[:game_id]
         @season = info[:season]
         @type = info[:type]
