@@ -40,7 +40,7 @@ class StatTracker
     (wins.to_f / @game_path.count).round(2)
   end
 
-  def count_games_by_season
+  def count_of_games_by_season
     season_id = @game_path.group_by { |row| row[:season] }
     season_id.each do |season, game|
       season_id[season] = game.count
