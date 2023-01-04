@@ -35,6 +35,9 @@ class StatTracker
     Hash.new {|h,k| h[k] = Hash.new(0) }
   end
 
+def team_id_to_name(id)
+  @teams.find { |team| team[:team_id] == id }[:teamname]
+end
 
 
 
