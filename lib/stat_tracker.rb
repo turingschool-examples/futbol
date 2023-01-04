@@ -67,6 +67,12 @@ class StatTracker
       @venue = info[:venue]
       @venue_link = info[:venue_link]
     end
+
+    def goals_per_game
+      away_goals.to_i + home_goals.to_i
+    end
+
+    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
   end
 
   class Team
@@ -122,5 +128,16 @@ class StatTracker
       @takeaways = info[:takeaways]
     end
   end
+  
+
+  ## GAME STATISTIC METHODS
+
+    def average_goals_per_game
+      total_goals = games.reduce(0) do |sum, game|
+        sum + game.goals_per_game
+      end
+
+      (total_goals.to_f/games.length).round(2)
+    end
   
 end
