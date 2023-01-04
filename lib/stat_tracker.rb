@@ -70,22 +70,25 @@ class StatTracker
   def self.games_from_csv(locations)
     games_array = []
     CSV.foreach(locations[:games], headers: true) do |info|
-      
+  
       new_info = {
         game_id: info["game_id"].to_i, 
-        season: info["season"], 
-        type: info[]
-
-
+        season: info["season"].to_i, 
+        type: info["type"], 
+        date_time: info["date_time"],
+        away_team_id: info["away_team_id"].to_i,
+        home_team_id: info["home_team_id"].to_i,
+        away_goals: info["away_goals"].to_i,
+        home_goals: info["home_goals"].to_i,
+        venue: info["venue"],
+        venue_link: info["venue_link"]
       }  
 
       games_array << new_info
-      require 'pry'; binding.pry
-
-       
-      # games_array << Game.new(info)
+    
     end
     games_array
+    require 'pry'; binding.pry
   end
 
   def self.teams_from_csv(locations)
