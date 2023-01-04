@@ -78,6 +78,20 @@ class StatTracker
     end
     (tally.to_f / @game_teams.count.to_f).round(2)
   end
+
+  def winningest_coach(season_id)
+    @game_teams.each do |row|
+
+    end
+  end
+
+  def worst_coach(season_id)
+
+  end
+
+  def most_tackles(season_id)
+
+  end
 end
 
 
