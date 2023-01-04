@@ -38,6 +38,20 @@ class StatTracker
 		total_scores.min
 	end
 
+	def percentage_home_wins
+		h_wins = @game_teams.count do |row|
+			row if row[:hoa] == "home" && row[:result] == "WIN"
+		end
+		h_wins/@game_teams.count.to_f.round(2)
+	end
+
+	def percentage_visitor_wins
+		v_wins = @game_teams.count do |row|
+			row if row[:hoa] == "away" && row[:result] == "WIN"
+		end
+		v_wins/@game_teams.count.to_f.round(2)
+	end
+
 	def most_goals_scored(team_id)
 		all_game_scores_by_team[team_id.to_s].max
 	end
@@ -78,5 +92,4 @@ class StatTracker
 		end
 		hash
 	end
-  
 end
