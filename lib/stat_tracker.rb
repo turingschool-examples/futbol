@@ -27,9 +27,10 @@ class StatTracker
   end
     
   def highest_total_score
-    highest_score = []
-    @games.sum do |data|
-      highest_score << [(data[:away_goals].to_i + data[:home_goals].to_i)]
+    total_scores = []
+    @games.each do |row|
+      total_scores << row[:away_goals].to_i + row[:home_goals].to_i
     end
+    total_scores.max
   end
 end
