@@ -1,4 +1,4 @@
-require './lib/games'
+require './lib/game'
 require './lib/stat_tracker'
 
 game_path = './data/games.csv'
