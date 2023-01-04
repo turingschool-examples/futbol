@@ -59,7 +59,13 @@ describe StatTracker do
 
   describe '#percentage_visitor_wins' do
     it 'returns % of visitor team wins (rounded x.xx)' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.30)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.24)
+    end
+  end
+
+  describe '#percentage_ties' do
+    it 'returns % of ties (rounded x.xx)' do
+      expect(stat_tracker.percentage_ties).to eq(0.17)
     end
   end
 
