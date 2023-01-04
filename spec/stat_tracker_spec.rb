@@ -62,7 +62,11 @@ describe StatTracker do
     end
   end
 
-  describe ''
+  describe '#average_goals_per_game' do
+    it 'determines the average goals per game' do
+      expect(stat_tracker.average_goals_per_game).to eq(4.67)
+    end
+  end
 end
 
 

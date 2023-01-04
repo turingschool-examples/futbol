@@ -10,6 +10,7 @@ class StatTracker
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
+    @total_scores = []
     @game_id = @games[:game_id]
     @season = @games[:season]
     @type = @games[:type].to_s
@@ -25,21 +26,21 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-    
-  def highest_total_score
-    total_scores = []
+   
+  def total_scores
     @games.each do |row|
-      total_scores << row[:away_goals].to_i + row[:home_goals].to_i
+      @total_scores << row[:away_goals].to_i + row[:home_goals].to_i
     end
-    total_scores.max
+  end
+
+  def highest_total_score
+    total_scores
+    @total_scores.max
   end
 
   def lowest_total_score
-    total_scores = []
-    @games.each do |row|
-      total_scores << row[:away_goals].to_i + row[:home_goals].to_i
-    end
-    total_scores.min
+    total_scores
+    @total_scores.min
   end
 
   def percentage_home_wins
@@ -70,4 +71,11 @@ class StatTracker
     end
     games_by_season
   end
+
+  def average_goals_per_game
+    total_scores
+    #require 'pry'; binding.pry
+    (@total_scores.sum.to_f/@games.size).round(2)
+  end
+  
 end
