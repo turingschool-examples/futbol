@@ -22,17 +22,21 @@ RSpec.describe StatTracker do
 	  end
 
     it 'has attributes' do
-    
-      expect(stat_tracker.game_teams).to be_a(Hash)
-      expect(stat_tracker.games).to be_a(Hash)
-      expect(stat_tracker.teams).to be_a(Hash)
+      expect(stat_tracker.game_teams).to be_a(CSV::Table)
+      expect(stat_tracker.games).to be_a(CSV::Table)
+      expect(stat_tracker.teams).to be_a(CSV::Table)
     end
-  end
 
-  describe '#count_teams' do
-    it 'can count # of teams' do
-      
-      expect(stat_tracker.teams).to eq(32)
+    it 'can count # of teams' do 
+      expect(stat_tracker.teams.count).to eq(32)
     end
-  end
+
+    it 'can see game venues' do 
+      expect(stat_tracker.games[:venue].include?("Toyota Stadium")).to eq(true)
+    end
+
+    it 'can see game team ids' do 
+      expect(stat_tracker.game_teams[:game_id][1].to_i).to eq(2012030221)
+    end
+  end  
 end
