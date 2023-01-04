@@ -159,5 +159,24 @@ class StatTracker
     def count_of_teams
       teams.count
     end
+
+    def lowest_scoring_visitor
+      team_id_hash = Hash.new{|h,v| h[v] = []}
+      games.each do |game|
+        team_id_hash[game.away_team_id] << game.away_goals.to_f
+      end
+
+      average_hash = Hash.new
+      team_id_hash.each do |team_id, score_array|
+       average_hash[team_id] = (score_array.sum. / score_array.size).round(4)
+      end
+      lowest_id = average_hash.sort_by{|key, value| value}.first[0]
+
+      teams.each do |team|
+        if team.team_id == lowest_id
+          return team.team_name
+        end
+      end
+    end
   
 end
