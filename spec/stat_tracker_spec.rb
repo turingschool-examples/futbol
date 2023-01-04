@@ -110,9 +110,15 @@ describe StatTracker do
 		end
 	end
 
-	describe '#winingest_coach' do
+	describe '#winningest_coach' do
 		it 'names the coach with the best win percentage for the season' do
-			expect(winingest_coach(20172018)).to eq()
+			expect(stat_tracker.winningest_coach(20162017)).to eq("Glen Gulutzan")
+		end
+	end
+
+	describe '#worst_coach' do
+		it 'names the coach with the worst percentage for the reason' do
+			expect(stat_tracker.worst_coach(20162017)).to eq('Randy Carlyle')
 		end
 	end
 
