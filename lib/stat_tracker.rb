@@ -111,9 +111,11 @@ class StatTracker
 	end
 
 	def count_of_games_by_season
-		@games.map do |row|
-			row[:season]
-		end.tally
+		hash = {}
+		games_played_by_season.map do |season_id, games|
+			hash[season_id] = games.size
+		end
+		hash
 	end
 
 	def average_goals_by_season
@@ -134,29 +136,37 @@ class StatTracker
 		hash
 	end
 
-	def winingest_coach(season_id)
-		games = games_played_by_season(season_id)
-		require 'pry'; binding.pry
-		games.each do |row|
-			coach_game_info_by_game(row[:game_id])
+	def winningest_coach(season_id)
+		games = games_played_by_season[season_id.to_s]
+		game_ids_for_season = games.map do |row|
+			row[:game_id]
 		end
+		coach_game_results = coach_game_results_by_game(game_ids_for_season)
+		coach_game_results.each do |k, v|
+			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+		end.key(coach_game_results.values.max)
 	end
   
-	def games_played_by_season(season_id)
-		@games.find_all do |row|
-			row[:season] == season_id.to_s
+	def games_played_by_season
+		@games_played_by_season ||= @games.group_by do |row|
+			row[:season]
 		end
 	end
 
-	def coach_game_info_by_game(game_id)
+	def coach_game_results_by_game(array_of_game_id)
 		hash = Hash.new {|k, v| k[v] = []}
-		@game_teams.each do |row|
-			if row[:game_id] == game_id
-				require 'pry'; binding.pry
-				hash[row[:head_coach]] << row[:result]
+		array_of_game_id.each do |game_id|
+			games_by_game_id[game_id].each do |game|
+				hash[game[:head_coach]] << game[:result]
 			end
 		end
-		require 'pry'; binding.pry
 		hash
 	end
+
+	def games_by_game_id
+		@games_by_game_id ||= @game_teams.group_by do |row|
+			row[:game_id]
+		end
+	end
+
 end
