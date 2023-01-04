@@ -139,5 +139,35 @@ class StatTracker
 
       (total_goals.to_f/games.length).round(2)
     end
-  
+
+    def home_wins
+      home_wins = games.count do |game|
+        game.home_goals.to_i > game.away_goals.to_i
+      end
+    end
+
+    def away_wins
+      away_wins = games.count do |game|
+        game.away_goals.to_i > game.home_goals.to_i
+      end
+    end
+
+    def tie_games
+      ties = games.count do |game|
+        game.away_goals.to_i == game.home_goals.to_i
+      end
+    end
+    
+    def percentage_home_wins
+      (home_wins.to_f * 100 / games.length).round(2)
+    end
+
+    def percentage_visitor_wins
+      (away_wins.to_f * 100 / games.length).round(2)
+    end
+
+    def percentage_ties
+      (tie_games.to_f * 100 / games.length).round(2)
+    end
 end
+
