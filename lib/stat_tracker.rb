@@ -54,5 +54,11 @@ class StatTracker
 		end
 		hash
 	end
+
+	def count_of_games_by_season
+		@games.map do |row|
+			row[:season]
+		end.tally
+	end
   
 end
