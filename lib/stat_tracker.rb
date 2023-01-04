@@ -12,7 +12,7 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    # game_teams = game_teams_from_csv(locations)
+    game_teams = game_teams_from_csv(locations)
     games = games_from_csv(locations)
     teams = teams_from_csv(locations)
     StatTracker.new(game_teams, games, teams)
@@ -40,7 +40,7 @@ class StatTracker
         takeaways: info["takeaways"].to_i
       }  
 
-      games_teams_array << new_info
+      game_teams_array << new_info
     
     end
     game_teams_array
@@ -85,7 +85,6 @@ class StatTracker
 
       teams_array << new_info
     end
-    require 'pry'; binding.pry
     teams_array
   end
 end
