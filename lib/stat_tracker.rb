@@ -9,28 +9,41 @@ class StatTracker
     end
 
     def create_games(game_path)
-        games = []
-        CSV.foreach(game_path, headers: true, header_converters: :symbol ) do |info|
-            games << Game.new(info)  
-        end
-        games
-    end
+      games = []
+      CSV.foreach(game_path, headers: true, header_converters: :symbol ) do |info|
+        game = info.to_h
+        game[:away_goals] = game[:away_goals].to_i
+        game[:home_goals] = game[:home_goals].to_i
+        games << game
+      end
+      games
+  end
 
-    def create_teams(team_path)
-        teams = []
-        CSV.foreach(team_path, headers: true, header_converters: :symbol ) do |info|
-            teams << Team.new(info)
-        end
-        teams
-    end
+  def create_teams(team_path)
+      teams = []
+      CSV.foreach(team_path, headers: true, header_converters: :symbol ) do |info|
+          teams << info.to_h
+      end
+      teams
+  end
 
-    def create_game_teams(game_teams_path)
-        game_teams = []
-        CSV.foreach(game_teams_path, headers: true, header_converters: :symbol ) do |info|
-            game_teams << GameTeam.new(info)  
-        end
-        game_teams
-    end
+  def create_game_teams(game_teams_path)
+      game_teams = []
+      CSV.foreach(game_teams_path, headers: true, header_converters: :symbol ) do |info|
+          game_team = info.to_h
+          game_team[:goals] = game_team[:goals].to_i
+          game_team[:shots] = game_team[:shots].to_i
+          game_team[:tackles] = game_team[:tackles].to_i
+          game_team[:pim] = game_team[:pim].to_i
+          game_team[:powerplayopportunities] = game_team[:powerplayopportunities].to_i
+          game_team[:powerplaygoals] = game_team[:powerplaygoals].to_i
+          game_team[:faceoffwinpercentage] = game_team[:faceoffwinpercentage].to_f
+          game_team[:giveaways] = game_team[:giveaways].to_i
+          game_team[:takeaways] = game_team[:takeaways].to_i
+          game_teams << game_team
+      end
+      game_teams
+  end
 
     def self.from_csv(locations)
         new(locations)
