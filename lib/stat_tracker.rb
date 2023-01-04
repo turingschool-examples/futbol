@@ -23,6 +23,9 @@ class StatTracker
     @games.map {|row| row[:home_goals].to_i + row[:away_goals].to_i}.max
   end
 
+  def lowest_total_score
+    @games.map {|row| row[:home_goals].to_i + row[:away_goals].to_i}.min
+  end
 
 
 end
