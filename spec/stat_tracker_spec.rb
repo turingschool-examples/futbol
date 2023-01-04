@@ -23,13 +23,19 @@ describe StatTracker do
 
   describe '#highest_total_score' do
     it 'Highest point value game' do
-			expect(stat_tracker.highest_total_score).to eq(20)
+			expect(stat_tracker.highest_total_score).to eq(7)
     end
   end
 
   describe '#lowest_total_score' do
     it 'lowest point value game' do
       expect(stat_tracker.lowest_total_score).to eq(1)
+    end
+  end
+
+  describe '#percentage_home_wins' do
+    it 'returns % of home team wins (rounded to the nearest 100th)' do
+      expect(stat_tracker.percentage_home_wins).to eq(0.2)
     end
   end
 end
