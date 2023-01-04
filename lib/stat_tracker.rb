@@ -1,3 +1,4 @@
+
 require 'csv'
 # require_relative 'game'
 # require_relative 'team'
@@ -27,4 +28,3 @@ class StatTracker
         games
     end
 end
-

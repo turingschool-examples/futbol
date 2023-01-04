@@ -1,3 +1,4 @@
+
 class Teams
     def initialize
 
