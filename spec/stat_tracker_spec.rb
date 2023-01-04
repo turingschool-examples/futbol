@@ -35,7 +35,7 @@ describe StatTracker do
 
   describe '#percentage_home_wins' do
     it 'returns % of home team wins (rounded to the nearest 100th)' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.2)
+      expect(stat_tracker.percentage_home_wins).to eq(0.20)
     end
   end
 end
