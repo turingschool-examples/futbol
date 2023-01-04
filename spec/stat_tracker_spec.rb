@@ -48,4 +48,44 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.home_wins_array.class).to eq(Array)
     end
   end
+
+  describe '#percentage_visitor_wins' do 
+    it 'returns percentage of games a visitor has won' do 
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.27)
+    end
+  end
+
+  describe '#visitor_wins_array' do 
+    it 'returns array of games visitors have won' do 
+      expect(@stat_tracker.visitor_wins_array.class).to eq(Array)
+    end
+  end
+
+  describe '#percentage_ties' do 
+    it 'returns percentage of games that hace result in a tie' do 
+      expect(@stat_tracker.percentage_ties).to eq(0.2)
+    end
+  end
+
+  describe '#ties_array' do 
+    it 'returns an array of games that have resulted in a tie' do 
+      expect(@stat_tracker.ties_array.class).to eq(Array)
+    end
+  end
+   
+  describe '#count_games_by_season' do 
+    it 'returns a hash with season names as keys and counts of games as values' do 
+      expected = {
+        "20122013" => 22,
+        "20132014" => 8
+      }
+      expect(@stat_tracker.count_games_by_season).to eq(expected)
+    end
+  end
+
+  describe '#average_goals_per_season' do 
+    it 'returns a hash with average number of goals' do 
+      expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
+    end
+  end
 end
