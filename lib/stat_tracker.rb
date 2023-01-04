@@ -129,17 +129,51 @@ class StatTracker
   
 
   ## GAME STATISTIC METHODS
-
-    def average_goals_per_game
-      total_goals = games.reduce(0) do |sum, game|
-        sum + game.goals_per_game
-      end
-
-      (total_goals.to_f/games.length).round(2)
+  
+   def game_score_totals_sorted
+      games.map do |game|
+        game.home_goals.to_i + game.away_goals.to_i
+      end.sort
+    end
+  
+    def highest_total_score
+      game_score_totals_sorted.last
     end
 
+    def lowest_total_score
+      game_score_totals_sorted.first
+    end
 
-    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
+    def home_wins
+      home_wins = games.count do |game|
+        game.home_goals.to_i > game.away_goals.to_i
+      end
+    end
+
+    def away_wins
+      away_wins = games.count do |game|
+        game.away_goals.to_i > game.home_goals.to_i
+      end
+    end
+
+    def tie_games
+      ties = games.count do |game|
+        game.away_goals.to_i == game.home_goals.to_i
+      end
+    end
+    
+    def percentage_home_wins
+      (home_wins.to_f * 100 / games.length).round(2)
+    end
+
+    def percentage_visitor_wins
+      (away_wins.to_f * 100 / games.length).round(2)
+    end
+
+    def percentage_ties
+      (tie_games.to_f * 100 / games.length).round(2)
+    end
+
     def count_of_games_by_season
       hash = {}
 
@@ -162,6 +196,24 @@ class StatTracker
       hash
     end
     
+    def goals_per_season(season, num_games)
+      goal_counter = 0
+      games.each do |game|
+        if game.season == season
+          goal_counter += game.goals_per_game 
+        end
+      end
+      goal_counter
+    end
+    
+    def average_goals_per_game
+      total_goals = games.reduce(0) do |sum, game|
+        sum + game.goals_per_game
+      end
+
+      (total_goals.to_f/games.length).round(2)
+    end
+    
     def average_goals_by_season
       hash = count_of_games_by_season
       
@@ -172,33 +224,11 @@ class StatTracker
       hash
     end
 
-    def goals_per_season(season, num_games)
-      goal_counter = 0
-      games.each do |game|
-        if game.season == season
-          goal_counter += game.goals_per_game 
-        end
-      end
-      goal_counter
-      
-    def game_score_totals_sorted #Helper method for highest and lowest total score
-      games.map do |game|
-        game.home_goals.to_i + game.away_goals.to_i
-      end.sort
-    end
-
-    def highest_total_score
-      game_score_totals_sorted.last
-    end
-
-    def lowest_total_score
-      game_score_totals_sorted.first
-    end
-
+  
   ## LEAGUE STATISTIC METHODS
 
     def count_of_teams
       teams.count
-
     end
 end
+
