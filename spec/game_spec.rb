@@ -1,22 +1,23 @@
 require 'csv'
-require './lib/games.rb' 
+require './lib/game.rb' 
 
-RSpec.describe Games do
+RSpec.describe Game do
   let(:game) { Game.new(info) }
   let(:info) do 
     {
-    game_id: "1"
-    season: "2"
-    type: "sesason"
-    date_time: "04/20/23"
-    away_team_id: "3"
-    home_team_id: "4"
-    away_goals: "5"
-    home_goals: "6"
-    venue: "location"
+    game_id: "1",
+    season: "2",
+    type: "sesason",
+    date_time: "04/20/23",
+    away_team_id: "3",
+    home_team_id: "4",
+    away_goals: "5",
+    home_goals: "6",
+    venue: "location",
     venue_link: "link name"
     } 
-  end
+    end 
+  
 
   describe "#initialize" do
     it "exists" do
