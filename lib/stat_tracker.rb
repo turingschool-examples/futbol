@@ -15,7 +15,6 @@ class StatTracker
     games = games_csv(locations)
     teams = teams_csv(locations)
     game_teams = game_teams_csv(locations)
-
     self.new(games, teams, game_teams)
   end
 
@@ -72,7 +71,6 @@ class StatTracker
       away_goals.to_i + home_goals.to_i
     end
 
-    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
   end
 
   class Team
@@ -131,21 +129,13 @@ class StatTracker
   
 
   ## GAME STATISTIC METHODS
-
-    def average_goals_per_game
-      total_goals = games.reduce(0) do |sum, game|
-        sum + game.goals_per_game
-      end
-
-      (total_goals.to_f/games.length).round(2)
-    end
-
-    def game_score_totals_sorted #Helper method for highest and lowest total score
+  
+   def game_score_totals_sorted
       games.map do |game|
         game.home_goals.to_i + game.away_goals.to_i
       end.sort
     end
-
+  
     def highest_total_score
       game_score_totals_sorted.last
     end             
@@ -155,29 +145,111 @@ class StatTracker
       game_score_totals_sorted.first
     end
 
-    # def count_of_games_by_season
-    # 	# A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
-    # end
+    def home_wins
+      home_wins = games.count do |game|
+        game.home_goals.to_i > game.away_goals.to_i
+      end
+    end
 
+    def away_wins
+      away_wins = games.count do |game|
+        game.away_goals.to_i > game.home_goals.to_i
+      end
+    end
 
+    def tie_games
+      ties = games.count do |game|
+        game.away_goals.to_i == game.home_goals.to_i
+      end
+    end
+    
+    def percentage_home_wins
+      (home_wins.to_f * 100 / games.length).round(2)
+    end
+
+    def percentage_visitor_wins
+      (away_wins.to_f * 100 / games.length).round(2)
+    end
+
+    def percentage_ties
+      (tie_games.to_f * 100 / games.length).round(2)
+    end
+
+    def count_of_games_by_season
+      hash = {}
+
+      seasons = games.map do |game|
+        game.season
+      end.uniq.sort
+
+      seasons.each do |season|
+        hash[season] = []
+      end
+      
+      games.each do |game|
+        hash[game.season] << game
+      end
+
+      hash.each do |k, v|
+        hash[k] = v.count
+      end
+
+      hash
+    end
+    
+    def goals_per_season(season, num_games)
+      goal_counter = 0
+      games.each do |game|
+        if game.season == season
+          goal_counter += game.goals_per_game 
+        end
+      end
+      goal_counter
+    end
+    
+    def average_goals_per_game
+      total_goals = games.reduce(0) do |sum, game|
+        sum + game.goals_per_game
+      end
+
+      (total_goals.to_f/games.length).round(2)
+    end
+    
+    def average_goals_by_season
+      hash = count_of_games_by_season
+      
+      hash.each do |k, v|
+        hash[k] = (goals_per_season(k, v)/v.to_f).round(2)
+      end
+
+      hash
+    end
+
+  
   ## LEAGUE STATISTIC METHODS
 
     def count_of_teams
       teams.count
     end
-  
-    def scores_home_team #helper method for highest scores
-        teams.map do |team|
-          team.home_goals.to_i + team.away_goals.to_i
-        end.sort
+
+    def lowest_scoring_visitor
+      team_id_hash = Hash.new{|h,v| h[v] = []}
+      games.each do |game|
+        team_id_hash[game.away_team_id] << game.away_goals.to_f
+      end
+
+      average_hash = Hash.new
+      team_id_hash.each do |team_id, score_array|
+       average_hash[team_id] = (score_array.sum. / score_array.size).round(4)
+      end
+      lowest_id = average_hash.sort_by{|key, value| value}.first[0]
+
+      teams.each do |team|
+        if team.team_id == lowest_id
+          return team.team_name
+        end
       end
     end
+end
 
-    def highest_scoring_home_team
-      scores_home_team.first
-    end
 
-    def lowest_scoring_home_team	
-      scores_home_team.last
-    end
-  
