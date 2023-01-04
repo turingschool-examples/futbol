@@ -129,4 +129,10 @@ describe StatTracker do
       # Houston Dash= Team ID 13 = 14
     end
   end
+
+  xdescribe '#find_by_team_id' do
+    it 'returns the NAME of the team based on the ID' do
+      expect(stat_tracker.find_by_team_id(13)).to eq("Houston Dash")
+    end
+  end
 end
