@@ -134,4 +134,14 @@ class StatTracker
 		end
 		hash
 	end
+
+	def find_team_by_id
+		@find_team_by_id ||= @teams.group_by do |row|
+			# require 'pry'; binding.pry
+			row[:team_id]
+		end
+	end
+
+	def most_tackles
+		# use games_played_by_season
 end
