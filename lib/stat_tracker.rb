@@ -70,17 +70,54 @@ class StatTracker
   end
 
 
-  def find_team_id
-    team = teams.map do |row|
-      row[:team_id]
-    end
-    team
-  end
-  # def best_offense
-
-
+  # def map_team_id
+  #   team = teams.map do |row|
+  #     row[:team_id]
+  #   end
+  #   team
   # end
 
+  # def game_teams_group_by_team_id
+  #   @game_teams.group_by(find_team_id)
+  # end
+
+  # def team_ids_by_goals_hash
+  #   teams_hash = game_teams_group_by_team_id
+
+  #   teams_hash.each do |team_id, game_teams|
+  #     teams_hash[team_id] = (game_teams.map(&:goals).map(&:to_i).sum.to_f / game_teams.count).round(2)
+  #   end
+  # end
+  def best_offense
+    teams = []
+    @games.each do |row|
+      teams.push([row[:home_team_id], row[:home_goals]])
+      teams.push([row[:away_team_id], row[:away_goals]])
+    end
+
+    hash = Hash.new {|hash, key| hash[key] = []}
+    teams.each do |array|
+      hash[array[0]] <<array[1].to_i
+    end
+
+    hash.each do |k, v|
+      if v.size>1
+        hash[k] = v.sum
+      else
+        hash[k] = v[0]
+      end
+    end
+
+    max_team = hash.max_by do |k, v|
+      v
+    end
+
+    best_offense = nil
+    @teams.each do |team|
+      best_offense = team[:teamname] if team[:team_id] == max_team[0]
+    end
+    best_offense
+  end
 end
 
 

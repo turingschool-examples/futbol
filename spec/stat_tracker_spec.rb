@@ -58,17 +58,17 @@ describe StatTracker do
     end
   end
 
-  # describe '#best_offense' do
-  #   it "name of the team with the highest average number of goals scored per game across all seasons" do
-  #     expect(@stat_tracker.best_offense).to eq "Reign FC"
-  #   end
-  # end
-
-  describe '#find_team_id' do
-    it "it finds team by id" do
-      expect(stat_tracker.find_team_id).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28", "18", "23", "16", "9", "8", "30", "15", "19", "24", "27", "2", "20", "21", "25", "13", "10", "29", "52", "54", "12", "7", "22", "53"])
+  describe '#best_offense' do
+    it "name of the team with the highest average number of goals scored per game across all seasons" do
+      expect(stat_tracker.best_offense).to eq "Reign FC"
     end
-  end  
+  end
+
+  # describe '#map_team_id' do
+  #   it "it finds team by id" do
+  #     expect(stat_tracker.map_team_id).to eq(["1", "4", "26", "14", "6", "3", "5", "17", "28", "18", "23", "16", "9", "8", "30", "15", "19", "24", "27", "2", "20", "21", "25", "13", "10", "29", "52", "54", "12", "7", "22", "53"])
+  #   end
+  # end  
 end
 
 
