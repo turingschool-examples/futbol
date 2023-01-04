@@ -5,7 +5,7 @@ class StatTracker
       @games = create_games(locations[:games])
       @teams = create_teams(locations[:teams])
       @game_teams = create_game_teams(locations[:game_teams])
-    #   require 'pry'; binding.pry
+      require 'pry'; binding.pry
     end
 
     def create_games(game_path)
