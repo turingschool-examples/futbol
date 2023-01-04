@@ -8,10 +8,11 @@ class Team
 
   def initialize(info)
     @team_id = info[:team_id]
-    @franchise_id = info[:franchise_id]
-    @team_name = info[:team_name]
+    @franchise_id = info[:franchiseid]
+    @team_name = info[:teamname]
     @abbreviation = info[:abbreviation]
     @stadium = info[:stadium]
     @link = info[:link]
+    # require 'pry'; binding.pry
   end
 end
