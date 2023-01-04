@@ -19,4 +19,17 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
+  it "calculates home win %" do
+  #require 'pry'; binding.pry
+    expect(@stat_tracker.percentage_home_wins).to eq 0.60
+  end
+
+  it 'calculates visitor win %' do
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.40
+  end
+
+  it 'calculates percent of ties' do
+    expect(@stat_tracker.percentage_ties).to eq 0.0
+  end
+
 end
