@@ -23,7 +23,11 @@ class StatTracker
     @games.map {|row| row[:home_goals].to_i + row[:away_goals].to_i}.max
   end
 
-
+  def average_goals_per_game
+    total_games = @games.map { |row| row[:game_id]}.count
+    total_goals = @games.map { |row| row[:home_goals].to_i + row[:away_goals].to_i}.sum
+    (total_goals.to_f/ total_games).round(2)
+  end
 
 end
 

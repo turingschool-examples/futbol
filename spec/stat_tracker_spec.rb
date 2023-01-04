@@ -19,4 +19,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
+  it 'can calculate the average goals per game' do 
+    expect(@stat_tracker.average_goals_per_game).to eq(3.4)
+  end
 end
