@@ -18,53 +18,33 @@ class StatTracker
     StatTracker.new(game_teams, games, teams)
   end
 
-  # def self.game_teams_from_csv(locations)
-  #   game_teams_array = []
-  #   CSV.foreach(locations[:game_teams], headers: true) do |info|
-  #     info = info.to_h
-  #     hash2= info.map do |value, key|
-  #       [value.to_sym, key]
-  #     end
-  #     info = hash2.to_h
-  #     info_updated= []
-  #     info.each do |key, value|
-  #       if key == :game_id
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :team_id
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :HoA
-  #         info_updated << [key, value]
-  #       elsif key == :result
-  #         info_updated << [key, value]
-  #       elsif key == :settled_in
-  #         info_updated << [key, value]
-  #       elsif key == :head_coach
-  #         info_updated << [key, value]
-  #       elsif key == :goals
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :shots
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :tackles
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :pim
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :powerPlayOpportunities
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :powerPlayGoals
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :faceOffWinPercentage
-  #         info_updated << [key, value.to_f]
-  #       elsif key == :giveaways
-  #         info_updated << [key, value.to_i]
-  #       elsif key == :takeaways
-  #         info_updated << [key, value.to_i]
-  #       end
-  #     end 
-  #     info = info_updated.to_h
-  #     game_teams_array << GameTeam.new(info)
-  #   end
-  #   game_teams_array
-  #   end
+  def self.game_teams_from_csv(locations)
+    game_teams_array = []
+    CSV.foreach(locations[:game_teams], headers: true) do |info|
+  
+      new_info = {
+        game_id: info["game_id"].to_i,
+        team_id: info["team_id"].to_i, 
+        hoa: info["HoA"], 
+        result: info["result"], 
+        settled_in: info["settled_in"],
+        head_coach: info["head_coach"],
+        goals: info["goals"].to_i,
+        shots: info["shots"].to_i,
+        tackles: info["tackles"].to_i,
+        pim: info["pim"].to_i,
+        powerplay_opportunities: info["powerPlayOpportunities"].to_i,
+        powerplay_goals: info["powerPlayGoals"].to_i,
+        faceoff_win_percentage: info["faceOffWinPercentage"].to_f,
+        giveaways: info["giveaways"].to_i,
+        takeaways: info["takeaways"].to_i
+      }  
+
+      games_teams_array << new_info
+    
+    end
+    game_teams_array
+  end
   
 
   def self.games_from_csv(locations)
