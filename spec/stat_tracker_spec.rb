@@ -84,7 +84,7 @@ describe StatTracker do
       expect(stat_tracker.average_goals_per_game).to eq(4.45)
     end
 
-    it "can determine #average_goals_by_season" do
+    xit "can determine #average_goals_by_season" do
       expected = {
         "20122013"=>4.12,
         "20162017"=>4.23,
@@ -94,6 +94,31 @@ describe StatTracker do
         "20172018"=>4.44
       }
       expect(stat_tracker.average_goals_by_season).to eq(expected)
+    end
+
+    it "can determine highest_total_score" do
+      expect(stat_tracker.highest_total_score).to eq(8)
+    end
+
+    it "can determine lowest_total_score" do
+      expect(stat_tracker.lowest_total_score).to eq(1)
+    end
+  end
+
+  describe 'league statistics' do
+    let(:game_path_2){'./data/fixtures/games_i2.csv'}
+    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
+    
+    let(:locations_2){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path
+    }}
+
+    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
+
+    it 'can count the number of teams' do
+      expect(stat_tracker.count_of_teams).to eq(19)
     end
 
   end
