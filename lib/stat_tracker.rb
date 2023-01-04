@@ -143,6 +143,13 @@ class StatTracker
 		end.key(coach_game_results.values.max)
 	end
 
+	def worst_coach(season_id)
+		coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
+		coach_game_results.each do |k, v|
+			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+		end.key(coach_game_results.values.min)
+	end
+
 	def game_ids_for_season(season_id)
 		games = games_played_by_season[season_id.to_s]
 		games.map do |row|
