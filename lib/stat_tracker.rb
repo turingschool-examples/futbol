@@ -38,6 +38,54 @@ class StatTracker
 		total_scores.min
 	end
 
+  def all_team_names
+    teams = []
+    @teams.map do |row|
+      teams << row[:teamName]
+    end
+  end
+
+  def count_of_teams
+    all_team_names.count
+  end
+
+  def average_goals_per_game
+    average_score = total_scores.sum.to_f / total_scores.count
+    average_score.round(3)
+  end
+
+  def average_win_percentage(team_id)
+    games_played = []
+    games_won = []
+
+    @game_teams.each do |row|
+      if row[:team_id].to_i == team_id
+        games_played << row[:game_id]
+      end
+    end
+    @game_teams.map do |row|
+      if row[:team_id].to_i == team_id && row[:result] == "WIN"
+        games_won << row[:game_id]
+      end
+    end
+    win_percentage = games_won.count.to_f / games_played.count
+    win_percentage.round(3)
+  end
+
+	def percentage_home_wins
+		h_wins = @game_teams.count do |row|
+			row if row[:hoa] == "home" && row[:result] == "WIN"
+		end
+		h_wins/@game_teams.count.to_f.round(2)
+	end
+
+	def percentage_visitor_wins
+		v_wins = @game_teams.count do |row|
+			row if row[:hoa] == "away" && row[:result] == "WIN"
+		end
+		v_wins/@game_teams.count.to_f.round(2)
+	end
+
 	def most_goals_scored(team_id)
 		all_game_scores_by_team[team_id.to_s].max
 	end
