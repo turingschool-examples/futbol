@@ -41,6 +41,10 @@ class StatTracker
 	def most_goals_scored(team_id)
 		all_game_scores_by_team[team_id.to_s].max.to_i
 	end
+	
+	def fewest_goals_scored(team_id)
+		all_game_scores_by_team[team_id.to_s].min.to_i
+	end
 
 	def all_game_scores_by_team
 		hash = Hash.new {|k, v| k[v] = []}
