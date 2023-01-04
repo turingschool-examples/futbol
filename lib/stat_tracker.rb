@@ -122,4 +122,28 @@ class StatTracker
     average_goals_per_team
   end
 
+	def visitor_scores_hash
+		games_grouped_by_away_team = @game_teams_path.group_by {|row| row[:team_id]}
+		average_goals_per_team = {}
+		away_game_count = 0
+
+		games_grouped_by_away_team.each do |team, games|
+			total_away_goals = games.sum do |game|
+				game[:goals].to_i if game[:hoa] == "away"
+				away_game_count += 1 
+			end
+			average_goals_per_team[team] = (total_away_goals / away_game_count.to_f).round(2)
+		end
+		average_goals_per_team
+	end
+
+	def highest_scoring_visitor
+		visitor_highest = visitor_scores_hash.max_by {|k,v| v}
+
+		@team_path.map do |team| 
+      if team[:team_id] == visitor_highest[0]
+        team[:teamname]
+      end
+    end.compact.pop
+	end
 end

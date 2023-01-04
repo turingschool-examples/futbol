@@ -120,4 +120,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_by_team_hash.class).to eq(Hash)
     end
   end
+
+  describe '#visitor_scores_hash' do 
+    it 'returns a hash with the team id as the key and the value as the average score' do 
+      expect(@stat_tracker.visitor_scores_hash.class).to eq(Hash)
+    end
+  end
+
+  describe '#highest_scoring_visitor' do 
+    it 'returns a string of the highest scoring away team name' do 
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
 end
