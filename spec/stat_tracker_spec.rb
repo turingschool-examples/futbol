@@ -49,190 +49,29 @@ describe StatTracker do
       expect(stat_tracker.percentage_ties).to eq(0.17)
     end
   end
+
+
+  describe '#count_of_teams' do
+    it "counts all teams" do
+      stat_tracker.count_of_teams
+      expect(stat_tracker.count_of_teams).to eq 32
+    end
+  end
+
+  # describe '#best_offense' do
+  #   it "name of the team with the highest average number of goals scored per game across all seasons" do
+  #     expect(@stat_tracker.best_offense).to eq "Reign FC"
+  #   end
+  # end
+
+  describe '#find_team_id' do
+    it "it finds team by id" do
+      expect(stat_tracker.find_team_id).to be_a(Array)
+    end
+  end  
 end
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  # describe '#count_of_teams' do
-  #   it "counts all teams" do
-  #     stat_tracker.count_of_teams
-  #     expect(stat_tracker.count_of_teams).to eq 32
-  #   end
-  #end
-
-  

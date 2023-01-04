@@ -62,4 +62,42 @@ class StatTracker
     end
     (count.to_f / @games.size).round(2)
   end
+
+
+
+  def count_of_teams 
+    @teams.count
+  end
+
+
+  def find_team_id
+    team = teams.each do |row|
+      row[:team_id].to_i
+      # require 'pry'; binding.pry
+    end
+  end
+  # def best_offense
+
+
+  # end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
