@@ -148,11 +148,17 @@ class StatTracker
 
     def highest_total_score
       game_score_totals_sorted.last
-    end
+    end             
+
 
     def lowest_total_score
       game_score_totals_sorted.first
     end
+
+    # def count_of_games_by_season
+    # 	# A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
+    # end
+
 
   ## LEAGUE STATISTIC METHODS
 
@@ -160,4 +166,18 @@ class StatTracker
       teams.count
     end
   
-end
+    def scores_home_team #helper method for highest scores
+        teams.map do |team|
+          team.home_goals.to_i + team.away_goals.to_i
+        end.sort
+      end
+    end
+
+    def highest_scoring_home_team
+      scores_home_team.first
+    end
+
+    def lowest_scoring_home_team	
+      scores_home_team.last
+    end
+  
