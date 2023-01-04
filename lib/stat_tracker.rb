@@ -62,17 +62,10 @@ class StatTracker
 		(ties.to_f / @game_path.count).round(2)
 	end
 
-	def count_games_by_season
+	def count_of_games_by_season
 		season_id = @game_path.group_by { |row| row[:season] }
 		season_id.each do |season, game|
 			season_id[season] = game.count
 		end
 	end
-
-	def average_goals_per_season
-		season_id = @game_path.group_by {|row| row[:season]}
-		
-		end
-	end
-
 end
