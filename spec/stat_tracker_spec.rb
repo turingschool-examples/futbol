@@ -116,6 +116,8 @@ RSpec.describe StatTracker do
   end
 
   describe '#average_goals_by_team_hash' do 
-    it 'is a helper method to group the'
+    it 'is a helper method to group the teams to their average goals' do 
+      expect(@stat_tracker.average_goals_by_team_hash.class).to eq(Hash)
+    end
   end
 end
