@@ -1,1 +1,7 @@
-require_relative './spec_helper'
+
+class GameTeams
+    def initialize
+
+    end
+end
+
