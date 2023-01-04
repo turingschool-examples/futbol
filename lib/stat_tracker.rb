@@ -23,6 +23,12 @@ class StatTracker
     @games.map {|row| row[:home_goals].to_i + row[:away_goals].to_i}.max
   end
 
+
+   def count_of_games_by_season
+    count_of_games_by_season = Hash.new(0)
+         seasons = @games.map { |row| row[:season]}.tally
+   end
+
   def percentage_home_wins
     tally = 0
     @game_teams.find_all do |row|
