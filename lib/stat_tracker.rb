@@ -27,6 +27,13 @@ class StatTracker
     @games.map {|row| row[:home_goals].to_i + row[:away_goals].to_i}.min
   end
 
+  def count_of_teams
+   @teams.count
+  end
+
+
+  
+
 
 end
 
