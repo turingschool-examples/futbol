@@ -158,7 +158,6 @@ describe StatTracker do
     it 'can count the number of teams' do
       expect(stat_tracker.count_of_teams).to eq(19)
     end
-
     
     it 'can calculate the lowest_scoring_visitor' do
       expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati, Sporting Kansas City, New York Red Bulls")
@@ -166,6 +165,12 @@ describe StatTracker do
 
     it 'can calculate the highest_scoring_visitor' do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
+    end
+
+    xit 'can calculate win percentages for coaches and organize them' do
+      expect(stat_tracker.coaches_win_percentages).to be_an(Array)
+      expect(stat_tracker.coaches_win_percentages[0]).to be_an(Array)
+      expect(stat_tracker.coaches_win_percentages[1]).to be_a(Float)
     end
   end
   
