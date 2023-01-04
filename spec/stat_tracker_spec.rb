@@ -33,7 +33,12 @@ RSpec.describe StatTracker do
   end
 
   it "can name the team with the highest average score" do
-    expect(@stat_tracker.best_offense).to eq("1")
+    require 'pry'; binding.pry
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  end
+
+  it "can name the team with the lowest average score" do
+    expect(@stat_tracker.worst_offense).to eq("Houston Dynamo")
   end
 
 
