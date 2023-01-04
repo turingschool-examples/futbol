@@ -59,17 +59,17 @@ class StatTracker
     games_won = []
 
     @game_teams.each do |row|
-      if row[:team_id].to_i == team_id
+      if row[:team_id].to_i == team_id.to_i
         games_played << row[:game_id]
       end
     end
     @game_teams.map do |row|
-      if row[:team_id].to_i == team_id && row[:result] == "WIN"
+      if row[:team_id].to_i == team_id.to_i && row[:result] == "WIN"
         games_won << row[:game_id]
       end
     end
     win_percentage = games_won.count.to_f / games_played.count
-    win_percentage.round(3)
+    win_percentage.round(2)
   end
 
 	def percentage_home_wins
