@@ -15,7 +15,6 @@ class StatTracker
     games = games_csv(locations)
     teams = teams_csv(locations)
     game_teams = game_teams_csv(locations)
-
     self.new(games, teams, game_teams)
   end
 
@@ -72,7 +71,6 @@ class StatTracker
       away_goals.to_i + home_goals.to_i
     end
 
-    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
   end
 
   class Team
@@ -140,6 +138,49 @@ class StatTracker
       (total_goals.to_f/games.length).round(2)
     end
 
+
+    #Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
+    def count_of_games_by_season
+      hash = {}
+
+      seasons = games.map do |game|
+        game.season
+      end.uniq.sort
+
+      seasons.each do |season|
+        hash[season] = []
+      end
+      
+      games.each do |game|
+        hash[game.season] << game
+      end
+
+      hash.each do |k, v|
+        hash[k] = v.count
+      end
+
+      hash
+    end
+    
+    def average_goals_by_season
+      hash = count_of_games_by_season
+      
+      hash.each do |k, v|
+        hash[k] = (goals_per_season(k, v)/v.to_f).round(2)
+      end
+
+      hash
+    end
+
+    def goals_per_season(season, num_games)
+      goal_counter = 0
+      games.each do |game|
+        if game.season == season
+          goal_counter += game.goals_per_game 
+        end
+      end
+      goal_counter
+      
     def game_score_totals_sorted #Helper method for highest and lowest total score
       games.map do |game|
         game.home_goals.to_i + game.away_goals.to_i
@@ -158,6 +199,6 @@ class StatTracker
 
     def count_of_teams
       teams.count
+
     end
-  
 end
