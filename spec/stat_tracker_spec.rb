@@ -102,4 +102,20 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq(32)
     end
   end
+
+  describe '#best_offense' do 
+    it 'is the name of the team with the highest average number of goals scored per game across all seasons' do 
+      expect(@stat_tracker.best_offense).to eq("FC Dallas")
+    end
+  end
+
+  describe '#worst_offense' do 
+    it 'is the name of the team with the lowest average number of goals scored per game across all seasons.' do 
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#average_goals_by_team_hash' do 
+    it 'is a helper method to group the'
+  end
 end
