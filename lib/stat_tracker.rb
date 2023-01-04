@@ -54,4 +54,21 @@ class StatTracker
     average_score.round(3)
   end
 
+  def average_win_percentage(team_id)
+    games_played = []
+    games_won = []
+
+    @game_teams.each do |row|
+      if row[:team_id].to_i == team_id
+        games_played << row[:game_id]
+      end
+    end
+    @game_teams.map do |row|
+      if row[:team_id].to_i == team_id && row[:result] == "WIN"
+        games_won << row[:game_id]
+      end
+    end
+    win_percentage = games_won.count.to_f / games_played.count
+    win_percentage.round(3)
+  end
 end
