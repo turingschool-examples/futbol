@@ -71,4 +71,6 @@ class StatTracker
     win_percentage = games_won.count.to_f / games_played.count
     win_percentage.round(3)
   end
+
+    
 end
