@@ -12,8 +12,109 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-end     
+# end     
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def count_of_teams
+    @teams.count
+  end
+
+  # def season_goals(away, home)
+  #   season_goals =[]
+  #   i = 0
+  #   while i <= count_of_teams
+  #     old_goals = away[i] + home[i]
+  #     season_goals << old_goals
+
+  #     i += 1
+  #   end
+  #   season_goals
+  # end
+    
+
+  # def best_offense
+    
+  # end
+end
