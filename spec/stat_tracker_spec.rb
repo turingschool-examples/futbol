@@ -76,7 +76,7 @@ describe StatTracker do
 
 	describe '#winingest_coach' do
 		it 'names the coach with the best win percentage for the season' do
-			expect(winingest_coach(20172018)).to eq()
+			expect(stat_tracker.winingest_coach(20162017))
 		end
 	end
 end

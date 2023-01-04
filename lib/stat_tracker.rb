@@ -78,5 +78,30 @@ class StatTracker
 		end
 		hash
 	end
+
+	def winingest_coach(season_id)
+		games = games_played_by_season(season_id)
+		require 'pry'; binding.pry
+		games.each do |row|
+			coach_game_info_by_game(row[:game_id])
+		end
+	end
   
+	def games_played_by_season(season_id)
+		@games.find_all do |row|
+			row[:season] == season_id.to_s
+		end
+	end
+
+	def coach_game_info_by_game(game_id)
+		hash = Hash.new {|k, v| k[v] = []}
+		@game_teams.each do |row|
+			if row[:game_id] == game_id
+				require 'pry'; binding.pry
+				hash[row[:head_coach]] << row[:result]
+			end
+		end
+		require 'pry'; binding.pry
+		hash
+	end
 end
