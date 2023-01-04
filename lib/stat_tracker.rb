@@ -33,4 +33,13 @@ class StatTracker
     end
     total_scores.max
   end
+
+  def lowest_total_score
+    total_scores = []
+    @games.each do |row|
+      total_scores << row[:away_goals].to_i + row[:home_goals].to_i
+    end
+    total_scores.min
+  end
+
 end

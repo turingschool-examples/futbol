@@ -25,6 +25,12 @@ describe StatTracker do
       expect(stat_tracker.highest_total_score).to eq(6)
     end
   end
+
+  describe '#lowest_total_score' do
+    it 'returns lowest sum of the winning and losing teams scores' do
+      expect(stat_tracker.lowest_total_score).to eq(2)
+    end
+  end
 end
 
 
