@@ -40,6 +40,25 @@ def team_id_to_name(id)
 end
 
 
+def best_offense
+  hash1 = nested_hash_creator
+  hash2 = Hash.new(0)
+  game_teams.each do |row|
+    hash1[row[:team_id]][:games] += 1
+    hash1[row[:team_id]][:goals] += row[:goals].to_i
+  end
+  hash1.each do |key, value|
+    hash2[key] =  value[:goals].to_f / value[:games].to_f
+  end
+
+  highest_goals_average = hash2.values.max
+
+  highest_scoring_id = hash2.find do |key, value|
+    value == highest_goals_average
+  end[0]
+
+  team_id_to_name(highest_scoring_id)
+end
 
 
  
