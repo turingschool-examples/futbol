@@ -19,4 +19,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
+  it "can calculate the highest total game score" do
+    expect(@stat_tracker.highest_total_score).to eq(5)
+  end
+
+
 end
