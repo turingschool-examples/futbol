@@ -1,0 +1,11 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2013020105,20132014,Regular Season,10/18/13,26,18,1,1,Allianz Field,/api/v1/venues/null
+2012030235,20122013,Postseason,5/26/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
+2012030115,20122013,Postseason,5/9/13,2,5,0,2,Children's Mercy Park,/api/v1/venues/null
+2016021135,20162017,Regular Season,3/29/17,24,23,2,1,Saputo Stadium,/api/v1/venues/null
+2012030312,20122013,Postseason,6/4/13,6,5,4,1,Children's Mercy Park,/api/v1/venues/null
+2015020065,20152016,Regular Season,10/17/15,17,8,1,2,Red Bull Arena,/api/v1/venues/null
+2015030111,20152016,Postseason,4/15/16,2,13,3,2,BBVA Stadium,/api/v1/venues/null
+2015020565,20152016,Regular Season,1/1/16,8,6,3,1,Toyota Stadium,/api/v1/venues/null
+2013020809,20132014,Regular Season,1/31/14,8,6,2,1,Toyota Stadium,/api/v1/venues/null
+2013020810,20132014,Regular Season,1/31/14,13,10,3,4,WakeMed Soccer Park,/api/v1/venues/null

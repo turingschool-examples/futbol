@@ -5,8 +5,8 @@ RSpec.describe Team do
   let(:info) do
     { 
       team_id: "1",
-      franchise_id: "1",
-      team_name: "teamname",
+      franchiseid: "1",
+      teamname: "teamname",
       abbreviation: "ABC",
       stadium: "Stadium name",
       link: "link"
