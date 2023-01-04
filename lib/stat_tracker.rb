@@ -76,14 +76,21 @@ class StatTracker
 		h_wins = @game_teams.count do |row|
 			row if row[:hoa] == "home" && row[:result] == "WIN"
 		end
-		h_wins/@game_teams.count.to_f.round(2)
+		(h_wins/@game_teams.count.to_f).round(2)
 	end
 
 	def percentage_visitor_wins
 		v_wins = @game_teams.count do |row|
 			row if row[:hoa] == "away" && row[:result] == "WIN"
 		end
-		v_wins/@game_teams.count.to_f.round(2)
+		(v_wins/@game_teams.count.to_f).round(2)
+	end
+
+	def percentage_ties
+		ties = @game_teams.count do |row|
+			row if row[:result] == "TIE"
+		end
+		(ties/@game_teams.count.to_f).round(2)
 	end
 
 	def most_goals_scored(team_id)
