@@ -153,5 +153,11 @@ class StatTracker
     def lowest_total_score
       game_score_totals_sorted.first
     end
+
+  ## LEAGUE STATISTIC METHODS
+
+    def count_of_teams
+      teams.count
+    end
   
 end
