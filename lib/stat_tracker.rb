@@ -21,8 +21,9 @@ class StatTracker
 
   def self.teams_csv_reader(locations, stat_tracker)
     contents = CSV.open locations[:teams], headers: true, header_converters: :symbol
-    contents.each do |row|
-    require 'pry'; binding.pry
+    # contents.each do |row|
+    #   stat_tracker.teams[:row[0]] = Team.new
+    # require 'pry'; binding.pry
     end
   end
 
