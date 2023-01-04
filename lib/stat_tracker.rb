@@ -13,6 +13,7 @@ class StatTracker
 	def self.from_csv(locations)
     stat_tracker = new 
     teams_csv_reader(locations, stat_tracker)
+    require 'pry'; binding.pry
     games_csv_reader(locations, stat_tracker)
     game_teams_csv_reader(locations, stat_tracker)
 
@@ -20,11 +21,11 @@ class StatTracker
   end
 
   def self.teams_csv_reader(locations, stat_tracker)
-    contents = CSV.open locations[:teams], headers: true, header_converters: :symbol
-    # contents.each do |row|
-    #   stat_tracker.teams[:row[0]] = Team.new
-    # require 'pry'; binding.pry
+    row_database = []
+    CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
+      row_database << row
     end
+    return row_database
   end
 
   def self.games_csv_reader(locations, stat_tracker)
