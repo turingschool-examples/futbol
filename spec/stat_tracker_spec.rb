@@ -33,6 +33,23 @@ describe StatTracker do
     end
   end
 
+  describe '#count_of_teams' do
+    it 'returns the total number of teams' do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#average_goals_per_game' do
+    it 'can return the average total score of all games played rounded to the 100th' do
+      expect(stat_tracker.average_goals_per_game).to eq(4.029)
+    end
+  end
+
+  describe '#average_win_percentage' do
+    it 'can take a teamid argument and return total win percentage across all games played' do
+      expect(stat_tracker.average_win_percentage(52)).to eq(0.500)
+    end
+  end
 
   describe '#percentage_home_wins' do
     it 'returns % of home team wins (rounded to the nearest 100th)' do
