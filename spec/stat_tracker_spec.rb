@@ -64,10 +64,22 @@ describe StatTracker do
       expect(stat_tracker.count_of_teams).to eq 32
     end
   end
+
   describe '#best_offense' do
     it "name of the team with the highest average number of goals scored per game across all seasons" do
       expect(stat_tracker.best_offense).to eq "Sporting Kansas City"
     end
+  end
+
+  describe '#worst_offense' do
+    it "name of the team with the lowest average number of goals scored per game across all seasons" do
+      expect(stat_tracker.worst_offense).to eq "Houston Dynamo"
+    end
+  end
+
+  describe '#highest_scoring_visitor'
+  it "#team with the highest average score per game across all seasons when they are away" do
+    expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
   end
 end
 

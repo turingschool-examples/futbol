@@ -138,7 +138,7 @@ class StatTracker
     @teams.each do |team|
       @games.each do |game|
         if game[:away_team_id] == team[:team_id]
-          visitor_goals[team[:teamname]] += game[:away_goals].to_i
+          visitor_goals[team[:teamname]] += game[:away_goals].to_f/team.size
         end
       end
     end
