@@ -423,6 +423,23 @@ class StatTracker
       sorted.first[0]
     end
 
+    def find_team_id(team_id)
+      teams.find do |team|
+        team.team_id == team_id
+      end
+    end
+
+    def team_info(team_id)
+      hash = {}
+      team = find_team_id(team_id)
+      hash["team_id"] = team.team_id
+      hash["franchise_id"] = team.franchise_id
+      hash["team_name"] = team.team_name
+      hash["abbreviation"] = team.abbreviation
+      hash["link"] = team.link
+
+      hash
+    end
 end
 
 
