@@ -89,8 +89,45 @@ class StatTracker
   end
  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
  #Percentage of games that a home team has won (rounded to the nearest 100th)
- def percentage_home_wins
 
+ def count_of_games_by_season
+  new_hash = Hash.new(0) 
 
+  games.each do |game|
+    new_hash[game[:season]] += 1
+  end
+  return new_hash
  end
+
+ def average_goals_per_game 
+  goals = 0 
+  games.each do |game|
+    goals += (game[:away_goals] + game[:home_goals]) 
+  end
+  average = (goals.to_f/(games.count.to_f)).round(2)
+  return average
+ end
+
+ def average_goals_by_season
+  new_hash = Hash.new(0) 
+
+  games.each do |game|
+    new_hash[game[:season]]  = season_goals(game[:season])
+  end
+  return new_hash
+ end
+
+ def season_goals(season)
+  number = 0
+  goals = 0
+  games.each do |game|
+    if game[:season] == season
+      number += 1 
+      goals += (game[:away_goals] + game[:home_goals])
+    end
+  end
+  average = (goals.to_f/number.to_f).round(2)
+ end
+
+
 end

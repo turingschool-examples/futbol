@@ -41,23 +41,51 @@ RSpec.describe StatTracker do
 
     it "the objects all have the correct attributes" do 
     
-      expect(stat_tracker.game_teams[rand(0..49)][:game_id]).to be_a(Integer)
+      expect(stat_tracker.game_teams[0][:game_id]).to eq(2012030225)
 
-      expect(stat_tracker.games[rand(0..47)][:home_goals]).to be_a(Integer)
+      expect(stat_tracker.games[0][:home_goals]).to eq(1)
 
-      expect(stat_tracker.teams[rand(0..32)][:team_id]).to be_a(Integer)
+      expect(stat_tracker.teams[0][:team_id]).to eq(1)
     
-      expect(stat_tracker.game_teams[rand(0..49)][:hoa]).to be_a(String)
+      expect(stat_tracker.game_teams[0][:hoa]).to eq("away")
 
-      expect(stat_tracker.game_teams[rand(0..49)][:faceoff_win_percentage]).to be_a(Float)
+      expect(stat_tracker.game_teams[0][:faceoff_win_percentage]).to eq(50.9)
 
-      expect(stat_tracker.games[rand(0..47)][:venue]).to be_a(String)
+      expect(stat_tracker.games[0][:venue]).to eq("Providence Park")
 
-      expect(stat_tracker.teams[rand(0..32)][:abbreviation]).to be_a(String)
+      expect(stat_tracker.teams[0][:abbreviation]).to eq("ATL")
 
     end 
   end
   #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
 
+    it "counts the games by season" do 
+
+      expect(stat_tracker.count_of_games_by_season).to eq({
+        20162017 => 7, 
+        20172018 => 10, 
+        20152016 => 2, 
+        20142015 => 10, 
+        20122013 => 5, 
+        20132014 => 13, 
+      })
+    end
+
+    it "is able to find the average number of goals across all seasons" do 
+      expect(stat_tracker.average_goals_per_game).to eq(4.45)
+    end
+
+    it "Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)" do 
+      expect(stat_tracker.average_goals_by_season).to eq({
+        
+        20162017 => 5.14, 
+        20172018 => 4.10, 
+        20152016 => 6.00, 
+        20142015 => 3.90, 
+        20122013 => 5.00, 
+        20132014 => 4.31, 
+
+      })
+    end
 
 end
