@@ -251,48 +251,57 @@ class StatTracker
       end
     end
 
-    def best_offense
-      team_id_hash_2 = Hash.new{|h,v| h[v] = []}
+    
+    def team_score_averages
+      team_id_hash = Hash.new{|h,v| h[v] = []}
       games.each do |game|
-        team_id_hash_2[game.away_team_id] << game.away_goals.to_f
-        team_id_hash_2[game.home_team_id] << game.home_goals.to_f
+        team_id_hash[game.away_team_id] << game.away_goals.to_f
+        team_id_hash[game.home_team_id] << game.home_goals.to_f
+      end
+    
+      goal_average_hash = Hash.new
+      team_id_hash.each do |team_id, score_array|
+       goal_average_hash[team_id] = (score_array.sum / score_array.size).round(4)
+      end
+    
+      goal_average_hash.sort_by{|key, value| value}
+    end
+
+    def best_offense
+      sorted_avgs = team_score_averages
+      lowest_score = sorted_avgs.last[1]
+
+      lowests = []
+      sorted_avgs.each do |array|
+        lowests << array.first if array.last == lowest_score
       end
 
-      average_hash_2 = Hash.new
-      team_id_hash_2.each do |team_id, score_array|
-       average_hash_2[team_id] = (score_array.sum. / score_array.size).round(4)
-      end
-      
-      highest_id = average_hash_2.sort_by{|key, value| value}.last[0]
-
-      teams.each do |team|
-        if team.team_id == highest_id
-          return team.team_name
+      lowest_scoring_visitors = []
+      lowests.each do |id|
+        teams.each do |team|
+          lowest_scoring_visitors << team.team_name if team.team_id == id
         end
       end
+      lowest_scoring_visitors.join(", ")
     end
 
     def worst_offense
-      team_id_hash_2 = Hash.new{|h,v| h[v] = []}
-      games.each do |game|
-        team_id_hash_2[game.away_team_id] << game.away_goals.to_f
-        team_id_hash_2[game.home_team_id] << game.home_goals.to_f
+      sorted_avgs = team_score_averages
+      lowest_score = sorted_avgs.first[1]
+
+      lowests = []
+      sorted_avgs.each do |array|
+        lowests << array.first if array.last == lowest_score
       end
 
-      average_hash_2 = Hash.new
-      team_id_hash_2.each do |team_id, score_array|
-       average_hash_2[team_id] = (score_array.sum. / score_array.size).round(4)
-      end
-      
-      lowest_id = average_hash_2.sort_by{|key, value| value}.first[0]
-
-      teams.each do |team|
-        if team.team_id == lowest_id
-          return team.team_name
+      lowest_scoring_visitors = []
+      lowests.each do |id|
+        teams.each do |team|
+          lowest_scoring_visitors << team.team_name if team.team_id == id
         end
       end
+      lowest_scoring_visitors.join(", ")
     end
-
     
 
 end
