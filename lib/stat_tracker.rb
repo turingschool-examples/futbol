@@ -101,6 +101,28 @@ def most_tackles(season_id)
       
 end
 
+def fewest_tackles(season_id)
+  games_list = []
+  teams_tackles_hash = Hash.new(0)
+  
+  @games.each do |row|
+    if row[:season] == season_id
+      games_list << row[:game_id] 
+    end
+  end
+
+  @game_teams.each do |row|
+    if games_list.include?(row[:game_id])
+      teams_tackles_hash[row[:team_id]] += row[:tackles].to_i
+    end
+  end
+
+  lowest_tackling_team_id = teams_tackles_hash.min_by{|k,v| v}[0]
+  team_id_to_name(lowest_tackling_team_id)
+end
+
+
+
 
 
 end
