@@ -401,6 +401,7 @@ class StatTracker
       game_teams_arr
     end
 
+    ## SEASON STATISTICS METHODS
     def coaches_win_percentages_hash(season)
       coaches_hash = Hash.new{|h,v| h[v] = []}
       array_of_game_teams_by_season(season).each do |game_team|
@@ -421,6 +422,23 @@ class StatTracker
     def worst_coach(season)
       sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
       sorted.first[0]
+    end
+
+    #TEAM STATISTICS METHODS
+
+
+    def goals_scored_sorted(teamid)
+      game_scores = []
+     
+      games.each do |game|
+        game_scores << game.home_goals.to_i if game.home_team_id.to_i == teamid
+        game_scores << game.away_goals.to_i if game.away_team_id.to_i == teamid
+      end
+      game_scores.sort
+    end
+
+    def most_goals_scored(teamid)
+      goals_scored_sorted.last
     end
 
 end
