@@ -35,9 +35,9 @@ class StatTracker
     Hash.new {|h,k| h[k] = Hash.new(0) }
   end
 
-def team_id_to_name(id)
-  @teams.find { |team| team[:team_id] == id }[:teamname]
-end
+  def team_id_to_name(id)
+    @teams.find { |team| team[:team_id] == id }[:teamname]
+  end
 
 
 def best_offense
@@ -60,15 +60,50 @@ def best_offense
   team_id_to_name(highest_scoring_id)
 end
 
+def worst_offense
+  hash1 = nested_hash_creator
+  hash2 = Hash.new(0)
+  game_teams.each do |row|
+    hash1[row[:team_id]][:games] += 1
+    hash1[row[:team_id]][:goals] += row[:goals].to_i
+  end
+  hash1.each do |key, value|
+    hash2[key] =  value[:goals].to_f / value[:games].to_f
+  end
 
- 
+  lowest_goals_average = hash2.values.min
+  lowest_scoring_id = hash2.find do |key, value|
+    value == lowest_goals_average
+  end[0]
 
-  
-
-
+  team_id_to_name(lowest_scoring_id)
 end
 
 
+def most_tackles(season_id)
+  games_list = []
+  teams_tackles_hash = Hash.new(0)
+  
+  @games.each do |row|
+    if row[:season] == season_id
+      games_list << row[:game_id] 
+    end
+  end
+
+  @game_teams.each do |row|
+    if games_list.include?(row[:game_id])
+      teams_tackles_hash[row[:team_id]] += row[:tackles].to_i
+    end
+  end
+  
+  highest_tackling_team_id = teams_tackles_hash.max_by{|k,v| v}[0]
+  team_id_to_name(highest_tackling_team_id)
+      
+end
+
+
+
+end
 
 
 
