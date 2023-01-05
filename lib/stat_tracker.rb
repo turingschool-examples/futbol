@@ -110,6 +110,46 @@ class StatTracker
     final_team = @teams.select { |team| team[:team_id] == last_team_id}
     final_team[0][:teamname]
   end
+
+  def highest_scoring_home_team
+    scoring_breakdown = {}
+    teams = @teams.map { |team| team[:team_id] }
+    teams.each do |team|
+      all_home_games = @games.find_all { |game| game[:home_team_id] == team}
+        total_goals = all_home_games.map { |home_game| home_game[:home_goals].to_i}.sum
+        if all_home_games.count != 0
+        average_home_goals = total_goals.to_f / all_home_games.count.to_f
+        scoring_breakdown[team] = average_home_goals.to_f.round(2)
+        else 
+          nil
+        end 
+    end 
+
+    leading_team_id = nil
+    scoring_breakdown.each { |key, value| leading_team_id = key if  value == scoring_breakdown.values.max }
+    final_team = @teams.select { |team| team[:team_id] == leading_team_id}
+    final_team[0][:teamname]
+  end
+
+  def lowest_scoring_home_team
+    scoring_breakdown = {}
+    teams = @teams.map { |team| team[:team_id] }
+    teams.each do |team|
+      all_home_games = @games.find_all { |game| game[:home_team_id] == team}
+        total_goals = all_home_games.map { |home_game| home_game[:home_goals].to_i}.sum
+        if all_home_games.count != 0
+        average_home_goals = total_goals.to_f / all_home_games.count.to_f
+        scoring_breakdown[team] = average_home_goals.to_f.round(3)
+        else 
+          nil
+        end 
+    end 
+
+    last_team_id = nil
+    scoring_breakdown.each { |key, value| last_team_id = key if  value == scoring_breakdown.values.min}
+    final_team = @teams.select { |team| team[:team_id] == last_team_id}
+    final_team[0][:teamname]
+  end
 end
 
 
