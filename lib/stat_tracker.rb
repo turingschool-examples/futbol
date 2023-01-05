@@ -85,7 +85,7 @@ class StatTracker
 
     @game_teams.each do |row|
       if games_list.include?(row[:game_id])
-        wins_hash[row[:head_coach]] += row[:result].to_i if row[:result] == "WIN"
+        wins_hash[row[:head_coach]] += 1 if row[:result] == "WIN"
       end
     end
     require 'pry'; binding.pry
