@@ -121,4 +121,12 @@ class StatTracker
   def count_of_teams
     @teams.length
   end
+
+  def count_of_games_by_season
+    season_game = []
+    @games.each do |game|
+      season_game << game[:season]
+    end
+    season_game.tally
+  end
 end
