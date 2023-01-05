@@ -167,9 +167,15 @@ describe StatTracker do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
     end
 
-    it 'can produce an array_of_games by season' do
+    it 'can produce an array_of_gameids by season' do
       expect(stat_tracker.array_of_gameids_by_season("20122013")).to be_an(Array)
+      expect(stat_tracker.array_of_gameids_by_season("20122013")[0]).to be_a(String)
       expect(stat_tracker.array_of_gameids_by_season("20122013")[0].length).to eq(10)
+    end
+
+    it 'can produce an array_of_game_teams by season' do
+      expect(stat_tracker.array_of_game_teams_by_season("20122013")).to be_an(Array)
+      expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
     end
 
     it 'can calculate win percentages for coaches and organize them' do
