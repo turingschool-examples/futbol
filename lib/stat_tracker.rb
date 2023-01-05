@@ -104,7 +104,7 @@ class StatTracker
     total_scores.first
   end
 
-  # Array of the winning and losing teams’ scores
+  # HELPER: Array of the winning and losing teams’ scores
   def total_scores
     game_sums = @games.map do |game|
       game[:away_goals] + game[:home_goals]
@@ -112,7 +112,58 @@ class StatTracker
   end
 
   #Total number of teams in the data
-   def count_of_teams
+  def count_of_teams
     @teams.count
-   end
+  end
+
+  #Team name w/ highest avg num of goals scored (per game across all seasons)
+  def best_offense
+
+    team_total_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |info_line|
+      team_total_goals[info_line[:team_id]] << info_line[:goals]
+      # returns: {3=>[1, 3, 2], 8=>[2], 25=>[3], 18=>[3], 30=>[1], 17=>[1], 1=>[3], 19=>[4], 21=>[0], 5=>[1], 15=>[2, 1], 14=>[2]}
+    end
+
+    team_averages = Hash.new { |hash, key| hash[key] = 0 }
+    team_total_goals.each do |id_of_team, goals_scored|
+      team_averages[id_of_team] = (goals_scored.sum / goals_scored.length)
+      # returns: {3=>2, 8=>2, 25=>3, 18=>2, 30=>1, 17=>2, 1=>3, 19=>3, 21=>1, 5=>1, 15=>1}
+    end
+    
+    team_averages.sort_by {|id_of_team, avg_goals_scored| avg_goals_scored}
+    # returns: [[0, 0], [20, 1], [21, 1], [5, 1], [15, 1], [30, 1]]
+    # the id is still first, the values are second and IN ORDER...
+    require 'pry'; binding.pry
+
+    @teams.find do |info_line|
+      if info_line[:game_id] == team_averages[-1][1] 
+        return info_line[:team_name] 
+      end
+    end
+    
+  end
+
+  #Team name w/ lowest avg num of goals scored (per game across all seasons)
+  # def worst_offense
+  #   #call helper method here? use <.first> #to get the lowest number?
+  #   worst_offense_team = @teams.find do |info_line|
+  #     info_line[:team_name] if info_line[:game_id] == <id_of_lowest_avg_goals> 
+  #   end
+  # end
+
+  # HELPER: avg num of goals scored (per game across all seasons)
+  # def name_goes_here
+  # end
+
+  #PSEUDO CODE:
+    # @teams # has the team name & team ID
+    # @game_teams # has the team ID & goals scored per game
+    #helper method: 
+    # group by team ID (hash key)
+    # group all their total goals scored (per game) (array value)
+    # find averages + sort by the averages(value)
+    # best/worst offense methods: 
+    # find highest/lowest average (call helper method) -> return that team's name (string)
+  
 end
