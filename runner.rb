@@ -14,6 +14,6 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-p stat_tracker.percentage_ties
+p stat_tracker.highest_scoring_visitor
 
 # puts stat_tracker.percentage_home_wins

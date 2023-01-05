@@ -127,4 +127,25 @@ class StatTracker
     end
     percent_ties = ((ties / total_of_games.to_f)).round(2)
   end
+
+  # Name of the team with the highest average score per game across all seasons when they are away.	
+  def highest_scoring_visitor
+    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do | k, v |
+      if k[:hoa] == "away"
+        id_goals[k[:team_id]] << k[:goals]
+      end
+    end
+
+    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    id_goals.each do |team_id, goals_scored|
+      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+
+    @teams.find do |info_line|
+      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.max)
+        return info_line[:team_name] 
+      end
+    end
+  end
 end

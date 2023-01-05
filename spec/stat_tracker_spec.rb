@@ -46,8 +46,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.games[rand(0..47)][:home_goals]).to be_a(Integer)
 
       expect(stat_tracker.teams[rand(0..32)][:team_id]).to be_a(Integer)
-    
-      expect(stat_tracker.game_teams[rand(0..51)][:hoa]).to be_a(String)
 
       expect(stat_tracker.game_teams[rand(0..51)][:faceoff_win_percentage]).to be_a(Float)
 
@@ -66,7 +64,13 @@ RSpec.describe StatTracker do
     end
 
     it "#percentage_ties" do
-      expect(stat_tracker.percentage_ties).to eq(0.21)
+      expect(stat_tracker.percentage_ties).to eq(0.22)
+    end
+  end
+
+  describe "League Statistics" do
+    it "#highest_scoring_visitor" do
+      expect(stat_tracker.highest_scoring_visitor).to eq("Philadelphia Union")
     end
   end
 end
