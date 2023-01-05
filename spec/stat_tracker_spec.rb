@@ -70,12 +70,12 @@ RSpec.describe StatTracker do
 
         it "#average_goals_by_season" do
         expected = {
-            "20122013"=>1,
-            "20132014"=>3,
-            "20142015"=>2,
-            "20152016"=>2,
-            "20162017"=>2,
-            "20172018"=>0
+            "20122013"=>1.0,
+            "20132014"=>3.0,
+            "20142015"=>5.5,
+            "20152016"=>3.0,
+            "20162017"=>4.0,
+            "20172018"=>3.0
         }
         expect(@stat_tracker.average_goals_by_season).to eq expected
         end
