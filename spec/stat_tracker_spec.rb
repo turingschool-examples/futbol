@@ -59,4 +59,9 @@ RSpec.describe StatTracker do
   it 'calculates percent of ties' do
     expect(@stat_tracker.percentage_ties).to eq 0.0
   end
+
+  it 'names winningest coach of the season' do
+    require 'pry'; binding.pry
+    expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien") 
+  end
 end
