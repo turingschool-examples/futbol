@@ -176,4 +176,16 @@ describe StatTracker do
       expect(stat_tracker.lowest_scoring_home_team).to eq("Atlanta United")
     end
   end
+
+	describe '#best_offense' do
+		it 'returns the team NAME with the MOST AVERAGE GOALS per game across ALL SEASONS' do
+			expect(stat_tracker.best_offense).to eq("Toronto FC")
+		end
+	end
+
+	describe '#worst_offense' do
+		it 'returns the team NAME with the LEAST AVERAGE GOALS per game across ALL SEASONS' do
+			expect(stat_tracker.worst_offense).to eq("DC United")
+		end
+	end
 end
