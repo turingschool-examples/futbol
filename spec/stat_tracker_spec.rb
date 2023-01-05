@@ -167,10 +167,15 @@ describe StatTracker do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
     end
 
+    it 'can produce an array_of_games by season' do
+      expect(stat_tracker.array_of_gameids_by_season("20122013")).to be_an(Array)
+      expect(stat_tracker.array_of_gameids_by_season("20122013")[0].length).to eq(10)
+    end
+
     it 'can calculate win percentages for coaches and organize them' do
-      expect(stat_tracker.coaches_win_percentages("Regular Season")).to be_an(Array)
-      expect(stat_tracker.coaches_win_percentages("Regular Season")[0]).to be_an(Array)
-      expect(stat_tracker.coaches_win_percentages("Regular Season")[1]).to be_a(Float)
+      expect(stat_tracker.coaches_win_percentages("20122013")).to be_an(Array)
+      expect(stat_tracker.coaches_win_percentages("20122013")[0]).to be_an(Array)
+      expect(stat_tracker.coaches_win_percentages("20122013")[1]).to be_a(Float)
     end
   end
   
