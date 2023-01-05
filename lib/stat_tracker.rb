@@ -164,15 +164,15 @@ class StatTracker
     end
     
     def percentage_home_wins
-      (home_wins.to_f * 100 / games.length).round(2)
+      (home_wins.to_f / games.length).round(2)
     end
 
     def percentage_visitor_wins
-      (away_wins.to_f * 100 / games.length).round(2)
+      (away_wins.to_f / games.length).round(2)
     end
 
     def percentage_ties
-      (tie_games.to_f * 100 / games.length).round(2)
+      (tie_games.to_f / games.length).round(2)
     end
 
     def count_of_games_by_season
@@ -423,6 +423,7 @@ class StatTracker
       sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
       sorted.first[0]
     end
+    
 
     def most_tackles(season)
       team_total_tackles = Hash.new{|h,v| h[v] = []}
@@ -457,7 +458,24 @@ class StatTracker
     def fewest_goals_scored(teamid)
       goals_scored_sorted(teamid).first
     end
+    
+    def find_team_id(team_id)
+      teams.find do |team|
+        team.team_id == team_id
+      end
+    end
 
+    def team_info(team_id)
+      hash = {}
+      team = find_team_id(team_id)
+      hash["team_id"] = team.team_id
+      hash["franchise_id"] = team.franchise_id
+      hash["team_name"] = team.team_name
+      hash["abbreviation"] = team.abbreviation
+      hash["link"] = team.link
+
+      hash
+    end
 end
 
 
