@@ -74,11 +74,10 @@ RSpec.describe StatTracker do
 
     it "#best_offense" do
       expect(stat_tracker.best_offense).to eq("Reign FC")
-      # figure out what the real answer is in the fixture file! 
     end
 
-    xit "#worst_offense" do
-      expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+    it "#worst_offense" do
+      expect(stat_tracker.worst_offense).to eq("Orlando City SC")
     end
   end
 end
