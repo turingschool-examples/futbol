@@ -312,8 +312,15 @@ class StatTracker
       end
     end
 
+    def winningest_coach(season)
+      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
+      sorted.last[0]
+    end
     
-    
+    def worst_coach(season)
+      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
+      sorted.first[0]
+    end
 
 end
 

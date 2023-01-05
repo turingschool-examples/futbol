@@ -182,6 +182,14 @@ describe StatTracker do
       expect(stat_tracker.coaches_win_percentages_hash("20122013")).to be_a(Hash)
       expect(stat_tracker.coaches_win_percentages_hash("20122013").first[1]).to be_a(Float)
     end
+
+    it 'can find the winningest coach' do
+      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+    end
+
+    it 'can find the worst coach' do
+      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+    end
   end
   
 end
