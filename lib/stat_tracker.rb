@@ -214,4 +214,53 @@ class StatTracker
 			row[:game_id]
 		end
 	end
+
+  def highest_scoring_visitor
+    # returns NAME of team who averages the most away goals per game
+    team_id = all_game_scores_by_away_team.key(all_game_scores_by_away_team.values.max)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+  def lowest_scoring_visitor
+    # returns NAME of team who averages the most away goals per game
+    team_id = all_game_scores_by_away_team.key(all_game_scores_by_away_team.values.min)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+  def highest_scoring_home_team
+    # returns NAME of team who averages the most away goals per game
+    team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.max)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+  def lowest_scoring_home_team
+    # returns NAME of team who averages the most away goals per game
+    team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.min)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+	def all_game_scores_by_away_team
+		hash = Hash.new {|k, v| k[v] = []}
+		@games.each do |row|
+			hash[row[:away_team_id]] << row[:away_goals].to_i
+		end
+		hash.each do |team, goals|
+      hash[team] = (goals.sum.to_f / goals.count).round(2)
+		end
+	end
+
+  def all_game_scores_by_home_team
+		hash = Hash.new {|k, v| k[v] = []}
+		@games.each do |row|
+			hash[row[:home_team_id]] << row[:home_goals].to_i
+		end
+		hash.each do |team, goals|
+      hash[team] = (goals.sum.to_f / goals.count).round(2)
+		end
+	end
+  # def games_by_hoa
+  #   @games_by_hoa ||= @game_teams.group_by do |row|
+  #     row[:hoa]
+  #   end
+  # end
 end
