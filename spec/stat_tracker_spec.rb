@@ -90,5 +90,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.winningest_coach("20152016")).to eq("Michel Therrien")
     end
   end
+
+  describe '#worst_coach' do
+    it 'can return the coach with the worst win percentage for a season' do
+      expect(stat_tracker.worst_coach("20152016")).to eq("Jeff Blashill")
+    end
+  end
 end
 
