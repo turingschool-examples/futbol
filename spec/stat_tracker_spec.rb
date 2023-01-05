@@ -6,6 +6,10 @@ RSpec.describe StatTracker do
     team_path = './spec/fixtures/teams_fixture.csv'
     game_teams_path = './spec/fixtures/game_teams_fixture.csv'
 
+    # game_path = './data/games.csv'
+    # team_path = './data/teams.csv'
+    # game_teams_path = './data/game_teams.csv'
+
     locations = {
       games: game_path,
       teams: team_path,
@@ -120,4 +124,35 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_by_team_hash.class).to eq(Hash)
     end
   end
+
+  describe '#visitor_scores_hash' do 
+    it 'returns a hash with the team id as the key and the value as the average score' do 
+      expect(@stat_tracker.visitor_scores_hash.class).to eq(Hash)
+    end
+  end
+
+  describe '#highest_scoring_visitor' do 
+    it 'returns a string of the highest scoring away team name' do 
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do 
+    it 'returns a string of the lowest scoring away team name' do 
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#highest_scoring_home_team' do
+    it 'returns a string of the highest scoring home team' do 
+      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns a string of the lowest scoring home team' do 
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    end
+  end
+  
 end
