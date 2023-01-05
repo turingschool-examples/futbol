@@ -216,25 +216,22 @@ class StatTracker
 	end
 
   def highest_scoring_visitor
-    # returns NAME of team who averages the most away goals per game
     team_id = all_game_scores_by_away_team.key(all_game_scores_by_away_team.values.max)
     find_team_by_id[team_id].first[:teamname]
   end
 
   def lowest_scoring_visitor
-    # returns NAME of team who averages the most away goals per game
     team_id = all_game_scores_by_away_team.key(all_game_scores_by_away_team.values.min)
     find_team_by_id[team_id].first[:teamname]
   end
 
   def highest_scoring_home_team
-    # returns NAME of team who averages the most away goals per game
     team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.max)
     find_team_by_id[team_id].first[:teamname]
   end
 
   def lowest_scoring_home_team
-    # returns NAME of team who averages the most away goals per game
+
     team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.min)
     find_team_by_id[team_id].first[:teamname]
   end
@@ -258,9 +255,14 @@ class StatTracker
       hash[team] = (goals.sum.to_f / goals.count).round(2)
 		end
 	end
-  # def games_by_hoa
-  #   @games_by_hoa ||= @game_teams.group_by do |row|
-  #     row[:hoa]
-  #   end
-  # end
+
+  def team_info(team_id)
+    team_hash = {}
+    find_team_by_id[team_id].each do |row|
+      row.headers.each do |header|
+        team_hash[header.to_s] = row[header] if header != :stadium
+      end
+    end
+    team_hash
+  end
 end
