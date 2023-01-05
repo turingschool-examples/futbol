@@ -20,6 +20,7 @@ class StatTracker
     @home_goals = @games[:home_goals]
     @venue = @games[:venue].to_s
     @venue_link = @games[:venue_link].to_s
+    @total_scores = []
   end
 
   def self.from_csv(locations)
@@ -69,25 +70,6 @@ class StatTracker
     @teams.count
   end
 
-
-  # def map_team_id
-  #   team = teams.map do |row|
-  #     row[:team_id]
-  #   end
-  #   team
-  # end
-
-  # def game_teams_group_by_team_id
-  #   @game_teams.group_by(find_team_id)
-  # end
-
-  # def team_ids_by_goals_hash
-  #   teams_hash = game_teams_group_by_team_id
-
-  #   teams_hash.each do |team_id, game_teams|
-  #     teams_hash[team_id] = (game_teams.map(&:goals).map(&:to_i).sum.to_f / game_teams.count).round(2)
-  #   end
-  # end
   def best_offense
     teams = []
     @games.each do |row|
@@ -97,9 +79,9 @@ class StatTracker
 
     hash = Hash.new {|hash, key| hash[key] = []}
     teams.each do |array|
-      hash[array[0]] <<array[1].to_i
+      hash[array[0]] << array[1].to_i
     end
-
+    
     hash.each do |k, v|
       if v.size>1
         hash[k] = v.sum
@@ -107,16 +89,40 @@ class StatTracker
         hash[k] = v[0]
       end
     end
-
+    
     max_team = hash.max_by do |k, v|
-      v
+      v 
     end
-
+    
     best_offense = nil
     @teams.each do |team|
       best_offense = team[:teamname] if team[:team_id] == max_team[0]
     end
     best_offense
+  end
+
+  def total_scores
+    @games.each do |row|
+      @total_scores << row[:away_goals].to_i + row[:home_goals].to_i
+    end
+  end
+
+  def average_goals_per_game
+    total_scores
+    (@total_scores.sum / @games.size.to_f).round(2)
+  end
+
+  def highest_scoring_visitor
+    visitor_goals = Hash.new(0)
+    @teams.each do |team|
+      @games.each do |game|
+        if game[:away_team_id] == team[:team_id]
+          visitor_goals[team[:teamname]] += game[:away_goals].to_i
+        end
+      end
+    end
+    best_team = visitor_goals.max_by {|team, goals| goals}
+    best_team[0]
   end
 end
 
