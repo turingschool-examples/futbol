@@ -213,4 +213,16 @@ describe StatTracker do
 			expect(stat_tracker.worst_offense).to eq("DC United")
 		end
 	end
+
+	describe '#most_accurate_team' do
+		it 'returns TEAM NAME with the BEST ratio of SHOTS to GOALS for the SEASON' do
+			expect(stat_tracker.most_accurate_team).to eq(???)
+		end
+	end
+
+	describe '#least_accurate_team' do
+		it 'returns TEAM NAME with the WORST ratio of SHOTS to GOALS for the SEASON' do
+			expect(stat_tracker.least_accurate_team).to eq(???)
+		end
+	end
 end
