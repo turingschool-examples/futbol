@@ -214,4 +214,38 @@ class StatTracker
 			row[:game_id]
 		end
 	end
+
+	def rival(team_id)
+		win_or_loss(team_id, 'WIN')
+	end
+
+	def favorite_opponent(team_id)
+		win_or_loss(team_id, 'LOSS')
+	end
+
+	def win_or_loss(team_id, win_loss_string)
+		games = games_by_team_id[team_id.to_s].find_all do |game|
+			game[:team_id] == team_id.to_s
+		end
+		hash = {}
+		games.each do |game|
+			game = games_by_game_id[game[:game_id]].find {|element| element[:team_id] != team_id.to_s}
+			hash[game[:game_id]] = game
+		end
+		new_hash = Hash.new {|k,v| k[v] = []}
+		hash.each do |game_id, game|
+			new_hash[game[:team_id]] << game[:result]
+		end
+		new_hash.each do |k,v|
+			new_hash[k] = (v.count(win_loss_string).to_f / v.count).round(2)
+		end
+		team_id = new_hash.key(new_hash.values.max)
+		find_team_by_id[team_id].first[:teamname]
+	end
+
+	def games_by_team_id
+		@games_by_team_id ||= @game_teams.group_by do |row|
+			row[:team_id]
+		end
+	end
 end
