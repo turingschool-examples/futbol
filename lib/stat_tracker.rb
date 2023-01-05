@@ -116,5 +116,9 @@ class StatTracker
       hash[season] = (hash[season]/games.size.to_f).round(2)
     end
     hash
-  end           
+  end        
+     
+  def count_of_teams
+    @teams.length
+  end
 end
