@@ -177,15 +177,15 @@ describe StatTracker do
     end
   end
 
-	describe '#best_offense' do
-		it 'returns the team NAME with the MOST AVERAGE goals per game across ALL SEASONS' do
-			expect(stat_tracker.best_offense).to eq(???)
+	xdescribe '#best_offense' do
+		it 'returns the team NAME with the MOST AVERAGE GOALS per game across ALL SEASONS' do
+			expect(stat_tracker.best_offense).to eq("Montreal Impact")
 		end
 	end
 
-	describe '#worst_offense' do
-		it 'returns the team NAME with the LEAST AVERAGE goals per game across ALL SEASONS' do
-			expect(stat_tracker.worst_offense).to eq(???)
+	xdescribe '#worst_offense' do
+		it 'returns the team NAME with the LEAST AVERAGE GOALS per game across ALL SEASONS' do
+			expect(stat_tracker.worst_offense).to eq("FC Cincinnati")
 		end
 	end
 end
