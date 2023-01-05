@@ -165,8 +165,7 @@ describe StatTracker do
     end
 
     it 'can calculate #best_offense' do
-
-      expect(stat_tracker.best_offense).to eq("FC Cincinnati")
+      expect(stat_tracker.best_offense).to eq("Chicago Fire")
     end
   end
 
