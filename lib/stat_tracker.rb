@@ -431,8 +431,8 @@ class StatTracker
       game_scores = []
      
       games.each do |game|
-        game_scores << game.home_goals.to_i if game.home_team_id.to_i == teamid
-        game_scores << game.away_goals.to_i if game.away_team_id.to_i == teamid
+        game_scores << game.home_goals.to_i if game.home_team_id == teamid
+        game_scores << game.away_goals.to_i if game.away_team_id == teamid
       end
       game_scores.sort
     end
