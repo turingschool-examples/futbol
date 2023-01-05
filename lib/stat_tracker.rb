@@ -102,4 +102,18 @@ class StatTracker
     end
     percent_win = ((wins_at_home / total_of_home_games.to_f)).round(2)
   end
+   # Percentage of games that a visitor has won (rounded to the nearest 100th)
+   def percentage_visitor_wins
+    total_of_home_games = 0
+    losses_at_home = 0 
+    @game_teams.each do | k, v |
+      if k[:hoa] == "home"
+        total_of_home_games += 1
+      end
+      if k[:hoa] == "home" && k[:result] == "LOSS"
+        losses_at_home += 1
+      end
+    end
+    percent_loss = ((losses_at_home / total_of_home_games.to_f)).round(2)
+  end
 end

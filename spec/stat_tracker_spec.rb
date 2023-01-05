@@ -60,5 +60,9 @@ RSpec.describe StatTracker do
     it "#percentage_home_wins" do
       expect(stat_tracker.percentage_home_wins).to eq(0.43)
     end
+
+    it "#percentage_visitor_wins" do
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.43)
+    end
   end
 end
