@@ -40,9 +40,17 @@ RSpec.describe StatTracker do
     end
   end  
 
-  describe '#highest_total_score' do
+  describe 'compares total scores' do
+    it 'finds total score' do
+      expect(stat_tracker.total_score).to be_a(Array)
+    end
+    
     it 'finds highest total score' do
-        expect(stat_tracker.highest_total_score).to eq(11)
+      expect(stat_tracker.highest_total_score).to eq(11)
+    end
+
+    it 'finds lowest total score' do
+      expect(stat_tracker.lowest_total_score).to eq(0)
     end
   end
 end

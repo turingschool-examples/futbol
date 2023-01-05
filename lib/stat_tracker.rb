@@ -14,11 +14,17 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  def highest_total_score
-    total_score = []
-    games.each do |game|
-      total_score << game[:home_goals].to_i + game[:away_goals].to_i
+  def total_score
+    total_score = games.map do |game|
+      game[:home_goals].to_i + game[:away_goals].to_i
     end
+  end
+
+  def highest_total_score
     total_score.max
+  end
+
+  def lowest_total_score
+    total_score.min
   end
 end
