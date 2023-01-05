@@ -127,7 +127,7 @@ class StatTracker
     id_goals.each do |team_id, goals_scored|
       id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
     end
-
+    # if 2 teams have the same avg this will return ONLY the FIRST one:
     @teams.first do |info_line|
       if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.max)
         return info_line[:team_name] 
@@ -154,17 +154,6 @@ class StatTracker
     end
   end
 
-  # HELPER: avg num of goals scored (per game across all seasons)
-  # def id_goals_avg_hash
-  #   id_goals = Hash.new { |hash, key| hash[key] = [] }
-  #   @game_teams.each do |info_line|
-  #     id_goals[info_line[:team_id]] << info_line[:goals]
-  #   end
-
-  #   id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-  #   id_goals.each do |team_id, goals_scored|
-  #     id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
-  #   end
-  # end
+  
 
 end
