@@ -167,10 +167,10 @@ describe StatTracker do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
     end
 
-    xit 'can calculate win percentages for coaches and organize them' do
-      expect(stat_tracker.coaches_win_percentages).to be_an(Array)
-      expect(stat_tracker.coaches_win_percentages[0]).to be_an(Array)
-      expect(stat_tracker.coaches_win_percentages[1]).to be_a(Float)
+    it 'can calculate win percentages for coaches and organize them' do
+      expect(stat_tracker.coaches_win_percentages("Regular Season")).to be_an(Array)
+      expect(stat_tracker.coaches_win_percentages("Regular Season")[0]).to be_an(Array)
+      expect(stat_tracker.coaches_win_percentages("Regular Season")[1]).to be_a(Float)
     end
   end
   
