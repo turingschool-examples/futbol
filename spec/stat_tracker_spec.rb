@@ -211,7 +211,7 @@ describe StatTracker do
       expect(stat_tracker.team_info("18")).to eq expected
     end
 
-  end
+
 
 
     it 'can calculate the highest_scoring_visitor' do
@@ -241,6 +241,13 @@ describe StatTracker do
     it 'can find the worst coach' do
       expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
     end
+
+    ##TEAM STATISTICS BELOW
+
+    it 'can find the most_goals_scored for a team' do
+        expect(stat_tracker.most_goals_scored).to be_an(Integer)
+    end
+    
   end
 
 end
