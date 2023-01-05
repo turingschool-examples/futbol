@@ -18,12 +18,6 @@ class StatTracker
 		StatTracker.new(games_data, teams_data, game_teams_data)
 	end
 
-	def find_all_game_id
-		@games.map do |row|
-			row[:game_id]
-		end
-	end
-
 	def total_scores
 		@games.map do |row|
 			row[:away_goals].to_i + row[:home_goals].to_i
@@ -54,7 +48,6 @@ class StatTracker
     average_score.round(2)
   end
 
-	# 
   def average_win_percentage(team_id)
     games_played = []
     games_won = []
@@ -204,7 +197,7 @@ class StatTracker
 			row[:game_id]
 		end
 	end
-
+  
 	def rival(team_id)
 		win_or_loss(team_id, 'WIN')
 	end
@@ -236,6 +229,47 @@ class StatTracker
 	def games_by_team_id
 		@games_by_team_id ||= @game_teams.group_by do |row|
 			row[:team_id]
+		end
+	end
+  
+  def highest_scoring_visitor
+    team_id = all_game_scores_by_away_team.key(all_game_scores_by_away_team.values.max)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+  def lowest_scoring_visitor
+    team_id = all_game_scores_by_away_team.key(all_game_scores_by_away_team.values.min)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+  def highest_scoring_home_team
+    team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.max)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+  def lowest_scoring_home_team
+    # returns NAME of team who averages the most away goals per game
+    team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.min)
+    find_team_by_id[team_id].first[:teamname]
+  end
+
+	def all_game_scores_by_away_team
+		hash = Hash.new {|k, v| k[v] = []}
+		@games.each do |row|
+			hash[row[:away_team_id]] << row[:away_goals].to_i
+		end
+		hash.each do |team, goals|
+      hash[team] = (goals.sum.to_f / goals.count).round(2)
+		end
+	end
+
+  def all_game_scores_by_home_team
+		hash = Hash.new {|k, v| k[v] = []}
+		@games.each do |row|
+			hash[row[:home_team_id]] << row[:home_goals].to_i
+		end
+		hash.each do |team, goals|
+      hash[team] = (goals.sum.to_f / goals.count).round(2)
 		end
 	end
 end

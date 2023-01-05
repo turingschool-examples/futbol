@@ -153,4 +153,27 @@ describe StatTracker do
 		end
 	end
 
+  describe '#highest_scoring_visitor' do
+    it 'returns the NAME of the team who scored the most goals per game as the away team' do
+      expect(stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do
+    it 'returns the NAME of the team who scored the most goals per game as the away team' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
+    end
+  end
+
+  describe '#highest_scoring_home_team' do
+    it 'returns the NAME of the team who scored the most goals per game as the home team' do
+      expect(stat_tracker.highest_scoring_home_team).to eq("Toronto FC")
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns the NAME of the team who scored the most goals per game as the home team' do
+      expect(stat_tracker.lowest_scoring_home_team).to eq("Atlanta United")
+    end
+  end
 end
