@@ -78,20 +78,33 @@ class StatTracker
     end
     (tally.to_f / @game_teams.count.to_f).round(2)
   end
-
+  
   def winningest_coach(season_id)
-    @game_teams.each do |row|
-
-    end
+      games_list = []
+      wins_list = []
+      @games.each do |row|
+        if row[:season] == season_id
+          games_list << row[:game_id] 
+        end
+      end
+      # #require 'pry'; binding.pry
+      @game_teams.each do |row|
+        if games_list.include?(row[:game_id])
+          wins_list << row[:head_coach] if row[:result] == "WIN"
+        end
+      end
+      wins_list.tally
+    end 
   end
 
   def worst_coach(season_id)
-
+    loss_list = []
+  @game_teams.each do |row|
+  if games_list.include?(row[:game_id])
+    loss_list << row[:head_coach] if row[:result] == "LOSS"
   end
-
-  def most_tackles(season_id)
-
   end
+  loss_list.tally
 end
 
 
