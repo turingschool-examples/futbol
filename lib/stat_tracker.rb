@@ -72,7 +72,6 @@ class StatTracker
         games_total_score_array.min
     end
     
-end
     def percentage_home_wins
         percentage_games = []
         @games.each do |game, goals|
@@ -95,5 +94,14 @@ end
             percentage_games << game if game[:away_goals] == game[:home_goals] 
         end
         (percentage_games.count.to_f / @games.count.to_f).round(2)
+    end
+
+    def count_of_games_by_season
+        season_count = @games.group_by { |game| game[:season] }
+        season_count.each do |games, value|
+            require "pry"; binding.pry
+             season_count[games] = value.count
+             require "pry"; binding.pry
+        end
     end
 end
