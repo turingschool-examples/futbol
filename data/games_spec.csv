@@ -59,4 +59,3 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2017020295,20172018,Regular Season,11/18/17,1,52,2,3,Providence Park,/api/v1/venues/null
 2017020108,20172018,Regular Season,10/21/17,30,52,3,2,Providence Park,/api/v1/venues/null
 2017020314,20172018,Regular Season,11/21/17,1,30,2,3,Exploria Stadium,/api/v1/venues/null
-
