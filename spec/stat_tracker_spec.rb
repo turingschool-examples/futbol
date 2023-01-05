@@ -72,5 +72,17 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_teams).to eq(12)
     end
   end
+
+  describe '#count_of_games_by_season' do
+    it '#count_of_games_by_season' do
+      expected = {
+        "20132014"=>3,
+        "20122013"=>3,
+        "20162017"=>1,
+        "20152016"=>3,
+      }
+      expect(stat_tracker.count_of_games_by_season).to eq(expected)
+    end
+  end
 end
 
