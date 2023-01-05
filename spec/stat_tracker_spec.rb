@@ -55,4 +55,8 @@ RSpec.describe StatTracker do
   it 'will calculate the highest scoring visitor' do 
     expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
+
+  it 'will calculate the lowest scoring visitor' do 
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("FC Dallas")
+  end
 end
