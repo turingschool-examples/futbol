@@ -93,4 +93,13 @@ class StatTracker
 
 
  end
+
+  # Highest sum of the winning and losing teams’ scores
+  def highest_total_score
+    game_sums = @games.map do |game|
+      game[:away_goals] + game[:home_goals]
+    end.sort.last
+  end
+
+
 end
