@@ -238,6 +238,7 @@ class StatTracker
       games.each do |game|
         team_id_hash[game.away_team_id] << game.away_goals.to_f
       end
+      # require 'pry'; binding.pry
 
       average_hash = Hash.new
       team_id_hash.each do |team_id, score_array|
@@ -338,7 +339,58 @@ class StatTracker
         game.game_id
       end
     end
+    
+    def team_score_averages
+      team_id_hash = Hash.new{|h,v| h[v] = []}
+      games.each do |game|
+        team_id_hash[game.away_team_id] << game.away_goals.to_f
+        team_id_hash[game.home_team_id] << game.home_goals.to_f
+      end
+    
+      goal_average_hash = Hash.new
+      team_id_hash.each do |team_id, score_array|
+       goal_average_hash[team_id] = (score_array.sum / score_array.size).round(4)
+      end
+    
+      goal_average_hash.sort_by{|key, value| value}
+    end
 
+    def best_offense
+      sorted_avgs = team_score_averages
+      highest_score = sorted_avgs.last[1]
+
+      highest = []
+      sorted_avgs.each do |array|
+        highest << array.first if array.last == highest_score
+      end
+
+      highest_scoring_team = []
+      highest.each do |id|
+        teams.each do |team|
+          highest_scoring_team << team.team_name if team.team_id == id
+        end
+      end
+      highest_scoring_team.join(", ")
+    end
+
+    def worst_offense
+      sorted_avgs = team_score_averages
+      lowest_score = sorted_avgs.first[1]
+
+      lowest = []
+      sorted_avgs.each do |array|
+        lowest << array.first if array.last == lowest_score
+      end
+
+      lowest_scoring_team = []
+      lowest.each do |id|
+        teams.each do |team|
+          lowest_scoring_team << team.team_name if team.team_id == id
+        end
+      end
+      lowest_scoring_team.join(", ")
+    end
+    
     def array_of_game_teams_by_season(season)
       game_teams_arr = []
       array_of_gameids_by_season(season).each do |game_id|
