@@ -84,5 +84,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#winningest_coach' do
+    it 'can return the coach with the best win percentage for a season' do
+      expect(stat_tracker.winningest_coach("20152016")).to eq("Michel Therrien")
+    end
+  end
 end
 

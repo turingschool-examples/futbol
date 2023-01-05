@@ -129,4 +129,33 @@ class StatTracker
     end
     season_game.tally
   end
+
+  def winningest_coach(season)
+    season_games = @games.select { |game| game[:season] == season } #season_games
+    season_game_teams = @game_teams.select { |game_team| game_team[:game_id][0..3] == season[0..3] } #season_game_teams
+    season_coaches = []
+    season_coach_records = {}
+    
+    # Array of unique coaches in season - #season_coaches
+    season_games.each do |season_game|
+      season_game[:game_id]
+      # season_game_teams = @game_teams.select { |game_team| game_team[:game_id] == (season_game[:game_id]) }
+      season_game_teams.each do |season_game_team| 
+        season_coaches << season_game_team[:head_coach] unless season_coaches.include?(season_game_team[:head_coach])
+      end
+    end
+
+    # Hash of each unique coach's win percentage for season - #season_coach_records
+    season_coaches.each do |season_coach|
+      coach_season_games = season_game_teams.select { |game_team| game_team[:head_coach] == season_coach }
+      
+      coach_season_wins = coach_season_games.count { |game| game[:result] == "WIN" }
+      coach_season_total_games = coach_season_games.length
+      season_coach_records[season_coach] = coach_season_wins / coach_season_total_games.to_f * 100 
+    end
+   
+    # require "pry"; binding.pry
+    # get highest win coach
+    season_coach_records.max_by { |coach| coach[1] }[0]
+  end
 end
