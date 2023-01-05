@@ -158,10 +158,14 @@ describe StatTracker do
     it 'can count the number of teams' do
       expect(stat_tracker.count_of_teams).to eq(19)
     end
-
     
     it 'can calculate the lowest_scoring_visitor' do
       expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
+    end
+
+    it 'can calculate #team_score_averages array length' do
+      
+      expect(stat_tracker.team_score_averages.length).to eq(31)
     end
 
     it 'can calculate #best_offense' do
@@ -174,5 +178,5 @@ describe StatTracker do
   end
 
 
-  
+
 end
