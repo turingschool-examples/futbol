@@ -99,9 +99,14 @@ class StatTracker
     def count_of_games_by_season
         season_count = @games.group_by { |game| game[:season] }
         season_count.each do |games, value|
-            require "pry"; binding.pry
+            # require "pry"; binding.pry
              season_count[games] = value.count
-             require "pry"; binding.pry
+            #  require "pry"; binding.pry
         end
+    end
+
+    def average_goals_per_game
+        (games_total_score_array.sum / @games.count.to_f).round(2)
+                    #  require "pry"; binding.pry
     end
 end
