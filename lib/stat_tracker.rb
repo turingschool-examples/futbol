@@ -290,11 +290,19 @@ class StatTracker
       end
     end
 
+    def array_of_game_teams_by_season(season)
+      game_teams_arr = []
+      array_of_gameids_by_season(season).each do |game_id|
+        game_teams.each do |game_team|
+          game_teams_arr << game_team if game_team.game_id == game_id
+        end
+      end
+      game_teams_arr
+    end
+
     # def coaches_win_percentages(season)
-    #   array_of_gameids_by_season(season).each do |game_id|
-    #     game_teams
-    #   end
-      
+    #   array_of_game_teams_by_season(season)
+
     
     # end
     
