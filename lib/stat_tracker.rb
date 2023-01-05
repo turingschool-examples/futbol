@@ -138,7 +138,8 @@ class StatTracker
   
     def highest_total_score
       game_score_totals_sorted.last
-    end
+    end             
+
 
     def lowest_total_score
       game_score_totals_sorted.first
@@ -231,8 +232,9 @@ class StatTracker
       teams.count
     end
 
-    def lowest_scoring_visitor
-      team_id_hash = Hash.new{|h,v| h[v] = []}
+
+    def visitor_score_averages
+        team_id_hash = Hash.new{|h,v| h[v] = []}
       games.each do |game|
         team_id_hash[game.away_team_id] << game.away_goals.to_f
       end
@@ -240,17 +242,103 @@ class StatTracker
 
       average_hash = Hash.new
       team_id_hash.each do |team_id, score_array|
-       average_hash[team_id] = (score_array.sum. / score_array.size).round(4)
+       average_hash[team_id] = (score_array.sum / score_array.size).round(4)
       end
-      lowest_id = average_hash.sort_by{|key, value| value}.first[0]
 
-      teams.each do |team|
-        if team.team_id == lowest_id
-          return team.team_name
-        end
-      end
+      average_hash.sort_by{|key, value| value}
     end
 
+    def home_score_averages
+      team_id_hash = Hash.new{|h,v| h[v] = []}
+      games.each do |game|
+        team_id_hash[game.home_team_id] << game.home_goals.to_f
+      end
+      average_hash = Hash.new
+      team_id_hash.each do |team_id, score_array|
+        average_hash[team_id] = (score_array.sum / score_array.size).round(4)
+      end
+      average_hash.sort_by{|key, value| value}
+    end
+
+    def lowest_scoring_home
+      sorted_avgs = home_score_averages
+      lowest_score = sorted_avgs.first[1]
+
+      lowests = []
+      sorted_avgs.each do |array|
+        lowests << array.first if array.last == lowest_score
+      end
+      
+      lowest_scoring_home = []
+      lowests.each do |id|
+        teams.each do |team|
+          lowest_scoring_home << team.team_name if team.team_id == id
+        end
+      end
+      lowest_scoring_home.join(", ")
+    end
+
+    def highest_scoring_home
+      highest_score = home_score_averages.last[1]
+
+      highests = []
+      home_score_averages.each do |array|
+        highests << array.first if array.last == highest_score
+      end
+
+      highest_scoring_home = []
+      highests.each do |id|
+        teams.each do |team|
+          highest_scoring_home << team.team_name if team.team_id == id
+        end
+      end
+      highest_scoring_home.join(", ")
+    end
+     
+    def lowest_scoring_visitor
+      sorted_avgs = visitor_score_averages
+      lowest_score = sorted_avgs.first[1]
+
+      lowests = []
+      sorted_avgs.each do |array|
+        lowests << array.first if array.last == lowest_score
+      end
+
+      lowest_scoring_visitors = []
+      lowests.each do |id|
+        teams.each do |team|
+          lowest_scoring_visitors << team.team_name if team.team_id == id
+        end
+      end
+      lowest_scoring_visitors.join(", ")
+    end
+
+    def highest_scoring_visitor
+      highest_score = visitor_score_averages.last[1]
+
+      highests = []
+      visitor_score_averages.each do |array|
+        highests << array.first if array.last == highest_score
+      end
+
+      highest_scoring_visitors = []
+      highests.each do |id|
+        teams.each do |team|
+          highest_scoring_visitors << team.team_name if team.team_id == id
+        end
+      end
+      highest_scoring_visitors.join(", ")
+    end
+
+    def array_of_gameids_by_season(season)
+      games_by_season = games.find_all do |game|     
+        game.season == season
+      end
+
+     game_ids_arr = games_by_season.map do |game|
+        game.game_id
+      end
+    end
     
     def team_score_averages
       team_id_hash = Hash.new{|h,v| h[v] = []}
@@ -303,26 +391,37 @@ class StatTracker
       lowest_scoring_team.join(", ")
     end
     
-    # def team_info(team_id)
-    #   team_info = nil
-    #   headers = nil
-    #   CSV.foreach(teams, headers: true, header_converters: :downcase) do |info|
-    #     headers ||= info.headers
-    #     team_info = info.to_h if info["team_id"] == team_id 
-    #   end
-    #   team_info
-    # end
-    #doesn't include stadium K-V pair
+    def array_of_game_teams_by_season(season)
+      game_teams_arr = []
+      array_of_gameids_by_season(season).each do |game_id|
+        game_teams.each do |game_team|
+          game_teams_arr << game_team if game_team.game_id == game_id
+        end
+      end
+      game_teams_arr
+    end
 
-    # def team_info(team_id)
-    #     teams.each do |team|
-    #       require 'pry'; binding.pry
-    #       team.each do |k, v|
-    #     team.to_h if team.team_id == team_id 
-    #       end
-    #     end
-      # team_info
-    # end
+    def coaches_win_percentages_hash(season)
+      coaches_hash = Hash.new{|h,v| h[v] = []}
+      array_of_game_teams_by_season(season).each do |game_team|
+        coaches_hash[game_team.head_coach] << game_team.result
+      end
+
+      coaches_hash.each do |coach, result_arr|
+        percent = (result_arr.count("WIN").to_f/result_arr.size)*100
+        coaches_hash[coach] = percent
+      end
+    end
+
+    def winningest_coach(season)
+      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
+      sorted.last[0]
+    end
+    
+    def worst_coach(season)
+      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
+      sorted.first[0]
+    end
 
 end
 

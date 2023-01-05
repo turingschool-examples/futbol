@@ -158,10 +158,21 @@ describe StatTracker do
     it 'can count the number of teams' do
       expect(stat_tracker.count_of_teams).to eq(19)
     end
+
+    
+    it 'can calculate the lowest_scoring_home' do
+      expect(stat_tracker.lowest_scoring_home).to eq("Sporting Kansas City")
+    end
+
+    it 'can calculate the highest_scoring_home' do
+      expect(stat_tracker.highest_scoring_home).to eq("Los Angeles FC, New England Revolution, Real Salt Lake")
+    end
+
     
     it 'can calculate the lowest_scoring_visitor' do
-      expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
+      expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati, Sporting Kansas City, New York Red Bulls")
     end
+
 
     xit 'can calculate #team_score_averages array length' do
       expect(stat_tracker.team_score_averages.length).to eq(31)
@@ -203,7 +214,33 @@ describe StatTracker do
   end
 
 
+    it 'can calculate the highest_scoring_visitor' do
+      expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
+    end
 
+    it 'can produce an array_of_gameids by season' do
+      expect(stat_tracker.array_of_gameids_by_season("20122013")).to be_an(Array)
+      expect(stat_tracker.array_of_gameids_by_season("20122013")[0]).to be_a(String)
+      expect(stat_tracker.array_of_gameids_by_season("20122013")[0].length).to eq(10)
+    end
 
+    it 'can produce an array_of_game_teams by season' do
+      expect(stat_tracker.array_of_game_teams_by_season("20122013")).to be_an(Array)
+      expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
+    end
+
+    it 'can calculate win percentages for coaches and organize them' do
+      expect(stat_tracker.coaches_win_percentages_hash("20122013")).to be_a(Hash)
+      expect(stat_tracker.coaches_win_percentages_hash("20122013").first[1]).to be_a(Float)
+    end
+
+    it 'can find the winningest coach' do
+      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+    end
+
+    it 'can find the worst coach' do
+      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+    end
+  end
 
 end
