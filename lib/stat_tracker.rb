@@ -111,4 +111,8 @@ class StatTracker
     end.sort
   end
 
+  #Total number of teams in the data
+   def count_of_teams
+    @teams.count
+   end
 end

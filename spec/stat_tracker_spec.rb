@@ -67,5 +67,10 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "League Statistics" do
+    it "#count_of_teams" do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
+  end
  
 end
