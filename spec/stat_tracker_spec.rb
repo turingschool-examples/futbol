@@ -37,7 +37,7 @@ RSpec.describe StatTracker do
         end 
     end
     
-    describe "#percentages" do
+    describe "percentages" do
         it "#percentage_home_wins" do
             expect(@stat_tracker.percentage_home_wins).to eq 0.50
         end
@@ -51,7 +51,7 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe "#game count and averages" do
+    describe "game count and averages" do
         it "#count_of_games_by_season" do
         expected = {
             "20122013"=>1,
@@ -78,6 +78,13 @@ RSpec.describe StatTracker do
             "20172018"=>3.0
         }
         expect(@stat_tracker.average_goals_by_season).to eq expected
+        end
+    end
+
+    describe 'count_of_teams and best / worst offense' do 
+        it '#count_of_teams' do
+
+        expect(@stat_tracker.count_of_teams).to eq(17)
         end
     end
 end

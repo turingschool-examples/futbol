@@ -114,4 +114,8 @@ class StatTracker
                 end / game_season.count.to_f).round(2)
         end
     end
+    
+    def count_of_teams
+        @teams.count
+    end
 end
