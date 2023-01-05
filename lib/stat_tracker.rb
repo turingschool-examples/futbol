@@ -232,45 +232,11 @@ class StatTracker
       teams.count
     end
 
-    def lowest_scoring_home
-      team_id_hash = Hash.new{|h,v| h[v] = []}
-      games.each do |game|
-        team_id_hash[game.home_team_id] << game.away_goals.to_f
-      end
-
-      average_hash = Hash.new
-      team_id_hash.each do |team_id, score_array|
-       average_hash[team_id] = (score_array.sum / score_array.size).round(4)
-      end
-
-      sorted_avgs = average_hash.sort_by{|key, value| value}
-      lowest_id = sorted_avgs.first[1]
-      
-      lowests = []
-      sorted_avgs.each do |array|
-        if array.last == lowest_id
-          lowests << array.first
-        end
-      end
-
-      lowest_scoring_home = []
-      lowests.each do |id|
-        teams.each do |team|
-          if team.team_id == id
-            lowest_scoring_home << team.team_name
-          end
-        end
-      end
-
-      lowest_scoring_home.join(", ")
-    end
-
     def home_score_averages
       team_id_hash = Hash.new{|h,v| h[v] = []}
       games.each do |game|
-        team_id_hash[game.away_team_id] << game.away_goals.to_f
+        team_id_hash[game.home_team_id] << game.home_goals.to_f
       end
-
       average_hash = Hash.new
       team_id_hash.each do |team_id, score_array|
         average_hash[team_id] = (score_array.sum / score_array.size).round(4)
@@ -278,7 +244,24 @@ class StatTracker
       average_hash.sort_by{|key, value| value}
     end
 
-# require 'pry'; binding.pry
+    def lowest_scoring_home
+      sorted_avgs = home_score_averages
+      lowest_score = sorted_avgs.first[1]
+
+      lowests = []
+      sorted_avgs.each do |array|
+        lowests << array.first if array.last == lowest_score
+      end
+      
+      lowest_scoring_home = []
+      lowests.each do |id|
+        teams.each do |team|
+          lowest_scoring_home << team.team_name if team.team_id == id
+        end
+      end
+      lowest_scoring_home.join(", ")
+    end
+
     def highest_scoring_home
       highest_score = home_score_averages.last[1]
 
@@ -296,24 +279,24 @@ class StatTracker
       highest_scoring_home.join(", ")
     end
 
-    def lowest_scoring_visitor
-      team_id_hash = Hash.new{|h,v| h[v] = []}
-      games.each do |game|
-        team_id_hash[game.away_team_id] << game.away_goals.to_f
-      end
+    # def lowest_scoring_visitor
+    #   team_id_hash = Hash.new{|h,v| h[v] = []}
+    #   games.each do |game|
+    #     team_id_hash[game.away_team_id] << game.away_goals.to_f
+    #   end
 
-      average_hash = Hash.new
-      team_id_hash.each do |team_id, score_array|
-       average_hash[team_id] = (score_array.sum. / score_array.size).round(4)
-      end
-      lowest_id = average_hash.sort_by{|key, value| value}.first[0]
+    #   average_hash = Hash.new
+    #   team_id_hash.each do |team_id, score_array|
+    #    average_hash[team_id] = (score_array.sum. / score_array.size).round(4)
+    #   end
+    #   lowest_id = average_hash.sort_by{|key, value| value}.first[0]
 
-      teams.each do |team|
-        if team.team_id == lowest_id
-          return team.team_name
-        end
-      end
-    end
+    #   teams.each do |team|
+    #     if team.team_id == lowest_id
+    #       return team.team_name
+    #     end
+    #   end
+    # end
 end
 
 
