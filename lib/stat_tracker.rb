@@ -39,6 +39,9 @@ class StatTracker
     @teams.find { |team| team[:team_id] == id }[:teamname]
   end
 
+
+  
+
   def best_offense
     hash1 = nested_hash_creator
     hash2 = Hash.new(0)
