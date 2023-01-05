@@ -27,4 +27,14 @@ class StatTracker
   def lowest_total_score
     total_score.min
   end
+
+	def percentage_home_wins
+		home_wins = []
+		games.each do |game|
+			if game[:home_goals].to_i > game[:away_goals].to_i
+				home_wins << game
+			end
+		end
+		(home_wins.count / games.count.to_f).round(2)
+	end
 end
