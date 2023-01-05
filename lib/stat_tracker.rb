@@ -122,6 +122,13 @@ def fewest_tackles(season_id)
 end
 
 
+def list_games_by_season(season_id)
+  games_list = []
+  @games.each do |row|
+    games_list << row[:game_id] if row[:season] == season_id
+  end
+  games_list
+end
 
 
 
