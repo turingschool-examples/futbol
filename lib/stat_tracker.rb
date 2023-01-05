@@ -424,6 +424,19 @@ class StatTracker
       sorted.first[0]
     end
 
+    def most_tackles(season)
+      team_total_tackles = Hash.new{|h,v| h[v] = []}
+      array_of_game_tackles_by_season(season).each do |tackles|
+        team_total_tackles[game_team.tackles] << tackles.result
+     
+      end
+    end  
+    #iteate through team tackels 
+    # Name of the Team with the most tackles in the season	
+    # retuns a String
+    
+    # fewest_tackles	Name of the Team with the fewest tackles in the season	String
+
     #TEAM STATISTICS METHODS
 
 
