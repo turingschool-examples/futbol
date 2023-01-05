@@ -96,16 +96,19 @@ class StatTracker
 
   # Highest sum of the winning and losing teams’ scores
   def highest_total_score
-    game_sums = @games.map do |game|
-      game[:away_goals] + game[:home_goals]
-    end.sort.last
+    total_scores.last
   end
 
   # Lowest sum of the winning and losing teams’ scores
   def lowest_total_score
+    total_scores.first
+  end
+
+  # Array of the winning and losing teams’ scores
+  def total_scores
     game_sums = @games.map do |game|
       game[:away_goals] + game[:home_goals]
-    end.sort.first
+    end.sort
   end
 
 end
