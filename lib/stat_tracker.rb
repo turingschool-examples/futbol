@@ -1,4 +1,3 @@
-
 require "csv"
 # require_relative 'game'
 # require_relative 'team'
@@ -60,11 +59,11 @@ class StatTracker
 
 
     def games_total_score_array
-        games.map { |game| game[:away_goals] + game[:home_goals] }
-        
+        games.map { |game| game[:away_goals] + game[:home_goals] }   
     end
 
     def highest_total_score
+        # require "pry"; binding.pry
         games_total_score_array.max
     end
 
@@ -99,14 +98,24 @@ class StatTracker
     def count_of_games_by_season
         season_count = @games.group_by { |game| game[:season] }
         season_count.each do |games, value|
-            # require "pry"; binding.pry
-             season_count[games] = value.count
-            #  require "pry"; binding.pry
+             season_count[games] = value.count         
         end
     end
 
     def average_goals_per_game
-        (games_total_score_array.sum / @games.count.to_f).round(2)
-                    #  require "pry"; binding.pry
+        (games_total_score_array.sum / @games.count.to_f).round(2)                    
+    end
+
+    def average_goals_by_season
+        season_count = @games.group_by { |game| game[:season] }
+        season_count.each do |game, goals|
+            # Key = Value
+            season_count[game] = goals.map do |goal, value|
+                ((goal[:home_goals] + goal[:away_goals]) / goal.count)
+                require "pry";binding.pry
+            end     
+        end
     end
 end
+
+
