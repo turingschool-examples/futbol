@@ -101,5 +101,11 @@ class StatTracker
     end.sort.last
   end
 
+  # Lowest sum of the winning and losing teams’ scores
+  def lowest_total_score
+    game_sums = @games.map do |game|
+      game[:away_goals] + game[:home_goals]
+    end.sort.first
+  end
 
 end
