@@ -260,7 +260,7 @@ class StatTracker
       average_hash.sort_by{|key, value| value}
     end
 
-    def lowest_scoring_home
+    def lowest_scoring_home_team
       sorted_avgs = home_score_averages
       lowest_score = sorted_avgs.first[1]
 
@@ -278,7 +278,7 @@ class StatTracker
       lowest_scoring_home.join(", ")
     end
 
-    def highest_scoring_home
+    def highest_scoring_home_team
       highest_score = home_score_averages.last[1]
 
       highests = []
