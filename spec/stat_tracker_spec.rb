@@ -1,9 +1,9 @@
+require './spec_helper'
 require './lib/stat_tracker'
-
 RSpec.describe StatTracker do
   before(:all) do
     game_path = './data/fake_games.csv'
-    team_path = './data/fake_teams.csv'
+    team_path = './data/teams.csv'
     game_teams_path = './data/fake_game_teams.csv'
 
     locations = {
@@ -62,6 +62,6 @@ RSpec.describe StatTracker do
 
   it 'names winningest coach of the season' do
     require 'pry'; binding.pry
-    expect(@stat_tracker.winningest_coach("20132014")).to eq("Claude Julien") 
+    expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien") 
   end
 end
