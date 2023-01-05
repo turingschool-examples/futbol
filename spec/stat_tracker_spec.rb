@@ -211,8 +211,6 @@ describe StatTracker do
       expect(stat_tracker.team_info("18")).to eq expected
     end
 
-  end
-
 
     it 'can calculate the highest_scoring_visitor' do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
