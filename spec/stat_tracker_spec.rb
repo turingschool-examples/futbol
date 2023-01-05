@@ -198,21 +198,17 @@ describe StatTracker do
     end
 
 
-    xit "#team_info" do
-
-    expected = {
-      "team_id" => "18",
-      "franchise_id" => "34",
-      "team_name" => "Minnesota United FC",
-      "abbreviation" => "MIN",
-      "link" => "/api/v1/teams/18"
-      }
+    it "#team_info" do
+      expected = {
+        "team_id" => "18",
+        "franchise_id" => "34",
+        "team_name" => "Minnesota United FC",
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+        }
         # require 'pry'; binding.pry
       expect(stat_tracker.team_info("18")).to eq expected
     end
-
-
-
 
     it 'can calculate the highest_scoring_visitor' do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
