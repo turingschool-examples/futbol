@@ -263,15 +263,16 @@ class StatTracker
        average_hash_2[team_id] = (score_array.sum. / score_array.size).round(4)
       end
       
-      lowest_id = average_hash_2.sort_by{|key, value| value}  #.last[0]
+      highest_id = average_hash_2.sort_by{|key, value| value}.last[0]
 
-      require 'pry'; binding.pry
       teams.each do |team|
-        if team.team_id == lowest_id
+        if team.team_id == highest_id
           return team.team_name
         end
       end
     end
+
+    
 
     
 
