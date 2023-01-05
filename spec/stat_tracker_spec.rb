@@ -178,10 +178,9 @@ describe StatTracker do
       expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
     end
 
-    xit 'can calculate win percentages for coaches and organize them' do
-      expect(stat_tracker.coaches_win_percentages("20122013")).to be_an(Array)
-      expect(stat_tracker.coaches_win_percentages("20122013")[0]).to be_an(Array)
-      expect(stat_tracker.coaches_win_percentages("20122013")[1]).to be_a(Float)
+    it 'can calculate win percentages for coaches and organize them' do
+      expect(stat_tracker.coaches_win_percentages_hash("20122013")).to be_a(Hash)
+      expect(stat_tracker.coaches_win_percentages_hash("20122013").first[1]).to be_a(Float)
     end
   end
   
