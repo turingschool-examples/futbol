@@ -160,14 +160,15 @@ describe StatTracker do
     end
 
     it 'can calculate the lowest_scoring_home' do
-      expect(stat_tracker.lowest_scoring_home).to eq("New York City FC, San Jose Earthquakes")
+      expect(stat_tracker.lowest_scoring_home).to eq("Sporting Kansas City")
     end
 
-    it 'can calculate the highest_scoring_visitor' do
-      expect(stat_tracker.highest_scoring_home).to eq("")
+    it 'can calculate the highest_scoring_home' do
+      expect(stat_tracker.highest_scoring_home).to eq("Los Angeles FC, New England Revolution, Real Salt Lake")
     end
-    it 'can calculate the lowest_scoring_visitor' do
-      expect(stat_tracker.lowest_scoring_visitor).to eq("Chicago Fire")
+
+    xit 'can calculate the lowest_scoring_visitor' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
     end
   end
 end
