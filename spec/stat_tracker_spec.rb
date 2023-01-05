@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+# require './spec/spec_helper'
 
 describe StatTracker do
   let(:stat_tracker) {StatTracker.new({
@@ -54,6 +55,18 @@ describe StatTracker do
   describe '#percentage_ties' do
     it 'returns percent of tied games' do
       expect(stat_tracker.percentage_ties).to eq(0.17)
+    end
+  end
+
+  describe '#count_of_teams' do
+    it "counts all teams" do
+      stat_tracker.count_of_teams
+      expect(stat_tracker.count_of_teams).to eq 32
+    end
+  end
+  describe '#best_offense' do
+    it "name of the team with the highest average number of goals scored per game across all seasons" do
+      expect(stat_tracker.best_offense).to eq "Reign FC"
     end
   end
 end
