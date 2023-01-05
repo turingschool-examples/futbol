@@ -174,5 +174,29 @@ describe StatTracker do
     it 'can calculate the highest_scoring_visitor' do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
     end
+
+    it 'can produce an array_of_gameids by season' do
+      expect(stat_tracker.array_of_gameids_by_season("20122013")).to be_an(Array)
+      expect(stat_tracker.array_of_gameids_by_season("20122013")[0]).to be_a(String)
+      expect(stat_tracker.array_of_gameids_by_season("20122013")[0].length).to eq(10)
+    end
+
+    it 'can produce an array_of_game_teams by season' do
+      expect(stat_tracker.array_of_game_teams_by_season("20122013")).to be_an(Array)
+      expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
+    end
+
+    it 'can calculate win percentages for coaches and organize them' do
+      expect(stat_tracker.coaches_win_percentages_hash("20122013")).to be_a(Hash)
+      expect(stat_tracker.coaches_win_percentages_hash("20122013").first[1]).to be_a(Float)
+    end
+
+    it 'can find the winningest coach' do
+      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+    end
+
+    it 'can find the worst coach' do
+      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+    end
   end
 end

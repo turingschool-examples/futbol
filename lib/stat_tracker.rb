@@ -328,7 +328,49 @@ class StatTracker
       end
       highest_scoring_visitors.join(", ")
     end
+
+    def array_of_gameids_by_season(season)
+      games_by_season = games.find_all do |game|     
+        game.season == season
+      end
+
+     game_ids_arr = games_by_season.map do |game|
+        game.game_id
+      end
+    end
+
+    def array_of_game_teams_by_season(season)
+      game_teams_arr = []
+      array_of_gameids_by_season(season).each do |game_id|
+        game_teams.each do |game_team|
+          game_teams_arr << game_team if game_team.game_id == game_id
+        end
+      end
+      game_teams_arr
+    end
+
+    def coaches_win_percentages_hash(season)
+      coaches_hash = Hash.new{|h,v| h[v] = []}
+      array_of_game_teams_by_season(season).each do |game_team|
+        coaches_hash[game_team.head_coach] << game_team.result
+      end
+
+      coaches_hash.each do |coach, result_arr|
+        percent = (result_arr.count("WIN").to_f/result_arr.size)*100
+        coaches_hash[coach] = percent
+      end
+    end
+
+    def winningest_coach(season)
+      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
+      sorted.last[0]
+    end
     
+    def worst_coach(season)
+      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
+      sorted.first[0]
+    end
+
 end
 
 
