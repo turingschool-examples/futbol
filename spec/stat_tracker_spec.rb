@@ -62,12 +62,12 @@ RSpec.describe StatTracker do
     it "counts the games by season" do 
 
       expect(stat_tracker.count_of_games_by_season).to eq({
-        20162017 => 7, 
-        20172018 => 10, 
-        20152016 => 2, 
-        20142015 => 10, 
-        20122013 => 5, 
-        20132014 => 13, 
+        "20162017" => 7, 
+        "20172018" => 10, 
+        "20152016" => 2, 
+        "20142015" => 10, 
+        "20122013" => 5, 
+        "20132014" => 13, 
       })
     end
 
@@ -78,14 +78,35 @@ RSpec.describe StatTracker do
     it "Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)" do 
       expect(stat_tracker.average_goals_by_season).to eq({
         
-        20162017 => 5.14, 
-        20172018 => 4.10, 
-        20152016 => 6.00, 
-        20142015 => 3.90, 
-        20122013 => 5.00, 
-        20132014 => 4.31, 
+        "20162017" => 5.14, 
+        "20172018" => 4.10, 
+        "20152016" => 6.00, 
+        "20142015" => 3.90, 
+        "20122013" => 5.00, 
+        "20132014" => 4.31, 
 
       })
     end
+    context "Season Statistics" do 
+    it "winningest_coach" do 
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      
+      stat_tracker = StatTracker.from_csv(locations) 
+
+      expect(stat_tracker.winningest_coach("20152016")).to eq("Ken Hitchcock")
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Alain Vigneault")
+      expect(stat_tracker.winningest_coach("20172018")).to eq("Peter Laviolette, Gerard Gallant, Paul Maurice")
+    end
+
+    
+  end 
 
 end

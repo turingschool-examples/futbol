@@ -53,7 +53,7 @@ class StatTracker
   
       new_info = {
         game_id: info["game_id"].to_i, 
-        season: info["season"].to_i, 
+        season: info["season"], 
         type: info["type"], 
         date_time: info["date_time"],
         away_team_id: info["away_team_id"].to_i,
@@ -90,6 +90,7 @@ class StatTracker
  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
  #Percentage of games that a home team has won (rounded to the nearest 100th)
 
+#  Method count of games by season
  def count_of_games_by_season
   new_hash = Hash.new(0) 
 
@@ -99,6 +100,7 @@ class StatTracker
   return new_hash
  end
 
+# Method of average goals per game  
  def average_goals_per_game 
   goals = 0 
   games.each do |game|
@@ -107,7 +109,7 @@ class StatTracker
   average = (goals.to_f/(games.count.to_f)).round(2)
   return average
  end
-
+# Method average goals by season
  def average_goals_by_season
   new_hash = Hash.new(0) 
 
@@ -117,6 +119,7 @@ class StatTracker
   return new_hash
  end
 
+# Helper method to average goals by season 
  def season_goals(season)
   number = 0
   goals = 0
@@ -128,6 +131,76 @@ class StatTracker
   end
   average = (goals.to_f/number.to_f).round(2)
  end
+
+#  
+ def winningest_coach(season)
+
+
+ end
+
+ def worst_coach(season)
+  
+  new_hash_games = Hash.new(0)
+  new_hash_victories = Hash.new(0)
+
+  game_teams.each do |game_team|
+    games.each do |game|
+        if game[:season] == season && game_team[:game_id] == game[:game_id]
+        new_hash_games[game_team[:head_coach]] += 1
+          if game_team[:result] == "LOSS"
+            new_hash_victories[game_team[:head_coach]] += 0
+          elsif game_team[:result] == "TIE"
+            new_hash_victories[game_team[:head_coach]] += 0.5
+          elsif game_team[:result] == "WIN"
+            new_hash_victories[game_team[:head_coach]] += 1 
+          end
+        end
+      end
+    end 
+  sort_coach_percentages(new_hash_games, new_hash_victories)
+  end 
+  
+  def sort_coach_percentages(new_hash_games, new_hash_victories)
+
+  additional_hash = {}
+    new_hash_games.each do |key, value|
+      new_hash_victories.each do |key_v, value_v|
+        if key == key_v 
+          percent = (value_v / value.to_f) 
+        additional_hash[key] = percent
+        end
+      end
+    end
+    sorted_array = additional_hash.sort_by do |key, value|
+      value
+    end
+    determine_coach(sorted_array, "worst")
+  end 
+
+  def determine_coach(sorted_array, type)
+
+    if type == "winning"
+      sorted_array = sorted_array.reverse
+    elsif type == "worst"
+      sorted_array = sorted_array
+    end 
+
+    # winners = sorted_array[0][0]
+      
+    winners = []
+      sorted_array.each do |array1|
+        if array1[1] == sorted_array[0][1]
+            winners << array1[0]
+        end
+      end 
+        string = winners.join(", ")
+    return string
+
+  end 
+
+  
+ 
+ 
 
 
 end
