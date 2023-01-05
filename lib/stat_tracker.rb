@@ -257,7 +257,6 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    # returns NAME of team who averages the most away goals per game
     team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.min)
     find_team_by_id[team_id].first[:teamname]
   end
@@ -280,5 +279,23 @@ class StatTracker
 		hash.each do |team, goals|
       hash[team] = (goals.sum.to_f / goals.count).round(2)
 		end
+	end
+
+	def best_offense
+		hash = Hash.new(0)
+		games_by_team_id.each do |team_id, array_of_games|
+			hash[team_id] = (array_of_games.sum { |g| g[:goals].to_f})/array_of_games.count
+		end
+		team_id = hash.key(hash.values.max)
+		find_team_by_id[team_id].first[:teamname]
+	end
+
+	def worst_offense
+		hash = Hash.new(0)
+		games_by_team_id.each do |team_id, array_of_games|
+			hash[team_id] = (array_of_games.sum { |g| g[:goals].to_f})/array_of_games.count
+		end
+		team_id = hash.key(hash.values.min)
+		find_team_by_id[team_id].first[:teamname]
 	end
 end
