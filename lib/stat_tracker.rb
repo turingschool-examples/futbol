@@ -45,7 +45,6 @@ class StatTracker
     end
     game_teams_array
   end
-  
 
   def self.games_from_csv(locations)
     games_array = []
@@ -88,9 +87,19 @@ class StatTracker
     teams_array
   end
  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
- #Percentage of games that a home team has won (rounded to the nearest 100th)
- def percentage_home_wins
-
-
- end
+ 
+ # Percentage of games that a home team has won (rounded to the nearest 100th)
+  def percentage_home_wins
+    total_of_home_games = 0
+    wins_at_home = 0 
+    @game_teams.each do | k, v |
+      if k[:hoa] == "home"
+        total_of_home_games += 1
+      end
+      if k[:hoa] == "home" && k[:result] == "WIN"
+        wins_at_home += 1
+      end
+    end
+    percent_win = ((wins_at_home / total_of_home_games.to_f)).round(2)
+  end
 end

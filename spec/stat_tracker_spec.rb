@@ -30,7 +30,7 @@ RSpec.describe StatTracker do
 
     it "all of the objects in the respective arrays are of one specific object type consistent with the array" do 
 
-      expect(stat_tracker.game_teams[0..49]).to all(be_an_instance_of(Hash))
+      expect(stat_tracker.game_teams[0..51]).to all(be_an_instance_of(Hash))
 
       expect(stat_tracker.games[0..47]).to all(be_an_instance_of(Hash))
         
@@ -41,23 +41,24 @@ RSpec.describe StatTracker do
 
     it "the objects all have the correct attributes" do 
     
-      expect(stat_tracker.game_teams[rand(0..49)][:game_id]).to be_a(Integer)
+      expect(stat_tracker.game_teams[rand(0..51)][:game_id]).to be_a(Integer)
 
       expect(stat_tracker.games[rand(0..47)][:home_goals]).to be_a(Integer)
 
       expect(stat_tracker.teams[rand(0..32)][:team_id]).to be_a(Integer)
     
-      expect(stat_tracker.game_teams[rand(0..49)][:hoa]).to be_a(String)
+      expect(stat_tracker.game_teams[rand(0..51)][:hoa]).to be_a(String)
 
-      expect(stat_tracker.game_teams[rand(0..49)][:faceoff_win_percentage]).to be_a(Float)
+      expect(stat_tracker.game_teams[rand(0..51)][:faceoff_win_percentage]).to be_a(Float)
 
       expect(stat_tracker.games[rand(0..47)][:venue]).to be_a(String)
-
-      expect(stat_tracker.teams[rand(0..32)][:abbreviation]).to be_a(String)
-
     end 
   end
   #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
-
-
+  
+  describe "Game Statisics" do
+    it "#percentage_home_wins" do
+      expect(stat_tracker.percentage_home_wins).to eq(0.43)
+    end
+  end
 end

@@ -14,6 +14,6 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-require 'pry'; binding.pry
+p stat_tracker.percentage_ties
 
-puts "test"
+# puts stat_tracker.percentage_home_wins
