@@ -161,11 +161,11 @@ describe StatTracker do
 
     
     it 'can calculate the lowest_scoring_home' do
-      expect(stat_tracker.lowest_scoring_home).to eq("Sporting Kansas City")
+      expect(stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
     end
 
     it 'can calculate the highest_scoring_home' do
-      expect(stat_tracker.highest_scoring_home).to eq("Los Angeles FC, New England Revolution, Real Salt Lake")
+      expect(stat_tracker.highest_scoring_home_team).to eq("Los Angeles FC, New England Revolution, Real Salt Lake")
     end
 
     
@@ -211,7 +211,6 @@ describe StatTracker do
       expect(stat_tracker.team_info("18")).to eq expected
     end
 
-
     it 'can calculate the highest_scoring_visitor' do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
     end
@@ -238,6 +237,24 @@ describe StatTracker do
 
     it 'can find the worst coach' do
       expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+    end
+
+    ##TEAM STATISTICS BELOW
+
+    it 'can generate goals_scored_sorted as an array' do
+      expect(stat_tracker.goals_scored_sorted("6")).to be_an(Array)
+      expect(stat_tracker.goals_scored_sorted("6").first).to be_an(Integer)
+      expect(stat_tracker.goals_scored_sorted("6").last).to be_an(Integer)
+    end
+
+    it 'can find the most_goals_scored for a team' do
+      expect(stat_tracker.most_goals_scored("6")).to be_an(Integer)
+      expect(stat_tracker.most_goals_scored("6")).to eq(3)
+    end
+
+    it 'can find the fewest goals_scored for a team' do
+      expect(stat_tracker.fewest_goals_scored("6")).to be_an(Integer)
+      expect(stat_tracker.fewest_goals_scored("6")).to eq(1)
     end
   end
 
