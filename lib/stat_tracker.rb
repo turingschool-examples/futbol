@@ -150,20 +150,21 @@ class StatTracker
   new_hash_games = Hash.new(0)
   new_hash_victories = Hash.new(0)
 
-  game_teams.each do |game_team|
-    games.each do |game|
-        if game[:season] == season && game_team[:game_id] == game[:game_id]
-        new_hash_games[game_team[:head_coach]] += 1
-          if game_team[:result] == "LOSS"
-            new_hash_victories[game_team[:head_coach]] += 0
-          elsif game_team[:result] == "TIE"
-            new_hash_victories[game_team[:head_coach]] += 0.5
-          elsif game_team[:result] == "WIN"
+  games.each do |game|
+    if game[:season] == season
+      game_teams.each do |game_team|
+      if game_team[:game_id] == game[:game_id]
+          if game_team[:result].start_with?("L")
+            new_hash_games[game_team[:head_coach]] += 1
+          elsif game_team[:result].start_with?("W")
             new_hash_victories[game_team[:head_coach]] += 1 
+            new_hash_games[game_team[:head_coach]] += 1
           end
         end
       end
     end 
+  end 
+  require 'pry'; binding.pry
   sort_coach_percentages(new_hash_games, new_hash_victories, type)
   end 
   
