@@ -301,13 +301,13 @@ class StatTracker
     team_hash.delete('stadium')
     team_hash
   end
-  
+
   def best_season(team_id)
 
   end
 
   def worst_season(team_id)
-
+    
   end
 
   def season_win_percentages(team_id)
