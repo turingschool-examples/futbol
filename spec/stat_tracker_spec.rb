@@ -16,22 +16,26 @@ RSpec.describe StatTracker do
     
 
     end
-
-    it "exists" do
-        expect(@stat_tracker).to be_instance_of(StatTracker)
-    end
-
-    it " has game total scores" do 
-        expect(@stat_tracker.games_total_score_array).to eq [1, 4, 5, 3, 6, 4, 1, 4, 2, 5]
-    end
-
-    it "#highest_total_score" do
-        expect(@stat_tracker.highest_total_score).to eq 6
-    end 
     
-    it "#lowest_total_score" do
-        expect(@stat_tracker.lowest_total_score).to eq 1
-    end 
+    describe "#initialize" do
+        it "exists" do
+            expect(@stat_tracker).to be_instance_of(StatTracker)
+        end
+    end
+
+    describe "#total_score" do
+        it " has game total scores" do 
+            expect(@stat_tracker.games_total_score_array).to eq [1, 4, 5, 3, 6, 4, 1, 4, 2, 5]
+        end
+
+        it "#highest_total_score" do
+            expect(@stat_tracker.highest_total_score).to eq 6
+        end 
+        
+        it "#lowest_total_score" do
+            expect(@stat_tracker.lowest_total_score).to eq 1
+        end 
+    end
     
     describe "#percentages" do
         it "#percentage_home_wins" do
