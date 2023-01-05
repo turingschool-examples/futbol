@@ -158,7 +158,14 @@ describe StatTracker do
     it 'can count the number of teams' do
       expect(stat_tracker.count_of_teams).to eq(19)
     end
+    
+    it 'can calculate the lowest_scoring_home' do
+      expect(stat_tracker.lowest_scoring_home).to eq("Sporting Kansas City")
+    end
 
+    it 'can calculate the highest_scoring_home' do
+      expect(stat_tracker.highest_scoring_home).to eq("Los Angeles FC, New England Revolution, Real Salt Lake")
+    end
     
     it 'can calculate the lowest_scoring_visitor' do
       expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati, Sporting Kansas City, New York Red Bulls")
@@ -168,5 +175,4 @@ describe StatTracker do
       expect(stat_tracker.highest_scoring_visitor).to eq("Chicago Fire")
     end
   end
-  
 end
