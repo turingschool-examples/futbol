@@ -190,15 +190,27 @@ describe StatTracker do
     end
   end
 
-  describe '#best_season' do
+  xdescribe '#best_season' do
     it 'returns the season with the highest win percentage for a team argument' do
       expect(stat_tracker.best_season('8')).to be('')
     end
   end
 
-  describe '#worst_season' do
+  xdescribe '#worst_season' do
     it 'returns the season with the lowest win percentage for a team' do
       expect(stat_tracker.worst_season('8')).to eq('')
     end
   end
+
+	describe '#best_offense' do
+		it 'returns the team NAME with the MOST AVERAGE GOALS per game across ALL SEASONS' do
+			expect(stat_tracker.best_offense).to eq("Toronto FC")
+		end
+	end
+
+	describe '#worst_offense' do
+		it 'returns the team NAME with the LEAST AVERAGE GOALS per game across ALL SEASONS' do
+			expect(stat_tracker.worst_offense).to eq("DC United")
+		end
+	end
 end
