@@ -67,6 +67,26 @@ describe StatTracker do
       expect(stat_tracker.average_goals_per_game).to eq(4.67)
     end
   end
+
+  describe '#average_goals_by_season' do
+    it 'returns a hash of avg goals(values) by seasons(keys)' do
+      stat_tracker.count_of_games_by_season
+      expected_hash = {
+                        "20142015" => 4.33,
+                        "20162017" => 5.00,
+                        "20172018" => 5.00,
+                        "20122013" => 5.00
+                      }
+      
+      expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
+    end
+  end
+
+  describe '#winningest_coach' do
+    xit 'returns the coach with the best win percentage' do
+      expect(stat_tracker.winningest_coach("20142015")).to eq("Mike Babcock")
+    end
+  end
 end
 
 

@@ -11,6 +11,8 @@ class StatTracker
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     @total_scores = []
+    @games_by_season = Hash.new(0)
+
     @game_id = @games[:game_id]
     @season = @games[:season]
     @type = @games[:type].to_s
@@ -65,17 +67,43 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    games_by_season = Hash.new(0)
     @games.each do |row|
-      games_by_season[row[:season]] += 1
+      @games_by_season[row[:season]] += 1
     end
-    games_by_season
+    @games_by_season
   end
 
   def average_goals_per_game
     total_scores
-    #require 'pry'; binding.pry
     (@total_scores.sum.to_f/@games.size).round(2)
   end
+
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+
+    @games.each do |row|
+      numerator = (row[:away_goals].to_i + row[:home_goals].to_i)
+      goals_by_season[row[:season]] += numerator
+    end
+
+    @games_by_season.each do |key, value|
+      denominator = value
+      numerator = goals_by_season[key]
+      goals_by_season[key] = (numerator/denominator.to_f).round(2)
+    end
+    
+    goals_by_season
+  end
+
+  # def winningest_coach(season)
+  #   season_games = []
+  #   @games.each do |row|
+  #     season_games << [row] if row[:season] == season
+  #   end
+  #   season_games.each do |game|
+
+  #   end
+  #   #require 'pry'; binding.pry
+  # end
   
 end
