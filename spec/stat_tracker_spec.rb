@@ -177,4 +177,10 @@ describe StatTracker do
       expect(stat_tracker.team_info('8')).to eq(expected_hash)
     end
   end
+
+  describe '#best_season' do
+    it 'returns the season with the highest win percentage for a team argument' do
+      expect(stat_tracker.best_season('8')).to be(20162017)
+    end
+  end
 end
