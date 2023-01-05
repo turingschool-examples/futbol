@@ -279,7 +279,26 @@ class StatTracker
       end
       highest_scoring_visitors.join(", ")
     end
+
+    def array_of_gameids_by_season(season)
+      games_by_season = games.find_all do |game|     
+        game.season == season
+      end
+
+     game_ids_arr = games_by_season.map do |game|
+        game.game_id
+      end
+    end
+
+    # def coaches_win_percentages(season)
+    #   array_of_gameids_by_season(season).each do |game_id|
+    #     game_teams
+    #   end
+      
     
+    # end
+    
+
 end
 
 
