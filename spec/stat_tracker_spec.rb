@@ -1,4 +1,6 @@
+require './spec/spec_helper'
 require './lib/stat_tracker'
+
 
 RSpec.describe StatTracker do
   before(:all) do
