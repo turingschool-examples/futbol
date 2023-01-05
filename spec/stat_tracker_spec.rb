@@ -53,4 +53,26 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_total_score).to eq(0)
     end
   end
+
+  describe '#count_of_games_by_season' do
+    it 'is a hash' do
+      expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
+    end
+
+    it 'can return number of games by season' do
+
+      expected_hash = {
+        "20122013"=>806, 
+        "20162017"=>1317,
+        "20142015"=>1319,
+        "20152016"=>1321,
+        "20132014"=>1323,
+        "20172018"=>1355
+      }
+
+      expect(stat_tracker.count_of_games_by_season).to eq(expected_hash)
+      expect(stat_tracker.count_of_games_by_season["20122013"]).to eq(806)
+
+    end
+  end
 end

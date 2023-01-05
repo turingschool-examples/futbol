@@ -27,4 +27,14 @@ class StatTracker
   def lowest_total_score
     total_score.min
   end
+
+  def count_of_games_by_season
+    count_of_games_by_season = Hash.new {0}
+
+    games[:season].each do |season|
+      count_of_games_by_season[season] += 1
+    end
+    
+    count_of_games_by_season
+  end
 end
