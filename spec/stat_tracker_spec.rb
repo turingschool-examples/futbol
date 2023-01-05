@@ -80,5 +80,9 @@ RSpec.describe StatTracker do
     it "#lowest_scoring_visitor" do
       expect(stat_tracker.lowest_scoring_visitor).to eq("Orlando City SC")
     end
+
+    it "#lowest_scoring_home_team" do
+      expect(stat_tracker.lowest_scoring_home_team).to eq("Seattle Sounders FC")
+    end
   end
 end

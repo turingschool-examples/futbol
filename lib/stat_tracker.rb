@@ -190,4 +190,24 @@ class StatTracker
       end
     end
   end
+  # Name of the team with the lowest average score per game across all seasons when they are at home.
+  def lowest_scoring_home_team
+    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do | k, v |
+    if k[:hoa] == "home"
+        id_goals[k[:team_id]] << k[:goals]
+      end
+    end
+
+    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    id_goals.each do |team_id, goals_scored|
+      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+
+    @teams.find do |info_line|
+      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.min)
+        return info_line[:team_name] 
+      end
+    end
+  end
 end
