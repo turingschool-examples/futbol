@@ -287,17 +287,30 @@ class StatTracker
       'franchise_id' => nil,
       'team_name' => nil,
       'abbreviation' => nil,
+      'stadium' => nil,
       'link' => nil
     }
 
-    team_hash.each do |info, value|
-      find_team_by_id[team_id].each do |team_info|
-        require 'pry'; binding.pry
-        team_hash[info] = team_info
+    find_team_by_id[team_id].each do |row|
+      x = 0
+      team_hash.each do |info, value|
+        team_hash[info] = row[x]
+        x += 1
       end
     end
+    team_hash.delete('stadium')
     team_hash
   end
+
+  # def team_info(team_id)
+  #   team_hash = {}
+  #   find_team_by_id[team_id].each do |row|
+  #     row.headers.each do |header|
+  #       team_hash[header.to_s] = row[header] if header != :stadium
+  #     end
+  #   end
+  #   team_hash
+  # end
 
   def best_season(team_id)
 

@@ -181,8 +181,8 @@ describe StatTracker do
     it 'returns a hash of team info by passing a team_id argument' do
       expected_hash = {
         'team_id' => '8',
-        'franchiseid' => "1",
-        'teamname' => "New York Red Bulls",
+        'franchise_id' => "1",
+        'team_name' => "New York Red Bulls",
         'abbreviation' => "NY",
         'link' => "/api/v1/teams/8"
       }
