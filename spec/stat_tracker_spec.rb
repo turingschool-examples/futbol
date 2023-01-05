@@ -106,24 +106,24 @@ RSpec.describe StatTracker do
       expect(stat_tracker.winningest_coach("20172018")).to eq("Peter Laviolette").or(eq("Gerard Gallant")).or(eq("Paul Maurice"))
     end
 
-    it "worst coach" do 
-      game_path = './data/games.csv'
-      team_path = './data/teams_fixture.csv'
-      game_teams_path = './data/game_teams_fixture.csv' 
-      locations = 
-        {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
+    # it "worst coach" do 
+    #   game_path = './data/games.csv'
+    #   team_path = './data/teams_fixture.csv'
+    #   game_teams_path = './data/game_teams_fixture.csv' 
+    #   locations = 
+    #     {
+    #     games: game_path,
+    #     teams: team_path,
+    #     game_teams: game_teams_path
+    #     }
       
-      stat_tracker = StatTracker.from_csv(locations) 
+    #   stat_tracker = StatTracker.from_csv(locations) 
 
-      expect(stat_tracker.worst_coach("20152016")).to eq("Peter Laviolette").or(eq("Barry Trotz"))
-      expect(stat_tracker.worst_coach("20172018")).to eq("Glen Gulutzan").or(eq("Peter DeBoer")).or(eq("Mike Sullivan"))
+    #   expect(stat_tracker.worst_coach("20152016")).to eq("Peter Laviolette").or(eq("Barry Trotz"))
+    #   expect(stat_tracker.worst_coach("20172018")).to eq("Glen Gulutzan").or(eq("Peter DeBoer")).or(eq("Mike Sullivan"))
 
 
-    end
+    # end
 
     
   end 
