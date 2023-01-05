@@ -71,11 +71,80 @@ class StatTracker
   end
 end
 
+def best_offense
+  teams = []
+  @games.each do |row|
+    teams.push([row[:home_team_id], row[:home_goals]])
+    teams.push([row[:away_team_id], row[:away_goals]])
+  end
 
+  hash = Hash.new {|hash, key| hash[key] = []}
+  teams.each do |array|
+    hash[array[0]] << array[1].to_i
+  end
 
+  hash.each do |k, v|
+    if v.size > 1
+      hash[k] = v.sum.to_f/v.size
+    else
+      hash[k] = v[0].to_f/1
+    end
+  end
 
+  max_team = hash.max_by do |k, v|
+    v
+  end
 
+  best_offense = nil
+  @teams.each do |team|
+    best_offense = team[:teamname] if team[:team_id] == max_team[0]
+  end
+  best_offense
+end
 
+def worst_offense
+  teams = []
+  @games.each do |row|
+    teams.push([row[:home_team_id], row[:home_goals]])
+    teams.push([row[:away_team_id], row[:away_goals]])
+  end
+
+  hash = Hash.new {|hash, key| hash[key] = []}
+  teams.each do |array|
+    hash[array[0]] << array[1].to_i
+  end
+
+  hash.each do |k, v|
+    if v.size > 1
+      hash[k] = v.sum.to_f/v.size
+    else
+      hash[k] = v[0].to_f/1
+    end
+  end
+
+  min_team = hash.min_by do |k, v|
+    v
+  end
+
+  worst_offense = nil
+  @teams.each do |team|
+    worst_offense = team[:teamname] if team[:team_id] == min_team[0]
+  end
+  worst_offense
+end
+
+def highest_scoring_visitor
+  visitor_goals = Hash.new(0)
+  @teams.each do |team|
+    @games.each do |game|
+      if game[:away_team_id] == team[:team_id]
+        visitor_goals[team[:teamname]] += game[:away_goals].to_i
+      end
+    end
+  end
+  best_team = visitor_goals.max_by {|team, goals| goals}
+  best_team[0]
+end
 
 
 
