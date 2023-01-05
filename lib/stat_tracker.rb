@@ -260,7 +260,7 @@ class StatTracker
       average_hash.sort_by{|key, value| value}
     end
 
-    def lowest_scoring_home
+    def lowest_scoring_home_team
       sorted_avgs = home_score_averages
       lowest_score = sorted_avgs.first[1]
 
@@ -278,7 +278,7 @@ class StatTracker
       lowest_scoring_home.join(", ")
     end
 
-    def highest_scoring_home
+    def highest_scoring_home_team
       highest_score = home_score_averages.last[1]
 
       highests = []
@@ -401,6 +401,7 @@ class StatTracker
       game_teams_arr
     end
 
+    ## SEASON STATISTICS METHODS
     def coaches_win_percentages_hash(season)
       coaches_hash = Hash.new{|h,v| h[v] = []}
       array_of_game_teams_by_season(season).each do |game_team|
@@ -421,6 +422,27 @@ class StatTracker
     def worst_coach(season)
       sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
       sorted.first[0]
+    end
+
+    #TEAM STATISTICS METHODS
+
+
+    def goals_scored_sorted(teamid)
+      game_scores = []
+     
+      games.each do |game|
+        game_scores << game.home_goals.to_i if game.home_team_id == teamid
+        game_scores << game.away_goals.to_i if game.away_team_id == teamid
+      end
+      game_scores.sort
+    end
+
+    def most_goals_scored(teamid)
+      goals_scored_sorted(teamid).last
+    end
+
+    def fewest_goals_scored(teamid)
+      goals_scored_sorted(teamid).first
     end
 
 end
