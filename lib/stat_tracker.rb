@@ -303,6 +303,26 @@ class StatTracker
       lowest_scoring_visitors.join(", ")
     end
     
+    # def team_info(team_id)
+    #   team_info = nil
+    #   headers = nil
+    #   CSV.foreach(teams, headers: true, header_converters: :downcase) do |info|
+    #     headers ||= info.headers
+    #     team_info = info.to_h if info["team_id"] == team_id 
+    #   end
+    #   team_info
+    # end
+    #doesn't include stadium K-V pair
+
+    # def team_info(team_id)
+    #     teams.each do |team|
+    #       require 'pry'; binding.pry
+    #       team.each do |k, v|
+    #     team.to_h if team.team_id == team_id 
+    #       end
+    #     end
+      # team_info
+    end
 
 end
 
