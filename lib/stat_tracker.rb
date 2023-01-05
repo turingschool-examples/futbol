@@ -102,8 +102,8 @@ class StatTracker
     end
     percent_win = ((wins_at_home / total_of_home_games.to_f)).round(2)
   end
-   # Percentage of games that a visitor has won (rounded to the nearest 100th)
-   def percentage_visitor_wins
+  # Percentage of games that a visitor has won (rounded to the nearest 100th)
+  def percentage_visitor_wins
     total_of_home_games = 0
     losses_at_home = 0 
     @game_teams.each do | k, v |
@@ -115,5 +115,16 @@ class StatTracker
       end
     end
     percent_loss = ((losses_at_home / total_of_home_games.to_f)).round(2)
+  end
+   #  Percentage of games that has resulted in a tie (rounded to the nearest 100th)
+  def percentage_ties
+    ties = 0 
+    total_of_games = @game_teams.count
+    @game_teams.each do | k, v |
+      if k[:result] == "TIE"
+        ties += 1
+      end
+    end
+    percent_ties = ((ties / total_of_games.to_f)).round(2)
   end
 end
