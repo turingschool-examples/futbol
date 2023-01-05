@@ -154,5 +154,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
+
+  describe '#winningest_coach' do 
+    it 'is coach with most wins of the season' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("")
+    end
+  end
   
 end
