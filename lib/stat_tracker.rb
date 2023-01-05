@@ -257,7 +257,6 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    # returns NAME of team who averages the most away goals per game
     team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.min)
     find_team_by_id[team_id].first[:teamname]
   end
