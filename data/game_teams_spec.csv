@@ -19,3 +19,7 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030211,9,away,LOSS,REG,Paul MacLean,1,9,26,36,5,0,54.4,4,3
 2013030234,16,away,TIE,REG,Joel Quenneville,2,5,7,10,2,0,42.4,4,4
 2015030172,18,away,WIN,REG,Peter Laviolette,3,6,32,4,5,1,36.2,11,6
+2014030411,16,away,WIN,REG,Joel Quenneville,2,5,21,4,3,0,47.4,11,5
+2014030411,14,home,LOSS,REG,Jon Cooper,1,5,29,6,2,0,52.6,12,5
+2014030412,16,away,WIN,REG,Joel Quenneville,3,7,28,6,3,1,64.8,8,4
+2014030412,14,home,LOSS,REG,Jon Cooper,2,6,33,6,3,1,35.2,11,6
