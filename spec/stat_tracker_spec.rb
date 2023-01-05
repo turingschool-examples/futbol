@@ -48,4 +48,22 @@ RSpec.describe StatTracker do
     it "#percentage_ties" do
         expect(stat_tracker.percentage_ties).to eq 0.10
     end
+
+  describe '#average_goals_per_game or season' do
+    it 'can find average goals per game' do
+      expect(stat_tracker.average_goals_per_game).to eq(3.7)
+    end
+
+    it 'can find average goals by season' do
+      expected_hash = 
+      {
+        "20132014" => 4.0,
+        "20122013" => 3.33,
+        "20162017" => 3.0,
+        "20152016" => 4.0
+      }
+
+      expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
+    end
+  end
 end
