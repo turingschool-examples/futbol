@@ -5,3 +5,5 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012020681,20122013,Regular Season,4/23/13,8,1,2,3,Mercedes-Benz Stadium,/api/v1/venues/null
 2014020261,20142015,Regular Season,11/16/14,52,30,3,2,Exploria Stadium,/api/v1/venues/null
 2014020194,20142015,Regular Season,11/7/14,10,21,3,3,BC Place,/api/v1/venues/null
+2014030411,20142015,Postseason,6/4/15,16,14,2,1,Audi Field,/api/v1/venues/null
+2014030412,20142015,Postseason,6/6/15,16,14,3,2,Audi Field,/api/v1/venues/null
