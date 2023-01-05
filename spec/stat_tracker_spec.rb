@@ -163,10 +163,19 @@ describe StatTracker do
       expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
     end
 
-    it 'can calculate #team_score_averages array length' do
-      
+    xit 'can calculate #team_score_averages array length' do
       expect(stat_tracker.team_score_averages.length).to eq(31)
     end
+
+    it 'can calculate #team_score_averages array length' do
+    expected_array = [["5", 0.5], ["8", 1.3333], ["53", 1.5], ["26", 1.6], ["22", 1.6667],
+    ["18", 1.75], ["21", 1.75], ["10", 2.0], ["2", 2.0], ["30", 2.0], ["17", 2.0], ["28", 2.0],
+    ["27", 2.0], ["1", 2.0], ["20", 2.0], ["15", 2.2], ["52", 2.2], ["6", 2.25], ["13", 2.3333],
+    ["12", 2.3333], ["3", 2.5], ["9", 2.5], ["25", 2.5], ["19", 2.6667], ["16", 2.75],
+    ["24", 2.8], ["14", 2.8571], ["23", 3.0], ["29", 3.0], ["7", 3.0], ["4", 3.3333]]
+      expect(stat_tracker.team_score_averages).to eq(expected_array)
+    end
+
 
     it 'can calculate #best_offense' do
       expect(stat_tracker.best_offense).to eq("Chicago Fire")
@@ -175,7 +184,24 @@ describe StatTracker do
     it 'can calculate #worst_offense' do
       expect(stat_tracker.worst_offense).to eq("Sporting Kansas City")
     end
+
+
+    xit "#team_info" do
+    
+    expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+      }
+        # require 'pry'; binding.pry
+      expect(stat_tracker.team_info("18")).to eq expected
+    end
+
   end
+
+
 
 
 
