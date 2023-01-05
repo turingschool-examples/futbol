@@ -123,15 +123,15 @@ describe StatTracker do
     end
 
     it "can determine #percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq(40.82)
+      expect(stat_tracker.percentage_home_wins).to eq(0.41)
     end
 
     it "can determine #percentage_visitor_wins" do
-      expect(stat_tracker.percentage_visitor_wins).to eq(46.94)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
     end
 
     it "can determine #percentage_ties" do
-      expect(stat_tracker.percentage_ties).to eq(12.24)
+      expect(stat_tracker.percentage_ties).to eq(0.12)
     end
 
     it "can determine highest_total_score" do
