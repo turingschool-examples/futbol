@@ -174,13 +174,13 @@ class StatTracker
 		games.map do |row|
 			row[:game_id]
 		end
-	end
+  end
   
 	def games_played_by_season
 		@games_played_by_season ||= @games.group_by do |row|
 			row[:season]
 		end
-	end
+  end
 
 	def coach_game_results_by_game(array_of_game_id)
 		hash = Hash.new {|k, v| k[v] = []}
@@ -289,4 +289,43 @@ class StatTracker
 		team_id = hash.key(hash.values.min)
 		find_team_by_id[team_id].first[:teamname]
 	end
+
+  def team_info(team_id)
+    team_hash = {
+      'team_id' => nil,
+      'franchise_id' => nil,
+      'team_name' => nil,
+      'abbreviation' => nil,
+      'stadium' => nil,
+      'link' => nil
+    }
+
+    find_team_by_id[team_id].each do |row|
+      x = 0
+      team_hash.each do |info, value|
+        team_hash[info] = row[x]
+        x += 1
+      end
+    end
+    team_hash.delete('stadium')
+    team_hash
+  end
+
+  def best_season(team_id)
+
+  end
+
+  def worst_season(team_id)
+    
+  end
+
+  def season_win_percentages(team_id)
+    hash = Hash.new {|k, v| k[v] = []}
+    array_of_game_id.each do |game_id|
+      games_by_game_id[game_id].each do |game|
+        hash[game[:head_coach]] << game[:result]
+      end
+    end
+    hash
+  end
 end
