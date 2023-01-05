@@ -50,4 +50,34 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.percentage_ties).to eq 0.3
         end
     end
+
+    describe "#game count and averages" do
+        it "#count_of_games_by_season" do
+        expected = {
+            "20122013"=>1,
+            "20132014"=>1,
+            "20142015"=>2,
+            "20152016"=>2,
+            "20162017"=>2,
+            "20172018"=>2
+          }
+          expect(@stat_tracker.count_of_games_by_season).to eq expected
+        end
+
+        it "#average_goals_per_game" do
+        expect(@stat_tracker.average_goals_per_game).to eq 3.5
+      end
+
+        it "#average_goals_by_season" do
+        expected = {
+            "20122013"=>1,
+            "20132014"=>3,
+            "20142015"=>2,
+            "20152016"=>2,
+            "20162017"=>2,
+            "20172018"=>0
+        }
+        expect(@stat_tracker.average_goals_by_season).to eq expected
+        end
+    end
 end
