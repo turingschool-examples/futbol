@@ -132,14 +132,21 @@ class StatTracker
   average = (goals.to_f/number.to_f).round(2)
  end
 
-#  
+#  WINNINGNEST COACH AND HELPER METHODS BELOW 
  def winningest_coach(season)
 
+    raw_values_hash(season, "winning")
 
  end
 
  def worst_coach(season)
+
+    raw_values_hash(season, "worst")
+
+ end
   
+ def raw_values_hash(season, type)
+
   new_hash_games = Hash.new(0)
   new_hash_victories = Hash.new(0)
 
@@ -157,10 +164,10 @@ class StatTracker
         end
       end
     end 
-  sort_coach_percentages(new_hash_games, new_hash_victories)
+  sort_coach_percentages(new_hash_games, new_hash_victories, type)
   end 
   
-  def sort_coach_percentages(new_hash_games, new_hash_victories)
+  def sort_coach_percentages(new_hash_games, new_hash_victories, type)
 
   additional_hash = {}
     new_hash_games.each do |key, value|
@@ -174,28 +181,18 @@ class StatTracker
     sorted_array = additional_hash.sort_by do |key, value|
       value
     end
-    determine_coach(sorted_array, "worst")
+    determine_coach(sorted_array, type)
   end 
 
   def determine_coach(sorted_array, type)
-
     if type == "winning"
       sorted_array = sorted_array.reverse
     elsif type == "worst"
       sorted_array = sorted_array
     end 
 
-    # winners = sorted_array[0][0]
-      
-    winners = []
-      sorted_array.each do |array1|
-        if array1[1] == sorted_array[0][1]
-            winners << array1[0]
-        end
-      end 
-        string = winners.join(", ")
-    return string
-
+    result = sorted_array[0][0]
+    return result 
   end 
 
   
