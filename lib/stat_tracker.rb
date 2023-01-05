@@ -1,4 +1,5 @@
 require 'csv'
+
 class StatTracker
   attr_reader :games,
               :teams,
@@ -62,4 +63,35 @@ class StatTracker
   def games_total_scores_array
     @games.map { |game| game[:away_goals] + game[:home_goals] }
   end
+
+  def percentage_home_wins
+    home_win = []
+    games_num = []
+    @games.each do |game|
+        home_win << game if game[:home_goals] > game[:away_goals]
+        games_num << game[:game_id]
+    end
+    (home_win.count / games_num.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_win = []
+    games_num = []
+    @games.each do |game|
+        visitor_win << game if game[:home_goals] < game[:away_goals]
+        games_num << game[:game_id]
+    end
+    (visitor_win.count / games_num.count.to_f).round(2)
+  end
+
+  def percentage_ties
+    tie_game = []
+    games_num = []
+    @games.each do |game|
+        tie_game << game if game[:home_goals] == game[:away_goals]
+        games_num << game[:game_id]
+    end
+    (tie_game.count / games_num.count.to_f).round(2)
+  end
+         
 end

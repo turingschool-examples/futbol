@@ -36,4 +36,16 @@ RSpec.describe StatTracker do
       expect(stat_tracker.games_total_scores_array).to be_a(Array)
     end
   end
+
+    it "#percentage_home_wins" do
+    expect(stat_tracker.percentage_home_wins).to eq 0.40
+    end
+
+    it "#percentage_visitor_wins" do
+        expect(stat_tracker.percentage_visitor_wins).to eq 0.50
+    end
+
+    it "#percentage_ties" do
+        expect(stat_tracker.percentage_ties).to eq 0.10
+    end
 end
