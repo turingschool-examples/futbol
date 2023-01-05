@@ -108,14 +108,10 @@ class StatTracker
 
     def average_goals_by_season
         season_count = @games.group_by { |game| game[:season] }
-        season_count.each do |game, goals|
-            # Key = Value
-            season_count[game] = goals.map do |goal, value|
-                ((goal[:home_goals] + goal[:away_goals]) / goal.count)
-                require "pry";binding.pry
-            end     
+        season_count.each do |season_id, game_season|
+            season_count[season_id] = (game_season.sum do |game| 
+                    game[:away_goals] + game[:home_goals] 
+                end / game_season.count.to_f).round(2)
         end
     end
 end
-
-
