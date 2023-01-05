@@ -244,9 +244,16 @@ describe StatTracker do
 
     ##TEAM STATISTICS BELOW
 
-    it 'can find the most_goals_scored for a team' do
-        expect(stat_tracker.most_goals_scored).to be_an(Integer)
+    it 'can generate goals_scored_sorted as an array' do
+      expect(stat_tracker.goals_scored_sorted(6)).to be_an(Array)
+      expect(stat_tracker.goals_scored_sorted.first).to be_an(Integer)
+      expect(stat_tracker.goals_scored_sorted.last).to be_an(Integer)
     end
+
+    it 'can find the most_goals_scored for a team' do
+        expect(stat_tracker.most_goals_scored(6)).to be_an(Integer)
+    end
+
     
   end
 
