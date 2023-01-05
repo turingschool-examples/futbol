@@ -282,10 +282,18 @@ class StatTracker
 	end
 
   def team_info(team_id)
-    team_hash = {}
-    find_team_by_id[team_id].each do |row|
-      row.headers.each do |header|
-        team_hash[header.to_s] = row[header] if header != :stadium
+    team_hash = {
+      'team_id' => nil,
+      'franchise_id' => nil,
+      'team_name' => nil,
+      'abbreviation' => nil,
+      'link' => nil
+    }
+
+    team_hash.each do |info, value|
+      find_team_by_id[team_id].each do |team_info|
+        require 'pry'; binding.pry
+        team_hash[info] = team_info
       end
     end
     team_hash
