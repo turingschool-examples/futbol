@@ -59,4 +59,8 @@ RSpec.describe StatTracker do
   it 'calculates percent of ties' do
     expect(@stat_tracker.percentage_ties).to eq 0.0
   end
+
+  it 'will calculate the highest scoring visitor' do 
+    expect(@stat_tracker.highest_scoring_visitor).to eq("New York City Football Club")
+  end
 end

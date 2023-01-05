@@ -31,23 +31,14 @@ class StatTracker
 
 
   def average_goals_by_season
-    # average_goals_by_season = {}
-    # goal_amounts = []
-    # all_seasons = @games.map { |row| row[:season]}
-    #   all_seasons.uniq.each do |season|
-    #     @games.each do |row| 
-    #       if row[:season] == season 
-    #         goals = row[:home_goals].to_i + row[:away_goals].to_i
-    #         goal_amounts << goals
-    #         # require 'pry'; binding.pry
-    #   end
-    # end 
-    # all_seasons.uniq.each do |season|
-    #   average_goals_by_season[season] = goal_amounts.sum
-    # # require 'pry'; binding.pry
-    #  average_goals_by_season 
-    #   end
-    # end
+    average_goals_by_season = {}
+    all_seasons = @games.map { |row| row[:season]}
+    all_seasons.uniq.each do |season|
+      all_games = @games.find_all { |row| season == row[:season]}
+        total_score = all_games.map { |row| row[:home_goals].to_i + row[:away_goals].to_i }
+          average_goals_by_season[season] = total_score.sum / all_games.count
+    end 
+    average_goals_by_season
   end 
 
    def count_of_games_by_season
@@ -77,6 +68,11 @@ class StatTracker
        tally += 1 if (row[:hoa] == "away" && row[:result] == "TIE") || (row[:hoa] == "home" && row[:result] == "TIE")
     end
     (tally.to_f / @game_teams.count.to_f).round(2)
+  end
+
+  def highest_scoring_visitor
+    teams = @teams.map do { |team| team[:team_id]}
+      require 'pry'; binding.pry
   end
 end
 
