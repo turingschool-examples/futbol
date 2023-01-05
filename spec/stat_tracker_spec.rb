@@ -21,30 +21,44 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
-  it "can calculate the highest total game score" do
-    expect(@stat_tracker.highest_total_score).to eq(5)
+
+  it 'can calculate the average goals per game' do 
+    expect(@stat_tracker.average_goals_per_game).to eq(3.4)
   end
 
-  it "can calculate the lowest total game score" do
-    expect(@stat_tracker.lowest_total_score).to eq(3)
+  it 'will calculate the average goals per game by season' do 
+    # expect(@stat_tracker.average_goals_by_season).to be_a(Hash)
+    expect(@stat_tracker.average_goals_by_season["20122013"]).to eq(4)
   end
 
-  it "can list the total number of teams" do
-    expect(@stat_tracker.count_of_teams).to eq(5)
+  it 'counts the number of games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to eq({
+
+      "20122013"=> 2, 
+      "20142015" => 2, 
+      "20132014" => 1
+    })  
+
+    #   "20122013"=>806,
+    #   "20162017"=>1317,
+    #   "20142015"=>1319,
+    #   "20152016"=>1321,
+    #   "20132014"=>1323,
+    #   "20172018"=>1355
+    # }) 
+    # expect(@stat_tracker.count_of_games_by_season(20122013)).to eq(6)
   end
 
-  it "can name the team with the highest average score" do
-    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+  it "calculates home win %" do
+  #require 'pry'; binding.pry
+    expect(@stat_tracker.percentage_home_wins).to eq 0.60
   end
 
-  it "can name the team with the lowest average score" do
-    expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+  it 'calculates visitor win %' do
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.40
   end
 
-  it "can name the team the highest number of tackles in a season" do
-    expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+  it 'calculates percent of ties' do
+    expect(@stat_tracker.percentage_ties).to eq 0.0
   end
-
-
-
 end
