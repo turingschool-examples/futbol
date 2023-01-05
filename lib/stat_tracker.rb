@@ -36,7 +36,8 @@ class StatTracker
     all_seasons.uniq.each do |season|
       all_games = @games.find_all { |row| season == row[:season]}
         total_score = all_games.map { |row| row[:home_goals].to_i + row[:away_goals].to_i }
-          average_goals_by_season[season] = total_score.sum / all_games.count
+          average_goals_by_season[season] = ((total_score.sum.to_f / all_games.count.to_f).round(2))
+
     end 
     average_goals_by_season
   end 
@@ -71,8 +72,23 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    teams = @teams.map do { |team| team[:team_id]}
-      require 'pry'; binding.pry
+    scoring_breakdown = {}
+    teams = @teams.map { |team| team[:team_id] }
+    teams.each do |team|
+      all_away_games = @games.find_all { |game| game[:away_team_id] == team}
+        total_goals = all_away_games.map { |away_game| away_game[:away_goals].to_i}.sum
+        if all_away_games.count != 0
+        average_away_goals = total_goals.to_f / all_away_games.count.to_f
+        scoring_breakdown[team] = average_away_goals.to_f.round(2)
+        else 
+          nil
+        end 
+    end 
+
+    leading_team_id = nil
+    scoring_breakdown.each { |key, value| leading_team_id = key if  value == scoring_breakdown.values.max }
+    final_team = @teams.select { |team| team[:team_id] == leading_team_id}
+    final_team[0][:teamname]
   end
 end
 

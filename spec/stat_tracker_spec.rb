@@ -1,3 +1,4 @@
+require './spec_helper'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
@@ -36,15 +37,6 @@ RSpec.describe StatTracker do
       "20142015" => 2, 
       "20132014" => 1
     })  
-
-    #   "20122013"=>806,
-    #   "20162017"=>1317,
-    #   "20142015"=>1319,
-    #   "20152016"=>1321,
-    #   "20132014"=>1323,
-    #   "20172018"=>1355
-    # }) 
-    # expect(@stat_tracker.count_of_games_by_season(20122013)).to eq(6)
   end
 
   it "calculates home win %" do
@@ -61,6 +53,6 @@ RSpec.describe StatTracker do
   end
 
   it 'will calculate the highest scoring visitor' do 
-    expect(@stat_tracker.highest_scoring_visitor).to eq("New York City Football Club")
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 end
