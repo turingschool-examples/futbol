@@ -13,4 +13,12 @@ class StatTracker
 	def self.from_csv(locations)
     StatTracker.new(locations)
   end
+
+  def highest_total_score
+    total_score = []
+    games.each do |game|
+      total_score << game[:home_goals].to_i + game[:away_goals].to_i
+    end
+    total_score.max
+  end
 end
