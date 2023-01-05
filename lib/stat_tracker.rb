@@ -18,12 +18,6 @@ class StatTracker
 		StatTracker.new(games_data, teams_data, game_teams_data)
 	end
 
-	def find_all_game_id
-		@games.map do |row|
-			row[:game_id]
-		end
-	end
-
 	def total_scores
 		@games.map do |row|
 			row[:away_goals].to_i + row[:home_goals].to_i
@@ -54,7 +48,6 @@ class StatTracker
     average_score.round(2)
   end
 
-	# 
   def average_win_percentage(team_id)
     games_played = []
     games_won = []
@@ -123,7 +116,6 @@ class StatTracker
 	def average_goals_by_season
 		hash = all_game_scores_by_season
 		hash.each do |k, v|
-			# require 'pry'; binding.pry
 			hash[k] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
 		end
 		hash
@@ -214,7 +206,41 @@ class StatTracker
 			row[:game_id]
 		end
 	end
+  
+	def rival(team_id)
+		win_or_loss(team_id, 'WIN')
+	end
 
+	def favorite_opponent(team_id)
+		win_or_loss(team_id, 'LOSS')
+	end
+
+	def win_or_loss(team_id, win_loss_string)
+		games = games_by_team_id[team_id.to_s].find_all do |game|
+			game[:team_id] == team_id.to_s
+		end
+		hash = {}
+		games.each do |game|
+			game = games_by_game_id[game[:game_id]].find {|element| element[:team_id] != team_id.to_s}
+			hash[game[:game_id]] = game
+		end
+		new_hash = Hash.new {|k,v| k[v] = []}
+		hash.each do |game_id, game|
+			new_hash[game[:team_id]] << game[:result]
+		end
+		new_hash.each do |k,v|
+			new_hash[k] = (v.count(win_loss_string).to_f / v.count).round(2)
+		end
+		team_id = new_hash.key(new_hash.values.max)
+		find_team_by_id[team_id].first[:teamname]
+	end
+
+	def games_by_team_id
+		@games_by_team_id ||= @game_teams.group_by do |row|
+			row[:team_id]
+		end
+	end
+  
   def highest_scoring_visitor
     team_id = all_game_scores_by_away_team.key(all_game_scores_by_away_team.values.max)
     find_team_by_id[team_id].first[:teamname]
@@ -231,7 +257,6 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-
     team_id = all_game_scores_by_home_team.key(all_game_scores_by_home_team.values.min)
     find_team_by_id[team_id].first[:teamname]
   end

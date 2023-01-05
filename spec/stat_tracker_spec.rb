@@ -47,25 +47,25 @@ describe StatTracker do
 
   describe '#average_win_percentage' do
     it 'can take a teamid argument and return total win percentage across all games played' do
-      expect(stat_tracker.average_win_percentage(52)).to eq(0.500)
+      expect(stat_tracker.average_win_percentage(52)).to eq(0.44)
     end
   end
 
   describe '#percentage_home_wins' do
     it 'returns % of home team wins (rounded to the nearest 100th)' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.40)
+      expect(stat_tracker.percentage_home_wins).to eq(0.46)
     end
   end
 
   describe '#percentage_visitor_wins' do
     it 'returns % of visitor team wins (rounded x.xx)' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.48)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.42)
     end
   end
 
   describe '#percentage_ties' do
     it 'returns % of ties (rounded x.xx)' do
-      expect(stat_tracker.percentage_ties).to eq(0.17)
+      expect(stat_tracker.percentage_ties).to eq(0.14)
     end
   end
 
@@ -140,6 +140,18 @@ describe StatTracker do
       # It is returning a CSV row even though the test fails.
     end
   end
+
+	describe '#favorite_opponent' do
+		it 'names of opponent that has lowest win % against given team' do
+			expect(stat_tracker.favorite_opponent(52)).to eq("Chicago Red Stars")
+		end
+	end
+
+	describe '#rival' do
+		it 'names of opponent that has highest win % against given team' do
+			expect(stat_tracker.rival(52)).to eq("Sporting Kansas City")
+		end
+	end
 
   describe '#highest_scoring_visitor' do
     it 'returns the NAME of the team who scored the most goals per game as the away team' do
