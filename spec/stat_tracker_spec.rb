@@ -167,6 +167,7 @@ describe StatTracker do
       expect(stat_tracker.team_score_averages.length).to eq(31)
     end
 
+    #Refactor
     it 'can calculate #team_score_averages array length' do
     expected_array = [["5", 0.5], ["8", 1.3333], ["53", 1.5], ["26", 1.6], ["22", 1.6667],
     ["18", 1.75], ["21", 1.75], ["10", 2.0], ["2", 2.0], ["30", 2.0], ["17", 2.0], ["28", 2.0],
@@ -187,7 +188,7 @@ describe StatTracker do
 
 
     xit "#team_info" do
-    
+
     expected = {
       "team_id" => "18",
       "franchise_id" => "34",
