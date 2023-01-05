@@ -4,14 +4,15 @@ class StatTracker
   attr_reader :games,
               :teams, 
               :game_teams,
-              :game_id
+              :game_id,
+              :total_score_array
              
   def initialize(locations)
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
-    @total_scores = []
-    @games_by_season = Hash.new(0)
+    @total_score_array = total_score
+    @games_by_season = count_of_games_by_season
 
     @game_id = @games[:game_id]
     @season = @games[:season]
@@ -29,20 +30,22 @@ class StatTracker
     StatTracker.new(locations)
   end
    
-  def total_scores
+  def total_score
+    total_score_array = []
     @games.each do |row|
-      @total_scores << row[:away_goals].to_i + row[:home_goals].to_i
+      total_score_array << row[:away_goals].to_i + row[:home_goals].to_i
     end
+    total_score_array
   end
 
   def highest_total_score
-    total_scores
-    @total_scores.max
+    total_score
+    @total_score_array.max
   end
 
   def lowest_total_score
-    total_scores
-    @total_scores.min
+    total_score
+    @total_score_array.min
   end
 
   def percentage_home_wins
@@ -67,15 +70,16 @@ class StatTracker
   end
 
   def count_of_games_by_season
+    games_by_season = Hash.new(0)
     @games.each do |row|
-      @games_by_season[row[:season]] += 1
+      games_by_season[row[:season]] += 1
     end
-    @games_by_season
+    games_by_season
   end
 
   def average_goals_per_game
-    total_scores
-    (@total_scores.sum.to_f/@games.size).round(2)
+    total_score
+    (@total_score_array.sum.to_f/@games.size).round(2)
   end
 
   def average_goals_by_season
@@ -96,14 +100,14 @@ class StatTracker
   end
 
   # def winningest_coach(season)
-  #   season_games = []
+  #   # pull game_ids played for that season
+  #   # separate games by team
+  #   # calculate the record for each team for that season (record # of wins/ # of games played in the season)
+  #   # find the name of the coach for the team that has the best record
+  #   game_ids = []
   #   @games.each do |row|
-  #     season_games << [row] if row[:season] == season
+  #     game_ids << row[:game_id] if row[:season] == season
   #   end
-  #   season_games.each do |game|
-
-  #   end
-  #   #require 'pry'; binding.pry
   # end
   
 end

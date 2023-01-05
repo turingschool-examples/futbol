@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+require './spec/spec_helper'
 
 describe StatTracker do
   let(:stat_tracker) {StatTracker.new({
@@ -17,6 +18,13 @@ describe StatTracker do
       expect(stat_tracker.teams).to be_a(CSV::Table)
       expect(stat_tracker.game_teams).to be_a(CSV::Table)
       expect(stat_tracker.game_id).to be_a(Array)
+    end
+  end
+
+  describe '#total_score' do
+    it 'calculates the total number of goals' do
+      expect(stat_tracker.total_score).to be_a(Array)
+      expect(stat_tracker.total_score.sum).to eq(28)
     end
   end
 
@@ -70,7 +78,6 @@ describe StatTracker do
 
   describe '#average_goals_by_season' do
     it 'returns a hash of avg goals(values) by seasons(keys)' do
-      stat_tracker.count_of_games_by_season
       expected_hash = {
                         "20142015" => 4.33,
                         "20162017" => 5.00,
@@ -83,7 +90,7 @@ describe StatTracker do
   end
 
   describe '#winningest_coach' do
-    xit 'returns the coach with the best win percentage' do
+    it 'returns the coach with the best win percentage' do
       expect(stat_tracker.winningest_coach("20142015")).to eq("Mike Babcock")
     end
   end
