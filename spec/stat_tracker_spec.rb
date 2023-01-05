@@ -66,4 +66,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
   end
+
+  describe '#count_of_teams' do
+    it 'returns total number of teams in data' do
+      expect(stat_tracker.count_of_teams).to eq(12)
+    end
+  end
 end
+
