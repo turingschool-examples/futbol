@@ -269,38 +269,38 @@ class StatTracker
 
     def best_offense
       sorted_avgs = team_score_averages
-      lowest_score = sorted_avgs.last[1]
+      highest_score = sorted_avgs.last[1]
 
-      lowests = []
+      highest = []
       sorted_avgs.each do |array|
-        lowests << array.first if array.last == lowest_score
+        highest << array.first if array.last == highest_score
       end
 
-      lowest_scoring_visitors = []
-      lowests.each do |id|
+      highest_scoring_team = []
+      highest.each do |id|
         teams.each do |team|
-          lowest_scoring_visitors << team.team_name if team.team_id == id
+          highest_scoring_team << team.team_name if team.team_id == id
         end
       end
-      lowest_scoring_visitors.join(", ")
+      highest_scoring_team.join(", ")
     end
 
     def worst_offense
       sorted_avgs = team_score_averages
       lowest_score = sorted_avgs.first[1]
 
-      lowests = []
+      lowest = []
       sorted_avgs.each do |array|
-        lowests << array.first if array.last == lowest_score
+        lowest << array.first if array.last == lowest_score
       end
 
-      lowest_scoring_visitors = []
-      lowests.each do |id|
+      lowest_scoring_team = []
+      lowest.each do |id|
         teams.each do |team|
-          lowest_scoring_visitors << team.team_name if team.team_id == id
+          lowest_scoring_team << team.team_name if team.team_id == id
         end
       end
-      lowest_scoring_visitors.join(", ")
+      lowest_scoring_team.join(", ")
     end
     
     # def team_info(team_id)
@@ -322,7 +322,7 @@ class StatTracker
     #       end
     #     end
       # team_info
-    end
+    # end
 
 end
 
