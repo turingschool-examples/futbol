@@ -72,7 +72,6 @@ class StatTracker
         games_total_score_array.min
     end
     
-end
     def percentage_home_wins
         percentage_games = []
         @games.each do |game, goals|
