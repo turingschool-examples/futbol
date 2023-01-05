@@ -96,20 +96,11 @@ class StatTracker
 	end
 
 	def most_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].max
+		all_game_scores_by(:home_team_id, :away_team_id)[team_id.to_s].max
 	end
 	
 	def fewest_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].min
-	end
-
-	def all_game_scores_by_team
-		hash = Hash.new {|k, v| k[v] = []}
-		@games.each do |row|
-			hash[row[:home_team_id]] << row[:home_goals].to_i
-			hash[row[:away_team_id]] << row[:away_goals].to_i
-		end
-		hash
+		all_game_scores_by(:home_team_id, :away_team_id)[team_id.to_s].min
 	end
 
 	def count_of_games_by_season
@@ -121,19 +112,18 @@ class StatTracker
 	end
 
 	def average_goals_by_season
-		hash = all_game_scores_by_season
+		hash = all_game_scores_by(:season, :season)
 		hash.each do |k, v|
-			# require 'pry'; binding.pry
 			hash[k] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
 		end
 		hash
 	end
 
-	def all_game_scores_by_season
+	def all_game_scores_by(symbol1, symbol2)
 		hash = Hash.new {|k, v| k[v] = []}
 		@games.each do |row|
-			hash[row[:season]] << row[:home_goals].to_i
-			hash[row[:season]] << row[:away_goals].to_i
+			hash[row[symbol2]] << row[:away_goals].to_i
+			hash[row[symbol1]] << row[:home_goals].to_i
 		end
 		hash
 	end
