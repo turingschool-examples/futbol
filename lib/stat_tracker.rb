@@ -31,23 +31,15 @@ class StatTracker
 
 
   def average_goals_by_season
-    # average_goals_by_season = {}
-    # goal_amounts = []
-    # all_seasons = @games.map { |row| row[:season]}
-    #   all_seasons.uniq.each do |season|
-    #     @games.each do |row| 
-    #       if row[:season] == season 
-    #         goals = row[:home_goals].to_i + row[:away_goals].to_i
-    #         goal_amounts << goals
-    #         # require 'pry'; binding.pry
-    #   end
-    # end 
-    # all_seasons.uniq.each do |season|
-    #   average_goals_by_season[season] = goal_amounts.sum
-    # # require 'pry'; binding.pry
-    #  average_goals_by_season 
-    #   end
-    # end
+    average_goals_by_season = {}
+    all_seasons = @games.map { |row| row[:season]}
+    all_seasons.uniq.each do |season|
+      all_games = @games.find_all { |row| season == row[:season]}
+        total_score = all_games.map { |row| row[:home_goals].to_i + row[:away_goals].to_i }
+          average_goals_by_season[season] = ((total_score.sum.to_f / all_games.count.to_f).round(2))
+
+    end 
+    average_goals_by_season
   end 
 
    def count_of_games_by_season
@@ -100,6 +92,86 @@ class StatTracker
     games_list
   end
   
+
+  def highest_scoring_visitor
+    scoring_breakdown = {}
+    teams = @teams.map { |team| team[:team_id] }
+    teams.each do |team|
+      all_away_games = @games.find_all { |game| game[:away_team_id] == team}
+        total_goals = all_away_games.map { |away_game| away_game[:away_goals].to_i}.sum
+        if all_away_games.count != 0
+        average_away_goals = total_goals.to_f / all_away_games.count.to_f
+        scoring_breakdown[team] = average_away_goals.to_f.round(2)
+        else 
+          nil
+        end 
+    end 
+
+    leading_team_id = nil
+    scoring_breakdown.each { |key, value| leading_team_id = key if  value == scoring_breakdown.values.max }
+    final_team = @teams.select { |team| team[:team_id] == leading_team_id}
+    final_team[0][:teamname]
+  end
+
+  def lowest_scoring_visitor 
+    scoring_breakdown = {}
+    teams = @teams.map { |team| team[:team_id] }
+    teams.each do |team|
+      all_away_games = @games.find_all { |game| game[:away_team_id] == team}
+        total_goals = all_away_games.map { |away_game| away_game[:away_goals].to_i}.sum
+        if all_away_games.count != 0
+        average_away_goals = total_goals.to_f / all_away_games.count.to_f
+        scoring_breakdown[team] = average_away_goals.to_f.round(3)
+        else 
+          nil
+        end 
+    end 
+
+    last_team_id = nil
+    scoring_breakdown.each { |key, value| last_team_id = key if  value == scoring_breakdown.values.min}
+    final_team = @teams.select { |team| team[:team_id] == last_team_id}
+    final_team[0][:teamname]
+  end
+
+  def highest_scoring_home_team
+    scoring_breakdown = {}
+    teams = @teams.map { |team| team[:team_id] }
+    teams.each do |team|
+      all_home_games = @games.find_all { |game| game[:home_team_id] == team}
+        total_goals = all_home_games.map { |home_game| home_game[:home_goals].to_i}.sum
+        if all_home_games.count != 0
+        average_home_goals = total_goals.to_f / all_home_games.count.to_f
+        scoring_breakdown[team] = average_home_goals.to_f.round(2)
+        else 
+          nil
+        end 
+    end 
+
+    leading_team_id = nil
+    scoring_breakdown.each { |key, value| leading_team_id = key if  value == scoring_breakdown.values.max }
+    final_team = @teams.select { |team| team[:team_id] == leading_team_id}
+    final_team[0][:teamname]
+  end
+
+  def lowest_scoring_home_team
+    scoring_breakdown = {}
+    teams = @teams.map { |team| team[:team_id] }
+    teams.each do |team|
+      all_home_games = @games.find_all { |game| game[:home_team_id] == team}
+        total_goals = all_home_games.map { |home_game| home_game[:home_goals].to_i}.sum
+        if all_home_games.count != 0
+        average_home_goals = total_goals.to_f / all_home_games.count.to_f
+        scoring_breakdown[team] = average_home_goals.to_f.round(3)
+        else 
+          nil
+        end 
+    end 
+
+    last_team_id = nil
+    scoring_breakdown.each { |key, value| last_team_id = key if  value == scoring_breakdown.values.min}
+    final_team = @teams.select { |team| team[:team_id] == last_team_id}
+    final_team[0][:teamname]
+  end
 end
 
 
