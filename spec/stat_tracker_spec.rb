@@ -24,7 +24,7 @@ describe StatTracker do
   describe '#total_score' do
     it 'calculates the total number of goals' do
       expect(stat_tracker.total_score).to be_a(Array)
-      expect(stat_tracker.total_score.sum).to eq(28)
+      expect(stat_tracker.total_score.sum).to eq(36)
     end
   end
 
@@ -42,19 +42,19 @@ describe StatTracker do
 
   describe '#percentage_home_wins' do
     it 'returns percent of wins at home' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.33)
+      expect(stat_tracker.percentage_home_wins).to eq(0.25)
     end
   end
 
   describe '#percentage_visitor_wins' do
     it 'returns percent of visitor wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.50)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.63)
     end
   end
 
   describe '#percentage_ties' do
     it 'returns percent of tied games' do
-      expect(stat_tracker.percentage_ties).to eq(0.17)
+      expect(stat_tracker.percentage_ties).to eq(0.13)
     end
   end
 
@@ -66,7 +66,7 @@ describe StatTracker do
   end
   describe '#best_offense' do
     it "name of the team with the highest average number of goals scored per game across all seasons" do
-      expect(stat_tracker.best_offense).to eq "Reign FC"
+      expect(stat_tracker.best_offense).to eq "Sporting Kansas City"
     end
   end
 end

@@ -67,6 +67,9 @@ class StatTracker
     (count.to_f / @games.size).round(2)
   end
 
+    def count_of_teams
+      @teams.length
+    end
 
   def best_offense
     teams = []
