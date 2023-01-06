@@ -125,6 +125,10 @@ RSpec.describe StatTracker do
     it 'is a integer' do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
+
+    it 'returns total # of teams' do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
   end
 
 end
