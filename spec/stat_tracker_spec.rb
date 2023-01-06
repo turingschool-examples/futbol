@@ -184,6 +184,24 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_ids_by_season("20122013").class).to eq(Array)
     end
   end
+
+  describe '#most_tackles' do 
+    it 'is the team with the most tackles in the season' do 
+      expect(@stat_tracker.most_tackles("20122013")).to eq("")
+    end
+  end
+
+  describe '#fewest_tackles' do 
+    it 'is the team with the fewest tackles' do 
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("")
+    end
+  end 
+
+  describe '#teams_with_tackles' do 
+    it 'is a helper method to set team ids to their array of tackles' do 
+      expect(@stat_tracker.teams_with_tackles([]).class).to eq(Hash)
+    end
+  end
   
   
 end
