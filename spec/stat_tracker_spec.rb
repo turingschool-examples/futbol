@@ -287,6 +287,10 @@ describe StatTracker do
       expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
       expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
     end
+
+    it "#average_win_percentage" do
+      expect(stat_tracker.average_win_percentage("26")).to eq 0.67
+    end
   end
   
 end
