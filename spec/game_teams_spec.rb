@@ -12,6 +12,8 @@ describe Game_teams do
       expect(@game_team).to be_a(Game_teams)
     end
 
-    
+    it 'has attributes' do
+      expect(@game_team.team_id).to eq("5")
+    end
   end
 end
