@@ -7,5 +7,11 @@ describe Game_teams do
     @game_team = @game_teams[0]
   end
 
-  
+  describe '#initialize' do
+    it 'exists' do
+      expect(@game_team).to be_a(Game_teams)
+    end
+
+    
+  end
 end

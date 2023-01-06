@@ -1,7 +1,7 @@
 require 'csv'
 
 class Game_teams
-  attr_reader :game_id = info[]
+  attr_reader :game_id,
               :team_id,
               :hoa,
               :result,
