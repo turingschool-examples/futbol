@@ -3,7 +3,7 @@ require './lib/stat_tracker'
 describe StatTracker do
   
   let(:game_path){'./data/fixtures/games_i1.csv'}
-  let(:team_path){'./data/fixtures/teams_i1.csv'}
+  let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
   
 
@@ -36,7 +36,7 @@ describe StatTracker do
 
   describe 'team' do
     it 'can pull in teams csv data' do
-      expect(StatTracker.teams_csv(locations).length).to eq(19)
+      expect(StatTracker.teams_csv(locations).length).to eq(32)
       expect(StatTracker.teams_csv(locations)[0].team_id).to eq('1')
       expect(StatTracker.teams_csv(locations)[0].franchise_id).to eq('23')
       expect(StatTracker.teams_csv(locations)[0].team_name).to eq('Atlanta United')
@@ -156,7 +156,7 @@ describe StatTracker do
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
     it 'can count the number of teams' do
-      expect(stat_tracker.count_of_teams).to eq(19)
+      expect(stat_tracker.count_of_teams).to eq(32)
     end
 
     
@@ -268,12 +268,11 @@ describe StatTracker do
   describe 'new game_team dummy data' do
     let(:game_path_2){'./data/fixtures/games_i2.csv'}
     let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
-    let(:team_path_2){'./data/teams.csv'}
     #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
     
     let(:locations_3){{
       games: game_path_2,
-      teams: team_path_2,
+      teams: team_path,
       game_teams: game_teams_path_2
     }}
   
