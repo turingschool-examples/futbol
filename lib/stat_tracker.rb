@@ -186,54 +186,101 @@ class StatTracker
     end.compact.pop
 	end
 
+  # def winningest_coach(season_id)
+  #   #coach_winning_game_by_season_hash(season_id).invert.max_by {|k,v| v}.pop
+  # end
+
+  # def worst_coach(season_id)
+  #   coach_winning_game_by_season_hash(season_id).min_by {|k,v| k} 
+  # end
+
+  # def coach_winning_game_by_season_hash(season_id)
+ 
+  #   #season_wins_by_coach = Hash.new(0)
+  #   season_wins_by_coach = {}
+  #   by_season(season_id).each do |season_game|
+  #     wins_by_coach.each do |coach, coach_games| 
+  #     next if coach_games.empty? == true
+  #       coach_games.each do |game|
+  #         if season_game[:game_id] == game[:game_id]
+  #           season_wins_by_coach[coach] = coach_games.count
+  #         end
+  #       end
+  #     end
+  #   end
+    
+  #   season_wins_by_coach.each do |coach, wins| 
+  #     thing = (wins / by_season(season_id).count.to_f).round(2)
+  #     season_wins_by_coach[coach] = thing
+  #   end
+  #   season_wins_by_coach
+  
+  # end
+
+  def games_by_season
+    @games_by_season ||= @game_path.group_by do |row|
+      row[:season] 
+    end
+  end
+
+  def games_by_game_id
+    #memoization this
+    @game_teams_path.group_by do |row| 
+      row[:game_id]
+    end
+  end
+
+  def game_ids_by_season(season_id)
+    games_by_season[season_id].map do |games|
+      games[:game_id]
+    end
+  end
+
+  def wins_by_coach(game_id_array)
+    hash = Hash.new{|k, v| k[v] = []}
+    game_id_array.each do |game_id|
+      next if games_by_game_id[game_id].nil?
+      games_by_game_id[game_id].each do |game|
+        hash[game[:head_coach]] << game[:result]
+      end
+    end
+    hash 
+  end
+
   def winningest_coach(season_id)
-    coach_winning_game_by_season_hash(season_id).max_by {|k,v| k}
+    coach_results = wins_by_coach(game_ids_by_season(season_id)) 
+     coach_results.each do |coach, results| 
+      coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
+     end
+     coach_results.invert[coach_results.invert.keys.max]
   end
 
   def worst_coach(season_id)
-    coach_winning_game_by_season_hash(season_id).min_by {|k,v| k} 
+    coach_results = wins_by_coach(game_ids_by_season(season_id)) 
+     coach_results.each do |coach, results| 
+      coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
+     end
+     coach_results.invert[coach_results.invert.keys.min]
   end
 
-  def coach_winning_game_by_season_hash(season_id)
+
+
+  
+
+  # def wins_by_coach 
+  #   grouped_by_coach = @game_teams_path.group_by {|row| row[:head_coach]}
+
+  #   wins_by_coach = {}
+
+  #   grouped_by_coach.each do |coach, games| 
+  #     winner = games.find_all do |game| 
+  #       game[:result] == "WIN" && game[:result] != "TIE"
+  #     end
+  #     wins_by_coach[coach] = winner 
+  #   end
+  #   wins_by_coach
+    
+  # end
+
  
-    season_wins_by_coach = Hash.new(0)
-    by_season(season_id).each do |season_game|
-      wins_by_coach.each do |coach, coach_games| 
-      next if coach_games.empty?
-        coach_games.each do |game|
-          if season_game[:game_id] == game[:game_id]
-            season_wins_by_coach[coach] += 1 
-          end
-        end
-      end
-    end
-    season_wins_by_coach.each do |coach, wins| 
-      thing = (wins / by_season(season_id).count.to_f).round(2)
-      season_wins_by_coach[coach] = thing
-
-    end
-    season_wins_by_coach
-  end
-
-  def by_season(season_id)
-    group_by_given_season_id = @game_path.group_by do |row|
-      row[:season] 
-    end
-    group_by_given_season_id[season_id]
-  end
-
-  def wins_by_coach 
-    grouped_by_coach = game_teams_path.group_by {|row| row[:head_coach]}
-
-    wins_by_coach = {}
-    wins = 0
-
-    grouped_by_coach.each do |coach, games| 
-      winner = games.find_all do |game| 
-        game[:result] == "WIN"
-      end
-      wins_by_coach[coach] = winner 
-    end
-    wins_by_coach
-  end
 end
