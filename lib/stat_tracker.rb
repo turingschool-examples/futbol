@@ -42,10 +42,10 @@ class StatTracker
     average_goals_by_season
   end 
 
-   def count_of_games_by_season
+  def count_of_games_by_season
     count_of_games_by_season = Hash.new(0)
          seasons = @games.map { |row| row[:season]}.tally
-   end
+  end
 
   def percentage_home_wins
     tally = 0
