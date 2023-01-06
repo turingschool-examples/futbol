@@ -157,8 +157,31 @@ RSpec.describe StatTracker do
 
   describe '#winningest_coach' do 
     it 'is coach with most wins of the season' do
-      expect(@stat_tracker.winningest_coach("20122013")).to eq("")
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
   end
+
+  describe '#worst_coach' do 
+    
+  end
+
+  describe '#games_by_season' do 
+    it 'is a helper method that groups the games by the season' do 
+      expect(@stat_tracker.games_by_season.class).to eq(Hash)
+    end
+  end
+
+  describe '#games_by_game_id' do 
+    it 'is a helper method that groups the games by the game_id' do 
+      expect(@stat_tracker.games_by_game_id.class).to eq(Hash)
+    end
+  end
+
+  describe '#game_ids_by_season' do 
+    it 'is a helper method that groups game ids to the give season' do 
+      expect(@stat_tracker.game_ids_by_season("20122013").class).to eq(Array)
+    end
+  end
+  
   
 end
