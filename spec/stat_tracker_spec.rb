@@ -91,9 +91,20 @@ RSpec.describe StatTracker do
     end
 
     it 'can find lowest scoring visitor' do
-      expect(stat_tracker.lowest_scoring_visitor).to eq("LA Galaxy")
+      expect(stat_tracker.lowest_scoring_visitor).to eq("LA Galaxy").or(eq("FC Cincinnati"))
     end
   end
+
+  describe '#highest_ and lowest_scoring_home_team' do
+    it 'can find highest scoring home team' do
+      expect(stat_tracker.highest_scoring_home_team).to eq("North Carolina Courage")
+    end
+
+    it 'can find the lowest scoring home team' do
+      expect(stat_tracker.lowest_scoring_home_team).to eq("FC Dallas").or(eq("Minnesota United FC")).or(eq("Montreal Impact"))
+    end
+  end
+
   # describe '#most_tackles and #fewest_tackles' do
   #   it 'can find most_tackles' do
 

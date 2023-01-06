@@ -143,53 +143,104 @@ class StatTracker
     away_teams_average_scoring_hash = {}
     
     @games.each do |game|
-      game.each do |k, v|
-        away_scores_hash[game[:away_team_id]] += (game[:away_goals].to_f/10)
-      end
+      away_scores_hash[game[:away_team_id]] += (game[:away_goals].to_f)
+      
       away_scores_hash.map do |key, value|
         away_scores_hash[key] = value.round(2) 
       end
-
-        away_scores_hash
-      end
-      
-      away_scores_hash.each do |away_id, score_value|
-        away_games_per_team.each do |games_id, game_value|
-          if games_id == away_id
-            away_teams_average_scoring_hash[away_id] = (score_value/game_value).round(2)
-          end
-        end
-      end
-      away_teams_average_scoring_hash
     end
     
-    def highest_scoring_visitor
-      final_id = []
-      
-      best_scoring_visitor = away_teams_average_scoring_hash[away_teams_average_scoring_hash.keys[0]]
-      
-      away_teams_average_scoring_hash.each do |id, average|
-        if average > best_scoring_visitor
-          best_scoring_visitor = average
-          final_id = id
+    away_scores_hash.each do |away_id, score_value|
+      away_games_per_team.each do |games_id, game_value|
+        if games_id == away_id
+          away_teams_average_scoring_hash[away_id] = (score_value/game_value).round(2)
         end
       end
-      @teams.find {|team| team[:team_id] == final_id}[:teamname]
     end
-    
-    
-    def lowest_scoring_visitor
-      lowest_id = []
-      
-      worst_scoring_visitor = away_teams_average_scoring_hash[away_teams_average_scoring_hash.keys[0]]
-      
-      away_teams_average_scoring_hash.each do |id, average_score|
-        if average_score < worst_scoring_visitor
-          worst_scoring_visitor = average_score
-          lowest_id << id
-          require 'pry';binding.pry
-        end
-      end
-      @teams.find_all {|team| team[:team_id] == lowest_id}[:teamname]
-    end
+    away_teams_average_scoring_hash
   end
+    
+  def highest_scoring_visitor
+    final_id = away_teams_average_scoring_hash.keys[0]
+    best_scoring_visitor = away_teams_average_scoring_hash[final_id]
+    
+    away_teams_average_scoring_hash.each do |id, average|
+      if average > best_scoring_visitor
+        best_scoring_visitor = average
+        final_id = id
+      end
+    end
+    @teams.find {|team| team[:team_id] == final_id}[:teamname]
+  end
+    
+    
+  def lowest_scoring_visitor
+    lowest_id = away_teams_average_scoring_hash.keys[0]
+    worst_scoring_visitor = away_teams_average_scoring_hash[lowest_id]
+    
+    away_teams_average_scoring_hash.each do |id, average_score|
+      if average_score < worst_scoring_visitor
+        worst_scoring_visitor = average_score
+        lowest_id = id
+      end
+    end
+    @teams.find {|team| team[:team_id] == lowest_id}[:teamname]
+  end
+
+  def home_games_per_team
+    number_of_games = []
+    @games.map do |game|
+      number_of_games << game[:home_team_id]
+    end
+    number_of_games.tally
+  end
+  
+  def home_teams_average_scoring_hash
+    home_scores_hash = Hash.new(0)
+    home_teams_average_scoring_hash = {}
+    
+    @games.each do |game|
+      home_scores_hash[game[:home_team_id]] += (game[:home_goals].to_f)
+      
+      home_scores_hash.map do |key, value|
+        home_scores_hash[key] = value.round(2) 
+      end
+    end
+    
+    home_scores_hash.each do |home_id, score_value|
+      home_games_per_team.each do |games_id, game_value|
+        if games_id == home_id
+          home_teams_average_scoring_hash[home_id] = (score_value/game_value).round(2)
+        end
+      end
+    end
+    home_teams_average_scoring_hash
+  end
+  
+  def highest_scoring_home_team
+    final_id = home_teams_average_scoring_hash.keys[0]
+    best_scoring_home_team = home_teams_average_scoring_hash[final_id]
+    
+    # require 'pry';binding.pry
+    home_teams_average_scoring_hash.each do |id, average|
+      if average > best_scoring_home_team
+        best_scoring_home_team = average
+        final_id = id
+      end
+    end
+    @teams.find {|team| team[:team_id] == final_id}[:teamname]
+  end
+
+  def lowest_scoring_home_team
+    lowest_id = home_teams_average_scoring_hash.keys[0]
+    worst_scoring_home_team = home_teams_average_scoring_hash[lowest_id]
+    
+    home_teams_average_scoring_hash.each do |id, average_score|
+      if average_score < worst_scoring_home_team
+        worst_scoring_home_team = average_score
+        lowest_id = id
+      end
+    end
+    @teams.find {|team| team[:team_id] == lowest_id}[:teamname]
+  end
+end
