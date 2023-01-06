@@ -255,6 +255,16 @@ describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("6")).to be_an(Integer)
       expect(stat_tracker.fewest_goals_scored("6")).to eq(1)
     end
+
+    it "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+    end
+
+    it "#least_accurate_team" do
+      expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
   end
 
 end
