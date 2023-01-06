@@ -88,6 +88,66 @@ class StatTracker
   end
  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
 
+
+  # Highest sum of the winning and losing teams’ scores
+  def highest_total_score
+    total_scores.last
+  end
+
+  # Lowest sum of the winning and losing teams’ scores
+  def lowest_total_score
+    total_scores.first
+  end
+
+  # HELPER: Array of the winning and losing teams’ scores
+  def total_scores
+    game_sums = @games.map do |game|
+      game[:away_goals] + game[:home_goals]
+    end.sort
+  end
+
+  #Total number of teams in the data
+  def count_of_teams
+    @teams.count
+  end
+
+  #Team name w/ highest avg num of goals scored (per game across all seasons)
+  def best_offense
+    team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |info_line|
+      team_id_all_goals[info_line[:team_id]] << info_line[:goals]
+    end
+  
+    team_id_avg_goals = Hash.new { |hash, key| hash[key] = 0 }
+    team_id_all_goals.each do |team_id, goals_scored|
+      team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+
+    # if 2 teams have the same avg this will return ONLY the FIRST one:
+    @teams.first do |info_line|
+      if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.max)
+        return info_line[:team_name] 
+      end
+    end
+  end
+
+  #Team name w/ lowest avg num of goals scored (per game across all seasons)
+  def worst_offense
+    team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do |info_line|
+      team_id_all_goals[info_line[:team_id]] << info_line[:goals]
+    end
+  
+    team_id_avg_goals = Hash.new { |hash, key| hash[key] = 0 }
+    team_id_all_goals.each do |team_id, goals_scored|
+      team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+
+    # if 2 teams have the same avg this will return ONLY the FIRST one:
+    @teams.first do |info_line|
+      if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.min)
+
+
  #Percentage of games that a home team has won (rounded to the nearest 100th)
 
 #  Method count of games by season
@@ -350,9 +410,11 @@ end
 
     @teams.find do |info_line|
       if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.min)
+
         return info_line[:team_name] 
       end
     end
   end
+
 end
 
