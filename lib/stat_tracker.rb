@@ -123,31 +123,53 @@ class StatTracker
     def best_offense
         # Return team with highest average number of goals over all total games
         
-        hash1 = Hash.new { |hash, key| hash[key] = [] }
-        @game_teams.each do |info|
-            hash1[info[:team_id]] << info[:goals]
+        total_goals_by_team = Hash.new(0)
+        @game_teams.each do |game|
+            total_goals_by_team[game[:team_id]] += game[:goals]
         end
 
-        hash2 = Hash.new { |hash, key| hash[key] = [] }
-        hash1.each do |id, goals|
-            hash2[id] = (goals.sum / goals.count.to_f).round(2)
+        avg_goals_by_team = Hash.new(0)
+        total_goals_by_team.each do |id, total_goals|
+            # require 'pry'; binding.pry
+            avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
         end
          
-        @teams.find do |info|
+        @teams.find do |game|
             # .find will return first highest avg, .each will return last highest avg
-            if info[:team_id] == hash2.key(hash2.values.max)
-                return info[:teamname]
+            if game[:team_id] == avg_goals_by_team.key(avg_goals_by_team.values.max)
+                return game[:teamname]
             end
         end
     end
 
+    # def best_offense
+    #     # Return team with highest average number of goals over all total games
+        
+    #     hash1 = Hash.new { |hash, key| hash[key] = [] }
+    #     @game_teams.each do |game|
+    #         hash1[game[:team_id]] << game[:goals]
+    #     end
+
+    #     hash2 = Hash.new { |hash, key| hash[key] = [] }
+    #     hash1.each do |id, goals|
+    #         require 'pry'; binding.pry
+    #         hash2[id] = (goals.sum / goals.count.to_f).round(2)
+    #     end
+         
+    #     @teams.find do |game|
+    #         # .find will return first highest avg, .each will return last highest avg
+    #         if game[:team_id] == hash2.key(hash2.values.max)
+    #             return game[:teamname]
+    #         end
+    #     end
+    # end
     
     def worst_offense
         # Return team with lowest average number of goals over all total games
         
         hash1 = Hash.new { |hash, key| hash[key] = [] }
-        @game_teams.each do |info|
-            hash1[info[:team_id]] << info[:goals]
+        @game_teams.each do |game|
+            hash1[game[:team_id]] << game[:goals]
         end
 
         hash2 = Hash.new { |hash, key| hash[key] = [] }
@@ -156,9 +178,9 @@ class StatTracker
         end
         # require 'pry'; binding.pry
         
-        @teams.find do |info|
-            if info[:team_id] == hash2.key(hash2.values.min)
-                return info[:teamname]
+        @teams.find do |game|
+            if game[:team_id] == hash2.key(hash2.values.min)
+                return game[:teamname]
             end
         end
     end
