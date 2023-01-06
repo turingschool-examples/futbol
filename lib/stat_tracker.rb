@@ -261,6 +261,7 @@ class StatTracker
       [key, value["wins"].to_f / (value["wins"].to_f + value["not wins"].to_f )]
     end  
     win_percents_by_season.max_by{|k,v| v}[0]
+  
   end
 
   def worst_season(team_id)
@@ -280,6 +281,8 @@ class StatTracker
     end  
     win_percents_by_season.min_by{|k,v| v}[0]
   end
+
+ 
 
 end
 
