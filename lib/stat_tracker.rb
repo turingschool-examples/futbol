@@ -37,4 +37,16 @@ class StatTracker
     
     count_of_games_by_season
   end
+
+  def average_goals_per_game
+    sums = []
+    i = 0
+    average = .each do |i|
+      require 'pry'; binding.pry
+      sums << games[:away_goals][i].to_f + games[:home_goals][i].to_f
+      require 'pry'; binding.pry
+      i += 1
+    end
+    require 'pry'; binding.pry
+  end
 end

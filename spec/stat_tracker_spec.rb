@@ -80,5 +80,9 @@ RSpec.describe StatTracker do
     it 'is a float' do
       expect(stat_tracker.average_goals_per_game).to be_a(float)
     end
+
+    it 'can find average' do
+      expect(stat_tracker.average_goals_per_game).to eq(4.22)
+    end
   end
 end
