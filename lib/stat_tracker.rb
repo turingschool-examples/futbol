@@ -449,14 +449,106 @@ class StatTracker
 
  ################## Team Statisics ##################
 
-  def team_info
+ def team_info(team_id)
+  selected = teams.select do |team|
+    team[:team_id] == team_id
+  end
+  team = selected[0]
+  
+  hash = {
+    team_id: team[:team_id], 
+    franchise_id: team[:franchise_id], 
+    team_name: team[:team_name], 
+    abbreviation: team[:abbreviation], 
+    link: team[:link]
+  }
+  return hash
+end
+
+  def best_season(team_id)
+    relevant_game_teams = find_relevant_game_teams(team_id)
+    relevant_games = find_relevant_games(relevant_game_teams)
+    hash_seasons = group_by_season(relevant_games, relevant_game_teams) 
+    season_array = order_list(hash_seasons)
+    
+    season_array.sort.reverse[0][1]
+
+
+  end 
+
+  def worst_season(team_id)
+    relevant_game_teams = find_relevant_game_teams(team_id)
+    relevant_games = find_relevant_games(relevant_game_teams)
+    hash_seasons = group_by_season(relevant_games, relevant_game_teams) 
+    season_array = order_list(hash_seasons)
+    
+    season_array.sort[0][1]
+
   end
 
-  def best_season
-  end
+  def find_relevant_game_teams(team_id)
+    relevant_game_teams = game_teams.find_all do |game_team|
+      game_team[:team_id] == team_id
+    end
+  end 
 
-  def worst_season
+  def find_relevant_games(relevant_game_teams)
+    relevant_games = []
+    games.each do |game|
+      relevant_game_teams.each do |game_team|
+        if game[:game_id] == game_team[:game_id]
+          relevant_games << game 
+        end
+      end
+    end
+    return relevant_games
+  end 
+
+  def group_by_season(relevant_games, relevant_game_teams)
+
+    new_hash = Hash.new{ |hash, key| hash[key] = [] }
+    
+    grouped = relevant_games.group_by do |game|
+      game[:season]
+    end 
+
+    grouped.each do |key, values|
+      values.each do |value|
+      relevant_game_teams.each do |game_team|
+          if value[:game_id] == game_team[:game_id]
+            new_hash[key] << game_team[:result]
+          end
+        end
+      end
+    end
+    return new_hash 
+  end 
+
+  def order_list(hash_seasons)
+    season_array = []
+    hash_seasons.each do |key, value|
+      season_array << [(value.count("WIN").to_f/value.count.to_f), key]
+    end
+    return season_array
+
   end
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   def average_win_percentage
   end
