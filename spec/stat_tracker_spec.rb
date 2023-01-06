@@ -158,4 +158,34 @@ RSpec.describe StatTracker do
   	it "#lowest_scoring_home_team" do
     	expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   	end
+
+  describe '#count_of_teams' do
+    it 'is a integer' do
+      expect(stat_tracker.count_of_teams).to be_a(Integer)
+    end
+
+    it 'returns total # of teams' do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#best_offense' do
+    it 'is a string' do
+      expect(stat_tracker.best_offense).to be_a(String)
+    end
+
+    it 'returns team with highest average across all seasons' do
+      expect(stat_tracker.best_offense).to eq("Reign FC")
+    end
+  end
+
+  describe '#worst_offense' do
+    it 'is a string' do
+      expect(stat_tracker.worst_offense).to be_a(String)
+    end
+
+    it 'returns team with lowest average across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+  end
 end
