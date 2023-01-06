@@ -238,6 +238,13 @@ describe StatTracker do
       expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
     end
 
+    it "#most_tackles returns team with the most tackles in the season " do
+      expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+    end
+
+    it "#fewest_tackles returns team with the least tackles in the season " do
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+    end
     ##TEAM STATISTICS BELOW
 
     it 'can generate goals_scored_sorted as an array' do
@@ -256,6 +263,7 @@ describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("6")).to eq(1)
     end
   end
+
 
   describe 'new game_team dummy data' do
     let(:game_path_2){'./data/fixtures/games_i2.csv'}
@@ -282,5 +290,4 @@ describe StatTracker do
     end
   end
   
-
 end
