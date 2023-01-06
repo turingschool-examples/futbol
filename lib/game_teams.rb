@@ -1,6 +1,6 @@
 require 'csv'
 
-class Game_teams
+class GameTeams
   attr_reader :info
   #  :game_id,
               # :team_id,
@@ -34,14 +34,12 @@ class Game_teams
       face_off_win_percentage: data[:faceOffWinPercentage],
       giveaways: data[:giveaways],
       takeaways: data[:takeaways] }
-
-
   end
 
   def self.create_game_teams(game_teams_data)
     game_teams = []
     CSV.foreach game_teams_data, headers: true, header_converters: :symbol do |row|
-      game_teams << Game_teams.new(row)
+      game_teams << GameTeams.new(row)
     end
     game_teams
   end
