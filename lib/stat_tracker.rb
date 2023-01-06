@@ -68,4 +68,34 @@ class StatTracker
 
     average_goals_by_season
   end
+
+	def percentage_home_wins
+		home_wins = []
+		games.each do |game|
+			if game[:home_goals].to_i > game[:away_goals].to_i
+				home_wins << game
+			end
+		end
+		(home_wins.count / games.count.to_f).round(2)
+	end
+
+	def percentage_visitor_wins
+		visitor_wins = []
+		games.each do |game|
+			if game[:away_goals].to_i > game[:home_goals].to_i
+				visitor_wins << game
+			end
+		end
+		(visitor_wins.count / games.count.to_f).round(2)
+	end
+
+	def percentage_ties
+		ties = []
+		games.each do |game|
+			if game[:away_goals].to_i == game[:home_goals].to_i
+				ties << game
+			end
+		end
+		(ties.count / games.count.to_f).round(2)
+	end
 end
