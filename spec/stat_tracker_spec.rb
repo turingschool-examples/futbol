@@ -131,4 +131,10 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#best_offense' do
+    it 'is a string' do
+      expect(stat_tracker.best_offense).to be_a(String)
+    end
+  end
+
 end
