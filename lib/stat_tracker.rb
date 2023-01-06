@@ -567,7 +567,7 @@ class StatTracker
       # require 'pry'; binding.pry
     end
 
-    def rival
+    def rival(team_id)
      
     end
 end
