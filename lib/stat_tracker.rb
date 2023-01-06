@@ -135,27 +135,121 @@ class StatTracker
     worst_offense
   end
   
-  def count_of_away_games_by_id
-    away_games = Hash.new(0)
-    @games.each do |row|
-      away_games[row[:away_goals]] += 1
+  
+  def away_goals_by_team_id
+    away_goals = Hash.new(0)
+    @game_teams.each do |row|
+      if row[:hoa] == "away"
+        away_goals[row[:team_id]] += row[:goals].to_i
+      end
+      
     end
-    away_games
-    require 'pry'; binding.pry
+    away_goals 
   end
 
-  def highest_scoring_visitor
-    visitor_goals = Hash.new(0)
-    @teams.each do |team|
-      @games.each do |game|
-        if game[:away_team_id] == team[:team_id]
-          visitor_goals[team[:teamname]] += game[:away_goals].to_i
+  def away_games_by_team_id
+    away_games = Hash.new(0)
+    @game_teams.each do |row|
+      if row[:hoa] == "away"
+        away_games[row[:team_id]] += 1
+      end
+      
+    end
+    away_games
+  end
+
+  def home_goals_by_team_id
+    home_goals = Hash.new(0)
+    @game_teams.each do |row|
+      if row[:hoa] == "home"
+        home_goals[row[:team_id]] += row[:goals].to_i
+      end
+      
+    end
+    home_goals 
+  end
+
+  def home_games_by_team_id
+    home_games = Hash.new(0)
+    @game_teams.each do |row|
+      if row[:hoa] == "home"
+        home_games[row[:team_id]] += 1
+      end
+      
+    end
+    home_games
+  end
+
+  def away_goal_avg_per_game
+    hash = Hash.new(0)
+    away_games_by_team_id.each do |teams1, games|
+      away_goals_by_team_id.each do |teams2, goals|
+        if teams1 == teams2
+          hash[teams1] = (goals / games.to_f).round(2)
         end
       end
     end
+    hash
+  end
 
-    best_team = visitor_goals.max_by {|team, goals| goals}
-    best_team[0]
+  def home_goal_avg_per_game
+    hash = Hash.new(0)
+    home_games_by_team_id.each do |teams1, games|
+      home_goals_by_team_id.each do |teams2, goals|
+        if teams1 == teams2
+          hash[teams1] = (goals / games.to_f).round(2)
+        end
+      end
+    end
+    hash
+  end
+
+  def highest_scoring_visitor
+    highest_visitor = away_goal_avg_per_game.max_by {|k, v| v}
+    best_away_team = nil
+    @teams.each do |team|
+      if highest_visitor.first == team[:team_id]
+        best_away_team = team[:teamname]
+        
+      end
+    end
+    best_away_team
+  end
+
+  def lowest_scoring_visitor
+    highest_visitor = away_goal_avg_per_game.min_by {|k, v| v}
+    best_away_team = nil
+    @teams.each do |team|
+      if highest_visitor.first == team[:team_id]
+        best_away_team = team[:teamname]
+        
+      end
+    end
+    best_away_team
+  end
+
+  def highest_scoring_home_team
+    highest_home_team = home_goal_avg_per_game.max_by {|k, v| v}
+    best_home_team = nil
+    @teams.each do |team|
+      if highest_home_team.first == team[:team_id]
+        best_home_team = team[:teamname]
+        
+      end
+    end
+    best_home_team
+  end
+
+  def lowest_scoring_home_team
+    lowest_home_team = home_goal_avg_per_game.min_by {|k, v| v}
+    best_home_team = nil
+    @teams.each do |team|
+      if lowest_home_team.first == team[:team_id]
+        best_home_team = team[:teamname]
+        
+      end
+    end
+    best_home_team
   end
 end
 
