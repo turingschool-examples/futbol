@@ -91,22 +91,22 @@ class StatTracker
         end
       end
     end
-    #require 'pry'; binding.pry
     additional_hash.max_by{|k,v| v}[0]
   end
-
+  
   def worst_coach(season_id)
     wins_hash = Hash.new(0)
     total_games_hash = Hash.new(0)
     games_list = list_games_by_season(season_id)
-
+    
     @game_teams.each do |row|
       if games_list.include?(row[:game_id])
         wins_hash[row[:head_coach]] += 1 if row[:result] == "WIN"
+        wins_hash[row[:head_coach]] += 0 if row[:result]
         total_games_hash[row[:head_coach]] += 1 if row[:result]
       end
     end
-
+    
     additional_hash = {}
     total_games_hash.each do |key, value|
       wins_hash.each do |key_v, value_v|
@@ -116,6 +116,7 @@ class StatTracker
         end
       end
     end
+    #require 'pry'; binding.pry
     additional_hash.min_by{|k,v| v}[0]
   end
 
@@ -209,11 +210,9 @@ class StatTracker
   end
 
   def team_info(team_id)
-    @teams.each do |row|
-      if row[:team_id] == team_id
-        puts team_id
-      end
-    end
+    info = @teams.find_all {|team| team[:team_id] == team_id}
+    { 'team_id' => info[:team_id],  }
+
   end
 
   def average_win_percentage(team_id)
