@@ -1,11 +1,12 @@
 require './spec_helper'
 require './lib/stat_tracker'
 
+
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = './data/fake_games.csv'
-    team_path = './data/fake_teams.csv'
-    game_teams_path = './data/fake_game_teams.csv'
+    game_path = './data/sample_games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/sample_game_teams.csv'
 
     locations = {
       games: game_path,
@@ -40,7 +41,6 @@ RSpec.describe StatTracker do
   end
 
   it "calculates home win %" do
-  #require 'pry'; binding.pry
     expect(@stat_tracker.percentage_home_wins).to eq 0.60
   end
 
@@ -66,4 +66,18 @@ RSpec.describe StatTracker do
   it 'will calculate the lowest scoring home team' do 
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Montreal Impact")
   end
+
+  it "can calculate the season with the highest win percentage for a team" do
+    expect(@stat_tracker.best_season("4")).to eq("20142015")
+  end
+
+  it "can calculate the season with the lowest win percentage for a team" do
+    expect(@stat_tracker.worst_season("4")).to eq("20132014")
+  end
+
+
+
+
+
 end
+
