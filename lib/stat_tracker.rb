@@ -118,4 +118,70 @@ class StatTracker
     def count_of_teams
         @teams.count
     end
+
+
+    def best_offense
+        # Return team with highest average number of goals over all total games
+        
+        hash1 = Hash.new { |hash, key| hash[key] = [] }
+        @game_teams.each do |info|
+            hash1[info[:team_id]] << info[:goals]
+        end
+
+        hash2 = Hash.new { |hash, key| hash[key] = [] }
+        hash1.each do |id, goals|
+            hash2[id] = (goals.sum / goals.count.to_f).round(2)
+        end
+         
+        @teams.find do |info|
+            # .find will return first highest avg, .each will return last highest avg
+            if info[:team_id] == hash2.key(hash2.values.max)
+                return info[:teamname]
+            end
+        end
+    end
+
+    
+    def worst_offense
+        # Return team with lowest average number of goals over all total games
+        
+        hash1 = Hash.new { |hash, key| hash[key] = [] }
+        @game_teams.each do |info|
+            hash1[info[:team_id]] << info[:goals]
+        end
+
+        hash2 = Hash.new { |hash, key| hash[key] = [] }
+        hash1.each do |id, goals|
+            hash2[id] = (goals.sum / goals.count.to_f).round(2)
+        end
+        # require 'pry'; binding.pry
+        
+        @teams.find do |info|
+            if info[:team_id] == hash2.key(hash2.values.min)
+                return info[:teamname]
+            end
+        end
+    end
 end
+
+     # @game_teams.group_by { |game_team| game_team[:team_id] }.keys
+
+# Find all the goals for each team(hash)
+# sum of them, and divide by total elements (average)
+# iterate through hash of team ids and averages - find max or min value
+# iterate through teams.csv & match team id with team name
+# if team id inside of teams csv file matches team id hash with avg goals,
+# call max value on second array
+
+# if the team id in the teams file has the same id as the one in the array with the max value
+# return that team name
+
+# home team total scores
+# away team total scores
+
+# Make 2 hashes - 
+# away team id with away goals
+
+
+# home team id w home goals
+# Set to another hash sorted by team id and sum of the away and home goals for that Id

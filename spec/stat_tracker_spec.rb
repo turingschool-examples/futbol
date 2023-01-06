@@ -82,9 +82,23 @@ RSpec.describe StatTracker do
     end
 
     describe 'count_of_teams and best / worst offense' do 
+
         it '#count_of_teams' do
 
         expect(@stat_tracker.count_of_teams).to eq(17)
+        end
+
+        # it '#away_team_total_goals' do
+        # expect(@stat_tracker.away_team_total_goals())
+        # end
+
+        it '#best_offense' do
+
+        expect(@stat_tracker.best_offense).to eq("New England Revolution")
+        end
+
+        it '#worst_offense' do
+        expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
         end
     end
 end
