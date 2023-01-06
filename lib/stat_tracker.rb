@@ -198,7 +198,7 @@ class StatTracker
 
   def games_by_game_id
     #memoization this @games_by_game_id ||= [everything below]
-    @game_teams_path.group_by do |row| 
+    @games_by_game_id ||= @game_teams_path.group_by do |row| 
       row[:game_id]
     end
   end
@@ -293,6 +293,53 @@ class StatTracker
     all_scores_by_team[team_id.to_s].min
   end
 
-  
+  def get_ratios_by_season_id(season_id)
+    merged_hash = team_shots_by_season(season_id).merge(team_goals_by_season(season_id)) {|key, old_val, new_val| new_val.sum / old_val.sum.to_f}
+  end
 
+  def most_accurate_team(season_id) 
+    most_good = get_ratios_by_season_id(season_id).max_by{|k,v| v}
+    winner = @team_path.find do |row| 
+      row[:team_id] == most_good[0]
+    end
+    winner = winner[:teamname]
+  end
+
+  def least_accurate_team(season_id) 
+    least_good = get_ratios_by_season_id(season_id).min_by{|k,v| v}
+    loser = @team_path.find do |row| 
+      row[:team_id] == least_good[0]
+    end
+    loser = loser[:teamname]
+  end
+
+  def team_shots_by_season(season_id)
+    hash = Hash.new{|k,v| k[v] = []}
+    game_ids_by_season(season_id).each do |game_id| 
+        games_by_game_id.each do |id, game| 
+          if id == game_id 
+            game.each do |row|
+          hash[row[:team_id]] << row[:shots].to_i
+          end
+        end
+      end
+    end
+    hash
+  end
+
+  def team_goals_by_season(season_id)
+    hash = Hash.new{|k,v| k[v] = []}
+    game_ids_by_season(season_id).each do |game_id| 
+        games_by_game_id.each do |id, game| 
+          if id == game_id 
+            game.each do |row|
+          hash[row[:team_id]] << row[:goals].to_i
+          end
+        end
+      end
+    end
+    hash
+  end
+
+  
 end
