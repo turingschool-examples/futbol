@@ -69,9 +69,9 @@ class StatTracker
     (count.to_f / @games.size).round(2)
   end
 
-    def count_of_teams
-      @teams.length
-    end
+  def count_of_teams
+    @teams.length
+  end
 
   def best_offense
     teams = []
@@ -133,6 +133,15 @@ class StatTracker
       worst_offense = team[:teamname] if team[:team_id] == min_team[0]
     end
     worst_offense
+  end
+  
+  def count_of_away_games_by_id
+    away_games = Hash.new(0)
+    @games.each do |row|
+      away_games[row[:away_goals]] += 1
+    end
+    away_games
+    require 'pry'; binding.pry
   end
 
   def highest_scoring_visitor

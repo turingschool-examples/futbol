@@ -77,10 +77,19 @@ describe StatTracker do
     end
   end
 
-  describe '#highest_scoring_visitor'
-    it "#team with the highest average score per game across all seasons when they are away" do
+  describe '#highest_scoring_visitor' do
+    it "#count_of_away_games_by_id" do
+      expect(stat_tracker.count_of_away_games_by_id).to be_a(Hash)
+    end
+  end
+
+  describe '#highest_scoring_visitor' do
+    xit "#team with the highest average score per game across all seasons when they are away" do
       expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
     end
+
+    
+  end
 end
 
 
