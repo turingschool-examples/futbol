@@ -539,6 +539,37 @@ class StatTracker
       lat.team_name
 
     end
+
+
+    def find_game_team_id_arr(team_id)
+      game_teams.find_all do |team|
+        team.team_id == team_id
+      end
+    end
+
+    def game_team_wins_by_team(team_id)
+      find_game_team_id_arr(team_id).select do |outcome|
+        outcome.result == "WIN"
+      end
+    end
+
+    def game_team_loss_by_team(team_id)
+      find_game_team_id_arr(team_id).select do |outcome|
+        outcome.result == "LOSS"
+      end
+    end
+
+    def favorite_opponent(team_id)
+      # fav_teams = game_teams.select do |gt|
+      #  gt if gt.team_id == team_id
+      # end
+      # fav_teams
+      # require 'pry'; binding.pry
+    end
+
+    def rival
+     
+    end
 end
 
 
