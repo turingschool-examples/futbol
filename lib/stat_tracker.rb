@@ -52,7 +52,7 @@ class StatTracker
   
       new_info = {
         game_id: info["game_id"].to_i, 
-        season: info["season"].to_i, 
+        season: info["season"], 
         type: info["type"], 
         date_time: info["date_time"],
         away_team_id: info["away_team_id"].to_i,
@@ -87,6 +87,150 @@ class StatTracker
     teams_array
   end
  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
+
+ #Percentage of games that a home team has won (rounded to the nearest 100th)
+
+#  Method count of games by season
+ def count_of_games_by_season
+  new_hash = Hash.new(0) 
+
+  games.each do |game|
+    new_hash[game[:season]] += 1
+  end
+  return new_hash
+ end
+
+# Method of average goals per game  
+ def average_goals_per_game 
+  goals = 0 
+  games.each do |game|
+    goals += (game[:away_goals] + game[:home_goals]) 
+  end
+  average = (goals.to_f/(games.count.to_f)).round(2)
+  return average
+ end
+# Method average goals by season
+ def average_goals_by_season
+  new_hash = Hash.new(0) 
+
+  games.each do |game|
+    new_hash[game[:season]]  = season_goals(game[:season])
+  end
+  return new_hash
+ end
+
+# Helper method to average goals by season 
+ def season_goals(season)
+  number = 0
+  goals = 0
+  games.each do |game|
+    if game[:season] == season
+      number += 1 
+      goals += (game[:away_goals] + game[:home_goals])
+    end
+  end
+  average = (goals.to_f/number.to_f).round(2)
+ end
+
+#  WINNINGNEST COACH AND HELPER METHODS BELOW 
+
+  def winningest_coach(season)
+
+    raw_hash_values(season, "winning")
+
+  end 
+
+  def worst_coach(season)
+
+    raw_hash_values(season, "worst")
+
+  end
+
+  def raw_hash_values(season, type)
+    coach_games = Hash.new(0)
+    coach_victories = Hash.new(0)
+
+    total_games = determine_games(season)
+    all_coaches = total_games.group_by do |game|
+      game[:head_coach]
+    end
+    
+    all_coaches.keys.each do |coach|
+      coach_games[coach] = 0
+      coach_victories[coach] = 0
+  end
+
+    games.each do |game|
+      game_teams.each do |game_team|
+        if game[:season] == season 
+          if game_team[:game_id] == game[:game_id]
+            if game_team[:result]== "LOSS"
+              coach_games[game_team[:head_coach]] += 1
+            elsif game_team[:result] == "TIE"
+              coach_games[game_team[:head_coach]] += 1
+            elsif game_team[:result] == "WIN"
+              coach_victories[game_team[:head_coach]] += 1 
+              coach_games[game_team[:head_coach]] += 1
+            end
+          end 
+        end 
+      end 
+    end 
+    sort_coach_percentages(coach_games, coach_victories, type)
+  end
+
+  def determine_games(season)
+    games_in_season = games.find_all do |game| 
+      game[:season] == season
+    end 
+  
+    games_in_season_gameid = games_in_season.map do |game| 
+      game[:game_id]
+    end 
+    
+    total_relevant_games = []
+    games_in_season_gameid.each do |game_id| 
+      game_teams.each do |game_team|
+        if game_team[:game_id] == game_id
+          total_relevant_games << game_team
+        end 
+      end
+    end
+    return total_relevant_games
+  end 
+
+  def sort_coach_percentages(coach_games, coach_victories, type)
+
+    additional_hash = {}
+    
+    coach_games.each do |key, value|
+    coach_victories.each do |key_v, value_v|
+      if key == key_v 
+        percent = (value_v / value.to_f) 
+      additional_hash[key] = percent
+      end
+    end
+    end
+    sorted_array = additional_hash.sort_by do |key, value|
+    value
+    end
+    determine_coach(sorted_array, type)
+  end 
+  
+  def determine_coach(sorted_array, type)
+    if type == "winning"
+      sorted_array = sorted_array.reverse
+    elsif type == "worst"
+    sorted_array = sorted_array
+  
+    end 
+  
+    result = sorted_array[0][0]
+    return result 
+  end 
+
+end
+
  
  # Percentage of games that a home team has won (rounded to the nearest 100th)
   def percentage_home_wins
@@ -211,3 +355,4 @@ class StatTracker
     end
   end
 end
+
