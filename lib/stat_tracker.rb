@@ -226,7 +226,7 @@ class StatTracker
   end
 
   def games_by_game_id
-    #memoization this
+    #memoization this @games_by_game_id ||= [everything below]
     @game_teams_path.group_by do |row| 
       row[:game_id]
     end
@@ -238,7 +238,7 @@ class StatTracker
     end
   end
 
-  def wins_by_coach(game_id_array)
+  def wins_by_coach(game_id_array) #HELPER for winningest and worst coach
     hash = Hash.new{|k, v| k[v] = []}
     game_id_array.each do |game_id|
       next if games_by_game_id[game_id].nil?
@@ -295,7 +295,7 @@ class StatTracker
     team_with_fewest_tackles[:teamname]
   end
 
-  def teams_with_tackles(games_array)
+  def teams_with_tackles(games_array) #HELPER fot most and fewest tackles
     hash = Hash.new{|k,v| k[v] = []}
     games_array.each do |game_id|
     next if games_by_game_id[game_id].nil?
@@ -306,28 +306,22 @@ class StatTracker
       hash
   end
 
-  # def most_tackles(season_id)
+  def all_scores_by_team #HELPER for most and fewest goals scored by
+    hash = Hash.new{|k,v| k[v] = []}
+    @game_teams_path.each do |row| 
+      hash[row[:team_id]] << row[:goals].to_i
+    end
+    hash
+  end
 
-  # end
+  def most_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].max
+  end
 
-
+  def fewest_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].min
+  end
 
   
 
-  # def wins_by_coach 
-  #   grouped_by_coach = @game_teams_path.group_by {|row| row[:head_coach]}
-
-  #   wins_by_coach = {}
-
-  #   grouped_by_coach.each do |coach, games| 
-  #     winner = games.find_all do |game| 
-  #       game[:result] == "WIN" && game[:result] != "TIE"
-  #     end
-  #     wins_by_coach[coach] = winner 
-  #   end
-  #   wins_by_coach
-    
-  # end
-
- 
 end
