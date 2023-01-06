@@ -29,9 +29,9 @@ class Game_teams
       shots: data[:shots],
       tackles: data[:tackets],
       pim: data[:pim],
-      powerPlayOpportunities: data[:powerPlayOpportunities],
-      powerPlayGoals: data[:powerPlayGoals],
-      faceOffWinPercentage: data[:faceOffWinPercentage],
+      power_play_opportunities: data[:powerPlayOpportunities],
+      power_play_goals: data[:powerPlayGoals],
+      face_off_win_percentage: data[:faceOffWinPercentage],
       giveaways: data[:giveaways],
       takeaways: data[:takeaways] }
 
