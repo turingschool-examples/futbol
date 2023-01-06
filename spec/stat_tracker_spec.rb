@@ -92,4 +92,10 @@ describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
   end
+
+  describe '#winningest_coach' do
+    it 'returns the coach with the best win percentage for the season' do
+      expect(stat_tracker.winningest_coach("20152016")).to eq("Joel Quenneville")
+    end
+  end
 end
