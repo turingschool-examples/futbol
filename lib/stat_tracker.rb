@@ -541,34 +541,47 @@ class StatTracker
     end
 
 
-    def find_game_team_id_arr(team_id)
-      game_teams.find_all do |team|
+    def find_game_id_arr(team_id)
+      all_games = game_teams.find_all do |team|
         team.team_id == team_id
       end
-    end
 
-    def game_team_wins_by_team(team_id)
-      find_game_team_id_arr(team_id).select do |outcome|
-        outcome.result == "WIN"
+      all_games.map do |game|
+        game.game_id
       end
     end
 
-    def game_team_loss_by_team(team_id)
-      find_game_team_id_arr(team_id).select do |outcome|
-        outcome.result == "LOSS"
+    def opponents_win_sorted(team_id)
+      opponents_wins = Hash.new{ |h,v| h[v] = [] }
+      find_game_id_arr(team_id).each do |game_id|
+        game_teams.each do |game_team|
+          opponents_wins[game_team.team_id] << game_team.result if game_team.game_id == game_id && game_team.team_id != team_id
+        end
+      end
+      
+      opponents_wins.each do |team_id, result_array|
+        percent = result_array.count("WIN").to_f / result_array.size
+        opponents_wins[team_id] = percent
+      end
+      opponents_wins.sort_by{|k,v| v}
+    end
+
+    def find_team_name(team_id)
+      teams.each do |team|
+        return team.team_name if team.team_id == team_id
       end
     end
 
     def favorite_opponent(team_id)
-      # fav_teams = game_teams.select do |gt|
-      #  gt if gt.team_id == team_id
-      # end
-      # fav_teams
       # require 'pry'; binding.pry
+      favorite_id = opponents_win_sorted(team_id).first.first
+      find_team_name(favorite_id)
     end
 
     def rival(team_id)
-     
+      # require 'pry'; binding.pry
+      favorite_id = opponents_win_sorted(team_id).last.first
+      find_team_name(favorite_id)
     end
 end
 
