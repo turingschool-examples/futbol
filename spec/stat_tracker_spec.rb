@@ -13,8 +13,6 @@ RSpec.describe StatTracker do
           }
 
         @stat_tracker = StatTracker.from_csv(location_paths)
-    
-
     end
     
     describe "#initialize" do
@@ -78,6 +76,34 @@ RSpec.describe StatTracker do
             "20172018"=>3.0
         }
         expect(@stat_tracker.average_goals_by_season).to eq expected
+       end
+    end
+   
+    describe "#highest/lowest scoring home/away" do
+        it "#highest_scoring_visitor" do
+        expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
         end
+
+        it "#highest_scoring_home_team" do
+        expect(@stat_tracker.highest_scoring_home_team).to eq "Minnesota United FC"
+      end
+    end
+
+    describe "#team_statistics" do
+        it "#team_info" do
+            expected = {
+            "team_id" => "18",
+            "franchise_id" => "34",
+            "team_name" => "Minnesota United FC",
+            "abbreviation" => "MIN",
+            "link" => "/api/v1/teams/18"
+            }
+        
+        expect(@stat_tracker.team_info("18")).to eq expected
+      end
+
+        it "#best_season" do
+        expect(@stat_tracker.best_season("6")).to eq "20122013"
+      end
     end
 end
