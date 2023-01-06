@@ -133,14 +133,25 @@ class StatTracker
 	end	
 
 	def average_score_away_game
-		(team_away_goals_by_id.values[0].sum).to_f / (team_away_goals_by_id.values[0].count).to_f
+		averages_by_teamname = Hash.new { | k, v | k[v]= [] }
+		team_away_goals_by_id.each do | k, v |
+			value = v.sum.to_f / v.count.to_f
+			averages_by_teamname[k] = value
+		end
+		averages_by_teamname
 	end
 	
 	def average_score_home_game
-		(team_home_goals_by_id.values[0].sum).to_f / (team_home_goals_by_id.values[0].count).to_f
+		averages_by_teamname = Hash.new { | k, v | k[v]= [] }
+		team_home_goals_by_id.each do | k, v |
+			value = v.sum.to_f / v.count.to_f
+			averages_by_teamname[k] = value
+		end
+		averages_by_teamname
 	end
 
 	def highest_scoring_visitor
-		average_score_away_game
+		max = average_score_away_game.max_by { |teamname, average_score| average_score}
+		max[0]
 	end
 end
