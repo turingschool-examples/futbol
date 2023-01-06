@@ -159,4 +159,14 @@ class StatTracker
 		max = average_score_home_game.max_by { |teamname, average_score| average_score}
 		max[0]
 	end
+
+	def lowest_scoring_visitor
+		min = average_score_away_game.min_by { |teamname, average_score| average_score}
+		min[0]
+	end
+
+	def lowest_scoring_home_team
+		min = average_score_home_game.min_by { |teamname, average_score| average_score}
+		min[0]
+	end
 end
