@@ -141,4 +141,14 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#worst_offense' do
+    it 'is a string' do
+      expect(stat_tracker.worst_offense).to be_a(String)
+    end
+
+    it 'returns team with lowest average across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+  end
+
 end
