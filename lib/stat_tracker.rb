@@ -437,6 +437,18 @@ class StatTracker
         end
     end  
 
+    def fewest_tackles(season)
+      team_total_tackles = Hash.new{|h,v| h[v] = 0 }
+      game_team_array = array_of_game_teams_by_season(season) 
+        game_team_array.each do |game_team|
+          team_total_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+        fewest_tackles_id = team_total_tackles.sort_by { |k, v| v }.first.first
+        teams.each do |team|
+          return team.team_name if team.team_id == fewest_tackles_id
+        end
+    end  
+
 
     #TEAM STATISTICS METHODS
 
