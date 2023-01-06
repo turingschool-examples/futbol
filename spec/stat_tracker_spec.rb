@@ -41,20 +41,20 @@ RSpec.describe StatTracker do
 
   it "calculates home win %" do
   #require 'pry'; binding.pry
-    expect(@stat_tracker.percentage_home_wins).to eq 0.45
+    expect(@stat_tracker.percentage_home_wins).to eq 0.48
   end
 
   it 'calculates visitor win %' do
-    expect(@stat_tracker.percentage_visitor_wins).to eq 0.47
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.32
   end
 
   it 'calculates percent of ties' do
-    expect(@stat_tracker.percentage_ties).to eq 0.08
+    expect(@stat_tracker.percentage_ties).to eq 0.19
   end
 
   it 'names winningest coach of the season' do
     
-    expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    expect(@stat_tracker.winningest_coach("20122013")).to eq("Joel Quenneville")
   end
   
   it 'will calculate the highest scoring visitor' do 
@@ -74,12 +74,12 @@ RSpec.describe StatTracker do
 
   it 'will calculate the worst coach' do
     
-    expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    expect(@stat_tracker.worst_coach("20122013")).to eq("Bob Hartley")
   end
 
   it 'will calculate average win percentage' do
     expect(@stat_tracker.average_win_percentage("6")).to eq 1.0
-    expect(@stat_tracker.average_win_percentage("15")).to eq 0.38
+    expect(@stat_tracker.average_win_percentage("25")).to eq 0.4
   end
 
   it 'will display team info' do
