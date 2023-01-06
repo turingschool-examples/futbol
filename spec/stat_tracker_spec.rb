@@ -100,9 +100,15 @@ describe StatTracker do
     end
   end
   
-  describe '#winningest_coach' do
+  describe '#winningest_coach(season)' do
     it 'returns the coach with the best win percentage for the season' do
       expect(stat_tracker.winningest_coach("20152016")).to eq("Joel Quenneville")
+    end
+  end
+
+  describe '#most_tackles(season)' do
+    it 'returns the team name with the most tackles for the season' do
+      expect(stat_tracker.most_tackles("20122013")).to eq("Orlando City SC")
     end
   end
 end
