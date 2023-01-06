@@ -135,6 +135,10 @@ RSpec.describe StatTracker do
     it 'is a string' do
       expect(stat_tracker.best_offense).to be_a(String)
     end
+
+    it 'returns team with highest average across all seasons' do
+      expect(stat_tracker.best_offense).to eq("Reign FC")
+    end
   end
 
 end
