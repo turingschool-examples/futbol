@@ -75,14 +75,13 @@ class StatTracker
     wins_hash = Hash.new(0)
     total_games_hash = Hash.new(0)
     games_list = list_games_by_season(season_id)
-require 'pry'; binding.pry
     @game_teams.each do |row|
       if games_list.include?(row[:game_id])
         wins_hash[row[:head_coach]] += 1 if row[:result] == "WIN"
         total_games_hash[row[:head_coach]] += 1 if row[:result]
       end
     end
-
+    
     additional_hash = {}
     total_games_hash.each do |key, value|
       wins_hash.each do |key_v, value_v|
@@ -92,6 +91,7 @@ require 'pry'; binding.pry
         end
       end
     end
+    #require 'pry'; binding.pry
     additional_hash.max_by{|k,v| v}[0]
   end
 
@@ -208,14 +208,21 @@ require 'pry'; binding.pry
     final_team[0][:teamname]
   end
 
-  # def average_win_percentage(team_id)
-  #    total_team_games = []
-  #     @games.each do |row|
-  #      total_team_games << row[:result] if row[:team_id] == team_id
-  #    end
-  #    team_wins = []
-  #    @game_teams.each do |row|
-  #     team_wins << row[:result] if row[:team_id] == team_id && row[:result] == "WIN"
-  #    end
-  # end
+  def team_info(team_id)
+    @teams.each do |row|
+      if row[:team_id] == team_id
+        puts team_id
+      end
+    end
+  end
+
+  def average_win_percentage(team_id)
+    games_by_team = @game_teams.find_all {|game| game[:team_id] == team_id}
+    total = games_by_team.count
+    wins = 0
+    games_by_team.each do |game|
+      wins += 1 if game[:result] == "WIN"
+    end
+    (wins/total.to_f).round(2)
+  end
 end
