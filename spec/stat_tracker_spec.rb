@@ -120,4 +120,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
   end
+
+  describe '#count_of_teams' do
+    it 'is a interger' do
+      expect(stat_tracker.count_of_teams).to be_a(Interger)
+    end
+  end
+
 end
