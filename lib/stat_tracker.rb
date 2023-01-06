@@ -22,6 +22,8 @@ class StatTracker
     @home_goals = @games[:home_goals]
     @venue = @games[:venue].to_s
     @venue_link = @games[:venue_link].to_s
+    @team_name = @teams[:teamname].to_s
+    @team_id = @teams[:team_id]
   end
 
   def self.from_csv(locations)
@@ -138,10 +140,11 @@ class StatTracker
     @teams.each do |team|
       @games.each do |game|
         if game[:away_team_id] == team[:team_id]
-          visitor_goals[team[:teamname]] += game[:away_goals].to_f/team.size
+          visitor_goals[team[:teamname]] += game[:away_goals].to_i
         end
       end
     end
+
     best_team = visitor_goals.max_by {|team, goals| goals}
     best_team[0]
   end

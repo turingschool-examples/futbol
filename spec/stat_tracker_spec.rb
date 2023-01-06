@@ -78,9 +78,9 @@ describe StatTracker do
   end
 
   describe '#highest_scoring_visitor'
-  it "#team with the highest average score per game across all seasons when they are away" do
-    expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
-  end
+    it "#team with the highest average score per game across all seasons when they are away" do
+      expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+    end
 end
 
 
