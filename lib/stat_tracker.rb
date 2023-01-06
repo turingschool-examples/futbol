@@ -449,8 +449,6 @@ class StatTracker
     end  
 
 
-    #TEAM STATISTICS METHODS
-
 
     def goals_scored_sorted(teamid)
       game_scores = []
