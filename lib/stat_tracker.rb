@@ -138,14 +138,18 @@ class StatTracker
     winningest_coach
   end  
 
-  def most_tackles(season)
+  def season_total_tackles(season)
     season_game_ids = game_ids_for_season(season)
-
     season_tackles_by_team = Hash.new(0)
     @game_teams.each do |row|
       season_tackles_by_team[row[:team_id]] += row[:tackles].to_i if season_game_ids.include?(row[:game_id])
     end
+    season_tackles_by_team
+  end
 
+  def most_tackles(season)
+    season_tackles_by_team = season_total_tackles(season)
+    
     most_tackles = season_tackles_by_team.max_by {|k, v| v}
 
     most_tackles_team = nil
@@ -153,5 +157,17 @@ class StatTracker
       most_tackles_team = row[:teamname] if row[:team_id] == most_tackles.first
     end
     most_tackles_team
+  end
+
+  def fewest_tackles(season)
+    season_tackles_by_team = season_total_tackles(season)
+
+    fewest_tackles = season_tackles_by_team.min_by {|k, v| v}
+
+    fewest_tackles_team = nil
+    @teams.each do |row|
+      fewest_tackles_team = row[:teamname] if row[:team_id] == fewest_tackles.first
+    end
+    fewest_tackles_team
   end
 end
