@@ -1,8 +1,8 @@
-require './lib/stat_tracker'
 require './spec/spec_helper'
+require './lib/stat_tracker'
 
 describe StatTracker do
-  let(:stat_tracker) {StatTracker.new({
+  let(:stat_tracker) {StatTracker.from_csv({
                         :games => './data/games_spec.csv', 
                         :teams => './data/teams.csv', 
                         :game_teams => './data/game_teams.csv'
@@ -17,81 +17,79 @@ describe StatTracker do
       expect(stat_tracker.games).to be_a(CSV::Table)
       expect(stat_tracker.teams).to be_a(CSV::Table)
       expect(stat_tracker.game_teams).to be_a(CSV::Table)
-      expect(stat_tracker.game_id).to be_a(Array)
     end
   end
 
   describe '#total_score' do
-    it 'calculates the total number of goals' do
+    it 'returns the total number of goals' do
       expect(stat_tracker.total_score).to be_a(Array)
-      expect(stat_tracker.total_score.sum).to eq(28)
+      expect(stat_tracker.total_score.sum).to eq(261)
     end
   end
 
   describe '#highest_total_score' do
     it 'returns highest sum of the winning and losing teams scores' do
-      expect(stat_tracker.highest_total_score).to eq(6)
+      expect(stat_tracker.highest_total_score).to eq(9)
     end
   end
 
   describe '#lowest_total_score' do
     it 'returns lowest sum of the winning and losing teams scores' do
-      expect(stat_tracker.lowest_total_score).to eq(2)
+      expect(stat_tracker.lowest_total_score).to eq(1)
     end
   end
 
   describe '#percentage_home_wins' do
-    it 'returns percent of wins at home' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.33)
+    it 'returns percentage of wins at home' do
+      expect(stat_tracker.percentage_home_wins).to eq(0.50)
     end
   end
 
   describe '#percentage_visitor_wins' do
-    it 'returns percent of visitor wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.50)
+    it 'returns percentage of visitor wins' do
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.37)
     end
   end
 
   describe '#percentage_ties' do
-    it 'returns percent of tied games' do
-      expect(stat_tracker.percentage_ties).to eq(0.17)
+    it 'returns percentage of tied games' do
+      expect(stat_tracker.percentage_ties).to eq(0.13)
     end
   end
 
   describe '#count_of_games_by_season' do
-    it 'creates a hash with season names as keys and counts of games as values' do
+    it 'returns a hash of the number of games(values) per season(keys)' do
       expected_hash = {
-                        "20142015" => 3,
-                        "20162017" => 1,
-                        "20172018" => 1,
-                        "20122013" => 1
-                      }
+        "20122013" => 10,
+        "20132014" => 10,
+        "20142015" => 10,
+        "20152016" => 10,
+        "20162017" => 10,
+        "20172018" => 10
+      }
+
       expect(stat_tracker.count_of_games_by_season).to eq(expected_hash)
     end
   end
 
   describe '#average_goals_per_game' do
-    it 'determines the average goals per game' do
-      expect(stat_tracker.average_goals_per_game).to eq(4.67)
+    it 'returns the average number of goals per game' do
+      expect(stat_tracker.average_goals_per_game).to eq(4.35)
     end
   end
 
   describe '#average_goals_by_season' do
-    it 'returns a hash of avg goals(values) by seasons(keys)' do
+    it 'returns a hash of the average goals(values) by season(keys)' do
       expected_hash = {
-                        "20142015" => 4.33,
-                        "20162017" => 5.00,
-                        "20172018" => 5.00,
-                        "20122013" => 5.00
-                      }
+        "20122013" => 3.90,
+        "20132014" => 4.60,
+        "20142015" => 4.40,
+        "20152016" => 4.70,
+        "20162017" => 4.00,
+        "20172018" => 4.50
+      }
       
       expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
-    end
-  end
-
-  describe '#winningest_coach' do
-    it 'returns the coach with the best win percentage' do
-      expect(stat_tracker.winningest_coach("20142015")).to eq("Mike Babcock")
     end
   end
 end
