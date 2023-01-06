@@ -237,7 +237,7 @@ class StatTracker
 
 	def games_by_team_id
 		@games_by_team_id ||= @game_teams.group_by do |row|
-			row[:team_id]
+			row[:team_id] 
 		end
 	end
   
