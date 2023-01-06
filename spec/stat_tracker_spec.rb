@@ -122,8 +122,8 @@ RSpec.describe StatTracker do
   end
 
   describe '#count_of_teams' do
-    it 'is a interger' do
-      expect(stat_tracker.count_of_teams).to be_a(Interger)
+    it 'is a integer' do
+      expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
   end
 

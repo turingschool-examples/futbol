@@ -98,4 +98,9 @@ class StatTracker
 
     average_goals_by_season
   end
+
+  def count_of_teams
+    total_teams = 0
+      
+  end
 end
