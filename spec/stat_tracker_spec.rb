@@ -199,16 +199,15 @@ describe StatTracker do
 
 
     it "#team_info" do
-
-      expected_hash = {
-      "team_id" => "18",
-      "franchise_id" => "34",
-      "team_name" => "Minnesota United FC",
-      "abbreviation" => "MIN",
-      "link" => "/api/v1/teams/18"
-      }
-
-        expect(stat_tracker.team_info("18")).to eq expected_hash
+      expected = {
+        "team_id" => "18",
+        "franchise_id" => "34",
+        "team_name" => "Minnesota United FC",
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+        }
+        # require 'pry'; binding.pry
+      expect(stat_tracker.team_info("18")).to eq expected
     end
 
     it 'can calculate the highest_scoring_visitor' do
@@ -239,6 +238,13 @@ describe StatTracker do
       expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
     end
 
+    it "#most_tackles returns team with the most tackles in the season " do
+      expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+    end
+
+    it "#fewest_tackles returns team with the least tackles in the season " do
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+    end
     ##TEAM STATISTICS BELOW
 
     it 'can generate goals_scored_sorted as an array' do
@@ -258,4 +264,30 @@ describe StatTracker do
     end
   end
 
+
+  describe 'new game_team dummy data' do
+    let(:game_path_2){'./data/fixtures/games_i2.csv'}
+    let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
+    let(:team_path_2){'./data/teams.csv'}
+    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
+    
+    let(:locations_3){{
+      games: game_path_2,
+      teams: team_path_2,
+      game_teams: game_teams_path_2
+    }}
+  
+    let(:stat_tracker) {StatTracker.from_csv(locations_3)}
+
+    it "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to eq "Toronto FC"
+      expect(stat_tracker.most_accurate_team("20142015")).to eq "Orlando Pride"
+    end
+
+    it "#least_accurate_team" do
+      expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
+      expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
+    end
+  end
+  
 end

@@ -390,6 +390,8 @@ class StatTracker
       end
       lowest_scoring_team.join(", ")
     end
+
+     ## SEASON STATISTICS METHODS
     
     def array_of_game_teams_by_season(season)
       game_teams_arr = []
@@ -401,7 +403,6 @@ class StatTracker
       game_teams_arr
     end
 
-    ## SEASON STATISTICS METHODS
     def coaches_win_percentages_hash(season)
       coaches_hash = Hash.new{|h,v| h[v] = []}
       array_of_game_teams_by_season(season).each do |game_team|
@@ -423,6 +424,31 @@ class StatTracker
       sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
       sorted.first[0]
     end
+    
+    def most_tackles(season)
+      team_total_tackles = Hash.new{|h,v| h[v] = 0 }
+      game_team_array = array_of_game_teams_by_season(season) 
+        game_team_array.each do |game_team|
+          team_total_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+        most_tackles_id = team_total_tackles.sort_by { |k, v| v }.last.first
+        teams.each do |team|
+          return team.team_name if team.team_id == most_tackles_id
+        end
+    end  
+
+    def fewest_tackles(season)
+      team_total_tackles = Hash.new{|h,v| h[v] = 0 }
+      game_team_array = array_of_game_teams_by_season(season) 
+        game_team_array.each do |game_team|
+          team_total_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+        fewest_tackles_id = team_total_tackles.sort_by { |k, v| v }.first.first
+        teams.each do |team|
+          return team.team_name if team.team_id == fewest_tackles_id
+        end
+    end  
+
 
     #TEAM STATISTICS METHODS
 
@@ -444,7 +470,75 @@ class StatTracker
     def fewest_goals_scored(teamid)
       goals_scored_sorted(teamid).first
     end
+    
+    def find_team_id(team_id)
+      teams.find do |team|
+        team.team_id == team_id
+      end
+    end
 
+    def team_info(team_id)
+      hash = {}
+      team = find_team_id(team_id)
+      hash["team_id"] = team.team_id
+      hash["franchise_id"] = team.franchise_id
+      hash["team_name"] = team.team_name
+      hash["abbreviation"] = team.abbreviation
+      hash["link"] = team.link
+
+      hash
+    end
+
+    def team_ratio_hash(season)
+      goals_hash = {}
+      shots_hash = {}
+      team_ratio_hash = {}
+
+      season_games = game_teams.find_all do |game_team|
+        game_team.game_id[0..3] == season[0..3]
+      end
+
+      season_games.each do |game_team|
+        goals_hash[game_team.team_id] = 0
+        shots_hash[game_team.team_id] = 0
+      end
+      season_games.each do |game_team|
+        goals_hash[game_team.team_id] += game_team.goals.to_i
+        shots_hash[game_team.team_id] += game_team.shots.to_i
+      end
+      
+      goals_hash.each do |team, goals|
+        team_ratio_hash[team] = goals.to_f/shots_hash[team]
+      end
+      team_ratio_hash
+    end
+    
+    def most_accurate_team(season)
+      # = Name of the Team with the best ratio of shots to goals for the season
+      #need to pull all games from a given season
+      team_ratio_hash = team_ratio_hash(season)
+
+      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
+      
+      mat = teams.find do |team|
+        team.team_id == sorted_teams.last[0]
+      end
+      
+      mat.team_name
+      
+    end
+
+    def least_accurate_team(season)
+      team_ratio_hash = team_ratio_hash(season)
+      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
+
+      lat = teams.find do |team|
+        team.team_id == sorted_teams.first[0]
+      end
+      
+      lat.team_name
+
+    end
 end
 
 
