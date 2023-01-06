@@ -463,6 +463,57 @@ class StatTracker
 
       hash
     end
+
+    def team_ratio_hash(season)
+      goals_hash = {}
+      shots_hash = {}
+      team_ratio_hash = {}
+
+      season_games = game_teams.find_all do |game_team|
+        game_team.game_id[0..3] == season[0..3]
+      end
+
+      season_games.each do |game_team|
+        goals_hash[game_team.team_id] = 0
+        shots_hash[game_team.team_id] = 0
+      end
+      season_games.each do |game_team|
+        goals_hash[game_team.team_id] += game_team.goals.to_i
+        shots_hash[game_team.team_id] += game_team.shots.to_i
+      end
+      
+      goals_hash.each do |team, goals|
+        team_ratio_hash[team] = goals.to_f/shots_hash[team]
+      end
+      team_ratio_hash
+    end
+    
+    def most_accurate_team(season)
+      # = Name of the Team with the best ratio of shots to goals for the season
+      #need to pull all games from a given season
+      team_ratio_hash = team_ratio_hash(season)
+
+      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
+      
+      mat = teams.find do |team|
+        team.team_id == sorted_teams.last[0]
+      end
+      
+      mat.team_name
+      
+    end
+
+    def least_accurate_team(season)
+      team_ratio_hash = team_ratio_hash(season)
+      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
+
+      lat = teams.find do |team|
+        team.team_id == sorted_teams.first[0]
+      end
+      
+      lat.team_name
+
+    end
 end
 
 
