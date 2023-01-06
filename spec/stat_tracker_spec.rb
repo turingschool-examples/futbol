@@ -120,4 +120,21 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
   end
+
+	describe 'determines average scores and compares' do
+		it "#highest_scoring_visitor" do
+    	expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+  	end
+
+  	# it "#highest_scoring_home_team" do
+    # 	expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+  	# end
+
+  	# it "#lowest_scoring_visitor" do
+    # 	expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+  	# end
+
+  	# it "#lowest_scoring_home_team" do
+    # 	expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+  	# end
 end

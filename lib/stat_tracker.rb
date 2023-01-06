@@ -39,6 +39,7 @@ class StatTracker
 	end
 
 	def percentage_visitor_wins
+		# look for helper methods during refactor
 		visitor_wins = []
 		games.each do |game|
 			if game[:away_goals].to_i > game[:home_goals].to_i
