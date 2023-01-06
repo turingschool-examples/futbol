@@ -85,4 +85,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
+
+  describe '#average_goals_by_season' do
+    it 'is a Hash' do
+      expect(stat_tracker.average_goals_by_season).to be_a(Hash)
+    end
+  end
 end
