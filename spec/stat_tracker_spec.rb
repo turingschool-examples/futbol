@@ -103,6 +103,14 @@ describe StatTracker do
   describe '#winningest_coach(season)' do
     it 'returns the coach with the best win percentage for the season' do
       expect(stat_tracker.winningest_coach("20152016")).to eq("Joel Quenneville")
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Guy Boucher").or(eq("Adam Oates"))
+    end
+  end
+
+  describe '#worst_coach(season)' do
+    it 'returns the coach with the worst win' do
+      expect(stat_tracker.worst_coach("20162017")).to eq("Jared Bednar")
+      expect(stat_tracker.worst_coach("20122013")).to eq("Michel Therrien").or(eq("Joe Sacco"))
     end
   end
 
