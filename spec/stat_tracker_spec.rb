@@ -206,7 +206,6 @@ describe StatTracker do
         "abbreviation" => "MIN",
         "link" => "/api/v1/teams/18"
         }
-        # require 'pry'; binding.pry
       expect(stat_tracker.team_info("18")).to eq expected
     end
 
@@ -262,6 +261,14 @@ describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("6")).to be_an(Integer)
       expect(stat_tracker.fewest_goals_scored("6")).to eq(1)
     end
+
+    it "#favorite_opponent" do
+      expect(stat_tracker.favorite_opponent("6")).to eq("Houston Dynamo")
+    end
+
+    it "#rival" do
+      expect(stat_tracker.rival("6")).to eq("Sporting Kansas City")
+    end
   end
 
 
@@ -287,18 +294,5 @@ describe StatTracker do
       expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
       expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
     end
-
-    it "#favorite_opponent" do
-    # require 'pry'; binding.pry
-      expect(stat_tracker.find_game_team_id_arr("5").length).to eq(4)
-      expect(stat_tracker.game_team_wins_by_team("5").length).to eq(0)
-      expect(stat_tracker.game_team_loss_by_team("5").length).to eq(4)
-    end
-
-    xit "#rival" do
-      expect(stat_tracker.rival).to eq("Houston Dash").or(eq("LA Galaxy"))
-    end
-
   end
-  
 end
