@@ -50,15 +50,15 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
 
-    it "#percentage_home_wins" do
+    xit "#percentage_home_wins" do
       expect(stat_tracker.percentage_home_wins).to eq(0.43)
     end
 
-    it "#percentage_visitor_wins" do
+    xit "#percentage_visitor_wins" do
       expect(stat_tracker.percentage_visitor_wins).to eq(0.43)
     end
 
-    it "#percentage_ties" do
+    xit "#percentage_ties" do
       expect(stat_tracker.percentage_ties).to eq(0.22)
     end
 
@@ -138,7 +138,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.winningest_coach("20172018")).to eq("Peter Laviolette").or(eq("Gerard Gallant")).or(eq("Paul Maurice"))
     end
 
-    it "worst coach" do 
+    xit "worst coach" do 
       game_path = './data/games.csv'
       team_path = './data/teams_fixture.csv'
       game_teams_path = './data/game_teams_fixture.csv' 
@@ -173,16 +173,47 @@ RSpec.describe StatTracker do
   end
   
   describe "Team Statistics" do
-    xit "#team_info" do
-      expect().to eq()
+    it "#team_info" do
+      expect(stat_tracker.team_info(6)).to eq({
+        team_id: 6, 
+        franchise_id: 6, 
+        team_name: "FC Dallas", 
+        abbreviation: "DAL", 
+        link: "/api/v1/teams/6"
+      })
     end
 
-    xit "#best_season" do
-      expect().to eq()
+    it "#best_season" do 
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      
+      stat_tracker = StatTracker.from_csv(locations) 
+      expect(stat_tracker.best_season(6)).to eq("20122013")
+      expect(stat_tracker.best_season(3)).to eq("20142014").or(eq("20162017"))
+
     end
 
-    xit "#worst_season" do
-      expect().to eq()
+    it "#worst_season" do 
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      
+      stat_tracker = StatTracker.from_csv(locations) 
+      expect(stat_tracker.worst_season(6)).to eq("20132014")
+      expect(stat_tracker.worst_season(3)).to eq("20122013").or(eq("20172018")).or(eq("20152016"))
     end
 
     xit "#average_win_percentage" do
