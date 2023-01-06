@@ -154,4 +154,9 @@ class StatTracker
 		max = average_score_away_game.max_by { |teamname, average_score| average_score}
 		max[0]
 	end
+
+	def highest_scoring_home_team
+		max = average_score_home_game.max_by { |teamname, average_score| average_score}
+		max[0]
+	end
 end
