@@ -93,4 +93,46 @@ class StatTracker
     end
     goals_by_season
   end
+  
+  def winningest_coach(season)
+    game_ids = []
+    @games.each do |row|
+      game_ids << row[:game_id] if row[:season] == season
+    end
+  
+    # numerators
+    season_team_wins = Hash.new(0)
+    @game_teams.each do |row|
+      if game_ids.include?(row[:game_id]) && row[:result] == 'WIN'
+        season_team_wins[row[:team_id]] += 1
+      end
+    end
+
+    # denominators
+    season_winners_games_played = Hash.new(0)
+    @game_teams.each do |row|
+      season_team_wins.each_key do |key|
+        if game_ids.include?(row[:game_id]) && row[:team_id] == key
+          season_winners_games_played[row[:team_id]] += 1
+        end
+      end
+    end
+
+    season_record = Hash.new(0)
+    season_team_wins.each do |key1, value1|
+      season_winners_games_played.each do |key2, value2|
+        if key1 == key2
+          season_record[key1] = (value1 / value2.to_f).round(2)
+        end
+      end
+    end
+   
+    season_winningest_team = season_record.max_by {|k, v| v}
+
+    winningest_coach = nil
+    @game_teams.each do |row|
+      winningest_coach = row[:head_coach] if row[:team_id] == season_winningest_team.first
+    end
+    winningest_coach
+  end  
 end
