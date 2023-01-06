@@ -99,4 +99,48 @@ class StatTracker
 
     average_goals_by_season
   end
+
+	def team_away_goals_by_id
+		goals = Hash.new { | k, v | k[v]= [] } 
+		games.each do |game|
+			goals[game[:away_team_id]] << game[:away_goals].to_i			
+		end
+		scores_by_team_name = Hash.new { | k, v | k[v]= [] } 
+		goals.each do |team_id, score|
+			teams.each do |team|
+				if team_id == team[:team_id]
+					scores_by_team_name[team[:teamname]] = score					
+				end
+			end
+		end
+		scores_by_team_name
+	end
+	
+	def team_home_goals_by_id
+		goals = Hash.new { | k, v | k[v]= [] } 
+		games.each do |game|
+			goals[game[:home_team_id]] << game[:home_goals].to_i
+		end
+		scores_by_team_name = Hash.new { | k, v | k[v]= [] } 
+		goals.each do |team_id, score|
+			teams.each do |team|
+				if team_id == team[:team_id]
+					scores_by_team_name[team[:teamname]] = score					
+				end
+			end
+		end
+		scores_by_team_name		
+	end	
+
+	def average_score_away_game
+		(team_away_goals_by_id.values[0].sum).to_f / (team_away_goals_by_id.values[0].count).to_f
+	end
+	
+	def average_score_home_game
+		(team_home_goals_by_id.values[0].sum).to_f / (team_home_goals_by_id.values[0].count).to_f
+	end
+
+	def highest_scoring_visitor
+		average_score_away_game
+	end
 end
