@@ -311,21 +311,58 @@ class StatTracker
     team_hash
   end
 
-  def best_season(team_id)
-
-  end
-
-  def worst_season(team_id)
-    
-  end
-
-  def season_win_percentages(team_id)
-    hash = Hash.new {|k, v| k[v] = []}
-    array_of_game_id.each do |game_id|
-      games_by_game_id[game_id].each do |game|
-        hash[game[:head_coach]] << game[:result]
+def best_season(team_id)
+  games_played_by_team = games_played_by_season.dup
+  games_played_by_team.each do |season, games|
+    games_list = []
+    games.each do |game|
+      games_list << game if game[:home_team_id] == team_id || game[:away_team_id] == team_id
+    end
+    games_won = 0
+    games_list.each do |game|
+      if game[:away_team_id] == team_id
+        games_won += 1 if game[:away_goals] > game[:home_goals]
+      elsif game[:home_team_id] == team_id
+        games_won += 1 if game[:away_goals] < game[:home_goals]
       end
     end
-    hash
+    games_played_by_team[season] = (games_won.to_f / games_list.count).round(2)
   end
+  games_played_by_team.each do |k, value|
+    games_played_by_team[k] = 0 if value.nan?
+  end
+  games_played_by_team.key(games_played_by_team.values.max)
+end
+
+  def worst_season(team_id)
+    games_played_by_team = games_played_by_season.dup
+    games_played_by_team.each do |season, games|
+      games_list = []
+      games.each do |game|
+        games_list << game if game[:home_team_id] == team_id || game[:away_team_id] == team_id
+      end
+      games_won = 0
+      games_list.each do |game|
+        if game[:away_team_id] == team_id
+          games_won += 1 if game[:away_goals] > game[:home_goals]
+        elsif game[:home_team_id] == team_id
+          games_won += 1 if game[:away_goals] < game[:home_goals]
+        end
+      end
+      games_played_by_team[season] = (games_won.to_f / games_list.count).round(2)
+    end
+    # THIS CODE BLOCK IS ONLY FOR TESTING AGAINST SMALL DATA SET
+    games_played_by_team.each do |k, value|
+      games_played_by_team[k] = 0 if value.nan?
+    end
+    games_played_by_team.key(games_played_by_team.values.min)
+  end
+
+	def game_ids_for_season(season_id)
+		games = games_played_by_season[season_id.to_s]
+		games.map do |row|
+			row[:game_id]
+		end
+  end
+
 end
