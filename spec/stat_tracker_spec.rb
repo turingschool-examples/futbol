@@ -71,6 +71,10 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.best_season()).to eq("FC Dallas")
   end
 
+  it "can calculate the season with the lowest win percentage for a team" do
+    expect(@stat_tracker.worst_season()).to eq("FC Dallas")
+  end
+
 
 
 
