@@ -235,7 +235,7 @@ describe StatTracker do
     end
 
     it 'can find the worst coach' do
-      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+      expect(stat_tracker.worst_coach("20122013")).to be_a(String)
     end
 
     it "#most_tackles returns team with the most tackles in the season " do

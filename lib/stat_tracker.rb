@@ -238,7 +238,6 @@ class StatTracker
       games.each do |game|
         team_id_hash[game.away_team_id] << game.away_goals.to_f
       end
-      # require 'pry'; binding.pry
 
       average_hash = Hash.new
       team_id_hash.each do |team_id, score_array|
