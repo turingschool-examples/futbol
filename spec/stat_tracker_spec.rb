@@ -242,8 +242,8 @@ describe StatTracker do
       expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
     end
 
-    it "#least_tackles returns team with the least tackles in the season " do
-      expect(stat_tracker.most_tackles("20122013")).to eq("")
+    it "#fewest_tackles returns team with the least tackles in the season " do
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
     end
     ##TEAM STATISTICS BELOW
 
