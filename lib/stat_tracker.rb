@@ -186,36 +186,7 @@ class StatTracker
     end.compact.pop
 	end
 
-  # def winningest_coach(season_id)
-  #   #coach_winning_game_by_season_hash(season_id).invert.max_by {|k,v| v}.pop
-  # end
 
-  # def worst_coach(season_id)
-  #   coach_winning_game_by_season_hash(season_id).min_by {|k,v| k} 
-  # end
-
-  # def coach_winning_game_by_season_hash(season_id)
- 
-  #   #season_wins_by_coach = Hash.new(0)
-  #   season_wins_by_coach = {}
-  #   by_season(season_id).each do |season_game|
-  #     wins_by_coach.each do |coach, coach_games| 
-  #     next if coach_games.empty? == true
-  #       coach_games.each do |game|
-  #         if season_game[:game_id] == game[:game_id]
-  #           season_wins_by_coach[coach] = coach_games.count
-  #         end
-  #       end
-  #     end
-  #   end
-    
-  #   season_wins_by_coach.each do |coach, wins| 
-  #     thing = (wins / by_season(season_id).count.to_f).round(2)
-  #     season_wins_by_coach[coach] = thing
-  #   end
-  #   season_wins_by_coach
-  
-  # end
 
   #--------------------------------------------------
 
