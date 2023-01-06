@@ -90,7 +90,7 @@ class StatTracker
         teams_tackles_hash[row[:team_id]] += row[:tackles].to_i
       end
     end
-    
+
     highest_tackling_team_id = teams_tackles_hash.max_by{|k,v| v}[0]
     team_id_to_name(highest_tackling_team_id)   
   end 
@@ -283,8 +283,10 @@ class StatTracker
     win_percents_by_season.min_by{|k,v| v}[0]
   end
 
- 
-
+  def favorite_opponent(team_id)
+    all_wins = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN"}
+    all_wins.tally
+  end
 end
 
 

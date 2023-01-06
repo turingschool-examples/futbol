@@ -75,9 +75,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.worst_season("4")).to eq("20132014")
   end
 
-
-
-
-
+  it 'will find a teams favorite opponenet' do 
+    expeect(@stat_tracker.favorite_opponent(6)).to eq("Sporting Kansas City")
+  end
 end
-
