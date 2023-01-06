@@ -52,7 +52,7 @@ RSpec.describe StatTracker do
   end
 
   it 'names winningest coach of the season' do
-    #require 'pry'; binding.pry
+    
     expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
   end
   
@@ -72,10 +72,12 @@ RSpec.describe StatTracker do
   end
 
   xit 'will calculate the worst coach' do
-    expect(@stat_tracker.worst_coach("20122013")).to eq("guy")
+    
+    expect(@stat_tracker.worst_coach("20122013")).to eq("name")
   end
 
   it 'will calculate average win percentage' do
-    expect(@stat_tracker.average_win_percentage("6")).to eq 0.0
+    expect(@stat_tracker.average_win_percentage("6")).to eq 1.0
+    expect(@stat_tracker.average_win_percentage("15")).to eq 0.38
   end
 end
