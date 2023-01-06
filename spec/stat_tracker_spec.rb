@@ -68,11 +68,11 @@ RSpec.describe StatTracker do
   end
 
   it "can calculate the season with the highest win percentage for a team" do
-    expect(@stat_tracker.best_season()).to eq("FC Dallas")
+    expect(@stat_tracker.best_season("4")).to eq("20142015")
   end
 
   it "can calculate the season with the lowest win percentage for a team" do
-    expect(@stat_tracker.worst_season()).to eq("FC Dallas")
+    expect(@stat_tracker.worst_season("4")).to eq("20132014")
   end
 
 
