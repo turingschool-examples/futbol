@@ -1,20 +1,17 @@
 require 'csv'
 
 class Team
-  attr_reader :team_id,
-              :franchise_id,
-              :team_name,
-              :abbreviation,
-              :stadium,
-              :link
+  attr_reader :info
 
-  def initialize(info)
-    @team_id = info[:team_id]
-    @franchise_id = info[:franchise_id]
-    @team_name = info[:team_name]
-    @abbreviation = info[:abbreviation]
-    @stadium = info[:stadium]
-    @link = info[:link]
+  def initialize(data)
+    @info = {
+      team_id: data[:team_id].to_i,
+      franchise_id: data[:franchiseid].to_i,
+      team_name: data[:teamname],
+      abbreviation: data[:abbreviation],
+      stadium: data[:stadium],
+      link: data[:link]
+    }
   end
 
   def self.create_teams(team_data)
