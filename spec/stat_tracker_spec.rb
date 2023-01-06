@@ -96,5 +96,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_coach("20152016")).to eq("Jeff Blashill")
     end
   end
+
+  describe '#best_season' do
+    it 'can return the best season for a team' do
+      expect(stat_tracker.best_season("6")).to eq("20122013")
+    end
+  end
 end
 
