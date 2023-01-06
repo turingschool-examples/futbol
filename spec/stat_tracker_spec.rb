@@ -162,7 +162,9 @@ RSpec.describe StatTracker do
   end
 
   describe '#worst_coach' do 
-    
+    it 'is the coach with the least wins of the season' do 
+      expect(@stat_tracker.worst_coach("20122013")).to eq("")
+    end
   end
 
   describe '#games_by_season' do 
