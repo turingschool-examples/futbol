@@ -172,22 +172,24 @@ class StatTracker
         if average > best_scoring_visitor
           best_scoring_visitor = average
           final_id = id
-          # require 'pry';binding.pry
         end
       end
-    @teams.find {|team| team[:team_id] == final_id}[:teamname]
+      @teams.find {|team| team[:team_id] == final_id}[:teamname]
+    end
+    
+    
+    def lowest_scoring_visitor
+      lowest_id = []
+      
+      worst_scoring_visitor = away_teams_average_scoring_hash[away_teams_average_scoring_hash.keys[0]]
+      
+      away_teams_average_scoring_hash.each do |id, average_score|
+        if average_score < worst_scoring_visitor
+          worst_scoring_visitor = average_score
+          lowest_id << id
+          require 'pry';binding.pry
+        end
+      end
+      @teams.find_all {|team| team[:team_id] == lowest_id}[:teamname]
+    end
   end
-
-
-  # def lowest_scoring_visitor
-  #   final_id = []
-  #   worst_scoring_visitor = final_away_hash[final_away_hash.keys[0]]
-  #   final_away_hash.each do |id, average|
-  #     if average < worst_scoring_visitor
-  #       worst_scoring_visitor = average
-  #       final_id = id
-  #     end
-  #   end
-  #   @teams.find {|team| team[:team_id] == final_id}[:teamname]
-  # end
-end

@@ -90,9 +90,9 @@ RSpec.describe StatTracker do
       expect(stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
 
-    # it 'can find lowest scoring visitor' do
-    #   expect(stat_tracker.lowest_scoring_visitor).to eq("LA Galaxy")
-    # end
+    it 'can find lowest scoring visitor' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq("LA Galaxy")
+    end
   end
   # describe '#most_tackles and #fewest_tackles' do
   #   it 'can find most_tackles' do
