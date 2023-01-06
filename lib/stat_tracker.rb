@@ -90,14 +90,15 @@ class StatTracker
         teams_tackles_hash[row[:team_id]] += row[:tackles].to_i
       end
     end
-      def average_goals_per_game
+
+    highest_tackling_team_id = teams_tackles_hash.max_by{|k,v| v}[0]
+    team_id_to_name(highest_tackling_team_id)   
+  end 
+
+  def average_goals_per_game
     total_games = @games.map { |row| row[:game_id]}.count
     total_goals = @games.map { |row| row[:home_goals].to_i + row[:away_goals].to_i}.sum
     (total_goals.to_f / total_games).round(2)
-  end
-
-    highest_tackling_team_id = teams_tackles_hash.max_by{|k,v| v}[0]
-    team_id_to_name(highest_tackling_team_id)    
   end
 
   def fewest_tackles(season_id)
@@ -282,8 +283,10 @@ class StatTracker
     win_percents_by_season.min_by{|k,v| v}[0]
   end
 
- 
-
+  def favorite_opponent(team_id)
+    all_wins = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "WIN"}
+    all_wins.tally
+  end
 end
 
 
