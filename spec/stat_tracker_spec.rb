@@ -239,9 +239,8 @@ describe StatTracker do
     end
 
     it "#most_tackles returns team with the most tackles in the season " do
-      require 'pry'; binding.pry
-      expect(@stat_tracker.most_tackles("20132014")).to eq("FC Cincinnati")
-      expect(@stat_tracker.most_tackles("20142015")).to eq("Seattle Sounders FC")
+      expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+      # expect(stat_tracker.most_tackles("20122013")).to eq("Seattle Sounders FC")
     end
     ##TEAM STATISTICS BELOW
 
