@@ -73,17 +73,52 @@ class StatTracker
   
   def winningest_coach(season_id)
     wins_hash = Hash.new(0)
+    total_games_hash = Hash.new(0)
+    games_list = list_games_by_season(season_id)
+require 'pry'; binding.pry
+    @game_teams.each do |row|
+      if games_list.include?(row[:game_id])
+        wins_hash[row[:head_coach]] += 1 if row[:result] == "WIN"
+        total_games_hash[row[:head_coach]] += 1 if row[:result]
+      end
+    end
+
+    additional_hash = {}
+    total_games_hash.each do |key, value|
+      wins_hash.each do |key_v, value_v|
+        if key == key_v
+          percent = (value_v / value.to_f)
+          additional_hash[key] = percent
+        end
+      end
+    end
+    additional_hash.max_by{|k,v| v}[0]
+  end
+
+  def worst_coach(season_id)
+    wins_hash = Hash.new(0)
+    total_games_hash = Hash.new(0)
     games_list = list_games_by_season(season_id)
 
     @game_teams.each do |row|
       if games_list.include?(row[:game_id])
         wins_hash[row[:head_coach]] += 1 if row[:result] == "WIN"
+        total_games_hash[row[:head_coach]] += 1 if row[:result]
       end
     end
-    require 'pry'; binding.pry
-    winningest_coach_id = wins_hash.max_by{|k,v| v}[0]
+
+    additional_hash = {}
+    total_games_hash.each do |key, value|
+      wins_hash.each do |key_v, value_v|
+        if key == key_v
+          percent = (value_v / value.to_f)
+          additional_hash[key] = percent
+        end
+      end
+    end
+    additional_hash.min_by{|k,v| v}[0]
   end
-  
+
   def list_games_by_season(season_id)
     games_list = []
     @games.each do |row|
@@ -172,79 +207,15 @@ class StatTracker
     final_team = @teams.select { |team| team[:team_id] == last_team_id}
     final_team[0][:teamname]
   end
+
+  # def average_win_percentage(team_id)
+  #    total_team_games = []
+  #     @games.each do |row|
+  #      total_team_games << row[:result] if row[:team_id] == team_id
+  #    end
+  #    team_wins = []
+  #    @game_teams.each do |row|
+  #     team_wins << row[:result] if row[:team_id] == team_id && row[:result] == "WIN"
+  #    end
+  # end
 end
-
-
-
-
-
-
-# #I need total games per team in a season.
-# total_games(season_id) == @games.map { |row| row[:game_id]}.count
-# #I need total wins per team in that season.
-# team_id = @teams.map { |row| row[:team_id]}
-# total_wins(team_id) == @game_teams.map do |row|
-#   if ()
-# end
-# #Wins / total season games
-# #return coaches name with highest winning percentage in season.
-
-# #total_games_hash = {}
-# games_list = []
-
-# @games.each do |row|
-#   if row[:season] == season_id 
-#     games_list << row[:game_id]
-#   end
-# end
-
-# total_games = []
-# @game_teams.each do |row|
-#   if games_list.include?(row[:game_id])
-#     total_games << row[:head_coach] if (row[:result] == "WIN") || (row[:result] == "LOSS") || (row[:result] == "TIE")
-#   end
-# end
-
-# wins_list =[]
-# @game_teams.each do |row|
-#   if games_list.include?(row[:game_id])
-#     wins_list << row[:head_coach] if (row[:result] == "WIN")
-#   end
-# end
-# coach_percentages = {}
-# total_games.tally.each do |coach, total|
-#   wins_list.tally.each do |name, win|
-#     #require 'pry'; binding.pry
-#     if coach == name 
-#       final_percent = win.to_f / total.to_f
-#       coach_percentages[name] == final_percent
-#     end
-#   end
-# end
-
-# # wins_list.tally.values / total_games.tally.values
-# #return head_coach with highest win percentage
-# # total_games.tally
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
