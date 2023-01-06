@@ -123,15 +123,15 @@ describe StatTracker do
     end
 
     it "can determine #percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq(40.82)
+      expect(stat_tracker.percentage_home_wins).to eq(0.41)
     end
 
     it "can determine #percentage_visitor_wins" do
-      expect(stat_tracker.percentage_visitor_wins).to eq(46.94)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
     end
 
     it "can determine #percentage_ties" do
-      expect(stat_tracker.percentage_ties).to eq(12.24)
+      expect(stat_tracker.percentage_ties).to eq(0.12)
     end
 
     it "can determine highest_total_score" do
@@ -198,17 +198,17 @@ describe StatTracker do
     end
 
 
-    xit "#team_info" do
+    it "#team_info" do
 
-    expected = {
+      expected_hash = {
       "team_id" => "18",
       "franchise_id" => "34",
       "team_name" => "Minnesota United FC",
       "abbreviation" => "MIN",
       "link" => "/api/v1/teams/18"
       }
-        # require 'pry'; binding.pry
-      expect(stat_tracker.team_info("18")).to eq expected
+
+        expect(stat_tracker.team_info("18")).to eq expected_hash
     end
 
     it 'can calculate the highest_scoring_visitor' do
