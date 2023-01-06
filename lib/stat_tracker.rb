@@ -129,4 +129,65 @@ class StatTracker
     end
     season_game.tally
   end
+  
+  def away_games_per_team
+    number_of_games = []
+    @games.map do |game|
+      number_of_games << game[:away_team_id]
+    end
+    number_of_games.tally
+  end
+  
+  def away_teams_average_scoring_hash
+    away_scores_hash = Hash.new(0)
+    away_teams_average_scoring_hash = {}
+    
+    @games.each do |game|
+      game.each do |k, v|
+        away_scores_hash[game[:away_team_id]] += (game[:away_goals].to_f/10)
+      end
+      away_scores_hash.map do |key, value|
+        away_scores_hash[key] = value.round(2) 
+      end
+
+        away_scores_hash
+      end
+      
+      away_scores_hash.each do |away_id, score_value|
+        away_games_per_team.each do |games_id, game_value|
+          if games_id == away_id
+            away_teams_average_scoring_hash[away_id] = (score_value/game_value).round(2)
+          end
+        end
+      end
+      away_teams_average_scoring_hash
+    end
+    
+    def highest_scoring_visitor
+      final_id = []
+      
+      best_scoring_visitor = away_teams_average_scoring_hash[away_teams_average_scoring_hash.keys[0]]
+      
+      away_teams_average_scoring_hash.each do |id, average|
+        if average > best_scoring_visitor
+          best_scoring_visitor = average
+          final_id = id
+          # require 'pry';binding.pry
+        end
+      end
+    @teams.find {|team| team[:team_id] == final_id}[:teamname]
+  end
+
+
+  # def lowest_scoring_visitor
+  #   final_id = []
+  #   worst_scoring_visitor = final_away_hash[final_away_hash.keys[0]]
+  #   final_away_hash.each do |id, average|
+  #     if average < worst_scoring_visitor
+  #       worst_scoring_visitor = average
+  #       final_id = id
+  #     end
+  #   end
+  #   @teams.find {|team| team[:team_id] == final_id}[:teamname]
+  # end
 end

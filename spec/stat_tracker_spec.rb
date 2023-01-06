@@ -84,5 +84,21 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#highest_ and lowest_scoring_visitor' do
+    it 'can find highest scoring visitor' do
+      expect(stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    end
+
+    # it 'can find lowest scoring visitor' do
+    #   expect(stat_tracker.lowest_scoring_visitor).to eq("LA Galaxy")
+    # end
+  end
+  # describe '#most_tackles and #fewest_tackles' do
+  #   it 'can find most_tackles' do
+
+  #   expect(stat_tracker.most_tackles(season_id)).to eq()
+  #   end
+  # end
 end
 
