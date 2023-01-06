@@ -390,6 +390,8 @@ class StatTracker
       end
       lowest_scoring_team.join(", ")
     end
+
+     ## SEASON STATISTICS METHODS
     
     def array_of_game_teams_by_season(season)
       game_teams_arr = []
@@ -401,7 +403,6 @@ class StatTracker
       game_teams_arr
     end
 
-    ## SEASON STATISTICS METHODS
     def coaches_win_percentages_hash(season)
       coaches_hash = Hash.new{|h,v| h[v] = []}
       array_of_game_teams_by_season(season).each do |game_team|
@@ -424,6 +425,30 @@ class StatTracker
       sorted.first[0]
     end
     
+    def most_tackles(season)
+      team_total_tackles = Hash.new{|h,v| h[v] = 0 }
+      game_team_array = array_of_game_teams_by_season(season) 
+        game_team_array.each do |game_team|
+          team_total_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+        most_tackles_id = team_total_tackles.sort_by { |k, v| v }.last.first
+        teams.each do |team|
+          return team.team_name if team.team_id == most_tackles_id
+        end
+    end  
+
+    def fewest_tackles(season)
+      team_total_tackles = Hash.new{|h,v| h[v] = 0 }
+      game_team_array = array_of_game_teams_by_season(season) 
+        game_team_array.each do |game_team|
+          team_total_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+        fewest_tackles_id = team_total_tackles.sort_by { |k, v| v }.first.first
+        teams.each do |team|
+          return team.team_name if team.team_id == fewest_tackles_id
+        end
+    end  
+
 
     #TEAM STATISTICS METHODS
 
