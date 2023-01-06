@@ -92,3 +92,4 @@ describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
   end
+end
