@@ -267,7 +267,8 @@ describe StatTracker do
 
   describe 'new game_team dummy data' do
     let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
+    let(:game_teams_path_2){'./data/fixtures/game_teams_i1.csv'}
+    # let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
     let(:team_path_2){'./data/teams.csv'}
     #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
     
@@ -288,6 +289,18 @@ describe StatTracker do
       expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
       expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
     end
+
+    it "#favorite_opponent" do
+    # require 'pry'; binding.pry
+      expect(stat_tracker.find_game_team_id_arr("5").length).to eq(4)
+      expect(stat_tracker.game_team_wins_by_team("5").length).to eq(0)
+      expect(stat_tracker.game_team_loss_by_team("5").length).to eq(4)
+    end
+
+    xit "#rival" do
+      expect(stat_tracker.rival).to eq("Houston Dash").or(eq("LA Galaxy"))
+    end
+
   end
   
 end
