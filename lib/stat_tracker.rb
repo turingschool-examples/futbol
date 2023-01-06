@@ -47,4 +47,8 @@ class StatTracker
     end
     total_average = (sums.sum/games.count).round(2)
   end
+
+  def average_goals_by_season
+    average_goals_by_season = Hash.new {0}
+  end
 end
