@@ -365,4 +365,28 @@ end
 		end
   end
 
+	def accuracy_by_team(array_of_game_id)
+		hash = Hash.new {|k, v| k[v] = [0.0,0.0]}
+		array_of_game_id.each do |game_id|
+			games_by_game_id[game_id].each do |game|
+				hash[game[:team_id]][0] += game[:goals].to_f
+				hash[game[:team_id]][1] += game[:shots].to_f
+			end
+		end
+		hash.each do |team_id, array|
+			hash[team_id] = hash[team_id].reduce(&:/)
+		end
+	end
+
+	def most_accurate_team(season_id)
+		team_accuracy = accuracy_by_team(game_ids_for_season(season_id))
+		team_id = team_accuracy.key(team_accuracy.values.max)
+		find_team_by_id[team_id].first[:teamname]
+	end
+
+	def least_accurate_team(season_id)
+		team_accuracy = accuracy_by_team(game_ids_for_season(season_id))
+		team_id = team_accuracy.key(team_accuracy.values.min)
+		find_team_by_id[team_id].first[:teamname]
+	end
 end
