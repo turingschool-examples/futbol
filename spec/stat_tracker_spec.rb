@@ -40,6 +40,20 @@ RSpec.describe StatTracker do
     end
   end  
 
+	describe 'checks percentage of wins/ties' do
+		it "#percentage_home_wins" do
+		expect(stat_tracker.percentage_home_wins).to eq 0.44
+	end
+
+		it "#percentage_visitor_wins" do
+			expect(stat_tracker.percentage_visitor_wins).to eq 0.36
+		end
+
+		it "#percentage_ties" do
+			expect(stat_tracker.percentage_ties).to eq 0.20
+		end
+	end
+
   describe 'compares total scores' do
     it 'finds total score' do
       expect(stat_tracker.total_score).to be_a(Array)
@@ -106,18 +120,4 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
     end
   end
-
-	describe 'checks percentage of wins/ties' do
-		it "#percentage_home_wins" do
-    expect(stat_tracker.percentage_home_wins).to eq 0.44
-  end
-
-  	it "#percentage_visitor_wins" do
-   	 expect(stat_tracker.percentage_visitor_wins).to eq 0.36
-  	end
-
-  	it "#percentage_ties" do
-   	 expect(stat_tracker.percentage_ties).to eq 0.20
-  	end
-	end
 end
