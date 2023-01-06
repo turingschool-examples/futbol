@@ -4,9 +4,8 @@ class StatTracker
   attr_reader :games,
               :teams, 
               :game_teams,
-              :game_id,
-              :total_score_array
-             
+              :game_id
+       
   def initialize(locations)
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
@@ -39,12 +38,10 @@ class StatTracker
   end
 
   def highest_total_score
-    total_score
     @total_score_array.max
   end
 
   def lowest_total_score
-    total_score
     @total_score_array.min
   end
 
@@ -78,7 +75,6 @@ class StatTracker
   end
 
   def average_goals_per_game
-    total_score
     (@total_score_array.sum.to_f/@games.size).round(2)
   end
 
@@ -95,19 +91,6 @@ class StatTracker
       numerator = goals_by_season[key]
       goals_by_season[key] = (numerator/denominator.to_f).round(2)
     end
-    
     goals_by_season
   end
-
-  # def winningest_coach(season)
-  #   # pull game_ids played for that season
-  #   # separate games by team
-  #   # calculate the record for each team for that season (record # of wins/ # of games played in the season)
-  #   # find the name of the coach for the team that has the best record
-  #   game_ids = []
-  #   @games.each do |row|
-  #     game_ids << row[:game_id] if row[:season] == season
-  #   end
-  # end
-  
 end
