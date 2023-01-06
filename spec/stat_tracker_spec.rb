@@ -216,8 +216,20 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_season(3)).to eq("20122013").or(eq("20172018")).or(eq("20152016"))
     end
 
-    xit "#average_win_percentage" do
-      expect().to eq()
+    it "#average_win_percentage" do
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      
+      stat_tracker = StatTracker.from_csv(locations) 
+      expect(stat_tracker.average_win_percentage(3)).to eq(38.89)
+      expect(stat_tracker.average_win_percentage(6)).to eq(66.67)
     end
 
     xit "#most_goals_scored" do

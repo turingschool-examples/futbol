@@ -464,7 +464,7 @@ class StatTracker
   }
   return hash
 end
-
+# BEST AND WORST SEASON
   def best_season(team_id)
     relevant_game_teams = find_relevant_game_teams(team_id)
     relevant_games = find_relevant_games(relevant_game_teams)
@@ -532,6 +532,20 @@ end
     return season_array
 
   end
+
+  # AVERAGE WIN PERCENTAGE
+
+  def average_win_percentage(team_id)
+    relevant_games = find_relevant_game_teams(team_id)
+    victories = 0 
+    relevant_games.each do |game|
+      if game[:result] == "WIN"
+        victories += 1 
+      end
+    end
+  
+    percent = ((victories.to_f)/((relevant_games.count).to_f)*100).round(2) 
+  end
   
 
 
@@ -550,8 +564,6 @@ end
 
 
 
-  def average_win_percentage
-  end
 
   def most_goals_scored
   end
