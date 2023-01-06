@@ -208,4 +208,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.wins_by_coach([]).class).to eq(Hash)
     end
   end
+
+  describe '#most_goals_scored' do 
+    it 'is the most goals scored by a given team' do 
+      expect(@stat_tracker.most_goals_scored(3)).to eq(2)
+    end
+  end
+
+  describe 'fewest_goals_scored' do 
+    it 'is the lowest score by the given team' do 
+      expect(@stat_tracker.fewest_goals_scored(3)).to eq(1)
+    end
+  end
+
+  describe '#all_scores_by_team' do 
+    it 'is a helper method to pair all the scores a team has' do 
+      expect(@stat_tracker.all_scores_by_team.class).to eq(Hash)
+    end
+  end
 end
