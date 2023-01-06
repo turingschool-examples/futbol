@@ -88,11 +88,6 @@ class StatTracker
     teams_array
   end
  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
- #Percentage of games that a home team has won (rounded to the nearest 100th)
- def percentage_home_wins
-
-
- end
 
   # Highest sum of the winning and losing teams’ scores
   def highest_total_score
@@ -118,18 +113,19 @@ class StatTracker
 
   #Team name w/ highest avg num of goals scored (per game across all seasons)
   def best_offense
-    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do |info_line|
-      id_goals[info_line[:team_id]] << info_line[:goals]
+      team_id_all_goals[info_line[:team_id]] << info_line[:goals]
     end
   
-    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-    id_goals.each do |team_id, goals_scored|
-      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    team_id_avg_goals = Hash.new { |hash, key| hash[key] = 0 }
+    team_id_all_goals.each do |team_id, goals_scored|
+      team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
     end
+
     # if 2 teams have the same avg this will return ONLY the FIRST one:
     @teams.first do |info_line|
-      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.max)
+      if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.max)
         return info_line[:team_name] 
       end
     end
@@ -137,23 +133,21 @@ class StatTracker
 
   #Team name w/ lowest avg num of goals scored (per game across all seasons)
   def worst_offense
-    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do |info_line|
-      id_goals[info_line[:team_id]] << info_line[:goals]
+      team_id_all_goals[info_line[:team_id]] << info_line[:goals]
+    end
+  
+    team_id_avg_goals = Hash.new { |hash, key| hash[key] = 0 }
+    team_id_all_goals.each do |team_id, goals_scored|
+      team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
     end
 
-    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-    id_goals.each do |team_id, goals_scored|
-      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
-    end
     # if 2 teams have the same avg this will return ONLY the FIRST one:
-    @teams.find do |info_line|
-      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.min)
+    @teams.first do |info_line|
+      if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.min)
         return info_line[:team_name] 
       end
     end
   end
-
-  
-
 end

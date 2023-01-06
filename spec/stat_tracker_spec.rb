@@ -81,5 +81,14 @@ RSpec.describe StatTracker do
     end
   end
 
-  
+  describe "Season Statistics" do
+    xit "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team).to eq()
+    end
+
+    xit "#least_accurate_team" do
+      expect(stat_tracker.least_accurate_team).to eq()
+    end
+
+  end
 end
