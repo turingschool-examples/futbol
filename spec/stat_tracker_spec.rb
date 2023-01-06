@@ -232,20 +232,48 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_win_percentage(6)).to eq(66.67)
     end
 
-    xit "#most_goals_scored" do
-      expect().to eq()
+    it "#most_goals_scored" do
+      expect(stat_tracker.most_goals_scored(3)).to eq(5)
+      expect(stat_tracker.most_goals_scored(6)).to eq(4)
     end
 
-    xit "#fewest_goals_scored" do
-      expect().to eq()
+    it "#fewest_goals_scored" do
+      expect(stat_tracker.fewest_goals_scored(3)).to eq(0)
+      expect(stat_tracker.fewest_goals_scored(6)).to eq(1)
     end
 
-    xit "#favorite_opponent" do
-      expect().to eq()
+    it "#favorite_opponent" do
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      
+      stat_tracker = StatTracker.from_csv(locations) 
+      expect(stat_tracker.favorite_opponent(3)).to eq("DC United").or(eq("Real Salt Lake"))
+      expect(stat_tracker.favorite_opponent(6)).to eq("Houston Dynamo").or(eq("DC United")).or(eq("New York City FC"))
     end
 
-    xit "#rival" do
-      expect().to eq()
+
+
+    it "#rival" do
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+        }
+      
+      stat_tracker = StatTracker.from_csv(locations) 
+      expect(stat_tracker.rival(3)).to eq("FC Dallas").or(eq("Orlando Pride")).or(eq("Los Angeles FC")).or(eq("Seattle Sounders FC"))
+      expect(stat_tracker.rival(6)).to eq("Sporting Kansas City").or(eq("Philadelphia Union")).or(eq("Utah Royals FC"))
     end
   end
 end
