@@ -102,4 +102,8 @@ class StatTracker
   def count_of_teams
     total_teams = teams.count
   end
+
+  def best_offense
+    best_offensive_team = ''
+  end
 end
