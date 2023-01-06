@@ -191,4 +191,24 @@ class StatTracker
 
     team_season_win_percentage.max_by { |season| season[1] }[0]
   end
+
+  def worst_season(team_id)
+    team_games = @games.select { |game| game[:away_team_id] == team_id || game[:home_team_id] == team_id }
+    team_season_games = team_games.group_by { |team_game| team_game[:season] }
+    
+    team_season_game_teams = team_season_games.transform_values do |team_season_games|
+      team_games = []
+      team_season_games.map do |team_season_game| 
+        team_games << game_teams.find { |game_team| game_team[:game_id] == team_season_game[:game_id] &&
+                                                    game_team[:team_id] == team_id }
+      end
+      team_games
+    end
+
+    team_season_win_percentage = team_season_game_teams.transform_values do |team_season_game_teams|
+      team_season_game_teams.count { |team_season_game_team| team_season_game_team[:result] == "WIN" }.to_f / team_season_game_teams.count
+    end
+
+    team_season_win_percentage.min_by { |season| season[1] }[0]
+  end
 end

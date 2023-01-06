@@ -102,5 +102,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.best_season("6")).to eq("20122013")
     end
   end
+
+  describe '#worst_season' do
+    it 'can return the worst season for a team' do
+      expect(stat_tracker.worst_season("6")).to eq("20152016")
+    end
+  end
 end
 
