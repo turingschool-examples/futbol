@@ -13,7 +13,7 @@ describe Team do
 		end
 
 		it 'has attributes' do
-			expect(@team.team_id).to eq("1")
+			expect(@teams[0].info[:team_id]).to eq(1)
 		end
 	end
 end
