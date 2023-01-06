@@ -93,6 +93,13 @@ describe StatTracker do
     end
   end
 
+  describe '#game_ids_for_season(season)' do
+    it 'collects the game ids for a given season' do
+      expect(stat_tracker.game_ids_for_season("20152016")).to be_a(Array)
+      expect(stat_tracker.game_ids_for_season("20152016").size).to eq(10)
+    end
+  end
+  
   describe '#winningest_coach' do
     it 'returns the coach with the best win percentage for the season' do
       expect(stat_tracker.winningest_coach("20152016")).to eq("Joel Quenneville")

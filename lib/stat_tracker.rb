@@ -94,30 +94,32 @@ class StatTracker
     goals_by_season
   end
   
-  def winningest_coach(season)
-    game_ids = []
+  def game_ids_for_season(season)
+    season_game_ids = []
     @games.each do |row|
-      game_ids << row[:game_id] if row[:season] == season
+      season_game_ids << row[:game_id] if row[:season] == season
     end
-  
-    # numerators
-    season_team_wins = Hash.new(0)
-    @game_teams.each do |row|
-      if game_ids.include?(row[:game_id]) && row[:result] == 'WIN'
-        season_team_wins[row[:team_id]] += 1
-      end
-    end
+    season_game_ids
+  end
 
-    # denominators
+  def winningest_coach(season)
+    season_game_ids = game_ids_for_season(season)
+  
+    # numerator == season_team_wins hash
+    # denominator == season_winner_games_played hash
+    # REFACTOR: Helper Method
+    season_team_wins = Hash.new(0)
     season_winners_games_played = Hash.new(0)
     @game_teams.each do |row|
-      season_team_wins.each_key do |key|
-        if game_ids.include?(row[:game_id]) && row[:team_id] == key
-          season_winners_games_played[row[:team_id]] += 1
-        end
+      if season_game_ids.include?(row[:game_id]) && row[:result] == 'WIN'
+        season_team_wins[row[:team_id]] += 1
+      end
+      if season_game_ids.include?(row[:game_id])
+        season_winners_games_played[row[:team_id]] += 1
       end
     end
 
+    # REFACTOR: Helper Method
     season_record = Hash.new(0)
     season_team_wins.each do |key1, value1|
       season_winners_games_played.each do |key2, value2|
@@ -131,7 +133,7 @@ class StatTracker
 
     winningest_coach = nil
     @game_teams.each do |row|
-      winningest_coach = row[:head_coach] if row[:team_id] == season_winningest_team.first
+      winningest_coach = row[:head_coach] if row[:team_id] == season_winningest_team.first && season_game_ids.include?(row[:game_id])
     end
     winningest_coach
   end  
