@@ -71,13 +71,24 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Montreal Impact")
   end
 
-  xit 'will calculate the worst coach' do
+  it 'will calculate the worst coach' do
     
-    expect(@stat_tracker.worst_coach("20122013")).to eq("name")
+    expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
   end
 
   it 'will calculate average win percentage' do
     expect(@stat_tracker.average_win_percentage("6")).to eq 1.0
     expect(@stat_tracker.average_win_percentage("15")).to eq 0.38
+  end
+
+  it 'will display team info' do
+    expected = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+    expect(@stat_tracker.team_info("18")).to eq expected
   end
 end
