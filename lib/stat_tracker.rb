@@ -45,7 +45,6 @@ class StatTracker
     end
     game_teams_array
   end
-  
 
   def self.games_from_csv(locations)
     games_array = []
@@ -88,9 +87,127 @@ class StatTracker
     teams_array
   end
  #DO NOT CHANGE ANYTHING ABOVE THIS POINT ^
- #Percentage of games that a home team has won (rounded to the nearest 100th)
- def percentage_home_wins
+ 
+ # Percentage of games that a home team has won (rounded to the nearest 100th)
+  def percentage_home_wins
+    total_of_home_games = 0
+    wins_at_home = 0 
+    @game_teams.each do | k, v |
+      if k[:hoa] == "home"
+        total_of_home_games += 1
+      end
+      if k[:hoa] == "home" && k[:result] == "WIN"
+        wins_at_home += 1
+      end
+    end
+    percent_win = ((wins_at_home / total_of_home_games.to_f)).round(2)
+  end
+  # Percentage of games that a visitor has won (rounded to the nearest 100th)
+  def percentage_visitor_wins
+    total_of_home_games = 0
+    losses_at_home = 0 
+    @game_teams.each do | k, v |
+      if k[:hoa] == "home"
+        total_of_home_games += 1
+      end
+      if k[:hoa] == "home" && k[:result] == "LOSS"
+        losses_at_home += 1
+      end
+    end
+    percent_loss = ((losses_at_home / total_of_home_games.to_f)).round(2)
+  end
+   #  Percentage of games that has resulted in a tie (rounded to the nearest 100th)
+  def percentage_ties
+    ties = 0 
+    total_of_games = @game_teams.count
+    @game_teams.each do | k, v |
+      if k[:result] == "TIE"
+        ties += 1
+      end
+    end
+    percent_ties = ((ties / total_of_games.to_f)).round(2)
+  end
 
+  # Name of the team with the highest average score per game across all seasons when they are away.	
+  def highest_scoring_visitor
+    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do | k, v |
+      if k[:hoa] == "away"
+        id_goals[k[:team_id]] << k[:goals]
+      end
+    end
 
- end
+    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    id_goals.each do |team_id, goals_scored|
+      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+
+    @teams.find do |info_line|
+      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.max)
+        return info_line[:team_name] 
+      end
+    end
+  end
+  
+  # Name of the team with the highest average score per game across all seasons when they are home. 
+  def highest_scoring_home_team
+    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do | k, v |
+      if k[:hoa] == "home"
+        id_goals[k[:team_id]] << k[:goals]
+      end
+    end
+
+    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    id_goals.each do |team_id, goals_scored|
+      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+
+    @teams.find do |info_line|
+      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.max)
+        return info_line[:team_name] 
+      end
+    end
+  end
+
+  # Name of the team with the lowest average score per game across all seasons when they are a visitor.
+  def lowest_scoring_visitor
+    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do | k, v |
+      if k[:hoa] == "away"
+        id_goals[k[:team_id]] << k[:goals]
+      end
+    end
+  
+    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    id_goals.each do |team_id, goals_scored|
+      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+  
+    @teams.find do |info_line|
+      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.min)
+        return info_line[:team_name] 
+      end
+    end
+  end
+  # Name of the team with the lowest average score per game across all seasons when they are at home.
+  def lowest_scoring_home_team
+    id_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams.each do | k, v |
+    if k[:hoa] == "home"
+        id_goals[k[:team_id]] << k[:goals]
+      end
+    end
+
+    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    id_goals.each do |team_id, goals_scored|
+      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    end
+
+    @teams.find do |info_line|
+      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.min)
+        return info_line[:team_name] 
+      end
+    end
+  end
 end
