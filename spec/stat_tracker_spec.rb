@@ -187,13 +187,13 @@ RSpec.describe StatTracker do
 
   describe '#most_tackles' do 
     it 'is the team with the most tackles in the season' do 
-      expect(@stat_tracker.most_tackles("20122013")).to eq("")
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
     end
   end
 
   describe '#fewest_tackles' do 
     it 'is the team with the fewest tackles' do 
-      expect(@stat_tracker.fewest_tackles("20122013")).to eq("")
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("New England Revolution")
     end
   end 
 
@@ -202,6 +202,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.teams_with_tackles([]).class).to eq(Hash)
     end
   end
-  
-  
+
+  describe '#wins_by_coach' do 
+    it 'is a helper method to group the coach and their wins in a hash' do 
+      expect(@stat_tracker.wins_by_coach([]).class).to eq(Hash)
+    end
+  end
 end

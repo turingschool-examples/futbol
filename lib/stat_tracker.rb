@@ -217,6 +217,8 @@ class StatTracker
   
   # end
 
+  #--------------------------------------------------
+
   def games_by_season
     @games_by_season ||= @game_path.group_by do |row|
       row[:season] 
@@ -262,6 +264,51 @@ class StatTracker
      end
      coach_results.invert[coach_results.invert.keys.min]
   end
+
+  #-------------------------------
+
+  def most_tackles(season_id)
+    team_tackles = teams_with_tackles(game_ids_by_season(season_id))
+    team_tackles.each do |team, tackles| 
+      team_tackles[team] = tackles.sum
+    end
+
+    team_with_most_tackles = @team_path.find do |row| 
+      if row[:team_id] == team_tackles.invert[team_tackles.invert.keys.max] 
+        row[:teamname]
+      end
+    end
+    team_with_most_tackles[:teamname]
+  end
+
+  def fewest_tackles(season_id)
+    team_tackles = teams_with_tackles(game_ids_by_season(season_id))
+    team_tackles.each do |team, tackles| 
+      team_tackles[team] = tackles.sum
+    end
+
+    team_with_fewest_tackles = @team_path.find do |row| 
+      if row[:team_id] == team_tackles.invert[team_tackles.invert.keys.min] 
+        row[:teamname]
+      end
+    end
+    team_with_fewest_tackles[:teamname]
+  end
+
+  def teams_with_tackles(games_array)
+    hash = Hash.new{|k,v| k[v] = []}
+    games_array.each do |game_id|
+    next if games_by_game_id[game_id].nil?
+      games_by_game_id[game_id].each do |game|
+        hash[game[:team_id]] << game[:tackles].to_i
+      end
+    end
+      hash
+  end
+
+  # def most_tackles(season_id)
+
+  # end
 
 
 
