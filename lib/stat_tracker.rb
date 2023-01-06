@@ -186,4 +186,113 @@ class StatTracker
     end.compact.pop
 	end
 
+
+
+  #--------------------------------------------------
+
+  def games_by_season
+    @games_by_season ||= @game_path.group_by do |row|
+      row[:season] 
+    end
+  end
+
+  def games_by_game_id
+    #memoization this @games_by_game_id ||= [everything below]
+    @game_teams_path.group_by do |row| 
+      row[:game_id]
+    end
+  end
+
+  def game_ids_by_season(season_id)
+    games_by_season[season_id].map do |games|
+      games[:game_id]
+    end
+  end
+
+  def wins_by_coach(game_id_array) #HELPER for winningest and worst coach
+    hash = Hash.new{|k, v| k[v] = []}
+    game_id_array.each do |game_id|
+      next if games_by_game_id[game_id].nil?
+      games_by_game_id[game_id].each do |game|
+        hash[game[:head_coach]] << game[:result]
+      end
+    end
+    hash 
+  end
+
+  def winningest_coach(season_id)
+    coach_results = wins_by_coach(game_ids_by_season(season_id)) 
+     coach_results.each do |coach, results| 
+      coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
+     end
+     coach_results.invert[coach_results.invert.keys.max]
+  end
+
+  def worst_coach(season_id)
+    coach_results = wins_by_coach(game_ids_by_season(season_id)) 
+     coach_results.each do |coach, results| 
+      coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
+     end
+     coach_results.invert[coach_results.invert.keys.min]
+  end
+
+  #-------------------------------
+
+  def most_tackles(season_id)
+    team_tackles = teams_with_tackles(game_ids_by_season(season_id))
+    team_tackles.each do |team, tackles| 
+      team_tackles[team] = tackles.sum
+    end
+
+    team_with_most_tackles = @team_path.find do |row| 
+      if row[:team_id] == team_tackles.invert[team_tackles.invert.keys.max] 
+        row[:teamname]
+      end
+    end
+    team_with_most_tackles[:teamname]
+  end
+
+  def fewest_tackles(season_id)
+    team_tackles = teams_with_tackles(game_ids_by_season(season_id))
+    team_tackles.each do |team, tackles| 
+      team_tackles[team] = tackles.sum
+    end
+
+    team_with_fewest_tackles = @team_path.find do |row| 
+      if row[:team_id] == team_tackles.invert[team_tackles.invert.keys.min] 
+        row[:teamname]
+      end
+    end
+    team_with_fewest_tackles[:teamname]
+  end
+
+  def teams_with_tackles(games_array) #HELPER fot most and fewest tackles
+    hash = Hash.new{|k,v| k[v] = []}
+    games_array.each do |game_id|
+    next if games_by_game_id[game_id].nil?
+      games_by_game_id[game_id].each do |game|
+        hash[game[:team_id]] << game[:tackles].to_i
+      end
+    end
+      hash
+  end
+
+  def all_scores_by_team #HELPER for most and fewest goals scored by
+    hash = Hash.new{|k,v| k[v] = []}
+    @game_teams_path.each do |row| 
+      hash[row[:team_id]] << row[:goals].to_i
+    end
+    hash
+  end
+
+  def most_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].max
+  end
+
+  def fewest_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].min
+  end
+
+  
+
 end

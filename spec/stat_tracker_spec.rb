@@ -154,5 +154,76 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
-  
+
+  describe '#winningest_coach' do 
+    it 'is coach with most wins of the season' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+  end
+
+  describe '#worst_coach' do 
+    it 'is the coach with the least wins of the season' do 
+      expect(@stat_tracker.worst_coach("20122013")).to eq("Dan Bylsma")
+    end
+  end
+
+  describe '#games_by_season' do 
+    it 'is a helper method that groups the games by the season' do 
+      expect(@stat_tracker.games_by_season.class).to eq(Hash)
+    end
+  end
+
+  describe '#games_by_game_id' do 
+    it 'is a helper method that groups the games by the game_id' do 
+      expect(@stat_tracker.games_by_game_id.class).to eq(Hash)
+    end
+  end
+
+  describe '#game_ids_by_season' do 
+    it 'is a helper method that groups game ids to the give season' do 
+      expect(@stat_tracker.game_ids_by_season("20122013").class).to eq(Array)
+    end
+  end
+
+  describe '#most_tackles' do 
+    it 'is the team with the most tackles in the season' do 
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    end
+  end
+
+  describe '#fewest_tackles' do 
+    it 'is the team with the fewest tackles' do 
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("New England Revolution")
+    end
+  end 
+
+  describe '#teams_with_tackles' do 
+    it 'is a helper method to set team ids to their array of tackles' do 
+      expect(@stat_tracker.teams_with_tackles([]).class).to eq(Hash)
+    end
+  end
+
+  describe '#wins_by_coach' do 
+    it 'is a helper method to group the coach and their wins in a hash' do 
+      expect(@stat_tracker.wins_by_coach([]).class).to eq(Hash)
+    end
+  end
+
+  describe '#most_goals_scored' do 
+    it 'is the most goals scored by a given team' do 
+      expect(@stat_tracker.most_goals_scored(3)).to eq(2)
+    end
+  end
+
+  describe 'fewest_goals_scored' do 
+    it 'is the lowest score by the given team' do 
+      expect(@stat_tracker.fewest_goals_scored(3)).to eq(1)
+    end
+  end
+
+  describe '#all_scores_by_team' do 
+    it 'is a helper method to pair all the scores a team has' do 
+      expect(@stat_tracker.all_scores_by_team.class).to eq(Hash)
+    end
+  end
 end
