@@ -263,4 +263,31 @@ describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("6")).to eq(1)
     end
   end
+
+
+  describe 'new game_team dummy data' do
+    let(:game_path_2){'./data/fixtures/games_i2.csv'}
+    let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
+    let(:team_path_2){'./data/teams.csv'}
+    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
+    
+    let(:locations_3){{
+      games: game_path_2,
+      teams: team_path_2,
+      game_teams: game_teams_path_2
+    }}
+  
+    let(:stat_tracker) {StatTracker.from_csv(locations_3)}
+
+    it "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to eq "Toronto FC"
+      expect(stat_tracker.most_accurate_team("20142015")).to eq "Orlando Pride"
+    end
+
+    it "#least_accurate_team" do
+      expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
+      expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
+    end
+  end
+  
 end
