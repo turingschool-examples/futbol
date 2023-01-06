@@ -210,8 +210,8 @@ class StatTracker
   end
 
   def team_info(team_id)
-    info = @teams.find_all {|team| team[:team_id] == team_id}
-    { 'team_id' => info[:team_id],  }
+    info = @teams.find {|team| team[:team_id] == team_id}
+    { 'team_id' => info[:team_id], 'franchise_id' => info[:franchiseid], 'team_name' => info[:teamname], 'abbreviation' => info[:abbreviation], 'link' => info[:link] }
 
   end
 
