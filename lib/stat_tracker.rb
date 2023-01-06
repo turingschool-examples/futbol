@@ -39,6 +39,7 @@ class StatTracker
 	end
 
 	def percentage_visitor_wins
+		# look for helper methods during refactor
 		visitor_wins = []
 		games.each do |game|
 			if game[:away_goals].to_i > game[:home_goals].to_i
@@ -98,6 +99,76 @@ class StatTracker
 
     average_goals_by_season
   end
+
+	def team_away_goals_by_id
+		goals = Hash.new { | k, v | k[v]= [] } 
+		games.each do |game|
+			goals[game[:away_team_id]] << game[:away_goals].to_i			
+		end
+		scores_by_team_name = Hash.new { | k, v | k[v]= [] } 
+		goals.each do |team_id, score|
+			teams.each do |team|
+				if team_id == team[:team_id]
+					scores_by_team_name[team[:teamname]] = score					
+				end
+			end
+		end
+		scores_by_team_name
+	end
+	
+	def team_home_goals_by_id
+		goals = Hash.new { | k, v | k[v]= [] } 
+		games.each do |game|
+			goals[game[:home_team_id]] << game[:home_goals].to_i
+		end
+		scores_by_team_name = Hash.new { | k, v | k[v]= [] } 
+		goals.each do |team_id, score|
+			teams.each do |team|
+				if team_id == team[:team_id]
+					scores_by_team_name[team[:teamname]] = score					
+				end
+			end
+		end
+		scores_by_team_name		
+	end	
+
+	def average_score_away_game
+		averages_by_teamname = Hash.new { | k, v | k[v]= [] }
+		team_away_goals_by_id.each do | k, v |
+			value = v.sum.to_f / v.count.to_f
+			averages_by_teamname[k] = value
+		end
+		averages_by_teamname
+	end
+	
+	def average_score_home_game
+		averages_by_teamname = Hash.new { | k, v | k[v]= [] }
+		team_home_goals_by_id.each do | k, v |
+			value = v.sum.to_f / v.count.to_f
+			averages_by_teamname[k] = value
+		end
+		averages_by_teamname
+	end
+
+	def highest_scoring_visitor
+		max = average_score_away_game.max_by { |teamname, average_score| average_score}
+		max[0]
+	end
+
+	def highest_scoring_home_team
+		max = average_score_home_game.max_by { |teamname, average_score| average_score}
+		max[0]
+	end
+
+	def lowest_scoring_visitor
+		min = average_score_away_game.min_by { |teamname, average_score| average_score}
+		min[0]
+	end
+
+	def lowest_scoring_home_team
+		min = average_score_home_game.min_by { |teamname, average_score| average_score}
+		min[0]
+	end
 
   def count_of_teams
     total_teams = teams.count

@@ -121,6 +121,44 @@ RSpec.describe StatTracker do
     end
   end
 
+	describe 'determines average scores and compares' do
+		it 'creates a hash of teams by id and away goals' do
+			expect(stat_tracker.team_away_goals_by_id).to be_a Hash
+		end
+
+		it 'creates a hash of teams by id and home goals' do
+			expect(stat_tracker.team_home_goals_by_id).to be_a Hash
+		end
+
+		it 'averages away game scores per team' do
+			expect(stat_tracker.average_score_away_game).to be_a Float
+		end
+
+		it 'averages home game scores per team' do
+			expect(stat_tracker.average_score_home_game).to be_a Float
+		end
+
+		it 'averages home game scores per team' do
+			expect(stat_tracker.highest_scoring_visitor).to be_a Float
+		end
+	end
+	
+		it "#highest_scoring_visitor" do
+    	expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+  	end
+
+  	it "#highest_scoring_home_team" do
+    	expect(stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+  	end
+
+  	it "#lowest_scoring_visitor" do
+    	expect(stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+  	end
+
+  	it "#lowest_scoring_home_team" do
+    	expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+  	end
+
   describe '#count_of_teams' do
     it 'is a integer' do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
@@ -150,5 +188,4 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
   end
-
 end
