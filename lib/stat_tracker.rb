@@ -112,7 +112,6 @@ class StatTracker
     team_id_to_name(lowest_tackling_team_id)
   end
 
-
   def list_games_by_season(season_id)
     games_list = []
     @games.each do |row|
@@ -120,8 +119,6 @@ class StatTracker
     end
     games_list
   end
-
-
 
   def average_goals_by_season
     average_goals_by_season = {}
@@ -221,7 +218,6 @@ class StatTracker
     games_list
   end
   
-
   def highest_scoring_visitor
     scoring_breakdown = {}
     teams = @teams.map { |team| team[:team_id] }
@@ -304,7 +300,6 @@ class StatTracker
   def team_info(team_id)
     info = @teams.find {|team| team[:team_id] == team_id}
     { 'team_id' => info[:team_id], 'franchise_id' => info[:franchiseid], 'team_name' => info[:teamname], 'abbreviation' => info[:abbreviation], 'link' => info[:link] }
-
   end
 
   def average_win_percentage(team_id)
