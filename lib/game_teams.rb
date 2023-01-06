@@ -1,37 +1,41 @@
 require 'csv'
 
 class Game_teams
-  attr_reader :game_id,
-              :team_id,
-              :hoa,
-              :result,
-              :settled_in,
-              :head_coach,
-              :goals,
-              :shots,
-              :tackles,
-              :pim,
-              :powerPlayOpportunities,
-              :powerPlayGoals,
-              :faceOffWinPercentage,
-              :giveaways,
-              :takeaways
-  def initialize(info)
-    @game_id = info[:game_id]
-    @team_id = info[:team_id]
-    @hoa = info[:hoa]
-    @result = info[:result]
-    @settled_in = info[:settled_in]
-    @head_coach = info[:head_coach]
-    @goals = info[:goals]
-    @shots = info[:shots]
-    @tackles = info[:tackets]
-    @pim = info[:pim]
-    @powerPlayOpportunities = info[:powerPlayOpportunities]
-    @powerPlayGoals = info[:powerPlayGoals]
-    @faceOffWinPercentage = info[:faceOffWinPercentage]
-    @giveaways = info[:giveaways]
-    @takeaways = info[:takeaways]
+  attr_reader :info
+  #  :game_id,
+              # :team_id,
+              # :hoa,
+              # :result,
+              # :settled_in,
+              # :head_coach,
+              # :goals,
+              # :shots,
+              # :tackles,
+              # :pim,
+              # :powerPlayOpportunities,
+              # :powerPlayGoals,
+              # :faceOffWinPercentage,
+              # :giveaways,
+              # :takeaways
+  def initialize(data)
+    @info = {
+      game_id: data[:game_id],
+      team_id: data[:team_id],
+      hoa: data[:hoa],
+      result: data[:result],
+      settled_in: data[:settled_in],
+      head_coach: data[:head_coach],
+      goals: data[:goals],
+      shots: data[:shots],
+      tackles: data[:tackets],
+      pim: data[:pim],
+      powerPlayOpportunities: data[:powerPlayOpportunities],
+      powerPlayGoals: data[:powerPlayGoals],
+      faceOffWinPercentage: data[:faceOffWinPercentage],
+      giveaways: data[:giveaways],
+      takeaways: data[:takeaways] }
+
+
   end
 
   def self.create_game_teams(game_teams_data)
