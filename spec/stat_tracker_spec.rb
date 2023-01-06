@@ -190,15 +190,15 @@ describe StatTracker do
     end
   end
 
-  xdescribe '#best_season' do
+  describe '#best_season' do
     it 'returns the season with the highest win percentage for a team argument' do
-      expect(stat_tracker.best_season('8')).to be('')
+      expect(stat_tracker.best_season('5')).to eq('20172018')
     end
   end
 
-  xdescribe '#worst_season' do
+  describe '#worst_season' do
     it 'returns the season with the lowest win percentage for a team' do
-      expect(stat_tracker.worst_season('8')).to eq('')
+      expect(stat_tracker.worst_season('5')).to eq('20122013')
     end
   end
 
