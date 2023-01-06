@@ -100,7 +100,6 @@ class StatTracker
   end
 
   def count_of_teams
-    total_teams = 0
-      
+    total_teams = teams.count
   end
 end
