@@ -363,6 +363,49 @@ class StatTracker
   #  MOST/LEAST ACCURATE TEAM METHODS BELOW
   # Name of the Team with the best ratio of shots to goals for the season
 
+
+  def most_tackles(season)
+    games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
+    @games.group_by do |game|
+      games_ids_by_season[game[:season]] << game
+    end
+
+    hash_1 = Hash.new { |hash, key| hash[key] = 0 }
+    @game_teams.each do |info_line|
+      games_ids_by_season[season].each do |info_line_2|
+        if info_line_2[:game_id] == info_line[:game_id]
+          hash_1[info_line[:team_id]] += info_line[:tackles]
+        end
+      end
+    end
+    @teams.each do |info_line|
+      if info_line[:team_id] == hash_1.key(hash_1.values.max)
+        return info_line[:team_name] 
+      end
+    end
+  end
+
+  def fewest_tackles(season)
+    games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
+    @games.group_by do |game|
+      games_ids_by_season[game[:season]] << game
+    end
+
+    hash_1 = Hash.new { |hash, key| hash[key] = 0 }
+    @game_teams.each do |info_line|
+      games_ids_by_season[season].each do |info_line_2|
+        if info_line_2[:game_id] == info_line[:game_id]
+          hash_1[info_line[:team_id]] += info_line[:tackles]
+        end
+      end
+    end
+    @teams.each do |info_line|
+      if info_line[:team_id] == hash_1.key(hash_1.values.min)
+        return info_line[:team_name] 
+      end
+    end
+
+
     def most_accurate_team(season)
           
       games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
@@ -398,12 +441,6 @@ class StatTracker
   # def least_accurate_team
   # end
   # MOST/LEAST ACCURATE TEAM METHODS ABOVE
-
-  def most_tackles
-  end
-
-  def fewest_tackles
-  end
 
  ################## Team Statisics ##################
 

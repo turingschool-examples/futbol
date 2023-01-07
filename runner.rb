@@ -14,6 +14,8 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-p stat_tracker.highest_scoring_visitor
+stat_tracker.most_tackles("20122013")
+
+stat_tracker.group_season_tackles
 
 # puts stat_tracker.percentage_home_wins
