@@ -12,18 +12,6 @@ class StatTracker
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     @total_score_array = total_score
-    @game_id = @games[:game_id]
-    @season = @games[:season]
-    @type = @games[:type].to_s
-    @date_time = @games[:date_time]
-    @away_team_id = @games[:away_team_id]
-    @home_team_id = @games[:home_team_id]
-    @away_goals = @games[:away_goals]
-    @home_goals = @games[:home_goals]
-    @venue = @games[:venue].to_s
-    @venue_link = @games[:venue_link].to_s
-    @team_name = @teams[:teamname].to_s
-    @team_id = @teams[:team_id]
   end
 
   def self.from_csv(locations)
