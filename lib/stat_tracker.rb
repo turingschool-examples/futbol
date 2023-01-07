@@ -6,6 +6,9 @@ class StatTracker
                 :teams
 
   def initialize(game_teams, games, teams)
+    game_teams = game_teams.uniq
+    games = games.uniq
+    teams = teams.uniq
     @game_teams = game_teams
     @games = games
     @teams = teams
@@ -310,7 +313,6 @@ class StatTracker
     coach_hash = coach_victory_percentage_hash(season)
     ratios = determine_sorted_ratio(coach_hash)
     coach = ratios.reverse.first.first
-
   end 
 
   def worst_coach(season)
@@ -345,7 +347,6 @@ class StatTracker
           coach[game_team[:head_coach]][0] += 1
         end 
       end 
-      require 'pry'; binding.pry
     return coach
   end 
 
@@ -354,16 +355,57 @@ class StatTracker
     hash.each {|key, value| calculations << [key, ((value[0].to_f)/(value[1].to_f))]}
     result = calculations.to_h.sort_by {|key, value| value}
   end
-
-
-
-  
   #  WINNINGNEST/WORST COACH AND HELPER METHODS ABOVE 
 
-  #  MOST/LEAST ACCURATE TEAM METHODS BELOW
-  # Name of the Team with the best ratio of shots to goals for the season
+  # MOST/LEAST ACCURATE TEAM BY SEASON & HELPER METHODS BELOW
+  def all_games_by_season
+    @games.group_by { |game| game[:season] } 
+  end
 
+  def team_goals_shots_by_season(season)
+    team_goals_shots = Hash.new { |hash, key| hash[key] = [0, 0] }
+    @game_teams.each do |game_team|
+      all_games_by_season[season].each do |game|
+        if game_team[:game_id] == game[:game_id]
+          team_goals_shots[game_team[:team_id]][0] += game_team[:goals]
+          team_goals_shots[game_team[:team_id]][1] += game_team[:shots]
+        end
+      end
+    end
+    return team_goals_shots
+  end
 
+  def team_ratios_by_season(hash)
+    calculations = []
+    hash.each do |key, value|
+    # team_goals_shots_by_season(season).each do |key, value|
+      calculations << [key, ((value[0].to_f)/(value[1].to_f))]
+    end
+    result = calculations.to_h.sort_by {|key, value| value} 
+    # => this hash is ordered by values from lowest to highest 
+  end
+
+  def team_name(id)
+    @teams.each do |team|
+        return team[:team_name] if team[:team_id] == id 
+      end
+  end 
+
+  def most_accurate_team(season)
+    hash = team_goals_shots_by_season(season)
+    result_hash = team_ratios_by_season(hash)
+    id = result_hash.reverse.first.first
+    team_name(id)
+  end
+
+  def least_accurate_team(season)
+    hash = team_goals_shots_by_season(season)
+    result_hash = team_ratios_by_season(hash)
+    id = result_hash.first.first
+    team_name(id)
+  end
+  # MOST/LEAST ACCURATE TEAM BY SEASON & HELPER METHODS ABOVE
+  
   def most_tackles(season)
     games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
     @games.group_by do |game|
@@ -404,43 +446,7 @@ class StatTracker
         return info_line[:team_name] 
       end
     end
-
-
-    def most_accurate_team(season)
-          
-      games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
-
-      @games.group_by do |game|
-        games_ids_by_season[game[:season]] << game
-      end
-
-      ratios = Hash.new { |hash, key| hash[key] = [0, 0] }
-
-      @game_teams.each do |game_team|
-        games_ids_by_season[season].each do |game|
-          if game_team[:game_id] == game[:game_id]
-            ratios[game_team[:team_id]][0] += game_team[:goals]
-            ratios[game_team[:team_id]][1] += game_team[:shots]
-            end
-          end
-        end 
-
-      calculations = []
-      ratios.each do |key, value|
-        calculations << [key, ((value[0].to_f)/(value[1].to_f))]
-      end
-      result = calculations.to_h.sort_by {|key, value| value}.reverse.first.first
-
-      @teams.each do |team|
-        if team[:team_id] == result
-          return team[:team_name]
-        end
-      end
-    end
-
-  # def least_accurate_team
-  # end
-  # MOST/LEAST ACCURATE TEAM METHODS ABOVE
+  end
 
  ################## Team Statisics ##################
 
@@ -459,12 +465,12 @@ class StatTracker
   }
   return hash
 end
+
 # BEST AND WORST SEASON
   def best_season(team_id)
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
     results_by_season = group_by_season(relevant_games, relevant_game_teams) 
-    require 'pry'; binding.pry
     season_array = order_list(results_by_season)
     
     season_array.sort.reverse[0][1]
@@ -575,7 +581,6 @@ end
       team[:team_id] == result_id
     end
     conclusion = selected.first[:team_name]
-
   end
 
   def rival(team_id)
@@ -595,13 +600,10 @@ end
       team[:team_id] == result_id
     end
     conclusion = selected.first[:team_name]
-
-
   end
 
   def hash(relevant_games, team_id)
     new_hash = Hash.new { |hash, key| hash[key] = [] }
-
     relevant_games.each do |game|
       if game[:away_team_id] != team_id 
         new_hash[game[:away_team_id]] << game[:game_id]
@@ -614,7 +616,6 @@ end
 
   def winloss(team_id, relevant_game_teams)
     hashed_win_lost = Hash.new 
-
     relevant_game_teams.each do |game_team|
       hashed_win_lost[game_team[:game_id]] = game_team[:result]
     end
@@ -639,7 +640,6 @@ end
       end
     end
     return losses
-
   end
 
   def split_ties(game_id_win_loss)
@@ -650,7 +650,6 @@ end
       end
     end
     return ties
-
   end
 
   def accumulate(game_id_win, game_id_loss, game_id_ties, hashed_info)
@@ -663,46 +662,32 @@ end
       hashed_info.keys.each do |key|
         if hashed_info[key].include?(id)
           victories_over_team[key] += 1
-          end
         end
       end
+    end
     
     game_id_loss.each do |id|
       hashed_info.keys.each do |key|
         if hashed_info[key].include?(id)
           losses[key] += 1
-          end
         end
       end
+    end
 
-      game_id_ties.each do |id|
-        hashed_info.keys.each do |key|
-          if hashed_info[key].include?(id)
-            ties[key] += 1
-            end
-          end
+    game_id_ties.each do |id|
+      hashed_info.keys.each do |key|
+        if hashed_info[key].include?(id)
+          ties[key] += 1
         end
+      end
+    end
 
     hashed_info.keys.each do |key|
       final_calculations[key] = victories_over_team[key]/ ((victories_over_team[key].to_f) +(losses[key].to_f) +ties[key].to_f) 
     end 
     
-      sorted_calculations = final_calculations.sort_by do |key, value|
-        value
-      end 
-
+    sorted_calculations = final_calculations.sort_by do |key, value|
+      value
     end 
-
-
-
-
-
-  
-
-
+  end
 end
-
-
-# all_coaches = total_games.group_by do |game|
-#   game[:head_coach]
-# end
