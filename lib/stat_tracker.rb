@@ -211,4 +211,16 @@ class StatTracker
 
     team_season_win_percentage.min_by { |season| season[1] }[0]
   end
+
+  def team_info(team_id)
+    team = @teams.find { |team| team[:team_id] == team_id }
+
+    hash = { 
+      "team_id" => team[:team_id],
+      "franchise_id" => team[:franchiseid],
+      "team_name" => team[:teamname],
+      "abbreviation" => team[:abbreviation],
+      "link" => team[:link]
+    }
+  end
 end

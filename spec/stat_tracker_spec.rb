@@ -108,5 +108,19 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_season("6")).to eq("20152016")
     end
   end
+
+  describe '#team_info' do
+    it "can return team info" do
+      expected = {
+        "team_id" => "26",
+        "franchise_id" => "14",
+        "team_name" => "FC Cincinnati",
+        "abbreviation" => "CIN",
+        "link" => "/api/v1/teams/26"
+      }
+
+      expect(stat_tracker.team_info("26")).to eq(expected)
+    end
+  end
 end
 
