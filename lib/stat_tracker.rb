@@ -402,8 +402,63 @@ class StatTracker
     best_season_for_team[0]
   end
 
-  
-
-
-  
+	def team_info(team_id)
+   hash = Hash.new
+   @team_path.map do |row|
+     if team_id == row[:team_id]
+    hash["team_id"] = row[:team_id]
+    hash["franchise_id"] = row[:franchiseid]
+    hash["team_name"] = row[:teamname]
+    hash["abbreviation"] = row[:abbreviation]
+    hash["link"] = row[:link]
+   end
+ end
+ hash
+ end
+ 
+ def teams_by_id
+   @game_teams_path.group_by do |row|
+     row[:team_id]
+   end
+ end
+ 
+ def games_by_id_game_path
+   @games_by_id_game_path ||= @game_path.group_by do |row|
+     row[:game_id]
+   end
+ end
+ 
+ def pair_teams_with_results(team_id)
+   hash = Hash.new{|k,v| k[v] = []}
+   teams_by_id[team_id].each do |game|
+     hash[team_id] << game[:result]
+     hash[team_id] << game[:game_id]
+   end
+   hash.each do |team_id, value|
+     hash[team_id] = value.each_slice(2).to_a
+   end
+   hash
+  end
+ 
+ def pair_season_with_results_by_team(team_id)
+   hash = Hash.new{|k,v| k[v] = []}
+   pair_teams_with_results(team_id).each do |team, results|
+     results.each do |result|
+     data = games_by_id_game_path[result[1]][0]
+       hash[data[:season]] << result[0]
+     end
+   end
+   hash
+ end
+ 
+ def best_season(team_id)
+   best_season_hash = {}
+   best = pair_season_with_results_by_team(team_id)
+ 
+   best.each do |season, results|
+     best_season_hash[season] = results.count("WIN") / results.count.to_f
+   end
+   best_season_for_team = best_season_hash.max_by {|k,v| v}
+   best_season_for_team[0]
+ end
 end
