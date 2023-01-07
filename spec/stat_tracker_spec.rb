@@ -177,18 +177,18 @@ describe StatTracker do
     end
   end
 
-  describe '#team_info' do
-    it 'returns a hash of team info by passing a team_id argument' do
-      expected_hash = {
-        'team_id' => '8',
-        'franchise_id' => "1",
-        'team_name' => "New York Red Bulls",
-        'abbreviation' => "NY",
-        'link' => "/api/v1/teams/8"
-      }
-      expect(stat_tracker.team_info('8')).to eq(expected_hash)
-    end
-  end
+  # describe '#team_info' do
+  #   it 'returns a hash of team info by passing a team_id argument' do
+  #     expected_hash = {
+  #       'team_id' => '8',
+  #       'franchise_id' => "1",
+  #       'team_name' => "New York Red Bulls",
+  #       'abbreviation' => "NY",
+  #       'link' => "/api/v1/teams/8"
+  #     }
+  #     expect(stat_tracker.team_info('8')).to eq(expected_hash)
+  #   end
+  # end
 
   describe '#best_season' do
     it 'returns the season with the highest win percentage for a team argument' do

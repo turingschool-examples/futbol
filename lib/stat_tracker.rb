@@ -299,26 +299,26 @@ class StatTracker
 		find_team_by_id[team_id].first[:teamname]
 	end
 
-  def team_info(team_id)
-    team_hash = {
-      'team_id' => nil,
-      'franchise_id' => nil,
-      'team_name' => nil,
-      'abbreviation' => nil,
-      'stadium' => nil,
-      'link' => nil
-    }
+  # def team_info(team_id)
+  #   team_hash = {
+  #     'team_id' => nil,
+  #     'franchise_id' => nil,
+  #     'team_name' => nil,
+  #     'abbreviation' => nil,
+  #     'stadium' => nil,
+  #     'link' => nil
+  #   }
 
-    find_team_by_id[team_id].each do |row|
-      x = 0
-      team_hash.each do |info, value|
-        team_hash[info] = row[x]
-        x += 1
-      end
-    end
-    team_hash.delete('stadium')
-    team_hash
-  end
+  #   find_team_by_id[team_id].each do |row|
+  #     x = 0
+  #     team_hash.each do |info, value|
+  #       team_hash[info] = row[x]
+  #       x += 1
+  #     end
+  #   end
+  #   team_hash.delete('stadium')
+  #   team_hash
+  # end
 
 def best_season(team_id)
   games_played_by_team = games_played_by_season.dup
