@@ -163,12 +163,37 @@ RSpec.describe StatTracker do
       expect(stat_tracker.least_accurate_team).to eq()
     end
 
-    xit "#most_tackles" do
-      expect().to eq()
+    it "#most_tackles" do
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+
+      stat_tracker = StatTracker.from_csv(locations)
+
+      expect(stat_tracker.most_tackles("20132014")).to eq("FC Cincinnati")
+      expect(stat_tracker.most_tackles("20142015")).to eq("Seattle Sounders FC")
     end
 
     xit "#fewest_tackles" do
-      expect().to eq()
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+
+      stat_tracker = StatTracker.from_csv(locations)
+      expect(stat_tracker.fewest_tackles("20132014")).to eq("Atlanta United")
+      expect(stat_tracker.fewest_tackles("20142015")).to eq("Orlando City SC")
     end
   end
   

@@ -397,54 +397,27 @@ class StatTracker
       info_line[:team_id]
     end
     # This returns: [1, 4, 26, 14, 6, 3, 5, 17, 28, 18, 23, 16, 9, 8, 30, ... # these are team_id numbers
+  end
 
-    game_ids_by_season = Hash.new {|hash, key| hash[key] = []}
-    @games.group_by do |game| 
-      game_ids_by_season[game[:season]] << game[:game_id]
+  def most_tackles(season)
+    games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
+    @games.group_by do |game|
+      games_ids_by_season[game[:season]] << game
     end
-    # This returns: {season_id=>[game_id, 2016020207, 2016020663, 2016020917, 2016020956, 2016020598, 2016020874],
-    # 20172018=>[2017020484, 2017020385, 2017020694, 2017020992, 2017020124, ...
-    
-    ########## NOT FINISHED!! JUST BRAINSTORMING HERE: ############
-    # @game_ids_by_season.each do |game_id_array|
-    #   game_id_array.each do |game_id|
-    #     game_id[:game_id] 
-    #     game_id[:team_id]
-    #     game_id [[team_id, tackles], [team_id, tackles]]
-    #   end
-    # end
 
-    # @games.each do |info_line|
-    #   info_line[:game_id] == game_id
-    # end
-
-    # ratios_by_game_id = Hash.new {|hash, key| hash[key] = []}
-    # @game_teams.group_by do |info_line|
-    #   ratios_by_game_id[info_line[:game_id]] << (info_line[:goals].to_f / info_line[:shots]).round(2)
-    # end
-
-    # season_game_ids = games_in_season.map do |game| 
-    #   game[:game_id]
-    # end
-      
-    #PSEUDO CODE: 
-    # team takes 10 shots - 9 make it, then ratio = 90% - Most accurate
-    # team takes 10 shots - 2 make it, then ratio = 20% - Least accurate
-    # find each game_id (with diff team_ids cuz 2 each in CSV file) in array divide goals/shots(float) 
-    # take(sum) floats and divide by how many games(.count)
-    # game_ids_by_season.each do |season_id|
-    #   season_id.each do |game_id_array|
-    # From Dani?? @game_teams.find_all {|game| season_game_ids.include?(game.game_id)}
-  end
-
-  # def least_accurate_team
-  # end
-  # MOST/LEAST ACCURATE TEAM METHODS ABOVE
-
-  def most_tackles
-  end
-
-  def fewest_tackles
+    hash_1 = Hash.new { |hash, key| hash[key] = 0 }
+    @game_teams.each do |info_line|
+      games_ids_by_season[season].each do |info_line_2|
+        if info_line_2[:game_id] == info_line[:game_id]
+          hash_1[info_line[:team_id]] += info_line[:tackles]
+        end
+      end
+    end
+    @teams.each do |info_line|
+      if info_line[:team_id] == hash_1.key(hash_1.values.max)
+        return info_line[:team_name] 
+      end
+    end
   end
 
  ################## Team Statisics ##################
