@@ -332,7 +332,56 @@ class StatTracker
     final_breakdown.select { |id, win_percentage| favorite_opponent_id = id if win_percentage == final_breakdown.values.max}
 
     team_id_to_name(favorite_opponent_id)
+  end
 
+  def rival(team_id)
+    all_losses = @game_teams.find_all { |game| game[:team_id] == team_id && game[:result] == "LOSS"}
+    all_games = @games.find_all { |game| game[:home_team_id] == team_id || game[:away_team_id] == team_id} 
+    all_game_ids = all_losses.map {|game| game[:game_id]}
+
+    all_games_opposing_team_ids = []
+      all_games.each do |game| 
+        if team_id == game[:home_team_id]
+          all_games_opposing_team_ids << game[:away_team_id]
+        else 
+          all_games_opposing_team_ids << game[:home_team_id]
+        end
+      end
+
+    all_games_hash = all_games_opposing_team_ids.tally
+
+    all_games = []
+    all_game_ids.each do |game_id|
+      @games.each do |game| 
+        if game_id == game[:game_id]
+          all_games << game 
+        end
+      end 
+    end 
+
+    opposing_team_ids = []
+      all_games.each do |game| 
+        if team_id == game[:home_team_id]
+          opposing_team_ids << game[:away_team_id]
+        else 
+          opposing_team_ids << game[:home_team_id]
+        end
+      end
+
+    id_hash = opposing_team_ids.tally
+
+    final_breakdown = {}
+    id_hash.each do |id, value| 
+      all_games_hash.each do |game, games_value|
+        if id == game
+          final_breakdown[id] = (value.to_f / games_value.to_f).round(3)
+        end
+      end
+    end
+    favorite_opponent_id = nil
+    final_breakdown.select { |id, win_percentage| favorite_opponent_id = id if win_percentage == final_breakdown.values.max}
+
+    team_id_to_name(favorite_opponent_id)
   end
 end
 
