@@ -35,13 +35,13 @@ class SeasonStats
 	end
 
 	def tackles_by_team_id(array_of_game_ids)
-		hash = Hash.new {|k, v| k[v] = []}
+		team_tackles = Hash.new {|k, v| k[v] = []}
 		array_of_game_ids.each do |game_id|
 			games_by_game_id[game_id].each do |game|
-				hash[game.info[:team_id]] << game.info[:tackles]
+				team_tackles[game.info[:team_id]] << game.info[:tackles]
 			end
 		end
-		hash
+		team_tackles
 	end
 
 	def game_ids_for_season(season_id)
@@ -50,5 +50,31 @@ class SeasonStats
 			game.info[:game_id]
 		end
   end
+
+	def winningest_coach(season_id)
+		game_ids = game_ids_for_season(season_id)
+		coach_game_results = coach_game_results_by_game(game_ids)
+		coach_game_results.each do |k, v|
+			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+		end.key(coach_game_results.values.max)
+	end
+
+	def worst_coach(season_id)
+		game_ids = game_ids_for_season(season_id)
+		coach_game_results = coach_game_results_by_game(game_ids)
+		coach_game_results.each do |k, v|
+			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+		end.key(coach_game_results.values.min)
+	end
+
+	def coach_game_results_by_game(array_of_game_id)
+		coach_results = Hash.new {|k, v| k[v] = []}
+		array_of_game_id.each do |game_id|
+			games_by_game_id[game_id].each do |game|
+				coach_results[game.info[:head_coach]] << game.info[:result]
+			end
+		end
+		coach_results
+	end
 
 end

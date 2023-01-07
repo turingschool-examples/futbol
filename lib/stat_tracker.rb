@@ -164,48 +164,48 @@ class StatTracker
 		hash
 	end
 
-	def winningest_coach(season_id)
-		coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
-		coach_game_results.each do |k, v|
-			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
-		end.key(coach_game_results.values.max)
-	end
+	# def winningest_coach(season_id)
+	# 	coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
+	# 	coach_game_results.each do |k, v|
+	# 		coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+	# 	end.key(coach_game_results.values.max)
+	# end
 
-	def worst_coach(season_id)
-		coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
-		coach_game_results.each do |k, v|
-			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
-		end.key(coach_game_results.values.min)
-	end
+	# def worst_coach(season_id)
+	# 	coach_game_results = coach_game_results_by_game(game_ids_for_season(season_id))
+	# 	coach_game_results.each do |k, v|
+	# 		coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+	# 	end.key(coach_game_results.values.min)
+	# end
 
-	def game_ids_for_season(season_id)
-		games = games_played_by_season[season_id.to_s]
-		games.map do |row|
-			row[:game_id]
-		end
-  end
+	# def game_ids_for_season(season_id)
+	# 	games = games_played_by_season[season_id.to_s]
+	# 	games.map do |row|
+	# 		row[:game_id]
+	# 	end
+  # end
   
-	def games_played_by_season
-		@games_played_by_season ||= @games.group_by do |row|
-			row[:season]
-		end
-  end
+	# def games_played_by_season
+	# 	@games_played_by_season ||= @games.group_by do |row|
+	# 		row[:season]
+	# 	end
+  # end
 
-	def coach_game_results_by_game(array_of_game_id)
-		hash = Hash.new {|k, v| k[v] = []}
-		array_of_game_id.each do |game_id|
-			games_by_game_id[game_id].each do |game|
-				hash[game[:head_coach]] << game[:result]
-			end
-		end
-		hash
-	end
+	# def coach_game_results_by_game(array_of_game_id)
+	# 	hash = Hash.new {|k, v| k[v] = []}
+	# 	array_of_game_id.each do |game_id|
+	# 		games_by_game_id[game_id].each do |game|
+	# 			hash[game[:head_coach]] << game[:result]
+	# 		end
+	# 	end
+	# 	hash
+	# end
 
-	def games_by_game_id
-		@games_by_game_id ||= @game_teams.group_by do |row|
-			row[:game_id]
-		end
-	end
+	# def games_by_game_id
+	# 	@games_by_game_id ||= @game_teams.group_by do |row|
+	# 		row[:game_id]
+	# 	end
+	# end
   
 	def rival(team_id)
 		win_or_loss(team_id, 'WIN')
