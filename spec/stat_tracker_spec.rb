@@ -188,4 +188,23 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
   end
+
+  describe '#team_info' do
+    it 'is a hash' do
+      expect(stat_tracker.team_info("id")).to be_a(Hash)
+    end
+
+    it 'is a hash of info' do
+
+    team = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+
+    expect(stat_tracker.team_info("18")).to eq(team)
+    end
+  end
 end
