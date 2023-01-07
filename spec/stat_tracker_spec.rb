@@ -124,6 +124,7 @@ describe StatTracker do
       expect(stat_tracker.home_goal_avg_per_game).to be_a(Hash)
     end
   end
+  
 end
 
 

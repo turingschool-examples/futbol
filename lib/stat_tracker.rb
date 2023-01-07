@@ -251,6 +251,7 @@ class StatTracker
     end
     best_home_team
   end
+
 end
 
 
