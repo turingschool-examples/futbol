@@ -218,4 +218,14 @@ RSpec.describe StatTracker do
 			expect(stat_tracker.average_win_percentage("6")).to eq 0.49
 		end
 	end
+
+	describe 'determines goals per game by team' do
+    it "#most_goals_scored" do
+      expect(stat_tracker.most_goals_scored("18")).to eq 7
+    end
+
+    xit "#fewest_goals_scored" do
+      expect(stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+	end
 end
