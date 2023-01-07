@@ -220,5 +220,5 @@ class StatTracker
     worst_offensive_team_id = teams_total_averages.min_by{|k, v| v}[0]
 
     worst_offensive_team_name = teams.find {|row| row[:team_id] == worst_offensive_team_id}[:teamname]
-  end
+  end	
 end
