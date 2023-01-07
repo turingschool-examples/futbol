@@ -221,7 +221,6 @@ class StatTracker
     final_id = home_teams_average_scoring_hash.keys[0]
     best_scoring_home_team = home_teams_average_scoring_hash[final_id]
     
-    # require 'pry';binding.pry
     home_teams_average_scoring_hash.each do |id, average|
       if average > best_scoring_home_team
         best_scoring_home_team = average
@@ -290,5 +289,42 @@ class StatTracker
       team_tackles[1]
     end.first
     @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
+  end
+
+  def average_win_percentage(id)
+    games_by_the_team = @game_teams.find_all do |game_team|
+      game_team[:team_id] == id
+    end
+
+    number_of_winning_games = games_by_the_team.count do |game|
+        game[:result] == "WIN"
+    end
+    (number_of_winning_games/games_by_the_team.count.to_f).round(2)
+  end
+
+  def best_offense
+    games_by_teams = @game_teams.group_by { |game_team| game_team[:team_id] }
+    
+    percent_team_goals = games_by_teams.transform_values do |games_by_team| 
+      total_goals = games_by_team.sum do |game|
+        game[:goals]
+      end
+      (total_goals.to_f/games_by_team.count).round(2)
+    end
+    best_offense_id = percent_team_goals.max_by { |percent_team_goal| percent_team_goal[1]}.first
+    @teams.find {|team| team[:team_id] == best_offense_id}[:teamname]
+  end
+
+  def worst_offense
+    games_by_teams = @game_teams.group_by { |game_team| game_team[:team_id] }
+    
+    percent_team_goals = games_by_teams.transform_values do |games_by_team| 
+      total_goals = games_by_team.sum do |game|
+        game[:goals]
+      end
+      (total_goals.to_f/games_by_team.count).round(2)
+    end
+    worst_offense_id = percent_team_goals.min_by { |percent_team_goal| percent_team_goal[1]}.first
+    @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
   end
 end

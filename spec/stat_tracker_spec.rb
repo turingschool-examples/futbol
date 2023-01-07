@@ -115,5 +115,21 @@ RSpec.describe StatTracker do
       expect(stat_tracker.fewest_tackles("20132014")).to eq("FC Cincinnati")
     end
   end
+
+  describe '#average_win_percentage' do
+    it 'can find average_win_percentage for a team' do
+      expect(stat_tracker.average_win_percentage("6")).to eq(0.33)
+    end
+  end
+
+  describe 'best and worst offense' do
+    it 'can find best_offense' do
+      expect(stat_tracker.best_offense).to eq("North Carolina Courage")
+    end
+
+    it 'can find the worst_offense' do
+      expect(stat_tracker.worst_offense).to eq("FC Cincinnati")
+    end
+  end
 end
 
