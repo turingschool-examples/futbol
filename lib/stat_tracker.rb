@@ -341,17 +341,19 @@ class StatTracker
     hash
   end
 
-  # def team_info(team_id) #my fun hash
-  #   team_info_by_id = teams_by_id[team_id][0]
-  #   hash = Hash.new 
-  #   hash["team_id"] = team_id 
-  #   hash["franchise_id"] = team_info_by_id[:franchiseid]
-  #   hash["team_name"] = team_info_by_id[:teamname]
-  #   hash["abbreviation"] = team_info_by_id[:abbreviation]
-  #   hash["link"] = team_info_by_id[:link]   
-    
-  #   hash 
-  # end
+  def team_info(team_id)
+    hash = Hash.new
+    @team_path.map do |row|
+      if team_id == row[:team_id]
+     hash["team_id"] = row[:team_id]
+     hash["franchise_id"] = row[:franchiseid]
+     hash["team_name"] = row[:teamname]
+     hash["abbreviation"] = row[:abbreviation]
+     hash["link"] = row[:link]
+    end
+  end
+  hash
+  end
 
   def teams_by_id 
     @game_teams_path.group_by do |row| 
