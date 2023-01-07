@@ -144,4 +144,20 @@ class StatTracker
         highest_home_team = @teams.find { |team| team[:teamname] if team[:team_id] == highest_home_team_id }
         highest_home_team[:teamname]
     end
+
+    def lowest_scoring_visitor
+        team_total_goals = Hash.new (0)
+        @game_teams.each do |game|
+            (team_total_goals[game[:team_id]] += game[:goals]) if game[:hoa] == "away" 
+        end
+        
+        team_total_goals.update(team_total_goals) do |team_id, away_games|
+            team_total_goals[team_id].to_f / @game_teams.find_all { |game| game[:hoa] == "away" && game[:team_id] == team_id}.length
+        end
+        
+        highest_away_team_id = team_total_goals.key(team_total_goals.values.min)
+        
+        highest_away_team = @teams.find { |team| team[:teamname] if team[:team_id] == highest_away_team_id }
+        highest_away_team[:teamname]
+    end
 end
