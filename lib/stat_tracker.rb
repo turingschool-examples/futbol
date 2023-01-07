@@ -88,22 +88,22 @@ class StatTracker
 		(ties/@game_teams.count.to_f).round(2)
 	end
 
-	def most_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].max
-	end
+	# def most_goals_scored(team_id)
+	# 	all_game_scores_by_team[team_id.to_s].max
+	# end
 	
-	def fewest_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].min
-	end
+	# def fewest_goals_scored(team_id)
+	# 	all_game_scores_by_team[team_id.to_s].min
+	# end
 
-	def all_game_scores_by_team
-		hash = Hash.new {|k, v| k[v] = []}
-		@games.each do |row|
-			hash[row[:home_team_id]] << row[:home_goals].to_i
-			hash[row[:away_team_id]] << row[:away_goals].to_i
-		end
-		hash
-	end
+	# def all_game_scores_by_team
+	# 	hash = Hash.new {|k, v| k[v] = []}
+	# 	@games.each do |row|
+	# 		hash[row[:home_team_id]] << row[:home_goals].to_i
+	# 		hash[row[:away_team_id]] << row[:away_goals].to_i
+	# 	end
+	# 	hash
+	# end
 
 	def count_of_games_by_season
 		hash = {}

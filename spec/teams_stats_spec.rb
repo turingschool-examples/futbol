@@ -10,7 +10,7 @@ describe TeamStats do
 		@teams = Team.create_teams(team_path)
 	end
 
-	let(:stat) {TeamStats.new(@teams)}
+	let(:stat) {TeamStats.new(@teams, @games)}
 
 	describe '#initialize' do
 		it 'exists' do
@@ -19,6 +19,7 @@ describe TeamStats do
 
 		it 'has attributes' do
 			expect(stat.teams).to include(Team)
+			expect(stat.games).to include(Game)
 		end
 	end
 
@@ -32,6 +33,20 @@ describe TeamStats do
 				'link' => "/api/v1/teams/8"
 			}
 			expect(stat.team_info(8)).to eq(expected_hash)
+		end
+	end
+
+	describe '#most_goals_scored' do
+		it 'returns an integer of the most goals scored by a particular team in a single game' do
+			expect(stat.most_goals_scored(6)).to eq(4)
+			expect(stat.most_goals_scored(13)).to eq(2)
+		end
+	end
+
+	describe '#fewest_goals_scored' do
+		it 'returns an integer of the lowest goals scored by a particular team in a single game' do
+			expect(stat.fewest_goals_scored(6)).to eq(2)
+			expect(stat.fewest_goals_scored(5)).to eq(0)
 		end
 	end
 end
