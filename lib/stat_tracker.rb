@@ -356,6 +356,6 @@ class StatTracker
 				end
 			end
 		end
-		(total_wins / total_games).round(2)
+		(total_wins / total_games).round(2) 
 	end
 end
