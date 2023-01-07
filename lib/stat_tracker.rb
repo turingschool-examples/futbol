@@ -303,6 +303,7 @@ class StatTracker
       row[:team_id] == most_good[0]
     end
     winner = winner[:teamname]
+    # require 'pry'; binding.pry
   end
 
   def least_accurate_team(season_id) 
@@ -339,6 +340,20 @@ class StatTracker
       end
     end
     hash
+  end
+
+  def team_info(team_id)
+    hash = Hash.new
+    @team_path.map do |row|
+      if team_id == row[:team_id]
+     hash["team_id"] = row[:team_id]
+     hash["franchise_id"] = row[:franchiseid]
+     hash["team_name"] = row[:teamname]
+     hash["abbreviation"] = row[:abbreviation]
+     hash["link"] = row[:link]
+    end
+  end
+  hash
   end
 
   
