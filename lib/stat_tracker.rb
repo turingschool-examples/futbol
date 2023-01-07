@@ -307,4 +307,40 @@ class StatTracker
 		highest_accuracy_by_id = teams_and_accuracy.min_by{ |k,v| v }[0]
 		highest_accuracy_by_name = teams.find {|row| row[:team_id] == highest_accuracy_by_id}[:teamname]
 	end
+
+	def least_accurate_team(season_id)
+		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
+		games.each do |game|
+			if game_ids_by_season[game[:season]]== nil
+				game_ids_by_season[game[:season]] = [game[:game_id]]
+			else
+				game_ids_by_season[game[:season]] << game[:game_id]
+			end
+		end
+		variable = []
+		game_ids_by_season[season_id].each do |id|
+			variable << game_teams.find_all {|row| row[:game_id]== id}
+		end
+
+		total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
+		total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
+
+		variable.flatten(1).each do |row|
+			if total_goals_by_team[row[:team_id]]== nil
+				total_goals_by_team[row[:team_id]] = row[:goals].to_f
+				total_shots_by_team[row[:team_id]] = row[:shots].to_f
+			else
+				total_goals_by_team[row[:team_id]] += row[:goals].to_f
+				total_shots_by_team[row[:team_id]] += row[:shots].to_f
+			end
+		end
+
+		teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
+		total_shots_by_team.each do |team_id, total_shots|
+			teams_and_accuracy[team_id] = (total_shots/total_goals_by_team[team_id])
+		end
+
+		least_accuracy_by_id = teams_and_accuracy.max_by{ |k,v| v }[0]
+		least_accuracy_by_name = teams.find {|row| row[:team_id] == least_accuracy_by_id}[:teamname]
+	end
 end
