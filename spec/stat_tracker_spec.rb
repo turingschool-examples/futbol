@@ -98,4 +98,22 @@ describe StatTracker do
       expect(stat_tracker.winningest_coach("20152016")).to eq("Joel Quenneville")
     end
   end
+
+  describe '#worst_coach' do
+    it 'returns the coach with the worst win' do
+      expect(stat_tracker.worst_coach("20162017")).to eq("Jared Bednar")
+    end
+  end
+
+  describe '#most_accurate_team' do
+    it 'returns the team with the best ratio of shots to goals for the season' do
+      expect(stat_tracker.most_accurate_team("20122013")).to eq("DC United")
+    end
+  end
+
+  describe '#least_accurate_team' do
+    it 'returns the team with the highest ratio of shots to goals for the season' do
+      expect(stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+    end
+  end
 end
