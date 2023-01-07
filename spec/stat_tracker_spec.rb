@@ -188,4 +188,16 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
   end
+
+	describe "can determine ratio of shots to goals" do
+		it "#most_accurate_team" do
+			expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+			expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+		end
+
+		it "#least_accurate_team" do
+			expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+			expect(@tat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+		end
+	end
 end
