@@ -540,7 +540,6 @@ class StatTracker
 
     end
 
-
     def find_game_id_arr(team_id)
       all_games = game_teams.find_all do |team|
         team.team_id == team_id
@@ -551,7 +550,7 @@ class StatTracker
       end
     end
 
-    def opponents_win_sorted(team_id)
+    def opponents_win_percentage(team_id)
       opponents_wins = Hash.new{ |h,v| h[v] = [] }
       find_game_id_arr(team_id).each do |game_id|
         game_teams.each do |game_team|
@@ -573,12 +572,12 @@ class StatTracker
     end
 
     def favorite_opponent(team_id)
-      favorite_id = opponents_win_sorted(team_id).first.first
+      favorite_id = opponents_win_percentage(team_id).first.first
       find_team_name(favorite_id)
     end
 
     def rival(team_id)
-      favorite_id = opponents_win_sorted(team_id).last.first
+      favorite_id = opponents_win_percentage(team_id).last.first
       find_team_name(favorite_id)
     end
 end
