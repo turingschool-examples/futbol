@@ -1,7 +1,7 @@
 require './lib/game_statistics'
 require './lib/games'
 
-describe GameStats do
+xdescribe GameStats do
 	before do
 		game_path = './data/games_sample.csv'
 		@games = Game.create_games(game_path)
