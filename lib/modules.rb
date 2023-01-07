@@ -28,4 +28,10 @@ module Sort
 		find_team_by_id[id].first.info[:team_name]
 	end
 
+	def games_by_team_id
+		@games_by_team_id ||= @game_teams.group_by do |row|
+			row[:team_id] 
+		end
+	end
+
 end
