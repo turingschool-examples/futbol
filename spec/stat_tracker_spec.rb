@@ -326,6 +326,4 @@ RSpec.describe StatTracker do
      expect(@stat_tracker.worst_season("6")).to eq("20122013")
    end
  end
-
-
 end
