@@ -271,6 +271,11 @@ describe StatTracker do
       expect(stat_tracker.find_game_id_arr("5")).to eq(expected_arr)
     end
 
+    it 'can give #opponents_win_percenage(team_id) array of arrays' do
+    # need different fixture data to show more dynamic expect
+      expect(stat_tracker.opponents_win_percentage("6")).to eq([["3", 0.0], ["5", 0.0]])
+    end
+
     it 'can find #favorite_opponent(team_id)' do
     # currently works with './data/fixtures/game_teams_i1.csv'
     # In order to test 100% properly, fixture data for game_teams must contain several
