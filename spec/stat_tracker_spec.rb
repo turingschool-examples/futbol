@@ -266,6 +266,11 @@ describe StatTracker do
       expect(stat_tracker.find_team_name("6")).to eq("FC Dallas")
     end
 
+    it 'can #find_game_id_arr(team_id)' do
+      expected_arr = ["2012030311", "2012030312", "2012030313", "2012030314"]
+      expect(stat_tracker.find_game_id_arr("5")).to eq(expected_arr)
+    end
+
     it 'can find #favorite_opponent(team_id)' do
     # currently works with './data/fixtures/game_teams_i1.csv'
     # In order to test 100% properly, fixture data for game_teams must contain several
