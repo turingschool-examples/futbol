@@ -79,26 +79,20 @@ class StatTracker
     teams_array
   end
 
- ################## Game Statisics ##################
-
-  # Highest sum of the winning and losing teams scores
   def highest_total_score
     total_scores.last
   end
 
-  # Lowest sum of the winning and losing teams scores
   def lowest_total_score
     total_scores.first
   end
 
-  # HELPER: for highest/lowest total score
   def total_scores
     game_sums = @games.map do |game|
       game[:away_goals] + game[:home_goals]
     end.sort
   end
 
- # Percentage of games that a home team has won (rounded to the nearest 100th)
   def percentage_home_wins
     total_of_home_games = 0
     wins_at_home = 0 
@@ -113,7 +107,6 @@ class StatTracker
     percent_win = ((wins_at_home / total_of_home_games.to_f)).round(2)
   end
 
-  # Percentage of games that a visitor has won (rounded to the nearest 100th)
   def percentage_visitor_wins
     total_of_home_games = 0
     losses_at_home = 0 
@@ -128,7 +121,6 @@ class StatTracker
     percent_loss = ((losses_at_home / total_of_home_games.to_f)).round(2)
   end
  
-  # Percentage of games that has resulted in a tie (rounded to the nearest 100th)
   def percentage_ties
     ties = 0 
     total_of_games = @game_teams.count
@@ -140,35 +132,25 @@ class StatTracker
     percent_ties = ((ties / total_of_games.to_f)).round(2)
   end
 
-  # Method count of games by season
   def count_of_games_by_season
     new_hash = Hash.new(0) 
-    games.each do |game|
-      new_hash[game[:season]] += 1
-    end
+    games.each {|game| new_hash[game[:season]] += 1}
     return new_hash
   end
 
-  # Method of average goals per game  
   def average_goals_per_game 
     goals = 0 
-    games.each do |game|
-      goals += (game[:away_goals] + game[:home_goals]) 
-    end
+    games.each {|game| goals += (game[:away_goals] + game[:home_goals])}
     average = (goals.to_f/(games.count.to_f)).round(2)
     return average
   end
  
-  # Method average goals by season
   def average_goals_by_season
     new_hash = Hash.new(0) 
-    games.each do |game|
-      new_hash[game[:season]]  = season_goals(game[:season])
-    end
+    games.each {|game| new_hash[game[:season]]  = season_goals(game[:season])}
     return new_hash
   end
 
-  # HELPER: for average goals by season 
  def season_goals(season)
   number = 0
   goals = 0
@@ -181,14 +163,10 @@ class StatTracker
   average = (goals.to_f/number.to_f).round(2)
  end
 
- ################## League Statisics ##################
-
-  #Total number of teams in the data
   def count_of_teams
     @teams.count
   end
 
-  #Team name w/ highest avg num of goals scored (per game across all seasons)
   def best_offense
     team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do |info_line|
@@ -198,7 +176,6 @@ class StatTracker
     team_id_all_goals.each do |team_id, goals_scored|
       team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
     end
-    # if 2 teams have the same avg this will return ONLY the FIRST one:
     @teams.find do |info_line|
       if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.max)
         return info_line[:team_name] 
@@ -206,7 +183,6 @@ class StatTracker
     end
   end
 
-  #Team name w/ lowest avg num of goals scored (per game across all seasons)
   def worst_offense
     team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do |info_line|
@@ -218,7 +194,6 @@ class StatTracker
       team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
     end
 
-    # if 2 teams have the same avg this will return ONLY the FIRST one:
     @teams.find do |info_line|
       if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.min)
         return info_line[:team_name] 
@@ -226,7 +201,6 @@ class StatTracker
     end
   end
 
-  # Name of the team with the highest average score per game across all seasons when they are away.	
   def highest_scoring_visitor
     id_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do | k, v |
@@ -245,7 +219,7 @@ class StatTracker
     end
   end
   
-  # Name of the team with the highest average score per game across all seasons when they are home. 
+
   def highest_scoring_home_team
     id_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do | k, v |
@@ -264,7 +238,6 @@ class StatTracker
     end
   end
 
-  # Name of the team with the lowest average score per game across all seasons when they are a visitor.
   def lowest_scoring_visitor
     id_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do | k, v |
@@ -283,7 +256,6 @@ class StatTracker
     end
   end
 
-  # Name of the team with the lowest average score per game across all seasons when they are at home.
   def lowest_scoring_home_team
     id_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do | k, v |
@@ -303,37 +275,46 @@ class StatTracker
     end
   end
 
- ################## Season Statisics ##################
 
-  #  WINNINGNEST/WORST COACH AND HELPER METHODS BELOW 
   def winningest_coach(season)
     coach_hash = coach_victory_percentage_hash(season)
     ratios = determine_sorted_ratio(coach_hash)
-    coach = ratios.reverse.first.first
-
+    ratios.reverse.first.first
   end 
 
   def worst_coach(season)
     coach_hash = coach_victory_percentage_hash(season)
     ratios = determine_sorted_ratio(coach_hash)
-    coach = ratios.first.first
+    ratios.first.first
   end
 
   def list_gameteams_from_particular_season(season)
  
-    games_in_season = games.find_all {|game| game[:season] == season} 
-    games_in_season_gameid = games_in_season.map {|game| game[:game_id]} 
+    games_in_season = list_games_per_season(season)
+    pull_gameids = games_in_season.map {|game| game[:game_id]} 
+    
+    # answer = game_teams.find_all do |game_team|
+    #   pull_gameids.each do |game_id|  
+    #     game_id == game_team[:game_id] 
+    #     end 
+    #   end
+    #   require 'pry'; binding.pry
 
     total_relevant_gameteams_from_season = []
-    games_in_season_gameid.each do |game_id| 
+    pull_gameids.each do |game_id| 
       game_teams.each do |game_team|
         if game_team[:game_id] == game_id
           total_relevant_gameteams_from_season << game_team
         end 
       end
     end
+    require 'pry'; binding.pry
     return total_relevant_gameteams_from_season
   end 
+
+  def list_games_per_season(season)
+    games.find_all {|game| game[:season] == season} 
+  end
 
   def coach_victory_percentage_hash(season)
     games_in_season = list_gameteams_from_particular_season(season)
@@ -345,7 +326,6 @@ class StatTracker
           coach[game_team[:head_coach]][0] += 1
         end 
       end 
-      require 'pry'; binding.pry
     return coach
   end 
 
@@ -354,15 +334,6 @@ class StatTracker
     hash.each {|key, value| calculations << [key, ((value[0].to_f)/(value[1].to_f))]}
     result = calculations.to_h.sort_by {|key, value| value}
   end
-
-
-
-  
-  #  WINNINGNEST/WORST COACH AND HELPER METHODS ABOVE 
-
-  #  MOST/LEAST ACCURATE TEAM METHODS BELOW
-  # Name of the Team with the best ratio of shots to goals for the season
-
 
   def most_tackles(season)
     games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
@@ -404,6 +375,7 @@ class StatTracker
         return info_line[:team_name] 
       end
     end
+  end 
 
 
     def most_accurate_team(season)
@@ -459,12 +431,11 @@ class StatTracker
   }
   return hash
 end
-# BEST AND WORST SEASON
+
   def best_season(team_id)
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
     results_by_season = group_by_season(relevant_games, relevant_game_teams) 
-    require 'pry'; binding.pry
     season_array = order_list(results_by_season)
     
     season_array.sort.reverse[0][1]
@@ -473,8 +444,8 @@ end
   end 
 
   def worst_season(team_id)
-    relevant_game_teams = find_relevant_game_teams(team_id)
-    relevant_games = find_relevant_games(relevant_game_teams)
+    relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
+    relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
     results_by_season = group_by_season(relevant_games, relevant_game_teams) 
     season_array = order_list(results_by_season)
     
@@ -497,7 +468,6 @@ end
     grouped = relevant_games.group_by { |game| game[:season]}
 
     grouped.each do |key, values|
-      # require 'pry'; binding.pry
       values.each do |value|
       relevant_game_teams.each do |game_team|
           if value[:game_id] == game_team[:game_id]
@@ -506,7 +476,6 @@ end
         end
       end
     end
-    # require 'pry'; binding.pry
     return results_by_season 
   end 
 
@@ -516,13 +485,10 @@ end
       season_array << [(value.count("WIN").to_f/value.count.to_f), key]
     end
     return season_array
-
   end
 
-  # AVERAGE WIN PERCENTAGE
-
   def average_win_percentage(team_id)
-    relevant_games = find_relevant_game_teams(team_id)
+    relevant_games = find_relevant_game_teams_by_teamid(team_id)
     victories = 0 
     relevant_games.each do |game|
       if game[:result] == "WIN"
@@ -534,31 +500,27 @@ end
   end
 
   def most_goals_scored(team_id) 
-    relevant_games = find_relevant_game_teams(team_id)
+    relevant_games = find_relevant_game_teams_by_teamid(team_id)
     goals = create_goals_array(relevant_games)
     return goals.max 
   end
 
-
-  # MOST AND FEWEST GOALS SCORED 
   def fewest_goals_scored(team_id)
-    relevant_games = find_relevant_game_teams(team_id)
+    relevant_games = find_relevant_game_teams_by_teamid(team_id)
     goals = create_goals_array(relevant_games)
     return goals.min 
   end 
 
   def create_goals_array(relevant_games)
     goals = []
-    relevant_games.each do |game|
-      goals << game[:goals]
-    end 
+    relevant_games.each {|game| goals << game[:goals]}
     return goals 
   end
 
   # FAVORITE OPPONENTS
 
   def favorite_opponent(team_id)
-    relevant_game_teams = find_relevant_game_teams(team_id)
+    relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_relevant_games(relevant_game_teams)
     hashed_info = hash(relevant_games, team_id)
     game_id_win_loss = winloss(team_id, relevant_game_teams)
@@ -579,7 +541,7 @@ end
   end
 
   def rival(team_id)
-    relevant_game_teams = find_relevant_game_teams(team_id)
+    relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_relevant_games(relevant_game_teams)
     hashed_info = hash(relevant_games, team_id)
     game_id_win_loss = winloss(team_id, relevant_game_teams)
@@ -599,9 +561,21 @@ end
 
   end
 
+  def find_relevant_games(relevant_game_teams)
+    relevant_games = []
+    games.each do |game|
+      relevant_game_teams.each do |game_team|
+        if game[:game_id] == game_team[:game_id]
+          relevant_games << game 
+        end
+      end
+    end
+    require 'pry'; binding.pry
+    return relevant_games
+  end 
+
   def hash(relevant_games, team_id)
     new_hash = Hash.new { |hash, key| hash[key] = [] }
-
     relevant_games.each do |game|
       if game[:away_team_id] != team_id 
         new_hash[game[:away_team_id]] << game[:game_id]

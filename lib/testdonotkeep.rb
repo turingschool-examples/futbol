@@ -1,5 +1,7 @@
 def find_corresponding_games_by_gameteam(relevant_game_teams)
    games.find_all do |game|
-     relevant_game_teams.each {|game_team| game_team[:game_id] == game[:game_id]} 
-     end
+     relevant_game_teams.each do |game_team| 
+      game_team[:game_id] == game[:game_id]
+     end 
+   end
  end
