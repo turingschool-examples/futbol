@@ -568,4 +568,8 @@ class StatTracker
   def best_season(team_id)
     seasons_perc_win(team_id).last.first
   end
+
+  def worst_season(team_id)
+    seasons_perc_win(team_id).first.first
+  end
 end
