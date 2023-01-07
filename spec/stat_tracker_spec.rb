@@ -23,48 +23,48 @@ RSpec.describe StatTracker do
 
 
   it 'can calculate the average goals per game' do 
-    expect(@stat_tracker.average_goals_per_game).to eq(3.4)
+    expect(@stat_tracker.average_goals_per_game).to eq(4.3)
   end
 
   it 'will calculate the average goals per game by season' do 
     # expect(@stat_tracker.average_goals_by_season).to be_a(Hash)
-    expect(@stat_tracker.average_goals_by_season["20122013"]).to eq(4)
+    expect(@stat_tracker.average_goals_by_season["20122013"]).to eq(4.5)
   end
 
   it 'counts the number of games by season' do
     expect(@stat_tracker.count_of_games_by_season).to eq({
 
-      "20122013"=> 2, 
-      "20142015" => 2, 
-      "20132014" => 1
+      "20122013"=>10, 
+      "20132014"=>10, 
+      "20142015"=>10
     })  
   end
 
   it "calculates home win %" do
-    expect(@stat_tracker.percentage_home_wins).to eq 0.60
+    expect(@stat_tracker.percentage_home_wins).to eq  0.48
   end
 
   it 'calculates visitor win %' do
-    expect(@stat_tracker.percentage_visitor_wins).to eq 0.40
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.32
   end
 
   it 'calculates percent of ties' do
-    expect(@stat_tracker.percentage_ties).to eq 0.0
+    expect(@stat_tracker.percentage_ties).to eq 0.19
   end
 
   it 'will calculate the highest scoring visitor' do 
-    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+    expect(@stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
   end
 
   it 'will calculate the lowest scoring visitor' do 
-    expect(@stat_tracker.lowest_scoring_visitor).to eq("FC Dallas")
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Columbus Crew SC")
   end
 
   it 'will calculate the highest scoring home team' do 
-    expect(@stat_tracker.highest_scoring_home_team).to eq("Montreal Impact")
+    expect(@stat_tracker.highest_scoring_home_team).to eq("Seattle Sounders FC")
   end
   it 'will calculate the lowest scoring home team' do 
-    expect(@stat_tracker.lowest_scoring_home_team).to eq("Montreal Impact")
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Minnesota United FC")
   end
 
   it "can calculate the season with the highest win percentage for a team" do
@@ -76,6 +76,6 @@ RSpec.describe StatTracker do
   end
 
   it 'will find a teams favorite opponenet' do 
-    expeect(@stat_tracker.favorite_opponent(6)).to eq("Sporting Kansas City")
+    expect(@stat_tracker.favorite_opponent("7")).to eq("Sporting Kansas City")
   end
 end
