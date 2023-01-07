@@ -93,9 +93,55 @@ describe StatTracker do
     end
   end
 
-  describe '#winningest_coach' do
+  describe '#game_ids_for_season(season)' do
+    it 'collects the game ids for a given season' do
+      expect(stat_tracker.game_ids_for_season("20152016")).to be_a(Array)
+      expect(stat_tracker.game_ids_for_season("20152016").size).to eq(10)
+    end
+  end
+  
+  describe '#winningest_coach(season)' do
     it 'returns the coach with the best win percentage for the season' do
       expect(stat_tracker.winningest_coach("20152016")).to eq("Joel Quenneville")
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Guy Boucher").or(eq("Adam Oates"))
+    end
+  end
+
+  describe '#worst_coach(season)' do
+    it 'returns the coach with the worst win' do
+      expect(stat_tracker.worst_coach("20162017")).to eq("Jared Bednar")
+      expect(stat_tracker.worst_coach("20122013")).to eq("Michel Therrien").or(eq("Joe Sacco"))
+    end
+  end
+
+  describe '#season_total_tackles(season)' do
+    it 'returns a hash of total tackles by each team for the season' do
+      expected_hash = {
+        "15" => 84,
+        "54" => 59,
+        "14" => 33,
+        "30" => 73,
+        "52" => 137,
+        "1" => 46,
+        "21" => 49,
+        "29" => 30
+      }
+
+      expect(stat_tracker.season_total_tackles("20172018")).to eq(expected_hash)
+    end
+  end
+
+  describe '#most_tackles(season)' do
+    it 'returns the team name with the most tackles for the season' do
+      expect(stat_tracker.most_tackles("20122013")).to eq("Orlando City SC")
+      expect(stat_tracker.most_tackles("20172018")).to eq("Portland Thorns FC")
+    end
+  end
+
+  describe '#fewest_tackles(season)' do
+    it 'returns the team name with the fewest tackels for the season' do
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("New York Red Bulls")
+      expect(stat_tracker.fewest_tackles("20172018")).to eq("Orlando Pride")
     end
   end
 
