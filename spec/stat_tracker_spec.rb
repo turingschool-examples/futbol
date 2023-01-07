@@ -262,7 +262,11 @@ describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("6")).to eq(1)
     end
 
-    it "#favorite_opponent" do
+    it 'can find_team_name(team_id)' do
+      expect(stat_tracker.find_team_name("6")).to eq("FC Dallas")
+    end
+
+    it 'can find #favorite_opponent(team_id)' do
     # currently works with './data/fixtures/game_teams_i1.csv'
     # In order to test 100% properly, fixture data for game_teams must contain several
     # "matchups", where the argument team has several opponents with matching game_id.
@@ -270,7 +274,7 @@ describe StatTracker do
       expect(stat_tracker.favorite_opponent("6")).to eq("Houston Dynamo")
     end
 
-    it "#rival" do
+    it 'can find #rival(team_id)' do
     # currently works with './data/fixtures/game_teams_i1.csv'
     # In order to test 100% properly, fixture data for game_teams must contain several
     # "matchups", where the argument team has several opponents with matching game_id.
