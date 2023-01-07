@@ -207,7 +207,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
     end
   
-    xit "#least_accurate_team" do
+    it "#least_accurate_team" do
       expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
       expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
