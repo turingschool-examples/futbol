@@ -100,7 +100,7 @@ RSpec.describe StatTracker do
 
     describe "#Teams avg win, most and fewest goals" do
         
-        xit "#average_win_percentage" do
+        it "#average_win_percentage" do
             expect(@stat_tracker.average_win_percentage("18")).to eq 0.50
         end
 

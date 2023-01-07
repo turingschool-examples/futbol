@@ -162,19 +162,18 @@ class StatTracker
         end
     end
     
-    
-
-    # Name of the Team with the most tackles in the season
-    def most_tackles(season_id)
-
-        games_season_id = @games.find_all { |game| game[:season] == season_id }
-        require 'pry'; binding.pry
-
-    
+    def average_win_percentage(team_id)
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        team_results = Hash.new { |hash, key| hash[key] = [] }
+        @game_teams.each do |game|
+            team_results[game[:team_id]] << game[:result]
+        end
+        team_wins = team_results[team_id].select do |result|
+            result == "WIN"
+        end
+        (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
     end
+    
 end
    
-# most_tackles - RETURN STRING w/ name of team
-    # Name of the Team with the most tackles in the season
-    # translate the string argument season id to an integer season id (what it is in games.csv)
-    # match the season id with the team id - make a hash: season id is the key, game id is the value
+
