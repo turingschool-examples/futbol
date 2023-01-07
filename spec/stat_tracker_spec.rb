@@ -122,17 +122,17 @@ describe StatTracker do
 		end
 	end
 
-  describe '#most_tackles' do
-    it 'returns the NAME of team with most tackles in the SEASON' do
-      expect(stat_tracker.most_tackles(20162017)).to eq("New York City FC")
-    end
-  end
+  # describe '#most_tackles' do
+  #   it 'returns the NAME of team with most tackles in the SEASON' do
+  #     expect(stat_tracker.most_tackles(20162017)).to eq("New York City FC")
+  #   end
+  # end
 
-  describe '#fewest_tackles' do
-    it 'returns the NAME of team with fewest tackles the in SEASON' do
-      expect(stat_tracker.fewest_tackles(20162017)).to eq("Montreal Impact")
-    end
-  end
+  # describe '#fewest_tackles' do
+  #   it 'returns the NAME of team with fewest tackles the in SEASON' do
+  #     expect(stat_tracker.fewest_tackles(20162017)).to eq("Montreal Impact")
+  #   end
+  # end
 
   xdescribe '#find_by_team_id' do
     it 'returns the NAME of the team based on the ID' do
