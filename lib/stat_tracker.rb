@@ -173,7 +173,15 @@ class StatTracker
         end
         (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
     end
+
+    def most_tackles
+
+    
     
 end
    
 
+    # most_tackles - RETURN STRING w/ name of team
+    # Name of the Team with the most tackles in the season
+    # translate the string argument season id to an integer season id (what it is in games.csv)
+    # match the season id with the team id - make a hash: season id is the key, game id is the value
