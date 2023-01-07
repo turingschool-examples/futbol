@@ -235,13 +235,13 @@ RSpec.describe StatTracker do
 
   describe '#most_accurate_teams' do 
     it 'is the team that is the most accurate' do 
-      expect(@stat_tracker.most_accurate_team("20122013")).to eq("")
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
     end
   end
 
   describe '#least_accurate_teams' do
     it 'is the team that is the least accurate' do
-      expect(@stat_tracker.most_accurate_team("20122013")).to eq("")
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
     end
   end
 
@@ -254,6 +254,30 @@ RSpec.describe StatTracker do
   describe '#team_goals_by_season' do
     it 'gives the total team goals by season' do
       expect(@stat_tracker.team_goals_by_season("20122013").class).to eq(Hash)
+    end
+  end
+
+  describe '#team_info' do 
+    it 'is team info' do 
+      expect(@stat_tracker.team_info("3")).to eq("")
+    end
+  end
+
+  describe '#pair_teams_with_results' do 
+    it 'pairs the teams with their win and game id' do 
+      expect(@stat_tracker.pair_teams_with_results("6")).to eq(Hash)
+    end
+  end
+
+  describe '#pair_season_with_results_by_team' do 
+    it 'is a sandbox' do 
+      expect(@stat_tracker.pair_season_with_results_by_team("6")).to eq(Hash)
+    end
+  end
+
+  describe '#best_season' do 
+    it 'is the best season for a team' do 
+      expect(@stat_tracker.best_season("6")).to eq("")
     end
   end
 
