@@ -280,7 +280,7 @@ describe StatTracker do
     # currently works with './data/fixtures/game_teams_i1.csv'
     # In order to test 100% properly, fixture data for game_teams must contain several
     # "matchups", where the argument team has several opponents with matching game_id.
-    # './data/fixtures/game_teams_i2.csv' does not contain "matchups"
+    # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
       expect(stat_tracker.favorite_opponent("6")).to eq("Houston Dynamo")
     end
 
@@ -288,7 +288,7 @@ describe StatTracker do
     # currently works with './data/fixtures/game_teams_i1.csv'
     # In order to test 100% properly, fixture data for game_teams must contain several
     # "matchups", where the argument team has several opponents with matching game_id.
-    # './data/fixtures/game_teams_i2.csv' does not contain "matchups"
+    # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
       expect(stat_tracker.rival("6")).to eq("Sporting Kansas City")
     end
   end
