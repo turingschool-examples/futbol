@@ -84,5 +84,43 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#winningest_coach' do
+    it 'can return the coach with the best win percentage for a season' do
+      expect(stat_tracker.winningest_coach("20152016")).to eq("Michel Therrien")
+    end
+  end
+
+  describe '#worst_coach' do
+    it 'can return the coach with the worst win percentage for a season' do
+      expect(stat_tracker.worst_coach("20152016")).to eq("Jeff Blashill")
+    end
+  end
+
+  describe '#best_season' do
+    it 'can return the best season for a team' do
+      expect(stat_tracker.best_season("6")).to eq("20122013")
+    end
+  end
+
+  describe '#worst_season' do
+    it 'can return the worst season for a team' do
+      expect(stat_tracker.worst_season("6")).to eq("20152016")
+    end
+  end
+
+  describe '#team_info' do
+    it "can return team info" do
+      expected = {
+        "team_id" => "26",
+        "franchise_id" => "14",
+        "team_name" => "FC Cincinnati",
+        "abbreviation" => "CIN",
+        "link" => "/api/v1/teams/26"
+      }
+
+      expect(stat_tracker.team_info("26")).to eq(expected)
+    end
+  end
 end
 

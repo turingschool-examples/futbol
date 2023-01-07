@@ -129,4 +129,98 @@ class StatTracker
     end
     season_game.tally
   end
+
+  def winningest_coach(season)
+    season_coach_records(season).max_by { |coach| coach[1] }[0]
+  end
+
+  def worst_coach(season)
+    season_coach_records(season).min_by { |coach| coach[1] }[0]
+  end
+
+  def season_games(season)
+    @games.select { |game| game[:season] == season }
+  end
+
+  def season_game_teams(season)
+    @game_teams.select { |game_team| game_team[:game_id][0..3] == season[0..3] }
+  end
+
+  def season_coaches(season)
+    season_coaches = []
+
+    season_games(season).each do |season_game|
+      season_game[:game_id]
+      season_game_teams(season).each do |season_game_team| 
+        season_coaches << season_game_team[:head_coach] unless season_coaches.include?(season_game_team[:head_coach])
+      end
+    end
+
+    season_coaches
+  end
+
+  def season_coach_records(season)
+    season_coach_records = {}
+
+    season_coaches(season).each do |season_coach|
+      coach_season_games = season_game_teams(season).select { |game_team| game_team[:head_coach] == season_coach } 
+      coach_season_wins = coach_season_games.count { |game| game[:result] == "WIN" }
+      coach_season_total_games = coach_season_games.length
+      season_coach_records[season_coach] = coach_season_wins / coach_season_total_games.to_f * 100 
+    end
+ 
+    season_coach_records
+  end
+
+  def best_season(team_id)
+    team_games = @games.select { |game| game[:away_team_id] == team_id || game[:home_team_id] == team_id }
+    team_season_games = team_games.group_by { |team_game| team_game[:season] }
+    
+    team_season_game_teams = team_season_games.transform_values do |team_season_games|
+      team_games = []
+      team_season_games.map do |team_season_game| 
+        team_games << game_teams.find { |game_team| game_team[:game_id] == team_season_game[:game_id] &&
+                                                    game_team[:team_id] == team_id }
+      end
+      team_games
+    end
+
+    team_season_win_percentage = team_season_game_teams.transform_values do |team_season_game_teams|
+      team_season_game_teams.count { |team_season_game_team| team_season_game_team[:result] == "WIN" }.to_f / team_season_game_teams.count
+    end
+
+    team_season_win_percentage.max_by { |season| season[1] }[0]
+  end
+
+  def worst_season(team_id)
+    team_games = @games.select { |game| game[:away_team_id] == team_id || game[:home_team_id] == team_id }
+    team_season_games = team_games.group_by { |team_game| team_game[:season] }
+    
+    team_season_game_teams = team_season_games.transform_values do |team_season_games|
+      team_games = []
+      team_season_games.map do |team_season_game| 
+        team_games << game_teams.find { |game_team| game_team[:game_id] == team_season_game[:game_id] &&
+                                                    game_team[:team_id] == team_id }
+      end
+      team_games
+    end
+
+    team_season_win_percentage = team_season_game_teams.transform_values do |team_season_game_teams|
+      team_season_game_teams.count { |team_season_game_team| team_season_game_team[:result] == "WIN" }.to_f / team_season_game_teams.count
+    end
+
+    team_season_win_percentage.min_by { |season| season[1] }[0]
+  end
+
+  def team_info(team_id)
+    team = @teams.find { |team| team[:team_id] == team_id }
+
+    hash = { 
+      "team_id" => team[:team_id],
+      "franchise_id" => team[:franchiseid],
+      "team_name" => team[:teamname],
+      "abbreviation" => team[:abbreviation],
+      "link" => team[:link]
+    }
+  end
 end
