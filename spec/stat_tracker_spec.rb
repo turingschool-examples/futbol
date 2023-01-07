@@ -37,7 +37,7 @@ RSpec.describe StatTracker do
         end 
     end
     
-    describe "percentages" do
+    describe "#percentages" do
         it "#percentage_home_wins" do
             expect(@stat_tracker.percentage_home_wins).to eq 0.50
         end
@@ -51,7 +51,7 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe "game count and averages" do
+    describe "#game count and averages" do
         it "#count_of_games_by_season" do
         expected = {
             "20122013"=>1,
@@ -81,24 +81,30 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe 'count_of_teams and best / worst offense' do 
-
-        it '#count_of_teams' do
-
-        expect(@stat_tracker.count_of_teams).to eq(17)
+    describe "Teams, best, and worst offense" do
+        
+        it "#count of teams" do 
+            expect(@stat_tracker.count_of_teams).to eq 17
         end
 
-        # it '#away_team_total_goals' do
-        # expect(@stat_tracker.away_team_total_goals())
-        # end
-
-        it '#best_offense' do
-
-        expect(@stat_tracker.best_offense).to eq("New England Revolution")
+        it "#best_offense" do 
+            expect(@stat_tracker.best_offense).to eq "New England Revolution"
         end
 
-        it '#worst_offense' do
-        expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+        it "#worst_offense" do
+            expect(@stat_tracker.worst_offense).to eq "Sporting Kansas City"
         end
+
     end
+
+
+    describe "#Teams avg win, most and fewest goals" do
+        
+        xit "#average_win_percentage" do
+            expect(@stat_tracker.average_win_percentage("18")).to eq 0.50
+        end
+
+    end
+
+
 end

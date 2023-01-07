@@ -130,7 +130,6 @@ class StatTracker
 
         avg_goals_by_team = Hash.new(0)
         total_goals_by_team.each do |id, total_goals|
-            # require 'pry'; binding.pry
             avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
         end
          
@@ -142,68 +141,40 @@ class StatTracker
         end
     end
 
-    # def best_offense
-    #     # Return team with highest average number of goals over all total games
-        
-    #     hash1 = Hash.new { |hash, key| hash[key] = [] }
-    #     @game_teams.each do |game|
-    #         hash1[game[:team_id]] << game[:goals]
-    #     end
-
-    #     hash2 = Hash.new { |hash, key| hash[key] = [] }
-    #     hash1.each do |id, goals|
-    #         require 'pry'; binding.pry
-    #         hash2[id] = (goals.sum / goals.count.to_f).round(2)
-    #     end
-         
-    #     @teams.find do |game|
-    #         # .find will return first highest avg, .each will return last highest avg
-    #         if game[:team_id] == hash2.key(hash2.values.max)
-    #             return game[:teamname]
-    #         end
-    #     end
-    # end
-    
     def worst_offense
-        # Return team with lowest average number of goals over all total games
+        # Return team with highest average number of goals over all total games
         
-        hash1 = Hash.new { |hash, key| hash[key] = [] }
+        total_goals_by_team = Hash.new(0)
         @game_teams.each do |game|
-            hash1[game[:team_id]] << game[:goals]
+            total_goals_by_team[game[:team_id]] += game[:goals]
         end
 
-        hash2 = Hash.new { |hash, key| hash[key] = [] }
-        hash1.each do |id, goals|
-            hash2[id] = (goals.sum / goals.count.to_f).round(2)
+        avg_goals_by_team = Hash.new(0)
+        total_goals_by_team.each do |id, total_goals|
+            avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
         end
-        # require 'pry'; binding.pry
-        
+         
         @teams.find do |game|
-            if game[:team_id] == hash2.key(hash2.values.min)
+            # .find will return first highest avg, .each will return last highest avg
+            if game[:team_id] == avg_goals_by_team.key(avg_goals_by_team.values.min)
                 return game[:teamname]
             end
         end
     end
+    
+    
+
+    # Name of the Team with the most tackles in the season
+    def most_tackles(season_id)
+
+        games_season_id = @games.find_all { |game| game[:season] == season_id }
+        require 'pry'; binding.pry
+
+    
+    end
 end
-
-     # @game_teams.group_by { |game_team| game_team[:team_id] }.keys
-
-# Find all the goals for each team(hash)
-# sum of them, and divide by total elements (average)
-# iterate through hash of team ids and averages - find max or min value
-# iterate through teams.csv & match team id with team name
-# if team id inside of teams csv file matches team id hash with avg goals,
-# call max value on second array
-
-# if the team id in the teams file has the same id as the one in the array with the max value
-# return that team name
-
-# home team total scores
-# away team total scores
-
-# Make 2 hashes - 
-# away team id with away goals
-
-
-# home team id w home goals
-# Set to another hash sorted by team id and sum of the away and home goals for that Id
+   
+# most_tackles - RETURN STRING w/ name of team
+    # Name of the Team with the most tackles in the season
+    # translate the string argument season id to an integer season id (what it is in games.csv)
+    # match the season id with the team id - make a hash: season id is the key, game id is the value
