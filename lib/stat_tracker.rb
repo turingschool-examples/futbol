@@ -88,22 +88,22 @@ class StatTracker
 		(ties/@game_teams.count.to_f).round(2)
 	end
 
-	def most_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].max
-	end
+	# def most_goals_scored(team_id)
+	# 	all_game_scores_by_team[team_id.to_s].max
+	# end
 	
-	def fewest_goals_scored(team_id)
-		all_game_scores_by_team[team_id.to_s].min
-	end
+	# def fewest_goals_scored(team_id)
+	# 	all_game_scores_by_team[team_id.to_s].min
+	# end
 
-	def all_game_scores_by_team
-		hash = Hash.new {|k, v| k[v] = []}
-		@games.each do |row|
-			hash[row[:home_team_id]] << row[:home_goals].to_i
-			hash[row[:away_team_id]] << row[:away_goals].to_i
-		end
-		hash
-	end
+	# def all_game_scores_by_team
+	# 	hash = Hash.new {|k, v| k[v] = []}
+	# 	@games.each do |row|
+	# 		hash[row[:home_team_id]] << row[:home_goals].to_i
+	# 		hash[row[:away_team_id]] << row[:away_goals].to_i
+	# 	end
+	# 	hash
+	# end
 
 	def count_of_games_by_season
 		hash = {}
@@ -299,26 +299,26 @@ class StatTracker
 		find_team_by_id[team_id].first[:teamname]
 	end
 
-  def team_info(team_id)
-    team_hash = {
-      'team_id' => nil,
-      'franchise_id' => nil,
-      'team_name' => nil,
-      'abbreviation' => nil,
-      'stadium' => nil,
-      'link' => nil
-    }
+  # def team_info(team_id)
+  #   team_hash = {
+  #     'team_id' => nil,
+  #     'franchise_id' => nil,
+  #     'team_name' => nil,
+  #     'abbreviation' => nil,
+  #     'stadium' => nil,
+  #     'link' => nil
+  #   }
 
-    find_team_by_id[team_id].each do |row|
-      x = 0
-      team_hash.each do |info, value|
-        team_hash[info] = row[x]
-        x += 1
-      end
-    end
-    team_hash.delete('stadium')
-    team_hash
-  end
+  #   find_team_by_id[team_id].each do |row|
+  #     x = 0
+  #     team_hash.each do |info, value|
+  #       team_hash[info] = row[x]
+  #       x += 1
+  #     end
+  #   end
+  #   team_hash.delete('stadium')
+  #   team_hash
+  # end
 
 def best_season(team_id)
   games_played_by_team = games_played_by_season.dup

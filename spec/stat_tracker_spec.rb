@@ -69,19 +69,19 @@ describe StatTracker do
     end
   end
 
-	describe '#most_goals_scored' do
-		it 'returns an integer of the most goals scored by a particular team in a single game' do
-			expect(stat_tracker.most_goals_scored(6)).to eq(4)
-			expect(stat_tracker.most_goals_scored(13)).to eq(2)
-		end
-	end
+	# describe '#most_goals_scored' do
+	# 	it 'returns an integer of the most goals scored by a particular team in a single game' do
+	# 		expect(stat_tracker.most_goals_scored(6)).to eq(4)
+	# 		expect(stat_tracker.most_goals_scored(13)).to eq(2)
+	# 	end
+	# end
 
-	describe '#fewest_goals_scored' do
-		it 'returns an integer of the lowest goals scored by a particular team in a single game' do
-			expect(stat_tracker.fewest_goals_scored(6)).to eq(2)
-			expect(stat_tracker.fewest_goals_scored(5)).to eq(0)
-		end
-	end
+	# describe '#fewest_goals_scored' do
+	# 	it 'returns an integer of the lowest goals scored by a particular team in a single game' do
+	# 		expect(stat_tracker.fewest_goals_scored(6)).to eq(2)
+	# 		expect(stat_tracker.fewest_goals_scored(5)).to eq(0)
+	# 	end
+	# end
 
 	describe '#count_of_games_by_season' do
 		it 'returns a hash with season names as keys and counts of games as values' do
@@ -177,18 +177,18 @@ describe StatTracker do
     end
   end
 
-  describe '#team_info' do
-    it 'returns a hash of team info by passing a team_id argument' do
-      expected_hash = {
-        'team_id' => '8',
-        'franchise_id' => "1",
-        'team_name' => "New York Red Bulls",
-        'abbreviation' => "NY",
-        'link' => "/api/v1/teams/8"
-      }
-      expect(stat_tracker.team_info('8')).to eq(expected_hash)
-    end
-  end
+  # describe '#team_info' do
+  #   it 'returns a hash of team info by passing a team_id argument' do
+  #     expected_hash = {
+  #       'team_id' => '8',
+  #       'franchise_id' => "1",
+  #       'team_name' => "New York Red Bulls",
+  #       'abbreviation' => "NY",
+  #       'link' => "/api/v1/teams/8"
+  #     }
+  #     expect(stat_tracker.team_info('8')).to eq(expected_hash)
+  #   end
+  # end
 
   describe '#best_season' do
     it 'returns the season with the highest win percentage for a team argument' do
