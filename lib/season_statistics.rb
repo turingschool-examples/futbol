@@ -77,4 +77,31 @@ class SeasonStats
 		coach_results
 	end
 
+	def most_accurate_team(season_id)
+		game_ids = game_ids_for_season(season_id)
+		team_accuracy = accuracy_by_team(game_ids)
+		team_id = team_accuracy.key(team_accuracy.values.max)
+		team_name_by_id(team_id)
+	end
+
+	def least_accurate_team(season_id)
+		game_ids = game_ids_for_season(season_id)
+		team_accuracy = accuracy_by_team(game_ids)
+		team_id = team_accuracy.key(team_accuracy.values.min)
+		team_name_by_id(team_id)
+	end
+
+	def accuracy_by_team(array_of_game_id)
+		team_accuracy = Hash.new {|k, v| k[v] = [0.0,0.0]}
+		array_of_game_id.each do |game_id|
+			games_by_game_id[game_id].each do |game|
+				team_accuracy[game.info[:team_id]][0] += game.info[:goals].to_f
+				team_accuracy[game.info[:team_id]][1] += game.info[:shots].to_f
+			end
+		end
+		team_accuracy.each do |team_id, array|
+			team_accuracy[team_id] = team_accuracy[team_id].reduce(&:/)
+		end
+	end
+
 end
