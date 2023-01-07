@@ -86,6 +86,14 @@ RSpec.describe StatTracker do
 
         it "#highest_scoring_home_team" do
         expect(@stat_tracker.highest_scoring_home_team).to eq "Minnesota United FC"
+        end
+
+        it "#lowest_scoring_visitor" do
+        expect(@stat_tracker.lowest_scoring_visitor).to eq "Sporting Kansas City"
+        end
+
+        it "#lowest_scoring_home_team" do
+        expect(@stat_tracker.lowest_scoring_home_team).to eq "Minnesota United FC"
       end
     end
 
@@ -99,11 +107,15 @@ RSpec.describe StatTracker do
             "link" => "/api/v1/teams/18"
             }
         
-        expect(@stat_tracker.team_info("18")).to eq expected
-      end
+            expect(@stat_tracker.team_info("18")).to eq expected
+        end
 
         it "#best_season" do
-        expect(@stat_tracker.best_season("6")).to eq "20122013"
-      end
+            expect(@stat_tracker.best_season("6")).to eq "20122013"
+        end
+
+        it "#worst_season" do
+            expect(@stat_tracker.worst_season("6")).to eq "20142015"
+        end
     end
 end

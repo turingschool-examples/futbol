@@ -130,44 +130,18 @@ class StatTracker
     end
 
     def highest_scoring_home_team
-  
-    end
-
-    def lowest_scoring_visitor
-
-    end
-
-    def lowest_scoring_home_team
-
-    end
-
-    def team_info(team_id)
-        requested_team_info = @teams.find_all { |team| team[:team_id] == team_id }
-        
-        team_id_hash = {
-            "team_id" => requested_team_info[0][:team_id],
-            "franchise_id" => requested_team_info[0][:franchiseid],
-            "team_name" => requested_team_info[0][:teamname],
-            "abbreviation" => requested_team_info[0][:abbreviation],
-            "link" => requested_team_info[0][:link]
-        }
-        team_ihd_ash 
-    end
-
-    def best_season(team_id)
-        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
-        
-        game_teams_by_season = game_teams_id.group_by { |game| game[:game_id] }
-        game_teams_by_season.each do |key, value|
-            total_wins_by_season = value.count { |element| element[:result] == "WIN" }/value.length.to_f
-            game_teams_by_season[key] = total_wins_by_season
-            # require "pry"; binding.pry
+        team_total_goals = Hash.new (0)
+        @game_teams.each do |game|
+            (team_total_goals[game[:team_id]] += game[:goals]) if game[:hoa] == "home" 
         end
-        game_teams_by_season.key(game_teams_by_season.values.max)
-        team_best_season = @games.find do |game| 
-            game[:season] if game[:game_id] == game_teams_by_season.key(1) 
+        
+        team_total_goals.update(team_total_goals) do |team_id, away_games|
+            team_total_goals[team_id].to_f / @game_teams.find_all { |game| game[:hoa] == "home" && game[:team_id] == team_id}.length
         end
-        team_best_season[:season]
+        
+        highest_home_team_id = team_total_goals.key(team_total_goals.values.max)
+        
+        highest_home_team = @teams.find { |team| team[:teamname] if team[:team_id] == highest_home_team_id }
+        highest_home_team[:teamname]
     end
-
 end
