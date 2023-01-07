@@ -268,6 +268,23 @@ class StatTracker
     end
     (won.count.to_f / team_games.count).round(2)
   end
+
+  def goals_by_team_id(team_id)
+    goals = []
+   
+    @game_teams.each do |game|
+      goals << game[6].to_i if game[1] == team_id
+    end
+    goals
+  end
+
+  def most_goals_scored(team_id)
+    goals_by_team_id(team_id).sort.last
+  end
+
+  def fewest_goals_scored(team_id)
+    goals_by_team_id(team_id).sort.first
+  end
 end
 
 

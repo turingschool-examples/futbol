@@ -129,6 +129,24 @@ describe StatTracker do
       expect(stat_tracker.average_win_percentage("14")).to eq 0.57
     end
   end
+
+  describe '#goals_by_team_id' do
+    it "creates an array of goals per team ID" do
+      expect(stat_tracker.goals_by_team_id("14")).to eq([2, 1, 2, 3, 2, 0, 3, 2, 4, 2, 2, 3, 1, 2])
+    end
+  end
+
+  describe '#most_goals_scored' do
+    it "returns the highest number of goals a team has scored in a single game" do
+      expect(stat_tracker.most_goals_scored("14")).to eq 4
+    end
+  end
+
+  describe '#fewest_goals_scored' do
+    it "returns the lowest number of goals a team has scored in a single game" do
+      expect(stat_tracker.fewest_goals_scored("18")).to eq 3
+    end
+  end
 end
 
 
