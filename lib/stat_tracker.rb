@@ -23,7 +23,7 @@ class StatTracker
     CSV.foreach(locations[:game_teams], headers: true) do |info|
       new_info = {
         game_id: info["game_id"].to_i,
-        team_id: info["team_id"].to_i, 
+        team_id: info["team_id"], 
         hoa: info["HoA"], 
         result: info["result"], 
         settled_in: info["settled_in"],
@@ -51,8 +51,8 @@ class StatTracker
         season: info["season"], 
         type: info["type"], 
         date_time: info["date_time"],
-        away_team_id: info["away_team_id"].to_i,
-        home_team_id: info["home_team_id"].to_i,
+        away_team_id: info["away_team_id"],
+        home_team_id: info["home_team_id"],
         away_goals: info["away_goals"].to_i,
         home_goals: info["home_goals"].to_i,
         venue: info["venue"],
@@ -67,8 +67,8 @@ class StatTracker
     teams_array = []
     CSV.foreach(locations[:teams], headers: true) do |info|
       new_info = {
-        team_id: info["team_id"].to_i,
-        franchise_id: info["franchiseId"].to_i,
+        team_id: info["team_id"],
+        franchise_id: info["franchiseId"],
         team_name: info["teamName"],
         abbreviation: info["abbreviation"],
         stadium: info["Stadium"],
@@ -544,7 +544,7 @@ end
       end
     end
   
-    percent = ((victories.to_f)/((relevant_games.count).to_f)*100).round(2) 
+    percent = ((victories.to_f)/((relevant_games.count).to_f)).round(2) 
   end
 
   def most_goals_scored(team_id) 
