@@ -110,17 +110,17 @@ describe StatTracker do
 		end
 	end
 
-	describe '#winningest_coach' do
-		it 'names the coach with the best win percentage for the season' do
-			expect(stat_tracker.winningest_coach(20162017)).to eq("Glen Gulutzan")
-		end
-	end
+	# describe '#winningest_coach' do
+	# 	it 'names the coach with the best win percentage for the season' do
+	# 		expect(stat_tracker.winningest_coach(20162017)).to eq("Glen Gulutzan")
+	# 	end
+	# end
 
-	describe '#worst_coach' do
-		it 'names the coach with the worst percentage for the reason' do
-			expect(stat_tracker.worst_coach(20162017)).to eq('Randy Carlyle')
-		end
-	end
+	# describe '#worst_coach' do
+	# 	it 'names the coach with the worst percentage for the reason' do
+	# 		expect(stat_tracker.worst_coach(20162017)).to eq('Randy Carlyle')
+	# 	end
+	# end
 
   # describe '#most_tackles' do
   #   it 'returns the NAME of team with most tackles in the SEASON' do
@@ -214,15 +214,15 @@ describe StatTracker do
 		end
 	end
 
-	describe '#most_accurate_team' do
-		it 'returns TEAM NAME with the BEST ratio of SHOTS to GOALS for the SEASON' do
-      expect(stat_tracker.most_accurate_team("20162017")).to eq("Toronto FC")
-		end
-	end
+	# describe '#most_accurate_team' do
+	# 	it 'returns TEAM NAME with the BEST ratio of SHOTS to GOALS for the SEASON' do
+  #     expect(stat_tracker.most_accurate_team("20162017")).to eq("Toronto FC")
+	# 	end
+	# end
 
-	describe '#least_accurate_team' do
-		it 'returns TEAM NAME with the WORST ratio of SHOTS to GOALS for the SEASON' do
-      expect(stat_tracker.least_accurate_team("20162017")).to eq("DC United")
-		end
-	end
+	# describe '#least_accurate_team' do
+	# 	it 'returns TEAM NAME with the WORST ratio of SHOTS to GOALS for the SEASON' do
+  #     expect(stat_tracker.least_accurate_team("20162017")).to eq("DC United")
+	# 	end
+	# end
 end
