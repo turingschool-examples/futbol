@@ -391,51 +391,33 @@ class StatTracker
 
   #  MOST/LEAST ACCURATE TEAM METHODS BELOW
   # Name of the Team with the best ratio of shots to goals for the season
-  def most_accurate_team
-    #Not sure if I need this info?: 
-    team_ids_array = @teams.map do |info_line|
-      info_line[:team_id]
-    end
-    # This returns: [1, 4, 26, 14, 6, 3, 5, 17, 28, 18, 23, 16, 9, 8, 30, ... # these are team_id numbers
 
-    game_ids_by_season = Hash.new {|hash, key| hash[key] = []}
-    @games.group_by do |game| 
-      game_ids_by_season[game[:season]] << game[:game_id]
-    end
-    # This returns: {season_id=>[game_id, 2016020207, 2016020663, 2016020917, 2016020956, 2016020598, 2016020874],
-    # 20172018=>[2017020484, 2017020385, 2017020694, 2017020992, 2017020124, ...
-    
-    ########## NOT FINISHED!! JUST BRAINSTORMING HERE: ############
-    # @game_ids_by_season.each do |game_id_array|
-    #   game_id_array.each do |game_id|
-    #     game_id[:game_id] 
-    #     game_id[:team_id]
-    #     game_id [[team_id, tackles], [team_id, tackles]]
-    #   end
-    # end
+    def most_accurate_team(season)
+          
+      games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
 
-    # @games.each do |info_line|
-    #   info_line[:game_id] == game_id
-    # end
-
-    # ratios_by_game_id = Hash.new {|hash, key| hash[key] = []}
-    # @game_teams.group_by do |info_line|
-    #   ratios_by_game_id[info_line[:game_id]] << (info_line[:goals].to_f / info_line[:shots]).round(2)
-    # end
-
-    # season_game_ids = games_in_season.map do |game| 
-    #   game[:game_id]
-    # end
+      @games.group_by do |game|
+        games_ids_by_season[game[:season]] << game
+      end
+      ratios = Hash.new { |hash, key| hash[key] = [0, 0] }
       
-    #PSEUDO CODE: 
-    # team takes 10 shots - 9 make it, then ratio = 90% - Most accurate
-    # team takes 10 shots - 2 make it, then ratio = 20% - Least accurate
-    # find each game_id (with diff team_ids cuz 2 each in CSV file) in array divide goals/shots(float) 
-    # take(sum) floats and divide by how many games(.count)
-    # game_ids_by_season.each do |season_id|
-    #   season_id.each do |game_id_array|
-    # From Dani?? @game_teams.find_all {|game| season_game_ids.include?(game.game_id)}
-  end
+
+      @game_teams.each do |game_team|
+        games_ids_by_season[season].each do |game|
+          if game_team[:game_id] == game[:game_id]
+            ratios[game_team[:team_id]][0] += game_team[:goals]
+            ratios[game_team[:team_id]][1] += game_team[:shots]
+            end
+          end
+        end 
+
+      calculations = []
+      ratios.each do |key, value|
+        calculations << [key, ((value[0].to_f)/(value[1].to_f))]
+      end
+      result = calculations.to_h.sort_by {|key, value| value}.reverse.first.first
+
+    end
 
   # def least_accurate_team
   # end
