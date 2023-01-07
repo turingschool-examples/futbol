@@ -1,0 +1,13 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+18,34,Minnesota United FC,MIN,Allianz Field,/api/v1/teams/18
+26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
+17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
+16,11,New England Revolution,NE,Gillette Stadium,/api/v1/teams/16
+2,22,Seattle Sounders FC,SEA,Centruy Link Field,/api/v1/teams/2
+5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
+23,20,Montreal Impact,MTL,Saputo Stadium,/api/v1/teams/23
+24,32,Real Salt Lake,RSL,Rio Tinto Stadium,/api/v1/teams/24
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+8,1,New York Red Bulls,NY,Red Bull Arena,/api/v1/teams/8
+13,33,Houston Dash,HOD,BBVA Stadium,/api/v1/teams/13
+10,5,North Carolina Courage,NCC,WakeMed Soccer Park,/api/v1/teams/10
