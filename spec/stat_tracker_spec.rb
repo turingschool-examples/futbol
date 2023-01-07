@@ -105,11 +105,15 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#most_tackles and #fewest_tackles' do
-  #   it 'can find most_tackles' do
+  describe '#most_tackles and #fewest_tackles' do
+    it 'can find most_tackles' do
 
-  #   expect(stat_tracker.most_tackles(season_id)).to eq()
-  #   end
-  # end
+    expect(stat_tracker.most_tackles("20132014")).to eq("North Carolina Courage")
+    end
+
+    it 'can find fewest_tackles' do
+      expect(stat_tracker.fewest_tackles("20132014")).to eq("FC Cincinnati")
+    end
+  end
 end
 

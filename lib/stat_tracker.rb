@@ -175,7 +175,7 @@ class StatTracker
     
     
   def lowest_scoring_visitor
-    lowest_id = away_teams_average_scoring_hash.keys[0]
+    lowest_id = away_teams_average_scoring_hash.keys[2]
     worst_scoring_visitor = away_teams_average_scoring_hash[lowest_id]
     
     away_teams_average_scoring_hash.each do |id, average_score|
@@ -232,7 +232,7 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-    lowest_id = home_teams_average_scoring_hash.keys[0]
+    lowest_id = home_teams_average_scoring_hash.keys.last
     worst_scoring_home_team = home_teams_average_scoring_hash[lowest_id]
     
     home_teams_average_scoring_hash.each do |id, average_score|
@@ -242,5 +242,53 @@ class StatTracker
       end
     end
     @teams.find {|team| team[:team_id] == lowest_id}[:teamname]
+  end
+
+  def most_tackles(season)
+    tackles_by_season = Hash.new(0)
+    games_group_by_season = @games.group_by do |game|
+      game[:season]
+    end
+    game_ids = games_group_by_season[season].map do |game|
+      game[:game_id]
+    end
+    game_teams_group_by_game_id = @game_teams.group_by do |game_team|
+      game_team[:game_id]
+    end
+    game_ids.each do |id|
+      @game_teams.each do |game_team|
+        if game_team[:game_id] == id
+          tackles_by_season[game_team[:team_id]] += game_team[:tackles]
+        end
+      end
+    end
+    team_with_most_tackles= tackles_by_season.max_by do |team_tackles|
+      team_tackles[1]
+    end.first
+    @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
+  end
+
+  def fewest_tackles(season)
+    tackles_by_season = Hash.new(0)
+    games_group_by_season = @games.group_by do |game|
+      game[:season]
+    end
+    game_ids = games_group_by_season[season].map do |game|
+      game[:game_id]
+    end
+    game_teams_group_by_game_id = @game_teams.group_by do |game_team|
+      game_team[:game_id]
+    end
+    game_ids.each do |id|
+      @game_teams.each do |game_team|
+        if game_team[:game_id] == id
+          tackles_by_season[game_team[:team_id]] += game_team[:tackles]
+        end
+      end
+    end
+    team_with_most_tackles= tackles_by_season.min_by do |team_tackles|
+      team_tackles[1]
+    end.first
+    @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
   end
 end
