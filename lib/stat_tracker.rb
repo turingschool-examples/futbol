@@ -5,13 +5,15 @@ class StatTracker
               :teams, 
               :game_teams,
               :game_id,
-              :total_score_array
+              :total_score_array,
+              :team_id
              
   def initialize(locations)
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     @total_score_array = total_score
+    @team_id = @game_teams[:team_id]
   end
 
   def self.from_csv(locations)
@@ -240,6 +242,32 @@ class StatTracker
     best_home_team
   end
 
+  def game_teams_by_id
+    arr = []
+    @team_id.each do |row|
+      arr << row
+    end
+    arr = []
+  end
+
+  def average_win_percentage(team)
+    team_games = []
+    won = []
+
+    @game_teams.each do |game_team|
+      if game_team[1] == team
+        team_games << game_team
+      end
+      team_games
+    end
+
+    team_games.each do |team_game|
+      if team_game[3] == 'WIN'
+        won << team_game
+      end
+    end
+    (won.count.to_f / team_games.count).round(2)
+  end
 end
 
 

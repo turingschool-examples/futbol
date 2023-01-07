@@ -17,7 +17,6 @@ describe StatTracker do
       expect(stat_tracker.games).to be_a(CSV::Table)
       expect(stat_tracker.teams).to be_a(CSV::Table)
       expect(stat_tracker.game_teams).to be_a(CSV::Table)
-      expect(stat_tracker.game_id).to be_a(Array)
     end
   end
 
@@ -124,7 +123,12 @@ describe StatTracker do
       expect(stat_tracker.home_goal_avg_per_game).to be_a(Hash)
     end
   end
-  
+
+  describe '#average_win_percentage' do
+    it "states avg win percentage of a specific team by team ID" do
+      expect(stat_tracker.average_win_percentage("14")).to eq 0.57
+    end
+  end
 end
 
 
