@@ -84,5 +84,30 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
-end
 
+  it "#most_accurate_team" do
+    expect(stat_tracker.most_accurate_team("20162017")).to eq ("Real Salt Lake")
+    expect(stat_tracker.most_accurate_team("20122013")).to eq ("FC Dallas")
+  end
+
+  it "#least_accurate_team" do
+    expect(stat_tracker.least_accurate_team("20162017")).to eq ("Montreal Impact")
+    expect(stat_tracker.least_accurate_team("20122013")).to eq ("Seattle Sounders FC")
+  end
+
+  it "#most_goals_scored" do
+    expect(stat_tracker.most_goals_scored("6")).to eq 4
+  end
+
+  it "#fewest_goals_scored" do
+    expect(stat_tracker.fewest_goals_scored("6")).to eq 1
+  end
+
+  it "#favorite_opponent" do
+    expect(stat_tracker.favorite_opponent("6")).to eq ("Sporting Kansas City")
+  end
+
+  it "#rival" do
+    expect(stat_tracker.rival("6")).to eq("New York Red Bulls")
+  end
+end
