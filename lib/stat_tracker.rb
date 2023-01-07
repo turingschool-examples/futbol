@@ -461,4 +461,15 @@ class StatTracker
    best_season_for_team = best_season_hash.max_by {|k,v| v}
    best_season_for_team[0]
  end
+
+ def worst_season(team_id)
+	 worst_season_hash = {}
+   worst = pair_season_with_results_by_team(team_id)
+ 
+   worst.each do |season, results|
+     worst_season_hash[season] = results.count("WIN") / results.count.to_f
+   end
+   worst_season_for_team = worst_season_hash.min_by {|k,v| v}
+   worst_season_for_team[0]
+ end
 end
