@@ -142,27 +142,6 @@ class StatTracker
         end
     end
 
-    # def best_offense
-    #     # Return team with highest average number of goals over all total games
-        
-    #     hash1 = Hash.new { |hash, key| hash[key] = [] }
-    #     @game_teams.each do |game|
-    #         hash1[game[:team_id]] << game[:goals]
-    #     end
-
-    #     hash2 = Hash.new { |hash, key| hash[key] = [] }
-    #     hash1.each do |id, goals|
-    #         require 'pry'; binding.pry
-    #         hash2[id] = (goals.sum / goals.count.to_f).round(2)
-    #     end
-         
-    #     @teams.find do |game|
-    #         # .find will return first highest avg, .each will return last highest avg
-    #         if game[:team_id] == hash2.key(hash2.values.max)
-    #             return game[:teamname]
-    #         end
-    #     end
-    # end
     
     def worst_offense
         # Return team with lowest average number of goals over all total games
@@ -184,26 +163,37 @@ class StatTracker
             end
         end
     end
+
+    def most_goals_scored(team_id)
+
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.max
+    end
+
+    def least_goals_scored(team_id)
+
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.min
+    end
+
+    
+# most_goals_scored("")
+# 	Highest number of goals a particular team has scored in a single game.
+
+# need to look up by team_id and pair with goals (hash with key being id, goals being values)
+# iterate through values (goals array) and find the highest number (WILL RETURN SINGLE INTEGER)
 end
-
-     # @game_teams.group_by { |game_team| game_team[:team_id] }.keys
-
-# Find all the goals for each team(hash)
-# sum of them, and divide by total elements (average)
-# iterate through hash of team ids and averages - find max or min value
-# iterate through teams.csv & match team id with team name
-# if team id inside of teams csv file matches team id hash with avg goals,
-# call max value on second array
-
-# if the team id in the teams file has the same id as the one in the array with the max value
-# return that team name
-
-# home team total scores
-# away team total scores
-
-# Make 2 hashes - 
-# away team id with away goals
-
-
-# home team id w home goals
-# Set to another hash sorted by team id and sum of the away and home goals for that Id

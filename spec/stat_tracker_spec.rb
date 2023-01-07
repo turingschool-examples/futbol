@@ -100,5 +100,13 @@ RSpec.describe StatTracker do
         it '#worst_offense' do
         expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
         end
+
+        it '#most_goals_scored' do
+        expect(@stat_tracker.most_goals_scored("52")).to eq(2)
+        end
+
+        it '#least_goals_scored' do
+        expect(@stat_tracker.least_goals_scored("52")).to eq(1)
+        end
     end
 end
