@@ -107,7 +107,7 @@ class StatTracker
     games_by_season = @games.group_by do |game| 
       game[:season]
     end
-    
+
     games_by_season.each do |season, games|
       hash[season] = 0
       games.each do |game|
@@ -326,5 +326,175 @@ class StatTracker
     end
     worst_offense_id = percent_team_goals.min_by { |percent_team_goal| percent_team_goal[1]}.first
     @teams.find {|team| team[:team_id] == worst_offense_id}[:teamname]
+  end
+
+  def most_accurate_team(season)
+    team_accuracy = {}
+
+    season_games = @game_teams.select {|game_team| game_team[:game_id][0..3] == season[0..3]}
+    season_team_ids = season_games.group_by {|season_game| season_game[:team_id]}.keys
+  
+    season_team_ids.each do |season_team_id|
+      team_season_games = season_games.select {|season_game| season_game[:team_id] == season_team_id}
+      team_season_goals = team_season_games.sum {|team_season_game| team_season_game[:goals]}
+      team_season_shots = team_season_games.sum {|team_season_game| team_season_game[:shots]}
+      team_accuracy[season_team_id] = team_season_goals / team_season_shots.to_f 
+    end   
+    best_team = team_accuracy.max_by {|team| team[1]}[0]
+    @teams.find {|team| team[:team_id] == best_team}[:teamname]
+  end
+
+  def least_accurate_team(season)
+    team_accuracy = {}
+
+    season_games = @game_teams.select {|game_team| game_team[:game_id][0..3] == season[0..3]}
+    season_team_ids = season_games.group_by {|season_game| season_game[:team_id]}.keys
+    
+    season_team_ids.each do |season_team_id|
+      team_season_games = season_games.select {|season_game| season_game[:team_id] == season_team_id}
+      team_season_goals = team_season_games.sum {|team_season_game| team_season_game[:goals]}
+      team_season_shots = team_season_games.sum {|team_season_game| team_season_game[:shots]}
+      team_accuracy[season_team_id] = team_season_goals / team_season_shots.to_f 
+    end
+    worst_team = team_accuracy.min_by {|team| team[1]}[0]
+    @teams.find {|team| team[:team_id] == worst_team}[:teamname]
+  end
+  
+  def most_goals_scored(team_id)
+    team_games = @game_teams.select {|game_team| game_team[:team_id] == team_id}
+    team_games.max_by {|team_game| team_game[:goals]}[:goals]
+  end
+
+  def fewest_goals_scored(team_id)
+    team_games = @game_teams.select {|game_team| game_team[:team_id] == team_id}
+    team_games.min_by {|team_game| team_game[:goals]}[:goals]
+  end
+  
+  def favorite_opponent(team_id)
+    team_games = @games.select {|game| game[:away_team_id] == team_id || 
+                                       game[:home_team_id] == team_id}
+    team_game_teams = team_games.map do |team_game|
+        @game_teams.find {|game_team| game_team[:game_id] == team_game[:game_id] && game_team[:team_id] != team_id}
+    end
+    team_game_opponents = team_game_teams.group_by {|team_game_team| team_game_team[:team_id]}
+    team_game_win_percentages = team_game_opponents.transform_values do |team_game_opponent|
+      opponent_losses = team_game_opponent.count {|game_team| game_team[:result] == "LOSS"}
+      opponent_losses / team_game_opponent.count.to_f
+    end
+    favorite_team_id = team_game_win_percentages.max_by do |team_game_win_percentage| 
+      team_game_win_percentage[1]
+    end.first
+    @teams.find {|team| team[:team_id] == favorite_team_id}[:teamname]
+  end
+
+  def rival(team_id)
+    team_games = @games.select {|game| game[:away_team_id] == team_id || 
+                                       game[:home_team_id] == team_id}
+    team_game_teams = team_games.map do |team_game|
+        @game_teams.find {|game_team| game_team[:game_id] == team_game[:game_id] && game_team[:team_id] != team_id}
+    end
+    team_game_opponents = team_game_teams.group_by {|team_game_team| team_game_team[:team_id]}
+    team_game_win_percentages = team_game_opponents.transform_values do |team_game_opponent|
+      opponent_wins = team_game_opponent.count {|game_team| game_team[:result] == "WIN"}
+      opponent_wins / team_game_opponent.count.to_f
+    end
+    rival_team_id = team_game_win_percentages.max_by do |team_game_win_percentage| 
+      team_game_win_percentage[1]
+    end.first
+    @teams.find {|team| team[:team_id] == rival_team_id}[:teamname]
+  end  
+ 
+  def winningest_coach(season)
+    season_coach_records(season).max_by { |coach| coach[1] }[0]
+  end
+
+  def worst_coach(season)
+    season_coach_records(season).min_by { |coach| coach[1] }[0]
+  end
+
+  def season_games(season)
+    @games.select { |game| game[:season] == season }
+  end
+
+  def season_game_teams(season)
+    @game_teams.select { |game_team| game_team[:game_id][0..3] == season[0..3] }
+  end
+
+  def season_coaches(season)
+    season_coaches = []
+
+    season_games(season).each do |season_game|
+      season_game[:game_id]
+      season_game_teams(season).each do |season_game_team| 
+        season_coaches << season_game_team[:head_coach] unless season_coaches.include?(season_game_team[:head_coach])
+      end
+    end
+
+    season_coaches
+  end
+
+  def season_coach_records(season)
+    season_coach_records = {}
+
+    season_coaches(season).each do |season_coach|
+      coach_season_games = season_game_teams(season).select { |game_team| game_team[:head_coach] == season_coach } 
+      coach_season_wins = coach_season_games.count { |game| game[:result] == "WIN" }
+      coach_season_total_games = coach_season_games.length
+      season_coach_records[season_coach] = coach_season_wins / coach_season_total_games.to_f * 100 
+    end
+ 
+    season_coach_records
+  end
+
+  def best_season(team_id)
+    team_games = @games.select { |game| game[:away_team_id] == team_id || game[:home_team_id] == team_id }
+    team_season_games = team_games.group_by { |team_game| team_game[:season] }
+    
+    team_season_game_teams = team_season_games.transform_values do |team_season_games|
+      team_games = []
+      team_season_games.map do |team_season_game| 
+        team_games << game_teams.find { |game_team| game_team[:game_id] == team_season_game[:game_id] &&
+                                                    game_team[:team_id] == team_id }
+      end
+      team_games
+    end
+
+    team_season_win_percentage = team_season_game_teams.transform_values do |team_season_game_teams|
+      team_season_game_teams.count { |team_season_game_team| team_season_game_team[:result] == "WIN" }.to_f / team_season_game_teams.count
+    end
+
+    team_season_win_percentage.max_by { |season| season[1] }[0]
+  end
+
+  def worst_season(team_id)
+    team_games = @games.select { |game| game[:away_team_id] == team_id || game[:home_team_id] == team_id }
+    team_season_games = team_games.group_by { |team_game| team_game[:season] }
+    
+    team_season_game_teams = team_season_games.transform_values do |team_season_games|
+      team_games = []
+      team_season_games.map do |team_season_game| 
+        team_games << game_teams.find { |game_team| game_team[:game_id] == team_season_game[:game_id] &&
+                                                    game_team[:team_id] == team_id }
+      end
+      team_games
+    end
+
+    team_season_win_percentage = team_season_game_teams.transform_values do |team_season_game_teams|
+      team_season_game_teams.count { |team_season_game_team| team_season_game_team[:result] == "WIN" }.to_f / team_season_game_teams.count
+    end
+
+    team_season_win_percentage.min_by { |season| season[1] }[0]
+  end
+
+  def team_info(team_id)
+    team = @teams.find { |team| team[:team_id] == team_id }
+
+    hash = { 
+      "team_id" => team[:team_id],
+      "franchise_id" => team[:franchiseid],
+      "team_name" => team[:teamname],
+      "abbreviation" => team[:abbreviation],
+      "link" => team[:link]
+    }
   end
 end

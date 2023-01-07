@@ -131,5 +131,69 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("FC Cincinnati")
     end
   end
-end
 
+  describe '#winningest_coach' do
+    it 'can return the coach with the best win percentage for a season' do
+      expect(stat_tracker.winningest_coach("20152016")).to eq("Michel Therrien")
+    end
+  end
+
+  describe '#worst_coach' do
+    it 'can return the coach with the worst win percentage for a season' do
+      expect(stat_tracker.worst_coach("20152016")).to eq("Jeff Blashill")
+    end
+  end
+
+  describe '#best_season' do
+    it 'can return the best season for a team' do
+      expect(stat_tracker.best_season("6")).to eq("20122013")
+    end
+  end
+
+  describe '#worst_season' do
+    it 'can return the worst season for a team' do
+      expect(stat_tracker.worst_season("6")).to eq("20152016")
+    end
+  end
+
+  describe '#team_info' do
+    it "can return team info" do
+      expected = {
+        "team_id" => "26",
+        "franchise_id" => "14",
+        "team_name" => "FC Cincinnati",
+        "abbreviation" => "CIN",
+        "link" => "/api/v1/teams/26"
+      }
+
+      expect(stat_tracker.team_info("26")).to eq(expected)
+    end
+  end
+
+
+  it "#most_accurate_team" do
+    expect(stat_tracker.most_accurate_team("20162017")).to eq ("Real Salt Lake")
+    expect(stat_tracker.most_accurate_team("20122013")).to eq ("FC Dallas")
+  end
+
+  it "#least_accurate_team" do
+    expect(stat_tracker.least_accurate_team("20162017")).to eq ("Montreal Impact")
+    expect(stat_tracker.least_accurate_team("20122013")).to eq ("Seattle Sounders FC")
+  end
+
+  it "#most_goals_scored" do
+    expect(stat_tracker.most_goals_scored("6")).to eq 4
+  end
+
+  it "#fewest_goals_scored" do
+    expect(stat_tracker.fewest_goals_scored("6")).to eq 1
+  end
+
+  it "#favorite_opponent" do
+    expect(stat_tracker.favorite_opponent("6")).to eq ("Sporting Kansas City")
+  end
+
+  it "#rival" do
+    expect(stat_tracker.rival("6")).to eq("New York Red Bulls")
+  end
+end
