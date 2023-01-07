@@ -34,4 +34,10 @@ module Sort
 		end
 	end
 
+	def game_ids_for_season(season_id)
+		games = games_played_by_season[season_id]
+		games.map do |game|
+			game.info[:game_id]
+		end
+  end
 end
