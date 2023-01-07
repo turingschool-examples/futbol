@@ -177,7 +177,7 @@ class StatTracker
         game_goals_list.max
     end
 
-    def least_goals_scored(team_id)
+    def fewest_goals_scored(team_id)
 
         game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
         
