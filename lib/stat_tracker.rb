@@ -113,64 +113,6 @@ class StatTracker
         end
     end
 
-    def did_win(game)
-        game[:home_goals] > game[:away_goals]
-    end
-
-    def best_season(team_id)
-        games = @games.find_all { |team| team[:home_team_id] == team_id }
-        game_teams = @game_teams.find_all { |team| team[:team_id] == team_id }
-        game_teams_by_season = games.group_by { |game| game[:season] }
-        # binding.pry
-
-        season_percentages = []
-        game_teams_by_season.each do |season, season_games|
-            percent_wins_by_season = (season_games.count { |game| did_win(game) } / season_games.length.to_f).round(2)
-            season_with_percent = Hash.new(0)
-            season_with_percent[season] = percent_wins_by_season
-            season_percentages << season_with_percent
-        end
-       
-        highest_percent_w_season = nil
-        season_percentages.each do |season_w_percent|
-            percent_wins = season_w_percent.values.max
-            if highest_percent_w_season
-                highest_percent_w_season = season_w_percent if percent_wins > highest_percent_w_season.values.max
-            else
-                highest_percent_w_season = season_w_percent
-            end
-        end
-        highest_percent_w_season.keys[0]
-    end
-
-    def did_lose(game)
-        game[:home_goals] < game[:away_goals]
-    end
-
-    def worst_season(team_id)
-        games = @games.find_all { |team| team[:home_team_id] == team_id }
-        game_teams = @game_teams.find_all { |team| team[:team_id] == team_id }
-        game_teams_by_season = games.group_by { |game| game[:season] }
-        # binding.pry
-
-        season_percentages = []
-        game_teams_by_season.each do |season, season_games|
-            percent_wins_by_season = (season_games.count { |game| did_lose(game) } / season_games.length.to_f).round(2)
-            season_with_percent = Hash.new(0)
-            season_with_percent[season] = percent_wins_by_season
-            season_percentages << season_with_percent
-            # binding.pry
-        end
-       
-        lowest_percent_w_season = {"initial_value" => 1}
-        season_percentages.each do |season_w_percent|
-            percent_wins = season_w_percent.values[0]
-            lowest_percent_w_season = season_w_percent if percent_wins < lowest_percent_w_season.values[0]
-            # binding.pry
-        end
-        lowest_percent_w_season.keys[0]
-    end
-
     def highest_scoring_visitor
         team_total_goals = Hash.new (0)
         @game_teams.each do |game|
@@ -298,5 +240,23 @@ class StatTracker
             # binding.pry
         end
         lowest_percent_w_season.keys[0]
+    end
+
+    def favorite_opponent(team_id)
+        wins_vs_opponent = Hash.new(0)
+        @games.each do |team|
+            if team[:home_team_id] || team[:away_team_id] == team_id
+                if (team[:home_team_id] == team_id) && (team[:home_goals] > team[:away_goals])
+                 wins_vs_opponent[team[:away_team_id]] += 1.0
+                    # require "pry"; binding.pry
+                else (team[:away_team_id] == team_id) && (team[:away_goals] > team[:home_goals])
+                    wins_vs_opponent[team[:home_team_id]] += 1.0
+                end
+            end
+        end
+        most_wins = wins_vs_opponent.key(wins_vs_opponent.values.max)
+    
+        favorite_opponent = @teams.find { |team| team[:teamname] if team[:team_id] == most_wins }
+        favorite_opponent[:teamname]
     end
 end
