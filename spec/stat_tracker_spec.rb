@@ -257,13 +257,75 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#team_info' do
-    it 'returns a hash of the team info attributes' do
-      expected = {"team_id"=>"6", "franchise_id"=>"6",
-                  "team_name"=>"FC Dallas", "abbreviation"=>"DAL",
-                   "link"=>"/api/v1/teams/6"}
-      expect(@stat_tracker.team_info('6')).to eq(expected)
+  describe '#team_info' do 
+    it 'is team info' do 
+      expected = {
+        "team_id"=>"6", 
+        "franchise_id"=>"6",
+        "team_name"=>"FC Dallas", 
+        "abbreviation"=>"DAL",
+        "link"=>"/api/v1/teams/6"
+      }
+
+      expect(@stat_tracker.team_info("6")).to eq(expected)
     end
   end
+
+  describe '#pair_teams_with_results' do 
+    it 'pairs the teams with their win and game id' do 
+      expect(@stat_tracker.pair_teams_with_results("6").class).to eq(Hash)
+    end
+  end
+
+  describe '#pair_season_with_results_by_team' do 
+    it 'is a sandbox' do 
+      expect(@stat_tracker.pair_season_with_results_by_team("6").class).to eq(Hash)
+    end
+  end
+
+  describe '#best_season' do 
+    it 'is the best season for a team' do 
+      expect(@stat_tracker.best_season("6")).to eq("20122013")
+    end
+  end
+
+  describe '#team_info' do
+   it 'is team info' do
+     expected = {
+       "team_id"=>"6",
+       "franchise_id"=>"6",
+       "team_name"=>"FC Dallas",
+       "abbreviation"=>"DAL",
+       "link"=>"/api/v1/teams/6"
+     }
+ 
+     expect(@stat_tracker.team_info("6")).to eq(expected)
+   end
+ end
+ 
+ describe '#pair_teams_with_results' do
+   it 'pairs the teams with their win and game id' do
+     expect(@stat_tracker.pair_teams_with_results("6").class).to eq(Hash)
+   end
+ end
+ 
+ describe '#pair_season_with_results_by_team' do
+   it 'is a sandbox' do
+     expect(@stat_tracker.pair_season_with_results_by_team("6").class).to eq(Hash)
+   end
+ end
+ 
+ describe '#best_season' do
+   it 'is the best season for a team' do
+     expect(@stat_tracker.best_season("6")).to eq("20122013")
+   end
+ end
+
+ describe '#worst_season' do
+   it 'is the best season for a team' do
+     expect(@stat_tracker.worst_season("6")).to eq("20122013")
+   end
+ end
+
 
 end
