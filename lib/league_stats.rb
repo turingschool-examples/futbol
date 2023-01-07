@@ -57,4 +57,22 @@ include Sort
       hash[team] = (goals.sum.to_f / goals.count).round(2)
 		end
 	end
+
+  def best_offense
+		hash = Hash.new(0)
+		games_by_team_id.each do |team_id, array_of_games|
+			hash[team_id] = (array_of_games.sum { |g| g.info[:goals].to_f})/array_of_games.count
+		end
+		team_id = hash.key(hash.values.max)
+    team_name_by_id(team_id)
+  end
+
+	def worst_offense
+		hash = Hash.new(0)
+		games_by_team_id.each do |team_id, array_of_games|
+			hash[team_id] = (array_of_games.sum { |g| g.info[:goals].to_f})/array_of_games.count
+		end
+		team_id = hash.key(hash.values.min)
+    team_name_by_id(team_id)
+  end
 end
