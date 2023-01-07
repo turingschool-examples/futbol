@@ -573,13 +573,11 @@ class StatTracker
     end
 
     def favorite_opponent(team_id)
-      # require 'pry'; binding.pry
       favorite_id = opponents_win_sorted(team_id).first.first
       find_team_name(favorite_id)
     end
 
     def rival(team_id)
-      # require 'pry'; binding.pry
       favorite_id = opponents_win_sorted(team_id).last.first
       find_team_name(favorite_id)
     end
