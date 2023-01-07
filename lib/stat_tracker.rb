@@ -539,6 +539,24 @@ class StatTracker
       lat.team_name
 
     end
+
+
+  def game_ids_seasons(team_id)
+    seasons_hash = Hash.new{|h,v| h[v] = []}
+    games.each do |game| 
+      # require 'pry'; binding.pry
+      seasons_hash[game.season] << game.game_id
+    end  
+    seasons_hash
+    # require 'pry'; binding.pry
+  end
+
+  def best_season(team_id)
+    seasons_perc_win(team_id)
+    # season_hash = Hash.new{|h,v| h[v] = { games_won: 0 , games_played: 0 }}
+    # game.season.uniq 
+      # require 'pry'; binding.pry
+  end
+# best_season	Season with the highest win percentage for a team.	String
+# worst_season	Season with the lowest win percentage for a team.	String
 end
-
-
