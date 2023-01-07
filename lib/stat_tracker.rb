@@ -31,16 +31,13 @@ class StatTracker
 	def lowest_total_score
 		total_scores.min
 	end
-
-  def all_team_names
+  
+  def count_of_teams
     teams = []
     @teams.map do |row|
       teams << row[:teamName]
     end
-  end
-
-  def count_of_teams
-    all_team_names.count
+    teams.count
   end
 
   def average_goals_per_game

@@ -8,4 +8,5 @@ require './lib/teams'
 require './lib/teams_stats'
 require './lib/game_statistics'
 require './lib/season_statistics'
-
+require './lib/league_stats'
+require './lib/game_statistics'

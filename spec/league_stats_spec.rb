@@ -1,0 +1,33 @@
+require './spec/spec_helper'
+
+describe LeagueStats do
+  before do 
+    teams_path = './data/teams.csv'
+    game_teams_path = './data/game_teams_sample.csv'
+    games_path = './data/games_sample.csv'
+    @game_teams = GameTeams.create_game_teams(game_teams_path)
+    @teams = Team.create_teams(teams_path)
+    @games = Game.create_games(games_path)
+  end
+
+  let(:league_stat) { LeagueStats.new(@game_teams, @teams, @games) }
+
+  describe '' do
+    it 'exists' do
+      expect(league_stat).to be_a(LeagueStats)
+    end
+  end
+
+  describe '#count_of_teams' do
+  it 'returns the total number of teams' do
+    expect(league_stat.count_of_teams).to eq(32)
+  end
+
+  describe '#highest_scoring_visitor' do
+  it 'returns the NAME of the team who scored the most goals per game as the away team' do
+    expect(league_stat.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+end
+end
+end
