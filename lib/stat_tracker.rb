@@ -155,13 +155,13 @@ class StatTracker
 	end
 
 	def tackles_by_team_id(array_of_game_id)
-		tackles = Hash.new {|k, v| k[v] = []}
+		hash = Hash.new {|k, v| k[v] = []}
 		array_of_game_id.each do |game_id|
 			games_by_game_id[game_id].each do |game|
-				tackles[game[:team_id]] << game[:tackles].to_i
+				hash[game[:team_id]] << game[:tackles].to_i
 			end
 		end
-		tackles
+		hash
 	end
 
 	def winningest_coach(season_id)
@@ -216,33 +216,23 @@ class StatTracker
 	end
 
 	def win_or_loss(team_id, win_loss_string)
-		opponent_games = games_of_opposite_team(team_id)
-		opponent_results = opponent_game_results(opponent_games)
-		opponent_results.each do |k,v|
-			opponent_results[k] = (v.count(win_loss_string).to_f / v.count).round(2)
-		end
-		team_id = opponent_results.key(opponent_results.values.max)
-		find_team_by_id[team_id].first[:teamname]
-	end
-
-	def opponent_game_results(opponent_games)
-		opponent_results = Hash.new {|k,v| k[v] = []}
-		opponent_games.each do |game_id, game|
-			opponent_results[game[:team_id]] << game[:result]
-		end
-		opponent_results
-	end
-
-	def games_of_opposite_team(team_id)
-		all_games_by_team = games_by_team_id[team_id.to_s].find_all do |game|
+		games = games_by_team_id[team_id.to_s].find_all do |game|
 			game[:team_id] == team_id.to_s
 		end
-		opponent_games = {}
-		all_games_by_team.each do |game|
+		hash = {}
+		games.each do |game|
 			game = games_by_game_id[game[:game_id]].find {|element| element[:team_id] != team_id.to_s}
-			opponent_games[game[:game_id]] = game
+			hash[game[:game_id]] = game
 		end
-		opponent_games
+		new_hash = Hash.new {|k,v| k[v] = []}
+		hash.each do |game_id, game|
+			new_hash[game[:team_id]] << game[:result]
+		end
+		new_hash.each do |k,v|
+			new_hash[k] = (v.count(win_loss_string).to_f / v.count).round(2)
+		end
+		team_id = new_hash.key(new_hash.values.max)
+		find_team_by_id[team_id].first[:teamname]
 	end
 
 	def games_by_team_id
