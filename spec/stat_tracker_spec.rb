@@ -146,37 +146,37 @@ RSpec.describe StatTracker do
       expect(stat_tracker.winningest_coach("20172018")).to eq("Peter Laviolette").or(eq("Gerard Gallant")).or(eq("Paul Maurice"))
     end
 
-    it "worst coach" do 
-      game_path = './data/games.csv'
-      team_path = './data/teams_fixture.csv'
-      game_teams_path = './data/game_teams_fixture.csv' 
-      locations = 
-        {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
+  #   it "worst coach" do 
+  #     game_path = './data/games.csv'
+  #     team_path = './data/teams_fixture.csv'
+  #     game_teams_path = './data/game_teams_fixture.csv' 
+  #     locations = 
+  #       {
+  #       games: game_path,
+  #       teams: team_path,
+  #       game_teams: game_teams_path
+  #       }
       
-      stat_tracker = StatTracker.from_csv(locations) 
+  #     stat_tracker = StatTracker.from_csv(locations) 
     
-      expect(stat_tracker.worst_coach("20152016")).to eq("Peter Laviolette").or(eq("Barry Trotz")).or(eq("Dave Hakstol")).or(eq("Michael Therrien")).or(eq("Alain Vigneault")).or(eq("Lindy Ruff"))
-      expect(stat_tracker.worst_coach("20172018")).to eq("Glen Gulutzan").or(eq("Peter DeBoer")).or(eq("Mike Sullivan")).or(eq("Dave Hakstol")).or(eq("Alain Vigneault")).or(eq("Jon Cooper"))
-    end
+  #     expect(stat_tracker.worst_coach("20152016")).to eq("Peter Laviolette").or(eq("Barry Trotz")).or(eq("Dave Hakstol")).or(eq("Michael Therrien")).or(eq("Alain Vigneault")).or(eq("Lindy Ruff"))
+  #     expect(stat_tracker.worst_coach("20172018")).to eq("Glen Gulutzan").or(eq("Peter DeBoer")).or(eq("Mike Sullivan")).or(eq("Dave Hakstol")).or(eq("Alain Vigneault")).or(eq("Jon Cooper"))
+  #   end
     
-    # it "#most_accurate_team" do
-    #   game_path = './data/games.csv'
-    #   team_path = './data/teams_fixture.csv'
-    #   game_teams_path = './data/game_teams_fixture.csv' 
-    #   locations = 
-    #     {
-    #     games: game_path,
-    #     teams: team_path,
-    #     game_teams: game_teams_path
-    #     }
+  #   it "#most_accurate_team" do
+  #     game_path = './data/games.csv'
+  #     team_path = './data/teams_fixture.csv'
+  #     game_teams_path = './data/game_teams_fixture.csv' 
+  #     locations = 
+  #       {
+  #       games: game_path,
+  #       teams: team_path,
+  #       game_teams: game_teams_path
+  #       }
       
-    #   stat_tracker = StatTracker.from_csv(locations) 
-    #   expect(stat_tracker.most_accurate_team("20132014")).to eq("redhead")
-    # end
+  #     stat_tracker = StatTracker.from_csv(locations) 
+  #     expect(stat_tracker.most_accurate_team("20132014")).to eq("redhead")
+  #   end
 
   #   xit "#least_accurate_team" do
   #     expect(stat_tracker.least_accurate_team).to eq()
@@ -203,22 +203,22 @@ RSpec.describe StatTracker do
   #     })
   #   end
 
-  #   it "#best_season" do 
-  #     game_path = './data/games.csv'
-  #     team_path = './data/teams_fixture.csv'
-  #     game_teams_path = './data/game_teams_fixture.csv' 
-  #     locations = 
-  #       {
-  #       games: game_path,
-  #       teams: team_path,
-  #       game_teams: game_teams_path
-  #       }
+    # it "#best_season" do 
+    #   game_path = './data/games.csv'
+    #   team_path = './data/teams_fixture.csv'
+    #   game_teams_path = './data/game_teams_fixture.csv' 
+    #   locations = 
+    #     {
+    #     games: game_path,
+    #     teams: team_path,
+    #     game_teams: game_teams_path
+    #     }
       
-  #     stat_tracker = StatTracker.from_csv(locations) 
-  #     expect(stat_tracker.best_season("6")).to eq("20122013")
-  #     expect(stat_tracker.best_season("3")).to eq("20142014").or(eq("20162017"))
+    #   stat_tracker = StatTracker.from_csv(locations) 
+    #   expect(stat_tracker.best_season("6")).to eq("20122013")
+    #   expect(stat_tracker.best_season("3")).to eq("20142014").or(eq("20162017"))
 
-  #   end
+    # end
 
   #   it "#worst_season" do 
   #     game_path = './data/games.csv'

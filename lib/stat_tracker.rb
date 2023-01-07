@@ -307,86 +307,57 @@ class StatTracker
 
   #  WINNINGNEST/WORST COACH AND HELPER METHODS BELOW 
   def winningest_coach(season)
-    raw_hash_values(season, "winning")
+    coach_hash = coach_victory_percentage_hash(season)
+    ratios = determine_sorted_ratio(coach_hash)
+    coach = ratios.reverse.first.first
+
   end 
 
   def worst_coach(season)
-    raw_hash_values(season, "worst")
+    coach_hash = coach_victory_percentage_hash(season)
+    ratios = determine_sorted_ratio(coach_hash)
+    coach = ratios.first.first
   end
 
-  def raw_hash_values(season, type)
-    coach_games = Hash.new(0)
-    coach_victories = Hash.new(0)
-    total_games = determine_games(season)
-    all_coaches = total_games.group_by do |game|
-      game[:head_coach]
-    end
-    all_coaches.keys.each do |coach|
-      coach_games[coach] = 0
-      coach_victories[coach] = 0
-  end
-    games.each do |game|
-      game_teams.each do |game_team|
-        if game[:season] == season 
-          if game_team[:game_id] == game[:game_id]
-            if game_team[:result]== "LOSS"
-              coach_games[game_team[:head_coach]] += 1
-            elsif game_team[:result] == "TIE"
-              coach_games[game_team[:head_coach]] += 1
-            elsif game_team[:result] == "WIN"
-              coach_victories[game_team[:head_coach]] += 1 
-              coach_games[game_team[:head_coach]] += 1
-            end
-          end 
-        end 
-      end 
-    end 
-    sort_coach_percentages(coach_games, coach_victories, type)
-  end
+  def list_gameteams_from_particular_season(season)
+ 
+    games_in_season = games.find_all {|game| game[:season] == season} 
+    games_in_season_gameid = games_in_season.map {|game| game[:game_id]} 
 
-  def determine_games(season)
-    games_in_season = games.find_all do |game| 
-      game[:season] == season
-    end 
-    games_in_season_gameid = games_in_season.map do |game| 
-      game[:game_id]
-    end 
-    total_relevant_games = []
+    total_relevant_gameteams_from_season = []
     games_in_season_gameid.each do |game_id| 
       game_teams.each do |game_team|
         if game_team[:game_id] == game_id
-          total_relevant_games << game_team
+          total_relevant_gameteams_from_season << game_team
         end 
       end
     end
-    return total_relevant_games
+    return total_relevant_gameteams_from_season
   end 
 
-  def sort_coach_percentages(coach_games, coach_victories, type)
-    additional_hash = {}
-    coach_games.each do |key, value|
-      coach_victories.each do |key_v, value_v|
-        if key == key_v 
-          percent = (value_v / value.to_f) 
-        additional_hash[key] = percent
-        end
-      end
-    end
-    sorted_array = additional_hash.sort_by do |key, value|
-      value
-    end
-    determine_coach(sorted_array, type)
+  def coach_victory_percentage_hash(season)
+    games_in_season = list_gameteams_from_particular_season(season)
+    coach= Hash.new{ |hash, key| hash[key] = [0,0] }
+
+    games_in_season.each do |game_team|
+        coach[game_team[:head_coach]][1] += 1
+        if game_team[:result] == "WIN"
+          coach[game_team[:head_coach]][0] += 1
+        end 
+      end 
+      require 'pry'; binding.pry
+    return coach
   end 
 
-  def determine_coach(sorted_array, type)
-    if type == "winning"
-      sorted_array = sorted_array.reverse
-    elsif type == "worst"
-      sorted_array = sorted_array
-    end 
-    result = sorted_array[0][0]
-    return result 
-  end 
+  def determine_sorted_ratio(hash)
+    calculations = []
+    hash.each {|key, value| calculations << [key, ((value[0].to_f)/(value[1].to_f))]}
+    result = calculations.to_h.sort_by {|key, value| value}
+  end
+
+
+
+  
   #  WINNINGNEST/WORST COACH AND HELPER METHODS ABOVE 
 
   #  MOST/LEAST ACCURATE TEAM METHODS BELOW
@@ -399,8 +370,8 @@ class StatTracker
       @games.group_by do |game|
         games_ids_by_season[game[:season]] << game
       end
+
       ratios = Hash.new { |hash, key| hash[key] = [0, 0] }
-      
 
       @game_teams.each do |game_team|
         games_ids_by_season[season].each do |game|
@@ -417,6 +388,11 @@ class StatTracker
       end
       result = calculations.to_h.sort_by {|key, value| value}.reverse.first.first
 
+      @teams.each do |team|
+        if team[:team_id] == result
+          return team[:team_name]
+        end
+      end
     end
 
   # def least_accurate_team
@@ -448,10 +424,11 @@ class StatTracker
 end
 # BEST AND WORST SEASON
   def best_season(team_id)
-    relevant_game_teams = find_relevant_game_teams(team_id)
-    relevant_games = find_relevant_games(relevant_game_teams)
-    hash_seasons = group_by_season(relevant_games, relevant_game_teams) 
-    season_array = order_list(hash_seasons)
+    relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
+    relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
+    results_by_season = group_by_season(relevant_games, relevant_game_teams) 
+    require 'pry'; binding.pry
+    season_array = order_list(results_by_season)
     
     season_array.sort.reverse[0][1]
 
@@ -461,49 +438,39 @@ end
   def worst_season(team_id)
     relevant_game_teams = find_relevant_game_teams(team_id)
     relevant_games = find_relevant_games(relevant_game_teams)
-    hash_seasons = group_by_season(relevant_games, relevant_game_teams) 
-    season_array = order_list(hash_seasons)
+    results_by_season = group_by_season(relevant_games, relevant_game_teams) 
+    season_array = order_list(results_by_season)
     
     season_array.sort[0][1]
 
   end
 
-  def find_relevant_game_teams(team_id)
-    relevant_game_teams = game_teams.find_all do |game_team|
-      game_team[:team_id] == team_id
-    end
+  def find_relevant_game_teams_by_teamid(team_id)
+    game_teams.find_all { |game_team| game_team[:team_id] == team_id }
   end 
 
-  def find_relevant_games(relevant_game_teams)
-    relevant_games = []
-    games.each do |game|
-      relevant_game_teams.each do |game_team|
-        if game[:game_id] == game_team[:game_id]
-          relevant_games << game 
-        end
+  def find_corresponding_games_by_gameteam(relevant_game_teams)
+    games.find_all do |game|
+      relevant_game_teams.each {|game_team| game_team[:game_id] == game[:game_id]} 
       end
-    end
-    return relevant_games
-  end 
-
+  end
+   
   def group_by_season(relevant_games, relevant_game_teams)
-
-    new_hash = Hash.new{ |hash, key| hash[key] = [] }
-    
-    grouped = relevant_games.group_by do |game|
-      game[:season]
-    end 
+    results_by_season = Hash.new{ |hash, key| hash[key] = [] }
+    grouped = relevant_games.group_by { |game| game[:season]}
 
     grouped.each do |key, values|
+      # require 'pry'; binding.pry
       values.each do |value|
       relevant_game_teams.each do |game_team|
           if value[:game_id] == game_team[:game_id]
-            new_hash[key] << game_team[:result]
+            results_by_season[key] << game_team[:result]
           end
         end
       end
     end
-    return new_hash 
+    # require 'pry'; binding.pry
+    return results_by_season 
   end 
 
   def order_list(hash_seasons)

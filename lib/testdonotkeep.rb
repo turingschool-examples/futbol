@@ -1,6 +1,5 @@
-         # if ratios[info_line[:team_id]].nil?
-            #   ratios[info_line[:team_id]] = [0, 0]
-            # end
-  
-            # ratios[info_line[:team_id]][0] += info_line[:goals]
-            # ratios[info_line[:team_id]][1] += info_line[:shots]
+def find_corresponding_games_by_gameteam(relevant_game_teams)
+   games.find_all do |game|
+     relevant_game_teams.each {|game_team| game_team[:game_id] == game[:game_id]} 
+     end
+ end
