@@ -188,6 +188,10 @@ class StatTracker
         }
     end
 
+    def did_win(game)
+        game[:home_goals] > game[:away_goals]
+    end
+
     def best_season(team_id)
         games = @games.find_all { |team| team[:home_team_id] == team_id }
         game_teams = @game_teams.find_all { |team| team[:team_id] == team_id }
@@ -214,9 +218,9 @@ class StatTracker
         highest_percent_w_season.keys[0]
     end
 
-    # def did_lose(game)
-    #     game[:home_goals] > game[:away_goals]
-    # end
+    def did_lose(game)
+        game[:home_goals] < game[:away_goals]
+    end
 
     def worst_season(team_id)
         games = @games.find_all { |team| team[:home_team_id] == team_id }
@@ -226,11 +230,11 @@ class StatTracker
 
         season_percentages = []
         game_teams_by_season.each do |season, season_games|
-            percent_wins_by_season = (season_games.count { |game| did_win(game) } / season_games.length.to_f).round(2)
+            percent_wins_by_season = (season_games.count { |game| did_lose(game) } / season_games.length.to_f).round(2)
             season_with_percent = Hash.new(0)
             season_with_percent[season] = percent_wins_by_season
             season_percentages << season_with_percent
-            binding.pry
+            # binding.pry
         end
        
         lowest_percent_w_season = {"initial_value" => 1}
