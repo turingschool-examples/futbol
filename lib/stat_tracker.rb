@@ -221,4 +221,6 @@ class StatTracker
 
     worst_offensive_team_name = teams.find {|row| row[:team_id] == worst_offensive_team_id}[:teamname]
   end	
+
+	
 end
