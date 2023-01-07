@@ -247,13 +247,17 @@ describe StatTracker do
     end
     ##TEAM STATISTICS BELOW
     it '#game_ids_seasons' do
-      expect(stat_tracker.game_ids_seasons("6")).to be_an(Hash)
+      expect(stat_tracker.game_ids_seasons("6")).to be_an()
     end
 
-    xit 'returns the #best_season with the highest win percentage for a team' do
+    it '#seasons_perc_win' do
+      expect(stat_tracker.seasons_perc_win("6")).to be_an(Hash)
+    end
+
+    it 'returns the #best_season with the highest win percentage for a team' do
       expect(stat_tracker.best_season("6")).to be_an(String)
     end
-    
+  
     it 'can generate goals_scored_sorted as an array' do
       expect(stat_tracker.goals_scored_sorted("6")).to be_an(Array)
       expect(stat_tracker.goals_scored_sorted("6").first).to be_an(Integer)
