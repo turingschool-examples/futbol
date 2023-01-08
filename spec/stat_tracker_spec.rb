@@ -42,8 +42,8 @@ RSpec.describe StatTracker do
 
 	describe 'checks percentage of wins/ties' do
 		it "#percentage_home_wins" do
-		expect(stat_tracker.percentage_home_wins).to eq 0.44
-	end
+			expect(stat_tracker.percentage_home_wins).to eq 0.44
+		end
 
 		it "#percentage_visitor_wins" do
 			expect(stat_tracker.percentage_visitor_wins).to eq 0.36
@@ -67,7 +67,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_total_score).to eq(0)
     end
   end
-
 
   describe '#count_of_games_by_season' do
     it 'is a hash' do
@@ -131,18 +130,13 @@ RSpec.describe StatTracker do
 		end
 
 		it 'averages away game scores per team' do
-			expect(stat_tracker.average_score_away_game).to be_a Float
+			expect(stat_tracker.average_score_away_game).to be_a Hash
 		end
 
 		it 'averages home game scores per team' do
-			expect(stat_tracker.average_score_home_game).to be_a Float
+			expect(stat_tracker.average_score_home_game).to be_a Hash
 		end
-
-		it 'averages home game scores per team' do
-			expect(stat_tracker.highest_scoring_visitor).to be_a Float
-		end
-	end
-	
+		
 		it "#highest_scoring_visitor" do
     	expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
   	end
@@ -158,6 +152,7 @@ RSpec.describe StatTracker do
   	it "#lowest_scoring_home_team" do
     	expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   	end
+	end
 
   describe '#count_of_teams' do
     it 'is a integer' do
@@ -178,14 +173,56 @@ RSpec.describe StatTracker do
       expect(stat_tracker.best_offense).to eq("Reign FC")
     end
   end
-
+  
   describe '#worst_offense' do
     it 'is a string' do
       expect(stat_tracker.worst_offense).to be_a(String)
     end
-
+    
     it 'returns team with lowest average across all seasons' do
       expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+    
+  end
+  
+  describe "#winningest_coach" do
+    context '#game_ids_by_season' do
+      it 'returns the data matched to the passed argument as a Hash' do
+        expect(stat_tracker.game_ids_by_season).to be_a(Hash)
+      end
+    end
+
+    context "#winningest_coach" do
+      it 'can find the coach with the best win percentage for the season ' do
+        expect(stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+        expect(stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+      end
+    end
+
+    context "#worst_coach" do
+      it "#worst_coach" do
+        expect(stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
+        expect(stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+      end
+    end
+  end
+
+  describe '#team_info' do
+    it 'is a hash' do
+      expect(stat_tracker.team_info("id")).to be_a(Hash)
+    end
+
+    it 'is a hash of info' do
+
+    team = {
+      "team_id" => "18",
+      "franchise_id" => "34",
+      "team_name" => "Minnesota United FC",
+      "abbreviation" => "MIN",
+      "link" => "/api/v1/teams/18"
+    }
+
+    expect(stat_tracker.team_info("18")).to eq(team)
     end
   end
 
@@ -218,7 +255,7 @@ RSpec.describe StatTracker do
 			expect(stat_tracker.average_win_percentage("6")).to eq 0.49
 		end
 	end
-
+  
   describe 'returns season with the highest win percentage for a team.' do
     it 'is a string' do
       expect(stat_tracker.best_season("6")).to be_a(String)
@@ -238,4 +275,14 @@ RSpec.describe StatTracker do
     expect(stat_tracker.worst_season("6")).to eq "20142015"
     end
   end
+
+	describe 'determines goals per game by team' do
+    it "#most_goals_scored" do
+      expect(stat_tracker.most_goals_scored("18")).to eq 7
+    end
+
+    it "#fewest_goals_scored" do
+      expect(stat_tracker.fewest_goals_scored("18")).to eq 0
+    end
+	end
 end
