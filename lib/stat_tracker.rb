@@ -525,7 +525,6 @@ class StatTracker
       end
       
       mat.team_name
-      
     end
 
     def least_accurate_team(season)
@@ -537,7 +536,6 @@ class StatTracker
       end
       
       lat.team_name
-
     end
 
     def average_win_percentage(team)
@@ -560,4 +558,35 @@ class StatTracker
     end
 end
 
+  def game_ids_seasons(team_id)
+    seasons_hash = Hash.new{|h,v| h[v] = []}
+    games.each do |game| 
+      seasons_hash[game.season] << game.game_id
+    end  
+    seasons_hash
+  end
+  
+  def seasons_perc_win(team_id)
+    wins_by_seasons = Hash.new{|h,v| h[v] = []}
+    game_ids_seasons = game_ids_seasons(team_id)
+    game_ids_seasons.each do |season, game_ids_arr| 
+      game_ids_arr.each do |game_id|
+        game_teams.each do |game_team| 
+          wins_by_seasons[season] << game_team.result if game_id == game_team.game_id && team_id == game_team.team_id
+        end
+      end
+    end
+    wins_by_seasons.each do |season, array|
+      wins_by_seasons[season] = (array.count("WIN")/ array.size.to_f) 
+    end
+    wins_by_seasons.sort_by { |k, v| v }
+  end
 
+  def best_season(team_id)
+    seasons_perc_win(team_id).last.first
+  end
+
+  def worst_season(team_id)
+    seasons_perc_win(team_id).first.first
+  end
+end

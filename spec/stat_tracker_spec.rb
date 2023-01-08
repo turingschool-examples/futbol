@@ -242,11 +242,26 @@ describe StatTracker do
       expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
     end
 
-    it "#fewest_tackles returns team with the least tackles in the season " do
+    it '#fewest_tackles returns team with the least tackles in the season' do
       expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
     end
     ##TEAM STATISTICS BELOW
+    it '#game_ids_seasons helper method for #best_season and #worst_season' do
+      expect(stat_tracker.game_ids_seasons("6")).to be_a(Hash)
+    end
 
+    it '#seasons_perc_win helper method for #best_season and #worst_season' do
+      expect(stat_tracker.seasons_perc_win("6")).to eq([["20122013", 1.0]])
+    end
+
+    it 'returns the #best_season with the highest win percentage for a team' do
+      expect(stat_tracker.best_season("6")).to be_an(String)
+    end
+
+    it 'returns the #worst_season with the highest win percentage for a team' do
+      expect(stat_tracker.worst_season("6")).to be_an(String)
+    end
+  
     it 'can generate goals_scored_sorted as an array' do
       expect(stat_tracker.goals_scored_sorted("6")).to be_an(Array)
       expect(stat_tracker.goals_scored_sorted("6").first).to be_an(Integer)
