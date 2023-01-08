@@ -222,17 +222,6 @@ class StatTracker
     worst_offensive_team_name = teams.find {|row| row[:team_id] == worst_offensive_team_id}[:teamname]
   end
 
-  # def game_ids_by_season
-  #   game_ids_by_season = Hash.new { | k, v | k[v]= [] }
-  #   games.each do |game|
-  #     if game_ids_by_season[game[:season]] == nil
-  #       game_ids_by_season[game[:season]] = [game[:game_id]]
-  #     else
-  #       game_ids_by_season[game[:season]] << game[:game_id]
-  #     end
-  #   end
-  #   game_ids_by_season
-  # end
   def game_ids_by_season
     @game_ids_by_season ||= games.group_by do |game|
       game[:season]
@@ -241,19 +230,13 @@ class StatTracker
 
 
   def winningest_coach(season)
-    # selected_season = Hash.new { |k, v| k[v] = [] }
-    # selection = game_ids_by_season.find do |season_id, game_ids|
-    #   if season_id == season
-    #     selected_season[season_id] = game_ids
-    #   end
-    # end
 
     outcomes_by_game_id = []
 
     game_ids_by_season[season].each do |id|
 			outcomes_by_game_id << game_teams.find_all {|games| games[:game_id] == id[:game_id]}
     end
-    # require 'pry'; binding.pry
+
     outcomes_by_game_id
 
     
@@ -292,10 +275,9 @@ class StatTracker
     game_ids_by_season[season].each do |id|
 			outcomes_by_game_id << game_teams.find_all {|games| games[:game_id] == id[:game_id]}
     end
-    # require 'pry'; binding.pry
+
     outcomes_by_game_id
 
-    
     results_by_coach = Hash.new { | k, v | k[v] = [] }
     outcomes_by_game_id.each do |outcome|
       outcome.each do |team_stats|
@@ -325,15 +307,9 @@ class StatTracker
     results_by_coach.key(min_value)
   end
   
-  # winrate_by_season =  Hash.new { |k, v| k[v] = []}
-  # game_teams.each do |row|
-  #   if winrate_by_season.keys.include?(row[:head_coach])
-  #     winrate_by_season[row[:head_coach]].push(row[:result])
-  #   else
-  #     winrate_by_season[row[:head_coach]] = [row[:result]]
-  #   end
-  # end
-  # winrate_by_season
+  def favorite_opponent
+
+  end
 
 
 
