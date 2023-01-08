@@ -4,11 +4,13 @@ class GameStats
 	include Sort
 
 	attr_reader :games,
-							:game_teams
+							:game_teams,
+							:teams
 
-	def initialize(games, game_teams)
+	def initialize(games, game_teams, teams)
 		@games = games
 		@game_teams = game_teams
+		@teams = teams
 	end
 
 	def games_by_season(season)
@@ -50,5 +52,13 @@ class GameStats
 	def average_goals_per_game
     average_score = total_scores.sum.to_f / total_scores.count
     average_score.round(2)
+  end
+
+	def count_of_teams
+    teams = []
+    @teams.map do |row|
+      teams << row.info[:team_name]
+    end
+    teams.count
   end
 end

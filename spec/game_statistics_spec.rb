@@ -4,11 +4,13 @@ describe GameStats do
 	before do
 		game_path = './data/games_sample.csv'
 		game_teams_path = './data/game_teams_sample.csv'
+    teams_path = './data/teams.csv'
 		@games = Game.create_games(game_path)
 		@game_teams = GameTeams.create_game_teams(game_teams_path)
+    @teams = Team.create_teams(teams_path)
 	end
 
-	let(:stat) {GameStats.new(@games, @game_teams)}
+	let(:stat) {GameStats.new(@games, @game_teams, @teams)}
 
 	describe '#initialize' do
 		it 'exists' do
@@ -47,6 +49,12 @@ describe GameStats do
   describe '#average_goals_per_game' do
     it 'can return the average total score of all games played rounded to the 100th' do
       expect(stat.average_goals_per_game).to eq(4.03)
+    end
+  end
+
+  describe '#count_of_teams' do
+    it 'returns the total number of teams' do
+      expect(stat.count_of_teams).to eq(32)
     end
   end
 end
