@@ -147,6 +147,11 @@ describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("18")).to eq 3
     end
   end
+  describe '#favorite_opponent' do
+    xit "#favorite_opponent" do
+      expect(stat_tracker.favorite_opponent("18")).to eq "DC United"
+    end
+  end
 end
 
 

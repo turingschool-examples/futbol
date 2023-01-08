@@ -242,27 +242,20 @@ class StatTracker
     best_home_team
   end
 
-  def game_teams_by_id
-    arr = []
-    @team_id.each do |row|
-      arr << row
-    end
-    arr = []
-  end
 
   def average_win_percentage(team)
     team_games = []
     won = []
 
     @game_teams.each do |game_team|
-      if game_team[1] == team
+      if game_team[:team_id] == team
         team_games << game_team
       end
       team_games
     end
 
     team_games.each do |team_game|
-      if team_game[3] == 'WIN'
+      if team_game[:result] == 'WIN'
         won << team_game
       end
     end
@@ -273,7 +266,7 @@ class StatTracker
     goals = []
    
     @game_teams.each do |game|
-      goals << game[6].to_i if game[1] == team_id
+      goals << game[:goals].to_i if game[:team_id] == team_id
     end
     goals
   end
