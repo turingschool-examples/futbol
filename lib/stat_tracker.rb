@@ -32,18 +32,18 @@ class StatTracker
 		total_scores.min
 	end
   
-  def count_of_teams
-    teams = []
-    @teams.map do |row|
-      teams << row[:teamName]
-    end
-    teams.count
-  end
+  # def count_of_teams
+  #   teams = []
+  #   @teams.map do |row|
+  #     teams << row[:teamName]
+  #   end
+  #   teams.count
+  # end
 
-  def average_goals_per_game
-    average_score = total_scores.sum.to_f / total_scores.count
-    average_score.round(2)
-  end
+  # def average_goals_per_game
+  #   average_score = total_scores.sum.to_f / total_scores.count
+  #   average_score.round(2)
+  # end
 
   def average_win_percentage(team_id)
     games_played = []
@@ -102,21 +102,21 @@ class StatTracker
 		hash
 	end
 
-	def count_of_games_by_season
-		hash = {}
-		games_played_by_season.map do |season_id, games|
-			hash[season_id] = games.size
-		end
-		hash
-	end
+	# def count_of_games_by_season
+	# 	hash = {}
+	# 	games_played_by_season.map do |season_id, games|
+	# 		hash[season_id] = games.size
+	# 	end
+	# 	hash
+	# end
 
-	def average_goals_by_season
-		hash = all_game_scores_by_season
-		hash.each do |k, v|
-			hash[k] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
-		end
-		hash
-	end
+	# def average_goals_by_season
+	# 	hash = all_game_scores_by_season
+	# 	hash.each do |k, v|
+	# 		hash[k] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
+	# 	end
+	# 	hash
+	# end
 
 	def all_game_scores_by_season
 		hash = Hash.new {|k, v| k[v] = []}
