@@ -239,7 +239,6 @@ class StatTracker
 
     # helper method that expects two numbers and sends back average
 
-
     def highest_scoring_visitor
         team_total_goals = Hash.new (0)
         @game_teams.each do |game|
@@ -374,20 +373,63 @@ class StatTracker
     end
 
     def favorite_opponent(team_id)
-        wins_vs_opponent = Hash.new(0)
+        wins_vs_opponent = Hash.new (0)
         @games.each do |team|
             if team[:home_team_id] || team[:away_team_id] == team_id
                 if (team[:home_team_id] == team_id) && (team[:home_goals] > team[:away_goals])
                  wins_vs_opponent[team[:away_team_id]] += 1.0
-                    # require "pry"; binding.pry
                 else (team[:away_team_id] == team_id) && (team[:away_goals] > team[:home_goals])
                     wins_vs_opponent[team[:home_team_id]] += 1.0
                 end
             end
         end
-        most_wins = wins_vs_opponent.key(wins_vs_opponent.values.max)
+        games_vs_opponents = Hash.new (0)
+        @games.each do |team|
+            if team[:home_team_id] == team_id
+                games_vs_opponents[team[:away_team_id]] += 1.0
+            else team[:away_team_id] == team_id
+                games_vs_opponents[team[:home_team_id]] += 1.0
+            end
+        end
+        wins_vs_opponent.merge!(games_vs_opponents) { |team_id, wins, games| wins / games }
+        wins_vs_opponent.delete_if { |team_id, percetage| percetage > 1 }
+        favorite_id = wins_vs_opponent.key(wins_vs_opponent.values.max)
+        favorite_team = @teams.find do |team|
+            if team[:team_id] == favorite_id
+                return team[:teamname]
+            end
+            favorite_team
+        end     
+    end
     
-        favorite_opponent = @teams.find { |team| team[:teamname] if team[:team_id] == most_wins }
-        favorite_opponent[:teamname]
+    def rival(team_id)
+        wins_vs_opponent = Hash.new (0)
+        @games.each do |team|
+            if team[:home_team_id] || team[:away_team_id] == team_id
+                if (team[:home_team_id] == team_id) && (team[:home_goals] > team[:away_goals])
+                    wins_vs_opponent[team[:away_team_id]] += 1.0
+                else (team[:away_team_id] == team_id) && (team[:away_goals] > team[:home_goals])
+                    wins_vs_opponent[team[:home_team_id]] += 1.0
+                end
+            end
+        end
+        games_vs_opponents = Hash.new (0)
+        @games.each do |team|
+            if team[:home_team_id] == team_id
+                games_vs_opponents[team[:away_team_id]] += 1.0
+            else team[:away_team_id] == team_id
+                games_vs_opponents[team[:home_team_id]] += 1.0
+            end
+        end
+        wins_vs_opponent.merge!(games_vs_opponents) { |team_id, wins, games| wins / games }
+        wins_vs_opponent.delete_if { |team_id, percetage| percetage > 1 }
+        favorite_id = wins_vs_opponent.key(wins_vs_opponent.values.min)
+        require "pry"; binding.pry
+        favorite_team = @teams.find do |team|
+            if team[:team_id] == favorite_id
+                return team[:teamname]
+            end
+            favorite_team
+        end     
     end
 end
