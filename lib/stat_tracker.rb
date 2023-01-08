@@ -70,7 +70,6 @@ class StatTracker
     def goals_per_game
       away_goals.to_i + home_goals.to_i
     end
-
   end
 
   class Team
@@ -127,9 +126,7 @@ class StatTracker
     end
   end
   
-
   ## GAME STATISTIC METHODS
-  
    def game_score_totals_sorted
       games.map do |game|
         game.home_goals.to_i + game.away_goals.to_i
@@ -139,7 +136,6 @@ class StatTracker
     def highest_total_score
       game_score_totals_sorted.last
     end             
-
 
     def lowest_total_score
       game_score_totals_sorted.first
@@ -225,20 +221,16 @@ class StatTracker
       hash
     end
 
-  
   ## LEAGUE STATISTIC METHODS
-
     def count_of_teams
       teams.count
     end
-
 
     def visitor_score_averages
         team_id_hash = Hash.new{|h,v| h[v] = []}
       games.each do |game|
         team_id_hash[game.away_team_id] << game.away_goals.to_f
       end
-      # require 'pry'; binding.pry
 
       average_hash = Hash.new
       team_id_hash.each do |team_id, score_array|
@@ -391,8 +383,7 @@ class StatTracker
       lowest_scoring_team.join(", ")
     end
 
-     ## SEASON STATISTICS METHODS
-    
+  ## SEASON STATISTICS METHODS
     def array_of_game_teams_by_season(season)
       game_teams_arr = []
       array_of_gameids_by_season(season).each do |game_id|
@@ -449,10 +440,7 @@ class StatTracker
         end
     end  
 
-
-    #TEAM STATISTICS METHODS
-
-
+  ##TEAM STATISTICS METHODS
     def goals_scored_sorted(teamid)
       game_scores = []
      
@@ -597,37 +585,36 @@ class StatTracker
       favorite_id = opponents_win_percentage(team_id).last.first
       find_team_name(favorite_id)
     end
-end
 
-  def game_ids_seasons(team_id)
-    seasons_hash = Hash.new{|h,v| h[v] = []}
-    games.each do |game| 
-      seasons_hash[game.season] << game.game_id
-    end  
-    seasons_hash
-  end
+    def game_ids_seasons(team_id)
+      seasons_hash = Hash.new{|h,v| h[v] = []}
+      games.each do |game| 
+        seasons_hash[game.season] << game.game_id
+      end  
+      seasons_hash
+    end
   
-  def seasons_perc_win(team_id)
-    wins_by_seasons = Hash.new{|h,v| h[v] = []}
-    game_ids_seasons = game_ids_seasons(team_id)
-    game_ids_seasons.each do |season, game_ids_arr| 
-      game_ids_arr.each do |game_id|
-        game_teams.each do |game_team| 
-          wins_by_seasons[season] << game_team.result if game_id == game_team.game_id && team_id == game_team.team_id
+    def seasons_perc_win(team_id)
+      wins_by_seasons = Hash.new{|h,v| h[v] = []}
+      game_ids_seasons = game_ids_seasons(team_id)
+      game_ids_seasons.each do |season, game_ids_arr| 
+        game_ids_arr.each do |game_id|
+          game_teams.each do |game_team| 
+            wins_by_seasons[season] << game_team.result if game_id == game_team.game_id && team_id == game_team.team_id
+          end
         end
       end
+      wins_by_seasons.each do |season, array|
+        wins_by_seasons[season] = (array.count("WIN")/ array.size.to_f) 
+      end
+      wins_by_seasons.sort_by { |k, v| v }
     end
-    wins_by_seasons.each do |season, array|
-      wins_by_seasons[season] = (array.count("WIN")/ array.size.to_f) 
+
+    def best_season(team_id)
+      seasons_perc_win(team_id).last.first
     end
-    wins_by_seasons.sort_by { |k, v| v }
-  end
 
-  def best_season(team_id)
-    seasons_perc_win(team_id).last.first
-  end
-
-  def worst_season(team_id)
-    seasons_perc_win(team_id).first.first
-  end
+    def worst_season(team_id)
+      seasons_perc_win(team_id).first.first
+    end
 end

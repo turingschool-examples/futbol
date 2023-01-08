@@ -1,18 +1,15 @@
 require './lib/stat_tracker'
 
 describe StatTracker do
-  
   let(:game_path){'./data/fixtures/games_i1.csv'}
   let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
   
-
   let(:locations){{
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }}
-
 
   it 'can pull in new data from files' do
     expect(StatTracker.from_csv(locations)).to be_an_instance_of(StatTracker)
@@ -79,11 +76,9 @@ describe StatTracker do
 
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
-
     it "can determine #average_goals_per_game" do
       expect(stat_tracker.average_goals_per_game).to eq(4.45)
     end
-
 
     it 'can determine #count_of_games_by_season' do
       expected = {
@@ -108,7 +103,6 @@ describe StatTracker do
       }
       expect(stat_tracker.average_goals_by_season).to eq(expected)
     end
-
 
     it "can determine #home_wins" do
       expect(stat_tracker.home_wins).to eq(20)
@@ -158,7 +152,6 @@ describe StatTracker do
     it 'can count the number of teams' do
       expect(stat_tracker.count_of_teams).to eq(32)
     end
-
     
     it 'can calculate the lowest_scoring_home' do
       expect(stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
@@ -168,11 +161,9 @@ describe StatTracker do
       expect(stat_tracker.highest_scoring_home_team).to eq("Los Angeles FC, New England Revolution, Real Salt Lake")
     end
 
-    
     it 'can calculate the lowest_scoring_visitor' do
       expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati, Sporting Kansas City, New York Red Bulls")
     end
-
 
     xit 'can calculate #team_score_averages array length' do
       expect(stat_tracker.team_score_averages.length).to eq(31)
@@ -188,7 +179,6 @@ describe StatTracker do
       expect(stat_tracker.team_score_averages).to eq(expected_array)
     end
 
-
     it 'can calculate #best_offense' do
       expect(stat_tracker.best_offense).to eq("Chicago Fire")
     end
@@ -196,7 +186,6 @@ describe StatTracker do
     it 'can calculate #worst_offense' do
       expect(stat_tracker.worst_offense).to eq("Sporting Kansas City")
     end
-
 
     it "#team_info" do
       expected = {
@@ -307,7 +296,6 @@ describe StatTracker do
       expect(stat_tracker.rival("6")).to eq("Sporting Kansas City")
     end
   end
-
 
   describe 'new game_team dummy data' do
     let(:game_path_2){'./data/fixtures/games_i2.csv'}
