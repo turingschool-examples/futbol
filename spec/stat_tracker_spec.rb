@@ -119,6 +119,7 @@ RSpec.describe StatTracker do
         end
     end
 
+
     describe "Teams, best, and worst offense" do
         
         it "#count of teams" do 
@@ -180,6 +181,18 @@ RSpec.describe StatTracker do
 
     end 
 
+    describe "#team_statistics" do
+        xit "#team_info" do
+            expected = {
+            "team_id" => "18",
+            "franchise_id" => "34",
+            "team_name" => "Minnesota United FC",
+            "abbreviation" => "MIN",
+            "link" => "/api/v1/teams/18"
+            }
+        
+            expect(@stat_tracker.team_info("18")).to eq expected
+        end
 
 
 
