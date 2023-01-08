@@ -522,7 +522,6 @@ class StatTracker
       end
       
       mat.team_name
-      
     end
 
     def least_accurate_team(season)
@@ -534,8 +533,98 @@ class StatTracker
       end
       
       lat.team_name
+    end
 
+    def average_win_percentage(team)
+      team_games = []
+      won = []
+
+      game_teams.each do |game_team|
+        if game_team.team_id == team
+          team_games << game_team
+        end
+      end
+
+      team_games.each do |team_game|
+        if team_game.result == "WIN"
+          won << team_game
+        end
+      end
+
+      (won.count.to_f / team_games.count).round(2)
+    end
+
+    def find_game_id_arr(team_id)
+      all_games = game_teams.find_all do |team|
+        team.team_id == team_id
+      end
+
+      all_games.map do |game|
+        game.game_id
+      end
+    end
+
+    def opponents_win_percentage(team_id)
+      opponents_wins = Hash.new{ |h,v| h[v] = [] }
+      find_game_id_arr(team_id).each do |game_id|
+        game_teams.each do |game_team|
+          opponents_wins[game_team.team_id] << game_team.result if game_team.game_id == game_id && game_team.team_id != team_id
+        end
+      end
+      
+      opponents_wins.each do |team_id, result_array|
+        percent = result_array.count("WIN").to_f / result_array.size
+        opponents_wins[team_id] = percent
+      end
+      opponents_wins.sort_by{|k,v| v}
+    end
+
+    def find_team_name(team_id)
+      teams.each do |team|
+        return team.team_name if team.team_id == team_id
+      end
+    end
+
+    def favorite_opponent(team_id)
+      favorite_id = opponents_win_percentage(team_id).first.first
+      find_team_name(favorite_id)
+    end
+
+    def rival(team_id)
+      favorite_id = opponents_win_percentage(team_id).last.first
+      find_team_name(favorite_id)
     end
 end
 
+  def game_ids_seasons(team_id)
+    seasons_hash = Hash.new{|h,v| h[v] = []}
+    games.each do |game| 
+      seasons_hash[game.season] << game.game_id
+    end  
+    seasons_hash
+  end
+  
+  def seasons_perc_win(team_id)
+    wins_by_seasons = Hash.new{|h,v| h[v] = []}
+    game_ids_seasons = game_ids_seasons(team_id)
+    game_ids_seasons.each do |season, game_ids_arr| 
+      game_ids_arr.each do |game_id|
+        game_teams.each do |game_team| 
+          wins_by_seasons[season] << game_team.result if game_id == game_team.game_id && team_id == game_team.team_id
+        end
+      end
+    end
+    wins_by_seasons.each do |season, array|
+      wins_by_seasons[season] = (array.count("WIN")/ array.size.to_f) 
+    end
+    wins_by_seasons.sort_by { |k, v| v }
+  end
 
+  def best_season(team_id)
+    seasons_perc_win(team_id).last.first
+  end
+
+  def worst_season(team_id)
+    seasons_perc_win(team_id).first.first
+  end
+end
