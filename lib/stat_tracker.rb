@@ -372,4 +372,22 @@ class StatTracker
         end
         lowest_percent_w_season.keys[0]
     end
+
+    def favorite_opponent(team_id)
+        wins_vs_opponent = Hash.new(0)
+        @games.each do |team|
+            if team[:home_team_id] || team[:away_team_id] == team_id
+                if (team[:home_team_id] == team_id) && (team[:home_goals] > team[:away_goals])
+                 wins_vs_opponent[team[:away_team_id]] += 1.0
+                    # require "pry"; binding.pry
+                else (team[:away_team_id] == team_id) && (team[:away_goals] > team[:home_goals])
+                    wins_vs_opponent[team[:home_team_id]] += 1.0
+                end
+            end
+        end
+        most_wins = wins_vs_opponent.key(wins_vs_opponent.values.max)
+    
+        favorite_opponent = @teams.find { |team| team[:teamname] if team[:team_id] == most_wins }
+        favorite_opponent[:teamname]
+    end
 end

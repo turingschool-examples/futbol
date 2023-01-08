@@ -97,28 +97,6 @@ RSpec.describe StatTracker do
       end
     end
 
-    describe "#team_statistics" do
-        xit "#team_info" do
-            expected = {
-            "team_id" => "18",
-            "franchise_id" => "34",
-            "team_name" => "Minnesota United FC",
-            "abbreviation" => "MIN",
-            "link" => "/api/v1/teams/18"
-            }
-        
-            expect(@stat_tracker.team_info("18")).to eq expected
-        end
-
-        xit "#best_season" do
-            expect(@stat_tracker.best_season("6")).to eq "20122013"
-        end
-
-        xit "#worst_season" do
-            expect(@stat_tracker.worst_season("6")).to eq "20142015"
-        end
-    end
-
     describe "Teams, best, and worst offense" do
         
         it "#count of teams" do 
@@ -180,5 +158,29 @@ RSpec.describe StatTracker do
 
     end 
 
+    describe "#team_statistics" do
+        xit "#team_info" do
+            expected = {
+            "team_id" => "18",
+            "franchise_id" => "34",
+            "team_name" => "Minnesota United FC",
+            "abbreviation" => "MIN",
+            "link" => "/api/v1/teams/18"
+            }
+        
+            expect(@stat_tracker.team_info("18")).to eq expected
+        end
 
+        xit "#best_season" do
+            expect(@stat_tracker.best_season("6")).to eq "20122013"
+        end
+
+        xit "#worst_season" do
+            expect(@stat_tracker.worst_season("6")).to eq "20142015"
+        end
+        
+        it "#favorite_opponent" do
+            expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+        end
+    end
 end
