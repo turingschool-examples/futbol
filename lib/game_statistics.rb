@@ -55,10 +55,8 @@ class GameStats
   end
 
 	def count_of_teams
-    teams = []
-    @teams.map do |row|
-      teams << row.info[:team_name]
-    end
-    teams.count
-  end
+		@teams.count do |team|
+			team.info[:team_name]
+		end
+	end
 end
