@@ -1,6 +1,6 @@
 require './spec/spec_helper'
 
-xdescribe GameStats do
+describe GameStats do
 	before do
 		game_path = './data/games_sample.csv'
 		game_teams_path = './data/game_teams_sample.csv'
@@ -41,6 +41,12 @@ xdescribe GameStats do
 	describe '#percentage_ties' do
     it 'returns % of ties (rounded x.xx)' do
       expect(stat.percentage_ties).to eq(0.14)
+    end
+  end
+
+  describe '#average_goals_per_game' do
+    it 'can return the average total score of all games played rounded to the 100th' do
+      expect(stat.average_goals_per_game).to eq(4.03)
     end
   end
 end
