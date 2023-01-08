@@ -13,57 +13,59 @@ describe StatTracker do
       game_teams: game_teams_path
     }}
 
+  describe 'class methods' do
+    describe 'game' do  
+      
+      it 'can pull in new data from files' do
+        expect(StatTracker.from_csv(locations)).to be_an_instance_of(StatTracker)
+      end
 
-  it 'can pull in new data from files' do
-    expect(StatTracker.from_csv(locations)).to be_an_instance_of(StatTracker)
-  end
-
-  describe 'game' do  
-    it 'can pull in games csv data' do
-      expect(StatTracker.games_csv(locations).length).to eq(19)
-      expect(StatTracker.games_csv(locations)[0].game_id).to eq('2012030221')
-      expect(StatTracker.games_csv(locations)[0].season).to eq('20122013')
-      expect(StatTracker.games_csv(locations)[0].type).to eq('Postseason')
-      expect(StatTracker.games_csv(locations)[0].date_time).to eq('5/16/13')
-      expect(StatTracker.games_csv(locations)[0].away_team_id).to eq('3')
-      expect(StatTracker.games_csv(locations)[0].home_team_id).to eq('6')
-      expect(StatTracker.games_csv(locations)[0].away_goals).to eq('2')
-      expect(StatTracker.games_csv(locations)[0].home_goals).to eq('3')
-      expect(StatTracker.games_csv(locations)[0].venue).to eq('Toyota Stadium')
-      expect(StatTracker.games_csv(locations)[0].venue_link).to eq('/api/v1/venues/null')
+      it 'can pull in .games_csv data' do
+        expect(StatTracker.games_csv(locations).length).to eq(19)
+        expect(StatTracker.games_csv(locations)[0].game_id).to eq('2012030221')
+        expect(StatTracker.games_csv(locations)[0].season).to eq('20122013')
+        expect(StatTracker.games_csv(locations)[0].type).to eq('Postseason')
+        expect(StatTracker.games_csv(locations)[0].date_time).to eq('5/16/13')
+        expect(StatTracker.games_csv(locations)[0].away_team_id).to eq('3')
+        expect(StatTracker.games_csv(locations)[0].home_team_id).to eq('6')
+        expect(StatTracker.games_csv(locations)[0].away_goals).to eq('2')
+        expect(StatTracker.games_csv(locations)[0].home_goals).to eq('3')
+        expect(StatTracker.games_csv(locations)[0].venue).to eq('Toyota Stadium')
+        expect(StatTracker.games_csv(locations)[0].venue_link).to eq('/api/v1/venues/null')
+      end
     end
-  end
 
-  describe 'team' do
-    it 'can pull in teams csv data' do
-      expect(StatTracker.teams_csv(locations).length).to eq(32)
-      expect(StatTracker.teams_csv(locations)[0].team_id).to eq('1')
-      expect(StatTracker.teams_csv(locations)[0].franchise_id).to eq('23')
-      expect(StatTracker.teams_csv(locations)[0].team_name).to eq('Atlanta United')
-      expect(StatTracker.teams_csv(locations)[0].abbreviation).to eq('ATL')
-      expect(StatTracker.teams_csv(locations)[0].stadium).to eq('Mercedes-Benz Stadium')
-      expect(StatTracker.teams_csv(locations)[0].link).to eq('/api/v1/teams/1')
+    describe 'team' do
+      it 'can pull in .teams_csv data' do
+        expect(StatTracker.teams_csv(locations).length).to eq(32)
+        expect(StatTracker.teams_csv(locations)[0].team_id).to eq('1')
+        expect(StatTracker.teams_csv(locations)[0].franchise_id).to eq('23')
+        expect(StatTracker.teams_csv(locations)[0].team_name).to eq('Atlanta United')
+        expect(StatTracker.teams_csv(locations)[0].abbreviation).to eq('ATL')
+        expect(StatTracker.teams_csv(locations)[0].stadium).to eq('Mercedes-Benz Stadium')
+        expect(StatTracker.teams_csv(locations)[0].link).to eq('/api/v1/teams/1')
+      end
     end
-  end
 
-  describe 'game_team' do
-    it 'can pull in game_teams csv data' do
-      expect(StatTracker.game_teams_csv(locations).length).to eq(19) 
-      expect(StatTracker.game_teams_csv(locations)[0].game_id).to eq('2012030221')
-      expect(StatTracker.game_teams_csv(locations)[0].team_id).to eq('3')
-      expect(StatTracker.game_teams_csv(locations)[0].hoa).to eq('away')
-      expect(StatTracker.game_teams_csv(locations)[0].result).to eq('LOSS')
-      expect(StatTracker.game_teams_csv(locations)[0].settled_in).to eq('OT')
-      expect(StatTracker.game_teams_csv(locations)[0].head_coach).to eq('John Tortorella')
-      expect(StatTracker.game_teams_csv(locations)[0].goals).to eq('2')
-      expect(StatTracker.game_teams_csv(locations)[0].shots).to eq('8')
-      expect(StatTracker.game_teams_csv(locations)[0].tackles).to eq('44')
-      expect(StatTracker.game_teams_csv(locations)[0].pim).to eq('8')
-      expect(StatTracker.game_teams_csv(locations)[0].power_play_opportunities).to eq('3')
-      expect(StatTracker.game_teams_csv(locations)[0].power_play_goals).to eq('0')
-      expect(StatTracker.game_teams_csv(locations)[0].face_off_win_percentage).to eq('44.8')
-      expect(StatTracker.game_teams_csv(locations)[0].giveaways).to eq('17')
-      expect(StatTracker.game_teams_csv(locations)[0].takeaways).to eq('7')
+    describe 'game_team' do
+      it 'can pull in .game_teams_csv data' do
+        expect(StatTracker.game_teams_csv(locations).length).to eq(19) 
+        expect(StatTracker.game_teams_csv(locations)[0].game_id).to eq('2012030221')
+        expect(StatTracker.game_teams_csv(locations)[0].team_id).to eq('3')
+        expect(StatTracker.game_teams_csv(locations)[0].hoa).to eq('away')
+        expect(StatTracker.game_teams_csv(locations)[0].result).to eq('LOSS')
+        expect(StatTracker.game_teams_csv(locations)[0].settled_in).to eq('OT')
+        expect(StatTracker.game_teams_csv(locations)[0].head_coach).to eq('John Tortorella')
+        expect(StatTracker.game_teams_csv(locations)[0].goals).to eq('2')
+        expect(StatTracker.game_teams_csv(locations)[0].shots).to eq('8')
+        expect(StatTracker.game_teams_csv(locations)[0].tackles).to eq('44')
+        expect(StatTracker.game_teams_csv(locations)[0].pim).to eq('8')
+        expect(StatTracker.game_teams_csv(locations)[0].power_play_opportunities).to eq('3')
+        expect(StatTracker.game_teams_csv(locations)[0].power_play_goals).to eq('0')
+        expect(StatTracker.game_teams_csv(locations)[0].face_off_win_percentage).to eq('44.8')
+        expect(StatTracker.game_teams_csv(locations)[0].giveaways).to eq('17')
+        expect(StatTracker.game_teams_csv(locations)[0].takeaways).to eq('7')
+      end
     end
   end
 
@@ -288,7 +290,7 @@ describe 'season statistics' do
         }
       expect(stat_tracker.team_info("18")).to eq expected
     end
-    
+
     it '#game_ids_seasons helper method for #best_season and #worst_season' do
       expect(stat_tracker.game_ids_seasons("6")).to be_a(Hash)
     end
