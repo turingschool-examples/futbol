@@ -296,16 +296,9 @@ class StatTracker
     games_in_season = list_games_per_season(season)
     pull_gameids = games_in_season.map {|game| game[:game_id]} 
 
-    total_relevant_gameteams_from_season = []
-    pull_gameids.each do |game_id| 
-      game_teams.each do |game_team|
-        if game_team[:game_id] == game_id
-          total_relevant_gameteams_from_season << game_team
-        end 
-      end
+    pull_gameids.flat_map do |game_id|
+      game_teams.find_all {|game_team| game_id == game_team[:game_id]}
     end
-    require 'pry'; binding.pry
-    return total_relevant_gameteams_from_season
   end 
 
   def list_games_per_season(season)
@@ -413,17 +406,15 @@ class StatTracker
  ################## Team Statisics ##################
 
  def team_info(team_id)
-  selected = teams.select do |team|
-    team[:team_id] == team_id
-  end
+  selected = teams.select {|team| team[:team_id] == team_id }
   team = selected[0]
-  
+  require 'pry'; binding.pry
   hash = {
-    team_id: team[:team_id], 
-    franchise_id: team[:franchise_id], 
-    team_name: team[:team_name], 
-    abbreviation: team[:abbreviation], 
-    link: team[:link]
+    "team_id"=> team[:team_id], 
+    "franchise_id"=> team[:franchise_id], 
+    "team_name"=> team[:team_name], 
+    "abbreviation"=> team[:abbreviation], 
+    "link"=> team[:link]
   }
   return hash
   end
