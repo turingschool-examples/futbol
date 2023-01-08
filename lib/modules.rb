@@ -6,8 +6,8 @@ module Sort
 		end
 	end
 	
-	def games_played_by_season(array_of_games)
-		array_of_games.group_by do |game|
+	def games_played_by_season
+		@games_played_by_season ||= @games.group_by do |game|
 			game.info[:season]
 		end
   end
@@ -26,6 +26,12 @@ module Sort
 
 	def team_name_by_id(id)
 		find_team_by_id[id].first.info[:team_name]
+	end
+
+	def games_by_team_id
+		@games_by_team_id ||= @game_teams.group_by do |row|
+			row.info[:team_id] 
+		end
 	end
 
 end

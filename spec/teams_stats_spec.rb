@@ -10,7 +10,7 @@ describe TeamStats do
 		@teams = Team.create_teams(team_path)
 	end
 
-	let(:stat) {TeamStats.new(@teams, @games)}
+	let(:stat) {TeamStats.new(@teams, @games, @game_teams)}
 
 	describe '#initialize' do
 		it 'exists' do
@@ -20,6 +20,7 @@ describe TeamStats do
 		it 'has attributes' do
 			expect(stat.teams).to include(Team)
 			expect(stat.games).to include(Game)
+			expect(stat.game_teams).to include(GameTeams)
 		end
 	end
 
@@ -47,6 +48,18 @@ describe TeamStats do
 		it 'returns an integer of the lowest goals scored by a particular team in a single game' do
 			expect(stat.fewest_goals_scored(6)).to eq(2)
 			expect(stat.fewest_goals_scored(5)).to eq(0)
+		end
+	end
+
+	describe '#favorite_opponent' do
+		it 'names of opponent that has lowest win % against given team' do
+			expect(stat.favorite_opponent(52)).to eq("Chicago Red Stars")
+		end
+	end
+
+	describe '#rival' do
+		it 'names of opponent that has highest win % against given team' do
+			expect(stat.rival(52)).to eq("Sporting Kansas City")
 		end
 	end
 end

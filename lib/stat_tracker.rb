@@ -31,22 +31,19 @@ class StatTracker
 	def lowest_total_score
 		total_scores.min
 	end
+  
+  # def count_of_teams
+  #   teams = []
+  #   @teams.map do |row|
+  #     teams << row[:teamName]
+  #   end
+  #   teams.count
+  # end
 
-  def all_team_names
-    teams = []
-    @teams.map do |row|
-      teams << row[:teamName]
-    end
-  end
-
-  def count_of_teams
-    all_team_names.count
-  end
-
-  def average_goals_per_game
-    average_score = total_scores.sum.to_f / total_scores.count
-    average_score.round(2)
-  end
+  # def average_goals_per_game
+  #   average_score = total_scores.sum.to_f / total_scores.count
+  #   average_score.round(2)
+  # end
 
   def average_win_percentage(team_id)
     games_played = []
@@ -88,38 +85,38 @@ class StatTracker
 		(ties/@game_teams.count.to_f).round(2)
 	end
 
-	# def most_goals_scored(team_id)
-	# 	all_game_scores_by_team[team_id.to_s].max
-	# end
+	def most_goals_scored(team_id)
+		all_game_scores_by_team[team_id.to_s].max
+	end
 	
-	# def fewest_goals_scored(team_id)
-	# 	all_game_scores_by_team[team_id.to_s].min
-	# end
+	def fewest_goals_scored(team_id)
+		all_game_scores_by_team[team_id.to_s].min
+	end
 
-	# def all_game_scores_by_team
-	# 	hash = Hash.new {|k, v| k[v] = []}
-	# 	@games.each do |row|
-	# 		hash[row[:home_team_id]] << row[:home_goals].to_i
-	# 		hash[row[:away_team_id]] << row[:away_goals].to_i
+	def all_game_scores_by_team
+		hash = Hash.new {|k, v| k[v] = []}
+		@games.each do |row|
+			hash[row[:home_team_id]] << row[:home_goals].to_i
+			hash[row[:away_team_id]] << row[:away_goals].to_i
+		end
+		hash
+	end
+
+	# def count_of_games_by_season
+	# 	hash = {}
+	# 	games_played_by_season.map do |season_id, games|
+	# 		hash[season_id] = games.size
 	# 	end
 	# 	hash
 	# end
 
-	def count_of_games_by_season
-		hash = {}
-		games_played_by_season.map do |season_id, games|
-			hash[season_id] = games.size
-		end
-		hash
-	end
-
-	def average_goals_by_season
-		hash = all_game_scores_by_season
-		hash.each do |k, v|
-			hash[k] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
-		end
-		hash
-	end
+	# def average_goals_by_season
+	# 	hash = all_game_scores_by_season
+	# 	hash.each do |k, v|
+	# 		hash[k] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
+	# 	end
+	# 	hash
+	# end
 
 	def all_game_scores_by_season
 		hash = Hash.new {|k, v| k[v] = []}
@@ -155,13 +152,13 @@ class StatTracker
 	end
 
 	def tackles_by_team_id(array_of_game_id)
-		hash = Hash.new {|k, v| k[v] = []}
+		tackles = Hash.new {|k, v| k[v] = []}
 		array_of_game_id.each do |game_id|
 			games_by_game_id[game_id].each do |game|
-				hash[game[:team_id]] << game[:tackles].to_i
+				tackles[game[:team_id]] << game[:tackles].to_i
 			end
 		end
-		hash
+		tackles
 	end
 
 	def winningest_coach(season_id)
@@ -216,23 +213,33 @@ class StatTracker
 	end
 
 	def win_or_loss(team_id, win_loss_string)
-		games = games_by_team_id[team_id.to_s].find_all do |game|
+		opponent_games = games_of_opposite_team(team_id)
+		opponent_results = opponent_game_results(opponent_games)
+		opponent_results.each do |k,v|
+			opponent_results[k] = (v.count(win_loss_string).to_f / v.count).round(2)
+		end
+		team_id = opponent_results.key(opponent_results.values.max)
+		find_team_by_id[team_id].first[:teamname]
+	end
+
+	def opponent_game_results(opponent_games)
+		opponent_results = Hash.new {|k,v| k[v] = []}
+		opponent_games.each do |game_id, game|
+			opponent_results[game[:team_id]] << game[:result]
+		end
+		opponent_results
+	end
+
+	def games_of_opposite_team(team_id)
+		all_games_by_team = games_by_team_id[team_id.to_s].find_all do |game|
 			game[:team_id] == team_id.to_s
 		end
-		hash = {}
-		games.each do |game|
+		opponent_games = {}
+		all_games_by_team.each do |game|
 			game = games_by_game_id[game[:game_id]].find {|element| element[:team_id] != team_id.to_s}
-			hash[game[:game_id]] = game
+			opponent_games[game[:game_id]] = game
 		end
-		new_hash = Hash.new {|k,v| k[v] = []}
-		hash.each do |game_id, game|
-			new_hash[game[:team_id]] << game[:result]
-		end
-		new_hash.each do |k,v|
-			new_hash[k] = (v.count(win_loss_string).to_f / v.count).round(2)
-		end
-		team_id = new_hash.key(new_hash.values.max)
-		find_team_by_id[team_id].first[:teamname]
+		opponent_games
 	end
 
 	def games_by_team_id
@@ -299,26 +306,26 @@ class StatTracker
 		find_team_by_id[team_id].first[:teamname]
 	end
 
-  # def team_info(team_id)
-  #   team_hash = {
-  #     'team_id' => nil,
-  #     'franchise_id' => nil,
-  #     'team_name' => nil,
-  #     'abbreviation' => nil,
-  #     'stadium' => nil,
-  #     'link' => nil
-  #   }
+  def team_info(team_id)
+    team_hash = {
+      'team_id' => nil,
+      'franchise_id' => nil,
+      'team_name' => nil,
+      'abbreviation' => nil,
+      'stadium' => nil,
+      'link' => nil
+    }
 
-  #   find_team_by_id[team_id].each do |row|
-  #     x = 0
-  #     team_hash.each do |info, value|
-  #       team_hash[info] = row[x]
-  #       x += 1
-  #     end
-  #   end
-  #   team_hash.delete('stadium')
-  #   team_hash
-  # end
+    find_team_by_id[team_id].each do |row|
+      x = 0
+      team_hash.each do |info, value|
+        team_hash[info] = row[x]
+        x += 1
+      end
+    end
+    team_hash.delete('stadium')
+    team_hash
+  end
 
 def best_season(team_id)
   games_played_by_team = games_played_by_season.dup
