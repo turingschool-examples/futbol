@@ -525,7 +525,6 @@ class StatTracker
       end
       
       mat.team_name
-      
     end
 
     def least_accurate_team(season)
@@ -537,9 +536,27 @@ class StatTracker
       end
       
       lat.team_name
-
     end
 
+    def average_win_percentage(team)
+      team_games = []
+      won = []
+
+      game_teams.each do |game_team|
+        if game_team.team_id == team
+          team_games << game_team
+        end
+      end
+
+      team_games.each do |team_game|
+        if team_game.result == "WIN"
+          won << team_game
+        end
+      end
+
+      (won.count.to_f / team_games.count).round(2)
+    end
+end
 
   def game_ids_seasons(team_id)
     seasons_hash = Hash.new{|h,v| h[v] = []}
