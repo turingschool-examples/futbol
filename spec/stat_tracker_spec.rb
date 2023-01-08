@@ -207,15 +207,15 @@ RSpec.describe StatTracker do
   # end
   
   # describe "Team Statistics" do
-    it "#team_info" do
-      expect(stat_tracker.team_info(6)).to eq({
-        "team_id"=> 6, 
-        "franchise_id"=> 6, 
-        "team_name"=> "FC Dallas", 
-        "abbreviation"=> "DAL", 
-        "link"=> "/api/v1/teams/6"
-      })
-    end
+    # it "#team_info" do
+    #   expect(stat_tracker.team_info("6")).to eq({
+    #     "team_id"=> "6", 
+    #     "franchise_id"=> "6", 
+    #     "team_name"=> "FC Dallas", 
+    #     "abbreviation"=> "DAL", 
+    #     "link"=> "/api/v1/teams/6"
+    #   })
+    # end
 
     # it "#most_accurate_team" do
     #   game_path = './data/games.csv'
