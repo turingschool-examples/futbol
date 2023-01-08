@@ -112,6 +112,133 @@ class StatTracker
                 end / game_season.count.to_f).round(2)
         end
     end
+    
+    def count_of_teams
+        @teams.count
+    end
+
+
+    def best_offense
+        # Return team with highest average number of goals over all total games
+        
+        total_goals_by_team = Hash.new(0)
+        @game_teams.each do |game|
+            total_goals_by_team[game[:team_id]] += game[:goals]
+        end
+
+        avg_goals_by_team = Hash.new(0)
+        total_goals_by_team.each do |id, total_goals|
+            avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
+        end
+         
+        @teams.find do |game|
+            # .find will return first highest avg, .each will return last highest avg
+            if game[:team_id] == avg_goals_by_team.key(avg_goals_by_team.values.max)
+                return game[:teamname]
+            end
+        end
+    end
+
+    
+    def worst_offense
+        # Return team with highest average number of goals over all total games
+        
+        total_goals_by_team = Hash.new(0)
+        @game_teams.each do |game|
+            total_goals_by_team[game[:team_id]] += game[:goals]
+        end
+
+        avg_goals_by_team = Hash.new(0)
+        total_goals_by_team.each do |id, total_goals|
+            avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
+        end
+         
+        @teams.find do |game|
+            # .find will return first highest avg, .each will return last highest avg
+            if game[:team_id] == avg_goals_by_team.key(avg_goals_by_team.values.min)
+                return game[:teamname]
+            end
+        end
+    end
+    
+    def average_win_percentage(team_id)
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        team_results = Hash.new { |hash, key| hash[key] = [] }
+        @game_teams.each do |game|
+            team_results[game[:team_id]] << game[:result]
+        end
+        team_wins = team_results[team_id].select do |result|
+            result == "WIN"
+        end
+        (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
+    end
+
+    def most_tackles
+        
+    end
+
+    # most_tackles - RETURN STRING w/ name of team
+    # Name of the Team with the most tackles in the season
+    # translate the string argument season id to an integer season id (what it is in games.csv)
+    # match the season id with the team id - make a hash: season id is the key, game id is the value
+
+
+
+    def most_goals_scored(team_id)
+
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.max
+    end
+
+    def fewest_goals_scored(team_id)
+
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.min
+    end
+
+    def winningest_coach(season_id)
+        season_games = @games.find_all { |game| game[:season] == season_id }
+        # require 'pry'; binding.pry
+
+        coach_result = Hash.new { |hash, key| hash[key] = [] }
+
+        season_games.each do |season_game|
+            season_game_id = season_game[:game_id]
+            @game_teams.each do |game|
+                if game[:game_id] == season_game_id
+                    coach_result[game[:head_coach]] << game[:result]
+                end
+            end
+        end
+
+    end
+
+    # Winningest / Worst Coach - RETURN STRING of coach name
+    # Name of the Coach with the best win percentage for the season
+    # season id (key) - game id (value
+
+    # look at game_teams and map it to the coach
+
+    # coach is the key - wins and losses
+    # need to track number of games per coaches to factor into win percentage
+    # helper methods - formatting averages
+
+    # helper method that expects two numbers and sends back average
+
 
     def highest_scoring_visitor
         team_total_goals = Hash.new (0)
