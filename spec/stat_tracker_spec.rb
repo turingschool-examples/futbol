@@ -42,8 +42,8 @@ RSpec.describe StatTracker do
 
 	describe 'checks percentage of wins/ties' do
 		it "#percentage_home_wins" do
-		expect(stat_tracker.percentage_home_wins).to eq 0.44
-	end
+			expect(stat_tracker.percentage_home_wins).to eq 0.44
+		end
 
 		it "#percentage_visitor_wins" do
 			expect(stat_tracker.percentage_visitor_wins).to eq 0.36
@@ -67,7 +67,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_total_score).to eq(0)
     end
   end
-
 
   describe '#count_of_games_by_season' do
     it 'is a hash' do
@@ -131,18 +130,13 @@ RSpec.describe StatTracker do
 		end
 
 		it 'averages away game scores per team' do
-			expect(stat_tracker.average_score_away_game).to be_a Float
+			expect(stat_tracker.average_score_away_game).to be_a Hash
 		end
 
 		it 'averages home game scores per team' do
-			expect(stat_tracker.average_score_home_game).to be_a Float
+			expect(stat_tracker.average_score_home_game).to be_a Hash
 		end
-
-		it 'averages home game scores per team' do
-			expect(stat_tracker.highest_scoring_visitor).to be_a Float
-		end
-	end
-	
+		
 		it "#highest_scoring_visitor" do
     	expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
   	end
@@ -158,6 +152,7 @@ RSpec.describe StatTracker do
   	it "#lowest_scoring_home_team" do
     	expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   	end
+	end
 
   describe '#count_of_teams' do
     it 'is a integer' do
