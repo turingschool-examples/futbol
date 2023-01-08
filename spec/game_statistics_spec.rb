@@ -70,4 +70,18 @@ describe GameStats do
       expect(stat.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#average_goals_by_season' do
+    it 'returns a hash with seasons as keys and average goals per season as values' do
+      expected = {
+        "20122013" => 4.13,
+        "20132014" => 5.0,
+        "20152016" => 3.0,
+        "20162017" => 4.38,
+        "20172018" => 3.89
+      }
+
+      expect(stat.average_goals_by_season).to eq(expected)
+    end
+  end
 end
