@@ -59,4 +59,12 @@ class GameStats
 			team.info[:team_name]
 		end
 	end
+
+	def count_of_games_by_season
+		game_counts = {}
+		games_played_by_season.map do |season_id, games|
+			game_counts[season_id.to_s] = games.size
+		end
+		game_counts
+	end
 end
