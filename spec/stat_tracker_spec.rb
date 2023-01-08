@@ -79,11 +79,37 @@ describe StatTracker do
 
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
-
-    it "can determine #average_goals_per_game" do
-      expect(stat_tracker.average_goals_per_game).to eq(4.45)
+    it "can determine #highest_total_score" do
+      expect(stat_tracker.highest_total_score).to eq(8)
     end
 
+    it "can determine #lowest_total_score" do
+      expect(stat_tracker.lowest_total_score).to eq(1)
+    end
+
+    it "can determine #home_wins" do
+      expect(stat_tracker.home_wins).to eq(20)
+    end
+
+    it "can determine #percentage_home_wins" do
+      expect(stat_tracker.percentage_home_wins).to eq(0.41)
+    end
+
+    it "can determine #away_wins" do
+      expect(stat_tracker.away_wins).to eq(23)
+    end
+
+    it "can determine #percentage_visitor_wins" do
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
+    end
+
+    it "can determine #tie_games" do
+      expect(stat_tracker.tie_games).to eq(6)
+    end
+
+    it "can determine #percentage_ties" do
+      expect(stat_tracker.percentage_ties).to eq(0.12)
+    end
 
     it 'can determine #count_of_games_by_season' do
       expected = {
@@ -95,6 +121,10 @@ describe StatTracker do
         "20172018"=>12
       }
       expect(stat_tracker.count_of_games_by_season).to eq expected
+    end
+
+    it "can determine #average_goals_per_game" do
+      expect(stat_tracker.average_goals_per_game).to eq(4.45)
     end
 
     it "can determine #average_goals_by_season" do
@@ -109,38 +139,6 @@ describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected)
     end
 
-
-    it "can determine #home_wins" do
-      expect(stat_tracker.home_wins).to eq(20)
-    end
-
-    it "can determine #away_wins" do
-      expect(stat_tracker.away_wins).to eq(23)
-    end
-
-    it "can determine #tie_games" do
-      expect(stat_tracker.tie_games).to eq(6)
-    end
-
-    it "can determine #percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq(0.41)
-    end
-
-    it "can determine #percentage_visitor_wins" do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
-    end
-
-    it "can determine #percentage_ties" do
-      expect(stat_tracker.percentage_ties).to eq(0.12)
-    end
-
-    it "can determine highest_total_score" do
-      expect(stat_tracker.highest_total_score).to eq(8)
-    end
-
-    it "can determine lowest_total_score" do
-      expect(stat_tracker.lowest_total_score).to eq(1)
-    end
   end
 
   describe 'league statistics' do
@@ -174,7 +172,7 @@ describe StatTracker do
     end
 
 
-    xit 'can calculate #team_score_averages array length' do
+    it 'can calculate #team_score_averages array length' do
       expect(stat_tracker.team_score_averages.length).to eq(31)
     end
 
