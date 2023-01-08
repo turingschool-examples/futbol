@@ -206,7 +206,6 @@ describe StatTracker do
         "abbreviation" => "MIN",
         "link" => "/api/v1/teams/18"
         }
-        # require 'pry'; binding.pry
       expect(stat_tracker.team_info("18")).to eq expected
     end
 
@@ -277,6 +276,36 @@ describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("6")).to be_an(Integer)
       expect(stat_tracker.fewest_goals_scored("6")).to eq(1)
     end
+
+    it 'can find_team_name(team_id)' do
+      expect(stat_tracker.find_team_name("6")).to eq("FC Dallas")
+    end
+
+    it 'can #find_game_id_arr(team_id)' do
+      expected_arr = ["2012030311", "2012030312", "2012030313", "2012030314"]
+      expect(stat_tracker.find_game_id_arr("5")).to eq(expected_arr)
+    end
+
+    it 'can give #opponents_win_percenage(team_id) array of arrays' do
+    # need different fixture data to show more dynamic expect
+      expect(stat_tracker.opponents_win_percentage("6")).to eq([["3", 0.0], ["5", 0.0]])
+    end
+
+    it 'can find #favorite_opponent(team_id)' do
+    # currently works with './data/fixtures/game_teams_i1.csv'
+    # In order to test 100% properly, fixture data for game_teams must contain several
+    # "matchups", where the argument team has several opponents with matching game_id.
+    # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
+      expect(stat_tracker.favorite_opponent("6")).to eq("Houston Dynamo")
+    end
+
+    it 'can find #rival(team_id)' do
+    # currently works with './data/fixtures/game_teams_i1.csv'
+    # In order to test 100% properly, fixture data for game_teams must contain several
+    # "matchups", where the argument team has several opponents with matching game_id.
+    # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
+      expect(stat_tracker.rival("6")).to eq("Sporting Kansas City")
+    end
   end
 
 
@@ -307,5 +336,4 @@ describe StatTracker do
       expect(stat_tracker.average_win_percentage("26")).to eq 0.67
     end
   end
-  
 end
