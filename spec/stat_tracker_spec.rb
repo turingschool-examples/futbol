@@ -173,14 +173,37 @@ RSpec.describe StatTracker do
       expect(stat_tracker.best_offense).to eq("Reign FC")
     end
   end
-
+  
   describe '#worst_offense' do
     it 'is a string' do
       expect(stat_tracker.worst_offense).to be_a(String)
     end
-
+    
     it 'returns team with lowest average across all seasons' do
       expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+    
+  end
+  
+  describe "#winningest_coach" do
+    context '#game_ids_by_season' do
+      it 'returns the data matched to the passed argument as a Hash' do
+        expect(stat_tracker.game_ids_by_season).to be_a(Hash)
+      end
+    end
+
+    context "#winningest_coach" do
+      it 'can find the coach with the best win percentage for the season ' do
+        expect(stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+        expect(stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+      end
+    end
+
+    context "#worst_coach" do
+      it "#worst_coach" do
+        expect(stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette")
+        expect(stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+      end
     end
   end
 
