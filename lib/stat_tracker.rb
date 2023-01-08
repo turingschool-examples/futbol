@@ -279,16 +279,20 @@ class StatTracker
   end
 
   def winningest_coach(season)
-    coach_hash = coach_victory_percentage_hash(season)
-    ratios = determine_sorted_ratio(coach_hash)
+    ratios = determine_coach_ratios(season)
     ratios.reverse.first.first
   end 
 
   def worst_coach(season)
-    coach_hash = coach_victory_percentage_hash(season)
-    ratios = determine_sorted_ratio(coach_hash)
+    ratios = determine_coach_ratios(season)
     ratios.first.first
-  end
+  end 
+
+  def determine_coach_ratios(season)
+    games_in_season = list_gameteams_from_particular_season(season)
+    coach_hash = coach_victory_percentage_hash(games_in_season)
+    ratios = determine_sorted_ratio(coach_hash)
+  end 
 
   def list_gameteams_from_particular_season(season)
     games_in_season = list_games_per_season(season)
@@ -303,8 +307,7 @@ class StatTracker
     games.find_all {|game| game[:season] == season} 
   end
 
-  def coach_victory_percentage_hash(season)
-    games_in_season = list_gameteams_from_particular_season(season)
+  def coach_victory_percentage_hash(games_in_season)
     coach= Hash.new{ |hash, key| hash[key] = [0,0] }
 
     games_in_season.each do |game_team|
@@ -397,12 +400,6 @@ class StatTracker
       end
     end
 
-  # def least_accurate_team
-  # end
-  # MOST/LEAST ACCURATE TEAM METHODS ABOVE
-
- ################## Team Statisics ##################
-
  def team_info(team_id)
   selected = teams.select do |team| 
     team[:team_id] == team_id 
@@ -419,19 +416,20 @@ class StatTracker
   end
 
   def best_season(team_id)
-    relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
-    relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
-    results_by_season = group_by_season(relevant_games, relevant_game_teams) 
-    season_array = order_list(results_by_season)
+    season_array = ordered_season_array(team_id)
     season_array.sort.reverse[0][1]
   end 
 
   def worst_season(team_id)
+    season_array = ordered_season_array(team_id)
+    season_array.sort[0][1]
+  end
+
+  def ordered_season_array(team_id)
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
     results_by_season = group_by_season(relevant_games, relevant_game_teams) 
     season_array = order_list(results_by_season)
-    season_array.sort[0][1]
   end
 
   def find_relevant_game_teams_by_teamid(team_id)
@@ -499,27 +497,23 @@ class StatTracker
   end
 
   def favorite_opponent(team_id)
-
-    relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
-    relevant_games = find_relevant_games_based_on_game_team_hashes(relevant_game_teams)
-    hashed_info = hashed_info(relevant_games, relevant_game_teams, team_id)
-    array = accumulate_hash(hashed_info)
-    sorted = sort_based_on_value(array)
-    result_id = sorted.reverse.first.first
+    sorted_array = sorted_array_of_opponent_win_percentages(team_id)
+    result_id = sorted_array.reverse.first.first
     determine_team_name_based_on_team_id(result_id)
-
   end
 
   def rival(team_id)
+    sorted_array = sorted_array_of_opponent_win_percentages(team_id)
+    result_id = sorted_array.first.first
+    determine_team_name_based_on_team_id(result_id)
+  end
 
+  def sorted_array_of_opponent_win_percentages(team_id)
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_relevant_games_based_on_game_team_hashes(relevant_game_teams)
     hashed_info = hashed_info(relevant_games, relevant_game_teams, team_id)
     array = accumulate_hash(hashed_info)
     sorted = sort_based_on_value(array)
-    result_id = sorted.first.first
-    determine_team_name_based_on_team_id(result_id)
-
   end
 
   def find_relevant_games_based_on_game_team_hashes(relevant_game_teams)
@@ -556,9 +550,7 @@ class StatTracker
 
   def accumulate_hash(hash)
     percentage_data = []
-    hash.each do |key, value|
-      percentage_data << [key, ((value.count("WIN").to_f)/(value.count.to_f))]
-    end
+    hash.each {|key, value|percentage_data << [key, ((value.count("WIN").to_f)/(value.count.to_f))]}
     return percentage_data
   end
 
