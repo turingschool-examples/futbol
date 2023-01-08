@@ -128,7 +128,6 @@ class StatTracker
 
         avg_goals_by_team = Hash.new(0)
         total_goals_by_team.each do |id, total_goals|
-            # require 'pry'; binding.pry
             avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
         end
          
@@ -142,40 +141,46 @@ class StatTracker
 
     
     def worst_offense
-        # Return team with lowest average number of goals over all total games
+        # Return team with highest average number of goals over all total games
         
-        hash1 = Hash.new { |hash, key| hash[key] = [] }
+        total_goals_by_team = Hash.new(0)
         @game_teams.each do |game|
-            hash1[game[:team_id]] << game[:goals]
+            total_goals_by_team[game[:team_id]] += game[:goals]
         end
 
-        hash2 = Hash.new { |hash, key| hash[key] = [] }
-        hash1.each do |id, goals|
-            hash2[id] = (goals.sum / goals.count.to_f).round(2)
+        avg_goals_by_team = Hash.new(0)
+        total_goals_by_team.each do |id, total_goals|
+            avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
         end
-        # require 'pry'; binding.pry
-        
+         
         @teams.find do |game|
-            if game[:team_id] == hash2.key(hash2.values.min)
+            # .find will return first highest avg, .each will return last highest avg
+            if game[:team_id] == avg_goals_by_team.key(avg_goals_by_team.values.min)
                 return game[:teamname]
             end
         end
     end
-
+    
     def average_win_percentage(team_id)
         game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
-
         team_results = Hash.new { |hash, key| hash[key] = [] }
         @game_teams.each do |game|
             team_results[game[:team_id]] << game[:result]
         end
-        
         team_wins = team_results[team_id].select do |result|
             result == "WIN"
         end
-
         (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
     end
+
+    def most_tackles
+        
+    end
+
+    # most_tackles - RETURN STRING w/ name of team
+    # Name of the Team with the most tackles in the season
+    # translate the string argument season id to an integer season id (what it is in games.csv)
+    # match the season id with the team id - make a hash: season id is the key, game id is the value
 
 
 
@@ -219,8 +224,6 @@ class StatTracker
                 end
             end
         end
-        # require 'pry'; binding.pry
-
 
     end
 
