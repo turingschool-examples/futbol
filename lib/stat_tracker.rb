@@ -555,7 +555,6 @@ class StatTracker
     end
     percentage_by_season.min_by{|k, v| v}[0]
   end
-end
 
 	def most_goals_scored(team_id)
 		# individual_team_goals_per_game = Hash.new { | k, v | k[v]= [] }
