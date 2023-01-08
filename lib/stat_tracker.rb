@@ -141,6 +141,7 @@ class StatTracker
         end
     end
 
+    
     def worst_offense
         # Return team with highest average number of goals over all total games
         
@@ -175,13 +176,71 @@ class StatTracker
     end
 
     def most_tackles
-
-    
-    
-end
-   
+        
+    end
 
     # most_tackles - RETURN STRING w/ name of team
     # Name of the Team with the most tackles in the season
     # translate the string argument season id to an integer season id (what it is in games.csv)
     # match the season id with the team id - make a hash: season id is the key, game id is the value
+
+
+
+    def most_goals_scored(team_id)
+
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.max
+    end
+
+    def fewest_goals_scored(team_id)
+
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.min
+    end
+
+    def winningest_coach(season_id)
+        season_games = @games.find_all { |game| game[:season] == season_id }
+        # require 'pry'; binding.pry
+
+        coach_result = Hash.new { |hash, key| hash[key] = [] }
+
+        season_games.each do |season_game|
+            season_game_id = season_game[:game_id]
+            @game_teams.each do |game|
+                if game[:game_id] == season_game_id
+                    coach_result[game[:head_coach]] << game[:result]
+                end
+            end
+        end
+        # require 'pry'; binding.pry
+
+
+    end
+
+    # Winningest / Worst Coach - RETURN STRING of coach name
+    # Name of the Coach with the best win percentage for the season
+    # season id (key) - game id (value
+
+    # look at game_teams and map it to the coach
+
+    # coach is the key - wins and losses
+    # need to track number of games per coaches to factor into win percentage
+    # helper methods - formatting averages
+
+    # helper method that expects two numbers and sends back average
+
+end

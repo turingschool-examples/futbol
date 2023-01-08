@@ -97,6 +97,28 @@ RSpec.describe StatTracker do
 
     end
 
+    describe "#Teams avg win, most and fewest goals" do
+        it "#average_win_percentage" do
+            expect(@stat_tracker.average_win_percentage("18")).to eq 0.50
+        end        
+    end
+
+    describe "#Most / Fewest goals scored" do
+        it '#most_goals_scored' do
+        expect(@stat_tracker.most_goals_scored("52")).to eq(2)
+        end
+
+        it '#fewest_goals_scored' do
+        expect(@stat_tracker.fewest_goals_scored("52")).to eq(1)
+        end
+    end
+
+    describe "#winningest/ worst coach" do
+        it "#winningest_coach" do
+            expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan")
+        end
+    end
+
 
     describe "#Teams avg win, most and fewest goals" do
         
@@ -117,7 +139,7 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
             expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
         end
-        
+
     end 
 
 
