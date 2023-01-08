@@ -6,6 +6,9 @@ class StatTracker
                 :teams
 
   def initialize(game_teams, games, teams)
+    game_teams = game_teams.uniq
+    games = games.uniq
+    teams = teams.uniq
     @game_teams = game_teams
     @games = games
     @teams = teams
@@ -292,13 +295,6 @@ class StatTracker
  
     games_in_season = list_games_per_season(season)
     pull_gameids = games_in_season.map {|game| game[:game_id]} 
-    
-    # answer = game_teams.find_all do |game_team|
-    #   pull_gameids.each do |game_id|  
-    #     game_id == game_team[:game_id] 
-    #     end 
-    #   end
-    #   require 'pry'; binding.pry
 
     total_relevant_gameteams_from_season = []
     pull_gameids.each do |game_id| 
@@ -430,17 +426,14 @@ class StatTracker
     link: team[:link]
   }
   return hash
-end
+  end
 
   def best_season(team_id)
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
     results_by_season = group_by_season(relevant_games, relevant_game_teams) 
     season_array = order_list(results_by_season)
-    
     season_array.sort.reverse[0][1]
-
-
   end 
 
   def worst_season(team_id)
@@ -448,9 +441,7 @@ end
     relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
     results_by_season = group_by_season(relevant_games, relevant_game_teams) 
     season_array = order_list(results_by_season)
-    
     season_array.sort[0][1]
-
   end
 
   def find_relevant_game_teams_by_teamid(team_id)
@@ -570,7 +561,6 @@ end
         end
       end
     end
-    require 'pry'; binding.pry
     return relevant_games
   end 
 
