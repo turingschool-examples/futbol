@@ -164,6 +164,23 @@ class StatTracker
         end
     end
 
+    def average_win_percentage(team_id)
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+
+        team_results = Hash.new { |hash, key| hash[key] = [] }
+        @game_teams.each do |game|
+            team_results[game[:team_id]] << game[:result]
+        end
+        
+        team_wins = team_results[team_id].select do |result|
+            result == "WIN"
+        end
+
+        (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
+    end
+
+
+
     def most_goals_scored(team_id)
 
         game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
@@ -190,10 +207,35 @@ class StatTracker
         game_goals_list.min
     end
 
-    
-# most_goals_scored("")
-# 	Highest number of goals a particular team has scored in a single game.
+    def winningest_coach(season_id)
+        season_games = @games.find_all { |game| game[:season] == season_id }
+        # require 'pry'; binding.pry
 
-# need to look up by team_id and pair with goals (hash with key being id, goals being values)
-# iterate through values (goals array) and find the highest number (WILL RETURN SINGLE INTEGER)
+        coach_result = Hash.new { |hash, key| hash[key] = [] }
+
+        season_games.each do |season_game|
+            season_game_id = season_game[:game_id]
+            @game_teams.each do |game|
+                if game[:game_id] == season_game_id
+                    coach_result[game[:head_coach]] << game[:result]
+                end
+            end
+        end
+        # require 'pry'; binding.pry
+
+
+    end
+
+    # Winningest / Worst Coach - RETURN STRING of coach name
+    # Name of the Coach with the best win percentage for the season
+    # season id (key) - game id (value
+
+    # look at game_teams and map it to the coach
+
+    # coach is the key - wins and losses
+    # need to track number of games per coaches to factor into win percentage
+    # helper methods - formatting averages
+
+    # helper method that expects two numbers and sends back average
+
 end
