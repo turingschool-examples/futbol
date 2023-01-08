@@ -489,6 +489,74 @@ class StatTracker
 		(total_wins / total_games).round(2) 
 	end
 
+  def best_season(team_id)
+    team_game_ids_and_results = Hash.new {|k, v| k[v]= ''}
+
+
+    game_teams.each do |row|
+      if row[:team_id] == team_id
+        team_game_ids_and_results[row[:game_id]] = row[:result]
+      end  
+    end
+    results_by_season = Hash.new{|k, v| k[v]= []}
+
+    team_game_ids_and_results.each do |game_id, result|
+      games.each do |row|
+        if row[:game_id] == game_id
+          results_by_season[row[:season]] << result
+        end
+      end
+    end
+    
+    percentage_by_season = Hash.new{|k, v| k[v]= ''}
+
+    results_by_season.each do |season, results|
+      wins = 0
+      results.each do |result|
+        if result == 'WIN'
+          wins += 1
+        end
+      end
+      percentage_by_season[season] = wins.to_f / results.count.to_f
+    end
+    percentage_by_season.max_by{|k, v| v}[0]
+  end
+
+
+  def worst_season(team_id)
+    team_game_ids_and_results = Hash.new {|k, v| k[v]= ''}
+
+
+    game_teams.each do |row|
+      if row[:team_id] == team_id
+        team_game_ids_and_results[row[:game_id]] = row[:result]
+      end  
+    end
+    results_by_season = Hash.new{|k, v| k[v]= []}
+
+    team_game_ids_and_results.each do |game_id, result|
+      games.each do |row|
+        if row[:game_id] == game_id
+          results_by_season[row[:season]] << result
+        end
+      end
+    end
+    
+    percentage_by_season = Hash.new{|k, v| k[v]= ''}
+
+    results_by_season.each do |season, results|
+      wins = 0
+      results.each do |result|
+        if result == 'WIN'
+          wins += 1
+        end
+      end
+      percentage_by_season[season] = wins.to_f / results.count.to_f
+    end
+    percentage_by_season.min_by{|k, v| v}[0]
+  end
+end
+
 	def most_goals_scored(team_id)
 		# individual_team_goals_per_game = Hash.new { | k, v | k[v]= [] }
 		individual_goals_per_game = []
