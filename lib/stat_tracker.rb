@@ -373,62 +373,70 @@ class StatTracker
     end
 
     def favorite_opponent(team_id)
-        wins_vs_opponent = Hash.new (0)
-        @games.each do |team|
-            if team[:home_team_id] || team[:away_team_id] == team_id
-                if (team[:home_team_id] == team_id) && (team[:home_goals] > team[:away_goals])
-                 wins_vs_opponent[team[:away_team_id]] += 1.0
-                else (team[:away_team_id] == team_id) && (team[:away_goals] > team[:home_goals])
-                    wins_vs_opponent[team[:home_team_id]] += 1.0
+        rival_stats = Hash.new { |h,k| h[k] = Hash.new(0) }
+        @games.each do |game|
+            if game[:home_team_id] == team_id || game[:away_team_id] == team_id
+                if (game[:home_team_id] == team_id)
+                    rival = rival_stats[game[:away_team_id]]
+                    rival[:total_games] += 1.0
+                    if game[:home_goals] < game[:away_goals] 
+                        rival[:losses] += 1.0    
+                    end
+                elsif (game[:away_team_id] == team_id)
+                    rival = rival_stats[game[:home_team_id]]
+                    rival[:total_games] += 1.0
+                    if game[:home_goals] > game[:away_goals] 
+                        rival[:losses] += 1.0  
+                    end
                 end
             end
         end
-        games_vs_opponents = Hash.new (0)
-        @games.each do |team|
-            if team[:home_team_id] == team_id
-                games_vs_opponents[team[:away_team_id]] += 1.0
-            else team[:away_team_id] == team_id
-                games_vs_opponents[team[:home_team_id]] += 1.0
-            end
+
+        loss_percentage = Hash.new(0)
+        rival_stats.each do |rival_team_id, stats|
+            loss_percentage[rival_team_id] = stats[:losses] / stats[:total_games]
         end
-        wins_vs_opponent.merge!(games_vs_opponents) { |team_id, wins, games| wins / games }
-        wins_vs_opponent.delete_if { |team_id, percetage| percetage > 1 }
-        favorite_id = wins_vs_opponent.key(wins_vs_opponent.values.max)
-        favorite_team = @teams.find do |team|
-            if team[:team_id] == favorite_id
-                return team[:teamname]
-            end
-            favorite_team
-        end   
+
+        rival_id = loss_percentage.min_by { |rival_team_id, loss_percentage| loss_percentage }[0]
+        @teams.find { |team| team[:team_id] == rival_id }[:teamname]
     end
     
     def rival(team_id)
-        losses_vs_opponent = Hash.new (0)
-        @games.each do |team|
-            if team[:home_team_id] || team[:away_team_id] == team_id
-                if (team[:home_team_id] == team_id) && (team[:home_goals] < team[:away_goals])
-                    losses_vs_opponent[team[:away_team_id]] += 1.0
-                else (team[:away_team_id] == team_id) && (team[:away_goals] < team[:home_goals])
-                    losses_vs_opponent[team[:home_team_id]] += 1.0
+        rival_stats = Hash.new { |h,k| h[k] = Hash.new(0) }
+        @games.each do |game|
+            if game[:home_team_id] == team_id || game[:away_team_id] == team_id
+                if (game[:home_team_id] == team_id)
+                    rival = rival_stats[game[:away_team_id]]
+                    rival[:total_games] += 1.0
+                    if game[:home_goals] < game[:away_goals] 
+                        rival[:losses] += 1.0    
+                    end
+                elsif (game[:away_team_id] == team_id)
+                    rival = rival_stats[game[:home_team_id]]
+                    rival[:total_games] += 1.0
+                    if game[:home_goals] > game[:away_goals] 
+                        rival[:losses] += 1.0  
+                    end
                 end
             end
         end
-        games_vs_opponents = Hash.new (0)
-        @games.each do |team|
-            if team[:home_team_id] == team_id
-                games_vs_opponents[team[:away_team_id]] += 1.0
-            else team[:away_team_id] == team_id
-                games_vs_opponents[team[:home_team_id]] += 1.0
-            end
+        loss_percentage = Hash.new(0)
+        rival_stats.each do |rival_team_id, stats|
+            loss_percentage[rival_team_id] = stats[:losses] / stats[:total_games]
         end
-        losses_vs_opponent.merge!(games_vs_opponents) { |team_id, losses, games| losses / games }
-        losses_vs_opponent.delete_if { |team_id, percetage| percetage > 1 }
-        rival_id = losses_vs_opponent.key(losses_vs_opponent.values.min)
-        rival_team = @teams.find do |team|
-            if team[:team_id] == rival_id
-                return team[:teamname]
-            end
-            rival_team
-        end     
+        rival_id = loss_percentage.max_by { |rival_team_id, loss_percentage| loss_percentage }[0]
+        @teams.find { |team| team[:team_id] == rival_id }[:teamname]
+    end
+
+    def winningest_coach(season)
+        season_coach_records = {}
+        season_games = @games.select { |game| game[:season] == season }
+
+        season_game_ids = season_games.group_by { |season_game| season_game[:game_id] }.keys
+        
+
+        games_coached = @game_teams.select do
+
+        end
     end
 end
