@@ -81,64 +81,68 @@ describe StatTracker do
 
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
-    it "can determine #highest_total_score" do
-      expect(stat_tracker.highest_total_score).to eq(8)
-    end
+    describe 'main methods' do
+      it "can determine #highest_total_score" do
+        expect(stat_tracker.highest_total_score).to eq(8)
+      end
 
-    it "can determine #lowest_total_score" do
-      expect(stat_tracker.lowest_total_score).to eq(1)
-    end
+      it "can determine #lowest_total_score" do
+        expect(stat_tracker.lowest_total_score).to eq(1)
+      end
+      
+      it "can determine #percentage_home_wins" do
+        expect(stat_tracker.percentage_home_wins).to eq(0.41)
+      end
 
-    it "can determine #home_wins" do
-      expect(stat_tracker.home_wins).to eq(20)
-    end
+      it "can determine #percentage_visitor_wins" do
+        expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
+      end
 
-    it "can determine #percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq(0.41)
-    end
+      it "can determine #percentage_ties" do
+        expect(stat_tracker.percentage_ties).to eq(0.12)
+      end
 
-    it "can determine #away_wins" do
-      expect(stat_tracker.away_wins).to eq(23)
-    end
+      it 'can determine #count_of_games_by_season' do
+        expected = {
+          "20122013"=>7,
+          "20132014"=>10,
+          "20142015"=>2,
+          "20152016"=>9,
+          "20162017"=>9,
+          "20172018"=>12
+        }
+        expect(stat_tracker.count_of_games_by_season).to eq expected
+      end
 
-    it "can determine #percentage_visitor_wins" do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
+      it "can determine #average_goals_per_game" do
+        expect(stat_tracker.average_goals_per_game).to eq(4.45)
+      end
+      
+      it "can determine #average_goals_by_season" do
+        expected = {
+          "20122013"=>5,
+          "20132014"=>4.8,
+          "20142015"=>4.5,
+          "20152016"=>3.78,
+          "20162017"=>4.44,
+          "20172018"=>4.33
+        }
+        expect(stat_tracker.average_goals_by_season).to eq(expected)
+      end
     end
+  
+    describe 'helper methods' do
+      it "can determine #home_wins" do
+        expect(stat_tracker.home_wins).to eq(20)
+      end
 
-    it "can determine #tie_games" do
-      expect(stat_tracker.tie_games).to eq(6)
-    end
+      it "can determine #away_wins" do
+        expect(stat_tracker.away_wins).to eq(23)
+      end
 
-    it "can determine #percentage_ties" do
-      expect(stat_tracker.percentage_ties).to eq(0.12)
-    end
-
-    it 'can determine #count_of_games_by_season' do
-      expected = {
-        "20122013"=>7,
-        "20132014"=>10,
-        "20142015"=>2,
-        "20152016"=>9,
-        "20162017"=>9,
-        "20172018"=>12
-      }
-      expect(stat_tracker.count_of_games_by_season).to eq expected
-    end
-
-    it "can determine #average_goals_per_game" do
-      expect(stat_tracker.average_goals_per_game).to eq(4.45)
-    end
-
-    it "can determine #average_goals_by_season" do
-      expected = {
-        "20122013"=>5,
-        "20132014"=>4.8,
-        "20142015"=>4.5,
-        "20152016"=>3.78,
-        "20162017"=>4.44,
-        "20172018"=>4.33
-      }
-      expect(stat_tracker.average_goals_by_season).to eq(expected)
+      it "can determine #tie_games" do
+        expect(stat_tracker.tie_games).to eq(6)
+      end
     end
   end
 
