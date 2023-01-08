@@ -52,7 +52,6 @@ class StatTracker
           game_team[:giveaways] = game_team[:giveaways].to_i
           game_team[:takeaways] = game_team[:takeaways].to_i
           game_teams << game_team
-        #   require "pry"; binding.pry
       end
       game_teams
     end
@@ -63,7 +62,6 @@ class StatTracker
     end
 
     def highest_total_score
-        # require "pry"; binding.pry
         games_total_score_array.max
     end
 
