@@ -399,17 +399,17 @@ class StatTracker
                 return team[:teamname]
             end
             favorite_team
-        end     
+        end   
     end
     
     def rival(team_id)
-        wins_vs_opponent = Hash.new (0)
+        losses_vs_opponent = Hash.new (0)
         @games.each do |team|
             if team[:home_team_id] || team[:away_team_id] == team_id
-                if (team[:home_team_id] == team_id) && (team[:home_goals] > team[:away_goals])
-                    wins_vs_opponent[team[:away_team_id]] += 1.0
-                else (team[:away_team_id] == team_id) && (team[:away_goals] > team[:home_goals])
-                    wins_vs_opponent[team[:home_team_id]] += 1.0
+                if (team[:home_team_id] == team_id) && (team[:home_goals] < team[:away_goals])
+                    losses_vs_opponent[team[:away_team_id]] += 1.0
+                else (team[:away_team_id] == team_id) && (team[:away_goals] < team[:home_goals])
+                    losses_vs_opponent[team[:home_team_id]] += 1.0
                 end
             end
         end
@@ -421,15 +421,14 @@ class StatTracker
                 games_vs_opponents[team[:home_team_id]] += 1.0
             end
         end
-        wins_vs_opponent.merge!(games_vs_opponents) { |team_id, wins, games| wins / games }
-        wins_vs_opponent.delete_if { |team_id, percetage| percetage > 1 }
-        favorite_id = wins_vs_opponent.key(wins_vs_opponent.values.min)
-        require "pry"; binding.pry
-        favorite_team = @teams.find do |team|
-            if team[:team_id] == favorite_id
+        losses_vs_opponent.merge!(games_vs_opponents) { |team_id, losses, games| losses / games }
+        losses_vs_opponent.delete_if { |team_id, percetage| percetage > 1 }
+        rival_id = losses_vs_opponent.key(losses_vs_opponent.values.min)
+        rival_team = @teams.find do |team|
+            if team[:team_id] == rival_id
                 return team[:teamname]
             end
-            favorite_team
+            rival_team
         end     
     end
 end
