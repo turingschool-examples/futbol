@@ -6,12 +6,10 @@ class StatTracker
                 :teams
 
   def initialize(game_teams, games, teams)
-    game_teams = game_teams.uniq
-    games = games.uniq
-    teams = teams.uniq
     @game_teams = game_teams
     @games = games
     @teams = teams
+    require 'pry'; binding.pry
   end
 
   def self.from_csv(locations)
@@ -22,6 +20,7 @@ class StatTracker
   end
 
   def self.game_teams_from_csv(locations)
+    array = []
     game_teams_array = []
     CSV.foreach(locations[:game_teams], headers: true) do |info|
       new_info = {
@@ -41,8 +40,10 @@ class StatTracker
         giveaways: info["giveaways"].to_i,
         takeaways: info["takeaways"].to_i
       }  
-      game_teams_array << new_info
+      array << new_info
     end
+      array = array.uniq
+      array.each {|array_item| game_teams_array << GameTeam.new(array_item)} 
     game_teams_array
   end
 
@@ -61,7 +62,7 @@ class StatTracker
         venue: info["venue"],
         venue_link: info["venue_link"]
       }  
-      games_array << new_info
+      games_array << Game.new(new_info)
     end
     games_array
   end
@@ -77,7 +78,7 @@ class StatTracker
         stadium: info["Stadium"],
         link: info["link"]
       }
-      teams_array << new_info
+      teams_array << Team.new(new_info)
     end
     teams_array
   end

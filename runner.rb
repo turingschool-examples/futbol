@@ -1,5 +1,9 @@
 require 'csv'
 require './lib/stat_tracker'
+require './lib/gameteam'
+require './lib/game'
+require './lib/team'
+
 
 
 game_path = './data/games.csv'
@@ -13,7 +17,3 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-
-stat_tracker.highest_scoring_visitor
-
-# puts stat_tracker.percentage_home_wins
