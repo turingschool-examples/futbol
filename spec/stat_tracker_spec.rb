@@ -7,7 +7,7 @@ describe StatTracker do
   let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
   let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
-  let(:team_teams_path_more){'./data/fixtures/game_teams_i2_more.csv'}
+  let(:game_teams_path_more){'./data/fixtures/game_teams_i2_more.csv'}
   
   let(:locations){{
       games: game_path,
@@ -34,6 +34,8 @@ describe StatTracker do
     }}
 
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
+    let(:stat_tracker3) {StatTracker.from_csv(locations_3)}
+    let(:stat_tracker4) {StatTracker.from_csv(locations_4)}
 
 
   describe 'class methods' do
@@ -222,27 +224,26 @@ describe StatTracker do
       end
 
       describe '#most_accurate_team and #least_accurate_team' do
-      
-      
-        let(:stat_tracker) {StatTracker.from_csv(locations_3)}
   
         it "#most_accurate_team" do
-          expect(stat_tracker.most_accurate_team("20132014")).to eq "Toronto FC"
-          expect(stat_tracker.most_accurate_team("20142015")).to eq "Orlando Pride"
+          expect(stat_tracker3.most_accurate_team("20132014")).to eq "Toronto FC"
+          expect(stat_tracker3.most_accurate_team("20142015")).to eq "Orlando Pride"
         end
   
         it "#least_accurate_team" do
-          expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
-          expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
+          expect(stat_tracker3.least_accurate_team("20132014")).to eq "LA Galaxy"
+          expect(stat_tracker3.least_accurate_team("20142015")).to eq "Chicago Red Stars"
         end
       end
 
       it "#most_tackles returns team with the most tackles in the season " do
         expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+        expect(stat_tracker4.most_tackles("20122013")).to eq("FC Cincinnati")
       end
   
       it '#fewest_tackles returns team with the least tackles in the season' do
         expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+        expect(stat_tracker4.fewest_tackles("20122013")).to eq("Real Salt Lake")
       end
     end
 
@@ -288,10 +289,8 @@ describe StatTracker do
       end
 
       describe '#average_win_percentage' do
-        let(:stat_tracker) {StatTracker.from_csv(locations_3)}
-    
         it "can return average_win_percentage" do
-          expect(stat_tracker.average_win_percentage("26")).to eq 0.67
+          expect(stat_tracker3.average_win_percentage("26")).to eq 0.67
         end
       end
 
