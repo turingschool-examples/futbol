@@ -26,9 +26,9 @@ class Game_team
 		@shots = info[:shots]
 		@tackles = info[:tackles]
 		@pim = info[:pim]
-		@power_play_opportunities = info[powerPlayOpportunities]
-		@power_play_goals = info[:powerPlayGoals]
-		@face_off_win_percentage = info[:faceOffWinPercentage]
+		@power_play_opportunities = info[:powerplayopportunities]
+		@power_play_goals = info[:powerplaygoals]
+		@face_off_win_percentage = info[:faceoffwinpercentage]
 		@giveaways = info[:giveaways]
 		@takeaways = info[:takeaways]
 	end
