@@ -35,7 +35,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.game_teams[0][:game_id]).to eq(2012030225)
       expect(stat_tracker.game_teams[rand(0..51)][:game_id]).to be_a(Integer)
       expect(stat_tracker.games[0][:home_goals]).to eq(1)
-      expect(stat_tracker.teams[0][:team_id]).to eq(1)
+      expect(stat_tracker.teams[0][:team_id]).to eq("1")
       expect(stat_tracker.games[0][:venue]).to eq("Providence Park")
       expect(stat_tracker.teams[0][:abbreviation]).to eq("ATL")
     end 

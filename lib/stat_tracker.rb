@@ -339,11 +339,9 @@ class StatTracker
   def team_ratios_by_season(hash)
     calculations = []
     hash.each do |key, value|
-    # team_goals_shots_by_season(season).each do |key, value|
       calculations << [key, ((value[0].to_f)/(value[1].to_f))]
     end
     result = calculations.to_h.sort_by { |key, value| value } 
-    # => this hash is ordered by values from lowest to highest 
   end
 
   def team_name(id)
