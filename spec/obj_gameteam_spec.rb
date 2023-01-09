@@ -24,8 +24,8 @@ RSpec.describe StatTracker do
       expect(stat_tracker.game_teams[0..77]).to all(be_an_instance_of(GameTeam))
     end
 
-    it "has certain types of attributes" do 
-      expect(stat_t)
-    end
+    # it "has certain types of attributes" do 
+    #   expect(stat_t)
+    # end
   end
 end 

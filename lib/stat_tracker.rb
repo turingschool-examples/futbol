@@ -9,6 +9,7 @@ class StatTracker
     @game_teams = game_teams
     @games = games
     @teams = teams
+    game_stats = GameStats.new(@games)
   end
 
   def self.from_csv(locations)
