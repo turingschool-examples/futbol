@@ -7,6 +7,7 @@ describe StatTracker do
   let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
   let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
+  let(:team_teams_path_more){'./data/fixtures/game_teams_i2_more.csv'}
   
   let(:locations){{
       games: game_path,
@@ -25,6 +26,15 @@ describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path_2
     }}
+
+    let(:locations_4){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path_more
+    }}
+
+    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
+
 
   describe 'class methods' do
     describe 'game' do  
@@ -83,7 +93,6 @@ describe StatTracker do
   end
 
   describe 'game statistics' do
-    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
     describe 'main methods' do
       it "can determine #highest_total_score" do
@@ -152,8 +161,6 @@ describe StatTracker do
 
   describe 'league statistics' do
 
-    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
-
     describe 'main methods' do
       it 'can return #count_of_teams' do
         expect(stat_tracker.count_of_teams).to eq(32)
@@ -205,8 +212,6 @@ describe StatTracker do
 
   describe 'season statistics' do
     
-    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
-
     describe 'main methods' do
       it 'can find the #winningest_coach' do
         expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
@@ -261,9 +266,7 @@ describe StatTracker do
   end
     
   describe 'team statistics' do
-    
-    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
-    
+        
     describe 'main methods' do
       it "#team_info" do
         expected = {
