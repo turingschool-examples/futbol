@@ -1,17 +1,9 @@
 require_relative 'spec_helper'
 
 RSpec.describe Team do
+  teams = CSV.read './data/teams.csv', headers: true, header_converters: :symbol
 
-  info = {
-      team_id: "1",
-      franchiseid: "23", 
-      teamname: "Atlanta United", 
-      abbreviation: "ATL", 
-      stadium: "Mercedes-Benz Stadium", 
-      link:"/api/v1/teams/1"
-    }
-
-  let(:team_row1){Team.new(info)}
+  let(:team_row1){Team.new(teams[0]) }
 
   describe '#initialize' do
     it 'exists' do
