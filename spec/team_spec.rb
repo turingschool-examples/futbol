@@ -1,5 +1,5 @@
-# require "./spec_helper"
+require "./spec_helper"
 
-# RSpec.describe Team do
+RSpec.describe Team do
 
-# end
+end
