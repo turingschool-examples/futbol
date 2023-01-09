@@ -252,43 +252,6 @@ class StatTracker
         coach = win_percentage.min_by { |coach_name, win_percentage| win_percentage }[0]
     end
 
-    def winningest_coach(season_id)
-        games_by_coach = Hash.new { |h,k| h[k] = Hash.new(0) }
-        @game_teams.each do |game_team|
-            if game_team[:game_id].slice(0..3) == season_id.slice(0..3)
-                coach_games = games_by_coach[game_team[:head_coach]]
-                coach_games[:total_games] += 1.0
-                if game_team[:result] == "WIN"
-                    coach_games[:wins] += 1.0
-                end
-            end
-        end
-        win_percentage = Hash.new (0)
-        games_by_coach.each do |coach_name, stats|
-            win_percentage[coach_name] = stats[:wins] / stats[:total_games]
-        end
-        coach = win_percentage.max_by { |coach_name, win_percentage| win_percentage }[0]
-    end
-
-    def worst_coach(season_id)
-        games_by_coach = Hash.new { |h,k| h[k] = Hash.new(0) }
-        @game_teams.each do |game_team|
-            if game_team[:game_id].slice(0..3) == season_id.slice(0..3)
-                coach_games = games_by_coach[game_team[:head_coach]]
-                coach_games[:total_games] += 1.0
-                if game_team[:result] == "WIN"
-                    coach_games[:wins] += 1.0
-                end
-            end
-        end
-        win_percentage = Hash.new (0)
-        games_by_coach.each do |coach_name, stats|
-            win_percentage[coach_name] = stats[:wins] / stats[:total_games]
-        end
-        coach = win_percentage.min_by { |coach_name, win_percentage| win_percentage }[0]
-    end
-
-
     def most_accurate_team(season)
         accuracy = {}
 
