@@ -62,4 +62,16 @@ describe TeamStats do
 			expect(stat.rival(52)).to eq("Sporting Kansas City")
 		end
 	end
+
+  describe '#best_season' do
+    it 'returns the season with the highest win percentage for a team argument' do
+      expect(stat.best_season('5')).to eq('20172018')
+    end
+  end
+
+  describe '#worst_season' do
+    it 'returns the season with the lowest win percentage for a team' do
+      expect(stat.worst_season('5')).to eq('20122013')
+    end
+  end
 end
