@@ -1,4 +1,6 @@
-class LeagueStats
+require './stats'
+
+class LeagueStats < Stats
 
     def count_of_teams
         @teams.count

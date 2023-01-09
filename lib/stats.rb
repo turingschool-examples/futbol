@@ -1,11 +1,9 @@
 class Stats
 
-    def initialize
-        puts 'test'
-        @games = CSV.foreach('./data/games.csv', headers: true).map do |info|
-            Game.new(info)
-        end
+    def initialize(locations)
+        @games = CSV.open(locations[:games], headers: true).map { |info| Game.new(info) }
+        @teams = CSV.open(locations[:teams], headers: true).map { |info| Team.new(info) }
+        @game_teams = CSV.open(locations[:game_teams], headers: true).map { |info| GameTeam.new(info) }
         require 'pry'; binding.pry
     end
 end
-stats = Stats.new

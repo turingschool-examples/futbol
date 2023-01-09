@@ -1,4 +1,6 @@
-class TeamStats
+require './stats'
+
+class TeamStats < Stats
 
     
 end

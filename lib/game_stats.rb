@@ -1,4 +1,6 @@
-class GameStats
+require './stats'
+
+class GameStats < Stats
 
   def initialize(games)
     @games = games 
