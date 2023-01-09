@@ -439,8 +439,7 @@ class StatTracker
           return team.team_name if team.team_id == fewest_tackles_id
         end
     end  
-
-  ##TEAM STATISTICS METHODS
+    
     def goals_scored_sorted(teamid)
       game_scores = []
      
