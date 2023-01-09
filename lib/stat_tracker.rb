@@ -11,24 +11,6 @@ class StatTracker
     @game_teams = game_teams
   end
 
-  class Team
-    attr_reader :team_id,
-                :franchise_id,
-                :team_name,
-                :abbreviation,
-                :stadium,
-                :link
-                
-    def initialize(info)
-      @team_id = info[:team_id]
-      @franchise_id = info[:franchiseid]
-      @team_name = info[:teamname]
-      @abbreviation = info[:abbreviation]
-      @stadium = info[:stadium]
-      @link = info[:link]
-    end
-  end
-
 
   
   ## GAME STATISTIC METHODS
@@ -97,7 +79,7 @@ class StatTracker
 
       hash
     end
-    
+
     def goals_per_game(game)
       game.away_goals.to_i + game.home_goals.to_i
     end
