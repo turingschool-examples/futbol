@@ -129,11 +129,11 @@ describe StatTracker do
       expect(stat_tracker.percentage_ties).to eq(0.12)
     end
 
-    it 'can determine highest_total_score' do
+    it 'can determine #highest_total_score' do
       expect(stat_tracker.highest_total_score).to eq(8)
     end
 
-    it 'can determine lowest_total_score' do
+    it 'can determine #lowest_total_score' do
       expect(stat_tracker.lowest_total_score).to eq(1)
     end
   end
@@ -150,19 +150,19 @@ describe StatTracker do
 
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
-    it 'can count the number of teams' do
+    it '#count_of_teams can count the number of teams' do
       expect(stat_tracker.count_of_teams).to eq(32)
     end
     
-    it 'can calculate the lowest_scoring_home' do
+    it 'can calculate the #lowest_scoring_home' do
       expect(stat_tracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
 
-    it 'can calculate the highest_scoring_home' do
+    it 'can calculate the #highest_scoring_home' do
       expect(stat_tracker.highest_scoring_home_team).to eq('Los Angeles FC, New England Revolution, Real Salt Lake')
     end
 
-    it 'can calculate the lowest_scoring_visitor' do
+    it 'can calculate the #lowest_scoring_visitor' do
       expect(stat_tracker.lowest_scoring_visitor).to eq('FC Cincinnati, Sporting Kansas City, New York Red Bulls')
     end
 
@@ -199,31 +199,31 @@ describe StatTracker do
       expect(stat_tracker.team_info('18')).to eq expected
     end
 
-    it 'can calculate the highest_scoring_visitor' do
+    it 'can calculate the #highest_scoring_visitor' do
       expect(stat_tracker.highest_scoring_visitor).to eq('Chicago Fire')
     end
 
-    it 'can produce an array_of_gameids by season' do
+    it 'can produce an #array_of_gameids by season' do
       expect(stat_tracker.array_of_gameids_by_season('20122013')).to be_an(Array)
       expect(stat_tracker.array_of_gameids_by_season('20122013')[0]).to be_a(String)
       expect(stat_tracker.array_of_gameids_by_season('20122013')[0].length).to eq(10)
     end
 
-    it 'can produce an array_of_game_teams by season' do
+    it 'can produce an #array_of_game_teams by season' do
       expect(stat_tracker.array_of_game_teams_by_season('20122013')).to be_an(Array)
       expect(stat_tracker.array_of_game_teams_by_season('20122013')[0]).to be_a(StatTracker::GameTeam)
     end
 
-    it 'can calculate win percentages for coaches and organize them' do
+    it '#coaches_win_percentages_hash can calculate win percentages for coaches and organize them' do
       expect(stat_tracker.coaches_win_percentages_hash('20122013')).to be_a(Hash)
       expect(stat_tracker.coaches_win_percentages_hash('20122013').first[1]).to be_a(Float)
     end
 
-    it 'can find the winningest coach' do
+    it 'can find the #winningest_coach' do
       expect(stat_tracker.winningest_coach('20122013')).to be_a(String)
     end
-
-    it 'can find the worst coach' do
+    #update test to reflect worst coach
+    it 'can find the #worst_coach' do
       expect(stat_tracker.winningest_coach('20122013')).to be_a(String)
     end
 
@@ -251,23 +251,23 @@ describe StatTracker do
       expect(stat_tracker.worst_season('6')).to be_an(String)
     end
   
-    it 'can generate goals_scored_sorted as an array' do
+    it 'can generate #goals_scored_sorted as an array' do
       expect(stat_tracker.goals_scored_sorted('6')).to be_an(Array)
       expect(stat_tracker.goals_scored_sorted('6').first).to be_an(Integer)
       expect(stat_tracker.goals_scored_sorted('6').last).to be_an(Integer)
     end
 
-    it 'can find the most_goals_scored for a team' do
+    it 'can find the #most_goals_scored for a team' do
       expect(stat_tracker.most_goals_scored('6')).to be_an(Integer)
       expect(stat_tracker.most_goals_scored('6')).to eq(3)
     end
 
-    it 'can find the fewest goals_scored for a team' do
+    it 'can find the #fewest_goals_scored for a team' do
       expect(stat_tracker.fewest_goals_scored('6')).to be_an(Integer)
       expect(stat_tracker.fewest_goals_scored('6')).to eq(1)
     end
 
-    it 'can find_team_name(team_id)' do
+    it 'can #find_team_name(team_id)' do
       expect(stat_tracker.find_team_name('6')).to eq('FC Dallas')
     end
 
