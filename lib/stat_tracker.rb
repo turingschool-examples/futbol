@@ -152,43 +152,107 @@ class StatTracker
         end
     end
 
-    def most_tackles
-        
+    def most_tackles(season_id)
+        season_tackles = Hash.new(0)
+        season_games = @games.group_by { |game| game[:season]}
+
+        game_id = season_games[season_id].map { |game| game[:game_id] }
+       
+        game_id.each do |id|
+            @game_teams.each do |game_team|
+                if game_team[:game_id] == id
+                    season_tackles[game_team[:team_id]] += game_team[:tackles]
+                end
+            end
+        end
+
+        team_with_most_tackles = season_tackles.max_by do |team_tackles|
+            team_tackles[1]
+        end.first
+        @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
     end
 
-    # most_tackles - RETURN STRING w/ name of team
-    # Name of the Team with the most tackles in the season
-    # translate the string argument season id to an integer season id (what it is in games.csv)
-    # match the season id with the team id - make a hash: season id is the key, game id is the value
+    def fewest_tackles(season_id)
+        season_tackles = Hash.new(0)
+        season_games = @games.group_by { |game| game[:season]}
 
-    # def winningest_coach(season_id)
-    #     season_games = @games.find_all { |game| game[:season] == season_id }
-    #     # require 'pry'; binding.pry
+        game_id = season_games[season_id].map { |game| game[:game_id] }
+       
+        game_id.each do |id|
+            @game_teams.each do |game_team|
+                if game_team[:game_id] == id
+                    season_tackles[game_team[:team_id]] += game_team[:tackles]
+                end
+            end
+        end
 
-    #     coach_result = Hash.new { |hash, key| hash[key] = [] }
+        team_with_most_tackles = season_tackles.min_by do |team_tackles|
+            team_tackles[1]
+        end.first
+        @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
+    end
 
-    #     season_games.each do |season_game|
-    #         season_game_id = season_game[:game_id]
-    #         @game_teams.each do |game|
-    #             if game[:game_id] == season_game_id
-    #                 coach_result[game[:head_coach]] << game[:result]
-    #             end
-    #         end
-    #     end
+    def most_goals_scored(team_id)
 
-    # end
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.max
+    end
 
-    # Winningest / Worst Coach - RETURN STRING of coach name
-    # Name of the Coach with the best win percentage for the season
-    # season id (key) - game id (value
+    def fewest_goals_scored(team_id)
 
-    # look at game_teams and map it to the coach
+        game_teams_id = @game_teams.find_all { |team| team[:team_id] == team_id }
+        
+        game_goals_list = []
+        
+        game_teams_id.each do |info|
+            game_goals_list << info[:goals]
+        end
+        
+        game_goals_list.min
+    end
 
-    # coach is the key - wins and losses
-    # need to track number of games per coaches to factor into win percentage
-    # helper methods - formatting averages
+    def winningest_coach(season_id)
+        games_by_coach = Hash.new { |h,k| h[k] = Hash.new(0) }
+        @game_teams.each do |game_team|
+            if game_team[:game_id].slice(0..3) == season_id.slice(0..3)
+                coach_games = games_by_coach[game_team[:head_coach]]
+                coach_games[:total_games] += 1.0
+                if game_team[:result] == "WIN"
+                    coach_games[:wins] += 1.0
+                end
+            end
+        end
+        win_percentage = Hash.new (0)
+        games_by_coach.each do |coach_name, stats|
+            win_percentage[coach_name] = stats[:wins] / stats[:total_games]
+        end
+        coach = win_percentage.max_by { |coach_name, win_percentage| win_percentage }[0]
+    end
 
-    # helper method that expects two numbers and sends back average
+    def worst_coach(season_id)
+        games_by_coach = Hash.new { |h,k| h[k] = Hash.new(0) }
+        @game_teams.each do |game_team|
+            if game_team[:game_id].slice(0..3) == season_id.slice(0..3)
+                coach_games = games_by_coach[game_team[:head_coach]]
+                coach_games[:total_games] += 1.0
+                if game_team[:result] == "WIN"
+                    coach_games[:wins] += 1.0
+                end
+            end
+        end
+        win_percentage = Hash.new (0)
+        games_by_coach.each do |coach_name, stats|
+            win_percentage[coach_name] = stats[:wins] / stats[:total_games]
+        end
+        coach = win_percentage.min_by { |coach_name, win_percentage| win_percentage }[0]
+    end
 
     def highest_scoring_visitor
         team_total_goals = Hash.new (0)

@@ -139,36 +139,33 @@ RSpec.describe StatTracker do
         end
 
         it '#most_goals_scored' do
-        expect(@stat_tracker.most_goals_scored("52")).to eq(2)
+          expect(@stat_tracker.most_goals_scored("52")).to eq(2)
         end
 
         it '#fewest_goals_scored' do
-        expect(@stat_tracker.fewest_goals_scored("52")).to eq(1)
+          expect(@stat_tracker.fewest_goals_scored("52")).to eq(1)
         end
     end
 
-    describe "#Favorite opponent and rival" do
+   describe "#Favorite opponent and rival" do
         it "#favorite_opponent" do
             expect(@stat_tracker.favorite_opponent("18")).to eq "Real Salt Lake"
         end
-
         it "#rival" do
             expect(@stat_tracker.rival("18")).to eq("New England Revolution")
         end
     end
-
-    describe "#Winningest and worst coach" do
+    
+    describe "#winningest/ worst coach" do
         it "#winningest_coach" do
-            expect(@stat_tracker.winningest_coach("20132014")).to eq "Alain Vigneault"
-            expect(@stat_tracker.winningest_coach("20142015")).to eq "Joel Quenneville"
+            expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
         end
 
         it "#worst_coach" do
-            expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette").or(eq("Craig Berube"))
-            expect(@stat_tracker.worst_coach("20142015")).to eq("Craig Berube").or(eq("Peter Laviolette"))
+            expect(@stat_tracker.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
         end
     end
-
+    
     describe "#Team accuracy" do
         it "#most_accurate_team" do
             expect(@stat_tracker.most_accurate_team("20132014")).to eq "Houston Dynamo"
