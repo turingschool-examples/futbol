@@ -220,6 +220,7 @@ class StatTracker
     worst_offensive_team_id = teams_total_averages.min_by{|k, v| v}[0]
 
     worst_offensive_team_name = teams.find {|row| row[:team_id] == worst_offensive_team_id}[:teamname]
+
   end
 
   def game_ids_by_season
@@ -398,16 +399,258 @@ class StatTracker
 
     rival
   end
+  
+  # winrate_by_season =  Hash.new { |k, v| k[v] = []}
+  # game_teams.each do |row|
+  #   if winrate_by_season.keys.include?(row[:head_coach])
+  #     winrate_by_season[row[:head_coach]].push(row[:result])
+  #   else
+  #     winrate_by_season[row[:head_coach]] = [row[:result]]
+  #   end
+  # end
+  # winrate_by_season
+  
+  def team_info(team_id)
+    team_stats = Hash.new {|k, v| k[v]= []}
+    
+    teams.each do |id|
+      if id[:team_id] == team_id 
+        team_stats["team_id"] = id[:team_id]
+        team_stats["franchise_id"] = id[:franchiseid]
+        team_stats["team_name"] = id[:teamname]
+        team_stats["abbreviation"] = id[:abbreviation]
+        team_stats["link"] = id[:link]
+      end
+    end
+
+    team_stats
+  end
+
+	def most_tackles(season_id)
+		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
+		games.each do |game|
+			if game_ids_by_season[game[:season]]== nil
+				game_ids_by_season[game[:season]] = [game[:game_id]]
+			else
+				game_ids_by_season[game[:season]] << game[:game_id]
+			end
+		end
+		variable = []
+		game_ids_by_season[season_id].each do |id|
+			variable << game_teams.find_all {|row| row[:game_id]== id}
+		end
+		teams_and_tackles = Hash.new { | k, v | k[v]= 0 }
+		variable.flatten(1).each do |row|
+			if teams_and_tackles[row[:team_id]]== nil
+				teams_and_tackles[row[:team_id]] = [row[:tackles]].to_i
+			else
+				teams_and_tackles[row[:team_id]] += row[:tackles].to_i
+			end
+		end
+		most_tackles_by_id = teams_and_tackles.max_by{ |k,v| v }[0]
+		most_tackles_by_name = teams.find {|row| row[:team_id] == most_tackles_by_id}[:teamname]
+	end
+
+	def fewest_tackles(season_id)
+		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
+		games.each do |game|
+			if game_ids_by_season[game[:season]]== nil
+				game_ids_by_season[game[:season]] = [game[:game_id]]
+			else
+				game_ids_by_season[game[:season]] << game[:game_id]
+			end
+		end
+		variable = []
+		game_ids_by_season[season_id].each do |id|
+			variable << game_teams.find_all {|row| row[:game_id]== id}
+		end
+		teams_and_tackles = Hash.new { | k, v | k[v]= 0 }
+		variable.flatten(1).each do |row|
+			if teams_and_tackles[row[:team_id]]== nil
+				teams_and_tackles[row[:team_id]] = [row[:tackles]].to_i
+			else
+				teams_and_tackles[row[:team_id]] += row[:tackles].to_i
+			end
+		end
+		fewest_tackles_by_id = teams_and_tackles.min_by{ |k,v| v }[0]
+		fewest_tackles_by_name = teams.find {|row| row[:team_id] == fewest_tackles_by_id}[:teamname]
+	end
+
+	def most_accurate_team(season_id)
+		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
+		games.each do |game|
+			if game_ids_by_season[game[:season]]== nil
+				game_ids_by_season[game[:season]] = [game[:game_id]]
+			else
+				game_ids_by_season[game[:season]] << game[:game_id]
+			end
+		end
+		variable = []
+		game_ids_by_season[season_id].each do |id|
+			variable << game_teams.find_all {|row| row[:game_id]== id}
+		end
+
+		total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
+		total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
+
+		variable.flatten(1).each do |row|
+			if total_goals_by_team[row[:team_id]]== nil
+				total_goals_by_team[row[:team_id]] = row[:goals].to_f
+				total_shots_by_team[row[:team_id]] = row[:shots].to_f
+			else
+				total_goals_by_team[row[:team_id]] += row[:goals].to_f
+				total_shots_by_team[row[:team_id]] += row[:shots].to_f
+			end
+		end
+
+		teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
+		total_shots_by_team.each do |team_id, total_shots|
+			teams_and_accuracy[team_id] = (total_shots/total_goals_by_team[team_id])
+		end
+
+		highest_accuracy_by_id = teams_and_accuracy.min_by{ |k,v| v }[0]
+		highest_accuracy_by_name = teams.find {|row| row[:team_id] == highest_accuracy_by_id}[:teamname]
+	end
+
+	def least_accurate_team(season_id)
+		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
+		games.each do |game|
+			if game_ids_by_season[game[:season]]== nil
+				game_ids_by_season[game[:season]] = [game[:game_id]]
+			else
+				game_ids_by_season[game[:season]] << game[:game_id]
+			end
+		end
+		variable = []
+		game_ids_by_season[season_id].each do |id|
+			variable << game_teams.find_all {|row| row[:game_id]== id}
+		end
+
+		total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
+		total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
+
+		variable.flatten(1).each do |row|
+			if total_goals_by_team[row[:team_id]]== nil
+				total_goals_by_team[row[:team_id]] = row[:goals].to_f
+				total_shots_by_team[row[:team_id]] = row[:shots].to_f
+			else
+				total_goals_by_team[row[:team_id]] += row[:goals].to_f
+				total_shots_by_team[row[:team_id]] += row[:shots].to_f
+			end
+		end
+
+		teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
+		total_shots_by_team.each do |team_id, total_shots|
+			teams_and_accuracy[team_id] = (total_shots/total_goals_by_team[team_id])
+		end
+
+		least_accuracy_by_id = teams_and_accuracy.max_by{ |k,v| v }[0]
+		least_accuracy_by_name = teams.find {|row| row[:team_id] == least_accuracy_by_id}[:teamname]
+	end
+
+	def average_win_percentage(team_id)
+		total_games = 0.0
+		total_wins = 0.0
+
+		game_teams.each do |row|			
+			if row[:team_id] == team_id
+				total_games += 1.0
+				if row[:result] == "WIN"
+					total_wins += 1.0
+				end
+			end
+		end
+		(total_wins / total_games).round(2) 
+	end
+
+  def best_season(team_id)
+    team_game_ids_and_results = Hash.new {|k, v| k[v]= ''}
 
 
+    game_teams.each do |row|
+      if row[:team_id] == team_id
+        team_game_ids_and_results[row[:game_id]] = row[:result]
+      end  
+    end
+    results_by_season = Hash.new{|k, v| k[v]= []}
+
+    team_game_ids_and_results.each do |game_id, result|
+      games.each do |row|
+        if row[:game_id] == game_id
+          results_by_season[row[:season]] << result
+        end
+      end
+    end
+    
+    percentage_by_season = Hash.new{|k, v| k[v]= ''}
+
+    results_by_season.each do |season, results|
+      wins = 0
+      results.each do |result|
+        if result == 'WIN'
+          wins += 1
+        end
+      end
+      percentage_by_season[season] = wins.to_f / results.count.to_f
+    end
+    percentage_by_season.max_by{|k, v| v}[0]
+  end
 
 
+  def worst_season(team_id)
+    team_game_ids_and_results = Hash.new {|k, v| k[v]= ''}
 
 
+    game_teams.each do |row|
+      if row[:team_id] == team_id
+        team_game_ids_and_results[row[:game_id]] = row[:result]
+      end  
+    end
+    results_by_season = Hash.new{|k, v| k[v]= []}
 
+    team_game_ids_and_results.each do |game_id, result|
+      games.each do |row|
+        if row[:game_id] == game_id
+          results_by_season[row[:season]] << result
+        end
+      end
+    end
+    
+    percentage_by_season = Hash.new{|k, v| k[v]= ''}
 
+    results_by_season.each do |season, results|
+      wins = 0
+      results.each do |result|
+        if result == 'WIN'
+          wins += 1
+        end
+      end
+      percentage_by_season[season] = wins.to_f / results.count.to_f
+    end
+    percentage_by_season.min_by{|k, v| v}[0]
+  end
 
+	def most_goals_scored(team_id)
+		# individual_team_goals_per_game = Hash.new { | k, v | k[v]= [] }
+		individual_goals_per_game = []
 
+		games_played = game_teams.find_all {|row| row[:team_id] == team_id }
 
+		games_played.each do |game|
+			individual_goals_per_game << game[:goals].to_i
+		end
 
+		individual_goals_per_game.max
+	end
+
+	def fewest_goals_scored(team_id)
+		individual_goals_per_game = []
+
+		games_played = game_teams.find_all {|row| row[:team_id] == team_id }
+
+		games_played.each do |game|
+			individual_goals_per_game << game[:goals].to_i
+		end
+		individual_goals_per_game.min
+	end
 end
