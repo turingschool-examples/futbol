@@ -393,11 +393,6 @@ class StatTracker
 		end
 	end
 
-
-
-
-  
-
 	def game_ids_for_season(season_id)
 		games = games_played_by_season[season_id.to_s]
 		games.map do |row|

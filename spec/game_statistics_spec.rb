@@ -78,4 +78,16 @@ describe GameStats do
       expect(stat.average_goals_by_season).to eq(expected)
     end
   end
+
+  describe '#highest_total_score' do
+    it 'Highest point value game' do
+      expect(stat.highest_total_score).to eq(7)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'lowest point value game' do
+      expect(stat.lowest_total_score).to eq(1)
+    end
+  end
 end

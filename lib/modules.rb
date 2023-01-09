@@ -1,11 +1,5 @@
 module Sort
 
-	def sort_objects_by(array_of_objects, header)
-		array_of_objects.group_by do |object|
-			object.info[header]
-		end
-	end
-	
 	def games_played_by_season
 		@games_played_by_season ||= @games.group_by do |game|
 			game.info[:season]

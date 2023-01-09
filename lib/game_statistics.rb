@@ -13,11 +13,6 @@ class GameStats
 		@teams = teams
 	end
 
-	def average_goals_per_game
-    average_score = total_scores.sum.to_f / total_scores.count
-    average_score.round(2)
-  end
-
 	def highest_total_score
 		total_scores.max
 	end
@@ -67,7 +62,7 @@ class GameStats
 		end
 		season_avg_scores
 	end
-  
+
 ## Helpers
 
 	def all_game_scores_by_season
