@@ -594,7 +594,7 @@ class StatTracker
       favorite_id = opponents_win_percentage(team_id).last.first
       find_team_name(favorite_id)
     end
-end
+
 
   def game_ids_seasons(team_id)
     seasons_hash = Hash.new{|h,v| h[v] = []}
