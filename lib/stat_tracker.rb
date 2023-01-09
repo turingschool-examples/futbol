@@ -306,9 +306,55 @@ class StatTracker
 
     results_by_coach.key(min_value)
   end
-  
-  def favorite_opponent
 
+  def game_teams_by_team_ids
+    @game_teams_by_team_ids ||= game_teams.group_by do |game|
+      game[:team_id]
+    end
+  end
+  
+  def favorite_opponent(team_id)
+    
+    game_ids_by_team_id = []
+
+    game_teams_by_team_ids[team_id].each do |i_team_id|
+      game_ids_by_team_id << game_teams.find_all do |games|
+        games[:game_id] == i_team_id[:game_id]
+      end
+    end
+     
+    game_ids_by_team_id
+
+    matches = []
+
+    game_ids_by_team_id.each do |match|
+      match.each do |team_stat|
+        matches << team_stat if team_stat[:team_id] != team_id
+      end
+    end 
+    
+    opponent_outcomes = Hash.new { | k, v | k[v] = [] }
+    
+    matches.each do |match|
+      opponent_outcomes[match[:team_id]] << match[:result]
+    end
+
+    opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
+
+    opponent_outcomes.each do |id, outcomes|
+      opponent_winrates[id] += ((outcomes.tally["WIN"].to_f) / (outcomes.tally.values.sum.to_f) * 100).round(2)
+    end
+
+    lowest_winrate = opponent_winrates.min_by do |id, percentage|
+      percentage
+    end
+    
+    favorite_opponent = teams.find do |team|
+      team[:team_id] == lowest_winrate[0]
+    end[:teamname]
+
+    favorite_opponent
+    require 'pry'; binding.pry
   end
 
 
