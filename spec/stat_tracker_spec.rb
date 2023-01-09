@@ -6,7 +6,6 @@ describe StatTracker do
   let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
   
-
   let(:locations){{
       games: game_path,
       teams: team_path,
