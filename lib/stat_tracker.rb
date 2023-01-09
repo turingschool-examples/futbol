@@ -192,42 +192,46 @@ class StatTracker
   end
 
   #Team name w/ highest avg num of goals scored (per game across all seasons)
+
+  # BEST/WORST OFFENSE METHODS & HELPER METHODS BELOW
+    def team_id_all_goals
+      team_id_all_goals_hash = Hash.new { |hash, key| hash[key] = [] }
+      @game_teams.each do |game_teams|
+        team_id_all_goals_hash[game_teams[:team_id]] << game_teams[:goals]
+      end
+      return team_id_all_goals_hash
+    end
+
+    def team_goal_avg(team_all_goals_hash)
+      team_goal_avg_hash = Hash.new { |hash, key| hash[key] = 0 }
+      team_all_goals_hash.each do |team_id, all_goals|
+        team_goal_avg_hash[team_id] = (all_goals.sum.to_f / all_goals.length.to_f).round(2)
+      end
+      return team_goal_avg_hash
+    end
+
+    def best_team_avg(id)
+      @teams.find do |info_line|
+        if info_line[:team_id] == id
+          return info_line[:team_name] 
+        end
+      end
+    end
+
   def best_offense
-    team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
-    @game_teams.each do |info_line|
-      team_id_all_goals[info_line[:team_id]] << info_line[:goals]
-    end
-    team_id_avg_goals = Hash.new { |hash, key| hash[key] = 0 }
-    team_id_all_goals.each do |team_id, goals_scored|
-      team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
-    end
-    # if 2 teams have the same avg this will return ONLY the FIRST one:
-    @teams.find do |info_line|
-      if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.max)
-        return info_line[:team_name] 
-      end
-    end
+    team_all_goals_hash = team_id_all_goals
+    team_avg = team_goal_avg(team_all_goals_hash)
+    id = team_avg.key(team_avg.values.max)
+    best_team_avg(id)
   end
 
-  #Team name w/ lowest avg num of goals scored (per game across all seasons)
   def worst_offense
-    team_id_all_goals = Hash.new { |hash, key| hash[key] = [] }
-    @game_teams.each do |info_line|
-      team_id_all_goals[info_line[:team_id]] << info_line[:goals]
-    end
-
-    team_id_avg_goals = Hash.new { |hash, key| hash[key] = 0 }
-    team_id_all_goals.each do |team_id, goals_scored|
-      team_id_avg_goals[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
-    end
-
-    # if 2 teams have the same avg this will return ONLY the FIRST one:
-    @teams.find do |info_line|
-      if info_line[:team_id] == team_id_avg_goals.key(team_id_avg_goals.values.min)
-        return info_line[:team_name] 
-      end
-    end
+    team_all_goals_hash = team_id_all_goals
+    team_avg = team_goal_avg(team_all_goals_hash)
+    id = team_avg.key(team_avg.values.min)
+    best_team_avg(id)
   end
+# BEST/WORST OFFENSE METHODS & HELPER METHODS ABOVE
 
   # Name of the team with the highest average score per game across all seasons when they are away.	
   def highest_scoring_visitor
@@ -381,7 +385,7 @@ class StatTracker
     # team_goals_shots_by_season(season).each do |key, value|
       calculations << [key, ((value[0].to_f)/(value[1].to_f))]
     end
-    result = calculations.to_h.sort_by {|key, value| value} 
+    result = calculations.to_h.sort_by { |key, value| value } 
     # => this hash is ordered by values from lowest to highest 
   end
 
@@ -406,47 +410,6 @@ class StatTracker
   end
   # MOST/LEAST ACCURATE TEAM BY SEASON & HELPER METHODS ABOVE
   
-  def most_tackles(season)
-    games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
-    @games.group_by do |game|
-      games_ids_by_season[game[:season]] << game
-    end
-
-    hash_1 = Hash.new { |hash, key| hash[key] = 0 }
-    @game_teams.each do |info_line|
-      games_ids_by_season[season].each do |info_line_2|
-        if info_line_2[:game_id] == info_line[:game_id]
-          hash_1[info_line[:team_id]] += info_line[:tackles]
-        end
-      end
-    end
-    @teams.each do |info_line|
-      if info_line[:team_id] == hash_1.key(hash_1.values.max)
-        return info_line[:team_name] 
-      end
-    end
-  end
-
-  def fewest_tackles(season)
-    games_ids_by_season = Hash.new { |hash, key| hash[key] = [] }
-    @games.group_by do |game|
-      games_ids_by_season[game[:season]] << game
-    end
-
-    hash_1 = Hash.new { |hash, key| hash[key] = 0 }
-    @game_teams.each do |info_line|
-      games_ids_by_season[season].each do |info_line_2|
-        if info_line_2[:game_id] == info_line[:game_id]
-          hash_1[info_line[:team_id]] += info_line[:tackles]
-        end
-      end
-    end
-    @teams.each do |info_line|
-      if info_line[:team_id] == hash_1.key(hash_1.values.min)
-        return info_line[:team_name] 
-      end
-    end
-  end
 
  ################## Team Statisics ##################
 
