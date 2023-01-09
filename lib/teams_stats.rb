@@ -128,4 +128,22 @@ class TeamStats
   def worst_season(team_id)
     season_win_percentage_by_team(team_id).key(season_win_percentage_by_team(team_id).values.min).to_s
   end
+
+  def average_win_percentage(team_id)
+    games_played = []
+    games_won = []
+
+    @game_teams.each do |row|
+      if row.info[:team_id].to_i == team_id.to_i
+        games_played << row.info[:game_id]
+      end
+    end
+    @game_teams.map do |row|
+      if row.info[:team_id].to_i == team_id.to_i && row.info[:result] == "WIN"
+        games_won << row.info[:game_id]
+      end
+    end
+    win_percentage = games_won.count.to_f / games_played.count
+    win_percentage.round(2)
+  end
 end
