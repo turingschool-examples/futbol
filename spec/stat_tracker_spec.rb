@@ -3,13 +3,27 @@ require './lib/stat_tracker'
 describe StatTracker do
 
   let(:game_path){'./data/fixtures/games_i1.csv'}
+  let(:game_path_2){'./data/fixtures/games_i2.csv'}
   let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
+  let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
   
   let(:locations){{
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
+    }}
+
+    let(:locations_2){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path
+    }}
+  
+    let(:locations_3){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path_2
     }}
 
   describe 'class methods' do
@@ -69,14 +83,6 @@ describe StatTracker do
   end
 
   describe 'game statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    
-    let(:locations_2){{
-      games: game_path_2,
-      teams: team_path,
-      game_teams: game_teams_path
-    }}
-
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
     describe 'main methods' do
@@ -145,14 +151,6 @@ describe StatTracker do
   end
 
   describe 'league statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
-    
-    let(:locations_2){{
-      games: game_path_2,
-      teams: team_path,
-      game_teams: game_teams_path
-    }}
 
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
@@ -206,14 +204,7 @@ describe StatTracker do
   end
 
   describe 'season statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
     
-    let(:locations_2){{
-      games: game_path_2,
-      teams: team_path,
-      game_teams: game_teams_path
-    }}
-
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
 
     describe 'main methods' do
@@ -226,15 +217,7 @@ describe StatTracker do
       end
 
       describe '#most_accurate_team and #least_accurate_team' do
-        let(:game_path_2){'./data/fixtures/games_i2.csv'}
-        let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
-        #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
       
-        let(:locations_3){{
-          games: game_path_2,
-          teams: team_path,
-          game_teams: game_teams_path_2
-        }}
       
         let(:stat_tracker) {StatTracker.from_csv(locations_3)}
   
@@ -278,13 +261,7 @@ describe StatTracker do
   end
     
   describe 'team statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
-  
-    let(:locations_2){{
-    games: game_path_2,
-    teams: team_path,
-    game_teams: game_teams_path
-    }}
+    
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
     
     describe 'main methods' do
@@ -308,16 +285,6 @@ describe StatTracker do
       end
 
       describe '#average_win_percentage' do
-        let(:game_path_2){'./data/fixtures/games_i2.csv'}
-        let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
-        #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
-        
-        let(:locations_3){{
-          games: game_path_2,
-          teams: team_path,
-          game_teams: game_teams_path_2
-        }}
-      
         let(:stat_tracker) {StatTracker.from_csv(locations_3)}
     
         it "can return average_win_percentage" do
