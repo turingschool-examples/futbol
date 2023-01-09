@@ -577,7 +577,6 @@ class StatTracker
 		games_played.each do |game|
 			individual_goals_per_game << game[:goals].to_i
 		end
-
 		individual_goals_per_game.min
 	end
 end
