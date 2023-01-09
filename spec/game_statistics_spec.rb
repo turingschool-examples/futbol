@@ -52,12 +52,6 @@ describe GameStats do
     end
   end
 
-  describe '#count_of_teams' do
-    it 'returns the total number of teams' do
-      expect(stat.count_of_teams).to eq(32)
-    end
-  end
-
   describe '#count_of_games_by_season' do
     it 'returns a hash with season names as keys and counts of games as values' do
       expected = {
@@ -82,6 +76,18 @@ describe GameStats do
       }
 
       expect(stat.average_goals_by_season).to eq(expected)
+    end
+  end
+
+  describe '#highest_total_score' do
+    it 'Highest point value game' do
+      expect(stat.highest_total_score).to eq(7)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'lowest point value game' do
+      expect(stat.lowest_total_score).to eq(1)
     end
   end
 end

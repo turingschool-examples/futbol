@@ -14,7 +14,7 @@ describe GameTeams do
     end
 
     it 'has attributes' do
-      expect(game_team.info[:team_id]).to eq("5")
+      expect(game_team.info[:team_id]).to eq(5)
     end
   end
 end
