@@ -220,7 +220,7 @@ RSpec.describe StatTracker do
     end
   
     context "#rival" do
-      xit 'shows name of the opponent that has the highest win percentage against the given team' do
+      it 'shows name of the opponent that has the highest win percentage against the given team' do
         expect(stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
       end
     end

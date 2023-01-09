@@ -354,9 +354,50 @@ class StatTracker
     end[:teamname]
 
     favorite_opponent
-    require 'pry'; binding.pry
   end
 
+  def rival(team_id)
+       
+    game_ids_by_team_id = []
+
+    game_teams_by_team_ids[team_id].each do |i_team_id|
+      game_ids_by_team_id << game_teams.find_all do |games|
+        games[:game_id] == i_team_id[:game_id]
+      end
+    end
+     
+    game_ids_by_team_id
+
+    matches = []
+
+    game_ids_by_team_id.each do |match|
+      match.each do |team_stat|
+        matches << team_stat if team_stat[:team_id] != team_id
+      end
+    end 
+    
+    opponent_outcomes = Hash.new { | k, v | k[v] = [] }
+    
+    matches.each do |match|
+      opponent_outcomes[match[:team_id]] << match[:result]
+    end
+
+    opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
+
+    opponent_outcomes.each do |id, outcomes|
+      opponent_winrates[id] += ((outcomes.tally["WIN"].to_f) / (outcomes.tally.values.sum.to_f) * 100).round(2)
+    end
+
+    highest_winrate = opponent_winrates.max_by do |id, percentage|
+      percentage
+    end
+    
+    rival = teams.find do |team|
+      team[:team_id] == highest_winrate[0]
+    end[:teamname]
+
+    rival
+  end
 
 
 
