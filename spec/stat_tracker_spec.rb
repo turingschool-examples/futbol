@@ -1,7 +1,7 @@
 require './lib/stat_tracker'
 
 describe StatTracker do
-  
+
   let(:game_path){'./data/fixtures/games_i1.csv'}
   let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
@@ -70,7 +70,6 @@ describe StatTracker do
 
   describe 'game statistics' do
     let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
     
     let(:locations_2){{
       games: game_path_2,
@@ -208,7 +207,6 @@ describe StatTracker do
 
   describe 'season statistics' do
     let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
     
     let(:locations_2){{
       games: game_path_2,
@@ -281,7 +279,6 @@ describe StatTracker do
     
   describe 'team statistics' do
     let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
   
     let(:locations_2){{
     games: game_path_2,
