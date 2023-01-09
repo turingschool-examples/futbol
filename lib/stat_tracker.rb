@@ -350,6 +350,42 @@ class StatTracker
     end
     lowest_season
   end
+
+  def favorite_opponent(team_id)
+    op_team = []
+    @games.each do |row|
+      op_team << row[:game_id] if team_id == row[:away_team_id] 
+      op_team << row[:game_id] if team_id == row[:home_team_id] 
+    end
+
+    hash = Hash.new {|hash, key| hash[key] = []}
+    @game_teams.each do |row|
+      hash[row[:team_id]] << row[:result] if op_team.include?(row[:game_id]) && row[:team_id] != team_id
+    end
+    
+    win_percentage = {}
+    hash.each do |team_id, results|
+      win_percentage[team_id] = (results.count("WIN") / results.size.to_f) * 100
+    end
+    # require 'pry'; binding.pry
+    favorite_opponent_team = win_percentage.min_by{|k, v| v}
+
+    favorite_opponent = nil
+    @teams.each do |row|
+    favorite_opponent = row[:teamname] if row[:team_id] == favorite_opponent_team.first
+    end
+    favorite_opponent
+  end
+
+  
+
+
+
+
+
+
+
+
 end
 
 

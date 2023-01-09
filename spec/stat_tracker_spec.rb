@@ -167,6 +167,17 @@ describe StatTracker do
       expect(stat_tracker.worst_season("29")).to eq("20162017")
     end
   end
+
+  describe '#favorite_opponent' do
+    it 'Name of the opponent that has the lowest win percentage against the given team' do
+      expect(stat_tracker.favorite_opponent("3")).to eq("Atlanta United").or(eq("Orlando City SC"))
+    end
+  end
+
+  
+
+
+
 end
 
 
