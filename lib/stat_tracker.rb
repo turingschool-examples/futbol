@@ -173,14 +173,45 @@ class StatTracker
         (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
     end
 
-    def most_tackles
-        
+    def most_tackles(season_id)
+        season_tackles = Hash.new(0)
+        season_games = @games.group_by { |game| game[:season]}
+
+        game_id = season_games[season_id].map { |game| game[:game_id] }
+       
+        game_id.each do |id|
+            @game_teams.each do |game_team|
+                if game_team[:game_id] == id
+                    season_tackles[game_team[:team_id]] += game_team[:tackles]
+                end
+            end
+        end
+
+        team_with_most_tackles = season_tackles.max_by do |team_tackles|
+            team_tackles[1]
+        end.first
+        @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
     end
 
-    # most_tackles - RETURN STRING w/ name of team
-    # Name of the Team with the most tackles in the season
-    # translate the string argument season id to an integer season id (what it is in games.csv)
-    # match the season id with the team id - make a hash: season id is the key, game id is the value
+    def fewest_tackles(season_id)
+        season_tackles = Hash.new(0)
+        season_games = @games.group_by { |game| game[:season]}
+
+        game_id = season_games[season_id].map { |game| game[:game_id] }
+       
+        game_id.each do |id|
+            @game_teams.each do |game_team|
+                if game_team[:game_id] == id
+                    season_tackles[game_team[:team_id]] += game_team[:tackles]
+                end
+            end
+        end
+
+        team_with_most_tackles = season_tackles.min_by do |team_tackles|
+            team_tackles[1]
+        end.first
+        @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
+    end
 
 
 
