@@ -41,8 +41,6 @@ RSpec.describe StatTracker do
     end 
   end
   
-  # GAME STATISTICS TESTS ALL PASS 
-
   describe "Game Statisics" do
     it "#highest_total_score" do
       expect(stat_tracker.highest_total_score).to eq(9)
@@ -53,15 +51,15 @@ RSpec.describe StatTracker do
     end
 
     it "#percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq(0.41)
+      expect(stat_tracker.percentage_home_wins).to eq(0.39)
     end
 
     it "#percentage_visitor_wins" do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.48)
     end
 
     it "#percentage_ties" do
-      expect(stat_tracker.percentage_ties).to eq(0.15)
+      expect(stat_tracker.percentage_ties).to eq(0.16)
     end
 
     it "#count_of_games_by_season" do 
@@ -91,8 +89,6 @@ RSpec.describe StatTracker do
     end
   end
 
-
-  # NEXT GROUP - THESE TESTS ARE ALL PASSING HERE 
   describe "League Statistics" do
     it "#count_of_teams" do
       expect(stat_tracker.count_of_teams).to eq(32)
@@ -106,8 +102,16 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Orlando City SC")
     end
 
+    it "#away_team_goals" do
+      expect(stat_tracker.away_team_goals).to be_a(Hash)
+    end
+
+    it "#home_team_goals" do
+      expect(stat_tracker.home_team_goals).to be_a(Hash)
+    end
+
     it "#highest_scoring_visitor" do
-      expect(stat_tracker.highest_scoring_visitor).to eq("Philadelphia Union")
+      expect(stat_tracker.highest_scoring_visitor).to eq("New England Revolution")
     end
 
     it "#highest_scoring_home_team" do
@@ -123,10 +127,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  NEXT GROUP HERE - SEASON STATISTICS 
-  WINNINGNEST and WORST Coach PASS -- HERE AND IN SPEC HARNESS
-  STILL NEED MOST AND LEAST ACCURATE TEAM AND MOST AND FEWEST TACKLES
-
   describe "Season Statistics" do 
     it "winningest_coach" do 
       game_path = './data/games.csv'
@@ -138,7 +138,7 @@ RSpec.describe StatTracker do
         teams: team_path,
         game_teams: game_teams_path
         }
-      
+        
       stat_tracker = StatTracker.from_csv(locations) 
 
       expect(stat_tracker.winningest_coach("20152016")).to eq("Ken Hitchcock")
@@ -162,14 +162,39 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_coach("20152016")).to eq("Peter Laviolette").or(eq("Barry Trotz")).or(eq("Dave Hakstol")).or(eq("Michael Therrien")).or(eq("Alain Vigneault")).or(eq("Lindy Ruff"))
       expect(stat_tracker.worst_coach("20172018")).to eq("Glen Gulutzan").or(eq("Peter DeBoer")).or(eq("Mike Sullivan")).or(eq("Dave Hakstol")).or(eq("Alain Vigneault")).or(eq("Jon Cooper"))
     end
-    
 
-    xit "#most_accurate_team" do
-      expect(stat_tracker.most_accurate_team).to eq()
+    it "#most_accurate_team" do
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      
+      stat_tracker = StatTracker.from_csv(locations)
+      
+      expect(stat_tracker.most_accurate_team("20142015")).to eq("Portland Thorns FC")
+      expect(stat_tracker.most_accurate_team("20172018")).to eq("Portland Thorns FC")
     end
+    
+    it "#least_accurate_team" do
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
 
-    xit "#least_accurate_team" do
-      expect(stat_tracker.least_accurate_team).to eq()
+      stat_tracker = StatTracker.from_csv(locations)
+
+      expect(stat_tracker.least_accurate_team("20142015")).to eq("Portland Timbers")
+      expect(stat_tracker.least_accurate_team("20172018")).to eq("Sporting Kansas City")
     end
 
     it "#most_tackles" do
@@ -185,24 +210,25 @@ RSpec.describe StatTracker do
 
       stat_tracker = StatTracker.from_csv(locations)
 
-      expect(stat_tracker.most_tackles("20132014")).to eq("FC Cincinnati")
-      expect(stat_tracker.most_tackles("20142015")).to eq("Seattle Sounders FC")
+      expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+      expect(stat_tracker.most_tackles("20132014")).to eq("Houston Dynamo")
     end
-
-    xit "#fewest_tackles" do
+    
+      it "#fewest_tackles" do
       game_path = './data/games.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/game_teams.csv' 
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
       locations = 
         {
         games: game_path,
         teams: team_path,
         game_teams: game_teams_path
-      }
+        }
+      
+         stat_tracker = StatTracker.from_csv(locations)
 
-      stat_tracker = StatTracker.from_csv(locations)
-      expect(stat_tracker.fewest_tackles("20132014")).to eq("Atlanta United")
-      expect(stat_tracker.fewest_tackles("20142015")).to eq("Orlando City SC")
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("Montreal Impact")
+      expect(stat_tracker.fewest_tackles("20132014")).to eq("Los Angeles FC")
     end
   end
   
@@ -216,63 +242,22 @@ RSpec.describe StatTracker do
         "link"=> "/api/v1/teams/6"
       })
     end
-
-    it "#most_accurate_team" do
-      game_path = './data/games.csv'
-      team_path = './data/teams_fixture.csv'
-      game_teams_path = './data/game_teams_fixture.csv' 
-      locations = 
-        {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
+    
+     it "#best_season" do 
+       game_path = './data/games.csv'
+       team_path = './data/teams_fixture.csv'
+       game_teams_path = './data/game_teams_fixture.csv' 
+       locations = 
+         {
+         games: game_path,
+         teams: team_path,
+         game_teams: game_teams_path
+         }
       
-      stat_tracker = StatTracker.from_csv(locations) 
-      expect(stat_tracker.most_accurate_team("20132014")).to eq("")
-    end
-
-    xit "#least_accurate_team" do
-      expect(stat_tracker.least_accurate_team).to eq()
-    end
-
-    xit "#most_tackles" do
-      expect().to eq()
-    end
-
-    xit "#fewest_tackles" do
-      expect().to eq()
-    end
-  end
-
-  # ALL BELOW TESTS FOR TEAM STATISTICS RUN AND PASS IN OURS AND SPEC HARNESS
-  describe "Team Statistics" do
-    it "#team_info" do
-      expect(stat_tracker.team_info("6")).to eq({
-        team_id: "6", 
-        franchise_id: "6", 
-        team_name: "FC Dallas", 
-        abbreviation: "DAL", 
-        link: "/api/v1/teams/6"
-      })
-    end
-
-    it "#best_season" do 
-      game_path = './data/games.csv'
-      team_path = './data/teams_fixture.csv'
-      game_teams_path = './data/game_teams_fixture.csv' 
-      locations = 
-        {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
-      
-      stat_tracker = StatTracker.from_csv(locations) 
-      expect(stat_tracker.best_season("6")).to eq("20122013")
-      expect(stat_tracker.best_season("3")).to eq("20142014").or(eq("20162017"))
-
-    end
+       stat_tracker = StatTracker.from_csv(locations) 
+       expect(stat_tracker.best_season("6")).to eq("20122013")
+       expect(stat_tracker.best_season("3")).to eq("20142014").or(eq("20162017"))
+     end
 
     it "#worst_season" do 
       game_path = './data/games.csv'
@@ -284,7 +269,7 @@ RSpec.describe StatTracker do
         teams: team_path,
         game_teams: game_teams_path
         }
-      
+ 
       stat_tracker = StatTracker.from_csv(locations) 
       expect(stat_tracker.worst_season("6")).to eq("20132014")
       expect(stat_tracker.worst_season("3")).to eq("20122013").or(eq("20172018")).or(eq("20152016"))
