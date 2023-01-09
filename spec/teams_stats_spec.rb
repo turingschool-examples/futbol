@@ -74,4 +74,10 @@ describe TeamStats do
       expect(stat.worst_season('5')).to eq('20122013')
     end
   end
+
+  describe '#average_win_percentage' do
+    it 'can take a teamid argument and return total win percentage across all games played' do
+      expect(stat.average_win_percentage(52)).to eq(0.44)
+    end
+  end
 end
