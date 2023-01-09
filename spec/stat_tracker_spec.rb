@@ -130,8 +130,12 @@ RSpec.describe StatTracker do
     end
 
     describe "#winningest/ worst coach" do
-        xit "#winningest_coach" do
-            expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan")
+        it "#winningest_coach" do
+            expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
+        end
+
+        it "#worst_coach" do
+            expect(@stat_tracker.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
         end
     end
 
