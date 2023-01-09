@@ -3,17 +3,13 @@ require 'CSV'
 class StatTracker
   attr_reader :games,
               :teams, 
-              :game_teams,
-              :game_id,
-              :total_score_array,
-              :team_id
+              :game_teams
              
   def initialize(locations)
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
     @total_score_array = total_score
-    @team_id = @game_teams[:team_id]
   end
 
   def self.from_csv(locations)
@@ -283,79 +279,76 @@ class StatTracker
     team_hash = {}
     @teams.each do |team|
       if team[:team_id] == team_id
-        team_hash[:team_id] = team[:team_id]
-        team_hash[:franchise_id] = team[:franchiseid]
-        team_hash[:team_name] = team[:teamname]
-        team_hash[:abbreviation] = team[:abbreviation]
-        team_hash[:link] = team[:link]
+        team_hash["team_id"] = team[:team_id]
+        team_hash["franchise_id"] = team[:franchiseid]
+        team_hash["team_name"] = team[:teamname]
+        team_hash["abbreviation"] = team[:abbreviation]
+        team_hash["link"] = team[:link]
       end
     end
     team_hash
   end
 
   def best_season(team_id)
-    highest_percentage = {}
-    @games.each do |game|
-      highest_percentage[game[:season]] ||= {wins: 0, total_games: 0, loss: 0}
-      if game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
-        highest_percentage[game[:season]][:wins] += 1
-        highest_percentage[game[:season]][:total_games] += 1
-      elsif game[:away_team_id] == team_id && game[:away_goals] > game[:home_goals]
-        highest_percentage[game[:season]][:wins] += 1
-        highest_percentage[game[:season]][:total_games] += 1
-      elsif game[:home_team_id] == team_id && game[:home_goals] <= game[:away_goals]
-        highest_percentage[game[:season]][:loss] += 1
-        highest_percentage[game[:season]][:total_games] += 1
-      elsif game[:away_team_id] == team_id && game[:away_goals] <= game[:home_goals]
-        highest_percentage[game[:season]][:loss] += 1
-        highest_percentage[game[:season]][:total_games] += 1
+    team_id_results = Hash.new {|k, v| k[v]= ''}
+    game_teams.each do |row|
+      if row[:team_id] == team_id
+        team_id_results[row[:game_id]] = row[:result]
       end
     end
-    highest_season = " "
-    best_percentage = 0
-    highest_percentage.each do |season,stats|
-      if stats[:total_games] > 0 && stats[:wins].to_f / stats[:total_games] > best_percentage
-        highest_season = season
-        best_percentage = stats[:wins].to_f / stats[:total_games]
+    results_by_season = Hash.new{|k, v| k[v]= []}
+    team_id_results.each do |game_id, result|
+      games.each do |row|
+        if row[:game_id] == game_id
+          results_by_season[row[:season]] << result
+        end
       end
     end
-    highest_season
+    win_loss_percent = Hash.new{|k, v| k[v]= ''}
+    results_by_season.each do |season, results|
+      wins = 0
+      results.each do |result|
+        if result == 'WIN'
+          wins += 1
+        end
+      end
+      win_loss_percent[season] = wins.to_f / results.count.to_f
+    end
+    win_loss_percent.max_by{|k, v| v}[0]
   end
 
   def worst_season(team_id)
-    lowest_percentage = {}
-    @games.each do |game|
-      lowest_percentage[game[:season]] ||= {wins: 0, total_games: 0, loss: 0}
-      if game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
-        lowest_percentage[game[:season]][:loss] += 1
-        lowest_percentage[game[:season]][:total_games] += 1
-      elsif game[:away_team_id] == team_id && game[:away_goals] > game[:home_goals]
-        lowest_percentage[game[:season]][:loss] += 1
-        lowest_percentage[game[:season]][:total_games] += 1
-      elsif game[:home_team_id] == team_id && game[:home_goals] <= game[:away_goals]
-        lowest_percentage[game[:season]][:loss] += 1
-        lowest_percentage[game[:season]][:total_games] += 1
-      elsif game[:away_team_id] == team_id && game[:away_goals] <= game[:home_goals]
-        lowest_percentage[game[:season]][:loss] += 1
-        lowest_percentage[game[:season]][:total_games] += 1
+    team_id_results = Hash.new {|k, v| k[v]= ''}
+    game_teams.each do |row|
+      if row[:team_id] == team_id
+        team_id_results[row[:game_id]] = row[:result]
       end
     end
-    lowest_season = " "
-    worst_percentage = 0
-    lowest_percentage.each do |season,stats|
-      if stats[:total_games] > 0 && stats[:loss].to_f / stats[:total_games] > worst_percentage
-        lowest_season = season
-        worst_percentage = stats[:loss].to_f / stats[:total_games]
+    results_by_season = Hash.new{|k, v| k[v]= []}
+    team_id_results.each do |game_id, result|
+      games.each do |row|
+        if row[:game_id] == game_id
+          results_by_season[row[:season]] << result
+        end
       end
     end
-    lowest_season
+    win_loss_percent = Hash.new{|k, v| k[v]= ''}
+    results_by_season.each do |season, results|
+      wins = 0
+      results.each do |result|
+        if result == 'WIN'
+          wins += 1
+        end
+      end
+      win_loss_percent[season] = wins.to_f / results.count.to_f
+    end
+    win_loss_percent.min_by{|k, v| v}[0]
   end
 
   def favorite_opponent(team_id)
     op_team = []
-    @games.each do |row|
-      op_team << row[:game_id] if team_id == row[:away_team_id] 
-      op_team << row[:game_id] if team_id == row[:home_team_id] 
+    @game_teams.each do |row|
+      op_team << row[:game_id] if team_id == row[:team_id]  
     end
 
     hash = Hash.new {|hash, key| hash[key] = []}
@@ -367,7 +360,6 @@ class StatTracker
     hash.each do |team_id, results|
       win_percentage[team_id] = (results.count("WIN") / results.size.to_f) * 100
     end
-    # require 'pry'; binding.pry
     favorite_opponent_team = win_percentage.min_by{|k, v| v}
 
     favorite_opponent = nil
@@ -377,15 +369,29 @@ class StatTracker
     favorite_opponent
   end
 
-  
+  def rival(team_id)
+    op_team = []
+    @game_teams.each do |row|
+      op_team << row[:game_id] if team_id == row[:team_id]  
+    end
 
+    hash = Hash.new {|hash, key| hash[key] = []}
+    @game_teams.each do |row|
+      hash[row[:team_id]] << row[:result] if op_team.include?(row[:game_id]) && row[:team_id] != team_id
+    end
+    
+    win_percentage = {}
+    hash.each do |team_id, results|
+      win_percentage[team_id] = (results.count("WIN") / results.size.to_f) * 100
+    end
+    rival_team = win_percentage.max_by{|k, v| v}
 
-
-
-
-
-
-
+    rival = nil
+    @teams.each do |row|
+    rival = row[:teamname] if row[:team_id] == rival_team.first
+    end
+    rival
+  end
 end
 
 

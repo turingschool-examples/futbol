@@ -149,22 +149,22 @@ describe StatTracker do
   end
   describe '#team_info' do
     it 'returns a hash of team_id, franchise_id, team_name, abbreviation, link for a specific team' do
-      expect(stat_tracker.team_info("1")).to eq({team_id: "1", franchise_id: "23", team_name: "Atlanta United", abbreviation: "ATL", link: "/api/v1/teams/1"})
-      expect(stat_tracker.team_info("14")).to eq({team_id: "14", franchise_id: "31", team_name: "DC United", abbreviation: "DC", link: "/api/v1/teams/14"})
+      expect(stat_tracker.team_info("1")).to eq({"team_id" => "1", "franchise_id" => "23", "team_name" => "Atlanta United", "abbreviation" => "ATL", "link" => "/api/v1/teams/1"})
+      expect(stat_tracker.team_info("14")).to eq({"team_id" => "14", "franchise_id" => "31", "team_name" => "DC United", "abbreviation" => "DC", "link" => "/api/v1/teams/14"})
     end
   end
 
   describe '#best_season' do
     it 'Season with the highest win percentage for a team' do
-      expect(stat_tracker.best_season("1")).to eq("20122013")
-      expect(stat_tracker.best_season("14")).to eq("20142015")
+      expect(stat_tracker.best_season("1")).to eq("20132014")
+      expect(stat_tracker.best_season("14")).to eq("20122013")
     end
   end
 
   describe '#worst_season' do
     it 'Season with the lowest win percentage for a team' do
       expect(stat_tracker.worst_season("3")).to eq("20142015")
-      expect(stat_tracker.worst_season("29")).to eq("20162017")
+      expect(stat_tracker.worst_season("29")).to eq("20142015")
     end
   end
 
@@ -174,7 +174,11 @@ describe StatTracker do
     end
   end
 
-  
+  describe '#rival' do
+    it 'Name of the opponent that has the highest win percentage against the given team' do
+      expect(stat_tracker.rival("3")).to eq("DC United")
+    end
+  end
 
 
 
