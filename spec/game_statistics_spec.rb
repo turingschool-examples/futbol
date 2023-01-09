@@ -52,12 +52,6 @@ describe GameStats do
     end
   end
 
-  describe '#count_of_teams' do
-    it 'returns the total number of teams' do
-      expect(stat.count_of_teams).to eq(32)
-    end
-  end
-
   describe '#count_of_games_by_season' do
     it 'returns a hash with season names as keys and counts of games as values' do
       expected = {

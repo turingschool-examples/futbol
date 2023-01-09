@@ -11,11 +11,21 @@ include Sort
   end
 
   def count_of_teams
-    teams = []
-    @teams.map do |team|
-      teams << team.info[:team_name]
-    end
-    teams.count
+		@teams.count do |team|
+			team.info[:team_name]
+		end
+	end
+
+  def best_offense
+    goals_per_game_by_team
+		team_id = goals_per_game_by_team.key(goals_per_game_by_team.values.max)
+    team_name_by_id(team_id)
+  end
+
+	def worst_offense
+    goals_per_game_by_team
+		team_id = goals_per_game_by_team.key(goals_per_game_by_team.values.min)
+    team_name_by_id(team_id)
   end
 
   def highest_scoring_visitor
@@ -38,6 +48,8 @@ include Sort
     team_name_by_id(team_id)
   end
 
+  ### HELPERS
+  
   def all_game_scores_by_away_team
 		hash = Hash.new {|k, v| k[v] = []}
 		@games.each do |game|
@@ -64,17 +76,5 @@ include Sort
 			hash[team_id] = (array_of_games.sum { |g| g.info[:goals].to_f})/array_of_games.count
     end
     hash
-  end
-  
-  def best_offense
-    goals_per_game_by_team
-		team_id = goals_per_game_by_team.key(goals_per_game_by_team.values.max)
-    team_name_by_id(team_id)
-  end
-
-	def worst_offense
-    goals_per_game_by_team
-		team_id = goals_per_game_by_team.key(goals_per_game_by_team.values.min)
-    team_name_by_id(team_id)
   end
 end

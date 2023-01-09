@@ -13,6 +13,36 @@ class SeasonStats
 		@teams = teams
 	end
 
+	def winningest_coach(season_id)
+		game_ids = game_ids_for_season(season_id)
+		coach_game_results = coach_game_results_by_game(game_ids)
+		coach_game_results.each do |k, v|
+			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+		end.key(coach_game_results.values.max)
+	end
+
+	def worst_coach(season_id)
+		game_ids = game_ids_for_season(season_id)
+		coach_game_results = coach_game_results_by_game(game_ids)
+		coach_game_results.each do |k, v|
+			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
+		end.key(coach_game_results.values.min)
+	end
+
+  def most_accurate_team(season_id)
+		game_ids = game_ids_for_season(season_id)
+		team_accuracy = accuracy_by_team(game_ids)
+		team_id = team_accuracy.key(team_accuracy.values.max)
+		team_name_by_id(team_id)
+	end
+
+	def least_accurate_team(season_id)
+		game_ids = game_ids_for_season(season_id)
+		team_accuracy = accuracy_by_team(game_ids)
+		team_id = team_accuracy.key(team_accuracy.values.min)
+		team_name_by_id(team_id)
+	end
+
 	def most_tackles(season_id)
 		team_tackles = season_team_tackles(season_id)
 		team_id = team_tackles.key(team_tackles.values.max)
@@ -25,6 +55,7 @@ class SeasonStats
 		team_name_by_id(team_id)
 	end
 
+  ##HELPERS
 	def season_team_tackles(season_id)
 		array_of_game_ids = game_ids_for_season(season_id)
 		team_tackles_hash = tackles_by_team_id(array_of_game_ids)
@@ -44,22 +75,6 @@ class SeasonStats
 		team_tackles
 	end
 
-	def winningest_coach(season_id)
-		game_ids = game_ids_for_season(season_id)
-		coach_game_results = coach_game_results_by_game(game_ids)
-		coach_game_results.each do |k, v|
-			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
-		end.key(coach_game_results.values.max)
-	end
-
-	def worst_coach(season_id)
-		game_ids = game_ids_for_season(season_id)
-		coach_game_results = coach_game_results_by_game(game_ids)
-		coach_game_results.each do |k, v|
-			coach_game_results[k] = (v.count('WIN') / (games.count / 2).to_f )
-		end.key(coach_game_results.values.min)
-	end
-
 	def coach_game_results_by_game(array_of_game_id)
 		coach_results = Hash.new {|k, v| k[v] = []}
 		array_of_game_id.each do |game_id|
@@ -68,20 +83,6 @@ class SeasonStats
 			end
 		end
 		coach_results
-	end
-
-	def most_accurate_team(season_id)
-		game_ids = game_ids_for_season(season_id)
-		team_accuracy = accuracy_by_team(game_ids)
-		team_id = team_accuracy.key(team_accuracy.values.max)
-		team_name_by_id(team_id)
-	end
-
-	def least_accurate_team(season_id)
-		game_ids = game_ids_for_season(season_id)
-		team_accuracy = accuracy_by_team(game_ids)
-		team_id = team_accuracy.key(team_accuracy.values.min)
-		team_name_by_id(team_id)
 	end
 
 	def accuracy_by_team(array_of_game_id)
