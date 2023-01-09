@@ -218,60 +218,65 @@ describe StatTracker do
     }}
 
     let(:stat_tracker) {StatTracker.from_csv(locations_2)}
-    it 'can produce an #array_of_gameids by season' do
-      expect(stat_tracker.array_of_gameids_by_season("20122013")).to be_an(Array)
-      expect(stat_tracker.array_of_gameids_by_season("20122013")[0]).to be_a(String)
-      expect(stat_tracker.array_of_gameids_by_season("20122013")[0].length).to eq(10)
-    end
 
-    it 'can produce an #array_of_game_teams by season' do
-      expect(stat_tracker.array_of_game_teams_by_season("20122013")).to be_an(Array)
-      expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
-    end
-
-    it '#coaches_win_percentages_hash' do
-      expect(stat_tracker.coaches_win_percentages_hash("20122013")).to be_a(Hash)
-      expect(stat_tracker.coaches_win_percentages_hash("20122013").first[1]).to be_a(Float)
-    end
-
-    it 'can find the #winningest_coach' do
-      expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
-    end
-
-    it 'can find the #worst_coach' do
-      expect(stat_tracker.worst_coach("20122013")).to be_a(String)
-    end
-
-    describe '#most_accurate_team and #least_accurate_team' do
-      let(:game_path_2){'./data/fixtures/games_i2.csv'}
-      let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
-      #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
-    
-      let(:locations_3){{
-        games: game_path_2,
-        teams: team_path,
-        game_teams: game_teams_path_2
-      }}
-    
-      let(:stat_tracker) {StatTracker.from_csv(locations_3)}
-
-      it "#most_accurate_team" do
-        expect(stat_tracker.most_accurate_team("20132014")).to eq "Toronto FC"
-        expect(stat_tracker.most_accurate_team("20142015")).to eq "Orlando Pride"
+    describe 'main methods' do
+      it 'can find the #winningest_coach' do
+        expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
       end
 
-      it "#least_accurate_team" do
-        expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
-        expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
+      it 'can find the #worst_coach' do
+        expect(stat_tracker.worst_coach("20122013")).to be_a(String)
+      end
+
+      describe '#most_accurate_team and #least_accurate_team' do
+        let(:game_path_2){'./data/fixtures/games_i2.csv'}
+        let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
+        #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
+      
+        let(:locations_3){{
+          games: game_path_2,
+          teams: team_path,
+          game_teams: game_teams_path_2
+        }}
+      
+        let(:stat_tracker) {StatTracker.from_csv(locations_3)}
+  
+        it "#most_accurate_team" do
+          expect(stat_tracker.most_accurate_team("20132014")).to eq "Toronto FC"
+          expect(stat_tracker.most_accurate_team("20142015")).to eq "Orlando Pride"
+        end
+  
+        it "#least_accurate_team" do
+          expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
+          expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
+        end
+      end
+
+      it "#most_tackles returns team with the most tackles in the season " do
+        expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+      end
+  
+      it '#fewest_tackles returns team with the least tackles in the season' do
+        expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
       end
     end
 
-    it "#most_tackles returns team with the most tackles in the season " do
-      expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
-    end
+    describe 'helper methods' do
+      it 'can produce an #array_of_gameids by season' do
+        expect(stat_tracker.array_of_gameids_by_season("20122013")).to be_an(Array)
+        expect(stat_tracker.array_of_gameids_by_season("20122013")[0]).to be_a(String)
+        expect(stat_tracker.array_of_gameids_by_season("20122013")[0].length).to eq(10)
+      end
 
-    it '#fewest_tackles returns team with the least tackles in the season' do
-      expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+      it 'can produce an #array_of_game_teams by season' do
+        expect(stat_tracker.array_of_game_teams_by_season("20122013")).to be_an(Array)
+        expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
+      end
+
+      it '#coaches_win_percentages_hash' do
+        expect(stat_tracker.coaches_win_percentages_hash("20122013")).to be_a(Hash)
+        expect(stat_tracker.coaches_win_percentages_hash("20122013").first[1]).to be_a(Float)
+      end
     end
   end
     
