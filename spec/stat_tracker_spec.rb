@@ -111,6 +111,40 @@ RSpec.describe StatTracker do
       end
     end
 
+    describe "#winningest/ worst coach" do
+        it "#winningest_coach" do
+            expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
+        end
+
+        it "#worst_coach" do
+            expect(@stat_tracker.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
+        end
+    end
+
+    describe "#Team accuracy" do
+        it "#most_accurate_team" do
+            expect(@stat_tracker.most_accurate_team("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.most_accurate_team("20142015")).to eq "Columbus Crew SC"
+        end
+
+        it "#least_accurate_team" do
+            expect(@stat_tracker.least_accurate_team("20132014")).to eq "Chicago Fire"
+            expect(@stat_tracker.least_accurate_team("20142015")).to eq("Columbus Crew SC").or(eq("Minnesota United FC"))
+        end
+    end
+
+    describe "#Most, fewest tackles" do
+        it "#most_tackles" do
+            expect(@stat_tracker.most_tackles("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
+        end
+        
+        it "#fewest_tackles" do
+            expect(@stat_tracker.fewest_tackles("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.fewest_tackles("20142015")).to eq("Orlando City SC").or(eq("Columbus Crew SC"))
+        end
+    end 
+
     describe "#Team_statistics" do
         it "#team_info" do
             expected = {
@@ -147,7 +181,7 @@ RSpec.describe StatTracker do
         end
     end
 
-   describe "#Favorite opponent and rival" do
+    describe "#Favorite opponent and rival" do
         it "#favorite_opponent" do
             expect(@stat_tracker.favorite_opponent("18")).to eq "Real Salt Lake"
         end
@@ -155,38 +189,4 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.rival("18")).to eq("New England Revolution")
         end
     end
-    
-    describe "#winningest/ worst coach" do
-        it "#winningest_coach" do
-            expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
-        end
-
-        it "#worst_coach" do
-            expect(@stat_tracker.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
-        end
-    end
-    
-    describe "#Team accuracy" do
-        it "#most_accurate_team" do
-            expect(@stat_tracker.most_accurate_team("20132014")).to eq "Houston Dynamo"
-            expect(@stat_tracker.most_accurate_team("20142015")).to eq "Columbus Crew SC"
-        end
-
-        it "#least_accurate_team" do
-            expect(@stat_tracker.least_accurate_team("20132014")).to eq "Chicago Fire"
-            expect(@stat_tracker.least_accurate_team("20142015")).to eq("Columbus Crew SC").or(eq("Minnesota United FC"))
-        end
-    end
-
-    describe "#Most, fewest tackles" do
-        it "#most_tackles" do
-            expect(@stat_tracker.most_tackles("20132014")).to eq "Houston Dynamo"
-            expect(@stat_tracker.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
-        end
-        
-        it "#fewest_tackles" do
-            expect(@stat_tracker.fewest_tackles("20132014")).to eq "Houston Dynamo"
-            expect(@stat_tracker.fewest_tackles("20142015")).to eq("Orlando City SC").or(eq("Columbus Crew SC"))
-        end
-    end 
 end
