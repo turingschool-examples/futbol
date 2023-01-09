@@ -278,6 +278,78 @@ class StatTracker
   def fewest_goals_scored(team_id)
     goals_by_team_id(team_id).sort.first
   end
+
+  def team_info(team_id)
+    team_hash = {}
+    @teams.each do |team|
+      if team[:team_id] == team_id
+        team_hash[:team_id] = team[:team_id]
+        team_hash[:franchise_id] = team[:franchiseid]
+        team_hash[:team_name] = team[:teamname]
+        team_hash[:abbreviation] = team[:abbreviation]
+        team_hash[:link] = team[:link]
+      end
+    end
+    team_hash
+  end
+
+  def best_season(team_id)
+    highest_percentage = {}
+    @games.each do |game|
+      highest_percentage[game[:season]] ||= {wins: 0, total_games: 0, loss: 0}
+      if game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
+        highest_percentage[game[:season]][:wins] += 1
+        highest_percentage[game[:season]][:total_games] += 1
+      elsif game[:away_team_id] == team_id && game[:away_goals] > game[:home_goals]
+        highest_percentage[game[:season]][:wins] += 1
+        highest_percentage[game[:season]][:total_games] += 1
+      elsif game[:home_team_id] == team_id && game[:home_goals] <= game[:away_goals]
+        highest_percentage[game[:season]][:loss] += 1
+        highest_percentage[game[:season]][:total_games] += 1
+      elsif game[:away_team_id] == team_id && game[:away_goals] <= game[:home_goals]
+        highest_percentage[game[:season]][:loss] += 1
+        highest_percentage[game[:season]][:total_games] += 1
+      end
+    end
+    highest_season = " "
+    best_percentage = 0
+    highest_percentage.each do |season,stats|
+      if stats[:total_games] > 0 && stats[:wins].to_f / stats[:total_games] > best_percentage
+        highest_season = season
+        best_percentage = stats[:wins].to_f / stats[:total_games]
+      end
+    end
+    highest_season
+  end
+
+  def worst_season(team_id)
+    lowest_percentage = {}
+    @games.each do |game|
+      lowest_percentage[game[:season]] ||= {wins: 0, total_games: 0, loss: 0}
+      if game[:home_team_id] == team_id && game[:home_goals] > game[:away_goals]
+        lowest_percentage[game[:season]][:loss] += 1
+        lowest_percentage[game[:season]][:total_games] += 1
+      elsif game[:away_team_id] == team_id && game[:away_goals] > game[:home_goals]
+        lowest_percentage[game[:season]][:loss] += 1
+        lowest_percentage[game[:season]][:total_games] += 1
+      elsif game[:home_team_id] == team_id && game[:home_goals] <= game[:away_goals]
+        lowest_percentage[game[:season]][:loss] += 1
+        lowest_percentage[game[:season]][:total_games] += 1
+      elsif game[:away_team_id] == team_id && game[:away_goals] <= game[:home_goals]
+        lowest_percentage[game[:season]][:loss] += 1
+        lowest_percentage[game[:season]][:total_games] += 1
+      end
+    end
+    lowest_season = " "
+    worst_percentage = 0
+    lowest_percentage.each do |season,stats|
+      if stats[:total_games] > 0 && stats[:loss].to_f / stats[:total_games] > worst_percentage
+        lowest_season = season
+        worst_percentage = stats[:loss].to_f / stats[:total_games]
+      end
+    end
+    lowest_season
+  end
 end
 
 
