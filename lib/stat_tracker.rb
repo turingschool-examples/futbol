@@ -173,14 +173,45 @@ class StatTracker
         (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
     end
 
-    def most_tackles
-        
+    def most_tackles(season_id)
+        season_tackles = Hash.new(0)
+        season_games = @games.group_by { |game| game[:season]}
+
+        game_id = season_games[season_id].map { |game| game[:game_id] }
+       
+        game_id.each do |id|
+            @game_teams.each do |game_team|
+                if game_team[:game_id] == id
+                    season_tackles[game_team[:team_id]] += game_team[:tackles]
+                end
+            end
+        end
+
+        team_with_most_tackles = season_tackles.max_by do |team_tackles|
+            team_tackles[1]
+        end.first
+        @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
     end
 
-    # most_tackles - RETURN STRING w/ name of team
-    # Name of the Team with the most tackles in the season
-    # translate the string argument season id to an integer season id (what it is in games.csv)
-    # match the season id with the team id - make a hash: season id is the key, game id is the value
+    def fewest_tackles(season_id)
+        season_tackles = Hash.new(0)
+        season_games = @games.group_by { |game| game[:season]}
+
+        game_id = season_games[season_id].map { |game| game[:game_id] }
+       
+        game_id.each do |id|
+            @game_teams.each do |game_team|
+                if game_team[:game_id] == id
+                    season_tackles[game_team[:team_id]] += game_team[:tackles]
+                end
+            end
+        end
+
+        team_with_most_tackles = season_tackles.min_by do |team_tackles|
+            team_tackles[1]
+        end.first
+        @teams.find {|team| team[:team_id] == team_with_most_tackles}[:teamname]
+    end
 
 
 
@@ -377,5 +408,23 @@ class StatTracker
             # binding.pry
         end
         lowest_percent_w_season.keys[0]
+    end
+
+    def favorite_opponent(team_id)
+        wins_vs_opponent = Hash.new(0)
+        @games.each do |team|
+            if team[:home_team_id] || team[:away_team_id] == team_id
+                if (team[:home_team_id] == team_id) && (team[:home_goals] > team[:away_goals])
+                 wins_vs_opponent[team[:away_team_id]] += 1.0
+                    # require "pry"; binding.pry
+                else (team[:away_team_id] == team_id) && (team[:away_goals] > team[:home_goals])
+                    wins_vs_opponent[team[:home_team_id]] += 1.0
+                end
+            end
+        end
+        most_wins = wins_vs_opponent.key(wins_vs_opponent.values.max)
+    
+        favorite_opponent = @teams.find { |team| team[:teamname] if team[:team_id] == most_wins }
+        favorite_opponent[:teamname]
     end
 end

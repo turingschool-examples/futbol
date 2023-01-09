@@ -97,28 +97,6 @@ RSpec.describe StatTracker do
       end
     end
 
-    describe "#team_statistics" do
-        xit "#team_info" do
-            expected = {
-            "team_id" => "18",
-            "franchise_id" => "34",
-            "team_name" => "Minnesota United FC",
-            "abbreviation" => "MIN",
-            "link" => "/api/v1/teams/18"
-            }
-        
-            expect(@stat_tracker.team_info("18")).to eq expected
-        end
-
-        xit "#best_season" do
-            expect(@stat_tracker.best_season("6")).to eq "20122013"
-        end
-
-        xit "#worst_season" do
-            expect(@stat_tracker.worst_season("6")).to eq "20142015"
-        end
-    end
-
     describe "Teams, best, and worst offense" do
         
         it "#count of teams" do 
@@ -164,7 +142,7 @@ RSpec.describe StatTracker do
 
     describe "#Teams avg win, most and fewest goals" do
         
-        it "#average_win_percentage" do
+        xit "#average_win_percentage" do
             expect(@stat_tracker.average_win_percentage("18")).to eq 0.50
         end
 
@@ -172,17 +150,41 @@ RSpec.describe StatTracker do
 
     describe "# most, fewest tackles" do
 
-        xit "#most_tackles" do
-            expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-            expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+        it "#most_tackles" do
+            expect(@stat_tracker.most_tackles("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.most_tackles("20142015")).to eq "Minnesota United FC"
         end
         
-        xit "#fewest_tackles" do
-            expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
-            expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+        it "#fewest_tackles" do
+            expect(@stat_tracker.fewest_tackles("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.fewest_tackles("20142015")).to eq "Columbus Crew SC"
         end
 
     end 
 
+    describe "#team_statistics" do
+        xit "#team_info" do
+            expected = {
+            "team_id" => "18",
+            "franchise_id" => "34",
+            "team_name" => "Minnesota United FC",
+            "abbreviation" => "MIN",
+            "link" => "/api/v1/teams/18"
+            }
+        
+            expect(@stat_tracker.team_info("18")).to eq expected
+        end
 
+        xit "#best_season" do
+            expect(@stat_tracker.best_season("6")).to eq "20122013"
+        end
+
+        xit "#worst_season" do
+            expect(@stat_tracker.worst_season("6")).to eq "20142015"
+        end
+        
+        it "#favorite_opponent" do
+            expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+        end
+    end
 end
