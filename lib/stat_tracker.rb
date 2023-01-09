@@ -1,4 +1,7 @@
 require 'csv'
+require_relative 'team'
+require_relative 'game'
+require_relative 'game_team'
 
 class StatTracker
   attr_reader :games,
@@ -11,8 +14,6 @@ class StatTracker
     @game_teams = game_teams
   end
 
-
-  
   ## GAME STATISTIC METHODS
    def game_score_totals_sorted
       games.map do |game|
