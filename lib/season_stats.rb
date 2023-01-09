@@ -1,7 +1,7 @@
-require './stats'
+require './lib/stats'
 
 class SeasonStats < Stats
-    
+
 end
 
 

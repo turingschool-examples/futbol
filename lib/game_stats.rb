@@ -1,4 +1,4 @@
-require './stats'
+require './lib/stats'
 
 class GameStats < Stats
 
