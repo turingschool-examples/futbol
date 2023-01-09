@@ -1,3 +1,19 @@
+require './lib/stats'
+
+class SeasonStats < Stats
+
+end
+
+
+
+
+
+
+
+
+
+
+
 # CREATE FIRST AN OBJECT OF SEASON THAT IS FOR EACH SEASON, ALL OF THE STATISTICS 
 
 # winningest_coach	Name of the Coach with the best win percentage for the season	String
