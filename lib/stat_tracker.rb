@@ -416,6 +416,7 @@ class StatTracker
   end
 
   def best_season(team_id)
+    require 'pry'; binding.pry
     season_array = ordered_season_array(team_id)
     season_array.sort.reverse[0][1]
   end 
