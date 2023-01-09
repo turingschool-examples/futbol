@@ -186,10 +186,6 @@ class StatTracker
     end.compact.pop
 	end
 
-
-
-  #--------------------------------------------------
-
   def games_by_season
     @games_by_season ||= @game_path.group_by do |row|
       row[:season] 
@@ -236,8 +232,6 @@ class StatTracker
      coach_results.invert[coach_results.invert.keys.min]
   end
 
-  #-------------------------------
-
   def most_tackles(season_id)
     team_tackles = teams_with_tackles(game_ids_by_season(season_id))
     team_tackles.each do |team, tackles| 
@@ -266,7 +260,7 @@ class StatTracker
     team_with_fewest_tackles[:teamname]
   end
 
-  def teams_with_tackles(games_array) #HELPER fot most and fewest tackles
+  def teams_with_tackles(games_array) #HELPER for most and fewest tackles
     hash = Hash.new{|k,v| k[v] = []}
     games_array.each do |game_id|
     next if games_by_game_id[game_id].nil?
@@ -411,4 +405,13 @@ class StatTracker
    worst_season_for_team = worst_season_hash.min_by {|k,v| v}
    worst_season_for_team[0]
  end
+
+  def average_win_percentage(team_id)
+    average_hash = Hash.new{|k,v| k[v] = []}
+    team_games = teams_by_id[team_id]
+    team_games.each do |game|
+      average_hash[team_id] << game[:result] if game[:result] == 'WIN'
+    end
+    average_win_percent = (average_hash.values[0].count('WIN') / team_games.count.to_f).round(2)
+  end
 end
