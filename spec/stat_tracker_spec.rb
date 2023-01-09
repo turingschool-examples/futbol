@@ -22,7 +22,7 @@ RSpec.describe StatTracker do
   it 'exists' do 
    expect(@stat_tracker).to be_an_instance_of(StatTracker)
   end
-  
+
   describe '#highest_total_score' do 
     it 'returns the highest sum of the winning and losing teams scores' do 
       expect(@stat_tracker.highest_total_score).to eq(6)
@@ -35,33 +35,15 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#all_scores' do 
-    it 'is a helper method for highest and lowest total score methods' do 
-      expect(@stat_tracker.all_scores.class).to eq(Array)
-    end
-  end
-
   describe '#percentage_home_wins' do 
     it 'is the percentage of games that a home team has won' do 
       expect(@stat_tracker.percentage_home_wins).to eq(0.53)
     end
   end
 
-  describe '#home_wins_array' do 
-    it 'is a helper method for percentage_home_wins, array of home goals greater than away goals' do 
-      expect(@stat_tracker.home_wins_array.class).to eq(Array)
-    end
-  end
-  
   describe '#percentage_visitor_wins' do 
     it 'returns percentage of games a visitor has won' do 
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.27)
-    end
-  end
-
-  describe '#visitor_wins_array' do 
-    it 'returns array of games visitors have won' do 
-      expect(@stat_tracker.visitor_wins_array.class).to eq(Array)
     end
   end
 
@@ -71,12 +53,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#ties_array' do 
-    it 'returns an array of games that have resulted in a tie' do 
-      expect(@stat_tracker.ties_array.class).to eq(Array)
-    end
-  end
-   
   describe '#count_of_games_by_season' do 
     it 'returns a hash with season names as keys and counts of games as values' do 
       expected = {

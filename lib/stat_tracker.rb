@@ -1,13 +1,17 @@
 require 'csv'
+require_relative 'game'
+
 class StatTracker
   attr_reader :game_path,
               :team_path,
               :game_teams_path
+              :game
 
   def initialize(locations)
     @game_path = CSV.read(locations[:games], headers: true, skip_blanks: true, header_converters: :symbol)
     @team_path = CSV.read(locations[:teams], headers: true, skip_blanks: true, header_converters: :symbol)
     @game_teams_path = CSV.read(locations[:game_teams], headers: true, skip_blanks: true, header_converters: :symbol)
+    @game = Game.new(@game_path)
     
   end
 
@@ -15,75 +19,39 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  def all_scores #HELPER for highest_total_score and lowest_total_score
-   @game_path.map do |row|
-      row[:away_goals].to_i + row[:home_goals].to_i
-    end
+
+  def highest_total_score #move to game class
+    @game.highest_total_score
   end
 
-  def highest_total_score 
-    all_scores.max
+  def lowest_total_score #move to game class
+    @game.lowest_total_score
   end
 
-  def lowest_total_score 
-    all_scores.min
+  def percentage_home_wins #move to game class
+    @game.percentage_home_wins
   end
 
-  def home_wins_array #HELPER for percentage_home_wins
-    @game_path.find_all do |row|
-     row[:home_goals].to_i > row[:away_goals].to_i
-    end
+  def percentage_visitor_wins #move to game class
+    @game.percentage_visitor_wins
   end
 
-  def percentage_home_wins 
-    wins = home_wins_array.count
-    (wins.to_f / @game_path.count).round(2)
-  end
-
-  def visitor_wins_array #HELPER for percentage_visitor_wins
-    @game_path.find_all do |row|
-        row[:away_goals].to_i > row[:home_goals].to_i
-    end
-  end
-
-  def percentage_visitor_wins
-    visitor_wins = visitor_wins_array.count
-    (visitor_wins.to_f / @game_path.count).round(2)
-  end
-
-	def ties_array #Helper percentage_ties
-		@game_path.find_all do |row|
-			row[:away_goals].to_i == row[:home_goals].to_i
-		end
+	def percentage_ties #move to game class
+    @game.percentage_ties
 	end
 
-	def percentage_ties
-		ties = ties_array.count
-		(ties.to_f / @game_path.count).round(2)
-	end
-
-	def count_of_games_by_season
-		season_id = @game_path.group_by { |row| row[:season] }
-		season_id.each do |season, game|
-			season_id[season] = game.count
-		end
+	def count_of_games_by_season #move to game class
+    @game.count_of_games_by_season
 	end
    
-  def average_goals_per_game
-    (all_scores.sum / @game_path.count.to_f).round(2)
+  def average_goals_per_game #move to game class
+    @game.average_goals_per_game
   end
 
-  def average_goals_by_season
-    games_group_by_season = @game_path.group_by { |row| row[:season] }
-    average_season_goals = {}
-    games_group_by_season.each do |season, games|
-     total_goals = games.sum do |game|
-        game[:away_goals].to_i + game[:home_goals].to_i
-      end
-      average_season_goals[season] = (total_goals / games.count.to_f).round(2)
-    end
-    average_season_goals
+  def average_goals_by_season #move to game class
+    @game.average_goals_by_season
   end
+  #-------------------------------------------------------
 
   def count_of_teams
     @team_path.count
