@@ -11,13 +11,6 @@ class StatTracker
     @game_teams = game_teams
   end
 
-    
-
-    def goals_per_game
-      away_goals.to_i + home_goals.to_i
-    end
-  end
-
   class Team
     attr_reader :team_id,
                 :franchise_id,
@@ -105,11 +98,15 @@ class StatTracker
       hash
     end
     
+    def goals_per_game(game)
+      game.away_goals.to_i + game.home_goals.to_i
+    end
+
     def goals_per_season(season, num_games)
       goal_counter = 0
       games.each do |game|
         if game.season == season
-          goal_counter += game.goals_per_game 
+          goal_counter += goals_per_game(game)
         end
       end
       goal_counter
@@ -117,7 +114,7 @@ class StatTracker
     
     def average_goals_per_game
       total_goals = games.reduce(0) do |sum, game|
-        sum + game.goals_per_game
+        sum + goals_per_game(game)
       end
 
       (total_goals.to_f/games.length).round(2)
