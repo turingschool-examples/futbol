@@ -288,6 +288,14 @@ class StatTracker
     team_hash
   end
 
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+    @games.each do |row|
+      games_by_season[row[:season]] += 1
+    end
+    games_by_season
+  end
+
   def best_season(team_id)
     team_id_results = Hash.new {|k, v| k[v]= ''}
     game_teams.each do |row|

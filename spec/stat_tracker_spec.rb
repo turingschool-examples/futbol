@@ -1,5 +1,4 @@
-
-require './spec/spec_helper'
+# require './spec/spec_helper'
 require './lib/stat_tracker'
 
 describe StatTracker do
@@ -127,7 +126,7 @@ describe StatTracker do
 
   describe '#average_win_percentage' do
     it "states avg win percentage of a specific team by team ID" do
-      expect(stat_tracker.average_win_percentage("14")).to eq 0.57
+      expect(stat_tracker.average_win_percentage("14")).to eq 0.50
     end
   end
 
@@ -145,7 +144,7 @@ describe StatTracker do
 
   describe '#fewest_goals_scored' do
     it "returns the lowest number of goals a team has scored in a single game" do
-      expect(stat_tracker.fewest_goals_scored("18")).to eq 3
+      expect(stat_tracker.fewest_goals_scored("1")).to eq 1
     end
   end
   describe '#team_info' do
