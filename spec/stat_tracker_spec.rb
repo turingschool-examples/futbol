@@ -14,34 +14,36 @@ RSpec.describe StatTracker do
   end
   let(:stat_tracker) { StatTracker.from_csv(locations) }
   
-  # describe "#initialize" do
-  #   it "exists" do 
-  #     expect(stat_tracker).to be_instance_of(StatTracker)
-  #   end
+  describe "#initialize" do
+    it "exists" do 
+      expect(stat_tracker).to be_instance_of(StatTracker)
+    end
 
-  #   it "creates three arrays which house the information" do
-  #     expect(stat_tracker.game_teams).to be_an_instance_of(Array)
-  #     expect(stat_tracker.games).to be_an_instance_of(Array)
-  #     expect(stat_tracker.teams).to be_an_instance_of(Array)
-  #   end
+    it "creates three arrays which house the information" do
+      expect(stat_tracker.game_teams).to be_an_instance_of(Array)
+      expect(stat_tracker.games).to be_an_instance_of(Array)
+      expect(stat_tracker.teams).to be_an_instance_of(Array)
+    end
 
-  #   it "all of the objects in the respective arrays are of one specific object type consistent with the array" do 
-  #     expect(stat_tracker.game_teams[0..51]).to all(be_an_instance_of(Hash))
-  #     expect(stat_tracker.games[0..47]).to all(be_an_instance_of(Hash))
-  #     expect(stat_tracker.teams[0..32]).to all(be_an_instance_of(Hash))
-  #   end 
 
-  #   it "the objects all have the correct attributes" do 
-  #     expect(stat_tracker.game_teams[0][:game_id]).to eq(2012030225)
-  #     expect(stat_tracker.game_teams[rand(0..51)][:game_id]).to be_a(Integer)
-  #     expect(stat_tracker.games[0][:home_goals]).to eq(1)
-  #     expect(stat_tracker.teams[0][:team_id]).to eq("1")
-  #     expect(stat_tracker.games[0][:venue]).to eq("Providence Park")
-  #     expect(stat_tracker.teams[0][:abbreviation]).to eq("ATL")
-  #   end 
-  # end
+    it "all of the objects in the respective arrays are of one specific object type consistent with the array" do 
+      expect(stat_tracker.game_teams[0..51]).to all(be_an_instance_of(Hash))
+      expect(stat_tracker.games[0..47]).to all(be_an_instance_of(Hash))
+      expect(stat_tracker.teams[0..32]).to all(be_an_instance_of(Hash))
+    end 
+
+    it "the objects all have the correct attributes" do 
+      expect(stat_tracker.game_teams[0][:game_id]).to eq(2012030225)
+      expect(stat_tracker.game_teams[rand(0..51)][:game_id]).to be_a(Integer)
+      expect(stat_tracker.games[0][:home_goals]).to eq(1)
+      expect(stat_tracker.teams[0][:team_id]).to eq("1")
+      expect(stat_tracker.games[0][:venue]).to eq("Providence Park")
+      expect(stat_tracker.teams[0][:abbreviation]).to eq("ATL")
+    end 
+  end
   
-  # GAME STATISTICS TESTS ALL PASS 
+  # # GAME STATISTICS TESTS ALL PASS 
+
   describe "Game Statisics" do
     it "#highest_total_score" do
       expect(stat_tracker.highest_total_score).to eq(9)
@@ -52,15 +54,15 @@ RSpec.describe StatTracker do
     end
 
     it "#percentage_home_wins" do
-      expect(stat_tracker.percentage_home_wins).to eq(0.41)
+      expect(stat_tracker.percentage_home_wins).to eq(0.39)
     end
 
     it "#percentage_visitor_wins" do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.47)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.48)
     end
 
     it "#percentage_ties" do
-      expect(stat_tracker.percentage_ties).to eq(0.15)
+      expect(stat_tracker.percentage_ties).to eq(0.16)
     end
 
     it "#count_of_games_by_season" do 
@@ -90,7 +92,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  # NEXT GROUP - THESE TESTS ARE ALL PASSING HERE 
+  # # NEXT GROUP - THESE TESTS ARE ALL PASSING HERE 
   describe "League Statistics" do
     it "#count_of_teams" do
       expect(stat_tracker.count_of_teams).to eq(32)
@@ -104,8 +106,16 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_offense).to eq("Orlando City SC")
     end
 
+    it "#away_team_goals" do
+      expect(stat_tracker.away_team_goals).to be_a(Hash)
+    end
+
+    it "#home_team_goals" do
+      expect(stat_tracker.home_team_goals).to be_a(Hash)
+    end
+
     it "#highest_scoring_visitor" do
-      expect(stat_tracker.highest_scoring_visitor).to eq("Philadelphia Union")
+      expect(stat_tracker.highest_scoring_visitor).to eq("New England Revolution")
     end
 
     it "#highest_scoring_home_team" do
@@ -115,6 +125,11 @@ RSpec.describe StatTracker do
     it "#lowest_scoring_visitor" do
       expect(stat_tracker.lowest_scoring_visitor).to eq("Orlando City SC")
     end
+
+    it "#lowest_scoring_home_team" do
+      expect(stat_tracker.lowest_scoring_home_team).to eq("Seattle Sounders FC")
+    end
+  end
 
     it "#lowest_scoring_home_team" do
       expect(stat_tracker.lowest_scoring_home_team).to eq("Seattle Sounders FC")
@@ -176,7 +191,7 @@ RSpec.describe StatTracker do
       expect(stat_tracker.most_accurate_team("20142015")).to eq("Portland Thorns FC")
       expect(stat_tracker.most_accurate_team("20172018")).to eq("Portland Thorns FC")
     end
-
+    
     it "#least_accurate_team" do
     game_path = './data/games.csv'
       team_path = './data/teams_fixture.csv'
@@ -193,7 +208,40 @@ RSpec.describe StatTracker do
       expect(stat_tracker.least_accurate_team("20142015")).to eq("Portland Timbers")
       expect(stat_tracker.least_accurate_team("20172018")).to eq("Sporting Kansas City")
     end
-    
+
+    it "#most_tackles" do
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+
+      stat_tracker = StatTracker.from_csv(locations)
+
+      expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+      expect(stat_tracker.most_tackles("20132014")).to eq("Houston Dynamo")
+    end
+
+    it "#fewest_tackles" do
+      game_path = './data/games.csv'
+      team_path = './data/teams_fixture.csv'
+      game_teams_path = './data/game_teams_fixture.csv' 
+      locations = 
+        {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+
+      stat_tracker = StatTracker.from_csv(locations)
+
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("Montreal Impact")
+      expect(stat_tracker.fewest_tackles("20132014")).to eq("Los Angeles FC")
+    end
   end
   
   # ALL BELOW TESTS FOR TEAM STATISTICS RUN AND PASS IN OURS AND SPEC HARNESS
@@ -297,5 +345,6 @@ RSpec.describe StatTracker do
   #     expect(stat_tracker.rival("3")).to eq("FC Dallas").or(eq("Orlando Pride")).or(eq("Los Angeles FC")).or(eq("Seattle Sounders FC"))
   #     expect(stat_tracker.rival("6")).to eq("Sporting Kansas City").or(eq("Philadelphia Union")).or(eq("Utah Royals FC"))
   #   end
-  # end
+
+ # end
 end

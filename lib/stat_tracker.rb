@@ -225,89 +225,76 @@ class StatTracker
     best_team_avg(id)
   end
 
+
   def worst_offense
     team_all_goals_hash = team_id_all_goals
     team_avg = team_goal_avg(team_all_goals_hash)
     id = team_avg.key(team_avg.values.min)
     best_team_avg(id)
   end
-# BEST/WORST OFFENSE METHODS & HELPER METHODS ABOVE
 
-  # Name of the team with the highest average score per game across all seasons when they are away.	
-  def highest_scoring_visitor
+  def away_team_goals
     id_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do | k, v |
       if k[:hoa] == "away"
         id_goals[k[:team_id]] << k[:goals]
       end
     end
-    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-    id_goals.each do |team_id, goals_scored|
-      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
-    end
-    @teams.find do |info_line|
-      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.max)
-        return info_line[:team_name] 
-      end
-    end
+    return id_goals
   end
-  
-  # Name of the team with the highest average score per game across all seasons when they are home. 
-  def highest_scoring_home_team
+
+  def home_team_goals
     id_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams.each do | k, v |
       if k[:hoa] == "home"
         id_goals[k[:team_id]] << k[:goals]
       end
     end
-    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-    id_goals.each do |team_id, goals_scored|
-      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
+    return id_goals
+  end
+
+  def avg_team_goals(team_goals_hash)
+    team_and_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    team_goals_hash.each do |team_id, goals_scored|
+      team_and_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(6)
     end
-    @teams.find do |info_line|
-      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.max)
+    return team_and_goals_avg.sort_by { |key, value| value }
+  end
+
+  def team_name(id)
+    @teams.each do |info_line|
+      if info_line[:team_id] == id
         return info_line[:team_name] 
       end
     end
   end
 
-  # Name of the team with the lowest average score per game across all seasons when they are a visitor.
+  def highest_scoring_visitor
+    team_goals_hash = away_team_goals
+    avg_hash = avg_team_goals(team_goals_hash)
+    id = avg_hash.reverse.first.first
+    team_name(id)
+  end
+ 
+  def highest_scoring_home_team
+    team_goals_hash = home_team_goals
+    avg_hash = avg_team_goals(team_goals_hash)
+    id = avg_hash.reverse.first.first
+    team_name(id)
+  end
+
   def lowest_scoring_visitor
-    id_goals = Hash.new { |hash, key| hash[key] = [] }
-    @game_teams.each do | k, v |
-      if k[:hoa] == "away"
-        id_goals[k[:team_id]] << k[:goals]
-      end
-    end
-    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-    id_goals.each do |team_id, goals_scored|
-      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
-    end
-    @teams.find do |info_line|
-      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.min)
-        return info_line[:team_name] 
-      end
-    end
+    team_goals_hash = away_team_goals
+    avg_hash = avg_team_goals(team_goals_hash)
+    id = avg_hash.first.first
+    team_name(id)
   end
 
-  # Name of the team with the lowest average score per game across all seasons when they are at home.
   def lowest_scoring_home_team
-    id_goals = Hash.new { |hash, key| hash[key] = [] }
-    @game_teams.each do | k, v |
-    if k[:hoa] == "home"
-        id_goals[k[:team_id]] << k[:goals]
-      end
-    end
-    id_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-    id_goals.each do |team_id, goals_scored|
-      id_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(2)
-    end
-    @teams.find do |info_line|
-      if info_line[:team_id] == id_goals_avg.key(id_goals_avg.values.min)
-
-        return info_line[:team_name] 
-      end
-    end
+    team_goals_hash = home_team_goals
+    avg_hash = avg_team_goals(team_goals_hash)
+    id = avg_hash.first.first
+    team_name(id)
   end
 
  ################## Season Statisics ##################
@@ -339,18 +326,18 @@ class StatTracker
       end
     end
     return total_relevant_gameteams_from_season
-  end 
+  end
 
   def coach_victory_percentage_hash(season)
     games_in_season = list_gameteams_from_particular_season(season)
     coach= Hash.new{ |hash, key| hash[key] = [0,0] }
 
     games_in_season.each do |game_team|
-        coach[game_team[:head_coach]][1] += 1
-        if game_team[:result] == "WIN"
-          coach[game_team[:head_coach]][0] += 1
-        end 
-      end 
+      coach[game_team[:head_coach]][1] += 1
+      if game_team[:result] == "WIN"
+        coach[game_team[:head_coach]][0] += 1
+      end
+     end
     return coach
   end 
 
@@ -359,9 +346,7 @@ class StatTracker
     hash.each {|key, value| calculations << [key, ((value[0].to_f)/(value[1].to_f))]}
     result = calculations.to_h.sort_by {|key, value| value}
   end
-  #  WINNINGNEST/WORST COACH AND HELPER METHODS ABOVE 
 
-  # MOST/LEAST ACCURATE TEAM BY SEASON & HELPER METHODS BELOW
   def all_games_by_season
     @games.group_by { |game| game[:season] } 
   end
@@ -408,17 +393,47 @@ class StatTracker
     id = result_hash.first.first
     team_name(id)
   end
-  # MOST/LEAST ACCURATE TEAM BY SEASON & HELPER METHODS ABOVE
-  
+
+
+  def all_games_by_season
+    @games.group_by { |game| game[:season] } 
+  end
+
+  def gather_tackles_by_team(season)
+    team_tackle_hash = Hash.new { |hash, key| hash[key] = 0 }
+    @game_teams.each do |info_line|
+      all_games_by_season[season].each do |info_line_2|
+        if info_line_2[:game_id] == info_line[:game_id]
+          team_tackle_hash[info_line[:team_id]] += info_line[:tackles]
+        end
+      end
+    end
+    require 'pry'; binding.pry
+    return team_tackle_hash.sort_by {|key, value| value}
+  end
+
+  def most_tackles(season)
+    total_tackles_per_team = gather_tackles_by_team(season)
+    id = total_tackles_per_team.reverse.first.first
+    team_name(id)
+  end
+
+  def fewest_tackles(season)
+    total_tackles_per_team = gather_tackles_by_team(season)
+    id = total_tackles_per_team.first.first
+    team_name(id)
+  end
+
 
  ################## Team Statisics ##################
 
- def team_info(team_id)
-  selected = teams.select do |team|
-    team[:team_id] == team_id
-  end
-  team = selected[0]
+  def team_info(team_id)
+    selected = teams.select do |team|
+      team[:team_id] == team_id
+    end
+    team = selected[0]
   
+
   hash = {
     team_id: team[:team_id], 
     franchise_id: team[:franchise_id], 
@@ -428,6 +443,7 @@ class StatTracker
   }
   return hash
 end
+
 
 # BEST AND WORST SEASON
   def best_season(team_id)
@@ -654,3 +670,4 @@ end
     end 
   end
 end
+
