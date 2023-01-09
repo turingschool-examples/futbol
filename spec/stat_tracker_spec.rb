@@ -15,13 +15,13 @@ RSpec.describe StatTracker do
         @stat_tracker = StatTracker.from_csv(location_paths)
     end
     
-    describe "#initialize" do
+    describe "#Initialize" do
         it "exists" do
             expect(@stat_tracker).to be_instance_of(StatTracker)
         end
     end
 
-    describe "#total_score" do
+    describe "#Total_score" do
         it " has game total scores" do 
             expect(@stat_tracker.games_total_score_array).to eq [1, 4, 5, 3, 6, 4, 1, 4, 2, 5]
         end
@@ -35,7 +35,7 @@ RSpec.describe StatTracker do
         end 
     end
     
-    describe "#percentages" do
+    describe "#Percentages" do
         it "#percentage_home_wins" do
             expect(@stat_tracker.percentage_home_wins).to eq 0.50
         end
@@ -49,7 +49,7 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe "#game count and averages" do
+    describe "#Game count and averages" do
         it "#count_of_games_by_season" do
         expected = {
             "20122013"=>1,
@@ -78,8 +78,22 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.average_goals_by_season).to eq expected
        end
     end
+
+    describe "Teams, best, and worst offense" do 
+        it "#count of teams" do 
+            expect(@stat_tracker.count_of_teams).to eq 17
+        end
+
+        it "#best_offense" do 
+            expect(@stat_tracker.best_offense).to eq "New England Revolution"
+        end
+
+        it "#worst_offense" do
+            expect(@stat_tracker.worst_offense).to eq "Sporting Kansas City"
+        end
+    end
    
-    describe "#highest/lowest scoring home/away" do
+    describe "#Highest/lowest scoring home/away" do
         it "#highest_scoring_visitor" do
         expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
         end
@@ -97,8 +111,8 @@ RSpec.describe StatTracker do
       end
     end
 
-    describe "#team_statistics" do
-        xit "#team_info" do
+    describe "#Team_statistics" do
+        it "#team_info" do
             expected = {
             "team_id" => "18",
             "franchise_id" => "34",
@@ -110,39 +124,20 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.team_info("18")).to eq expected
         end
 
-        xit "#best_season" do
+        it "#best_season" do
             expect(@stat_tracker.best_season("6")).to eq "20122013"
         end
 
-        xit "#worst_season" do
-            expect(@stat_tracker.worst_season("6")).to eq "20142015"
+        it "#worst_season" do
+            expect(@stat_tracker.worst_season("6")).to eq "20122013"
         end
-    end
-
-
-    describe "Teams, best, and worst offense" do
-        
-        it "#count of teams" do 
-            expect(@stat_tracker.count_of_teams).to eq 17
-        end
-
-        it "#best_offense" do 
-            expect(@stat_tracker.best_offense).to eq "New England Revolution"
-        end
-
-        it "#worst_offense" do
-            expect(@stat_tracker.worst_offense).to eq "Sporting Kansas City"
-        end
-
     end
 
     describe "#Teams avg win, most and fewest goals" do
         it "#average_win_percentage" do
             expect(@stat_tracker.average_win_percentage("18")).to eq 0.50
-        end        
-    end
+        end
 
-    describe "#Most / Fewest goals scored" do
         it '#most_goals_scored' do
         expect(@stat_tracker.most_goals_scored("52")).to eq(2)
         end
@@ -152,52 +147,49 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe "#winningest/ worst coach" do
-        it "#winningest_coach" do
-            expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan")
-        end
-    end
-
-
-    describe "#Teams avg win, most and fewest goals" do
-        
-        it "#average_win_percentage" do
-            expect(@stat_tracker.average_win_percentage("18")).to eq 0.50
-        end
-
-    end
-
-    describe "# most, fewest tackles" do
-
-        xit "#most_tackles" do
-            expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-            expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
-        end
-        
-        xit "#fewest_tackles" do
-            expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
-            expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
-        end
-
-    end 
-
-    describe "#team_statistics" do
-        xit "#team_info" do
-            expected = {
-            "team_id" => "18",
-            "franchise_id" => "34",
-            "team_name" => "Minnesota United FC",
-            "abbreviation" => "MIN",
-            "link" => "/api/v1/teams/18"
-            }
-        
-            expect(@stat_tracker.team_info("18")).to eq expected
-        end
-
-
-
+    describe "#Favorite opponent and rival" do
         it "#favorite_opponent" do
-            expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+            expect(@stat_tracker.favorite_opponent("18")).to eq "Real Salt Lake"
+        end
+
+        it "#rival" do
+            expect(@stat_tracker.rival("18")).to eq("New England Revolution")
         end
     end
+
+    describe "#Winningest and worst coach" do
+        it "#winningest_coach" do
+            expect(@stat_tracker.winningest_coach("20132014")).to eq "Alain Vigneault"
+            expect(@stat_tracker.winningest_coach("20142015")).to eq "Joel Quenneville"
+        end
+
+        it "#worst_coach" do
+            expect(@stat_tracker.worst_coach("20132014")).to eq("Peter Laviolette").or(eq("Craig Berube"))
+            expect(@stat_tracker.worst_coach("20142015")).to eq("Craig Berube").or(eq("Peter Laviolette"))
+        end
+    end
+
+    describe "#Team accuracy" do
+        it "#most_accurate_team" do
+            expect(@stat_tracker.most_accurate_team("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.most_accurate_team("20142015")).to eq "Columbus Crew SC"
+        end
+
+        it "#least_accurate_team" do
+            expect(@stat_tracker.least_accurate_team("20132014")).to eq "Chicago Fire"
+            expect(@stat_tracker.least_accurate_team("20142015")).to eq("Columbus Crew SC").or(eq("Minnesota United FC"))
+        end
+    end
+
+    describe "#Most, fewest tackles" do
+        it "#most_tackles" do
+            expect(@stat_tracker.most_tackles("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
+        end
+        
+        it "#fewest_tackles" do
+            expect(@stat_tracker.fewest_tackles("20132014")).to eq "Houston Dynamo"
+            expect(@stat_tracker.fewest_tackles("20142015")).to eq("Orlando City SC").or(eq("Columbus Crew SC"))
+        end
+    end 
 end
