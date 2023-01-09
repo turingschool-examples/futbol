@@ -33,17 +33,17 @@ describe StatTracker do
     end
   end
 
-  # describe '#count_of_teams' do
-  #   it 'returns the total number of teams' do
-  #     expect(stat_tracker.count_of_teams).to eq(32)
-  #   end
-  # end
+  describe '#count_of_teams' do
+    it 'returns the total number of teams' do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
+  end
 
-  # describe '#average_goals_per_game' do
-  #   it 'can return the average total score of all games played rounded to the 100th' do
-  #     expect(stat_tracker.average_goals_per_game).to eq(4.03)
-  #   end
-  # end
+  describe '#average_goals_per_game' do
+    it 'can return the average total score of all games played rounded to the 100th' do
+      expect(stat_tracker.average_goals_per_game).to eq(4.03)
+    end
+  end
 
   describe '#average_win_percentage' do
     it 'can take a teamid argument and return total win percentage across all games played' do
@@ -69,70 +69,70 @@ describe StatTracker do
     end
   end
 
-	# describe '#most_goals_scored' do
-	# 	it 'returns an integer of the most goals scored by a particular team in a single game' do
-	# 		expect(stat_tracker.most_goals_scored(6)).to eq(4)
-	# 		expect(stat_tracker.most_goals_scored(13)).to eq(2)
-	# 	end
-	# end
+	describe '#most_goals_scored' do
+		it 'returns an integer of the most goals scored by a particular team in a single game' do
+			expect(stat_tracker.most_goals_scored(6)).to eq(4)
+			expect(stat_tracker.most_goals_scored(13)).to eq(2)
+		end
+	end
 
-	# describe '#fewest_goals_scored' do
-	# 	it 'returns an integer of the lowest goals scored by a particular team in a single game' do
-	# 		expect(stat_tracker.fewest_goals_scored(6)).to eq(2)
-	# 		expect(stat_tracker.fewest_goals_scored(5)).to eq(0)
-	# 	end
-	# end
+	describe '#fewest_goals_scored' do
+		it 'returns an integer of the lowest goals scored by a particular team in a single game' do
+			expect(stat_tracker.fewest_goals_scored(6)).to eq(2)
+			expect(stat_tracker.fewest_goals_scored(5)).to eq(0)
+		end
+	end
 
-	# describe '#count_of_games_by_season' do
-	# 	it 'returns a hash with season names as keys and counts of games as values' do
-	# 		expected = {
-	# 			"20122013" => 8,
-	# 			"20132014" => 4,
-	# 			"20152016" => 6,
-	# 			"20162017" => 8,
-	# 			"20172018" => 9
-	# 		}
-	# 		expect(stat_tracker.count_of_games_by_season).to eq(expected)
-	# 	end
-	# end
+	describe '#count_of_games_by_season' do
+		it 'returns a hash with season names as keys and counts of games as values' do
+			expected = {
+				"20122013" => 8,
+				"20132014" => 4,
+				"20152016" => 6,
+				"20162017" => 8,
+				"20172018" => 9
+			}
+			expect(stat_tracker.count_of_games_by_season).to eq(expected)
+		end
+	end
 
-	# describe '#average_goals_by_season' do
-	# 	it 'returns a hash with seasons as keys and average goals per season as values' do
-	# 		expected = {
-	# 			"20122013" => 4.13,
-	# 			"20132014" => 5.0,
-	# 			"20152016" => 3.0,
-	# 			"20162017" => 4.38,
-	# 			"20172018" => 3.89
-	# 		}
+	describe '#average_goals_by_season' do
+		it 'returns a hash with seasons as keys and average goals per season as values' do
+			expected = {
+				"20122013" => 4.13,
+				"20132014" => 5.0,
+				"20152016" => 3.0,
+				"20162017" => 4.38,
+				"20172018" => 3.89
+			}
 
-	# 		expect(stat_tracker.average_goals_by_season).to eq(expected)
-	# 	end
-	# end
+			expect(stat_tracker.average_goals_by_season).to eq(expected)
+		end
+	end
 
-	# describe '#winningest_coach' do
-	# 	it 'names the coach with the best win percentage for the season' do
-	# 		expect(stat_tracker.winningest_coach(20162017)).to eq("Glen Gulutzan")
-	# 	end
-	# end
+	describe '#winningest_coach' do
+		it 'names the coach with the best win percentage for the season' do
+			expect(stat_tracker.winningest_coach(20162017)).to eq("Glen Gulutzan")
+		end
+	end
 
-	# describe '#worst_coach' do
-	# 	it 'names the coach with the worst percentage for the reason' do
-	# 		expect(stat_tracker.worst_coach(20162017)).to eq('Randy Carlyle')
-	# 	end
-	# end
+	describe '#worst_coach' do
+		it 'names the coach with the worst percentage for the reason' do
+			expect(stat_tracker.worst_coach(20162017)).to eq('Randy Carlyle')
+		end
+	end
 
-  # describe '#most_tackles' do
-  #   it 'returns the NAME of team with most tackles in the SEASON' do
-  #     expect(stat_tracker.most_tackles(20162017)).to eq("New York City FC")
-  #   end
-  # end
+  describe '#most_tackles' do
+    it 'returns the NAME of team with most tackles in the SEASON' do
+      expect(stat_tracker.most_tackles(20162017)).to eq("New York City FC")
+    end
+  end
 
-  # describe '#fewest_tackles' do
-  #   it 'returns the NAME of team with fewest tackles the in SEASON' do
-  #     expect(stat_tracker.fewest_tackles(20162017)).to eq("Montreal Impact")
-  #   end
-  # end
+  describe '#fewest_tackles' do
+    it 'returns the NAME of team with fewest tackles the in SEASON' do
+      expect(stat_tracker.fewest_tackles(20162017)).to eq("Montreal Impact")
+    end
+  end
 
   xdescribe '#find_by_team_id' do
     it 'returns the NAME of the team based on the ID' do
@@ -177,18 +177,18 @@ describe StatTracker do
     end
   end
 
-  # describe '#team_info' do
-  #   it 'returns a hash of team info by passing a team_id argument' do
-  #     expected_hash = {
-  #       'team_id' => '8',
-  #       'franchise_id' => "1",
-  #       'team_name' => "New York Red Bulls",
-  #       'abbreviation' => "NY",
-  #       'link' => "/api/v1/teams/8"
-  #     }
-  #     expect(stat_tracker.team_info('8')).to eq(expected_hash)
-  #   end
-  # end
+  describe '#team_info' do
+    it 'returns a hash of team info by passing a team_id argument' do
+      expected_hash = {
+        'team_id' => '8',
+        'franchise_id' => "1",
+        'team_name' => "New York Red Bulls",
+        'abbreviation' => "NY",
+        'link' => "/api/v1/teams/8"
+      }
+      expect(stat_tracker.team_info('8')).to eq(expected_hash)
+    end
+  end
 
   describe '#best_season' do
     it 'returns the season with the highest win percentage for a team argument' do
@@ -214,15 +214,15 @@ describe StatTracker do
 		end
 	end
 
-	# describe '#most_accurate_team' do
-	# 	it 'returns TEAM NAME with the BEST ratio of SHOTS to GOALS for the SEASON' do
-  #     expect(stat_tracker.most_accurate_team("20162017")).to eq("Toronto FC")
-	# 	end
-	# end
+	describe '#most_accurate_team' do
+		it 'returns TEAM NAME with the BEST ratio of SHOTS to GOALS for the SEASON' do
+      expect(stat_tracker.most_accurate_team("20162017")).to eq("Toronto FC")
+		end
+	end
 
-	# describe '#least_accurate_team' do
-	# 	it 'returns TEAM NAME with the WORST ratio of SHOTS to GOALS for the SEASON' do
-  #     expect(stat_tracker.least_accurate_team("20162017")).to eq("DC United")
-	# 	end
-	# end
+	describe '#least_accurate_team' do
+		it 'returns TEAM NAME with the WORST ratio of SHOTS to GOALS for the SEASON' do
+      expect(stat_tracker.least_accurate_team("20162017")).to eq("DC United")
+		end
+	end
 end

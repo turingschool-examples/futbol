@@ -13,10 +13,6 @@ class GameStats
 		@teams = teams
 	end
 
-	def games_by_season(season)
-		sort_objects_by(@games, :season)[season]
-	end
-
 	def average_goals_per_game
     average_score = total_scores.sum.to_f / total_scores.count
     average_score.round(2)

@@ -44,13 +44,6 @@ class SeasonStats
 		team_tackles
 	end
 
-	def game_ids_for_season(season_id)
-		games_in_season = games_played_by_season(@games)[season_id]
-		games_in_season.map do |game|
-			game.info[:game_id]
-		end
-  end
-
 	def winningest_coach(season_id)
 		game_ids = game_ids_for_season(season_id)
 		coach_game_results = coach_game_results_by_game(game_ids)
