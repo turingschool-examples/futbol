@@ -304,5 +304,5 @@ class StatTracker
 #     selected = teams.select { |team| team[:team_id] == result_id }
 #     selected.first[:team_name]
 #   end 
-# end
+end
 

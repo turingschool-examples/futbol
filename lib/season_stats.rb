@@ -49,6 +49,8 @@ class SeasonStats < Stats
     result = calculations.to_h.sort_by {|key, value| value}
   end
 
+  #######
+
   def most_accurate_team(season)
     hash = team_goals_shots_by_season(season)
     result_hash = team_ratios_by_season(hash)
@@ -88,11 +90,17 @@ class SeasonStats < Stats
     result = calculations.to_h.sort_by { |key, value| value } 
   end
 
-  def team_name(id)
-    @teams.each do |team|
-        return team[:team_name] if team[:team_id] == id 
+  #### BELOW : shared method by most/least accurate & most/fewest tackles
+
+  def all_games_by_season
+    game_ids_for_desired_season_array = @games.map do |game|
+      if season == game[:season]
+        game.game_id
+      end
     end
   end
+
+  ###### 
 
   def most_tackles(season)
     total_tackles_per_team = gather_tackles_by_team(season)
@@ -106,9 +114,15 @@ class SeasonStats < Stats
     team_name(id)
   end
 
-  def all_games_by_season
-    @games.group_by { |game| game[:season] } 
+  def team_name(id)
+    @teams.each do |team|
+        return team[:team_name] if team[:team_id] == id 
+    end
   end
+
+  # def all_games_by_season
+  #   @games.group_by { |game| game[:season] } 
+  # end
 
   def gather_tackles_by_team(season)
     team_tackle_hash = Hash.new { |hash, key| hash[key] = 0 }
@@ -123,15 +137,6 @@ class SeasonStats < Stats
   end
 
 end
-
-
-
-
-
-
-
-
-
 
 
 # CREATE FIRST AN OBJECT OF SEASON THAT IS FOR EACH SEASON, ALL OF THE STATISTICS 
