@@ -121,20 +121,7 @@ class StatTracker < DataFactory
     end
 
     def highest_scoring_visitor
-      highest_score = visitor_score_averages.last[1]
-
-      highests = []
-      visitor_score_averages.each do |array|
-        highests << array.first if array.last == highest_score
-      end
-
-      highest_scoring_visitors = []
-      highests.each do |id|
-        teams.each do |team|
-          highest_scoring_visitors << team.team_name if team.team_id == id
-        end
-      end
-      highest_scoring_visitors.join(", ")
+      find_team_name(visitor_score_averages.last[0])
     end
 
     def highest_scoring_home_team
