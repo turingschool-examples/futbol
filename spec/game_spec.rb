@@ -48,6 +48,10 @@ RSpec.describe Game do
         it "#visitor_wins" do
             expect(@game.visitor_wins).to eq(0)
         end
+
+        it "#game_ties" do
+            expect(@game.game_ties).to eq(0)
+        end
     end
 end
 

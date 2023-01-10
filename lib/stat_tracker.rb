@@ -43,11 +43,11 @@ class StatTracker
     end
 
     def percentage_ties
-        percentage_games = []
+        ties = []
         @games.each do |game, goals|
-            percentage_games << game if game[:away_goals] == game[:home_goals] 
+            ties << game.game_ties
         end
-        (percentage_games.count.to_f / @games.count.to_f).round(2)
+        (game_ties.sum.to_f / @games.count.to_f).round(2)
     end
 
     def count_of_games_by_season

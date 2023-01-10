@@ -45,4 +45,14 @@ class Game
             total_visitor_wins += 0
         end
     end
+
+    def game_ties
+        total_ties = 0
+        if @away_goals == @home_goals
+            total_ties += 1
+        elsif @away_goals != @home_goals
+            total_ties += 0
+        end
+    end
+
 end
