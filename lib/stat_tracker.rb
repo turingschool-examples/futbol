@@ -142,8 +142,4 @@ class StatTracker < Stats
 	def favorite_opponent(team_id)
 		@team_stats.favorite_opponent(team_id)
 	end
-
-  def favorite_opponent(team_id)
-    @team_stats.favorite_opponent(team_id)
-  end
 end
