@@ -56,57 +56,67 @@ class SeasonStats < Stats
   #######
 
   def most_accurate_team(season)
-    hash = team_goals_shots_by_season(season)
-    result_hash = team_ratios_by_season(hash)
-    id = result_hash.reverse.first.first
+    hash_game_id_and_goals_shots = team_goals_shots_by_season(season)
+    team_id_ratio = team_ratios_by_season(hash_game_id_and_goals_shots)
+    id = team_id_ratio.reverse.first.first
     team_name(id)
   end
 
   def least_accurate_team(season)
-    hash = team_goals_shots_by_season(season)
-    result_hash = team_ratios_by_season(hash)
-    id = result_hash.first.first
+    hash_game_id_and_goals_shots = team_goals_shots_by_season(season)
+    team_id_ratio = team_ratios_by_season(hash_game_id_and_goals_shots)
+    id = team_id_ratio.first.first
     team_name(id)
   end
 
   def team_goals_shots_by_season(season)
-    team_goals_shots = Hash.new { |hash, key| hash[key] = [0, 0] }
-    #line below is what's slowing everything down:
-    @game_teams.each do |game_team|
-      all_games_by_season[season].each do |game|
-        if game_team.game_id == game.game_id
-          team_goals_shots[game_team.team_id][0] += game_team.goals
-          team_goals_shots[game_team.team_id][1] += game_team.shots
+    hash_team_id_gameteams = Hash.new{ |hash, key| hash[key] = [] }
+    all_gameteams_by_game_id.each do |game_id, game_team_array|
+      game_team_array.each do |game_team|
+        all_games_by_season[season].each do |game|
+         if game_id == game.game_id
+          hash_team_id_gameteams[game_team.team_id].push(game_team)
+          end
         end
       end
     end
-    return team_goals_shots
-  end
-
-  def team_ratios_by_season(hash)
-    calculations = []
-    hash.each do |key, value|
-      calculations << [key, ((value[0].to_f)/(value[1].to_f))]
-    end
-    result = calculations.to_h.sort_by { |key, value| value } 
-  end
-
-  #### BELOW : shared method by most/least accurate & most/fewest tackles
-
-  def all_games_by_season
-    game_ids_for_desired_season_array = @games.map do |game|
-      if season == game.season
-        game.game_id
+    
+    team_id_goals_shots = Hash.new { |hash, key| hash[key] = [0, 0] }
+    hash_team_id_gameteams.each do |team_id, game_teams|
+      game_teams.each do |game_team|
+        team_id_goals_shots[team_id][0] += game_team.goals
+        team_id_goals_shots[team_id][1] += game_team.shots
       end
     end
+    return team_id_goals_shots
   end
 
-  #Memoize this
-    def all_games_by_season
-      @all_games_by_season ||= @games.group_by { |game| game.season } 
+  def team_ratios_by_season(hash_game_id_and_goals_shots)
+    calculations = []
+    hash_game_id_and_goals_shots.each do |team_id, goals_shots|
+      calculations << [team_id, ((goals_shots[0].to_f)/(goals_shots[1].to_f))]
     end
+    result = calculations.to_h.sort_by { |team_id, ratio| ratio } 
+  end
 
-  ###### 
+  def all_gameteams_by_game_id
+    @all_gameteams_by_game_id ||= @game_teams.group_by { |game_team| game_team.game_id }
+  end
+
+  #### BELOW : shared methods by most/least accurate & most/fewest tackles
+
+  def all_games_by_season
+    @all_games_by_season ||= @games.group_by { |game| game.season } 
+  end
+
+
+  def team_name(id)
+    @teams.each do |team|
+        return team.team_name if team.team_id == id 
+    end
+  end
+
+  #####
 
   def most_tackles(season)
     total_tackles_per_team = gather_tackles_by_team(season)
@@ -120,11 +130,11 @@ class SeasonStats < Stats
     team_name(id)
   end
 
-  def team_name(id)
-    @teams.each do |team|
-        return team.team_name if team.team_id == id 
-    end
-  end
+  # def team_name(id)
+  #   @teams.each do |team|
+  #       return team.team_name if team.team_id == id 
+  #   end
+  # end
 
   # def all_games_by_season
   #   @games.group_by { |game| game[:season] } 
