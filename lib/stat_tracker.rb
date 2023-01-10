@@ -59,7 +59,11 @@ class StatTracker
     end
 
     def average_goals_per_game
-        (games_total_score_array.sum / @games.count.to_f).round(2)                    
+        averages = []
+        @games.each do |game|
+            averages << game.game_total_score
+        end
+        averages.sum.to_f / (@games.count.to_f).round(2)                    
     end
 
     def average_goals_by_season
