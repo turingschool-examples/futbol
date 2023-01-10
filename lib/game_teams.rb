@@ -5,8 +5,8 @@ class GameTeams
 
   
   def initialize(file_path, file_path2, file_path3)
-    @game_path = file_path2
     @game_teams_path = file_path
+    @game_path = file_path2
     @team_path = file_path3
   end
 
@@ -145,20 +145,20 @@ class GameTeams
       hash
   end
 
-  def most_goals_scored(team_id)
-    all_scores_by_team[team_id.to_s].max
-  end
-
-  def fewest_goals_scored(team_id)
-    all_scores_by_team[team_id.to_s].min
-  end
-
   def all_scores_by_team #HELPER for most and fewest goals scored by
     hash = Hash.new{|k,v| k[v] = []}
     @game_teams_path.each do |row| 
       hash[row[:team_id]] << row[:goals].to_i
     end
     hash
+  end
+
+  def most_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].max
+  end
+
+  def fewest_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].min
   end
 
   def get_ratios_by_season_id(season_id)
@@ -234,6 +234,17 @@ class GameTeams
    end
 
    def pair_season_with_results_by_team(team_id)
+    hash = Hash.new{|k,v| k[v] = []}
+    pair_teams_with_results(team_id).each do |team, results|
+      results.each do |result|
+      data = games_by_id_game_path[result[1]][0]
+        hash[data[:season]] << result[0]
+      end
+    end
+    hash
+  end
+
+  def pair_season_with_results_by_team(team_id) #moved to gameteams
     hash = Hash.new{|k,v| k[v] = []}
     pair_teams_with_results(team_id).each do |team, results|
       results.each do |result|
