@@ -25,7 +25,7 @@ class Game
 
 	def self.all_games(location)
 		games = []
-		CSV.foreach location[:games], headers: true, header_converters: :symbol do |row|
+		CSV.foreach location, headers: true, header_converters: :symbol do |row|
 			games << Game.new(row)
 		end
 		games
