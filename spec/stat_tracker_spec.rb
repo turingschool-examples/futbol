@@ -174,7 +174,7 @@ describe StatTracker do
       end
 
       it 'can calculate the #lowest_scoring_visitor' do
-        expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati, Sporting Kansas City, New York Red Bulls")
+        expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
       end
 
       it 'can calculate the #lowest_scoring_home_team' do
@@ -332,9 +332,9 @@ describe StatTracker do
       expect(stat_tracker.goals_scored_sorted("6").last).to be_an(Integer)
     end
 
-    it '#find_team_id(team_id)' do 
-      expect(stat_tracker.find_team_id("6")).to be_a(Team)
-      expect(stat_tracker.find_team_id("6").team_name).to eq("FC Dallas")
+    it '#find_team_by_id(team_id)' do 
+      expect(stat_tracker.find_team_by_id("6")).to be_a(Team)
+      expect(stat_tracker.find_team_by_id("6").team_name).to eq("FC Dallas")
     end
 
     it '#team_ratio_hash(season)' do
@@ -386,9 +386,25 @@ describe StatTracker do
     xit '#goals_per_season(season, num_games)' do
 
     end
-    
+
     it '#team_total_tackles(season)' do
       expect(stat_tracker.team_total_tackles("20122013")).to eq({"3"=>40, "6"=>24})
     end
+
+
+    it 'score_averages(away_or_home)' do
+      expect(stat_tracker.score_averages(:away)).to be_an(Array)
+      expect(stat_tracker.score_averages(:away).first).to eq(["26", 1.0])
+      expect(stat_tracker.score_averages(:home)).to be_a(Array)
+      expect(stat_tracker.score_averages(:home).first).to eq(["5", 0.0])
+    end
+
+    it 'team_id_and_score_array_hash(away_or_home)' do 
+      expect(stat_tracker.team_id_and_score_array_hash(:away)).to be_a(Hash)
+      expect(stat_tracker.team_id_and_score_array_hash(:away)["6"]).to eq([3.0, 2.0, 3.0])
+      expect(stat_tracker.team_id_and_score_array_hash(:home)).to be_a(Hash)
+      expect(stat_tracker.team_id_and_score_array_hash(:home)["3"]).to eq([2.0, 3.0])
+    end
+
   end
 end

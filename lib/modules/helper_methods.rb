@@ -1,27 +1,19 @@
 module Helpable
 
   def game_score_totals_sorted
-    games.map do |game|
-      game.home_goals.to_i + game.away_goals.to_i
-    end.sort
+    games.map { |game| game.home_goals.to_i + game.away_goals.to_i }.sort
   end
 
   def home_wins
-    home_wins = games.count do |game|
-      game.home_goals.to_i > game.away_goals.to_i
-    end
+    games.count { |game| game.home_goals.to_i > game.away_goals.to_i }
   end
 
   def away_wins
-    away_wins = games.count do |game|
-      game.away_goals.to_i > game.home_goals.to_i
-    end
+    games.count { |game| game.away_goals.to_i > game.home_goals.to_i }
   end
 
   def tie_games
-    ties = games.count do |game|
-      game.away_goals.to_i == game.home_goals.to_i
-    end
+    games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
   end
 
   def goals_per_game(game)
@@ -44,39 +36,36 @@ module Helpable
       team_id_hash[game.away_team_id] << game.away_goals.to_f
       team_id_hash[game.home_team_id] << game.home_goals.to_f
     end
-
     goal_average_hash = Hash.new
     team_id_hash.each do |team_id, score_array|
       goal_average_hash[team_id] = (score_array.sum / score_array.size).round(4)
     end
-
     goal_average_hash.sort_by{|key, value| value}
   end
 
-  def visitor_score_averages
+  def team_id_and_score_array_hash(away_or_home)
     team_id_hash = Hash.new{|h,v| h[v] = []}
-    games.each do |game|
-      team_id_hash[game.away_team_id] << game.away_goals.to_f
-    end
+    games.each { |game| team_id_hash[game.away_team_id] << game.away_goals.to_f } if 
+      away_or_home == :away
+    games.each { |game| team_id_hash[game.home_team_id] << game.home_goals.to_f } if 
+      away_or_home == :home
+    team_id_hash
+  end
 
+  def score_averages(away_or_home)
     average_hash = Hash.new
-    team_id_hash.each do |team_id, score_array|
+    team_id_and_score_array_hash(away_or_home).each do |team_id, score_array|
       average_hash[team_id] = (score_array.sum / score_array.size).round(4)
     end
-
     average_hash.sort_by{|key, value| value}
+  end
+  
+  def visitor_score_averages
+    score_averages(:away)
   end
 
   def home_score_averages
-    team_id_hash = Hash.new{|h,v| h[v] = []}
-    games.each do |game|
-      team_id_hash[game.home_team_id] << game.home_goals.to_f
-    end
-    average_hash = Hash.new
-    team_id_hash.each do |team_id, score_array|
-      average_hash[team_id] = (score_array.sum / score_array.size).round(4)
-    end
-    average_hash.sort_by{|key, value| value}
+    score_averages(:home)
   end
 
   def coaches_win_percentages_hash(season)
@@ -92,19 +81,13 @@ module Helpable
   end
 
   def team_ratio_hash(season)
-    goals_hash = {}
-    shots_hash = {}
     team_ratio_hash = {}
+    goals_hash = Hash.new{|h,v| h[v] = 0}
+    shots_hash = Hash.new{|h,v| h[v] = 0}
 
-    season_games = game_teams.find_all do |game_team|
+    game_teams.find_all do |game_team|
       game_team.game_id[0..3] == season[0..3]
-    end
-
-    season_games.each do |game_team|
-      goals_hash[game_team.team_id] = 0
-      shots_hash[game_team.team_id] = 0
-    end
-    season_games.each do |game_team|
+    end.each do |game_team|
       goals_hash[game_team.team_id] += game_team.goals.to_i
       shots_hash[game_team.team_id] += game_team.shots.to_i
     end
@@ -135,10 +118,8 @@ module Helpable
     game_teams_arr
   end
 
-  def find_team_id(team_id)
-    teams.find do |team|
-      team.team_id == team_id
-    end
+  def find_team_by_id(team_id)
+    teams.find { |team| team.team_id == team_id }
   end
 
   def game_ids_seasons(team_id)
@@ -176,23 +157,24 @@ module Helpable
   end
 
   def find_game_id_arr(team_id)
-    all_games = game_teams.find_all do |team|
-      team.team_id == team_id
-    end
+    all_games = game_teams.find_all { |team| team.team_id == team_id }
 
-    all_games.map do |game|
-      game.game_id
-    end
+    all_games.map { |game| game.game_id }
   end
 
-  def opponents_win_percentage(team_id)
+  def opponents_win_results(team_id)
     opponents_wins = Hash.new{ |h,v| h[v] = [] }
     find_game_id_arr(team_id).each do |game_id|
       game_teams.each do |game_team|
-        opponents_wins[game_team.team_id] << game_team.result if game_team.game_id == game_id && game_team.team_id != team_id
+        opponents_wins[game_team.team_id] << game_team.result if 
+        game_team.game_id == game_id && game_team.team_id != team_id
       end
     end
+    opponents_wins
+  end
 
+  def opponents_win_percentage(team_id)
+    opponents_wins = opponents_win_results(team_id)
     opponents_wins.each do |team_id, result_array|
       percent = result_array.count("WIN").to_f / result_array.size
       opponents_wins[team_id] = percent
@@ -214,4 +196,20 @@ module Helpable
     end
     team_total_tackles
   end    
+
+  def hash_of_games_by_season
+    hash = Hash.new{|h,v| h[v] = []}
+
+    games.each do |game|
+      hash[game.season] << game
+    end
+    hash
+  end
+
+  def total_goals
+    games.reduce(0) do |sum, game|
+      sum + goals_per_game(game)
+    end.to_f
+  end
+
 end  

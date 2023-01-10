@@ -39,46 +39,24 @@ class StatTracker < DataFactory
       (tie_games.to_f / games.length).round(2)
     end
 
-    def count_of_games_by_season
-      hash = {}
-      seasons = games.map do |game|
-        game.season
-      end.uniq.sort
-      # seasons = games.map do |game|
-      #   game.season
-      # end.uniq.sort
-      # require 'pry'; binding.pry
-      seasons.each do |season|
-        hash[season] = []
-      # seasons.reduce({}) do |hash, season|
-      #   hash[season]
+    def count_of_games_by_season  
+      count_of_games_by_season = {}
+      hash_of_games_by_season.each do |k, v|
+        count_of_games_by_season[k] = v.count
       end
-      games.each do |game|
-        hash[game.season] << game
-      end
-      hash.each do |k, v|
-        hash[k] = v.count
-      end
-      hash
     end
 
 
 
     def average_goals_per_game
-      total_goals = games.reduce(0) do |sum, game|
-        sum + goals_per_game(game)
-      end
-
-      (total_goals.to_f/games.length).round(2)
+      (total_goals/games.length).round(2)
     end
     
     def average_goals_by_season
       hash = count_of_games_by_season
-      
       hash.each do |k, v|
         hash[k] = (goals_per_season(k, v)/v.to_f).round(2)
       end
-
       hash
     end
 
@@ -88,56 +66,15 @@ class StatTracker < DataFactory
     end
 
     def best_offense
-      sorted_avgs = team_score_averages
-      highest_score = sorted_avgs.last[1]
-
-      highest = []
-      sorted_avgs.each do |array|
-        highest << array.first if array.last == highest_score
-      end
-
-      highest_scoring_team = []
-      highest.each do |id|
-        teams.each do |team|
-          highest_scoring_team << team.team_name if team.team_id == id
-        end
-      end
-      highest_scoring_team.join(", ")
+      find_team_name(team_score_averages.last[0])
     end
 
     def worst_offense
-      sorted_avgs = team_score_averages
-      lowest_score = sorted_avgs.first[1]
-
-      lowest = []
-      sorted_avgs.each do |array|
-        lowest << array.first if array.last == lowest_score
-      end
-
-      lowest_scoring_team = []
-      lowest.each do |id|
-        teams.each do |team|
-          lowest_scoring_team << team.team_name if team.team_id == id
-        end
-      end
-      lowest_scoring_team.join(", ")
+      find_team_name(team_score_averages.first[0])
     end
 
     def highest_scoring_visitor
-      highest_score = visitor_score_averages.last[1]
-
-      highests = []
-      visitor_score_averages.each do |array|
-        highests << array.first if array.last == highest_score
-      end
-
-      highest_scoring_visitors = []
-      highests.each do |id|
-        teams.each do |team|
-          highest_scoring_visitors << team.team_name if team.team_id == id
-        end
-      end
-      highest_scoring_visitors.join(", ")
+      find_team_name(visitor_score_averages.last[0])
     end
 
     def highest_scoring_home_team
@@ -158,21 +95,7 @@ class StatTracker < DataFactory
     end
 
     def lowest_scoring_visitor
-      sorted_avgs = visitor_score_averages
-      lowest_score = sorted_avgs.first[1]
-
-      lowests = []
-      sorted_avgs.each do |array|
-        lowests << array.first if array.last == lowest_score
-      end
-
-      lowest_scoring_visitors = []
-      lowests.each do |id|
-        teams.each do |team|
-          lowest_scoring_visitors << team.team_name if team.team_id == id
-        end
-      end
-      lowest_scoring_visitors.join(", ")
+      find_team_name(visitor_score_averages.first[0])
     end
 
     def lowest_scoring_home_team
@@ -195,34 +118,26 @@ class StatTracker < DataFactory
 
   ## SEASON STATISTICS METHODS
     def winningest_coach(season)
-      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
-      sorted.last[0]
+      coaches_win_percentages_hash(season).sort_by{|k,v| v}.last[0]
     end
     
     def worst_coach(season)
-      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
-      sorted.first[0]
+      coaches_win_percentages_hash(season).sort_by{|k,v| v}.first[0]
     end
 
     def most_accurate_team(season)
-      team_ratio_hash = team_ratio_hash(season)
-      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
-      
+      sorted_teams = team_ratio_hash(season).sort_by {|key, value| value}
       mat = teams.find do |team|
         team.team_id == sorted_teams.last[0]
       end
-      
       mat.team_name
     end
 
     def least_accurate_team(season)
-      team_ratio_hash = team_ratio_hash(season)
-      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
-
+      sorted_teams = team_ratio_hash(season).sort_by {|key, value| value}
       lat = teams.find do |team|
         team.team_id == sorted_teams.first[0]
       end
-      
       lat.team_name
     end
     
@@ -243,7 +158,7 @@ class StatTracker < DataFactory
   ## TEAM STATISTICS METHODS
     def team_info(team_id)
       hash = {}
-      team = find_team_id(team_id)
+      team = find_team_by_id(team_id)
       hash["team_id"] = team.team_id
       hash["franchise_id"] = team.franchise_id
       hash["team_name"] = team.team_name
@@ -294,7 +209,7 @@ class StatTracker < DataFactory
     end
 
     def rival(team_id)
-      favorite_id = opponents_win_percentage(team_id).last.first
-      find_team_name(favorite_id)
+      rival_id = opponents_win_percentage(team_id).last.first
+      find_team_name(rival_id)
     end
 end
