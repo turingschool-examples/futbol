@@ -48,11 +48,7 @@ class StatTracker < DataFactory
     end
 
     def average_goals_per_game
-      total_goals = games.reduce(0) do |sum, game|
-        sum + goals_per_game(game)
-      end
-
-      (total_goals.to_f/games.length).round(2)
+      (total_goals/games.length).round(2)
     end
     
     def average_goals_by_season

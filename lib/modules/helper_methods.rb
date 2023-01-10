@@ -214,4 +214,10 @@ module Helpable
     end
     hash
   end
+
+  def total_goals
+    games.reduce(0) do |sum, game|
+      sum + goals_per_game(game)
+    end.to_f
+  end
 end  
