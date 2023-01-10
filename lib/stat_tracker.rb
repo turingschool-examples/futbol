@@ -19,11 +19,11 @@ class StatTracker
     end
 
     def highest_total_score
-        games_total_score_array.max
+        @games.max_by { |game| game.game_total_score }.game_total_score
     end
 
     def lowest_total_score
-        games_total_score_array.min
+        @games.min_by {|game| game.game_total_score }.game_total_score
     end
     
     def percentage_home_wins
