@@ -190,13 +190,10 @@ class StatTracker < DataFactory
     end
 
     def least_accurate_team(season)
-      team_ratio_hash = team_ratio_hash(season)
-      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
-
+      sorted_teams = team_ratio_hash(season).sort_by {|key, value| value}
       lat = teams.find do |team|
         team.team_id == sorted_teams.first[0]
       end
-      
       lat.team_name
     end
     
