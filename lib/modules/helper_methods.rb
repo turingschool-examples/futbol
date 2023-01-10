@@ -188,6 +188,15 @@ module Helpable
     end
   end
 
+  def team_total_tackles(season)
+    team_total_tackles = Hash.new{|h,v| h[v] = 0 }
+    game_team_array = array_of_game_teams_by_season(season)
+    game_team_array.each do |game_team|
+      team_total_tackles[game_team.team_id] += game_team.tackles.to_i
+    end
+    team_total_tackles
+  end    
+
   def hash_of_games_by_season
     hash = Hash.new{|h,v| h[v] = []}
 
@@ -202,4 +211,5 @@ module Helpable
       sum + goals_per_game(game)
     end.to_f
   end
+
 end  

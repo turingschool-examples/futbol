@@ -398,6 +398,11 @@ describe StatTracker do
 
     end
 
+    it '#team_total_tackles(season)' do
+      expect(stat_tracker.team_total_tackles("20122013")).to eq({"3"=>40, "6"=>24})
+    end
+
+
     it 'score_averages(away_or_home)' do
       expect(stat_tracker.score_averages(:away)).to be_an(Array)
       expect(stat_tracker.score_averages(:away).first).to eq(["26", 1.0])
