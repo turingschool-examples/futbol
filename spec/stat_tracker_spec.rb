@@ -5,14 +5,40 @@ require './lib/data_factory'
 describe StatTracker do
 
   let(:game_path){'./data/fixtures/games_i1.csv'}
+  let(:game_path_2){'./data/fixtures/games_i2.csv'}
   let(:team_path){'./data/teams.csv'}
   let(:game_teams_path){'./data/fixtures/game_teams_i1.csv'}
+  let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
+  let(:game_teams_path_more){'./data/fixtures/game_teams_i2_more.csv'}
   
   let(:locations){{
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }}
+
+    let(:locations_2){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path
+    }}
+  
+    let(:locations_3){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path_2
+    }}
+
+    let(:locations_4){{
+      games: game_path_2,
+      teams: team_path,
+      game_teams: game_teams_path_more
+    }}
+
+    let(:stat_tracker) {StatTracker.from_csv(locations_2)}
+    let(:stat_tracker3) {StatTracker.from_csv(locations_3)}
+    let(:stat_tracker4) {StatTracker.from_csv(locations_4)}
+
 
   describe 'class methods' do
     describe 'game' do  
@@ -72,15 +98,6 @@ describe StatTracker do
   end
 
   describe 'game statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    
-    let(:locations_2){{
-      games: game_path_2,
-      teams: team_path,
-      game_teams: game_teams_path
-    }}
-
-    let(:stat_tracker) {DataFactory.from_csv(locations_2)}
 
     describe 'main methods' do
       it "can determine #highest_total_score" do
@@ -148,16 +165,6 @@ describe StatTracker do
   end
 
   describe 'league statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
-    #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
-    
-    let(:locations_2){{
-      games: game_path_2,
-      teams: team_path,
-      game_teams: game_teams_path
-    }}
-
-    let(:stat_tracker) {DataFactory.from_csv(locations_2)}
 
     describe 'main methods' do
       it 'can return #count_of_teams' do
@@ -209,55 +216,38 @@ describe StatTracker do
   end
 
   describe 'season statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
     
-    let(:locations_2){{
-      games: game_path_2,
-      teams: team_path,
-      game_teams: game_teams_path
-    }}
-
-    let(:stat_tracker) {DataFactory.from_csv(locations_2)}
-
     describe 'main methods' do
       it 'can find the #winningest_coach' do
         expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+        expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+        expect(stat_tracker4.winningest_coach("20122013")).to eq("Bruce Boudreau")
       end
 
       it 'can find the #worst_coach' do
         expect(stat_tracker.worst_coach("20122013")).to be_a(String)
+        expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+        expect(stat_tracker4.worst_coach("20122013")).to eq("Darryl Sutter")
+      end
+  
+      it "#most_accurate_team" do
+        expect(stat_tracker3.most_accurate_team("20132014")).to eq "Toronto FC"
+        expect(stat_tracker3.most_accurate_team("20142015")).to eq "Orlando Pride"
       end
 
-      describe '#most_accurate_team and #least_accurate_team' do
-        let(:game_path_2){'./data/fixtures/games_i2.csv'}
-        let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
-        #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
-      
-        let(:locations_3){{
-          games: game_path_2,
-          teams: team_path,
-          game_teams: game_teams_path_2
-        }}
-      
-        let(:stat_tracker) {DataFactory.from_csv(locations_3)}
-  
-        it "#most_accurate_team" do
-          expect(stat_tracker.most_accurate_team("20132014")).to eq "Toronto FC"
-          expect(stat_tracker.most_accurate_team("20142015")).to eq "Orlando Pride"
-        end
-  
-        it "#least_accurate_team" do
-          expect(stat_tracker.least_accurate_team("20132014")).to eq "LA Galaxy"
-          expect(stat_tracker.least_accurate_team("20142015")).to eq "Chicago Red Stars"
-        end
+      it "#least_accurate_team" do
+        expect(stat_tracker3.least_accurate_team("20132014")).to eq "LA Galaxy"
+        expect(stat_tracker3.least_accurate_team("20142015")).to eq "Chicago Red Stars"
       end
 
       it "#most_tackles returns team with the most tackles in the season " do
         expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
+        expect(stat_tracker4.most_tackles("20122013")).to eq("FC Cincinnati")
       end
   
       it '#fewest_tackles returns team with the least tackles in the season' do
         expect(stat_tracker.fewest_tackles("20122013")).to eq("FC Dallas")
+        expect(stat_tracker4.fewest_tackles("20122013")).to eq("Real Salt Lake")
       end
     end
 
@@ -281,15 +271,7 @@ describe StatTracker do
   end
     
   describe 'team statistics' do
-    let(:game_path_2){'./data/fixtures/games_i2.csv'}
-  
-    let(:locations_2){{
-    games: game_path_2,
-    teams: team_path,
-    game_teams: game_teams_path
-    }}
-    let(:stat_tracker) {DataFactory.from_csv(locations_2)}
-    
+        
     describe 'main methods' do
       it "#team_info" do
         expected = {
@@ -303,29 +285,17 @@ describe StatTracker do
       end
 
       it 'returns the #best_season' do
-        expect(stat_tracker.best_season("6")).to be_an(String)
+        expect(stat_tracker.best_season("6")).to be_a(String)
+        expect(stat_tracker.best_season("6")).to eq("20122013")
       end
 
       it 'returns the #worst_season' do
         expect(stat_tracker.worst_season("6")).to be_an(String)
+        expect(stat_tracker.worst_season("6")).to eq("20122013")
       end
 
-      describe '#average_win_percentage' do
-        let(:game_path_2){'./data/fixtures/games_i2.csv'}
-        let(:game_teams_path_2){'./data/fixtures/game_teams_i2.csv'}
-        #note that we will need to edit team/game_team paths if new fixture data is created for use in these tests
-        
-        let(:locations_3){{
-          games: game_path_2,
-          teams: team_path,
-          game_teams: game_teams_path_2
-        }}
-      
-        let(:stat_tracker) {DataFactory.from_csv(locations_3)}
-    
-        it "can return average_win_percentage" do
-          expect(stat_tracker.average_win_percentage("26")).to eq 0.67
-        end
+      it "can return average_win_percentage" do
+        expect(stat_tracker3.average_win_percentage("26")).to eq 0.67
       end
 
       it 'can find the #most_goals_scored for a team' do
@@ -339,25 +309,22 @@ describe StatTracker do
       end
 
       it 'can find #favorite_opponent(team_id)' do
-        # currently works with './data/fixtures/game_teams_i1.csv'
-        # In order to test 100% properly, fixture data for game_teams must contain several
-        # "matchups", where the argument team has several opponents with matching game_id.
-        # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
           expect(stat_tracker.favorite_opponent("6")).to eq("Houston Dynamo")
+          expect(stat_tracker4.favorite_opponent("13")).to eq("Sky Blue FC")
       end
 
       it 'can find #rival(team_id)' do
-        # currently works with './data/fixtures/game_teams_i1.csv'
-        # In order to test 100% properly, fixture data for game_teams must contain several
-        # "matchups", where the argument team has several opponents with matching game_id.
-        # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
           expect(stat_tracker.rival("6")).to eq("Sporting Kansas City")
+          expect(stat_tracker4.rival("4")).to eq("Portland Timbers")
       end
     end
 
     describe 'helper methods' do
       it '#game_ids_seasons helper method for #best_season and #worst_season' do
         expect(stat_tracker.game_ids_seasons("6")).to be_a(Hash)
+        expect(stat_tracker.game_ids_seasons("6")["20122013"]).to be_an(Array)
+        expect(stat_tracker.game_ids_seasons("6")["20122013"][0]).to be_a(String)
+        expect(stat_tracker.game_ids_seasons("6")["20122013"][0].length).to eq(10)
       end
 
       it '#seasons_perc_win helper method for #best_season and #worst_season' do
@@ -372,6 +339,8 @@ describe StatTracker do
 
       it 'can find_team_name(team_id)' do
         expect(stat_tracker.find_team_name("6")).to eq("FC Dallas")
+        expect(stat_tracker.find_team_name("17")).to eq("LA Galaxy")
+
       end
 
       it 'can #find_game_id_arr(team_id)' do
@@ -380,8 +349,11 @@ describe StatTracker do
       end
 
       it 'can give #opponents_win_percenage(team_id) array of arrays' do
-      # need different fixture data to show more dynamic expect
         expect(stat_tracker.opponents_win_percentage("6")).to eq([["3", 0.0], ["5", 0.0]])
+        expect(stat_tracker4.opponents_win_percentage("17")).to eq([["22", 0.0], ["29", 0.0], 
+                                                                    ["26", 0.0], ["30", 0.0],
+                                                                    ["19", 0.3333333333333333], ["25", 0.5], 
+                                                                    ["20", 1.0], ["16", 1.0]])
       end
     end
   end
