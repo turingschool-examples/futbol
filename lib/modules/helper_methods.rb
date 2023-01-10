@@ -6,6 +6,22 @@ module Helpable
     end.sort
   end
 
+  # def home_away_tie
+  #   home_wins = games.count do |game|
+  #     game.home_goals.to_i > game.away_goals.to_i
+  #   end
+    
+  #   away_wins = games.count do |game|
+  #     game.away_goals.to_i > game.home_goals.to_i
+  #   end
+    
+  #   ties = games.count do |game|
+  #     game.away_goals.to_i == game.home_goals.to_i
+  #   end
+
+  #   result = [home_wins, away_wins, ties]
+  # end
+
   def home_wins
     home_wins = games.count do |game|
       game.home_goals.to_i > game.away_goals.to_i
