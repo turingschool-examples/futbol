@@ -161,6 +161,7 @@ RSpec.describe StatTracker do
 
     it 'returns total # of teams' do
       expect(stat_tracker.count_of_teams).to eq(32)
+      require 'pry'; binding.pry
     end
   end
 
