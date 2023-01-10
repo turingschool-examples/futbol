@@ -56,7 +56,7 @@ RSpec.describe StatTracker do
 
   describe 'compares total scores' do
     it 'finds total score' do
-      expect(stat_tracker.total_score).to be_a(Array)
+      expect(stat_tracker.game_collection.total_score).to be_a(Array)
     end
     
     it 'finds highest total score' do
