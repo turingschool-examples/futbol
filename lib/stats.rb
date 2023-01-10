@@ -1,3 +1,8 @@
+require 'csv'
+require_relative './obj_game'
+require_relative './obj_gameteam'
+require_relative './obj_team'
+
 class Stats
     attr_reader :games,
                 :teams,

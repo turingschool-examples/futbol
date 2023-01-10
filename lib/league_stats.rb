@@ -1,4 +1,4 @@
-require './lib/stats'
+require_relative './stats'
 
 class LeagueStats < Stats
 
