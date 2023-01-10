@@ -386,6 +386,9 @@ describe StatTracker do
     xit '#goals_per_season(season, num_games)' do
 
     end
-
+    
+    it '#team_total_tackles(season)' do
+      expect(stat_tracker.team_total_tackles("20122013")).to eq({"3"=>40, "6"=>24})
+    end
   end
 end
