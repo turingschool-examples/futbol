@@ -1,9 +1,9 @@
 require 'csv'
 require_relative 'stats'
-require_relative 'game_statistics'
+require_relative 'game_stats'
 require_relative 'league_stats'
-require_relative 'season_statistics'
-require_relative 'teams_stats'
+require_relative 'season_stats'
+require_relative 'team_stats'
 
 class StatTracker < Stats
 
@@ -143,4 +143,7 @@ class StatTracker < Stats
 		@team_stats.favorite_opponent(team_id)
 	end
 
+  def favorite_opponent(team_id)
+    @team_stats.favorite_opponent(team_id)
+  end
 end
