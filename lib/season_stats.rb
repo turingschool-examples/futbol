@@ -5,7 +5,10 @@ class SeasonStats < Stats
   include Seasonable
 
   def initialize(locations)
+  require 'pry'; binding.pry
     super(locations)
+    require 'pry'; binding.pry
+    
   end
 
   def winningest_coach(season)
