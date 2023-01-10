@@ -1,7 +1,7 @@
 module Helpable
 
   def game_score_totals_sorted
-    games.map { |game|game.home_goals.to_i + game.away_goals.to_i }.sort
+    games.map { |game| game.home_goals.to_i + game.away_goals.to_i }.sort
   end
 
   def home_wins
@@ -51,30 +51,32 @@ module Helpable
     goal_average_hash.sort_by{|key, value| value}
   end
 
-  def visitor_score_averages
+  def score_averages(away_or_home)
     team_id_hash = Hash.new{|h,v| h[v] = []}
-    games.each do |game|
-      team_id_hash[game.away_team_id] << game.away_goals.to_f
+    if away_or_home == :away
+      games.each do |game|
+        team_id_hash[game.away_team_id] << game.away_goals.to_f
+      end
+    end
+    if away_or_home == :home
+      games.each do |game|
+        team_id_hash[game.home_team_id] << game.home_goals.to_f
+      end
     end
 
     average_hash = Hash.new
     team_id_hash.each do |team_id, score_array|
       average_hash[team_id] = (score_array.sum / score_array.size).round(4)
     end
-
     average_hash.sort_by{|key, value| value}
+  end
+  
+  def visitor_score_averages
+    score_averages(:away)
   end
 
   def home_score_averages
-    team_id_hash = Hash.new{|h,v| h[v] = []}
-    games.each do |game|
-      team_id_hash[game.home_team_id] << game.home_goals.to_f
-    end
-    average_hash = Hash.new
-    team_id_hash.each do |team_id, score_array|
-      average_hash[team_id] = (score_array.sum / score_array.size).round(4)
-    end
-    average_hash.sort_by{|key, value| value}
+    score_averages(:home)
   end
 
   def coaches_win_percentages_hash(season)
