@@ -39,6 +39,18 @@ class StatTracker < DataFactory
       (tie_games.to_f / games.length).round(2)
     end
 
+    # def percentage_home_wins
+    #   (home_away_tie[0].to_f / games.length).round(2)
+    # end
+
+    # def percentage_visitor_wins
+    #   (home_away_tie[1].to_f / games.length).round(2)
+    # end
+
+    # def percentage_ties
+    #   (home_away_tie[2].to_f / games.length).round(2)
+    # end
+
     def count_of_games_by_season
       hash = {}
 
@@ -85,21 +97,7 @@ class StatTracker < DataFactory
     end
 
     def best_offense
-      sorted_avgs = team_score_averages
-      highest_score = sorted_avgs.last[1]
-
-      highest = []
-      sorted_avgs.each do |array|
-        highest << array.first if array.last == highest_score
-      end
-
-      highest_scoring_team = []
-      highest.each do |id|
-        teams.each do |team|
-          highest_scoring_team << team.team_name if team.team_id == id
-        end
-      end
-      highest_scoring_team.join(", ")
+      find_team_name(team_score_averages.last[0])
     end
 
     def worst_offense
