@@ -1,7 +1,12 @@
 require "csv"
 # require_relative "array_generator"
 require_relative "game"
+require_relative "team"
+require_relative "game_team"
 require_relative "game_repo"
+require_relative "team_repo"
+require_relative "game_team_repo"
+
 
 class StatTracker
     # include ArrayGenerator
@@ -10,22 +15,22 @@ class StatTracker
                 :teams,
                 :game_teams
 
-    def initialize(location_paths)
-        @games = create_games_array(location_paths[:games])
-        @teams = create_teams_array(location_paths[:teams])
-        @game_teams = create_game_teams_array(location_paths[:game_teams])
+    def initialize(locations)
+        @games = GameRepo.new(locations)
+        @teams = TeamRepo.new(locations)
+        @game_teams = GameTeamRepo.new(locations)
     end
 
-    def self.from_csv(location_paths)
-        new(location_paths)
+    def self.from_csv(locations)
+        StatTracker.new(locations)
     end
 
     def highest_total_score
-        @games.max_by { |game| game.game_total_score }.game_total_score
+       @games.highest_total_score
     end
 
     def lowest_total_score
-        @games.min_by {|game| game.game_total_score }.game_total_score
+        @games.lowest_total_score
     end
     
     def percentage_home_wins

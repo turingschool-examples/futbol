@@ -19,6 +19,14 @@ class GameRepo
     total_score
   end
 
+  def highest_total_score
+    game_total_score.max_by { |score| score}
+  end
+
+  def lowest_total_score
+    game_total_score.min_by { |score| score}
+  end
+
   def home_wins
     total_home_wins = 0
     if @away_goals < @home_goals
