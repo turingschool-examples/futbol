@@ -22,7 +22,6 @@ module Statistacable
 
   # Input a game as an argument, and then the array of game_teams you are checking against 
   def determine_game_outcome(game, relevant_game_teams) 
-    require 'pry'; binding.pry
     relevant_game_teams.each do |game_team|
       if game_team.game_id == game.game_id
         return game_team.result 

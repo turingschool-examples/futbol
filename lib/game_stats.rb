@@ -1,9 +1,9 @@
 require_relative './stats'
 
 class GameStats < Stats
-  # attr_reader :games
+  
   def initialize(locations)
-    super(locations)
+    super
   end
 
   def highest_total_score
@@ -20,12 +20,6 @@ class GameStats < Stats
 
   def lowest_total_score
     total_scores.first
-  end
-  
-  def total_scores
-    game_sums = @games.map do |game|
-      game[:away_goals] + game[:home_goals]
-    end.sort
   end
 
   def percentage_home_wins
