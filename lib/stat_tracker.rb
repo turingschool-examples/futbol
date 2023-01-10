@@ -14,7 +14,7 @@ class StatTracker
     @team_path = CSV.read(locations[:teams], headers: true, skip_blanks: true, header_converters: :symbol)
     @game_teams_path = CSV.read(locations[:game_teams], headers: true, skip_blanks: true, header_converters: :symbol)
     @game = Game.new(@game_path)
-  @team = Team.new(@team_path, @game_teams_path, @game_path)
+    @team = Team.new(@team_path, @game_teams_path, @game_path)
   end
 
   def self.from_csv(locations)
