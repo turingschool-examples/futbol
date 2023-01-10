@@ -5,10 +5,10 @@ class TeamStats
 
   attr_reader :teams, :games, :game_teams
 
-  def initialize(teams, games, game_teams)
-    @teams = teams
+  def initialize(games, game_teams, teams)
     @games = games
 		@game_teams = game_teams
+    @teams = teams
   end
 
   def team_info(team_id)

@@ -4,10 +4,10 @@ class LeagueStats
 include Sort
 
   attr_reader :teams, :game_teams
-  def initialize(game_teams, teams, games)
+  def initialize(games, game_teams, teams)
+    @games = games
     @game_teams = game_teams
     @teams = teams
-    @games = games
   end
 
   def count_of_teams

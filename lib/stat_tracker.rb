@@ -1,27 +1,28 @@
 require 'csv'
+require_relative 'stats'
+require_relative 'game_statistics'
+require_relative 'league_stats'
+require_relative 'season_statistics'
+require_relative 'teams_stats'
 
-class StatTracker
-	attr_reader :games,
-							:teams,
-							:game_teams
+class StatTracker < Stats
 
-	def initialize(games, teams, game_teams)
-		@games = games
-		@teams = teams
-		@game_teams = game_teams
-	end
+	def initialize(file_paths)
+		super(file_paths)
+    @game_stats = GameStats.new(@games, @game_teams, @teams)
+    @league_stats = LeagueStats.new(@games, @game_teams, @teams)
+    @season_stats = SeasonStats.new(@games, @game_teams, @teams)
+    @team_stats = TeamStats.new(@games, @game_teams, @teams)
+  end
 
-	def self.from_csv(multiple_data_paths) # in hash format
-		games_data = CSV.read multiple_data_paths[:games], headers: true, header_converters: :symbol
-		teams_data = CSV.read multiple_data_paths[:teams], headers: true, header_converters: :symbol
-		game_teams_data = CSV.read multiple_data_paths[:game_teams], headers: true, header_converters: :symbol
-		StatTracker.new(games_data, teams_data, game_teams_data)
+	def self.from_csv(file_paths)
+		StatTracker.new(file_paths)
 	end
 
 ##### GAME STATS
   def average_goals_per_game
-    average_score = total_scores.sum.to_f / total_scores.count
-    average_score.round(2)
+    # require 'pry'; binding.pry
+    @game_stats.average_goals_per_game
   end
 
 	def highest_total_score
