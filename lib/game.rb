@@ -1,5 +1,3 @@
-require_relative 'array_generator'
-
 class Game
     attr_reader :game_id,
                 :season,
@@ -26,10 +24,10 @@ class Game
     end
     
     def self.read_file(games_path)
-        games = []
-        CSV.foreach(games_path, headers: true, header_converters: :symbol) do |info|
-            games << Game.new(info)
+        games = CSV.read(games_path, headers: true, header_converters: :symbol)
+        
+        games.map do |game|
+            new(game)
         end
-        games
     end
 end

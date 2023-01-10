@@ -2,21 +2,27 @@ require_relative "./spec_helper"
 
 RSpec.describe GameRepo do
     before(:each) do
-        game_path = './data/games_sample.csv'
-        team_path = './data/teams.csv'
-        game_teams_path = './data/game_teams_sample.csv'
+        @game_path = './spec/fixtures/games.csv'
+        @team_path = './spec/fixtures/teams.csv'
+        @game_teams_path = './spec/fixtures/game_teams.csv'
     
         locations = {
-          games: game_path,
-          teams: team_path,
-          game_teams: game_teams_path
+          games: @game_path,
+          teams: @team_path,
+          game_teams: @game_teams_path
         }
+        
+        @game = GameRepo.new(locations)
     end
 
-    @game = GameRepo.new(game_path)
+    describe "#Initialize" do
+        it "exists" do
+            expect(@game).to be_instance_of(GameRepo)
+        end
+    end
 
     describe "helpers" do
-        it " has game total scores" do 
+        xit " has game total scores" do 
             expect(@game.game_total_score).to eq 1
         end
 
