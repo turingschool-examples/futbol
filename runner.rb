@@ -10,8 +10,6 @@ require './lib/obj_team'
 require './lib/statistics_module'
 require './lib/stats'
 
-
-
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
 game_teams_path = './data/game_teams.csv'

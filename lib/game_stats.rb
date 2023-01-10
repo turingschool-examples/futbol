@@ -2,8 +2,8 @@ require './lib/stats'
 
 class GameStats < Stats
 
-  def initialize(games)
-    @games = games 
+  def initialize(locations)
+    super(locations)
   end
 
   def highest_total_score

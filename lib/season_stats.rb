@@ -2,6 +2,10 @@ require './lib/stats'
 
 class SeasonStats < Stats
 
+  def initialize(locations)
+    super(locations)
+  end
+
   def winningest_coach(season)
     ratios = determine_coach_ratios(season)
     ratios.reverse.first.first
@@ -20,24 +24,24 @@ class SeasonStats < Stats
 
   def list_gameteams_from_particular_season(season)
     games_in_season = list_games_per_season(season)
-    pull_gameids = games_in_season.map {|game| game[:game_id]} 
+    pull_gameids = games_in_season.map {|game| game.game_id} 
 
     pull_gameids.flat_map do |game_id|
-      game_teams.find_all {|game_team| game_id == game_team[:game_id]}
+      game_teams.find_all {|game_team| game_id == game_team.game_id}
     end
   end 
 
   def list_games_per_season(season)
-    games.find_all {|game| game[:season] == season} 
+    games.find_all {|game| game.season == season} 
   end
 
   def coach_victory_percentage_hash(games_in_season)
     coach= Hash.new{ |hash, key| hash[key] = [0,0] }
 
     games_in_season.each do |game_team|
-      coach[game_team[:head_coach]][1] += 1
-      if game_team[:result] == "WIN"
-        coach[game_team[:head_coach]][0] += 1
+      coach[game_team.head_coach][1] += 1
+      if game_team.result == "WIN"
+        coach[game_team.head_coach][0] += 1
       end
      end
     return coach
@@ -65,17 +69,14 @@ class SeasonStats < Stats
     team_name(id)
   end
 
-  # def all_games_by_season
-  #   @games.group_by { |game| game[:season] } 
-  # end
-
   def team_goals_shots_by_season(season)
     team_goals_shots = Hash.new { |hash, key| hash[key] = [0, 0] }
+    #line below is what's slowing everything down:
     @game_teams.each do |game_team|
       all_games_by_season[season].each do |game|
-        if game_team[:game_id] == game[:game_id]
-          team_goals_shots[game_team[:team_id]][0] += game_team[:goals]
-          team_goals_shots[game_team[:team_id]][1] += game_team[:shots]
+        if game_team.game_id == game.game_id
+          team_goals_shots[game_team.team_id][0] += game_team.goals
+          team_goals_shots[game_team.team_id][1] += game_team.shots
         end
       end
     end
@@ -94,11 +95,16 @@ class SeasonStats < Stats
 
   def all_games_by_season
     game_ids_for_desired_season_array = @games.map do |game|
-      if season == game[:season]
+      if season == game.season
         game.game_id
       end
     end
   end
+
+  #Memoize this
+    def all_games_by_season
+      @all_games_by_season ||= @games.group_by { |game| game.season } 
+    end
 
   ###### 
 
@@ -116,7 +122,7 @@ class SeasonStats < Stats
 
   def team_name(id)
     @teams.each do |team|
-        return team[:team_name] if team[:team_id] == id 
+        return team.team_name if team.team_id == id 
     end
   end
 
@@ -128,8 +134,8 @@ class SeasonStats < Stats
     team_tackle_hash = Hash.new { |hash, key| hash[key] = 0 }
     @game_teams.each do |info_line|
       all_games_by_season[season].each do |info_line_2|
-        if info_line_2[:game_id] == info_line[:game_id]
-          team_tackle_hash[info_line[:team_id]] += info_line[:tackles]
+        if info_line_2.game_id == info_line.game_id
+          team_tackle_hash[info_line.team_id] += info_line.tackles
         end
       end
     end
