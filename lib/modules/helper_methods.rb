@@ -1,9 +1,7 @@
 module Helpable
 
   def game_score_totals_sorted
-    games.map do |game|
-      game.home_goals.to_i + game.away_goals.to_i
-    end.sort
+    games.map { |game|game.home_goals.to_i + game.away_goals.to_i }.sort
   end
 
   def home_wins
