@@ -332,9 +332,9 @@ describe StatTracker do
       expect(stat_tracker.goals_scored_sorted("6").last).to be_an(Integer)
     end
 
-    it '#find_team_id(team_id)' do 
-      expect(stat_tracker.find_team_id("6")).to be_a(Team)
-      expect(stat_tracker.find_team_id("6").team_name).to eq("FC Dallas")
+    it '#find_team_by_id(team_id)' do 
+      expect(stat_tracker.find_team_by_id("6")).to be_a(Team)
+      expect(stat_tracker.find_team_by_id("6").team_name).to eq("FC Dallas")
     end
 
     it '#team_ratio_hash(season)' do

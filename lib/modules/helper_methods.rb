@@ -5,21 +5,15 @@ module Helpable
   end
 
   def home_wins
-    home_wins = games.count do |game|
-      game.home_goals.to_i > game.away_goals.to_i
-    end
+    games.count { |game| game.home_goals.to_i > game.away_goals.to_i }
   end
 
   def away_wins
-    away_wins = games.count do |game|
-      game.away_goals.to_i > game.home_goals.to_i
-    end
+    games.count { |game| game.away_goals.to_i > game.home_goals.to_i }
   end
 
   def tie_games
-    ties = games.count do |game|
-      game.away_goals.to_i == game.home_goals.to_i
-    end
+    games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
   end
 
   def goals_per_game(game)
@@ -42,12 +36,10 @@ module Helpable
       team_id_hash[game.away_team_id] << game.away_goals.to_f
       team_id_hash[game.home_team_id] << game.home_goals.to_f
     end
-
     goal_average_hash = Hash.new
     team_id_hash.each do |team_id, score_array|
       goal_average_hash[team_id] = (score_array.sum / score_array.size).round(4)
     end
-
     goal_average_hash.sort_by{|key, value| value}
   end
 
@@ -126,10 +118,8 @@ module Helpable
     game_teams_arr
   end
 
-  def find_team_id(team_id)
-    teams.find do |team|
-      team.team_id == team_id
-    end
+  def find_team_by_id(team_id)
+    teams.find { |team| team.team_id == team_id }
   end
 
   def game_ids_seasons(team_id)
@@ -167,23 +157,24 @@ module Helpable
   end
 
   def find_game_id_arr(team_id)
-    all_games = game_teams.find_all do |team|
-      team.team_id == team_id
-    end
+    all_games = game_teams.find_all { |team| team.team_id == team_id }
 
-    all_games.map do |game|
-      game.game_id
-    end
+    all_games.map { |game| game.game_id }
   end
 
-  def opponents_win_percentage(team_id)
+  def opponents_win_results(team_id)
     opponents_wins = Hash.new{ |h,v| h[v] = [] }
     find_game_id_arr(team_id).each do |game_id|
       game_teams.each do |game_team|
-        opponents_wins[game_team.team_id] << game_team.result if game_team.game_id == game_id && game_team.team_id != team_id
+        opponents_wins[game_team.team_id] << game_team.result if 
+        game_team.game_id == game_id && game_team.team_id != team_id
       end
     end
+    opponents_wins
+  end
 
+  def opponents_win_percentage(team_id)
+    opponents_wins = opponents_win_results(team_id)
     opponents_wins.each do |team_id, result_array|
       percent = result_array.count("WIN").to_f / result_array.size
       opponents_wins[team_id] = percent

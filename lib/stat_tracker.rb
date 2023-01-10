@@ -65,39 +65,11 @@ class StatTracker < DataFactory
     end
 
     def best_offense
-      sorted_avgs = team_score_averages
-      highest_score = sorted_avgs.last[1]
-
-      highest = []
-      sorted_avgs.each do |array|
-        highest << array.first if array.last == highest_score
-      end
-
-      highest_scoring_team = []
-      highest.each do |id|
-        teams.each do |team|
-          highest_scoring_team << team.team_name if team.team_id == id
-        end
-      end
-      highest_scoring_team.join(", ")
+      find_team_name(team_score_averages.last[0])
     end
 
     def worst_offense
-      sorted_avgs = team_score_averages
-      lowest_score = sorted_avgs.first[1]
-
-      lowest = []
-      sorted_avgs.each do |array|
-        lowest << array.first if array.last == lowest_score
-      end
-
-      lowest_scoring_team = []
-      lowest.each do |id|
-        teams.each do |team|
-          lowest_scoring_team << team.team_name if team.team_id == id
-        end
-      end
-      lowest_scoring_team.join(", ")
+      find_team_name(team_score_averages.first[0])
     end
 
     def highest_scoring_visitor
@@ -195,7 +167,7 @@ class StatTracker < DataFactory
   ## TEAM STATISTICS METHODS
     def team_info(team_id)
       hash = {}
-      team = find_team_id(team_id)
+      team = find_team_by_id(team_id)
       hash["team_id"] = team.team_id
       hash["franchise_id"] = team.franchise_id
       hash["team_name"] = team.team_name
@@ -246,7 +218,7 @@ class StatTracker < DataFactory
     end
 
     def rival(team_id)
-      favorite_id = opponents_win_percentage(team_id).last.first
-      find_team_name(favorite_id)
+      rival_id = opponents_win_percentage(team_id).last.first
+      find_team_name(rival_id)
     end
 end
