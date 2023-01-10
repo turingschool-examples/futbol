@@ -14,6 +14,12 @@ class Team
         @stadium = info[:stadium]
         @link = info[:link]
     end
-
+		def self.all_teams(location)
+			teams = []
+			CSV.foreach location, headers: true, header_converters: :symbol do |row|
+				teams << Team.new(row)
+			end
+			teams
+		end
     
 end

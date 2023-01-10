@@ -1,9 +1,12 @@
 require_relative 'spec_helper'
 
 RSpec.describe Game_team do
-	game_teams = CSV.read './data/game_teams.csv', headers: true, header_converters: :symbol
+	before do
+    location = './data/game_teams.csv'
+		@game_teams = Game_team.all_game_teams(location)
+	end
+    let(:game_team){@game_teams[0]}
 
-	let(:game_team) {Game_team.new(game_teams[0])}
 	describe '#initialize' do
 		it 'exists' do
 			expect(game_team).to be_a(Game_team)
