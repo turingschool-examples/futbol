@@ -373,14 +373,17 @@ describe StatTracker do
     end
 
     it '#game_score_totals_sorted' do
-
+      expect(stat_tracker.game_score_totals_sorted).to be_an(Array)
+      expect(stat_tracker.game_score_totals_sorted.last).to eq(8)
     end
 
     it ' #goals_per_game(game)' do 
-
+      game = DataFactory.games_csv(locations)[0]
+      expect(game).to be_a(Game)
+      expect(stat_tracker.goals_per_game(game)).to eq(5)
     end
 
-    it '#goals_per_season(season, num_games)' do
+    xit '#goals_per_season(season, num_games)' do
 
     end
 
