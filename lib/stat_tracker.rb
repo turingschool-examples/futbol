@@ -1,35 +1,27 @@
 require "csv"
-require './lib/game_team'
-require './lib/game'
-require './lib/team'
+require './lib/game_team_collection'
+require './lib/game_collection'
+require './lib/team_collection'
 
 class StatTracker
-	attr_accessor :game_teams,
-                :games,
-                :teams
+	attr_accessor :game_collection, :team_collection, :game_team_collection
 
 	def initialize(locations)
-    @game_teams ||= GameTeam.all_game_teams(locations[:game_teams])
-    @games ||= Game.all_games(locations[:games])
-    @teams ||= Team.all_teams(locations[:teams])
+ 		@game_collection = GameCollection.new(locations[:games])
+ 		@team_collection = TeamCollection.new(locations[:teams])
+ 		@game_team_collection = GameTeamCollection.new(locations[:game_teams])
 	end
   
 	def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
-  def total_score
-    total_score = games.map do |game|
-      game.home_goals.to_i + game.away_goals.to_i
-    end
-  end
-
+  
   def highest_total_score
-    total_score.max
+    @game_collection.total_score.max
   end
 
   def lowest_total_score
-    total_score.min
+    @game_collection.total_score.min
   end
 
 	def percentage_home_wins
@@ -227,18 +219,10 @@ class StatTracker
 
   end
 
-  def game_ids_by_season
-    @game_ids_by_season ||= games.group_by do |game|
-      game[:season]
-    end
-  end
-
-
   def winningest_coach(season)
+		game.outcomes_by_game_id
 
-    outcomes_by_game_id = []
-
-    game_ids_by_season[season].each do |id|
+    game_ids_by_season.season.each do |id|
 			outcomes_by_game_id << game_teams.find_all {|games| games[:game_id] == id[:game_id]}
     end
 
