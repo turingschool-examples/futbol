@@ -1,4 +1,4 @@
-class Game_team
+class GameTeam
 	attr_reader :game_id,
 							:team_id,
 							:hoa,
@@ -31,5 +31,13 @@ class Game_team
 		@face_off_win_percentage = info[:faceoffwinpercentage]
 		@giveaways = info[:giveaways]
 		@takeaways = info[:takeaways]
+	end
+
+	def self.all_game_teams(location)
+		game_teams = []
+		CSV.foreach location, headers: true, header_converters: :symbol do |row|
+			game_teams << GameTeam.new(row)
+		end
+		game_teams
 	end
 end

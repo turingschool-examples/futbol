@@ -1,13 +1,17 @@
 require "csv"
+require './lib/game_team'
+require './lib/game'
+require './lib/team'
+
 class StatTracker
 	attr_accessor :game_teams,
                 :games,
                 :teams
 
 	def initialize(locations)
-    @game_teams ||= CSV.read locations[:game_teams], headers: true, header_converters: :symbol 
-    @games ||= CSV.read locations[:games], headers: true, header_converters: :symbol
-    @teams ||= CSV.read locations[:teams], headers: true, header_converters: :symbol
+    @game_teams ||= GameTeam.all_game_teams(locations[:game_teams])
+    @games ||= Game.all_games(locations[:games])
+    @teams ||= Team.all_teams(locations[:teams])
 	end
   
 	def self.from_csv(locations)
@@ -16,7 +20,7 @@ class StatTracker
 
   def total_score
     total_score = games.map do |game|
-      game[:home_goals].to_i + game[:away_goals].to_i
+      game.home_goals.to_i + game.away_goals.to_i
     end
   end
 
