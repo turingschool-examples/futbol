@@ -1,4 +1,4 @@
-require './lib/stats'
+require_relative './stats'
 
 class GameStats < Stats
   # attr_reader :games
