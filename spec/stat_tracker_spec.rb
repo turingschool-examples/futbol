@@ -366,6 +366,18 @@ describe StatTracker do
     it '#seasons_perc_win helper method for #best_season and #worst_season' do
       expect(stat_tracker.seasons_perc_win("6")).to eq([["20122013", 1.0]])
     end
+
+    it '#game_score_totals_sorted' do
+
+    end
+
+    it ' #goals_per_game(game)' do 
+
+    end
+
+    it '#goals_per_season(season, num_games)' do
+
+    end
+
   end
-  
 end
