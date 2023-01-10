@@ -2,8 +2,10 @@ require 'csv'
 require_relative 'team'
 require_relative 'game'
 require_relative 'game_team'
+require_relative 'data_factory'
+#would prefer to not make DataFactory the parent... but need to pass SpecHarness (might be worth asking about)
 
-class StatTracker
+class StatTracker < DataFactory
   attr_reader :games,
               :teams,
               :game_teams
