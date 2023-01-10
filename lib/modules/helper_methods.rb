@@ -92,19 +92,13 @@ module Helpable
   end
 
   def team_ratio_hash(season)
-    goals_hash = {}
-    shots_hash = {}
     team_ratio_hash = {}
+    goals_hash = Hash.new{|h,v| h[v] = 0}
+    shots_hash = Hash.new{|h,v| h[v] = 0}
 
-    season_games = game_teams.find_all do |game_team|
+    game_teams.find_all do |game_team|
       game_team.game_id[0..3] == season[0..3]
-    end
-
-    season_games.each do |game_team|
-      goals_hash[game_team.team_id] = 0
-      shots_hash[game_team.team_id] = 0
-    end
-    season_games.each do |game_team|
+    end.each do |game_team|
       goals_hash[game_team.team_id] += game_team.goals.to_i
       shots_hash[game_team.team_id] += game_team.shots.to_i
     end
