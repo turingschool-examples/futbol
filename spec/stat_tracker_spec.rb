@@ -19,6 +19,7 @@ describe StatTracker do
       
       it 'can pull in new data from files' do
         expect(DataFactory.from_csv(locations)).to be_an_instance_of(StatTracker)
+        expect(StatTracker.from_csv(locations)).to be_an_instance_of(StatTracker)
       end
 
       it 'can pull in .games_csv data' do
