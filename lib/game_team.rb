@@ -1,4 +1,4 @@
-class Game_team
+class GameTeam
 	attr_reader :game_id,
 							:team_id,
 							:hoa,
@@ -36,7 +36,7 @@ class Game_team
 	def self.all_game_teams(location)
 		game_teams = []
 		CSV.foreach location, headers: true, header_converters: :symbol do |row|
-			game_teams << Game_team.new(row)
+			game_teams << GameTeam.new(row)
 		end
 		game_teams
 	end

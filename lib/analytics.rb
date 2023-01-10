@@ -1,0 +1,3 @@
+module Analytics
+	
+end

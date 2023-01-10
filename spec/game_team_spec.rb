@@ -1,15 +1,15 @@
 require_relative 'spec_helper'
 
-RSpec.describe Game_team do
+RSpec.describe GameTeam do
 	before do
     location = './data/game_teams.csv'
-		@game_teams = Game_team.all_game_teams(location)
+		@game_teams = GameTeam.all_game_teams(location)
 	end
     let(:game_team){@game_teams[0]}
 
 	describe '#initialize' do
 		it 'exists' do
-			expect(game_team).to be_a(Game_team)
+			expect(game_team).to be_a(GameTeam)
 		end
 
 		it 'initializes with attributes' do
