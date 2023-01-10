@@ -2,8 +2,10 @@ require "csv"
 require './lib/game_team_collection'
 require './lib/game_collection'
 require './lib/team_collection'
+require './lib/analytics'
 
 class StatTracker
+include Analytics
 	attr_accessor :game_collection, :team_collection, :game_team_collection
 
 	def initialize(locations)
@@ -171,36 +173,11 @@ class StatTracker
   end
 
   def best_offense
-    teams_total_scores = Hash.new{0}
-    teams_total_games = Hash.new{0}
-    teams_total_averages = Hash.new{0}
-    
-    @game_team_collection.add_total_score_and_games(teams_total_scores, teams_total_games)
-    
-    teams_total_scores.each do |key, value|
-      teams_total_averages[key] = (value / teams_total_games[key].to_f).round(5)
-    end
-    
-    best_offensive_team_id = teams_total_averages.max_by{|k, v| v}[0]
-    
-    @team_collection.find_best_offensive_team(best_offensive_team_id)
+    @team_collection.find_team(total_teams_average(@game_team_collection).max_by{|k, v| v}[0])
   end
 
   def worst_offense
-    teams_total_scores = Hash.new{0}
-    teams_total_games = Hash.new{0}
-    teams_total_averages = Hash.new{0}
-    
-    @game_team_collection.add_total_score_and_games(teams_total_scores, teams_total_games)
-    
-    teams_total_scores.each do |key, value|
-      teams_total_averages[key] = (value / teams_total_games[key].to_f).round(5)
-    end
-
-    worst_offensive_team_id = teams_total_averages.min_by{|k, v| v}[0]
-
-    @team_collection.find_best_offensive_team(worst_offensive_team_id)
-
+    @team_collection.find_team(total_teams_average(@game_team_collection).min_by{|k, v| v}[0])
   end
 
   def winningest_coach(season)
