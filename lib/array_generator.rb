@@ -1,6 +1,7 @@
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
+require_relative 'game_repo'
 
 module ArrayGenerator
     def create_games_array(games_path)
