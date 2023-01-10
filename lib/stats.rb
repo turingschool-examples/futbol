@@ -3,10 +3,9 @@ require_relative './obj_gameteam'
 require_relative './obj_team'
 
 class Stats
-            attr_reader :games, 
-                        :teams, 
-                        :game_teams
-
+    attr_reader :games,
+                :teams,
+                :game_teams
     def initialize(locations)
         @games = CSV.foreach(locations[:games], headers: true).map { |info| Game.new(info) }
         @teams = CSV.foreach(locations[:teams], headers: true).map { |info| Team.new(info) }
