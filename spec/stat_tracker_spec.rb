@@ -19,25 +19,35 @@ RSpec.describe StatTracker do
       expect(stat_tracker).to be_instance_of(StatTracker)
     end
 
-    it "creates three arrays which house the information" do
-      expect(stat_tracker.game_teams).to be_an_instance_of(Array)
-      expect(stat_tracker.games).to be_an_instance_of(Array)
-      expect(stat_tracker.teams).to be_an_instance_of(Array)
+    it "creates four classes into which the statistics are divided" do
+      expect(stat_tracker.game_stats).to be_an_instance_of(GameStats)
+      expect(stat_tracker.league_stats).to be_an_instance_of(LeagueStats)
+      expect(stat_tracker.season_stats).to be_an_instance_of(SeasonStats)
+      expect(stat_tracker.team_stats).to be_an_instance_of(TeamStats)
     end
 
-    it "all of the objects in the respective arrays are of one specific object type consistent with the array" do 
-      expect(stat_tracker.game_teams[0..51]).to all(be_an_instance_of(Hash))
-      expect(stat_tracker.games[0..47]).to all(be_an_instance_of(Hash))
-      expect(stat_tracker.teams[0..32]).to all(be_an_instance_of(Hash))
+    it "all of the stats classes create arrays of games, teams, game_teams objects" do 
+      expect(stat_tracker.game_stats.game_teams[0..74]).to all(be_an_instance_of(GameTeam))
+      expect(stat_tracker.game_stats.games[0..48]).to all(be_an_instance_of(Game))
+      expect(stat_tracker.game_stats.teams[0..32]).to all(be_an_instance_of(Team))
+
+      expect(stat_tracker.league_stats.game_teams[0..74]).to all(be_an_instance_of(GameTeam))
+      expect(stat_tracker.league_stats.games[0..48]).to all(be_an_instance_of(Game))
+      expect(stat_tracker.league_stats.teams[0..32]).to all(be_an_instance_of(Team))
+
+      expect(stat_tracker.season_stats.game_teams[0..74]).to all(be_an_instance_of(GameTeam))
+      expect(stat_tracker.season_stats.games[0..48]).to all(be_an_instance_of(Game))
+      expect(stat_tracker.season_stats.teams[0..32]).to all(be_an_instance_of(Team))
+
+      expect(stat_tracker.team_stats.game_teams[0..74]).to all(be_an_instance_of(GameTeam))
+      expect(stat_tracker.team_stats.games[0..48]).to all(be_an_instance_of(Game))
+      expect(stat_tracker.team_stats.teams[0..32]).to all(be_an_instance_of(Team))
     end 
 
     it "the objects all have the correct attributes" do 
-      expect(stat_tracker.game_teams[0][:game_id]).to eq(2012030225)
-      expect(stat_tracker.game_teams[rand(0..51)][:game_id]).to be_a(Integer)
-      expect(stat_tracker.games[0][:home_goals]).to eq(1)
-      expect(stat_tracker.teams[0][:team_id]).to eq("1")
-      expect(stat_tracker.games[0][:venue]).to eq("Providence Park")
-      expect(stat_tracker.teams[0][:abbreviation]).to eq("ATL")
+      expect(stat_tracker.team_stats.game_teams[0].game_id).to eq(2012030225)
+      expect(stat_tracker.team_stats.games[0].game_id).to eq(2016020036)
+      expect(stat_tracker.team_stats.teams[0].team_id).to eq("1")
     end 
   end
   

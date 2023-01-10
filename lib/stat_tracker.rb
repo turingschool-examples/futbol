@@ -1,8 +1,10 @@
 require 'csv'
-require_relative './team_stats'
-require_relative './season_stats'
+require_relative './stats'
 require_relative './game_stats.rb'
 require_relative './league_stats.rb'
+require_relative './season_stats'
+require_relative './team_stats'
+
 
 class StatTracker
   attr_reader :game_stats,
@@ -10,22 +12,18 @@ class StatTracker
               :season_stats,
               :team_stats   
               
-  def self.from_csv(locations)
-    StatTracker.new(locations)
-  end
-
   def initialize(locations)
     @game_stats = GameStats.new(locations)
     @league_stats = LeagueStats.new(locations)
     @season_stats = SeasonStats.new(locations)
     @team_stats = TeamStats.new(locations)
   end
+              
+  def self.from_csv(locations)
+    new(locations)
+  end
 
    ################## Game Statisics ##################
-
-  def initialize(locations)
-    @teamstats = TeamStats.new(locations)
-  end
 
   def highest_total_score
     @game_stats.highest_total_score
@@ -126,35 +124,35 @@ class StatTracker
   ################## Team Statisics ##################
  
   def team_info(team_id)
-    teamstats.team_info("6")
+    team_stats.team_info("6")
   end
 
   def best_season(team_id)
-    teamstats.best_season(team_id)
+    team_stats.best_season(team_id)
   end 
 
   def worst_season(team_id)
-    teamstats.worst_season(team_id)
+    team_stats.worst_season(team_id)
   end
 
   def most_goals_scored(team_id) 
-    teamstats.most_goals_scored(team_id) 
+    team_stats.most_goals_scored(team_id) 
   end
 
   def fewest_goals_scored(team_id)
-    teamstats.fewest_goals_scored(team_id)
+    team_stats.fewest_goals_scored(team_id)
   end 
 
   def favorite_opponent(team_id)
-    teamstats.favorite_opponent(team_id)
+    team_stats.favorite_opponent(team_id)
   end
 
   def rival(team_id)
-    teamstats.rival(team_id)
+    team_stats.rival(team_id)
   end
 
   def average_win_percentage(team_id)
-    teamstats.average_win_percentage(team_id)
+    team_stats.average_win_percentage(team_id)
   end
 end
 
