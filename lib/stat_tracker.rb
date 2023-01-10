@@ -121,20 +121,7 @@ class StatTracker < DataFactory
     end
 
     def highest_scoring_visitor
-      highest_score = visitor_score_averages.last[1]
-
-      highests = []
-      visitor_score_averages.each do |array|
-        highests << array.first if array.last == highest_score
-      end
-
-      highest_scoring_visitors = []
-      highests.each do |id|
-        teams.each do |team|
-          highest_scoring_visitors << team.team_name if team.team_id == id
-        end
-      end
-      highest_scoring_visitors.join(", ")
+      find_team_name(visitor_score_averages.last[0])
     end
 
     def highest_scoring_home_team
@@ -155,21 +142,7 @@ class StatTracker < DataFactory
     end
 
     def lowest_scoring_visitor
-      sorted_avgs = visitor_score_averages
-      lowest_score = sorted_avgs.first[1]
-
-      lowests = []
-      sorted_avgs.each do |array|
-        lowests << array.first if array.last == lowest_score
-      end
-
-      lowest_scoring_visitors = []
-      lowests.each do |id|
-        teams.each do |team|
-          lowest_scoring_visitors << team.team_name if team.team_id == id
-        end
-      end
-      lowest_scoring_visitors.join(", ")
+      find_team_name(visitor_score_averages.first[0])
     end
 
     def lowest_scoring_home_team
@@ -192,13 +165,11 @@ class StatTracker < DataFactory
 
   ## SEASON STATISTICS METHODS
     def winningest_coach(season)
-      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
-      sorted.last[0]
+      coaches_win_percentages_hash(season).sort_by{|k,v| v}.last[0]
     end
     
     def worst_coach(season)
-      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
-      sorted.first[0]
+      coaches_win_percentages_hash(season).sort_by{|k,v| v}.first[0]
     end
 
     def most_accurate_team(season)

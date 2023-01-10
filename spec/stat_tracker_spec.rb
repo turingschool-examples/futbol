@@ -174,7 +174,7 @@ describe StatTracker do
       end
 
       it 'can calculate the #lowest_scoring_visitor' do
-        expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati, Sporting Kansas City, New York Red Bulls")
+        expect(stat_tracker.lowest_scoring_visitor).to eq("FC Cincinnati")
       end
 
       it 'can calculate the #lowest_scoring_home_team' do
