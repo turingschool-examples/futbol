@@ -44,17 +44,18 @@ class StatTracker
 
     def percentage_ties
         ties = []
-        @games.each do |game, goals|
+        @games.each do |game|
             ties << game.game_ties
         end
-        (game_ties.sum.to_f / @games.count.to_f).round(2)
+        (ties.sum.to_f / @games.count.to_f).round(2)
     end
 
     def count_of_games_by_season
-        season_count = @games.group_by { |game| game[:season] }
-        season_count.each do |games, value|
-            season_count[games] = value.count         
+        season_games = Hash.new(0)
+        @games.each do |game|
+            season_games[game.season] += 1
         end
+        season_games
     end
 
     def average_goals_per_game
