@@ -8,7 +8,6 @@ RSpec.describe Game do
     locations = {
       games: game_path
     }
-
     @game_path = CSV.read(locations[:games], headers: true, skip_blanks: true, header_converters: :symbol)
     @game = Game.new(@game_path) 
   end
@@ -40,6 +39,8 @@ RSpec.describe Game do
   describe '#home_wins_array' do 
     it 'is a helper method for percentage_home_wins, array of home goals greater than away goals' do 
       expect(@game.home_wins_array.class).to eq(Array)
+      expect(@game.home_wins_array.count).to eq(16)
+      expect(@game.home_wins_array[0]).to include(:game_id, :away_team_id)
     end
   end
   
@@ -52,6 +53,9 @@ RSpec.describe Game do
   describe '#visitor_wins_array' do 
     it 'returns array of games visitors have won' do 
       expect(@game.visitor_wins_array.class).to eq(Array)
+      expect(@game.visitor_wins_array.count).to eq(8)
+      expect(@game.visitor_wins_array[0]).to include(:game_id)
+
     end
   end
 
@@ -65,6 +69,7 @@ RSpec.describe Game do
     it 'returns an array of games that have resulted in a tie' do 
       expect(@game.ties_array.class).to eq(Array)
       expect(@game.ties_array.count).to eq(6)
+      expect(@game.ties_array[0]).to include(:season, :game_id)
     end
   end
 
