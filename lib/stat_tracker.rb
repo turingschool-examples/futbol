@@ -285,7 +285,7 @@ class StatTracker < DataFactory
     end
 
     def rival(team_id)
-      favorite_id = opponents_win_percentage(team_id).last.first
-      find_team_name(favorite_id)
+      rival_id = opponents_win_percentage(team_id).last.first
+      find_team_name(rival_id)
     end
 end
