@@ -169,8 +169,7 @@ class StatTracker < DataFactory
     end
     
     def worst_coach(season)
-      sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
-      sorted.first[0]
+      coaches_win_percentages_hash(season).sort_by{|k,v| v}.first[0]
     end
 
     def most_accurate_team(season)
