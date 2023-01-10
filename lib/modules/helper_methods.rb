@@ -212,4 +212,24 @@ module Helpable
     end.to_f
   end
 
+  def games_by_team(team)
+    team_games = []
+    game_teams.each do |game_team|
+      if game_team.team_id == team
+        team_games << game_team
+      end
+    end
+    team_games
+  end
+
+  def won_games_by_team(team)
+    won = []
+    games_by_team(team).each do |team_game|
+      if team_game.result == "WIN"
+        won << team_game
+      end
+    end
+    won
+  end
+
 end  
