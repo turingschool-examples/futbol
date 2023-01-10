@@ -1,7 +1,7 @@
 require './lib/modules'
 
 class GameStats
-	include Sort
+	include Sortable
 
 	attr_reader :games,
 							:game_teams,

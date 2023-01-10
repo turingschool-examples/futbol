@@ -1,11 +1,13 @@
 require 'csv'
 require_relative 'stats'
+require_relative 'modules'
 require_relative 'game_stats'
 require_relative 'league_stats'
 require_relative 'season_stats'
 require_relative 'team_stats'
 
 class StatTracker < Stats
+	include Sortable
 
 	def initialize(file_paths)
 		super(file_paths)

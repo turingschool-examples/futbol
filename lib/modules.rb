@@ -1,4 +1,4 @@
-module Sort
+module Sortable
 
 	def games_played_by_season
 		@games_played_by_season ||= @games.group_by do |game|
