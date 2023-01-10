@@ -39,26 +39,12 @@ class StatTracker < DataFactory
       (tie_games.to_f / games.length).round(2)
     end
 
-    def count_of_games_by_season
-      hash = {}
-
-      seasons = games.map do |game|
-        game.season
-      end.uniq.sort
-
-      seasons.each do |season|
-        hash[season] = []
+    def count_of_games_by_season  
+      count_of_games_by_season = {}
+      hash_of_games_by_season.each do |k, v|
+        count_of_games_by_season[k] = v.count
       end
-      
-      games.each do |game|
-        hash[game.season] << game
-      end
-
-      hash.each do |k, v|
-        hash[k] = v.count
-      end
-
-      hash
+      count_of_games_by_season
     end
 
     def average_goals_per_game

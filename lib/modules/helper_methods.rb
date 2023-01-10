@@ -205,4 +205,13 @@ module Helpable
       return team.team_name if team.team_id == team_id
     end
   end
+
+  def hash_of_games_by_season
+    hash = Hash.new{|h,v| h[v] = []}
+
+    games.each do |game|
+      hash[game.season] << game
+    end
+    hash
+  end
 end  
