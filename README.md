@@ -33,7 +33,7 @@ After all methods were created, we first decided we wanted to sit each CSV::Row 
 
 We then decided to create a class for each specific group of statistic. These statistics were grouped by *Game Statistics*, *League Statistics*, *Season Statistics*, and *Team Statistics*. We sat most of our methods for the specific group in their dedicated class while passing our *game*, *game_team*, and *team* into them as arguements.
 
-Without practice of inheritance, implementing this into our code was a bit of a challenge but was done. With this being said, this is one of the design decisions that bring pride to the group. We chose to use both inheritance and modules in our project. 
+Without practice of inheritance, implementing this into our code was a bit of a challenge but was done. With this being said, this is one of the design decisions that brings pride to the group. We chose to use both inheritance and modules in our project. 
 1. We noticed that a lot of methods we're being frequently used across our code and realized that those can be pulled out and included in our classes as a module.
 1. We also noticed that we would be creating the row objects in each of our classes and creating them as attributes in all of our statistic classes. This allowed us to pull those attributes and sit them in a parent class for our refactored *stat_tracker* class.
 
@@ -48,7 +48,7 @@ Hashes were used across all of our project. There were multiple times in the pro
 ### Collaboration/Version Control
 ---
 - For iteration 1, we mostly worked together to make sure we understood how we were starting the project. When iteration 2 came around, we decided to divide all the methods among each other and discussed the difficulty of the methods to assure no one person was getting more work than another. Although we divided the work among each other, we stuck around on a zoom call to make sure we had quick access to other group member opinions and assistance.
-- 
+- One thing to note is that being on a zoom call together for most of the project allowed us to solve merge conflicts as a group thus making it quicker and much easier than if doing them individually.
 - We began using Trello to track the progress of our project and later moved over to tracking on a Google Spreadsheet.
 
 ### Wins & Challenges
