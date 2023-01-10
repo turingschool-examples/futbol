@@ -53,6 +53,21 @@ Hashes were used across all of our project. There were multiple times in the pro
 - One thing to note is that being on a zoom call together for most of the project allowed us to solve merge conflicts as a group thus making it quicker and much easier than if doing them individually.
 - We began using Trello to track the progress of our project and later moved over to tracking on a Google Spreadsheet.
 
+### Discussion of Test Coverage
+---
+SimpleCov
+
+
+### Chris Cane
+---
+The `group_by` enumerable was extremely useful. We used it in the following methods in the modules.rb
+- games_played_by_season (line 3)
+- games_by_game_id (line 9)
+- find_team_by_id (line 15)
+- games_by_team_id (line 25)
+
+By creating those modules that would parse up our data initially, it cleaned up a lot of our methods throughout our other classes. We did use other enumerables like `sum` and `map`, but we relied heavily on `each` since there was a fair amount of 'reaching through objects'.
+
 ### Wins & Challenges
 ---
 1. There were a few challenges that came with a couple of the statistics, such as, Favorite Opponent/Rival and Winningest/Coach. Having to cross reference multiple CSV files to find the correct result and finding what our test should expect before coding our method were among those contenders but in the end, it felt like a win when it was accomplished.
