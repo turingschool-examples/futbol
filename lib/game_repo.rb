@@ -12,7 +12,11 @@ class GameRepo
 
 
   def game_total_score
-    @away_goals + @home_goals
+    total_score = []
+    @games.each do |game|
+      total_score << game.away_goals + game.home_goals 
+    end
+    total_score
   end
 
   def home_wins
