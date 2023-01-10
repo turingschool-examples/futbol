@@ -15,13 +15,14 @@ class StatTracker
 	def self.from_csv(locations)
     StatTracker.new(locations)
   end
+
   
   def highest_total_score
     @game_collection.total_score.max
   end
 
   def lowest_total_score
-    @game_collection.total_score.min
+    total_score.min
   end
 
 	def percentage_home_wins

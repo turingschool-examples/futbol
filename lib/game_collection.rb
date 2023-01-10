@@ -15,4 +15,10 @@ class GameCollection
       game.home_goals.to_i + game.away_goals.to_i
     end
   end
+
+	def game_ids_by_season
+    game_ids_by_season ||= @games_games.group_by do |game|
+      game.season
+    end
+  end
 end
