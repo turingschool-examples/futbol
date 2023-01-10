@@ -301,11 +301,13 @@ describe StatTracker do
     end
     
     it '#visitor_score_averages' do
-
+      expect(stat_tracker.visitor_score_averages).to be_an(Array)
+      expect(stat_tracker.visitor_score_averages.first).to eq(["26", 1.0])
     end
 
     it '#home_score_averages' do
-
+      expect(stat_tracker.home_score_averages).to be_an(Array)
+      expect(stat_tracker.home_score_averages.first).to eq(["5", 0.0])
     end
 
     it 'can produce an #array_of_gameids by season' do
