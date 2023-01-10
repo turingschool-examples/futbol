@@ -12,10 +12,10 @@ class StatTracker
   end
 
   def initialize(locations)
-    # @game_stats = GameStats.new(locations)
-    # @league_stats = LeagueStats.new(locations)
+    @game_stats = GameStats.new(locations)
+    @league_stats = LeagueStats.new(locations)
     @season_stats = SeasonStats.new(locations)
-    # @team_stats = TeamStats.new(locations)
+    @team_stats = TeamStats.new(locations)
   end
 
    ################## Game Statisics ##################
