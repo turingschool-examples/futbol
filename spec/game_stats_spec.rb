@@ -5,7 +5,6 @@ RSpec.describe GameStats do
   let(:game_path) { './data/games_fixture.csv' }
   let(:team_path) { './data/teams_fixture.csv' }
   let(:game_teams_path) { './data/game_teams_fixture.csv' }
-  require 'pry'; binding.pry
   let(:locations) do 
     {
     games: game_path,

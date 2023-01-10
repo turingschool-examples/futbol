@@ -6,18 +6,18 @@ class GameStats < Stats
     @games = games 
   end
 
-  def total_scores
-    game_sums = @games.map do |game|
-      game[:away_goals] + game[:home_goals]
-    end.sort
-  end
-
   def highest_total_score
     total_scores.last
   end
 
   def lowest_total_score
     total_scores.first
+  end
+  
+  def total_scores
+    game_sums = @games.map do |game|
+      game[:away_goals] + game[:home_goals]
+    end.sort
   end
 
   def percentage_home_wins
