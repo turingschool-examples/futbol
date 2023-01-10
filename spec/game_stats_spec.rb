@@ -90,4 +90,13 @@ describe GameStats do
       expect(stat.lowest_total_score).to eq(1)
     end
   end
+
+  context 'Helper Methods' do
+    describe '#total_scores' do
+      it 'returns an array of all scores' do
+        expect(stat.total_scores).to be_a(Array)
+        expect(stat.total_scores).to include(Integer)
+      end
+    end
+  end
 end
