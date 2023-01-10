@@ -71,9 +71,21 @@ RSpec.describe GameTeams do
     end
   end
 
+  describe '#games_by_season' do 
+    it 'is a helper method that groups the games by the season' do 
+      expect(@gameteams.games_by_season.class).to eq(Hash)
+    end
+  end
+
   describe '#games_by_game_id' do 
     it 'is a helper method that groups the games by the game_id' do 
       expect(@gameteams.games_by_game_id.class).to eq(Hash)
+    end
+  end
+
+  describe '#game_ids_by_season' do 
+    it 'is a helper method that groups game ids to the give season' do 
+      expect(@gameteams.game_ids_by_season('20122013').class).to eq(Array)
     end
   end
 
@@ -92,6 +104,18 @@ RSpec.describe GameTeams do
   describe '#teams_with_tackles' do 
     it 'is a helper method to set team ids to their array of tackles' do 
       expect(@gameteams.teams_with_tackles([]).class).to eq(Hash)
+    end
+  end
+
+  describe '#most_goals_scored' do 
+    it 'is the most goals scored by a given team' do 
+      expect(@gameteams.most_goals_scored(3)).to eq(2)
+    end
+  end
+
+  describe 'fewest_goals_scored' do 
+    it 'is the lowest score by the given team' do 
+      expect(@gameteams.fewest_goals_scored(3)).to eq(1)
     end
   end
 
@@ -132,7 +156,15 @@ RSpec.describe GameTeams do
   end
 
   describe '#teams_by_id' do
+    it 'returns a hash with team id as key and game info as the value' do
+      expect(@gameteams.teams_by_id.class).to eq(Hash)
+    end
+  end
 
+  describe '#games_by_id_game_path' do
+    it 'returns a hash with the game_id as the key and game infor as the value' do
+      expect(@gameteams.games_by_id_game_path.class).to eq(Hash)
+    end
   end
   
   describe '#pair_teams_with_results' do 
@@ -142,7 +174,7 @@ RSpec.describe GameTeams do
   end
 
   describe '#pair_season_with_results_by_team' do 
-    it 'is a sandbox' do 
+    it 'returns a hash with the ' do 
       expect(@gameteams.pair_season_with_results_by_team('6').class).to eq(Hash)
     end
   end
