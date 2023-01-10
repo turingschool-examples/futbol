@@ -1,4 +1,7 @@
 require 'simplecov'
+
 SimpleCov.start
 
-require 'stat_tracker'
+require './lib/stat_tracker'
+require 'csv'
+require './lib/team'
