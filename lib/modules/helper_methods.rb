@@ -20,7 +20,7 @@ module Helpable
     game.away_goals.to_i + game.home_goals.to_i
   end
 
-  def goals_per_season(season, num_games)
+  def goals_per_season(season)
     goal_counter = 0
     games.each do |game|
       if game.season == season

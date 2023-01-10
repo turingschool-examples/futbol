@@ -54,7 +54,7 @@ class StatTracker < DataFactory
     def average_goals_by_season
       hash = count_of_games_by_season
       hash.each do |k, v|
-        hash[k] = (goals_per_season(k, v)/v.to_f).round(2)
+        hash[k] = (goals_per_season(k)/v.to_f).round(2)
       end
       hash
     end

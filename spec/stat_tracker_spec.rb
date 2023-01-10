@@ -383,8 +383,8 @@ describe StatTracker do
       expect(stat_tracker.goals_per_game(game)).to eq(5)
     end
 
-    xit '#goals_per_season(season, num_games)' do
-
+    it '#goals_per_season(season, num_games)' do
+      expect(stat_tracker.goals_per_season("20122013")).to eq(35)
     end
 
     it '#team_total_tackles(season)' do
@@ -404,6 +404,26 @@ describe StatTracker do
       expect(stat_tracker.team_id_and_score_array_hash(:away)["6"]).to eq([3.0, 2.0, 3.0])
       expect(stat_tracker.team_id_and_score_array_hash(:home)).to be_a(Hash)
       expect(stat_tracker.team_id_and_score_array_hash(:home)["3"]).to eq([2.0, 3.0])
+    end
+
+    xit '#hash_of_games_by_season' do
+  
+    end
+
+    xit '#total_goals' do
+
+    end
+
+    xit '#games_by_team(team)' do
+
+    end
+
+    xit '#won_games_by_team(team)' do
+    
+    end
+
+    xit '#opponents_win_results(team_id)' do
+
     end
 
   end
