@@ -39,43 +39,23 @@ class StatTracker < DataFactory
       (tie_games.to_f / games.length).round(2)
     end
 
-    def count_of_games_by_season
-      hash = {}
-
-      seasons = games.map do |game|
-        game.season
-      end.uniq.sort
-
-      seasons.each do |season|
-        hash[season] = []
+    def count_of_games_by_season  
+      count_of_games_by_season = {}
+      hash_of_games_by_season.each do |k, v|
+        count_of_games_by_season[k] = v.count
       end
-      
-      games.each do |game|
-        hash[game.season] << game
-      end
-
-      hash.each do |k, v|
-        hash[k] = v.count
-      end
-
-      hash
+      count_of_games_by_season
     end
 
     def average_goals_per_game
-      total_goals = games.reduce(0) do |sum, game|
-        sum + goals_per_game(game)
-      end
-
-      (total_goals.to_f/games.length).round(2)
+      (total_goals/games.length).round(2)
     end
     
     def average_goals_by_season
       hash = count_of_games_by_season
-      
       hash.each do |k, v|
         hash[k] = (goals_per_season(k, v)/v.to_f).round(2)
       end
-
       hash
     end
 
@@ -173,24 +153,18 @@ class StatTracker < DataFactory
     end
 
     def most_accurate_team(season)
-      team_ratio_hash = team_ratio_hash(season)
-      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
-      
+      sorted_teams = team_ratio_hash(season).sort_by {|key, value| value}
       mat = teams.find do |team|
         team.team_id == sorted_teams.last[0]
       end
-      
       mat.team_name
     end
 
     def least_accurate_team(season)
-      team_ratio_hash = team_ratio_hash(season)
-      sorted_teams = team_ratio_hash.sort_by {|key, value| value}
-
+      sorted_teams = team_ratio_hash(season).sort_by {|key, value| value}
       lat = teams.find do |team|
         team.team_id == sorted_teams.first[0]
       end
-      
       lat.team_name
     end
     
