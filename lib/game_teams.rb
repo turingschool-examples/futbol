@@ -285,4 +285,49 @@ class GameTeams
     end
     average_win_percent = (average_hash.values[0].count('WIN') / team_games.count.to_f).round(2)
   end
+
+  def winningest_coach(season_id) 
+    coach_results = wins_by_coach(game_ids_by_season(season_id)) 
+     coach_results.each do |coach, results| 
+      coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
+     end
+     coach_results.invert[coach_results.invert.keys.max]
+  end
+
+  def worst_coach(season_id)
+    coach_results = wins_by_coach(game_ids_by_season(season_id)) 
+     coach_results.each do |coach, results| 
+      coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
+     end
+     coach_results.invert[coach_results.invert.keys.min]
+  end
+
+  def games_by_season
+    @games_by_season ||= @game_path.group_by do |row|
+      row[:season] 
+    end
+  end
+
+  def games_by_game_id
+    @games_by_game_id ||= @game_teams_path.group_by do |row| 
+      row[:game_id]
+    end
+  end
+
+  def game_ids_by_season(season_id)
+    games_by_season[season_id].map do |games|
+      games[:game_id]
+    end
+  end
+
+  def wins_by_coach(game_id_array) #HELPER for winningest and worst coach
+    hash = Hash.new{|k, v| k[v] = []}
+    game_id_array.each do |game_id|
+      next if games_by_game_id[game_id].nil?
+      games_by_game_id[game_id].each do |game|
+        hash[game[:head_coach]] << game[:result]
+      end
+    end
+    hash 
+  end
 end
