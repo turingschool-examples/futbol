@@ -29,4 +29,11 @@ class Game
         # games.map { |game| game[:away_goals] + game[:home_goals] } 
         @away_goals + @home_goals
     end
+
+    def home_wins
+        total_home_wins = 0
+        if @away_goals < @home_goals
+            total_home_wins += 1
+        end
+    end
 end

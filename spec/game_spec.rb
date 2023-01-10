@@ -40,6 +40,10 @@ RSpec.describe Game do
         it " has game total scores" do 
             expect(@game.game_total_score).to eq 1
         end
+
+        it "#home_wins" do
+            expect(@game.home_wins).to eq(1)
+        end
     end
 end
 
