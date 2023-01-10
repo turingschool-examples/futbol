@@ -21,11 +21,11 @@ Some examples include:
 
 ### Colaborators
 ---
-<button name="Axel's GitHub Profile" onclick="https://github.com/axeldelaguardia">Axel De La Guardia</button>
+[Axel De La Guardia](https://github.com/axeldelaguardia)
 
-<button name="Chris's GitHub Profile" onclick="https://github.com/axeldelaguardia">Chris Crane</button>
+[Chris Crane](https://github.com/GreenGogh47)
 
-<button name="Conner's GitHub Profile" onclick="https://github.com/C-V-L">Conner Van Loan</button>
+[Conner Van Loan](https://github.com/C-V-L)
 	
 ### Technical Quality and Organization of Code
 ---
