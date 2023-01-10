@@ -1,6 +1,7 @@
 require_relative '../lib/team'
 
 class TeamCollection
+	attr_reader :teams_array
 
 	def initialize(location)
 		@teams_array = []
