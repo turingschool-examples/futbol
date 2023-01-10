@@ -19,12 +19,6 @@ class StatTracker < DataFactory
   end
 
   ## GAME STATISTIC METHODS
-    # def game_score_totals_sorted
-    #   games.map do |game|
-    #     game.home_goals.to_i + game.away_goals.to_i
-    #   end.sort
-    # end
-  
     def highest_total_score
       game_score_totals_sorted.last
     end             
@@ -67,20 +61,6 @@ class StatTracker < DataFactory
       hash
     end
 
-    # def goals_per_game(game)
-    #   game.away_goals.to_i + game.home_goals.to_i
-    # end
-
-    # def goals_per_season(season, num_games)
-    #   goal_counter = 0
-    #   games.each do |game|
-    #     if game.season == season
-    #       goal_counter += goals_per_game(game)
-    #     end
-    #   end
-    #   goal_counter
-    # end
-    
     def average_goals_per_game
       total_goals = games.reduce(0) do |sum, game|
         sum + goals_per_game(game)
@@ -211,7 +191,6 @@ class StatTracker < DataFactory
     end
 
   ## SEASON STATISTICS METHODS
-    
     def winningest_coach(season)
       sorted = coaches_win_percentages_hash(season).sort_by{|k,v| v}
       sorted.last[0]
@@ -224,7 +203,6 @@ class StatTracker < DataFactory
 
     def most_accurate_team(season)
       team_ratio_hash = team_ratio_hash(season)
-
       sorted_teams = team_ratio_hash.sort_by {|key, value| value}
       
       mat = teams.find do |team|
