@@ -24,4 +24,9 @@ class Game
         @venue = info[:venue]
         @venue_link = info[:venue_link]
     end
+
+    def game_total_score
+        # games.map { |game| game[:away_goals] + game[:home_goals] } 
+        @away_goals + @home_goals
+    end
 end

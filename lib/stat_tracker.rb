@@ -18,10 +18,6 @@ class StatTracker
         new(location_paths)
     end
 
-    def games_total_score_array
-        games.map { |game| game[:away_goals] + game[:home_goals] }   
-    end
-
     def highest_total_score
         games_total_score_array.max
     end

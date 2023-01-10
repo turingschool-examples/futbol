@@ -35,5 +35,11 @@ RSpec.describe Game do
             expect(@game.venue_link).to eq('/api/v1/venues/null')
         end
     end
+
+    describe "helpers" do
+        it " has game total scores" do 
+            expect(@game.game_total_score).to eq 1
+        end
+    end
 end
 

@@ -22,10 +22,6 @@ RSpec.describe StatTracker do
     end
 
     describe "#Total_score" do
-        it " has game total scores" do 
-            expect(@stat_tracker.games_total_score_array).to eq [1, 4, 5, 3, 6, 4, 1, 4, 2, 5]
-        end
-
         it "#highest_total_score" do
             expect(@stat_tracker.highest_total_score).to eq 6
         end 
