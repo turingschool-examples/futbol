@@ -10,4 +10,9 @@ class TeamCollection
 	  @teams_array << Team.new(row)
     end
   end
+
+  def find_best_offensive_team(best_offensive_team_id)
+	@teams_array.find {|team| team.team_id == best_offensive_team_id}.team_name
+  end
+
 end

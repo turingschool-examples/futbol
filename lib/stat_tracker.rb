@@ -174,24 +174,16 @@ class StatTracker
     teams_total_scores = Hash.new{0}
     teams_total_games = Hash.new{0}
     teams_total_averages = Hash.new{0}
-    i = 0
     
-    game_teams[:team_id].each do |id|
-      if teams_total_scores[id] == nil
-        teams_total_scores[id] = game_teams[:goals][i].to_f
-        teams_total_games[id] = 1
-      else
-        teams_total_scores[id] += game_teams[:goals][i].to_f
-        teams_total_games[id] += 1
-      end
-      i += 1
-    end
+    @game_team_collection.add_total_score_and_games(teams_total_scores, teams_total_games)
+    
     teams_total_scores.each do |key, value|
       teams_total_averages[key] = (value / teams_total_games[key].to_f).round(5)
     end
+    
     best_offensive_team_id = teams_total_averages.max_by{|k, v| v}[0]
-
-    best_offensive_team_name = teams.find {|row| row[:team_id] == best_offensive_team_id}[:teamname]
+    
+    @team_collection.find_best_offensive_team(best_offensive_team_id)
   end
 
   def worst_offense
