@@ -91,6 +91,24 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#average_goals_by_team_hash' do 
+    it 'is a helper method to group the teams to their average goals' do 
+      expect(@stat_tracker.average_goals_by_team_hash.class).to eq(Hash)
+    end
+  end
+
+  describe '#visitor_scores_hash' do 
+    it 'returns a hash with the team id as the key and the value as the average score' do 
+      expect(@stat_tracker.visitor_scores_hash.class).to eq(Hash)
+    end
+  end
+
+  describe '#home_scores_hash' do 
+    it 'returns a hash with the team id as the key and the value as the average score' do 
+      expect(@stat_tracker.home_scores_hash.class).to eq(Hash)
+    end
+  end
+
   describe '#highest_scoring_visitor' do 
     it 'returns a string of the highest scoring away team name' do 
       expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
@@ -166,6 +184,12 @@ RSpec.describe StatTracker do
   describe '#all_scores_by_team' do 
     it 'is a helper method to pair all the scores a team has' do 
       expect(@stat_tracker.all_scores_by_team.class).to eq(Hash)
+    end
+  end
+
+  describe '#get_ratios_by_season_id' do 
+    it 'gets the ratios by the season' do 
+      expect(@stat_tracker.get_ratios_by_season_id('20122013').class).to eq(Hash)
     end
   end
 
