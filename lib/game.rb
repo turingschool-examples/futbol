@@ -36,4 +36,13 @@ class Game
             total_home_wins += 1
         end
     end
+
+    def visitor_wins
+        total_visitor_wins = 0
+        if @away_goals > @home_goals
+            total_visitor_wins += 1
+        elsif @away_goals < @home_goals || @away_goals == @home_goals
+            total_visitor_wins += 0
+        end
+    end
 end
