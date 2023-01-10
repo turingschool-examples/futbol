@@ -1,5 +1,5 @@
-require './lib/stats'
-require './lib/statistics_module'
+require_relative './stats'
+require_relative './statistics_module'
 
 class TeamStats < Stats
   include Statistacable
@@ -51,6 +51,7 @@ class TeamStats < Stats
         end
       end
     end
+    require 'pry'; binding.pry
     return results_by_season 
   end 
 

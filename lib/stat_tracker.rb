@@ -1,4 +1,5 @@
 require 'csv'
+require_relative './team_stats'
 
 class StatTracker 
         attr_reader :teamstats

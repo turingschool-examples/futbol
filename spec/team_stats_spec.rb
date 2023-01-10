@@ -119,5 +119,24 @@ end
     expect(teamstats.rival("3")).to eq("FC Dallas").or(eq("Orlando Pride")).or(eq("Los Angeles FC")).or(eq("Seattle Sounders FC"))
     expect(teamstats.rival("6")).to eq("Sporting Kansas City").or(eq("Philadelphia Union")).or(eq("Utah Royals FC"))
   end
+
+
+  it "#groups the relevant games and gameteams for the circumstance based on the season" do
+    game_path = './data/games.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv' 
+    locations = 
+      {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+    
+    stat_tracker = StatTracker.from_csv(locations) 
+    teamstats = TeamStats.new(locations)
+    expect(teamstats.rival("3")).to eq("FC Dallas").or(eq("Orlando Pride")).or(eq("Los Angeles FC")).or(eq("Seattle Sounders FC"))
+    expect(teamstats.rival("6")).to eq("Sporting Kansas City").or(eq("Philadelphia Union")).or(eq("Utah Royals FC"))
+  end
+
   end 
 end 
