@@ -1,5 +1,3 @@
-require_relative 'array_generator'
-
 class GameTeam
     attr_reader :game_id,
                 :team_id,
@@ -33,6 +31,14 @@ class GameTeam
         @face_off_win_percentage = info[:faceOffWinPercentage]
         @giveaways = info[:giveaways]
         @takeaways = info[:takeaways]
+    end
+
+    def self.read_file(locations)
+        game_teams = CSV.read(locations, headers: true, header_converters: :symbol)
+        
+        game_teams.map do |game_team|
+            new(game_team)
+        end
     end
 end
 
