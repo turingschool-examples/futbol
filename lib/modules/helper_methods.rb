@@ -1,5 +1,11 @@
 module Helpable
 
+  def game_score_totals_sorted
+    games.map do |game|
+      game.home_goals.to_i + game.away_goals.to_i
+    end.sort
+  end
+
   def home_wins
     home_wins = games.count do |game|
       game.home_goals.to_i > game.away_goals.to_i
@@ -16,6 +22,20 @@ module Helpable
     ties = games.count do |game|
       game.away_goals.to_i == game.home_goals.to_i
     end
+  end
+
+  def goals_per_game(game)
+    game.away_goals.to_i + game.home_goals.to_i
+  end
+
+  def goals_per_season(season, num_games)
+    goal_counter = 0
+    games.each do |game|
+      if game.season == season
+        goal_counter += goals_per_game(game)
+      end
+    end
+    goal_counter
   end
 
   def team_score_averages
