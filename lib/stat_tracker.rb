@@ -41,25 +41,28 @@ class StatTracker < DataFactory
 
     def count_of_games_by_season
       hash = {}
-
       seasons = games.map do |game|
         game.season
       end.uniq.sort
-
+      # seasons = games.map do |game|
+      #   game.season
+      # end.uniq.sort
+      # require 'pry'; binding.pry
       seasons.each do |season|
         hash[season] = []
+      # seasons.reduce({}) do |hash, season|
+      #   hash[season]
       end
-      
       games.each do |game|
         hash[game.season] << game
       end
-
       hash.each do |k, v|
         hash[k] = v.count
       end
-
       hash
     end
+
+
 
     def average_goals_per_game
       total_goals = games.reduce(0) do |sum, game|
@@ -224,27 +227,17 @@ class StatTracker < DataFactory
     end
     
     def most_tackles(season)
-      team_total_tackles = Hash.new{|h,v| h[v] = 0 }
-      game_team_array = array_of_game_teams_by_season(season) 
-        game_team_array.each do |game_team|
-          team_total_tackles[game_team.team_id] += game_team.tackles.to_i
-        end
-        most_tackles_id = team_total_tackles.sort_by { |k, v| v }.last.first
+        most_tackles_id = team_total_tackles(season).sort_by { |k, v| v }.last.first
         teams.each do |team|
           return team.team_name if team.team_id == most_tackles_id
         end
     end  
 
     def fewest_tackles(season)
-      team_total_tackles = Hash.new{|h,v| h[v] = 0 }
-      game_team_array = array_of_game_teams_by_season(season) 
-        game_team_array.each do |game_team|
-          team_total_tackles[game_team.team_id] += game_team.tackles.to_i
-        end
-        fewest_tackles_id = team_total_tackles.sort_by { |k, v| v }.first.first
-        teams.each do |team|
-          return team.team_name if team.team_id == fewest_tackles_id
-        end
+      fewest_tackles_id = team_total_tackles(season).sort_by { |k, v| v }.first.first
+      teams.each do |team|
+        return team.team_name if team.team_id == fewest_tackles_id
+      end
     end
 
   ## TEAM STATISTICS METHODS
