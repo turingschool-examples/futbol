@@ -24,12 +24,4 @@ class Game
 			@venue = info[:venue]
 			@venue_link = info[:venue_link]
 	end
-
-	def self.all_games(location)
-		games = []
-		CSV.foreach location, headers: true, header_converters: :symbol do |row|
-			games << Game.new(row)
-		end
-		games
-	end
 end
