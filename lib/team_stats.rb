@@ -5,7 +5,6 @@ class TeamStats < Stats
   include Statistacable
 
   def initialize(locations)
-    require 'pry'; binding.pry
     super
   end
 

@@ -19,7 +19,7 @@ RSpec.describe Game do
   
   describe "#initialize" do
     it "exists" do
-    expect(game.game_id).to be_a(Integer)
+      expect(game.game_id).to be_a(Integer)
     end 
 
     it "has attributes" do
