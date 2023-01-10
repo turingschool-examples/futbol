@@ -337,7 +337,7 @@ describe StatTracker do
         expect(stat_tracker.goals_scored_sorted("6").last).to be_an(Integer)
       end
 
-      it 'can find_team_name(team_id)' do
+      it 'can #find_team_name(team_id)' do
         expect(stat_tracker.find_team_name("6")).to eq("FC Dallas")
         expect(stat_tracker.find_team_name("17")).to eq("LA Galaxy")
 
