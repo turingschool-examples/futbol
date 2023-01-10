@@ -1,5 +1,5 @@
-require './lib/stats'
-require './lib/seasonable'
+require_relative './stats'
+require_relative './seasonable'
 
 class SeasonStats < Stats
   include Seasonable
