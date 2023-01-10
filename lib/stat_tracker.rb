@@ -309,7 +309,13 @@ class StatTracker < DataFactory
       (won.count.to_f / team_games.count).round(2)
     end
 
-    
+    def most_goals_scored(teamid)
+      goals_scored_sorted(teamid).last
+    end
+  
+    def fewest_goals_scored(teamid)
+      goals_scored_sorted(teamid).first
+    end
 
     def favorite_opponent(team_id)
       favorite_id = opponents_win_percentage(team_id).first.first
