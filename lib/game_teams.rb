@@ -1,20 +1,13 @@
 require 'csv'
 
 class GameTeams
-  attr_reader :game_teams_path, :game_id
+  attr_reader :game_teams_path, :game_path, :team_path
 
   
-  def initialize(file_path)
-    # @game_teams_path = file_path
-    # @game_teams_path = CSV.read(locations[:game_teams], headers: true, skip_blanks: true, header_converters: :symbol)
-    @game_id = file_path[:game_id]
-    # @team_id = row[:team_id]
-    # @HoA = row[:HoA]
-    # @result = row[:result]
-    # @head_coach = row[:head_coach]
-    # @goals = row[:goals]
-    # @shots = row[:shots]
-    # @tackles = row[:tackles]
+  def initialize(file_path, file_path2, file_path3)
+    @game_path = file_path2
+    @game_teams_path = file_path
+    @team_path = file_path3
   end
 
   def average_goals_by_team_hash #HELPER for best and worst offense methods
@@ -58,11 +51,100 @@ class GameTeams
 		average_home_goals_per_team
 	end
 
+  def highest_scoring_visitor #moved to gameteams
+		visitor_highest = visitor_scores_hash.max_by {|k,v| v }
+		@team_path.map do |team| 
+      if team[:team_id] == visitor_highest[0]
+        team[:teamname]
+      end
+    end.compact.pop
+	end
+
+  def lowest_scoring_visitor
+		visitor_lowest = visitor_scores_hash.min_by {|k,v| v}
+		  @team_path.map do |team| 
+        if team[:team_id] == visitor_lowest[0]
+          team[:teamname]
+        end
+    end.compact.pop
+	end
+
+  def highest_scoring_home_team
+    home_highest = home_scores_hash.max_by { |k, v| v }
+      @team_path.map do |team|
+        if team[:team_id] == home_highest[0]
+          team[:teamname]
+        end
+    end.compact.pop
+  end
+
+  def lowest_scoring_home_team
+		home_lowest = home_scores_hash.min_by {|k,v| v}
+		  @team_path.map do |team| 
+        if team[:team_id] == home_lowest[0]
+          team[:teamname]
+        end
+    end.compact.pop
+	end
+
   def games_by_game_id
     #memoization this @games_by_game_id ||= [everything below]
     @games_by_game_id ||= @game_teams_path.group_by do |row| 
       row[:game_id]
     end
+  end
+
+  def game_ids_by_season(season_id)
+    games_by_season[season_id].map do |games|
+      games[:game_id]
+    end
+  end
+
+  def most_tackles(season_id)
+    team_tackles = teams_with_tackles(game_ids_by_season(season_id))
+    team_tackles.each do |team, tackles| 
+      team_tackles[team] = tackles.sum
+    end
+
+    team_with_most_tackles = @team_path.find do |row| 
+      if row[:team_id] == team_tackles.invert[team_tackles.invert.keys.max] 
+        row[:teamname]
+      end
+    end
+    team_with_most_tackles[:teamname]
+  end
+
+  def fewest_tackles(season_id)
+    team_tackles = teams_with_tackles(game_ids_by_season(season_id))
+    team_tackles.each do |team, tackles| 
+      team_tackles[team] = tackles.sum
+    end
+
+    team_with_fewest_tackles = @team_path.find do |row| 
+      if row[:team_id] == team_tackles.invert[team_tackles.invert.keys.min] 
+        row[:teamname]
+      end
+    end
+    team_with_fewest_tackles[:teamname]
+  end
+
+  def teams_with_tackles(games_array) #HELPER for most and fewest tackles
+    hash = Hash.new{|k,v| k[v] = []}
+    games_array.each do |game_id|
+    next if games_by_game_id[game_id].nil?
+      games_by_game_id[game_id].each do |game|
+        hash[game[:team_id]] << game[:tackles].to_i
+      end
+    end
+      hash
+  end
+
+  def most_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].max
+  end
+
+  def fewest_goals_scored(team_id)
+    all_scores_by_team[team_id.to_s].min
   end
 
   def all_scores_by_team #HELPER for most and fewest goals scored by
@@ -73,10 +155,61 @@ class GameTeams
     hash
   end
 
+  
+
+  def get_ratios_by_season_id(season_id)
+    merged_hash = team_shots_by_season(season_id).merge(team_goals_by_season(season_id)) {|key, old_val, new_val| new_val.sum / old_val.sum.to_f}
+  end
+
+  def most_accurate_team(season_id) 
+    most_good = get_ratios_by_season_id(season_id).max_by{|k,v| v}
+    winner = @team_path.find do |row| 
+      row[:team_id] == most_good[0]
+    end
+    winner = winner[:teamname]
+  end
+
+  def least_accurate_team(season_id) 
+    least_good = get_ratios_by_season_id(season_id).min_by{|k,v| v}
+    loser = @team_path.find do |row| 
+      row[:team_id] == least_good[0]
+    end
+    loser = loser[:teamname]
+  end
+
+  def team_shots_by_season(season_id)
+    hash = Hash.new{|k,v| k[v] = []}
+    game_ids_by_season(season_id).each do |game_id| 
+        games_by_game_id.each do |id, game| 
+          if id == game_id 
+            game.each do |row|
+          hash[row[:team_id]] << row[:shots].to_i
+          end
+        end
+      end
+    end
+    hash
+  end
+
+  def team_goals_by_season(season_id)
+    hash = Hash.new{|k,v| k[v] = []}
+    game_ids_by_season(season_id).each do |game_id| 
+        games_by_game_id.each do |id, game| 
+          if id == game_id 
+            game.each do |row|
+          hash[row[:team_id]] << row[:goals].to_i
+          end
+        end
+      end
+    end
+    hash
+  end
+
   def teams_by_id
     @game_teams_path.group_by do |row|
       row[:team_id]
     end
+    require 'pry'; binding.pry
   end
 
   def pair_teams_with_results(team_id)
