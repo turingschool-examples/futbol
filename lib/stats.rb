@@ -1,9 +1,11 @@
 class Stats
+            attr_reader :games, 
+                        :teams, 
+                        :game_teams
 
     def initialize(locations)
-        @games = CSV.open(locations[:games], headers: true).map { |info| Game.new(info) }
-        @teams = CSV.open(locations[:teams], headers: true).map { |info| Team.new(info) }
-        @game_teams = CSV.open(locations[:game_teams], headers: true).map { |info| GameTeam.new(info) }
-        require 'pry'; binding.pry
+        @games = CSV.foreach(locations[:games], headers: true).map { |info| Game.new(info) }
+        @teams = CSV.foreach(locations[:teams], headers: true).map { |info| Team.new(info) }
+        @game_teams = CSV.foreach(locations[:game_teams], headers: true).map { |info| GameTeam.new(info) }
     end
 end
