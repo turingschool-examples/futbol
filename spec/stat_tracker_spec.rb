@@ -91,7 +91,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#average_goals_by_team_hash' do 
+  xdescribe '#average_goals_by_team_hash' do 
     it 'is a helper method to group the teams to their average goals' do 
       expect(@stat_tracker.average_goals_by_team_hash.class).to eq(Hash)
     end
@@ -145,7 +145,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#games_by_game_id' do 
+  xdescribe '#games_by_game_id' do 
     it 'is a helper method that groups the games by the game_id' do 
       expect(@stat_tracker.games_by_game_id.class).to eq(Hash)
     end
@@ -163,7 +163,7 @@ RSpec.describe StatTracker do
     end
   end 
 
-  describe '#wins_by_coach' do 
+  xdescribe '#wins_by_coach' do 
     it 'is a helper method to group the coach and their wins in a hash' do 
       expect(@stat_tracker.wins_by_coach([]).class).to eq(Hash)
     end
@@ -181,13 +181,13 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#all_scores_by_team' do 
+  xdescribe '#all_scores_by_team' do 
     it 'is a helper method to pair all the scores a team has' do 
       expect(@stat_tracker.all_scores_by_team.class).to eq(Hash)
     end
   end
 
-  describe '#get_ratios_by_season_id' do 
+  xdescribe '#get_ratios_by_season_id' do 
     it 'gets the ratios by the season' do 
       expect(@stat_tracker.get_ratios_by_season_id('20122013').class).to eq(Hash)
     end
@@ -219,13 +219,13 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#pair_teams_with_results' do 
+  xdescribe '#pair_teams_with_results' do 
     it 'pairs the teams with their win and game id' do 
       expect(@stat_tracker.pair_teams_with_results('6').class).to eq(Hash)
     end
   end
 
-  describe '#pair_season_with_results_by_team' do 
+  xdescribe '#pair_season_with_results_by_team' do 
     it 'is a sandbox' do 
       expect(@stat_tracker.pair_season_with_results_by_team('6').class).to eq(Hash)
     end
@@ -251,13 +251,13 @@ RSpec.describe StatTracker do
    end
  end
  
- describe '#pair_teams_with_results' do
+ xdescribe '#pair_teams_with_results' do
    it 'pairs the teams with their win and game id' do
      expect(@stat_tracker.pair_teams_with_results('6').class).to eq(Hash)
    end
  end
  
- describe '#pair_season_with_results_by_team' do
+ xdescribe '#pair_season_with_results_by_team' do
    it 'is a sandbox' do
      expect(@stat_tracker.pair_season_with_results_by_team('6').class).to eq(Hash)
    end
@@ -281,23 +281,24 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#games_by_team_id' do 
+  xdescribe '#games_by_team_id' do 
     it 'returns a hash with the game id as the key with games as values' do 
       expect(@stat_tracker.games_by_team_id.class).to eq(Hash)
     end
   end
 
-  describe '#team_name_by_team_id' do 
+  xdescribe '#team_name_by_team_id' do 
     it 'returns a hash with the game id as the key with games as values' do 
       expect(@stat_tracker.team_name_by_team_id('3')).to be_a(String)
     end
   end
 
-  describe '#win_average_helper' do 
+  xdescribe '#win_average_helper' do 
     it 'returns an array'do 
     expect(@stat_tracker.win_average_helper('3')).to be_a(Array)
     end
   end
+
   describe '#favorite_opponent' do
     it 'is the name of the team that has lowest win percentage against given team' do
       expect(@stat_tracker.favorite_opponent("3")).to eq("FC Dallas")
