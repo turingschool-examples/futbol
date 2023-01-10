@@ -134,13 +134,6 @@ describe StatTracker do
     end
   end
 
-  xdescribe '#find_by_team_id' do
-    it 'returns the NAME of the team based on the ID' do
-      expect(stat_tracker.find_team_by_id["4"]).to be_a(CSV::Row)
-      # It is returning a CSV row even though the test fails.
-    end
-  end
-
 	describe '#favorite_opponent' do
 		it 'names of opponent that has lowest win % against given team' do
 			expect(stat_tracker.favorite_opponent(52)).to eq("Chicago Red Stars")
