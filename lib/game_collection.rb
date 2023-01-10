@@ -1,3 +1,4 @@
+require 'csv'
 require_relative '../lib/game'
 
 class GameCollection
@@ -17,8 +18,14 @@ class GameCollection
   end
 
 	def game_ids_by_season
-    game_ids_by_season ||= @games_games.group_by do |game|
-      game.season
+    game_ids_by_season = Hash.new{|k,v| k[v] = []} 
+		@games_array.each do |game|
+			game_ids_by_season[(game.season)] << (game.game_id)
     end
+		game_ids_by_season
   end
+
+	
+
+
 end
