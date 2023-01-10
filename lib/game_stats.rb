@@ -56,24 +56,15 @@ class GameStats
   end
 
 	def average_goals_by_season
-		season_avg_scores = {}
-		all_game_scores_by_season.each do |k, v|
-			season_avg_scores[k.to_s] = (v.reduce(&:+) / (v.size.to_f) * 2).round(2)
-		end
-		season_avg_scores
-	end
-
-## Helpers
-
-	def all_game_scores_by_season
 		season_total_scores = Hash.new {|k, v| k[v] = []}
-		@games.each do |game|
-			season_total_scores[game.info[:season]] << game.info[:home_goals].to_i
-			season_total_scores[game.info[:season]] << game.info[:away_goals].to_i
+		games_played_by_season.each do |season, games|
+			sum_of_goals = games.sum { |game| game.info[:home_goals] + game.info[:away_goals] }
+			season_total_scores[season.to_s] = (sum_of_goals/games.count.to_f).round(2)
 		end
 		season_total_scores
 	end
-
+	
+	## Helpers
 	def total_scores
 		@games.map do |game|
 			game.info[:away_goals].to_i + game.info[:home_goals].to_i
