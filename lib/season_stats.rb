@@ -1,6 +1,8 @@
 require './lib/stats'
+require './lib/seasonable'
 
 class SeasonStats < Stats
+  include Seasonable
 
   def initialize(locations)
     super(locations)
@@ -105,16 +107,16 @@ class SeasonStats < Stats
 
   #### BELOW : shared methods by most/least accurate & most/fewest tackles
 
-  def all_games_by_season
-    @all_games_by_season ||= @games.group_by { |game| game.season } 
-  end
+  # def all_games_by_season
+  #   @all_games_by_season ||= @games.group_by { |game| game.season } 
+  # end
 
 
-  def team_name(id)
-    @teams.each do |team|
-        return team.team_name if team.team_id == id 
-    end
-  end
+  # def team_name(id)
+  #   @teams.each do |team|
+  #       return team.team_name if team.team_id == id 
+  #   end
+  # end
 
   #####
 
@@ -130,16 +132,6 @@ class SeasonStats < Stats
     team_name(id)
   end
 
-  # def team_name(id)
-  #   @teams.each do |team|
-  #       return team.team_name if team.team_id == id 
-  #   end
-  # end
-
-  # def all_games_by_season
-  #   @games.group_by { |game| game[:season] } 
-  # end
-
   def gather_tackles_by_team(season)
     team_tackle_hash = Hash.new { |hash, key| hash[key] = 0 }
     @game_teams.each do |info_line|
@@ -151,19 +143,4 @@ class SeasonStats < Stats
     end
     return team_tackle_hash.sort_by {|key, value| value}
   end
-
 end
-
-
-# CREATE FIRST AN OBJECT OF SEASON THAT IS FOR EACH SEASON, ALL OF THE STATISTICS 
-
-# winningest_coach	Name of the Coach with the best win percentage for the season	String
-# worst_coach	Name of the Coach with the worst win percentage for the season	String
-# most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
-# least_accurate_team	Name of the Team with the worst ratio of shots to goals for the season	String
-# most_tackles	Name of the Team with the most tackles in the season	String
-# fewest_tackles	Name of the Team with the fewest tackles in the season	String
-
-# STAGE 2: 
-
-# FINDING COMMON METHODS BETWEEN SEASON AND TEAM, LEAGUE, GAME THAT WE CAN PUT INTO A MODULE. 

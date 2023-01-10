@@ -96,54 +96,71 @@ class StatTracker
    ################## Season Statisics ##################
 
   def winningest_coach(season)
+    stat_tracker.winningest_coach(season)
   end 
 
   def worst_coach(season)
+    stat_tracker.worst_coach(season)
   end 
 
   def determine_coach_ratios(season)
+    stat_tracker.determine_coach_ratios(season)
   end 
 
   def list_gameteams_from_particular_season(season)
+    stat_tracker.list_gameteams_from_particular_season(season)
   end 
 
   def list_games_per_season(season)
+    stat_tracker.list_games_per_season(season)
   end
 
   def coach_victory_percentage_hash(games_in_season)
+    stat_tracker.coach_victory_percentage_hash(games_in_season)
   end 
 
   def determine_sorted_ratio(hash)
+    stat_tracker.determine_sorted_ratio(hash)
   end
 
   def most_accurate_team(season)
+    stat_tracker.most_accurate_team(season)
   end
 
   def least_accurate_team(season)
+    stat_tracker.least_accurate_team(season)
   end
 
   def all_games_by_season
+    stat_tracker.all_games_by_season
   end
 
   def team_goals_shots_by_season(season)
+    stat_tracker.team_goals_shots_by_season(season)
   end
 
   def team_ratios_by_season(hash)
+    stat_tracker.team_ratios_by_season(hash)
   end
 
   def team_name(id)
+    stat_tracker.team_name(id)
   end
 
   def most_tackles(season)
+    stat_tracker.most_tackles(season)
   end
 
   def fewest_tackles(season)
+    stat_tracker.fewest_tackles(season)
   end
 
   def all_games_by_season
+    stat_tracker.all_games_by_season
   end
 
   def gather_tackles_by_team(season)
+    stat_tracker.gather_tackles_by_team(season)
   end
 
  ################## Team Statisics ##################

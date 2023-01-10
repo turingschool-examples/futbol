@@ -9,6 +9,7 @@ require './lib/obj_gameteam'
 require './lib/obj_team'
 require './lib/statistics_module'
 require './lib/stats'
+require './lib/seasonable'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
