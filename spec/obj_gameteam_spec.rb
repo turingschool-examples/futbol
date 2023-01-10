@@ -17,7 +17,6 @@ RSpec.describe GameTeam do
   
   describe "#initialize" do
     it "exists" do
-      require 'pry'; binding.pry
     expect(game_team).to be_instance_of(GameTeam)
     end 
 
