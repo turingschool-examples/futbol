@@ -162,19 +162,19 @@ module Helpable
     all_games.map { |game| game.game_id }
   end
 
-  def opponents_win_results(team_id)
-    opponents_wins = Hash.new{ |h,v| h[v] = [] }
+  def opponents_match_results(team_id)
+    opponents_results = Hash.new{ |h,v| h[v] = [] }
     find_game_id_arr(team_id).each do |game_id|
       game_teams.each do |game_team|
-        opponents_wins[game_team.team_id] << game_team.result if 
+        opponents_results[game_team.team_id] << game_team.result if 
         game_team.game_id == game_id && game_team.team_id != team_id
       end
     end
-    opponents_wins
+    opponents_results
   end
 
   def opponents_win_percentage(team_id)
-    opponents_wins = opponents_win_results(team_id)
+    opponents_wins = opponents_match_results(team_id)
     opponents_wins.each do |team_id, result_array|
       percent = result_array.count("WIN").to_f / result_array.size
       opponents_wins[team_id] = percent

@@ -284,20 +284,14 @@ describe StatTracker do
       expect(stat_tracker.tie_games).to eq(6)
     end
 
-    describe '#team_score_averages' do
-      it 'can calculate #team_score_averages array length' do
-        expect(stat_tracker.team_score_averages.length).to eq(31)
-      end
-
-      #Refactor
-      it 'can return #team_score_averages array' do
-        expected_array = [["5", 0.5], ["8", 1.3333], ["53", 1.5], ["26", 1.6], ["22", 1.6667],
-        ["18", 1.75], ["21", 1.75], ["10", 2.0], ["2", 2.0], ["30", 2.0], ["17", 2.0], ["28", 2.0],
-        ["27", 2.0], ["1", 2.0], ["20", 2.0], ["15", 2.2], ["52", 2.2], ["6", 2.25], ["13", 2.3333],
-        ["12", 2.3333], ["3", 2.5], ["9", 2.5], ["25", 2.5], ["19", 2.6667], ["16", 2.75],
-        ["24", 2.8], ["14", 2.8571], ["23", 3.0], ["29", 3.0], ["7", 3.0], ["4", 3.3333]]
-        expect(stat_tracker.team_score_averages).to eq(expected_array)
-      end
+    it 'can return #team_score_averages array' do
+      expected_array = [["5", 0.5], ["8", 1.3333], ["53", 1.5], ["26", 1.6], ["22", 1.6667],
+      ["18", 1.75], ["21", 1.75], ["10", 2.0], ["2", 2.0], ["30", 2.0], ["17", 2.0], ["28", 2.0],
+      ["27", 2.0], ["1", 2.0], ["20", 2.0], ["15", 2.2], ["52", 2.2], ["6", 2.25], ["13", 2.3333],
+      ["12", 2.3333], ["3", 2.5], ["9", 2.5], ["25", 2.5], ["19", 2.6667], ["16", 2.75],
+      ["24", 2.8], ["14", 2.8571], ["23", 3.0], ["29", 3.0], ["7", 3.0], ["4", 3.3333]]
+      expect(stat_tracker.team_score_averages).to eq(expected_array)
+      expect(stat_tracker.team_score_averages.length).to eq(31)
     end
     
     it '#visitor_score_averages' do
@@ -346,6 +340,23 @@ describe StatTracker do
     it 'can #find_game_id_arr(team_id)' do
       expected_arr = ["2012030311", "2012030312", "2012030313", "2012030314"]
       expect(stat_tracker.find_game_id_arr("5")).to eq(expected_arr)
+    end
+
+    it 'can show #opponents_match_results(team_id)' do
+      expect(stat_tracker.opponents_match_results("6")).to eq({
+        "3"=>["LOSS", "LOSS", "LOSS", "LOSS", "LOSS"],
+        "5"=>["LOSS", "LOSS", "LOSS", "LOSS"]
+      })
+      expect(stat_tracker4.opponents_match_results("17")).to eq({
+        "16"=>["WIN"],
+        "19"=>["WIN", "TIE", "LOSS"],
+        "20"=>["WIN"],
+        "22"=>["LOSS"],
+        "25"=>["WIN", "LOSS"],
+        "26"=>["LOSS"],
+        "29"=>["TIE", "TIE"],
+        "30"=>["TIE"]
+      })
     end
 
     it 'can give #opponents_win_percentage(team_id) array of arrays' do
