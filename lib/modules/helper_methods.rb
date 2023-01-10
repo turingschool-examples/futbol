@@ -121,14 +121,6 @@ module Helpable
     game_scores.sort
   end
 
-  def most_goals_scored(teamid)
-    goals_scored_sorted(teamid).last
-  end
-
-  def fewest_goals_scored(teamid)
-    goals_scored_sorted(teamid).first
-  end
-
   def find_team_id(team_id)
     teams.find do |team|
       team.team_id == team_id
