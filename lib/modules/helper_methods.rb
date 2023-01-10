@@ -51,21 +51,18 @@ module Helpable
     goal_average_hash.sort_by{|key, value| value}
   end
 
-  def score_averages(away_or_home)
+  def team_id_and_score_array_hash(away_or_home)
     team_id_hash = Hash.new{|h,v| h[v] = []}
-    if away_or_home == :away
-      games.each do |game|
-        team_id_hash[game.away_team_id] << game.away_goals.to_f
-      end
-    end
-    if away_or_home == :home
-      games.each do |game|
-        team_id_hash[game.home_team_id] << game.home_goals.to_f
-      end
-    end
+    games.each { |game| team_id_hash[game.away_team_id] << game.away_goals.to_f } if 
+      away_or_home == :away
+    games.each { |game| team_id_hash[game.home_team_id] << game.home_goals.to_f } if 
+      away_or_home == :home
+      team_id_hash
+  end
 
+  def score_averages(away_or_home)
     average_hash = Hash.new
-    team_id_hash.each do |team_id, score_array|
+    team_id_and_score_array_hash(away_or_home).each do |team_id, score_array|
       average_hash[team_id] = (score_array.sum / score_array.size).round(4)
     end
     average_hash.sort_by{|key, value| value}
