@@ -10,7 +10,7 @@ describe LeagueStats do
     @games = Game.create_games(games_path)
   end
 
-  let(:league_stat) { LeagueStats.new(@game_teams, @teams, @games) }
+  let(:league_stat) { LeagueStats.new(@games, @game_teams, @teams) }
 
   describe '' do
     it 'exists' do

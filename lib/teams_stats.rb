@@ -21,11 +21,11 @@ class TeamStats
       'link' => nil
     }
 
-    find_team_by_id[team_id].each do |team|
-      x = 0
+    find_team_by_id[team_id.to_i].each do |team|
+    hash_index = 0
       team_hash.each do |info, value|
-        team_hash[info] = team.info.values[x]
-        x += 1
+        team_hash[info] = team.info.values[hash_index].to_s
+        hash_index += 1
       end
     end
     team_hash.delete('stadium')
@@ -59,19 +59,19 @@ class TeamStats
   end
 
   def most_goals_scored(team_id)
-		all_game_scores_by_team[team_id].max
+		all_game_scores_by_team[team_id.to_i].max
 	end
 	
 	def fewest_goals_scored(team_id)
-		all_game_scores_by_team[team_id].min
+		all_game_scores_by_team[team_id.to_i].min
 	end
 
 	def rival(team_id)
-		win_or_loss(team_id, 'WIN')
+		win_or_loss(team_id.to_i, 'WIN')
 	end
 
 	def favorite_opponent(team_id)
-		win_or_loss(team_id, 'LOSS')
+		win_or_loss(team_id.to_i, 'LOSS')
 	end
 
   ##HELPERS
@@ -88,7 +88,7 @@ class TeamStats
 		opponent_games = games_of_opposite_team(team_id)
 		opponent_results = opponent_game_results(opponent_games)
 		opponent_results.each do |k,v|
-			opponent_results[k] = (v.count(win_loss_string).to_f / v.count).round(2)
+			opponent_results[k] = (v.count(win_loss_string).to_f / v.count)
 		end
 		team_id = opponent_results.key(opponent_results.values.max)
 		team_name_by_id(team_id)
