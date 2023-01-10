@@ -1,24 +1,21 @@
 require_relative "./spec_helper"
 
 RSpec.describe GameRepo do
-    before do
-        info = {
-            game_id: '2012030314',
-            season: '20122013',
-            type: 'Postseason',
-            date_time: '6/8/13',
-            away_team_id: '5',
-            home_team_id: '6',
-            away_goals: 0,
-            home_goals: 1,
-            venue: 'Toyota Stadium',
-            venue_link: '/api/v1/venues/null'
+    before(:each) do
+        game_path = './data/games_sample.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/game_teams_sample.csv'
+    
+        locations = {
+          games: game_path,
+          teams: team_path,
+          game_teams: game_teams_path
         }
-        @game = GameRepo.new(info)
     end
 
+    @game = GameRepo.new(game_path)
 
-  describe "helpers" do
+    describe "helpers" do
         it " has game total scores" do 
             expect(@game.game_total_score).to eq 1
         end

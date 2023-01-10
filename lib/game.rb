@@ -24,4 +24,12 @@ class Game
         @venue = info[:venue]
         @venue_link = info[:venue_link]
     end
+    
+    def self.read_file(games_path)
+        games = []
+        CSV.foreach(games_path, headers: true, header_converters: :symbol) do |info|
+            games << Game.new(info)
+        end
+        games
+    end
 end

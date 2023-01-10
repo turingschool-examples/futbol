@@ -1,4 +1,4 @@
-require_relative 'array_generator'
+# require_relative 'array_generator'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
@@ -8,16 +8,16 @@ class GameRepo
   attr_reader :games
 
   def initialize(game_path)
-    @games = create_games_array(games_path)
+    @games = Game.read_file(game_path[:game])
   end
 
-  def create_games_array(games_path)
-    games = []
-    CSV.foreach(games_path, headers: true, header_converters: :symbol) do |info|
-        games << Game.new(info)
-    end
-    games
-end
+#   def create_games_array(games_path)
+#     games = []
+#     CSV.foreach(games_path, headers: true, header_converters: :symbol) do |info|
+#         games << Game.new(info)
+#     end
+#     games
+# end
 
 
   def game_total_score
