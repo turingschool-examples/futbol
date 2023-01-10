@@ -1,6 +1,7 @@
-require './lib/games'
-require './lib/game_teams'
-require './lib/teams'
+# require './lib/games'
+# require './lib/game_teams'
+# require './lib/team'
+require './spec/spec_helper'
 
 class Stats
   attr_reader :games,
