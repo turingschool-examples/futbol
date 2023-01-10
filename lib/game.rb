@@ -1,5 +1,3 @@
-require_relative 'array_generator'
-
 class Game
     attr_reader :game_id,
                 :season,
@@ -24,35 +22,12 @@ class Game
         @venue = info[:venue]
         @venue_link = info[:venue_link]
     end
-
-    def game_total_score
-        # games.map { |game| game[:away_goals] + game[:home_goals] } 
-        @away_goals + @home_goals
-    end
-
-    def home_wins
-        total_home_wins = 0
-        if @away_goals < @home_goals
-            total_home_wins += 1
+    
+    def self.read_file(games_path)
+        games = CSV.read(games_path, headers: true, header_converters: :symbol)
+        
+        games.map do |game|
+            new(game)
         end
     end
-
-    def visitor_wins
-        total_visitor_wins = 0
-        if @away_goals > @home_goals
-            total_visitor_wins += 1
-        elsif @away_goals < @home_goals || @away_goals == @home_goals
-            total_visitor_wins += 0
-        end
-    end
-
-    def game_ties
-        total_ties = 0
-        if @away_goals == @home_goals
-            total_ties += 1
-        elsif @away_goals != @home_goals
-            total_ties += 0
-        end
-    end
-
 end

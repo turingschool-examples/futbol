@@ -36,22 +36,22 @@ RSpec.describe Game do
         end
     end
 
-    describe "helpers" do
-        it " has game total scores" do 
-            expect(@game.game_total_score).to eq 1
-        end
+    # describe "helpers" do
+    #     it " has game total scores" do 
+    #         expect(@game.game_total_score).to eq 1
+    #     end
 
-        it "#home_wins" do
-            expect(@game.home_wins).to eq(1)
-        end
+    #     it "#home_wins" do
+    #         expect(@game.home_wins).to eq(1)
+    #     end
 
-        it "#visitor_wins" do
-            expect(@game.visitor_wins).to eq(0)
-        end
+    #     it "#visitor_wins" do
+    #         expect(@game.visitor_wins).to eq(0)
+    #     end
 
-        it "#game_ties" do
-            expect(@game.game_ties).to eq(0)
-        end
-    end
+    #     it "#game_ties" do
+    #         expect(@game.game_ties).to eq(0)
+    #     end
+    # end
 end
 

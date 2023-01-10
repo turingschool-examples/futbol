@@ -1,8 +1,10 @@
 require "csv"
-require_relative "array_generator"
+# require_relative "array_generator"
+require_relative "game"
+require_relative "game_repo"
 
 class StatTracker
-    include ArrayGenerator
+    # include ArrayGenerator
 
     attr_reader :games,
                 :teams,
