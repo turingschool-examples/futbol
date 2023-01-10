@@ -1,3 +1,5 @@
+require_relative 'array_generator'
+
 class GameTeam
     attr_reader :game_id,
                 :team_id,
@@ -13,7 +15,7 @@ class GameTeam
                 :power_play_goals,
                 :face_off_win_percentage,
                 :giveaways,
-                :tackles
+                :takeaways
 
     def initialize(info)
         @game_id = info[:game_id]

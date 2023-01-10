@@ -1,3 +1,5 @@
+require_relative 'array_generator'
+
 class Team
     attr_reader :team_id,
                 :franchise_id,

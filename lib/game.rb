@@ -1,3 +1,5 @@
+require_relative 'array_generator'
+
 class Game
     attr_reader :game_id,
                 :season,
@@ -23,12 +25,3 @@ class Game
         @venue_link = info[:venue_link]
     end
 end
-
-# correspond with the csv files 
-
-
-# game.csv: need method that sorts info by away & home teamID
-# group_by game ID number - put info into a hash
-# add scores from away_goals & home_goals
-# use max_by and min_by enumerables to find the winning and losing teams
-# highest_total_score is the highest sum of winning & losing teams scores
