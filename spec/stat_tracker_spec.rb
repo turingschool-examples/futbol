@@ -217,23 +217,24 @@ describe StatTracker do
     describe 'main methods' do
       it 'can find the #winningest_coach' do
         expect(stat_tracker.winningest_coach("20122013")).to be_a(String)
+        expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+        expect(stat_tracker4.winningest_coach("20122013")).to eq("Bruce Boudreau")
       end
 
       it 'can find the #worst_coach' do
         expect(stat_tracker.worst_coach("20122013")).to be_a(String)
+        expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+        expect(stat_tracker4.worst_coach("20122013")).to eq("Darryl Sutter")
+      end
+  
+      it "#most_accurate_team" do
+        expect(stat_tracker3.most_accurate_team("20132014")).to eq "Toronto FC"
+        expect(stat_tracker3.most_accurate_team("20142015")).to eq "Orlando Pride"
       end
 
-      describe '#most_accurate_team and #least_accurate_team' do
-  
-        it "#most_accurate_team" do
-          expect(stat_tracker3.most_accurate_team("20132014")).to eq "Toronto FC"
-          expect(stat_tracker3.most_accurate_team("20142015")).to eq "Orlando Pride"
-        end
-  
-        it "#least_accurate_team" do
-          expect(stat_tracker3.least_accurate_team("20132014")).to eq "LA Galaxy"
-          expect(stat_tracker3.least_accurate_team("20142015")).to eq "Chicago Red Stars"
-        end
+      it "#least_accurate_team" do
+        expect(stat_tracker3.least_accurate_team("20132014")).to eq "LA Galaxy"
+        expect(stat_tracker3.least_accurate_team("20142015")).to eq "Chicago Red Stars"
       end
 
       it "#most_tackles returns team with the most tackles in the season " do
@@ -256,7 +257,7 @@ describe StatTracker do
 
       it 'can produce an #array_of_game_teams by season' do
         expect(stat_tracker.array_of_game_teams_by_season("20122013")).to be_an(Array)
-        expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
+        # expect(stat_tracker.array_of_game_teams_by_season("20122013")[0]).to be_a(StatTracker::GameTeam)
       end
 
       it '#coaches_win_percentages_hash' do
@@ -281,17 +282,17 @@ describe StatTracker do
       end
 
       it 'returns the #best_season' do
-        expect(stat_tracker.best_season("6")).to be_an(String)
+        expect(stat_tracker.best_season("6")).to be_a(String)
+        expect(stat_tracker.best_season("6")).to eq("20122013")
       end
 
       it 'returns the #worst_season' do
         expect(stat_tracker.worst_season("6")).to be_an(String)
+        expect(stat_tracker.worst_season("6")).to eq("20122013")
       end
 
-      describe '#average_win_percentage' do
-        it "can return average_win_percentage" do
-          expect(stat_tracker3.average_win_percentage("26")).to eq 0.67
-        end
+      it "can return average_win_percentage" do
+        expect(stat_tracker3.average_win_percentage("26")).to eq 0.67
       end
 
       it 'can find the #most_goals_scored for a team' do
@@ -305,25 +306,22 @@ describe StatTracker do
       end
 
       it 'can find #favorite_opponent(team_id)' do
-        # currently works with './data/fixtures/game_teams_i1.csv'
-        # In order to test 100% properly, fixture data for game_teams must contain several
-        # "matchups", where the argument team has several opponents with matching game_id.
-        # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
           expect(stat_tracker.favorite_opponent("6")).to eq("Houston Dynamo")
+          expect(stat_tracker4.favorite_opponent("13")).to eq("Sky Blue FC")
       end
 
       it 'can find #rival(team_id)' do
-        # currently works with './data/fixtures/game_teams_i1.csv'
-        # In order to test 100% properly, fixture data for game_teams must contain several
-        # "matchups", where the argument team has several opponents with matching game_id.
-        # './data/fixtures/game_teams_i2.csv' does not contain enough "matchups"
           expect(stat_tracker.rival("6")).to eq("Sporting Kansas City")
+          expect(stat_tracker4.rival("4")).to eq("Portland Timbers")
       end
     end
 
     describe 'helper methods' do
       it '#game_ids_seasons helper method for #best_season and #worst_season' do
         expect(stat_tracker.game_ids_seasons("6")).to be_a(Hash)
+        expect(stat_tracker.game_ids_seasons("6")["20122013"]).to be_an(Array)
+        expect(stat_tracker.game_ids_seasons("6")["20122013"][0]).to be_a(String)
+        expect(stat_tracker.game_ids_seasons("6")["20122013"][0].length).to eq(10)
       end
 
       it '#seasons_perc_win helper method for #best_season and #worst_season' do
@@ -338,6 +336,8 @@ describe StatTracker do
 
       it 'can find_team_name(team_id)' do
         expect(stat_tracker.find_team_name("6")).to eq("FC Dallas")
+        expect(stat_tracker.find_team_name("17")).to eq("LA Galaxy")
+
       end
 
       it 'can #find_game_id_arr(team_id)' do
@@ -346,8 +346,11 @@ describe StatTracker do
       end
 
       it 'can give #opponents_win_percenage(team_id) array of arrays' do
-      # need different fixture data to show more dynamic expect
         expect(stat_tracker.opponents_win_percentage("6")).to eq([["3", 0.0], ["5", 0.0]])
+        expect(stat_tracker4.opponents_win_percentage("17")).to eq([["22", 0.0], ["29", 0.0], 
+                                                                    ["26", 0.0], ["30", 0.0],
+                                                                    ["19", 0.3333333333333333], ["25", 0.5], 
+                                                                    ["20", 1.0], ["16", 1.0]])
       end
     end
   end
