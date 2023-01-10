@@ -50,7 +50,7 @@ class SeasonStats
 	end
 
   ##HELPERS
-  
+ 
 	def season_team_tackles(season_id)
 		array_of_game_ids = game_ids_for_season(season_id)
 		team_tackles_hash = tackles_by_team_id(array_of_game_ids)
@@ -97,7 +97,7 @@ class SeasonStats
 		game_ids = game_ids_for_season(season_id)
 		coach_game_results = coach_game_results_by_game(game_ids)
 		coach_game_results.each do |coach, results|
-			coach_game_results[coach] = (results.count('WIN') / (results.count).to_f )
+			coach_game_results[coach] = (results.count('WIN') / (results.count).to_f)
     end
   end
 end

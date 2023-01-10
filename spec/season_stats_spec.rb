@@ -95,13 +95,12 @@ describe SeasonStats do
     end
 
     describe '#win_percentage_by_coach' do
-      it 'returns a hash' do
+      it 'returns a hash with coachs as keys and win/loss ' do
         allow(stat).to receive(:game_ids_for_season).and_return([2016021174, 2016021218, 2016020499, 2016020056])
         expect(stat.win_percentage_by_coach(20142015)).to eq(
           {"Barry Trotz"=>0.0, "Gerard Gallant"=>0.0, "Glen Gulutzan"=>1.0, "Guy Boucher"=>1.0, 
           "Randy Carlyle"=>0.0, "Todd McLellan"=>1.0, "Willie Desjardins"=>0.0})
       end
-
     end
   end
 end
