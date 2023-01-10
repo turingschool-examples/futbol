@@ -21,7 +21,7 @@ module ArrayGenerator
 
     def create_game_teams_array(game_teams_path)
         game_teams = []
-        CSV.foreach(game_team_path, headers: true, header_converters: :symbol) do |info|
+        CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |info|
             game_teams << GameTeam.new(info)
         end
         game_teams
