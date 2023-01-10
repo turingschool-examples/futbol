@@ -25,75 +25,27 @@ class StatTracker
   end
 
 	def percentage_home_wins
-		home_wins = []
-		games.each do |game|
-			if game[:home_goals].to_i > game[:away_goals].to_i
-				home_wins << game
-			end
-		end
-		(home_wins.count / games.count.to_f).round(2)
+		(@game_collection.home_wins.count / @game_collection.games_array.count.to_f).round(2)
 	end
 
 	def percentage_visitor_wins
-		# look for helper methods during refactor
-		visitor_wins = []
-		games.each do |game|
-			if game[:away_goals].to_i > game[:home_goals].to_i
-				visitor_wins << game
-			end
-		end
-		(visitor_wins.count / games.count.to_f).round(2)
+		(@game_collection.visitor_wins.count / @game_collection.games_array.count.to_f).round(2)
 	end
 
 	def percentage_ties
-		ties = []
-		games.each do |game|
-			if game[:away_goals].to_i == game[:home_goals].to_i
-				ties << game
-			end
-		end
-		(ties.count / games.count.to_f).round(2)
+		(@game_collection.ties.count / @game_collection.games_array.count.to_f).round(2)
 	end
 
   def count_of_games_by_season
-    count_of_games_by_season = Hash.new {0}
-
-    games[:season].each do |season|
-      count_of_games_by_season[season] += 1
-    end
-    
-    count_of_games_by_season
+    @game_collection.count_of_games
   end
 
   def average_goals_per_game
-    sums = []
-    i = 0
-    while i < games.count
-      sums << games[:away_goals][i].to_f + games[:home_goals][i].to_f
-      i += 1
-    end
-    total_average = (sums.sum/games.count).round(2)
+    @game_collection.average_goals_per_game
   end
 
   def average_goals_by_season
-    average_goals_by_season = Hash.new {0}
-    total_goals_by_season = Hash.new {0}
-		
-    i = 0
-    games[:season].each do |season|
-      if total_goals_by_season[season] == nil
-        total_goals_by_season[season] = games[:away_goals][i].to_f + games[:home_goals][i].to_f
-      else
-        total_goals_by_season[season] += games[:away_goals][i].to_f + games[:home_goals][i].to_f
-      end
-      i += 1
-			
-    end
-    total_goals_by_season.each do |season, total_goals|
-      average_goals_by_season[season] = (total_goals/count_of_games_by_season[season]).round(2)
-    end
-
-    average_goals_by_season
+    @game_collection.average_goals_by_season
   end
 
 	def team_away_goals_by_id
