@@ -387,5 +387,16 @@ describe StatTracker do
 
     end
 
+    it 'score_averages(away_or_home)' do
+      expect(stat_tracker.score_averages(:away)).to be_an(Array)
+      expect(stat_tracker.score_averages(:away).first).to eq(["26", 1.0])
+      expect(stat_tracker.score_averages(:home)).to be_a(Array)
+      expect(stat_tracker.score_averages(:home).first).to eq(["5", 0.0])
+    end
+
+    it 'team_id_and_score_array_hash(away_or_home)' do 
+
+    end
+
   end
 end
