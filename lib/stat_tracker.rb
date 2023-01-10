@@ -39,18 +39,6 @@ class StatTracker < DataFactory
       (tie_games.to_f / games.length).round(2)
     end
 
-    # def percentage_home_wins
-    #   (home_away_tie[0].to_f / games.length).round(2)
-    # end
-
-    # def percentage_visitor_wins
-    #   (home_away_tie[1].to_f / games.length).round(2)
-    # end
-
-    # def percentage_ties
-    #   (home_away_tie[2].to_f / games.length).round(2)
-    # end
-
     def count_of_games_by_season
       hash = {}
 
@@ -234,7 +222,7 @@ class StatTracker < DataFactory
   ## TEAM STATISTICS METHODS
     def team_info(team_id)
       hash = {}
-      team = find_team_id(team_id)
+      team = find_team_by_id(team_id)
       hash["team_id"] = team.team_id
       hash["franchise_id"] = team.franchise_id
       hash["team_name"] = team.team_name
