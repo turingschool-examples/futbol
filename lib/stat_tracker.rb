@@ -1,5 +1,5 @@
 require 'csv'
-
+require_relative './team_stats'
 require_relative './season_stats'
 require_relative './game_stats.rb'
 require_relative './league_stats.rb'
@@ -22,6 +22,10 @@ class StatTracker
   end
 
    ################## Game Statisics ##################
+
+  def initialize(locations)
+    @teamstats = TeamStats.new(locations)
+  end
 
   def highest_total_score
     @game_stats.highest_total_score
@@ -91,7 +95,6 @@ class StatTracker
 
   def lowest_scoring_home_team
     @league_stats.lowest_scoring_home_team
-
   end
 
    ################## Season Statisics ##################
@@ -120,6 +123,38 @@ class StatTracker
     season_stats.fewest_tackles(season)
   end
 
- ################## Team Statisics ##################
+  ################## Team Statisics ##################
  
+  def team_info(team_id)
+    teamstats.team_info("6")
+  end
+
+  def best_season(team_id)
+    teamstats.best_season(team_id)
+  end 
+
+  def worst_season(team_id)
+    teamstats.worst_season(team_id)
+  end
+
+  def most_goals_scored(team_id) 
+    teamstats.most_goals_scored(team_id) 
+  end
+
+  def fewest_goals_scored(team_id)
+    teamstats.fewest_goals_scored(team_id)
+  end 
+
+  def favorite_opponent(team_id)
+    teamstats.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    teamstats.rival(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    teamstats.average_win_percentage(team_id)
+  end
 end
+

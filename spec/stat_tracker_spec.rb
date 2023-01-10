@@ -13,8 +13,7 @@ RSpec.describe StatTracker do
     }
   end
   let(:stat_tracker) { StatTracker.from_csv(locations) }
-  let(:game_stats) { GameStats.new(locations) }
-  let(:league_stats) { LeagueStats.new(locations) }
+
   describe "#initialize" do
     it "exists" do 
       expect(stat_tracker).to be_instance_of(StatTracker)
@@ -141,7 +140,7 @@ RSpec.describe StatTracker do
         }
         
       stat_tracker = StatTracker.from_csv(locations) 
-
+        
       expect(stat_tracker.winningest_coach("20152016")).to eq("Ken Hitchcock")
       expect(stat_tracker.winningest_coach("20122013")).to eq("Alain Vigneault")
       expect(stat_tracker.winningest_coach("20172018")).to eq("Peter Laviolette").or(eq("Gerard Gallant")).or(eq("Paul Maurice"))
