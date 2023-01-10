@@ -333,11 +333,14 @@ describe StatTracker do
     end
 
     it '#find_team_id(team_id)' do 
-      
+      expect(stat_tracker.find_team_id("6")).to be_a(Team)
+      expect(stat_tracker.find_team_id("6").team_name).to eq("FC Dallas")
     end
 
     it '#team_ratio_hash(season)' do
-
+      ratio_hash = stat_tracker.team_ratio_hash("20122013")
+      expect(ratio_hash).to be_a(Hash)
+      expect(ratio_hash["17"]).to eq(0.2)
     end
 
     it 'can #find_game_id_arr(team_id)' do
