@@ -395,7 +395,10 @@ describe StatTracker do
     end
 
     it 'team_id_and_score_array_hash(away_or_home)' do 
-
+      expect(stat_tracker.team_id_and_score_array_hash(:away)).to be_a(Hash)
+      expect(stat_tracker.team_id_and_score_array_hash(:away)["6"]).to eq([3.0, 2.0, 3.0])
+      expect(stat_tracker.team_id_and_score_array_hash(:home)).to be_a(Hash)
+      expect(stat_tracker.team_id_and_score_array_hash(:home)["3"]).to eq([2.0, 3.0])
     end
 
   end
