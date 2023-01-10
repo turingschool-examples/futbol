@@ -101,21 +101,7 @@ class StatTracker < DataFactory
     end
 
     def worst_offense
-      sorted_avgs = team_score_averages
-      lowest_score = sorted_avgs.first[1]
-
-      lowest = []
-      sorted_avgs.each do |array|
-        lowest << array.first if array.last == lowest_score
-      end
-
-      lowest_scoring_team = []
-      lowest.each do |id|
-        teams.each do |team|
-          lowest_scoring_team << team.team_name if team.team_id == id
-        end
-      end
-      lowest_scoring_team.join(", ")
+      find_team_name(team_score_averages.first[0])
     end
 
     def highest_scoring_visitor

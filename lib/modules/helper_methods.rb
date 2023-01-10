@@ -60,12 +60,10 @@ module Helpable
       team_id_hash[game.away_team_id] << game.away_goals.to_f
       team_id_hash[game.home_team_id] << game.home_goals.to_f
     end
-
     goal_average_hash = Hash.new
     team_id_hash.each do |team_id, score_array|
       goal_average_hash[team_id] = (score_array.sum / score_array.size).round(4)
     end
-
     goal_average_hash.sort_by{|key, value| value}
   end
 
