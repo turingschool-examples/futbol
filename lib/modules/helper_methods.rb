@@ -57,7 +57,7 @@ module Helpable
       away_or_home == :away
     games.each { |game| team_id_hash[game.home_team_id] << game.home_goals.to_f } if 
       away_or_home == :home
-      team_id_hash
+    team_id_hash
   end
 
   def score_averages(away_or_home)
