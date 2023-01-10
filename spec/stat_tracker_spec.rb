@@ -170,7 +170,7 @@ describe StatTracker do
       end
 
       it 'can calculate the #highest_scoring_home_team' do
-        expect(stat_tracker.highest_scoring_home_team).to eq("Los Angeles FC, New England Revolution, Real Salt Lake")
+        expect(stat_tracker.highest_scoring_home_team).to eq("Real Salt Lake")
       end
 
       it 'can calculate the #lowest_scoring_visitor' do
