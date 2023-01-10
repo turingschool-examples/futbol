@@ -2,6 +2,7 @@ require 'csv'
 require_relative '../lib/game_team'
 
 class GameTeamCollection
+	attr_reader :game_teams_array
 
 	def initialize(location)
 		@game_teams_array = []
