@@ -5,8 +5,8 @@ class TeamStats < Stats
   include Statistacable
 
   def initialize(locations)
+    require 'pry'; binding.pry
     super
-    
   end
 
   def team_info(team_id)
@@ -144,5 +144,4 @@ class TeamStats < Stats
     hash.each {|key, value|percentage_data << [key, ((value.count("WIN").to_f)/(value.count.to_f))]}
     return percentage_data
   end
-
 end
