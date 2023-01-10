@@ -79,26 +79,6 @@ module Helpable
     average_hash.sort_by{|key, value| value}
   end
 
-  def array_of_gameids_by_season(season)
-    games_by_season = games.find_all do |game|     
-      game.season == season
-    end
-
-    game_ids_arr = games_by_season.map do |game|
-      game.game_id
-    end
-  end
-
-  def array_of_game_teams_by_season(season)
-    game_teams_arr = []
-    array_of_gameids_by_season(season).each do |game_id|
-      game_teams.each do |game_team|
-        game_teams_arr << game_team if game_team.game_id == game_id
-      end
-    end
-    game_teams_arr
-  end
-
   def coaches_win_percentages_hash(season)
     coaches_hash = Hash.new{|h,v| h[v] = []}
     array_of_game_teams_by_season(season).each do |game_team|
@@ -108,22 +88,6 @@ module Helpable
     coaches_hash.each do |coach, result_arr|
       percent = (result_arr.count("WIN").to_f/result_arr.size)*100
       coaches_hash[coach] = percent
-    end
-  end
-
-  def goals_scored_sorted(teamid)
-    game_scores = []
-
-    games.each do |game|
-      game_scores << game.home_goals.to_i if game.home_team_id == teamid
-      game_scores << game.away_goals.to_i if game.away_team_id == teamid
-    end
-    game_scores.sort
-  end
-
-  def find_team_id(team_id)
-    teams.find do |team|
-      team.team_id == team_id
     end
   end
 
@@ -149,6 +113,66 @@ module Helpable
       team_ratio_hash[team] = goals.to_f/shots_hash[team]
     end
     team_ratio_hash
+  end
+
+  def array_of_gameids_by_season(season)
+    games_by_season = games.find_all do |game|     
+      game.season == season
+    end
+
+    game_ids_arr = games_by_season.map do |game|
+      game.game_id
+    end
+  end
+
+  def array_of_game_teams_by_season(season)
+    game_teams_arr = []
+    array_of_gameids_by_season(season).each do |game_id|
+      game_teams.each do |game_team|
+        game_teams_arr << game_team if game_team.game_id == game_id
+      end
+    end
+    game_teams_arr
+  end
+
+  def find_team_id(team_id)
+    teams.find do |team|
+      team.team_id == team_id
+    end
+  end
+
+  def game_ids_seasons(team_id)
+    seasons_hash = Hash.new{|h,v| h[v] = []}
+    games.each do |game| 
+      seasons_hash[game.season] << game.game_id
+    end  
+    seasons_hash
+  end
+  
+  def seasons_perc_win(team_id)
+    wins_by_seasons = Hash.new{|h,v| h[v] = []}
+    game_ids_seasons = game_ids_seasons(team_id)
+    game_ids_seasons.each do |season, game_ids_arr| 
+      game_ids_arr.each do |game_id|
+        game_teams.each do |game_team| 
+          wins_by_seasons[season] << game_team.result if game_id == game_team.game_id && team_id == game_team.team_id
+        end
+      end
+    end
+    wins_by_seasons.each do |season, array|
+      wins_by_seasons[season] = (array.count("WIN")/ array.size.to_f) 
+    end
+    wins_by_seasons.sort_by { |k, v| v }
+  end
+
+  def goals_scored_sorted(teamid)
+    game_scores = []
+
+    games.each do |game|
+      game_scores << game.home_goals.to_i if game.home_team_id == teamid
+      game_scores << game.away_goals.to_i if game.away_team_id == teamid
+    end
+    game_scores.sort
   end
 
   def find_game_id_arr(team_id)
@@ -180,29 +204,5 @@ module Helpable
     teams.each do |team|
       return team.team_name if team.team_id == team_id
     end
-  end
-
-  def game_ids_seasons(team_id)
-    seasons_hash = Hash.new{|h,v| h[v] = []}
-    games.each do |game| 
-      seasons_hash[game.season] << game.game_id
-    end  
-    seasons_hash
-  end
-
-  def seasons_perc_win(team_id)
-    wins_by_seasons = Hash.new{|h,v| h[v] = []}
-    game_ids_seasons = game_ids_seasons(team_id)
-    game_ids_seasons.each do |season, game_ids_arr| 
-      game_ids_arr.each do |game_id|
-        game_teams.each do |game_team| 
-          wins_by_seasons[season] << game_team.result if game_id == game_team.game_id && team_id == game_team.team_id
-        end
-      end
-    end
-    wins_by_seasons.each do |season, array|
-      wins_by_seasons[season] = (array.count("WIN")/ array.size.to_f) 
-    end
-    wins_by_seasons.sort_by { |k, v| v }
   end
 end  
