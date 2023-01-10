@@ -105,21 +105,6 @@ class SeasonStats < Stats
     @all_gameteams_by_game_id ||= @game_teams.group_by { |game_team| game_team.game_id }
   end
 
-  #### BELOW : shared methods by most/least accurate & most/fewest tackles
-
-  # def all_games_by_season
-  #   @all_games_by_season ||= @games.group_by { |game| game.season } 
-  # end
-
-
-  # def team_name(id)
-  #   @teams.each do |team|
-  #       return team.team_name if team.team_id == id 
-  #   end
-  # end
-
-  #####
-
   def most_tackles(season)
     total_tackles_per_team = gather_tackles_by_team(season)
     id = total_tackles_per_team.reverse.first.first
