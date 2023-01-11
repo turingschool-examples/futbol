@@ -1,8 +1,8 @@
 require "csv"
-require './lib/game_team_collection'
-require './lib/game_collection'
-require './lib/team_collection'
-require './lib/analytics'
+require_relative './game_team_collection'
+require_relative './game_collection'
+require_relative './team_collection'
+require_relative './analytics'
 
 class StatTracker
 include Analytics

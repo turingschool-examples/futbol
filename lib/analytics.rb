@@ -1,6 +1,6 @@
-require './lib/game_team_collection'
-require './lib/game_collection'
-require './lib/team_collection'
+require_relative './game_team_collection'
+require_relative './game_collection'
+require_relative './team_collection'
 
 module Analytics
   include GameCollection
