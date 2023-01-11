@@ -49,7 +49,6 @@ class TeamStats < Stats
         end
       end
     end
-    require 'pry'; binding.pry
     return results_by_season 
   end 
 
@@ -96,13 +95,13 @@ class TeamStats < Stats
 
   def favorite_opponent(team_id)
     sorted_array = sorted_array_of_opponent_win_percentages(team_id)
-    result_id = sorted_array.reverse.first.first
+    result_id = sorted_array.reverse.first[1]
     determine_team_name_based_on_team_id(result_id)
   end
 
   def rival(team_id)
     sorted_array = sorted_array_of_opponent_win_percentages(team_id)
-    result_id = sorted_array.first.first
+    result_id = sorted_array.first[1]
     determine_team_name_based_on_team_id(result_id)
   end
 
@@ -110,8 +109,8 @@ class TeamStats < Stats
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
     relevant_games = find_relevant_games_based_on_game_teams(relevant_game_teams)
     hashed_info = hashed_info(relevant_games, relevant_game_teams, team_id)
-    array = accumulate_hash(hashed_info)
-    sorted = sort_based_on_value(array)
+    array = order_list(hashed_info)
+    array.sort
   end
 
   def find_relevant_games_based_on_game_teams(relevant_game_teams)
@@ -135,16 +134,11 @@ class TeamStats < Stats
         new_hash[game.home_team_id] << determine_game_outcome(game, relevant_game_teams)
       end
     end
-    require 'pry'; binding.pry
     return new_hash
   end
 
-  def accumulate_hash(hash)
-    percentage_data = []
-    hash.each {|key, value|percentage_data << [key, ((value.count("WIN").to_f)/(value.count.to_f))]}
-    return percentage_data
-  end
 
+  # MOVE INTO MODULE POTENTIALLY
   def determine_game_outcome(game, relevant_game_teams) 
     relevant_game_teams.each do |game_team|
       if game_team.game_id == game.game_id

@@ -14,77 +14,77 @@ RSpec.describe TeamStats do
   end
   let(:stat_tracker) { StatTracker.from_csv(locations) }
   let(:teamstats) {TeamStats.new(locations)}
-#   describe "Team Statistics" do
-#     it "#team_info" do
-#       expect(teamstats.team_info("6")).to eq({
-#         "team_id"=> "6", 
-#         "franchise_id"=> "6", 
-#         "team_name"=> "FC Dallas", 
-#         "abbreviation"=> "DAL", 
-#         "link"=> "/api/v1/teams/6"
-#       })
-#     end
+  describe "Team Statistics" do
+    it "#team_info" do
+      expect(teamstats.team_info("6")).to eq({
+        "team_id"=> "6", 
+        "franchise_id"=> "6", 
+        "team_name"=> "FC Dallas", 
+        "abbreviation"=> "DAL", 
+        "link"=> "/api/v1/teams/6"
+      })
+    end
 
-#   it "#best_season" do 
-#     game_path = './data/games.csv'
-#     team_path = './data/teams_fixture.csv'
-#     game_teams_path = './data/game_teams_fixture.csv' 
-#     locations = 
-#       {
-#       games: game_path,
-#       teams: team_path,
-#       game_teams: game_teams_path
-#       }
+  it "#best_season" do 
+    game_path = './data/games.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv' 
+    locations = 
+      {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
     
-#     stat_tracker = StatTracker.from_csv(locations) 
-#     teamstats = TeamStats.new(locations)
-#     expect(teamstats.best_season("6")).to eq("20122013")
-#     expect(teamstats.best_season("3")).to eq("20142014").or(eq("20162017"))
-#   end
+    stat_tracker = StatTracker.from_csv(locations) 
+    teamstats = TeamStats.new(locations)
+    expect(teamstats.best_season("6")).to eq("20122013")
+    expect(teamstats.best_season("3")).to eq("20142014").or(eq("20162017"))
+  end
 
-#   it "#worst_season" do 
-#     game_path = './data/games.csv'
-#     team_path = './data/teams_fixture.csv'
-#     game_teams_path = './data/game_teams_fixture.csv' 
-#     locations = 
-#       {
-#       games: game_path,
-#       teams: team_path,
-#       game_teams: game_teams_path
-#       }
+  it "#worst_season" do 
+    game_path = './data/games.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv' 
+    locations = 
+      {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
 
-#     stat_tracker = StatTracker.from_csv(locations) 
-#     teamstats = TeamStats.new(locations)
-#     expect(teamstats.worst_season("6")).to eq("20132014")
-#     expect(teamstats.worst_season("3")).to eq("20122013").or(eq("20172018")).or(eq("20152016"))
-#   end
+    stat_tracker = StatTracker.from_csv(locations) 
+    teamstats = TeamStats.new(locations)
+    expect(teamstats.worst_season("6")).to eq("20132014")
+    expect(teamstats.worst_season("3")).to eq("20122013").or(eq("20172018")).or(eq("20152016"))
+  end
 
-#   it "#average_win_percentage" do
-#   game_path = './data/games.csv'
-#   team_path = './data/teams_fixture.csv'
-#   game_teams_path = './data/game_teams_fixture.csv' 
-#   locations = 
-#     {
-#     games: game_path,
-#     teams: team_path,
-#     game_teams: game_teams_path
-#     }
+  it "#average_win_percentage" do
+  game_path = './data/games.csv'
+  team_path = './data/teams_fixture.csv'
+  game_teams_path = './data/game_teams_fixture.csv' 
+  locations = 
+    {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+    }
   
-#     stat_tracker = StatTracker.from_csv(locations) 
-#     teamstats = TeamStats.new(locations)
-#   expect(teamstats.average_win_percentage("3")).to eq(0.39)
-#   expect(teamstats.average_win_percentage("6")).to eq(0.67)
-# end
+    stat_tracker = StatTracker.from_csv(locations) 
+    teamstats = TeamStats.new(locations)
+  expect(teamstats.average_win_percentage("3")).to eq(0.39)
+  expect(teamstats.average_win_percentage("6")).to eq(0.67)
+end
 
-#   it "#most_goals_scored" do
-#     expect(teamstats.most_goals_scored("3")).to eq(5)
-#     expect(teamstats.most_goals_scored("6")).to eq(4)
-#   end
+  it "#most_goals_scored" do
+    expect(teamstats.most_goals_scored("3")).to eq(5)
+    expect(teamstats.most_goals_scored("6")).to eq(4)
+  end
 
-#   it "#fewest_goals_scored" do
-#     expect(teamstats.fewest_goals_scored("3")).to eq(0)
-#     expect(teamstats.fewest_goals_scored("6")).to eq(1)
-#   end
+  it "#fewest_goals_scored" do
+    expect(teamstats.fewest_goals_scored("3")).to eq(0)
+    expect(teamstats.fewest_goals_scored("6")).to eq(1)
+  end
 
   it "#favorite_opponent" do
     game_path = './data/games.csv'
@@ -103,24 +103,24 @@ RSpec.describe TeamStats do
     expect(teamstats.favorite_opponent("6")).to eq("Houston Dynamo").or(eq("DC United")).or(eq("New York City FC"))
   end
 
-  # it "#rival" do
-  #   game_path = './data/games.csv'
-  #   team_path = './data/teams_fixture.csv'
-  #   game_teams_path = './data/game_teams_fixture.csv' 
-  #   locations = 
-  #     {
-  #     games: game_path,
-  #     teams: team_path,
-  #     game_teams: game_teams_path
-  #     }
+  it "#rival" do
+    game_path = './data/games.csv'
+    team_path = './data/teams_fixture.csv'
+    game_teams_path = './data/game_teams_fixture.csv' 
+    locations = 
+      {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
     
-  #   stat_tracker = StatTracker.from_csv(locations) 
-  #   teamstats = TeamStats.new(locations)
+    stat_tracker = StatTracker.from_csv(locations) 
+    teamstats = TeamStats.new(locations)
     
 
-  #   expect(teamstats.rival("3")).to eq("FC Dallas").or(eq("Orlando Pride")).or(eq("Los Angeles FC")).or(eq("Seattle Sounders FC"))
-  #   expect(teamstats.rival("6")).to eq("Sporting Kansas City").or(eq("Philadelphia Union")).or(eq("Utah Royals FC"))
-  # end
+    expect(teamstats.rival("3")).to eq("FC Dallas").or(eq("Orlando Pride")).or(eq("Los Angeles FC")).or(eq("Seattle Sounders FC"))
+    expect(teamstats.rival("6")).to eq("Sporting Kansas City").or(eq("Philadelphia Union")).or(eq("Utah Royals FC"))
+  end
 
 
   it "finds all the game teams for that team_id" do 
@@ -225,6 +225,7 @@ RSpec.describe TeamStats do
       expect(teamstats.find_relevant_games_based_on_game_teams(relevant_game_teams)).to eq([game2])
   end 
 
+  # MOVE INTO MODULE POTENTIALLY 
   it "when input with a game and the list of various game_teams that have been filtered by team_id so as to prevent duplicates, it returns the result of the game_team (what happened in the game)" do 
 
     gamearg = double("game")
@@ -249,7 +250,30 @@ RSpec.describe TeamStats do
 
   end
 
+  it "when provided with a list of games, game teams, and team id, is able to populate a hash of the team_id's opponents as keys and the outcomes of the games from the perspective of the team_id" do
+    # I could not figure out how to do this with changing "determine game outcome to a win for only one of the mocked files. "
+
+    team_id = "3"
+
+    game1 = double("game1")
+    game2 = double("game2")
+    game3 = double("game3")
+
+    allow(teamstats).to receive(:determine_game_outcome).and_return("LOSS")
+    allow(game1).to receive(:away_team_id).and_return("6")
+    allow(game2).to receive(:away_team_id).and_return("5")
+    allow(game3).to receive(:away_team_id).and_return("6")
+    
+
+    relevant_games = [game1, game2, game3]
+    relevant_game_teams = nil 
 
 
-  # end 
+    expect(teamstats.hashed_info(relevant_games, relevant_game_teams, team_id)).to eq({
+      "6" => ["LOSS", "LOSS"], 
+      "5" => ["LOSS"]
+    })
+
+  end
+end 
 end 
