@@ -165,4 +165,28 @@ class GameTeamRepo
     @teams.find { |team| team.team_id == best_team }.team_name
   end
 
+  def least_accurate_team(season)
+    accuracy = {}
+
+    season_games = @game_teams.select { |game| game.game_id[0..3] == season[0..3] }
+
+    season_team_ids = season_games.group_by { |season_game| season_game.team_id }.keys
+
+    season_teams = season_team_ids.map do |team_id|
+      @teams.find do |team|
+        team.team_id == team_id
+      end.team_name
+    end
+
+    season_team_ids.each do |season_team_id|
+      team_season_games = season_games.select { |season_game| season_game.team_id == season_team_id }
+      team_season_goals = team_season_games.sum { |team_season_game| team_season_game.goals.to_i }
+      team_season_shots = team_season_games.sum { |team_season_game| team_season_game.shots.to_i }
+      accuracy[season_team_id] = team_season_goals / team_season_shots.to_f
+    end
+
+    best_team = accuracy.min_by { |team| team[1] }[0]
+    @teams.find { |team| team.team_id == best_team }.team_name
+  end
+
 end
