@@ -168,26 +168,7 @@ include GameTeamCollection
     results_by_coach.key(min_value)
   end
   
-  def most_accurate_team(season_id)
-
-  def team_info(team_id)
-    team_stats = Hash.new {|k, v| k[v]= []}
-    
-    teams.each do |id|
-      if id[:team_id] == team_id 
-        team_stats["team_id"] = id[:team_id]
-        team_stats["franchise_id"] = id[:franchiseid]
-        team_stats["team_name"] = id[:teamname]
-        team_stats["abbreviation"] = id[:abbreviation]
-        team_stats["link"] = id[:link]
-      end
-    end
-
-    team_stats
-  end
-
-	def most_tackles(season_id)
-
+	def most_accurate_team(season_id)
 		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
 
 		@game_collection.each do |game|
@@ -222,7 +203,6 @@ include GameTeamCollection
 		highest_accuracy_by_id = teams_and_accuracy.min_by { |k,v| v }[0]
 		find_team(@team_collection, highest_accuracy_by_id)
 	end
-
 
   def least_accurate_team(season_id)
 		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
@@ -318,7 +298,6 @@ include GameTeamCollection
         team_stats["link"] = id.link
       end
     end
-
     team_stats
   end
 
