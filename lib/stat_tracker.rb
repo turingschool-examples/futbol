@@ -375,14 +375,15 @@ include GameTeamCollection
 		total_games = 0.0
 		total_wins = 0.0
 
-		game_teams.each do |row|			
-			if row[:team_id] == team_id
+		@game_team_collection.each do |row|			
+			if row.team_id == team_id
 				total_games += 1.0
-				if row[:result] == "WIN"
+				if row.result == "WIN"
 					total_wins += 1.0
 				end
 			end
 		end
+    
 		(total_wins / total_games).round(2) 
 	end
 

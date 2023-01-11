@@ -166,8 +166,6 @@ RSpec.describe StatTracker do
   	end
 	end
 
-  
-  
   describe "Season Statistics" do
     # context '#game_ids_by_season' do
     #   it 'returns the data matched to the passed argument as a Hash' do
