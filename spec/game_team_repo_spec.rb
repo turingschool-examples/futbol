@@ -65,5 +65,9 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.lowest_scoring_visitor).to eq "Sporting Kansas City"
     end
 
+    it "#lowest_scoring_home_team" do
+      expect(@game_team.lowest_scoring_home_team).to eq "FC Dallas"
+    end
+
   end
 end

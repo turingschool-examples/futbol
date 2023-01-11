@@ -87,4 +87,20 @@ class GameTeamRepo
     highest_away_team.team_name
   end
 
+  def lowest_scoring_home_team
+    team_total_goals = Hash.new (0)
+    @game_teams.each do |game|
+        (team_total_goals[game.team_id] += game.goals.to_i) if game.hoa == "home" 
+    end
+    
+    team_total_goals.update(team_total_goals) do |team_id, away_games|
+        team_total_goals[team_id].to_f / @game_teams.find_all { |game| game.hoa == "home" && game.team_id == team_id}.length
+    end
+    
+    highest_home_team_id = team_total_goals.key(team_total_goals.values.min)
+    
+    highest_home_team = @teams.find { |team| team.team_name if team.team_id == highest_home_team_id }
+    highest_home_team.team_name
+  end
+
 end
