@@ -127,21 +127,6 @@ RSpec.describe StatTracker do
     end
 
 	describe 'determines average scores and compares' do
-		it 'creates a hash of teams by id and away goals' do
-			expect(stat_tracker.team_away_goals_by_id).to be_a Hash
-		end
-
-		it 'creates a hash of teams by id and home goals' do
-			expect(stat_tracker.team_home_goals_by_id).to be_a Hash
-		end
-
-		it 'averages away game scores per team' do
-			expect(stat_tracker.average_score_away_game).to be_a Hash
-		end
-
-		it 'averages home game scores per team' do
-			expect(stat_tracker.average_score_home_game).to be_a Hash
-		end
 		
 		it "#highest_scoring_visitor" do
       expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"

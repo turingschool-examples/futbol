@@ -74,19 +74,19 @@ include GameTeamCollection
   end
 
 	def highest_scoring_visitor
-    @team_collection.find_team(total_away_teams_average(@game_collection).max_by{|k, v| v}[0])
+    find_team(@team_collection, total_away_teams_average(@game_collection).max_by{|k, v| v}[0])
 	end
 
 	def highest_scoring_home_team
-    @team_collection.find_team(total_home_teams_average(@game_collection).max_by{|k, v| v}[0])
+    find_team(@team_collection, total_home_teams_average(@game_collection).max_by{|k, v| v}[0])
 	end
 
 	def lowest_scoring_visitor
-    @team_collection.find_team(total_away_teams_average(@game_collection).min_by{|k, v| v}[0])
+    find_team(@team_collection, total_away_teams_average(@game_collection).min_by{|k, v| v}[0])
 	end
 
 	def lowest_scoring_home_team
-    @team_collection.find_team(total_home_teams_average(@game_collection).min_by{|k, v| v}[0])
+    find_team(@team_collection, total_home_teams_average(@game_collection).min_by{|k, v| v}[0])
 	end
 
   def best_offense
