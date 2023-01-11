@@ -383,18 +383,17 @@ include GameTeamCollection
 				end
 			end
 		end
-    
+
 		(total_wins / total_games).round(2) 
 	end
 
 	def most_goals_scored(team_id)
-		# individual_team_goals_per_game = Hash.new { | k, v | k[v]= [] }
 		individual_goals_per_game = []
 
-		games_played = game_teams.find_all {|row| row[:team_id] == team_id }
+		games_played = @game_team_collection.find_all {|row| row.team_id == team_id }
 
 		games_played.each do |game|
-			individual_goals_per_game << game[:goals].to_i
+			individual_goals_per_game << game.goals.to_i
 		end
 
 		individual_goals_per_game.max
@@ -403,11 +402,12 @@ include GameTeamCollection
 	def fewest_goals_scored(team_id)
 		individual_goals_per_game = []
 
-		games_played = game_teams.find_all {|row| row[:team_id] == team_id }
+		games_played = @game_team_collection.find_all {|row| row.team_id == team_id }
 
 		games_played.each do |game|
-			individual_goals_per_game << game[:goals].to_i
+			individual_goals_per_game << game.goals.to_i
 		end
+
 		individual_goals_per_game.min
 	end
 
