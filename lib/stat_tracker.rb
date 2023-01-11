@@ -23,7 +23,6 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-
   def highest_total_score 
     @game.highest_total_score
   end
@@ -68,14 +67,6 @@ class StatTracker
     @team.worst_offense
   end
 
-	def visitor_scores_hash 
-    @game_teams.visitor_scores_hash
-	end
-
-	def home_scores_hash 
-    @game_teams.home_scores_hash
-	end
-
 	def highest_scoring_visitor 
     @game_teams.highest_scoring_visitor
 	end
@@ -100,23 +91,6 @@ class StatTracker
     @game_teams.worst_coach(season_id)
   end
 
-  def most_tackles(season_id) 
-    @game_teams.most_tackles(season_id)
-  end
-
-  def fewest_tackles(season_id) 
-    @game_teams.fewest_tackles(season_id)
-  end
-
-  def most_goals_scored(team_id)  
-    @game_teams.most_goals_scored(team_id)
-  end
-
-  def fewest_goals_scored(team_id) 
-    @game_teams.fewest_goals_scored(team_id)
-  end
-
-
   def most_accurate_team(season_id) 
     @game_teams.most_accurate_team(season_id)
   end
@@ -125,18 +99,18 @@ class StatTracker
     @game_teams.least_accurate_team(season_id)
   end
 
+  def most_tackles(season_id) 
+    @game_teams.most_tackles(season_id)
+  end
+
+  def fewest_tackles(season_id) 
+    @game_teams.fewest_tackles(season_id)
+  end
+
   def team_info(team_id)
     @team.team_info(team_id)
   end
- 
-  def teams_by_id 
-    @game_teams.teams_by_id
-  end
- 
-  def games_by_id_game_path
-    @game_teams.games_by_game_id
-  end
- 
+
   def best_season(team_id) 
     @game_teams.best_season(team_id)
   end
@@ -149,12 +123,19 @@ class StatTracker
     @game_teams.average_win_percentage(team_id)
   end
 
+  def most_goals_scored(team_id)  
+    @game_teams.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id) 
+    @game_teams.fewest_goals_scored(team_id)
+  end
+
   def favorite_opponent(team_id)
     @team.favorite_opponent(team_id)
   end
 
   def rival(team_id)
     @team.rival(team_id)
-   
   end
 end

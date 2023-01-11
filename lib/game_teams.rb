@@ -1,6 +1,8 @@
 require 'csv'
+require_relative 'modules/groupable'
 
-class GameTeams
+class GameTeams 
+  include Groupable
   attr_reader :game_teams_path, :game_path, :team_path
 
   
@@ -93,12 +95,12 @@ class GameTeams
     end
   end
 
-  def games_by_game_id
-    #memoization this @games_by_game_id ||= [everything below]
-    @games_by_game_id ||= @game_teams_path.group_by do |row| 
-      row[:game_id]
-    end
-  end
+  # def games_by_game_id
+  #   #memoization this @games_by_game_id ||= [everything below]
+  #   @games_by_game_id ||= @game_teams_path.group_by do |row| 
+  #     row[:game_id]
+  #   end
+  # end
 
   def game_ids_by_season(season_id)
     games_by_season[season_id].map do |games|
@@ -135,7 +137,8 @@ class GameTeams
   end
 
   def teams_with_tackles(games_array) #HELPER for most and fewest tackles
-    hash = Hash.new{|k,v| k[v] = []}
+     hash = Hash.new{|k,v| k[v] = []}
+    # hash = create_hash
     games_array.each do |game_id|
     next if games_by_game_id[game_id].nil?
       games_by_game_id[game_id].each do |game|
