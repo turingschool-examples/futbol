@@ -69,5 +69,9 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.lowest_scoring_home_team).to eq "FC Dallas"
     end
 
+    it "#winningest_coach" do
+      expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
+    end
+
   end
 end
