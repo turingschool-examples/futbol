@@ -48,4 +48,18 @@ RSpec.describe GameRepo do
             expect(@game.lowest_total_score).to eq 1
         end 
     end
+
+    describe "#Percentages" do
+        it "#percentage_home_wins" do
+            expect(@game.percentage_home_wins).to eq 0.50
+        end
+        
+        it "#percentage_visitor_wins" do
+            expect(@game.percentage_visitor_wins).to eq 0.2
+        end
+        
+        it "#percentage_ties" do
+            expect(@game.percentage_ties).to eq 0.3
+        end
+    end
 end

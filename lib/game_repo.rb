@@ -44,4 +44,24 @@ class GameRepo
       game.away_goals == game.home_goals
     end
   end
+
+  def total_games
+    @games.count 
+  end
+  
+  def percentage(sum, total)
+    (sum.to_f / total.to_f).round(2)
+  end
+
+  def percentage_home_wins
+    percentage(home_wins, total_games)
+  end
+
+  def percentage_visitor_wins
+    percentage(visitor_wins, total_games)
+  end
+
+  def percentage_ties
+    percentage(game_ties, total_games)
+  end
 end
