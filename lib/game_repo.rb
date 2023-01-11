@@ -4,10 +4,12 @@ require_relative 'team'
 require_relative 'game_team'
 
 class GameRepo
-  attr_reader :games
+  attr_reader :games, :game_teams, :team
 
   def initialize(locations)
+    @game_teams = GameTeam.read_file(locations[:game_teams])
     @games = Game.read_file(locations[:games])
+    @teams = Team.read_file(locations[:teams])
   end
 
 
@@ -91,5 +93,91 @@ class GameRepo
       goals_by_season[season] = (goal_sum / games.count.to_f).round(2)
     end
     goals_by_season 
+  end
+
+  def best_season(team_id)
+    games_list = []
+    @games.each do |game|
+      games_list.push(game) if game.home_team_id == team_id || game.away_team_id == team_id
+      end
+      games_in_a_season = games_list.group_by { |game| game.season }
+      season_win_percent = Hash.new(0)
+      games_in_a_season.each do |season, games|
+        home_wins = games.find_all do |game|
+          game.home_team_id == team_id && game.home_goals.to_i > game.away_goals.to_i
+        end
+        away_wins = games.find_all do |game|
+          game.away_team_id == team_id && game.home_goals.to_i < game.away_goals.to_i
+        end
+        season_win_percent[season] = ((home_wins.length.to_f + away_wins.length) / games.length).round(2)
+    end
+    season_win_percent ||= season_win_percent.team_id.to_i
+    season_win_percent.key(season_win_percent.values.max_by { |percentage| percentage })
+  end
+
+  def worst_season(team_id)
+    games_list = []
+    @games.each do |game|
+      games_list.push(game) if game.home_team_id == team_id || game.away_team_id == team_id
+      end
+      games_in_a_season = games_list.group_by { |game| game.season }
+      season_win_percent = Hash.new(0)
+      games_in_a_season.each do |season, games|
+        home_wins = games.find_all do |game|
+          game.home_team_id == team_id && game.home_goals.to_i > game.away_goals.to_i
+        end
+        away_wins = games.find_all do |game|
+          game.away_team_id == team_id && game.home_goals.to_i < game.away_goals.to_i
+        end
+        season_win_percent[season] = ((home_wins.length.to_f + away_wins.length) / games.length).round(2)
+    end
+    season_win_percent ||= season_win_percent.team_id.to_i
+    season_win_percent.key(season_win_percent.values.min_by { |percentage| percentage })
+  end
+  
+  # Use for reference on fav/rival:
+
+  # def winningest_coach(for_season) 
+  #   game_teams = @game_teams.find_all { |game| game.game_id.to_s[0,4] == for_season[0,4] }
+  #   games_coached = game_teams.group_by { |game| game.head_coach }
+  #   games_coached.each do |coach, games|
+  #     coach_win_percentage = games.count{|game| game.result == "WIN"}/games.length.to_f
+  #     games_coached[coach] = coach_win_percentage
+  #   end
+  #   games_coached.key(games_coached.values.max)
+  # end
+
+  def favorite_opponent(team_id)
+    team_games = @games.find_all { |game| game.away_team_id == team_id || game.home_team_id == team_id }
+    game_ids_grouped = team_games.group_by { |game| game.game_id }
+    rival_games = @game_teams.find_all do |game| 
+      game_ids_grouped.include?(game.game_id) && game.team_id != team_id
+    end
+    rival_teams = rival_games.group_by { |game| game.team_id }
+    rival_wins = rival_teams.transform_values do |games|
+      games_won = games.find_all do |game|
+        game.result == "WIN"
+      end.count
+      (games_won.to_f / games.count.to_f).round(2)
+    end
+    rival_team_id = rival_wins.key(rival_wins.values.min_by { |percentage| percentage })
+    @teams.find { |team| team.team_id == rival_team_id }.team_name
+  end
+
+  def rival(team_id)
+    team_games = @games.find_all { |game| game.away_team_id == team_id || game.home_team_id == team_id }
+    game_ids_grouped = team_games.group_by { |game| game.game_id }
+    rival_games = @game_teams.find_all do |game| 
+      game_ids_grouped.include?(game.game_id) && game.team_id != team_id
+    end
+    rival_teams = rival_games.group_by { |game| game.team_id }
+    rival_wins = rival_teams.transform_values do |games|
+      games_won = games.find_all do |game|
+        game.result == "WIN"
+      end.count
+      (games_won.to_f / games.count.to_f).round(2)
+    end
+    rival_team_id = rival_wins.key(rival_wins.values.max_by { |percentage| percentage })
+    @teams.find { |team| team.team_id == rival_team_id }.team_name
   end
 end
