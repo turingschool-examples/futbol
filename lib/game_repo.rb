@@ -28,27 +28,20 @@ class GameRepo
   end
 
   def home_wins
-    total_home_wins = 0
-    if @away_goals < @home_goals
-        total_home_wins += 1
+    @games.count do |game|
+      game.away_goals < game.home_goals
     end
   end
 
   def visitor_wins
-    total_visitor_wins = 0
-    if @away_goals > @home_goals
-        total_visitor_wins += 1
-    elsif @away_goals < @home_goals || @away_goals == @home_goals
-        total_visitor_wins += 0
+    @games.count do |game|
+      game.away_goals > game.home_goals
     end
   end
 
   def game_ties
-    total_ties = 0
-    if @away_goals == @home_goals
-        total_ties += 1
-    elsif @away_goals != @home_goals
-        total_ties += 0
+    @games.count do |game|
+      game.away_goals == game.home_goals
     end
   end
 end

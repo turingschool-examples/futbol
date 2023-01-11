@@ -26,16 +26,26 @@ RSpec.describe GameRepo do
             expect(@game.game_total_score).to eq([1, 4, 5, 3, 6, 4, 1, 4, 2, 5])
         end
 
-        xit "#home_wins" do
-            expect(@game.home_wins).to eq(1)
+        it "#home_wins" do
+            expect(@game.home_wins).to eq(5)
         end
 
-        xit "#visitor_wins" do
-            expect(@game.visitor_wins).to eq(0)
+        it "#visitor_wins" do
+            expect(@game.visitor_wins).to eq(2)
         end
 
-        xit "#game_ties" do
-            expect(@game.game_ties).to eq(0)
+        it "#game_ties" do
+            expect(@game.game_ties).to eq(3)
         end
+    end
+
+    describe "#Total_score" do
+        it "#highest_total_score" do
+            expect(@game.highest_total_score).to eq 6
+        end 
+        
+        it "#lowest_total_score" do
+            expect(@game.lowest_total_score).to eq 1
+        end 
     end
 end
