@@ -91,24 +91,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  xdescribe '#average_goals_by_team_hash' do 
-    it 'is a helper method to group the teams to their average goals' do 
-      expect(@stat_tracker.average_goals_by_team_hash.class).to eq(Hash)
-    end
-  end
-
-  describe '#visitor_scores_hash' do 
-    it 'returns a hash with the team id as the key and the value as the average score' do 
-      expect(@stat_tracker.visitor_scores_hash.class).to eq(Hash)
-    end
-  end
-
-  describe '#home_scores_hash' do 
-    it 'returns a hash with the team id as the key and the value as the average score' do 
-      expect(@stat_tracker.home_scores_hash.class).to eq(Hash)
-    end
-  end
-
   describe '#highest_scoring_visitor' do 
     it 'returns a string of the highest scoring away team name' do 
       expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
@@ -145,12 +127,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  xdescribe '#games_by_game_id' do 
-    it 'is a helper method that groups the games by the game_id' do 
-      expect(@stat_tracker.games_by_game_id.class).to eq(Hash)
-    end
-  end
-
   describe '#most_tackles' do 
     it 'is the team with the most tackles in the season' do 
       expect(@stat_tracker.most_tackles('20122013')).to eq('FC Dallas')
@@ -163,12 +139,6 @@ RSpec.describe StatTracker do
     end
   end 
 
-  xdescribe '#wins_by_coach' do 
-    it 'is a helper method to group the coach and their wins in a hash' do 
-      expect(@stat_tracker.wins_by_coach([]).class).to eq(Hash)
-    end
-  end
-
   describe '#most_goals_scored' do 
     it 'is the most goals scored by a given team' do 
       expect(@stat_tracker.most_goals_scored(3)).to eq(2)
@@ -178,18 +148,6 @@ RSpec.describe StatTracker do
   describe 'fewest_goals_scored' do 
     it 'is the lowest score by the given team' do 
       expect(@stat_tracker.fewest_goals_scored(3)).to eq(1)
-    end
-  end
-
-  xdescribe '#all_scores_by_team' do 
-    it 'is a helper method to pair all the scores a team has' do 
-      expect(@stat_tracker.all_scores_by_team.class).to eq(Hash)
-    end
-  end
-
-  xdescribe '#get_ratios_by_season_id' do 
-    it 'gets the ratios by the season' do 
-      expect(@stat_tracker.get_ratios_by_season_id('20122013').class).to eq(Hash)
     end
   end
 
@@ -219,18 +177,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  xdescribe '#pair_teams_with_results' do 
-    it 'pairs the teams with their win and game id' do 
-      expect(@stat_tracker.pair_teams_with_results('6').class).to eq(Hash)
-    end
-  end
-
-  xdescribe '#pair_season_with_results_by_team' do 
-    it 'is a sandbox' do 
-      expect(@stat_tracker.pair_season_with_results_by_team('6').class).to eq(Hash)
-    end
-  end
-
   describe '#best_season' do 
     it 'is the best season for a team' do 
       expect(@stat_tracker.best_season('6')).to eq('20122013')
@@ -251,18 +197,6 @@ RSpec.describe StatTracker do
    end
  end
  
- xdescribe '#pair_teams_with_results' do
-   it 'pairs the teams with their win and game id' do
-     expect(@stat_tracker.pair_teams_with_results('6').class).to eq(Hash)
-   end
- end
- 
- xdescribe '#pair_season_with_results_by_team' do
-   it 'is a sandbox' do
-     expect(@stat_tracker.pair_season_with_results_by_team('6').class).to eq(Hash)
-   end
- end
- 
  describe '#best_season' do
    it 'is the best season for a team' do
      expect(@stat_tracker.best_season('6')).to eq('20122013')
@@ -278,24 +212,6 @@ RSpec.describe StatTracker do
  describe '#average_win_percentage' do 
     it 'returns average win  percentage of all games for a team' do
       expect(@stat_tracker.average_win_percentage('6')).to eq(1.0)
-    end
-  end
-
-  xdescribe '#games_by_team_id' do 
-    it 'returns a hash with the game id as the key with games as values' do 
-      expect(@stat_tracker.games_by_team_id.class).to eq(Hash)
-    end
-  end
-
-  xdescribe '#team_name_by_team_id' do 
-    it 'returns a hash with the game id as the key with games as values' do 
-      expect(@stat_tracker.team_name_by_team_id('3')).to be_a(String)
-    end
-  end
-
-  xdescribe '#win_average_helper' do 
-    it 'returns an array'do 
-    expect(@stat_tracker.win_average_helper('3')).to be_a(Array)
     end
   end
 

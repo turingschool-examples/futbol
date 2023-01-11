@@ -1,6 +1,8 @@
 require 'csv'
+require_relative 'modules/groupable'
 
-class GameTeams
+class GameTeams 
+  include Groupable
   attr_reader :game_teams_path, :game_path, :team_path
 
   
@@ -10,7 +12,7 @@ class GameTeams
     @team_path = file_path3
   end
 
-  def average_goals_by_team_hash #HELPER for best and worst offense methods
+  def average_goals_by_team_hash 
     games_grouped_by_team = @game_teams_path.group_by {|row| row[:team_id]}
     average_goals_per_team = {}
 
@@ -87,19 +89,6 @@ class GameTeams
     end.compact.pop
 	end
 
-  def games_by_season
-    @games_by_season ||= @game_path.group_by do |row|
-      row[:season] 
-    end
-  end
-
-  def games_by_game_id
-    #memoization this @games_by_game_id ||= [everything below]
-    @games_by_game_id ||= @game_teams_path.group_by do |row| 
-      row[:game_id]
-    end
-  end
-
   def game_ids_by_season(season_id)
     games_by_season[season_id].map do |games|
       games[:game_id]
@@ -135,7 +124,7 @@ class GameTeams
   end
 
   def teams_with_tackles(games_array) #HELPER for most and fewest tackles
-    hash = Hash.new{|k,v| k[v] = []}
+     hash = Hash.new{|k,v| k[v] = []}
     games_array.each do |game_id|
     next if games_by_game_id[game_id].nil?
       games_by_game_id[game_id].each do |game|
@@ -207,18 +196,6 @@ class GameTeams
       end
     end
     hash
-  end
-
-  def teams_by_id
-    @game_teams_path.group_by do |row|
-      row[:team_id]
-    end
-  end
-
-  def games_by_id_game_path
-    @games_by_id_game_path ||= @game_path.group_by do |row|
-      row[:game_id]
-    end
   end
 
   def pair_teams_with_results(team_id)
@@ -300,18 +277,6 @@ class GameTeams
       coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
      end
      coach_results.invert[coach_results.invert.keys.min]
-  end
-
-  def games_by_season
-    @games_by_season ||= @game_path.group_by do |row|
-      row[:season] 
-    end
-  end
-
-  def games_by_game_id
-    @games_by_game_id ||= @game_teams_path.group_by do |row| 
-      row[:game_id]
-    end
   end
 
   def game_ids_by_season(season_id)
