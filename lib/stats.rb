@@ -1,6 +1,6 @@
-require_relative './obj_game'
-require_relative './obj_gameteam'
-require_relative './obj_team'
+require_relative './game'
+require_relative './gameteam'
+require_relative './team'
 
 class Stats
     attr_reader :games,
