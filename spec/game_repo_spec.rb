@@ -21,7 +21,7 @@ RSpec.describe GameRepo do
         end
     end
 
-    describe "helpers" do
+    describe "#Helpers" do
         it " has game total scores" do 
             expect(@game.game_total_score).to eq([1, 4, 5, 3, 6, 4, 1, 4, 2, 5])
         end
@@ -65,31 +65,31 @@ RSpec.describe GameRepo do
 
     describe "#Game count and averages" do
         it "#count_of_games_by_season" do
-        expected = {
-            "20122013"=>1,
-            "20132014"=>1,
-            "20142015"=>2,
-            "20152016"=>2,
-            "20162017"=>2,
-            "20172018"=>2
-          }
-          expect(@game.count_of_games_by_season).to eq expected
+            expected = {
+                "20122013"=>1,
+                "20132014"=>1,
+                "20142015"=>2,
+                "20152016"=>2,
+                "20162017"=>2,
+                "20172018"=>2
+            }
+            expect(@game.count_of_games_by_season).to eq expected
         end
 
         it "#average_goals_per_game" do
-        expect(@game.average_goals_per_game).to eq 3.5
-      end
+            expect(@game.average_goals_per_game).to eq 3.5
+        end
 
         it "#average_goals_by_season" do
-        expected = {
-            "20122013"=>1.0,
-            "20132014"=>3.0,
-            "20142015"=>5.5,
-            "20152016"=>3.0,
-            "20162017"=>4.0,
-            "20172018"=>3.0
-        }
-        expect(@game.average_goals_by_season).to eq expected
-       end
+            expected = {
+                "20122013"=>1.0,
+                "20132014"=>3.0,
+                "20142015"=>5.5,
+                "20152016"=>3.0,
+                "20162017"=>4.0,
+                "20172018"=>3.0
+            }
+            expect(@game.average_goals_by_season).to eq expected
+        end
     end
 end

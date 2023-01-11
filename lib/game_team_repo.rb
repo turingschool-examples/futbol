@@ -33,7 +33,6 @@ class GameTeamRepo
     total_goals_by_team.keys.each do |team|
       total_goals_by_team[team] = (total_goals_by_team[team].sum.to_f / (total_goals_by_team[team].size)).round(2)
     end
-    # require "pry";binding.pry
     avg_goal_team_id = total_goals_by_team.min_by { |team_id, goals| goals }.first
     @teams.find { |team| team.team_name if team.team_id == avg_goal_team_id }.team_name
   end
