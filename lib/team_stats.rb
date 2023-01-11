@@ -41,20 +41,9 @@ class TeamStats
   end
 
   def average_win_percentage(team_id)
-    games_played = []
-    games_won = []
-
-    @game_teams.each do |row|
-      if row.info[:team_id].to_i == team_id.to_i
-        games_played << row.info[:game_id]
-      end
-    end
-    @game_teams.map do |row|
-      if row.info[:team_id].to_i == team_id.to_i && row.info[:result] == "WIN"
-        games_won << row.info[:game_id]
-      end
-    end
-    win_percentage = games_won.count.to_f / games_played.count
+    games_count = games_by_team_id[team_id.to_i].count.to_f
+    wins = games_by_team_id[team_id.to_i].count {|game| game.info[:result] == 'WIN'}
+    win_percentage = wins / games_count
     win_percentage.round(2)
   end
 
@@ -114,17 +103,6 @@ class TeamStats
 		opponent_games
 	end
 
-  # def tally_games_won
-  #   games_won = 0
-  #   games_list.each do |game|
-  #     if game.info[:away_team_id] == team_id.to_i
-  #       games_won += 1 if game.info[:away_goals] > game.info[:home_goals]
-  #     elsif game.info[:home_team_id] == team_id.to_i
-  #       games_won += 1 if game.info[:away_goals] < game.info[:home_goals]
-  #     end
-  #   end
-  # end
-
   def season_win_percentage_by_team(team_id)
     games_played_by_team = games_played_by_season.dup
     games_played_by_team.each do |season, games|
@@ -132,19 +110,25 @@ class TeamStats
       games.each do |game|
         games_list << game if game.info[:home_team_id] == team_id.to_i || game.info[:away_team_id] == team_id.to_i
       end
-      games_won = 0
-      games_list.each do |game|
-        if game.info[:away_team_id] == team_id.to_i
-          games_won += 1 if game.info[:away_goals] > game.info[:home_goals]
-        elsif game.info[:home_team_id] == team_id.to_i
-          games_won += 1 if game.info[:away_goals] < game.info[:home_goals]
-        end
-      end
-      games_played_by_team[season] = (games_won.to_f / games_list.count).round(2)
+      games_played_by_team[season] = win_percent_calculator(games_list, team_id)
     end
-    #108-109 ACCOUNTS FOR SMALL SAMPLE SETS WHERE SEASONS HAVE NaN RESULTS
+    #### NEXT BLOCK ACCOUNTS FOR SMALL SAMPLE SETS WHERE SEASONS HAVE NaN RESULTS
     games_played_by_team.each do |k, value|
       games_played_by_team[k] = 0 if value.nan?
     end
+    ####
   end
+  
+  def win_percent_calculator(games_list, team_id)
+    games_won = 0
+    games_list.each do |game|
+      if game.info[:away_team_id] == team_id.to_i
+        games_won += 1 if game.info[:away_goals] > game.info[:home_goals]
+      elsif game.info[:home_team_id] == team_id.to_i
+        games_won += 1 if game.info[:away_goals] < game.info[:home_goals]
+      end
+    end
+    (games_won.to_f / games_list.count).round(2)
+  end
+  
 end
