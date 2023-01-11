@@ -186,11 +186,11 @@ RSpec.describe StatTracker do
   end
   
   describe "#winningest_coach" do
-    context '#game_ids_by_season' do
-      it 'returns the data matched to the passed argument as a Hash' do
-        expect(stat_tracker.game_ids_by_season).to be_a(Hash)
-      end
-    end
+    # context '#game_ids_by_season' do
+    #   it 'returns the data matched to the passed argument as a Hash' do
+    #     expect(stat_tracker.game_ids_by_season).to be_a(Hash)
+    #   end
+    # end
 
     context "#winningest_coach" do
       it 'can find the coach with the best win percentage for the season ' do

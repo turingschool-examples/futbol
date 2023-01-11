@@ -12,7 +12,6 @@ class TeamCollection
   end
 
   def find_team(team_id)
-	@teams_array.find {|team| team.team_id == team_id}.team_name
+	  @teams_array.find {|team| team.team_id == team_id}.team_name
   end
-
 end

@@ -17,85 +17,38 @@ include Analytics
 	def self.from_csv(locations)
     StatTracker.new(locations)
   end
+
   
   def highest_total_score
     @game_collection.total_score.max
   end
 
   def lowest_total_score
-    @game_collection.total_score.min
+    total_score.min
   end
 
 	def percentage_home_wins
-		home_wins = []
-		games.each do |game|
-			if game[:home_goals].to_i > game[:away_goals].to_i
-				home_wins << game
-			end
-		end
-		(home_wins.count / games.count.to_f).round(2)
+		(@game_collection.home_wins.count / @game_collection.games_array.count.to_f).round(2)
 	end
 
 	def percentage_visitor_wins
-		# look for helper methods during refactor
-		visitor_wins = []
-		games.each do |game|
-			if game[:away_goals].to_i > game[:home_goals].to_i
-				visitor_wins << game
-			end
-		end
-		(visitor_wins.count / games.count.to_f).round(2)
+		(@game_collection.visitor_wins.count / @game_collection.games_array.count.to_f).round(2)
 	end
 
 	def percentage_ties
-		ties = []
-		games.each do |game|
-			if game[:away_goals].to_i == game[:home_goals].to_i
-				ties << game
-			end
-		end
-		(ties.count / games.count.to_f).round(2)
+		(@game_collection.ties.count / @game_collection.games_array.count.to_f).round(2)
 	end
 
   def count_of_games_by_season
-    count_of_games_by_season = Hash.new {0}
-
-    games[:season].each do |season|
-      count_of_games_by_season[season] += 1
-    end
-    
-    count_of_games_by_season
+    @game_collection.count_of_games
   end
 
   def average_goals_per_game
-    sums = []
-    i = 0
-    while i < games.count
-      sums << games[:away_goals][i].to_f + games[:home_goals][i].to_f
-      i += 1
-    end
-    total_average = (sums.sum/games.count).round(2)
+    @game_collection.average_goals_per_game
   end
 
   def average_goals_by_season
-    average_goals_by_season = Hash.new {0}
-    total_goals_by_season = Hash.new {0}
-		
-    i = 0
-    games[:season].each do |season|
-      if total_goals_by_season[season] == nil
-        total_goals_by_season[season] = games[:away_goals][i].to_f + games[:home_goals][i].to_f
-      else
-        total_goals_by_season[season] += games[:away_goals][i].to_f + games[:home_goals][i].to_f
-      end
-      i += 1
-			
-    end
-    total_goals_by_season.each do |season, total_goals|
-      average_goals_by_season[season] = (total_goals/count_of_games_by_season[season]).round(2)
-    end
-
-    average_goals_by_season
+    @game_collection.average_goals_by_season
   end
 
 	def highest_scoring_visitor
@@ -126,20 +79,20 @@ include Analytics
     @team_collection.find_team(total_teams_average(@game_team_collection).min_by{|k, v| v}[0])
   end
 
-  def winningest_coach(season)
-		game.outcomes_by_game_id
+  def winningest_coach(season)    
+		outcomes_by_game_id = []
 
-    game_ids_by_season.season.each do |id|
-			outcomes_by_game_id << game_teams.find_all {|games| games[:game_id] == id[:game_id]}
-    end
-
-    outcomes_by_game_id
-
-    
+    @game_collection.game_ids_by_season[season].each do |id|
+			outcomes_by_game_id << @game_team_collection.game_teams_array.find_all do |game| 
+				game.game_id == id
+			end
+		end	
+    outcomes_by_game_id    
+	
     results_by_coach = Hash.new { | k, v | k[v] = [] }
     outcomes_by_game_id.each do |outcome|
       outcome.each do |team_stats|
-        results_by_coach[team_stats[:head_coach]] << team_stats[:result]
+        results_by_coach[(team_stats.head_coach)] << team_stats.result
       end
     end
 
@@ -156,28 +109,28 @@ include Analytics
         end
       end
       
-      coach_winrate = (wins.to_f / (game_ids_by_season[season].count).to_f)
+      coach_winrate = (wins.to_f / (@game_collection.game_ids_by_season[season].count).to_f)
       results_by_coach[coach_name] = coach_winrate
     end
     
     max_value = results_by_coach.values.max
+		results_by_coach.key(max_value)
+	end
 
-    results_by_coach.key(max_value)
-  end
-  
   def worst_coach(season)
     outcomes_by_game_id = []
 
-    game_ids_by_season[season].each do |id|
-			outcomes_by_game_id << game_teams.find_all {|games| games[:game_id] == id[:game_id]}
-    end
-
-    outcomes_by_game_id
-
+    @game_collection.game_ids_by_season[season].each do |id|
+			outcomes_by_game_id << @game_team_collection.game_teams_array.find_all do |game| 
+				game.game_id == id
+			end
+		end	
+    outcomes_by_game_id    
+	
     results_by_coach = Hash.new { | k, v | k[v] = [] }
     outcomes_by_game_id.each do |outcome|
       outcome.each do |team_stats|
-        results_by_coach[team_stats[:head_coach]] << team_stats[:result]
+        results_by_coach[(team_stats.head_coach)] << team_stats.result
       end
     end
 
@@ -194,7 +147,7 @@ include Analytics
         end
       end
       
-      coach_winrate = (wins.to_f / (game_ids_by_season[season].count).to_f)
+      coach_winrate = (wins.to_f / (@game_collection.game_ids_by_season[season].count).to_f)
       results_by_coach[coach_name] = coach_winrate
     end
     
