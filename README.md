@@ -80,4 +80,4 @@ We utilized modules to hold the majority of our methods that are shared between 
 ### Q&A
 #### Please address the following questions from our team:
 How would you have used a superclass for this project (as opposed to modules like we did)? (BD)
-
+What steps should we take to be more memory efficient/ what default methods/data structures use less memory?(IA)
