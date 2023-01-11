@@ -10,29 +10,33 @@ class LeagueStats < StatData
     @teams.length
   end
 
-  def best_offense
-    teams = []
+  def teams_and_goals_data
+    teams_and_goals_data = []
     @games.each do |row|
-      teams.push([row[:home_team_id], row[:home_goals]])
-      teams.push([row[:away_team_id], row[:away_goals]])
+      teams_and_goals_data.push([row[:home_team_id], row[:home_goals]])
+      teams_and_goals_data.push([row[:away_team_id], row[:away_goals]])
     end
+    teams_and_goals_data
+  end
 
+  def offense_hash
     hash = Hash.new {|hash, key| hash[key] = []}
-    teams.each do |array|
+    teams_and_goals_data.each do |array|
       hash[array[0]] << array[1].to_i
     end
 
     hash.each do |k, v|
       if v.size > 1
-        hash[k] = v.sum.to_f/v.size
+        hash[k] = (v.sum.to_f/v.size).round(2)
       else
-        hash[k] = v[0].to_f/1
+        hash[k] = (v[0].to_f/1).round(2)
       end
     end
+    hash
+  end
 
-    max_team = hash.max_by do |k, v|
-      v
-    end
+  def best_offense
+    max_team = offense_hash.max_by {|k, v| v}
 
     best_offense = nil
     @teams.each do |team|
@@ -42,28 +46,7 @@ class LeagueStats < StatData
   end
 
   def worst_offense
-    teams = []
-    @games.each do |row|
-      teams.push([row[:home_team_id], row[:home_goals]])
-      teams.push([row[:away_team_id], row[:away_goals]])
-    end
-
-    hash = Hash.new {|hash, key| hash[key] = []}
-    teams.each do |array|
-      hash[array[0]] << array[1].to_i
-    end
-
-    hash.each do |k, v|
-      if v.size > 1
-        hash[k] = v.sum.to_f/v.size
-      else
-        hash[k] = v[0].to_f/1
-      end
-    end
-
-    min_team = hash.min_by do |k, v|
-      v
-    end
+    min_team = offense_hash.min_by {|k, v| v}
 
     worst_offense = nil
     @teams.each do |team|
@@ -72,13 +55,10 @@ class LeagueStats < StatData
     worst_offense
   end
   
-  
   def away_goals_by_team_id
     away_goals = Hash.new(0)
     @game_teams.each do |row|
-      if row[:hoa] == "away"
-        away_goals[row[:team_id]] += row[:goals].to_i
-      end 
+      away_goals[row[:team_id]] += row[:goals].to_i if row[:hoa] == "away"
     end
     away_goals 
   end
@@ -86,9 +66,7 @@ class LeagueStats < StatData
   def away_games_by_team_id
     away_games = Hash.new(0)
     @game_teams.each do |row|
-      if row[:hoa] == "away"
-        away_games[row[:team_id]] += 1
-      end
+      away_games[row[:team_id]] += 1 if row[:hoa] == "away"
     end
     away_games
   end
@@ -96,10 +74,7 @@ class LeagueStats < StatData
   def home_goals_by_team_id
     home_goals = Hash.new(0)
     @game_teams.each do |row|
-      if row[:hoa] == "home"
-        home_goals[row[:team_id]] += row[:goals].to_i
-      end
-      
+      home_goals[row[:team_id]] += row[:goals].to_i if row[:hoa] == "home"
     end
     home_goals 
   end
@@ -107,10 +82,7 @@ class LeagueStats < StatData
   def home_games_by_team_id
     home_games = Hash.new(0)
     @game_teams.each do |row|
-      if row[:hoa] == "home"
-        home_games[row[:team_id]] += 1
-      end
-      
+      home_games[row[:team_id]] += 1 if row[:hoa] == "home"
     end
     home_games
   end
@@ -119,9 +91,7 @@ class LeagueStats < StatData
     hash = Hash.new(0)
     away_games_by_team_id.each do |teams1, games|
       away_goals_by_team_id.each do |teams2, goals|
-        if teams1 == teams2
-          hash[teams1] = (goals / games.to_f).round(2)
-        end
+        hash[teams1] = (goals / games.to_f).round(2) if teams1 == teams2
       end
     end
     hash
@@ -131,9 +101,7 @@ class LeagueStats < StatData
     hash = Hash.new(0)
     home_games_by_team_id.each do |teams1, games|
       home_goals_by_team_id.each do |teams2, goals|
-        if teams1 == teams2
-          hash[teams1] = (goals / games.to_f).round(2)
-        end
+        hash[teams1] = (goals / games.to_f).round(2) if teams1 == teams2
       end
     end
     hash
@@ -143,9 +111,7 @@ class LeagueStats < StatData
     highest_visitor = away_goal_avg_per_game.max_by {|k, v| v}
     best_away_team = nil
     @teams.each do |team|
-      if highest_visitor.first == team[:team_id]
-        best_away_team = team[:teamname]
-      end
+      best_away_team = team[:teamname] if highest_visitor.first == team[:team_id]
     end
     best_away_team
   end
@@ -154,9 +120,7 @@ class LeagueStats < StatData
     highest_visitor = away_goal_avg_per_game.min_by {|k, v| v}
     best_away_team = nil
     @teams.each do |team|
-      if highest_visitor.first == team[:team_id]
-        best_away_team = team[:teamname]
-      end
+      best_away_team = team[:teamname] if highest_visitor.first == team[:team_id]
     end
     best_away_team
   end
@@ -165,9 +129,7 @@ class LeagueStats < StatData
     highest_home_team = home_goal_avg_per_game.max_by {|k, v| v}
     best_home_team = nil
     @teams.each do |team|
-      if highest_home_team.first == team[:team_id]
-        best_home_team = team[:teamname]
-      end
+      best_home_team = team[:teamname] if highest_home_team.first == team[:team_id]
     end
     best_home_team
   end
@@ -176,9 +138,7 @@ class LeagueStats < StatData
     lowest_home_team = home_goal_avg_per_game.min_by {|k, v| v}
     best_home_team = nil
     @teams.each do |team|
-      if lowest_home_team.first == team[:team_id]
-        best_home_team = team[:teamname]
-      end
+      best_home_team = team[:teamname] if lowest_home_team.first == team[:team_id]
     end
     best_home_team
   end
