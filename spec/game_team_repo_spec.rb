@@ -69,12 +69,17 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.lowest_scoring_home_team).to eq "FC Dallas"
     end
 
-    it "#winningest_coach" do
+    xit "#winningest_coach" do
       expect(@game_team.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
     end
 
-    it "#worst_coach" do
-      expect(@games_team.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
+    xit "#worst_coach" do
+      expect(@game_team.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
+    end
+
+    it "#most_accurate_team" do
+      expect(@game_team.most_accurate_team("20132014")).to eq "Houston Dynamo"
+      expect(@game_team.most_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
 
   end

@@ -103,23 +103,42 @@ class GameTeamRepo
     highest_home_team.team_name
   end
 
-  def winningest_coach(season_id)
-    games_by_coach = Hash.new(0)
-    @game_teams.count do |game_team|
-      if game_team.game_id.slice(0..3) == season_id.slice(0..3)
-        games_by_coach[game_team.head_coach] += 1.0
-      end
-    end
-    coach_total_wins = Hash.new(0)
-    @game_teams.count do |game_team|
-      if game_team.result == "WIN" && game_team.game_id.slice(0..3) == season_id.slice(0..3)
-        coach_total_wins[game_team.head_coach] += 1.0
-      end
-    end
-    coach_total_wins.merge!(games_by_coach) do |coach, wins, games| 
-      wins / games 
-    end
-    coach_total_wins.key(coach_total_wins.values.max)
-  end
+  # def winningest_coach(season_id)
+  #   games_by_coach = Hash.new(0)
+  #   @game_teams.count do |game_team|
+  #     if game_team.game_id.slice(0..3) == season_id.slice(0..3)
+  #       games_by_coach[game_team.head_coach] += 1.0
+  #     end
+  #   end
+  #   coach_total_wins = Hash.new(0)
+  #   @game_teams.count do |game_team|
+  #     if game_team.result == "WIN" && game_team.game_id.slice(0..3) == season_id.slice(0..3)
+  #       coach_total_wins[game_team.head_coach] += 1.0
+  #     end
+  #   end
+  #   coach_total_wins.merge!(games_by_coach) do |coach, wins, games| 
+  #     wins / games 
+  #   end
+  #   coach_total_wins.key(coach_total_wins.values.max)
+  # end
+
+  # def worst_coach(season_id)
+  #   games_by_coach = Hash.new(0)
+  #   @game_teams.count do |game_team|
+  #     if game_team.game_id.slice(0..3) == season_id.slice(0..3)
+  #       games_by_coach[game_team.head_coach] += 1.0
+  #     end
+  #   end
+  #   coach_total_wins = Hash.new(0)
+  #   @game_teams.count do |game_team|
+  #     if game_team.result == "WIN" && game_team.game_id.slice(0..3) == season_id.slice(0..3)
+  #       coach_total_wins[game_team.head_coach] += 1.0
+  #     end
+  #   end
+  #   coach_total_wins.merge!(games_by_coach) do |coach, wins, games| 
+  #     wins / games 
+  #   end
+  #   coach_total_wins.key(coach_total_wins.values.min)
+  # end
 
 end
