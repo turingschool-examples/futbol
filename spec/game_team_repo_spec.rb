@@ -33,11 +33,11 @@ RSpec.describe GameTeamRepo do
                   "22"=>0.0, 
                   "24"=>1.0, 
                   "25"=>1.0, 
-                  "28"=>1.0, 
+                  "28"=>1.5, 
                   "3"=>2.0, 
                   "4"=>1.0, 
                   "5"=>0.0, 
-                  "52"=>0.0, 
+                  "52"=>0.5, 
                   "53"=>3.0, 
                   "6"=>1.0, 
                   "9"=>2.0
@@ -51,6 +51,10 @@ RSpec.describe GameTeamRepo do
 
     it "lowest_avg_goals_by_team" do
       expect(@game_team.lowest_avg_goals_by_team).to eq("5")
+    end
+
+    it "#highest_scoring_visitor" do
+        expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
     end
   end
 end

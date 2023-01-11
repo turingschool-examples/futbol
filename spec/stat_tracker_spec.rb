@@ -90,10 +90,6 @@ RSpec.describe StatTracker do
     end
    
     describe "#Highest/lowest scoring home/away" do
-        it "#highest_scoring_visitor" do
-        expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
-        end
-
         it "#highest_scoring_home_team" do
         expect(@stat_tracker.highest_scoring_home_team).to eq "Minnesota United FC"
         end

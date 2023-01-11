@@ -19,10 +19,9 @@ class GameTeamRepo
     avg_goals_by_team = Hash.new(0)
     total_goals_by_team.each do |id, total_goals|
       total_goals.each do |total_goal|
-       avg_goals_by_team[id] = (total_goal / @game_teams.find_all { |game| game.team_id == id }.length).to_f.round(2)
+       avg_goals_by_team[id] = (total_goal.to_f / @game_teams.find_all { |game| game.team_id == id }.length.to_f).round(2)
       end
     end
-    # require 'pry'; binding.pry
     avg_goals_by_team
   end
 
