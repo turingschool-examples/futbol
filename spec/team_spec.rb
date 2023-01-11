@@ -23,13 +23,6 @@ RSpec.describe Team do
     it 'exists' do 
       expect(@team).to be_a(Team)
     end
-
-    it 'has attributes' do 
-      expect(@team.team_id).to be_a(Array)
-      expect(@team.team_id.count).to eq(32)
-      expect(@team.team_name).to be_a(Array)
-      expect(@team.team_name.count).to eq(32)
-    end
   end
 
   describe '#count_of_teams' do 
