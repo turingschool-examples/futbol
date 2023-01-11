@@ -4,11 +4,13 @@ require_relative 'game_team'
 
 class GameTeamRepo
   attr_reader :game_teams,
-              :teams
+              :teams,
+              :games
 
   def initialize(locations)
     @game_teams = GameTeam.read_file(locations[:game_teams])
     @teams = Team.read_file(locations[:teams])
+    @games = Game.read_file(locations[:games])
   end
 
   def average_goals_team
@@ -170,5 +172,26 @@ class GameTeamRepo
     best_team = accuracy.min_by { |team| team[1] }[0]
     @teams.find { |team| team.team_id == best_team }.team_name
   end
+
+  def most_tackles(season_id)
+    season_tackles = Hash.new(0)
+    season_games = @games.group_by { |game| game.season}
+
+    game_id = season_games[season_id].map { |game| game.game_id }
+   
+    game_id.each do |id|
+      @game_teams.each do |game_team|
+        if game_team.game_id == id
+          season_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+      end
+    end
+
+    team_with_most_tackles = season_tackles.max_by do |team_tackles|
+      team_tackles[1]
+    end.first
+    @teams.find {|team| team.team_id == team_with_most_tackles}.team_name
+  end
+
 
 end

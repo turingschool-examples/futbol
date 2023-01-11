@@ -88,8 +88,8 @@ RSpec.describe GameTeamRepo do
     end
 
     it "#most_tackles" do
-      expect(@stat_tracker.most_tackles("20132014")).to eq "Houston Dynamo"
-      expect(@stat_tracker.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
+      expect(@game_team.most_tackles("20132014")).to eq "Houston Dynamo"
+      expect(@game_team.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
     end
 
   end
