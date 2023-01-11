@@ -17,6 +17,8 @@ RSpec.describe StatTracker do
   }
     
   describe '#initialize' do
+
+    #"it 'can instantiate an instance of itself'"?
 	  it 'exists' do
       expect(stat_tracker).to be_a StatTracker
 	  end
@@ -25,10 +27,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.game_team_collection).to be_a(GameTeamCollection)
       expect(stat_tracker.game_collection).to be_a(GameCollection)
       expect(stat_tracker.team_collection).to be_a(TeamCollection)
-    end
-
-    it 'can instantiate an instance of itself' do
-      expect(self.csv).to be_a (StatTracker)
     end
   end 
 
@@ -64,21 +62,7 @@ RSpec.describe StatTracker do
         expect(stat_tracker.percentage_ties).to eq 0.20
       end
     end
-  
-    describe '#count_of_teams' do
-      it 'can count # of teams' do
-        expect(stat_tracker.team_collection.teams_array.count).to eq(32)
-      end
-
-      it 'can see game venues' do 
-        expect(stat_tracker.games[:venue].include?("Toyota Stadium")).to eq(true)
-      end
-
-      it 'can see game team ids' do 
-        expect(stat_tracker.game_teams[:game_id][1].to_i).to eq(2012030221)
-      end
-    end
-
+    
     describe '#count_of_games_by_season' do
       it 'is a hash' do
         expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
@@ -100,37 +84,51 @@ RSpec.describe StatTracker do
 
       end
     end
+
+    describe '#average_goals_per_game' do
+      it 'is a float' do
+        expect(stat_tracker.average_goals_per_game).to be_a(Float)
+      end
+  
+      it 'can find average' do
+        expect(stat_tracker.average_goals_per_game).to eq(4.22)
+      end
+    end
+
+    describe '#average_goals_by_season' do
+      it 'is a Hash' do
+        expect(stat_tracker.average_goals_by_season).to be_a(Hash)
+      end
+  
+      it 'can find average for season' do
+        expected_hash = {
+          "20122013"=>4.12,
+          "20162017"=>4.23,
+          "20142015"=>4.14,
+          "20152016"=>4.16,
+          "20132014"=>4.19,
+          "20172018"=>4.44
+        }
+  
+        expect(stat_tracker.average_goals_by_season["20122013"]).to eq(4.12)
+        expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
+      end
+    end
 # end
 
-  describe '#average_goals_per_game' do
-    it 'is a float' do
-      expect(stat_tracker.average_goals_per_game).to be_a(Float)
-    end
+    describe '#count_of_teams' do
+      it 'can count # of teams' do
+        expect(stat_tracker.team_collection.teams_array.count).to eq(32)
+      end
 
-    it 'can find average' do
-      expect(stat_tracker.average_goals_per_game).to eq(4.22)
-    end
-  end
+      it 'can see game venues' do 
+        expect(stat_tracker.games[:venue].include?("Toyota Stadium")).to eq(true)
+      end
 
-  describe '#average_goals_by_season' do
-    it 'is a Hash' do
-      expect(stat_tracker.average_goals_by_season).to be_a(Hash)
+      it 'can see game team ids' do 
+        expect(stat_tracker.game_teams[:game_id][1].to_i).to eq(2012030221)
+      end
     end
-
-    it 'can find average for season' do
-      expected_hash = {
-        "20122013"=>4.12,
-        "20162017"=>4.23,
-        "20142015"=>4.14,
-        "20152016"=>4.16,
-        "20132014"=>4.19,
-        "20172018"=>4.44
-      }
-
-      expect(stat_tracker.average_goals_by_season["20122013"]).to eq(4.12)
-      expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
-    end
-  end
 
 	describe 'determines average scores and compares' do
 		it 'creates a hash of teams by id and away goals' do
