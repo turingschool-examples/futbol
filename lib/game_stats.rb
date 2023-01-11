@@ -12,13 +12,6 @@ class GameStats < Stats
     sums_of_home_away_goals.sort.last
   end
 
-  # def sums_of_home_away_goals
-  #   game_sums = @games.map do |game|
-  #     game.away_goals + game.home_goals
-  #   end
-  #   game_sums
-  # end
-
   def lowest_total_score
     sums_of_home_away_goals.sort.first
   end
