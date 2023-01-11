@@ -13,20 +13,21 @@ class GameTeamRepo
     @games = Game.read_file(locations[:games])
   end
 
-  def average_goals_team
-    total_goals_by_team = Hash.new(0)
-    @game_teams.each do |game_team|
-      total_goals_by_team[game_team.team_id] = [game_team.goals.to_i]
-    end
-    total_goals_by_team 
+  def best_offense
+    
+    # total_goals_by_team = Hash.new(0)
+    # @game_teams.each do |game_team|
+    #   total_goals_by_team[game_team.team_id] = [game_team.goals.to_i]
+    # end
+    # total_goals_by_team 
 
-    avg_goals_by_team = Hash.new(0)
-    total_goals_by_team.each do |id, total_goals|
-      total_goals.each do |total_goal|
-       avg_goals_by_team[id] = (total_goal.to_f / @game_teams.find_all { |game| game.team_id == id }.length.to_f).round(2)
-      end
-    end
-    avg_goals_by_team
+    # avg_goals_by_team = Hash.new(0)
+    # total_goals_by_team.each do |id, total_goals|
+    #   total_goals.each do |total_goal|
+    #     avg_goals_by_team[id] = (total_goal.to_f / @game_teams.find { |game| game.team_id == id }.count).round(2)
+    #   end
+    # end
+    # avg_goals_by_team
   end
 
   def highest_avg_goals_by_team

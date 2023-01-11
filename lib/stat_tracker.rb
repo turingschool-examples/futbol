@@ -62,7 +62,7 @@ class StatTracker
     end
 
     def best_offense
-        @teams.get_team_name(@game_teams.highest_avg_goals_by_team)
+        @game_teams.best_offense
     end
 
     def worst_offense
@@ -138,29 +138,6 @@ class StatTracker
     end
     
     def rival(team_id)
-        rival_stats = Hash.new { |h,k| h[k] = Hash.new(0) }
-        @games.each do |game|
-            if game[:home_team_id] == team_id || game[:away_team_id] == team_id
-                if (game[:home_team_id] == team_id)
-                    rival = rival_stats[game[:away_team_id]]
-                    rival[:total_games] += 1.0
-                    if game[:home_goals] < game[:away_goals] 
-                        rival[:losses] += 1.0    
-                    end
-                elsif (game[:away_team_id] == team_id)
-                    rival = rival_stats[game[:home_team_id]]
-                    rival[:total_games] += 1.0
-                    if game[:home_goals] > game[:away_goals] 
-                        rival[:losses] += 1.0  
-                    end
-                end
-            end
-        end
-        loss_percentage = Hash.new(0)
-        rival_stats.each do |rival_team_id, stats|
-            loss_percentage[rival_team_id] = stats[:losses] / stats[:total_games]
-        end
-        rival_id = loss_percentage.max_by { |rival_team_id, loss_percentage| loss_percentage }[0]
-        @teams.find { |team| team[:team_id] == rival_id }[:teamname]
+        @games.rival(team_id)
     end
 end

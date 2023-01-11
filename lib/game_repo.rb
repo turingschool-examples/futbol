@@ -163,4 +163,21 @@ class GameRepo
     rival_team_id = rival_wins.key(rival_wins.values.min_by { |percentage| percentage })
     @teams.find { |team| team.team_id == rival_team_id }.team_name
   end
+
+  def rival(team_id)
+    team_games = @games.find_all { |game| game.away_team_id == team_id || game.home_team_id == team_id }
+    game_ids_grouped = team_games.group_by { |game| game.game_id }
+    rival_games = @game_teams.find_all do |game| 
+      game_ids_grouped.include?(game.game_id) && game.team_id != team_id
+    end
+    rival_teams = rival_games.group_by { |game| game.team_id }
+    rival_wins = rival_teams.transform_values do |games|
+      games_won = games.find_all do |game|
+        game.result == "WIN"
+      end.count
+      (games_won.to_f / games.count.to_f).round(2)
+    end
+    rival_team_id = rival_wins.key(rival_wins.values.max_by { |percentage| percentage })
+    @teams.find { |team| team.team_id == rival_team_id }.team_name
+  end
 end
