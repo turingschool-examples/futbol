@@ -1,15 +1,15 @@
 require_relative './stats'
-require_relative './season_utility'
 require_relative './goals_utility'
+require_relative './season_utility'
 require_relative './team_utility'
 
 class GameStats < Stats
-  include SeasonUtility
   include GoalsUtility
+  include SeasonUtility
   include TeamUtility
   
   def initialize(locations)
-    super
+    super 
   end
 
   def highest_total_score
@@ -23,8 +23,8 @@ class GameStats < Stats
   def percentage_home_wins
     total_of_home_games = 0
     wins_at_home = 0 
-    hoa_all_game_teams.each do |hoa, game_team_array|
-      game_team_array.each do |game_team|
+    hoa_all_game_teams.each do |hoa, game_teams_array|
+      game_teams_array.each do |game_team|
         if hoa == "home"
           total_of_home_games += 1
         end
@@ -39,8 +39,8 @@ class GameStats < Stats
   def percentage_visitor_wins
     total_of_home_games = 0
     wins_at_home = 0 
-    hoa_all_game_teams.each do |hoa, game_team_array|
-      game_team_array.each do |game_team|
+    hoa_all_game_teams.each do |hoa, game_teams_array|
+      game_teams_array.each do |game_team|
         if hoa == "home"
           total_of_home_games += 1
         end
@@ -54,15 +54,15 @@ class GameStats < Stats
 
   def percentage_ties
     ties = 0 
-    total_of_all_games = (hoa_all_game_teams["home"].count + hoa_all_game_teams["away"].count)
-    hoa_all_game_teams.each do |hoa, game_team_array|
-      game_team_array.each do |game_team|
+    total_all_games = (hoa_all_game_teams["home"].count + hoa_all_game_teams["away"].count)
+    hoa_all_game_teams.each do |hoa, game_teams_array|
+      game_teams_array.each do |game_team|
         if game_team.result == "TIE"
           ties += 1
         end
       end
     end
-    percent_ties = ((ties / total_of_all_games.to_f)).round(2)
+    percent_ties = ((ties / total_all_games.to_f)).round(2)
   end
 
   def count_of_games_by_season

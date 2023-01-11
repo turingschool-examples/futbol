@@ -33,14 +33,13 @@ class TeamStats < Stats
 
   def ordered_season_array(team_id)
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
-    relevant_games = find_corresponding_games_by_gameteam(relevant_game_teams)
-    results_by_season = group_by_season(relevant_games, relevant_game_teams) 
+    results_by_season = group_by_season(relevant_game_teams) 
     season_array = order_list(results_by_season)
   end
 
-  def group_by_season(relevant_games, relevant_game_teams)
+  def group_by_season(relevant_game_teams)
     results_by_season = Hash.new{ |hash, key| hash[key] = [] }
-    grouped = relevant_games.group_by { |game| game.season}
+    grouped = games.group_by { |game| game.season}
     grouped.each do |key, values|
       values.each do |value|
       relevant_game_teams.each do |game_team|
@@ -50,13 +49,14 @@ class TeamStats < Stats
         end
       end
     end
+    require 'pry'; binding.pry
     return results_by_season 
   end 
 
   def order_list(hash_seasons)
     season_array = []
     hash_seasons.each do |key, value|
-      season_array << [(value.count("WIN").to_f/value.count.to_f), key]
+      season_array << [(value.count("WIN").to_f/value.count.to_f).round(4), key]
     end
     return season_array
   end
@@ -73,7 +73,7 @@ class TeamStats < Stats
   end
 
   def find_relevant_game_teams_by_teamid(team_id)
-    @game_teams.find_all { |game_team| game_team.team_id == team_id }
+    game_teams.find_all { |game_team| game_team.team_id == team_id }
   end 
 
   def most_goals_scored(team_id) 
@@ -108,15 +108,15 @@ class TeamStats < Stats
 
   def sorted_array_of_opponent_win_percentages(team_id)
     relevant_game_teams = find_relevant_game_teams_by_teamid(team_id)
-    relevant_games = find_relevant_games_based_on_game_team_hashes(relevant_game_teams)
+    relevant_games = find_relevant_games_based_on_game_teams(relevant_game_teams)
     hashed_info = hashed_info(relevant_games, relevant_game_teams, team_id)
     array = accumulate_hash(hashed_info)
     sorted = sort_based_on_value(array)
   end
 
-  def find_relevant_games_based_on_game_team_hashes(relevant_game_teams)
+  def find_relevant_games_based_on_game_teams(relevant_game_teams)
     relevant_games = []
-    @games.each do |game|
+    games.each do |game|
       relevant_game_teams.each do |game_team|
         if game.game_id == game_team.game_id
           relevant_games << game 
@@ -135,6 +135,7 @@ class TeamStats < Stats
         new_hash[game.home_team_id] << determine_game_outcome(game, relevant_game_teams)
       end
     end
+    require 'pry'; binding.pry
     return new_hash
   end
 
@@ -143,4 +144,13 @@ class TeamStats < Stats
     hash.each {|key, value|percentage_data << [key, ((value.count("WIN").to_f)/(value.count.to_f))]}
     return percentage_data
   end
+
+  def determine_game_outcome(game, relevant_game_teams) 
+    relevant_game_teams.each do |game_team|
+      if game_team.game_id == game.game_id
+        return game_team.result 
+      end
+    end
+  end
+
 end
