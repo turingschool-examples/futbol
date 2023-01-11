@@ -70,7 +70,7 @@ include GameTeamCollection
   end
 
   def count_of_teams
-    @team_collection.teams_array.count
+    @team_collection.count
   end
 
 	def highest_scoring_visitor

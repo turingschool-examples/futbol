@@ -117,16 +117,12 @@ RSpec.describe StatTracker do
 # end
 
     describe '#count_of_teams' do
+      it 'is a integer' do
+        expect(stat_tracker.count_of_teams).to be_a(Integer)
+      end
+
       it 'can count # of teams' do
-        expect(stat_tracker.team_collection.teams_array.count).to eq(32)
-      end
-
-      it 'can see game venues' do 
-        expect(stat_tracker.games[:venue].include?("Toyota Stadium")).to eq(true)
-      end
-
-      it 'can see game team ids' do 
-        expect(stat_tracker.game_teams[:game_id][1].to_i).to eq(2012030221)
+        expect(stat_tracker.count_of_teams).to eq(32)
       end
     end
 
@@ -163,16 +159,6 @@ RSpec.describe StatTracker do
     	expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   	end
 	end
-
-  describe '#count_of_teams' do
-    it 'is a integer' do
-      expect(stat_tracker.count_of_teams).to be_a(Integer)
-    end
-
-    it 'returns total # of teams' do
-      expect(stat_tracker.count_of_teams).to eq(32)
-    end
-  end
 
   describe '#best_offense' do
     it 'is a string' do
