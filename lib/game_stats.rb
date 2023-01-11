@@ -3,7 +3,7 @@ require_relative './stats'
 class GameStats < Stats
   
   def initialize(locations)
-    super
+    super 
   end
 
   def highest_total_score

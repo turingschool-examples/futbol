@@ -12,6 +12,11 @@ class StatTracker
               :season_stats,
               :team_stats   
               
+ 
+  def self.from_csv(locations)
+    new(locations)
+  end            
+
   def initialize(locations)
     @game_stats = GameStats.new(locations)
     @league_stats = LeagueStats.new(locations)
@@ -19,9 +24,7 @@ class StatTracker
     @team_stats = TeamStats.new(locations)
   end
               
-  def self.from_csv(locations)
-    new(locations)
-  end
+
 
    ################## Game Statisics ##################
 
@@ -124,7 +127,7 @@ class StatTracker
   ################## Team Statisics ##################
  
   def team_info(team_id)
-    team_stats.team_info("6")
+    team_stats.team_info(team_id)
   end
 
   def best_season(team_id)

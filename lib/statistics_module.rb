@@ -4,12 +4,6 @@ module Statistacable
     @game_teams.find_all {|game_team| game_team.team_id == team_id }
   end 
 
-  # Input game_team objects and get corresponding games
-  def find_corresponding_games_by_gameteam(relevant_game_teams)
-    @games.find_all do|game| 
-      relevant_game_teams.each {|game_team| game_team.game_id == game.game_id} 
-    end 
-  end
   # sort array based on value
   def sort_based_on_value(array)
     array.to_h.sort_by {|key, value| value}
