@@ -214,20 +214,6 @@ RSpec.describe StatTracker do
 		end
 	end
 
-  describe "#favorite_opponent / #rival" do
-    context "#favorite_opponent" do
-      it 'shows name of the opponent that has the lowest win percentage against the given team' do
-        expect(stat_tracker.favorite_opponent("18")).to eq "DC United"
-      end
-    end
-  
-    context "#rival" do
-      it 'shows name of the opponent that has the highest win percentage against the given team' do
-        expect(stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
-      end
-    end
-  end
-
   describe '#team_info' do
     it 'is a hash' do
       expect(stat_tracker.team_info("id")).to be_a(Hash)
@@ -282,5 +268,19 @@ RSpec.describe StatTracker do
       expect(stat_tracker.fewest_goals_scored("18")).to eq 0
     end
 	end
+
+  describe "#favorite_opponent / #rival" do
+    context "#favorite_opponent" do
+      it 'shows name of the opponent that has the lowest win percentage against the given team' do
+        expect(stat_tracker.favorite_opponent("18")).to eq "DC United"
+      end
+    end
+  
+    context "#rival" do
+      it 'shows name of the opponent that has the highest win percentage against the given team' do
+        expect(stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
+      end
+    end
+  end
 
 end

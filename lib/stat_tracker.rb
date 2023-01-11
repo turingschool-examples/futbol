@@ -290,101 +290,17 @@ include GameTeamCollection
 		most_tackles_by_id = teams_and_tackles.min_by{ |k,v| v }[0]
 		find_team(@team_collection, most_tackles_by_id)
 	end
-
-  def favorite_opponent(team_id)
-    game_ids_by_team_id = []
-
-    game_teams_by_team_ids(@game_team_collection)[team_id].each do |i_team_id|
-      game_ids_by_team_id << @game_team_collection.find_all do |games|
-        games.game_id == i_team_id.game_id
-      end
-    end
-     
-    game_ids_by_team_id
-
-    matches = []
-
-    game_ids_by_team_id.each do |match|
-      match.each do |team_stat|
-        matches << team_stat if team_stat.team_id != team_id
-      end
-    end 
-    
-    opponent_outcomes = Hash.new { | k, v | k[v] = [] }
-    
-    matches.each do |match|
-      opponent_outcomes[match.team_id] << match.result
-    end
-
-    opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
-
-    opponent_outcomes.each do |id, outcomes|
-      opponent_winrates[id] += ((outcomes.tally["WIN"].to_f) / (outcomes.tally.values.sum.to_f) * 100).round(2)
-    end
-
-    lowest_winrate = opponent_winrates.min_by do |id, percentage|
-      percentage
-    end
-    
-    favorite_opponent = @team_collection.find do |team|
-      team.team_id == lowest_winrate[0]
-    end
-    
-    favorite_opponent.team_name
-  end
-
-  def rival(team_id)
-    game_ids_by_team_id = []
-
-    game_teams_by_team_ids(@game_team_collection)[team_id].each do |i_team_id|
-      game_ids_by_team_id << @game_team_collection.find_all do |games|
-        games.game_id == i_team_id.game_id
-      end
-    end
-     
-    game_ids_by_team_id
-
-    matches = []
-
-    game_ids_by_team_id.each do |match|
-      match.each do |team_stat|
-        matches << team_stat if team_stat.team_id != team_id
-      end
-    end 
-    
-    opponent_outcomes = Hash.new { | k, v | k[v] = [] }
-    
-    matches.each do |match|
-      opponent_outcomes[match.team_id] << match.result
-    end
-
-    opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
-
-    opponent_outcomes.each do |id, outcomes|
-      opponent_winrates[id] += ((outcomes.tally["WIN"].to_f) / (outcomes.tally.values.sum.to_f) * 100).round(2)
-    end
-
-    highest_winrate = opponent_winrates.max_by do |id, percentage|
-      percentage
-    end
-    
-    favorite_opponent = @team_collection.find do |team|
-      team.team_id == highest_winrate[0]
-    end
-    
-    favorite_opponent.team_name
-  end
   
   def team_info(team_id)
     team_stats = Hash.new {|k, v| k[v]= []}
     
-    teams.each do |id|
-      if id[:team_id] == team_id 
-        team_stats["team_id"] = id[:team_id]
-        team_stats["franchise_id"] = id[:franchiseid]
-        team_stats["team_name"] = id[:teamname]
-        team_stats["abbreviation"] = id[:abbreviation]
-        team_stats["link"] = id[:link]
+    @team_collection.each do |id|
+      if id.team_id == team_id 
+        team_stats["team_id"] = id.team_id
+        team_stats["franchise_id"] = id.franchise_id
+        team_stats["team_name"] = id.team_name
+        team_stats["abbreviation"] = id.abbreviation
+        team_stats["link"] = id.link
       end
     end
 
@@ -496,4 +412,88 @@ include GameTeamCollection
 		end
 		individual_goals_per_game.min
 	end
+
+  def favorite_opponent(team_id)
+    game_ids_by_team_id = []
+
+    game_teams_by_team_ids(@game_team_collection)[team_id].each do |i_team_id|
+      game_ids_by_team_id << @game_team_collection.find_all do |games|
+        games.game_id == i_team_id.game_id
+      end
+    end
+     
+    game_ids_by_team_id
+
+    matches = []
+
+    game_ids_by_team_id.each do |match|
+      match.each do |team_stat|
+        matches << team_stat if team_stat.team_id != team_id
+      end
+    end 
+    
+    opponent_outcomes = Hash.new { | k, v | k[v] = [] }
+    
+    matches.each do |match|
+      opponent_outcomes[match.team_id] << match.result
+    end
+
+    opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
+
+    opponent_outcomes.each do |id, outcomes|
+      opponent_winrates[id] += ((outcomes.tally["WIN"].to_f) / (outcomes.tally.values.sum.to_f) * 100).round(2)
+    end
+
+    lowest_winrate = opponent_winrates.min_by do |id, percentage|
+      percentage
+    end
+    
+    favorite_opponent = @team_collection.find do |team|
+      team.team_id == lowest_winrate[0]
+    end
+    
+    favorite_opponent.team_name
+  end
+
+  def rival(team_id)
+    game_ids_by_team_id = []
+
+    game_teams_by_team_ids(@game_team_collection)[team_id].each do |i_team_id|
+      game_ids_by_team_id << @game_team_collection.find_all do |games|
+        games.game_id == i_team_id.game_id
+      end
+    end
+     
+    game_ids_by_team_id
+
+    matches = []
+
+    game_ids_by_team_id.each do |match|
+      match.each do |team_stat|
+        matches << team_stat if team_stat.team_id != team_id
+      end
+    end 
+    
+    opponent_outcomes = Hash.new { | k, v | k[v] = [] }
+    
+    matches.each do |match|
+      opponent_outcomes[match.team_id] << match.result
+    end
+
+    opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
+
+    opponent_outcomes.each do |id, outcomes|
+      opponent_winrates[id] += ((outcomes.tally["WIN"].to_f) / (outcomes.tally.values.sum.to_f) * 100).round(2)
+    end
+
+    highest_winrate = opponent_winrates.max_by do |id, percentage|
+      percentage
+    end
+    
+    favorite_opponent = @team_collection.find do |team|
+      team.team_id == highest_winrate[0]
+    end
+    
+    favorite_opponent.team_name
+  end
 end
