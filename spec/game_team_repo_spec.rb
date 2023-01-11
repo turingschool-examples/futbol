@@ -70,7 +70,7 @@ RSpec.describe GameTeamRepo do
     end
 
     it "#winningest_coach" do
-      expect(@stat_tracker.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
+      expect(@game_team.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
     end
 
   end
