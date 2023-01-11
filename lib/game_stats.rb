@@ -1,6 +1,8 @@
 require_relative './stats'
+require_relative './seasonable'
 
 class GameStats < Stats
+  include Seasonable
   
   def initialize(locations)
     super
@@ -63,7 +65,7 @@ class GameStats < Stats
 
   def count_of_games_by_season
     new_hash = Hash.new(0) 
-    games.each {|game| new_hash[game.season] += 1}
+    all_games_by_season.each { |season, games| new_hash[season] = games.count }
     return new_hash
   end
 
