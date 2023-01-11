@@ -94,7 +94,7 @@ RSpec.describe GameTeamRepo do
     end
   end
 
-  describe "#most/least tackles" do
+  describe "#most/fewest tackles" do
     it "#most_tackles" do
       expect(@game_team.most_tackles("20132014")).to eq "Houston Dynamo"
       expect(@game_team.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
@@ -103,6 +103,20 @@ RSpec.describe GameTeamRepo do
     it "#fewest_tackles" do
       expect(@game_team.fewest_tackles("20132014")).to eq "Houston Dynamo"
       expect(@game_team.fewest_tackles("20142015")).to eq("Orlando City SC").or(eq("Columbus Crew SC"))
+    end
+  end
+
+  describe "#Teams avg win, most and fewest goals" do
+    it "#average_win_percentage" do
+        expect(@game_team.average_win_percentage("18")).to eq 0.50
+    end
+
+    it '#most_goals_scored' do
+      expect(@game_team.most_goals_scored("52")).to eq(2)
+    end
+
+    it '#fewest_goals_scored' do
+      expect(@game_team.fewest_goals_scored("52")).to eq(1)
     end
   end
 end

@@ -134,18 +134,6 @@ class GameRepo
     season_win_percent ||= season_win_percent.team_id.to_i
     season_win_percent.key(season_win_percent.values.min_by { |percentage| percentage })
   end
-  
-  # Use for reference on fav/rival:
-
-  # def winningest_coach(for_season) 
-  #   game_teams = @game_teams.find_all { |game| game.game_id.to_s[0,4] == for_season[0,4] }
-  #   games_coached = game_teams.group_by { |game| game.head_coach }
-  #   games_coached.each do |coach, games|
-  #     coach_win_percentage = games.count{|game| game.result == "WIN"}/games.length.to_f
-  #     games_coached[coach] = coach_win_percentage
-  #   end
-  #   games_coached.key(games_coached.values.max)
-  # end
 
   def favorite_opponent(team_id)
     team_games = @games.find_all { |game| game.away_team_id == team_id || game.home_team_id == team_id }
