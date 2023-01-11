@@ -2,6 +2,7 @@ module Sortable
 
 	def games_played_by_season
 		@games_played_by_season ||= games.group_by do |game|
+			require 'pry'; binding.pry
 			game.info[:season]
 		end
   end
@@ -11,7 +12,7 @@ module Sortable
 			game_team.info[:game_id]
 		end
 	end
-	
+
 	def games_by_team_id
 		@games_by_team_id ||= game_teams.group_by do |row|
 			row.info[:team_id] 
