@@ -50,6 +50,7 @@ class TeamStats < Stats
         end
       end
     end
+    require 'pry'; binding.pry
     return results_by_season 
   end 
 
