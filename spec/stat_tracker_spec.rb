@@ -24,18 +24,18 @@ RSpec.describe StatTracker do
 	  end
 
     it 'has attributes' do
-      expect(stat_tracker.game_team_collection).to be_a(GameTeamCollection)
-      expect(stat_tracker.game_collection).to be_a(GameCollection)
-      expect(stat_tracker.team_collection).to be_a(TeamCollection)
+      expect(stat_tracker.game_team_collection).to be_a(Array)
+      expect(stat_tracker.game_collection).to be_a(Array)
+      expect(stat_tracker.team_collection).to be_a(Array)
     end
   end 
 
   # describe 'Game Statistics' do
     
-    #mv: game_collection_spec?
-    it 'finds total score' do
-      expect(stat_tracker.game_collection.total_score).to be_a(Array)
-    end
+    #mv: game_collection_spec? -- YES When it's made.
+    # it 'finds total score' do
+    #   expect(stat_tracker.game_collection.total_score).to be_a(Array)
+    # end
 
     describe '#highest_total_score' do
       it 'finds highest total score' do

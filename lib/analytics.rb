@@ -1,4 +1,10 @@
 module Analytics
+  def csv_read(locations_path, class_arg)
+    CSV.foreach(locations_path, headers: true, header_converters: :symbol) do |row|
+	    class_arg.new(row)
+	  end
+  end
+
   def find_average(collection, hash1, hash2, id1, id2)
     collection.each do |element|
       teams_total_scores[game_team.team_id] += game_team.goals.to_f

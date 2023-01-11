@@ -6,12 +6,31 @@ require './lib/analytics'
 
 class StatTracker
 include Analytics
+include GameCollection
+include TeamCollection
+include GameTeamCollection
 	attr_accessor :game_collection, :team_collection, :game_team_collection
 
-	def initialize(locations)
- 		@game_collection = GameCollection.new(locations[:games])
- 		@team_collection = TeamCollection.new(locations[:teams])
- 		@game_team_collection = GameTeamCollection.new(locations[:game_teams])
+  def initialize(locations)
+    @game_collection = [] 
+    @team_collection = []
+    @game_team_collection = []
+
+    # @game_collection << csv_read(locations[:games], Game)
+    # @team_collection << csv_read(locations[:teams], Team)
+    # @game_team_collection << csv_read(locations[:game_teams], GameTeam)
+
+    CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
+	    @game_collection << Game.new(row)
+	  end
+
+    CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
+	    @team_collection << Team.new(row)
+	  end
+
+    CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
+	    @game_team_collection << GameTeam.new(row)
+	  end
 	end
   
 	def self.from_csv(locations)
@@ -19,35 +38,35 @@ include Analytics
   end
   
   def highest_total_score
-    @game_collection.total_score.max
+    total_score(@game_collection).max
   end
 
   def lowest_total_score
-    @game_collection.total_score.min
+    total_score(@game_collection).min
   end
 
 	def percentage_home_wins
-		(@game_collection.home_wins.count / @game_collection.games_array.count.to_f).round(2)
+		(home_wins(@game_collection).count / @game_collection.count.to_f).round(2)
 	end
 
 	def percentage_visitor_wins
-		(@game_collection.visitor_wins.count / @game_collection.games_array.count.to_f).round(2)
+		(visitor_wins(@game_collection).count / @game_collection.count.to_f).round(2)
 	end
 
 	def percentage_ties
-		(@game_collection.ties.count / @game_collection.games_array.count.to_f).round(2)
+		(ties(@game_collection).count / @game_collection.count.to_f).round(2)
 	end
 
   def count_of_games_by_season
-    @game_collection.count_of_games
+    count_of_games(@game_collection)
   end
 
   def average_goals_per_game
-    @game_collection.average_goals_per_game
+    averages_of_goals_per_game(@game_collection)
   end
 
   def average_goals_by_season
-    @game_collection.average_goals_by_season
+    average_goals_by_seasons(@game_collection)
   end
 
   def count_of_teams
