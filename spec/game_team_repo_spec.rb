@@ -82,5 +82,10 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.most_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
 
+    it "#least_accurate_team" do
+      expect(@game_team.least_accurate_team("20132014")).to eq "Chicago Fire"
+      expect(@game_team.least_accurate_team("20142015")).to eq("Columbus Crew SC").or(eq("Minnesota United FC"))
+  end
+
   end
 end
