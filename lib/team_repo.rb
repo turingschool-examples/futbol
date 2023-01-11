@@ -1,14 +1,6 @@
-require_relative 'game'
-require_relative 'team'
-require_relative 'game_team'
-require_relative 'game_team_repo'
+require_relative 'repo'
 
-class TeamRepo
-  attr_reader :teams
-
-  def initialize(locations)
-    @teams = Team.read_file(locations[:teams])
-  end
+class TeamRepo < Repo
 
   def count_of_teams
     @teams.count
