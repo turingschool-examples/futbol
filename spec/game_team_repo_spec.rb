@@ -62,7 +62,7 @@ RSpec.describe GameTeamRepo do
     end
 
     it "#lowest_scoring_visitor" do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq "Sporting Kansas City"
+      expect(@game_team.lowest_scoring_visitor).to eq "Sporting Kansas City"
     end
 
   end
