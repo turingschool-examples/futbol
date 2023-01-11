@@ -36,10 +36,10 @@ module GameCollection
     count_of_games_by_season
   end
 
-  def add_total_away_score_and_away_games(teams_total_scores, teams_total_games)
+  def add_total_away_score_and_away_games(game_collection, teams_total_scores, teams_total_games)
     # find_average(@game_teams_array, teams_total_scores, teams_total_games, team_id, goals)
 
-    @games_array.each do |game|
+    game_collection.each do |game|
       teams_total_scores[game.away_team_id] += game.away_goals.to_f
       teams_total_games[game.away_team_id] += 1.0
     end
@@ -76,24 +76,24 @@ module GameCollection
 	
 
 
-  def add_total_home_score_and_home_games(teams_total_scores, teams_total_games)
+  def add_total_home_score_and_home_games(game_collection, teams_total_scores, teams_total_games)
     # find_average(@game_teams_array, teams_total_scores, teams_total_games, team_id, goals)
 
-    @games_array.each do |game|
+    game_collection.each do |game|
       teams_total_scores[game.home_team_id] += game.home_goals.to_f
       teams_total_games[game.home_team_id] += 1.0
     end
   end
 
-  
-
-	def game_ids_by_season
+	def game_ids_by_season(game_collection)
     game_ids_by_season = Hash.new{|k,v| k[v] = []} 
 
-		@games_array.each do |game|
+		game_collection.each do |game|
 			game_ids_by_season[(game.season)] << (game.game_id)
     end
 
 		game_ids_by_season
   end
+  
+
 end
