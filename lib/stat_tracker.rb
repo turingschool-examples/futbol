@@ -2,8 +2,10 @@ require "csv"
 require './lib/game_team_collection'
 require './lib/game_collection'
 require './lib/team_collection'
+require './lib/analytics'
 
 class StatTracker
+include Analytics
 	attr_accessor :game_collection, :team_collection, :game_team_collection
 
 	def initialize(locations)
@@ -49,127 +51,32 @@ class StatTracker
     @game_collection.average_goals_by_season
   end
 
-	def team_away_goals_by_id
-		goals = Hash.new { | k, v | k[v]= [] } 
-		games.each do |game|
-			goals[game[:away_team_id]] << game[:away_goals].to_i			
-		end
-		scores_by_team_name = Hash.new { | k, v | k[v]= [] } 
-		goals.each do |team_id, score|
-			teams.each do |team|
-				if team_id == team[:team_id]
-					scores_by_team_name[team[:teamname]] = score					
-				end
-			end
-		end
-		scores_by_team_name
-	end
-	
-	def team_home_goals_by_id
-		goals = Hash.new { | k, v | k[v]= [] } 
-		games.each do |game|
-			goals[game[:home_team_id]] << game[:home_goals].to_i
-		end
-		scores_by_team_name = Hash.new { | k, v | k[v]= [] } 
-		goals.each do |team_id, score|
-			teams.each do |team|
-				if team_id == team[:team_id]
-					scores_by_team_name[team[:teamname]] = score					
-				end
-			end
-		end
-		scores_by_team_name		
-	end	
-
-	def average_score_away_game
-		averages_by_teamname = Hash.new { | k, v | k[v]= [] }
-		team_away_goals_by_id.each do | k, v |
-			value = v.sum.to_f / v.count.to_f
-			averages_by_teamname[k] = value
-		end
-		averages_by_teamname
-	end
-	
-	def average_score_home_game
-		averages_by_teamname = Hash.new { | k, v | k[v]= [] }
-		team_home_goals_by_id.each do | k, v |
-			value = v.sum.to_f / v.count.to_f
-			averages_by_teamname[k] = value
-		end
-		averages_by_teamname
-	end
-
 	def highest_scoring_visitor
-		max = average_score_away_game.max_by { |teamname, average_score| average_score}
-		max[0]
+    @team_collection.find_team(total_away_teams_average(@game_collection).max_by{|k, v| v}[0])
 	end
 
 	def highest_scoring_home_team
-		max = average_score_home_game.max_by { |teamname, average_score| average_score}
-		max[0]
+    @team_collection.find_team(total_home_teams_average(@game_collection).max_by{|k, v| v}[0])
 	end
 
 	def lowest_scoring_visitor
-		min = average_score_away_game.min_by { |teamname, average_score| average_score}
-		min[0]
+    @team_collection.find_team(total_away_teams_average(@game_collection).min_by{|k, v| v}[0])
 	end
 
 	def lowest_scoring_home_team
-		min = average_score_home_game.min_by { |teamname, average_score| average_score}
-		min[0]
+    @team_collection.find_team(total_home_teams_average(@game_collection).min_by{|k, v| v}[0])
 	end
 
   def count_of_teams
-    total_teams = teams.count
+    @team_collection.teams_array.count
   end
 
   def best_offense
-    teams_total_scores = Hash.new{0}
-    teams_total_games = Hash.new{0}
-    teams_total_averages = Hash.new{0}
-    i = 0
-    
-    game_teams[:team_id].each do |id|
-      if teams_total_scores[id] == nil
-        teams_total_scores[id] = game_teams[:goals][i].to_f
-        teams_total_games[id] = 1
-      else
-        teams_total_scores[id] += game_teams[:goals][i].to_f
-        teams_total_games[id] += 1
-      end
-      i += 1
-    end
-    teams_total_scores.each do |key, value|
-      teams_total_averages[key] = (value / teams_total_games[key].to_f).round(5)
-    end
-    best_offensive_team_id = teams_total_averages.max_by{|k, v| v}[0]
-
-    best_offensive_team_name = teams.find {|row| row[:team_id] == best_offensive_team_id}[:teamname]
+    @team_collection.find_team(total_teams_average(@game_team_collection).max_by{|k, v| v}[0])
   end
 
   def worst_offense
-    teams_total_scores = Hash.new{0}
-    teams_total_games = Hash.new{0}
-    teams_total_averages = Hash.new{0}
-    i = 0
-    
-    game_teams[:team_id].each do |id|
-      if teams_total_scores[id] == nil
-        teams_total_scores[id] = game_teams[:goals][i].to_f
-        teams_total_games[id] = 1
-      else
-        teams_total_scores[id] += game_teams[:goals][i].to_f
-        teams_total_games[id] += 1
-      end
-      i += 1
-    end
-    teams_total_scores.each do |key, value|
-      teams_total_averages[key] = (value / teams_total_games[key].to_f).round(5)
-    end
-    worst_offensive_team_id = teams_total_averages.min_by{|k, v| v}[0]
-
-    worst_offensive_team_name = teams.find {|row| row[:team_id] == worst_offensive_team_id}[:teamname]
-
+    @team_collection.find_team(total_teams_average(@game_team_collection).min_by{|k, v| v}[0])
   end
 
   def winningest_coach(season)    
