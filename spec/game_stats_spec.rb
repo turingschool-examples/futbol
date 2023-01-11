@@ -13,7 +13,7 @@ RSpec.describe GameStats do
     }
   end
   let(:stat_tracker) { StatTracker.from_csv(locations) }
-  # let(:stats) { Stats.new(locations) }
+  
   let(:game_stats) { GameStats.new(locations) }
   describe "Game Statisics" do
     it "#highest_total_score" do

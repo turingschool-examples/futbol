@@ -1,3 +1,5 @@
+require_relative './stats'
+
 class GameTeam
   attr_reader :game_id,
               :team_id,
