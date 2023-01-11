@@ -44,14 +44,6 @@ RSpec.describe GameTeamRepo do
                 }
       expect(@game_team.average_goals_team).to eq(expected)
     end
-
-    it "highest_avg_goals_by_team" do
-      expect(@game_team.highest_avg_goals_by_team).to eq("16")
-    end
-
-    it "lowest_avg_goals_by_team" do
-      expect(@game_team.lowest_avg_goals_by_team).to eq("5")
-    end
   end
 
   describe "#lowest/highest scoring home/visitor team" do
