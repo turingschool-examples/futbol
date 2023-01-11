@@ -10,4 +10,3 @@ require './lib/team'
 require './lib/game_collection'
 require './lib/team_collection'
 require './lib/game_team_collection'
-
