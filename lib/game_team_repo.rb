@@ -33,7 +33,6 @@ class GameTeamRepo
     total_goals_by_team.keys.each do |team|
       total_goals_by_team[team] = (total_goals_by_team[team].sum.to_f / (total_goals_by_team[team].size)).round(2)
     end
-    # require "pry";binding.pry
     avg_goal_team_id = total_goals_by_team.min_by { |team_id, goals| goals }.first
     @teams.find { |team| team.team_name if team.team_id == avg_goal_team_id }.team_name
   end
@@ -210,24 +209,6 @@ class GameTeamRepo
     @teams.find {|team| team.team_id == team_with_most_tackles}.team_name
   end
 
-  def most_goals_scored(team_id)
-    game_teams_id = @game_teams.find_all { |team| team.team_id == team_id }
-    game_goals_list = []
-    game_teams_id.each do |info|
-        game_goals_list << info.goals
-    end
-    game_goals_list.max.to_i
-end
-
-def fewest_goals_scored(team_id)
-    game_teams_id = @game_teams.find_all { |team| team.team_id == team_id }
-    game_goals_list = []
-    game_teams_id.each do |info|
-        game_goals_list << info.goals
-    end    
-    game_goals_list.min.to_i
-  end
-
   def average_win_percentage(team_id)
     game_teams_id = @game_teams.find_all { |team| team.team_id == team_id }
     team_results = Hash.new { |hash, key| hash[key] = [] }
@@ -238,5 +219,23 @@ def fewest_goals_scored(team_id)
         result == "WIN"
     end
     (team_wins.count.to_f / team_results[team_id].count.to_f).round(2)
+  end
+
+  def most_goals_scored(team_id)
+    game_teams_id = @game_teams.find_all { |team| team.team_id == team_id }
+    game_goals_list = []
+    game_teams_id.each do |info|
+        game_goals_list << info.goals
+    end
+    game_goals_list.max.to_i
+  end
+
+  def fewest_goals_scored(team_id)
+    game_teams_id = @game_teams.find_all { |team| team.team_id == team_id }
+    game_goals_list = []
+    game_teams_id.each do |info|
+        game_goals_list << info.goals
+    end    
+    game_goals_list.min.to_i
   end
 end

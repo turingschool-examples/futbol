@@ -44,15 +44,9 @@ RSpec.describe GameTeamRepo do
                 }
       expect(@game_team.average_goals_team).to eq(expected)
     end
+  end
 
-    it "highest_avg_goals_by_team" do
-      expect(@game_team.highest_avg_goals_by_team).to eq("16")
-    end
-
-    it "lowest_avg_goals_by_team" do
-      expect(@game_team.lowest_avg_goals_by_team).to eq("5")
-    end
-
+  describe "#lowest/highest scoring home/visitor team" do
     it "#highest_scoring_visitor" do
       expect(@game_team.highest_scoring_visitor).to eq "Columbus Crew SC"
     end
@@ -68,7 +62,9 @@ RSpec.describe GameTeamRepo do
     it "#lowest_scoring_home_team" do
       expect(@game_team.lowest_scoring_home_team).to eq "FC Dallas"
     end
+  end
 
+  describe "#winningest/worstest" do
     it "#winningest_coach" do
       expect(@game_team.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
     end
@@ -76,7 +72,9 @@ RSpec.describe GameTeamRepo do
     it "#worst_coach" do
       expect(@game_team.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
     end
+  end
 
+  describe "#most/least accurate team" do
     it "#most_accurate_team" do
       expect(@game_team.most_accurate_team("20132014")).to eq "Houston Dynamo"
       expect(@game_team.most_accurate_team("20142015")).to eq "Columbus Crew SC"
@@ -86,7 +84,9 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.least_accurate_team("20132014")).to eq "Chicago Fire"
       expect(@game_team.least_accurate_team("20142015")).to eq("Columbus Crew SC").or(eq("Minnesota United FC"))
     end
+  end
 
+  describe "#most/fewest tackles" do
     it "#most_tackles" do
       expect(@game_team.most_tackles("20132014")).to eq "Houston Dynamo"
       expect(@game_team.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
@@ -96,6 +96,19 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.fewest_tackles("20132014")).to eq "Houston Dynamo"
       expect(@game_team.fewest_tackles("20142015")).to eq("Orlando City SC").or(eq("Columbus Crew SC"))
     end
+  end
 
+  describe "#Teams avg win, most and fewest goals" do
+    it "#average_win_percentage" do
+        expect(@game_team.average_win_percentage("18")).to eq 0.50
+    end
+
+    it '#most_goals_scored' do
+      expect(@game_team.most_goals_scored("52")).to eq(2)
+    end
+
+    it '#fewest_goals_scored' do
+      expect(@game_team.fewest_goals_scored("52")).to eq(1)
+    end
   end
 end

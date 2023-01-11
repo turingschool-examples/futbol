@@ -21,7 +21,17 @@ RSpec.describe GameRepo do
         end
     end
 
-    describe "helpers" do
+    describe "#Total_score" do
+        it "#highest_total_score" do
+            expect(@game.highest_total_score).to eq 6
+        end 
+        
+        it "#lowest_total_score" do
+            expect(@game.lowest_total_score).to eq 1
+        end 
+    end
+
+    describe "#Helpers" do
         it " has game total scores" do 
             expect(@game.game_total_score).to eq([1, 4, 5, 3, 6, 4, 1, 4, 2, 5])
         end
@@ -37,16 +47,6 @@ RSpec.describe GameRepo do
         it "#game_ties" do
             expect(@game.game_ties).to eq(3)
         end
-    end
-
-    describe "#Total_score" do
-        it "#highest_total_score" do
-            expect(@game.highest_total_score).to eq 6
-        end 
-        
-        it "#lowest_total_score" do
-            expect(@game.lowest_total_score).to eq 1
-        end 
     end
 
     describe "#Percentages" do
@@ -65,31 +65,50 @@ RSpec.describe GameRepo do
 
     describe "#Game count and averages" do
         it "#count_of_games_by_season" do
-        expected = {
-            "20122013"=>1,
-            "20132014"=>1,
-            "20142015"=>2,
-            "20152016"=>2,
-            "20162017"=>2,
-            "20172018"=>2
-          }
-          expect(@game.count_of_games_by_season).to eq expected
+            expected = {
+                "20122013"=>1,
+                "20132014"=>1,
+                "20142015"=>2,
+                "20152016"=>2,
+                "20162017"=>2,
+                "20172018"=>2
+            }
+            expect(@game.count_of_games_by_season).to eq expected
         end
 
         it "#average_goals_per_game" do
-        expect(@game.average_goals_per_game).to eq 3.5
-      end
+            expect(@game.average_goals_per_game).to eq 3.5
+        end
 
         it "#average_goals_by_season" do
-        expected = {
-            "20122013"=>1.0,
-            "20132014"=>3.0,
-            "20142015"=>5.5,
-            "20152016"=>3.0,
-            "20162017"=>4.0,
-            "20172018"=>3.0
-        }
-        expect(@game.average_goals_by_season).to eq expected
-       end
+            expected = {
+                "20122013"=>1.0,
+                "20132014"=>3.0,
+                "20142015"=>5.5,
+                "20152016"=>3.0,
+                "20162017"=>4.0,
+                "20172018"=>3.0
+            }
+            expect(@game.average_goals_by_season).to eq expected
+        end
+    end
+
+    describe "#best/worst season" do
+        it "#best_season" do
+            expect(@game.best_season("6")).to eq "20122013"
+        end
+
+        it "#worst_season" do
+            expect(@game.worst_season("6")).to eq "20122013"
+        end
+    end
+
+    describe "#Favorite opponent and rival" do
+        it "#favorite_opponent" do
+            expect(@game.favorite_opponent("18")).to eq "Real Salt Lake"
+        end
+        it "#rival" do
+            expect(@game.rival("18")).to eq("New England Revolution")
+        end
     end
 end
