@@ -6,7 +6,6 @@ class TeamStats < Stats
 
   def initialize(locations)
     super
-    
   end
 
   def team_info(team_id)
