@@ -1,10 +1,12 @@
 require_relative './stats'
 require_relative './goals_utility'
 require_relative './season_utility'
+require_relative './team_utility'
 
 class LeagueStats < Stats
   include GoalsUtility
   include SeasonUtility
+  include TeamUtility
 
   def initialize(locations)
     super(locations)
@@ -69,14 +71,14 @@ class LeagueStats < Stats
   end
 
   def avg_team_goals(team_goals_hash)
-      team_and_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
-      team_goals_hash.each do |team_id, goals_scored|
-        goals_scored.each do |goal|
-          int_goal = goal.to_i
-        end
-        team_and_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(6)
+    team_and_goals_avg = Hash.new { |hash, key| hash[key] = 0 }
+    team_goals_hash.each do |team_id, goals_scored|
+      goals_scored.each do |goal|
+        int_goal = goal.to_i
       end
-      return team_and_goals_avg.sort_by { |key, value| value }
+      team_and_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(6)
+    end
+    return team_and_goals_avg.sort_by { |key, value| value }
   end
 
   def highest_scoring_visitor
