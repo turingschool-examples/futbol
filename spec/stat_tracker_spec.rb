@@ -233,19 +233,13 @@ RSpec.describe StatTracker do
     end
   end
 
-	describe 'returns average win percentages of all games for a team' do
-		it "#average_win_percentage" do
-			expect(stat_tracker.average_win_percentage("6")).to eq 0.49
-		end
-	end
-  
   describe 'returns season with the highest win percentage for a team.' do
     it 'is a string' do
       expect(stat_tracker.best_season("6")).to be_a(String)
     end
 
     it "#best_season" do
-    expect(stat_tracker.best_season("6")).to eq "20132014"
+      expect(stat_tracker.best_season("6")).to eq "20132014"
     end
   end
 
@@ -256,6 +250,12 @@ RSpec.describe StatTracker do
 
     it "#worst_season" do
     expect(stat_tracker.worst_season("6")).to eq "20142015"
+    end
+  end
+
+  describe 'returns average win percentages of all games for a team' do
+    it "#average_win_percentage" do
+      expect(stat_tracker.average_win_percentage("6")).to eq 0.49
     end
   end
 

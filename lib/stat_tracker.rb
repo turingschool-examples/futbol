@@ -307,36 +307,20 @@ include GameTeamCollection
     team_stats
   end
 
-	def average_win_percentage(team_id)
-		total_games = 0.0
-		total_wins = 0.0
-
-		game_teams.each do |row|			
-			if row[:team_id] == team_id
-				total_games += 1.0
-				if row[:result] == "WIN"
-					total_wins += 1.0
-				end
-			end
-		end
-		(total_wins / total_games).round(2) 
-	end
-
   def best_season(team_id)
     team_game_ids_and_results = Hash.new {|k, v| k[v]= ''}
-
-
-    game_teams.each do |row|
-      if row[:team_id] == team_id
-        team_game_ids_and_results[row[:game_id]] = row[:result]
-      end  
-    end
     results_by_season = Hash.new{|k, v| k[v]= []}
 
+    @game_team_collection.each do |row|
+      if row.team_id == team_id
+        team_game_ids_and_results[row.game_id] = row.result
+      end  
+    end
+
     team_game_ids_and_results.each do |game_id, result|
-      games.each do |row|
-        if row[:game_id] == game_id
-          results_by_season[row[:season]] << result
+      @game_collection.each do |row|
+        if row.game_id == game_id
+          results_by_season[row.season] << result
         end
       end
     end
@@ -355,22 +339,20 @@ include GameTeamCollection
     percentage_by_season.max_by{|k, v| v}[0]
   end
 
-
   def worst_season(team_id)
     team_game_ids_and_results = Hash.new {|k, v| k[v]= ''}
-
-
-    game_teams.each do |row|
-      if row[:team_id] == team_id
-        team_game_ids_and_results[row[:game_id]] = row[:result]
-      end  
-    end
     results_by_season = Hash.new{|k, v| k[v]= []}
 
+    @game_team_collection.each do |row|
+      if row.team_id == team_id
+        team_game_ids_and_results[row.game_id] = row.result
+      end  
+    end
+
     team_game_ids_and_results.each do |game_id, result|
-      games.each do |row|
-        if row[:game_id] == game_id
-          results_by_season[row[:season]] << result
+      @game_collection.each do |row|
+        if row.game_id == game_id
+          results_by_season[row.season] << result
         end
       end
     end
@@ -388,6 +370,21 @@ include GameTeamCollection
     end
     percentage_by_season.min_by{|k, v| v}[0]
   end
+
+	def average_win_percentage(team_id)
+		total_games = 0.0
+		total_wins = 0.0
+
+		game_teams.each do |row|			
+			if row[:team_id] == team_id
+				total_games += 1.0
+				if row[:result] == "WIN"
+					total_wins += 1.0
+				end
+			end
+		end
+		(total_wins / total_games).round(2) 
+	end
 
 	def most_goals_scored(team_id)
 		# individual_team_goals_per_game = Hash.new { | k, v | k[v]= [] }
