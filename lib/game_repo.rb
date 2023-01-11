@@ -4,10 +4,12 @@ require_relative 'team'
 require_relative 'game_team'
 
 class GameRepo
-  attr_reader :games
+  attr_reader :games, :game_teams, :team
 
   def initialize(locations)
+    @game_teams = GameTeam.read_file(locations[:game_teams])
     @games = Game.read_file(locations[:games])
+    @teams = Team.read_file(locations[:teams])
   end
 
 
@@ -134,7 +136,7 @@ class GameRepo
   end
   
   # Use for reference on fav/rival:
-  
+
   # def winningest_coach(for_season) 
   #   game_teams = @game_teams.find_all { |game| game.game_id.to_s[0,4] == for_season[0,4] }
   #   games_coached = game_teams.group_by { |game| game.head_coach }
@@ -146,6 +148,19 @@ class GameRepo
   # end
 
   def favorite_opponent(team_id)
-    rival_games = 
+    team_games = @games.find_all { |game| game.away_team_id == team_id || game.home_team_id == team_id }
+    game_ids_grouped = team_games.group_by { |game| game.game_id }
+    rival_games = @game_teams.find_all do |game| 
+      game_ids_grouped.include?(game.game_id) && game.team_id != team_id
+    end
+    rival_teams = rival_games.group_by { |game| game.team_id }
+    rival_wins = rival_teams.transform_values do |games|
+      games_won = games.find_all do |game|
+        game.result == "WIN"
+      end.count
+      (games_won.to_f / games.count.to_f).round(2)
+    end
+    rival_team_id = rival_wins.key(rival_wins.values.min_by { |percentage| percentage })
+    @teams.find { |team| team.team_id == rival_team_id }.team_name
   end
 end
