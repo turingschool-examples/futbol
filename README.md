@@ -5,7 +5,7 @@ This project was created by a team of back-end students at Turing. The team cons
 
 ## Function
 
-This program allows user to run data from a fictional soccer league to analyze team performance for specific seasons and across seasons. 
+This program allows the user to run data from a fictional soccer league to analyze team performance for specific seasons and across seasons. 
 
 Using the runner file, the user can calculate any of the following statistics by running stat_tracker.name_of_method. For example, running stat_tracker.highest_scoring_visitor would return to you "FC Dallas", showing they had the highest average score per game across all seasons when they are away. 
 
@@ -69,6 +69,7 @@ The most challenging part of this project was design choice. We had a lot of ide
 Once all of our methods were written, we got to step back and see that we are now able to use large volumes of data and pull out very specific statistics with code that we wrote ourselves. The first time the spec harness fully passed was a celebration.
 
 ### Describe the best choice enumerables you used in your project. 
+The two that stuck out to us was using CSV.foreach in order to access the CSV information with headers converted into symbols (StatTracker class in initialize), and find_all. We used find_all a LOT throughout this project in order to look through our data and pull out only the specific instances that we needed for that particular method. 
 
 ### Tell us about a module or superclass which helped you re-use code across repository classes. 
 We utilized modules to hold the majority of our methods that are shared between our StatTracker Class and our Team, Game, and GameTeam Classes. This maintains the integrity of the code and hides the methods from the user and also allows that code to be shared across multiple classes. We also made a module called Analytics that holds calculations for finding averages that are then used throughout our methods. 

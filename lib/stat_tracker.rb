@@ -16,10 +16,6 @@ include GameTeamCollection
     @team_collection = []
     @game_team_collection = []
 
-    # @game_collection << csv_read(locations[:games], Game)
-    # @team_collection << csv_read(locations[:teams], Team)
-    # @game_team_collection << csv_read(locations[:game_teams], GameTeam)
-
     CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
 	    @game_collection << Game.new(row)
 	  end
@@ -265,16 +261,6 @@ include GameTeamCollection
 
     rival
   end
-  
-  # winrate_by_season =  Hash.new { |k, v| k[v] = []}
-  # game_teams.each do |row|
-  #   if winrate_by_season.keys.include?(row[:head_coach])
-  #     winrate_by_season[row[:head_coach]].push(row[:result])
-  #   else
-  #     winrate_by_season[row[:head_coach]] = [row[:result]]
-  #   end
-  # end
-  # winrate_by_season
   
   def team_info(team_id)
     team_stats = Hash.new {|k, v| k[v]= []}
