@@ -16,7 +16,7 @@ module Analytics
     teams_total_scores.each do |key, value|
       teams_total_averages[key] = (value / teams_total_games[key].to_f).round(5)
     end
-
+    
     teams_total_averages
   end
 

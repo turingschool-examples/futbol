@@ -12,18 +12,14 @@ class GameCollection
 	  end
 	end
 
-  def total_score
-    total_score = @games_array.map do |game|
-      game.home_goals.to_i + game.away_goals.to_i
-	end
-  end
-
   def add_total_away_score_and_away_games(teams_total_scores, teams_total_games)
     # find_average(@game_teams_array, teams_total_scores, teams_total_games, team_id, goals)
 
     @games_array.each do |game|
       teams_total_scores[game.away_team_id] += game.away_goals.to_f
       teams_total_games[game.away_team_id] += 1.0
+    end
+  end
 
 	def total_score
 		total_score = @games_array.map do |game|
@@ -113,9 +109,11 @@ class GameCollection
 
 	def game_ids_by_season
     game_ids_by_season = Hash.new{|k,v| k[v] = []} 
+
 		@games_array.each do |game|
 			game_ids_by_season[(game.season)] << (game.game_id)
     end
+
 		game_ids_by_season
   end
 end
