@@ -16,10 +16,6 @@ include GameTeamCollection
     @team_collection = []
     @game_team_collection = []
 
-    # @game_collection << csv_read(locations[:games], Game)
-    # @team_collection << csv_read(locations[:teams], Team)
-    # @game_team_collection << csv_read(locations[:game_teams], GameTeam)
-
     CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
 	    @game_collection << Game.new(row)
 	  end
@@ -173,6 +169,25 @@ include GameTeamCollection
   end
   
   def most_accurate_team(season_id)
+
+  def team_info(team_id)
+    team_stats = Hash.new {|k, v| k[v]= []}
+    
+    teams.each do |id|
+      if id[:team_id] == team_id 
+        team_stats["team_id"] = id[:team_id]
+        team_stats["franchise_id"] = id[:franchiseid]
+        team_stats["team_name"] = id[:teamname]
+        team_stats["abbreviation"] = id[:abbreviation]
+        team_stats["link"] = id[:link]
+      end
+    end
+
+    team_stats
+  end
+
+	def most_tackles(season_id)
+
 		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
 
 		@game_collection.each do |game|
