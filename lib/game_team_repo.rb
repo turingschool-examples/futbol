@@ -193,5 +193,25 @@ class GameTeamRepo
     @teams.find {|team| team.team_id == team_with_most_tackles}.team_name
   end
 
+  def fewest_tackles(season_id)
+    season_tackles = Hash.new(0)
+    season_games = @games.group_by { |game| game.season}
+
+    game_id = season_games[season_id].map { |game| game.game_id }
+   
+    game_id.each do |id|
+      @game_teams.each do |game_team|
+        if game_team.game_id == id
+          season_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+      end
+    end
+
+    team_with_most_tackles = season_tackles.min_by do |team_tackles|
+      team_tackles[1]
+    end.first
+    @teams.find {|team| team.team_id == team_with_most_tackles}.team_name
+  end
+
 
 end
