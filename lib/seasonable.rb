@@ -25,5 +25,4 @@ module Seasonable
         return team.team_name if team.team_id == id 
     end
   end
-
 end
