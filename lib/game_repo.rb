@@ -1,17 +1,6 @@
+require_relative 'repo'
 
-require_relative 'game'
-require_relative 'team'
-require_relative 'game_team'
-
-class GameRepo
-  attr_reader :games, :game_teams, :team
-
-  def initialize(locations)
-    @game_teams = GameTeam.read_file(locations[:game_teams])
-    @games = Game.read_file(locations[:games])
-    @teams = Team.read_file(locations[:teams])
-  end
-
+class GameRepo < Repo
 
   def game_total_score
     total_score = []

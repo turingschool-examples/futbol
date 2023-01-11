@@ -1,17 +1,6 @@
-require_relative 'game'
-require_relative 'team'
-require_relative 'game_team'
+require_relative 'repo'
 
-class GameTeamRepo
-  attr_reader :game_teams,
-              :teams,
-              :games
-
-  def initialize(locations)
-    @game_teams = GameTeam.read_file(locations[:game_teams])
-    @teams = Team.read_file(locations[:teams])
-    @games = Game.read_file(locations[:games])
-  end
+class GameTeamRepo < Repo
 
   def best_offense
     total_goals_by_team = Hash.new(0)
