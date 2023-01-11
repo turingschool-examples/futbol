@@ -90,11 +90,11 @@ include GameTeamCollection
 	end
 
   def best_offense
-    @team_collection.find_team(total_teams_average(@game_team_collection).max_by{|k, v| v}[0])
+    find_team(@team_collection, total_teams_average(@game_team_collection).max_by{|k, v| v}[0])
   end
 
   def worst_offense
-    @team_collection.find_team(total_teams_average(@game_team_collection).min_by{|k, v| v}[0])
+    find_team(@team_collection, total_teams_average(@game_team_collection).min_by{|k, v| v}[0])
   end
 
   def winningest_coach(season)    

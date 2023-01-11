@@ -126,6 +126,27 @@ RSpec.describe StatTracker do
       end
     end
 
+    describe '#best_offense' do
+      it 'is a string' do
+        expect(stat_tracker.best_offense).to be_a(String)
+      end
+  
+      it 'returns team with highest average across all seasons' do
+        expect(stat_tracker.best_offense).to eq("Reign FC")
+      end
+    end
+    
+    describe '#worst_offense' do
+      it 'is a string' do
+        expect(stat_tracker.worst_offense).to be_a(String)
+      end
+      
+      it 'returns team with lowest average across all seasons' do
+        expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+      end
+      
+    end
+    
 	describe 'determines average scores and compares' do
 		
 		it "#highest_scoring_visitor" do
@@ -145,26 +166,7 @@ RSpec.describe StatTracker do
   	end
 	end
 
-  describe '#best_offense' do
-    it 'is a string' do
-      expect(stat_tracker.best_offense).to be_a(String)
-    end
-
-    it 'returns team with highest average across all seasons' do
-      expect(stat_tracker.best_offense).to eq("Reign FC")
-    end
-  end
   
-  describe '#worst_offense' do
-    it 'is a string' do
-      expect(stat_tracker.worst_offense).to be_a(String)
-    end
-    
-    it 'returns team with lowest average across all seasons' do
-      expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
-    end
-    
-  end
   
   describe "#winningest_coach" do
     # context '#game_ids_by_season' do
