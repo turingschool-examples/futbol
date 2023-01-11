@@ -12,7 +12,7 @@ class GameTeams
     @team_path = file_path3
   end
 
-  def average_goals_by_team_hash #HELPER for best and worst offense methods
+  def average_goals_by_team_hash 
     games_grouped_by_team = @game_teams_path.group_by {|row| row[:team_id]}
     average_goals_per_team = {}
 

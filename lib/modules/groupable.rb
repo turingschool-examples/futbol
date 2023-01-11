@@ -23,7 +23,6 @@ module Groupable
     end
   end
 
-
   def games_by_team_id # TEAM Class
     @games_by_team_id ||= @game_teams_path.group_by do |row|
       row[:team_id]
