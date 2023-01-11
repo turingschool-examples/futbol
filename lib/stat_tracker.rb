@@ -245,6 +245,55 @@ include GameTeamCollection
 		find_team(@team_collection, highest_accuracy_by_id)
 	end
 
+  def most_tackles(season_id)
+		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
+
+		@game_collection.each do |game|
+			game_ids_by_season[game.season] << game.game_id
+		end
+
+		variable = []
+
+		game_ids_by_season[season_id].each do |id|
+			variable << @game_team_collection.find_all {|row| row.game_id == id}
+		end
+
+		teams_and_tackles = Hash.new { | k, v | k[v]= 0 }
+
+		variable.flatten(1).each do |row|
+			teams_and_tackles[row.team_id] += row.tackles.to_i
+		end
+
+		most_tackles_by_id = teams_and_tackles.max_by{ |k,v| v }[0]
+		find_team(@team_collection, most_tackles_by_id)
+	end
+
+	def fewest_tackles(season_id)
+		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
+		games.each do |game|
+			if game_ids_by_season[game[:season]]== nil
+				game_ids_by_season[game[:season]] = [game[:game_id]]
+			else
+				game_ids_by_season[game[:season]] << game[:game_id]
+			end
+		end
+		variable = []
+		game_ids_by_season[season_id].each do |id|
+			variable << game_teams.find_all {|row| row[:game_id]== id}
+		end
+		teams_and_tackles = Hash.new { | k, v | k[v]= 0 }
+		variable.flatten(1).each do |row|
+			if teams_and_tackles[row[:team_id]]== nil
+				teams_and_tackles[row[:team_id]] = [row[:tackles]].to_i
+			else
+				teams_and_tackles[row[:team_id]] += row[:tackles].to_i
+			end
+		end
+		fewest_tackles_by_id = teams_and_tackles.min_by{ |k,v| v }[0]
+		fewest_tackles_by_name = teams.find {|row| row[:team_id] == fewest_tackles_by_id}[:teamname]
+	end
+
+
   def favorite_opponent(team_id)
     
     game_ids_by_team_id = []
@@ -356,56 +405,6 @@ include GameTeamCollection
 
     team_stats
   end
-
-	def most_tackles(season_id)
-		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
-		games.each do |game|
-			if game_ids_by_season[game[:season]]== nil
-				game_ids_by_season[game[:season]] = [game[:game_id]]
-			else
-				game_ids_by_season[game[:season]] << game[:game_id]
-			end
-		end
-		variable = []
-		game_ids_by_season[season_id].each do |id|
-			variable << game_teams.find_all {|row| row[:game_id]== id}
-		end
-		teams_and_tackles = Hash.new { | k, v | k[v]= 0 }
-		variable.flatten(1).each do |row|
-			if teams_and_tackles[row[:team_id]]== nil
-				teams_and_tackles[row[:team_id]] = [row[:tackles]].to_i
-			else
-				teams_and_tackles[row[:team_id]] += row[:tackles].to_i
-			end
-		end
-		most_tackles_by_id = teams_and_tackles.max_by{ |k,v| v }[0]
-		most_tackles_by_name = teams.find {|row| row[:team_id] == most_tackles_by_id}[:teamname]
-	end
-
-	def fewest_tackles(season_id)
-		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
-		games.each do |game|
-			if game_ids_by_season[game[:season]]== nil
-				game_ids_by_season[game[:season]] = [game[:game_id]]
-			else
-				game_ids_by_season[game[:season]] << game[:game_id]
-			end
-		end
-		variable = []
-		game_ids_by_season[season_id].each do |id|
-			variable << game_teams.find_all {|row| row[:game_id]== id}
-		end
-		teams_and_tackles = Hash.new { | k, v | k[v]= 0 }
-		variable.flatten(1).each do |row|
-			if teams_and_tackles[row[:team_id]]== nil
-				teams_and_tackles[row[:team_id]] = [row[:tackles]].to_i
-			else
-				teams_and_tackles[row[:team_id]] += row[:tackles].to_i
-			end
-		end
-		fewest_tackles_by_id = teams_and_tackles.min_by{ |k,v| v }[0]
-		fewest_tackles_by_name = teams.find {|row| row[:team_id] == fewest_tackles_by_id}[:teamname]
-	end
 
 	def average_win_percentage(team_id)
 		total_games = 0.0
