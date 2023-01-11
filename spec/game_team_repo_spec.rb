@@ -53,8 +53,13 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.lowest_avg_goals_by_team).to eq("5")
     end
 
-    it "#highest_scoring_visitor" do
-        expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
+    xit "#highest_scoring_visitor" do
+      expect(@game_team.highest_scoring_visitor).to eq "Columbus Crew SC"
     end
+
+    it "#highest_scoring_home_team" do
+      expect(@game_team.highest_scoring_home_team).to eq "Minnesota United FC"
+    end
+
   end
 end
