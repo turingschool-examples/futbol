@@ -15,13 +15,14 @@ class StatTracker
 	def self.from_csv(locations)
     StatTracker.new(locations)
   end
+
   
   def highest_total_score
     @game_collection.total_score.max
   end
 
   def lowest_total_score
-    @game_collection.total_score.min
+    total_score.min
   end
 
 	def percentage_home_wins
@@ -171,20 +172,20 @@ class StatTracker
 
   end
 
-  def winningest_coach(season)
-		game.outcomes_by_game_id
+  def winningest_coach(season)    
+		outcomes_by_game_id = []
 
-    game_ids_by_season.season.each do |id|
-			outcomes_by_game_id << game_teams.find_all {|games| games[:game_id] == id[:game_id]}
-    end
-
-    outcomes_by_game_id
-
-    
+    @game_collection.game_ids_by_season[season].each do |id|
+			outcomes_by_game_id << @game_team_collection.game_teams_array.find_all do |game| 
+				game.game_id == id
+			end
+		end	
+    outcomes_by_game_id    
+	
     results_by_coach = Hash.new { | k, v | k[v] = [] }
     outcomes_by_game_id.each do |outcome|
       outcome.each do |team_stats|
-        results_by_coach[team_stats[:head_coach]] << team_stats[:result]
+        results_by_coach[(team_stats.head_coach)] << team_stats.result
       end
     end
 
@@ -201,28 +202,28 @@ class StatTracker
         end
       end
       
-      coach_winrate = (wins.to_f / (game_ids_by_season[season].count).to_f)
+      coach_winrate = (wins.to_f / (@game_collection.game_ids_by_season[season].count).to_f)
       results_by_coach[coach_name] = coach_winrate
     end
     
     max_value = results_by_coach.values.max
+		results_by_coach.key(max_value)
+	end
 
-    results_by_coach.key(max_value)
-  end
-  
   def worst_coach(season)
     outcomes_by_game_id = []
 
-    game_ids_by_season[season].each do |id|
-			outcomes_by_game_id << game_teams.find_all {|games| games[:game_id] == id[:game_id]}
-    end
-
-    outcomes_by_game_id
-
+    @game_collection.game_ids_by_season[season].each do |id|
+			outcomes_by_game_id << @game_team_collection.game_teams_array.find_all do |game| 
+				game.game_id == id
+			end
+		end	
+    outcomes_by_game_id    
+	
     results_by_coach = Hash.new { | k, v | k[v] = [] }
     outcomes_by_game_id.each do |outcome|
       outcome.each do |team_stats|
-        results_by_coach[team_stats[:head_coach]] << team_stats[:result]
+        results_by_coach[(team_stats.head_coach)] << team_stats.result
       end
     end
 
@@ -239,7 +240,7 @@ class StatTracker
         end
       end
       
-      coach_winrate = (wins.to_f / (game_ids_by_season[season].count).to_f)
+      coach_winrate = (wins.to_f / (@game_collection.game_ids_by_season[season].count).to_f)
       results_by_coach[coach_name] = coach_winrate
     end
     

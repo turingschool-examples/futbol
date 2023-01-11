@@ -1,3 +1,4 @@
+require 'csv'
 require_relative '../lib/game'
 require 'csv'
 
@@ -87,4 +88,16 @@ class GameCollection
     
     average_goals_by_season
   end
+
+	def game_ids_by_season
+    game_ids_by_season = Hash.new{|k,v| k[v] = []} 
+		@games_array.each do |game|
+			game_ids_by_season[(game.season)] << (game.game_id)
+    end
+		game_ids_by_season
+  end
+
+	
+
+
 end
