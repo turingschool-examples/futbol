@@ -10,4 +10,10 @@ module GameTeamCollection
       teams_total_games[game_team.team_id] += 1.0
     end
   end
+
+  def game_teams_by_team_ids(game_team_collection)
+    @game_teams_by_team_ids ||= game_team_collection.group_by do |game|
+      game.team_id
+    end
+  end
 end

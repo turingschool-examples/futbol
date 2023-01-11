@@ -292,12 +292,11 @@ include GameTeamCollection
 	end
 
   def favorite_opponent(team_id)
-    
     game_ids_by_team_id = []
 
-    game_teams_by_team_ids[team_id].each do |i_team_id|
-      game_ids_by_team_id << game_teams.find_all do |games|
-        games[:game_id] == i_team_id[:game_id]
+    game_teams_by_team_ids(@game_team_collection)[team_id].each do |i_team_id|
+      game_ids_by_team_id << @game_team_collection.find_all do |games|
+        games.game_id == i_team_id.game_id
       end
     end
      
@@ -307,14 +306,14 @@ include GameTeamCollection
 
     game_ids_by_team_id.each do |match|
       match.each do |team_stat|
-        matches << team_stat if team_stat[:team_id] != team_id
+        matches << team_stat if team_stat.team_id != team_id
       end
     end 
     
     opponent_outcomes = Hash.new { | k, v | k[v] = [] }
     
     matches.each do |match|
-      opponent_outcomes[match[:team_id]] << match[:result]
+      opponent_outcomes[match.team_id] << match.result
     end
 
     opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
@@ -327,20 +326,19 @@ include GameTeamCollection
       percentage
     end
     
-    favorite_opponent = teams.find do |team|
-      team[:team_id] == lowest_winrate[0]
-    end[:teamname]
-
-    favorite_opponent
+    favorite_opponent = @team_collection.find do |team|
+      team.team_id == lowest_winrate[0]
+    end
+    
+    favorite_opponent.team_name
   end
 
   def rival(team_id)
-       
     game_ids_by_team_id = []
 
-    game_teams_by_team_ids[team_id].each do |i_team_id|
-      game_ids_by_team_id << game_teams.find_all do |games|
-        games[:game_id] == i_team_id[:game_id]
+    game_teams_by_team_ids(@game_team_collection)[team_id].each do |i_team_id|
+      game_ids_by_team_id << @game_team_collection.find_all do |games|
+        games.game_id == i_team_id.game_id
       end
     end
      
@@ -350,14 +348,14 @@ include GameTeamCollection
 
     game_ids_by_team_id.each do |match|
       match.each do |team_stat|
-        matches << team_stat if team_stat[:team_id] != team_id
+        matches << team_stat if team_stat.team_id != team_id
       end
     end 
     
     opponent_outcomes = Hash.new { | k, v | k[v] = [] }
     
     matches.each do |match|
-      opponent_outcomes[match[:team_id]] << match[:result]
+      opponent_outcomes[match.team_id] << match.result
     end
 
     opponent_winrates = Hash.new { | k, v | k[v] = 0.0 }
@@ -370,22 +368,12 @@ include GameTeamCollection
       percentage
     end
     
-    rival = teams.find do |team|
-      team[:team_id] == highest_winrate[0]
-    end[:teamname]
-
-    rival
+    favorite_opponent = @team_collection.find do |team|
+      team.team_id == highest_winrate[0]
+    end
+    
+    favorite_opponent.team_name
   end
-  
-  # winrate_by_season =  Hash.new { |k, v| k[v] = []}
-  # game_teams.each do |row|
-  #   if winrate_by_season.keys.include?(row[:head_coach])
-  #     winrate_by_season[row[:head_coach]].push(row[:result])
-  #   else
-  #     winrate_by_season[row[:head_coach]] = [row[:result]]
-  #   end
-  # end
-  # winrate_by_season
   
   def team_info(team_id)
     team_stats = Hash.new {|k, v| k[v]= []}
