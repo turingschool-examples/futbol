@@ -1,7 +1,7 @@
 require './lib/modules'
 
 class TeamStats
-  include Sort
+  include Sortable
 
   attr_reader :teams, :games, :game_teams
 
@@ -113,17 +113,6 @@ class TeamStats
 		end
 		opponent_games
 	end
-
-  # def tally_games_won
-  #   games_won = 0
-  #   games_list.each do |game|
-  #     if game.info[:away_team_id] == team_id.to_i
-  #       games_won += 1 if game.info[:away_goals] > game.info[:home_goals]
-  #     elsif game.info[:home_team_id] == team_id.to_i
-  #       games_won += 1 if game.info[:away_goals] < game.info[:home_goals]
-  #     end
-  #   end
-  # end
 
   def season_win_percentage_by_team(team_id)
     games_played_by_team = games_played_by_season.dup
