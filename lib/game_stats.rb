@@ -1,6 +1,8 @@
 require_relative './stats'
+require_relative './seasonable'
 
 class GameStats < Stats
+  include Seasonable
   
   def initialize(locations)
     super
@@ -63,7 +65,7 @@ class GameStats < Stats
 
   def count_of_games_by_season
     new_hash = Hash.new(0) 
-    games.each {|game| new_hash[game.season] += 1}
+    all_games_by_season.each { |season, games| new_hash[season] = games.count }
     return new_hash
   end
 
@@ -76,19 +78,14 @@ class GameStats < Stats
 
   def average_goals_by_season
     new_hash = Hash.new(0) 
-    games.each {|game| new_hash[game.season]  = season_goals(game.season)}
-    return new_hash
-  end
-
-  def season_goals(season)
-    number = 0
-    goals = 0
-    games.each do |game|
-      if game.season == season
-        number += 1 
-        goals += (game.away_goals + game.home_goals)
+    goal_totals = 0
+    all_games_by_season.each do |season, games| 
+      games.each do |game|
+        goal_totals += (game.away_goals + game.home_goals) 
       end
+      new_hash[season] = (goal_totals.to_f / games.count.to_f).round(2)
+      goal_totals = 0
     end
-    average = (goals.to_f/number.to_f).round(2)
+    return new_hash
   end
 end

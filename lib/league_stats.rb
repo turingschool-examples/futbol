@@ -1,6 +1,8 @@
 require_relative './stats'
+require_relative './seasonable'
 
 class LeagueStats < Stats
+  include Seasonable
 
   def initialize(locations)
     super(locations)
@@ -77,14 +79,6 @@ class LeagueStats < Stats
         team_and_goals_avg[team_id] = (goals_scored.sum.to_f / goals_scored.length.to_f).round(6)
       end
       return team_and_goals_avg.sort_by { |key, value| value }
-  end
-
-  def team_name(id)
-      @teams.each do |info_line|
-        if info_line.team_id == id
-          return info_line.team_name 
-        end
-      end
   end
 
   def highest_scoring_visitor
