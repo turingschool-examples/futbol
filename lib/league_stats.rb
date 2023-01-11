@@ -1,10 +1,12 @@
 require_relative './stats'
 require_relative './goals_utility'
 require_relative './season_utility'
+require_relative './team_utility'
 
 class LeagueStats < Stats
   include GoalsUtility
   include SeasonUtility
+  include TeamUtility
 
   def initialize(locations)
     super(locations)

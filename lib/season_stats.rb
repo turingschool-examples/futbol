@@ -1,8 +1,10 @@
 require_relative './stats'
 require_relative './season_utility'
+require_relative './team_utility'
 
 class SeasonStats < Stats
   include SeasonUtility
+  include TeamUtility
 
   def initialize(locations)
     super(locations)
@@ -99,10 +101,6 @@ class SeasonStats < Stats
       calculations << [team_id, ((goals_shots[0].to_f)/(goals_shots[1].to_f))]
     end
     result = calculations.to_h.sort_by { |team_id, ratio| ratio } 
-  end
-
-  def all_gameteams_by_game_id
-    @all_gameteams_by_game_id ||= @game_teams.group_by { |game_team| game_team.game_id }
   end
 
   def most_tackles(season)
