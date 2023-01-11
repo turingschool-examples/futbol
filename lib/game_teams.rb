@@ -1,8 +1,10 @@
 require 'csv'
 require_relative 'modules/groupable'
+require_relative 'modules/hashable'
 
 class GameTeams 
   include Groupable
+  include Hashable
   attr_reader :game_teams_path, :game_path, :team_path
 
   
@@ -24,34 +26,6 @@ class GameTeams
     end
     average_goals_per_team
   end
-
-  def visitor_scores_hash
-		games_grouped_by_away_team = @game_teams_path.group_by {|row| row[:team_id]}
-		average_away_goals_per_team = {}
-
-		games_grouped_by_away_team.each do |team, games|
-			average_away_goals_per_team[team] = 0
-				games.each do |game|
-				average_away_goals_per_team[team] += game[:goals].to_i if game[:hoa] == "away"
-			end
-			average_away_goals_per_team[team] = (average_away_goals_per_team[team].to_f / games.size).round(2)
-		end
-		average_away_goals_per_team
-	end
-
-	def home_scores_hash
-		games_grouped_by_home_team = @game_teams_path.group_by {|row| row[:team_id]}
-		average_home_goals_per_team = {}
-
-		games_grouped_by_home_team.each do |team, games|
-			average_home_goals_per_team[team] = 0
-				games.each do |game|
-				average_home_goals_per_team[team] += game[:goals].to_i if game[:hoa] == "home"
-			end
-			average_home_goals_per_team[team] = (average_home_goals_per_team[team].to_f / games.size).round(2)
-		end
-		average_home_goals_per_team
-	end
 
   def highest_scoring_visitor 
 		visitor_highest = visitor_scores_hash.max_by {|k,v| v }
