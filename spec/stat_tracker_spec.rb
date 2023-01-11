@@ -394,8 +394,8 @@ describe StatTracker do
       expect(stat_tracker.goals_per_game(game)).to eq(5)
     end
 
-    xit '#goals_per_season(season, num_games)' do
-
+    it '#goals_per_season(season, num_games)' do
+      expect(stat_tracker.goals_per_season("20122013")).to eq(35)
     end
 
     it '#team_total_tackles(season)' do
@@ -415,6 +415,37 @@ describe StatTracker do
       expect(stat_tracker.team_id_and_score_array_hash(:away)["6"]).to eq([3.0, 2.0, 3.0])
       expect(stat_tracker.team_id_and_score_array_hash(:home)).to be_a(Hash)
       expect(stat_tracker.team_id_and_score_array_hash(:home)["3"]).to eq([2.0, 3.0])
+    end
+
+    it '#hash_of_games_by_season' do
+    expect(stat_tracker.hash_of_games_by_season).to be_an_instance_of Hash
+    expect(stat_tracker.hash_of_games_by_season.keys).to eq(["20122013", "20152016", "20132014", "20142015", "20172018", "20162017"])
+    expect(stat_tracker.hash_of_games_by_season["20122013"]).to be_an_instance_of Array
+    expect(stat_tracker.hash_of_games_by_season["20122013"].length).to eq(7)
+    end
+
+    it '#total_goals' do
+      expect(stat_tracker.total_goals).to eq(218.0)
+    end
+
+    it '#games_by_team(team)' do
+      expect(stat_tracker.games_by_team("6")).to be_an Array
+      expect(stat_tracker.games_by_team("6").length).to eq(9)
+      expect(stat_tracker.games_by_team("6").first).to be_a GameTeam
+    end
+
+    it '#won_games_by_team(team)' do
+      expect(stat_tracker.won_games_by_team("6")).to be_an Array
+      expect(stat_tracker.won_games_by_team("6").length).to eq(9)
+      expect(stat_tracker.won_games_by_team("6").first).to be_a GameTeam
+
+    end
+
+    it '#opponents_win_results(team_id)' do
+      expect(stat_tracker.opponents_win_results("6")).to be_a Hash
+      expect(stat_tracker.opponents_win_results("6").keys).to include("3", "5")
+      expect(stat_tracker.opponents_win_results("6")["3"]).to be_an Array
+
     end
 
   end

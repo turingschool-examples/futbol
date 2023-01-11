@@ -20,7 +20,7 @@ module Helpable
     game.away_goals.to_i + game.home_goals.to_i
   end
 
-  def goals_per_season(season, num_games)
+  def goals_per_season(season)
     goal_counter = 0
     games.each do |game|
       if game.season == season
@@ -210,6 +210,26 @@ module Helpable
     games.reduce(0) do |sum, game|
       sum + goals_per_game(game)
     end.to_f
+  end
+
+  def games_by_team(team)
+    team_games = []
+    game_teams.each do |game_team|
+      if game_team.team_id == team
+        team_games << game_team
+      end
+    end
+    team_games
+  end
+
+  def won_games_by_team(team)
+    won = []
+    games_by_team(team).each do |team_game|
+      if team_game.result == "WIN"
+        won << team_game
+      end
+    end
+    won
   end
 
 end  

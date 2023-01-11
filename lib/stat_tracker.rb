@@ -54,7 +54,7 @@ class StatTracker < DataFactory
     def average_goals_by_season
       hash = count_of_games_by_season
       hash.each do |k, v|
-        hash[k] = (goals_per_season(k, v)/v.to_f).round(2)
+        hash[k] = (goals_per_season(k)/v.to_f).round(2)
       end
       hash
     end
@@ -149,22 +149,7 @@ class StatTracker < DataFactory
     end
 
     def average_win_percentage(team)
-      team_games = []
-      won = []
-
-      game_teams.each do |game_team|
-        if game_team.team_id == team
-          team_games << game_team
-        end
-      end
-
-      team_games.each do |team_game|
-        if team_game.result == "WIN"
-          won << team_game
-        end
-      end
-
-      (won.count.to_f / team_games.count).round(2)
+      (won_games_by_team(team).count.to_f/games_by_team(team).count).round(2)
     end
 
     def most_goals_scored(teamid)
