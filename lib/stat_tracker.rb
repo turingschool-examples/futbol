@@ -66,7 +66,7 @@ class StatTracker
     end
 
     def worst_offense
-        @teams.get_team_name(@game_teams.lowest_avg_goals_by_team)
+        @game_teams.worst_offense
     end
 
     def highest_scoring_visitor

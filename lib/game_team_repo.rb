@@ -14,32 +14,28 @@ class GameTeamRepo
   end
 
   def best_offense
-    
-    # total_goals_by_team = Hash.new(0)
-    # @game_teams.each do |game_team|
-    #   total_goals_by_team[game_team.team_id] = [game_team.goals.to_i]
-    # end
-    # total_goals_by_team 
-
-    # avg_goals_by_team = Hash.new(0)
-    # total_goals_by_team.each do |id, total_goals|
-    #   total_goals.each do |total_goal|
-    #     avg_goals_by_team[id] = (total_goal.to_f / @game_teams.find { |game| game.team_id == id }.count).round(2)
-    #   end
-    # end
-    # avg_goals_by_team
+    total_goals_by_team = Hash.new(0)
+    @game_teams.each do |game_team|
+      total_goals_by_team[game_team.team_id] = [game_team.goals.to_i]
+    end
+    total_goals_by_team.keys.each do |team|
+      total_goals_by_team[team] = (total_goals_by_team[team].sum.to_f / (total_goals_by_team[team].count)).round(2)
+    end
+    avg_goal_team_id = total_goals_by_team.max_by { |team_id, goals| goals }.first
+    @teams.find { |team| team.team_name if team.team_id == avg_goal_team_id }.team_name
   end
-
-  def highest_avg_goals_by_team
-    average_goals_team.max_by do |game, goals|
-      goals
-    end.first
-  end
-
-  def lowest_avg_goals_by_team
-    average_goals_team.min_by do |game, goals|
-      goals
-    end.first
+  
+  def worst_offense
+    total_goals_by_team = Hash.new(0)
+    @game_teams.each do |game_team|
+      total_goals_by_team[game_team.team_id] = [game_team.goals.to_i]
+    end
+    total_goals_by_team.keys.each do |team|
+      total_goals_by_team[team] = (total_goals_by_team[team].sum.to_f / (total_goals_by_team[team].size)).round(2)
+    end
+    # require "pry";binding.pry
+    avg_goal_team_id = total_goals_by_team.min_by { |team_id, goals| goals }.first
+    @teams.find { |team| team.team_name if team.team_id == avg_goal_team_id }.team_name
   end
 
   def highest_scoring_visitor
