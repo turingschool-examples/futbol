@@ -92,9 +92,7 @@ class TeamStats
 	end
 
 	def games_of_opposite_team(team_id)
-		all_games_by_team = games_by_team_id[team_id].find_all do |game|
-			game.info[:team_id] == team_id
-		end
+		all_games_by_team = games_by_team_id[team_id]
 		opponent_games = {}
 		all_games_by_team.each do |game|
 			game = games_by_game_id[game.info[:game_id]].find {|element| element.info[:team_id] != team_id}

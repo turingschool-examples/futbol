@@ -86,6 +86,17 @@ The `stat_tracker` class is the subclass. It takes the 3 created instance variab
 
 Using both a module and inheritance cleaned up our code in very nice ways. Because the code was divided up cleanly, it was easier to spot code that was repeated. It also made our tests run noticeably faster.
 
+## Conner Van Loan
+
+### Unit Test
+![Count Of Teams](https://user-images.githubusercontent.com/88596340/211884205-fc6e887f-63eb-4152-a04d-58001e233323.png)
+This Unit test is simple and effective. .count gives us the total number of teams and is dynamic to any future team adds.
+### Integration Test
+![Integration Test](https://user-images.githubusercontent.com/88596340/211881217-3a80784c-decb-4079-a0cf-6893379f36a4.png)
+To obtain best/worst season, we created a method that would calculate each season's performance by a team. From there we could call on the max/min of the values to return the appropriate season id.
+![Integration Test](https://user-images.githubusercontent.com/88596340/211881474-1022454d-c0ea-416b-9600-ec9db19ba925.png)
+In order to do this we needed to use game data organized by season. However, this data list referenced the games data which does not provide a "win"/"loss" result. To gather that data without needing to iterate against another CSV file, we build a method that would compare goal totals for the away/home team and produce a win/loss result for that team id and then calcuate a win/loss percentage for that game list. Ultimately, this complex integration results in the best/worst season methods outputing correctly while only using one CSV data file.
+
 ## Wins & Challenges
 1. There were a few challenges that came with a couple of the statistics, such as, Favorite Opponent/Rival and Winningest/Coach. Having to cross reference multiple CSV files to find the correct result and finding what our test should expect before coding our method were among those contenders but in the end, it felt like a win when it was accomplished.
 1. During iteration 3, we found that memoization of some of helper methods optimized our program ten fold. It felt like a big achievement to see it working in under a second.
