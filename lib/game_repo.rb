@@ -64,4 +64,32 @@ class GameRepo
   def percentage_ties
     percentage(game_ties, total_games)
   end
+
+  def count_of_games_by_season
+    games_by_season = {}
+    season_games = @games.group_by { |game| game.season }
+
+    season_games.each do |season, game|
+      games_by_season[season] = game.count
+    end
+    games_by_season
+  end
+
+  def average_goals_per_game
+    total_amount_goals = game_total_score.sum
+    percentage(total_amount_goals, total_games)
+  end
+
+  def average_goals_by_season
+    goals_by_season = {}
+    season_goals = @games.group_by { |game| game.season }
+
+    season_goals.map do |season, games|
+      goal_sum = games.sum do |game| 
+        game.away_goals + game.home_goals
+      end 
+      goals_by_season[season] = (goal_sum / games.count.to_f).round(2)
+    end
+    goals_by_season 
+  end
 end
