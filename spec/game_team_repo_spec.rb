@@ -20,4 +20,14 @@ RSpec.describe GameTeamRepo do
         expect(@game_team).to be_instance_of(GameTeamRepo)
     end
   end
+
+  describe "#Teams best/worst offense" do
+    it "has average goals by team" do
+      expect(@game_team.average_goals_team).to eq(2)
+    end
+
+    xit "#worst_offense" do
+        expect(@game_team.worst_offense).to eq "Sporting Kansas City"
+    end
+  end
 end

@@ -434,7 +434,6 @@ class StatTracker
             if game[:home_team_id] == team_id || game[:away_team_id] == team_id
                 if (game[:home_team_id] == team_id)
                     rival = rival_stats[game[:away_team_id]]
-                    # require "pry"; binding.pry
                     rival[:total_games] += 1.0
                     if game[:home_goals] < game[:away_goals] 
                         rival[:losses] += 1.0    
