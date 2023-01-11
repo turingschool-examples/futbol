@@ -73,5 +73,9 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.winningest_coach("20172018")).to eq("Glen Gulutzan").or(eq("Bob Boughner"))
     end
 
+    it "#worst_coach" do
+      expect(@games_team.worst_coach("20172018")).to eq("Todd McLellan").or(eq("John Hynes"))
+    end
+
   end
 end
