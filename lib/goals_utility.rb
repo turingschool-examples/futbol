@@ -12,4 +12,8 @@ module GoalsUtility
     @team_id_all_goals ||= team_id_all_goals_hash
   end
 
+  def hoa_all_game_teams
+    @hoa_all_game_teams ||= @game_teams.group_by { |game_team| game_team.hoa }
+  end
+
 end

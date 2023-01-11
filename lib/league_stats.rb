@@ -45,23 +45,27 @@ class LeagueStats < Stats
   end
 
   def away_team_goals
-      id_goals = Hash.new { |hash, key| hash[key] = [] }
-      @game_teams.each do | k, v |
-        if k.hoa == "away"
-          id_goals[k.team_id] << k.goals.to_i
+    away_team_goals_hash = Hash.new { |hash, key| hash[key] = [] }
+    hoa_all_game_teams.each do |hoa, game_team_array|
+      game_team_array.each do |game_team|
+        if hoa == "away"
+          away_team_goals_hash[game_team.team_id] << game_team.goals
         end
       end
-      return id_goals
+    end 
+    return away_team_goals_hash 
   end
 
   def home_team_goals
-      id_goals = Hash.new { |hash, key| hash[key] = [] }
-      @game_teams.each do | k, v |
-        if k.hoa == "home"
-          id_goals[k.team_id] << k.goals.to_i
+    home_team_goals_hash = Hash.new { |hash, key| hash[key] = [] }
+    hoa_all_game_teams.each do |hoa, game_team_array|
+      game_team_array.each do |game_team|
+        if hoa == "home"
+          home_team_goals_hash[game_team.team_id] << game_team.goals
         end
       end
-      return id_goals
+    end 
+    return home_team_goals_hash 
   end
 
   def avg_team_goals(team_goals_hash)
