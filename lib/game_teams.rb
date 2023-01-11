@@ -89,19 +89,6 @@ class GameTeams
     end.compact.pop
 	end
 
-  def games_by_season
-    @games_by_season ||= @game_path.group_by do |row|
-      row[:season] 
-    end
-  end
-
-  # def games_by_game_id
-  #   #memoization this @games_by_game_id ||= [everything below]
-  #   @games_by_game_id ||= @game_teams_path.group_by do |row| 
-  #     row[:game_id]
-  #   end
-  # end
-
   def game_ids_by_season(season_id)
     games_by_season[season_id].map do |games|
       games[:game_id]
@@ -138,7 +125,6 @@ class GameTeams
 
   def teams_with_tackles(games_array) #HELPER for most and fewest tackles
      hash = Hash.new{|k,v| k[v] = []}
-    # hash = create_hash
     games_array.each do |game_id|
     next if games_by_game_id[game_id].nil?
       games_by_game_id[game_id].each do |game|
@@ -210,18 +196,6 @@ class GameTeams
       end
     end
     hash
-  end
-
-  def teams_by_id
-    @game_teams_path.group_by do |row|
-      row[:team_id]
-    end
-  end
-
-  def games_by_id_game_path
-    @games_by_id_game_path ||= @game_path.group_by do |row|
-      row[:game_id]
-    end
   end
 
   def pair_teams_with_results(team_id)
@@ -303,18 +277,6 @@ class GameTeams
       coach_results[coach] = (results.count("WIN") / (results.count.to_f / 2))
      end
      coach_results.invert[coach_results.invert.keys.min]
-  end
-
-  def games_by_season
-    @games_by_season ||= @game_path.group_by do |row|
-      row[:season] 
-    end
-  end
-
-  def games_by_game_id
-    @games_by_game_id ||= @game_teams_path.group_by do |row| 
-      row[:game_id]
-    end
   end
 
   def game_ids_by_season(season_id)

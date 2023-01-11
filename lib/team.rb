@@ -1,6 +1,8 @@
 require 'csv'
+require_relative 'modules/groupable'
 
 class Team
+  include Groupable
   attr_reader :team_path,
               :game_path,
               :game_teams_path,
@@ -157,18 +159,6 @@ class Team
       hash
   end
 
-  def games_by_season  #ask about testing for this method 138
-    @games_by_season ||= @game_path.group_by do |row|
-      row[:season] 
-    end
-  end
-
-  def games_by_game_id #and this one 132
-    @games_by_game_id ||= @game_teams_path.group_by do |row| 
-      row[:game_id]
-    end
-  end
-
   def game_ids_by_season(season_id) 
     games_by_season[season_id].map do |games|
       games[:game_id]
@@ -241,13 +231,6 @@ class Team
     @team_path.find do |team|
       team[:team_id] == team_id
     end[:teamname]
-  end
-
-
-  def games_by_team_id 
-    @games_by_team_id ||= @game_teams_path.group_by do |row|
-      row[:team_id]
-    end
   end
 
   def win_average_helper(team_id)
