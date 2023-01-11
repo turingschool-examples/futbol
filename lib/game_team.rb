@@ -18,7 +18,7 @@ class GameTeam
     def initialize(info)
         @game_id = info[:game_id]
         @team_id = info[:team_id]
-        @hoa = info[:HoA]
+        @hoa = info[:hoa]
         @result = info[:result]
         @settled_in = info[:settled_in]
         @head_coach = info[:head_coach]

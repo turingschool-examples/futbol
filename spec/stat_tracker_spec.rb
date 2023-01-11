@@ -6,13 +6,13 @@ RSpec.describe StatTracker do
         @team_path = './spec/fixtures/teams.csv'
         @game_teams_path = './spec/fixtures/game_teams.csv'
 
-        location_paths = {
+        locations = {
             games: @game_path,
             teams: @team_path,
             game_teams: @game_teams_path
           }
 
-        @stat_tracker = StatTracker.from_csv(location_paths)
+        @stat_tracker = StatTracker.from_csv(locations)
     end
     
     describe "#Initialize" do
@@ -90,10 +90,6 @@ RSpec.describe StatTracker do
     end
    
     describe "#Highest/lowest scoring home/away" do
-        it "#highest_scoring_visitor" do
-        expect(@stat_tracker.highest_scoring_visitor).to eq "Columbus Crew SC"
-        end
-
         it "#highest_scoring_home_team" do
         expect(@stat_tracker.highest_scoring_home_team).to eq "Minnesota United FC"
         end

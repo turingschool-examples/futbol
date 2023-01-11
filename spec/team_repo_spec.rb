@@ -20,4 +20,14 @@ RSpec.describe TeamRepo do
         expect(@team).to be_instance_of(TeamRepo)
     end
   end
+
+  describe "Teams, best, and worst offense" do 
+    it "#count of teams" do 
+        expect(@team.count_of_teams).to eq 17
+    end
+
+    it "#get_team_name" do 
+      expect(@team.get_team_name("1")).to eq "Atlanta United"
+    end
+  end
 end
