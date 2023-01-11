@@ -94,6 +94,7 @@ RSpec.describe GameTeamRepo do
     end
   end
 
+  describe "#most/least tackles" do
     it "#most_tackles" do
       expect(@game_team.most_tackles("20132014")).to eq "Houston Dynamo"
       expect(@game_team.most_tackles("20142015")).to eq("Seattle Sounders FC").or(eq("Minnesota United FC"))
@@ -103,4 +104,5 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.fewest_tackles("20132014")).to eq "Houston Dynamo"
       expect(@game_team.fewest_tackles("20142015")).to eq("Orlando City SC").or(eq("Columbus Crew SC"))
     end
+  end
 end
