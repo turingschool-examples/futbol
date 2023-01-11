@@ -22,78 +22,85 @@ RSpec.describe StatTracker do
 	  end
 
     it 'has attributes' do
-      # expect(stat_tracker.game_teams).to be_a(CSV::Table)
-      # expect(stat_tracker.games).to be_a(CSV::Table)
-      # expect(stat_tracker.teams).to be_a(CSV::Table)
-      
       expect(stat_tracker.game_team_collection).to be_a(GameTeamCollection)
       expect(stat_tracker.game_collection).to be_a(GameCollection)
       expect(stat_tracker.team_collection).to be_a(TeamCollection)
-      
     end
 
-    it 'can count # of teams' do
-      expect(stat_tracker.team_collection.teams_array.count).to eq(32)
+    it 'can instantiate an instance of itself' do
+      expect(self.csv).to be_a (StatTracker)
     end
+  end 
 
-    it 'can see game venues' do 
-      expect(stat_tracker.games[:venue].include?("Toyota Stadium")).to eq(true)
-    end
-
-    it 'can see game team ids' do 
-      expect(stat_tracker.game_teams[:game_id][1].to_i).to eq(2012030221)
-    end
-  end  
-
-	describe 'checks percentage of wins/ties' do
-		it "#percentage_home_wins" do
-			expect(stat_tracker.percentage_home_wins).to eq 0.44
-		end
-
-		it "#percentage_visitor_wins" do
-			expect(stat_tracker.percentage_visitor_wins).to eq 0.36
-		end
-
-		it "#percentage_ties" do
-			expect(stat_tracker.percentage_ties).to eq 0.20
-		end
-	end
-
-  describe 'compares total scores' do
+  # describe 'Game Statistics' do
+    
+    #mv: game_collection_spec?
     it 'finds total score' do
       expect(stat_tracker.game_collection.total_score).to be_a(Array)
     end
-    
-    it 'finds highest total score' do
-      expect(stat_tracker.highest_total_score).to eq(11)
+
+    describe '#highest_total_score' do
+      it 'finds highest total score' do
+        expect(stat_tracker.highest_total_score).to eq(11)
+      end
     end
 
-    it 'finds lowest total score' do
-      expect(stat_tracker.lowest_total_score).to eq(0)
-    end
-  end
-
-  describe '#count_of_games_by_season' do
-    it 'is a hash' do
-      expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
+    describe "#lowest_total_score" do
+      it 'finds lowest total score' do
+        expect(stat_tracker.lowest_total_score).to eq(0)
+      end
     end
 
-    it 'can return number of games by season' do
-
-      expected_hash = {
-        "20122013"=>806, 
-        "20162017"=>1317,
-        "20142015"=>1319,
-        "20152016"=>1321,
-        "20132014"=>1323,
-        "20172018"=>1355
-      }
-
-      expect(stat_tracker.count_of_games_by_season).to eq(expected_hash)
-      expect(stat_tracker.count_of_games_by_season["20122013"]).to eq(806)
-
+    describe 'checks percentage of wins/ties' do
+      it "#percentage_home_wins" do
+        expect(stat_tracker.percentage_home_wins).to eq 0.44
+      end
+  
+      it "#percentage_visitor_wins" do
+        expect(stat_tracker.percentage_visitor_wins).to eq 0.36
+      end
+  
+      it "#percentage_ties" do
+        expect(stat_tracker.percentage_ties).to eq 0.20
+      end
     end
-  end
+  
+    describe '#count_of_teams' do
+      it 'can count # of teams' do
+        expect(stat_tracker.team_collection.teams_array.count).to eq(32)
+      end
+
+      it 'can see game venues' do 
+        expect(stat_tracker.games[:venue].include?("Toyota Stadium")).to eq(true)
+      end
+
+      it 'can see game team ids' do 
+        expect(stat_tracker.game_teams[:game_id][1].to_i).to eq(2012030221)
+      end
+    end
+
+    describe '#count_of_games_by_season' do
+      it 'is a hash' do
+        expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
+      end
+
+      it 'can return number of games by season' do
+
+        expected_hash = {
+          "20122013"=>806, 
+          "20162017"=>1317,
+          "20142015"=>1319,
+          "20152016"=>1321,
+          "20132014"=>1323,
+          "20172018"=>1355
+        }
+
+        expect(stat_tracker.count_of_games_by_season).to eq(expected_hash)
+        expect(stat_tracker.count_of_games_by_season["20122013"]).to eq(806)
+
+      end
+    end
+# end
 
   describe '#average_goals_per_game' do
     it 'is a float' do
