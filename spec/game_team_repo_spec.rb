@@ -61,5 +61,9 @@ RSpec.describe GameTeamRepo do
       expect(@game_team.highest_scoring_home_team).to eq "Minnesota United FC"
     end
 
+    it "#lowest_scoring_visitor" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq "Sporting Kansas City"
+    end
+
   end
 end
