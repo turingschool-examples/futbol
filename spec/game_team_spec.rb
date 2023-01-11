@@ -6,7 +6,7 @@ RSpec.describe GameTeam do
             info = {
                 game_id: "2012030314",
                 team_id: "5",
-                HoA: "away",
+                hoa: "away",
                 result: "LOSS",
                 settled_in: "REG",
                 head_coach: "Dan Bylsma",

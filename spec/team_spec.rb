@@ -3,12 +3,12 @@ require "./spec_helper"
 RSpec.describe Team do
     before do
         info = {
-        team_id: "1",
-        franchiseID: "23",
-        teamName: "Atlanta United",
-        abbreviation: "ATL",
-        Stadium: "Mercedes_Benz Stadium",
-        link: "api/v1/teams/1"
+            team_id: "1",
+            franchiseid: "23",
+            teamname: "Atlanta United",
+            abbreviation: "ATL",
+            stadium: "Mercedes_Benz Stadium",
+            link: "api/v1/teams/1"
         }
         @team = Team.new(info)
     end
