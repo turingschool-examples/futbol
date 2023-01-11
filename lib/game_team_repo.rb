@@ -213,5 +213,4 @@ class GameTeamRepo
     @teams.find {|team| team.team_id == team_with_most_tackles}.team_name
   end
 
-
 end
