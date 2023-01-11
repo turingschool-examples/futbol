@@ -87,21 +87,24 @@ class StatTracker
     end
 
     def best_offense
-        total_goals_by_team = Hash.new(0)
-        @game_teams.each do |game|
-            total_goals_by_team[game[:team_id]] += game[:goals]
-        end
 
-        avg_goals_by_team = Hash.new(0)
-        total_goals_by_team.each do |id, total_goals|
-            avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
-        end
+        @teams.get_team_name(@game_teams.average_goals_team)
+        
+        # total_goals_by_team = Hash.new(0)
+        # @game_teams.each do |game|
+        #     total_goals_by_team[game[:team_id]] += game[:goals]
+        # end
+
+        # avg_goals_by_team = Hash.new(0)
+        # total_goals_by_team.each do |id, total_goals|
+        #     avg_goals_by_team[id] = (total_goals.to_f / @game_teams.find_all { |game| game[:team_id] == id }.length).round(2)
+        # end
          
-        @teams.find do |game|
-            if game[:team_id] == avg_goals_by_team.key(avg_goals_by_team.values.max)
-                return game[:teamname]
-            end
-        end
+        # @teams.find do |game|
+        #     if game[:team_id] == avg_goals_by_team.key(avg_goals_by_team.values.max)
+        #         return game[:teamname]
+        #     end
+        # end
     end
 
     def worst_offense

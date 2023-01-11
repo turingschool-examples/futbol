@@ -14,13 +14,9 @@ class TeamRepo
     @teams.count
   end
 
-  def best_offense
-    @game_team_repo.average_goals_team
-
-    @teams.find do |game|
-      if game.team_id == avg_goals_by_team.key(avg_goals_by_team.values.max)
-          game.teamname
-      end
-    end
+  def get_team_name(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.team_name
   end
 end

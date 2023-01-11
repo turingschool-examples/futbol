@@ -26,8 +26,8 @@ RSpec.describe TeamRepo do
         expect(@team.count_of_teams).to eq 17
     end
 
-    it "#best_offense" do 
-      expect(@team.best_offense).to eq "New England Revolution"
+    it "#get_team_name" do 
+      expect(@team.get_team_name("1")).to eq "Atlanta United"
     end
   end
 end
