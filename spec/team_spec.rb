@@ -158,6 +158,7 @@ end
 describe '#teams_with_tackles' do 
   it 'is a helper method to set team ids to their array of tackles' do 
     expect(@team.teams_with_tackles([]).class).to eq(Hash)
+    expect(@team.teams_with_tackles([]).count).to eq(0)
   end
 end
 
@@ -243,6 +244,7 @@ end
   describe '#win_average_helper' do 
     it 'returns an array'do 
     expect(@team.win_average_helper('3')).to be_a(Array)
+    expect(@team.win_average_helper('3').count).to eq(1)
     end
   end
 
