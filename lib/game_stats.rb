@@ -9,19 +9,11 @@ class GameStats < Stats
   end
 
   def highest_total_score
-    total_scores.last
-  end
-
-  def total_scores
-    game_sums = @games.map do |game|
-      game.away_goals + game.home_goals
-    end
-    game_sums.sort
-
+    sums_of_home_away_goals.sort.last
   end
 
   def lowest_total_score
-    total_scores.first
+    sums_of_home_away_goals.sort.first
   end
 
   def percentage_home_wins
@@ -70,10 +62,7 @@ class GameStats < Stats
   end
 
   def average_goals_per_game 
-    goals = 0 
-    games.each {|game| goals += (game.away_goals + game.home_goals)}
-    average = (goals.to_f/(games.count.to_f)).round(2)
-    return average
+    (sums_of_home_away_goals.sum / sums_of_home_away_goals.count.to_f).round(2)
   end
 
   def average_goals_by_season

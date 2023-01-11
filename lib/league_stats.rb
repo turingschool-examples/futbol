@@ -12,14 +12,6 @@ class LeagueStats < Stats
       @teams.count
   end
 
-  def team_id_all_goals
-      team_id_all_goals_hash = Hash.new { |hash, key| hash[key] = [] }
-      @game_teams.each do |game_teams|
-        team_id_all_goals_hash[game_teams.team_id] << game_teams.goals.to_f
-      end
-      return team_id_all_goals_hash
-  end
-
   def team_goal_avg(team_all_goals_hash)
     team_goal_avg_hash = Hash.new { |hash, key| hash[key] = 0 }
     team_all_goals_hash.each do |team_id, all_goals|

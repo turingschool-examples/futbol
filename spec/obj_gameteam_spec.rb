@@ -4,20 +4,20 @@ require 'spec_helper.rb'
 RSpec.describe GameTeam do
   let(:game_team) { GameTeam.new(info) }
   let(:info) do { 
-      "game_id" => 2034050625,
+      "game_id" => "2034050625",
       "team_id" => "55",
       "HoA" => "is always bugging me",
       "settled_in" => "The Skreets",
       "head_coach" => "Dawson T The Top G",
-      "goals" => 14,
-      "shots" => 20,
-      "tackles" => 44,
-      "pim" => 11,
-      "powerPlayOpportunities" => 2,
-      "powerPlayGoals" => 3,
-      "faceOffWinPercentage" => 67.54,
-      "giveaways" => 5,
-      "takeaways" => 7
+      "goals" => "14",
+      "shots" => "20",
+      "tackles" => "44",
+      "pim" => "11",
+      "powerPlayOpportunities" => "2",
+      "powerPlayGoals" => "3",
+      "faceOffWinPercentage" => "67.54",
+      "giveaways" => "5",
+      "takeaways" => "7"
     }
   end
   
