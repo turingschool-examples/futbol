@@ -146,7 +146,7 @@ RSpec.describe StatTracker do
       end
       
     end
-    
+
 	describe 'determines average scores and compares' do
 		
 		it "#highest_scoring_visitor" do
@@ -168,7 +168,7 @@ RSpec.describe StatTracker do
 
   
   
-  describe "#winningest_coach" do
+  describe "Season Statistics" do
     # context '#game_ids_by_season' do
     #   it 'returns the data matched to the passed argument as a Hash' do
     #     expect(stat_tracker.game_ids_by_season).to be_a(Hash)
@@ -189,7 +189,31 @@ RSpec.describe StatTracker do
       end
     end
   end
+
+	describe 'team accuracy' do
+    it "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+    end
   
+    it "#least_accurate_team" do
+      expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
+	end
+
+  describe 'can determine number of tackles per season per team' do
+		it "#most_tackles" do
+			expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+			expect(stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+		end
+
+		it "#fewest_tackles" do
+			expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+			expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+		end
+	end
+
   describe "#favorite_opponent / #rival" do
     context "#favorite_opponent" do
       it 'shows name of the opponent that has the lowest win percentage against the given team' do
@@ -222,30 +246,6 @@ RSpec.describe StatTracker do
     expect(stat_tracker.team_info("18")).to eq(team)
     end
   end
-
-	describe 'can determine number of tackles per season per team' do
-		it "#most_tackles" do
-			expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-			expect(stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
-		end
-
-		it "#fewest_tackles" do
-			expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
-			expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
-		end
-	end
-
-	describe 'team accuracy' do
-    it "#most_accurate_team" do
-      expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
-      expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
-    end
-  
-    it "#least_accurate_team" do
-      expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
-      expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
-    end
-	end
 
 	describe 'returns average win percentages of all games for a team' do
 		it "#average_win_percentage" do

@@ -85,15 +85,15 @@ module GameCollection
     end
   end
 
-  
-
-	def game_ids_by_season
+	def game_ids_by_season(game_collection)
     game_ids_by_season = Hash.new{|k,v| k[v] = []} 
 
-		@games_array.each do |game|
+		game_collection.each do |game|
 			game_ids_by_season[(game.season)] << (game.game_id)
     end
 
 		game_ids_by_season
   end
+  
+
 end

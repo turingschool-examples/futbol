@@ -99,15 +99,14 @@ include GameTeamCollection
 
   def winningest_coach(season)    
 		outcomes_by_game_id = []
+    results_by_coach = Hash.new { | k, v | k[v] = [] }
 
-    @game_collection.game_ids_by_season[season].each do |id|
-			outcomes_by_game_id << @game_team_collection.game_teams_array.find_all do |game| 
+    game_ids_by_season(@game_collection)[season].each do |id|
+			outcomes_by_game_id << @game_team_collection.find_all do |game| 
 				game.game_id == id
 			end
-		end	
-    outcomes_by_game_id    
+		end
 	
-    results_by_coach = Hash.new { | k, v | k[v] = [] }
     outcomes_by_game_id.each do |outcome|
       outcome.each do |team_stats|
         results_by_coach[(team_stats.head_coach)] << team_stats.result
@@ -127,7 +126,7 @@ include GameTeamCollection
         end
       end
       
-      coach_winrate = (wins.to_f / (@game_collection.game_ids_by_season[season].count).to_f)
+      coach_winrate = (wins.to_f / (game_ids_by_season(@game_collection)[season].count).to_f)
       results_by_coach[coach_name] = coach_winrate
     end
     
@@ -137,15 +136,14 @@ include GameTeamCollection
 
   def worst_coach(season)
     outcomes_by_game_id = []
+    results_by_coach = Hash.new { | k, v | k[v] = [] }
 
-    @game_collection.game_ids_by_season[season].each do |id|
-			outcomes_by_game_id << @game_team_collection.game_teams_array.find_all do |game| 
+    game_ids_by_season(@game_collection)[season].each do |id|
+			outcomes_by_game_id << @game_team_collection.find_all do |game| 
 				game.game_id == id
 			end
-		end	
-    outcomes_by_game_id    
+		end
 	
-    results_by_coach = Hash.new { | k, v | k[v] = [] }
     outcomes_by_game_id.each do |outcome|
       outcome.each do |team_stats|
         results_by_coach[(team_stats.head_coach)] << team_stats.result
@@ -165,7 +163,7 @@ include GameTeamCollection
         end
       end
       
-      coach_winrate = (wins.to_f / (@game_collection.game_ids_by_season[season].count).to_f)
+      coach_winrate = (wins.to_f / (game_ids_by_season(@game_collection)[season].count).to_f)
       results_by_coach[coach_name] = coach_winrate
     end
     
