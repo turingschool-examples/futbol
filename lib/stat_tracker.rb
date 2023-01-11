@@ -17,14 +17,13 @@ include Analytics
 	def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
   
   def highest_total_score
     @game_collection.total_score.max
   end
 
   def lowest_total_score
-    total_score.min
+    @game_collection.total_score.min
   end
 
 	def percentage_home_wins
@@ -51,6 +50,10 @@ include Analytics
     @game_collection.average_goals_by_season
   end
 
+  def count_of_teams
+    @team_collection.teams_array.count
+  end
+
 	def highest_scoring_visitor
     @team_collection.find_team(total_away_teams_average(@game_collection).max_by{|k, v| v}[0])
 	end
@@ -66,10 +69,6 @@ include Analytics
 	def lowest_scoring_home_team
     @team_collection.find_team(total_home_teams_average(@game_collection).min_by{|k, v| v}[0])
 	end
-
-  def count_of_teams
-    @team_collection.teams_array.count
-  end
 
   def best_offense
     @team_collection.find_team(total_teams_average(@game_team_collection).max_by{|k, v| v}[0])
