@@ -23,15 +23,34 @@ RSpec.describe GameTeamRepo do
 
   describe "#Teams best/worst offense" do
     it "average goals by team" do
-      expect(@game_team.average_goals_team).to eq(2)
+      expected = {
+                  "1"=>2.0, 
+                  "10"=>1.0, 
+                  "13"=>3.0, 
+                  "16"=>3.0, 
+                  "18"=>1.0, 
+                  "20"=>1.0, 
+                  "22"=>0.0, 
+                  "24"=>1.0, 
+                  "25"=>1.0, 
+                  "28"=>1.0, 
+                  "3"=>2.0, 
+                  "4"=>1.0, 
+                  "5"=>0.0, 
+                  "52"=>0.0, 
+                  "53"=>3.0, 
+                  "6"=>1.0, 
+                  "9"=>2.0
+                }
+      expect(@game_team.average_goals_team).to eq(expected)
     end
 
-    xit "highest_avg_goals_by_team" do
-      expect(@game_team.highest_avg_goals_by_team).to eq(0)
+    it "highest_avg_goals_by_team" do
+      expect(@game_team.highest_avg_goals_by_team).to eq("16")
     end
 
-    xit "#worst_offense" do
-      expect(@game_team.worst_offense).to eq "Sporting Kansas City"
+    it "lowest_avg_goals_by_team" do
+      expect(@game_team.lowest_avg_goals_by_team).to eq("5")
     end
   end
 end

@@ -29,6 +29,12 @@ class GameTeamRepo
   def highest_avg_goals_by_team
     average_goals_team.max_by do |game, goals|
       goals
-    end
+    end.first
+  end
+
+  def lowest_avg_goals_by_team
+    average_goals_team.min_by do |game, goals|
+      goals
+    end.first
   end
 end
