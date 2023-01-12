@@ -59,11 +59,6 @@ module GameCollection
   
     game_collection.each do |game|
       total_goals_by_season[game.season] += game.away_goals.to_f + game.home_goals.to_f
-      # if total_goals_by_season[(game.season)] == nil
-      #   total_goals_by_season[(game.season)] = game.away_goals.to_f + game.home_goals.to_f
-      # else
-      #   total_goals_by_season[(game.season)] += game.away_goals.to_f + game.home_goals.to_f
-      # end
     end
 
     total_goals_by_season.each do |season, total_goals|

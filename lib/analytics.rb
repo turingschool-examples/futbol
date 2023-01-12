@@ -7,19 +7,6 @@ module Analytics
   include TeamCollection
   include GameTeamCollection
 
-  def csv_read(locations_path, class_arg)
-    CSV.foreach(locations_path, headers: true, header_converters: :symbol) do |row|
-	    class_arg.new(row)
-	  end
-  end
-
-  def find_average(collection, hash1, hash2, id1, id2)
-    collection.each do |element|
-      teams_total_scores[game_team.team_id] += game_team.goals.to_f
-      teams_total_games[game_team.team_id] += 1.0
-    end
-  end
-
   def total_teams_average(game_team_collection)
     teams_total_scores = Hash.new{0}
     teams_total_games = Hash.new{0}
@@ -45,7 +32,7 @@ module Analytics
       teams_total_away_averages[key] = (value / teams_total_away_games[key].to_f).round(5)
     end
 
-    teams_total_away_averages
+   teams_total_away_averages
   end
 
   def total_home_teams_average(game_team_collection)
