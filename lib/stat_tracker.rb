@@ -106,66 +106,15 @@ include GameTeamCollection
   end
   
 	def most_accurate_team(season_id)
-
-		# game_ids_by_season = Hash.new { | k, v | k[v]= [] }
-
-		# @game_collection.each do |game|
-		#   game_ids_by_season[game.season] << game.game_id
-		# end
-
-		# variable = []
-
-		# game_ids_by_season[season_id].each do |id|
-		# 	variable << @game_team_collection.find_all {|row| row.game_id == id}
-		# end
-
-		# total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
-		# total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
-
-		# variable.flatten(1).each do |row|
-		# 		total_goals_by_team[row.team_id] += row.goals.to_f
-		# 		total_shots_by_team[row.team_id] += row.shots.to_f
-		# end
-
-		# teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
-
-		# total_shots_by_team.each do |team_id, total_shots|
-		# 	teams_and_accuracy[team_id] = (total_shots/total_goals_by_team[team_id])
-		# end
-
-		highest_accuracy_by_id = teams_and_accuracy.min_by { |k,v| v }[0]
-		find_team(@team_collection, highest_accuracy_by_id)
+    accuracy_hash = team_accuracy(season_id, @game_collection, @game_team_collection)
+    highest_accuracy_by_id = accuracy_hash.min_by { |k,v| v }[0]
+    find_team(@team_collection, highest_accuracy_by_id)
 	end
 
   def least_accurate_team(season_id)
-		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
-
-		@game_collection.each do |game|
-		  game_ids_by_season[game.season] << game.game_id
-		end
-
-		variable = []
-
-		game_ids_by_season[season_id].each do |id|
-			variable << @game_team_collection.find_all {|row| row.game_id == id}
-		end
-
-		total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
-		total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
-
-		variable.flatten(1).each do |row|
-				total_goals_by_team[row.team_id] += row.goals.to_f
-				total_shots_by_team[row.team_id] += row.shots.to_f
-		end
-
-		teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
-
-		total_shots_by_team.each do |team_id, total_shots|
-			teams_and_accuracy[team_id] = (total_shots/total_goals_by_team[team_id])
-		end
-
-		highest_accuracy_by_id = teams_and_accuracy.max_by { |k,v| v }[0]
-		find_team(@team_collection, highest_accuracy_by_id)
+    accuracy_hash = team_accuracy(season_id, @game_collection, @game_team_collection)
+    lowest_accuracy_by_id = accuracy_hash.max_by { |k,v| v }[0]
+    find_team(@team_collection, lowest_accuracy_by_id)
 	end
 
   def most_tackles(season_id)

@@ -98,16 +98,16 @@ module Analytics
     results_by_coach
 	end
 
-  def most_accurate_team(season_id, )
+  def team_accuracy(season_id, game_collection, game_team_collection)
     variable = []
 		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
 
-		@game_collection.each do |game|
+		game_collection.each do |game|
 		  game_ids_by_season[game.season] << game.game_id
 		end
 
 		game_ids_by_season[season_id].each do |id|
-			variable << @game_team_collection.find_all {|row| row.game_id == id}
+			variable << game_team_collection.find_all {|row| row.game_id == id}
 		end
 
 		total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
