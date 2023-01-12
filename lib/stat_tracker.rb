@@ -93,112 +93,45 @@ include GameTeamCollection
     find_team(@team_collection, total_teams_average(@game_team_collection).min_by{|k, v| v}[0])
   end
 
-  def winningest_coach(season)    
-		outcomes_by_game_id = []
-    results_by_coach = Hash.new { | k, v | k[v] = [] }
-
-    game_ids_by_season(@game_collection)[season].each do |id|
-			outcomes_by_game_id << @game_team_collection.find_all do |game| 
-				game.game_id == id
-			end
-		end
-	
-    outcomes_by_game_id.each do |outcome|
-      outcome.each do |team_stats|
-        results_by_coach[(team_stats.head_coach)] << team_stats.result
-      end
-    end
-
-    results_by_coach.each do |coach_name, results|
-      wins = 0
-      total_games = 0
-
-      results.each do |result|
-        if result == 'WIN'
-          wins += 1
-          total_games += 1
-        else
-          total_games += 1
-        end
-      end
-      
-      coach_winrate = (wins.to_f / (game_ids_by_season(@game_collection)[season].count).to_f)
-      results_by_coach[coach_name] = coach_winrate
-    end
-    
-    max_value = results_by_coach.values.max
-		results_by_coach.key(max_value)
+  def winningest_coach(season)
+    coach_hash = find_coach(season, @game_team_collection, @game_collection)
+    max_value = coach_hash.values.max
+    coach_hash.key(max_value)
 	end
 
   def worst_coach(season)
-    outcomes_by_game_id = []
-    results_by_coach = Hash.new { | k, v | k[v] = [] }
-
-    game_ids_by_season(@game_collection)[season].each do |id|
-			outcomes_by_game_id << @game_team_collection.find_all do |game| 
-				game.game_id == id
-			end
-		end
-	
-    outcomes_by_game_id.each do |outcome|
-      outcome.each do |team_stats|
-        results_by_coach[(team_stats.head_coach)] << team_stats.result
-      end
-    end
-
-    results_by_coach.each do |coach_name, results|
-      wins = 0
-      total_games = 0
-
-      results.each do |result|
-        if result == 'WIN'
-          wins += 1
-          total_games += 1
-        else
-          total_games += 1
-        end
-      end
-      
-      coach_winrate = (wins.to_f / (game_ids_by_season(@game_collection)[season].count).to_f)
-      results_by_coach[coach_name] = coach_winrate
-    end
-    
-    min_value = results_by_coach.values.min
-
-    results_by_coach.key(min_value)
+    coach_hash = find_coach(season, @game_team_collection, @game_collection)
+    min_value = coach_hash.values.min
+    coach_hash.key(min_value)
   end
   
 	def most_accurate_team(season_id)
-		game_ids_by_season = Hash.new { | k, v | k[v]= [] }
 
-		@game_collection.each do |game|
-		  game_ids_by_season[game.season] << game.game_id
-		end
+		# game_ids_by_season = Hash.new { | k, v | k[v]= [] }
 
-		variable = []
+		# @game_collection.each do |game|
+		#   game_ids_by_season[game.season] << game.game_id
+		# end
 
-		game_ids_by_season[season_id].each do |id|
-			variable << @game_team_collection.find_all {|row| row.game_id == id}
-		end
+		# variable = []
 
-		total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
-		total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
+		# game_ids_by_season[season_id].each do |id|
+		# 	variable << @game_team_collection.find_all {|row| row.game_id == id}
+		# end
 
-		variable.flatten(1).each do |row|
-			if total_goals_by_team[row.team_id]== nil
-				total_goals_by_team[row.team_id] = row.goals.to_f
-				total_shots_by_team[row.team_id] = row.shots.to_f
-			else
-				total_goals_by_team[row.team_id] += row.goals.to_f
-				total_shots_by_team[row.team_id] += row.shots.to_f
-			end
-		end
+		# total_goals_by_team = Hash.new { | k, v | k[v]= 0.0 }
+		# total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
 
-		teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
+		# variable.flatten(1).each do |row|
+		# 		total_goals_by_team[row.team_id] += row.goals.to_f
+		# 		total_shots_by_team[row.team_id] += row.shots.to_f
+		# end
 
-		total_shots_by_team.each do |team_id, total_shots|
-			teams_and_accuracy[team_id] = (total_shots/total_goals_by_team[team_id])
-		end
+		# teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
+
+		# total_shots_by_team.each do |team_id, total_shots|
+		# 	teams_and_accuracy[team_id] = (total_shots/total_goals_by_team[team_id])
+		# end
 
 		highest_accuracy_by_id = teams_and_accuracy.min_by { |k,v| v }[0]
 		find_team(@team_collection, highest_accuracy_by_id)
@@ -221,13 +154,8 @@ include GameTeamCollection
 		total_shots_by_team = Hash.new { | k, v | k[v]= 0.0 }
 
 		variable.flatten(1).each do |row|
-			if total_goals_by_team[row.team_id]== nil
-				total_goals_by_team[row.team_id] = row.goals.to_f
-				total_shots_by_team[row.team_id] = row.shots.to_f
-			else
 				total_goals_by_team[row.team_id] += row.goals.to_f
 				total_shots_by_team[row.team_id] += row.shots.to_f
-			end
 		end
 
 		teams_and_accuracy = Hash.new { | k, v | k[v]= 0.0 }
