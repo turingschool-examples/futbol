@@ -1,8 +1,9 @@
 require 'csv'
 
 class TeamData
-  attr_reader 
 
+  attr_reader :teams
+  
   def initialize
     @teams = []
   end
