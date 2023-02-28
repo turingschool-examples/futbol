@@ -1,12 +1,15 @@
 require 'csv'
 
 class GameData 
+
+attr_reader :games
+
   def initialize
     @games = []
   end
 
   def add_games 
-    games = CSV.open 'data/games.csv' headers: true, header_converters: :symbol
+    games = CSV.open 'data/games.csv', headers: true, header_converters: :symbol
     games.each do |row|
       id = row[:game_id]
       season = row[:season]
