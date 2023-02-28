@@ -1,4 +1,4 @@
-# require './lib/stat_tracker'
+require_relative './stat_tracker'
 class StatTracker
 
   game_path = './data/games.csv'
