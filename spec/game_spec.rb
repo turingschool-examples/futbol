@@ -19,5 +19,10 @@ describe Game do
     it 'exists' do
       expect(@game).to be_a Game
     end
+
+    it 'has game and game team data files' do
+      expect(@game.games_data).to eq(@stat_tracker.games_data)
+      expect(@game.game_team_data).to eq(@stat_tracker.game_team_data)
+    end
   end
 end
