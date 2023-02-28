@@ -6,6 +6,7 @@
 - Re-DTR (scheduled) and check-in before the weekend to plan for remaining work in advance of Monday’s due date
 
 ## Project Organization and Workflow
+[GitHub Project Tracker](https://github.com/users/reidsmiller/projects/1/views/1)
 - Agreed-upon Git workflow: separate branches per issue, external review and approval for each PR (process is set up in Git repo)
 - We discussed wanting to blend pair / group work with individual work:
 - Collaborative planning in Iteration 1
