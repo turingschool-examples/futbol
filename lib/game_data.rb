@@ -4,7 +4,8 @@ class GameData
   attr_reader :home_wins,
               :away_wins,
               :ties,
-              :total_games
+              :total_games,
+              :total_goals
 
   attr_accessor :games
 
@@ -14,6 +15,7 @@ class GameData
     @away_wins = 0
     @ties = 0
     @total_games = 0
+    @total_goals = 0
   end
 
   def add_games 
@@ -68,23 +70,42 @@ class GameData
     hash
   end
 
-    def average_goals_per_game
-      
+  def average_goals_per_game
+    @games.each do |game|
+      @total_games += 1
+      @total_goals += (game.away_goals.to_f + game.home_goals.to_f)
     end
-  # def average_goals_per_game
-  #   games = CSV.open '../data/games.csv', headers: true, header_converters: :symbol
-  #   total_games = 0
-  #   total_goals = 0
-  #   games.each do |row|
-  #     if row[:game_id]
-  #       total_games += 1
-  #     end
-  #     if row[:home_goals] && row[:away_goals]
-  #       goals = row[:home_goals].to_f + row[:away_goals].to_f
-  #       total_goals += goals.to_f
-  #     end
-  #   end
-  #   average = total_goals / total_games
-  #   average.round(2)
-  # end
+    average = @total_goals / @total_games
+    average.round(2)
+  end
+
+  def average_goals_by_season
+    average_goals_by_season = Hash.new(0)
+    goals_p_season = goals_per_season()
+    games_p_season = games_per_season()
+    @games.each {|game| average_goals_by_season[game.season] = 0}
+    average_goals_by_season.each do |key, value|
+      average_goals_by_season[key] = goals_per_season[key].to_f / games_per_season[key].to_f
+      average_goals_by_season[key] = average_goals_by_season[key].round(2)
+    end
+    average_goals_by_season
+  end
+
+  #Helper method for average_goals_by_season
+  def goals_per_season
+    goals_per_season = Hash.new(0)
+    @games.each do |game|
+      goals_per_season[game.season] += (game.home_goals.to_i + game.away_goals.to_i)
+    end
+    goals_per_season
+  end
+
+  #Helper method for average_goals_by_season  
+  def games_per_season
+    games_per_season = Hash.new(0)
+    @games.each do |game|
+      games_per_season[game.season] += 1
+    end
+    games_per_season
+  end
 end

@@ -29,4 +29,43 @@ describe GameData do
                                                     "20132014"=>1323, 
                                                     "20172018"=>1355})
   end
+
+  it 'returns average goals per game' do
+    dataset = GameData.new
+    dataset.add_games
+    expect(dataset.average_goals_per_game).to eq(4.22)
+  end
+
+  it 'returns total goals by season' do
+    dataset = GameData.new
+    dataset.add_games
+    expect(dataset.goals_per_season).to eq({"20122013"=>3322, 
+                                            "20162017"=>5565, 
+                                            "20142015"=>5461, 
+                                            "20152016"=>5499, 
+                                            "20132014"=>5547, 
+                                            "20172018"=>6019})
+  end
+  
+  it 'returns total games by season' do
+    dataset = GameData.new
+    dataset.add_games
+    expect(dataset.games_per_season).to eq({"20122013"=>806, 
+                                            "20162017"=>1317, 
+                                            "20142015"=>1319, 
+                                            "20152016"=>1321, 
+                                            "20132014"=>1323, 
+                                            "20172018"=>1355})
+  end
+
+  it 'returns average games per season' do
+    dataset = GameData.new
+    dataset.add_games
+    expect(dataset.average_goals_by_season).to eq({ "20122013" => 4.12,
+                                                    "20132014" => 4.19,
+                                                    "20142015" => 4.14,
+                                                    "20152016" => 4.16,
+                                                    "20162017" => 4.23,
+                                                    "20172018" => 4.44,})
+  end
 end
