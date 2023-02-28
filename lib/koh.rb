@@ -1,6 +1,7 @@
 require "csv"
 require "../lib/game_data"
 require "../lib/game"
+require "../lib/game_data"
 
 
 def count_of_games_by_season

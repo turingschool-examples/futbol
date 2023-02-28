@@ -59,4 +59,32 @@ class GameData
   def percentage_ties
     (@ties.to_f / @total_games).round(2)
   end
+
+  def count_of_games_by_season
+    hash = Hash.new(0)
+    @games.each do |game|
+      hash[game.season] += 1
+    end
+    hash
+  end
+
+    def average_goals_per_game
+      
+    end
+  # def average_goals_per_game
+  #   games = CSV.open '../data/games.csv', headers: true, header_converters: :symbol
+  #   total_games = 0
+  #   total_goals = 0
+  #   games.each do |row|
+  #     if row[:game_id]
+  #       total_games += 1
+  #     end
+  #     if row[:home_goals] && row[:away_goals]
+  #       goals = row[:home_goals].to_f + row[:away_goals].to_f
+  #       total_goals += goals.to_f
+  #     end
+  #   end
+  #   average = total_goals / total_games
+  #   average.round(2)
+  # end
 end
