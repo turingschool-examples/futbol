@@ -16,6 +16,9 @@
 
 ## Contributors:
   --Stephen McPhee
+  
   --Reilly Miller
+  
   --Brian Guthrie
+  
   --Andrew Bowman
