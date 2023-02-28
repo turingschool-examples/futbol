@@ -59,4 +59,22 @@ class GameData
   def percentage_ties
     (@ties.to_f / @total_games).round(2)
   end
+
+  def highest_total_score
+    array = []
+    @games.each do |game|
+      score = game[:home_goals].to_i + game[:away_goals].to_i
+      array << score
+    end
+    array.max
+  end
+  
+  def lowest_total_score
+    array = []
+    @games.each do |game|
+      score = game[:home_goals].to_i + game[:away_goals].to_i
+      array << score
+    end
+    array.min
+  end
 end

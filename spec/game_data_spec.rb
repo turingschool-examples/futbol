@@ -18,4 +18,12 @@ describe GameData do
   expect(dataset.percentage_visitor_wins).to eq(0.36)
   expect(dataset.percentage_ties).to eq(0.2)
   end
+
+  it 'can return highest score' do
+    expect(highest_total_score).to eq(11)
+  end
+
+  it 'can return lowest score' do
+    expect(lowest_total_score).to eq(0)
+  end
 end
