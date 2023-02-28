@@ -38,7 +38,7 @@ class GameData
   def wins_losses
     @games.each do |game|
       if game.home_goals > game.away_goals
-        @home_wins += 1
+        @home_wins += 1 
         @total_games += 1
       elsif game.home_goals < game.away_goals
         @away_wins += 1
