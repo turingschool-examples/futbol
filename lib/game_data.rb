@@ -4,7 +4,8 @@ class GameData
   attr_reader :home_wins,
               :away_wins,
               :ties,
-              :total_games
+              :total_games,
+              :total_goals
 
   attr_accessor :games
 
@@ -14,6 +15,7 @@ class GameData
     @away_wins = 0
     @ties = 0
     @total_games = 0
+    @total_goals = 0
   end
 
   def add_games 
@@ -58,5 +60,52 @@ class GameData
 
   def percentage_ties
     (@ties.to_f / @total_games).round(2)
+  end
+
+  def count_of_games_by_season
+    hash = Hash.new(0)
+    @games.each do |game|
+      hash[game.season] += 1
+    end
+    hash
+  end
+
+  def average_goals_per_game
+    @games.each do |game|
+      @total_games += 1
+      @total_goals += (game.away_goals.to_f + game.home_goals.to_f)
+    end
+    average = @total_goals / @total_games
+    average.round(2)
+  end
+
+  def average_goals_by_season
+    average_goals_by_season = Hash.new(0)
+    goals_p_season = goals_per_season()
+    games_p_season = games_per_season()
+    @games.each {|game| average_goals_by_season[game.season] = 0}
+    average_goals_by_season.each do |key, value|
+      average_goals_by_season[key] = goals_per_season[key].to_f / games_per_season[key].to_f
+      average_goals_by_season[key] = average_goals_by_season[key].round(2)
+    end
+    average_goals_by_season
+  end
+
+  #Helper method for average_goals_by_season
+  def goals_per_season
+    goals_per_season = Hash.new(0)
+    @games.each do |game|
+      goals_per_season[game.season] += (game.home_goals.to_i + game.away_goals.to_i)
+    end
+    goals_per_season
+  end
+
+  #Helper method for average_goals_by_season  
+  def games_per_season
+    games_per_season = Hash.new(0)
+    @games.each do |game|
+      games_per_season[game.season] += 1
+    end
+    games_per_season
   end
 end
