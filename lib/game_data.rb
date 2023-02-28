@@ -62,6 +62,24 @@ class GameData
     (@ties.to_f / @total_games).round(2)
   end
 
+
+  def highest_total_score
+    array = []
+    @games.each do |game|
+      score = game[:home_goals].to_i + game[:away_goals].to_i
+      array << score
+    end
+    array.max
+  end
+  
+  def lowest_total_score
+    array = []
+    @games.each do |game|
+      score = game[:home_goals].to_i + game[:away_goals].to_i
+      array << score
+    end
+    array.min
+
   def count_of_games_by_season
     hash = Hash.new(0)
     @games.each do |game|
