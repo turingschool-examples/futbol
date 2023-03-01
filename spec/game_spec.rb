@@ -27,8 +27,8 @@ describe Game do
       expect(@test_game.date_time).to eq("5/16/13")
       expect(@test_game.away_team_id).to eq("3")
       expect(@test_game.home_team_id).to eq("6")
-      expect(@test_game.away_goals).to eq("2")
-      expect(@test_game.home_goals).to eq("3")
+      expect(@test_game.away_goals).to eq(2)
+      expect(@test_game.home_goals).to eq(3)
       expect(@test_game.venue).to eq("Toyota Stadium")
     end
   end

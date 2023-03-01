@@ -307,7 +307,7 @@
 
             
 
-            <code class="ruby">    @away_goals = details[:away_goals]</code>
+            <code class="ruby">    @away_goals = details[:away_goals].to_i</code>
           </li>
         </div>
       
@@ -318,7 +318,7 @@
 
             
 
-            <code class="ruby">    @home_goals = details[:home_goals]</code>
+            <code class="ruby">    @home_goals = details[:home_goals].to_i</code>
           </li>
         </div>
       
@@ -972,7 +972,7 @@
             <span class="hits">7</span>
             
 
-            
+
 
             <code class="ruby">    csv_games_data = CSV.open locations[:games], headers: true, header_converters: :symbol</code>
           </li>
