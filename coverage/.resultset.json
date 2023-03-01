@@ -1,21 +1,79 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/team.rb": {
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/teams.rb": {
         "lines": [
-          null,
-          null,
           1,
           1,
           null,
           1,
-          1,
-          1,
+          32,
+          32,
           null,
           null
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/spec/team_spec.rb": {
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/games.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/game_teams.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/league_stats.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/season_stats.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/games_stats.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/stats.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          33,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/crowrising/Turing/Mod_1_project/futbol/spec/stats_spec.rb": {
         "lines": [
           1,
           null,
@@ -24,6 +82,15 @@
           1,
           1,
           1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
           1,
           1,
           1,
@@ -33,6 +100,6 @@
         ]
       }
     },
-    "timestamp": 1677640161
+    "timestamp": 1677696738
   }
 }
