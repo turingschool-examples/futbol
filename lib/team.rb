@@ -2,7 +2,7 @@
 
 class Team
   def initialize(details)
-    @team_id = 
-    @team_name = 
+    @team_id = details[:team_id]
+    @team_name = details[:teamname]
   end
 end
