@@ -1,4 +1,8 @@
+require_relative './helper'
+
 module GameStats
+  include Helper
+
   def game_rspec_test
     true
   end
