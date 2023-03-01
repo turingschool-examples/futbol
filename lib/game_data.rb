@@ -144,7 +144,9 @@ class GameData
     @games.each do |game|
       scores[(game.away)] += (game.away_goals).to_i
       scores.max_by{|k,v| v}[0]
-
+    end
+  end
+  
   def team_goals
     @games.each do |game|
       @away_scores[game.away] += game.away_goals.to_i
