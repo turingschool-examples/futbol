@@ -1,5 +1,5 @@
 require_relative '../spec/spec_helper'
-require './lib/game'
+require '../lib/game'
 
 class StatTracker 
 
