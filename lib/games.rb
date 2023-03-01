@@ -16,6 +16,6 @@ class Games
     @home_team_id = details[:home_team_id]
     @home_goals = details[:home_goals]
     @away_goals = details[:away_goals]
-    @total_score = @home_goals + @away_goals
+    @total_score = @home_goals.to_i + @away_goals.to_i
   end
 end

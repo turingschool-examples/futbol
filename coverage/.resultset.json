@@ -1,34 +1,76 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/teams.rb": {
+      "/Users/angelbyun/futbol/lib/teams.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          96,
-          96,
+          0,
+          0,
           null,
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/games.rb": {
+      "/Users/angelbyun/futbol/lib/games.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null
+        ]
+      },
+      "/Users/angelbyun/futbol/lib/game_teams.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/angelbyun/futbol/lib/league_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/game_teams.rb": {
-        "lines": [
-
-        ]
-      },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/league_stats.rb": {
-        "lines": [
-
-        ]
-      },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/stat_tracker.rb": {
+      "/Users/angelbyun/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -45,17 +87,17 @@
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/season_stats.rb": {
+      "/Users/angelbyun/futbol/lib/season_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/games_stats.rb": {
+      "/Users/angelbyun/futbol/lib/games_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/stats.rb": {
+      "/Users/angelbyun/futbol/lib/stats.rb": {
         "lines": [
           1,
           1,
@@ -64,31 +106,28 @@
           1,
           null,
           1,
-          99,
-          null,
-          null,
-          null,
+          0,
+          0,
+          0,
           null,
           null,
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/spec/stats_spec.rb": {
+      "/Users/angelbyun/futbol/spec/games_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          3,
-          3,
-          3,
-          null,
-          null,
-          3,
+          2,
           null,
           null,
           null,
-          3,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           1,
@@ -98,8 +137,10 @@
           null,
           1,
           1,
-          null,
-          null,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -109,6 +150,6 @@
         ]
       }
     },
-    "timestamp": 1677697076
+    "timestamp": 1677704091
   }
 }
