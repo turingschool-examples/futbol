@@ -20,19 +20,15 @@ RSpec.describe StatTracker do
   end
     it 'exists' do
       expect(@stat_tracker).to be_an_instance_of StatTracker
-      # require 'pry'; binding.pry
-      p @stat_tracker
     end
 
+
+    it 'can parse data into a string of objects' do
+      expect(@stat_tracker.games).to be_a(Array)
+      expect(@stat_tracker.games).to all(be_a(Game))
+    end
     it 'processed team data, retrieves data from teams' do
       expect(@stat_tracker.processed_team_data(locations)).to eq([])
-    end
-
-    xit 'can parse data into a string of objects' do
-      
-      
-      # expect(@stat_tracker[games]).to be_a(Array)
-      # expect(@stat_tracker[games]).to all(be_a(Game))
     end
   end
 end
