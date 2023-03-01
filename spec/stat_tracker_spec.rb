@@ -37,15 +37,15 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.processed_games_data(@locations)).to all(be_a(Game))
     end
 
+
+    it 'can parse data into a string of objects' do
+      expect(@stat_tracker.games).to be_a(Array)
+      expect(@stat_tracker.games).to all(be_a(Game))
+    end
     it 'processed team data, retrieves data from teams' do
       expect(@stat_tracker.processed_game_teams_data(@locations)).to all(be_a(GameTeam))
     end
-
-    xit 'can parse data into a string of objects' do
-      # expect(@stat_tracker[games]).to be_a(Array)
-      # expect(@stat_tracker[games]).to all(be_a(Game))
     end
-  end
 end
 
 
