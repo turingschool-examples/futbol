@@ -10,8 +10,8 @@ class Games
 
   def initialize(details)
     @game_id = details[:game_id]
-    @season_year = details[:season_year]
-    @season_type = details[:season_type]
+    @season_year = details[:season]
+    @season_type = details[:type]
     @away_team_id = details[:away_team_id]
     @home_team_id = details[:home_team_id]
     @home_goals = details[:home_goals]
