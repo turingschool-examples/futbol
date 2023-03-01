@@ -128,4 +128,28 @@ class GameTeamData
     highest_avg = numer[1].div(denom[1])
     convert_id_to_teamname(numer[0])
   end
+  
+  def winningest_coach
+  win_loss = Hash.new(0)
+  @game_teams.each do |game|
+    if game.result == 'WIN'
+      win_loss[game.head_coach] += 1
+    elsif game.result == 'LOSS'
+      win_loss[game.head_coach] -= 1
+    end
+  end
+  winningest = win_loss.max_by{|k,v| v}[0]
+end
+
+  def worst_coach
+    win_loss = Hash.new(0)
+    @game_teams.each do |game|
+      if game.result == 'WIN'
+        win_loss[game.head_coach] += 1
+      elsif game.result == 'LOSS'
+        win_loss[game.head_coach] -= 1
+      end
+    end
+    winningest = win_loss.min_by{|k,v| v}[0]
+  end
 end
