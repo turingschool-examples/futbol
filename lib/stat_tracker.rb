@@ -42,6 +42,7 @@ class StatTracker
       data_hash[:team_name] = row[:teamName]
       data_hash[:abbreviation] = row[:abbreviation]
       data_hash[:stadium] = row[:stadium]
+      @teams << Team.new(data_hash)
     end
   end
 end
