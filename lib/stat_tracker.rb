@@ -1,11 +1,10 @@
 require_relative '../spec/spec_helper'
 
 class StatTracker 
-
-    attr_reader :data, 
-                :teams, 
-                :games, 
-                :game_teams
+  attr_reader :data, 
+              :teams, 
+              :games, 
+              :game_teams
 
   def initialize(data)
     @data = data

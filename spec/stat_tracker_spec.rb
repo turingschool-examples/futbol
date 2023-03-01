@@ -45,7 +45,7 @@ RSpec.describe StatTracker do
     it 'processed team data, retrieves data from teams' do
       expect(@stat_tracker.processed_game_teams_data(@locations)).to all(be_a(GameTeam))
     end
-    end
+  end
 end
 
 
