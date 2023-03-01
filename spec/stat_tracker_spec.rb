@@ -30,5 +30,25 @@ RSpec.describe StatTracker do
       expect(avg_goals[20122013]).to eq(4.12)
       expect(avg_goals[20132014]).to eq(4.19)
     end
+
+    it 'average_home_wins' do
+      expect(@stat_tracker.percent_home_wins).to eq(0.44)
+    end
+
+    it 'average_away_wins' do
+      expect(@stat_tracker.percent_away_wins).to eq(0.36)
+    end
+
+    it 'average_ties' do
+      expect(@stat_tracker.percent_ties).to eq(0.20)
+    end
+
+    it 'count_of_games_by_season' do
+      expect(@stat_tracker.count_of_games_by_season[20122013]).to eq(806)
+    end
+
+    it 'average_goals_per_game' do
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+    end
   end
 end
