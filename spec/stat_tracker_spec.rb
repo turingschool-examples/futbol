@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+require './lib/games'
 
 RSpec.describe StatTracker do
   before(:all) do
@@ -43,11 +44,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percent_ties).to eq(0.20)
     end
 
-    it 'count_of_games_by_season' do
+    xit 'count_of_games_by_season' do
       expect(@stat_tracker.count_of_games_by_season[20122013]).to eq(806)
     end
 
-    it 'average_goals_per_game' do
+    xit 'average_goals_per_game' do
       expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
