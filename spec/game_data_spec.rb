@@ -20,11 +20,16 @@ describe GameData do
   end
 
   it 'can return highest score' do
-    expect(highest_total_score).to eq(11)
+    dataset = GameData.new
+    dataset.add_games
+    expect(dataset.highest_total_score).to eq(11)
   end
 
   it 'can return lowest score' do
-    expect(lowest_total_score).to eq(0)
+    dataset = GameData.new
+    dataset.add_games
+    expect(dataset.lowest_total_score).to eq(0)
+  end
 
   it 'returns a count of games by season' do
     dataset = GameData.new
