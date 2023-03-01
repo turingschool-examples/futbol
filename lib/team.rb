@@ -1,5 +1,3 @@
-###remember require relative 
-
 class Team
   attr_reader :team_id, :team_name
   
