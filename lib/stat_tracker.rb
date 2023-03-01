@@ -7,7 +7,8 @@ require_relative './helper'
 class StatTracker
   include GameStats, LeagueStats, SeasonStats
 
-  attr_reader :games_data, :games, :teams, :game_teams
+  attr_reader :games_data, :teams
+  attr_accessor :games, :game_teams
 
   def initialize(csv_games_data, csv_game_team_data, csv_team_data)
     @games = []
