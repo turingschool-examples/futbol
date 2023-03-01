@@ -1,7 +1,7 @@
 require 'csv'
 
 class StatTracker
-  attr_reader :games_data, :games
+  attr_reader :games_data, :games, :teams
 
   def initialize(csv_games_data, csv_game_team_data, csv_team_data)
     @games = []
@@ -41,7 +41,7 @@ class StatTracker
       data_hash[:franchise_id] = row[:franchiseId]
       data_hash[:team_name] = row[:teamName]
       data_hash[:abbreviation] = row[:abbreviation]
-      data_hash[:stadium] = row[:stadium]
+      data_hash[:stadium] = row[:Stadium]
       @teams << Team.new(data_hash)
     end
   end
