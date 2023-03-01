@@ -12,17 +12,24 @@ describe Game do
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @game = Game.new(@stat_tracker.games_data, @stat_tracker.game_team_data)
+    @test_game = @stat_tracker.games[0]
   end
 
   describe '#initialize' do
     it 'exists' do
-      expect(@game).to be_a Game
+      expect(@test_game).to be_a Game
     end
 
-    it 'has game and game team data files' do
-      expect(@game.games_data).to eq(@stat_tracker.games_data)
-      expect(@game.game_team_data).to eq(@stat_tracker.game_team_data)
+    it 'has attributes' do
+      expect(@test_game.game_id).to eq("2012030221")
+      expect(@test_game.season).to eq("20122013")
+      expect(@test_game.type).to eq('Postseason')
+      expect(@test_game.date_time).to eq("5/16/13")
+      expect(@test_game.away_team_id).to eq("3")
+      expect(@test_game.home_team_id).to eq("6")
+      expect(@test_game.away_goals).to eq("2")
+      expect(@test_game.home_goals).to eq("3")
+      expect(@test_game.venue).to eq("Toyota Stadium")
     end
   end
 end
