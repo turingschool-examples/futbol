@@ -37,6 +37,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.processed_game_teams_data(@locations)).to all(be_a(GameTeam))
     end
   end
+
+  describe 'percentage_home_wins' do
+    it 'float of home teams that have won games' do
+    expect(@stat_tracker.percentage_home_wins).to eq 0.44
+    end
+  end
 end
 
 
