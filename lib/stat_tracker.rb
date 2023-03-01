@@ -18,7 +18,9 @@ class StatTracker
   def games
     games = CSV.open @games, headers: true, header_converters: :symbol
     # require 'pry-byebug'; require 'pry'; binding.pry
-    games.each { |game| print game }
+    games.each do |game|
+       @@games << game = Game.new(game) 
+    end
 
     # game = Game.new()
   end
