@@ -1,10 +1,8 @@
-require_relative 'stat_tracker'
+require_relative 'classes'
 
-class SeasonStats < StatTracker
-  def initialize
-    @games = super
-    @teams = super
-    @game_teams = super
+class SeasonStats < Classes
+  def initialize(locations)
+    super
   end
 
   def winningest_coach
@@ -26,3 +24,4 @@ class SeasonStats < StatTracker
     end
     win_loss
   end
+end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GameData do
+describe GameStats do
   it 'can import game data' do
   dataset = GameData.new
   dataset.add_games
@@ -91,5 +91,12 @@ describe GameData do
     expect(dataset.home_scores["54"]).to eq(132)
     expect(dataset.lowest_scoring_away).to eq("Reign FC")
     expect(dataset.away_scores["54"]).to eq(107)
+  end
+
+  it 'can group by season' do 
+    dataset = GameData.new
+    dataset.add_games
+    dataset.add_teams
+    expect(dataset.win_pct_season).to eq(nothing rn)
   end
 end

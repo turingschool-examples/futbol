@@ -1,3 +1,5 @@
+require_relative 'classes'
+
 class Team
 
   attr_reader :team_id,
@@ -7,12 +9,12 @@ class Team
               :stadium,
               :link
 
-  def initialize(team_id, franchiseid, teamname, abbreviation, stadium, link)
-    @team_id = team_id
-    @franchiseid = franchiseid
-    @teamname = teamname
-    @abbreviation = abbreviation
-    @stadium = stadium
-    @link = link
+  def initialize(info)
+    @team_id = info["team_id"]
+    @franchiseid = info["franchiseId"]
+    @teamname = info["teamName"]
+    @abbreviation = info["abbreviation"]
+    @stadium = info["stadium"]
+    @link = info["link"]
   end
 end

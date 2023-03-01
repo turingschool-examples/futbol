@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe TeamData do
+describe LeagueStats do
   before(:each) do
     @dataset = TeamData.new
     @dataset.add_teams
