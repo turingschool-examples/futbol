@@ -4,11 +4,15 @@ module GameStats
   end
 
   def highest_total_score
-    
+    @games.max_by do |game|
+      game.away_goals + game.home_goals
+    end
   end
 
   def lowest_total_score
-
+    @games.min_by do |game|
+      game.away_goals + game.home_goals
+    end
   end
 
   def percentage_home_wins
