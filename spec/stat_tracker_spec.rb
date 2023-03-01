@@ -1,14 +1,36 @@
-require_relative '../spec/spec_helper'
+require_relative '../spec/spec_helper'  
 
 RSpec.describe StatTracker do
  
-  stat_tracker = StatTracker.new()
   
   describe 'initialize' do
-    it 'exists' do
-      stat_tracker = StatTracker.new('Locations')
+    before(:each) do 
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(locations)
+    
+  end
+    it 'exists' do
+      expect(@stat_tracker).to be_an_instance_of StatTracker
+      # require 'pry'; binding.pry
+      p @stat_tracker
+    end
+
+    xit 'can parse data into a string of objects' do
       
+      require 'pry'; binding.pry
+      # expect(@stat_tracker[games]).to be_a(Array)
+      # expect(@stat_tracker[games]).to all(be_a(Game))
     end
   end
 end
+
+
