@@ -1,35 +1,12 @@
-require 'csv'
+require_relative 'stat_tracker'
 
-class GameTeamData
-  attr_reader :game_teams
+class LeagueStats < StatTracker
   def initialize
-    @game_teams = []
-    @teams = []
+    @games = super
+    @teams = super
+    @game_teams = super
   end
 
-  def add_game_team
-    games = CSV.open './data/game_teams.csv', headers: true, header_converters: :symbol
-    games.each do |row|
-      game_id = row[:game_id]
-      team_id = row[:team_id]
-      hoa = row[:hoa]
-      result = row[:result]
-      settled_in = row[:settled_in]
-      head_coach = row[:head_coach]
-      goals = row[:goals]
-      shots = row[:shots]
-      tackles = row[:tackles]
-      pim = row[:pim]
-      powerplayopportunities = row[:powerplayopportunities]
-      powerplaygoals = row[:powerplayGoals]
-      faceoffwinpercentage = row[:faceoffwinpercentage]
-      giveaways = row[:giveaways]
-      takeaways = row[:takeaways]
-      @game_teams << GameTeam.new(game_id,team_id,hoa,result,settled_in,head_coach,goals,shots,tackles,pim,powerplayopportunities,powerplaygoals,faceoffwinpercentage,giveaways,takeaways)
-    end
-  end
-
-  #Name of the team with the highest average number of goals scored per game across all seasons.
   def best_offense
     average_goals_per_team = self.average_goals_per_team
     best_team_id = average_goals_per_team.sort_by { |_,v| v }.last[0]
@@ -42,7 +19,7 @@ class GameTeamData
     best_team_id = average_goals_per_team.sort_by { |_,v| v }.first[0]
     convert_id_to_teamname(best_team_id)
   end
-  
+
   #Helper method for best offense/ worst offense
   def convert_id_to_teamname(id_string)
     teamdata = TeamData.new
@@ -113,7 +90,7 @@ class GameTeamData
     highest_avg = numer[1].div(denom[1])
     convert_id_to_teamname(numer[0])
   end
-  
+
 
   def highest_scoring_away_team
     gamedata = GameData.new
@@ -127,5 +104,27 @@ class GameTeamData
     denom = away_games_per_team.max_by{|k, v| v}
     highest_avg = numer[1].div(denom[1])
     convert_id_to_teamname(numer[0])
+  end
+
+
+
+  def lowest_scoring_away
+    lowest_scoring_team = @away_scores.min_by{|k, v| v}
+    @teams.each do |team|
+      if team.team_id == lowest_scoring_team[0]
+        @lowest_scoring_away_team = team.teamname
+      end
+    end
+    @lowest_scoring_away_team
+  end
+
+  def lowest_scoring_home
+    lowest_scoring_team = @home_scores.min_by{|k, v| v}
+    @teams.each do |team|
+      if team.team_id == lowest_scoring_team[0]
+        @lowest_scoring_home_team = team.teamname
+      end
+    end
+    @lowest_scoring_home_team
   end
 end

@@ -24,4 +24,12 @@ describe GameTeamData do
   it 'can find highest scoring away team' do
     expect(@dataset.highest_scoring_away_team).to eq('Sporting Kansas City')
   end
+
+  it 'can find winningest coach' do
+    expect(@dataset.winningest_coach).to eq('Bruce Boudreau')
+  end
+  
+  it 'can find worst coach' do
+    expect(@dataset.worst_coach).to eq('Dave Tippett')
+  end
 end

@@ -22,6 +22,4 @@ attr_reader :id,
     @venue = venue
     @venue_link = venue_link
   end
-  # @name = first + " " + last
-  # @zipcode = zip.to_s.rjust(5,"0")[0..4]
 end
