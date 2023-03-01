@@ -24,9 +24,13 @@ RSpec.describe StatTracker do
       p @stat_tracker
     end
 
+    it 'processed team data, retrieves data from teams' do
+      expect(@stat_tracker.processed_team_data(locations)).to eq([])
+    end
+
     xit 'can parse data into a string of objects' do
       
-      require 'pry'; binding.pry
+      
       # expect(@stat_tracker[games]).to be_a(Array)
       # expect(@stat_tracker[games]).to all(be_a(Game))
     end
