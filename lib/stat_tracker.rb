@@ -4,9 +4,9 @@ class StatTracker
 
   # def self.from_csv(locations)
   def initialize(locations)
-    @games = CSV.open locations[:games], headers: true, header_converters: :symbol
-    @teams = CSV.open locations[:teams], headers: true, header_converters: :symbol
-    @game_teams = CSV.open locations[:game_teams], headers: true, header_converters: :symbol
+    @games = CSV.read locations[:games], headers: true, header_converters: :symbol
+    @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
   end
   # end
   
@@ -21,12 +21,22 @@ class StatTracker
   
   def lowest_total_score
     min = 10
-    require 'pry'; binding.pry
     @games.each do |row|
-      require 'pry'; binding.pry
       score = row[:home_goals].to_i + row[:away_goals].to_i
       min = [min, score].min
     end
     min
+  end
+
+  def average_goals_by_season
+    avg_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
+    @games.each do |game|
+      season = game[:season].to_i; goals = game[:home_goals].to_i + game[:away_goals].to_i
+      avg_goals[season][:goals] += goals
+      avg_goals[season][:games] += 1
+    end
+    avg_goals.transform_values do |season| 
+      season[:goals].fdiv(season[:games]).round(2) 
+    end
   end
 end
