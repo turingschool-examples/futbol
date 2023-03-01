@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/reidmiller/Documents/turing/1mod/projects/futbol/lib/game.rb": {
+      "/Users/cp/turing/1mod/projects/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -20,7 +20,7 @@
           null
         ]
       },
-      "/Users/reidmiller/Documents/turing/1mod/projects/futbol/lib/team.rb": {
+      "/Users/cp/turing/1mod/projects/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -35,7 +35,7 @@
           null
         ]
       },
-      "/Users/reidmiller/Documents/turing/1mod/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/cp/turing/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           null,
@@ -87,7 +87,7 @@
           null
         ]
       },
-      "/Users/reidmiller/Documents/turing/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/cp/turing/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           null,
@@ -113,7 +113,7 @@
           null
         ]
       },
-      "/Users/reidmiller/Documents/turing/1mod/projects/futbol/spec/team_spec.rb": {
+      "/Users/cp/turing/1mod/projects/futbol/spec/team_spec.rb": {
         "lines": [
           1,
           null,
@@ -149,6 +149,6 @@
         ]
       }
     },
-    "timestamp": 1677641389
+    "timestamp": 1677682667
   }
 }
