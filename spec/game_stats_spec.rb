@@ -38,4 +38,16 @@ describe GameStats do
 
     expect(@stat_tracker.lowest_total_score).to eq(1)
   end
+
+  it 'can determine percentage of home wins' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.percentage_home_wins).to eq(60.0)
+  end
+
+  it 'can determine percentage of visitor wins' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.percentage_visitor_wins).to eq(40.0)
+  end
 end
