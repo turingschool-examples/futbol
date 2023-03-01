@@ -22,11 +22,17 @@ module GameStats
   end
 
   def percentage_home_wins
-
+    home_wins = @games.count { |game| game.home_goals > game.away_goals }
+    total_games = @games.length
+    percentage = (home_wins.to_f / total_games) * 100
+    percentage.round(2)
   end
 
   def percentage_visitor_wins
-
+    visitor_wins = @games.count { |game| game.away_goals > game.home_goals }
+    total_games = @games.length
+    percentage = (visitor_wins.to_f / total_games) * 100
+    percentage.round(2)
   end
 
   def percentage_ties
