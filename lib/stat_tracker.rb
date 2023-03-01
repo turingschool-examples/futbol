@@ -17,6 +17,23 @@ class StatTracker
     end
     new(new_locations)
   end
+  
+  def processed_teams_data(locations)
+    teams = locations[:teams]
+    teams.each do |team|
+      require 'pry'; binding.pry
+      CSV.open team, headers: true, header_converters: :symbol
+      
+    end
+    teams
+  end
+     
+   
+      
+    
+
+    
+
 
   def create_games(game_data)
     all_games = []
@@ -27,3 +44,18 @@ class StatTracker
   end
 
 end
+#   def initialize(locations)
+#     @games = processed_game_data(locations[:games])
+#     # @teams = processed_teams_data(locations[:teams])
+#     # @game_teams = processed_game_teams_data(locations[:game_teams])
+#   end
+
+#   def processed_game_data(game_data)
+#     all_games = []
+#     parsed_data = CSV.open game_data, headers: true, header_converters: :symbol
+#     parsed_data.each do |game_info|
+#       all_games << Game.new(game_info)
+#     end
+#     all_games
+#   end
+

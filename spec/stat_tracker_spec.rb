@@ -22,9 +22,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker).to be_an_instance_of StatTracker
     end
 
+
     it 'can parse data into a string of objects' do
       expect(@stat_tracker.games).to be_a(Array)
       expect(@stat_tracker.games).to all(be_a(Game))
+    end
+    it 'processed team data, retrieves data from teams' do
+      expect(@stat_tracker.processed_team_data(locations)).to eq([])
     end
   end
 end
