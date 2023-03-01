@@ -6,9 +6,10 @@
           1,
           1,
           null,
+          null,
           1,
-          0,
-          0,
+          2,
+          2,
           null,
           null
         ]
@@ -26,14 +27,14 @@
           null,
           null,
           1,
-          7441,
-          7441,
-          7441,
-          7441,
-          7441,
-          7441,
-          7441,
-          7441,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           null,
           null
         ]
@@ -99,7 +100,12 @@
           1,
           null,
           1,
-          7442,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
           null,
           null
         ]
@@ -125,13 +131,20 @@
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/spec/games_stats_spec.rb": {
+      "/Users/crowrising/Turing/Mod_1_project/futbol/spec/team_spec.rb": {
         "lines": [
           1,
           null,
           1,
+          1,
+          2,
+          2,
           null,
           1,
+          1,
+          1,
+          null,
+          null,
           1,
           1,
           1,
@@ -141,6 +154,6 @@
         ]
       }
     },
-    "timestamp": 1677710098
+    "timestamp": 1677711259
   }
 }
