@@ -28,17 +28,14 @@ describe GameStats do
     allow(@stat_tracker.games[108]).to receive(:away_goals).and_return(10)
     allow(@stat_tracker.games[108]).to receive(:home_goals).and_return(10)
 
-    expect(@stat_tracker.highest_total_score.home_goals).to eq(10)
-    expect(@stat_tracker.highest_total_score.away_goals).to eq(10)
-    expect(@stat_tracker.highest_total_score).to eq(@stat_tracker.games[108])
+    expect(@stat_tracker.highest_total_score).to eq(20)
   end
 
   it 'can determine lowest score' do
     allow(@stat_tracker.games[108]).to receive(:away_goals).and_return(-1)
     allow(@stat_tracker.games[108]).to receive(:home_goals).and_return(-1)
 
-    expect(@stat_tracker.lowest_total_score.home_goals).to eq(-1)
-    expect(@stat_tracker.lowest_total_score.away_goals).to eq(-1)
-    expect(@stat_tracker.lowest_total_score).to eq(@stat_tracker.games[108])
+
+    expect(@stat_tracker.lowest_total_score).to eq(-2)
   end
 end
