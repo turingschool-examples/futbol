@@ -4,6 +4,14 @@ module Helper
     team.team_name
   end
 
+  def total_goals(game)
+    game.away_goals + game.home_goals
+  end
+
+  def total_games(games)
+    games.count
+  end
+  
   def average_away_goals(input_games)
     sum_away_goals = input_games.sum(&:away_goals)
     sum_away_goals.to_f/input_games.length.to_f
