@@ -1,0 +1,5 @@
+require 'rspec'
+require './lib/game'
+require './lib/teams'
+require './lib/game_teams'
+require './lib/stat_tracker'
