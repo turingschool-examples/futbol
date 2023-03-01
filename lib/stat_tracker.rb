@@ -1,4 +1,5 @@
 require 'csv'
+require './lib/game_teams'
 
 class StatTracker
   @@games = []
@@ -17,21 +18,25 @@ class StatTracker
   
   def games
     games = CSV.open @games, headers: true, header_converters: :symbol
-    # require 'pry-byebug'; require 'pry'; binding.pry
     games.each do |game|
-       @@games << game = Game.new(game) 
+      @@games << game = Game.new(game) 
     end
-
-    # game = Game.new()
+    @@games
   end
 
   def teams
     teams = CSV.open @teams, headers: true, header_converters: :symbol
-    teams.each { |team| print team }
+    teams.each do |team|
+      @@teams << teams = GameTeams.new(team)
+    end
+    @@teams
   end
 
   def game_teams
     game_teams = CSV.open @game_teams, headers: true, header_converters: :symbol
-    game_teams.each { |game_teams| print game_teams }
+    game_teams.each do |game_teams|
+      @@game_teams << game_teams = GameTeams.new(game_teams)
+    end
+     @@game_teams
   end
 end

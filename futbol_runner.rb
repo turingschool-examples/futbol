@@ -14,6 +14,6 @@ locations = {
 stat_tracker = StatTracker.from_csv(locations)
 
 
-puts stat_tracker.games
+puts stat_tracker.game_teams
 
 
