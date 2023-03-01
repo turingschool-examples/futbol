@@ -1,13 +1,14 @@
 require 'csv'
 
 class StatTracker
-  attr_reader :games_data, :games
+  attr_reader :games_data, :games, :teams
 
   def initialize(csv_games_data, csv_game_team_data, csv_team_data)
     @games = []
+    @teams = []
     @games_data = parse_games_data(csv_games_data)
-    #@game_team_data = parse_game_team_data(csv_game_team_data)
-    #@team_data = parse_team_data(csv_team_data)
+    # @game_team_data = parse_game_team_data(csv_game_team_data)
+    @team_data = parse_team_data(csv_team_data)
   end
 
   def self.from_csv(locations)
@@ -30,6 +31,18 @@ class StatTracker
       data_hash[:home_goals] = row[:home_goals]
       data_hash[:venue] = row[:venue]
       @games << Game.new(data_hash)
+    end
+  end
+
+  def parse_team_data(data)
+    data_hash = {}
+    data.each do |row|
+      data_hash[:team_id] = row[:team_id]
+      data_hash[:franchise_id] = row[:franchiseid]
+      data_hash[:team_name] = row[:teamname]
+      data_hash[:abbreviation] = row[:abbreviation]
+      data_hash[:stadium] = row[:stadium]
+      @teams << Team.new(data_hash)
     end
   end
 end
