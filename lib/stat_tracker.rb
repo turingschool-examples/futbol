@@ -5,7 +5,7 @@ class StatTracker
   # def self.from_csv(locations)
   def initialize(locations)
     @games = Games.new(locations)
-    @teams = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    @teams = League.new(locations)
     @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
   end
   # end
@@ -40,5 +40,9 @@ class StatTracker
 
   def average_goals_per_game
     @games.average_goals_per_game
+  end
+
+  def count_of_teams
+    @teams.count_of_teams
   end
 end
