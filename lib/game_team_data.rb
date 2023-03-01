@@ -130,18 +130,14 @@ class GameTeamData
   end
   
   def winningest_coach
-  win_loss = Hash.new(0)
-  @game_teams.each do |game|
-    if game.result == 'WIN'
-      win_loss[game.head_coach] += 1
-    elsif game.result == 'LOSS'
-      win_loss[game.head_coach] -= 1
-    end
+  find_coach_ratios.max_by{|k,v| v}[0]
   end
-  winningest = win_loss.max_by{|k,v| v}[0]
-end
 
   def worst_coach
+    find_coach_ratios.min_by{|k,v| v}[0]
+  end
+
+  def find_coach_ratios
     win_loss = Hash.new(0)
     @game_teams.each do |game|
       if game.result == 'WIN'
@@ -150,6 +146,12 @@ end
         win_loss[game.head_coach] -= 1
       end
     end
-    winningest = win_loss.min_by{|k,v| v}[0]
+    win_loss
+  end
+
+  def win_pct_season
+    #need to separate game_team by season
+    @games.group_by
+  
   end
 end
