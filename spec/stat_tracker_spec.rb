@@ -12,15 +12,6 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
     
-    @team_data = {
-      team_id: "1",
-      franchiseId: "23",
-      teamName: "Atlanta United",
-      abbreviation: "ATL",
-      Stadium: "Mercedes-Benz Stadium"
-    }
-    
-    @team1 = Team.new(@team_data)
     @stat_tracker = StatTracker.from_csv(@locations)
   end
   

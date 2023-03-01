@@ -20,4 +20,10 @@ RSpec.describe Game do
     expect(@stat_tracker.games).to all(be_a(Game))
   end
 
+  it "has the expected attributes" do
+    expect(@stat_tracker.games[0].game_id).to eq("2012030221")
+    expect(@stat_tracker.games[0].away_team_id).to eq("3")
+    expect(@stat_tracker.games[0].away_goals).to eq("2")
+  end
+
 end
