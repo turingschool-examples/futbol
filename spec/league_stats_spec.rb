@@ -26,4 +26,16 @@ describe LeagueStats do
   it 'exists' do
     expect(@stat_tracker.league_rspec_test).to be true
   end
+
+  it 'can get highest scoring visitor' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  it 'can get lowest scoring visitor' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  end
 end
