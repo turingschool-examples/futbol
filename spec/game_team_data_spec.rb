@@ -16,4 +16,8 @@ describe GameTeamData do
   it 'can return team with worst offense' do
     expect(@dataset.worst_offense).to eq("Utah Royals FC")
   end
+
+  it 'can find the highest avg home team' do
+    expect(@dataset.highest_scoring_home_team).to eq('Sporting Kansas City')
+  end
 end

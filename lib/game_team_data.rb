@@ -79,4 +79,37 @@ class GameTeamData
     games_per_team
   end
 
+  def home_games_per_team
+    home_games_hash = Hash.new(0)
+    @game_teams.each do |game|
+      if game.hoa == "home"
+        home_games_hash[game.team_id] += 1
+      end
+    end
+    home_games_hash
+  end
+
+  def away_games_per_team
+    away_games_hash = Hash.new(0)
+    @game_teams.each do |game|
+      if game.hoa == "away"
+        away_games_hash[game.team_id] += 1
+      end
+    end
+    away_games_hash
+  end
+
+  def highest_scoring_home_team
+    gamedata = GameData.new
+    gamedata.add_games
+    scores = Hash.new(0)
+    gamedata.games.each do |game|
+      scores[(game.away)] += (game.away_goals).to_i
+      scores.max_by{|k,v| v}[0]
+    end
+    numer = scores.max_by{|k, v| v}
+    denom = home_games_per_team.max_by{|k, v| v}
+    highest_avg = numer[1].div(denom[1])
+    convert_id_to_teamname(numer[0])
+  end
 end
