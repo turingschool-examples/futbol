@@ -43,6 +43,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
   end
+
+  describe '#lowest_total_score' do
+    it 'sum of scores in lowest scoring game' do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
+  end
 end
 
 
