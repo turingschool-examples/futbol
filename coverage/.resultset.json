@@ -1,26 +1,30 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/team.rb": {
+      "/Users/angelbyun/futbol/lib/team.rb": {
         "lines": [
-
+          1,
+          1,
+          null,
+          null,
+          null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/spec/team_spec.rb": {
+      "/Users/angelbyun/futbol/spec/team_spec.rb": {
         "lines": [
           1,
           null,
           1,
-          0,
-          0,
-          0,
-          0,
+          1,
+          1,
+          1,
+          1,
           null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1677632477
+    "timestamp": 1677632963
   }
 }
