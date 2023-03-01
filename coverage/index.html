@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-02-28T18:09:23-07:00">2023-02-28T18:09:23-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-02-28T19:39:25-07:00">2023-02-28T19:39:25-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>8</b> relevant lines,
-    <span class="green"><b>8</b> lines covered</span> and
+    <b>11</b> relevant lines,
+    <span class="green"><b>11</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -71,22 +71,22 @@
       <tbody>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#9e26e29905365814c601a8af70b38b24576a2898" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
+            <td class="strong t-file__name"><a href="#b5a1c7ad85714c961ae62da2b538cc189446f3a2" class="src_link" title="lib/team.rb">lib/team.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">5</td>
-            <td class="cell--number">2</td>
-            <td class="cell--number">2</td>
+            <td class="cell--number">8</td>
+            <td class="cell--number">4</td>
+            <td class="cell--number">4</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
           </tr>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#e12731aa7232668e282e00a9ee815ef6780a8fae" class="src_link" title="spec/team_spec.rb">spec/team_spec.rb</a></td>
+            <td class="strong t-file__name"><a href="#b0da6af0dd04602a81f381d519bdfb8caf63c52f" class="src_link" title="spec/team_spec.rb">spec/team_spec.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">10</td>
-            <td class="cell--number">6</td>
-            <td class="cell--number">6</td>
+            <td class="cell--number">11</td>
+            <td class="cell--number">7</td>
+            <td class="cell--number">7</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -109,7 +109,7 @@
 
       <div class="source_files">
       
-        <div class="source_table" id="9e26e29905365814c601a8af70b38b24576a2898">
+        <div class="source_table" id="b5a1c7ad85714c961ae62da2b538cc189446f3a2">
   <div class="header">
     <h3>lib/team.rb</h3>
     <h4>
@@ -123,8 +123,8 @@
     
 
     <div class="t-line-summary">
-      <b>2</b> relevant lines.
-      <span class="green"><b>2</b> lines covered</span> and
+      <b>4</b> relevant lines.
+      <span class="green"><b>4</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -136,7 +136,29 @@
     <ol>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="1">
+          <li class="never" data-hits="" data-linenumber="1">
+            
+            
+
+            
+
+            <code class="ruby">###remember require relative </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="2">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="3">
             <span class="hits">1</span>
             
 
@@ -147,29 +169,40 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="2">
+          <li class="covered" data-hits="1" data-linenumber="4">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def initialize</code>
+            <code class="ruby">  def initialize(details)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="3">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="5">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    </code>
+            
+
+            <code class="ruby">    @team_id = details[:team_id]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="4">
+          <li class="covered" data-hits="1" data-linenumber="6">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @team_name = details[:teamname]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="7">
             
             
 
@@ -180,7 +213,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="5">
+          <li class="never" data-hits="" data-linenumber="8">
             
             
 
@@ -195,7 +228,7 @@
 </div>
 
       
-        <div class="source_table" id="e12731aa7232668e282e00a9ee815ef6780a8fae">
+        <div class="source_table" id="b0da6af0dd04602a81f381d519bdfb8caf63c52f">
   <div class="header">
     <h3>spec/team_spec.rb</h3>
     <h4>
@@ -209,8 +242,8 @@
     
 
     <div class="t-line-summary">
-      <b>6</b> relevant lines.
-      <span class="green"><b>6</b> lines covered</span> and
+      <b>7</b> relevant lines.
+      <span class="green"><b>7</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -283,7 +316,7 @@
 
             
 
-            <code class="ruby">      team = Team.new</code>
+            <code class="ruby">      details = {team_id: &quot;1&quot;, teamname: &quot;Atlanta United&quot;}</code>
           </li>
         </div>
       
@@ -294,18 +327,18 @@
 
             
 
-            <code class="ruby">      expect(team).to be_a(Team)</code>
+            <code class="ruby">      team = Team.new(details)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="8">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="8">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    end</code>
+            
+
+            <code class="ruby">      expect(team).to be_a(Team)</code>
           </li>
         </div>
       
@@ -316,12 +349,23 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="10">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="11">
             
             
 
