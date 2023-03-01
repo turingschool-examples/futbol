@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'rspec'
 require './lib/game'
 require './lib/game_data'
