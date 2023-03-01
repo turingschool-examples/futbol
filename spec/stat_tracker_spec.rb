@@ -26,4 +26,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_teams_data).to be_a CSV::Table
     end
   end
+
+  describe '#all_games' do
+    it 'makes an array of game objects' do
+      expect(@stat_tracker.all_games).to be_an Array
+      expect(@stat_tracker.all_games).to all(be_a Game)
+    end
+  end
 end
