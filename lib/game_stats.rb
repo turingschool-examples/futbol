@@ -1,14 +1,16 @@
-require_relative 'stat_tracker'
+require_relative './classes'
 
-class GameStats < StatTracker
+class GameStats < Classes
   
-  def initialize
-    @games = super
-    @teams = super
-    @game_teams = super
+  def initialize(locations)
+    super
   end
 
   def wins_losses
+    @home_wins = 0
+    @total_games = 0
+    @away_wins = 0
+    @ties = 0
     @games.each do |game|
       if game.home_goals > game.away_goals
         @home_wins += 1 

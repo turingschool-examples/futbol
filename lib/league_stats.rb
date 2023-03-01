@@ -1,10 +1,8 @@
-require_relative 'stat_tracker'
+require_relative 'classes'
 
-class LeagueStats < StatTracker
-  def initialize
-    @games = super
-    @teams = super
-    @game_teams = super
+class LeagueStats < Classes
+  def initialize(locations)
+    super
   end
 
   def best_offense
