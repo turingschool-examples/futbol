@@ -22,9 +22,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker).to be_an_instance_of StatTracker
     end
 
-    xit 'can parse data into a string of objects' do
-      expect(@stat_tracker.data(games).to be_a(Array)
-      expect(@stat_tracker[games]).to all(be_a(Game))
+    it 'can parse data into a string of objects' do
+      expect(@stat_tracker.games).to be_a(Array)
+      expect(@stat_tracker.games).to all(be_a(Game))
     end
   end
 end
