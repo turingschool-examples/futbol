@@ -5,6 +5,8 @@ class StatTracker
   @@teams = []
   @@game_teams = []
 
+  attr_reader :games, :teams, :game_teams
+
   def initialize(games, teams, game_teams)
     @games = games
     @teams = teams
@@ -15,23 +17,23 @@ class StatTracker
     StatTracker.new(locations[:games], locations[:teams], locations[:game_teams])
   end
   
-  def games
-    games = CSV.open @games, headers: true, header_converters: :symbol
-    # require 'pry-byebug'; require 'pry'; binding.pry
-    games.each do |game|
-       @@games << game = Game.new(game) 
-    end
+  # def games
+  #   games = CSV.open @games, headers: true, header_converters: :symbol
+  #   # require 'pry-byebug'; require 'pry'; binding.pry
+  #   games.each do |game|
+  #      @@games << game = Game.new(game) 
+  #   end
 
-    # game = Game.new()
-  end
+  #   # game = Game.new()
+  # end
 
-  def teams
-    teams = CSV.open @teams, headers: true, header_converters: :symbol
-    teams.each { |team| print team }
-  end
+  # def teams
+  #   teams = CSV.open @teams, headers: true, header_converters: :symbol
+  #   teams.each { |team| print team }
+  # end
 
-  def game_teams
-    game_teams = CSV.open @game_teams, headers: true, header_converters: :symbol
-    game_teams.each { |game_teams| print game_teams }
-  end
+  # def game_teams
+  #   game_teams = CSV.open @game_teams, headers: true, header_converters: :symbol
+  #   game_teams.each { |game_teams| print game_teams }
+  # end
 end
