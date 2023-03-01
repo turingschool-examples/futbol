@@ -1,6 +1,6 @@
 require './spec/spec_helper'
 
-RSpec.describe Game do
+RSpec.describe GameTeam do
   before(:each) do 
     game_path = './data_mock/games.csv'
     team_path = './data_mock/teams.csv'
@@ -15,9 +15,11 @@ RSpec.describe Game do
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  it "is created by stat_tracker" do
-    expect(@stat_tracker.games).to be_a(Array)
-    expect(@stat_tracker.games).to all(be_a(Game))
+  describe 'Initialize' do
+    it 'exists' do
+      expect(@stat_tracker.game_teams[0]).to be_an_instance_of(GameTeam)
+      expect(@stat_tracker.game_teams[0].game_id).to eq("2012030221")
+    end
   end
 
 end

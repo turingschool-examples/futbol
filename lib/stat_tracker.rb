@@ -1,17 +1,16 @@
 require_relative '../spec/spec_helper'
 
 class StatTracker 
-
-    attr_reader :data, 
-                :teams, 
-                :games, 
-                :game_teams
+  attr_reader :data, 
+              :teams, 
+              :games, 
+              :game_teams
 
   def initialize(data)
     @data = data
     @teams = processed_teams_data(@data)
     @games = processed_games_data(@data)
-    # @game_teams = processed_game_teams_data(@data)
+    @game_teams = processed_game_teams_data(@data)
   end
   
   def self.from_csv(locations)
