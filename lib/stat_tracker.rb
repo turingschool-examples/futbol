@@ -29,18 +29,14 @@ class StatTracker
   end
 
   def average_goals_by_season
-    avg_goals = Hash.new { |hash, key| hash[key] = Hash.new(0) }
-  
+    avg_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
     @games.each do |game|
-      season = game[:season].to_i
-      goals = game[:home_goals].to_i + game[:away_goals].to_i
-      
+      season = game[:season].to_i; goals = game[:home_goals].to_i + game[:away_goals].to_i
       avg_goals[season][:goals] += goals
       avg_goals[season][:games] += 1
     end
-    
-    avg_goals.transform_values do |stats|
-      stats[:goals].fdiv(stats[:games]).round(2)
-    end
+    avg_goals.transform_values { |season| 
+      season[:goals].fdiv(season[:games]).round(2) 
+    }
   end
 end
