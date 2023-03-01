@@ -4,6 +4,7 @@ class GameTeamData
   attr_reader :game_teams
   def initialize
     @game_teams = []
+    @teams = []
   end
 
   def add_game_team
@@ -106,7 +107,7 @@ class GameTeamData
     gamedata.games.each do |game|
       scores[(game.away)] += (game.away_goals).to_i
       scores.max_by{|k,v| v}[0]
-    end
+      end
     numer = scores.max_by{|k, v| v}
     denom = home_games_per_team.max_by{|k, v| v}
     highest_avg = numer[1].div(denom[1])
