@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe Games do
+RSpec.describe Game do
   before(:each) do
-    @games = Games.new({
+    @games = Game.new({
       game_id: '2012030221',
       season: '20122013',
       type: 'Postseason',
@@ -14,7 +14,7 @@ RSpec.describe Games do
   end
   describe '#initializes' do
     it 'exists' do
-      expect(@games).to be_a(Games)
+      expect(@games).to be_a(Game)
     end
 
     it 'has attributes' do

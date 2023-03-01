@@ -1,4 +1,4 @@
-class Teams
+class Team
   attr_reader :team_id, :team_name
   
   def initialize(details)

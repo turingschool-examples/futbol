@@ -1,7 +1,7 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/teams'
-require './lib/games'
+require './lib/team'
+require './lib/game'
 require './lib/game_teams'
 require './lib/league_stats'
 require './lib/stat_tracker'

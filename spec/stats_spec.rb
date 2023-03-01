@@ -20,7 +20,7 @@ RSpec.describe Stats do
     end
 
     it 'has teams' do
-      expect(@stats.teams.first).to be_a(Teams)
+      expect(@stats.teams.first).to be_a(Team)
     end
 
     it 'has team attributes' do
@@ -30,7 +30,7 @@ RSpec.describe Stats do
   end
   describe '#initializes Games' do
     it 'exists' do
-      expect(@stats.games.first).to be_a(Games)
+      expect(@stats.games.first).to be_a(Game)
     end
 
     it 'game has attributes' do

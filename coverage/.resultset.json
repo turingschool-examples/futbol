@@ -1,44 +1,19 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/angelbyun/futbol/lib/teams.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          160,
-          160,
+          161,
+          161,
           null,
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/games.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          null,
-          null
-        ]
-      },
-      "/Users/angelbyun/futbol/lib/game_teams.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -50,6 +25,31 @@
           null,
           null,
           null,
+          1,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          null,
+          null
+        ]
+      },
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/game_teams.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           1,
           37205,
@@ -65,12 +65,12 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/league_stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/league_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/angelbyun/futbol/lib/stat_tracker.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -87,17 +87,17 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/season_stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/season_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/angelbyun/futbol/lib/games_stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/games_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/angelbyun/futbol/lib/stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/stats.rb": {
         "lines": [
           1,
           1,
@@ -116,7 +116,62 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/spec/stats_spec.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/game_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/game_teams_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/games_stats_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/league_stats_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/season_stats_spec.rb": {
+        "lines": [
+
+        ]
+      },
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/stats_spec.rb": {
         "lines": [
           1,
           null,
@@ -166,8 +221,25 @@
           null,
           null
         ]
+      },
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/team_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1677704468
+    "timestamp": 1677705422
   }
 }
