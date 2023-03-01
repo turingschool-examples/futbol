@@ -38,4 +38,11 @@ describe GameStats do
 
     expect(@stat_tracker.lowest_total_score).to eq(1)
   end
+
+  it 'can return the average goals per game' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.average_goals_per_game).to be_a Float
+    expect(@stat_tracker.average_goals_per_game).to eq(3.7)
+  end
 end
