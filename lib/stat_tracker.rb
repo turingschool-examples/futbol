@@ -1,18 +1,14 @@
 require 'csv' 
-require './lib/team'
+require_relative './lib/teams'
+require_relative './lib/games'
+require_relative './lib/game_teams'
 
 
 class StatTracker
-  ####do we need a collector??####
-  # def initialize
-  #   @teams = []
-  # end
-  def self.from_csv(locations)
-    teams = CSV.open locations[:teams], headers: true, header_converters: :symbol
-    teams.each do |team| 
-      new_team = Team.new(team)
-      # @teams << Team.new(team)
-      require 'pry'; binding.pry
-    end
+  def self.from_csv(files)
+    teams = CSV.open (files[:teams], headers: true, header_converters: :symbol).map {|row| row}
+    games = CSV.open (files[:games], headers: true, header_converters: :symbol).map {|row| }
+    game_teams = CSV.open (files[:games], headers: true, header_converters: :symbol).map {|row| }
   end
+  
 end

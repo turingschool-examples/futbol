@@ -1,6 +1,4 @@
-###remember require relative 
-
-class Team
+class Teams
   attr_reader :team_id, :team_name
   
   def initialize(details)
