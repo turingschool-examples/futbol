@@ -22,5 +22,10 @@ RSpec.describe Stats do
     it 'has teams' do
       expect(@stats.teams.first).to be_a(Teams)
     end
+
+    it 'has team attributes' do
+      expect(@stats.teams.first.team_name).to eq('Atlanta United')
+      expect(@stats.teams.first.team_id).to eq('1')
+    end
   end
 end
