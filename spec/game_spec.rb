@@ -16,7 +16,7 @@ RSpec.describe Game do
     it 'exists' do
       expect(@games).to be_a(Game)
     end
-
+# break this test up into more tests to up our percentages
     it 'has attributes' do
       expect(@games.game_id).to eq('2012030221')
       expect(@games.season_year).to eq('20122013')

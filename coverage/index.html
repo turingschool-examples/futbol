@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-03-01T15:54:20-07:00">2023-03-01T15:54:20-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-03-01T16:05:02-07:00">2023-03-01T16:05:02-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  61.9%
+  60.61%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.68
+         0.67
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>63</b> relevant lines,
-    <span class="green"><b>39</b> lines covered</span> and
-    <span class="red"><b>24</b> lines missed. </span>
+    <b>66</b> relevant lines,
+    <span class="green"><b>40</b> lines covered</span> and
+    <span class="red"><b>26</b> lines missed. </span>
     (<span class="red">
-  61.9%
+  60.61%
 </span>
 )
   </div>
@@ -94,12 +94,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#b528542eec5ace05680934e048349ab89ae1c3ca" class="src_link" title="lib/games_stats.rb">lib/games_stats.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">57.14 %</td>
-            <td class="cell--number">13</td>
-            <td class="cell--number">7</td>
-            <td class="cell--number">4</td>
-            <td class="cell--number">3</td>
-            <td class="cell--number">0.57</td>
+            <td class="red strong cell--number t-file__coverage">50.00 %</td>
+            <td class="cell--number">18</td>
+            <td class="cell--number">10</td>
+            <td class="cell--number">5</td>
+            <td class="cell--number">5</td>
+            <td class="cell--number">0.50</td>
             
           </tr>
         
@@ -737,7 +737,7 @@
     <h3>lib/games_stats.rb</h3>
     <h4>
       <span class="red">
-  57.14%
+  50.0%
 </span>
 
       lines covered
@@ -746,9 +746,9 @@
     
 
     <div class="t-line-summary">
-      <b>7</b> relevant lines.
-      <span class="green"><b>4</b> lines covered</span> and
-      <span class="red"><b>3</b> lines missed.</span>
+      <b>10</b> relevant lines.
+      <span class="green"><b>5</b> lines covered</span> and
+      <span class="red"><b>5</b> lines missed.</span>
     </div>
 
     
@@ -864,7 +864,7 @@
 
             
 
-            <code class="ruby">    high_score = @games.max_by{ |game| game.total_score}</code>
+            <code class="ruby">    high_score = @games.max_by{ |game| game.total_score }</code>
           </li>
         </div>
       
@@ -892,6 +892,61 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="13">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="14">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def lowest_total_score</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="15">
+            
+            
+
+            
+
+            <code class="ruby">    low_score = @games.min_by{ |game| game.total_score }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="16">
+            
+            
+
+            
+
+            <code class="ruby">    low_score.total_score</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="17">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="18">
             
             
 

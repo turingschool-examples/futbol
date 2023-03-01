@@ -7,7 +7,12 @@ class GamesStats
   end
 
   def highest_total_score
-    high_score = @games.max_by{ |game| game.total_score}
+    high_score = @games.max_by{ |game| game.total_score }
     high_score.total_score
+  end
+
+  def lowest_total_score
+    low_score = @games.min_by{ |game| game.total_score }
+    low_score.total_score
   end
 end
