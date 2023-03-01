@@ -11,7 +11,6 @@ class StatTracker
   def self.from_csv(locations)
     new_locations = {}
     locations.each do |key,value|
-      require 'pry'; binding.pry
       new_locations[key] = CSV.open value, headers: true, header_converters: :symbol
     end
     new(new_locations)
