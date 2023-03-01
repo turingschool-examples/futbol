@@ -18,6 +18,9 @@ describe LeagueStats do
     @test_game2 = @stat_tracker.games[1]
     @test_team1 = @stat_tracker.teams[0]
     @test_team2 = @stat_tracker.teams[1]
+
+    @test_games = @stat_tracker.games[0..9]
+    @test_game_teams = @stat_tracker.game_teams[0..9]
   end
 
   it 'exists' do
