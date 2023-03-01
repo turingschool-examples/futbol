@@ -18,6 +18,9 @@ describe GameStats do
     @test_game2 = @stat_tracker.games[1]
     @test_team1 = @stat_tracker.teams[0]
     @test_team2 = @stat_tracker.teams[1]
+
+    @test_games = @stat_tracker.games[0..9]
+    @test_game_teams = @stat_tracker.game_teams[0..9]
   end
 
   it 'exists' do
@@ -25,20 +28,14 @@ describe GameStats do
   end
 
   it 'can determine highest score' do
-    allow(@stat_tracker.games[108]).to receive(:away_goals).and_return(10)
-    allow(@stat_tracker.games[108]).to receive(:home_goals).and_return(10)
+    @stat_tracker.games = @test_games
 
-    expect(@stat_tracker.highest_total_score.home_goals).to eq(10)
-    expect(@stat_tracker.highest_total_score.away_goals).to eq(10)
-    expect(@stat_tracker.highest_total_score).to eq(@stat_tracker.games[108])
+    expect(@stat_tracker.highest_total_score).to eq(5)
   end
 
   it 'can determine lowest score' do
-    allow(@stat_tracker.games[108]).to receive(:away_goals).and_return(-1)
-    allow(@stat_tracker.games[108]).to receive(:home_goals).and_return(-1)
+    @stat_tracker.games = @test_games
 
-    expect(@stat_tracker.lowest_total_score.home_goals).to eq(-1)
-    expect(@stat_tracker.lowest_total_score.away_goals).to eq(-1)
-    expect(@stat_tracker.lowest_total_score).to eq(@stat_tracker.games[108])
+    expect(@stat_tracker.lowest_total_score).to eq(1)
   end
 end
