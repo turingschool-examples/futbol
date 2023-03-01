@@ -5,7 +5,9 @@ class GameData
               :away_wins,
               :ties,
               :total_games,
-              :total_goals
+              :total_goals,
+              :home_scores,
+              :away_scores
 
   attr_accessor :games
 
@@ -16,6 +18,11 @@ class GameData
     @ties = 0
     @total_games = 0
     @total_goals = 0
+    @home_scores = Hash.new(0)
+    @away_scores = Hash.new(0)
+    @teams = []
+    @lowest_scoring_away_team = nil
+    @lowest_scoring_home_team = nil
   end
 
   def add_games 
@@ -123,6 +130,7 @@ class GameData
     games_per_season
   end
 
+
   def highest_home_avg_score
     scores = Hash.new(0)
     @games.each do |game|
@@ -136,6 +144,44 @@ class GameData
     @games.each do |game|
       scores[(game.away)] += (game.away_goals).to_i
       scores.max_by{|k,v| v}[0]
+
+  def team_goals
+    @games.each do |game|
+      @away_scores[game.away] += game.away_goals.to_i
+      @home_scores[game.home] += game.home_goals.to_i
+    end
+  end
+
+  def lowest_scoring_away
+    lowest_scoring_team = @away_scores.min_by{|k, v| v}
+    @teams.each do |team|
+      if team.team_id == lowest_scoring_team[0]
+        @lowest_scoring_away_team = team.teamname
+      end
+    end
+    @lowest_scoring_away_team
+  end
+
+  def lowest_scoring_home
+    lowest_scoring_team = @home_scores.min_by{|k, v| v}
+    @teams.each do |team|
+      if team.team_id == lowest_scoring_team[0]
+        @lowest_scoring_home_team = team.teamname
+      end
+    end
+    @lowest_scoring_home_team
+  end
+
+  def add_teams
+    teams = CSV.open './data/teams.csv', headers: true, header_converters: :symbol
+    teams.each do |row|
+      team_id = row[:team_id]
+      franchiseid = row[:franchiseid]
+      teamname = row[:teamname]
+      abbreviation = row[:abbreviation]
+      stadium = row[:stadium]
+      link = row[:link]
+      @teams << Team.new(team_id, franchiseid, teamname, abbreviation, stadium, link)
     end
   end
 end
