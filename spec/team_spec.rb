@@ -1,6 +1,6 @@
 require_relative './spec_helper'
 
-describe Game do
+describe Team do
   before(:each) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
