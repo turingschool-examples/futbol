@@ -7,8 +7,8 @@ RSpec.describe Team do
     hash = {
       :team_id => 1,
       :franchiseId => 23,
-      :teamName => "Atlanta United"
-      :abbreviation => "ATL"
+      :teamName => "Atlanta United",
+      :abbreviation => "ATL",
       :link => "/api/v1/teams/1"
     } #are the above strings actually strings in the csv? arrays right?
     #can we fix the camel case?
@@ -21,8 +21,8 @@ RSpec.describe Team do
 
   it 'the team has attributes' do
     expect(@team.team_id).to eq(1)
-    expect(@team.franchiseId).to eq(23)
-    expect(@team.teamName).to eq("Atlanta United")
+    expect(@team.franchise_id).to eq(23)
+    expect(@team.team_name).to eq("Atlanta United")
     expect(@team.abbreviation).to eq("ATL")
     expect(@team.link).to eq("/api/v1/teams/1")
   end
