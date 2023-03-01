@@ -35,8 +35,8 @@ class StatTracker
       avg_goals[season][:goals] += goals
       avg_goals[season][:games] += 1
     end
-    avg_goals.transform_values { |season| 
+    avg_goals.transform_values do |season| 
       season[:goals].fdiv(season[:games]).round(2) 
-    }
+    end
   end
 end
