@@ -52,15 +52,15 @@
           null,
           null,
           1,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
-          37205,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
+          37207,
           null,
           null
         ]
@@ -153,7 +153,40 @@
       },
       "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/game_teams_spec.rb": {
         "lines": [
-
+          1,
+          null,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
         ]
       },
       "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/games_stats_spec.rb": {
@@ -240,6 +273,6 @@
         ]
       }
     },
-    "timestamp": 1677705422
+    "timestamp": 1677705988
   }
 }
