@@ -12,6 +12,16 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
 
-    @stat_tracker = StatTracker.from_csv(locations)
+    @stat_tracker = StatTracker.new(locations)
+  end
+
+  describe 'game_stats' do
+    it 'highest_total_score' do
+      expect(@stat_tracker.highest_total_score).to eq(11)
+    end
+    
+    it 'lowest_total_score' do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
   end
 end

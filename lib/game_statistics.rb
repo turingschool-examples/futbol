@@ -1,25 +1,15 @@
 
 class GameStatistics
   
-  def initialize()
-    # require 'pry'; binding.pry
-    # @home_goals = game_stats[:home_goals]
-    # @away_goals = game_stats[:away_goals]
-    
+  def initialize(locations)
     
   end
   def highest_total_score(contents)
-    array = []
-    array2 = []
+    max = 0
     contents.each do |row|
-      @home_goals = row[:home_goals].to_i
-      @away_goals = row[:away_goals].to_i
-      array << @home_goals
-      array << @away_goals
-      # require 'pry'; binding.pry
+      total = row[:home_goals].to_i + row[:away_goals].to_i
+      max = [max, total].max
     end
-    puts  "#{@home_goals} and #{@away_goals}" 
-    # array.max(@home_goals) + array.max(@away_goals)
+    max
   end
-  
 end
