@@ -11,7 +11,7 @@ class StatTracker
     @data = data
     @teams = processed_teams_data(@data)
     @games = processed_games_data(@data)
-    # @game_teams = processed_game_teams_data(@data)
+    @game_teams = processed_game_teams_data(@data)
   end
   
   def self.from_csv(locations)
