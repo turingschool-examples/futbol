@@ -1,8 +1,10 @@
 require 'simplecov'
 SimpleCov.start
+require 'rspec'
 
-# require_relative './game'
-# require_relative './team'
-# require_relative './stats'
-# require_relative './league'
 require './lib/stat_tracker'
+# require './lib/team'
+# require './lib/coach'
+# require './lib/league'
+# require './lib/game'
+require './lib/season'
