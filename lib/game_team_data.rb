@@ -113,4 +113,19 @@ class GameTeamData
     highest_avg = numer[1].div(denom[1])
     convert_id_to_teamname(numer[0])
   end
+  
+
+  def highest_scoring_away_team
+    gamedata = GameData.new
+    gamedata.add_games
+    scores = Hash.new(0)
+    gamedata.games.each do |game|
+      scores[(game.away)] += (game.away_goals).to_i
+      scores.max_by{|k,v| v}[0]
+      end
+    numer = scores.max_by{|k, v| v}
+    denom = away_games_per_team.max_by{|k, v| v}
+    highest_avg = numer[1].div(denom[1])
+    convert_id_to_teamname(numer[0])
+  end
 end
