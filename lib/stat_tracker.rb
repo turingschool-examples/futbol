@@ -2,12 +2,13 @@ require_relative '../spec/spec_helper'
 
 class StatTracker 
 
-    attr_reader :data
+    attr_reader :data, :teams
 
   def initialize(data)
     @data = data
+    @teams = teams
   end
-
+  
   def self.from_csv(locations)
     new_locations = {}
     locations.each do |key,value|
@@ -17,22 +18,15 @@ class StatTracker
   end
   
   def processed_teams_data(locations)
-    teams = locations[:teams]
-    teams.each do |team|
-      require 'pry'; binding.pry
-      CSV.open team, headers: true, header_converters: :symbol
-      
+    all_teams = []
+    teams = @data[:teams]
+    teams.each do |row|
+      all_teams << Team.new(row)
     end
-    teams
+    @teams = all_teams
   end
-     
-   
-      
-    
-
-    
-
 end
+
 #   def initialize(locations)
 #     @games = processed_game_data(locations[:games])
 #     # @teams = processed_teams_data(locations[:teams])

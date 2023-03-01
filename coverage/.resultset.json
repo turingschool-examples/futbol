@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/alejandrolopez/turing_work/1mod/futbol_project/futbol/lib/stat_tracker.rb": {
+      "/Users/margaretdaly/turing_work/1mod/projects/futbol_project/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           null,
@@ -10,13 +10,23 @@
           1,
           null,
           1,
-          2,
+          4,
+          4,
+          null,
+          null,
+          1,
+          4,
+          4,
+          12,
+          null,
+          4,
           null,
           null,
           1,
           2,
           2,
-          6,
+          2,
+          64,
           null,
           2,
           null,
@@ -39,7 +49,7 @@
           null
         ]
       },
-      "/Users/alejandrolopez/turing_work/1mod/futbol_project/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/margaretdaly/turing_work/1mod/projects/futbol_project/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           null,
@@ -48,28 +58,45 @@
           null,
           1,
           1,
+          2,
+          2,
+          2,
+          null,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          2,
+          null,
+          2,
+          null,
+          null,
+          null,
           1,
           1,
-          1,
           null,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          1,
           null,
           null,
           1,
           1,
           null,
-          1,
+          null,
+          null,
           null,
           null,
           1,
           null,
-          0,
+          null,
           null,
           null,
           null,
@@ -79,7 +106,7 @@
           null
         ]
       },
-      "/Users/alejandrolopez/turing_work/1mod/futbol_project/futbol/lib/game.rb": {
+      "/Users/margaretdaly/turing_work/1mod/projects/futbol_project/futbol/lib/game.rb": {
         "lines": [
           1,
           null,
@@ -107,7 +134,7 @@
           null
         ]
       },
-      "/Users/alejandrolopez/turing_work/1mod/futbol_project/futbol/spec/team_spec.rb": {
+      "/Users/margaretdaly/turing_work/1mod/projects/futbol_project/futbol/spec/team_spec.rb": {
         "lines": [
           1,
           1,
@@ -131,7 +158,7 @@
           null
         ]
       },
-      "/Users/alejandrolopez/turing_work/1mod/futbol_project/futbol/lib/team.rb": {
+      "/Users/margaretdaly/turing_work/1mod/projects/futbol_project/futbol/lib/team.rb": {
         "lines": [
           1,
           null,
@@ -142,16 +169,16 @@
           null,
           null,
           1,
-          2,
-          2,
-          2,
-          2,
-          2,
+          69,
+          69,
+          69,
+          69,
+          69,
           null,
           null
         ]
       }
     },
-    "timestamp": 1677634045
+    "timestamp": 1677685534
   }
 }
