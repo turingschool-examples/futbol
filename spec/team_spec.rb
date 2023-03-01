@@ -2,7 +2,6 @@ require 'spec_helper'
 require './lib/team'
 
 RSpec.describe Team do
-
   let(:team_data) {{team_id: "1",
                     franchiseId: "23",
                     teamName: "Atlanta United",
