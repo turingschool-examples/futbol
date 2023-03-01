@@ -18,5 +18,9 @@ RSpec.describe Stats do
     it 'exists' do
      expect(@stats).to be_a(Stats)
     end
+
+    it 'has teams' do
+      expect(@stats.teams.first).to be_a(Teams)
+    end
   end
 end
