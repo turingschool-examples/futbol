@@ -39,8 +39,8 @@ module LeagueStats
     away_teams.each do |team, values|
       away_teams_ave_score[team] = average_away_goals(values)
     end
-    highest_scoring = away_teams_ave_score.min_by {|_, value| value}
-    convert_to_team_name(highest_scoring[0])
+    lowest_scoring = away_teams_ave_score.min_by {|_, value| value}
+    convert_to_team_name(lowest_scoring[0])
   end
 
   def lowest_scoring_home_team
