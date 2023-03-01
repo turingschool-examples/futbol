@@ -24,7 +24,7 @@ describe Game do
       expect(@test_team.team_id).to eq("1")
       expect(@test_team.franchise_id).to eq("23")
       expect(@test_team.team_name).to eq("Atlanta United")
-      expect(@test_team.abbreviation).to eq(ATL)
+      expect(@test_team.abbreviation).to eq("ATL")
       expect(@test_team.stadium).to eq("Mercedes-Benz Stadium")
     end
   end
