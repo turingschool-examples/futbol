@@ -80,8 +80,8 @@ class Games
 
   def count_of_games_by_season
     season_games = Hash.new(0)
-    @games.each do |game|
-      season = game[:season].to_i
+    (0..@game_id.length).each do |i|
+      season = @season[i].to_i
       season_games[season] += 1
     end
     season_games
@@ -89,9 +89,9 @@ class Games
 
   def average_goals_per_game
     goals = 0
-    @games.each do |game|
-      goals += game[:home_goals].to_i + game[:away_goals].to_i
+    (0..@game_id.length).each do |i|
+      goals += @home_goals[i].to_i + @away_goals[i].to_i
     end
-    goals.fdiv(@games.length - 1).round(2)
+    goals.fdiv(@game_id.length).round(2)
   end
 end
