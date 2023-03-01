@@ -1,5 +1,6 @@
 class Team
-  def initialize
-    
+  def initialize(details)
+    @team_id = 
+    @team_name = 
   end
 end
