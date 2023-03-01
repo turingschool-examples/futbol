@@ -39,10 +39,20 @@ describe GameStats do
     expect(@stat_tracker.lowest_total_score).to eq(1)
   end
 
-  it 'can return the average goals per game' do
+  it 'can determine the average goals per game' do
     @stat_tracker.games = @test_games
 
     expect(@stat_tracker.average_goals_per_game).to be_a Float
     expect(@stat_tracker.average_goals_per_game).to eq(3.7)
+  end
+
+  it 'can determine average goals by season' do
+    @stat_tracker.games = @test_games
+    expected = {"20122013" => 3.7}
+
+    expect(@stat_tracker.average_goals_per_season).to be_a Hash
+    expect(@stat_tracker.average_goals_per_season.keys[0]).to be_a String
+    expect(@stat_tracker.average_goals_per_season.values[0]).to be_a Float
+    expect(@stat_tracker.average_goals_per_season).to eq(expected)
   end
 end
