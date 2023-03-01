@@ -1,5 +1,4 @@
 require_relative '../spec/spec_helper'
-require '../lib/game'
 
 class StatTracker 
 
@@ -10,10 +9,9 @@ class StatTracker
 
   def initialize(data)
     @data = data
-    @teams = teams
-    @games = games
-    @game_teams = game_teams
-
+    @teams = processed_teams_data(@data)
+    @games = processed_games_data(@data)
+    # @game_teams = processed_game_teams_data(@data)
   end
   
   def self.from_csv(locations)
@@ -42,7 +40,6 @@ class StatTracker
     @games = all_games
   end
 
-
   def processed_game_teams_data(locations)
     all_game_teams = []
     game_teams = @data[:game_teams]
@@ -50,14 +47,6 @@ class StatTracker
       all_game_teams << GameTeam.new(row)
     end
     @game_teams = all_game_teams
-  end
-
-  def create_games(game_data)
-    all_games = []
-    game_data.each do |row|
-      all_games << Game.new(row)
-    end
-    all_games
   end
 
 end
