@@ -1,4 +1,8 @@
+require_relative './helper'
+
 module SeasonStats
+  include Helper
+
   def season_rspec_test
     true
   end
