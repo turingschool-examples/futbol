@@ -18,7 +18,6 @@ describe Game do
 game = Game.new(data)
 
   it 'exists' do
-    require 'pry'; binding.pry
      expect(game.id).to eq(100201)
   end
 end
