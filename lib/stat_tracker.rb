@@ -6,7 +6,7 @@ class StatTracker
   def initialize(locations)
     @games = Games.new(locations)
     @teams = League.new(locations)
-    @game_teams = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
+    @game_teams = GameTeam.new(locations)
   end
   # end
   
@@ -44,5 +44,15 @@ class StatTracker
 
   def count_of_teams
     @teams.count_of_teams
+  end
+
+  def best_offense
+    index = @teams.team_id.find_index(@game_teams.best_offense)
+    @teams.team_name[index]
+  end
+
+  def worst_offense
+    index = @teams.team_id.find_index(@game_teams.worst_offense)
+    @teams.team_name[index]
   end
 end

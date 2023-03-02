@@ -1,6 +1,7 @@
 require './lib/stat_tracker'
 require './lib/games'
 require './lib/league'
+require './lib/game_teams'
 
 RSpec.describe StatTracker do
   before(:all) do
@@ -57,6 +58,14 @@ RSpec.describe StatTracker do
   describe 'league_stats' do
     it 'count_of_teams' do
       expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+
+    it 'best_offense' do
+      expect(@stat_tracker.best_offense).to eq("Sporting Kansas City")
+    end
+    
+    it 'worst_offense' do
+      expect(@stat_tracker.worst_offense).to eq("Reign FC")
     end
   end
 end
