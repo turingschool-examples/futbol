@@ -26,32 +26,32 @@ describe SeasonStats do
   it 'exists' do
     expect(@stat_tracker.season_rspec_test).to be true
   end
-
+  
   it 'can determine the best coach' do
-    @stat_tracker.games = @stat_tracker.games[0..24]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
+    @stat_tracker.games = @stat_tracker.games[0..100]
     
-    expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    expect(@stat_tracker.winningest_coach("20152016")).to eq("Mike Sullivan")
+    expect(@stat_tracker.winningest_coach("20162017")).to eq("Randy Carlyle")
   end
-
+  
   it 'can determine the worst coach' do
-    @stat_tracker.games = @stat_tracker.games[0..24]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
-  
-    expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    @stat_tracker.games = @stat_tracker.games[0..100]
+    
+    expect(@stat_tracker.worst_coach("20152016")).to eq("Alain Vigneault")
+    expect(@stat_tracker.worst_coach("20162017")).to eq("Glen Gulutzan")
   end
-
+  
   it 'can determine the most accurate team' do
-    @stat_tracker.games = @stat_tracker.games[0..24]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
-  
-    expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+    @stat_tracker.games = @stat_tracker.games[0..100]
+    
+    expect(@stat_tracker.most_accurate_team("20152016")).to eq("Sporting Kansas City")
+    expect(@stat_tracker.most_accurate_team("20162017")).to eq("Real Salt Lake")
   end
-
-  it 'can determine the least accurate team' do
-    @stat_tracker.games = @stat_tracker.games[0..24]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
   
-    expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+  it 'can determine the least accurate team' do
+    @stat_tracker.games = @stat_tracker.games[0..100]
+  
+    expect(@stat_tracker.least_accurate_team("20152016")).to eq("Chicago Fire")
+    expect(@stat_tracker.least_accurate_team("20162017")).to eq("Toronto FC")
   end
 end
