@@ -4,13 +4,15 @@ class StatTracker
   attr_reader :data, 
               :teams, 
               :games, 
-              :game_teams
+              :game_teams,
+              :seasons_by_id
 
   def initialize(data)
     @data = data
     @teams = processed_teams_data(@data)
     @games = processed_games_data(@data)
     @game_teams = processed_game_teams_data(@data)
+    @seasons_by_id = processed_seasons_data
   end
   
   def self.from_csv(locations)
@@ -46,6 +48,15 @@ class StatTracker
       all_game_teams << GameTeam.new(row)
     end
     @game_teams = all_game_teams
+  end
+
+  def processed_seasons_data
+    all_seasons = Hash.new
+    @games.map{|game| game.season}.uniq.each do |season_id|
+      new_season = Season.new(season_id, @games, @game_teams)
+      all_seasons[season_id] = new_season.season_data
+    end
+    all_seasons
   end
 
   def percentage_home_wins

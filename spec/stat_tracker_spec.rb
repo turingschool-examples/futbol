@@ -28,6 +28,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.processed_games_data(@locations)).to all(be_a(Game))
     end
 
+    it 'processed season data, creates hash of season info' do
+      expect(@stat_tracker.seasons_by_id).to be_a(Hash)
+      expect(@stat_tracker.seasons_by_id["20122013"][:games]).to all(be_a(Game))
+      expect(@stat_tracker.seasons_by_id["20122013"][:game_teams]).to all(be_a(GameTeam))
+    end
+
 
     it 'can parse data into a string of objects' do
       expect(@stat_tracker.games).to be_a(Array)
