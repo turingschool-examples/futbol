@@ -81,5 +81,9 @@ RSpec.describe StatTracker do
     it 'lowest_scoring_visitor' do
       expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
+
+    it 'winningest_coach' do
+      expect(@stat_tracker.winningest_coach('2012')).to eq("Mike Babcock")
+    end
   end
 end
