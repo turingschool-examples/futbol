@@ -49,5 +49,12 @@ class GamesStats
     tie_percent = tie_game.length.fdiv(@games.length).round(2)
   end
 
-  
+  def count_games_by_season
+    ###this can definitely be refactored###
+    count = Hash.new(0)
+    @games.map do |game|
+      count[game.season_year] += 1
+    end
+    count
+  end
 end
