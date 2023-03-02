@@ -1,4 +1,4 @@
-require './lib/stat_tracker'
+require 'spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -14,7 +14,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#initialize' do
-    xit 'exists and has attributes' do
+    it 'exists and has attributes' do
       expect(@stat_tracker).to be_a StatTracker
       expect(@stat_tracker.games).to eq('./data/games.csv')
       expect(@stat_tracker.teams).to eq('./data/teams.csv')
@@ -23,7 +23,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#self.from_csv' do
-    xit 'returns an instance of StatTracker' do
+    it 'returns an instance of StatTracker' do
       expect(StatTracker.from_csv(@locations)).to be_a StatTracker
       expect(@stat_tracker.games).to eq('./data/games.csv')
       expect(@stat_tracker.teams).to eq('./data/teams.csv')
