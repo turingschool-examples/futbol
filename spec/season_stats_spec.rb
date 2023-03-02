@@ -11,10 +11,15 @@ RSpec.describe SeasonStats do
   end
 
   describe '#coach methods' do 
-    it "#winningest_coach" do
-      expect(@season_stat.winningest_coach("20132014")).to eq("Claude Julien")
-      expect(@season_stat.winningest_coach("20142015")).to eq("Alain Vigneault")
+    it '#winningest_coach' do
+      expect(@season_stat.winningest_coach('20132014')).to eq('Claude Julien')
+      expect(@season_stat.winningest_coach('20142015')).to eq('Alain Vigneault')
     end 
+
+    it '#worst_coach' do
+    expect(@stat_tracker.worst_coach('20132014')).to eq 'Peter Laviolette'
+    expect(@stat_tracker.worst_coach('20142015')).to eq('Craig MacTavish').or(eq('Ted Nolan'))
+  end
   end
 
 end
