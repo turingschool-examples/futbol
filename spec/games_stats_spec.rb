@@ -48,4 +48,10 @@ RSpec.describe GamesStats do
       })
     end
   end
+
+  describe '#average_goals' do
+    it 'can return a float value for average goals per game' do
+      expect(@game_stat.average_goals_per_game).to eq(4.22)
+    end
+  end
 end
