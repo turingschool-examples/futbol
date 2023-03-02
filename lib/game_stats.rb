@@ -50,14 +50,14 @@ module GameStats
     number_of_games = total_games(@games)
     number_of_goals = @games.sum {|game| total_goals(game)}
 
-    number_of_goals.fdiv(number_of_games)
+    number_of_goals.fdiv(number_of_games).round(2)
   end
 
   def average_goals_by_season
     result = Hash.new(0)
     games_by_season = @games.group_by{|game| game.season}
     games_by_season.each do |season, games|
-      result[season] += (games.sum{|game| total_goals(game)}).fdiv(total_games(games))
+      result[season] += (games.sum{|game| total_goals(game)}).fdiv(total_games(games)).round(2)
     end
     result
   end
