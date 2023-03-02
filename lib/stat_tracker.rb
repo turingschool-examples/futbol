@@ -30,4 +30,10 @@ class StatTracker
       team
     end
   end
+
+  def highest_total_score
+    all_games.map do |game|
+      game.score_count
+    end.max
+  end
 end
