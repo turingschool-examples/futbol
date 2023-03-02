@@ -124,5 +124,13 @@ class StatTracker
   def count_of_games_per_season(season_id)
     @seasons_by_id[season_id][:games].length
   end
+
+  def average_goals_by_season(season_id)
+    goals = 0
+    @seasons_by_id[season_id][:games].each do |game|
+      goals += (game.away_goals + game.home_goals)
+    end
+    (goals.to_f/@seasons_by_id[season_id][:games].length.to_f).round(2)
+  end
 end
 
