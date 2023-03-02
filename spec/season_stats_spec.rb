@@ -38,4 +38,16 @@ describe SeasonStats do
 
     expect(@stat_tracker.worst_coach).to eq("John Tortorella")
   end
+
+  it 'can determine the most accurate team' do
+    @stat_tracker.game_teams = @test_game_teams
+
+    expect(@stat_tracker.most_accurate_team).to eq("FC Dallas")
+  end
+
+  it 'can determine the least accurate team' do
+    @stat_tracker.game_teams = @test_game_teams
+
+    expect(@stat_tracker.least_accurate_team).to eq("Houston Dynamo")
+  end
 end
