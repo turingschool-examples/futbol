@@ -36,7 +36,10 @@ module GameStats
   end
 
   def percentage_ties
-
+    ties = @games.count { |game| game.home_goals == game.away_goals }
+    total_games = @games.length
+    percentage = (ties.to_f / total_games) * 100
+    percentage.round(2)
   end
 
   def count_of_games_by_season
@@ -52,14 +55,14 @@ module GameStats
     number_of_games = total_games(@games)
     number_of_goals = @games.sum {|game| total_goals(game)}
 
-    number_of_goals.fdiv(number_of_games)
+    number_of_goals.fdiv(number_of_games).round(2)
   end
 
-  def average_goals_per_season
+  def average_goals_by_season
     result = Hash.new(0)
     games_by_season = @games.group_by{|game| game.season}
     games_by_season.each do |season, games|
-      result[season] += (games.sum{|game| total_goals(game)}).fdiv(total_games(games))
+      result[season] += (games.sum{|game| total_goals(game)}).fdiv(total_games(games)).round(2)
     end
     result
   end
