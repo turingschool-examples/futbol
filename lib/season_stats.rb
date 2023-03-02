@@ -10,7 +10,14 @@ class SeasonStats
   end
 
   def winningest_coach(season_year)
+    total_game_hash = Hash.new(0)
     win_coach_hash = Hash.new(0)
+    @game_teams.each do |game|
+      if game.season_id == season_year
+        total_game_hash[game.coach] += 1
+        win_coach_hash[game.coach] = 0 
+      end
+    end
     @game_teams.each do |game|
       if game.season_id == season_year
         if game.result == "WIN"
@@ -18,6 +25,9 @@ class SeasonStats
         end
       end
     end
-    win_coach_hash.key(win_coach_hash.values.max)
+    total_game_hash.merge!(win_coach_hash) {|coach, games, wins| wins.to_f / games}
+    total_game_hash.key(total_game_hash.values.max)
   end
+
 end
+
