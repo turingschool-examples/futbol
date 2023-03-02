@@ -31,4 +31,13 @@ module Helper
     sum_goals = input_games.sum(&:goals)
     sum_goals.fdiv(sum_shots)*100
   end
+
+  def game_team_select_season(input_season)
+    season_games = @games.filter {|game| game.season == input_season}
+    game_team_season = []
+    season_games.each do |season_game|
+      game_team_season << @game_teams.filter {|game_team| game_team.game_id == season_game.game_id}
+    end
+    game_team_season.flatten
+  end
 end
