@@ -33,11 +33,15 @@ module Helper
   end
 
   def game_team_select_season(input_season)
-    season_games = @games.filter {|game| game.season == input_season}
+    season_games = @games.select {|game| game.season == input_season}
     game_team_season = []
     season_games.each do |season_game|
-      game_team_season << @game_teams.filter {|game_team| game_team.game_id == season_game.game_id}
+      @game_teams.each do |game_team|
+        if game_team.game_id == season_game.game_id
+          game_team_season << game_team
+        end
+      end
     end
-    game_team_season.flatten
+    game_team_season
   end
 end
