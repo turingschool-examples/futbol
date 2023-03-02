@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/angelbyun/futbol/lib/team.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -14,7 +14,7 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/game.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -27,20 +27,20 @@
           null,
           null,
           1,
-          52087,
-          52087,
-          52087,
-          52087,
-          52087,
-          52087,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
           null,
-          52087,
-          52087,
+          7441,
+          7441,
           null,
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/game_teams.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/game_teams.rb": {
         "lines": [
           1,
           1,
@@ -67,12 +67,12 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/league_stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/league_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/angelbyun/futbol/lib/stat_tracker.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -89,65 +89,72 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/season_stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/season_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/angelbyun/futbol/lib/games_stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/games_stats.rb": {
         "lines": [
           1,
           null,
           1,
           null,
           1,
-          52094,
-          null,
-          null,
-          1,
           7442,
-          1,
           null,
           null,
           1,
-          7442,
-          1,
+          0,
+          0,
           null,
           null,
           1,
-          null,
-          1,
-          1,
-          7441,
-          3237,
+          0,
+          0,
           null,
           null,
           1,
           null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          7441,
-          2687,
+          0,
+          0,
+          0,
+          0,
           null,
           null,
-          1,
+          0,
           null,
           null,
           1,
           null,
-          1,
-          1,
-          7441,
-          1517,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
           null,
           null,
           1,
           null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
           null,
           1,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
           null,
           1,
           1,
@@ -158,7 +165,7 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/lib/stats.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/lib/stats.rb": {
         "lines": [
           1,
           1,
@@ -179,49 +186,66 @@
           null
         ]
       },
-      "/Users/angelbyun/futbol/spec/games_stats_spec.rb": {
+      "/Users/thomashawley/Turing/Mod1/1mod_projects/futbol/futbol/spec/games_stats_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          7,
+          1,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           1,
           1,
           1,
           null,
           null,
-          null,
           1,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
+          0,
           null,
           null,
           null,
@@ -235,6 +259,6 @@
         ]
       }
     },
-    "timestamp": 1677723611
+    "timestamp": 1677724327
   }
 }

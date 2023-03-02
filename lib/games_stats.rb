@@ -57,4 +57,11 @@ class GamesStats
     end
     count
   end
+
+  def average_goals_per_game
+    sum_of_scores = @games.sum do |game|
+      game.total_score
+    end
+    sum_of_scores.fdiv(@games.length).round(2)
+  end
 end
