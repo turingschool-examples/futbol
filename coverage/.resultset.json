@@ -1,45 +1,20 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/team.rb": {
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
           null,
           null,
           1,
-          2,
-          2,
-          null,
-          null
-        ]
-      },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/game.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
           0,
           0,
           null,
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/game_teams.rb": {
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -51,6 +26,31 @@
           null,
           null,
           null,
+          1,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          null,
+          null
+        ]
+      },
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/game_teams.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           1,
           0,
@@ -66,12 +66,12 @@
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/league_stats.rb": {
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/league_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/stat_tracker.rb": {
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -88,19 +88,19 @@
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/season_stats.rb": {
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/season_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/games_stats.rb": {
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/games_stats.rb": {
         "lines": [
           1,
           null,
           1,
           null,
           1,
-          0,
+          7442,
           null,
           null,
           1,
@@ -112,38 +112,67 @@
           0,
           0,
           null,
-          null
-        ]
-      },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/lib/stats.rb": {
-        "lines": [
-          1,
+          null,
           1,
           1,
           1,
           null,
-          1,
-          1,
+          7441,
+          3237,
           null,
           null,
-          null,
           1,
-          0,
-          0,
-          0,
           null,
           null,
           null
         ]
       },
-      "/Users/crowrising/Turing/Mod_1_project/futbol/spec/team_spec.rb": {
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/stats.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/andrewbingham/turing_work/1mod/projects/futbol/spec/games_stats_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          2,
-          2,
+          1,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
           null,
           1,
           1,
@@ -151,14 +180,19 @@
           null,
           null,
           1,
+          0,
+          null,
+          null,
           1,
-          1,
+          0,
+          null,
+          null,
           null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1677711902
+    "timestamp": 1677721946
   }
 }
