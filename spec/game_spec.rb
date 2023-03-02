@@ -28,4 +28,8 @@ RSpec.describe Game do
     expect(@game.away_goals).to eq(2)
     expect(@game.home_goals).to eq(3)
   end
+
+  it 'counts score' do
+    expect(@game.total_score).to eq(5)
+  end
 end
