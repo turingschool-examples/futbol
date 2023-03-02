@@ -83,4 +83,24 @@ class StatTracker
   def worst_coach(season_id)
     @game_teams.worst_coach(season_id)
   end
+
+  def least_accurate_team(season)
+    index = @teams.team_id.find_index(@game_teams.least_accurate_team(season))
+    @teams.team_name[index]
+  end
+
+  def most_accurate_team(season)
+    index = @teams.team_id.find_index(@game_teams.most_accurate_team(season))
+    @teams.team_name[index]
+  end
+
+  def most_tackles(season)
+    index = @teams.team_id.find_index(@game_teams.most_tackles(season))
+    @teams.team_name[index]
+  end
+
+  def least_tackles(season)
+    index = @teams.team_id.find_index(@game_teams.least_tackles(season))
+    @teams.team_name[index]
+  end
 end
