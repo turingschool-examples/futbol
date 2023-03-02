@@ -78,16 +78,14 @@ class GameTeam
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:wins] += 1 if @result[i] == 'WIN'
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:games] += 1
     end
-    coaches.delete(nil)
     winningest_record = 0
     winningest_coach = nil
     coaches.each do |coach, _|
-        record = coaches[coach][season_id][:wins]&.fdiv(coaches[coach][season_id][:games])
-        if record
-          winningest_record = [winningest_record, record].max
-          # require 'pry'; binding.pry
-          winningest_coach = coach if winningest_record == record
-        end
+      record = coaches[coach][season_id][:wins]&.fdiv(coaches[coach][season_id][:games])
+      if record > winningest_record
+        winningest_record = record
+        winningest_coach = coach
+      end
     end
     winningest_coach
   end
