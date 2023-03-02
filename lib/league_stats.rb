@@ -50,6 +50,12 @@ module LeagueStats
   end
 
   def lowest_scoring_home_team
-
+    home_teams = @games.group_by(&:home_team_id)
+    home_teams_avg = {}
+    home_teams.each do |team, values|
+      home_teams_avg[team] = average_home_goals(values)
+    end
+    lowest_scoring = home_teams_avg.min_by{|_, value| value}
+    convert_to_team_name(lowest_scoring[0])
   end
 end
