@@ -38,10 +38,10 @@ describe LeagueStats do
   end
 
   it 'can find the highest scoring home team' do
-    expect(stat_tracker.league_stats.highest_scoring_home_team).to eq('Sporting Kansas City')
+    expect(stat_tracker.league_stats.highest_scoring_home_team).to eq('Reign FC')
   end
 
   it 'can find highest scoring away team' do
-    expect(stat_tracker.league_stats.highest_scoring_away_team).to eq('Sporting Kansas City')
+    expect(stat_tracker.league_stats.highest_scoring_visitor).to eq('FC Dallas')
   end
 end

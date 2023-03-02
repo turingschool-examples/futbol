@@ -14,7 +14,7 @@ class Team
     @franchiseid = info["franchiseId"]
     @teamname = info["teamName"]
     @abbreviation = info["abbreviation"]
-    @stadium = info["stadium"]
+    @stadium = info["Stadium"]
     @link = info["link"]
   end
 end
