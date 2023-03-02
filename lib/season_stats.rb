@@ -45,8 +45,8 @@ module SeasonStats
   end
 
   def least_accurate_team(input_season)
-    select_season = game_team_select_season(input_season)
-    teams_grouped = @game_teams.group_by(&:team_id)
+    season_game_teams = game_team_select_season(input_season)
+    teams_grouped = season_game_teams.group_by(&:team_id)
     teams_ave_accuracy = {}
     teams_grouped.each do |team, values|
       teams_ave_accuracy[team] = average_accuracy(values)
