@@ -17,9 +17,9 @@ RSpec.describe SeasonStats do
     end 
 
     it '#worst_coach' do
-    expect(@season_stat.worst_coach('20132014')).to eq('Peter Laviolette')
-    expect(@season_stat.worst_coach('20142015')).to eq('Craig MacTavish').or(eq('Ted Nolan'))
-  end
+      expect(@season_stat.worst_coach('20132014')).to eq('Peter Laviolette')
+      expect(@season_stat.worst_coach('20142015')).to eq('Craig MacTavish').or(eq('Ted Nolan'))
+    end
   end
 
 end

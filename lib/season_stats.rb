@@ -29,7 +29,8 @@ class SeasonStats
     total_game_hash.merge!(win_coach_hash) {|coach, games, wins| wins.to_f / games}
     total_game_hash.key(total_game_hash.values.max)
   end
-
+  
+###same as the one above, ripe for refactor###
   def worst_coach(season_year)
     total_game_hash = Hash.new(0)
     win_coach_hash = Hash.new(0)
