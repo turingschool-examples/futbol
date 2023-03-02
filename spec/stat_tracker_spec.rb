@@ -38,6 +38,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe 'percentage_home_wins' do
+    it 'float of home teams that have won games' do
+      expect(@stat_tracker.percentage_home_wins).to eq 0.44
+    end 
+  end  
+
   describe '#highest_total_score' do
     it 'sum of scores in highest scoring game' do
       expect(@stat_tracker.highest_total_score).to eq(11)
@@ -49,6 +55,10 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
+  
+  describe '#lowest_total_score' do
+    it 'sum of scores in lowest scoring game' do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
+  end
 end
-
-

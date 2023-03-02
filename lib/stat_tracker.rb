@@ -48,11 +48,29 @@ class StatTracker
     @game_teams = all_game_teams
   end
 
+  def percentage_home_wins
+    home_teams = @game_teams.select do |team|
+      team.hoa == "home"
+    end
+    winning_teams = home_teams.select do |team|
+      team.result == "WIN"
+    end
+    percentage_wins = winning_teams.count / home_teams.count.to_f
+    percentage_wins.round(2)
+  end
+
   def highest_total_score
-    highest_game = @games.max_by do |game|
+    highest_goal = @games.max_by do |game|
       game.away_goals + game.home_goals 
     end
-    highest_game.away_goals + highest_game.home_goals
+    highest_goal.away_goals + highest_goal.home_goals
+  end
+
+  def lowest_total_score
+    lowest_goals = @games.min_by do |game|
+      game.away_goals + game.home_goals 
+    end
+    lowest_goals.away_goals + lowest_goals.home_goals
   end
 
   def average_goals_per_game
