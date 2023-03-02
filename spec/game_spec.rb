@@ -3,12 +3,12 @@ require_relative 'spec_helper'
 RSpec.describe Game do
   before(:each) do
     @game = Game.new(
-      { id: 2012030221,
+      { game_id: 2012030221,
         season: '20122013',
-        season_type: 'Postseason',
-        date: "5/16/13",
-        away_id: 3,
-        home_id: 6,
+        type: 'Postseason',
+        date_time: "5/16/13",
+        away_team_id: 3,
+        home_team_id: 6,
         away_goals: 2,
         home_goals: 3 }
     )

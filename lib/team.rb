@@ -8,10 +8,10 @@ class Team
 
   def initialize(row)
     @team_id = row[:team_id]
-    @franchise_id = row[:franchiseid]
-    @team_name = row[:teamname]
+    @franchise_id = row[:franchiseId]
+    @team_name = row[:teamName]
     @abbreviation = row[:abbreviation]
-    @stadium = row[:stadium]
+    @stadium = row[:Stadium]
     @games = []
   end
 end

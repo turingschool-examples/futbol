@@ -14,10 +14,10 @@ RSpec.describe Team do
 
     team_hash = {
       team_id: 1,
-      franchiseid: 23,
-      teamname: 'Atlanta United',
+      franchiseId: 23,
+      teamName: 'Atlanta United',
       abbreviation: 'ATL',
-      stadium: 'Mercedes-Benz Stadium'
+      Stadium: 'Mercedes-Benz Stadium'
     }
 
     @team = Team.new(team_hash)
