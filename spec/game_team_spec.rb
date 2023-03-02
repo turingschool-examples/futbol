@@ -1,4 +1,6 @@
-require './spec/spec_helper'
+require_relative 'spec_helper'
+require './lib/game_team'
+require './lib/stat_tracker'
 
 RSpec.describe GameTeam do
   before(:each) do 
