@@ -36,7 +36,10 @@ module GameStats
   end
 
   def percentage_ties
-
+    ties = @games.count { |game| game.home_goals == game.away_goals }
+    total_games = @games.length
+    percentage = (ties.to_f / total_games) * 100
+    percentage.round(2)
   end
 
   def count_of_games_by_season
