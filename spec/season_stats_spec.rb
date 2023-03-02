@@ -26,4 +26,16 @@ describe SeasonStats do
   it 'exists' do
     expect(@stat_tracker.season_rspec_test).to be true
   end
+
+  it 'can determine the best coach' do
+    @stat_tracker.game_teams = @test_game_teams
+
+    expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+  end
+
+  it 'can determine the worst coach' do
+    @stat_tracker.game_teams = @test_game_teams
+
+    expect(@stat_tracker.worst_coach).to eq("John Tortorella")
+  end
 end
