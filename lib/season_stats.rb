@@ -29,25 +29,31 @@ module SeasonStats
 
   def worst_coach(input_season)
     season_game_teams = game_team_select_season(input_season)
-    wins_by_coach = Hash.new(0)
     losses_by_coach = Hash.new(0)
+    ties_by_coach = Hash.new(0)
+    games_by_coach = Hash.new(0)
     season_game_teams.each do |game|
       coach = game.head_coach
       result = game.result
-      if result == "WIN"
-        wins_by_coach[coach] += 1
-      elsif result == "LOSS"
+      case result
+      when "WIN"
+        games_by_coach[coach] += 1
+      when "LOSS"
         losses_by_coach[coach] += 1
+        games_by_coach[coach] += 1
+      when "TIE"
+        ties_by_coach[coach] += 1
+        games_by_coach[coach] += 1
       end
     end
-    winning_percentages = Hash.new(0.0)
-    wins_by_coach.each do |coach, wins|
-      total_games = wins + losses_by_coach[coach]
-      winning_percentages[coach] = wins.to_f / total_games.to_f
+    win_percentages = {}
+    games_by_coach.each do |coach, games|
+      wins = games - losses_by_coach[coach] - ties_by_coach[coach]
+      win_percentages[coach] = wins.to_f / games.to_f
     end
-    worst_coach = winning_percentages.min_by { |coach, winning_percentage| winning_percentage }[0]
-    return worst_coach
+    win_percentages.min_by { |coach, wp| wp }[0]
   end
+  
   
   def most_accurate_team(input_season)
     season_game_teams = game_team_select_season(input_season)
