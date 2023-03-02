@@ -27,15 +27,32 @@ describe LeagueStats do
     expect(@stat_tracker.league_rspec_test).to be true
   end
 
+  it 'can get a count of all teams' do
+    expect(@stat_tracker.count_of_teams).to be_a Integer
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
   it 'can get highest scoring visitor' do
     @stat_tracker.games = @test_games
 
     expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 
+  it 'can get a highest scoring home team' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+  end
+
   it 'can get lowest scoring visitor' do
     @stat_tracker.games = @test_games
 
     expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  end
+
+  it 'can get a lowest scoring home team' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 end
