@@ -85,4 +85,15 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_teams).to eq 32
     end
   end
+
+  describe '#winningest_coach' do
+    it 'coach with best win percentage for each season' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq "Dan Lacroix"
+      expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+      expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+      expect(@stat_tracker.winningest_coach("20152016")).to eq "Barry Trotz"
+      expect(@stat_tracker.winningest_coach("20162017")).to eq "Bruce Cassidy"
+      expect(@stat_tracker.winningest_coach("20172018")).to eq "Bruce Cassidy"
+    end
+  end
 end
