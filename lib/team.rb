@@ -3,8 +3,8 @@ class Team
               :franchise_id,
               :team_name,
               :abbreviation,
-              :stadium,
-              :games
+              :stadium
+  attr_accessor :games
 
   def initialize(team_data)
     @team_id = team_data[:team_id]
