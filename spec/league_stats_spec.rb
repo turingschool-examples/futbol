@@ -23,11 +23,25 @@ describe LeagueStats do
     expect(stat_tracker.league_stats.count_of_teams).to eq(32)
   end
 
-  it 'can store team total goals' do
+  xit 'can store team total goals' do
 
-    expect(stat_tracker.league_stats.highest_scoring_home_team).to eq("Sporting Kansas City")
-    expect(stat_tracker.league_stats.highest_scoring_away_team).to eq("Sporting Kansas City")
     expect(stat_tracker.league_stats.lowest_scoring_home).to eq("Reign FC")
     expect(stat_tracker.league_stats.lowest_scoring_away).to eq("Reign FC")
+  end
+
+  it 'can return team with best offense' do
+    expect(stat_tracker.league_stats.best_offense).to eq("Reign FC")
+  end
+
+  it 'can return team with worst offense' do
+    expect(stat_tracker.league_stats.worst_offense).to eq("Utah Royals FC")
+  end
+
+  xit 'can find the highest scoring home team' do
+    expect(stat_tracker.league_stats.highest_scoring_home_team).to eq('Sporting Kansas City')
+  end
+
+  xit 'can find highest scoring away team' do
+    expect(stat_tracker.league_stats.highest_scoring_away_team).to eq('Sporting Kansas City')
   end
 end

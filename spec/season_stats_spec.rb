@@ -17,22 +17,6 @@ describe LeagueStats do
     expect(stat_tracker.season_stats.game_teams[0].game_id).to eq(2012030221)
   end
 
-  it 'can return team with best offense' do
-    expect(stat_tracker.season_stats.best_offense).to eq("Reign FC")
-  end
-
-  it 'can return team with worst offense' do
-    expect(stat_tracker.season_stats.worst_offense).to eq("Utah Royals FC")
-  end
-
-  it 'can find the highest scoring home team' do
-    expect(stat_tracker.season_stats.highest_scoring_home_team).to eq('Sporting Kansas City')
-  end
-
-  it 'can find highest scoring away team' do
-    expect(stat_tracker.season_stats.highest_scoring_away_team).to eq('Sporting Kansas City')
-  end
-
   it 'can find winningest coach' do
     expect(stat_tracker.season_stats.winningest_coach).to eq('Bruce Boudreau')
   end
