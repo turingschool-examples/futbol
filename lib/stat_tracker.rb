@@ -20,11 +20,26 @@ class StatTracker
   end
 
   def highest_total_score
-
+    max_total_score = 0
+    require 'pry-byebug'; require 'pry'; binding.pry
+    @league.seasons.max_by do |season|
+      max_game = season.games.max_by do |game|
+        game.info[:home_goals].to_i + game.info[:away_goals].to_i
+      end
+      max_score = max_game.info[:home_goals].to_i + max_game.info[:away_goals].to_i
+      if max_score > max_total_score
+        max_total_score = max_score
+      end
+    end
+    max_total_score
   end
 
   def lowest_total_score
-
+    @league.seasons.min_by do |season|
+      season[:games].min_by do |game|
+        game[:home_goals] + game[:away_goals]
+      end
+    end
   end
 
   def percentage_home_wins

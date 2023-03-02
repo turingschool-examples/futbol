@@ -20,4 +20,16 @@ RSpec.describe StatTracker do
       expect(stat_tracker.league).to be_a(League)
     end
   end
+
+  describe '#highest_total_score' do
+    it "can find the highest total score of all games" do
+      expect(stat_tracker.highest_total_score).to eq 6
+    end
+  end
+
+  describe '#lowest_total_score' do
+    xit "can find the lowest total score of all games" do
+      expect(stat_tracker.lowest_total_score).to eq 1
+    end
+  end
 end
