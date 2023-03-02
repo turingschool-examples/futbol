@@ -33,4 +33,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
     end
   end
+
+  describe '#fewest_tackles'
+    it 'can check the fewest tackles of a season' do
+      expect(stat_tracker.fewest_tackles("20132014")).to eq "Montreal Impact"
+      expect(stat_tracker.fewest_tackles("20122013")).to eq "Toronto FC"
+    end
+  end
 end
