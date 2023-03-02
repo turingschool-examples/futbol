@@ -28,30 +28,30 @@ describe SeasonStats do
   end
 
   it 'can determine the best coach' do
-    @stat_tracker.games = @stat_tracker.games[1..25]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[1..25]
+    @stat_tracker.games = @stat_tracker.games[0..24]
+    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
     
     expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
   end
 
   it 'can determine the worst coach' do
-    @stat_tracker.games = @stat_tracker.games[1..25]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[1..25]
+    @stat_tracker.games = @stat_tracker.games[0..24]
+    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
   
     expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
   end
 
   it 'can determine the most accurate team' do
-    @stat_tracker.games = @stat_tracker.games[1..25]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[1..25]
+    @stat_tracker.games = @stat_tracker.games[0..24]
+    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
   
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 
   it 'can determine the least accurate team' do
-    @stat_tracker.games = @stat_tracker.games[1..100]
-    @stat_tracker.game_teams = @stat_tracker.game_teams[1..100]
+    @stat_tracker.games = @stat_tracker.games[0..24]
+    @stat_tracker.game_teams = @stat_tracker.game_teams[0..24]
   
-    expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+    expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
   end
 end
