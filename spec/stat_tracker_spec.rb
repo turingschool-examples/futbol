@@ -50,6 +50,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#average_goals_per_game' do
+    it 'take average of goals scored in a game across all seasons, both home and away goals' do
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+    end
+  end
+  
   describe '#lowest_total_score' do
     it 'sum of scores in lowest scoring game' do
       expect(@stat_tracker.lowest_total_score).to eq(0)
