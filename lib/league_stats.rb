@@ -115,6 +115,17 @@ class LeagueStats < Classes
     highest_scoring = highest_avg.min_by {|k,v| v}
     id_string = highest_scoring[0]
     convert_id_to_teamname(id_string)
+
+  def highest_scoring_away_team
+    scores = Hash.new(0)
+    @games.each do |game|
+      scores[(game.away)] += (game.away_goals).to_i
+      scores.max_by{|k,v| v}[0]
+      end
+    numer = scores.max_by{|k, v| v}
+    denom = away_games_per_team.max_by{|k, v| v}
+    highest_avg = (numer[1]).fdiv(denom[1])
+    convert_id_to_teamname(numer[0])
   end
 
   def lowest_scoring_away

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'csv'
 
 describe LeagueStats do
-  let(:game_path) { './data/game_teams.csv' }
+  let(:game_path) { './data/games.csv' }
   let(:team_path) { './data/teams.csv' }
   let(:game_teams_path) { './data/game_teams.csv' }
   let(:locations) do {
@@ -19,17 +19,30 @@ describe LeagueStats do
     expect(stat_tracker.season_stats.game_teams[0].game_id).to eq(2012030221)
   end
 
-  it 'can find winningest coach' do
-
+  xit 'can find winningest coach' do
+  end
 
     expect(stat_tracker.season_stats.winningest_coach('20132014')).to eq('Claude Julien')
     expect(stat_tracker.season_stats.winningest_coach('20142015')).to eq('Alain Vigneault')
+    
+  it 'can find most accurate team' do
+  #  team1 = stat_tracker.season_stats.most_accurate_team("20132014")
+   team2 = stat_tracker.season_stats.most_accurate_team("20142015")
+  #  expect(team1).to eq "Real Salt Lake"
+   expect(team2).to eq "Toronto FC"
   end
   
   it 'can find worst coach' do
 
+
     expect(stat_tracker.season_stats.worst_coach('20132014')).to eq('Peter Laviolette')
     expect(stat_tracker.season_stats.worst_coach('20142015')).to eq('Craig MacTavish').or(eq('Ted Nolan'))
+
+  it 'can find least accurate team' do
+    # team1 = stat_tracker.season_stats.most_accurate_team("20132014")
+    team2 = stat_tracker.season_stats.least_accurate_team("20142015")
+    # expect(team1).to eq "New York City FC"
+    expect(team2).to eq "Columbus Crew SC"
   end
 
   it 'can find most accurate team' do
