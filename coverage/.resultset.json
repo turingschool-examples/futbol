@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/team.rb": {
+      "/Users/angelbyun/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -14,7 +14,7 @@
           null
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/game.rb": {
+      "/Users/angelbyun/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -27,20 +27,20 @@
           null,
           null,
           1,
-          7441,
-          7441,
-          7441,
-          7441,
-          7441,
-          7441,
+          44646,
+          44646,
+          44646,
+          44646,
+          44646,
+          44646,
           null,
-          7441,
-          7441,
+          44646,
+          44646,
           null,
           null
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/game_teams.rb": {
+      "/Users/angelbyun/futbol/lib/game_teams.rb": {
         "lines": [
           1,
           1,
@@ -67,12 +67,12 @@
           null
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/league_stats.rb": {
+      "/Users/angelbyun/futbol/lib/league_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/angelbyun/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -89,40 +89,40 @@
           null
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/season_stats.rb": {
+      "/Users/angelbyun/futbol/lib/season_stats.rb": {
         "lines": [
 
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/games_stats.rb": {
+      "/Users/angelbyun/futbol/lib/games_stats.rb": {
         "lines": [
           1,
           null,
           1,
+          null,
+          1,
+          44652,
+          null,
           null,
           1,
           7442,
+          1,
           null,
           null,
           1,
-          0,
-          0,
-          null,
-          null,
+          7442,
           1,
-          0,
-          0,
           null,
           null,
           1,
           null,
-          0,
-          0,
-          0,
-          0,
+          1,
+          1,
+          7441,
+          3237,
           null,
           null,
-          0,
+          1,
           null,
           null,
           1,
@@ -136,10 +136,20 @@
           1,
           null,
           null,
+          1,
+          null,
+          1,
+          1,
+          7441,
+          1517,
+          null,
+          null,
+          1,
+          null,
           null
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/lib/stats.rb": {
+      "/Users/angelbyun/futbol/lib/stats.rb": {
         "lines": [
           1,
           1,
@@ -160,35 +170,35 @@
           null
         ]
       },
-      "/Users/andrewbingham/turing_work/1mod/projects/futbol/spec/games_stats_spec.rb": {
+      "/Users/angelbyun/futbol/spec/games_stats_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          1,
+          6,
           null,
           1,
           1,
-          0,
-          null,
-          null,
-          null,
           1,
-          1,
-          0,
           null,
           null,
           null,
           1,
           1,
-          0,
+          1,
           null,
           null,
           null,
           1,
           1,
-          0,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
           null,
           null,
           1,
@@ -196,7 +206,7 @@
           null,
           null,
           1,
-          0,
+          1,
           null,
           null,
           null,
@@ -205,6 +215,6 @@
         ]
       }
     },
-    "timestamp": 1677722427
+    "timestamp": 1677722940
   }
 }

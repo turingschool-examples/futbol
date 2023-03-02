@@ -38,4 +38,14 @@ class GamesStats
     away_percent_wins = away_wins.length.fdiv(@games.length).round(2)
   end
 
+  def percentage_ties
+    ###this can definitely be refactored###
+    tie_game = []
+    @games.each do |game|
+      if game.away_goals.to_i == game.home_goals.to_i
+        tie_game << game
+      end
+    end
+    tie_percent = tie_game.length.fdiv(@games.length).round(2)
+  end
 end

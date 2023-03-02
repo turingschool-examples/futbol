@@ -32,7 +32,7 @@ RSpec.describe GamesStats do
     end
 
     it 'has percentage_ties' do
-      expect(@games_stat.percentage_ties).to eq(0.20)
+      expect(@game_stat.percentage_ties).to eq(0.20)
     end
   end
 
