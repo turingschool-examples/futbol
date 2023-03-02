@@ -1,7 +1,5 @@
-require './lib/stat_tracker'
-require './lib/games'
-require './lib/league'
-require './lib/game_teams'
+require './spec/spec_helper'
+
 
 RSpec.describe StatTracker do
   before(:all) do
@@ -61,27 +59,27 @@ RSpec.describe StatTracker do
     end
 
     it 'best_offense' do
-      expect(@stat_tracker.best_offense).to eq("Sporting Kansas City")
+      expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
     
     it 'worst_offense' do
-      expect(@stat_tracker.worst_offense).to eq("Reign FC")
+      expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
 
     it 'highest_scoring_visitor' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
 
     it 'lowest_scoring_visitor' do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("Reign FC")
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
     end
 
     it 'highest_scoring_home_team' do
-      expect(@stat_tracker.highest_scoring_home_team).to eq("Sporting Kansas City")
+      expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
     end
 
     it 'lowest_scoring_visitor' do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("Reign FC")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
   end
 end
