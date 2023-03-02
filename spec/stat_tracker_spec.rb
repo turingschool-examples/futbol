@@ -121,6 +121,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#least_accurate_team' do
+    it '#least_accurate_team' do
+      expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
+  end
   
   describe '#worst_coach' do
     it 'coach with worst win percentage for each season' do
