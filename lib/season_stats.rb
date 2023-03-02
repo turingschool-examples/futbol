@@ -7,9 +7,10 @@ module SeasonStats
     true
   end
 
-  def winningest_coach
+  def winningest_coach(input_season)
+    season_game_teams = game_team_select_season(input_season)
     wins_by_coach = Hash.new(0)
-    @game_teams.each do |game|
+    season_game_teams.each do |game|
       coach = game.head_coach
       result = game.result
       if result == "WIN"
@@ -19,9 +20,10 @@ module SeasonStats
     wins_by_coach.max_by { |coach, wins| wins }[0]
   end
 
-  def worst_coach
+  def worst_coach(input_season)
+    season_game_teams = game_team_select_season(input_season)
     losses_by_coach = Hash.new(0)
-    @game_teams.each do |game|
+    season_game_teams.each do |game|
       coach = game.head_coach
       result = game.result
       if result == "LOSS"
@@ -31,8 +33,9 @@ module SeasonStats
     losses_by_coach.max_by { |coach, losses| losses }[0]
   end
 
-  def most_accurate_team
-    teams_grouped = @game_teams.group_by(&:team_id)
+  def most_accurate_team(input_season)
+    season_game_teams = game_team_select_season(input_season)
+    teams_grouped = season_game_teams.group_by(&:team_id)
     teams_ave_accuracy = {}
     teams_grouped.each do |team, values|
       teams_ave_accuracy[team] = average_accuracy(values)
@@ -41,7 +44,8 @@ module SeasonStats
     convert_to_team_name(highest_accuracy[0])
   end
 
-  def least_accurate_team
+  def least_accurate_team(input_season)
+    select_season = game_team_select_season(input_season)
     teams_grouped = @game_teams.group_by(&:team_id)
     teams_ave_accuracy = {}
     teams_grouped.each do |team, values|
