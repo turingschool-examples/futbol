@@ -4,7 +4,7 @@ require 'csv'
 describe GameStats do
   let(:game_path) { './data/games.csv' }
   let(:team_path) { './data/teams.csv' }
-  let(:game_teams_path) { './data/games.csv' }
+  let(:game_teams_path) { './data/game_teams.csv' }
   let(:locations) do {
           games: game_path,
           teams: team_path,
@@ -81,5 +81,20 @@ describe GameStats do
                                                     "20152016" => 4.16,
                                                     "20162017" => 4.23,
                                                     "20172018" => 4.44,})
+  end
+
+  it 'returns percent home wins' do
+    
+    expect(stat_tracker.game_stats.percentage_home_wins).to eq(0.44)
+  end
+
+  it 'returns percent visitor wins' do 
+
+    expect(stat_tracker.game_stats.percentage_visitor_wins).to eq(0.36)
+  end
+
+  it 'returns percent ties' do
+
+    expect(stat_tracker.game_stats.percentage_ties).to eq(0.20)
   end
 end
