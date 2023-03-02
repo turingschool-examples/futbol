@@ -55,4 +55,24 @@ class StatTracker
     index = @teams.team_id.find_index(@game_teams.worst_offense)
     @teams.team_name[index]
   end
+
+  def highest_scoring_visitor 
+    index = @teams.team_id.find_index(@game_teams.highest_scoring_visitor)
+    @teams.team_name[index]
+  end
+
+  def lowest_scoring_visitor
+    index = @teams.team_id.find_index(@game_teams.lowest_scoring_visitor)
+    @teams.team_name[index]
+  end
+
+  def highest_scoring_home_team 
+    index = @teams.team_id.find_index(@game_teams.highest_scoring_home_team)
+    @teams.team_name[index]
+  end
+
+  def lowest_scoring_home_team
+    index = @teams.team_id.find_index(@game_teams.lowest_scoring_home_team)
+    @teams.team_name[index]
+  end
 end

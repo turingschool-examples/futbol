@@ -67,5 +67,21 @@ RSpec.describe StatTracker do
     it 'worst_offense' do
       expect(@stat_tracker.worst_offense).to eq("Reign FC")
     end
+
+    it 'highest_scoring_visitor' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+
+    it 'lowest_scoring_visitor' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Reign FC")
+    end
+
+    it 'highest_scoring_home_team' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("Sporting Kansas City")
+    end
+
+    it 'lowest_scoring_visitor' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Reign FC")
+    end
   end
 end
