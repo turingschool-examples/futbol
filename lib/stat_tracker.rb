@@ -69,6 +69,14 @@ class StatTracker
     percentage_wins = winning_teams.count / visitor_teams.count.to_f
     percentage_wins.round(2)
   end
+  
+  def percentage_ties
+    games_tied = @game_teams.select do |game|
+      game.result == "TIE"
+    end
+    games_tied_float = games_tied.count / @game_teams.count.to_f
+    games_tied_float.round(2)
+  end
 
   def highest_total_score
     highest_goal = @games.max_by do |game|
