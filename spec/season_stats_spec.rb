@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'csv'
 
 describe LeagueStats do
-  let(:game_path) { './data/game_teams.csv' }
+  let(:game_path) { './data/games.csv' }
   let(:team_path) { './data/teams.csv' }
   let(:game_teams_path) { './data/game_teams.csv' }
   let(:locations) do {
@@ -19,14 +19,21 @@ describe LeagueStats do
     expect(stat_tracker.season_stats.game_teams[0].game_id).to eq(2012030221)
   end
 
-  it 'can find winningest coach' do
-
-  xit 'can return team with best offense' do
-    expect(stat_tracker.season_stats.best_offense).to eq("Reign FC")
+  xit 'can find winningest coach' do
   end
 
-  xit 'can return team with worst offense' do
-    expect(stat_tracker.season_stats.worst_offense).to eq("Utah Royals FC")
+  it 'can find most accurate team' do
+  #  team1 = stat_tracker.season_stats.most_accurate_team("20132014")
+   team2 = stat_tracker.season_stats.most_accurate_team("20142015")
+  #  expect(team1).to eq "Real Salt Lake"
+   expect(team2).to eq "Toronto FC"
+  end
+
+  it 'can find least accurate team' do
+    # team1 = stat_tracker.season_stats.most_accurate_team("20132014")
+    team2 = stat_tracker.season_stats.least_accurate_team("20142015")
+    # expect(team1).to eq "New York City FC"
+    expect(team2).to eq "Columbus Crew SC"
   end
 
   xit 'can find the highest scoring home team' do
