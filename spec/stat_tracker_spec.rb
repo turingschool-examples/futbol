@@ -120,4 +120,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
     end
   end
+
+  
+  describe '#worst_coach' do
+    it 'coach with worst win percentage for each season' do
+    expect(@stat_tracker.worst_coach("20122013")).to eq "Martin Raymond"
+    expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+    expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    expect(@stat_tracker.worst_coach("20152016")).to eq "Todd Richards"
+    expect(@stat_tracker.worst_coach("20162017")).to eq "Dave Tippett"
+    expect(@stat_tracker.worst_coach("20172018")).to eq "Phil Housley"
+    end
+  end
 end
