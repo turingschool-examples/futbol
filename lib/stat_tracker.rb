@@ -192,5 +192,6 @@ class StatTracker
     coach_win_percentage.min_by {|coach, percentage| percentage}[0]
   end
 
+  
 end
 
