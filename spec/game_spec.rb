@@ -19,7 +19,7 @@ game = Game.new(data)
 
   it 'exists' do
      expect(game.id).to eq(100201)
-     expect(game.season).to eq(101102)
+     expect(game.season).to eq("101102")
      expect(game.type).to eq("Postseason")
      expect(game.date_time).to eq("10/17/2022")
   end
