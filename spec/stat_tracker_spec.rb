@@ -15,7 +15,7 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.new(locations)
   end
 
-  describe '.from_csv' do
+  describe '.from_csv and #initialize' do
     it 'exists' do
       expect(@stat_tracker).to be_a StatTracker
     end
@@ -31,6 +31,7 @@ RSpec.describe StatTracker do
     it 'makes an array of game objects' do
       expect(@stat_tracker.all_games).to be_an Array
       expect(@stat_tracker.all_games).to all(be_a Game)
+      expect(@stat_tracker.all_games.count).to eq(58)
     end
   end
 
@@ -38,11 +39,13 @@ RSpec.describe StatTracker do
     it 'makes an array of team objects' do
       expect(@stat_tracker.all_teams).to be_an Array
       expect(@stat_tracker.all_teams).to all(be_a Team)
+      expect(@stat_tracker.all_teams.count).to eq(32)
     end
 
     it 'adds games to a teams games array' do
       expect(@stat_tracker.all_teams[0].games).to be_an Array
       expect(@stat_tracker.all_teams[0].games).to all(be_a Game)
+      expect(@stat_tracker.all_teams[0].games.empty?).to be false
     end
   end
 end
