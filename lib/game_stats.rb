@@ -143,6 +143,3 @@ class GameStats < Classes
     end
   end
 end
-
-
-#.merge combines two hashes
