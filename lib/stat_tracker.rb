@@ -31,6 +31,12 @@ class StatTracker
     end
   end
 
+  def all_game_teams
+    @game_teams_data.map do |row|
+      game_team = GameTeam.new(row)
+    end
+  end
+
   def highest_total_score
     all_games.map do |game|
       game.score_count
