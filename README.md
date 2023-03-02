@@ -27,8 +27,8 @@ Our team will first brainstorm at a high level to create our code’s functional
 ## Group DTR
 
 - [DTR Document](https://docs.google.com/document/d/1Nqv1R2Ognb3WXtzAy6NgxfQZs2xR7j-oHdXkRTyv0K4/edit?usp=sharing)
-
-Completed on Feb. 27, 2023
+  - Created on Feb. 27, 2023
+  - Last updated on Mar. 2, 2023
 
 
 ---
