@@ -8,7 +8,6 @@ class GameTeam
     @settled_in = file[:settled_in]
     @head_coach = file[:head_coach]
     @goals = file[:goals]
-    # require 'pry'; binding.pry
   end
 
   def best_offense
@@ -16,7 +15,6 @@ class GameTeam
     (0..@team_id.count).each do |i|
       offenses[@team_id[i]] += @goals[i].to_i
     end
-    # offenses.key(offenses.values.max)
     offenses.max_by{|k, v| v}[0]
   end
   
@@ -34,7 +32,6 @@ class GameTeam
       away_teams[@team_id[i]] += @goals[i].to_i if @hoa[i] == 'away'
     end
     team_id = away_teams.max_by{|k, v| v}[0]
-    require 'pry'; binding.pry
   end
 
   def lowest_scoring_visitor
@@ -51,7 +48,6 @@ class GameTeam
       home_teams[@team_id[i]] += @goals[i].to_i if @hoa[i] == 'home'
     end
     team_id = home_teams.max_by{|k, v| v}[0]
-    require 'pry'; binding.pry
   end
 
   def lowest_scoring_home_team
