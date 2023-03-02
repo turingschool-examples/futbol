@@ -53,5 +53,16 @@ RSpec.describe GamesStats do
     it 'can return a float value for average goals per game' do
       expect(@game_stat.average_goals_per_game).to eq(4.22)
     end
+
+    it 'can return a hash of average goals by season' do
+      expect(@game_stat.average_goals_by_season).to eq({
+        "20122013"=>4.12,
+        "20162017"=>4.23,
+        "20142015"=>4.14,
+        "20152016"=>4.16,
+        "20132014"=>4.19,
+        "20172018"=>4.44
+      })
+    end
   end
 end
