@@ -80,8 +80,8 @@ class GameTeam
     end
     winningest_record = 0
     winningest_coach = nil
-    coaches.each do |coach, _|
-      record = coaches[coach][season_id][:wins]&.fdiv(coaches[coach][season_id][:games])
+    coaches.each do |coach, szns|
+      record = szns[season_id][:wins]&.fdiv(szns[season_id][:games])
       if record > winningest_record
         winningest_record = record
         winningest_coach = coach
