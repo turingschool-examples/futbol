@@ -20,4 +20,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.league).to be_a(League)
     end
   end
+
+  describe '#most_tackes' do
+    it 'can check the most tackles of a season' do
+      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    end
+  end
 end
