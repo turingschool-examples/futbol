@@ -27,6 +27,11 @@ describe LeagueStats do
     expect(@stat_tracker.league_rspec_test).to be true
   end
 
+  it 'can get a count of all teams' do
+    expect(@stat_tracker.count_of_teams).to be_a Integer
+    expect(@stat_tracker.count_of_teams).to eq(32)
+  end
+
   it 'can get highest scoring visitor' do
     @stat_tracker.games = @test_games
 
