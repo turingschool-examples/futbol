@@ -38,6 +38,12 @@ describe LeagueStats do
     expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 
+  it 'can get a highest scoring home team' do
+    @stat_tracker.games = @test_games
+
+    expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+  end
+
   it 'can get lowest scoring visitor' do
     @stat_tracker.games = @test_games
 
