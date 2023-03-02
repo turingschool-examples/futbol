@@ -115,5 +115,9 @@ class StatTracker
   def count_of_teams
     @teams.count
   end
+
+  def count_of_games_per_season(season_id)
+    @seasons_by_id[season_id][:games].length
+  end
 end
 
