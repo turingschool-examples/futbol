@@ -33,4 +33,20 @@ RSpec.describe GameStatistics do
       expect(@game_stats.game_teams.sample).to be_a GameTeams
     end
   end
+
+  describe '#percentage_home_wins' do
+    it 'returns percentage of home team wins' do
+      mock_game = instance_double(Game, {away_goals: 4, home_goals: 3})
+      mock_game_2 = instance_double(Game, {away_goals: 2, home_goals: 3})
+      mock_game_3 = instance_double(Game, {away_goals: 1, home_goals: 1})
+      mock_game_4 = instance_double(Game, {away_goals: 4, home_goals: 5})
+      games_array = [mock_game, mock_game_2, mock_game_3, mock_game_4]
+
+      allow(@game_stats).to receive(:games).with(array_including(games_array))
+      
+      expect(@game_stats.percentage_home_wins).to eq(50.00)
+      expect(@game_stats.percentage_home_wins).to be_a Float
+    end
+  end
+
 end
