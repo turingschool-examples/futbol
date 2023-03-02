@@ -4,6 +4,8 @@ require_relative 'game'
 require_relative 'game_teams'
 
 class Stats
+  attr_reader :teams, :games, :game_teams
+  
   def initialize(locations)
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol).map { |row| Team.new(row) }
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol).map { |row| Game.new(row) }
