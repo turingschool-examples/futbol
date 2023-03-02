@@ -75,4 +75,8 @@ class StatTracker
     index = @teams.team_id.find_index(@game_teams.lowest_scoring_home_team)
     @teams.team_name[index]
   end
+
+  def winningest_coach(season_id)
+    @game_teams.winningest_coach(season_id)
+  end
 end
