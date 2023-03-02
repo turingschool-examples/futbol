@@ -17,8 +17,8 @@ attr_reader :id,
     @season = info["season"]
     @type = info["type"]
     @date_time = info["date_time"]
-    @away = info["away"]
-    @home = info["home"]
+    @away = info["away_team_id"]
+    @home = info["home_team_id"]
     @away_goals = info["away_goals"].to_i
     @home_goals = info["home_goals"].to_i
     @venue = info["venue"]

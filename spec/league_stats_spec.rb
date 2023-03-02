@@ -14,6 +14,7 @@ describe LeagueStats do
   let(:stat_tracker) { StatTracker.from_csv(locations) }
   
   let(:league_stats) { LeagueStats.new(locations) }
+
   it 'can import team data' do
     expect(stat_tracker.league_stats.teams[0].team_id).to eq("1")
   end
@@ -21,12 +22,12 @@ describe LeagueStats do
   it 'can return a count of teams' do
     expect(stat_tracker.league_stats.count_of_teams).to eq(32)
   end
+
   it 'can store team total goals' do
 
+    expect(stat_tracker.league_stats.highest_scoring_home_team).to eq("Sporting Kansas City")
+    expect(stat_tracker.league_stats.highest_scoring_away_team).to eq("Sporting Kansas City")
     expect(stat_tracker.league_stats.lowest_scoring_home).to eq("Reign FC")
-    expect(stat_tracker.league_stats.home_scores["54"]).to eq(132)
     expect(stat_tracker.league_stats.lowest_scoring_away).to eq("Reign FC")
-    expect(stat_tracker.league_stats.away_scores["54"]).to eq(107)
   end
-
 end
