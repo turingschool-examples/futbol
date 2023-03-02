@@ -33,4 +33,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.all_games).to all(be_a Game)
     end
   end
+
+  describe '#all_teams' do
+    it 'makes an array of team objects' do
+      expect(@stat_tracker.all_teams).to be_an Array
+      expect(@stat_tracker.all_teams).to all(be_a Team)
+    end
+
+    it 'adds games to a teams games array' do
+      expect(@stat_tracker.all_teams[0].games).to be_an Array
+      expect(@stat_tracker.all_teams[0].games).to all(be_a Game)
+    end
+  end
 end

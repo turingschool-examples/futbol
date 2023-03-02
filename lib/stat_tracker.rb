@@ -34,4 +34,21 @@ class StatTracker
     end
     games
   end
+
+  def all_teams
+    teams = []
+    @team_data.each do |row|
+      team_details = {
+        team_id: row[:team_id].to_i,
+        franchise_id: row[:franchiseid],
+        team_name: row[:teamname],
+        abbreviation: row[:abbreviation],
+        stadium: row[:stadium]
+      }
+      team = Team.new(team_details)
+      team.games = all_games.select { |game| game.home_id == team.team_id || game.away_id == team.team_id }
+      teams << team
+    end
+    teams
+  end
 end
