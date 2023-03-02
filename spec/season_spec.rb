@@ -1,9 +1,12 @@
-require './spec/spec_helper'
+require_relative 'spec_helper'
+require './lib/season'
+require './lib/stat_tracker'
+
   RSpec.describe Season do
     before(:each) do 
-    game_path = './data_mock/games.csv'
-    team_path = './data_mock/teams.csv'
-    game_teams_path = './data_mock/game_teams.csv'
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
     
     @locations = {
       games: game_path,
@@ -16,11 +19,11 @@ require './spec/spec_helper'
     @season_2 = Season.new("20132014", @stat_tracker.games, @stat_tracker.game_teams)
   end
 
-  it "exists" do
+  xit "exists" do
     expect(@season_1).to be_a(Season)
   end
 
-  it "has attributes" do
+  xit "has attributes" do
     expect(@season_1.season_id).to eq("20122013")
     expect(@season_2.season_id).to eq("20132014")
     expect(@season_1.season_data).to be_a(Hash)

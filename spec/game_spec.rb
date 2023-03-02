@@ -1,4 +1,6 @@
-require './spec/spec_helper'
+require_relative 'spec_helper'
+require './lib/game'
+require './lib/stat_tracker'
 
 RSpec.describe Game do
   before(:each) do 
