@@ -61,4 +61,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_total_score).to eq(0)
     end
   end
+
+  describe '#count_of_teams' do
+    it '#count_of_teams' do
+      expect(@stat_tracker.count_of_teams).to eq 32
+    end
+  end
 end
