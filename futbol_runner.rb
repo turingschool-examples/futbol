@@ -1,4 +1,5 @@
 require './lib/stat_tracker'
+require './lib/game_teams'
 # require 'csv'
 
 game_path = './data/games.csv'
@@ -12,8 +13,3 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-
-
-puts stat_tracker.game_teams
-
-
