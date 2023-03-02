@@ -115,6 +115,7 @@ class LeagueStats < Classes
     highest_scoring = highest_avg.min_by {|k,v| v}
     id_string = highest_scoring[0]
     convert_id_to_teamname(id_string)
+  end
 
   def highest_scoring_away_team
     scores = Hash.new(0)
@@ -151,4 +152,5 @@ class LeagueStats < Classes
     lowest_avg = numer[1].fdiv(denom[1])
     convert_id_to_teamname(numer[0])
   end
+
 end
