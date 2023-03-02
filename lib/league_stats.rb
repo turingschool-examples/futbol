@@ -20,8 +20,6 @@ class LeagueStats < Classes
 
   #Helper method for best offense/ worst offense
   def convert_id_to_teamname(id_string)
-    teamdata = TeamData.new
-    teamdata.add_teams
     team = teamdata.teams.select{|team|team.team_id == id_string}
     team[0].teamname
   end

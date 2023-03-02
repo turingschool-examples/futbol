@@ -6,35 +6,54 @@ class GameStats < Classes
     super
   end
 
-  def wins_losses
-    @home_wins = 0
-    @total_games = 0
-    @away_wins = 0
-    @ties = 0
+  def home_wins
+    wins_at_home = 0
     @games.each do |game|
       if game.home_goals > game.away_goals
-        @home_wins += 1 
-        @total_games += 1
-      elsif game.home_goals < game.away_goals
-        @away_wins += 1
-        @total_games += 1
-      elsif game.home_goals == game.away_goals
-        @ties += 1 
-        @total_games += 1
+        wins_at_home += 1
       end
     end
+    wins_at_home
+  end
+
+  def away_wins
+    wins_away = 0
+    @games.each do |game|
+      if game.away_goals > game.home_goals
+        wins_away += 1
+      end
+    end
+    wins_away
+  end
+
+  def ties
+    tied_games = 0.0
+    @games.each do |game|
+      if game.home_goals == game.away_goals
+        tied_games += 1 
+      end
+    end
+    tied_games
+  end
+
+  def total_games
+    all_games = 0
+    @games.each do |game|
+      all_games += 1
+    end
+    all_games
   end
 
   def percentage_home_wins
-    (@home_wins.to_f / @total_games).round(2)
+    home_wins.fdiv(total_games).round(2)
   end
 
   def percentage_visitor_wins
-    (@away_wins.to_f / @total_games).round(2)
+    away_wins.fdiv(total_games).round(2)
   end
 
   def percentage_ties
-    (@ties.to_f / @total_games).round(2)
+    ties.fdiv(total_games).round(2)
   end
 
   def total_scores
@@ -44,7 +63,7 @@ class GameStats < Classes
   end
 
   def highest_total_score
-    total_scores.last
+   total_scores.last
   end
 
   def lowest_total_score
@@ -60,11 +79,13 @@ class GameStats < Classes
   end
 
   def average_goals_per_game
+    total_games = 0
+    total_goals = 0
     @games.each do |game|
-      @total_games += 1
-      @total_goals += (game.away_goals.to_f + game.home_goals.to_f)
+      total_games += 1
+      total_goals += (game.away_goals.to_f + game.home_goals.to_f)
     end
-    average = @total_goals / @total_games
+    average = total_goals / total_games
     average.round(2)
   end
 
