@@ -20,7 +20,9 @@ describe GameStats do
     @test_team2 = @stat_tracker.teams[1]
 
     @test_games = @stat_tracker.games[0..9]
+    @test_games_larger = @stat_tracker.games[0..50]
     @test_game_teams = @stat_tracker.game_teams[0..9]
+    @test_game_teams_larger = @stat_tracker.game_teams[0..50]
   end
 
   it 'exists' do
@@ -66,5 +68,11 @@ describe GameStats do
     @stat_tracker.games = @test_games
 
     expect(@stat_tracker.percentage_visitor_wins).to eq(40.0)
+  end
+
+  it 'can determine percentage of ties' do
+    @stat_tracker.games = @test_games_larger
+
+    expect(@stat_tracker.percentage_ties).to eq(1.96)
   end
 end
