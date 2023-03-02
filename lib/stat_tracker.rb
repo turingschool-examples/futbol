@@ -121,6 +121,29 @@ class StatTracker
     @teams.count
   end
 
+
+  def winningest_coach(season_id)
+    season_games = @seasons_by_id[season_id][:game_teams]
+    games_won_coach = Hash.new(0)
+    games_played_coach = Hash.new(0)
+    coach_win_percentage = Hash.new
+    season_games.each do |game|
+      games_played_coach[game.head_coach] += 1
+      if game.result == "WIN"
+      games_won_coach[game.head_coach] += 1
+      end
+    end
+    games_played_coach.each do |coach, games|
+      games_won_coach.each do |won_coach, won_games|
+      if coach == won_coach
+        coach_win_percentage[coach] = (won_games / games.to_f)
+        end
+      end
+    end
+    #hash.max_by{ |k,v| v }[0] gives the key
+    coach_win_percentage.max_by {|coach, percentage| percentage}[0]
+  end
+  
   def count_of_games_per_season(season_id)
     @seasons_by_id[season_id][:games].length
   end
@@ -131,6 +154,7 @@ class StatTracker
       goals += (game.away_goals + game.home_goals)
     end
     (goals.to_f/@seasons_by_id[season_id][:games].length.to_f).round(2)
+
   end
 end
 
