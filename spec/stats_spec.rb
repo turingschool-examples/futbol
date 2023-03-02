@@ -58,7 +58,7 @@ RSpec.describe Stats do
       expect(@stats.game_teams.first.tackles).to eq('44')
       expect(@stats.game_teams.first.team_id).to eq('3')
       expect(@stats.game_teams.first.game_id).to eq('2012030221')
-      expect(@stats.game_teams.first.season_id).to eq('2012')
+      expect(@stats.game_teams.first.season_id).to eq('20122013')
       expect(@stats.game_teams.first.result).to eq('LOSS')
       expect(@stats.game_teams.first.home_away).to eq('away')
     end
