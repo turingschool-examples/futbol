@@ -48,4 +48,17 @@ class StatTracker
       game.score_count
     end.min
   end
+
+  def games_by_season
+    seasons = Hash.new([])
+    all_games.each do |game|
+      seasons[game.season] = []
+    end
+    seasons.each do |season, games_array|
+      all_games.each do |game|
+        games_array << game if game.season == season
+      end
+    end
+    seasons
+  end
 end
