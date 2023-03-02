@@ -38,7 +38,7 @@ describe SeasonStats do
     @stat_tracker.games = @stat_tracker.games[0..100]
     
     expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
-    expect(@stat_tracker.worst_coach("20152016")).to eq("Dave Hakstol")
+    expect(@stat_tracker.worst_coach("20152016")).to eq("Alain Vigneault")
   end
   
   it 'can determine the most accurate team' do
