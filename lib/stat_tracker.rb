@@ -6,12 +6,12 @@ require_relative 'stats'
 
 
 class StatTracker 
-  attr_reader :games, :teams, :game_teams
+  attr_reader :game, :league, :season
 
   def initialize(locations)
-    @games = locations[:games]
-    @teams = locations[:teams]
-    @game_teams = locations[:game_teams]
+    @game = GameStatistics.new(locations)
+    @league = LeagueStatistics.new(locations)
+    @season = SeasonStatistics.new(locations)
   end
   
   def self.from_csv(locations)
