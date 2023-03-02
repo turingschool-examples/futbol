@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-03-02T13:01:25-07:00">2023-03-02T13:01:25-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-03-02T13:11:36-07:00">2023-03-02T13:11:36-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  55.05%
+  56.64%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2732.88
+         2636.18
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>109</b> relevant lines,
-    <span class="green"><b>60</b> lines covered</span> and
+    <b>113</b> relevant lines,
+    <span class="green"><b>64</b> lines covered</span> and
     <span class="red"><b>49</b> lines missed. </span>
     (<span class="red">
-  55.05%
+  56.64%
 </span>
 )
   </div>
@@ -117,11 +117,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#e7e33ae26829baea129447276af1a20a8ab46d58" class="src_link" title="lib/season_stats.rb">lib/season_stats.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">12</td>
-            <td class="cell--number">6</td>
-            <td class="cell--number">6</td>
+            <td class="cell--number">18</td>
+            <td class="cell--number">9</td>
+            <td class="cell--number">9</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">4972.67</td>
+            <td class="cell--number">3315.44</td>
             
           </tr>
         
@@ -160,10 +160,10 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#12c273df647b4491d24ee686a4ea06858c1f5df6" class="src_link" title="spec/season_stats_spec.rb">spec/season_stats_spec.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">90.91 %</td>
-            <td class="cell--number">20</td>
+            <td class="green strong cell--number t-file__coverage">91.67 %</td>
+            <td class="cell--number">21</td>
+            <td class="cell--number">12</td>
             <td class="cell--number">11</td>
-            <td class="cell--number">10</td>
             <td class="cell--number">1</td>
             <td class="cell--number">1.00</td>
             
@@ -690,7 +690,7 @@
 
             
 
-            <code class="ruby">    @season_id = @game_id[0..3]</code>
+            <code class="ruby">    @season_id = &quot;#{@game_id[0..3].to_i}#{@game_id[0..3].to_i.next}&quot;</code>
           </li>
         </div>
       
@@ -1743,8 +1743,8 @@
     
 
     <div class="t-line-summary">
-      <b>6</b> relevant lines.
-      <span class="green"><b>6</b> lines covered</span> and
+      <b>9</b> relevant lines.
+      <span class="green"><b>9</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -1800,7 +1800,18 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="5">
+          <li class="covered" data-hits="1" data-linenumber="5">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  attr_reader :teams, :game_teams</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="6">
             
             
 
@@ -1811,7 +1822,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="6">
+          <li class="covered" data-hits="1" data-linenumber="7">
             <span class="hits">1</span>
             
 
@@ -1822,7 +1833,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="66" data-linenumber="7">
+          <li class="covered" data-hits="66" data-linenumber="8">
             <span class="hits">66</span>
             
 
@@ -1833,7 +1844,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="29766" data-linenumber="8">
+          <li class="covered" data-hits="29766" data-linenumber="9">
             <span class="hits">29766</span>
             
 
@@ -1844,7 +1855,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="9">
+          <li class="never" data-hits="" data-linenumber="10">
             
             
 
@@ -1855,7 +1866,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="10">
+          <li class="never" data-hits="" data-linenumber="11">
             
             
 
@@ -1866,18 +1877,73 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="11">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="12">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  </code>
+            
+
+            <code class="ruby">  def winningest_coach(season_year)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="12">
+          <li class="covered" data-hits="1" data-linenumber="13">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @game_teams.each do |game|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="14">
+            
+            
+
+            
+
+            <code class="ruby">      ### I want to go over all the game/teams csv and looking for a season year</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="15">
+            
+            
+
+            
+
+            <code class="ruby">      ### with that season year </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="16">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="17">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="18">
             
             
 
@@ -2419,7 +2485,7 @@
     <h3>spec/season_stats_spec.rb</h3>
     <h4>
       <span class="green">
-  90.91%
+  91.67%
 </span>
 
       lines covered
@@ -2428,8 +2494,8 @@
     
 
     <div class="t-line-summary">
-      <b>11</b> relevant lines.
-      <span class="green"><b>10</b> lines covered</span> and
+      <b>12</b> relevant lines.
+      <span class="green"><b>11</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
 
@@ -2540,13 +2606,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="10">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="10">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    end</code>
+            
+
+            <code class="ruby">      require &#39;pry&#39;; binding.pry</code>
           </li>
         </div>
       
@@ -2557,7 +2623,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -2568,18 +2634,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="13">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="13">
+            
             
 
             
 
-            <code class="ruby">  describe &#39;#coach methods&#39; do </code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -2590,7 +2656,7 @@
 
             
 
-            <code class="ruby">    it &quot;#winningest_coach&quot; do</code>
+            <code class="ruby">  describe &#39;#coach methods&#39; do </code>
           </li>
         </div>
       
@@ -2601,12 +2667,23 @@
 
             
 
+            <code class="ruby">    it &quot;#winningest_coach&quot; do</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="16">
+            <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">      expect(@season_stat.winningest_coach(&quot;20132014&quot;)).to eq &quot;Claude Julien&quot;</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="16">
+          <li class="missed" data-hits="0" data-linenumber="17">
             
             
 
@@ -2617,7 +2694,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="17">
+          <li class="never" data-hits="" data-linenumber="18">
             
             
 
@@ -2628,7 +2705,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="18">
+          <li class="never" data-hits="" data-linenumber="19">
             
             
 
@@ -2639,7 +2716,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="19">
+          <li class="never" data-hits="" data-linenumber="20">
             
             
 
@@ -2650,7 +2727,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="20">
+          <li class="never" data-hits="" data-linenumber="21">
             
             
 

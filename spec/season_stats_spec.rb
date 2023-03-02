@@ -7,13 +7,14 @@ RSpec.describe SeasonStats do
   describe '#initialize' do
     it 'exists' do
       expect(@season_stat).to be_a SeasonStats
+      require 'pry'; binding.pry
     end
   end
 
   describe '#coach methods' do 
     it "#winningest_coach" do
-      expect(@season_stat.winningest_coach("20132014")).to eq "Claude Julien"
-      expect(@season_stat.winningest_coach("20142015")).to eq "Alain Vigneault"
+      expect(@season_stat.winningest_coach("20132014")).to eq("Claude Julien")
+      expect(@season_stat.winningest_coach("20142015")).to eq("Alain Vigneault")
     end 
   end
 
