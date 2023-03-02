@@ -14,7 +14,7 @@ class StatTracker
     end
     self.new(:futbol, data)
   end
-
+  
   def initialize(league_name, data)
     @league = League.new(league_name, data)
   end
@@ -91,8 +91,29 @@ class StatTracker
 
   end
 
-  def most_tackles
+  def most_tackles(season_id)
+    team_and_tackles = Hash.new(0) 
+    season = @league.seasons.find_all{ |season| season.year == season_id }
+    require 'pry'; binding.pry
+    season.games.each do |game|
+      team_and_tackles[game.refs[:home_team].name] += game.team_stats[:home_team][:tackles].to_i
+      team_and_tackles[game.refs[:away_team].name] += game.team_stats[:away_team][:tackles].to_i
+    end
+    require 'pry'; binding.pry
 
+    team_and_tackles.max_by{ |team, tackles| tackles}.first
+
+
+    require 'pry'; binding.pry
+
+
+    # each game in the season .find_all { |game| game.season_id == season_id }
+    # @league.seasons.each do |season|
+    #   season.each do |game|
+    #     game
+    #   end
+    # end
+    
   end
 
   def fewest_tackles

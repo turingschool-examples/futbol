@@ -21,10 +21,16 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#get_reg_and_post_seasons' do
+    it 'returns an array' do
+      expect(stat_tracker.get_reg_and_post_seasons("20132014")).to be_a(Array)
+    end
+  end
+
   describe '#most_tackes' do
     it 'can check the most tackles of a season' do
-      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+      # expect(stat_tracker.most_tackles("20132014")).to eq "LA Galaxy"
+      expect(stat_tracker.most_tackles("20122013")).to eq 
     end
   end
 end
