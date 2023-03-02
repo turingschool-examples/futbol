@@ -13,7 +13,6 @@ module SeasonStats
     losses_by_coach = Hash.new(0)
     ties_by_coach = Hash.new(0)
     games_by_coach = Hash.new(0)
-    
     season_game_teams.each do |game|
       coach = game.head_coach
       result = game.result
@@ -26,14 +25,12 @@ module SeasonStats
       end
       games_by_coach[coach] += 1
     end
-    
     winning_percentages = {}
     wins_by_coach.each do |coach, wins|
       games = games_by_coach[coach]
       ties = ties_by_coach[coach]
       winning_percentages[coach] = (wins + 0.5 * ties) / games.to_f
     end
-    
     winning_percentages.max_by { |coach, wp| wp }[0]
   end
   
