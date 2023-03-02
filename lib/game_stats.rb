@@ -43,7 +43,12 @@ module GameStats
   end
 
   def count_of_games_by_season
-
+    seasonal_game_count = Hash.new(0)
+    season_games = @games.group_by{|game| game.season}
+    season_games.map do |season, games|
+      seasonal_game_count[season] = games.length
+    end
+    seasonal_game_count
   end
 
   def average_goals_per_game
