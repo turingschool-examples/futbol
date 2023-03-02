@@ -6,6 +6,7 @@ RSpec.describe SeasonStats do
   end
   describe '#initialize' do
     it 'exists' do
-      expect(season_stat).to be_a SeasonStats
+      expect(@season_stat).to be_a SeasonStats
     end
   end
+end
