@@ -36,4 +36,10 @@ class StatTracker
       game.score_count
     end.max
   end
+
+  def lowest_total_score
+    all_games.map do |game|
+      game.score_count
+    end.min
+  end
 end
