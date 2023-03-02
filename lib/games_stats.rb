@@ -26,4 +26,16 @@ class GamesStats
     end
     home_percent_wins = home_wins.length.fdiv(@games.length).round(2)
   end
+
+  def percentage_visitor_wins
+    ###this can definitely be refactored###
+    away_wins = []
+    @games.each do |game|
+      if game.away_goals.to_i > game.home_goals.to_i
+        away_wins << game
+      end
+    end
+    away_percent_wins = away_wins.length.fdiv(@games.length).round(2)
+  end
+
 end
