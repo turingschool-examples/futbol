@@ -1,6 +1,7 @@
+require_relative 'stats'
 
-class GameStatistics
-  def initialize
-    
+class GameStatistics < Stats
+  def initialize(locations)
+    super
   end
 end
