@@ -59,6 +59,17 @@ class StatTracker
     percentage_wins.round(2)
   end
 
+  def percentage_visitor_wins
+    visitor_teams = @game_teams.select do |team|
+      team.hoa == "away"
+    end
+    winning_teams = visitor_teams.select do |team|
+      team.result == "WIN"
+    end
+    percentage_wins = winning_teams.count / visitor_teams.count.to_f
+    percentage_wins.round(2)
+  end
+
   def highest_total_score
     highest_goal = @games.max_by do |game|
       game.away_goals + game.home_goals 
