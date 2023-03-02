@@ -99,7 +99,6 @@ class LeagueStats < Classes
     numer = scores.max_by{|k, v| v}
     denom = away_games_per_team.max_by{|k, v| v}
     highest_avg = (numer[1]).fdiv(denom[1])
-    require 'pry'; binding.pry
     convert_id_to_teamname(numer[0])
   end
 
