@@ -19,7 +19,7 @@ class Game
     @home_goals = row[:home_goals].to_i
   end
 
-  def score_count
+  def total_score
     @home_goals + @away_goals
   end
 end
