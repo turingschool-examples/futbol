@@ -24,7 +24,7 @@ class StatTracker
   end
 
   def all_teams
-    teams = @team_data.map do |row|
+    @team_data.map do |row|
       team = Team.new(row)
       team.games = all_games.select { |game| game.home_id == team.team_id || game.away_id == team.team_id }
       team
