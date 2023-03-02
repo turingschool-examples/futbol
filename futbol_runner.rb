@@ -1,5 +1,4 @@
-require './lib/stat_tracker'
-require './lib/game_teams'
+require './spec/spec_helper'
 # require 'csv'
 
 game_path = './data/games.csv'
