@@ -1,6 +1,6 @@
-module TeamAccuracy(season_id)
+module TeamAccuracy
 
-  def find_accuracy_ratios
+  def find_accuracy_ratios(season_id)
     team_scores = Hash.new(0)
       team_shots = Hash.new(0)
       team_games = {}
@@ -19,6 +19,7 @@ module TeamAccuracy(season_id)
       team_ids.each do |team_id|
         ratios[team_id] = (team_scores[team_id].to_f / team_shots[team_id].to_f)
       end
-      ratios
-    end
+      return ratios
+  end
+
 end
