@@ -6,12 +6,12 @@ class Team
               :stadium
   attr_accessor :games
 
-  def initialize(team_data)
-    @team_id = team_data[:team_id]
-    @franchise_id = team_data[:franchiseid]
-    @team_name = team_data[:teamname]
-    @abbreviation = team_data[:abbreviation]
-    @stadium = team_data[:stadium]
+  def initialize(row)
+    @team_id = row[:team_id]
+    @franchise_id = row[:franchiseid]
+    @team_name = row[:teamname]
+    @abbreviation = row[:abbreviation]
+    @stadium = row[:stadium]
     @games = []
   end
 end
