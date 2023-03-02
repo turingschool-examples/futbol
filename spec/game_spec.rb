@@ -30,6 +30,6 @@ RSpec.describe Game do
   end
 
   it 'counts score' do
-    expect(@game.score_count).to eq(5)
+    expect(@game.total_score).to eq(5)
   end
 end
