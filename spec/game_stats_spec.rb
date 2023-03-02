@@ -61,14 +61,13 @@ describe GameStats do
   it 'can determine percentage of home wins' do
     @stat_tracker.games = @test_games
 
-    expect(@stat_tracker.percentage_home_wins).to eq(60.0)
+    expect(@stat_tracker.percentage_home_wins).to eq(0.60)
   end
 
   it 'can determine percentage of visitor wins' do
     @stat_tracker.games = @test_games
-    expect(@stat_tracker.percentage_visitor_wins).to eq(40.0)
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
   end
-
 
   it 'can count games by season' do 
     @stat_tracker.games = @test_games
@@ -82,6 +81,6 @@ describe GameStats do
   it 'can determine percentage of ties' do
     @stat_tracker.games = @test_games_larger
 
-    expect(@stat_tracker.percentage_ties).to eq(1.96)
+    expect(@stat_tracker.percentage_ties).to eq(0.02)
   end
 end
