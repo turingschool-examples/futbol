@@ -78,17 +78,33 @@ class GameTeam
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:wins] += 1 if @result[i] == 'WIN'
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:games] += 1
     end
-    coaches.delete(nil)
     winningest_record = 0
     winningest_coach = nil
-    coaches.each do |coach, _|
-        record = coaches[coach][season_id][:wins]&.fdiv(coaches[coach][season_id][:games])
-        if record
-          winningest_record = [winningest_record, record].max
-          # require 'pry'; binding.pry
-          winningest_coach = coach if winningest_record == record
-        end
+    coaches.each do |coach, szns|
+      record = szns[season_id][:wins]&.fdiv(szns[season_id][:games])
+      if record > winningest_record
+        winningest_record = record
+        winningest_coach = coach
+      end
     end
     winningest_coach
+  end
+
+  def worst_coach(season_id)
+    coaches = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
+    (0..@team_id.count).each do |i|
+      coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:wins] += 1 if @result[i] == 'WIN'
+      coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:games] += 1
+    end
+    worst_record = 1
+    worst_coach = nil
+    coaches.each do |coach, szns|
+      record = szns[season_id][:wins]&.fdiv(szns[season_id][:games])
+      if record < worst_record
+        worst_record = record
+        worst_coach = coach
+      end
+    end
+    worst_coach
   end
 end
