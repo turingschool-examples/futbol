@@ -19,6 +19,12 @@ class StatTracker
     @league = League.new(league_name, data)
   end
 
+  def get_reg_and_post_seasons(season_id)
+    @league.seasons.find_all do |season|
+      season.year == season_id
+    end
+  end
+
   def highest_total_score
 
   end
