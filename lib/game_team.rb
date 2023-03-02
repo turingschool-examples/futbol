@@ -9,7 +9,7 @@ class GameTeam
               :tackles
   def initialize(row)
    @game_id = row[:game_id].to_i
-   @team_id = row[:team_id] 
+   @team_id = row[:team_id].to_i
    @home_or_away = row[:HoA] 
    @result = row[:result] 
    @head_coach = row[:head_coach] 
