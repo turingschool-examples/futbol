@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'csv'
 
 describe LeagueStats do
-  let(:game_path) { './data/games.csv' }
+  let(:game_path) { './data/game_teams.csv' }
   let(:team_path) { './data/teams.csv' }
   let(:game_teams_path) { './data/game_teams.csv' }
   let(:locations) do {
@@ -18,6 +18,8 @@ describe LeagueStats do
   it 'can import team data' do
     expect(stat_tracker.season_stats.game_teams[0].game_id).to eq(2012030221)
   end
+
+  it 'can find winningest coach' do
 
   xit 'can return team with best offense' do
     expect(stat_tracker.season_stats.best_offense).to eq("Reign FC")

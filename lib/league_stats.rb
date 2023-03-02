@@ -5,6 +5,10 @@ class LeagueStats < Classes
     super
   end
 
+  def count_of_teams
+    @teams.length
+  end
+
   def best_offense
     average_goals_per_team = self.average_goals_per_team
     best_team_id = average_goals_per_team.sort_by { |_,v| v }.last[0]
@@ -20,7 +24,7 @@ class LeagueStats < Classes
 
   #Helper method for best offense/ worst offense
   def convert_id_to_teamname(id_string)
-    team = teamdata.teams.select{|team|team.team_id == id_string}
+    team = @teams.select{|team|team.team_id == id_string}
     team[0].teamname
   end
 
@@ -74,53 +78,54 @@ class LeagueStats < Classes
   end
 
   def highest_scoring_home_team
-    gamedata = GameData.new
-    gamedata.add_games
     scores = Hash.new(0)
-    gamedata.games.each do |game|
+    @games.each do |game|
       scores[(game.away)] += (game.away_goals).to_i
       scores.max_by{|k,v| v}[0]
       end
     numer = scores.max_by{|k, v| v}
     denom = home_games_per_team.max_by{|k, v| v}
-    highest_avg = numer[1].div(denom[1])
+    highest_avg = (numer[1]).fdiv(denom[1])
     convert_id_to_teamname(numer[0])
   end
 
 
   def highest_scoring_away_team
-    gamedata = GameData.new
-    gamedata.add_games
     scores = Hash.new(0)
-    gamedata.games.each do |game|
+    @games.each do |game|
       scores[(game.away)] += (game.away_goals).to_i
       scores.max_by{|k,v| v}[0]
       end
     numer = scores.max_by{|k, v| v}
     denom = away_games_per_team.max_by{|k, v| v}
-    highest_avg = numer[1].div(denom[1])
+    highest_avg = (numer[1]).fdiv(denom[1])
+    require 'pry'; binding.pry
     convert_id_to_teamname(numer[0])
   end
 
 
 
   def lowest_scoring_away
-    lowest_scoring_team = @away_scores.min_by{|k, v| v}
-    @teams.each do |team|
-      if team.team_id == lowest_scoring_team[0]
-        @lowest_scoring_away_team = team.teamname
+    scores = Hash.new(0)
+    @games.each do |game|
+      scores[(game.away)] += (game.away_goals).to_i
+      scores.min_by{|k,v| v}[0]
       end
-    end
-    @lowest_scoring_away_team
+    numer = scores.min_by{|k, v| v}
+    denom = away_games_per_team.min_by{|k, v| v}
+    lowest_avg = numer[1].fdiv(denom[1])
+    convert_id_to_teamname(numer[0])
   end
 
   def lowest_scoring_home
-    lowest_scoring_team = @home_scores.min_by{|k, v| v}
-    @teams.each do |team|
-      if team.team_id == lowest_scoring_team[0]
-        @lowest_scoring_home_team = team.teamname
+    scores = Hash.new(0)
+    @games.each do |game|
+      scores[(game.away)] += (game.away_goals).to_i
+      scores.min_by{|k,v| v}[0]
       end
-    end
-    @lowest_scoring_home_team
+    numer = scores.min_by{|k, v| v}
+    denom = home_games_per_team.min_by{|k, v| v}
+    lowest_avg = numer[1].fdiv(denom[1])
+    convert_id_to_teamname(numer[0])
   end
 end
