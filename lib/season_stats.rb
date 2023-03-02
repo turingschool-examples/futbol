@@ -32,11 +32,23 @@ module SeasonStats
   end
 
   def most_accurate_team
-
+    teams_grouped = @game_teams.group_by(&:team_id)
+    teams_ave_accuracy = {}
+    teams_grouped.each do |team, values|
+      teams_ave_accuracy[team] = average_accuracy(values)
+    end
+    highest_accuracy = teams_ave_accuracy.max_by{|_, value| value}
+    convert_to_team_name(highest_accuracy[0])
   end
 
   def least_accurate_team
-
+    teams_grouped = @game_teams.group_by(&:team_id)
+    teams_ave_accuracy = {}
+    teams_grouped.each do |team, values|
+      teams_ave_accuracy[team] = average_accuracy(values)
+    end
+    lowest_accuracy = teams_ave_accuracy.min_by{|_, value| value}
+    convert_to_team_name(lowest_accuracy[0])
   end
 
   def most_tackles
