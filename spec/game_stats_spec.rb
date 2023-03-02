@@ -66,10 +66,19 @@ describe GameStats do
 
   it 'can determine percentage of visitor wins' do
     @stat_tracker.games = @test_games
-
     expect(@stat_tracker.percentage_visitor_wins).to eq(40.0)
   end
 
+
+  it 'can count games by season' do 
+    @stat_tracker.games = @test_games
+    expected = ({'20122013' => 10})
+    expect(@stat_tracker.count_of_games_by_season).to be_a Hash
+    expect(@stat_tracker.count_of_games_by_season.keys[0]).to be_a String
+    expect(@stat_tracker.count_of_games_by_season.values[0]).to be_a Integer
+    expect(@stat_tracker.count_of_games_by_season).to eq(expected)
+  end
+  
   it 'can determine percentage of ties' do
     @stat_tracker.games = @test_games_larger
 
