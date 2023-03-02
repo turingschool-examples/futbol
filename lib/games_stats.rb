@@ -48,4 +48,6 @@ class GamesStats
     end
     tie_percent = tie_game.length.fdiv(@games.length).round(2)
   end
+
+  
 end
