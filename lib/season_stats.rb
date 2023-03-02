@@ -10,29 +10,45 @@ module SeasonStats
   def winningest_coach(input_season)
     season_game_teams = game_team_select_season(input_season)
     wins_by_coach = Hash.new(0)
+    games_by_coach = Hash.new(0)
     season_game_teams.each do |game|
       coach = game.head_coach
       result = game.result
       if result == "WIN"
         wins_by_coach[coach] += 1
       end
+      games_by_coach[coach] += 1
     end
-    wins_by_coach.max_by { |coach, wins| wins }[0]
+    winning_percentages = {}
+    wins_by_coach.each do |coach, wins|
+      games = games_by_coach[coach]
+      winning_percentages[coach] = wins.to_f / games.to_f
+    end
+    winning_percentages.max_by { |coach, wp| wp }[0]
   end
 
   def worst_coach(input_season)
     season_game_teams = game_team_select_season(input_season)
+    wins_by_coach = Hash.new(0)
     losses_by_coach = Hash.new(0)
     season_game_teams.each do |game|
       coach = game.head_coach
       result = game.result
-      if result == "LOSS"
+      if result == "WIN"
+        wins_by_coach[coach] += 1
+      elsif result == "LOSS"
         losses_by_coach[coach] += 1
       end
     end
-    losses_by_coach.max_by { |coach, losses| losses }[0]
+    winning_percentages = Hash.new(0.0)
+    wins_by_coach.each do |coach, wins|
+      total_games = wins + losses_by_coach[coach]
+      winning_percentages[coach] = wins.to_f / total_games.to_f
+    end
+    worst_coach = winning_percentages.min_by { |coach, winning_percentage| winning_percentage }[0]
+    return worst_coach
   end
-
+  
   def most_accurate_team(input_season)
     season_game_teams = game_team_select_season(input_season)
     teams_grouped = season_game_teams.group_by(&:team_id)
