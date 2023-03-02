@@ -87,6 +87,18 @@ RSpec.describe StatTracker do
     end
   end
 
+
+  describe '#winningest_coach' do
+    it 'coach with best win percentage for each season' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq "Dan Lacroix"
+      expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+      expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+      expect(@stat_tracker.winningest_coach("20152016")).to eq "Barry Trotz"
+      expect(@stat_tracker.winningest_coach("20162017")).to eq "Bruce Cassidy"
+      expect(@stat_tracker.winningest_coach("20172018")).to eq "Bruce Cassidy"
+    end
+   end
+   
   describe '#count_of_games_per_season' do
     it '#count_of_games_per_season' do
       expect(@stat_tracker.count_of_games_per_season("20122013")).to eq(806)
@@ -98,6 +110,7 @@ RSpec.describe StatTracker do
     it '#average_goals_by_season' do
       expect(@stat_tracker.average_goals_by_season("20122013")).to eq(4.12)
       expect(@stat_tracker.average_goals_by_season("20162017")).to eq(4.23)
+
     end
   end
 
@@ -112,6 +125,17 @@ RSpec.describe StatTracker do
     it '#least_accurate_team' do
       expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
       expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
+  end
+  
+  describe '#worst_coach' do
+    it 'coach with worst win percentage for each season' do
+    expect(@stat_tracker.worst_coach("20122013")).to eq "Martin Raymond"
+    expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+    expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    expect(@stat_tracker.worst_coach("20152016")).to eq "Todd Richards"
+    expect(@stat_tracker.worst_coach("20162017")).to eq "Dave Tippett"
+    expect(@stat_tracker.worst_coach("20172018")).to eq "Phil Housley"
     end
   end
 end
