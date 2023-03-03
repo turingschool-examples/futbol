@@ -1,4 +1,6 @@
-class Games
+require_relative 'stat_holder'
+
+class Games < StatHolder
   attr_reader :game_id,
               :season,
               :type,
@@ -11,6 +13,7 @@ class Games
               :venue_link
 
   def initialize(locations)
+    super
     file = CSV.read locations[:games], headers: true, header_converters: :symbol
     @game_id = file[:game_id]
     @season = file[:season]
