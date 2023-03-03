@@ -23,8 +23,8 @@ class StatTracker
     team_and_tackles = Hash.new(0)
     season = @league.seasons.find{ |season| season.year == season_year }
     season.games.each do |game|
-      team_and_tackles[game.team_refs[:home_team].name] += game.team_stats[:home_team][:tackles].to_i
-      team_and_tackles[game.team_refs[:away_team].name] += game.team_stats[:away_team][:tackles].to_i
+      team_and_tackles[game.team_refs[:home_team].name] += game.team_stats[:home_team][:tackles]
+      team_and_tackles[game.team_refs[:away_team].name] += game.team_stats[:away_team][:tackles]
     end
 
     team_and_tackles
@@ -42,10 +42,19 @@ class StatTracker
   end
   
   def team_games
-    # same as #team_tackles but it will return a hash of team names and their games across all seasons
+    team_and_games = Hash.new(0)
+    league.seasons.each do |season|
+      season.games.each do |game|
+        home_team_name = game.team_refs[:home_team].name
+        away_team_name = game.team_refs[:away_team].name
+        team_and_games[home_team_name] += 1
+        team_and_games[away_team_name] += 1
+      end
+    end
+    team_and_games
   end
 
-  def division
+  def avg_goals
 # this will divide the team games by the team goals
   end
 
@@ -99,7 +108,7 @@ class StatTracker
   end
 
   def best_offense
-  
+   
   end
 
   def worst_offense
