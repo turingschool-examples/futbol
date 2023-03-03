@@ -5,10 +5,11 @@ require_relative './game_team'
 require_relative './game_stats'
 require_relative './league_stats'
 require_relative './season_stats'
+require_relative './team_stats'
 require_relative './helper'
 
 class StatTracker
-  include GameStats, LeagueStats, SeasonStats
+  include GameStats, LeagueStats, SeasonStats, TeamStats
 
   attr_reader :games_data, :teams
   attr_accessor :games, :game_teams
@@ -53,6 +54,7 @@ class StatTracker
       data_hash[:team_name] = row[:teamname]
       data_hash[:abbreviation] = row[:abbreviation]
       data_hash[:stadium] = row[:stadium]
+      data_hash[:link] = row[:link]
       @teams << Team.new(data_hash)
     end
   end
