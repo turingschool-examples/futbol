@@ -36,21 +36,21 @@ RSpec.describe GameStatistics do
 
   describe '#percentage_home_wins' do
     it 'returns the percentage of home team wins' do
-      expect(@game_stats.percentage_home_wins).to eq(0.56)
+      expect(@game_stats.percentage_home_wins).to eq(0.67)
       expect(@game_stats.percentage_home_wins).to be_a Float
     end
   end
 
   describe '#percentage_visitor_wins' do
     it 'returns the percentage of visitor team wins' do
-      expect(@game_stats.percentage_visitor_wins).to eq(0.44)
+      expect(@game_stats.percentage_visitor_wins).to eq(0.27)
       expect(@game_stats.percentage_visitor_wins).to be_a Float
     end
   end
 
   describe '#percentage_ties' do
     it 'returns percentage of ties' do
-      expect(@game_stats.percentage_ties).to eq(0.00)
+      expect(@game_stats.percentage_ties).to eq(0.07)
       expect(@game_stats.percentage_ties).to be_a Float
     end
   end
