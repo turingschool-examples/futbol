@@ -49,7 +49,18 @@ class StatTracker
     end
     seasons
   end
-  
+
+  def game_teams_by_season(season)
+    games_by_season[season].map do |game|
+      all_game_teams.find_all do |game_by_team|
+        game.id == game_by_team.game_id
+      end
+    end.flatten
+  end
+
+  def team_name_by_id(team_id)
+    all_teams.find { |team| team.team_id == team_id }.team_name
+  end
   #=====================================================================================================
 
   def highest_total_score
@@ -66,7 +77,7 @@ class StatTracker
 
   def count_of_games_by_season
     game_count = {}
-    data = games_by_season.map do |season, games|
+    games_by_season.map do |season, games|
       game_count[season] = games.count
     end
     game_count
@@ -78,7 +89,7 @@ class StatTracker
       (scores_array.sum.to_f / scores_array.length).round(2)
     end
   end
-  
+
   def count_of_teams
     @team_data.count
   end
@@ -105,5 +116,23 @@ class StatTracker
 
   def percentage_ties
     (1.0 - percentage_home_wins - percentage_visitor_wins).round(2)
+  end
+  
+  def most_tackles(season)
+    tackles_by_team = Hash.new(0)
+    game_teams_by_season(season).each do |game_team|
+      tackles_by_team[game_team.team_id] += game_team.tackles
+    end
+    max_team_id = tackles_by_team.max_by { |_team_id, tackles| tackles }.first
+    team_name_by_id(max_team_id)
+  end
+
+  def fewest_tackles(season)
+    tackles_by_team = Hash.new(0)
+    game_teams_by_season(season).each do |game_team|
+      tackles_by_team[game_team.team_id] += game_team.tackles
+    end
+    min_team_id = tackles_by_team.min_by { |_team_id, tackles| tackles }.first
+    team_name_by_id(min_team_id)
   end
 end
