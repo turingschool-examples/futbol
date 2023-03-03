@@ -75,7 +75,6 @@ class StatTracker
 
   def percentage_home_wins
     team_wins = all_game_teams.select do |team|
-      # require 'pry'; binding.pry
     team.result == "WIN" && team.home_or_away == "home"
     end
     home_games = all_game_teams.select do |game|
