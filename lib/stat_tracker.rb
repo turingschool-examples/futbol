@@ -291,6 +291,27 @@ class StatTracker
     lowest_scoring_team = teams_goals_per_game.min_by { |team, goal_percentage| goal_percentage}[0]
     team_names.find { |team_id, team_name| team_id == lowest_scoring_team}[1]
   end
+
+  def most_tackles(season_id)
+    tackles = Hash.new(0)
+
+    @seasons_by_id[season_id][:game_teams].each do |game_team|
+      tackles[game_team.team_id] += game_team.tackles.to_i
+    end
+    
+    @teams.find {|team| team.team_id == tackles.max_by {|team_id, tackles| tackles}.first}.teamname
+  end
+
+  def fewest_tackles(season_id)
+    tackles = Hash.new(0)
+
+    @seasons_by_id[season_id][:game_teams].each do |game_team|
+      tackles[game_team.team_id] += game_team.tackles.to_i
+    end
+    
+    @teams.find{|team| team.team_id == tackles.min_by {|team_id, tackles| tackles}.first}.teamname
+  end
+
 end
 
       
