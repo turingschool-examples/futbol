@@ -60,6 +60,6 @@ describe SeasonStats do
   end
   
   it 'determines the team with the fewest tackles' do 
-    expect(@stat_tracker.most_tackles("20132014")).to eq("Atlanta United")
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq("Atlanta United")
   end
 end
