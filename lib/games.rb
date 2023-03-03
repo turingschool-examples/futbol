@@ -49,6 +49,7 @@ class Games
       avg_goals[season][:goals] += goals
       avg_goals[season][:games] += 1
     end
+    avg_goals.delete(0)
     avg_goals.transform_values do |season| 
       season[:goals].fdiv(season[:games]).round(2) 
     end
@@ -84,6 +85,7 @@ class Games
       season = @season[i].to_i
       season_games[season] += 1
     end
+    season_games.delete(0)
     season_games
   end
 

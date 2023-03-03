@@ -22,4 +22,10 @@ RSpec.describe League do
       expect(@league).to be_a(League)
     end
   end
+  
+  describe 'count_of_teams' do
+    it 'count_of_teams' do
+      expect(@league.count_of_teams).to eq(32)
+    end
+  end
 end
