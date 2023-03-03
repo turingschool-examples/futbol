@@ -57,19 +57,17 @@ class LeagueStats
   end
 
   def highest_scoring_visitor
-    total_away_games_by_team = Hash.new(0)
     total_goals_by_away_team = Hash.new(0)
-    @games.each do |game|
-      total_away_games_by_team[game.away_team_id] += 1 
-    end
+    total_away_games_by_team = Hash.new(0)
     @games.each do |game|
       total_goals_by_away_team[game.away_team_id] += game.away_goals.to_i
     end
-    total_goals_by_away_team.merge(total_away_games_by_team) do |away_team_id, away_goals, games|
-      away_goals.to_f / games
+    @games.each do |game|
+      total_away_games_by_team[game.away_team_id] += 1 
     end
-    require 'pry'; binding.pry
-    
+    total_goals_by_away_team.merge!(total_away_games_by_team) do |away_team_id, away_goals, away_games|
+      away_goals.to_f / away_games
+    end
     @teams.each do |team|
     if team.team_id == total_goals_by_away_team.key(total_goals_by_away_team.values.max)
       return team.team_name
