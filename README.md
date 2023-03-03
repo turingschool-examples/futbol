@@ -58,3 +58,10 @@ Jeff's Github: https://github.com/Jredish11
 Jeff's LinkedIn: https://www.linkedin.com/in/jeffrey-r-5b5026107/ 
 
 
+Retrospective Deliverables
+
+- We considered Atlassian, Mural and whiteboard through Miro. We ended up deciding on using the Miro whiteboard
+  because it was the simplest and most comfortable option. We also felt like it was important to have everything organized in the same place. In addition we know we did not have to use a paid service this way or sign up to an additional website. 
+- This retrospective felt good but could have been more effective if everyone in our group had more conviction in the direction they wanted to go or aspects of group work they wanted to change. An idea that could be effective is if we could make the communication anonymous so that everyone can be fully comfotable in sharing their ideas.
+
+Link to Miro board with top 3 things that went well in project:
