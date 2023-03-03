@@ -21,29 +21,23 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#get_reg_and_post_seasons' do
-    it 'returns an array' do
-      expect(stat_tracker.get_reg_and_post_seasons("20132014")).to be_a(Array)
-    end
-  end
-
   describe '#team_tackles' do
     it 'returns a hash of the teams as keys and the amount of tackles in the season as the value' do
       expect(stat_tracker.team_tackles("20132014")).to be_a(Hash)
     end
   end
 
-  describe '#most_tackes' do
+  describe '#most_tackles' do
     it 'can check the most tackles of a season' do
-      expect(stat_tracker.most_tackles("20132014")).to eq "LA Galaxy"
-      expect(stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
+      expect(stat_tracker.most_tackles("20132014")).to eq("LA Galaxy")
+      expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
     end
   end
 
   describe '#fewest_tackles' do
     it 'can check the fewest tackles of a season' do
-      expect(stat_tracker.fewest_tackles("20132014")).to eq "Montreal Impact"
-      expect(stat_tracker.fewest_tackles("20122013")).to eq "Toronto FC"
+      expect(stat_tracker.fewest_tackles("20132014")).to eq("Montreal Impact")
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("Toronto FC")
     end
   end
 end
