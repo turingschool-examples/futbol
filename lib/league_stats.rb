@@ -68,9 +68,11 @@ class LeagueStats
     total_goals_by_away_team.merge(total_away_games_by_team) do |away_team_id, away_goals, games|
       away_goals.to_f / games
     end
-    @teams.each do |team| 
-      if team.away_team_id == total_goals_by_away_team.key(total_goals_by_away_team.values.max)
-        return team.team_name
+    require 'pry'; binding.pry
+    
+    @teams.each do |team|
+    if team.team_id == total_goals_by_away_team.key(total_goals_by_away_team.values.max)
+      return team.team_name
       end
     end
   end

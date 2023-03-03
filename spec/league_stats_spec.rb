@@ -27,7 +27,7 @@ RSpec.describe LeagueStats do
   end
 
   describe '#highest scores' do
-    xit 'returns string of visitor high score' do
+    it 'returns string of visitor high score' do
       expect(@league_stat.highest_scoring_visitor).to eq('FC Dallas')
     end
 
