@@ -1,9 +1,9 @@
-require 'csv'
+require 'stats'
 
-class GamesStats
-
-  def initialize
-    @games = CSV.open('./data/games.csv', headers: true, header_converters: :symbol).map { |row| Game.new(row) }
+class GamesStats < Stats 
+  
+  def initialize(files)
+    super
   end
 
   def highest_total_score
@@ -11,7 +11,6 @@ class GamesStats
     high_score.total_score
   end
 
-###this can be refactored with &: stuff### ^ \/
   def lowest_total_score
     low_score = @games.min_by{ |game| game.total_score }
     low_score.total_score
