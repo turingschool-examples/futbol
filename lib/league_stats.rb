@@ -12,7 +12,13 @@ module LeagueStats
   end
 
   def best_offense
-
+    #	Name of the team with the highest average 
+    #number of goals scored per game across all seasons.
+    #get all average goals per team 
+    #store that 
+    #{team => average goals of all time}?
+    #max_by 
+    #convert to team name
   end
 
   def worst_offense
