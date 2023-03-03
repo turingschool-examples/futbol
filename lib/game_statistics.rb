@@ -28,4 +28,37 @@ class GameStatistics < Stats
     end
     percentage = (ties.to_f / @games.count.to_f).round(2)
   end
+
+  def highest_total_score
+    highest_score = sorted_scores.last
+    highest_score
+
+    # iterate over each game
+    # summate home_goals & away_goals
+    # shovel sum into array of sums
+    # sort array
+    # return the last element which will be the highest total score 
+  end
+
+  def lowest_total_score
+    lowest_score = sorted_scores.first
+    lowest_score
+
+    # iterate over each game
+    # summate home_goals & away_goals
+    # shovel sum into array of sums
+    # sort array
+    # return the first element which will be the lowest total score 
+  end
+
+# helper method
+  def sorted_scores
+    scores = []
+    @games.each do |game|
+      sum_of_goals = game.home_goals + game.away_goals
+      scores << sum_of_goals
+    end
+    scores.sort!
+    scores
+  end
 end
