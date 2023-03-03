@@ -33,8 +33,9 @@ describe LeagueStats do
   end
 
   it 'can get the best_offense across seasons' do
-    
-    expect(@stat_tracker.best_offense).to eq("Reign FC")
+    @test_game_teams_larger = @stat_tracker.game_teams[0..50]
+    require 'pry'; binding.pry
+    expect(@test_game_teams.best_offense).to eq("")
   end
 
   it 'can get highest scoring visitor' do
