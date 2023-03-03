@@ -98,38 +98,27 @@ class SeasonStats < Stats
     total_game_hash.key(total_game_hash.values.min)
   end
 
-  def tackles_by_team_by_season(season_year)
+  def tackles_total(season)
     team_tackles = Hash.new(0)
     @game_teams.each do |game|
-      if game.season_id == season_year
+      if game.season_id == season
         team_tackles[game.team_id] += game.tackles.to_i
       end
     end
+    team_tackles
   end
 
-  def most_tackles(season_year)
-    most_tackle_hash = Hash.new(0)
-    @game_teams.each do |game|
-      if game.season_id == season_year
-        most_tackle_hash[game.team_id] += game.tackles.to_i
-      end
-    end
+  def most_tackles(season)
     @teams.each do |team| 
-      if team.team_id == most_tackle_hash.key(most_tackle_hash.values.max)
+      if team.team_id == tackles_total(season).key(tackles_total(season).values.max)
         return team.team_name
       end
     end
   end
 
-  def fewest_tackles(season_year)
-    least_tackle_hash = Hash.new(0)
-    @game_teams.each do |game|
-      if game.season_id == season_year
-        least_tackle_hash[game.team_id] += game.tackles.to_i
-      end
-    end
+  def fewest_tackles(season)
     @teams.each do |team| 
-      if team.team_id == least_tackle_hash.key(least_tackle_hash.values.min)
+      if team.team_id == tackles_total(season).key(tackles_total(season).values.min)
         return team.team_name
       end
     end
