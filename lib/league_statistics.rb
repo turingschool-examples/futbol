@@ -8,4 +8,10 @@ class LeagueStatistics < Stats
   def count_of_teams
     @teams.count
   end
+
+  # def highest_scoring_visitor
+  #   team = @teams.find do |team|
+  #     team.team_id == 
+  #   end
+  # end
 end
