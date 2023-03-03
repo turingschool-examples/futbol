@@ -135,4 +135,6 @@ class StatTracker
     end
     (team_wins.count / home_games.count.to_f).round(2)
   end
+
+  
 end
