@@ -192,5 +192,29 @@ class StatTracker
     coach_win_percentage.min_by {|coach, percentage| percentage}[0]
   end
 
+  def lowest_scoring_home_team
+    team_names = Hash.new
+    teams_total_score = Hash.new(0)
+    teams_total_games = Hash.new(0)
+    teams_goals_per_game = Hash.new
+    @teams.each do |team|
+      team_names[team.team_id] = team.teamname
+    end
+    @game_teams.each do |game|
+      if game.hoa == "home"
+        teams_total_games[game.team_id] += 1
+        teams_total_score[game.team_id] += game.goals.to_i
+      end
+    end
+    teams_total_games.each do |team_id, games|
+     teams_total_score.each do |team_id_score, goals|
+        if team_id_score == team_id
+          teams_goals_per_game[team_id] = (goals / games.to_f)
+        end
+      end
+    end
+    lowest_scoring_team = teams_goals_per_game.min_by { |team, goal_percentage| goal_percentage}[0]
+    team_names.find { |team_id, team_name| team_id == lowest_scoring_team}[1]
+  end
 end
 
