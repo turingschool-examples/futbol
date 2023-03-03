@@ -6,13 +6,11 @@ class GameStatistics < Stats
   end
 
   def percentage_home_wins
-    home_win_count = 0
+    home_wins = 0
     @games.each do |game|
-      require 'pry'; binding.pry
-      if game.home_goals > game.away_goals
-        home_win_count += 1
-      end
+      home_wins += 1 if game.home_goals > game.away_goals
     end
-    (home_win_count.to_f / @games.count.to_f) * 100
+    percentage = (home_wins.to_f / @games.count.to_f) * 100
+    percentage.round(2)
   end
 end

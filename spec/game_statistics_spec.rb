@@ -2,9 +2,9 @@ require './spec/spec_helper'
 
 RSpec.describe GameStatistics do
   before(:each) do
-    games = './data/games.csv'
+    games = './data/mock_games.csv'
     teams = './data/teams.csv'
-    game_teams = './data/game_teams.csv'
+    game_teams = './data/mock_game_teams.csv'
     @locations = {
       games: games,
       teams: teams,
@@ -35,18 +35,16 @@ RSpec.describe GameStatistics do
   end
 
   describe '#percentage_home_wins' do
-    it 'returns percentage of home team wins' do
-      mock_game = instance_double(Game, {away_goals: 4, home_goals: 3})
-      mock_game_2 = instance_double(Game, {away_goals: 2, home_goals: 3})
-      mock_game_3 = instance_double(Game, {away_goals: 1, home_goals: 1})
-      mock_game_4 = instance_double(Game, {away_goals: 4, home_goals: 5})
-      games_array = [mock_game, mock_game_2, mock_game_3, mock_game_4]
-
-      allow(@game_stats).to receive(:games).with(array_including(games_array))
-      
-      expect(@game_stats.percentage_home_wins).to eq(50.00)
+    it 'returns the percentage of home team wins' do
+      expect(@game_stats.percentage_home_wins).to eq(55.56)
       expect(@game_stats.percentage_home_wins).to be_a Float
     end
   end
 
+  describe '#percentage_visitor_wins' do
+  it 'returns the percentage of home team wins' do
+    expect(@game_stats.percentage_visitor_wins).to eq(44.44)
+    expect(@game_stats.percentage_visitor_wins).to be_a Float
+  end
+end
 end
