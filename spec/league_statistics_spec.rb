@@ -32,5 +32,9 @@ RSpec.describe LeagueStatistics do
       expect(@league_stats.game_teams).to be_a Array
       expect(@league_stats.game_teams.sample).to be_a GameTeams
     end
+
+    it 'can count teams' do
+      expect(@league_stats.count_of_teams).to eq(32)
+    end
   end
 end
