@@ -81,15 +81,28 @@ class StatTracker
     #All the games
     all_games.each do |game|
       total = game.home_goals + game.away_goals
+      home_id = game.home_id.to_s
+      away_id = game.away_id.to_s
       if total == 0 
-        goals_by_game[game.id] = { away_avg: 0, home_avg: 0 }
+        goals_by_game[game.id] = { away_id => 0, home_id => 0 }
       else
         goals_by_game[game.id] = {
-          away_avg: (game.away_goals/total.to_f * 100).round(2),
-          home_avg: (game.home_goals/total.to_f * 100).round(2) 
+          away_id => (game.away_goals/total.to_f * 100).round(2),
+          home_id => (game.home_goals/total.to_f * 100).round(2) 
         }
+        #create helper method for this hash that contains keys => game_id
+        #points to another hash that keys => team_id and values => avg goals/game
+        # 2014030225=>{"15"=>33.33, "3"=>66.67},
+         #2014020427=>{"2"=>42.86, "19"=>57.14},
+         #Create helper method for total?
       end
     end  
+   goals_by_game
+   goals_by_game.each do |game_id, hash|
     require 'pry'; binding.pry
+    #create a new hash and set to 0  iterate through and add up 
+    #avgs and divide by total times played and return team_id
+    #likely need to search teamscsv to retrieve name
+   end
   end
 end
