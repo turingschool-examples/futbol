@@ -1,0 +1,66 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/alejandrolopez/turing_work/1mod/futbol_project/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alejandrolopez/turing_work/1mod/futbol_project/futbol/lib/runner.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          0,
+          null
+        ]
+      }
+    },
+    "timestamp": 1677631959
+  }
+}
