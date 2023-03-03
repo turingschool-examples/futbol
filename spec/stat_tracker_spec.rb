@@ -138,4 +138,10 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.worst_coach("20172018")).to eq "Phil Housley"
     end
   end
+
+  describe 'lowest_scoring_home_team' do
+    it "name of team that scored lowest average goals while home" do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    end
+  end
 end
