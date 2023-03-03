@@ -29,6 +29,19 @@ class StatTracker
     team_and_tackles
   end
 
+  def team_goals
+    # same as #team_tackles but it will return a hash of team names and their goals across all seasons
+  end
+  
+  def team_games
+    # same as #team_tackles but it will return a hash of team names and their games across all seasons
+    
+  end
+
+  def division
+# this will divide the team games by the team goals
+  end
+
   def total_goals_per_game
     @league.games.map do |game|
       game.info[:home_goals] + game.info[:away_goals]  
@@ -79,7 +92,7 @@ class StatTracker
   end
 
   def best_offense
-
+  
   end
 
   def worst_offense

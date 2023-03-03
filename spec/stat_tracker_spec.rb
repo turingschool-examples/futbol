@@ -82,4 +82,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_teams).to eq(32)
     end
   end
+
+  describe '#team_goals' do
+    it 'returns a hash of the teams as keys and the amount of goals in all season as the value' do
+      expect(stat_tracker.team_goals).to be_a(Hash)
+    end
+  end
 end
