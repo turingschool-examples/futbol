@@ -6,13 +6,11 @@ RSpec.describe StatTracker do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
-    
     @locations = {
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
     }
-    
     @stat_tracker = StatTracker.from_csv(@locations)
   end
   
@@ -35,11 +33,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.seasons_by_id["20122013"][:game_teams]).to all(be_a(GameTeam))
     end
 
-
     it 'can parse data into a string of objects' do
       expect(@stat_tracker.games).to be_a(Array)
       expect(@stat_tracker.games).to all(be_a(Game))
     end
+
     it 'processed team data, retrieves data from teams' do
       expect(@stat_tracker.processed_game_teams_data(@locations)).to all(be_a(GameTeam))
     end
@@ -71,7 +69,7 @@ RSpec.describe StatTracker do
 
   describe '#average_goals_per_game' do
     it 'take average of goals scored in a game across all seasons, both home and away goals' do
-    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
   
@@ -110,7 +108,6 @@ RSpec.describe StatTracker do
     it '#average_goals_by_season' do
       expect(@stat_tracker.average_goals_by_season("20122013")).to eq(4.12)
       expect(@stat_tracker.average_goals_by_season("20162017")).to eq(4.23)
-
     end
   end
 
@@ -139,9 +136,14 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe 'offense' do
+    it 'has #best_offense' do
+      expect(@stat_tracker.best_offense).to eq "Reign FC"
+    end
+    
   describe 'lowest_scoring_home_team' do
     it "name of team that scored lowest average goals while home" do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
   end
 end
