@@ -149,8 +149,12 @@ class StatTracker
     coach_win_percentage.max_by {|coach, percentage| percentage}[0]
   end
   
-  def count_of_games_per_season(season_id)
-    @seasons_by_id[season_id][:games].length
+  def count_of_games_per_season
+    games_count = {}
+    @seasons_by_id.keys.map do |season_id| 
+      games_count[season_id] = @seasons_by_id[season_id][:games].length
+    end
+    games_count
   end
 
   def average_goals_by_season(season_id)
