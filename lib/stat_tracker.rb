@@ -55,7 +55,16 @@ class StatTracker
   end
 
   def avg_goals
-# this will divide the team games by the team goals
+    team_and_goals_per_game = {}
+    team_and_goals = team_goals
+    team_and_games = team_games
+    team_and_goals.each do |team, goals|
+      games = team_and_games[team]
+      goals_per_game = games > 0 ? goals.to_f / games : 0
+      team_and_goals_per_game[team] = goals_per_game
+    end
+    avg_goals_per_game = team_and_goals_per_game.values.sum / team_and_goals_per_game.size.to_f
+    { "average" => avg_goals_per_game }.merge(team_and_goals_per_game)
   end
 
   def total_goals_per_game
