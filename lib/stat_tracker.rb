@@ -13,5 +13,17 @@ class StatTracker
     # Stats.new(locations)
     StatTracker.new(locations)
   end
+
+  def percentage_home_wins
+    @game.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @game.percentage_visitor_wins
+  end
+
+  def percentage_ties
+    @game.percentage_ties
+  end
 end
 
