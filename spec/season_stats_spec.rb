@@ -77,8 +77,6 @@ RSpec.describe SeasonStats do
     it '#winningest_coach' do
       expect(@season_stat.winningest_coach('20132014')).to eq('Claude Julien')
       expect(@season_stat.winningest_coach('20142015')).to eq('Alain Vigneault')
-      #expected: "Alain Vigneault"
-      #got: "Dan Bylsma"
     end 
 
     it '#worst_coach' do
