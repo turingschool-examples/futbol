@@ -99,11 +99,11 @@ RSpec.describe StatTracker do
   end
 
   describe '#percentage_wins' do
-    it 'calculates the percetage of wins for all teams playing home games' do
+    it 'calculates the percentage of wins for all teams playing home games' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
     
-    it 'calculates the percetage of wins for all teams playing away games' do
+    it 'calculates the percentage of wins for all teams playing away games' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
   end
