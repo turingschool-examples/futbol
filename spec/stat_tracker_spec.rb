@@ -83,12 +83,28 @@ RSpec.describe StatTracker do
     end
 
     it 'winningest_coach' do
-      expect(@stat_tracker.winningest_coach('2013')).to eq("Claude Julien")
-      expect(@stat_tracker.winningest_coach('2014')).to eq("Alain Vigneault")
+      expect(@stat_tracker.winningest_coach('20132014')).to eq("Claude Julien")
+      expect(@stat_tracker.winningest_coach('20142015')).to eq("Alain Vigneault")
     end
 
     it 'worst coach' do
-      expect(@stat_tracker.worst_coach('2013')).to eq("Peter Laviolette")
+      expect(@stat_tracker.worst_coach('20132014')).to eq("Peter Laviolette")
+    end
+
+    it 'least accurate team' do
+      expect(@stat_tracker.least_accurate_team('20132014')).to eq("New York City FC")
+    end
+
+    it 'most accurate team' do
+      expect(@stat_tracker.most_accurate_team('20132014')).to eq("Real Salt Lake")
+    end
+
+    it 'most_tackles' do
+      expect(@stat_tracker.most_tackles('20132014')).to eq("FC Cincinnati")
+    end
+
+    it 'least_tackles' do
+      expect(@stat_tracker.least_tackles('20132014')).to eq("Atlanta United")
     end
   end
 end
