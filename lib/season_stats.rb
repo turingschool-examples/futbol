@@ -57,7 +57,6 @@ class SeasonStats < Stats
     team_id.first
   end  
 
-  ### Total Game Hash
   def game_total(season_year)
     total_game_hash = Hash.new(0)
     @coach_wins = Hash.new(0)
@@ -69,7 +68,7 @@ class SeasonStats < Stats
     end
     total_game_hash
   end
-### Win Hash
+
   def coach_win(season_year)
     @game_teams.each do |game|
       if game.season_id == season_year 
@@ -80,33 +79,15 @@ class SeasonStats < Stats
     end
     @coach_wins
   end
-###
 
-  ###not pretty but it works, good opportunity to refactor###
   def winningest_coach(season_year)
     coaches = game_total(season_year).merge(coach_win(season_year)) {|coach, games, wins| wins.to_f / games}
     coaches.key(coaches.values.max)
   end
-  
-###same as the one above, ripe for refactor###
+
   def worst_coach(season_year)
-    total_game_hash = Hash.new(0)
-    win_coach_hash = Hash.new(0)
-    @game_teams.each do |game|
-      if game.season_id == season_year
-        total_game_hash[game.coach] += 1
-        win_coach_hash[game.coach] = 0 
-      end
-    end
-    @game_teams.each do |game|
-      if game.season_id == season_year
-        if game.result == "WIN"
-          win_coach_hash[game.coach] += 1
-        end
-      end
-    end
-    total_game_hash.merge!(win_coach_hash) {|coach, games, wins| wins.to_f / games}
-    total_game_hash.key(total_game_hash.values.min)
+    coaches = game_total(season_year).merge(coach_win(season_year)) {|coach, games, wins| wins.to_f / games}
+    coaches.key(coaches.values.min)
   end
 
   def tackles_total(season)
