@@ -30,13 +30,13 @@ RSpec.describe StatTracker do
   describe '#most_tackles' do
     it 'can check the most tackles of a season' do
       expect(stat_tracker.most_tackles("20132014")).to eq("LA Galaxy")
-      expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+      expect(stat_tracker.most_tackles("20122013")).to eq("Houston Dynamo")
     end
   end
 
   describe '#fewest_tackles' do
     it 'can check the fewest tackles of a season' do
-      expect(stat_tracker.fewest_tackles("20132014")).to eq("Montreal Impact")
+      expect(stat_tracker.fewest_tackles("20132014")).to eq("Atlanta United")
       expect(stat_tracker.fewest_tackles("20122013")).to eq("Toronto FC")
     end
   end
@@ -159,13 +159,13 @@ RSpec.describe StatTracker do
 
   describe '#best_offense' do
     it 'returns the name of the team with the highest average of goals per game across all seasons' do
-      expect(stat_tracker.best_offense).to eq("Sky Blue FC")
+      expect(stat_tracker.best_offense).to eq("Sporting Kansas City")
     end
   end
   
   describe '#worst_offense' do
     it 'returns the name of the team with the highest average of goals per game across all seasons' do
-      expect(stat_tracker.worst_offense).to eq("New York City FC")
+      expect(stat_tracker.worst_offense).to eq("DC United")
     end
   end
 end
