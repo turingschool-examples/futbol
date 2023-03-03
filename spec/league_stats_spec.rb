@@ -37,7 +37,13 @@ describe LeagueStats do
 
     expect(@stat_tracker.best_offense).to eq("Reign FC")
   end
+  
+  it 'can get the worst offense across seasons' do
+    @test_game_teams_larger = @stat_tracker.game_teams[0..50]
 
+    expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+  end
+  
   it 'can get highest scoring visitor' do
     @stat_tracker.games = @test_games
 
