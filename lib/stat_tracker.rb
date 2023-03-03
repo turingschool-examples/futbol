@@ -68,10 +68,8 @@ class StatTracker
   def count_of_games_by_season
     game_count = {}
     data = games_by_season.map do |season, games|
-      games.count
-      game_count[season]
+      game_count[season] = games.count
     end
-      game_count[season] = data
     game_count
   end
 end
