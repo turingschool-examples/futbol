@@ -101,4 +101,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.highest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
+
+  describe "#lowest_scoring_home_team" do
+    it 'can find the lowest scoring home team' do
+      expect(stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    end
+  end
 end
