@@ -2,9 +2,9 @@ require 'spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
-    game_path = './data/s_game.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/s_team_game.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -31,7 +31,7 @@ RSpec.describe StatTracker do
     it 'makes an array of game objects' do
       expect(@stat_tracker.all_games).to be_an Array
       expect(@stat_tracker.all_games).to all(be_a Game)
-      expect(@stat_tracker.all_games.count).to eq(58)
+      expect(@stat_tracker.all_games.count).to eq(7441)
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe StatTracker do
     it 'makes an array of game team objects' do
       expect(@stat_tracker.all_game_teams).to be_an Array
       expect(@stat_tracker.all_game_teams).to all(be_a GameTeam)
-      expect(@stat_tracker.all_game_teams.count).to eq(48)
+      expect(@stat_tracker.all_game_teams.count).to eq(14882)
     end
   end
 
@@ -89,6 +89,17 @@ RSpec.describe StatTracker do
         }
 
       expect(@stat_tracker.count_of_games_by_season).to eq(expected)
+    end
+    
+  describe '#count_of_teams' do
+    it 'counts the number of teams' do
+      expect(@stat_tracker.count_of_teams).to eq 32
+    end
+  end
+
+  describe '#percentage_home_wins' do
+    it 'calculates the percetage of wins for all teams playing at home' do
+      expect(@stat_tracker.percentage_home_wins).to eq 0.44
     end
   end
 end
