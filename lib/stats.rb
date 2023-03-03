@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'team'
 require_relative 'game'
 require_relative 'game_teams'
-
+# require_relative 'stat_tracker'
 class Stats
   attr_reader :teams, :games, :game_teams
   
