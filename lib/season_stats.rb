@@ -87,8 +87,15 @@ module SeasonStats
     tackle_masters = team_tackles.max_by{|_, value| value}
     convert_to_team_name(tackle_masters[0])
   end
-
+  
   def fewest_tackles(input_season)
-
+    season_game_teams = game_team_select_season(input_season)
+    teams_info = season_game_teams.group_by(&:team_id)
+    team_tackles = {}
+    teams_info.map do |team, games|  
+      team_tackles[team] = games.sum(&:tackles)
+    end
+    tackle_noobs = team_tackles.min_by{|_, value| value}
+    convert_to_team_name(tackle_noobs[0])
   end
 end
