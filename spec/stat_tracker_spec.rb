@@ -48,4 +48,19 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.all_teams[0].games.empty?).to be false
     end
   end
+
+  describe '#all_game_teams' do
+    it 'makes an array of game team objects' do
+      expect(@stat_tracker.all_game_teams).to be_an Array
+      expect(@stat_tracker.all_game_teams).to all(be_a GameTeam)
+      expect(@stat_tracker.all_game_teams.count).to eq(48)
+    end
+  end
+
+  describe '#games_by_season' do
+    it 'games by season' do
+      expect(@stat_tracker.games_by_season).to be_a(Hash)
+      require 'pry'; binding.pry
+    end
+  end
 end
