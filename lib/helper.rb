@@ -26,6 +26,11 @@ module Helper
     sum_home_goals.fdiv(input_games.count)
   end
 
+  def average_of_goals(input_games)
+    sum_goals = input_games.sum(&:goals)
+    sum_goals.fdiv(input_games.count)
+  end
+
   def average_accuracy(input_games)
     sum_shots = input_games.sum(&:shots)
     sum_goals = input_games.sum(&:goals)

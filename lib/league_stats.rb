@@ -12,11 +12,23 @@ module LeagueStats
   end
 
   def best_offense
-
+    info_by_team = @game_teams.group_by(&:team_id)
+    team_goals_average = {}
+    info_by_team.map do |team, games|  
+      team_goals_average[team] = average_of_goals(games)
+    end
+    da_best_of_all = team_goals_average.max_by{|_, values| values}
+    convert_to_team_name(da_best_of_all[0])
   end
 
   def worst_offense
-
+    info_by_team = @game_teams.group_by(&:team_id)
+    team_goals_average = {}
+    info_by_team.map do |team, games|  
+      team_goals_average[team] = average_of_goals(games)
+    end
+    da_worst_of_all = team_goals_average.min_by{|_, values| values}
+    convert_to_team_name(da_worst_of_all[0])
   end
 
   def highest_scoring_visitor
