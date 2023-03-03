@@ -2,7 +2,17 @@ require 'spec_helper'
 
 RSpec.describe SeasonStats do
   before(:each) do
-    @season_stat = SeasonStats.new
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
+
+    @files = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+
+    @season_stat = SeasonStats.new(@files)
   end
 
   describe '#initialize' do
@@ -48,7 +58,7 @@ RSpec.describe SeasonStats do
       expect(@season_stat.team_id_worst_shot_perc_by_season('20142015')).to eq('53')
     end
   end
-
+# test edge cases for a few tests
   describe '#most_accurate_team' do
     it 'can return the team with the most accuracy per season' do
       expect(@season_stat.most_accurate_team('20132014')).to eq('Real Salt Lake')
