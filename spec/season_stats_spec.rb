@@ -49,4 +49,12 @@ describe SeasonStats do
     expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
     expect(@stat_tracker.least_accurate_team("20152016")).to eq("Chicago Fire")
   end
+
+  it 'determines the team with the most tackles' do 
+    expect(@stat_tracker.most_tackles("20132014")).to eq("FC Cincinnati")
+  end
+  
+  it 'determines the team with the fewest tackles' do 
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq("Atlanta United")
+  end
 end
