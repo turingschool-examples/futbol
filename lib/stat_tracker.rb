@@ -49,7 +49,15 @@ class StatTracker
     end
     seasons
   end
-  
+
+  def game_teams_by_season(season)
+    games_by_season[season].map do |game|
+      all_game_teams.find_all do |game_by_team|
+        game.id == game_by_team.game_id
+      end
+    end.flatten
+  end
+
   #=====================================================================================================
 
   def highest_total_score
@@ -66,7 +74,7 @@ class StatTracker
 
   def count_of_games_by_season
     game_count = {}
-    data = games_by_season.map do |season, games|
+    games_by_season.map do |season, games|
       game_count[season] = games.count
     end
     game_count
@@ -78,18 +86,20 @@ class StatTracker
       (scores_array.sum.to_f / scores_array.length).round(2)
     end
   end
-  
+
   def count_of_teams
     @team_data.count
   end
 
   def percentage_home_wins
     team_wins = all_game_teams.select do |team|
-      team.result == "WIN" && team.home_or_away == "home"
+      team.result == 'WIN' && team.home_or_away == 'home'
     end
     home_games = all_game_teams.select do |game|
-      game.home_or_away == "home"
+      game.home_or_away == 'home'
     end
     (team_wins.count / home_games.count.to_f).round(2)
   end
+
+  
 end
