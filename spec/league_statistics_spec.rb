@@ -36,5 +36,9 @@ RSpec.describe LeagueStatistics do
     it 'can count teams' do
       expect(@league_stats.count_of_teams).to eq(32)
     end
+
+    xit 'can determine best offense' do
+      expect(@league_stats.best_offense).to eq("Reign FC")
+    end
   end
 end
