@@ -7,6 +7,7 @@ require_relative 'league'
 
 class StatTracker
 # require 'pry'; binding.pry
+  attr_reader :locations
   def self.from_csv(locations)
     new(locations)
   end
