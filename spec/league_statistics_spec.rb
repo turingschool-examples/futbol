@@ -52,5 +52,9 @@ RSpec.describe LeagueStatistics do
     xit 'can determine highest scoring home team' do
       expect(@league_stats.highest_scoring_home_team).to eq("Reign FC")
     end
+
+    xit 'can determine lowest scoring visitor' do
+      expect(@league_stats.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
   end
 end
