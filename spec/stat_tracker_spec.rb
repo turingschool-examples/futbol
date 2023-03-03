@@ -30,4 +30,25 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.season).to be_a SeasonStatistics
     end
   end
+
+  describe '#percentage_home_wins' do
+    it 'returns the percentage of home team wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+      expect(@stat_tracker.percentage_home_wins).to be_a Float
+    end
+end
+
+  describe '#percentage_visitor_wins' do
+    it 'returns the percentage of visitor team wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
+      expect(@stat_tracker.percentage_visitor_wins).to be_a Float
+    end
+  end
+
+  describe '#percentage_ties' do
+    it 'returns percentage of ties' do
+      expect(@stat_tracker.percentage_ties).to eq(0.2)
+      expect(@stat_tracker.percentage_ties).to be_a Float
+    end
+  end
 end
