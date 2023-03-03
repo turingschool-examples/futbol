@@ -156,13 +156,11 @@ class StatTracker
       goals += (game.away_goals + game.home_goals)
     end
     (goals.to_f/@seasons_by_id[season_id][:games].length.to_f).round(2)
-
   end
 
   def most_accurate_team(season_id)
     @teams.find{|team| team.team_id == find_accuracy_ratios(season_id).max_by{|team,ratio| ratio}.first}.teamname 
   end
-
 
   def least_accurate_team(season_id)
     @teams.find{|team| team.team_id == find_accuracy_ratios(season_id).min_by{|team,ratio| ratio}.first}.teamname
@@ -192,5 +190,27 @@ class StatTracker
     coach_win_percentage.min_by {|coach, percentage| percentage}[0]
   end
 
+  def best_offense 
+    offense = Hash.new {|hash, key| hash[key] = []}
+    @games.map do |game|
+      offense[game.away_team_id] << game.away_goals
+      offense[game.home_team_id] << game.home_goals
+    end
+    average = {}
+    offense.each do |id, goals|
+      average[id] = goals.sum / goals.count.to_f
+    end
+    best_offense = average.max_by {|id,avg_goals| avg_goals} 
+    # worst_offense = average.min_by {|id, avg_goals| avg_goals}
+    teams = {}
+    @teams.each do |team|
+      teams[team.team_id] = team.teamname
+    end
+    teams.find do |team_id, name|
+      if best_offense.first == team_id
+        return teams[team_id]
+      end
+    end
+  end
 end
 
