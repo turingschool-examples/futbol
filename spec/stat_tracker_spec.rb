@@ -69,7 +69,7 @@ RSpec.describe StatTracker do
 
   describe '#average_goals_per_game' do
     it 'take average of goals scored in a game across all seasons, both home and away goals' do
-      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
   
@@ -156,5 +156,14 @@ RSpec.describe StatTracker do
     it "name of team that scored lowest average goals while home" do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
+  
+    it "#highest_scoring_visitor" do
+    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+    end
+
+    it "#highest_scoring_home_team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+    end
   end
 end
+
