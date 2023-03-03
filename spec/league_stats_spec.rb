@@ -34,7 +34,7 @@ describe LeagueStats do
 
   it 'can get the best_offense across seasons' do
     @test_game_teams_larger = @stat_tracker.game_teams[0..50]
-    
+
     expect(@stat_tracker.best_offense).to eq("Reign FC")
   end
 
