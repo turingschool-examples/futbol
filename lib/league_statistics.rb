@@ -9,6 +9,10 @@ class LeagueStatistics < Stats
     @teams.count
   end
 
+  def best_offense
+    
+  end
+
   # def highest_scoring_visitor
   #   team = @teams.find do |team|
   #     team.team_id == 
