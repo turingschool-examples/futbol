@@ -133,4 +133,39 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#count_of_teams' do
+    it 'returns the number of teams' do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#team_goals' do
+    it 'returns a hash of the teams as keys and the amount of goals in all season as the value' do
+      expect(stat_tracker.team_goals).to be_a(Hash)
+    end
+  end
+  
+  describe '#team_games' do
+    it 'returns a hash of the teams as keys and the amount of games in all season as the value' do
+      expect(stat_tracker.team_games).to be_a(Hash)
+    end
+  end
+
+  describe '#avg_goals' do
+    it 'returns a hash with the keys as team names and the values as the avg of goals of all the seasons' do
+      expect(stat_tracker.avg_goals).to be_a(Hash)
+    end
+  end
+
+  describe '#best_offense' do
+    it 'returns the name of the team with the highest average of goals per game across all seasons' do
+      expect(stat_tracker.best_offense).to eq("Sky Blue FC")
+    end
+  end
+  
+  describe '#worst_offense' do
+    it 'returns the name of the team with the highest average of goals per game across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("New York City FC")
+    end
+  end
 end
