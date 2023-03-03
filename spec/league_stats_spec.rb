@@ -31,7 +31,7 @@ RSpec.describe LeagueStats do
       expect(@league_stat.highest_scoring_visitor).to eq('FC Dallas')
     end
 
-    xit 'returns string of home team high score' do
+    it 'returns string of home team high score' do
       expect(@league_stat.highest_scoring_home_team).to eq('Reign FC')
     end
   end
