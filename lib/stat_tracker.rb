@@ -19,6 +19,7 @@ class StatTracker
     @team_stats = TeamStats.new(files)
     @season_stats = SeasonStats.new(files)
   end
+
   # Game Stats
     # def highest_total_score
       # @game_stats.highest_total_score
@@ -27,4 +28,5 @@ class StatTracker
 
   # League Stats
   # Season Stats
+
 end
