@@ -1,3 +1,5 @@
+
+
 class Game
   attr_reader :game_id,
               :season_year,
@@ -15,7 +17,6 @@ class Game
     @away_team_id = details[:away_team_id]
     @home_team_id = details[:home_team_id]
     @home_goals = details[:home_goals]
-    ###we can refactor above and below to integers###
     @away_goals = details[:away_goals]
     @total_score = @home_goals.to_i + @away_goals.to_i
   end

@@ -1,3 +1,4 @@
+
 class GameTeams
   attr_reader :coach,
               :goals,

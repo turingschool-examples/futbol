@@ -1,12 +1,21 @@
 require 'spec_helper'
 
-RSpec.describe GamesStats do
-  before(:each) do 
-    @game_stat = GamesStats.new
+RSpec.describe GameStats do
+  before(:each) do
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
+
+    @files = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @game_stat = GameStats.new(@files)
   end  
   describe '#initialize' do
     it 'exists' do
-      expect(@game_stat).to be_a(GamesStats)
+      expect(@game_stat).to be_a(GameStats)
     end
   end
 
@@ -36,9 +45,9 @@ RSpec.describe GamesStats do
     end
   end
 
-  describe '#count_games_by_season' do
+  describe '#count_of_games_by_season' do
     it 'returns a hash of game counts by season' do
-      expect(@game_stat.count_games_by_season).to eq({
+      expect(@game_stat.count_of_games_by_season).to eq({
         "20122013"=>806,
         "20162017"=>1317,
         "20142015"=>1319,

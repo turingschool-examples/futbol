@@ -1,9 +1,9 @@
-require 'csv'
+require_relative 'stats'
 
-class GamesStats
-
-  def initialize
-    @games = CSV.open('./data/games.csv', headers: true, header_converters: :symbol).map { |row| Game.new(row) }
+class GameStats < Stats 
+  
+  def initialize(files)
+    super
   end
 
   def highest_total_score
@@ -11,7 +11,6 @@ class GamesStats
     high_score.total_score
   end
 
-###this can be refactored with &: stuff### ^ \/
   def lowest_total_score
     low_score = @games.min_by{ |game| game.total_score }
     low_score.total_score
@@ -51,7 +50,7 @@ class GamesStats
   end
 
   ###this can definitely be refactored###
-  def count_games_by_season
+  def count_of_games_by_season
     count = Hash.new(0)
     @games.map do |game|
       count[game.season_year] += 1
@@ -73,7 +72,7 @@ class GamesStats
     goals_by_season[game.season_year] += game.total_score
     end
     goals_by_season.map do |season1, goals|
-      count_games_by_season.each do |season2, games|
+      count_of_games_by_season.each do |season2, games|
         if season1 == season2
           final_average_goals[season1] = goals.fdiv(games).round(2)
         end

@@ -2,7 +2,16 @@ require 'spec_helper'
 
 RSpec.describe LeagueStats do
   before(:each) do 
-    @league_stat = LeagueStats.new
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
+
+    @files = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @league_stat = LeagueStats.new(@files)
   end  
   describe '#initialize' do
     it 'exists' do
