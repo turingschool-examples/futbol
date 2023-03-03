@@ -211,7 +211,7 @@ class StatTracker
       end
     end
 
-  def lowest_scoring_home_team
+  def lowest_scoring_visitor
     team_names = Hash.new
     teams_total_score = Hash.new(0)
     teams_total_games = Hash.new(0)
@@ -220,7 +220,7 @@ class StatTracker
       team_names[team.team_id] = team.teamname
     end
     @game_teams.each do |game|
-      if game.hoa == "home"
+      if game.hoa == "away"
         teams_total_games[game.team_id] += 1
         teams_total_score[game.team_id] += game.goals.to_i
       end
