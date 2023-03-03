@@ -76,6 +76,17 @@ class GameStatistics < Stats
   end
 
   def average_goals_by_season
+    average_goals_by_season = Hash.new(0)
+    goals_by_season
+    @games.each do |game|
+      average_goals_by_season[game.season] = 
 
+    end
+
+  def 
+    # need a hash
+    # hash key season id value average goals
+    # key string value float
+    # 
   end
 end
