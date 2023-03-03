@@ -132,7 +132,15 @@ class StatTracker
   end
   
   def highest_scoring_home_team
-   
+    highest_home_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:home_goals].fdiv(stats[:home_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h
+    
+    highest_home_avg_goals.max_by { |team, avg_goals| avg_goals }.first
   end
 
   def lowest_scoring_home_team
