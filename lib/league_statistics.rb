@@ -9,17 +9,22 @@ class LeagueStatistics < Stats
     @teams.count
   end
 
-  def best_offense
+  # def best_offense
+  # end
 
-  end
-
-  def worst_offense
-    
-  end
+  # def worst_offense
+  # end
 
   # def highest_scoring_visitor
   #   team = @teams.find do |team|
   #     team.team_id == 
   #   end
   # end
+
+  # def highest_scoring_home_team
+  # end
+
+  # def lowest_scoring_visitor
+  # end
+  
 end
