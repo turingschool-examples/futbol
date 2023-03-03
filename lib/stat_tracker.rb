@@ -6,10 +6,13 @@ require_relative 'season'
 require 'csv'
 require_relative 'team_accuracy'
 require_relative 'offensive'
+require_relative 'tackle_counter'
 
 class StatTracker 
   include TeamAccuracy
   include Offensive
+  include TackleCounter
+
   attr_reader :data, 
               :teams, 
               :games, 
@@ -293,23 +296,11 @@ class StatTracker
   end
 
   def most_tackles(season_id)
-    tackles = Hash.new(0)
-
-    @seasons_by_id[season_id][:game_teams].each do |game_team|
-      tackles[game_team.team_id] += game_team.tackles.to_i
-    end
-    
-    @teams.find {|team| team.team_id == tackles.max_by {|team_id, tackles| tackles}.first}.teamname
+    @teams.find{|team| team.team_id == count_tackles(season_id).max_by {|team_id, tackles| tackles}.first}.teamname
   end
 
   def fewest_tackles(season_id)
-    tackles = Hash.new(0)
-
-    @seasons_by_id[season_id][:game_teams].each do |game_team|
-      tackles[game_team.team_id] += game_team.tackles.to_i
-    end
-    
-    @teams.find{|team| team.team_id == tackles.min_by {|team_id, tackles| tackles}.first}.teamname
+    @teams.find{|team| team.team_id == count_tackles(season_id).min_by {|team_id, tackles| tackles}.first}.teamname
   end
 
 end
