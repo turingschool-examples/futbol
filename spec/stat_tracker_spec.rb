@@ -77,12 +77,60 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#wins_losses_by_coach' do
+    it 'can return an array with all coaches total wins and losses' do
+      expect(stat_tracker.wins_losses_by_coach("20132014")).to eq([{"John Tortorella"=>1, "Claude Julien"=>1, "Mike Babcock"=>1, "Peter Horachek"=>1, "Bob Hartley"=>1},
+        {"Craig Berube"=>1, "Bruce Boudreau"=>1, "Jack Capuano"=>1, "Dallas Eakins"=>1, "Bob Hartley"=>1, "Barry Trotz"=>1}])
+
+      expect(stat_tracker.wins_losses_by_coach("20122013")).to eq([{"Claude Julien"=>5, "Bruce Boudreau"=>1, "Dave Tippett"=>1, "Peter DeBoer"=>1, "Dan Bylsma"=>1, "Alain Vigneault"=>1}, 
+        {"John Tortorella"=>2, "Jack Capuano"=>2, "Barry Trotz"=>1, "Paul MacLean"=>1}])
+      
+    end
+  end
+
+  describe '#games_coach' do
+    it 'can return an arrary of hashes indicating how many total games each coach has coached in the indicated season' do
+      expect(stat_tracker.games_coached("20132014")).to eq({"John Tortorella"=>2,
+        "Craig Berube"=>2,
+        "Todd Richards"=>2,
+        "Bruce Boudreau"=>2,
+        "Barry Trotz"=>4,
+        "Claude Julien"=>2,
+        "Jack Capuano"=>2,
+        "Dallas Eakins"=>2,
+        "Bob Hartley"=>4,
+        "Mike Babcock"=>2,
+        "Peter Horachek"=>2})
+
+      expect(stat_tracker.games_coached("20122013")).to eq({"Claude Julien"=>10,
+        "John Tortorella"=>6,
+        "Bruce Boudreau"=>2,
+        "Jack Capuano"=>4,
+        "Dave Tippett"=>2,
+        "Mike Yeo"=>2,
+        "Ron Rolston"=>2,
+        "Bob Hartley"=>2,
+        "Peter DeBoer"=>2,
+        "Barry Trotz"=>2,
+        "Paul MacLean"=>2,
+        "Peter Laviolette"=>2,
+        "Dan Bylsma"=>2,
+        "Alain Vigneault"=>2})
+    end
+  end
+
   describe '#winningest_coach' do
     it 'can find the winningest coach based on season' do
       expect(stat_tracker.winningest_coach("20132014")).to eq("John Tortorella")
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
   end
 
   describe '#worst_coach' do
+    it 'can find the worst coach base on season' do
+      expect(stat_tracker.worst_coach("20132014")).to eq("Craig Berube")
+      expect(stat_tracker.worst_coach("20122013")).to eq("Jack Capuano")
+    end
+  end
 
 end

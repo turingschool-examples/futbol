@@ -145,7 +145,6 @@ class StatTracker
         winningest_coach = coach
       end
     end
-    require 'pry-byebug'; require 'pry'; binding.pry
     winningest_coach
   end
 
@@ -160,7 +159,7 @@ class StatTracker
     worst_coach = nil
     coach_loss_rate.each do |coach, loss_rate|
       if loss_rate > max_loss_rate
-        max_loss_rate = win_rate
+        max_loss_rate = loss_rate
         worst_coach = coach
       end
     end
