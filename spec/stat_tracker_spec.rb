@@ -105,7 +105,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#average_goals_by_season' do
-    xit '#average_goals_by_season' do
+    it '#average_goals_by_season' do
       expect(@stat_tracker.average_goals_by_season["20122013"]).to eq(4.12)
       expect(@stat_tracker.average_goals_by_season["20162017"]).to eq(4.23)
     end
