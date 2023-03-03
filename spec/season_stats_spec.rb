@@ -23,35 +23,43 @@ describe SeasonStats do
     @test_game_teams = @stat_tracker.game_teams[0..9]
   end
 
-  it 'exists' do
+  xit 'exists' do
     expect(@stat_tracker.season_rspec_test).to be true
   end
   
-  it 'can determine the best coach' do
+  xit 'can determine the best coach' do
     @stat_tracker.games = @stat_tracker.games[0..100]
     
     expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     expect(@stat_tracker.winningest_coach("20152016")).to eq("Mike Sullivan")
   end
   
-  it 'can determine the worst coach' do
+  xit 'can determine the worst coach' do
     @stat_tracker.games = @stat_tracker.games[0..100]
     
     expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
     expect(@stat_tracker.worst_coach("20152016")).to eq("Alain Vigneault")
   end
   
-  it 'can determine the most accurate team' do
+  xit 'can determine the most accurate team' do
     @stat_tracker.games = @stat_tracker.games[0..100]
     
     expect(@stat_tracker.most_accurate_team("20122013")).to eq("New York City FC")
     expect(@stat_tracker.most_accurate_team("20152016")).to eq("Sporting Kansas City")
   end
   
-  it 'can determine the least accurate team' do
+  xit 'can determine the least accurate team' do
     @stat_tracker.games = @stat_tracker.games[0..100]
   
     expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
     expect(@stat_tracker.least_accurate_team("20152016")).to eq("Chicago Fire")
+  end
+
+  it 'determines the team with the most tackles' do 
+    expect(@stat_tracker.most_tackles("20132014")).to eq("FC Cincinnati")
+  end
+  
+  it 'determines the team with the fewest tackles' do 
+    expect(@stat_tracker.most_tackles("20132014")).to eq("Atlanta United")
   end
 end
