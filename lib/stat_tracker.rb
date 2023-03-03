@@ -33,7 +33,8 @@ class StatTracker
 
   def all_game_teams
     @game_teams_data.map do |row|
-      game_team = GameTeam.new(row)
+      # require 'pry'; binding.pry
+      GameTeam.new(row)
     end
   end
 
@@ -60,5 +61,27 @@ class StatTracker
       end
     end
     seasons
+  end
+  
+  # def lowest_scoring_visitor
+  #   away_games = []
+  #   all_games.each do |game|
+  #     away_games.push(game.away_id) if game.away_id = 3
+  #   end
+  #   away_games
+  # end
+  def count_of_teams
+    @team_data.count
+  end
+
+  def percentage_home_wins
+    team_wins = all_game_teams.select do |team|
+      # require 'pry'; binding.pry
+    team.result == "WIN" && team.home_or_away == "home"
+    end
+    home_games = all_game_teams.select do |game|
+    game.home_or_away == "home"
+    end
+    (team_wins.count / home_games.count.to_f).round(2)
   end
 end
