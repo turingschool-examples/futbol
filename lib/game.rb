@@ -1,18 +1,20 @@
+require 'date'
+
 class Game
 
   attr_reader :info,
               :team_stats,
-              :refs
+              :team_refs
 
-  def initialize(game_data, refs)
+  def initialize(game_data, team_refs)
     @info = {
       game_id: game_data[:game][:game_id],
-      date_time: game_data[:game][:date_time],
+      date_time: Date.strptime(game_data[:game][:date_time], "%D"),
       season: game_data[:game][:season],
       home_team_id: game_data[:game][:home_team_id],
       away_team_id: game_data[:game][:away_team_id],
-      home_goals: game_data[:game][:home_goals],
-      away_goals: game_data[:game][:away_goals],
+      home_goals: game_data[:game][:home_goals].to_i,
+      away_goals: game_data[:game][:away_goals].to_i,
       settled_in: game_data[:game_teams].first[:settled_in],
       venue: game_data[:game][:venue],
       venue_link: game_data[:game][:venue_link]
@@ -25,39 +27,30 @@ class Game
                 game_data[:game_teams].first : game_data[:game_teams].last
 
     @team_stats = {
-      home_team: {
-        home_or_away: home_team[:hoa],
-        result: home_team[:result],
-        head_coach: home_team[:head_coach],
-        goals: home_team[:goals],
-        shots: home_team[:shots],
-        tackles: home_team[:tackles],
-        penalty_minutes: home_team[:pim],
-        power_play_opportunities: home_team[:powerplayopportunities],
-        power_play_goals: home_team[:powerplaygoals],
-        face_off_win_percentage: home_team[:faceoffwinpercentage],
-        giveaways: home_team[:giveaways],
-        takeaways: home_team[:takeaways],
-      },
-      away_team: {
-        home_or_away: away_team[:hoa],
-        result: away_team[:result],
-        head_coach: away_team[:head_coach],
-        goals: away_team[:goals],
-        shots: away_team[:shots],
-        tackles: away_team[:tackles],
-        penalty_minutes: away_team[:pim],
-        power_play_opportunities: away_team[:powerplayopportunities],
-        power_play_goals: away_team[:powerplaygoals],
-        face_off_win_percentage: away_team[:faceoffwinpercentage],
-        giveaways: away_team[:giveaways],
-        takeaways: away_team[:takeaways],
-      }
+      home_team: get_team_stats(home_team),
+      away_team: get_team_stats(away_team)
     }
-    @refs = {
-      season: refs[:season],
-      home_team: refs[:home_team],
-      away_team: refs[:away_team]
+
+    @team_refs = {
+      home_team: team_refs[:home_team],
+      away_team: team_refs[:away_team]
+    }
+  end
+
+  def get_team_stats(team)
+    {
+      home_or_away: team[:hoa],
+      result: team[:result],
+      head_coach: team[:head_coach],
+      goals: team[:goals].to_i,
+      shots: team[:shots].to_i,
+      tackles: team[:tackles].to_i,
+      penalty_minutes: team[:pim].to_i,
+      power_play_opportunities: team[:powerplayopportunities].to_i,
+      power_play_goals: team[:powerplaygoals].to_i,
+      face_off_win_percentage: team[:faceoffwinpercentage].to_f,
+      giveaways: team[:giveaways].to_i,
+      takeaways: team[:takeaways].to_i,
     }
   end
 end

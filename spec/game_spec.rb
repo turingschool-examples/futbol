@@ -7,29 +7,25 @@ RSpec.describe Game do
   let(:game_1) do
     data = {
       game: DATA[:games][0],
-      teams: DATA[:teams][4..5],
       game_teams: DATA[:game_teams][0..1]
     }
-    refs = {
-      season: Season.new(DATA, []),
+    team_refs = {
       home_team: team_1,
       away_team: team_2
     }
-    Game.new(data, refs)
+    Game.new(data, team_refs)
   end
 
   let(:game_2) do
     data = {
       game: DATA[:games][1],
-      teams: DATA[:teams][4..5],
       game_teams: DATA[:game_teams][0..1]
     }
-    refs = {
-      season: Season.new(DATA, []),
+    team_refs = {
       home_team: team_2,
       away_team: team_1
     }
-    Game.new(data, refs)
+    Game.new(data, team_refs)
   end
 
   describe '#initialize' do
@@ -53,7 +49,7 @@ RSpec.describe Game do
 
   describe '#refs' do
     it 'has references to other objects' do
-      expect(game_1.refs).to be_a(Hash)
+      expect(game_1.team_refs).to be_a(Hash)
     end
   end
 end

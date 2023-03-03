@@ -4,11 +4,13 @@ require_relative './team'
 class League
   attr_reader :name,
               :teams,
-              :seasons
+              :seasons,
+              :games
 
   def initialize(name, data)
     @name = name
     @teams = create_teams(data[:teams])
+    @games = create_games(data)
     @seasons = create_seasons(data)
   end
 
@@ -19,55 +21,47 @@ class League
   end
 
   def create_seasons(data)
-    seasons = data[:games].map do |game|
-      game.filter { |key, _| key == :season || key == :type }
-    end.uniq
-
-    seasons.map do |season|
-      season_data = season_data(season, data)
-
-      games = season_data[:games].map do |game|
-        [game[:home_team_id], game[:away_team_id]]
+    games_with_unique_seasons = data[:games].uniq do |game_data|
+      game_data[:season]
+    end
+    games_with_unique_seasons.map do |game_data|
+      season_game_refs = @games.filter do |game|
+        game.info[:season] == game_data[:season]
       end
 
       season_team_refs = @teams.filter do |team|
-        games.flatten.include?(team.id)
+        season_team_ids = season_game_refs.map do |game|
+          [game.info[:home_team_id], game.info[:away_team_id]]
+        end.flatten.uniq
+        season_team_ids.include?(team.id)
+      end
+      Season.new(game_data[:season], season_team_refs, season_game_refs)
+    end
+  end
+
+  def create_games(data)
+    data[:games].map do |game|
+      game_data = {}
+      game_data[:game] = game
+      game_data[:game_teams] = data[:game_teams].filter do |game_team|
+        game_team[:game_id] == game[:game_id]
       end
 
-      Season.new(season_data, season_team_refs)
-    end
-  end
-
-  def season_data(season, data)
-    season_data = {}
-    season_data[:games] = game_data_for_season(season, data)
-    season_data[:teams] = team_data_for_season(season, data)
-    season_data[:game_teams] = game_teams_data_for_season(season, data)
-    season_data
-  end
-
-  def game_data_for_season(season, data)
-    data[:games].filter do |game|
-      game[:season] == season[:season] && game[:type] == season[:type]
-    end
-  end
-
-  def team_data_for_season(season, data)
-    data[:teams].filter do |team|
-      season_team_ids = game_data_for_season(season, data).map do |game|
-        game.filter { |key, _| key == :home_team_id || key == :away_team_id }
-          .values
-      end.flatten
-      season_team_ids.include?(team[:team_id])
-    end
-  end
-
-  def game_teams_data_for_season(season, data)
-    data[:game_teams].filter do |game_team|
-      season_game_ids = game_data_for_season(season, data).map do |game|
-        game[:game_id]
+      home_team = @teams.find do |team|
+        team.id == game_data[:game][:home_team_id]
       end
-      season_game_ids.include?(game_team[:game_id])
+
+      away_team = @teams.find do |team|
+        team.id == game_data[:game][:away_team_id]
+      end
+
+      team_refs = {
+        home_team: home_team,
+        away_team: away_team
+      }
+
+      Game.new(game_data, team_refs)
     end
   end
+
 end

@@ -14,15 +14,9 @@ class StatTracker
     end
     self.new(:futbol, data)
   end
-  
+
   def initialize(league_name, data)
     @league = League.new(league_name, data)
-  end
-
-  def get_reg_and_post_seasons(season_id)
-    @league.seasons.find_all do |season|
-      season.year == season_id
-    end
   end
 
   def team_tackles(season_id)
@@ -112,7 +106,7 @@ class StatTracker
   def most_tackles(season_id)
     team_tackles(season_id).max_by { |team, tackles| tackles }.first
   end
-  
+
   def fewest_tackles(season_id)
     team_tackles(season_id).min_by { |team, tackles| tackles }.first
   end
