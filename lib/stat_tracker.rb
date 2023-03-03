@@ -10,7 +10,6 @@ class StatTracker
   end
   
   def self.from_csv(locations)
-    # Stats.new(locations)
     StatTracker.new(locations)
   end
 
