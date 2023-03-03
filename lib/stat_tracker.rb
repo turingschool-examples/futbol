@@ -26,6 +26,7 @@ class StatTracker
       team_and_tackles[game.team_refs[:home_team].name] += game.team_stats[:home_team][:tackles].to_i
       team_and_tackles[game.team_refs[:away_team].name] += game.team_stats[:away_team][:tackles].to_i
     end
+
     team_and_tackles
   end
 
@@ -42,7 +43,6 @@ class StatTracker
   
   def team_games
     # same as #team_tackles but it will return a hash of team names and their games across all seasons
-    
   end
 
   def division
