@@ -54,4 +54,25 @@ RSpec.describe GameStatistics do
       expect(@game_stats.percentage_ties).to be_a Float
     end
   end
+
+  describe '#highest_total_score' do
+    it 'returns percentage of ties' do
+      expect(@game_stats.highest_total_score).to eq(5)
+      expect(@game_stats.highest_total_score).to be_a(Integer)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'returns percentage of ties' do
+      expect(@game_stats.lowest_total_score).to eq(1)
+      expect(@game_stats.lowest_total_score).to be_a(Integer)
+    end
+  end
+
+  describe '#sorted_scores' do
+    it 'returns percentage of ties' do
+      expect(@game_stats.sorted_scores).to be_a(Array)
+      expect(@game_stats.sorted_scores.sample).to be_a(Integer)
+    end
+  end
 end
