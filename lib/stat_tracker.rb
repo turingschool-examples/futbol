@@ -122,7 +122,8 @@ class StatTracker
   end
 
   def worst_offense
-    
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.min_by { |team, goals_per_game| goals_per_game }.first
   end
 
   def highest_scoring_visitor
