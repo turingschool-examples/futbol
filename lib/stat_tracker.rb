@@ -33,7 +33,7 @@ class StatTracker
 
   def all_game_teams
     @game_teams_data.map do |row|
-      game_team = GameTeam.new(row)
+      GameTeam.new(row)
     end
   end
 
@@ -70,5 +70,12 @@ class StatTracker
       game_count[season] = games.count
     end
     game_count
+  end
+
+  def average_goals_by_season
+    games_by_season.transform_values do |games_array|
+      scores_array = games_array.map(&:total_score)
+      (scores_array.sum.to_f / scores_array.length).round(2)
+    end
   end
 end
