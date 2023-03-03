@@ -60,7 +60,6 @@ RSpec.describe StatTracker do
   describe '#games_by_season' do
     it 'games by season' do
       expect(@stat_tracker.games_by_season).to be_a(Hash)
-      # require 'pry'; binding.pry
     end
   end
 
