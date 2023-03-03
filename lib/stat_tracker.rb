@@ -5,6 +5,7 @@ require_relative 'game_team'
 require_relative 'season'
 require 'csv'
 require_relative 'team_accuracy'
+require_relative 'offensive'
 
 class StatTracker 
   include TeamAccuracy
