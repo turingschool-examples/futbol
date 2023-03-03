@@ -61,4 +61,21 @@ class GameStatistics < Stats
     scores.sort!
     scores
   end
+
+  def average_goals_per_game
+    average_score = (sorted_scores.sum).fdiv(sorted_scores.length)
+    average_score.round(2)
+  end
+
+  def count_of_games_by_season
+    game_by_season = Hash.new(0)
+    @games.each do |game| 
+      game_by_season[game.season] += 1
+    end
+    game_by_season
+  end
+
+  def average_goals_by_season
+
+  end
 end
