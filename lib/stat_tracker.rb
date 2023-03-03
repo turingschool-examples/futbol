@@ -63,20 +63,12 @@ class StatTracker
     seasons
   end
   
-  # def lowest_scoring_visitor
-  #   away_games = []
-  #   all_games.each do |game|
-  #     away_games.push(game.away_id) if game.away_id = 3
-  #   end
-  #   away_games
-  # end
   def count_of_teams
     @team_data.count
   end
 
   def percentage_home_wins
     team_wins = all_game_teams.select do |team|
-      # require 'pry'; binding.pry
     team.result == "WIN" && team.home_or_away == "home"
     end
     home_games = all_game_teams.select do |game|
