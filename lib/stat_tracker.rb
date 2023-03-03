@@ -9,5 +9,4 @@ class StatTracker
   def self.from_csv(files)
     teams = Stats.teams
   end
-
 end
