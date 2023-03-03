@@ -30,4 +30,36 @@ class StatTracker
       team
     end
   end
+
+  def all_game_teams
+    @game_teams_data.map do |row|
+      game_team = GameTeam.new(row)
+    end
+  end
+
+  def games_by_season
+    seasons = Hash.new([])
+    all_games.each do |game|
+      seasons[game.season] = []
+    end
+    seasons.each do |season, games_array|
+      all_games.each do |game|
+        games_array << game if game.season == season
+      end
+    end
+    seasons
+  end
+  =====================================================================================================
+
+  def highest_total_score
+    all_games.map do |game|
+      game.total_score
+    end.max
+  end
+
+  def lowest_total_score
+    all_games.map do |game|
+      game.total_score
+    end.min
+  end
 end
