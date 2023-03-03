@@ -81,7 +81,7 @@ RSpec.describe SeasonStats do
       expect(@season_stat.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
-    xit "#fewest_tackles" do
+    it "#fewest_tackles" do
       expect(@season_stat.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@season_stat.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
