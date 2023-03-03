@@ -58,6 +58,9 @@ class StatTracker
     end.flatten
   end
 
+  def team_name_by_id(team_id)
+    all_teams.find { |team| team.team_id == team_id }.team_name
+  end
   #=====================================================================================================
 
   def highest_total_score
@@ -101,5 +104,21 @@ class StatTracker
     (team_wins.count / home_games.count.to_f).round(2)
   end
 
-  
+  def most_tackles(season)
+    tackles_by_team = Hash.new(0)
+    game_teams_by_season(season).each do |game_team|
+      tackles_by_team[game_team.team_id] += game_team.tackles
+    end
+    max_team_id = tackles_by_team.max_by { |_team_id, tackles| tackles }.first
+    team_name_by_id(max_team_id)
+  end
+
+  def fewest_tackles(season)
+    tackles_by_team = Hash.new(0)
+    game_teams_by_season(season).each do |game_team|
+      tackles_by_team[game_team.team_id] += game_team.tackles
+    end
+    min_team_id = tackles_by_team.min_by { |_team_id, tackles| tackles }.first
+    team_name_by_id(min_team_id)
+  end
 end
