@@ -95,5 +95,9 @@ RSpec.describe SeasonStats do
       expect(@season_stat.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@season_stat.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
+
+    it '#tackles_total' do 
+      expect(@season_stat.tackles_total("20132014")).to be_a(Hash)
+    end
   end
 end
