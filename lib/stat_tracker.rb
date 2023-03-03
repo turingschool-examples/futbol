@@ -19,6 +19,134 @@ class StatTracker
     @league = League.new(league_name, data)
   end
 
+  def total_goals_per_game
+    @league.games.map do |game|
+      game.info[:home_goals] + game.info[:away_goals]
+    end
+  end
+
+  def highest_total_score
+    total_goals_per_game.max
+  end
+
+  def lowest_total_score
+    total_goals_per_game.min
+  end
+
+  def percentage_game_result(team, result)
+    count = @league.games.count do |game|
+      game.team_stats[team][:result] == result
+    end
+    count.fdiv(@league.games.length)
+  end
+
+  def percentage_home_wins
+    percentage_game_result(:home_team, "WIN").round(2)
+  end
+
+  def percentage_visitor_wins
+    percentage_game_result(:home_team, "LOSS").round(2)
+  end
+
+  def percentage_ties
+    percentage_game_result(:home_team, "TIE").round(2)
+  end
+
+  def count_of_games_by_season
+
+  end
+
+  def avg_goals_per_game
+
+  end
+
+  def avg_goals_by_season
+
+  end
+
+  def count_of_teams
+    @league.teams.count
+  end
+
+  def best_offense
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.max_by { |team, goals_per_game| goals_per_game }.first
+  end
+
+  def worst_offense
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.min_by { |team, goals_per_game| goals_per_game }.first
+  end
+
+  def team_home_away_wins  
+    team_stats = {}
+    team_names = @league.teams.map do |team|
+      team.name
+    end
+    team_names.each do |team|
+      team_stats[team] = Hash.new(0)
+    end
+    @league.games.each do |game|
+      team_stats[game.team_refs[:home_team].name][:home_goals] += game.info[:home_goals]
+      team_stats[game.team_refs[:away_team].name][:away_goals] += game.info[:away_goals]
+      team_stats[game.team_refs[:home_team].name][:home_games] += 1
+      team_stats[game.team_refs[:away_team].name][:away_games] += 1
+    end
+    team_stats
+  end
+  
+  def highest_scoring_visitor
+    highest_visitor_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:away_goals].fdiv(stats[:away_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h 
+    highest_visitor_avg_goals.max_by { |team, avg_goals| avg_goals }.first
+  end
+
+  def lowest_scoring_visitor
+    lowest_visitor_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:away_goals].fdiv(stats[:away_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h
+    lowest_visitor_avg_goals.min_by { |team, avg_goals| avg_goals }.first
+  end
+  
+  def highest_scoring_home_team
+    highest_home_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:home_goals].fdiv(stats[:home_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h
+    highest_home_avg_goals.max_by { |team, avg_goals| avg_goals }.first
+  end
+
+  def lowest_scoring_home_team
+    lowest_home_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:home_goals].fdiv(stats[:home_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h
+    lowest_home_avg_goals.min_by { |team, avg_goals| avg_goals }.first
+  end
+
+  def best_season
+
+  end
+
+  def worst_season
+
+  end
+
   def team_tackles(season_year)
     team_and_tackles = Hash.new(0)
     season = @league.seasons.find{ |season| season.year == season_year }
@@ -67,75 +195,6 @@ class StatTracker
     { "average" => avg_goals_per_game }.merge(team_and_goals_per_game)
   end
 
-  def total_goals_per_game
-    @league.games.map do |game|
-      game.info[:home_goals] + game.info[:away_goals]
-    end
-  end
-
-  def highest_total_score
-    total_goals_per_game.max
-  end
-
-  def lowest_total_score
-    total_goals_per_game.min
-  end
-
-  def percentage_game_result(team, result)
-    count = @league.games.count do |game|
-      game.team_stats[team][:result] == result
-    end
-    count.fdiv(@league.games.length)
-  end
-
-  def percentage_home_wins
-    percentage_game_result(:home_team, "WIN").round(2)
-  end
-
-  def percentage_visitor_wins
-    percentage_game_result(:home_team, "LOSS").round(2)
-  end
-
-  def percentage_ties
-    percentage_game_result(:home_team, "TIE").round(2)
-  end
-
-  # def count_of_games_by_season
-
-  # end
-
-  # def average_goals_per_game
-
-  # end
-
-  # def average_goals_by_season
-
-  # end
-
-  # def count_of_teams
-
-  # end
-
-  # def best_offense
-
-  # end
-
-  # def worst_offense
-
-  # end
-
-  # def highest_scoring_visitor
-
-  # end
-
-  # def lowest_scoring_visitor
-
-  # end
-
-  # def lowest_scoring_home_team
-
-  # end
-
   def wins_losses_by_coach(season_year)
     season = @league.seasons.find do |season|
       season.year == season_year
@@ -168,23 +227,6 @@ class StatTracker
     coach_games
   end
 
-  def count_of_teams
-    @league.teams.count
-  end
-
-  def best_offense
-    team_and_goals_per_game = avg_goals
-    team_and_goals_per_game.max_by { |team, goals_per_game| goals_per_game }.first
-  end
-
-  def worst_offense
-    team_and_goals_per_game = avg_goals
-    team_and_goals_per_game.min_by { |team, goals_per_game| goals_per_game }.first
-  end
-
-  def highest_scoring_visitor
-
-  
   def winningest_coach(season_year)
     coach_game_count = games_coached(season_year)
     coach_win_count = wins_losses_by_coach(season_year).first
