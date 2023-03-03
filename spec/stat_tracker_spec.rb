@@ -99,7 +99,7 @@ RSpec.describe StatTracker do
    
   describe '#count_of_games_per_season' do
     xit '#count_of_games_per_season' do
-      expect(@stat_tracker.count_of_games_per_season("20122013")).to eq(806)
+      expect(@stat_tracker.count_of_games_per_season["20122013"]).to eq(806)
       expect(@stat_tracker.seasons_by_id["20122013"][:game_teams].length).to eq(1612)
     end
   end
