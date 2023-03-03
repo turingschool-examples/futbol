@@ -100,41 +100,6 @@ class StatTracker
     percentage_game_result(:home_team, "TIE").round(2)
   end
 
-  # def count_of_games_by_season
-
-  # end
-
-  # def average_goals_per_game
-
-  # end
-
-  # def average_goals_by_season
-
-  # end
-
-  # def count_of_teams
-
-  # end
-
-  # def best_offense
-
-  # end
-
-  # def worst_offense
-
-  # end
-
-  # def highest_scoring_visitor
-
-  # end
-
-  # def lowest_scoring_visitor
-
-  # end
-
-  # def lowest_scoring_home_team
-
-  # end
 
   def wins_losses_by_coach(season_year)
     season = @league.seasons.find do |season|
