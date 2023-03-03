@@ -122,7 +122,7 @@ class StatTracker
   end
 
   def worst_offense
-
+    
   end
 
   def highest_scoring_visitor
