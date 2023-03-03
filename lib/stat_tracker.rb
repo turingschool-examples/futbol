@@ -144,7 +144,15 @@ class StatTracker
   end
 
   def lowest_scoring_home_team
-
+    lowest_home_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:home_goals].fdiv(stats[:home_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h
+    #  require'pry';binding.pry
+    lowest_home_avg_goals.min_by { |team, avg_goals| avg_goals }.first
   end
 
 
