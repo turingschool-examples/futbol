@@ -21,7 +21,7 @@ RSpec.describe LeagueStats do
       expect(@league_stat.best_offense).to eq('Reign FC')
     end
 
-    xit 'returns string of worst offense' do
+    it 'returns string of worst offense' do
       expect(@league_stat.worst_offense).to eq('Utah Royals FC')
     end
   end
