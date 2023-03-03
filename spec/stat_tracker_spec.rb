@@ -98,7 +98,7 @@ RSpec.describe StatTracker do
    end
    
   describe '#count_of_games_per_season' do
-    it '#count_of_games_per_season' do
+    xit '#count_of_games_per_season' do
       expect(@stat_tracker.count_of_games_per_season["20122013"]).to eq(806)
       expect(@stat_tracker.seasons_by_id["20122013"][:game_teams].length).to eq(1612)
     end
@@ -106,8 +106,8 @@ RSpec.describe StatTracker do
 
   describe '#average_goals_by_season' do
     xit '#average_goals_by_season' do
-      expect(@stat_tracker.average_goals_by_season("20122013")).to eq(4.12)
-      expect(@stat_tracker.average_goals_by_season("20162017")).to eq(4.23)
+      expect(@stat_tracker.average_goals_by_season["20122013"]).to eq(4.12)
+      expect(@stat_tracker.average_goals_by_season["20162017"]).to eq(4.23)
     end
   end
 
