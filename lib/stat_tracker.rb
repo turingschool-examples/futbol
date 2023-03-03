@@ -51,15 +51,15 @@ class StatTracker
   end
 
   def percentage_home_wins
-    percentage_game_result(:home_team, "WIN").round(4)
+    percentage_game_result(:home_team, "WIN").round(2)
   end
 
   def percentage_visitor_wins
-    percentage_game_result(:home_team, "LOSS").round(4)
+    percentage_game_result(:home_team, "LOSS").round(2)
   end
 
   def percentage_ties
-    percentage_game_result(:home_team, "TIE").round(4)
+    percentage_game_result(:home_team, "TIE").round(2)
   end
 
   def count_of_games_by_season
@@ -97,9 +97,26 @@ class StatTracker
   def lowest_scoring_home_team
 
   end
-
-  def winningest_coach
-
+  
+  def winningest_coach(season_year)
+    games_season = @league.seasons.find{ |season| season.year == season_year }
+    wins_coached = Hash.new(0)
+    games_coached = Hash.new(0)
+    coach_win_percentage = Hash.new
+    games_season.each do |game|
+      games_coached[game.team_stats[:head_coach]] += 1
+      if game.team_stats[:result] == "WIN"
+        wins_coached[game.team_stats[:head_coach]] += 1
+      end
+    end
+    games_coached.each do |coach, games|
+      wins_coached.each do |coach_win, games_win|
+        if coach == coach_win
+          coach_win_percentage[coach] = coach_win.fdiv(games)
+        end
+      end
+    end
+    coach_win_percentage.max_by {|coach, percentage| percentage}[0]
   end
 
   def worst_coach
