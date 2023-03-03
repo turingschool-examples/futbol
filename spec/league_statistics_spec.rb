@@ -40,5 +40,13 @@ RSpec.describe LeagueStatistics do
     xit 'can determine best offense' do
       expect(@league_stats.best_offense).to eq("Reign FC")
     end
+
+    xit 'can determine the worst offense' do
+      expect(@league_stats.worst_offense).to eq("Utah Royals FC")
+    end
+
+    xit 'can determine highest scoring visitor' do
+      expect(@league_stats.highest_scoring_visitor).to eq("FC Dallas")
+    end
   end
 end
