@@ -10,6 +10,10 @@ class LeagueStatistics < Stats
   end
 
   def best_offense
+
+  end
+
+  def worst_offense
     
   end
 
