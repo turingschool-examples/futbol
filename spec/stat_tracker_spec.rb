@@ -61,50 +61,111 @@ RSpec.describe StatTracker do
 
   describe '#percentage_home_wins' do
     it 'can find the percentage of home wins' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.4474)
+      expect(stat_tracker.percentage_home_wins).to eq(0.45)
     end
   end
 
   describe '#percentage_visitor_wins' do
     it 'can find the percentage of visitor wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.3684)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.37)
     end
   end
 
   describe '#percentage_ties' do
     it 'can find the percentage of ties' do
-      expect(stat_tracker.percentage_ties).to eq(0.1842)
+      expect(stat_tracker.percentage_ties).to eq(0.18)
     end
   end
 
-  xdescribe '#count_of_games_by_season' do
-    it 'can find the count of games by season' do
-     
-      expect(stat_tracker.count_of_games_by_season).to eq()
+  describe '#wins_losses_by_coach' do
+    it 'can return an array with all coaches total wins and losses' do
+      expect(stat_tracker.wins_losses_by_coach("20132014")).to eq([{"John Tortorella"=>1, "Claude Julien"=>1, "Mike Babcock"=>1, "Peter Horachek"=>1, "Bob Hartley"=>1},
+        {"Craig Berube"=>1, "Bruce Boudreau"=>1, "Jack Capuano"=>1, "Dallas Eakins"=>1, "Bob Hartley"=>1, "Barry Trotz"=>1}])
+
+      expect(stat_tracker.wins_losses_by_coach("20122013")).to eq([{"Claude Julien"=>5, "Bruce Boudreau"=>1, "Dave Tippett"=>1, "Peter DeBoer"=>1, "Dan Bylsma"=>1, "Alain Vigneault"=>1}, 
+        {"John Tortorella"=>2, "Jack Capuano"=>2, "Barry Trotz"=>1, "Paul MacLean"=>1}])
+      
     end
   end
 
-  describe '#highest_scoring_visitor' do
-    it 'can find the highest scoring visior' do
-      expect(stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
+  describe '#games_coach' do
+    it 'can return an arrary of hashes indicating how many total games each coach has coached in the indicated season' do
+      expect(stat_tracker.games_coached("20132014")).to eq({"John Tortorella"=>2,
+        "Craig Berube"=>2,
+        "Todd Richards"=>2,
+        "Bruce Boudreau"=>2,
+        "Barry Trotz"=>4,
+        "Claude Julien"=>2,
+        "Jack Capuano"=>2,
+        "Dallas Eakins"=>2,
+        "Bob Hartley"=>4,
+        "Mike Babcock"=>2,
+        "Peter Horachek"=>2})
+
+      expect(stat_tracker.games_coached("20122013")).to eq({"Claude Julien"=>10,
+        "John Tortorella"=>6,
+        "Bruce Boudreau"=>2,
+        "Jack Capuano"=>4,
+        "Dave Tippett"=>2,
+        "Mike Yeo"=>2,
+        "Ron Rolston"=>2,
+        "Bob Hartley"=>2,
+        "Peter DeBoer"=>2,
+        "Barry Trotz"=>2,
+        "Paul MacLean"=>2,
+        "Peter Laviolette"=>2,
+        "Dan Bylsma"=>2,
+        "Alain Vigneault"=>2})
     end
   end
 
-  describe "#lowest_scoring_visitor" do
-    it 'can find the lowest scoring visitor' do
-      expect(stat_tracker.lowest_scoring_visitor).to eq("Chicago Fire")
+  describe '#winningest_coach' do
+    it 'can find the winningest coach based on season' do
+      expect(stat_tracker.winningest_coach("20132014")).to eq("John Tortorella")
+      expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
   end
 
-  describe "#highest_scoring_home_team" do
-    it 'can find the highest scoring home team' do
-      expect(stat_tracker.highest_scoring_home_team).to eq("Sporting Kansas City")
+  describe '#worst_coach' do
+    it 'can find the worst coach base on season' do
+      expect(stat_tracker.worst_coach("20132014")).to eq("Craig Berube")
+      expect(stat_tracker.worst_coach("20122013")).to eq("Jack Capuano")
     end
   end
 
-  describe "#lowest_scoring_home_team" do
-    it 'can find the lowest scoring home team' do
-      expect(stat_tracker.lowest_scoring_home_team).to eq("DC United")
+  describe '#count_of_teams' do
+    it 'returns the number of teams' do
+      expect(stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#team_goals' do
+    it 'returns a hash of the teams as keys and the amount of goals in all season as the value' do
+      expect(stat_tracker.team_goals).to be_a(Hash)
+    end
+  end
+  
+  describe '#team_games' do
+    it 'returns a hash of the teams as keys and the amount of games in all season as the value' do
+      expect(stat_tracker.team_games).to be_a(Hash)
+    end
+  end
+
+  describe '#avg_goals' do
+    it 'returns a hash with the keys as team names and the values as the avg of goals of all the seasons' do
+      expect(stat_tracker.avg_goals).to be_a(Hash)
+    end
+  end
+
+  describe '#best_offense' do
+    it 'returns the name of the team with the highest average of goals per game across all seasons' do
+      expect(stat_tracker.best_offense).to eq("Sky Blue FC")
+    end
+  end
+  
+  describe '#worst_offense' do
+    it 'returns the name of the team with the highest average of goals per game across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("New York City FC")
     end
   end
 end
