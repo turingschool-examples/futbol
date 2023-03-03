@@ -149,16 +149,21 @@ class StatTracker
     coach_win_percentage.max_by {|coach, percentage| percentage}[0]
   end
   
-  def count_of_games_per_season(season_id)
-    @seasons_by_id[season_id][:games].length
+  def count_of_games_by_season
+    games_count = {}
+    @seasons_by_id.keys.map do |season_id| 
+      games_count[season_id] = @seasons_by_id[season_id][:games].length
+    end
+    games_count
   end
 
-  def average_goals_by_season(season_id)
-    goals = 0
-    @seasons_by_id[season_id][:games].each do |game|
-      goals += (game.away_goals + game.home_goals)
+  def average_goals_by_season
+    goals = Hash.new(0)
+    @seasons_by_id.each do |season, season_info|
+        goals[season] = (season_info[:game_teams].sum{|game_team| game_team.goals.to_f} / 
+                        (season_info[:game_teams].length / 2).to_f).round(2)
     end
-    (goals.to_f/@seasons_by_id[season_id][:games].length.to_f).round(2)
+    goals
   end
 
   def most_accurate_team(season_id)
