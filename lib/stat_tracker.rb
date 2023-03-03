@@ -23,10 +23,48 @@ class StatTracker
     team_and_tackles = Hash.new(0)
     season = @league.seasons.find{ |season| season.year == season_year }
     season.games.each do |game|
-      team_and_tackles[game.team_refs[:home_team].name] += game.team_stats[:home_team][:tackles].to_i
-      team_and_tackles[game.team_refs[:away_team].name] += game.team_stats[:away_team][:tackles].to_i
+      team_and_tackles[game.team_refs[:home_team].name] += game.team_stats[:home_team][:tackles]
+      team_and_tackles[game.team_refs[:away_team].name] += game.team_stats[:away_team][:tackles]
     end
+
     team_and_tackles
+  end
+
+  def team_goals
+    team_and_goals = Hash.new(0)
+    league.seasons.each do |season|
+      season.games.each do |game|
+        team_and_goals[game.team_refs[:home_team].name] += game.team_stats[:home_team][:goals]
+        team_and_goals[game.team_refs[:away_team].name] += game.team_stats[:away_team][:goals]
+      end
+    end
+    team_and_goals
+  end
+  
+  def team_games
+    team_and_games = Hash.new(0)
+    league.seasons.each do |season|
+      season.games.each do |game|
+        home_team_name = game.team_refs[:home_team].name
+        away_team_name = game.team_refs[:away_team].name
+        team_and_games[home_team_name] += 1
+        team_and_games[away_team_name] += 1
+      end
+    end
+    team_and_games
+  end
+
+  def avg_goals
+    team_and_goals_per_game = {}
+    team_and_goals = team_goals
+    team_and_games = team_games
+    team_and_goals.each do |team, goals|
+      games = team_and_games[team]
+      goals_per_game = games > 0 ? goals.to_f / games : 0
+      team_and_goals_per_game[team] = goals_per_game
+    end
+    avg_goals_per_game = team_and_goals_per_game.values.sum / team_and_goals_per_game.size.to_f
+    { "average" => avg_goals_per_game }.merge(team_and_goals_per_game)
   end
 
   def total_goals_per_game
@@ -75,15 +113,17 @@ class StatTracker
   end
 
   def count_of_teams
-
+    @league.teams.count
   end
 
   def best_offense
-
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.max_by { |team, goals_per_game| goals_per_game }.first
   end
 
   def worst_offense
-
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.min_by { |team, goals_per_game| goals_per_game }.first
   end
 
   def highest_scoring_visitor
