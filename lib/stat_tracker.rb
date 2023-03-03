@@ -130,11 +130,13 @@ class StatTracker
     team_wins = all_game_teams.select do |team|
       team.result == 'WIN' && team.home_or_away == 'away'
     end
-    home_games = all_game_teams.select do |game|
+    away_games = all_game_teams.select do |game|
       game.home_or_away == 'away'
     end
-    (team_wins.count / home_games.count.to_f).round(2)
+    (team_wins.count / away_games.count.to_f).round(2)
   end
 
-  
+  def percentage_ties
+    (1.0 - percentage_home_wins - percentage_visitor_wins).round(2)
+  end
 end
