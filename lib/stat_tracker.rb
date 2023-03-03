@@ -51,7 +51,7 @@ class StatTracker
 
   def total_goals_per_game
     @league.games.map do |game|
-      game.info[:home_goals] + game.info[:away_goals]  
+      game.info[:home_goals] + game.info[:away_goals]
     end
   end
 
@@ -142,15 +142,3 @@ class StatTracker
     team_tackles(season_year).min_by { |team, tackles| tackles }.first
   end
 end
-
-game_path = './spec/fixtures/games_sample.csv'
-team_path = './data/teams.csv'
-game_teams_path = './spec/fixtures/game_teams_sample.csv'
-
-locations = {
-  games: game_path,
-  teams: team_path,
-  game_teams: game_teams_path
-}
-
-stat_tracker = StatTracker.from_csv(locations)
