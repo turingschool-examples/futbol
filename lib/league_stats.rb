@@ -17,4 +17,23 @@ class LeagueStats
   def count_of_teams
     @teams.count
   end
+
+  def best_offense
+    total_goals_by_team = Hash.new(0)
+    total_games_by_team = Hash.new(0)
+    @game_teams.each do |game_team|
+      total_goals_by_team[game_team.team_id] += game_team.goals.to_i
+    end
+    @game_teams.each do |game_team|
+      total_games_by_team[game_team.team_id] += 1
+    end
+    total_goals_by_team.merge!(total_games_by_team) do |team_id, goals, games|
+      goals.to_f / games
+    end
+    @teams.each do |team|
+      if team.team_id == total_goals_by_team.key(total_goals_by_team.values.max)
+        return team.team_name
+      end
+    end
+  end
 end

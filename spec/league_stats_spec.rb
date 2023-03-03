@@ -17,7 +17,7 @@ RSpec.describe LeagueStats do
   end
 
   describe '#offenses' do
-    xit 'returns string of best offense' do
+    it 'returns string of best offense' do
       expect(@league_stat.best_offense).to eq('Reign FC')
     end
 
