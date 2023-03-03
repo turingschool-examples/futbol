@@ -16,7 +16,7 @@ class GameTeams
     @tackles = details[:tackles]
     @team_id = details[:team_id]
     @game_id = details[:game_id]
-    @season_id = @game_id[0..3]
+    @season_id = "#{@game_id[0..3].to_i}#{@game_id[0..3].to_i.next}"
     @result = details[:result]
     @home_away = details[:hoa]
   end
