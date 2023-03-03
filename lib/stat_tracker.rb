@@ -63,7 +63,12 @@ class StatTracker
   end
 
   def count_of_games_by_season
-
+    # # require'pry';binding.pry
+    # games_by_season = Hash.new(0)
+    # @league.games.each do |row|
+    #   games_by_season[row[:season]] 
+    # end
+    # games_by_season
   end
 
   def average_goals_per_game
@@ -86,7 +91,34 @@ class StatTracker
 
   end
 
+  def team_home_away_wins  
+    team_stats = {}
+    team_names = @league.teams.map do |team|
+      team.name
+    end
+    team_names.each do |team|
+      team_stats[team] = Hash.new(0)
+    end
+    @league.games.each do |game|
+      team_stats[game.team_refs[:home_team].name][:home_goals] += game.info[:home_goals]
+      team_stats[game.team_refs[:away_team].name][:away_goals] += game.info[:away_goals]
+      team_stats[game.team_refs[:home_team].name][:home_games] += 1
+      team_stats[game.team_refs[:away_team].name][:away_games] += 1
+    end
+    team_stats
+  end
+  
   def highest_scoring_visitor
+    highest_visitor_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:away_goals].fdiv(stats[:away_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h 
+
+    require'pry';binding.pry
+    highest_visitor_avg_goals.max_by { |team, avg_goals| avg_goals }.first
 
   end
 

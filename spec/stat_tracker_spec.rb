@@ -77,4 +77,16 @@ RSpec.describe StatTracker do
     end
   end
 
+  xdescribe '#count_of_games_by_season' do
+    it 'can find the count of games by season' do
+     
+      expect(stat_tracker.count_of_games_by_season).to eq()
+    end
+  end
+
+  describe '#highest_scoring_visitor' do
+    it 'can find the highest scoring visior' do
+      expect(stat_tracker.highest_scoring_visitor).to eq(1)
+    end
+  end
 end
