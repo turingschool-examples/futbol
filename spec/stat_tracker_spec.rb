@@ -16,18 +16,18 @@ RSpec.describe StatTracker do
   describe '#initialize' do
     it 'exists and has attributes' do
       expect(@stat_tracker).to be_a StatTracker
-      expect(@stat_tracker.games).to eq('./data/games.csv')
-      expect(@stat_tracker.teams).to eq('./data/teams.csv')
-      expect(@stat_tracker.game_teams).to eq('./data/game_teams.csv')
+      expect(@stat_tracker.game).to be_a GameStatistics
+      expect(@stat_tracker.league).to be_a LeagueStatistics
+      expect(@stat_tracker.season).to be_a SeasonStatistics
     end
   end
 
   describe '#self.from_csv' do
     it 'returns an instance of StatTracker' do
       expect(StatTracker.from_csv(@locations)).to be_a StatTracker
-      expect(@stat_tracker.games).to eq('./data/games.csv')
-      expect(@stat_tracker.teams).to eq('./data/teams.csv')
-      expect(@stat_tracker.game_teams).to eq('./data/game_teams.csv')
+      expect(@stat_tracker.game).to be_a GameStatistics
+      expect(@stat_tracker.league).to be_a LeagueStatistics
+      expect(@stat_tracker.season).to be_a SeasonStatistics
     end
   end
 end

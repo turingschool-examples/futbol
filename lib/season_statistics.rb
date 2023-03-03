@@ -1,6 +1,7 @@
+require_relative 'stats'
 
-class SeasonStatistics
-  def initialize
-    
+class SeasonStatistics < Stats
+  def initialize(locations)
+    super
   end
 end
