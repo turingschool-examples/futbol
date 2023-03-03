@@ -117,7 +117,7 @@ class StatTracker
   end
 
   def best_offense
-   
+    
   end
 
   def worst_offense

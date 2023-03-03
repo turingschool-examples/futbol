@@ -100,4 +100,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.avg_goals).to be_a(Hash)
     end
   end
+
+  describe '#best_offense' do
+    it 'returns the name of the team with the highest average of goals per game across all seasons' do
+      expect(stat_tracker.best_offense).to eq("Sky Blue FC")
+    end
+  end
 end
