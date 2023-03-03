@@ -143,7 +143,6 @@ class StatTracker
         end
       end
     end
-    #hash.max_by{ |k,v| v }[0] gives the key
     coach_win_percentage.max_by {|coach, percentage| percentage}[0]
   end
   
@@ -190,6 +189,48 @@ class StatTracker
     end
     coach_win_percentage.min_by {|coach, percentage| percentage}[0]
   end
+
+
+
+
+  def highest_scoring_home_team
+    team_scores = Hash.new(0)
+    home_games = {}
+    team_names = {}
+    team_ids = @games.map do |game|
+      game.home_team_id
+    end
+    team_ids.each do |team_id|
+      home_games[team_id] = @games.select {|game| game.home_team_id == team_id}
+      team_scores[team_id] = (home_games[team_id].sum {|game| game.home_goals.to_f} / home_games[team_id].length.to_f)
+    end
+
+    highest_team = @teams.find {|team| team.team_id == team_scores.max_by {|team, score| score}.first}.teamname
+    @teams.each do |team|
+      team_names[team.team_id] = team.teamname
+    end
+    return highest_team
+  end  
+
+  def highest_scoring_visitor
+    team_scores = Hash.new(0)
+    away_games = {}
+    team_names = {}
+    team_ids = @games.map do |game|
+      game.away_team_id
+    end
+    team_ids.each do |team_id|
+      away_games[team_id] = @games.select {|game| game.away_team_id == team_id}
+      team_scores[team_id] = (away_games[team_id].sum {|game| game.away_goals.to_f} / away_games[team_id].length.to_f)
+    end
+
+    highest_team = @teams.find {|team| team.team_id == team_scores.max_by {|team, score| score}.first}.teamname
+    @teams.each do |team|
+      team_names[team.team_id] = team.teamname
+    end
+    return highest_team
+  end  
+
 
   def best_offense 
     best_offense = offensive.max_by {|id,avg_goals| avg_goals} 
@@ -251,4 +292,8 @@ class StatTracker
     team_names.find { |team_id, team_name| team_id == lowest_scoring_team}[1]
   end
 end
+
+      
+  
+      
 
