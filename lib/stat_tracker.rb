@@ -48,8 +48,9 @@ class StatTracker
       end
     end
     seasons
+    # require 'pry'; binding.pry
   end
-  =====================================================================================================
+  #=====================================================================================================
 
   def highest_total_score
     all_games.map do |game|
@@ -61,5 +62,16 @@ class StatTracker
     all_games.map do |game|
       game.total_score
     end.min
+  end
+
+
+  def count_of_games_by_season
+    game_count = {}
+    data = games_by_season.map do |season, games|
+      games.count
+      game_count[season]
+    end
+      game_count[season] = data
+    game_count
   end
 end

@@ -60,7 +60,22 @@ RSpec.describe StatTracker do
   describe '#games_by_season' do
     it 'games by season' do
       expect(@stat_tracker.games_by_season).to be_a(Hash)
-      require 'pry'; binding.pry
+    end
+
+    it '#countsgames by season' do 
+      expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
+
+      expected = {
+        "20122013" => 2,
+        "20162017" => 11,
+        "20152016" => 16,
+        "20132014" => 3, 
+        "20142015" => 14,
+        "20172018" => 12
+        }
+
+      expect(@stat_tracker.count_of_games_by_season).to eq(expected)
+      
     end
   end
 end
