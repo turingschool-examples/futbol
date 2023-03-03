@@ -74,4 +74,12 @@ RSpec.describe SeasonStats do
       expect(@season_stat.worst_coach('20142015')).to eq('Craig MacTavish').or(eq('Ted Nolan'))
     end
   end
+
+  describe '#tackle methods' do
+    it "#most_tackles" do
+      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    end
+
+    
 end
