@@ -41,7 +41,7 @@ RSpec.describe LeagueStats do
       expect(@league_stat.lowest_scoring_visitor).to eq('San Jose Earthquakes')
     end
 
-    xit 'returns string of home team low score' do
+    it 'returns string of home team low score' do
       expect(@league_stat.lowest_scoring_home_team).to eq('Utah Royals FC')
     end
   end
