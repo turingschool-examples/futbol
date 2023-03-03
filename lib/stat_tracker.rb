@@ -169,11 +169,11 @@ class StatTracker
 
   end
 
-  # xdef most_tackles(season_year)
-  #   team_tackles(season_year).max_by { |team, tackles| tackles }.first
-  # end
+  def most_tackles(season_year)
+    team_tackles(season_year).max_by { |team, tackles| tackles }.first
+  end
 
-  # xdef fewest_tackles(season_year)
-  #   team_tackles(season_year).min_by { |team, tackles| tackles }.first
-  # end
+  def fewest_tackles(season_year)
+    team_tackles(season_year).min_by { |team, tackles| tackles }.first
+  end
 end

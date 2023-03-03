@@ -27,19 +27,19 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#most_tackles' do
-  #   it 'can check the most tackles of a season' do
-  #     expect(stat_tracker.most_tackles("20132014")).to eq("LA Galaxy")
-  #     expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
-  #   end
-  # end
+  describe '#most_tackles' do
+    it 'can check the most tackles of a season' do
+      expect(stat_tracker.most_tackles("20132014")).to eq("LA Galaxy")
+      expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    end
+  end
 
-  # describe '#fewest_tackles' do
-  #   it 'can check the fewest tackles of a season' do
-  #     expect(stat_tracker.fewest_tackles("20132014")).to eq("Montreal Impact")
-  #     expect(stat_tracker.fewest_tackles("20122013")).to eq("Toronto FC")
-  #   end
-  # end
+  describe '#fewest_tackles' do
+    it 'can check the fewest tackles of a season' do
+      expect(stat_tracker.fewest_tackles("20132014")).to eq("Montreal Impact")
+      expect(stat_tracker.fewest_tackles("20122013")).to eq("Toronto FC")
+    end
+  end
 
   describe '#total_goals_per_game' do
     it 'can return an array of the total score for all games' do
