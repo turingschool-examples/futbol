@@ -73,6 +73,22 @@ RSpec.describe StatTracker do
                    '20172018' => 4.58 }
 
       expect(@stat_tracker.average_goals_by_season).to eq(expected)
+
+    end
+    
+    it '#countsgames by season' do 
+      expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
+
+      expected = {
+        "20122013" => 2,
+        "20162017" => 11,
+        "20152016" => 16,
+        "20132014" => 3, 
+        "20142015" => 14,
+        "20172018" => 12
+        }
+
+      expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
 end
