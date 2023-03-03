@@ -77,11 +77,21 @@ RSpec.describe SeasonStats do
     it '#winningest_coach' do
       expect(@season_stat.winningest_coach('20132014')).to eq('Claude Julien')
       expect(@season_stat.winningest_coach('20142015')).to eq('Alain Vigneault')
+      #expected: "Alain Vigneault"
+      #got: "Dan Bylsma"
     end 
 
     it '#worst_coach' do
       expect(@season_stat.worst_coach('20132014')).to eq('Peter Laviolette')
       expect(@season_stat.worst_coach('20142015')).to eq('Craig MacTavish').or(eq('Ted Nolan'))
+    end
+
+    it '#game_total' do
+      expect(@season_stat.game_total('20142015')).to be_a(Hash)
+    end
+
+    it '#coach_win' do 
+      expect(@season_stat.coach_win('20142015')).to be_a(Hash)
     end
   end
 
