@@ -117,7 +117,8 @@ class StatTracker
   end
 
   def best_offense
-    
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.max_by { |team, goals_per_game| goals_per_game }.first
   end
 
   def worst_offense
