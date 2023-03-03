@@ -2,9 +2,9 @@ require 'spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
-    game_path = './data/s_game.csv'
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './data/s_team_game.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -31,7 +31,7 @@ RSpec.describe StatTracker do
     it 'makes an array of game objects' do
       expect(@stat_tracker.all_games).to be_an Array
       expect(@stat_tracker.all_games).to all(be_a Game)
-      expect(@stat_tracker.all_games.count).to eq(58)
+      expect(@stat_tracker.all_games.count).to eq(7441)
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe StatTracker do
     it 'makes an array of game team objects' do
       expect(@stat_tracker.all_game_teams).to be_an Array
       expect(@stat_tracker.all_game_teams).to all(be_a GameTeam)
-      expect(@stat_tracker.all_game_teams.count).to eq(48)
+      expect(@stat_tracker.all_game_teams.count).to eq(14882)
     end
   end
 
@@ -61,7 +61,21 @@ RSpec.describe StatTracker do
     it 'games by season' do
       expect(@stat_tracker.games_by_season).to be_a(Hash)
     end
+  end
 
+  describe '#average_goals_by_season' do
+    it 'returns a hash of season keys and average goals value' do
+      expected = { '20122013' => 4.0,
+                   '20132014' => 4.33,
+                   '20142015' => 3.14,
+                   '20152016' => 4.63,
+                   '20162017' => 4.36,
+                   '20172018' => 4.58 }
+
+      expect(@stat_tracker.average_goals_by_season).to eq(expected)
+
+    end
+    
     it '#countsgames by season' do 
       expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
 
@@ -76,13 +90,16 @@ RSpec.describe StatTracker do
 
       expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
-
-    it "calculates the best_offense with the highest number of goals per game" do
-      expect(@stat_tracker.best_offense).to eq("Reign FC")
+    
+  describe '#count_of_teams' do
+    it 'counts the number of teams' do
+      expect(@stat_tracker.count_of_teams).to eq 32
     end
+  end
 
-    xit "#worst_offense" do
-      expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+  describe '#percentage_home_wins' do
+    it 'calculates the percetage of wins for all teams playing at home' do
+      expect(@stat_tracker.percentage_home_wins).to eq 0.44
     end
   end
 end
