@@ -20,7 +20,6 @@ class StatTracker
   def all_games
     @game_data.map do |row|
       Game.new(row)
-      require 'pry'; binding.pry
     end
   end
 
@@ -33,7 +32,7 @@ class StatTracker
   end
 
   def all_game_teams
-    @game_teams_data.map do |row|
+    x = @game_teams_data.map do |row|
       game_team = GameTeam.new(row)
     end
   end
@@ -72,5 +71,25 @@ class StatTracker
       game_count[season] = games.count
     end
     game_count
+  end
+
+  def best_offense
+    goals_by_game = Hash.new({})
+
+    #name of the team with the highest 
+    #average number of goals scored per game across all seasons (string)
+    #All the games
+    all_games.each do |game|
+      total = game.home_goals + game.away_goals
+      if total == 0 
+        goals_by_game[game.id] = { away_avg: 0, home_avg: 0 }
+      else
+        goals_by_game[game.id] = {
+          away_avg: (game.away_goals/total.to_f * 100).round(2),
+          home_avg: (game.home_goals/total.to_f * 100).round(2) 
+        }
+      end
+    end  
+    require 'pry'; binding.pry
   end
 end
