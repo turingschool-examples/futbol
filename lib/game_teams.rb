@@ -128,24 +128,6 @@ class GameTeam
     worst_team
   end
 
-  def least_accurate_team(season)
-    teams = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
-    (0..@team_id.count).each do |i|
-      teams[@team_id[i]][@game_id[i]&.slice(0..3)][:shots] += @shots[i].to_i
-      teams[@team_id[i]][@game_id[i]&.slice(0..3)][:goals] += @goals[i].to_i
-    end
-    worst_ratio = 0
-    worst_team = nil
-    teams.each do |team, szns|
-      ratio = szns[season.slice(0..3)][:shots]&.fdiv(szns[season.slice(0..3)][:goals])
-      if ratio > worst_ratio
-        worst_ratio = ratio
-        worst_team = team
-      end
-    end
-    worst_team
-  end
-
   def most_accurate_team(season)
     teams = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
     (0..@team_id.count).each do |i|
