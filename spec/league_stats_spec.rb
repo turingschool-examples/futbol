@@ -37,7 +37,7 @@ RSpec.describe LeagueStats do
   end
 
   describe '#lowest scores' do
-    xit 'returns string of visitor low score' do
+    it 'returns string of visitor low score' do
       expect(@league_stat.lowest_scoring_visitor).to eq('San Jose Earthquakes')
     end
 
