@@ -94,4 +94,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.team_games).to be_a(Hash)
     end
   end
+
+  describe '#avg_goals' do
+    it 'returns a hash with the keys as team names and the values as the avg of goals of all the seasons' do
+      expect(stat_tracker.avg_goals).to be_a(Hash)
+    end
+  end
 end
