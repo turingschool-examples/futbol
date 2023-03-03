@@ -77,4 +77,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#winningest_coach' do
+    it 'can find the winningest coach based on season' do
+      expect(stat_tracker.winningest_coach("20132014")).to eq("John Tortorella")
+    end
+  end
+
+  describe '#worst_coach' do
+
 end
