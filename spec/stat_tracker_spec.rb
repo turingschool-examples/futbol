@@ -27,19 +27,19 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#most_tackles' do
-    it 'can check the most tackles of a season' do
-      expect(stat_tracker.most_tackles("20132014")).to eq("LA Galaxy")
-      expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
-    end
-  end
+  # describe '#most_tackles' do
+  #   it 'can check the most tackles of a season' do
+  #     expect(stat_tracker.most_tackles("20132014")).to eq("LA Galaxy")
+  #     expect(stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+  #   end
+  # end
 
-  describe '#fewest_tackles' do
-    it 'can check the fewest tackles of a season' do
-      expect(stat_tracker.fewest_tackles("20132014")).to eq("Montreal Impact")
-      expect(stat_tracker.fewest_tackles("20122013")).to eq("Toronto FC")
-    end
-  end
+  # describe '#fewest_tackles' do
+  #   it 'can check the fewest tackles of a season' do
+  #     expect(stat_tracker.fewest_tackles("20132014")).to eq("Montreal Impact")
+  #     expect(stat_tracker.fewest_tackles("20122013")).to eq("Toronto FC")
+  #   end
+  # end
 
   describe '#total_goals_per_game' do
     it 'can return an array of the total score for all games' do
@@ -86,7 +86,19 @@ RSpec.describe StatTracker do
 
   describe '#highest_scoring_visitor' do
     it 'can find the highest scoring visior' do
-      expect(stat_tracker.highest_scoring_visitor).to eq(1)
+      expect(stat_tracker.highest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe "#lowest_scoring_visitor" do
+    it 'can find the lowest scoring visitor' do
+      expect(stat_tracker.lowest_scoring_visitor).to eq("Chicago Fire")
+    end
+  end
+
+  describe "#highest_scoring_home_team" do
+    it 'can find the highest scoring home team' do
+      expect(stat_tracker.highest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
 end

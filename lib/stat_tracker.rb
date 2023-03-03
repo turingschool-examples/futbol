@@ -116,19 +116,29 @@ class StatTracker
       end
       [team, avg_goals]
     end.to_h 
-
-    require'pry';binding.pry
     highest_visitor_avg_goals.max_by { |team, avg_goals| avg_goals }.first
-
   end
-
+  
   def lowest_scoring_visitor
-
+    lowest_visitor_avg_goals = team_home_away_wins.map do |team, stats|
+      avg_goals = stats[:away_goals].fdiv(stats[:away_games])
+      if avg_goals.nan?
+        avg_goals = 0
+      end
+      [team, avg_goals]
+    end.to_h
+    
+    lowest_visitor_avg_goals.min_by { |team, avg_goals| avg_goals }.first
+  end
+  
+  def highest_scoring_home_team
+   
   end
 
   def lowest_scoring_home_team
 
   end
+
 
   def winningest_coach
 
@@ -146,11 +156,11 @@ class StatTracker
 
   end
 
-  def most_tackles(season_year)
-    team_tackles(season_year).max_by { |team, tackles| tackles }.first
-  end
+  # xdef most_tackles(season_year)
+  #   team_tackles(season_year).max_by { |team, tackles| tackles }.first
+  # end
 
-  def fewest_tackles(season_year)
-    team_tackles(season_year).min_by { |team, tackles| tackles }.first
-  end
+  # xdef fewest_tackles(season_year)
+  #   team_tackles(season_year).min_by { |team, tackles| tackles }.first
+  # end
 end
