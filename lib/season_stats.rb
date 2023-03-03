@@ -1,10 +1,9 @@
-require 'csv'
+require 'stats'
 
-class SeasonStats
+class SeasonStats < Stats 
   
-  def initialize
-    @teams = CSV.open('./data/teams.csv', headers: true, header_converters: :symbol).map { |row| Team.new(row) }
-    @game_teams = CSV.open('./data/game_teams.csv', headers: true, header_converters: :symbol).map { |row| GameTeams.new(row) }
+  def initialize(files)
+    super
   end
 
   def most_accurate_team(season)
@@ -97,6 +96,15 @@ class SeasonStats
     end
     total_game_hash.merge!(win_coach_hash) {|coach, games, wins| wins.to_f / games}
     total_game_hash.key(total_game_hash.values.min)
+  end
+
+  def tackles_by_team_by_season(season_year)
+    team_tackles = Hash.new(0)
+    @game_teams.each do |game|
+      if game.season_id == season_year
+        team_tackles[game.team_id] += game.tackles.to_i
+      end
+    end
   end
 
   def most_tackles(season_year)
