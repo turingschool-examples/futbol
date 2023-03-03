@@ -1,7 +1,4 @@
 require 'csv'
-require './lib/team'
-require './lib/game'
-require './lib/game_teams'
 
 class Stats
   attr_reader :teams,
