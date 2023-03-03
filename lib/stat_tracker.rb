@@ -19,14 +19,12 @@ class StatTracker
     @league = League.new(league_name, data)
   end
 
-  def team_tackles(season_id)
+  def team_tackles(season_year)
     team_and_tackles = Hash.new(0)
-    seasons = get_reg_and_post_seasons(season_id)
-    seasons.each do |season|
-      season.games.each do |game|
-        team_and_tackles[game.refs[:home_team].name] += game.team_stats[:home_team][:tackles].to_i
-        team_and_tackles[game.refs[:away_team].name] += game.team_stats[:away_team][:tackles].to_i
-      end
+    season = @league.seasons.find{ |season| season.year == season_year }
+    season.games.each do |game|
+      team_and_tackles[game.team_refs[:home_team].name] += game.team_stats[:home_team][:tackles].to_i
+      team_and_tackles[game.team_refs[:away_team].name] += game.team_stats[:away_team][:tackles].to_i
     end
     team_and_tackles
   end
@@ -103,12 +101,12 @@ class StatTracker
 
   end
 
-  def most_tackles(season_id)
-    team_tackles(season_id).max_by { |team, tackles| tackles }.first
+  def most_tackles(season_year)
+    team_tackles(season_year).max_by { |team, tackles| tackles }.first
   end
 
-  def fewest_tackles(season_id)
-    team_tackles(season_id).min_by { |team, tackles| tackles }.first
+  def fewest_tackles(season_year)
+    team_tackles(season_year).min_by { |team, tackles| tackles }.first
   end
 end
 
