@@ -30,7 +30,14 @@ class StatTracker
   end
 
   def team_goals
-    # same as #team_tackles but it will return a hash of team names and their goals across all seasons
+    team_and_goals = Hash.new(0)
+    league.seasons.each do |season|
+      season.games.each do |game|
+        team_and_goals[game.team_refs[:home_team].name] += game.team_stats[:home_team][:goals]
+        team_and_goals[game.team_refs[:away_team].name] += game.team_stats[:away_team][:goals]
+      end
+    end
+    team_and_goals
   end
   
   def team_games
