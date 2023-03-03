@@ -29,24 +29,37 @@ class StatTracker
     team_and_tackles
   end
 
-  def highest_total_score
+  def total_goals_per_game
+    @league.games.map do |game|
+      game.info[:home_goals] + game.info[:away_goals]  
+    end
+  end
 
+  def highest_total_score
+    total_goals_per_game.max
   end
 
   def lowest_total_score
+    total_goals_per_game.min
+  end
 
+  def percentage_game_result(team, result)
+    count = @league.games.count do |game|
+      game.team_stats[team][:result] == result
+    end
+    count.fdiv(@league.games.length)
   end
 
   def percentage_home_wins
-
+    percentage_game_result(:home_team, "WIN").round(4)
   end
 
   def percentage_visitor_wins
-
+    percentage_game_result(:home_team, "LOSS").round(4)
   end
 
   def percentage_ties
-
+    percentage_game_result(:home_team, "TIE").round(4)
   end
 
   def count_of_games_by_season

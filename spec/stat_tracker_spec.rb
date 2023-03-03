@@ -40,4 +40,41 @@ RSpec.describe StatTracker do
       expect(stat_tracker.fewest_tackles("20122013")).to eq("Toronto FC")
     end
   end
+
+  describe '#total_goals_per_game' do
+    it 'can return an array of the total score for all games' do
+      expect(stat_tracker.total_goals_per_game).to eq([5, 5, 3, 5, 4, 3, 5, 5, 6, 4, 3, 5, 5, 6, 4, 3, 6, 4, 3, 5, 6, 3, 4, 5, 1, 5, 6, 2, 5, 3, 4, 5, 4, 4, 4, 5, 3, 3])
+    end
+  end
+
+  describe '#highest_total_score' do
+    it 'can find the score of the highest scoring game' do
+      expect(stat_tracker.highest_total_score).to eq(6)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'can find the total score of the lowest scoring game' do
+      expect(stat_tracker.lowest_total_score).to eq(1)
+    end
+  end
+
+  describe '#percentage_home_wins' do
+    it 'can find the percentage of home wins' do
+      expect(stat_tracker.percentage_home_wins).to eq(0.4474)
+    end
+  end
+
+  describe '#percentage_visitor_wins' do
+    it 'can find the percentage of visitor wins' do
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.3684)
+    end
+  end
+
+  describe '#percentage_ties' do
+    it 'can find the percentage of ties' do
+      expect(stat_tracker.percentage_ties).to eq(0.1842)
+    end
+  end
+
 end
