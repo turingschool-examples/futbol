@@ -111,14 +111,21 @@ class SeasonStats
         return team.team_name
       end
     end
-
   end
-  # most_tackles	
-  #Name of the Team with the most tackles in the season	
-  #String
-  # fewest_tackles	
-  #Name of the Team with the fewest tackles in the season	
-  #String
+
+  def fewest_tackles(season_year)
+    least_tackle_hash = Hash.new(0)
+    @game_teams.each do |game|
+      if game.season_id == season_year
+        least_tackle_hash[game.team_id] += game.tackles.to_i
+      end
+    end
+    @teams.each do |team| 
+      if team.team_id == least_tackle_hash.key(least_tackle_hash.values.min)
+        return team.team_name
+      end
+    end
+  end
 end
 
 
