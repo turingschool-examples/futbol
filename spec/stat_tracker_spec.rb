@@ -73,7 +73,6 @@ RSpec.describe StatTracker do
                    '20172018' => 4.58 }
 
       expect(@stat_tracker.average_goals_by_season).to eq(expected)
-
     end
     
     it '#countsgames by season' do 
@@ -90,6 +89,7 @@ RSpec.describe StatTracker do
 
       expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
+  end
     
   describe '#count_of_teams' do
     it 'counts the number of teams' do
@@ -100,6 +100,15 @@ RSpec.describe StatTracker do
   describe '#percentage_home_wins' do
     it 'calculates the percetage of wins for all teams playing at home' do
       expect(@stat_tracker.percentage_home_wins).to eq 0.44
+    end
+ 
+
+    it "calculates the best_offense with the highest number of goals per game" do
+      expect(@stat_tracker.best_offense).to eq("Reign FC")
+    end
+
+    xit "#worst_offense" do
+      expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
   end
 end
