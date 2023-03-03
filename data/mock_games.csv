@@ -8,3 +8,24 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030312,20122013,Postseason,6/4/13,6,5,4,1,Children's Mercy Park,/api/v1/venues/null
 2012030313,20122013,Postseason,6/6/13,5,6,1,2,Toyota Stadium,/api/v1/venues/null
 2012030314,20122013,Postseason,6/8/13,5,6,0,1,Toyota Stadium,/api/v1/venues/null
+2014021174,20142015,Regular Season,4/4/15,1,3,1,4,BBVA Stadium,/api/v1/venues/null
+2014020993,20142015,Regular Season,3/10/15,29,12,3,3,Yurcak Field,/api/v1/venues/null
+2014020477,20142015,Regular Season,12/20/14,6,52,1,2,Providence Park,/api/v1/venues/null
+2014020617,20142015,Regular Season,1/11/15,17,15,1,3,Providence Park,/api/v1/venues/null
+2014021230,20142015,Regular Season,4/12/15,22,23,3,4,Saputo Stadium,/api/v1/venues/null
+2014020721,20142015,Regular Season,1/30/15,24,28,3,4,Banc of California Stadium,/api/v1/venues/null
+2014020729,20142015,Regular Season,1/31/15,53,9,2,5,Yankee Stadium,/api/v1/venues/null
+2014020096,20142015,Regular Season,10/24/14,16,18,2,3,Allianz Field,/api/v1/venues/null
+2014020745,20142015,Regular Season,2/4/15,9,1,1,2,Mercedes-Benz Stadium,/api/v1/venues/null
+2014020830,20142015,Regular Season,2/15/15,25,21,1,2,BC Place,/api/v1/venues/null
+2014020298,20142015,Regular Season,11/23/14,30,14,1,2,Audi Field,/api/v1/venues/null
+2014021123,20142015,Regular Season,3/28/15,1,12,1,3,Yurcak Field,/api/v1/venues/null
+2014020479,20142015,Regular Season,12/20/14,53,26,2,2,Nippert Stadium,/api/v1/venues/null
+2014020002,20142015,Regular Season,10/8/14,4,6,1,2,Toyota Stadium,/api/v1/venues/null
+2014020501,20142015,Regular Season,12/23/14,28,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2014020240,20142015,Regular Season,11/14/14,9,22,2,3,Maryland SoccerPlex,/api/v1/venues/null
+2014020116,20142015,Regular Season,10/26/14,15,20,3,1,BMO Field,/api/v1/venues/null
+2014020489,20142015,Regular Season,12/21/14,20,23,2,3,Saputo Stadium,/api/v1/venues/null
+2014020093,20142015,Regular Season,10/23/14,2,6,3,2,Toyota Stadium,/api/v1/venues/null
+2014020518,20142015,Regular Season,12/28/14,15,5,3,0,Children's Mercy Park,/api/v1/venues/null
+2014020883,20142015,Regular Season,2/22/15,26,28,2,1,Banc of California Stadium,/api/v1/venues/null
