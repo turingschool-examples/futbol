@@ -127,7 +127,6 @@ class StatTracker
       end
       [team, avg_goals]
     end.to_h
-    
     lowest_visitor_avg_goals.min_by { |team, avg_goals| avg_goals }.first
   end
   
@@ -139,7 +138,6 @@ class StatTracker
       end
       [team, avg_goals]
     end.to_h
-    # require'pry';binding.pry
     highest_home_avg_goals.max_by { |team, avg_goals| avg_goals }.first
   end
 
@@ -151,7 +149,6 @@ class StatTracker
       end
       [team, avg_goals]
     end.to_h
-    #  require'pry';binding.pry
     lowest_home_avg_goals.min_by { |team, avg_goals| avg_goals }.first
   end
 
