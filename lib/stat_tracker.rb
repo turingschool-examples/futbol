@@ -195,6 +195,39 @@ class StatTracker
     { "average" => avg_goals_per_game }.merge(team_and_goals_per_game)
   end
 
+  def total_goals_per_game
+    @league.games.map do |game|
+      game.info[:home_goals] + game.info[:away_goals]
+    end
+  end
+
+  def highest_total_score
+    total_goals_per_game.max
+  end
+
+  def lowest_total_score
+    total_goals_per_game.min
+  end
+
+  def percentage_game_result(team, result)
+    count = @league.games.count do |game|
+      game.team_stats[team][:result] == result
+    end
+    count.fdiv(@league.games.length)
+  end
+
+  def percentage_home_wins
+    percentage_game_result(:home_team, "WIN").round(2)
+  end
+
+  def percentage_visitor_wins
+    percentage_game_result(:home_team, "LOSS").round(2)
+  end
+
+  def percentage_ties
+    percentage_game_result(:home_team, "TIE").round(2)
+  end
+
   def wins_losses_by_coach(season_year)
     season = @league.seasons.find do |season|
       season.year == season_year
@@ -227,6 +260,24 @@ class StatTracker
     coach_games
   end
 
+  def count_of_teams
+    @league.teams.count
+  end
+
+  def best_offense
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.max_by { |team, goals_per_game| goals_per_game }.first
+  end
+
+  def worst_offense
+    team_and_goals_per_game = avg_goals
+    team_and_goals_per_game.min_by { |team, goals_per_game| goals_per_game }.first
+  end
+
+  def highest_scoring_visitor
+
+  end
+  
   def winningest_coach(season_year)
     coach_game_count = games_coached(season_year)
     coach_win_count = wins_losses_by_coach(season_year).first
