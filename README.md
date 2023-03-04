@@ -30,6 +30,20 @@ Our team will first brainstorm at a high level to create our code’s functional
   - Created on Feb. 27, 2023
   - Last updated on Mar. 2, 2023
 
+---
+<br/>
+
+## Retrospective
+- [Retro Board](https://miro.com/app/board/uXjVPiopTmI=/)
+  - Added to Miro board on Sat March 4th 2023 
+  ### **Top three things that went well in the project**
+    - Collaboration
+    - Communication
+    - Positive Attitude
+  ### **Top three things the team would do differently in the future**
+    - Understanding Project Functionality
+    - Project Code Setup 
+    - Scheduling
 
 ---
 <br/>
@@ -48,3 +62,6 @@ Our team will first brainstorm at a high level to create our code’s functional
 #### Logan Cole
 - [LinkedIn](https://www.linkedin.com/in/logan-cole-ab2179188/)
 - [GitHub](https://github.com/exasperlnc)
+
+
+
