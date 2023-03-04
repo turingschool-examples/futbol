@@ -30,4 +30,4 @@
 - Crow Rising - [LinkedIn](https://www.linkedin.com/in/crowrising/) - [Github](https://github.com/CrowRising)
 
 ## Retrospective 
-'./futbol/Screenshot 2023-03-04 at 12.13.45 PM.png'dd
+![Retro](retro.png)
