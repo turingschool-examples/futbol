@@ -83,6 +83,40 @@ class StatTracker
     game_count
   end
 
+  def best_offense
+    team_info = all_game_teams.group_by(&:team_id)
+    avg_team_goals = Hash.new(0)
+    team_info.map do |team, games|
+      all_goals = games.map do |game|
+        game.goals  
+      end
+      team_avg_goals_per_game = all_goals.sum.fdiv(all_goals.count)
+      
+      avg_team_goals[team] = team_avg_goals_per_game
+    end
+      max_avg_goals = avg_team_goals.max_by do |team, avg_goals|
+      avg_goals
+    end
+    team_name_by_id(max_avg_goals.first)
+  end
+
+  def worst_offense
+    team_info = all_game_teams.group_by(&:team_id)
+    avg_team_goals = Hash.new(0)
+    team_info.map do |team, games|
+      all_goals = games.map do |game|
+        game.goals  
+      end
+      team_avg_goals_per_game = all_goals.sum.fdiv(all_goals.count)
+      
+      avg_team_goals[team] = team_avg_goals_per_game
+    end
+      min_avg_goals = avg_team_goals.min_by do |team, avg_goals|
+      avg_goals
+    end
+    team_name_by_id(min_avg_goals.first)
+  end
+
   def average_goals_by_season
     games_by_season.transform_values do |games_array|
       scores_array = games_array.map(&:total_score)

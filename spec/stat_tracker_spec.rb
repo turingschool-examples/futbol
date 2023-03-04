@@ -106,7 +106,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
-
+    
   describe '#count_of_teams' do
     it 'counts the number of teams' do
       expect(@stat_tracker.count_of_teams).to eq(32)
@@ -134,6 +134,15 @@ RSpec.describe StatTracker do
 
     it 'returns the name of the team with the fewest tackles of a given season' do
       expect(@stat_tracker.fewest_tackles('20142015')).to eq 'Orlando City SC'
+    end
+ 
+
+    it "calculates the best_offense with the highest number of goals per game" do
+      expect(@stat_tracker.best_offense).to eq("Reign FC")
+    end
+
+    it "calculates the worst_offense with the highest number of goals per game" do
+      expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
   end
 
