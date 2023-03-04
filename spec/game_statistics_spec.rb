@@ -94,10 +94,10 @@ RSpec.describe GameStatistics do
 
   describe '#average_goals_by_season' do
     it 'returns average goals by season' do
-      hash = {{'20122013' => 3.78, '20142015' => 4.48}}
+      hash = {'20122013' => 3.78, '20142015' => 4.48}
       expect(@game_stats.average_goals_by_season).to be_a(Hash)
-      expect(@game_stats.average_goals_by_season.keys).to be_a(String)
-      expect(@game_stats.average_goals_by_season.values).to be_a(Float)
+      expect(@game_stats.average_goals_by_season.keys.sample).to be_a(String)
+      expect(@game_stats.average_goals_by_season.values.sample).to be_a(Float)
     end
   end
 end
