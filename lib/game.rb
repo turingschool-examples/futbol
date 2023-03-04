@@ -20,10 +20,10 @@ class Game
       venue_link: game_data[:game][:venue_link]
     }
 
-    home_team = game_data[:game_teams].first[:id] == @info[:home_team_id] ?
+    home_team = game_data[:game_teams].first[:team_id] == @info[:home_team_id] ?
                 game_data[:game_teams].first : game_data[:game_teams].last
 
-    away_team = game_data[:game_teams].first[:id] == @info[:away_team_id] ?
+    away_team = game_data[:game_teams].first[:team_id] == @info[:away_team_id] ?
                 game_data[:game_teams].first : game_data[:game_teams].last
 
     @team_stats = {
