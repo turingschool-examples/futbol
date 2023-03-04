@@ -34,6 +34,7 @@ class StatTracker
   def all_game_teams
     @game_teams_data.map do |row|
       GameTeam.new(row)
+      require 'pry'; binding.pry
     end
   end
 
@@ -119,9 +120,21 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    
+    team_info = all_games.group_by(&:away_id)
+    avg_score = Hash.new(0)
+    team_info.map do |team, games|
+      total_score = games.map do |game|
+        game.away_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      avg_score[team] = avg_score_per_game
+    end
+    min_avg_score = avg_score.min_by do |_, avg_scores|
+      avg_scores
+    end
+    team_name_by_id(min_avg_score.first)
   end
-  
+
   def most_tackles(season)
     tackles_by_team = Hash.new(0)
     game_teams_by_season(season).each do |game_team|
