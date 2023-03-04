@@ -35,6 +35,16 @@ RSpec.describe LeagueStats do
     end
   end
 
+  describe '#helper methods for offenses'do
+    it 'checks total goals by team' do
+      expect(@league_stat.total_goals_by_team).to be_a(Hash)
+    end
+
+    it 'checks total games by team' do
+      expect(@league_stat.total_games_by_team).to be_a(Hash)
+    end
+  end
+
   describe '#highest scores' do
     it 'returns string of visitor high score' do
       expect(@league_stat.highest_scoring_visitor).to eq('FC Dallas')
