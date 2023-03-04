@@ -188,7 +188,7 @@ class StatTracker < StatisticsGenerator
 
 
   def best_offense 
-    best_offense = offensive.max_by {|id,avg_goals| avg_goals} 
+    best_offense = offensive("away", "home").max_by {|id,avg_goals| avg_goals} 
     best_team = @teams.find {|team| team.team_id == best_offense.first}.teamname
   end
 
