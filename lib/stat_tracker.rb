@@ -8,11 +8,13 @@ require_relative 'team_accuracy'
 require_relative 'offensive'
 require_relative 'tackle_counter'
 require_relative 'statistics_generator'
+require_relative 'offensive_2'
 
 class StatTracker < StatisticsGenerator
   include TeamAccuracy
   include Offensive
   include TackleCounter
+  include Offensive_2
 
   def initialize(data)
     super(data)
@@ -188,7 +190,7 @@ class StatTracker < StatisticsGenerator
 
 
   def best_offense 
-    best_offense = offensive("away", "home").max_by {|id,avg_goals| avg_goals} 
+    best_offense = offensive_2("away", "home").max_by {|id,avg_goals| avg_goals} 
     best_team = @teams.find {|team| team.team_id == best_offense.first}.teamname
   end
 
