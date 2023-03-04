@@ -49,24 +49,35 @@ class LeagueStats < Stats
   end
 
   def highest_scoring_visitor
-    total_goals_by_away_team = Hash.new(0)
-    total_away_games_by_team = Hash.new(0)
-    @games.each do |game|
-      total_goals_by_away_team[game.away_team_id] += game.away_goals.to_i
-    end
-    @games.each do |game|
-      total_away_games_by_team[game.away_team_id] += 1 
-    end
-    total_goals_by_away_team.merge!(total_away_games_by_team) do |away_team_id, away_goals, away_games|
-      away_goals.to_f / away_games
-    end
     @teams.each do |team|
-      if team.team_id == total_goals_by_away_team.key(total_goals_by_away_team.values.max)
+      if team.team_id == average_goal_by_away_team.key(average_goal_by_away_team.values.max)
         return team.team_name
       end
     end
   end
+  
+  def total_goals_by_away_team
+    total_goals_by_away_team = Hash.new(0)
+    @games.each do |game|
+      total_goals_by_away_team[game.away_team_id] += game.away_goals.to_i
+    end
+    total_goals_by_away_team
+  end
 
+  def total_away_games_by_team
+    total_away_games_by_team = Hash.new(0)
+     @games.each do |game|
+      total_away_games_by_team[game.away_team_id] += 1 
+    end
+    total_away_games_by_team
+  end
+
+  def average_goal_by_away_team
+    total_goals_by_away_team.merge!(total_away_games_by_team) do |away_team_id, away_goals, away_games|
+      away_goals.to_f / away_games
+    end
+  end
+  
   def highest_scoring_home_team
     total_goals_by_home_team = Hash.new(0)
     total_home_games_by_team = Hash.new(0)
@@ -87,19 +98,8 @@ class LeagueStats < Stats
   end
 
   def lowest_scoring_visitor
-    total_goals_by_away_team = Hash.new(0)
-    total_away_games_by_team = Hash.new(0)
-    @games.each do |game|
-      total_goals_by_away_team[game.away_team_id] += game.away_goals.to_i
-    end
-    @games.each do |game|
-      total_away_games_by_team[game.away_team_id] += 1 
-    end
-    total_goals_by_away_team.merge!(total_away_games_by_team) do |away_team_id, away_goals, away_games|
-      away_goals.to_f / away_games
-    end
     @teams.each do |team|
-      if team.team_id == total_goals_by_away_team.key(total_goals_by_away_team.values.min)
+      if team.team_id == average_goal_by_away_team.key(average_goal_by_away_team.values.min)
         return team.team_name
       end
     end
