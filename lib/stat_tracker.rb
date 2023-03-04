@@ -34,7 +34,6 @@ class StatTracker
   def all_game_teams
     @game_teams_data.map do |row|
       GameTeam.new(row)
-      require 'pry'; binding.pry
     end
   end
 
