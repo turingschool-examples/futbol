@@ -8,7 +8,7 @@ ______     _   _           _      __
 ```
 ### Brought to you by DefCom4
 
-## Table of Conents 
+## Table of Contents 
 - [Check-in](#check-in)
 - [Organization](#organization)
 - [Design-Approach](#design-approach)
