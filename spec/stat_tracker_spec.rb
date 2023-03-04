@@ -77,7 +77,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#average_goals_by_season' do
-    xit 'returns a hash of season keys and average goals value' do
+    it 'returns a hash of season keys and average goals value' do
       expected = {
         '20122013' => 4.12,
         '20162017' => 4.23,
@@ -89,9 +89,10 @@ RSpec.describe StatTracker do
 
       expect(@stat_tracker.average_goals_by_season).to eq(expected)
     end
-
-    it '#counts games by season' do 
-
+   end
+   
+  describe '#counts_games_by_season' do
+    it 'counts games by season' do 
       expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
 
       expected = {
@@ -135,8 +136,19 @@ RSpec.describe StatTracker do
     it 'returns the name of the team with the fewest tackles of a given season' do
       expect(@stat_tracker.fewest_tackles('20142015')).to eq 'Orlando City SC'
     end
- 
+  end
 
+  describe '#highest_scoring_home_team and #lowest_scoring_home_team' do
+    it "returns the home team with the highest score" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+    end
+
+    it "returns the home team with the lowest score" do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    end
+  end
+  
+  describe '#best_offense and #worst_offense' do
     it "calculates the best_offense with the highest number of goals per game" do
       expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
@@ -171,5 +183,6 @@ RSpec.describe StatTracker do
     
     it "shows lowest scoring team's name across all seasons" do
     end
+
   end
 end

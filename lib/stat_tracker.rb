@@ -186,6 +186,38 @@ class StatTracker
     team_name_by_id(min_team_id)
   end
 
+  def highest_scoring_home_team
+    team_info = all_games.group_by(&:home_id)
+    team_avg_score = Hash.new(0)
+    team_info.map do |team, games|
+      total_score = games.map do |game|
+        game.home_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      team_avg_score[team] = avg_score_per_game
+    end
+      max_avg_score = team_avg_score.max_by do |team, avg_score|
+        avg_score
+      end
+      team_name_by_id(max_avg_score.first)
+  end
+
+  def lowest_scoring_home_team
+    team_info = all_games.group_by(&:home_id)
+    team_avg_score = Hash.new(0)
+    team_info.map do |team, games|
+      total_score = games.map do |game|
+        game.home_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      team_avg_score[team] = avg_score_per_game
+    end
+      min_avg_score = team_avg_score.min_by do |team, avg_score|
+        avg_score
+      end
+      team_name_by_id(min_avg_score.first)
+   end
+
   def most_accurate_team(season)
     most_accurate_id = goals_to_shots_ratio(season).max_by { |_team_id, ratio| ratio }.first
     team_name_by_id(most_accurate_id)
@@ -206,3 +238,8 @@ class StatTracker
     total_goals_by_team.merge(total_shots_by_team) { |_team_id, total_goals, total_shots| (total_goals / total_shots.to_f) }
   end
 end
+
+
+
+
+
