@@ -37,11 +37,15 @@ RSpec.describe LeagueStats do
 
   describe '#helper methods for offenses'do
     it 'checks total goals by team' do
-      expect(@league_stat.total_goals_by_team).to be_a(Hash)
+      expect(@league_stat.total_goals_by_team).to be_a Hash
     end
 
     it 'checks total games by team' do
-      expect(@league_stat.total_games_by_team).to be_a(Hash)
+      expect(@league_stat.total_games_by_team).to be_a Hash
+    end
+
+    it 'has average' do
+      expect(@league_stat.average_goal_by_game).to be_a Hash
     end
   end
 
