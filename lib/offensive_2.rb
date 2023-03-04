@@ -14,7 +14,7 @@ module Offensive_2
           game_team.goals.to_f}
       this_teams_games = applicable_games.select{|game_team| 
         game_team.team_id == team.team_id}.length
-      offense[team.team_id] = this_teams_goals.to_f / this_teams_games.to_f
+      offense[team.team_id] = (this_teams_goals / this_teams_games.to_f)
     }
     offense
   end

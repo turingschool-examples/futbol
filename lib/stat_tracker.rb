@@ -65,12 +65,8 @@ class StatTracker < StatisticsGenerator
   end
 
   def average_goals_per_game
-    total_goals = 0
-    total_games = @games.count
-      @games.each do |game|
-      total_goals += game.away_goals + game.home_goals
-    end
-    (total_goals.to_f / total_games).round(2)
+    averages = offensive_2("home", "away").values
+    ((averages.sum / averages.count.to_f) * 2).round(2) 
   end
 
   def count_of_teams
@@ -140,113 +136,41 @@ class StatTracker < StatisticsGenerator
           coach_win_percentage[coach] = (won_games / games.to_f)
         end
         if !games_won_coach.include?(coach)
-        coach_win_percentage[coach] = 0
+          coach_win_percentage[coach] = 0
         end
       end
     end
     coach_win_percentage.min_by {|coach, percentage| percentage}[0]
   end
-
-
-
-
-  def highest_scoring_home_team
-    team_scores = Hash.new(0)
-    home_games = {}
-    team_names = {}
-    team_ids = @games.map do |game|
-      game.home_team_id
-    end
-    team_ids.each do |team_id|
-      home_games[team_id] = @games.select {|game| game.home_team_id == team_id}
-      team_scores[team_id] = (home_games[team_id].sum {|game| game.home_goals.to_f} / home_games[team_id].length.to_f)
-    end
-
-    highest_team = @teams.find {|team| team.team_id == team_scores.max_by {|team, score| score}.first}.teamname
-    @teams.each do |team|
-      team_names[team.team_id] = team.teamname
-    end
-    return highest_team
-  end  
-
-  def highest_scoring_visitor
-    team_scores = Hash.new(0)
-    away_games = {}
-    team_names = {}
-    team_ids = @games.map do |game|
-      game.away_team_id
-    end
-    team_ids.each do |team_id|
-      away_games[team_id] = @games.select {|game| game.away_team_id == team_id}
-      team_scores[team_id] = (away_games[team_id].sum {|game| game.away_goals.to_f} / away_games[team_id].length.to_f)
-    end
-
-    highest_team = @teams.find {|team| team.team_id == team_scores.max_by {|team, score| score}.first}.teamname
-    @teams.each do |team|
-      team_names[team.team_id] = team.teamname
-    end
-    return highest_team
-  end  
-
-
+  
   def best_offense 
     best_offense = offensive_2("away", "home").max_by {|id,avg_goals| avg_goals} 
-    best_team = @teams.find {|team| team.team_id == best_offense.first}.teamname
+    @teams.find {|team| team.team_id == best_offense.first}.teamname
+  end
+  
+  def worst_offense 
+    worst_offense = offensive_2("away", "home").min_by {|id,avg_goals| avg_goals} 
+    @teams.find {|team| team.team_id == worst_offense.first}.teamname
+  end
+  
+  def highest_scoring_home_team
+    highest_home = offensive_2("home").max_by {|id,avg_goals| avg_goals} 
+    @teams.find {|team| team.team_id == highest_home.first}.teamname
+  end  
+  
+  def lowest_scoring_home_team
+    lowest_visitor = offensive_2("home").min_by {|id,avg_goals| avg_goals}
+    @teams.find {|team| team.team_id == lowest_visitor.first}.teamname
   end
 
-  def worst_offense 
-    worst_offense = offensive.min_by {|id,avg_goals| avg_goals} 
-    worst_team = @teams.find {|team| team.team_id == worst_offense.first}.teamname
-  end
+  def highest_scoring_visitor
+    highest_visitor = offensive_2("away").max_by {|id,avg_goals| avg_goals} 
+    @teams.find {|team| team.team_id == highest_visitor.first}.teamname
+  end  
 
   def lowest_scoring_visitor
-    team_names = Hash.new
-    teams_total_score = Hash.new(0)
-    teams_total_games = Hash.new(0)
-    teams_goals_per_game = Hash.new
-    @teams.each do |team|
-      team_names[team.team_id] = team.teamname
-    end
-    @game_teams.each do |game|
-      if game.hoa == "away"
-        teams_total_games[game.team_id] += 1
-        teams_total_score[game.team_id] += game.goals.to_i
-      end
-    end
-    teams_total_games.each do |team_id, games|
-     teams_total_score.each do |team_id_score, goals|
-        if team_id_score == team_id
-          teams_goals_per_game[team_id] = (goals / games.to_f)
-        end
-      end
-    end
-    lowest_scoring_team = teams_goals_per_game.min_by { |team, goal_percentage| goal_percentage}[0]
-    team_names.find { |team_id, team_name| team_id == lowest_scoring_team}[1]
-  end
-
-  def lowest_scoring_home_team
-    team_names = Hash.new
-    teams_total_score = Hash.new(0)
-    teams_total_games = Hash.new(0)
-    teams_goals_per_game = Hash.new
-    @teams.each do |team|
-      team_names[team.team_id] = team.teamname
-    end
-    @game_teams.each do |game|
-      if game.hoa == "home"
-        teams_total_games[game.team_id] += 1
-        teams_total_score[game.team_id] += game.goals.to_i
-      end
-    end
-    teams_total_games.each do |team_id, games|
-     teams_total_score.each do |team_id_score, goals|
-        if team_id_score == team_id
-          teams_goals_per_game[team_id] = (goals / games.to_f)
-        end
-      end
-    end
-    lowest_scoring_team = teams_goals_per_game.min_by { |team, goal_percentage| goal_percentage}[0]
-    team_names.find { |team_id, team_name| team_id == lowest_scoring_team}[1]
+    lowest_visitor = offensive_2("away").min_by {|id,avg_goals| avg_goals}
+    @teams.find {|team| team.team_id == lowest_visitor.first}.teamname
   end
 
   def most_tackles(season_id)
