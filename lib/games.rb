@@ -1,27 +1,19 @@
 class Games
   attr_reader :game_id,
               :season,
-              :type,
-              :data_time,
               :away_team_id,
               :home_team_id,
               :away_goals,
-              :home_goals,
-              :venue,
-              :venue_link
+              :home_goals
 
   def initialize(locations)
     file = CSV.read locations[:games], headers: true, header_converters: :symbol
     @game_id = file[:game_id]
     @season = file[:season]
-    @type = file[:type]
-    @date_time = file[:date_time]
     @away_team_id = file[:away_team_id]
     @home_team_id = file[:home_team_id]
     @away_goals = file[:away_goals]
     @home_goals = file[:home_goals]
-    @venue = file[:venue]
-    @venue_link = file[:venue_link]
   end
 
   def highest_total_score
