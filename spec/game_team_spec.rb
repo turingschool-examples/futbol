@@ -36,6 +36,7 @@ describe GameTeam do
       expect(@test_game_teams.face_off_win_percentage).to eq(44.8)
       expect(@test_game_teams.give_aways).to eq(17)
       expect(@test_game_teams.take_aways).to eq(7)
+      expect(@test_game_teams.season).to eq('20122013')
     end
   end
 end
