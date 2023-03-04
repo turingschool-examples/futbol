@@ -18,6 +18,7 @@ class StatTracker
     @games = []
     @teams = []
     @game_teams = []
+    @game_seasons = {}
     @games_data = parse_games_data(csv_games_data)
     @game_team_data = parse_game_team_data(csv_game_team_data)
     @team_data = parse_team_data(csv_team_data)
@@ -43,6 +44,7 @@ class StatTracker
       data_hash[:home_goals] = row[:home_goals]
       data_hash[:venue] = row[:venue]
       @games << Game.new(data_hash)
+      @game_seasons[row[:game_id]] = row[:season]
     end
   end
 
@@ -77,6 +79,7 @@ class StatTracker
       data_hash[:faceoffwinpercentage] = row[:faceoffwinpercentage]
       data_hash[:giveaways] = row[:giveaways]
       data_hash[:takeaways] = row[:takeaways]
+      data_hash[:season] = @game_seasons[row[:game_id]]
       @game_teams << GameTeam.new(data_hash)
     end
   end
