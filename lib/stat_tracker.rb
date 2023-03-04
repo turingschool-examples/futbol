@@ -135,4 +135,24 @@ class StatTracker
     min_team_id = tackles_by_team.min_by { |_team_id, tackles| tackles }.first
     team_name_by_id(min_team_id)
   end
+
+  def most_accurate_team(season)
+    most_accurate_id = goals_to_shots_ratio(season).max_by { |_team_id, ratio| ratio }.first
+    team_name_by_id(most_accurate_id)
+  end
+
+  def least_accurate_team(season)
+    least_accurate_id = goals_to_shots_ratio(season).min_by { |_team_id, ratio| ratio }.first
+    team_name_by_id(least_accurate_id)
+  end
+
+  def goals_to_shots_ratio(season)
+    total_goals_by_team = Hash.new(0)
+    total_shots_by_team = Hash.new(0)
+    game_teams_by_season(season).each do |game_team|
+      total_goals_by_team[game_team.team_id] += game_team.goals
+      total_shots_by_team[game_team.team_id] += game_team.shots
+    end
+    total_goals_by_team.merge(total_shots_by_team) { |_team_id, total_goals, total_shots| (total_goals / total_shots.to_f) }
+  end
 end
