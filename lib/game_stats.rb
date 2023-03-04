@@ -1,7 +1,8 @@
 require_relative 'stats'
+require_relative 'game_statables'
 
 class GameStats < Stats 
-  
+include GameStatables
   def initialize(files)
     super
   end
@@ -16,40 +17,18 @@ class GameStats < Stats
     low_score.total_score
   end
 
-  ###this can definitely be refactored###
   def percentage_home_wins
-    home_wins = []
-    @games.each do |game|
-      if game.home_goals.to_i > game.away_goals.to_i
-        home_wins << game
-      end
-    end
-    home_percent_wins = home_wins.length.fdiv(@games.length).round(2)
+   all_home_wins.length.fdiv(@games.length).round(2)
   end
 
-  ###this can definitely be refactored###
   def percentage_visitor_wins
-    away_wins = []
-    @games.each do |game|
-      if game.away_goals.to_i > game.home_goals.to_i
-        away_wins << game
-      end
-    end
-    away_percent_wins = away_wins.length.fdiv(@games.length).round(2)
+    all_away_wins.length.fdiv(@games.length).round(2)
   end
 
-  ###this can definitely be refactored###
   def percentage_ties
-    tie_game = []
-    @games.each do |game|
-      if game.away_goals.to_i == game.home_goals.to_i
-        tie_game << game
-      end
-    end
-    tie_percent = tie_game.length.fdiv(@games.length).round(2)
+    all_ties.length.fdiv(@games.length).round(2)
   end
 
-  ###this can definitely be refactored###
   def count_of_games_by_season
     count = Hash.new(0)
     @games.map do |game|
@@ -64,20 +43,11 @@ class GameStats < Stats
     end
     sum_of_scores.fdiv(@games.length).round(2)
   end
-### Please god refactor this method while we work###
+
   def average_goals_by_season
-    final_average_goals = {}
-    goals_by_season = Hash.new(0)
-    @games.each do |game|
-    goals_by_season[game.season_year] += game.total_score
+    goals_by_season.merge!(count_of_games_by_season) do |season, goals, games| 
+      goals.fdiv(games).round(2)
     end
-    goals_by_season.map do |season1, goals|
-      count_of_games_by_season.each do |season2, games|
-        if season1 == season2
-          final_average_goals[season1] = goals.fdiv(games).round(2)
-        end
-      end
-    end
-   final_average_goals
   end
+
 end
