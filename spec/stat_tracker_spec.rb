@@ -78,17 +78,19 @@ RSpec.describe StatTracker do
 
   describe '#average_goals_by_season' do
     xit 'returns a hash of season keys and average goals value' do
-      expected = { '20122013' => 4.0,
-                   '20132014' => 4.33,
-                   '20142015' => 3.14,
-                   '20152016' => 4.63,
-                   '20162017' => 4.36,
-                   '20172018' => 4.58 }
+      expected = {
+        '20122013' => 4.12,
+        '20162017' => 4.23,
+        '20142015' => 4.14,
+        '20152016' => 4.16,
+        '20132014' => 4.19,
+        '20172018' => 4.44
+      }
 
       expect(@stat_tracker.average_goals_by_season).to eq(expected)
     end
 
-    xit '#countsgames by season' do 
+    xit '#countsgames by season' do
 
       expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
 
@@ -115,11 +117,11 @@ RSpec.describe StatTracker do
     it 'calculates the percentage of wins for all teams playing home games' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
-    
+
     it 'calculates the percentage of wins for all teams playing away games' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
-    
+
     it 'calculates the percentage of ties for all teams across all seasons' do
       expect(@stat_tracker.percentage_ties).to eq(0.20)
     end
