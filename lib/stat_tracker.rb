@@ -117,6 +117,10 @@ class StatTracker
   def percentage_ties
     (1.0 - percentage_home_wins - percentage_visitor_wins).round(2)
   end
+
+  def lowest_scoring_visitor
+    
+  end
   
   def most_tackles(season)
     tackles_by_team = Hash.new(0)

@@ -134,4 +134,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles('20142015')).to eq 'Orlando City SC'
     end
   end
+
+  describe '#Highest and lowest scoring teams' do
+    it "shows lowest scoring team's name across all seasons" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
+    
+    it "shows lowest scoring team's name across all seasons" do
+    end
+  end
 end
