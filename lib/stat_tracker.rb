@@ -152,7 +152,21 @@ class StatTracker
       team_name_by_id(max_avg_score.first)
   end
 
-  
+  def lowest_scoring_home_team
+    team_info = all_games.group_by(&:home_id)
+    team_avg_score = Hash.new(0)
+    team_info.map do |team, games|
+      total_score = games.map do |game|
+        game.home_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      team_avg_score[team] = avg_score_per_game
+    end
+      min_avg_score = team_avg_score.min_by do |team, avg_score|
+        avg_score
+      end
+      team_name_by_id(min_avg_score.first)
+  end
 end
 
 
