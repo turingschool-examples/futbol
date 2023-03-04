@@ -35,7 +35,7 @@ RSpec.describe LeagueStats do
     end
   end
 
-  describe '#helper methods for offenses'do
+  describe '#helper methods for offenses' do
     it 'checks total goals by team' do
       expect(@league_stat.total_goals_by_team).to be_a Hash
     end
@@ -66,6 +66,20 @@ RSpec.describe LeagueStats do
 
     it 'returns string of home team low score' do
       expect(@league_stat.lowest_scoring_home_team).to eq('Utah Royals FC')
+    end
+  end
+
+  describe '#helper methods for away team' do
+    it 'has total goals by away team' do
+      expect(@league_stat.total_goals_by_away_team).to be_a Hash
+    end
+
+    it 'has total games by away team' do
+      expect(@league_stat.total_away_games_by_team).to be_a Hash
+    end
+
+    it 'has average' do
+      expect(@league_stat.average_goal_by_away_team).to be_a Hash
     end
   end
 end
