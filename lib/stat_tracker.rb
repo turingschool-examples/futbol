@@ -237,17 +237,18 @@ class StatTracker
     season.games.each do |game|
       if game.team_stats[:home_team][:result] == 'WIN'
         coach_wins[game.team_stats[:home_team][:head_coach]] += 1
+        coach_losses[game.team_stats[:away_team][:head_coach]] += 1
       elsif game.team_stats[:away_team][:result] == 'WIN'
         coach_wins[game.team_stats[:away_team][:head_coach]] += 1
-      elsif game.team_stats[:home_team][:result] == 'LOSS'
         coach_losses[game.team_stats[:home_team][:head_coach]] += 1
-      elsif game.team_stats[:away_team][:result] == 'LOSS'
+      elsif game.team_stats[:home_team][:result] == 'TIE'
+        coach_losses[game.team_stats[:home_team][:head_coach]] += 1
         coach_losses[game.team_stats[:away_team][:head_coach]] += 1
       end
     end
     [coach_wins, coach_losses]
   end
-
+  
   def games_coached(season_year)
     season = @league.seasons.find do |season|
       season.year == season_year
@@ -258,24 +259,6 @@ class StatTracker
       coach_games[game.team_stats[:away_team][:head_coach]] += 1
     end
     coach_games
-  end
-
-  def count_of_teams
-    @league.teams.count
-  end
-
-  def best_offense
-    team_and_goals_per_game = avg_goals
-    team_and_goals_per_game.max_by { |team, goals_per_game| goals_per_game }.first
-  end
-
-  def worst_offense
-    team_and_goals_per_game = avg_goals
-    team_and_goals_per_game.min_by { |team, goals_per_game| goals_per_game }.first
-  end
-
-  def highest_scoring_visitor
-
   end
   
   def winningest_coach(season_year)
@@ -295,7 +278,7 @@ class StatTracker
     end
     winningest_coach
   end
-
+  
   def worst_coach(season_year)
     coach_game_count = games_coached(season_year)
     coach_loss_count = wins_losses_by_coach(season_year).last
