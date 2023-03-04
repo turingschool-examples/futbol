@@ -22,27 +22,28 @@ ______     _   _           _      __
 - Group work time in study hall/collaborate when needed
 - Created protocol for reaching out to team if unproductive struggle for >= 1hr
 
-[Return to Top](#table-of-conents)
+[Return to Top](#table-of-contents)
 
 ## Organization
 - [DefCom4 Figma Board](https://www.figma.com/file/KlqoaiCb4qATpYk1rt6UUV/Futbol?node-id=0%3A1&t=YJCr2TCN91YUfkQH-0)
+![outline](outline.png)
 - [DefCom4 GitHub Project](https://github.com/users/andrew-bingham1/projects/1/views/2)
 - Adhere to a formula for writing commit messages to streamline readability
 
-[Return to Top](#table-of-conents)
+[Return to Top](#table-of-contents)
 
 ## Design Approach
 - Adherence to SRP
 - Russian nesting doll approach
 - Refactor after functionality is achieved
 
-[Return to Top](#table-of-conents)
+[Return to Top](#table-of-contents)
 
 ## DTR
 - [Original DTR](https://docs.google.com/document/d/1mXX4xO6k7aFdUO3jWYz3Tc7ONjrx3_nEftG3Vrv3wkc/edit#)
 - [Second DTR](https://docs.google.com/document/d/1dsquJocsr7bqSM_DtHpanRetoTp94kxvl0w0n0TGJl0/edit?usp=sharing)
 
-[Return to Top](#table-of-conents)
+[Return to Top](#table-of-contents)
 
 ## Contributors
 - Angel Byun - [LinkedIn](https://www.linkedin.com/in/angel-byun-a0274a267/) - [Github](https://github.com/angelbyun)
@@ -53,7 +54,7 @@ ______     _   _           _      __
 
 - Crow Rising - [LinkedIn](https://www.linkedin.com/in/crowrising/) - [Github](https://github.com/CrowRising)
 
-[Return to Top](#table-of-conents)
+[Return to Top](#table-of-contents)
 
 ## Retrospective 
 ![Retro](retro.png)
@@ -69,4 +70,4 @@ ______     _   _           _      __
 - We should have planned everything more at the start (naming conventions, etc)
 - Should have avoided working late into the night on some pieces 
 
-[Return to Top](#table-of-conents)
+[Return to Top](#table-of-contents)
