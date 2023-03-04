@@ -1,6 +1,4 @@
-require_relative 'stat_holder'
-
-class League < StatHolder
+class League
   attr_reader :team_id,
               :franchise_id,
               :team_name,
@@ -10,7 +8,7 @@ class League < StatHolder
               :goal
   
   def initialize(locations)
-    super
+  
     team_file = CSV.read locations[:teams], headers: true, header_converters: :symbol
     game_team_file = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     @team_id = team_file[:team_id]

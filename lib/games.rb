@@ -1,6 +1,4 @@
-require_relative 'stat_holder'
-
-class Games < StatHolder
+class Games
   attr_reader :game_id,
               :season,
               :type,
@@ -13,7 +11,6 @@ class Games < StatHolder
               :venue_link
 
   def initialize(locations)
-    super
     file = CSV.read locations[:games], headers: true, header_converters: :symbol
     @game_id = file[:game_id]
     @season = file[:season]
@@ -48,10 +45,11 @@ class Games < StatHolder
   def average_goals_by_season
     avg_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
     (0..@game_id.length).each do |i|
-      season = @season[i].to_i; goals = @home_goals[i].to_i + @away_goals[i].to_i
+      season = @season[i]; goals = @home_goals[i].to_i + @away_goals[i].to_i
       avg_goals[season][:goals] += goals
       avg_goals[season][:games] += 1
     end
+    avg_goals.delete(nil)
     avg_goals.transform_values do |season| 
       season[:goals].fdiv(season[:games]).round(2) 
     end
@@ -84,9 +82,10 @@ class Games < StatHolder
   def count_of_games_by_season
     season_games = Hash.new(0)
     (0..@game_id.length).each do |i|
-      season = @season[i].to_i
+      season = @season[i]
       season_games[season] += 1
     end
+    season_games.delete(nil)
     season_games
   end
 

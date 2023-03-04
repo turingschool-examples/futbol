@@ -2,7 +2,7 @@ require 'csv'
 require 'rspec'
 require './lib/game_teams'
 
-RSpec.describe GameTeam do
+RSpec.describe GameTeams do
   before(:all) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -14,14 +14,14 @@ RSpec.describe GameTeam do
       game_teams: game_teams_path
     }
 
-    @game_teams = GameTeam.new(locations)
+    @game_teams = GameTeams.new(locations)
     @games = Games.new(locations)
     @teams = League.new(locations)
   end
 
   describe 'gameteams' do
     it 'exists' do
-      expect(@game_teams).to be_a(GameTeam)
+      expect(@game_teams).to be_a(GameTeams)
     end
   end
 
@@ -138,7 +138,7 @@ RSpec.describe GameTeam do
     describe 'most_tackles and least_tackles' do
       it 'most_tackles' do
         index = @teams.team_id.find_index(@game_teams.most_tackles('20122013'))
-        expect(@teams.team_name[index]).to eq("FC Cincinatti")
+        expect(@teams.team_name[index]).to eq("FC Cincinnati")
       end
     end
   end

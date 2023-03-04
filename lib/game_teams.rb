@@ -1,9 +1,6 @@
-require_relative 'stat_holder'
-
-class GameTeam < StatHolder
+class GameTeams
   def initialize(locations)
-    super()
-    require 'pry'; binding.pry
+
     file = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     @game_id = file[:game_id]
     @team_id = file[:team_id]
