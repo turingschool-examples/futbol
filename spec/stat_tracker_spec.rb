@@ -139,7 +139,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.best_offense).to eq("Reign FC")
     end
 
-    xit "#worst_offense" do
+    it "calculates the worst_offense with the highest number of goals per game" do
       expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
     end
   end
