@@ -177,11 +177,12 @@ RSpec.describe StatTracker do
   end
 
   describe '#Highest and lowest scoring teams' do
-    it "shows lowest scoring team's name across all seasons" do
+    it "shows lowest scoring away team's name across all seasons" do
       expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes")
     end
     
-    it "shows lowest scoring team's name across all seasons" do
+    it "shows highest scoring away team's name across all seasons" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
 
   end
