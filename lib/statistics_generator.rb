@@ -26,8 +26,8 @@ class StatisticsGenerator
     end
     new(new_locations)
   end
-
-  def processed_teams_data(locations)
+  
+  def processed_teams_data(locations) :teams
     all_teams = []
     teams = @data[:teams]
     teams.each do |row|

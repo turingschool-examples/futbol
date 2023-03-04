@@ -99,7 +99,7 @@ RSpec.describe StatTracker do
    end
    
   describe '#count_of_games_by_season' do
-    xit '#count_of_games_by_season' do
+    it '#count_of_games_by_season' do
       expect(@stat_tracker.count_of_games_by_season["20122013"]).to eq(806)
       expect(@stat_tracker.seasons_by_id["20122013"][:game_teams].length).to eq(1612)
     end
@@ -168,12 +168,12 @@ RSpec.describe StatTracker do
   end
 
   describe "Tackles" do
-    xit "#most_tackles" do
+    it "#most_tackles" do
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
-    xit "#fewest_tackles" do
+    it "#fewest_tackles" do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
