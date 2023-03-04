@@ -83,6 +83,40 @@ class StatTracker
     game_count
   end
 
+  def best_offense
+    team_info = all_game_teams.group_by(&:team_id)
+    avg_team_goals = Hash.new(0)
+    team_info.map do |team, games|
+      all_goals = games.map do |game|
+        game.goals  
+      end
+      team_avg_goals_per_game = all_goals.sum.fdiv(all_goals.count)
+      
+      avg_team_goals[team] = team_avg_goals_per_game
+    end
+      max_avg_goals = avg_team_goals.max_by do |team, avg_goals|
+      avg_goals
+    end
+    team_name_by_id(max_avg_goals.first)
+  end
+
+  def worst_offense
+    team_info = all_game_teams.group_by(&:team_id)
+    avg_team_goals = Hash.new(0)
+    team_info.map do |team, games|
+      all_goals = games.map do |game|
+        game.goals  
+      end
+      team_avg_goals_per_game = all_goals.sum.fdiv(all_goals.count)
+      
+      avg_team_goals[team] = team_avg_goals_per_game
+    end
+      min_avg_goals = avg_team_goals.min_by do |team, avg_goals|
+      avg_goals
+    end
+    team_name_by_id(min_avg_goals.first)
+  end
+
   def average_goals_by_season
     games_by_season.transform_values do |games_array|
       scores_array = games_array.map(&:total_score)
@@ -117,7 +151,23 @@ class StatTracker
   def percentage_ties
     (1.0 - percentage_home_wins - percentage_visitor_wins).round(2)
   end
-  
+
+  def lowest_scoring_visitor
+    team_info = all_games.group_by(&:away_id)
+    avg_score = Hash.new(0)
+    team_info.map do |team, games|
+      total_score = games.map do |game|
+        game.away_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      avg_score[team] = avg_score_per_game
+    end
+    min_avg_score = avg_score.min_by do |_, avg_scores|
+      avg_scores
+    end
+    team_name_by_id(min_avg_score.first)
+  end
+
   def most_tackles(season)
     tackles_by_team = Hash.new(0)
     game_teams_by_season(season).each do |game_team|
@@ -166,6 +216,26 @@ class StatTracker
         avg_score
       end
       team_name_by_id(min_avg_score.first)
+   end
+
+  def most_accurate_team(season)
+    most_accurate_id = goals_to_shots_ratio(season).max_by { |_team_id, ratio| ratio }.first
+    team_name_by_id(most_accurate_id)
+  end
+
+  def least_accurate_team(season)
+    least_accurate_id = goals_to_shots_ratio(season).min_by { |_team_id, ratio| ratio }.first
+    team_name_by_id(least_accurate_id)
+  end
+
+  def goals_to_shots_ratio(season)
+    total_goals_by_team = Hash.new(0)
+    total_shots_by_team = Hash.new(0)
+    game_teams_by_season(season).each do |game_team|
+      total_goals_by_team[game_team.team_id] += game_team.goals
+      total_shots_by_team[game_team.team_id] += game_team.shots
+    end
+    total_goals_by_team.merge(total_shots_by_team) { |_team_id, total_goals, total_shots| (total_goals / total_shots.to_f) }
   end
 end
 
