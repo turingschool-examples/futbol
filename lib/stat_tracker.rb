@@ -99,7 +99,7 @@ class StatTracker
     avg_team_goals.max_by do |team, avg_goals|
       avg_goals
     end
-    all_teams.find { |team| team.team_id == team_id }.team_name
+     team_name_by_id(team_id)
   end
   
     #from game_teams group by team_id? 
