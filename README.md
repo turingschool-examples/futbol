@@ -35,6 +35,7 @@ ______     _   _           _      __
 - Adherence to SRP
 - Russian nesting doll approach
 - Refactor after functionality is achieved
+
 [Return to Top](#table-of-conents)
 
 ## DTR
