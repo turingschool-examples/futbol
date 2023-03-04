@@ -19,9 +19,9 @@ class StatTracker
     @teams = []
     @game_teams = []
     @game_seasons = {}
-    @games_data = parse_games_data(csv_games_data)
-    @game_team_data = parse_game_team_data(csv_game_team_data)
-    @team_data = parse_team_data(csv_team_data)
+    parse_games_data(csv_games_data)
+    parse_game_team_data(csv_game_team_data)
+    parse_team_data(csv_team_data)
   end
 
   def self.from_csv(locations)
