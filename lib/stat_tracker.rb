@@ -96,10 +96,10 @@ class StatTracker
       
       avg_team_goals[team] = team_avg_goals_per_game
     end
-    avg_team_goals.max_by do |team, avg_goals|
+      max_avg_goals = avg_team_goals.max_by do |team, avg_goals|
       avg_goals
     end
-     team_name_by_id(team_id)
+    team_name_by_id(max_avg_goals.first)
   end
   
     #from game_teams group by team_id? 
