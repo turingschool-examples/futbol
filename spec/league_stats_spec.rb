@@ -82,4 +82,18 @@ RSpec.describe LeagueStats do
       expect(@league_stat.average_goal_by_away_team).to be_a Hash
     end
   end
+
+  describe '#helper methods for home team' do
+    it 'has total goals by away team' do
+      expect(@league_stat.total_goals_by_home_team).to be_a Hash
+    end
+
+    it 'has total games by home team' do
+      expect(@league_stat.total_home_games_by_team).to be_a Hash
+    end
+
+    it 'has average' do
+      expect(@league_stat.average_goal_by_home).to be_a Hash
+    end
+  end
 end
