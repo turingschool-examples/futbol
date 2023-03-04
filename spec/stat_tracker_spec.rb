@@ -133,5 +133,9 @@ RSpec.describe StatTracker do
     it 'returns the name of the team with the fewest tackles of a given season' do
       expect(@stat_tracker.fewest_tackles('20142015')).to eq 'Orlando City SC'
     end
+  
+    it "#highest_scoring_home_team" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+    end
   end
 end

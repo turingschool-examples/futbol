@@ -135,4 +135,50 @@ class StatTracker
     min_team_id = tackles_by_team.min_by { |_team_id, tackles| tackles }.first
     team_name_by_id(min_team_id)
   end
+
+
+  def best_offense
+    #name of the team with the highest 
+    #average number of goals scored per game across all seasons (string)
+    team_info = all_game_teams.group_by(&:team_id)
+    avg_team_goals = Hash.new(0)
+    team_info.map do |team, games|
+      all_goals = games.map do |game|
+        game.goals  
+        require 'pry'; binding.pry
+      end
+      team_avg_goals_per_game = all_goals.sum.fdiv(all_goals.count)
+      
+      avg_team_goals[team] = team_avg_goals_per_game
+    end
+      max_avg_goals = avg_team_goals.max_by do |team, avg_goals|
+      avg_goals
+    end
+    team_name_by_id(max_avg_goals.first)
+  end
+  
+    #from game_teams group by team_id? 
+    #value is hash of all game_teams
+    #find sum of goalsscored/#games played
+
+    #max_by
+
+  def highest_scoring_home_team
+    team_info = all_games.group_by(&:home_id)
+    team_avg_score = Hash.new(0)
+    team_info.map do |team, games|
+      total_score = games.map do |game|
+        game.home_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+
+      team_avg_score[team] = avg_score_per_game
+    require 'pry'; binding.pry
+    end
+  end
 end
+
+
+
+
+
