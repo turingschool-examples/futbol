@@ -134,4 +134,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles('20142015')).to eq 'Orlando City SC'
     end
   end
+
+  describe '#most_accurate_team and #least_accurate_team' do
+    it 'returns the name of the team witha seasons  most accurate goals to shots ratio' do
+      expect(@stat_tracker.most_accurate_team('20132014')).to eq 'Real Salt Lake'
+    end
+
+    it 'returns the name of the team with a seasons least accurate goals to shots ratio' do
+      expect(@stat_tracker.least_accurate_team('20142015')).to eq 'Columbus Crew SC'
+    end
+  end
+
+  describe '#goals_to_shots_ratio' do
+    it 'returns a hash of team key and goals to shots ratio' do
+      expect(@stat_tracker.goals_to_shots_ratio('20122013')).to be_a Hash
+      expect(@stat_tracker.goals_to_shots_ratio('20122013').keys.all?(Integer)).to be true
+      expect(@stat_tracker.goals_to_shots_ratio('20122013').values.all?(Float)).to be true
+    end
+  end
 end
