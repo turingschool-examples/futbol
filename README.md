@@ -15,10 +15,10 @@
 --Initial DTR: https://docs.google.com/document/d/1TVIrKCc77yoqR3RBaRtuyYKPL8ZL5cEUSyujZdC1YwQ/edit?usp=sharing
 
 ## Contributors:
-  --Stephen McPhee
+  --Stephen McPhee [Github](https://github.com/SMcPhee19)
   
-  --Reilly Miller
+  --Reilly Miller [Github](https://github.com/rmiller220)
   
-  --Brian Guthrie
+  --Brian Guthrie [Github](https://github.com/Brianisthebest)
   
-  --Andrew Bowman
+  --Andrew Bowman [Github](https://github.com/abwmn)

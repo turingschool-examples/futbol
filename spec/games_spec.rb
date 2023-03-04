@@ -14,7 +14,7 @@ RSpec.describe Games do
       game_teams: game_teams_path
     }
 
-    @game_teams = GameTeam.new(locations)
+    @game_teams = GameTeams.new(locations)
     @games = Games.new(locations)
     @teams = League.new(locations)
   end
@@ -37,12 +37,12 @@ RSpec.describe Games do
 
   describe 'average_goals_by_season and average_goals_per_game' do
     it 'average_goals_by_season' do
-      expect(@games.average_goals_by_season).to eq({20122013=>4.12,
-                                                    20162017=>4.23, 
-                                                    20142015=>4.14, 
-                                                    20152016=>4.16, 
-                                                    20132014=>4.19, 
-                                                    20172018=>4.44})
+      expect(@games.average_goals_by_season).to eq({'20122013'=>4.12,
+                                                    '20162017'=>4.23, 
+                                                    '20142015'=>4.14, 
+                                                    '20152016'=>4.16, 
+                                                    '20132014'=>4.19, 
+                                                    '20172018'=>4.44})
     end
 
     it 'average_goals_per_game' do
@@ -66,12 +66,12 @@ RSpec.describe Games do
 
   describe 'count_of_games_by_season' do
     it 'count_of_games_by_season' do
-      expect(@games.count_of_games_by_season).to eq({20122013=>806, 
-                                                     20162017=>1317, 
-                                                     20142015=>1319, 
-                                                     20152016=>1321, 
-                                                     20132014=>1323, 
-                                                     20172018=>1355})
+      expect(@games.count_of_games_by_season).to eq({'20122013'=>806, 
+                                                     '20162017'=>1317, 
+                                                     '20142015'=>1319, 
+                                                     '20152016'=>1321, 
+                                                     '20132014'=>1323, 
+                                                     '20172018'=>1355})
     end
   end
 end
