@@ -13,7 +13,7 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
 
-    @stat_tracker = StatTracker.new(locations)
+    @stat_tracker = StatTracker.from_csv(locations)
   end
 
   describe 'game_stats' do
@@ -28,8 +28,8 @@ RSpec.describe StatTracker do
     it 'average_goals_by_season' do
       avg_goals = @stat_tracker.average_goals_by_season
       expect(avg_goals).to be_a(Hash)
-      expect(avg_goals[20122013]).to eq(4.12)
-      expect(avg_goals[20132014]).to eq(4.19)
+      expect(avg_goals['20122013']).to eq(4.12)
+      expect(avg_goals['20132014']).to eq(4.19)
     end
 
     it 'average_home_wins' do
@@ -45,7 +45,7 @@ RSpec.describe StatTracker do
     end
 
     it 'count_of_games_by_season' do
-      expect(@stat_tracker.count_of_games_by_season[20122013]).to eq(806)
+      expect(@stat_tracker.count_of_games_by_season['20122013']).to eq(806)
     end
 
     it 'average_goals_per_game' do

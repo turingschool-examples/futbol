@@ -45,11 +45,13 @@ class Games
   def average_goals_by_season
     avg_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
     (0..@game_id.length).each do |i|
-      season = @season[i].to_i; goals = @home_goals[i].to_i + @away_goals[i].to_i
+      season = @season[i]; goals = @home_goals[i].to_i + @away_goals[i].to_i
       avg_goals[season][:goals] += goals
       avg_goals[season][:games] += 1
     end
-    avg_goals.delete(0)
+
+    avg_goals.delete(nil)
+
     avg_goals.transform_values do |season| 
       season[:goals].fdiv(season[:games]).round(2) 
     end
@@ -82,10 +84,10 @@ class Games
   def count_of_games_by_season
     season_games = Hash.new(0)
     (0..@game_id.length).each do |i|
-      season = @season[i].to_i
+      season = @season[i]
       season_games[season] += 1
     end
-    season_games.delete(0)
+    season_games.delete(nil)
     season_games
   end
 

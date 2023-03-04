@@ -14,7 +14,10 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-03-03T15:10:53-07:00">2023-03-03T15:10:53-07:00</abbr></div>
+
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-03-03T17:42:21-07:00">2023-03-03T17:42:21-07:00</abbr></div>
+
+
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -43,8 +46,10 @@
   </div>
 
   <div class="t-line-summary">
-    <b>59</b> relevant lines,
-    <span class="green"><b>59</b> lines covered</span> and
+
+    <b>65</b> relevant lines,
+    <span class="green"><b>65</b> lines covered</span> and
+
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -73,9 +78,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#769565f94f7adce63c46fb4897bf2a7752856a49" class="src_link" title="lib/stat_tracker.rb">lib/stat_tracker.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">106</td>
-            <td class="cell--number">59</td>
-            <td class="cell--number">59</td>
+            <td class="cell--number">114</td>
+            <td class="cell--number">65</td>
+            <td class="cell--number">65</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.02</td>
             
@@ -112,8 +117,10 @@
     
 
     <div class="t-line-summary">
-      <b>59</b> relevant lines.
-      <span class="green"><b>59</b> lines covered</span> and
+
+      <b>65</b> relevant lines.
+      <span class="green"><b>65</b> lines covered</span> and
+
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -127,11 +134,12 @@
         <div>
           <li class="covered" data-hits="1" data-linenumber="1">
             <span class="hits">1</span>
-            
 
             
 
-            <code class="ruby">require_relative &#39;./stat_tracker&#39;</code>
+            
+
+            <code class="ruby">require &#39;csv&#39;</code>
           </li>
         </div>
       
@@ -142,7 +150,7 @@
 
             
 
-            <code class="ruby">require &#39;csv&#39;</code>
+            <code class="ruby">require_relative &#39;games&#39;</code>
           </li>
         </div>
       
@@ -153,12 +161,34 @@
 
             
 
-            <code class="ruby">class StatTracker</code>
+            <code class="ruby">require_relative &#39;league&#39;</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="4">
+          <li class="covered" data-hits="1" data-linenumber="4">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">require_relative &#39;game_teams&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="5">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">require_relative &#39;banana&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="6">
             
             
 
@@ -169,46 +199,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="5">
-            
-            
-
-            
-
-            <code class="ruby">  # def self.from_csv(locations)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="6">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def initialize(locations)</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="covered" data-hits="1" data-linenumber="7">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    @games = Games.new(locations)</code>
+            <code class="ruby">class StatTracker &lt; Banana</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="8">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="8">
+            
             
 
             
 
-            <code class="ruby">    @teams = League.new(locations)</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -219,7 +227,7 @@
 
             
 
-            <code class="ruby">    @game_teams = GameTeam.new(locations)</code>
+            <code class="ruby">  attr_reader :games,</code>
           </li>
         </div>
       
@@ -230,29 +238,29 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">              :teams,</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="11">
-            
-            
 
             
 
-            <code class="ruby">  # end</code>
+            
+
+            <code class="ruby">              :game_teams</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="12">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="12">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  </code>
+            
+
+            <code class="ruby">  def self.from_csv(locations)</code>
           </li>
         </div>
       
@@ -263,23 +271,12 @@
 
             
 
-            <code class="ruby">  def highest_total_score</code>
+            <code class="ruby">    StatTracker.new(locations)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="14">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @games.highest_total_score</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="15">
+          <li class="never" data-hits="" data-linenumber="14">
             
             
 
@@ -290,13 +287,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="16">
+          <li class="covered" data-hits="1" data-linenumber="15">
+            <span class="hits">1</span>
             
+
+            
+
+            <code class="ruby">  def initialize(locations)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="16">
+            <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  </code>
+            <code class="ruby">    @games = Games.new(locations)</code>
           </li>
         </div>
       
@@ -307,7 +315,7 @@
 
             
 
-            <code class="ruby">  def lowest_total_score</code>
+            <code class="ruby">    @teams = League.new(locations)</code>
           </li>
         </div>
       
@@ -318,7 +326,7 @@
 
             
 
-            <code class="ruby">    @games.lowest_total_score</code>
+            <code class="ruby">    @game_teams = GameTeams.new(locations)</code>
           </li>
         </div>
       
@@ -340,7 +348,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  </code>
           </li>
         </div>
       
@@ -351,7 +359,7 @@
 
             
 
-            <code class="ruby">  def average_goals_by_season</code>
+            <code class="ruby">  def highest_total_score</code>
           </li>
         </div>
       
@@ -362,7 +370,7 @@
 
             
 
-            <code class="ruby">    @games.average_goals_by_season</code>
+            <code class="ruby">    @games.highest_total_score</code>
           </li>
         </div>
       
@@ -384,7 +392,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  </code>
           </li>
         </div>
       
@@ -395,7 +403,7 @@
 
             
 
-            <code class="ruby">  def percent_home_wins</code>
+            <code class="ruby">  def lowest_total_score</code>
           </li>
         </div>
       
@@ -406,7 +414,7 @@
 
             
 
-            <code class="ruby">   @games.percent_home_wins</code>
+            <code class="ruby">    @games.lowest_total_score</code>
           </li>
         </div>
       
@@ -439,7 +447,7 @@
 
             
 
-            <code class="ruby">  def percent_away_wins</code>
+            <code class="ruby">  def average_goals_by_season</code>
           </li>
         </div>
       
@@ -450,7 +458,7 @@
 
             
 
-            <code class="ruby">   @games.percent_away_wins</code>
+            <code class="ruby">    @games.average_goals_by_season</code>
           </li>
         </div>
       
@@ -483,7 +491,7 @@
 
             
 
-            <code class="ruby">  def percent_ties</code>
+            <code class="ruby">  def percent_home_wins</code>
           </li>
         </div>
       
@@ -494,7 +502,7 @@
 
             
 
-            <code class="ruby">    @games.percent_ties</code>
+            <code class="ruby">   @games.percent_home_wins</code>
           </li>
         </div>
       
@@ -527,7 +535,7 @@
 
             
 
-            <code class="ruby">  def count_of_games_by_season</code>
+            <code class="ruby">  def percent_away_wins</code>
           </li>
         </div>
       
@@ -538,7 +546,7 @@
 
             
 
-            <code class="ruby">    @games.count_of_games_by_season</code>
+            <code class="ruby">   @games.percent_away_wins</code>
           </li>
         </div>
       
@@ -571,7 +579,7 @@
 
             
 
-            <code class="ruby">  def average_goals_per_game</code>
+            <code class="ruby">  def percent_ties</code>
           </li>
         </div>
       
@@ -582,7 +590,7 @@
 
             
 
-            <code class="ruby">    @games.average_goals_per_game</code>
+            <code class="ruby">    @games.percent_ties</code>
           </li>
         </div>
       
@@ -615,7 +623,7 @@
 
             
 
-            <code class="ruby">  def count_of_teams</code>
+            <code class="ruby">  def count_of_games_by_season</code>
           </li>
         </div>
       
@@ -626,7 +634,7 @@
 
             
 
-            <code class="ruby">    @teams.count_of_teams</code>
+            <code class="ruby">    @games.count_of_games_by_season</code>
           </li>
         </div>
       
@@ -659,7 +667,7 @@
 
             
 
-            <code class="ruby">  def best_offense</code>
+            <code class="ruby">  def average_goals_per_game</code>
           </li>
         </div>
       
@@ -670,18 +678,18 @@
 
             
 
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.best_offense)</code>
+            <code class="ruby">    @games.average_goals_per_game</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="51">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="51">
+            
             
 
             
 
-            <code class="ruby">    @teams.team_name[index]</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -692,18 +700,18 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="53">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="53">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">  def count_of_teams</code>
           </li>
         </div>
       
@@ -714,34 +722,12 @@
 
             
 
-            <code class="ruby">  def worst_offense</code>
+            <code class="ruby">    @teams.count_of_teams</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="55">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.worst_offense)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="56">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @teams.team_name[index]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="57">
+          <li class="never" data-hits="" data-linenumber="55">
             
             
 
@@ -752,13 +738,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="58">
+          <li class="never" data-hits="" data-linenumber="56">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="57">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def best_offense</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="58">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.best_offense)</code>
           </li>
         </div>
       
@@ -769,34 +777,12 @@
 
             
 
-            <code class="ruby">  def highest_scoring_visitor </code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="60">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.highest_scoring_visitor)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="61">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">    @teams.team_name[index]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="62">
+          <li class="never" data-hits="" data-linenumber="60">
             
             
 
@@ -807,13 +793,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="63">
+          <li class="never" data-hits="" data-linenumber="61">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="62">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def worst_offense</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="63">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.worst_offense)</code>
           </li>
         </div>
       
@@ -824,34 +832,12 @@
 
             
 
-            <code class="ruby">  def lowest_scoring_visitor</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="65">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.lowest_scoring_visitor)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="66">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">    @teams.team_name[index]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="67">
+          <li class="never" data-hits="" data-linenumber="65">
             
             
 
@@ -862,13 +848,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="68">
+          <li class="never" data-hits="" data-linenumber="66">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="67">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def highest_scoring_visitor </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="68">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.highest_scoring_visitor)</code>
           </li>
         </div>
       
@@ -879,34 +887,12 @@
 
             
 
-            <code class="ruby">  def highest_scoring_home_team </code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="70">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.highest_scoring_home_team)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="71">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">    @teams.team_name[index]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="72">
+          <li class="never" data-hits="" data-linenumber="70">
             
             
 
@@ -917,13 +903,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="73">
+          <li class="never" data-hits="" data-linenumber="71">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="72">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def lowest_scoring_visitor</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="73">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.lowest_scoring_visitor)</code>
           </li>
         </div>
       
@@ -934,34 +942,12 @@
 
             
 
-            <code class="ruby">  def lowest_scoring_home_team</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="75">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.lowest_scoring_home_team)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="76">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">    @teams.team_name[index]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="77">
+          <li class="never" data-hits="" data-linenumber="75">
             
             
 
@@ -972,13 +958,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="78">
+          <li class="never" data-hits="" data-linenumber="76">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="77">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def highest_scoring_home_team </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="78">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.highest_scoring_home_team)</code>
           </li>
         </div>
       
@@ -989,23 +997,12 @@
 
             
 
-            <code class="ruby">  def winningest_coach(season_id)</code>
+            <code class="ruby">    @teams.team_name[index]</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="80">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    @game_teams.winningest_coach(season_id)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="81">
+          <li class="never" data-hits="" data-linenumber="80">
             
             
 
@@ -1016,7 +1013,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="82">
+          <li class="never" data-hits="" data-linenumber="81">
             
             
 
@@ -1027,13 +1024,24 @@
         </div>
       
         <div>
+          <li class="covered" data-hits="1" data-linenumber="82">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def lowest_scoring_home_team</code>
+          </li>
+        </div>
+      
+        <div>
           <li class="covered" data-hits="1" data-linenumber="83">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def worst_coach(season_id)</code>
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.lowest_scoring_home_team)</code>
           </li>
         </div>
       
@@ -1044,7 +1052,7 @@
 
             
 
-            <code class="ruby">    @game_teams.worst_coach(season_id)</code>
+            <code class="ruby">    @teams.team_name[index]</code>
           </li>
         </div>
       
@@ -1077,29 +1085,29 @@
 
             
 
-            <code class="ruby">  def least_accurate_team(season)</code>
+            <code class="ruby">  def winningest_coach(season_id)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="88">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="2" data-linenumber="88">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.least_accurate_team(season))</code>
+            <code class="ruby">    @game_teams.winningest_coach(season_id)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="89">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="89">
+            
             
 
             
 
-            <code class="ruby">    @teams.team_name[index]</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -1110,18 +1118,18 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="91">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="91">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">  def worst_coach(season_id)</code>
           </li>
         </div>
       
@@ -1132,34 +1140,12 @@
 
             
 
-            <code class="ruby">  def most_accurate_team(season)</code>
+            <code class="ruby">    @game_teams.worst_coach(season_id)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="93">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.most_accurate_team(season))</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="94">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @teams.team_name[index]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="95">
+          <li class="never" data-hits="" data-linenumber="93">
             
             
 
@@ -1170,13 +1156,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="96">
+          <li class="never" data-hits="" data-linenumber="94">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="95">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def least_accurate_team(season)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="96">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.least_accurate_team(season))</code>
           </li>
         </div>
       
@@ -1187,34 +1195,12 @@
 
             
 
-            <code class="ruby">  def most_tackles(season)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="98">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.most_tackles(season))</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="99">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">    @teams.team_name[index]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="100">
+          <li class="never" data-hits="" data-linenumber="98">
             
             
 
@@ -1225,7 +1211,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="101">
+          <li class="never" data-hits="" data-linenumber="99">
             
             
 
@@ -1236,29 +1222,29 @@
         </div>
       
         <div>
+          <li class="covered" data-hits="1" data-linenumber="100">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def most_accurate_team(season)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="101">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.most_accurate_team(season))</code>
+          </li>
+        </div>
+      
+        <div>
           <li class="covered" data-hits="1" data-linenumber="102">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def least_tackles(season)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="103">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.least_tackles(season))</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="104">
             <span class="hits">1</span>
             
 
@@ -1269,7 +1255,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="105">
+          <li class="never" data-hits="" data-linenumber="103">
             
             
 
@@ -1280,7 +1266,117 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="106">
+          <li class="never" data-hits="" data-linenumber="104">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="105">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def most_tackles(season)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="106">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.most_tackles(season))</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="107">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @teams.team_name[index]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="108">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="109">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="110">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def least_tackles(season)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="111">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    index = @teams.team_id.find_index(@game_teams.least_tackles(season))</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="112">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @teams.team_name[index]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="113">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="114">
             
             
 

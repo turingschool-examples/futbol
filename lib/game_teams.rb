@@ -1,5 +1,6 @@
-class GameTeam
+class GameTeams
   def initialize(locations)
+
     file = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
     @game_id = file[:game_id]
     @team_id = file[:team_id]

@@ -1,14 +1,22 @@
-require_relative './stat_tracker'
 require 'csv'
-class StatTracker
+require_relative 'games'
+require_relative 'league'
+require_relative 'game_teams'
+require_relative 'banana'
 
-  # def self.from_csv(locations)
+class StatTracker < Banana
+
+  attr_reader :games,
+              :teams,
+              :game_teams
+  def self.from_csv(locations)
+    StatTracker.new(locations)
+  end
   def initialize(locations)
     @games = Games.new(locations)
     @teams = League.new(locations)
-    @game_teams = GameTeam.new(locations)
+    @game_teams = GameTeams.new(locations)
   end
-  # end
   
   def highest_total_score
     @games.highest_total_score
