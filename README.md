@@ -28,7 +28,24 @@
 
 - We also plan to put common methods that might be used across the Stats classes into a module.
 
-[Initial DTR completed Monday Feb. 27, 2023](https://docs.google.com/document/d/1dh0IGhfFFzFICHPGQ5E1T7Iv2a_0WvBvUoctJfrnevE/edit?usp=sharing)
+[Initial DTR completed Monday Feb. 27, 2023 (Red Font)](https://docs.google.com/document/d/1dh0IGhfFFzFICHPGQ5E1T7Iv2a_0WvBvUoctJfrnevE/edit?usp=sharing)
+Check-In DTR completed Thursday, March 3, 2023 (Blue Font)
+
+## Retro
+### Retro Tools
+- We gathered ideas for how to retro and discussion points in this [Retro Planning Doc](https://jamboard.google.com/d/1nIugDsatsHrAmBB2du7mWFlzeMksKlAFkyb_xmIP2gc/viewer?f=4)
+
+- We used this [Jamboard](https://jamboard.google.com/d/1nIugDsatsHrAmBB2du7mWFlzeMksKlAFkyb_xmIP2gc/viewer?f=4) as a tool to guide our discussion during our retro.
+
+### 3 Things that Went Well 
+- Good Communication / Camaraderie
+- Clear expectations
+- Willingness to help & openness to support each other
+
+### 2 Things to Improve
+- The Code Itself
+- Turning to each other in moments of uncertainty
+  - *We want to ask each other for consent to do additional work rather than wondering whether doing extra work would impede on another person's learning. Better to ask than guess.*
 
 ## Contributors
 - Kailey Kaes - [LinkedIn](https://www.linkedin.com/in/kailey-kaes-336142219/), [GitHub](https://github.com/kaileykaes)
