@@ -14,23 +14,17 @@ class Games
     @home_team_id = file[:home_team_id]
     @away_goals = file[:away_goals]
     @home_goals = file[:home_goals]
+    @counter = 0
   end
 
   def highest_total_score
-    max = 0
-    @game_id.each_with_index do |_, i|
-      total = @home_goals[i].to_i + @away_goals[i].to_i
-      max = [max, total].max
-    end
-    max
+    calculate_highest_total_score
+    @counter
   end
   
   def lowest_total_score
     min = 10
-    (0..@game_id.length).each do |i|
-      score = @home_goals[i].to_i + @away_goals[i].to_i
-      min = [min, score].min
-    end
+    
     min
   end
 
@@ -89,5 +83,15 @@ class Games
       goals += @home_goals[i].to_i + @away_goals[i].to_i
     end
     goals.fdiv(@game_id.length).round(2)
+  end
+
+
+  # Helper Methods
+
+  def calculate_highest_total_score
+    @game_id.each_with_index do |_, i|
+      total = @home_goals[i].to_i + @away_goals[i].to_i
+      @counter = [@counter, total].max
+    end
   end
 end

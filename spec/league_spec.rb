@@ -1,6 +1,6 @@
 require 'csv'
 require 'rspec'
-require './lib/league'
+require './spec/spec_helper'
 
 RSpec.describe League do
   before(:all) do

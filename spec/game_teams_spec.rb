@@ -1,6 +1,6 @@
 require 'csv'
 require 'rspec'
-require './lib/game_teams'
+require './spec/spec_helper'
 
 
 RSpec.describe GameTeams do
