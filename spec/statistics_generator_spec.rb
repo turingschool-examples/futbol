@@ -25,7 +25,7 @@ RSpec.describe StatisticsGenerator do
     expect(@stat_generator.processed_teams_data(@locations)).to all(be_a(Team))
   end
 
-  it 'processed team data, retrieves data from teams' do
+  it 'processed team data, retrieves data from games' do
     expect(@stat_generator.processed_games_data(@locations)).to all(be_a(Game))
   end
 
