@@ -80,11 +80,12 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    game_count = {}
-    games_by_season.map do |season, games|
-      game_count[season] = games.count
-    end
-    game_count
+    # game_count = {}
+    games_by_season.transform_values{|value| value.count} 
+    # games_by_season.map do |season, games|
+    #   game_count[season] = games.count
+    # end
+    # game_count
   end
 
   def best_offense
