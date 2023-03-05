@@ -52,10 +52,14 @@ describe SeasonStats do
   end
 
   it 'determines the team with the most tackles' do 
-    expect(@stat_tracker.most_tackles("20132014")).to eq("FC Cincinnati")
+    @stat_tracker.game_teams = @test_game_teams_larger
+
+    expect(@stat_tracker.most_tackles("20132014")).to eq("Philadelphia Union")
   end
   
   it 'determines the team with the fewest tackles' do 
-    expect(@stat_tracker.fewest_tackles("20132014")).to eq("Atlanta United")
+    @stat_tracker.game_teams = @test_game_teams_larger
+
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq("New England Revolution")
   end
 end
