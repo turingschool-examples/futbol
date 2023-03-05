@@ -14,12 +14,6 @@ class StatTracker < StatisticsGenerator
   include Offensive
   include TackleCounter
 
-  attr_reader :data, 
-              :teams, 
-              :games, 
-              :game_teams,
-              :seasons_by_id
-
   def initialize(data)
     super(data)
   end
