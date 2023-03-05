@@ -19,10 +19,10 @@ RSpec.describe TeamStats do
   end
 
   it 'can create team hash' do
-    expect(@stat_tracker.team_info("1")[:team_id]).to eq("1")
-    expect(@stat_tracker.team_info("1")[:franchise_id]).to eq("23")
-    expect(@stat_tracker.team_info("1")[:team_name]).to eq("Atlanta United")
-    expect(@stat_tracker.team_info("1")[:abbreviation]).to eq("ATL")
-    expect(@stat_tracker.team_info("1")[:link]).to eq("/api/v1/teams/1")
+    expect(@stat_tracker.team_info("1")["team_id"]).to eq("1")
+    expect(@stat_tracker.team_info("1")["franchise_id"]).to eq("23")
+    expect(@stat_tracker.team_info("1")["team_name"]).to eq("Atlanta United")
+    expect(@stat_tracker.team_info("1")["abbreviation"]).to eq("ATL")
+    expect(@stat_tracker.team_info("1")["link"]).to eq("/api/v1/teams/1")
   end
 end

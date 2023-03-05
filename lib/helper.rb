@@ -1,9 +1,4 @@
 module Helper
-  def convert_to_team_name(input_team_id)
-    team = @teams.find {|team| team.team_id == input_team_id}
-    team.team_name
-  end
-
   def total_goals(game)
     game.away_goals + game.home_goals
   end
@@ -35,18 +30,5 @@ module Helper
     sum_shots = input_games.sum(&:shots)
     sum_goals = input_games.sum(&:goals)
     sum_goals.fdiv(sum_shots)*100
-  end
-
-  def game_team_select_season(input_season)
-    season_games = @games.select {|game| game.season == input_season}
-    game_team_season = []
-    season_games.each do |season_game|
-      @game_teams.each do |game_team|
-        if game_team.game_id == season_game.game_id
-          game_team_season << game_team
-        end
-      end
-    end
-    game_team_season
   end
 end

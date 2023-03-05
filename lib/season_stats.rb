@@ -8,7 +8,7 @@ module SeasonStats
   end
 
   def winningest_coach(input_season)
-    season_game_teams = game_team_select_season(input_season)
+    season_game_teams = @game_teams.select {|game_team| game_team.season == input_season}
     wins_by_coach = Hash.new(0)
     games_by_coach = Hash.new(0)
     season_game_teams.each do |game|
@@ -28,7 +28,7 @@ module SeasonStats
   end
 
   def worst_coach(input_season)
-    season_game_teams = game_team_select_season(input_season)
+    season_game_teams = @game_teams.select {|game_team| game_team.season == input_season}
     losses_by_coach = Hash.new(0)
     ties_by_coach = Hash.new(0)
     games_by_coach = Hash.new(0)
@@ -36,14 +36,14 @@ module SeasonStats
       coach = game.head_coach
       result = game.result
       case result
-      when "WIN"
-        games_by_coach[coach] += 1
-      when "LOSS"
-        losses_by_coach[coach] += 1
-        games_by_coach[coach] += 1
-      when "TIE"
-        ties_by_coach[coach] += 1
-        games_by_coach[coach] += 1
+        when "WIN"
+          games_by_coach[coach] += 1
+        when "LOSS"
+          losses_by_coach[coach] += 1
+          games_by_coach[coach] += 1
+        when "TIE"
+          ties_by_coach[coach] += 1
+          games_by_coach[coach] += 1
       end
     end
     win_percentages = {}
@@ -56,46 +56,46 @@ module SeasonStats
   
   
   def most_accurate_team(input_season)
-    season_game_teams = game_team_select_season(input_season)
-    teams_grouped = season_game_teams.group_by(&:team_id)
+    season_game_teams = @game_teams.select {|game_team| game_team.season == input_season}
+    teams_grouped = season_game_teams.group_by(&:team_name)
     teams_ave_accuracy = {}
     teams_grouped.each do |team, values|
       teams_ave_accuracy[team] = average_accuracy(values)
     end
     highest_accuracy = teams_ave_accuracy.max_by{|_, value| value}
-    convert_to_team_name(highest_accuracy[0])
+    highest_accuracy[0]
   end
 
   def least_accurate_team(input_season)
-    season_game_teams = game_team_select_season(input_season)
-    teams_grouped = season_game_teams.group_by(&:team_id)
+    season_game_teams = @game_teams.select {|game_team| game_team.season == input_season}
+    teams_grouped = season_game_teams.group_by(&:team_name)
     teams_ave_accuracy = {}
     teams_grouped.each do |team, values|
       teams_ave_accuracy[team] = average_accuracy(values)
     end
     lowest_accuracy = teams_ave_accuracy.min_by{|_, value| value}
-    convert_to_team_name(lowest_accuracy[0])
+    lowest_accuracy[0]
   end
 
   def most_tackles(input_season)
-    season_game_teams = game_team_select_season(input_season)
-    teams_info = season_game_teams.group_by(&:team_id)
+    season_game_teams = @game_teams.select {|game_team| game_team.season == input_season}
+    teams_info = season_game_teams.group_by(&:team_name)
     team_tackles = {}
     teams_info.map do |team, games|  
       team_tackles[team] = games.sum(&:tackles)
     end
     tackle_masters = team_tackles.max_by{|_, value| value}
-    convert_to_team_name(tackle_masters[0])
+    tackle_masters[0]
   end
   
   def fewest_tackles(input_season)
-    season_game_teams = game_team_select_season(input_season)
-    teams_info = season_game_teams.group_by(&:team_id)
+    season_game_teams = @game_teams.select {|game_team| game_team.season == input_season}
+    teams_info = season_game_teams.group_by(&:team_name)
     team_tackles = {}
     teams_info.map do |team, games|  
       team_tackles[team] = games.sum(&:tackles)
     end
     tackle_noobs = team_tackles.min_by{|_, value| value}
-    convert_to_team_name(tackle_noobs[0])
+    tackle_noobs[0]
   end
 end

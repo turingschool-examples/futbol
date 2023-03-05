@@ -14,7 +14,8 @@ class GameTeam
               :face_off_win_percentage,
               :give_aways,
               :take_aways,
-              :season
+              :season,
+              :team_name
 
   def initialize(details)
     @game_id = details[:game_id]
@@ -33,5 +34,6 @@ class GameTeam
     @give_aways = details[:giveaways].to_i
     @take_aways = details[:takeaways].to_i
     @season = details[:season]
+    @team_name = details[:team_name]
   end
 end
