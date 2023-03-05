@@ -114,6 +114,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe'#avg_score_per_game' do
+    it 'calculates average number of goals per game' do
+      expect(@stat_tracker.avg_score_per_game([1,2,3,4])).to eq(2.5)
+    end
+  end
+
   describe '#percentage_wins' do
     it 'calculates the percentage of wins for all teams playing home games' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.44)
