@@ -46,7 +46,7 @@ class GameTeams
   end
 
   def winningest_coach(season)
-    
+    coaches = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
     (0..@team_id.count).each do |i|
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:wins] += 1 if @result[i] == 'WIN'
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:games] += 1
