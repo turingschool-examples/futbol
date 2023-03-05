@@ -37,4 +37,28 @@ module Helper
     count_ties = input_games.count {|game_team| game_team.result == "TIE"}
     count_wins.fdiv(input_games.length)
   end
+
+  def get_wins(id)
+    @games.select {|game| away_win?(game, id) || home_win?(game, id)}
+  end
+
+  def get_losses(id)
+    @games.select{|game| away_loss?(game, id) || home_loss?(game, id)}
+  end
+
+  def away_win?(game, id)
+    game.away_team_id == id && game.away_goals > game.home_goals
+  end
+
+  def home_win?(game, id)
+    game.home_team_id == id && game.home_goals > game.away_goals
+  end
+
+  def away_loss?(game, id)
+    game.away_team_id == id && game.away_goals < game.home_goals
+  end
+
+  def home_loss?(game, id)
+    game.home_team_id == id && game.home_goals < game.away_goals
+  end
 end

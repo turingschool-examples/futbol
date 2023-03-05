@@ -33,4 +33,12 @@ RSpec.describe TeamStats do
   it "#rival" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
+
+  it '#biggest_team_blowout' do
+    expect(@stat_tracker.biggest_team_blowout("18")).to eq(5)
+  end
+
+  it '#worst_loss' do
+    expect(@stat_tracker.worst_loss("18")).to eq(4)
+  end
 end
