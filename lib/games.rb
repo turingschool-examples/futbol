@@ -24,7 +24,10 @@ class Games
   
   def lowest_total_score
     min = 10
-    
+    (0..@game_id.length).each do |i|
+      score = @home_goals[i].to_i + @away_goals[i].to_i
+      min = [min, score].min
+    end
     min
   end
 
