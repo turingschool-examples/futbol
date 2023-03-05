@@ -29,7 +29,7 @@ module Helper
   def average_accuracy(input_games)
     sum_shots = input_games.sum(&:shots)
     sum_goals = input_games.sum(&:goals)
-    sum_goals.fdiv(sum_shots)*100
+    (sum_goals.fdiv(sum_shots)*100).round(2)
   end
 
   def percent_win_loss(input_games)
