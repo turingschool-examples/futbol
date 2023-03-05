@@ -22,7 +22,7 @@ module TeamStats
     end
     opponent_game_grouped = select_opponent_games.flatten.group_by(&:team_name)
     opponent_game_percent_win = {}
-    opponent_game_grouped.each do |team_name, values| 
+    opponent_game_grouped.each do |team_name, values|
       opponent_game_percent_win[team_name] = percent_win_loss(values)
     end
     opponent_most_won_against = opponent_game_percent_win.min_by{|_, value| value}.first
@@ -36,9 +36,31 @@ module TeamStats
     end
     opponent_game_grouped = select_opponent_games.flatten.group_by(&:team_name)
     opponent_game_percent_win = {}
-    opponent_game_grouped.each do |team_name, values| 
+    opponent_game_grouped.each do |team_name, values|
       opponent_game_percent_win[team_name] = percent_win_loss(values)
     end
     opponent_most_won_against = opponent_game_percent_win.max_by{|_, value| value}.first
+  end
+
+  def biggest_team_blowout(input_team_id)
+    wins = get_wins(input_team_id)
+    wins.map do |game|
+      if game.away_team_id == input_team_id
+        game.away_goals - game.home_goals
+      elsif game.home_team_id == input_team_id
+        game.home_goals - game.away_goals
+      end
+    end.max
+  end
+
+  def worst_loss(input_team_id)
+    losses = get_losses(input_team_id)
+    losses.map do |game|
+      if game.away_team_id == input_team_id
+        game.home_goals - game.away_goals
+      elsif game.home_team_id == input_team_id
+        game.away_goals - game.home_goals
+      end
+    end.max
   end
 end
