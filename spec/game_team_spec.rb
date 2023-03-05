@@ -37,6 +37,7 @@ describe GameTeam do
       expect(@test_game_teams.give_aways).to eq(17)
       expect(@test_game_teams.take_aways).to eq(7)
       expect(@test_game_teams.season).to eq('20122013')
+      expect(@test_game_teams.team_name).to eq('Houston Dynamo')
     end
   end
 end

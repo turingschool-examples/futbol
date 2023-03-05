@@ -30,6 +30,8 @@ describe Game do
       expect(@test_game.away_goals).to eq(2)
       expect(@test_game.home_goals).to eq(3)
       expect(@test_game.venue).to eq("Toyota Stadium")
+      expect(@test_game.away_team_name).to eq('Houston Dynamo')
+      expect(@test_game.home_team_name).to eq('FC Dallas')
     end
   end
 end
