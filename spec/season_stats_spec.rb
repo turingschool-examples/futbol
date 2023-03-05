@@ -121,7 +121,7 @@ RSpec.describe SeasonStats do
     end
 
     it '#invalid_season' do
-      expect(@season_stat.season_not_found?).to eq('Invalid Season selection')
+      expect(@season_stat.invalid_season).to eq('Invalid Season selection')
     end
   end
 end
