@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'game'
 require_relative 'team'
+require_relative 'game_team'
 
 class StatTracker 
   #include modules
