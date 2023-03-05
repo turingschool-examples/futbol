@@ -61,6 +61,10 @@ class StatTracker
   def team_name_by_id(team_id)
     all_teams.find { |team| team.team_id == team_id }.team_name
   end
+
+  def avg_score_per_game(total_goals_array)
+    total_goals_array.sum.fdiv(total_goals_array.count)
+  end
   #=====================================================================================================
 
   def highest_total_score
@@ -85,11 +89,11 @@ class StatTracker
 
   def best_offense
     team_info = all_game_teams.group_by(&:team_id)
-    # req
+    avg_team_goals = Hash.new(0)
     team_info.map do |team, games|
       all_goals = games.map {|game|game.goals}  
-      team_avg_goals_per_game = all_goals.sum.fdiv(all_goals.count)
-      avg_team_goals = Hash.new(0)
+      team_avg_goals_per_game = avg_score_per_game(all_goals)
+  
       avg_team_goals[team] = team_avg_goals_per_game
     end
       max_avg_goals = avg_team_goals.max_by do |team, avg_goals|
