@@ -31,4 +31,10 @@ module Helper
     sum_goals = input_games.sum(&:goals)
     sum_goals.fdiv(sum_shots)*100
   end
+
+  def percent_win_loss(input_games)
+    count_wins = input_games.count {|game_team| game_team.result == "WIN"}
+    count_ties = input_games.count {|game_team| game_team.result == "TIE"}
+    count_wins.fdiv(input_games.length)
+  end
 end
