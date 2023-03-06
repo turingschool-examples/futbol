@@ -12,7 +12,7 @@ class StatTracker < Banana
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-  
+
   def initialize(locations)
     @games = Games.new(locations)
     @teams = League.new(locations)
