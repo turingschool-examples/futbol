@@ -12,7 +12,6 @@ RSpec.describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-
     @stat_tracker = StatTracker.from_csv(locations)
   end
   
@@ -156,7 +155,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
-
   end
 
 

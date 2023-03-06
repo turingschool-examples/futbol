@@ -13,7 +13,6 @@ require './lib/stat_tracker'
       teams: team_path,
       game_teams: game_teams_path
     }
-    
     @stat_tracker = StatTracker.from_csv(@locations)
     @season_1 = Season.new("20122013", @stat_tracker.games, @stat_tracker.game_teams)
     @season_2 = Season.new("20132014", @stat_tracker.games, @stat_tracker.game_teams)
@@ -34,9 +33,6 @@ require './lib/stat_tracker'
     expect(@season_1.season_data[:games]).to be_a(Array)
     expect(@season_1.season_data[:games].length).to eq(806)
     expect(@season_2.season_data[:games].length).to eq(1323)
-    
     expect(@season_1.season_data[:game_teams].length).to eq(1612)
   end
-
-    
 end

@@ -13,7 +13,6 @@ RSpec.describe Game do
       teams: team_path,
       game_teams: game_teams_path
     }
-    
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
@@ -27,5 +26,4 @@ RSpec.describe Game do
     expect(@stat_tracker.games[0].away_team_id).to eq("3")
     expect(@stat_tracker.games[0].away_goals).to eq(2)
   end
-
 end

@@ -13,7 +13,6 @@ RSpec.describe GameTeam do
       teams: team_path,
       game_teams: game_teams_path
     }
-    
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
@@ -23,5 +22,4 @@ RSpec.describe GameTeam do
       expect(@stat_tracker.game_teams[0].game_id).to eq("2012030221")
     end
   end
-
 end
