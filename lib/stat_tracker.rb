@@ -1,10 +1,4 @@
-require 'csv'
-require_relative 'games'
-require_relative 'league'
-require_relative 'game_teams'
-require_relative 'banana'
-
-class StatTracker < Banana
+class StatTracker
   attr_reader :games,
               :teams,
               :game_teams
