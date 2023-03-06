@@ -158,5 +158,15 @@ RSpec.describe StatTracker do
     end
 
   end
+
+  describe "team info" do
+      expect(@stat_tracker.team_info("3")).to eq({
+        "team_id" => "3",
+        "franchise_id" => "10",
+        "team_name" => "Houston Dynamo",
+        "abbreviation" => "DAL",
+        "link" => "/api/v1/teams/6"
+      })
+  end
 end
 
