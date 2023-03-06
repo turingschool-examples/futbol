@@ -57,32 +57,32 @@ class StatTracker < Banana
 
   def best_offense
     index = @teams.team_id.find_index(@game_teams.best_offense)
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def worst_offense
     index = @teams.team_id.find_index(@game_teams.worst_offense)
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def highest_scoring_visitor 
     index = @teams.team_id.find_index(@game_teams.highest_scoring_visitor)
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def lowest_scoring_visitor
     index = @teams.team_id.find_index(@game_teams.lowest_scoring_visitor)
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def highest_scoring_home_team 
     index = @teams.team_id.find_index(@game_teams.highest_scoring_home_team)
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def lowest_scoring_home_team
     index = @teams.team_id.find_index(@game_teams.lowest_scoring_home_team)
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def winningest_coach(season_id)
@@ -95,21 +95,21 @@ class StatTracker < Banana
 
   def least_accurate_team(season)
     index = @teams.team_id.find_index(@game_teams.least_accurate_team(season))
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def most_accurate_team(season)
     index = @teams.team_id.find_index(@game_teams.most_accurate_team(season))
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def most_tackles(season)
     index = @teams.team_id.find_index(@game_teams.most_tackles(season))
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 
   def least_tackles(season)
     index = @teams.team_id.find_index(@game_teams.least_tackles(season))
-    @teams.team_name[index]
+    @teams.teamname[index]
   end
 end
