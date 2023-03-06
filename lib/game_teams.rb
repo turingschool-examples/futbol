@@ -2,38 +2,31 @@ require_relative 'stat_book'
 
 class GameTeams < StatBook
   def initialize(locations)
-    file = locations[:game_teams]
-    super(file)
+    super(locations[:game_teams])
   end
 
   def best_offense
-    goals_in_games = Hash.new { |h, k| h[k] = Hash.new(0) }
-    goals_games_counter(goals_in_games).max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    goals_games_counter.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
   
   def worst_offense
-    goals_in_games = Hash.new { |h, k| h[k] = Hash.new(0) }
-    goals_games_counter(goals_in_games).select{|k, v| v[:goals] > 0}.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    goals_games_counter.select{|k, v| v[:goals] > 0}.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def highest_scoring_visitor
-    away_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
-    away_counter(away_game_goals).max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    away_counter.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def lowest_scoring_visitor
-    away_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
-    away_counter(away_game_goals).min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    away_counter.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def highest_scoring_home_team
-    home_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
-    home_counter(home_game_goals).max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    home_counter.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def lowest_scoring_home_team
-    home_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
-    home_counter(home_game_goals).min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    home_counter.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def winningest_coach(season)
@@ -146,31 +139,38 @@ class GameTeams < StatBook
 
   ## Helper Methods ##
 
-  def goals_games_counter(hash)
-    (0..@team_id.count).each do |i|
-      hash[@team_id[i]][:goals] += @goals[i].to_i
-      hash[@team_id[i]][:games] += 1
-    end
-    hash
+  def nested_hash
+    Hash.new { |h, k| h[k] = Hash.new(0) }
   end
 
-  def home_counter(hash)
+  def goals_games_counter
+    goals = nested_hash
+    (0..@team_id.count).each do |i|
+      goals[@team_id[i]][:goals] += @goals[i].to_i
+      goals[@team_id[i]][:games] += 1
+    end
+    goals
+  end
+
+  def home_counter
+    goals = nested_hash
     (0..@team_id.count).each do |i|
       if @hoa[i] == 'home'
-        hash[@team_id[i]][:goals] += @goals[i].to_i
-        hash[@team_id[i]][:games] += 1
+        goals[@team_id[i]][:goals] += @goals[i].to_i
+        goals[@team_id[i]][:games] += 1
       end
     end
-    hash
+    goals
   end
 
-  def away_counter(hash)
+  def away_counter
+    goals = nested_hash
     (0..@team_id.count).each do |i|
       if @hoa[i] == 'away'
-        hash[@team_id[i]][:goals] += @goals[i].to_i
-        hash[@team_id[i]][:games] += 1
+        goals[@team_id[i]][:goals] += @goals[i].to_i
+        goals[@team_id[i]][:games] += 1
       end
     end
-    hash
+    goals
   end
 end
