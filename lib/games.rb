@@ -13,8 +13,12 @@ class Games < StatBook
   end
 
   def highest_total_score
-    calculate_highest_total_score
-    @counter
+    max = 0
+    @game_id.each_with_index do |_, i|
+      total = @home_goals[i].to_i + @away_goals[i].to_i
+      max = [max, total].max
+    end
+    max
   end
   
   def lowest_total_score
@@ -81,15 +85,5 @@ class Games < StatBook
       goals += @home_goals[i].to_i + @away_goals[i].to_i
     end
     goals.fdiv(@game_id.length).round(2)
-  end
-
-
-  # Helper Methods
-
-  def calculate_highest_total_score
-    @game_id.each_with_index do |_, i|
-      total = @home_goals[i].to_i + @away_goals[i].to_i
-      @counter = [@counter, total].max
-    end
   end
 end
