@@ -180,6 +180,18 @@ class StatTracker < StatisticsGenerator
   def fewest_tackles(season_id)
     @teams.find{|team| team.team_id == count_tackles(season_id).min_by {|team_id, tackles| tackles}.first}.teamname
   end
+
+  def team_info(team_id)
+    team_identifiers = {}
+    this_team = @teams.find{|team| team.team_id == team_id}
+    this_team.instance_variables.each do |variable|
+      team_identifiers[variable.to_s.delete("@")] = this_team.instance_variable_get(variable)
+    end
+    team_identifiers.delete("stadium")
+    team_identifiers["team_name"] = team_identifiers.delete("teamname")
+    team_identifiers["franchise_id"] = team_identifiers.delete("franchiseid")
+    team_identifiers
+  end
 end
 
       
