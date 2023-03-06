@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
-  before(:each) do
+  before(:all) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -167,6 +167,8 @@ RSpec.describe StatTracker do
 
     it "#worst_season" do
       expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    end
+  end
 
   describe "team info" do
     it "returns team info" do
