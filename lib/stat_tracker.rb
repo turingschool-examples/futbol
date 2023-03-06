@@ -18,7 +18,7 @@ class StatTracker < StatisticsGenerator
   include Offensive
   include Coach
 
-  def initialize(data)
+  def from_csv(data)
     super(data)
   end
 
