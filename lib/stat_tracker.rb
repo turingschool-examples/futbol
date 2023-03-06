@@ -196,7 +196,6 @@ class StatTracker < StatisticsGenerator
     this_team.instance_variables.each do |variable|
       team_identifiers[variable.to_s.delete("@")] = this_team.instance_variable_get(variable)
     end
-    team_identifiers.delete("stadium")
     team_identifiers["team_name"] = team_identifiers.delete("teamname")
     team_identifiers["franchise_id"] = team_identifiers.delete("franchiseid")
     team_identifiers
