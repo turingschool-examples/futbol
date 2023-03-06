@@ -86,4 +86,17 @@ class GameStats < StatData
     end
     team_name_by_id(min_avg_score.first)
   end
+
+  def games_by_season
+    seasons = Hash.new([])
+    all_games.each do |game|
+      seasons[game.season] = []
+    end
+    seasons.each do |season, games_array|
+      all_games.each do |game|
+        games_array << game if game.season == season
+      end
+    end
+    seasons
+  end
 end

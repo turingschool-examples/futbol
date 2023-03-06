@@ -15,6 +15,12 @@ RSpec.describe GameStats do
     @game_stats = GameStats.new(locations)
   end
 
+  describe '#games_by_season' do
+    it 'games by season' do
+      expect(@game_stats.games_by_season).to be_a(Hash)
+    end
+  end
+
   describe '#team_name_by_id' do
     it 'returns the team name by given id' do
       expect(@game_stats.team_name_by_id(1)).to eq('Atlanta United')
