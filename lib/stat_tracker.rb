@@ -4,18 +4,17 @@ require_relative 'team'
 require_relative 'game_team'
 require_relative 'season'
 require_relative 'team_accuracy'
-require_relative 'offensive'
 require_relative 'tackle_counter'
 require_relative 'statistics_generator'
-require_relative 'offensive_2'
 require_relative 'team_season_evaluator'
+require_relative 'offensive'
+
 
 class StatTracker < StatisticsGenerator
   include TeamAccuracy
-  include Offensive
   include TackleCounter
-  include Offensive_2
   include TeamSeasonEvaluator
+  include Offensive
 
   def initialize(data)
     super(data)
@@ -66,7 +65,7 @@ class StatTracker < StatisticsGenerator
   end
 
   def average_goals_per_game
-    averages = offensive_2("home", "away").values
+    averages = offensive("home", "away").values
     ((averages.sum / averages.count.to_f) * 2).round(2) 
   end
 
@@ -145,32 +144,32 @@ class StatTracker < StatisticsGenerator
   end
   
   def best_offense 
-    best_offense = offensive_2("away", "home").max_by {|id,avg_goals| avg_goals} 
+    best_offense = offensive("away", "home").max_by {|id,avg_goals| avg_goals} 
     @teams.find {|team| team.team_id == best_offense.first}.teamname
   end
   
   def worst_offense 
-    worst_offense = offensive_2("away", "home").min_by {|id,avg_goals| avg_goals} 
+    worst_offense = offensive("away", "home").min_by {|id,avg_goals| avg_goals} 
     @teams.find {|team| team.team_id == worst_offense.first}.teamname
   end
   
   def highest_scoring_home_team
-    highest_home = offensive_2("home").max_by {|id,avg_goals| avg_goals} 
+    highest_home = offensive("home").max_by {|id,avg_goals| avg_goals} 
     @teams.find {|team| team.team_id == highest_home.first}.teamname
   end  
   
   def lowest_scoring_home_team
-    lowest_visitor = offensive_2("home").min_by {|id,avg_goals| avg_goals}
+    lowest_visitor = offensive("home").min_by {|id,avg_goals| avg_goals}
     @teams.find {|team| team.team_id == lowest_visitor.first}.teamname
   end
 
   def highest_scoring_visitor
-    highest_visitor = offensive_2("away").max_by {|id,avg_goals| avg_goals} 
+    highest_visitor = offensive("away").max_by {|id,avg_goals| avg_goals} 
     @teams.find {|team| team.team_id == highest_visitor.first}.teamname
   end  
 
   def lowest_scoring_visitor
-    lowest_visitor = offensive_2("away").min_by {|id,avg_goals| avg_goals}
+    lowest_visitor = offensive("away").min_by {|id,avg_goals| avg_goals}
     @teams.find {|team| team.team_id == lowest_visitor.first}.teamname
   end
 
@@ -182,15 +181,11 @@ class StatTracker < StatisticsGenerator
     @teams.find{|team| team.team_id == count_tackles(season_id).min_by {|team_id, tackles| tackles}.first}.teamname
   end
 
+#best_and_worst_season_db
   def best_season(team_id)
-    # team_season_average = {}
-    # @seasons_by_id.each do |season, season_data|
-    #   these_games = season_data[:game_teams].select{|game_team| game_team.team_id == team_id}
-    #   team_season_average[season] = these_games.select{|game| game.result == "WIN"}.length / 
-    #     these_games.length.to_f
-    # end
     evaluate_seasons(team_id).max_by{|season, average| average}.first
   end
+
 end
 
       
