@@ -20,8 +20,4 @@ class Season
 
     season_data = {:games=>season_games, :game_teams=>season_game_teams, :team_ids=>team_ids}
   end
-
-  def create_teams
-    
-  end
 end

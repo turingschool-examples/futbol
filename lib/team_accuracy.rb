@@ -2,7 +2,6 @@ module TeamAccuracy
 
   def find_accuracy_ratios(season_id)
     accuracy_by_team = Hash.new
-
     @seasons_by_id[season_id][:team_ids].each { |team_id|
     this_teams_goals = 0.0
     this_teams_shots = 0.0
@@ -13,5 +12,4 @@ module TeamAccuracy
     }
     accuracy_by_team
   end
-
 end
