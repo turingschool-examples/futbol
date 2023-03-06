@@ -11,47 +11,41 @@ class StatisticsGenerator
               :games, 
               :game_teams,
               :seasons_by_id
-  def initialize(data)
+  def initialize(data, teams, games, game_teams)
     @data = data
-    @teams = processed_teams_data(@data)
-    @games = processed_games_data(@data)
-    @game_teams = processed_game_teams_data(@data)
+    @teams = teams
+    @games = games
+    @game_teams = game_teams
     @seasons_by_id = processed_seasons_data
   end
 
   def self.from_csv(locations)
     new_locations = {}
+    teams = []
+    games = []
+    game_teams = []
+
     locations.each do |key,value|
       new_locations[key] = CSV.open value, headers: true, header_converters: :symbol
     end
-    new(new_locations)
-  end
-  
-  def processed_teams_data(locations) :teams
-    all_teams = []
-    teams = @data[:teams]
-    teams.each do |row|
-      all_teams << Team.new(row)
-    end
-    @teams = all_teams
-  end
-  
-  def processed_games_data(locations)
-    all_games = []
-    games = @data[:games]
-    games.each do |row|
-      all_games << Game.new(row)
-    end
-    @games = all_games
-  end
 
-  def processed_game_teams_data(locations)
-    all_game_teams = []
-    game_teams = @data[:game_teams]
-    game_teams.each do |row|
-      all_game_teams << GameTeam.new(row)
+    new_locations.each do |category, info|
+      if category == :teams
+        info.each do |row|
+          teams << Team.new(row)
+        end
+      elsif category == :games
+        info.each do |row|
+          games << Game.new(row)
+      end
+      else
+        info.each do |row|
+          game_teams << GameTeam.new(row)
+        end
+      end
     end
-    @game_teams = all_game_teams
+
+    new(locations, teams, games, game_teams)
   end
 
   def processed_seasons_data
