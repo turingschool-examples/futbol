@@ -26,6 +26,10 @@ RSpec.describe TeamStats do
     expect(@stat_tracker.team_info("1")["link"]).to eq("/api/v1/teams/1")
   end
 
+  it '#best_season' do 
+    expect(@stat_tracker.best_season("6")).to eq "20132014"
+  end
+
   it "#favorite_opponent" do
     expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
   end
