@@ -1,17 +1,19 @@
-# require_relative './spec/spec_helper'
+require 'csv'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
 require_relative 'season'
-require 'csv'
 require_relative 'team_accuracy'
 require_relative 'tackle_counter'
 require_relative 'statistics_generator'
+require_relative 'team_season_evaluator'
 require_relative 'offensive'
+
 
 class StatTracker < StatisticsGenerator
   include TeamAccuracy
   include TackleCounter
+  include TeamSeasonEvaluator
   include Offensive
 
   def initialize(data)
@@ -179,6 +181,13 @@ class StatTracker < StatisticsGenerator
     @teams.find{|team| team.team_id == count_tackles(season_id).min_by {|team_id, tackles| tackles}.first}.teamname
   end
 
+#best_and_worst_season_db
+  def best_season(team_id)
+    evaluate_seasons(team_id).max_by{|season, average| average}.first
+  end
+
+end
+
   def team_info(team_id)
     team_identifiers = {}
     this_team = @teams.find{|team| team.team_id == team_id}
@@ -191,3 +200,4 @@ class StatTracker < StatisticsGenerator
     team_identifiers
   end
 end
+
