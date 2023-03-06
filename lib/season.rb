@@ -7,7 +7,6 @@ class Season
     @raw_games = games
     @raw_game_teams = game_teams
     @season_data = create_season_data(@raw_games, @raw_game_teams)
-    @team_ids = create_teams
   end
     
   def create_season_data(raw_games, raw_game_teams)
