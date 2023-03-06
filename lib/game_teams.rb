@@ -1,15 +1,9 @@
-class GameTeams
+require_relative 'stat_book'
+
+class GameTeams < StatBook
   def initialize(locations)
-    file = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
-    @game_id = file[:game_id]
-    @team_id = file[:team_id]
-    @hoa = file[:hoa]
-    @result = file[:result]
-    @settled_in = file[:settled_in]
-    @head_coach = file[:head_coach]
-    @goals = file[:goals]
-    @shots = file[:shots]
-    @tackles = file[:tackles]
+    file = locations[:game_teams]
+    super(file)
   end
 
   def best_offense
