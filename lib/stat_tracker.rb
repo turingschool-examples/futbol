@@ -8,6 +8,7 @@ require_relative 'tackle_counter'
 require_relative 'statistics_generator'
 require_relative 'team_season_evaluator'
 require_relative 'offensive'
+require_relative 'coach'
 
 
 class StatTracker < StatisticsGenerator
@@ -15,6 +16,7 @@ class StatTracker < StatisticsGenerator
   include TackleCounter
   include TeamSeasonEvaluator
   include Offensive
+  include Coach
 
   def initialize(data)
     super(data)
@@ -74,24 +76,7 @@ class StatTracker < StatisticsGenerator
   end
 
   def winningest_coach(season_id)
-    season_games = @seasons_by_id[season_id][:game_teams]
-    games_won_coach = Hash.new(0)
-    games_played_coach = Hash.new(0)
-    coach_win_percentage = Hash.new
-    season_games.each do |game|
-      games_played_coach[game.head_coach] += 1
-      if game.result == "WIN"
-      games_won_coach[game.head_coach] += 1
-      end
-    end
-    games_played_coach.each do |coach, games|
-      games_won_coach.each do |won_coach, won_games|
-      if coach == won_coach
-        coach_win_percentage[coach] = (won_games / games.to_f)
-        end
-      end
-    end
-    coach_win_percentage.max_by {|coach, percentage| percentage}[0]
+    coach_wins(season_id).max_by {|coach, percentage| percentage}[0]
   end
   
   def count_of_games_by_season
@@ -120,27 +105,7 @@ class StatTracker < StatisticsGenerator
   end
 
   def worst_coach(season_id)
-    season_games = @seasons_by_id[season_id][:game_teams]
-    games_won_coach = Hash.new(0)
-    games_played_coach = Hash.new(0)
-    coach_win_percentage = Hash.new
-    season_games.each do |game|
-      games_played_coach[game.head_coach] += 1
-      if game.result == "WIN"
-      games_won_coach[game.head_coach] += 1
-      end
-    end
-    games_played_coach.each do |coach, games|
-      games_won_coach.each do |won_coach, won_games|
-        if coach == won_coach
-          coach_win_percentage[coach] = (won_games / games.to_f)
-        end
-        if !games_won_coach.include?(coach)
-          coach_win_percentage[coach] = 0
-        end
-      end
-    end
-    coach_win_percentage.min_by {|coach, percentage| percentage}[0]
+    coach_wins(season_id).min_by {|coach, percentage| percentage}[0]
   end
   
   def best_offense 
@@ -181,7 +146,6 @@ class StatTracker < StatisticsGenerator
     @teams.find{|team| team.team_id == count_tackles(season_id).min_by {|team_id, tackles| tackles}.first}.teamname
   end
 
-#best_and_worst_season_db
   def best_season(team_id)
     evaluate_seasons(team_id).max_by{|season, average| average}.first
   end
