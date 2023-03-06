@@ -1,6 +1,5 @@
 require './spec/spec_helper'
 
-
 RSpec.describe StatTracker do
   before(:all) do
     game_path = './data/games.csv'
