@@ -37,6 +37,14 @@ class GameTeams < StatBook
     tackle_checker(season)[:worst_team]
   end
 
+  def best_season(team)
+    win_loss_checker(team)[:best_szn]
+  end
+
+  def worst_season(team)
+    win_loss_checker(team)[:worst_szn]
+  end
+
   def winningest_coach(season)
     coaches = super_nested_hash
     (0..@team_id.count).each do |i|
@@ -145,7 +153,7 @@ class GameTeams < StatBook
   end
 
   def goals_counter
-    goals = Hash.new { |h, k| h[k] = Hash.new(0) }
+    goals = nested_hash
     (0..@team_id.count).each do |i|
       goals[@team_id[i]][:goals] += @goals[i].to_i
       goals[@team_id[i]][:away] += @goals[i].to_i if @hoa[i] == 'away'
@@ -154,5 +162,33 @@ class GameTeams < StatBook
     end
     goals.delete(nil)
     goals
+  end
+
+  def win_loss_counter
+    games = super_nested_hash
+    (0..@team_id.count).each do |i|
+      games[@team_id[i]][@game_id[i]&.slice(0..3)][:wins] += 1 if @result[i] == 'WIN'
+      games[@team_id[i]][@game_id[i]&.slice(0..3)][:losses] += 1 if @result[i] == 'LOSS'
+      games[@team_id[i]][@game_id[i]&.slice(0..3)][:games] += 1
+    end
+    games.delete(nil)
+    games
+  end
+
+  def win_loss_checker(team)
+    best_szn, worst_szn = nil, nil
+    best_record, worst_record = 0, 1
+    win_loss_counter[team].each do |szn, results|
+      winpct = results[:wins].fdiv(results[:games])
+      if winpct > best_record
+        best_record = winpct
+        best_szn = szn
+      elsif winpct < worst_record
+        worst_record = winpct
+        worst_szn = szn
+      end
+    end
+    {:best_szn => "#{best_szn}#{(best_szn.to_i + 1).to_s}", 
+    :worst_szn => "#{worst_szn}#{(worst_szn.to_i + 1).to_s}"}
   end
 end
