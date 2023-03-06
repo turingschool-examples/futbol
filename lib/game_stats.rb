@@ -15,7 +15,6 @@ class GameStats < StatData
   end
 
   def highest_total_score
-    # super(all_games)
    all_games.map do |game|
       game.total_score
     end.max
@@ -27,48 +26,28 @@ class GameStats < StatData
     end.min
   end
 
-  def highest_scoring_home_team
-    team_info = all_games.group_by(&:home_id)
-    team_avg_score = Hash.new(0)
-    team_info.map do |team, games|
-      total_score = games.map {|game|game.home_goals}
-      avg_score_per_game = avg_score_per_game(total_score)
-      team_avg_score[team] = avg_score_per_game
+  def percentage_home_wins
+    team_wins = all_game_teams.select do |team|
+      team.result == 'WIN' && team.home_or_away == 'home'
     end
-      max_avg_score = team_avg_score.max_by do |team, avg_score|
-        avg_score
-      end
-      team_name_by_id(max_avg_score.first)
+    home_games = all_game_teams.select do |game|
+      game.home_or_away == 'home'
+    end
+    (team_wins.count / home_games.count.to_f).round(2)
   end
-
-  def lowest_scoring_home_team
-    team_info = all_games.group_by(&:home_id)
-    team_avg_score = Hash.new(0)
-    team_info.map do |team, games|
-      total_score = games.map {|game|game.home_goals}
-      avg_score_per_game = avg_score_per_game(total_score)
-      team_avg_score[team] = avg_score_per_game
-    end
-      min_avg_score = team_avg_score.min_by do |team, avg_score|
-        avg_score
-      end
-      team_name_by_id(min_avg_score.first)
-   end
   
-  def highest_scoring_visitor
-    team_info = all_games.group_by(&:away_id)
-    avg_score = Hash.new(0)
-    team_info.map do |team, games|
-      total_score = games.map do |game|
-        game.away_goals
-      end
-      avg_score_per_game = total_score.sum.fdiv(total_score.count)
-      avg_score[team] = avg_score_per_game
+  def percentage_visitor_wins
+    team_wins = all_game_teams.select do |team|
+      team.result == 'WIN' && team.home_or_away == 'away'
     end
-    max_avg_score = avg_score.max_by do |_, avg_scores|
-      avg_scores
+    away_games = all_game_teams.select do |game|
+      game.home_or_away == 'away'
     end
-    team_name_by_id(max_avg_score.first)
+    (team_wins.count / away_games.count.to_f).round(2)
+  end
+    
+  def percentage_ties
+    (1.0 - percentage_home_wins - percentage_visitor_wins).round(2)
   end
 
   def lowest_scoring_visitor
@@ -87,16 +66,14 @@ class GameStats < StatData
     team_name_by_id(min_avg_score.first)
   end
 
-  def games_by_season
-    seasons = Hash.new([])
-    all_games.each do |game|
-      seasons[game.season] = []
+  def count_of_games_by_season
+    games_by_season.transform_values{|value| value.count} 
+  end
+
+  def average_goals_by_season
+    games_by_season.transform_values do |games_array|
+      scores_array = games_array.map(&:total_score)
+      (scores_array.sum.to_f / scores_array.length).round(2)
     end
-    seasons.each do |season, games_array|
-      all_games.each do |game|
-        games_array << game if game.season == season
-      end
-    end
-    seasons
   end
 end
