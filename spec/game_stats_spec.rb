@@ -25,4 +25,14 @@ RSpec.describe GameStats do
       expect(@game_stats.lowest_total_score).to eq(0)
     end
   end
+
+  describe '#highest_scoring_home_team and #lowest_scoring_home_team' do
+    it 'returns the home team with the highest score' do
+      expect(@game_stats.highest_scoring_home_team).to eq('Reign FC')
+    end
+
+    it 'returns the home team with the lowest score' do
+      expect(@game_stats.lowest_scoring_home_team).to eq('Utah Royals FC')
+    end
+  end
 end
