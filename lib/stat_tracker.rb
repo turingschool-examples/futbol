@@ -70,12 +70,12 @@ class StatTracker
     get_teamname(@game_teams.lowest_scoring_home_team)
   end
 
-  def winningest_coach(season_id)
-    @game_teams.winningest_coach(season_id)
+  def winningest_coach(season)
+    @game_teams.winningest_coach(season)
   end
 
-  def worst_coach(season_id)
-    @game_teams.worst_coach(season_id)
+  def worst_coach(season)
+    @game_teams.worst_coach(season)
   end
 
   def least_accurate_team(season)
