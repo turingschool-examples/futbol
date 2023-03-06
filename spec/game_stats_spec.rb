@@ -21,18 +21,6 @@ RSpec.describe GameStats do
     end
   end
 
-  describe '#team_name_by_id' do
-    it 'returns the team name by given id' do
-      expect(@game_stats.team_name_by_id(1)).to eq('Atlanta United')
-    end
-  end
-
-  describe'#avg_score_per_game' do
-    it 'calculates average number of goals per game' do
-      expect(@game_stats.avg_score_per_game([1,2,3,4])).to eq(2.5)
-    end
-  end
-
   describe 'highest and lowest total scores' do
     it "#highest_total_score" do
 
@@ -44,23 +32,49 @@ RSpec.describe GameStats do
     end
   end
 
-  describe '#highest_scoring_home_team and #lowest_scoring_home_team' do
-    it 'returns the home team with the highest score' do
-      expect(@game_stats.highest_scoring_home_team).to eq('Reign FC')
+  describe '#percentage_wins' do
+    it 'calculates the percentage of wins for all teams playing home games' do
+      expect(@game_stats.percentage_home_wins).to eq(0.44)
     end
 
-    it 'returns the home team with the lowest score' do
-      expect(@game_stats.lowest_scoring_home_team).to eq('Utah Royals FC')
+    it 'calculates the percentage of wins for all teams playing away games' do
+      expect(@game_stats.percentage_visitor_wins).to eq(0.36)
+    end
+
+    it 'calculates the percentage of ties for all teams across all seasons' do
+      expect(@game_stats.percentage_ties).to eq(0.20)
     end
   end
 
-  describe '#Highest and lowest scoring teams' do
-    it "shows lowest scoring away team's name across all seasons" do
-      expect(@game_stats.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+  describe '#counts_games_by_season' do
+    it 'counts games by season' do
+      expect(@game_stats.count_of_games_by_season).to be_a(Hash)
+
+      expected = {
+        '20122013' => 806,
+        '20132014' => 1323,
+        '20142015' => 1319,
+        '20152016' => 1321,
+        '20162017' => 1317,
+        '20172018' => 1355
+      }
+
+      expect(@game_stats.count_of_games_by_season).to eq(expected)
     end
-    
-    it "shows highest scoring away team's name across all seasons" do
-      expect(@game_stats.highest_scoring_visitor).to eq("FC Dallas")
+  end
+
+  describe '#average_goals_by_season' do
+    it 'returns a hash of season keys and average goals value' do
+      expected = {
+        '20122013' => 4.12,
+        '20162017' => 4.23,
+        '20142015' => 4.14,
+        '20152016' => 4.16,
+        '20132014' => 4.19,
+        '20172018' => 4.44
+      }
+
+      expect(@game_stats.average_goals_by_season).to eq(expected)
     end
   end
 end

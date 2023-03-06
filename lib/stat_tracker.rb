@@ -35,6 +35,7 @@ class StatTracker < StatData
   def avg_score_per_game(total_goals_array)
     total_goals_array.sum.fdiv(total_goals_array.count)
   end
+end
   #=====================================================================================================
 
 #   def highest_total_score
