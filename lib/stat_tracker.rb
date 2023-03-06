@@ -186,7 +186,9 @@ class StatTracker < StatisticsGenerator
     evaluate_seasons(team_id).max_by{|season, average| average}.first
   end
 
-end
+  def worst_season(team_id)
+    evaluate_seasons(team_id).min_by{|season, average| average}.first
+  end
 
   def team_info(team_id)
     team_identifiers = {}
