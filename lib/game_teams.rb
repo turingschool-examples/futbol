@@ -2,7 +2,6 @@ require_relative 'stat_book'
 
 class GameTeams < StatBook
   def initialize(locations)
-
     file = locations[:game_teams]
     super(file)
   end

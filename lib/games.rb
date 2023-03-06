@@ -1,11 +1,5 @@
 require_relative 'stat_book'
 class Games < StatBook
-  attr_reader :game_id,
-              :season,
-              :away_team_id,
-              :home_team_id,
-              :away_goals,
-              :home_goals
 
   def initialize(locations)
     file = locations[:games]
