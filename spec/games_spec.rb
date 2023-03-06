@@ -1,5 +1,3 @@
-require 'csv'
-require 'rspec'
 require './spec/spec_helper'
 
 RSpec.describe Games do
