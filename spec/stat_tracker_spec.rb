@@ -107,5 +107,25 @@ RSpec.describe StatTracker do
     it 'least_tackles' do
       expect(@stat_tracker.least_tackles('20132014')).to eq("Atlanta United")
     end
+
+    it "#team_info" do
+      expected = {
+        "team_id" => "18",
+        "franchise_id" => "34",
+        "team_name" => "Minnesota United FC",
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+      }
+  
+      expect(@stat_tracker.team_info("18")).to eq expected
+    end
+
+    it "#best_season" do
+      expect(@stat_tracker.best_season("6")).to eq "20132014"
+    end
+
+    it "#worst_season" do
+      expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    end
   end
 end
