@@ -6,27 +6,27 @@ class GameTeams < StatBook
   end
 
   def best_offense
-    goals_games_counter.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    goals_games_counter.max_by {|_, goals| goals }[0]
   end
   
   def worst_offense
-    goals_games_counter.select{|k, v| v[:goals] > 0}.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    goals_games_counter.min_by {|_, goals| goals }[0]
   end
 
   def highest_scoring_visitor
-    away_counter.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    away_counter.max_by{|_, goals| goals }[0]
   end
 
   def lowest_scoring_visitor
-    away_counter.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    away_counter.min_by{|_, goals| goals }[0]
   end
 
   def highest_scoring_home_team
-    home_counter.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    home_counter.max_by{|_, goals| goals }[0]
   end
 
   def lowest_scoring_home_team
-    home_counter.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    home_counter.min_by{|_, goals| goals }[0]
   end
 
   def winningest_coach(season)
@@ -149,7 +149,10 @@ class GameTeams < StatBook
       goals[@team_id[i]][:goals] += @goals[i].to_i
       goals[@team_id[i]][:games] += 1
     end
-    goals
+    goals.delete(nil)
+    goals.transform_values do |v|
+      v[:goals].fdiv(v[:games])
+    end
   end
 
   def home_counter
@@ -160,7 +163,10 @@ class GameTeams < StatBook
         goals[@team_id[i]][:games] += 1
       end
     end
-    goals
+    goals.delete(nil)
+    goals.transform_values do |v|
+      v[:goals].fdiv(v[:games])
+    end
   end
 
   def away_counter
@@ -171,6 +177,9 @@ class GameTeams < StatBook
         goals[@team_id[i]][:games] += 1
       end
     end
-    goals
+    goals.delete(nil)
+    goals.transform_values do |v|
+      v[:goals].fdiv(v[:games])
+    end
   end
 end
