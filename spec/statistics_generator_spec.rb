@@ -22,11 +22,11 @@ RSpec.describe StatisticsGenerator do
   end
 
   it 'processed team data, retrieves data from teams' do
-    expect(@stat_generator.processed_teams_data(@locations)).to all(be_a(Team))
+    expect(@stat_generator.teams).to all(be_a(Team))
   end
 
   it 'processed team data, retrieves data from games' do
-    expect(@stat_generator.processed_games_data(@locations)).to all(be_a(Game))
+    expect(@stat_generator.games).to all(be_a(Game))
   end
 
   it 'processed season data, creates hash of season info' do
@@ -41,6 +41,6 @@ RSpec.describe StatisticsGenerator do
   end
 
   it 'processed team data, retrieves data from teams' do
-    expect(@stat_generator.processed_game_teams_data(@locations)).to all(be_a(GameTeam))
+    expect(@stat_generator.game_teams).to all(be_a(GameTeam))
   end
 end

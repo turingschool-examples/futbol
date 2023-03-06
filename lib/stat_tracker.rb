@@ -16,7 +16,7 @@ class StatTracker < StatisticsGenerator
   include TeamSeasonEvaluator
   include Offensive
 
-  def initialize(data)
+  def from_csv(data)
     super(data)
   end
 
@@ -181,7 +181,6 @@ class StatTracker < StatisticsGenerator
     @teams.find{|team| team.team_id == count_tackles(season_id).min_by {|team_id, tackles| tackles}.first}.teamname
   end
 
-#best_and_worst_season_db
   def best_season(team_id)
     evaluate_seasons(team_id).max_by{|season, average| average}.first
   end
