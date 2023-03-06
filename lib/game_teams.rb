@@ -8,33 +8,33 @@ class GameTeams < StatBook
   end
 
   def best_offense
-    goals_games_counter
-    @goals_in_games.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    goals_in_games = Hash.new { |h, k| h[k] = Hash.new(0) }
+    goals_games_counter(goals_in_games).max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
   
   def worst_offense
-    goals_games_counter
-    @goals_in_games.select{|k, v| v[:goals] > 0}.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    goals_in_games = Hash.new { |h, k| h[k] = Hash.new(0) }
+    goals_games_counter(goals_in_games).select{|k, v| v[:goals] > 0}.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
-  def highest_scoring_visitor 
-    home_away_counter
-    @away_game_goals.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+  def highest_scoring_visitor
+    away_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
+    away_counter(away_game_goals).max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def lowest_scoring_visitor
-    home_away_counter
-    @away_game_goals.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    away_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
+    away_counter(away_game_goals).min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def highest_scoring_home_team
-    home_away_counter
-    @home_game_goals.max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    home_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
+    home_counter(home_game_goals).max_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def lowest_scoring_home_team
-    home_away_counter
-    @home_game_goals.min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
+    home_game_goals = Hash.new { |h, k| h[k] = Hash.new(0) }
+    home_counter(home_game_goals).min_by{|k, v| (v[:goals].fdiv(v[:games]))}[0]
   end
 
   def winningest_coach(season)
@@ -147,22 +147,31 @@ class GameTeams < StatBook
 
   ## Helper Methods ##
 
-  def goals_games_counter
+  def goals_games_counter(hash)
     (0..@team_id.count).each do |i|
-      @goals_in_games[@team_id[i]][:goals] += @goals[i].to_i
-      @goals_in_games[@team_id[i]][:games] += 1
+      hash[@team_id[i]][:goals] += @goals[i].to_i
+      hash[@team_id[i]][:games] += 1
     end
+    hash
   end
 
-  def home_away_counter
+  def home_counter(hash)
+    (0..@team_id.count).each do |i|
+      if @hoa[i] == 'home'
+        hash[@team_id[i]][:goals] += @goals[i].to_i
+        hash[@team_id[i]][:games] += 1
+      end
+    end
+    hash
+  end
+
+  def away_counter(hash)
     (0..@team_id.count).each do |i|
       if @hoa[i] == 'away'
-        @away_game_goals[@team_id[i]][:goals] += @goals[i].to_i
-        @away_game_goals[@team_id[i]][:games] += 1
-      elsif @hoa[i] == 'home'
-        @home_game_goals[@team_id[i]][:goals] += @goals[i].to_i 
-        @home_game_goals[@team_id[i]][:games] += 1 
+        hash[@team_id[i]][:goals] += @goals[i].to_i
+        hash[@team_id[i]][:games] += 1
       end
-    end 
+    end
+    hash
   end
 end
