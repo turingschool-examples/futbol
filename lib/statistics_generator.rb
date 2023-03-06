@@ -16,11 +16,7 @@ class StatisticsGenerator
     @teams = teams
     @games = games
     @game_teams = game_teams
-    # @teams = process_data(@data, :teams)
-    # @games = process_data(@data, :games)
-    # @game_teams = process_data(@data, :game_teams)
     @seasons_by_id = processed_seasons_data
-    # require 'pry'; binding.pry
   end
 
   def self.from_csv(locations)
@@ -28,7 +24,7 @@ class StatisticsGenerator
     teams = []
     games = []
     game_teams = []
-    
+
     locations.each do |key,value|
       new_locations[key] = CSV.open value, headers: true, header_converters: :symbol
     end
