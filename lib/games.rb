@@ -1,4 +1,5 @@
-class Games
+require_relative 'stat_book'
+class Games < StatBook
   attr_reader :game_id,
               :season,
               :away_team_id,
@@ -7,14 +8,8 @@ class Games
               :home_goals
 
   def initialize(locations)
-    file = CSV.read locations[:games], headers: true, header_converters: :symbol
-    @game_id = file[:game_id]
-    @season = file[:season]
-    @away_team_id = file[:away_team_id]
-    @home_team_id = file[:home_team_id]
-    @away_goals = file[:away_goals]
-    @home_goals = file[:home_goals]
-    @counter = 0
+    file = locations[:games]
+    super(file)
   end
 
   def highest_total_score
