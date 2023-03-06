@@ -29,6 +29,14 @@ class GameTeams < StatBook
     goals_counter.min_by{|_, v| v[:home].fdiv(v[:games])}[0]
   end
 
+  def most_tackles(season)
+    tackle_checker(season)[:best_team]
+  end
+
+  def least_tackles(season)
+    tackle_checker(season)[:worst_team]
+  end
+
   def winningest_coach(season)
     coaches = super_nested_hash
     (0..@team_id.count).each do |i|
@@ -101,40 +109,6 @@ class GameTeams < StatBook
     best_team
   end
 
-  def most_tackles(season)
-    teams = nested_hash
-    (0..@team_id.count).each do |i|
-      teams[@team_id[i]][@game_id[i]&.slice(0..3)] += @tackles[i].to_i
-    end
-    best_team = nil
-    most_tackles = 0
-    teams.each do |team, szns|
-      tackles = szns[season.slice(0..3)]
-      if most_tackles < tackles
-        most_tackles = tackles
-        best_team = team
-      end
-    end
-    best_team
-  end
-
-  def least_tackles(season)
-    teams = nested_hash
-    (0..@team_id.count).each do |i|
-      teams[@team_id[i]][@game_id[i]&.slice(0..3)] += @tackles[i].to_i
-    end
-    worst_team = nil
-    least_tackles = 5000
-    teams.each do |team, szns|
-      tackles = szns[season.slice(0..3)]
-      if least_tackles > tackles && tackles > 0
-        least_tackles = tackles
-        worst_team = team
-      end
-    end
-    worst_team
-  end
-
   ## Helper Methods ##
 
   def nested_hash
@@ -142,7 +116,32 @@ class GameTeams < StatBook
   end
 
   def super_nested_hash
-    Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
+    Hash.new { |h, k| h[k] = Hash.new{ |h, k| h[k] = Hash.new(0) }}
+  end
+
+  def tackle_counter(hash)
+    (0..@team_id.count).each do |i|
+      hash[@team_id[i]][@game_id[i]&.slice(0..3)] += @tackles[i].to_i
+    end
+    hash
+  end
+
+  def tackle_checker(season)
+    teams = tackle_counter(nested_hash)
+    best_team, worst_team = nil, nil
+    most_tackles = 0
+    least_tackles = 5000
+    teams.each do |team, szns|
+      tackles = szns[season.slice(0..3)]
+      if least_tackles > tackles && tackles > 0
+        least_tackles = tackles
+        worst_team = team
+      elsif most_tackles < tackles
+        most_tackles = tackles
+        best_team = team
+      end
+    end
+    {:best_team => best_team, :worst_team => worst_team}
   end
 
   def goals_counter
