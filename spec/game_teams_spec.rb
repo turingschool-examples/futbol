@@ -1,3 +1,4 @@
+
 require './spec/spec_helper'
 
 RSpec.describe GameTeams do
