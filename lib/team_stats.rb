@@ -14,6 +14,17 @@ module TeamStats
     }
   end
 
+  def best_season(input_team_id)
+    seasons_win_percentages = Hash.new(0)
+    team_games = @game_teams.select {|game_team| game_team.team_id == input_team_id}
+    seasonal_games = team_games.group_by(&:season)
+    seasonal_games.map do |season, games|  
+      seasons_win_percentages[season] = percent_win_loss(games)
+    end
+    good_times = seasons_win_percentages.max_by{|_, value| value}
+    good_times[0]
+  end
+
   def favorite_opponent(input_team_id)
     select_team_games = @game_teams.select {|game_team| game_team.team_id == input_team_id}
     select_opponent_games = []
