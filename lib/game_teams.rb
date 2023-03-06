@@ -6,27 +6,27 @@ class GameTeams < StatBook
   end
 
   def best_offense
-    goals_games_counter.max_by {|_, goals| goals }[0]
+    goals_counter.max_by{|k, v| v[:goals].fdiv(v[:games])}[0]
   end
   
   def worst_offense
-    goals_games_counter.min_by {|_, goals| goals }[0]
+    goals_counter.min_by{|k, v| v[:goals].fdiv(v[:games])}[0]
   end
 
   def highest_scoring_visitor
-    away_counter.max_by{|_, goals| goals }[0]
+    goals_counter.max_by{|k, v| v[:away].fdiv(v[:games])}[0]
   end
 
   def lowest_scoring_visitor
-    away_counter.min_by{|_, goals| goals }[0]
+    goals_counter.min_by{|k, v| v[:away].fdiv(v[:games])}[0]
   end
 
   def highest_scoring_home_team
-    home_counter.max_by{|_, goals| goals }[0]
+    goals_counter.max_by{|k, v| v[:home].fdiv(v[:games])}[0]
   end
 
   def lowest_scoring_home_team
-    home_counter.min_by{|_, goals| goals }[0]
+    goals_counter.min_by{|k, v| v[:home].fdiv(v[:games])}[0]
   end
 
   def winningest_coach(season)
@@ -135,51 +135,17 @@ class GameTeams < StatBook
     worst_team
   end
 
+  ## Helper Method ##
 
-
-  ## Helper Methods ##
-
-  def nested_hash
-    Hash.new { |h, k| h[k] = Hash.new(0) }
-  end
-
-  def goals_games_counter
-    goals = nested_hash
+  def goals_counter
+    goals = Hash.new { |h, k| h[k] = Hash.new(0) }
     (0..@team_id.count).each do |i|
       goals[@team_id[i]][:goals] += @goals[i].to_i
+      goals[@team_id[i]][:away] += @goals[i].to_i if @hoa[i] == 'away'
+      goals[@team_id[i]][:home] += @goals[i].to_i if @hoa[i] == 'home'
       goals[@team_id[i]][:games] += 1
     end
     goals.delete(nil)
-    goals.transform_values do |v|
-      v[:goals].fdiv(v[:games])
-    end
-  end
-
-  def home_counter
-    goals = nested_hash
-    (0..@team_id.count).each do |i|
-      if @hoa[i] == 'home'
-        goals[@team_id[i]][:goals] += @goals[i].to_i
-        goals[@team_id[i]][:games] += 1
-      end
-    end
-    goals.delete(nil)
-    goals.transform_values do |v|
-      v[:goals].fdiv(v[:games])
-    end
-  end
-
-  def away_counter
-    goals = nested_hash
-    (0..@team_id.count).each do |i|
-      if @hoa[i] == 'away'
-        goals[@team_id[i]][:goals] += @goals[i].to_i
-        goals[@team_id[i]][:games] += 1
-      end
-    end
-    goals.delete(nil)
-    goals.transform_values do |v|
-      v[:goals].fdiv(v[:games])
-    end
+    goals
   end
 end
