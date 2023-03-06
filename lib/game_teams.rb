@@ -6,27 +6,27 @@ class GameTeams < StatBook
   end
 
   def best_offense
-    goals_counter.max_by{|k, v| v[:goals].fdiv(v[:games])}[0]
+    goals_counter.max_by{|_, v| v[:goals].fdiv(v[:games])}[0]
   end
   
   def worst_offense
-    goals_counter.min_by{|k, v| v[:goals].fdiv(v[:games])}[0]
+    goals_counter.min_by{|_, v| v[:goals].fdiv(v[:games])}[0]
   end
 
   def highest_scoring_visitor
-    goals_counter.max_by{|k, v| v[:away].fdiv(v[:games])}[0]
+    goals_counter.max_by{|_, v| v[:away].fdiv(v[:games])}[0]
   end
 
   def lowest_scoring_visitor
-    goals_counter.min_by{|k, v| v[:away].fdiv(v[:games])}[0]
+    goals_counter.min_by{|_, v| v[:away].fdiv(v[:games])}[0]
   end
 
   def highest_scoring_home_team
-    goals_counter.max_by{|k, v| v[:home].fdiv(v[:games])}[0]
+    goals_counter.max_by{|_, v| v[:home].fdiv(v[:games])}[0]
   end
 
   def lowest_scoring_home_team
-    goals_counter.min_by{|k, v| v[:home].fdiv(v[:games])}[0]
+    goals_counter.min_by{|_, v| v[:home].fdiv(v[:games])}[0]
   end
 
   def winningest_coach(season)
