@@ -30,7 +30,7 @@ class GameTeams < StatBook
   end
 
   def winningest_coach(season)
-    coaches = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
+    coaches = super_nested_hash
     (0..@team_id.count).each do |i|
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:wins] += 1 if @result[i] == 'WIN'
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:games] += 1
@@ -48,7 +48,7 @@ class GameTeams < StatBook
   end
 
   def worst_coach(season)
-    coaches = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
+    coaches = super_nested_hash
     (0..@team_id.count).each do |i|
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:wins] += 1 if @result[i] == 'WIN'
       coaches[@head_coach[i]][@game_id[i]&.slice(0..3)][:games] += 1
@@ -66,7 +66,7 @@ class GameTeams < StatBook
   end
 
   def least_accurate_team(season)
-    teams = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
+    teams = super_nested_hash
     (0..@team_id.count).each do |i|
       teams[@team_id[i]][@game_id[i]&.slice(0..3)][:shots] += @shots[i].to_i
       teams[@team_id[i]][@game_id[i]&.slice(0..3)][:goals] += @goals[i].to_i
@@ -84,7 +84,7 @@ class GameTeams < StatBook
   end
 
   def most_accurate_team(season)
-    teams = Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
+    teams = super_nested_hash
     (0..@team_id.count).each do |i|
       teams[@team_id[i]][@game_id[i]&.slice(0..3)][:shots] += @shots[i].to_i
       teams[@team_id[i]][@game_id[i]&.slice(0..3)][:goals] += @goals[i].to_i
@@ -102,7 +102,7 @@ class GameTeams < StatBook
   end
 
   def most_tackles(season)
-    teams = Hash.new { |h, k| h[k] = Hash.new(0)}
+    teams = nested_hash
     (0..@team_id.count).each do |i|
       teams[@team_id[i]][@game_id[i]&.slice(0..3)] += @tackles[i].to_i
     end
@@ -119,7 +119,7 @@ class GameTeams < StatBook
   end
 
   def least_tackles(season)
-    teams = Hash.new { |h, k| h[k] = Hash.new(0)}
+    teams = nested_hash
     (0..@team_id.count).each do |i|
       teams[@team_id[i]][@game_id[i]&.slice(0..3)] += @tackles[i].to_i
     end
@@ -135,7 +135,15 @@ class GameTeams < StatBook
     worst_team
   end
 
-  ## Helper Method ##
+  ## Helper Methods ##
+
+  def nested_hash
+    Hash.new { |h, k| h[k] = Hash.new(0)}
+  end
+
+  def super_nested_hash
+    Hash.new { |h, k| h[k] = Hash.new{ |h, k|h[k] = Hash.new(0) }}
+  end
 
   def goals_counter
     goals = Hash.new { |h, k| h[k] = Hash.new(0) }
