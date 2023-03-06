@@ -1,4 +1,5 @@
-require team_season_evaluator
+require './lib/team_season_evaluator'
+require './lib/stat_tracker'
 
 RSpec.describe TeamSeasonEvaluator do
   before(:each) do 

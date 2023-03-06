@@ -1,20 +1,21 @@
-# require_relative './spec/spec_helper'
+require 'csv'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
 require_relative 'season'
-require 'csv'
 require_relative 'team_accuracy'
 require_relative 'offensive'
 require_relative 'tackle_counter'
 require_relative 'statistics_generator'
 require_relative 'offensive_2'
+require_relative 'team_season_evaluator'
 
 class StatTracker < StatisticsGenerator
   include TeamAccuracy
   include Offensive
   include TackleCounter
   include Offensive_2
+  include TeamSeasonEvaluator
 
   def initialize(data)
     super(data)
@@ -182,13 +183,13 @@ class StatTracker < StatisticsGenerator
   end
 
   def best_season(team_id)
-    team_season_average = {}
-    @seasons_by_id.each do |season, season_data|
-      these_games = season_data[:game_teams].select{|game_team| game_team.team_id == team_id}
-      team_season_average[season] = these_games.select{|game| game.result == "WIN"}.length / 
-        these_games.length.to_f
-    end
-    team_season_average.max_by{|season, average| average}.first
+    # team_season_average = {}
+    # @seasons_by_id.each do |season, season_data|
+    #   these_games = season_data[:game_teams].select{|game_team| game_team.team_id == team_id}
+    #   team_season_average[season] = these_games.select{|game| game.result == "WIN"}.length / 
+    #     these_games.length.to_f
+    # end
+    evaluate_seasons(team_id).max_by{|season, average| average}.first
   end
 end
 
