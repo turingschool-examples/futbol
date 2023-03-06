@@ -21,6 +21,7 @@ RSpec.describe StatTracker do
     end
 
     it 'inherits from stat data and CSV data' do
+    expect(StatTracker.superclass).to eq(StatData)
       expect(@stat_tracker.game_data).to be_a CSV::Table
       expect(@stat_tracker.team_data).to be_a CSV::Table
       expect(@stat_tracker.game_teams_data).to be_a CSV::Table
