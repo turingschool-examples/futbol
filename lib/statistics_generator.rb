@@ -24,11 +24,9 @@ class StatisticsGenerator
     teams = []
     games = []
     game_teams = []
-
     locations.each do |key,value|
       new_locations[key] = CSV.open value, headers: true, header_converters: :symbol
     end
-
     new_locations.each do |category, info|
       if category == :teams
         info.each do |row|
@@ -44,7 +42,6 @@ class StatisticsGenerator
         end
       end
     end
-
     new(locations, teams, games, game_teams)
   end
 
