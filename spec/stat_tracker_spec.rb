@@ -109,11 +109,11 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#count_of_teams' do
-  #   it 'counts the number of teams' do
-  #     expect(@stat_tracker.count_of_teams).to eq(32)
-  #   end
-  # end
+  describe '#count_of_teams' do
+    it 'counts the number of teams' do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+  end
 
   describe '#avg_score_per_game' do
     it 'calculates average number of goals per game' do
@@ -145,25 +145,25 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#highest_scoring_home_team and #lowest_scoring_home_team' do
-  #   it 'returns the home team with the highest score' do
-  #     expect(@stat_tracker.highest_scoring_home_team).to eq('Reign FC')
-  #   end
+  describe '#highest_scoring_home_team and #lowest_scoring_home_team' do
+    it 'returns the home team with the highest score' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq('Reign FC')
+    end
 
-  #   it 'returns the home team with the lowest score' do
-  #     expect(@stat_tracker.lowest_scoring_home_team).to eq('Utah Royals FC')
-  #   end
-  # end
+    it 'returns the home team with the lowest score' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq('Utah Royals FC')
+    end
+  end
 
-  # describe '#best_offense and #worst_offense' do
-  #   it 'calculates the best_offense with the highest number of goals per game' do
-  #     expect(@stat_tracker.best_offense).to eq('Reign FC')
-  #   end
+  describe '#best_offense and #worst_offense' do
+    it 'calculates the best_offense with the highest number of goals per game' do
+      expect(@stat_tracker.best_offense).to eq('Reign FC')
+    end
 
-  #   it 'calculates the worst_offense with the highest number of goals per game' do
-  #     expect(@stat_tracker.worst_offense).to eq('Utah Royals FC')
-  #   end
-  # end
+    it 'calculates the worst_offense with the highest number of goals per game' do
+      expect(@stat_tracker.worst_offense).to eq('Utah Royals FC')
+    end
+  end
 
   describe '#most_accurate_team and #least_accurate_team' do
     it 'returns the name of the team witha seasons  most accurate goals to shots ratio' do
@@ -175,21 +175,21 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#goals_to_shots_ratio' do
-  #   it 'returns a hash of team key and goals to shots ratio' do
-  #     expect(@stat_tracker.goals_to_shots_ratio('20122013')).to be_a(Hash)
-  #     expect(@stat_tracker.goals_to_shots_ratio('20122013').keys.all?(Integer)).to be true
-  #     expect(@stat_tracker.goals_to_shots_ratio('20122013').values.all?(Float)).to be true
-  #   end
-  # end
+  describe '#goals_to_shots_ratio' do
+    it 'returns a hash of team key and goals to shots ratio' do
+      expect(@stat_tracker.goals_to_shots_ratio('20122013')).to be_a(Hash)
+      expect(@stat_tracker.goals_to_shots_ratio('20122013').keys.all?(Integer)).to be true
+      expect(@stat_tracker.goals_to_shots_ratio('20122013').values.all?(Float)).to be true
+    end
+  end
 
-  # describe '#Highest and lowest scoring teams' do
-  #   it "shows lowest scoring away team's name across all seasons" do
-  #     expect(@stat_tracker.lowest_scoring_visitor).to eq('San Jose Earthquakes')
-  #   end
+  describe '#Highest and lowest scoring teams' do
+    it "shows lowest scoring away team's name across all seasons" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('San Jose Earthquakes')
+    end
 
-  #   it "shows highest scoring away team's name across all seasons" do
-  #     expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
-  #   end
-  # end
+    it "shows highest scoring away team's name across all seasons" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
+    end
+  end
 end
