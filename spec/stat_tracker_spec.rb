@@ -20,7 +20,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker).to be_a StatTracker
     end
 
-    it 'reads CSV data' do
+    it 'inherits from stat data and CSV data' do
       expect(@stat_tracker.game_data).to be_a CSV::Table
       expect(@stat_tracker.team_data).to be_a CSV::Table
       expect(@stat_tracker.game_teams_data).to be_a CSV::Table
