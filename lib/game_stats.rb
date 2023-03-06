@@ -6,6 +6,14 @@ class GameStats < StatData
     super(locations)
   end
 
+  def avg_score_per_game(total_goals_array)
+    total_goals_array.sum.fdiv(total_goals_array.count)
+  end
+
+  def team_name_by_id(team_id)
+    all_teams.find { |team| team.team_id == team_id }.team_name
+  end
+
   def highest_total_score
     # super(all_games)
    all_games.map do |game|

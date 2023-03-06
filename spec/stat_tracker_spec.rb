@@ -72,9 +72,9 @@ RSpec.describe StatTracker do
   end
 
   describe '#team_name_by_id' do
-    it 'returns the team name by given id' do
-      expect(@stat_tracker.team_name_by_id(1)).to eq('Atlanta United')
-    end
+    # it 'returns the team name by given id' do
+    #   expect(@stat_tracker.team_name_by_id(1)).to eq('Atlanta United')
+    # end
   end
 
   describe '#average_goals_by_season' do

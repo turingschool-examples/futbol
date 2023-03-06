@@ -15,6 +15,18 @@ RSpec.describe GameStats do
     @game_stats = GameStats.new(locations)
   end
 
+  describe '#team_name_by_id' do
+    it 'returns the team name by given id' do
+      expect(@game_stats.team_name_by_id(1)).to eq('Atlanta United')
+    end
+  end
+
+  describe'#avg_score_per_game' do
+    it 'calculates average number of goals per game' do
+      expect(@game_stats.avg_score_per_game([1,2,3,4])).to eq(2.5)
+    end
+  end
+
   describe 'highest and lowest total scores' do
     it "#highest_total_score" do
 
@@ -33,6 +45,16 @@ RSpec.describe GameStats do
 
     it 'returns the home team with the lowest score' do
       expect(@game_stats.lowest_scoring_home_team).to eq('Utah Royals FC')
+    end
+  end
+
+  describe '#Highest and lowest scoring teams' do
+    it "shows lowest scoring away team's name across all seasons" do
+      expect(@game_stats.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
+    
+    it "shows highest scoring away team's name across all seasons" do
+      expect(@game_stats.highest_scoring_visitor).to eq("FC Dallas")
     end
   end
 end
