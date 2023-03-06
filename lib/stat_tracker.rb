@@ -1,8 +1,4 @@
 class StatTracker
-  attr_reader :games,
-              :teams,
-              :game_teams
-
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
