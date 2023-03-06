@@ -1,15 +1,22 @@
 module Offensive
 
-  def offensive
-    offense = Hash.new {|hash, key| hash[key] = []}
-    @games.map do |game|
-      offense[game.away_team_id] << game.away_goals
-      offense[game.home_team_id] << game.home_goals
-    end
-    average = {}
-    offense.each do |id, goals|
-      average[id] = goals.sum / goals.count.to_f
-    end
-    average
+  def offensive(*away_or_home)
+    offense = Hash.new
+
+    applicable_games = @game_teams.select { |game_team|
+      away_or_home.include?(game_team.hoa)
+    }
+
+    @teams.each { |team|
+      this_teams_goals = applicable_games.select{ |game_team|
+        game_team.team_id == team.team_id
+        }.sum{|game_team| 
+          game_team.goals.to_f}
+      this_teams_games = applicable_games.select{|game_team| 
+        game_team.team_id == team.team_id}.length
+      offense[team.team_id] = (this_teams_goals / this_teams_games.to_f)
+    }
+    offense
   end
+
 end
