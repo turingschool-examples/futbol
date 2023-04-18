@@ -2,6 +2,23 @@
 
 Starter repository for the [Turing School](https://turing.io/) Futbol project.
 
+# Deliverables
+Your iteration deliverable is to create a README with the following. As you craft your answers, consider how you might talk about these same topics in a job interview after you graduate.
+
+A 1-2 summary or bullet points outlining your plan for check-ins throughout the duration of the project.
+
+A 2-4 sentence summary of your plan for project organization and workflow. This can include bullet points. If you plan to use a project management tool, please include a link to your project board.
+
+A 2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
+
+A 2-3 sentence summary describing your approach to the code design.
+
+- linter alignment with rubocop
+
+Include link to your initial DTR document and the date it was completed. If you do additional DTRs later in the project, you should link the revised versions here as well with the date. New versions should be listed alongside older versions. Do not delete old DTRs.
+
+Create a section in your README called “Contributors”. List each group member’s name and link to their LinkedIn and Github profiles.
+
 # Project DTR
 
 [Google Doc Draft](https://docs.google.com/document/d/1740HuAFLi1xVROgF36FxYxkCJI31Z3uT3scIvu9LqoA/edit?usp=sharing)
@@ -96,12 +113,12 @@ Return to your DTR any time you come into a team conflict
 
 - Matt: not morning guy, minus weekends
 - Javen: is ET. Hard stop @ 4p MT, not available again until about 7p MT, Weekends can work longer, Love mornings 7a MT starts, prioritize work
-- Garrett: Sundays ideal to keep open at least half day, break after school, generally available 630-830p MT weekdays 
+- Garrett: Sundays ideal to keep open at least half day, break after school, generally available 630-830p MT weekdays
 - Myles: 8am-8pm M-F ideal, Sat - less ideal, Sun - even less ideal (does not exist before 8am)
 
 *What tools do you want to use to manage the project?*
 
-- Github project 
+- Github project
 - Daily standups
 
 *How do you want the group to solve problems when members run into issues with features of the project?*
@@ -148,6 +165,7 @@ Anything else?
 Begin the commit message with the type of the commit followed by a : and brief description.
 
 #### Types of commits include:
+
 `fix` - use if committed code is fixing a bug(broken code).
 
 `feat` - stands for feature. This will likely be your most common type that you use. It should be used for any new functionality that is committed.
@@ -169,13 +187,14 @@ Spec Harness: https://github.com/turingschool-examples/futbol_spec_harness
 
 
 ### Branch naming conventions:
+
 Conventionally starts with prefix of feature/ or refactor/ or fix/
 Do not use the word ‘iteration’ - instead describe what work is being tackled in that iteration
 Should be able to see a high level view of your approach to the project
 
-# Thursday 4/20 & ONGOING DURING PROJECT
+## Thursday 4/20 & ONGOING DURING PROJECT
 
-## DTR: Check In
+**DTR: Check In**
 Essential Questions:
 Individual Reflection
 Have I been able to uphold the DTR norms we set?
@@ -212,17 +231,19 @@ What do we commit to changing?
 When will we check in again?
 
 ## IF YOU HAVE A CONFLICT
+
 **DTR: Problem Solving**
 
 ### Essential Questions:
 
 - Individual Reflection
   - What behaviors/actions are occurring that are causing a challenge?
-  - Why are those behaviors challenging?  
+  - Why are those behaviors challenging?
   - Did we discuss those behaviors in our DTR?
   - What language should I use to communicate this challenge?
 
 ### Team Discussion:
+
 - Identify the problem/challenge that needs to be solved
 - What are the behaviors happening?
 - How could we update our DTR to address this?
