@@ -148,6 +148,7 @@ Anything else?
 Begin the commit message with the type of the commit followed by a : and brief description.
 
 #### Types of commits include:
+
 `fix` - use if committed code is fixing a bug(broken code).
 
 `feat` - stands for feature. This will likely be your most common type that you use. It should be used for any new functionality that is committed.
@@ -169,13 +170,14 @@ Spec Harness: https://github.com/turingschool-examples/futbol_spec_harness
 
 
 ### Branch naming conventions:
+
 Conventionally starts with prefix of feature/ or refactor/ or fix/
 Do not use the word ‘iteration’ - instead describe what work is being tackled in that iteration
 Should be able to see a high level view of your approach to the project
 
-# Thursday 4/20 & ONGOING DURING PROJECT
+## Thursday 4/20 & ONGOING DURING PROJECT
 
-## DTR: Check In
+**DTR: Check In**
 Essential Questions:
 Individual Reflection
 Have I been able to uphold the DTR norms we set?
@@ -212,6 +214,7 @@ What do we commit to changing?
 When will we check in again?
 
 ## IF YOU HAVE A CONFLICT
+
 **DTR: Problem Solving**
 
 ### Essential Questions:
@@ -223,6 +226,7 @@ When will we check in again?
   - What language should I use to communicate this challenge?
 
 ### Team Discussion:
+
 - Identify the problem/challenge that needs to be solved
 - What are the behaviors happening?
 - How could we update our DTR to address this?
