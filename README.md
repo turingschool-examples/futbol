@@ -19,9 +19,7 @@ For Project Managers we chose Github Projects as we found it was potentially mor
 
   ###Code Design
 
-
-
-
+We established shared conventions for VS Code. We would use double quotes (“”). We would have a vertical attr_reader. Hashes <> Array is expected versus .to eq(hash).
 
   ###DTR Document
 https://docs.google.com/document/d/1aQTaoqGz3xtM8JAw5DZGTMAQPFfMce8zIxMc6ZQXAz8/edit?usp=sharing
@@ -37,8 +35,8 @@ Ashley Plasket  	    Github: https://github.com/aplasket
 Lauren Golden  	      GitHub: https://github.com/llgolden
 		                  LinkedIn: https://www.linkedin.com/in/goldenll/
 
-Matthew William       Github: 
-Johnson               LinkedIn:
+Matthew William       Github: https://github.com/MWMJohnson
+Johnson               LinkedIn: https://www.linkedin.com/in/matthewwjohnsonttu/
 
 Garrett Varenhorst    Github: https://github.com/GVarenhorst
 		                  LinkedIn: https://www.linkedin.com/in/garrett-varenhorst-a734b466
