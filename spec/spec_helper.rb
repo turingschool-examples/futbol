@@ -1,4 +1,5 @@
 require "simplecov"
 SimpleCov.start
 
-require "./lib/test"
+require "csv"
+require "./lib/stat_tracker"
