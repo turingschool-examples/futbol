@@ -17,6 +17,8 @@ We chose to use GitHub Projects to gain experience with this platform. We also l
 
 ## Code Design
 
+## DTRs 
+- [Initial DTR](https://docs.google.com/document/d/1wmFQFWNK_n0GVo-pnTF9Qz58EmthvTGLgNhsBascViU/edit) *completed 4/17/23*
 
 ## Contributors 
 ### Nick Tassinari
