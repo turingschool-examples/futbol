@@ -1,3 +1,5 @@
+require './spec/spec_helper'
+
 class StatTracker
   attr_reader :teams,
               :games,
