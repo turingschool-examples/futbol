@@ -1,21 +1,21 @@
 require "csv"
 
 class StatTracker
-  def initialize
+  attr_reader :games, :teams, :game_teams
 
+  def initialize(locations)
+    @games_data = CSV.open(locations[:games], headers: true, header_converters: :symbol)
+    @teams_data = CSV.open(locations[:teams], headers: true, header_converters: :symbol)
+    @game_teams_data = CSV.open(locations[:game_teams], headers: true, header_converters: :symbol)
+
+    @game = Game.new(@game_data)
+    # @league = League.new(???)
+    # @season = Season.new(???)
   end
 
   def self.from_csv(location)
-    location.map do |key, file|
-      CSV.open(file, headers: true, header_converters: :symbol)
-    end
+    StatTracker.new(location)
   end
 
-  def read_csv(location)
-    location.map do |key, file|
-      CSV.open(file, headers: true, header_converters: :symbol)
-      require 'pry'; binding.pry
-    end
-  end
 
 end
