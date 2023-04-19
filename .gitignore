@@ -39,3 +39,8 @@ Thumbs.db
 # SimpleCov #
 ######################
 coverage
+
+# Gemfile #
+######################
+*.lock
+
