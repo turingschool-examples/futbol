@@ -1,7 +1,7 @@
 class StatTracker
   attr_reader :teams,
               :games
-  def initialize
+  def initialize()
     @teams = []
     @games = []
   end
@@ -10,8 +10,5 @@ class StatTracker
     all_open_csvs = locations.map do |file, location|
       (CSV.open location, headers: true, header_converters: :symbol)
     end
-    # @teams << all_open_csvs[1]
-    # @games << all_open_csvs[0]
-    # @games << all_open_csvs[2]
   end
 end

@@ -10,7 +10,8 @@ RSpec.describe StatTracker do
       teams: @team_path,
       game_teams: @game_teams_path
     }
-    @stat_tracker = StatTracker.from_csv(@locations)
+    @all_csvs = StatTracker.from_csv(@locations)
+    @stat_tracker = StatTrack.new(@all_csvs)
   end
 
   describe "#initialize" do 
