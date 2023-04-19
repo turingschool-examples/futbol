@@ -1,0 +1,4 @@
+coverage
+echo coverage >> .gitignore
+coverage/.resultset.json
+coverage/index.html
