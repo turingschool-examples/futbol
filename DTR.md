@@ -101,6 +101,7 @@ Return to your DTR any time you come into a team conflict
 - Daily standups
 
 *How do you want the group to solve problems when members run into issues with features of the project?*
+
 - GG: Live syncs, huddles
 
 *When will we check in again about our process and progress?*
@@ -112,16 +113,16 @@ Thu, March 20 @ 11a MT
 *How can we achieve success as individuals?*
 
 - Matt: building relationships and being open to new ideas
--Javen: Communicating effectively and helping each other out
--Garrett: learn from each other, work together and get through iteration 2
--Myles: Contribute meaningfully and learn something new
+- Javen: Communicating effectively and helping each other out
+- Garrett: learn from each other, work together and get through iteration 2
+- Myles: Contribute meaningfully and learn something new
 
 *Is there anything else we should know about one another before we start working?*
 
--Matt: I have a cat
--Javen: My 2 kids are my priority, I may be late because I’m helping my wife with them
--Garrett: I have a new puppy
--Myles: I 🧡 my dirtbike
+- Matt: I have a cat
+- Javen: My 2 kids are my priority, I may be late because I’m helping my wife with them
+- Garrett: I have a new puppy
+- Myles: I 🧡 my dirtbike
 
 ## Project Management
 
@@ -139,9 +140,7 @@ Anything else?
 
 ### Naming conventions:
 
-*How to Write a Good Commit Message*
-
-Begin the commit message with the type of the commit followed by a : and brief description.
+- Begin the commit message with the type of the commit followed by a : and brief description.
 
 #### Types of commits include:
 
