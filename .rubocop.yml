@@ -140,7 +140,7 @@ AllCops:
   # or gems.locked file. (Although the Ruby version is specified in the Gemfile
   # or gems.rb file, RuboCop reads the final value from the lock file.) If the
   # Ruby version is still unresolved, RuboCop will use the oldest officially
-  # supported Ruby version (currently Ruby 2.6).
+  # supported Ruby version (currently Ruby 2.7).
   TargetRubyVersion: ~
   # Determines if a notification for extension libraries should be shown when
   # rubocop is run. Keys are the name of the extension, and values are an array
@@ -1016,8 +1016,6 @@ Layout/LineContinuationLeadingSpace:
 Layout/LineContinuationSpacing:
   Description: 'Checks the spacing in front of backslash in line continuations.'
   Enabled: pending
-  AutoCorrect: true
-  SafeAutoCorrect: true
   VersionAdded: '1.31'
   EnforcedStyle: space
   SupportedStyles:
@@ -1751,6 +1749,11 @@ Lint/DuplicateMagicComment:
   Description: 'Check for duplicated magic comments.'
   Enabled: pending
   VersionAdded: '1.37'
+
+Lint/DuplicateMatchPattern:
+  Description: 'Do not repeat patterns in `in` keywords.'
+  Enabled: pending
+  VersionAdded: '1.50'
 
 Lint/DuplicateMethods:
   Description: 'Check for duplicate method definitions.'
@@ -2501,7 +2504,7 @@ Metrics/AbcSize:
   Reference:
     - http://c2.com/cgi/wiki?AbcMetric
     - https://en.wikipedia.org/wiki/ABC_Software_Metric
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.27'
   VersionChanged: '1.5'
   # The ABC size is a calculated magnitude, so this number can be an Integer or
@@ -2538,7 +2541,7 @@ Metrics/BlockNesting:
 
 Metrics/ClassLength:
   Description: 'Avoid classes longer than 100 lines of code.'
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.25'
   VersionChanged: '0.87'
   CountComments: false  # count full line comments?
@@ -2566,7 +2569,7 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 10 lines of code.'
   StyleGuide: '#short-methods'
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.25'
   VersionChanged: '1.5'
   CountComments: false  # count full line comments?
@@ -2619,7 +2622,7 @@ Migration/DepartmentName:
 Naming/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   StyleGuide: '#accessor_mutator_method_names'
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.50'
 
 Naming/AsciiIdentifiers:
@@ -2779,7 +2782,7 @@ Naming/InclusiveLanguage:
   Description: 'Recommend the use of inclusive language instead of problematic terms.'
   Enabled: false
   VersionAdded: '1.18'
-  VersionChanged: '<<next>>'
+  VersionChanged: '1.49'
   CheckIdentifiers: true
   CheckConstants: true
   CheckVariables: true
@@ -2865,7 +2868,7 @@ Naming/MethodParameterName:
 Naming/PredicateName:
   Description: 'Check the names of predicate methods.'
   StyleGuide: '#bool-methods-qmark'
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.50'
   VersionChanged: '0.77'
   # Predicate name prefixes.
@@ -3508,6 +3511,12 @@ Style/Copyright:
   Notice: '^Copyright (\(c\) )?2[0-9]{3} .+'
   AutocorrectNotice: ''
 
+Style/DataInheritance:
+  Description: 'Checks for inheritance from Data.define.'
+  StyleGuide: '#no-extend-data-define'
+  Enabled: pending
+  VersionAdded: '1.49'
+
 Style/DateTime:
   Description: 'Use Time over DateTime.'
   StyleGuide: '#date-time'
@@ -3737,7 +3746,6 @@ Style/FileEmpty:
                  Prefer to use `File.empty?('path/to/file')` when checking if a file is empty.
   Enabled: pending
   Safe: false
-  SafeAutoCorrect: false
   VersionAdded: '1.48'
 
 Style/FileRead:
@@ -4059,7 +4067,9 @@ Style/InverseMethods:
 Style/InvertibleUnlessCondition:
   Description: 'Favor `if` with inverted condition over `unless`.'
   Enabled: false
+  Safe: false
   VersionAdded: '1.44'
+  VersionChanged: '1.50'
   # `InverseMethods` are methods that can be inverted in a `unless` condition.
   # The relationship of inverse methods needs to be defined in both directions.
   # Keys and values both need to be defined as symbols.
@@ -4551,7 +4561,7 @@ Style/NumericLiterals:
                  Add underscores to large numeric literals to improve their
                  readability.
   StyleGuide: '#underscores-in-numerics'
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.9'
   VersionChanged: '0.48'
   MinDigits: 5
@@ -4565,11 +4575,10 @@ Style/NumericPredicate:
                  Checks for the use of predicate- or comparison methods for
                  numeric comparisons.
   StyleGuide: '#predicate-methods'
-  Safe: false
   # This will change to a new method call which isn't guaranteed to be on the
   # object. Switching these methods has to be done with knowledge of the types
   # of the variables which rubocop doesn't have.
-  SafeAutoCorrect: false
+  Safe: false
   Enabled: true
   VersionAdded: '0.42'
   VersionChanged: '0.59'
@@ -4650,7 +4659,7 @@ Style/OptionalArguments:
 Style/OptionalBooleanParameter:
   Description: 'Use keyword arguments when defining method with boolean argument.'
   StyleGuide: '#boolean-keyword-arguments'
-  Enabled: false
+  Enabled: true
   Safe: false
   VersionAdded: '0.89'
   AllowedMethods:
@@ -4877,6 +4886,11 @@ Style/RedundantInterpolation:
   SafeAutoCorrect: false
   VersionAdded: '0.76'
   VersionChanged: '1.30'
+
+Style/RedundantLineContinuation:
+  Description: 'Check for redundant line continuation.'
+  Enabled: pending
+  VersionAdded: '1.49'
 
 Style/RedundantParentheses:
   Description: "Checks for parentheses that seem not to serve any purpose."
@@ -5464,7 +5478,7 @@ Style/WhileUntilModifier:
 Style/WordArray:
   Description: 'Use %w or %W for arrays of words.'
   StyleGuide: '#percent-w'
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.9'
   VersionChanged: '1.19'
   EnforcedStyle: percent
