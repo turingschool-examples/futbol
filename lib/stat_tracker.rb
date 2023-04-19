@@ -17,5 +17,4 @@ class StatTracker
     StatTracker.new(location)
   end
 
-
 end
