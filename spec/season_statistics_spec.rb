@@ -1,4 +1,3 @@
-
 # Commented out tests below for now so running `rspec spec` will pass tests since we have not yet begun our code. 
 
 # RSpec.describe StatTracker do 
