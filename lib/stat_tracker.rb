@@ -1,7 +1,9 @@
 class StatTracker
   attr_reader :teams,
-              :games
-  def initialize()
+              :games,
+              :all_open_csvs
+  def initialize(all_open_csvs)
+    @all_open_csvs = all_open_csvs
     @teams = []
     @games = []
   end

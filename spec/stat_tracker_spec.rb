@@ -11,14 +11,16 @@ RSpec.describe StatTracker do
       game_teams: @game_teams_path
     }
     @all_csvs = StatTracker.from_csv(@locations)
-    @stat_tracker = StatTrack.new(@all_csvs)
+    @stat_tracker = StatTracker.new(@all_csvs)
   end
 
   describe "#initialize" do 
     it "can initialize with attributes" do 
-      require 'pry'; binding.pry
       expect(@stat_tracker).to be_a(StatTracker)
-      
+      expect(@stat_tracker.teams).to eq([])
+      expect(@stat_tracker.games).to eq([])
+      expect(@stat_tracker.all_open_csvs).to be_a(Array)
+      expect(@stat_tracker.all_open_csvs[0]).to be_a(CSV)
     end
   end
 end
