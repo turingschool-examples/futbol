@@ -1,11 +1,10 @@
-require_relative 'stat_tracker'
+module GameStats
+  
+  def highest_total_score
 
-class GameStats < StatTracker 
-  def initialize(locations)
-    super 
   end
 
-  def highest_total_score
-    require 'pry'; binding.pry
+  def percentage_home_wins 
+    home_wins = 0 
   end
 end
