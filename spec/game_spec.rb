@@ -2,19 +2,19 @@ require 'spec_helper'
 
 RSpec.describe Game do
   before(:each) do
-    @game = Futbol.new(CSV.open './spec/fixtures/games.csv', headers: true, header_converters: :symbol)
-    @game = Futbol.new(CSV.open './spec/fixtures/game_teams.csv', headers: true, header_converters: :symbol)
-    @game_1 = Game.new(id: )
+    # @game = Futbol.new(CSV.open './spec/fixtures/games.csv', headers: true, header_converters: :symbol)
+    # @game = Futbol.new(CSV.open './spec/fixtures/game_teams.csv', headers: true, header_converters: :symbol)
+    @game1 = Game.new(game_id: "5", home_team_id: "1", away_team_id: "2", home_team_goals: "1", away_team_goals: "2")
   end
 
   describe '#initialize' do
     it 'can initialize with attributes' do
-      expect(@game).to be_a(Game)
-      expect(@game.id).to eq("")
-      expect(@game.home_team_id).to eq("")
-      expect(@game.away_team_id).to eq("")
-      expect(@game.home_team_goals).to eq("")
-      expect(@game.away_team_goals).to eq("")
+      expect(@game1).to be_a(Game)
+      expect(@game1.game_id).to eq("5")
+      expect(@game1.home_team_id).to eq("1")
+      expect(@game1.away_team_id).to eq("2")
+      expect(@game1.home_team_goals).to eq("1")
+      expect(@game1.away_team_goals).to eq("2")
     end
   end
 end
