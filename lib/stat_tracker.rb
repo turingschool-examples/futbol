@@ -32,7 +32,7 @@ class StatTracker
     home_wins = @games.find_all do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.count / number_of_games * 100).round(2)
+    (home_wins.count / number_of_games).round(2)
   end
 
 
@@ -41,7 +41,7 @@ class StatTracker
     visitor_wins = @games.find_all do |game|
       game.home_goals < game.away_goals
     end
-    (visitor_wins.count / number_of_games * 100).round(2)
+    (visitor_wins.count / number_of_games).round(2)
   end
 
   def percentage_visitor_wins
@@ -49,7 +49,7 @@ class StatTracker
     visitor_wins = @games.find_all do |game|
       game.home_goals < game.away_goals
     end
-    (visitor_wins.count / number_of_games * 100).round(2)
+    (visitor_wins.count / number_of_games).round(2)
   end
 
   def percentage_ties
@@ -57,7 +57,7 @@ class StatTracker
     tie_games = @games.find_all do |game|
       game.home_goals == game.away_goals
     end
-    (tie_games.count / number_of_games * 100).round(2)
+    (tie_games.count / number_of_games).round(2)
   end
 
   ### LEAGUE STATS ###
