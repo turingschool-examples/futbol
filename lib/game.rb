@@ -5,6 +5,19 @@ class Game
     @game_data = data
   end
 
+  def highest_total_score
+    @game_data.map do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end.max
+  end
+
+  def lowest_total_score
+    @game_data.map do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end.min
+  end
+  
+
   # Percentage of games that has 
   # resulted in a tie (rounded to the nearest 100th)
   def percentage_ties
