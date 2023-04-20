@@ -1,3 +1,5 @@
+# require 'csv'
+
 require './lib/stat_tracker'
 
 game_path = './data/games.csv'
@@ -9,7 +11,7 @@ locations = {
   teams: team_path,
   game_teams: game_teams_path
 }
-
+  # CSV.readlines(game_path, headers:true, header_converters: :symbol).map do |row|
+  # require 'pry'; binding.pry
+  # end
 stat_tracker = StatTracker.from_csv(locations)
-
-# require 'pry'; binding.pry
