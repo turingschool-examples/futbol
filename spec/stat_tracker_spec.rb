@@ -10,8 +10,7 @@ RSpec.describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-    @all_csvs = StatTracker.from_csv(locations)
-    @stat_tracker = StatTracker.new(@all_csvs)
+    @stat_tracker = StatTracker.new(locations)
   end
 
   describe "#initialize" do 
@@ -19,8 +18,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker).to be_a(StatTracker)
       expect(@stat_tracker.teams).to eq([])
       expect(@stat_tracker.games).to eq([])
-      expect(@stat_tracker.all_open_csvs).to be_a(Array)
-      expect(@stat_tracker.all_open_csvs[0]).to be_a(CSV)
+      expect(@stat_tracker.locations).to be_a(Hash)
     end
   end
 end
