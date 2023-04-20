@@ -1,5 +1,5 @@
 require "csv"
-require_relative './game'
+require_relative "./game"
 
 class StatTracker
   attr_reader :games
@@ -9,12 +9,10 @@ class StatTracker
   end
 
   def initialize(files)
-    @games = (CSV.open files[:games], headers: true, header_converters: :symbol).map do |row|
-      game = Game.new(row)
-    end
+    @games = (CSV.open files[:games], headers: true, header_converters: :symbol).map { |row| Game.new(row) }
   end
 
-  ###GAME STATS###
+  ### GAME STATS ###
   def highest_total_score
     highest_game = @games.max_by do |game|
       game.away_goals + game.home_goals
@@ -28,6 +26,6 @@ class StatTracker
     end
     lowest_game.away_goals + lowest_game.home_goals
   end
-  ###LEAGUE STATS###
-  ###TEAM STATS###
+  ### LEAGUE STATS ###
+  ### TEAM STATS ###
 end
