@@ -2,8 +2,9 @@ require './spec_helper'
 
 RSpec.describe Game do
   before(:each) do
-    @games_data = CSV.open('./data/games.csv', headers: true, header_converters: :symbol)
-    @game = Game.new(@games_data)
+    game_path = './data_dummy/games_dummy.csv'
+    games_data = CSV.open(game_path, headers: true, header_converters: :symbol)
+    @game = Game.new(games_data)
   end
 
   describe "initialize" do
