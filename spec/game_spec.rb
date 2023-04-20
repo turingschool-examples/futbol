@@ -3,12 +3,12 @@ RSpec.describe Game do
   before(:each) do
     # @game = Game.new('2012030221', '20122013', 'Postseason', '5/16/13', '3', '6', 2, 3, 'Toyota Stadium')
     stats = {
-      :game_id => 2012030221,
-      :season => 20122013,
-      :away_team_id => 3,
-      :home_team_id => 6,
-      :away_goals => 2,
-      :home_goals => 3
+      :game_id => '2012030221',
+      :season => '20122013',
+      :away_team_id => '3',
+      :home_team_id => '6',
+      :away_goals => '2',
+      :home_goals => '3'
     }
     @game = Game.new(stats)
   end
