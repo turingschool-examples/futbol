@@ -1,4 +1,4 @@
-# use require_relative
+require_relative 'stat_tracker'
 class Game 
 
 attr_reader :game_id, 
@@ -12,32 +12,25 @@ attr_reader :game_id,
             :venue, 
             :venue_link
 
-  def initialize(file)
-    @games = (CSV.open file[:games], headers: true, header_converters: :symbol).map { |row| Game.new(row) }
-    require 'pry'; binding.pry
-        @game_id = row[:game_id],
-        @season = row[:season],
-        @type = row[:type],
-        @date_time = row[:date_time],
-        @away_team_id = row[:away_team_id],
-        @home_team_id = row[:home_team_id],
-        @away_goals = row[:away_goals],
-        @home_goals = row[:home_goals],
-        @venue = row[:venue],
-        @venue_link = row[:venue_link]
-      
+  def initialize(row)
+    @game_id = row[:game_id]
+    @season = row[:season]
+    @type = row[:type]
+    @date_time = row[:date_time]
+    @away_team_id = row[:away_team_id]
+    @home_team_id = row[:home_team_id]
+    @away_goals = row[:away_goals]
+    @home_goals = row[:home_goals]
+    @venue = row[:venue]
+    @venue_link = row[:venue_link]
   end
-
-  # def highest_total_score
-  #   method
-  # end
 
   # def lowest_total_score
   #   method
   # end
 
   # def percentage_home_wins
-  #   @games. (method for calculating this)
+  #   method
   # end
 
   # def percentage_visitor_wins
