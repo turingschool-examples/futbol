@@ -13,6 +13,7 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
+    require 'pry'; binding.pry
   end
 
   describe "initialize" do 
@@ -20,7 +21,6 @@ RSpec.describe StatTracker do
       expect(@stat_tracker).to be_a(StatTracker)
     end
   end
-end
 
   it "exists" do
     expect(@stat_tracker).to be_a(StatTracker)

@@ -33,9 +33,9 @@ attr_reader :game_id,
   #   method
   # end
 
-  # def percentage_home_wins
-  #   method
-  # end
+  def percentage_home_wins
+    method
+  end
 
   # def percentage_visitor_wins
   #   method

@@ -44,12 +44,20 @@ RSpec.describe Game do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-    describe "#games.csv" do
-      it "can create an object from StatTracker" do  
-        expect(@stat_tracker.games[0].game_id).to eq("2012030221")
-        expect(@stat_tracker.games).to be_an(Array)
-        expect(@stat_tracker.games.sample).to be_a(Game)
-        expect(@stat_tracker.games).to all(be_a(Game))
-      end
+  describe "#games.csv" do
+    it "can create an object from StatTracker" do  
+      expect(@stat_tracker.games[0].game_id).to eq("2012030221")
+      expect(@stat_tracker.games).to be_an(Array)
+      expect(@stat_tracker.games.sample).to be_a(Game)
+      expect(@stat_tracker.games).to all(be_a(Game))
     end
+  end
+
+  describe "#percentage home wins" do
+    it "can calculate percentage and return float value" do
+      expect(@stat_tracker.games).to 
+    end
+
+
+  end
 end
