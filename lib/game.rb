@@ -5,4 +5,46 @@ class Game
     @game_data = data
   end
   
+  def average_goals_per_game
+    goals = []
+    @game_data.each do |game|
+      goals_sum = game[:away_goals] + game[:home_goals]
+      goals << goals_sum
+    end
+    goals.sum / goals.length.to_f
+  end
+
+  def count_of_goals_by_season
+    goals_by_season = {}
+    @game_data.each do |game|
+      if goals_by_season[game[:season]].nil?
+        goals_by_season[game[:season]] = game.home_goals + game.away_goals
+      else
+        goals_by_season[game[:season]] += game.home_goals + game.away_goals
+      end
+    end
+    goals_by_season
+  end
+
+  def count_of_games_by_season
+    games_by_season = {}
+    @games.each do |game|
+      if games_by_season[game[:season]].nil?
+        games_by_season[game[:season]] = 1
+      else
+        games_by_season[game[:season]] += 1
+      end
+    end
+    games_by_season
+  end
+
+
+  def average_goals_by_season
+    average_goals = {}
+    count_of_goals_by_season.each do |season, goals| 
+      average_goals[season] = (goals.to_f / count_of_games_by_season[season]).round(2)
+    end
+    average_goals
+  end
+    
 end
