@@ -19,9 +19,14 @@ For Project Managers we chose Github Projects as we found it was potentially mor
 
 ### Code Design
 
-We established shared conventions for VS Code. We would use double quotes (“”). We would have a vertical attr_reader. Hashes <> Array is expected versus .to eq(hash).
+We established shared conventions for VS Code. We would use double quotes (“”). We would have a vertical attr_reader. In assertions for Hashes or Arrays, we will  expect the return value to be a variable that is defined in the line above for greater readability.  
 
-  ### DTR Document
+EX:  
+expected = {value}  
+expect(hash).to eq(expected)
+
+### DTR Document
+
 https://docs.google.com/document/d/1aQTaoqGz3xtM8JAw5DZGTMAQPFfMce8zIxMc6ZQXAz8/edit?usp=sharing
 Initial Document created 04/17/2023
 
@@ -29,15 +34,19 @@ Initial Document created 04/17/2023
 
 ## CONTRIBUTORS
 
-Ashley Plasket  	    Github: https://github.com/aplasket
-                      LinkedIn: https://www.linkedin.com/in/ashley-plasket/
+### Ashley Plasket  	       
+Github: https://github.com/aplasket  
+LinkedIn: https://www.linkedin.com/in/ashley-plasket/
 
-Lauren Golden  	      GitHub: https://github.com/llgolden
-		                  LinkedIn: https://www.linkedin.com/in/goldenll/
+### Lauren Golden  	       
+GitHub: https://github.com/llgolden  
+LinkedIn: https://www.linkedin.com/in/goldenll/
 
-Matthew William       Github: https://github.com/MWMJohnson
-Johnson               LinkedIn: https://www.linkedin.com/in/matthewwjohnsonttu/
+### Matthew William Johnson  
+Github: https://github.com/MWMJohnson  
+LinkedIn: https://www.linkedin.com/in/matthewwjohnsonttu/
 
-Garrett Varenhorst    Github: https://github.com/GVarenhorst
-		                  LinkedIn: https://www.linkedin.com/in/garrett-varenhorst-a734b466
+### Garrett Varenhorst        
+Github: https://github.com/GVarenhorst  
+LinkedIn: https://www.linkedin.com/in/garrett-varenhorst-a734b466
 
