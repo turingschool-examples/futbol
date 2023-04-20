@@ -52,12 +52,4 @@ RSpec.describe Game do
       expect(@stat_tracker.games).to all(be_a(Game))
     end
   end
-
-  describe "#percentage home wins" do
-    it "can calculate percentage and return float value" do
-      expect(@stat_tracker.games).to 
-    end
-
-
-  end
 end
