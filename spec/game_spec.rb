@@ -5,6 +5,9 @@ RSpec.describe Game do
     game_path = './data_dummy/games_dummy.csv'
     games_data = CSV.open(game_path, headers: true, header_converters: :symbol)
     @game = Game.new(games_data)
+    game_path2 = './data_dummy/game_teams_dummy.csv'
+    games_data2 = CSV.open(game_path2, headers: true, header_converters: :symbol)
+    @game2 = Game.new(games_data2)
   end
 
   describe "initialize" do
@@ -46,12 +49,20 @@ RSpec.describe Game do
       expect(@game.count_of_games_by_season).to eq(expected)
     end
 
-    xit "can give average goals by season" do 
-      expected = {
-      "20122013" => 3.87,
-      "20132014" => 4.20
-      }
-      expect(@game.average_goals_by_season).to eq(expected)
+    # xit "can give average goals by season" do 
+    #   expected = {
+    #   "20122013" => 3.87,
+    #   "20132014" => 4.20
+    #   }
+    #   expect(@game.average_goals_by_season).to eq(expected)
+    # end
+  end
+  describe "win percentages" do
+    it "returns home win percentages" do
+      expect(@game2.percentage_home_wins).to eq(68.00)
+    end
+    it "returns away win percentages" do
+      expect(@game2.percentage_away_wins).to eq(28.00)
     end
   end
 end
