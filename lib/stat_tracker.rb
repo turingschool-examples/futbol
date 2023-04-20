@@ -1,5 +1,4 @@
 require "csv"
-require "spec_helper"
 
 class StatTracker
   attr_reader :game_stats,
