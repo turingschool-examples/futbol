@@ -24,12 +24,12 @@ class StatTracker
     games = CSV.open(locations, headers: true, header_converters: :symbol)
     games.map do |row| 
       @games << Game.new({
-      game_id: row[:game_id],
-      season: row[:season],
-      away_team_id: row[:away_team_id], 
-      home_team_id: row[:home_team_id], 
-      away_goals: row[:away_goals], 
-      home_goals: row[:home_goals]})
+        game_id: row[:game_id],
+        season: row[:season],
+        away_team_id: row[:away_team_id], 
+        home_team_id: row[:home_team_id], 
+        away_goals: row[:away_goals], 
+        home_goals: row[:home_goals]})
     end
   end
 
@@ -37,21 +37,21 @@ class StatTracker
     game_team_info = CSV.open(locations, headers: true, header_converters: :symbol)
     game_team_info.map do |row| 
       @game_teams << GameTeam.new({
-       game_id: row[:game_id],
-       team_id: row[:team_id],
-       hoa: row[:hoa],
-       result: row[:result],
-       settled_in:  row[:settled_in],
-       head_coach: row[:head_coach],
-       goals: row[:goals],
-       shots: row[:shots],
-       tackles: row[:tackles],
-       pim: row[:pim],
-       power_play_opportunities: row[:power_play_opportunities],
-       power_play_goals: row[:power_play_goals],
-       face_off_win_percentage: row[:face_off_win_percentage],
-      giveaways: row[:giveaways],
-       takeaways: row[:takeaways]})
+        game_id: row[:game_id],
+        team_id: row[:team_id],
+        hoa: row[:hoa],
+        result: row[:result],
+        settled_in:  row[:settled_in],
+        head_coach: row[:head_coach],
+        goals: row[:goals],
+        shots: row[:shots],
+        tackles: row[:tackles],
+        pim: row[:pim],
+        power_play_opportunities: row[:power_play_opportunities],
+        power_play_goals: row[:power_play_goals],
+        face_off_win_percentage: row[:face_off_win_percentage],
+        giveaways: row[:giveaways],
+        takeaways: row[:takeaways]})
     end
   end
 
