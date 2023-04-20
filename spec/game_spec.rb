@@ -2,7 +2,7 @@ require "./spec_helper"
 
 RSpec.describe Game do
   before(:each) do
-    @game = Game.new("./data/game_teams.csv",)
+    @game = Game.new("./data/game_teams.csv")
   end
   describe "win percentages" do
     it "can count total games" do

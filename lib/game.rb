@@ -15,31 +15,27 @@ class Game
     end
     game_count
   end
-
-
+  # 14882 includes TIEs
+  
+  
   def percentage_home_wins
     wins = 0
     games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
-    games.each do |line|
-      if line[:hoa].include?("home")
-        if line[:result].include?("WIN")
-          wins += 1
-        end
+    games.each do |game|
+      if game[:hoa] == "home" && game[:result] == "WIN"
+        wins += 1
       end
     end
     percentage = wins / game_count.to_f
     percentage
-    require 'pry'; binding.pry
   end
 
   def percentage_away_wins
     wins = 0
     games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
-    games.each do |line|
-      if line[:hoa].include?("away")
-        if line[:result].include?("WIN")
-          wins += 1
-        end
+    games.each do |game|
+      if game[:hoa] == "away" && game[:result] == "WIN"
+        wins += 1
       end
     end
     percentage = wins / game_count.to_f
