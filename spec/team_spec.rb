@@ -8,7 +8,7 @@ RSpec.describe Team do
 
   it 'has attributes' do
     team = Team.new(team)
-    expect(team.team_id).to eq()
-    expect(team.name).to eq()
+    expect(team.team_id).to be_a(String)
+    expect(team.name).to be_a(String)
   end
 end
