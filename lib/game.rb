@@ -17,37 +17,24 @@ class Game
     end.min
   end
   
-
-  # Percentage of games that has 
-  # resulted in a tie (rounded to the nearest 100th)
   def percentage_ties
-    away = 0
-    data = CSV.parse(File.read(@game_data), headers: true, header_converters: :symbol)
-    data.each do |a_goal|
-      away += [:away_goals]
+    games = 0
+    ties = 0
+    @game_data.each do |row|
+      if row[:away_goals].to_i == row[:home_goals].to_i
+        ties += 1
+      elsif row[:away_goals].to_i != row[:home_goals].to_i
+        games += 1
+      end
     end
-    away
+    ties.to_f / (games + ties)
   end
 
-    #find total games - make helper method?
-    # goals = 0
-    # data.each do |away|
-    #   goals += away[:away_goals]
-  # end
-
-    #find total games where home_goals = away_goals
-  # end
-
-
-  #A hash with season names 
-  # (e.g. 20122013) as keys and counts of games as values
   def count_of_games_by_season
-    data = @game_data[:games]
-    CSV.parse(File.read(data), headers: true)
-
-    #using second column "season" use date format to make "name" key
-    #count number of games per season and apply as value
-    
+    season_count = Hash.new
+    @game_data.each do |season, games|
+      season_count { season[:season] => games[:game] }
+    end
   end
   
 end
