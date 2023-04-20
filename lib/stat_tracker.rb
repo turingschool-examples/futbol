@@ -12,6 +12,5 @@ class StatTracker
     @games = (CSV.open files[:games], headers: true, header_converters: :symbol).map do |row|
       game = Game.new(row)
     end
-    require 'pry'; binding.pry
   end
 end
