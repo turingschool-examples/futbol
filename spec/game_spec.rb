@@ -58,13 +58,11 @@ RSpec.describe Game do
     # end
   end
   describe "win percentages" do
-    it "can count total games" do
-      expect(@game2.game_count).to eq(25)
+    it "returns home win percentages" do
+      expect(@game2.percentage_home_wins).to eq(68.00)
     end
-    it "returns win percentages" do
-
-      expect(@game2.percentage_home_wins).to be_a()
-      # expect(game.percentage_away_wins).to be_a(Float)
+    it "returns away win percentages" do
+      expect(@game2.percentage_away_wins).to eq(28.00)
     end
   end
 end

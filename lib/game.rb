@@ -72,7 +72,6 @@ class Game
     percentage = wins / game_count.to_f
     percentage = percentage * 100
     percentage = percentage.round(2)
-    percentage
   end
 
   def percentage_away_wins
@@ -87,6 +86,5 @@ class Game
     percentage = wins / game_count.to_f
     percentage = percentage * 100
     percentage = percentage.round(2)
-    percentage
   end
 end
