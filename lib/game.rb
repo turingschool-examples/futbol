@@ -9,8 +9,7 @@ class Game
 
   def game_count
     game_count = 0
-    games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
-    games.each do |game|
+   @game_data.each do |row|
       game_count += 1
     end
     game_count
@@ -20,8 +19,8 @@ class Game
   
   def percentage_home_wins
     wins = 0
-    games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
-    games.each do |game|
+
+   @game_data.each do |game|
       if game[:hoa] == "home" && game[:result] == "WIN" || game[:hoa] == "away" && game[:result] == "LOSS"
         wins += 1
       end
@@ -29,12 +28,13 @@ class Game
     percentage = wins / game_count.to_f
     percentage = percentage * 100
     percentage = percentage.round(2)
+    require 'pry'; binding.pry
   end
 
   def percentage_away_wins
     wins = 0
-    games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
-    games.each do |game|
+    
+   @game_data.each do |game|
       if game[:hoa] == "away" && game[:result] == "WIN" || game[:hoa] == "home" && game[:result] == "LOSS"
         wins += 1
       end
@@ -42,6 +42,5 @@ class Game
     percentage = wins / game_count.to_f
     percentage = percentage * 100
     percentage = percentage.round(2)
-    require 'pry'; binding.pry
   end
 end
