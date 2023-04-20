@@ -4,7 +4,7 @@ RSpec.describe Futbol do
   before(:each) do
     game_path = './spec/fixtures/games.csv'
     team_path = './spec/fixtures/teams.csv'
-    game_teams_path = './spec/fixtures/data/game_teams.csv'
+    game_teams_path = './spec/fixtures/game_teams.csv'
     locations = {
     games: game_path,
     teams: team_path,
