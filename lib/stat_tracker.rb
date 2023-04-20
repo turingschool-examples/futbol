@@ -1,4 +1,4 @@
-require "csv"
+require_relative "csv"
 
 class StatTracker
   def self.from_csv(csv)
