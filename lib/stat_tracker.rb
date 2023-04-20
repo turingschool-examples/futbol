@@ -7,7 +7,7 @@ class StatTracker
               :team_stats
   
   def self.from_csv(files)
-    new_stat = StatTracker.new
+    StatTracker.new
   end
 
   def initialize(files)
