@@ -27,7 +27,7 @@ class Game
       end
     end
     percentage = wins / game_count.to_f
-    percentage
+    percentage.round(2)
   end
 
   def percentage_away_wins
@@ -39,6 +39,6 @@ class Game
       end
     end
     percentage = wins / game_count.to_f
-    percentage
+    percentage.round(2)
   end
 end
