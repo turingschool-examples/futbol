@@ -1,9 +1,7 @@
 require "csv"
 
 class StatTracker
-  attr_reader :game_stats,
-              :league_stats
-              :team_stats
+  attr_reader :game_stats
   
   def self.from_csv(files)
     StatTracker.new
@@ -11,7 +9,5 @@ class StatTracker
 
   def initialize(files)
     @game_stats = GameStats.new(files)
-    @league_stats = LeagueStats.new(files)
-    @team_stats = SeasonStats.new(files)
   end
 end
