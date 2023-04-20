@@ -1,7 +1,5 @@
 # use require_relative
 class Game 
-initialize games.csv
-#^this was in the miro board so I included it but I'm not sure where it goes/if it needs more to it, etc.
 
 attr_reader :game_id, 
             :season, 
@@ -14,16 +12,51 @@ attr_reader :game_id,
             :venue, 
             :venue_link
 
-  def initialize(row_info)
-    @game_id = row_info[:game_id]
-    @season = row_info[:season]
-    @type = row_info[:type]
-    @date_time = row_info[:date_time]
-    @away_team_id = row_info[:away_team_id]
-    @home_team_id = row_info[:home_team_id]
-    @away_goals = row_info[:away_goals]
-    @home_goals = row_info[:home_goals]
-    @venue = row_info[:venue]
-    @venue_link = row_info[:venue_link]
+  def initialize(file)
+    @games = (CSV.open file[:games], headers: true, header_converters: :symbol).map { |row| Game.new(row) }
+    require 'pry'; binding.pry
+        @game_id = row[:game_id],
+        @season = row[:season],
+        @type = row[:type],
+        @date_time = row[:date_time],
+        @away_team_id = row[:away_team_id],
+        @home_team_id = row[:home_team_id],
+        @away_goals = row[:away_goals],
+        @home_goals = row[:home_goals],
+        @venue = row[:venue],
+        @venue_link = row[:venue_link]
+      
   end
+
+  # def highest_total_score
+  #   method
+  # end
+
+  # def lowest_total_score
+  #   method
+  # end
+
+  # def percentage_home_wins
+  #   @games. (method for calculating this)
+  # end
+
+  # def percentage_visitor_wins
+  #   method
+  # end
+
+  # def percentage_ties
+  #   method
+  # end
+
+  # def count_of_games_by_season
+  #   method
+  # end
+
+  # def average_goals_per_game
+  #   method
+  # end
+
+  # def average_goals_by_season
+  #   method
+  # end
 end

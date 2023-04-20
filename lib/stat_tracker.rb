@@ -1,13 +1,16 @@
-require_relative "csv"
+require "csv"
+require_relative "game"
 
 class StatTracker
-  def initialize(files)
-    @game_stats = GameStatistics.new(files)
-   end
+  attr_reader :game_stats
 
-  def self.from_csv(csv)
-    new_stat = StatTracker.new
+  def self.from_csv(files)
+    StatTracker.new(files)
   end
+
+  def initialize(files)
+    @game_stats = Game.new(files)
+   end
 
   def highest_total_score
     @game_stats.highest_total_score
