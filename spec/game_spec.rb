@@ -62,7 +62,7 @@ RSpec.describe Game do
       expect(@game2.game_count).to eq(25)
     end
     it "returns win percentages" do
-      require 'pry'; binding.pry
+
       expect(@game2.percentage_home_wins).to be_a()
       # expect(game.percentage_away_wins).to be_a(Float)
     end
