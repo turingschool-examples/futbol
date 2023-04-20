@@ -5,4 +5,5 @@ require 'rspec'
 require './lib/runner'
 require './lib/stat_tracker'
 require './lib/game'
-
+require './lib/game_statistics'
+require './lib/game_teams'
