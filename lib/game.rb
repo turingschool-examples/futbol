@@ -27,7 +27,22 @@ class Game
         end
       end
     end
-    percentage = wins / game_count
-    percentage.to_f
+    percentage = wins / game_count.to_f
+    percentage
+    require 'pry'; binding.pry
+  end
+
+  def percentage_away_wins
+    wins = 0
+    games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
+    games.each do |line|
+      if line[:hoa].include?("away")
+        if line[:result].include?("WIN")
+          wins += 1
+        end
+      end
+    end
+    percentage = wins / game_count.to_f
+    percentage
   end
 end

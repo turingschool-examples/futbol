@@ -10,6 +10,7 @@ RSpec.describe Game do
     end
     it "returns win percentages" do
       expect(@game.percentage_home_wins).to be_a(Float)
+      expect(@game.percentage_away_wins).to be_a(Float)
     end
 
   end
