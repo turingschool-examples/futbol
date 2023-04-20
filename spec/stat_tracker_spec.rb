@@ -1,7 +1,7 @@
-require "spec_helper"
+require 'spec_helper'
 
 RSpec.describe StatTracker do
-  before(:each) do
+  before(:each) do 
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
@@ -14,6 +14,13 @@ RSpec.describe StatTracker do
 
     @stat_tracker = StatTracker.from_csv(locations)
   end
+
+  describe "initialize" do 
+    it "exists" do 
+      expect(@stat_tracker).to be_a(StatTracker)
+    end
+  end
+end
 
   it "exists" do
     expect(@stat_tracker).to be_a(StatTracker)
