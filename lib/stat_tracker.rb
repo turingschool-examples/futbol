@@ -3,7 +3,7 @@ require './spec/spec_helper'
 class StatTracker
   attr_reader :teams,
               :games,
-              :all_open_csvs
+              :locations
   def initialize(locations)
     @locations = locations
     @teams = []
