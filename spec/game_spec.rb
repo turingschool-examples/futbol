@@ -52,4 +52,27 @@ RSpec.describe Game do
         expect(@stat_tracker.games).to all(be_a(Game))
       end
     end
+
+    describe "#average_goals_per_game" do 
+      it "can calculate the average goals per game for two games" do 
+
+      end
+
+      xit "can calculate the average goals per game for many games" do 
+
+      end
+
+    end
+
+
+    describe "#average_goals_by_season" do 
+    it "can calculate the average goals by season for two seasons" do 
+
+    end
+
+    xit "can calculate the average goals by season for many seasons" do 
+
+    end
+
+  end
 end

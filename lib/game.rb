@@ -49,11 +49,31 @@ attr_reader :game_id,
   #   method
   # end
 
-  # def average_goals_per_game
-  #   method
-  # end
+  def average_goals_per_game
+    method
+  end
+# # Pseudocode:
+#   for each game (away_goals + home_goals)
+#   sum all games total goals
+#   divide by total number of games
+#   (rounded to the nearest 100th)
+#   return Float
+# Description: Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
+# Return Value: Float
+
+
 
   # def average_goals_by_season
   #   method
   # end
+
+# # Pseudocode:
+#   for each game (away_goals + home_goals)
+#   separate total goals by season
+#   create a hash (season => (total goals by season divided by season by count_of_games_by_season)
+#   (rounded to the nearest 100th)
+#   return Hash
+
+# Description: Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
+# Return Value: Hash
 end
