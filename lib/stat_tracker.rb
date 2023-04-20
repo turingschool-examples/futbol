@@ -43,4 +43,12 @@ class StatTracker
   def average_goals_by_season
     @game_stats.average_goals_by_season
   end
+
+  # def initialize(files)
+  #   @game_stats = GameStatistics.new(files)
+  # end
+
+  #def method from game_statistics class
+      #method ex: @games_stats.highest_score
+  #end
 end
