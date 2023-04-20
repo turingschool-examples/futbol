@@ -25,6 +25,10 @@ attr_reader :game_id,
     @venue_link = row[:venue_link]
   end
 
+  # def highest_total_score
+  #   method
+  # end
+
   # def lowest_total_score
   #   method
   # end
