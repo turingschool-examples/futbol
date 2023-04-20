@@ -22,7 +22,7 @@ class Game
     wins = 0
     games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
     games.each do |game|
-      if game[:hoa] == "home" && game[:result] == "WIN"
+      if game[:hoa] == "home" && game[:result] == "WIN" || game[:hoa] == "away" && game[:result] == "LOSS"
         wins += 1
       end
     end
@@ -37,7 +37,7 @@ class Game
     wins = 0
     games = CSV.open "./data/game_teams.csv", headers: true, header_converters: :symbol
     games.each do |game|
-      if game[:hoa] == "away" && game[:result] == "WIN"
+      if game[:hoa] == "away" && game[:result] == "WIN" || game[:hoa] == "home" && game[:result] == "LOSS"
         wins += 1
       end
     end
