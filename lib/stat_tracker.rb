@@ -12,6 +12,7 @@ class StatTracker
 
   def initialize(files)
     @games = (CSV.open files[:games], headers: true, header_converters: :symbol).map { |row| Game.new(row) }
+    @game_teams = (CSV.open files[:game_teams], headers: true, header_converters: :symbol).map { |row| GameTeam.new(row) }
   end
 
   def highest_total_score
