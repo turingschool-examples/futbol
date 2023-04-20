@@ -37,4 +37,33 @@ RSpec.describe Game do
     end
   end
 
+  describe "average goals per game" do 
+    it "can find average goals per game" do 
+      expect(@game.average_goals_per_game).to eq(3.95)
+    end
+  end
+
+  describe "goals and games by season" do
+    it "can count the goals by season" do
+      expected = { "20122013" => 58,
+     "20132014" => 21 }
+      expect(@game.count_of_goals_by_season).to eq(expected)
+    end 
+
+    it "can count games by season" do 
+      expected = { 
+        "20122013" => 15,
+        "20132014" => 5
+      }
+      expect(@game.count_of_games_by_season).to eq(expected)
+    end
+
+    xit "can give average goals by season" do 
+      expected = {
+      "20122013" => 3.87,
+      "20132014" => 4.20
+      }
+      expect(@game.average_goals_by_season).to eq(expected)
+    end
+  end
 end
