@@ -1,7 +1,7 @@
 require_relative 'stat_tracker'
 class GameTeams
 
-attr_reader :game_id, 
+  attr_reader :game_id, 
             :team_id, 
             :HoA, 
             :result, 
