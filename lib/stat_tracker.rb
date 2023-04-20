@@ -1,4 +1,4 @@
-require "csv"
+require_relative "csv"
 
 class StatTracker
   # attr_reader :game_stats
