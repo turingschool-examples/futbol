@@ -6,8 +6,8 @@ class Team
               :link 
 
   def initialize(stats)
-    @team_id = stats[:team_id].to_i
-    @franchise_id = stats[:franchise_id].to_i
+    @team_id = stats[:team_id]
+    @franchise_id = stats[:franchise_id]
     @team_name = stats[:team_name]
     @abbreviation = stats[:abbreviation]
     @link = stats[:link]
