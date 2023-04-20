@@ -1,9 +1,9 @@
 class Team
   attr_reader :team_id,
-              :name
+              :teamname
 
   def initialize(team)
     @team_id = team[:team_id]
-    @name = team[:teamname]
+    @teamname = team[:teamname]
   end
 end

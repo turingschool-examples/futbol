@@ -2,17 +2,15 @@ require 'spec_helper'
 
 RSpec.describe Team do
   before(:each) do
-    @team1 = Team.new(team_id: "5", name: "The WallFlowers")
+    @team1 = Team.new({team_id: "5", teamname: "The WallFlowers"})
   end
 
   it 'exists' do
-    team = Team.new(team)
-    expect(team).to be_a(Team)
+    expect(@team1).to be_a(Team)
   end
 
   it 'has attributes' do
-    team = Team.new(team)
-    expect(team.team_id).to be_a(String)
-    expect(team.name).to be_a(String)
+    expect(@team1.team_id).to eq("5")
+    expect(@team1.teamname).to eq("The WallFlowers")
   end
 end
