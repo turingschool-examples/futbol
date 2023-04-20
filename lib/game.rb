@@ -19,6 +19,47 @@ class Game
     end.min
   end
   
+  def average_goals_per_game
+    goals = []
+    @game_data.each do |game|
+      goals_sum = game[:away_goals].to_i + game[:home_goals].to_i
+      goals << goals_sum
+    end
+    goals.sum / goals.length.to_f
+  end
+
+  def count_of_goals_by_season
+    goals_by_season = {}
+    @game_data.each do |game|
+      if goals_by_season[game[:season]].nil?
+        goals_by_season[game[:season]] = game[:home_goals].to_i + game[:away_goals].to_i
+      else
+        goals_by_season[game[:season]] += game[:home_goals].to_i + game[:away_goals].to_i
+      end
+    end
+    goals_by_season
+  end
+
+  def count_of_games_by_season
+    games_by_season = {}
+    @game_data.each do |game|
+      if games_by_season[game[:season]].nil?
+        games_by_season[game[:season]] = 1
+      else
+        games_by_season[game[:season]] += 1
+      end
+    end
+    games_by_season
+  end
+
+  # def average_goals_by_season
+  #   average_goals = {}
+  #   count_of_goals_by_season.each do |season, goals|
+  #     average_goals[season] = (goals.to_f / count_of_games_by_season[season]).round(2)
+  #   end
+  #   average_goals
+  # end
+    
 
   def game_count
     game_count = 0
@@ -33,7 +74,7 @@ class Game
   def percentage_home_wins
     wins = 0
    @game_data.each do |game|
-      if game[:hoa] == "home" && game[:result] == "WIN" || game[:hoa] == "away" && game[:result] == "LOSS"
+      if (game[:hoa] == "home" && game[:result] == "WIN") || (game[:hoa] == "away" && game[:result] == "LOSS")
         wins += 1
       end
     end
@@ -44,9 +85,8 @@ class Game
 
   def percentage_away_wins
     wins = 0
-    require 'pry'; binding.pry
    @game_data.each do |game|
-      if game[:hoa] == "away" && game[:result] == "WIN" || game[:hoa] == "home" && game[:result] == "LOSS"
+      if (game[:hoa] == "away" && game[:result] == "WIN") || (game[:hoa] == "home" && game[:result] == "LOSS")
         wins += 1
       end
     end
