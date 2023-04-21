@@ -4,8 +4,10 @@
 # RSpec.describe StatTracker do 
   
 #   describe "#count_of_teams" do
-#     xit " counts the total number of teams in the data" do 
-
+#     xit " counts the total number of teams in the data" do
+        
+        # expect(@stat_tracker.teams.count_of_teams).to be_an(Integer)
+        # expect(@stat_tracker.teams.count_of_teams).to eq(32)
 #       # return value integer
 #     end
 #   end
@@ -13,6 +15,8 @@
 #   describe "#best_offense" do
 #     xit " names the team with the highest average number of goals scored per game across all seasons" do 
 
+        # expect(@stat_tracker.teams.best_offense).to be_a(String)
+        # expect(@stat_tracker.teams.best_offense).to eq("INSERTNAME")
 #       # return value string
 #     end
 #   end
@@ -20,6 +24,8 @@
 #   describe "#worst_offense" do
 #     xit " names the team with the lowest average number of goals scored per game across all seasons" do 
 
+        # expect(@stat_tracker.teams.worst_offense).to be_a(String)
+        # expect(@stat_tracker.teams.worst_offense).to eq("INSERTNAME")
 #       # return value string
 #     end
 #   end
