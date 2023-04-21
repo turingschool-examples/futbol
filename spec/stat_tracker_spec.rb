@@ -31,6 +31,10 @@ RSpec.describe StatTracker do
 
     end
   end
+
+  it "#average_goals_per_game" do
+    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+  end
   #fixture_files = test 10 line test data
 
 #   describe "#from_csv" do
