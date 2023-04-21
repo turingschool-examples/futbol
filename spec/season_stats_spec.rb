@@ -15,6 +15,7 @@ RSpec.describe SeasonStats do
     @season_stats = SeasonStats.new(@locations)
     @season_stats.merge_game_game_teams
     @season_stats.merge_teams_to_game_game_teams
+    require 'pry'; binding.pry
   end
 
   describe '#initialize' do
