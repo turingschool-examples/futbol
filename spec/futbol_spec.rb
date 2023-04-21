@@ -14,7 +14,6 @@ RSpec.describe Futbol do
 
     @futbol = Futbol.new(locations)
     @futbol.merge_game_game_teams
-    require 'pry'; binding.pry
   end
 
   describe "#initialize" do
