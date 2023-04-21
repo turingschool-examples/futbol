@@ -31,9 +31,11 @@ RSpec.describe StatTracker do
 
     end
   end
-
-  it "#average_goals_per_game" do
-    expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+  
+  describe "#average_goals_per_game" do
+    it "gets the average goals per game over every season, every game" do
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+    end
   end
   #fixture_files = test 10 line test data
 
@@ -52,6 +54,19 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#average_goals_per_season" do
+    it "it calculates average goals per game by season" do
+        expected = {
+          "20122013"=>4.12,
+          "20162017"=>4.23,
+          "20142015"=>4.14,
+          "20152016"=>4.16,
+          "20132014"=>4.19,
+          "20172018"=>4.44
+        }
+        expect(@stat_tracker.average_goals_by_season).to eq(expected)
+    end
+  end
   describe "#lowest_total_score" do
     it "can calculate lowest_total_score" do
       expect(@stat_tracker.lowest_total_score).to eq(0)
