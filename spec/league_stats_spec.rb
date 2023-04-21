@@ -1,8 +1,19 @@
 require 'spec_helper'
 
-RSpec.describe 'LeagueStats' do
+RSpec.describe LeagueStats do
   before(:each) do
-    @league_stats = LeagueStats.new
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
+    @locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+      }
+    
+      @league_stats = LeagueStats.new(@locations)
+      @league_stats.merge_game_game_teams
+      @league_stats.merge_teams_to_game_game_teams
   end
 
   # league_stats tests below are basic tests that are also
