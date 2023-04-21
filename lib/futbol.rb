@@ -1,8 +1,8 @@
 require 'csv'
 
 class Futbol
-  attr_reader :games,
-              :teams,
+  attr_accessor :games
+  attr_reader :teams,
               :game_teams
   
   def initialize(locations)
