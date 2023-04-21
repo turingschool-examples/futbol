@@ -60,4 +60,6 @@ attr_reader :game_id,
     end
     (no_lose.to_f / @game_teams.count. to_f).round(2)
   end
+
+  
 end
