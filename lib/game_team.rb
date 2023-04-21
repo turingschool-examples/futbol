@@ -8,7 +8,7 @@ class GameTeam
               :tackles,
               :result
   def initialize(details)
-    @game_id = details[:game_id]
+    @game_id = details[:game_id].to_i
     @team_id = details[:team_id]
     @home_away = details[:hoa]
     @head_coach = details[:head_coach]
