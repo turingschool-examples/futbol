@@ -5,7 +5,7 @@ class SeasonStats < Futbol
     super(locations)
   end
 
-  def winningest_coach(season)
+  def num_coach_wins(season)
     num_coach_wins = Hash.new(0)
     @games.map do |game|
       if game.home_result == "WIN" && game.season == season
@@ -15,7 +15,11 @@ class SeasonStats < Futbol
         num_coach_wins[game.away_head_coach] += 1
       end
     end
-    num_coach_wins.max_by do |coach, wins|
+    num_coach_wins
+  end
+
+  def winningest_coach(season)
+    num_coach_wins(season).max_by do |coach, wins|
       wins
     end.first
   end

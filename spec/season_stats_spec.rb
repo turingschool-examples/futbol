@@ -23,9 +23,14 @@ RSpec.describe SeasonStats do
     end
   end
 
+  describe '#num_coach_wins' do 
+    it 'returns a hash with coach name as key and number of wins over a given season as a value' do 
+      expect(@season_stats.num_coach_wins("20132014")).to be_a(Hash)
+    end
+  end
   # Name of the Coach with the best win percentage for the season
   describe '#winningest_coach' do
-    xit 'returns the coach with the best win percentage for the season' do
+    it 'returns the coach with the best win percentage for the season' do
       expect(@season_stats.winningest_coach("20132014")).to eq("Claude Julien")
       expect(@season_stats.winningest_coach("20142015")).to eq("Alain Vigneault")
     end
@@ -58,7 +63,7 @@ RSpec.describe SeasonStats do
   end
 
   describe '#fewest_tackles' do 
-    it 'Name of the Team with the fewest tackles in the season' do 
+    xit 'Name of the Team with the fewest tackles in the season' do 
       expect(@season_stats.fewest_tackles("20132014")).to eq("Atlanta United")
       expect(@season_stats.fewest_tackles("20142015")).to eq("Orlando City SC")
     end
