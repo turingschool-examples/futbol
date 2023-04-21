@@ -34,7 +34,7 @@ class Futbol
     end
   end
 
-  def check_for_extraneous
+  def check_no_extraneous
     num_games = @games.map(&:game_id).uniq.length
     num_game_teams = @game_teams.map(&:game_id).uniq.length
     num_games == num_game_teams

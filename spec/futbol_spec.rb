@@ -14,6 +14,7 @@ RSpec.describe Futbol do
 
     @futbol = Futbol.new(locations)
     @futbol.merge_game_game_teams
+    require 'pry'; binding.pry
   end
 
   describe "#initialize" do
@@ -22,7 +23,7 @@ RSpec.describe Futbol do
       expect(@futbol.games[0]).to be_a(Game)
       expect(@futbol.game_teams[0]).to be_a(GameTeam)
       # expect(@futbol.teams[0]).to be_a(Team)
-      expect(@futbol.check_for_extraneous).to be true
+      expect(@futbol.check_no_extraneous).to be true
     end
   end
 end
