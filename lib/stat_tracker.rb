@@ -5,7 +5,8 @@ require_relative "game_statistics"
 
 class StatTracker
   attr_reader :games,
-              :game_teams
+              :game_teams,
+              :teams
 
   def self.from_csv(files)
     StatTracker.new(files)
@@ -14,6 +15,7 @@ class StatTracker
   def initialize(files)
     @games = (CSV.open files[:games], headers: true, header_converters: :symbol).map { |row| Game.new(row) }
     @game_teams = (CSV.open files[:game_teams], headers: true, header_converters: :symbol).map { |row| GameTeams.new(row) }
+    @teams = (CSV.open files[:teams], headers: true, header_converters: :symbol).map { |row| Teams.new(row) }
   end
 
   def highest_total_score

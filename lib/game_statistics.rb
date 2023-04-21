@@ -57,7 +57,19 @@ class GameStatistics < StatHelper
 
 
   # def average_goals_by_season
-  #   see stat_tracker class for updates
+  #   season_goals = Hash.new { |h, k| h[k] = { home_goals: 0, away_goals: 0, games_played: 0 } }
+    
+  #   games.each do |game|
+  #     season_goals[game.season][:home_goals] += game.home_goals.to_i
+  #     season_goals[game.season][:away_goals] += game.away_goals.to_i
+  #     season_goals[game.season][:count_of_games_by_season]
+  #   end
+    
+  #   season_goals.transform_values do |goals|
+  #     total_goals = goals[:home_goals] + goals[:away_goals]
+  #     require 'pry'; binding.pry
+  #     total_goals.to_f / goals[:count_of_games_by_season]
+  #   end
   # end
 
   # # Pseudocode:
