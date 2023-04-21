@@ -12,9 +12,9 @@ class GameTeam
     @team_id = details[:team_id]
     @home_away = details[:hoa]
     @head_coach = details[:head_coach]
-    @goals= details[:goals]
-    @shots = details[:shots]
-    @tackles = details[:tackles]
+    @goals= details[:goals].to_i
+    @shots = details[:shots].to_i
+    @tackles = details[:tackles].to_i
     @result = details[:result]
   end
 end
