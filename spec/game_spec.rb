@@ -44,37 +44,12 @@ RSpec.describe Game do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-    describe "#games.csv" do
-      it "can create an object from StatTracker" do  
-        expect(@stat_tracker.games[0].game_id).to eq("2012030221")
-        expect(@stat_tracker.games).to be_an(Array)
-        expect(@stat_tracker.games.sample).to be_a(Game)
-        expect(@stat_tracker.games).to all(be_a(Game))
-      end
+  describe "#games.csv" do
+    it "can create an object from StatTracker" do  
+      expect(@stat_tracker.games[0].game_id).to eq("2012030221")
+      expect(@stat_tracker.games).to be_an(Array)
+      expect(@stat_tracker.games.sample).to be_a(Game)
+      expect(@stat_tracker.games).to all(be_a(Game))
     end
-
-    describe "#test" do 
-      it "test" do 
-        expect(@stat_tracker.games.hey).to eq("it works")
-      end
-    end
-
-    xdescribe "#average_goals_per_game" do 
-      xit "can calculate the average goals per game" do 
-        expect(@stat_tracker.games.average_goals_per_game).to be_a(Float)
-
-      end
-    end
-
-    xdescribe "#average_goals_by_season" do 
-      it "can calculate the average goals per season" do 
-        expect(@stat_tracker.games.average_goals_by_season).to be_a(Hash)
-        expect(@stat_tracker.games.average_goals_by_season.keys[0]).to be_a String
-        expect(@stat_tracker.games.average_goals_by_season.values[0]).to be_a Float
-      end
-    end
-
-
-
-  
+  end
 end

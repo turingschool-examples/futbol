@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/laurengolden/turing_work/1mod/projects/futbol/lib/runner.rb": {
+      "/Users/ashleyplasket/1mod/projects/futbol/lib/runner.rb": {
         "lines": [
           null,
           null,
@@ -20,20 +20,23 @@
           1
         ]
       },
-      "/Users/laurengolden/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/ashleyplasket/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
-          null,
-          1,
           1,
           null,
           1,
-          4,
+          1,
           null,
           null,
           1,
-          29768,
+          1,
+          null,
+          null,
+          1,
+          7442,
+          14883,
           null,
           null,
           1,
@@ -78,7 +81,7 @@
           null
         ]
       },
-      "/Users/laurengolden/turing_work/1mod/projects/futbol/lib/game.rb": {
+      "/Users/ashleyplasket/1mod/projects/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -95,27 +98,27 @@
           null,
           null,
           1,
-          29765,
-          29765,
-          29765,
-          29765,
-          29765,
-          29765,
-          29765,
-          29765,
-          29765,
-          29765,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
+          7441,
           null,
+          null
+        ]
+      },
+      "/Users/ashleyplasket/1mod/projects/futbol/lib/game_teams.rb": {
+        "lines": [
+          1,
           null,
+          1,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
+          1,
           null,
           null,
           null,
@@ -132,29 +135,47 @@
           null,
           null,
           1,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          14882,
+          null,
+          null
+        ]
+      },
+      "/Users/ashleyplasket/1mod/projects/futbol/lib/game_statistics.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
           0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           1,
-          0,
-          0,
-          0,
           null,
           0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           null,
           null,
           null,
@@ -180,6 +201,6 @@
         ]
       }
     },
-    "timestamp": 1682039494
+    "timestamp": 1682037889
   }
 }
