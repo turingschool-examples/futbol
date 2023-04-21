@@ -49,4 +49,21 @@ class LeagueStatistics < StatHelper
 # Match the team_id to the teamName (in the teams.csv file)
 # Return teamName (in a string)
 
+
+#   def highest_scoring_visitor 
+#     method
+#   end
+
+#   def highest_scoring_home_team 
+#     method
+#   end
+
+#   def lowest_scoring_visitor 
+#     method
+#   end
+
+#   def lowest_scoring_home_team 
+#     method
+#   end
+
 end
