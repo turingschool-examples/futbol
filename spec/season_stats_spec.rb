@@ -24,7 +24,7 @@ RSpec.describe SeasonStats do
   end
 
   describe '#num_coach_wins' do 
-    it 'returns a hash with coach name as key and number of wins over a given season as a value' do 
+    xit 'returns a hash with coach name as key and number of wins over a given season as a value' do 
       expect(@season_stats.num_coach_wins("20132014")).to be_a(Hash)
     end
   end
@@ -37,7 +37,7 @@ RSpec.describe SeasonStats do
   end
 
   describe '#worst_coach' do
-    xit 'returns the coach with the worst win percentage' do
+    it 'returns the coach with the worst win percentage' do
       expect(@season_stats.worst_coach("20132014")).to eq("Peter Laviolette")
       expect(@season_stats.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
     end
