@@ -1,6 +1,6 @@
 require_relative "./game"
 require_relative "./game_teams"
-require_relative "./team"
+# require_relative "./team"
 
 class StatHelper
   attr_reader :games,
