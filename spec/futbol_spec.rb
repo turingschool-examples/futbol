@@ -16,7 +16,6 @@ RSpec.describe Futbol do
     @futbol.merge_game_game_teams
     @futbol.merge_teams_to_game_game_teams
     @futbol.check_no_bad_teams
-    require 'pry'; binding.pry
   end
 
   describe "#initialize" do
@@ -25,7 +24,17 @@ RSpec.describe Futbol do
       expect(@futbol.games[0]).to be_a(Game)
       expect(@futbol.game_teams[0]).to be_a(GameTeam)
       expect(@futbol.teams[0]).to be_a(Team)
+      
+    end
+  end
+
+  describe "#check Turing" do
+    it 'check_no_exrtraneous method' do
       expect(@futbol.check_no_extraneous).to be true
+    end
+
+    it 'check no_bad_teams' do
+      expect(@futbol.check_no_bad_teams).to be true
     end
   end
 end
