@@ -59,7 +59,6 @@ class StatTracker
   def offense_avg
     @teams.offense_avg
   end
-# lg note: ^ this is a helper method for the two methods below. Do we want to include it here in the stat_tracker? 
 
   def best_offense
     @teams.best_offense

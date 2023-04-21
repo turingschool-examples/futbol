@@ -13,12 +13,12 @@ RSpec.describe LeagueStatistics do
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @team_stats = TeamStatistics.new(locations)
+    @league_stats = LeagueStatistics.new(locations)
   end
 
   describe "#initialize" do
     it "exists" do
-      expect(@team_stats).to be_a(TeamStatistics)
+      expect(@league_stats).to be_a(LeagueStatistics)
       expect(@stat_tracker).to be_a(StatTracker)
     end
   end
@@ -84,5 +84,4 @@ RSpec.describe LeagueStatistics do
 #     end
 #   end
 
-
-# end
+end
