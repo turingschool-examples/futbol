@@ -68,7 +68,6 @@ class Game
       else
         games_by_season[game[:season]] += 1
       end
-      @game_data.rewind
     end
     games_by_season
   end
@@ -90,7 +89,6 @@ class Game
       else
         goals_by_season[game[:season]] += game[:home_goals].to_i + game[:away_goals].to_i
       end
-      @game_data.rewind
     end
     goals_by_season
   end
