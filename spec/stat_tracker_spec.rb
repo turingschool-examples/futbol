@@ -27,7 +27,7 @@ RSpec.describe StatTracker do
 
   describe "#games.csv" do
     it "can create an object from StatTracker" do  
-      expect(@stat_tracker.games[0].game_id).to eq(2012030221)
+      expect(@stat_tracker.games[0].game_id).to eq("2012030221")
       expect(@stat_tracker.games).to be_an(Array)
       expect(@stat_tracker.games.sample).to be_a(Game)
       expect(@stat_tracker.games).to all(be_a(Game))
