@@ -6,6 +6,20 @@ class LeagueStats < Futbol
     super(locations)
   end
 
+  def count_of_teams
+    @games.map(&:game_id).uniq.length
+    end
+  end
+
+  def best_offense
+
+  end
+
+  def worst_offense
+
+  end
+
+
   def highest_scoring_visitor
 
     games.map do |game|
