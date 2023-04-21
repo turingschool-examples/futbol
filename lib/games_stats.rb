@@ -35,5 +35,13 @@ class GamesStats < Futbol
     end
     (num_visitor_wins.to_f/num_games).round(2)
   end
+  
+  def percentage_ties
+    num_games = @games.length
+    num_ties = @games.count do |game|
+      game.away_result == "TIE" || game.home_result == "TIE"
+    end
+    (num_ties.to_f/num_games).round(2)
+  end
 
 end
