@@ -1,4 +1,4 @@
-require_relative 'stat_tracker'
+require_relative './stat_tracker'
 
 class GameTeams
 
