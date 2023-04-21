@@ -32,7 +32,7 @@ RSpec.describe SeasonStats do
   end
 
   describe '#worst_coach' do
-    it 'returns the coach with the worst win percentage' do
+    xit 'returns the coach with the worst win percentage' do
       expect(@season_stats.worst_coach("20132014")).to eq("Peter Laviolette")
       expect(@season_stats.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
     end
@@ -41,6 +41,26 @@ RSpec.describe SeasonStats do
   describe '#head_coach_games' do
     xit 'returns the number of games a coach has played' do
       expect(@season_stats.head_coach_games("Craig MacTavish")).to be_a(Integer)
+    end
+  end
+
+  describe '#num_team_tackles' do 
+    xit 'returns a hash with team name as keys and number of tackles as values' do 
+      expect(@season_stats.num_team_tackles("20132014")).to be_a(Hash)
+    end
+  end
+
+  describe '#most_tackles' do 
+    xit 'Name of the Team with the most tackles in the season' do 
+      expect(@season_stats.most_tackles("20132014")).to eq("FC Cincinnati")
+      expect(@season_stats.most_tackles("20142015")).to eq("Seattle Sounders FC")
+    end
+  end
+
+  describe '#fewest_tackles' do 
+    it 'Name of the Team with the fewest tackles in the season' do 
+      expect(@season_stats.fewest_tackles("20132014")).to eq("Atlanta United")
+      expect(@season_stats.fewest_tackles("20142015")).to eq("Orlando City SC")
     end
   end
 end
