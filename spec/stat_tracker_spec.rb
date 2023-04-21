@@ -41,5 +41,13 @@ RSpec.describe StatTracker do
       allow(@stat_tracker).to receive(:games) {@test_games}
       expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
+
+    it 'can collect the sum of highest winning scores' do
+      expect(@stat_tracker.highest_total_score).to eq(11)
+    end
+
+    it 'can collect the sum of lowest winning scores' do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
   end
 end
