@@ -2,32 +2,32 @@ require "spec_helper"
 
 RSpec.describe GameTeams do
   before(:each) do 
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path = './data/game_teams.csv'
+      game_path = './data/games.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams.csv'
 
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    @stat_tracker = StatTracker.from_csv(locations)
+      locations = {
+        games: game_path,
+        teams: team_path,
+        game_teams: game_teams_path
+      }
+      @stat_tracker = StatTracker.from_csv(locations)
 
-    @gameteams1 = GameTeams.new({ faceOffWinPercentage: nil,
-                                  game_id: "2012030221",
-                                  giveaways: "17",
-                                  goals: "2",
-                                  head_coach: "John Tortorella",
-                                  HoA: nil,
-                                  pim: "8",
-                                  powerPlayGoals: nil,
-                                  powerPlayOpportunities: nil,
-                                  result: "LOSS",
-                                  settled_in: "OT",
-                                  shots: "8",
-                                  tackles: "44",
-                                  takeaways: "7",
-                                  team_id: "3"})
+      @gameteams1 = GameTeams.new({ faceOffWinPercentage: nil,
+                                    game_id: "2012030221",
+                                    giveaways: "17",
+                                    goals: "2",
+                                    head_coach: "John Tortorella",
+                                    HoA: nil,
+                                    pim: "8",
+                                    powerPlayGoals: nil,
+                                    powerPlayOpportunities: nil,
+                                    result: "LOSS",
+                                    settled_in: "OT",
+                                    shots: "8",
+                                    tackles: "44",
+                                    takeaways: "7",
+                                    team_id: "3"})
   end
   
   describe "#initialize" do

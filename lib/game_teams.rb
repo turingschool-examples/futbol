@@ -21,7 +21,7 @@ class GameTeams
   def initialize(row)
     @game_id =        row[:game_id]
     @team_id =        row[:team_id]
-    @hoa =            row[:HoA]
+    @hoa =            row[:hoa]
     @result =         row[:result]
     @settled_in =     row[:settled_in]
     @head_coach =     row[:head_coach]
@@ -29,9 +29,9 @@ class GameTeams
     @shots =          row[:shots]
     @tackles =        row[:tackles]
     @pim =            row[:pim]
-    @powerplayopp =   row[:powerPlayOpportunities]
-    @powerplaygoals = row[:powerPlayGoals]
-    @faceoffwinperc = row[:faceOffWinPercentage]
+    @powerplayopp =   row[:powerplayopportunities]
+    @powerplaygoals = row[:powerplaygoals]
+    @faceoffwinperc = row[:faceoffwinpercentage]
     @giveaways =      row[:giveaways]
     @takeaways =      row[:takeaways]
   end
