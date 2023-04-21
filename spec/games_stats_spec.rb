@@ -29,4 +29,20 @@ RSpec.describe GamesStats do
     expect(@games_stats.highest_total_score).to eq(11)
     end
   end
+
+
+  describe '#count_of_games_by_season' do
+    it 'returns a hash of total games in a season' do
+      expect(@games_stats.count_of_games_by_season).to be_a(Hash)
+      expect(@games_stats.count_of_games_by_season).to eq({
+        "20122013"=>806,
+        "20162017"=>1317,
+        "20142015"=>1319,
+        "20152016"=>1321,
+        "20132014"=>1323,
+        "20172018"=>1355
+      })
+    end
+  end
+
 end
