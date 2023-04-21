@@ -57,4 +57,10 @@ RSpec.describe GameTeams do
       expect(@stat_tracker.game_teams).to all(be_a(GameTeams))
     end
   end
+
+  describe "#percentage home" do
+    it "can calculate percentage for home wins" do
+      expect(@stat_tracker.game_teams.percentage_home_wins).to eq(0.600)
+    end
+  end
 end
