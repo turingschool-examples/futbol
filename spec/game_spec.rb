@@ -73,7 +73,7 @@ RSpec.describe Game do
     end 
   end
 
-  xit "can give average goals by season" do 
+  it "can give average goals by season" do 
     expected = {
     "20122013" => 3.87,
     "20132014" => 4.20
