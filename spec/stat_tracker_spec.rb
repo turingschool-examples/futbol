@@ -35,7 +35,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.teams[0]).to be_a Team
     end
   end
-
+#game class
   describe 'game averages' do 
     it '#average_goals_per_game' do 
       allow(@stat_tracker).to receive(:games) {@test_games}
@@ -53,12 +53,10 @@ RSpec.describe StatTracker do
 
   describe 'percentage of wins' do 
     it 'can calculate the percentage of home wins' do 
-      allow(@stat_tracker).to receive(:games) {@test_games}
       expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end 
 
     it 'can calculate the percentage of visitor wins' do 
-      allow(@stat_tracker).to receive(:games) {@test_games}
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
   end
@@ -73,6 +71,46 @@ RSpec.describe StatTracker do
     it 'counts number of games played per season' do
       hash = {"20122013"=>806, "20132014"=>1323, "20142015"=>1319, "20152016"=>1321, "20162017"=>1317, "20172018"=>1355}
       expect(@stat_tracker.count_of_games_by_season).to eq(hash)
+    end
+  end
+
+#game_teams/league stats
+
+  describe 'count of teams' do 
+    it 'can count the total number of teams in the data' do 
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe 'best offense' do 
+    it 'can return team with highest average goals per game' do 
+      expect(@stat_tracker.best_offense).to eq('Reign FC')
+    end
+  end
+
+  describe 'worst offense' do 
+    it 'can return team with lowest average goals per game' do 
+      expect(@stat_tracker.worst_offense).to eq('Utah Royals FC')
+    end
+  end
+
+  describe 'highest scoring avg' do 
+    it 'can return name of team with highest avg score per game when they are away' do 
+      expect(@stat_tracker.highest_scoring_visitor).to eq('FC Dallas')
+    end
+  
+    it 'can return name of team with highest avg score per game when they are home' do 
+      expect(@stat_tracker.highest_scoring_home_team).to eq('Reign FC')
+    end
+  end
+
+  describe 'lowest scoring avg' do 
+    it 'can return name of team with lowest score per game when they are away' do 
+      expect(@stat_tracker.lowest_scoring_visitor).to eq('San Jose Earthquakes')
+    end
+
+    it 'can return name of team with lowest score per game when they are home' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq('Utah Royals FC')
     end
   end
 end
