@@ -31,11 +31,10 @@ RSpec.describe LeagueStatistics do
   end
 
   describe "#best_offense" do
-    xit " names the team with the highest average number of goals scored per game across all seasons" do 
+    it " names the team with the highest average number of goals scored per game across all seasons" do 
 
         expect(@league_stats.best_offense).to be_a(String)
         expect(@league_stats.best_offense).to eq("INSERTNAME")
-      # return value string
     end
   end
 
