@@ -13,9 +13,6 @@ RSpec.describe Futbol do
     }
 
     @futbol = Futbol.new(locations)
-    @futbol.merge_game_game_teams
-    @futbol.merge_teams_to_game_game_teams
-    @futbol.check_no_bad_teams
   end
 
   describe "#initialize" do
@@ -24,7 +21,18 @@ RSpec.describe Futbol do
       expect(@futbol.games[0]).to be_a(Game)
       expect(@futbol.game_teams[0]).to be_a(GameTeam)
       expect(@futbol.teams[0]).to be_a(Team)
-      
+    end
+  end
+
+  describe "#merge methods" do
+    it 'merge_game_game_teams' do 
+      @futbol.merge_game_game_teams
+      expect(@futbol.games[0].home_tackles).not_to eq(nil)
+    end
+
+    it 'merge_game_game_teams' do 
+      @futbol.merge_teams_to_game_game_teams
+      expect(@futbol.games[0].home_team_name).not_to eq(nil)
     end
   end
 
