@@ -68,4 +68,11 @@ class StatTracker
     end
     min_game.home_goals + min_game.away_goals
   end
+
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+    season_name = @games.group_by {|game| game.season } 
+    season_name.map {|season_string, game| games_by_season[season_string] = game.count }
+    games_by_season
+  end
 end
