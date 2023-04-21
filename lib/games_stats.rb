@@ -11,7 +11,12 @@ class GamesStats < Futbol
     # i want to find the game with the highest points scored and add the home score and away score.
     games.map do |game|
       game.away_team_goals + game.home_team_goals
-      # require 'pry'; binding.pry
     end.sort.last
+  end
+
+  def lowest_total_score
+    games.map do |game|
+      game.away_team_goals + game.home_team_goals
+    end.sort.first
   end
 end
