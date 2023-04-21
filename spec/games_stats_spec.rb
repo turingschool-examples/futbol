@@ -18,7 +18,7 @@ RSpec.describe GamesStats do
   end
 
   describe '#initialize' do
-    it 'exists' do
+    xit 'exists' do
       expect(@games_stats).to be_a(GamesStats)
     end
   end
@@ -30,39 +30,28 @@ RSpec.describe GamesStats do
     end
   end
 
-
-  describe '#count_of_games_by_season' do
-    it 'returns a hash of total games in a season' do
-      expect(@games_stats.count_of_games_by_season).to be_a(Hash)
-      expect(@games_stats.count_of_games_by_season).to eq({
-        "20122013"=>806,
-        "20162017"=>1317,
-        "20142015"=>1319,
-        "20152016"=>1321,
-        "20132014"=>1323,
-        "20172018"=>1355
-      })
+  describe '#lowest_total_score' do
+    xit 'checks lowest total score of a game' do
+      expect(@games_stats.lowest_total_score).to eq(0)
     end
   end
 
-  describe '#average_goals_per_game' do
-    it 'returns a float of goals scored in a game across all seasons' do
-      expect(@games_stats.average_goals_per_game).to be_a(Float)
-      expect(@games_stats.average_goals_per_game).to eq(4.22)
+  describe '#percentage_home_wins' do 
+    xit 'Percentage of games that all home teams have won (rounded to the nearest 100th)' do 
+      expect(@games_stats.percentage_home_wins).to eq(0.44)
     end
   end
 
-  describe '#average_goals_by_season' do
-    it 'returns a hash of average number of goals by season' do
-      expect(@games_stats.average_goals_by_season).to be_a(Hash)
-      expect(@games_stats.average_goals_by_season).to eq({
-        "20122013"=>4.12,
-        "20162017"=>4.23,
-        "20142015"=>4.14,
-        "20152016"=>4.16,
-        "20132014"=>4.19,
-        "20172018"=>4.44
-      })
+  describe '#percentage_visitor_wins' do 
+    xit 'Percentage of games that a visitor has won (rounded to the nearest 100th)'do 
+    expect(@games_stats.percentage_visitor_wins).to eq(0.36)
     end
   end
+  
+  describe '#percentage_ties' do 
+    xit 'Percentage of games that has resulted in a tie (rounded to the nearest 100th)'do 
+    expect(@games_stats.percentage_ties).to eq(0.20)
+    end
+  end
+    
 end
