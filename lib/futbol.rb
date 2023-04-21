@@ -52,6 +52,13 @@ class Futbol
     num_game_teams = @game_teams.map(&:game_id).uniq.length
     num_games == num_game_teams
   end
+
+  def check_no_bad_teams
+    num_teams = @teams.map(&:team_id).uniq.length
+    num_game = @games.map(&:away_team_id).uniq.length
+    num_game_teams = @game_teams.map(&:team_id).uniq.length
+    (num_game == num_teams) && (num_game_teams == num_teams)
+  end
 end
 
 
