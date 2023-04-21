@@ -4,7 +4,7 @@ class GameTeam
               :home_away,
               :head_coach,
               :goals,
-              :shots, 
+              :shots,
               :tackles,
               :result
   def initialize(details)
