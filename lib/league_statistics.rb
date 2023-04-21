@@ -1,20 +1,10 @@
-require_relative 'stat_tracker'
-class LeagueStatistics 
+require_relative "./stat_tracker"
+require_relative "./stat_helper"
 
-attr_reader :team_id, 
-            :franchiseId,
-            :teamName,
-            :abbreviation,
-            :Stadium,
-            :link
-            
-  def initialize(row)
-    @team_id = row[:team_id]
-    @franchiseId = row[:franchiseId]
-    @teamName = row[:teamName]
-    @abbreviation = row[:abbreviation]
-    @Stadium = row[:Stadium]
-    @link = row[:link]
+class LeagueStatistics < StatHelper
+
+  def initialize(files)
+    super
   end
 
   def count_of_teams

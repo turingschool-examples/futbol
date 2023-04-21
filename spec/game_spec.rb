@@ -4,12 +4,12 @@ require "spec_helper"
 RSpec.describe Game do
   let(:game) {Game.new(row)}
   let(:row) do {
-      game_id: 2012030221,
-      season: 20122013,
+      game_id: "2012030221",
+      season: "20122013",
       type: "Postseason",
       date_time: "5/16/13",
-      away_team_id: 3,
-      home_team_id: 6,
+      away_team_id: "3",
+      home_team_id: "6",
       away_goals: 2,
       home_goals: 3,
       venue: "Toyota Stadium",
@@ -18,7 +18,7 @@ RSpec.describe Game do
   end
   
   describe "#initialize" do
-    it " exists" do 
+    it "exists" do 
       expect(game).to be_a(Game)
     end
     

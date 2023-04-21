@@ -25,12 +25,4 @@ attr_reader :game_id,
     @venue = row[:venue]
     @venue_link = row[:venue_link]
   end
-
-  def average_goals_per_game
-    total_goals = games.map do |game|
-      game.away_goals.to_i + game.home_goals.to_i
-    end
-    (total_goals.sum / games.length.to_f).round(2)
-  end
-
 end
