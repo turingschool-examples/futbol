@@ -24,8 +24,6 @@ RSpec.describe SeasonStatistics do
   end
 
 # Commented out tests below for now so running `rspec spec` will pass tests since we have not yet begun our code. 
-
-# RSpec.describe StatTracker do 
   
 #   describe "#winningest_coach" do
 #     xit " names the Coach with the best win percentage for the season" do 
