@@ -2,7 +2,7 @@ require './spec_helper'
 
 RSpec.describe Season do
   before(:each) do
-    games_path = './data_dummy/games_dummy.csv'
+    game_path = './data_dummy/games_dummy.csv'
     games_data = CSV.read(game_path, headers: true, header_converters: :symbol)
     @season = League.new(games_data)
 
