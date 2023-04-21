@@ -4,7 +4,7 @@ class GameTeams
 
   attr_reader :game_id, 
               :team_id, 
-              :HoA, 
+              :hoa, 
               :result, 
               :settled_in,
               :head_coach,
@@ -12,9 +12,9 @@ class GameTeams
               :shots, 
               :tackles, 
               :pim,
-              :powerPlayOpportunities,
-              :powerPlayGoals,
-              :faceOffWinPercentage,
+              :powerplayopp,
+              :powerplaygoals,
+              :faceoffwinperc,
               :giveaways,
               :takeaways
 

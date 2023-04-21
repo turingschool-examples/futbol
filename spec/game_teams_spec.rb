@@ -11,10 +11,45 @@ RSpec.describe GameTeams do
         teams: team_path,
         game_teams: game_teams_path
       }
-
       @stat_tracker = StatTracker.from_csv(locations)
+
+      @gameteams1 = GameTeams.new({ faceOffWinPercentage: nil,
+                                    game_id: "2012030221",
+                                    giveaways: "17",
+                                    goals: "2",
+                                    head_coach: "John Tortorella",
+                                    HoA: nil,
+                                    pim: "8",
+                                    powerPlayGoals: nil,
+                                    powerPlayOpportunities: nil,
+                                    result: "LOSS",
+                                    settled_in: "OT",
+                                    shots: "8",
+                                    tackles: "44",
+                                    takeaways: "7",
+                                    team_id: "3"})
     end
   
+  describe "#initialize" do
+    it "exists and has attributes" do
+      expect(@gameteams1.game_id).to eq("2012030221")
+      expect(@gameteams1.team_id).to eq("3")
+      expect(@gameteams1.hoa).to eq(nil)
+      expect(@gameteams1.result).to eq("LOSS")
+      expect(@gameteams1.settled_in).to eq("OT")
+      expect(@gameteams1.head_coach).to eq("John Tortorella")
+      expect(@gameteams1.goals).to eq("2")
+      expect(@gameteams1.shots).to eq("8")
+      expect(@gameteams1.tackles).to eq("44")
+      expect(@gameteams1.pim).to eq("8")
+      expect(@gameteams1.powerplayopp).to eq(nil)
+      expect(@gameteams1.powerplaygoals).to eq(nil)
+      expect(@gameteams1.faceoffwinperc).to eq(nil)
+      expect(@gameteams1.giveaways).to eq("17")
+      expect(@gameteams1.takeaways).to eq("7")
+    end
+  end
+
   describe "#game_teams.csv" do
     it "can create an object from StatTracker" do  
       expect(@stat_tracker.game_teams[0].game_id).to eq("2012030221")
