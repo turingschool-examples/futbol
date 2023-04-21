@@ -20,11 +20,15 @@ class GameStatistics < StatHelper
   end
 
   def percentage_home_wins
-    
+    games_played = 0 
+    home_games_won = 0
+    @game_teams.map do |game_team|
+      game_team.hoa
+    end
   end
 
   # def percentage_visitor_wins
-  #   method
+    
   # end
 
   # def percentage_ties
