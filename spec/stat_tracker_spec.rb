@@ -19,4 +19,14 @@ RSpec.describe StatTracker do
     it "exists" do 
       expect(@stat_tracker).to be_a(StatTracker)
     end
+
+    it "calculates average number of goals per game" do
+      expect(@stat_tracker.average_goals_per_game).to be_a(Float)
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+    end
+
+    it "calculates average number of goals per game per season" do
+      expect(@stat_tracker.average_goals_by_season).to be_a(Hash)
+    end
   end
+end
