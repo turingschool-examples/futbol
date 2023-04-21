@@ -47,5 +47,4 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_teams).to all(be_a(GameTeams))
     end
   end
-
 end
