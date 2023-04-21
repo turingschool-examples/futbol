@@ -1,3 +1,4 @@
+
 require_relative "futbol"
 class GamesStats < Futbol
   attr_reader 
@@ -19,4 +20,18 @@ class GamesStats < Futbol
       game.away_team_goals + game.home_team_goals
     end.sort.first
   end
+
+  def count_of_games_by_season
+    game_count = Hash.new
+    games.each do |game| 
+      if game_count[game.season] 
+        game_count[game.season] += 1
+      else
+        game_count[game.season] = 1
+      end
+      game_counts
+    end
+  end
+
+
 end
