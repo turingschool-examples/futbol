@@ -62,9 +62,9 @@ RSpec.describe GameStatistics do
   end
 
   describe "#average_goals_per_game" do 
-      xit "can calculate the average goals per game" do 
-        expect(@stat_tracker.games.average_goals_per_game).to be_a(Float)
-        expect(@stat_tracker.games.average_goals_per_game).to eq(4.22)
+      it "can calculate the average goals per game" do 
+        expect(@game_stats.average_goals_per_game).to be_a(Float)
+        expect(@game_stats.average_goals_per_game).to eq(4.22)
       end
     end
 
