@@ -22,15 +22,11 @@ class GamesStats < Futbol
   end
 
   def count_of_games_by_season
-    game_count = Hash.new
-    games.each do |game| 
-      if game_count[game.season] 
-        game_count[game.season] += 1
-      else
-        game_count[game.season] = 1
-      end
-      game_counts
+    game_count = Hash.new(0)
+    @games.map do |game|
+      game_count[game.season] += 1
     end
+    game_count
   end
 
 
