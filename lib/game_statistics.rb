@@ -1,5 +1,12 @@
-class GameStatistics
+require_relative "stat_tracker"
 
+class GameStatistics
+  # def self.from_csv(files)
+  #   require 'pry'; binding.pry
+  # end
+
+  # def initialize(locations)
+  # end
 # def highest_total_score
   #   method
   # end
@@ -9,7 +16,7 @@ class GameStatistics
   # end
 
   # def percentage_home_wins
-  #   method
+  #   # method
   # end
 
   # def percentage_visitor_wins
