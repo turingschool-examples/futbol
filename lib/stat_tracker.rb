@@ -13,7 +13,6 @@ class StatTracker
   end
 
   def self.from_csv(database_hash)
-    # first iterate through database and access whichever one you want
     data_hash = {}
     game_array = []
     team_array = []
@@ -54,6 +53,13 @@ class StatTracker
     total_games = @games.count
     avg_goals = @games.each { |game| goals += game.away_goals + game.home_goals }
     (goals.to_f / total_games).round(2)
+  end
+
+  def average_goals_by_season
+    season_name = @games.group_by {|game| game.season }.transform_values do |games|
+      total_goals = games.sum { |game| game.away_goals + game.home_goals }
+      (total_goals.to_f / games.count).round(2) 
+    end
   end
 
   def lowest_total_score
