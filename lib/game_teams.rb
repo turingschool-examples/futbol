@@ -13,7 +13,7 @@ class GameTeams
     @hoa = hoa
     @result = result
     @head_coach = head_coach
-    @goals = goals
+    @goals = goals.to_i
     @tackles = tackles
   end
 end

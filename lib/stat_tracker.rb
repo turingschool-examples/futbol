@@ -64,9 +64,13 @@ class StatTracker
       new(data_hash)
     end
 
-    def highest_total_score
-      require 'pry'; binding.pry
-    end
+  def highest_total_score
+    require 'pry'; binding.pry
+      max_game = @games.max_by do |game|
+        game.home_goals + game.away_goals
+      end
+      max_game.home_goals + max_game.away_goals
+  end
 
 
 

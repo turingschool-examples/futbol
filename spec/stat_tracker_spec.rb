@@ -23,6 +23,16 @@ RSpec.describe StatTracker do
     it "exists" do
       expect(@stat_tracker).to be_an(Array)
     end
+
+    it "has readable attributes" do
+      
+    end
+  end
+
+  describe "#highest_total_score" do
+    it "can calculate highest_total_score" do
+      expect(@stat_tracker.highest_total_score).to eq(11)
+    end
   end
 
 end
