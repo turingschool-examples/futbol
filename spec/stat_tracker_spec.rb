@@ -50,4 +50,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_total_score).to eq(0)
     end
   end
+
+  describe 'percentage of wins' do 
+    it 'can calculate the percentage of home wins' do 
+      allow(@stat_tracker).to receive(:games) {@test_games}
+      expect(@stat_tracker.percentage_home_wins).to eq(0.44)
+    end 
+
+    it 'can calculate the percentage of visitor wins' do 
+      allow(@stat_tracker).to receive(:games) {@test_games}
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
+    end
+  end   
 end
