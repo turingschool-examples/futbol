@@ -48,19 +48,4 @@ class LeagueStatistics < StatHelper
 # Match the team_id to the teamName (in the teams.csv file)
 # Return teamName (in a string)
 
-  def highest_scoring_visitor
-    # Name of the team with the highest average score per game 
-    # across all seasons when they are away.	
-    # return value is String
-    
-    @games.map do |game|
-      require 'pry'; binding.pry
-
-    end
-  end
-
-  def highest_scoring_home_team
-    # Name of the team with the highest average score per game 
-    #across all seasons when they are home.	return value - String
-  end
 end
