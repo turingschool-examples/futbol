@@ -45,6 +45,11 @@ RSpec.describe GamesStats do
     end
   end
 
+  describe '#average_goals_per_game' do
+    it 'returns a float of goals scored in a game across all seasons'
+    expect(@games_stats.average_goals_per_game).to be_a(Float)
+    expect(@games_stats.average_goals_per_game).to eq(4.22)
+  end
 
 
 
