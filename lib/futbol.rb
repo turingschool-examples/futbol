@@ -7,7 +7,7 @@ class Futbol
   
   def initialize(locations)
     @games = (CSV.open locations[:games], headers: true, header_converters: :symbol).map { |line| Game.new(line) } 
-    # @teams = (CSV.open locations[:teams], headers: true, header_converters: :symbol).map { |team| Team.new(team) } 
+    @teams = (CSV.open locations[:teams], headers: true, header_converters: :symbol).map { |team| Team.new(team) } 
     @game_teams = (CSV.open locations[:game_teams], headers: true, header_converters: :symbol).map { |game_team| GameTeam.new(game_team) } 
   end
 
@@ -34,10 +34,30 @@ class Futbol
     end
   end
 
+  def merge_teams_to_game_game_teams
+    @games.map! do |game|
+      @teams.each do |team|
+        if team.team_id == game.home_team_id
+          game.home_team_name = team.teamname
+        elsif team.team_id == game.away_team_id
+          game.away_team_name = team.teamname
+        end
+      end
+      game
+    end
+  end
+
   def check_no_extraneous
     num_games = @games.map(&:game_id).uniq.length
     num_game_teams = @game_teams.map(&:game_id).uniq.length
     num_games == num_game_teams
+  end
+
+  def check_no_bad_teams
+    num_teams = @teams.map(&:team_id).uniq.length
+    num_game = @games.map(&:away_team_id).uniq.length
+    num_game_teams = @game_teams.map(&:team_id).uniq.length
+    (num_game == num_teams) && (num_game_teams == num_teams)
   end
 end
 
