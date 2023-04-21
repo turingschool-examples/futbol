@@ -1,4 +1,6 @@
+require './lib/league_stats'
 class GameTeam
+    include LeagueStats
     attr_reader :game_id,
                 :team_id,
                 :hoa,
