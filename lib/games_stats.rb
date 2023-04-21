@@ -24,7 +24,8 @@ class GamesStats < Futbol
 
   def count_of_games_by_season
     game_count = Hash.new
-    games.map do |game| 
+    games.map do |game|   
+      
 
     end
 
