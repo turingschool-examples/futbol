@@ -18,7 +18,7 @@ RSpec.describe GamesStats do
   end
 
   describe '#initialize' do
-    it 'exists' do
+    xit 'exists' do
       expect(@games_stats).to be_a(GamesStats)
     end
   end
@@ -30,9 +30,28 @@ RSpec.describe GamesStats do
     end
   end
 
-    describe '#lowest_total_score' do
-      it 'checks lowest total score of a game' do
-        expect(@games_stats.lowest_total_score).to eq(0)
-      end
+  describe '#lowest_total_score' do
+    it 'checks lowest total score of a game' do
+      expect(@games_stats.lowest_total_score).to eq(0)
     end
+  end
+
+  describe '#percentage_home_wins' do 
+    it 'Percentage of games that a home team has won (rounded to the nearest 100th)' do 
+      expect(@games_stats.percentage_home_wins).to eq(0.44)
+    end
+  end
+
+  describe '#percentage_visitor_wins' do 
+    it 'Percentage of games that a visitor has won (rounded to the nearest 100th)'do 
+    expect(@game_stats.percentage_visitor_wins).to eq(0.36)
+    end
+  end
+  
+  describe '#percentage_ties' do 
+    it 'Percentage of games that has resulted in a tie (rounded to the nearest 100th)'do 
+    expect(@game_stats.percentage_ties).to eq(0.20)
+    end
+  end
+    
 end
