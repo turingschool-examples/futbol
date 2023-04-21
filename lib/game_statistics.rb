@@ -1,9 +1,9 @@
 require_relative "stat_tracker"
 
 class GameStatistics
-  def self.from_csv(files)
-    require 'pry'; binding.pry
-  end
+  # def self.from_csv(files)
+  #   require 'pry'; binding.pry
+  # end
 
   # def initialize(locations)
   # end
@@ -15,9 +15,9 @@ class GameStatistics
   #   method
   # end
 
-  def percentage_home_wins
-    # method
-  end
+  # def percentage_home_wins
+  #   # method
+  # end
 
   # def percentage_visitor_wins
   #   method
