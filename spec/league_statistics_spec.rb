@@ -1,11 +1,39 @@
+require "csv"
+require "spec_helper"
+
+RSpec.describe LeagueStatistics do
+  before(:each) do
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
+    @team_stats = TeamStatistics.new(locations)
+  end
+
+  describe "#initialize" do
+    it "exists" do
+      expect(@team_stats).to be_a(TeamStatistics)
+      expect(@stat_tracker).to be_a(StatTracker)
+    end
+  end
+
+
 
 # Commented out tests below for now so running `rspec spec` will pass tests since we have not yet begun our code. 
 
 # RSpec.describe StatTracker do 
   
 #   describe "#count_of_teams" do
-#     xit " counts the total number of teams in the data" do 
-
+#     xit " counts the total number of teams in the data" do
+        
+        # expect(@stat_tracker.teams.count_of_teams).to be_an(Integer)
+        # expect(@stat_tracker.teams.count_of_teams).to eq(32)
 #       # return value integer
 #     end
 #   end
@@ -13,6 +41,8 @@
 #   describe "#best_offense" do
 #     xit " names the team with the highest average number of goals scored per game across all seasons" do 
 
+        # expect(@stat_tracker.teams.best_offense).to be_a(String)
+        # expect(@stat_tracker.teams.best_offense).to eq("INSERTNAME")
 #       # return value string
 #     end
 #   end
@@ -20,6 +50,8 @@
 #   describe "#worst_offense" do
 #     xit " names the team with the lowest average number of goals scored per game across all seasons" do 
 
+        # expect(@stat_tracker.teams.worst_offense).to be_a(String)
+        # expect(@stat_tracker.teams.worst_offense).to eq("INSERTNAME")
 #       # return value string
 #     end
 #   end

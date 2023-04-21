@@ -18,7 +18,7 @@ RSpec.describe Game do
   end
   
   describe "#initialize" do
-    it " exists" do 
+    it "exists" do 
       expect(game).to be_a(Game)
     end
     
