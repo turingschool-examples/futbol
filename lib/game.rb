@@ -49,8 +49,16 @@ attr_reader :game_id,
   #   method
   # end
 
+  def hey 
+    "it works"
+  end
+
   def average_goals_per_game
-    method
+    require 'pry'; binding.pry
+    total_goals = games.map do |game|
+      game.away_goals + game.home_goals
+    end
+    (total_goals.to_f / games.length).round(2)
   end
 # # Pseudocode:
 #   for each game (away_goals + home_goals)
@@ -62,9 +70,19 @@ attr_reader :game_id,
 # Return Value: Float
 
 
-
   # def average_goals_by_season
-  #   method
+  #   season_goals = Hash.new { |h, k| h[k] = { home_goals: 0, away_goals: 0, games_played: 0 } }
+    
+  #   @games.each do |game|
+  #     season_goals[game.season][:home_goals] += game.home_team_goals
+  #     season_goals[game.season][:away_goals] += game.away_team_goals
+  #     season_goals[game.season][:count_of_games_by_season] += 1
+  #   end
+    
+  #   season_goals.transform_values do |goals|
+  #     total_goals = goals[:home_goals] + goals[:away_goals]
+  #     total_goals.to_f / goals[:count_of_games_by_season]
+  #   end
   # end
 
 # # Pseudocode:
