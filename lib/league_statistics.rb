@@ -6,9 +6,9 @@ class LeagueStatistics < StatHelper
     super
   end
 
-  # def count_of_teams
-  #   @teams.length
-  # end
+  def count_of_teams
+    @teams.length
+  end
 
   # def offense_avg
     
