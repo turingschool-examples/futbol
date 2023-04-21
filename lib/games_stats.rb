@@ -16,9 +16,19 @@ class GamesStats < Futbol
   end
 
 
-  #
+  # count of games by season
+  # =
+  # has with season names as keys
+  # counts of games as values
+  # ex. 20122013 => 32
 
+  def count_of_games_by_season
+    game_count = Hash.new
+    games.map do |game| 
 
+    end
+
+  end
 
 
 end
