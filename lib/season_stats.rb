@@ -23,20 +23,20 @@ class SeasonStats < Futbol
       wins
     end.first
   end
-
+  
   def worst_coach(season)
     coach_wins = num_coach_wins(season)
     coach_wins.each_pair do |coach, wins|
-      coach_wins[coach] = (wins.to_f / head_coach_games(coach))
+      coach_wins[coach] = (wins.to_f / head_coach_games(coach, season))
     end
     coach_wins.min_by do |coach, percent|
       percent
     end.first
   end
 
-  def head_coach_games(coach)
+  def head_coach_games(coach, season)
     games.count do |game|
-      game.home_head_coach == coach || game.away_head_coach == coach
+      game.season == season && (game.home_head_coach == coach || game.away_head_coach == coach)
     end
   end
 
@@ -63,3 +63,4 @@ class SeasonStats < Futbol
     end.first
   end
 end
+
