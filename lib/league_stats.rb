@@ -110,28 +110,32 @@ class LeagueStats < Futbol
     total_games
   end
 
-  def team_id_converter(team_id)
-    best_team = " "
-    @teams.each{|team| best_team = team.team_name if team.team_id == team_id}
-    best_team
+  def team_id_into_name(team_id)
+    name_of_team = " "
+    @games.each do |game|
+      if game.team_id == team_id
+      name_of_team = game.team_name
+      end
+    name_of_team
   end
 
-  def avg_score_away_games(sorted_teams)
+  def avg_score_games(sorted_teams)
     sorted_teams.transform_values do |games|
       goals = games.sum{|game| game.goals}
       goals.fdiv(games.length)
     end
   end
 
-  def filter_away_games(sorted_teams)
-    sorted_teams.transform_values do |games|
-      games.select{|game| game.hoa == "away"}
+  def filter_away_games
+    @games.map do |game|
+      if game.home_away == "away"
+      end
     end
   end
 
-  def filter_home_games(sorted_teams)
-    sorted_teams.transform_values do |games|
-      games.select{|game| game.hoa == "home"}
+  def filter_home_games
+    @games.map do |game|
+      if game.home_away == "home"
+      end
     end
   end
-end
