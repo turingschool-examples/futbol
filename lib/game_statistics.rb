@@ -35,9 +35,17 @@ class GameStatistics < StatHelper
   #   method
   # end
 
-  # def count_of_games_by_season
-  #   method
-  # end
+  def count_of_games_by_season
+    season_games_count = {}
+    @games.each do |game|
+      if season_games_count.keys.include?(game.season)
+        season_games_count[game.season] += 1
+      else
+        season_games_count[game.season] = 1
+      end
+    end
+    season_games_count
+  end
 
   # def average_goals_per_game
   #   method
