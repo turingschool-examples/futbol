@@ -37,23 +37,10 @@ RSpec.describe Season do
 
   describe "most_tackles" do
     it "can determine the team with the most tackles in a season" do
-      # @season.most_tackles(20122013)
-
-      
+      expect(@season.most_tackles(20122013)).to eq("LA Galaxy")
+      expect(@season.most_tackles(20132014)).to eq("New England Revolution")
+      expect(@season.most_tackles(20142015)).to eq("Portland Thorns FC")
     end
   end
-
-  describe "fewest_tackles" do
-    it "can determine the team with the fewest tackles in a season" do
-      
-    end
-  end
-
-  # describe "worst_coach" do
-  #   it "can determine who is the worst coach based on win percentage in a season" do
-  #     expect(@season.worst_coach("20122013")).to eq()
-  #     expect(@season.worst_coach("20132014")).to eq()
-  #   end
-  # end
 
 end
