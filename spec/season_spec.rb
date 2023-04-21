@@ -20,4 +20,23 @@ RSpec.describe Season do
       expect(@season).to be_a(Season)
     end
   end
+
+  describe "worst_coach" do
+    it "can determine who is the worst coach based on win percentage in a season" do
+
+    end
+  end
+
+  describe "most_tackles" do
+    it "can determine the team with the most tackles in a season" do
+
+    end
+  end
+
+  describe "fewest_tackles" do
+    it "can determine the team with the fewest tackles in a season" do
+      
+    end
+  end
+  
 end
