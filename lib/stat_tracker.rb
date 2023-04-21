@@ -19,31 +19,38 @@ class StatTracker
       if key == :games
         games = CSV.read(database_hash[:games], headers: true, header_converters: :symbol).map do |row|
           one_game = Game.new(
-                row[:game_id],
-                row[:season],
-                row[:type],
-                row[:away_team_id],
-                row[:home_team_id],
-                row[:away_goals,],
-                row[:home_goals],
-                row[:venue]
-          )
+            row[:game_id],
+            row[:season],
+            row[:type],
+            row[:away_team_id],
+            row[:home_team_id],
+            row[:away_goals,],
+            row[:home_goals],
+            row[:venue]
+            )
+          end
+          game_array << games
+        elsif key == :teams
+          teams = CSV.read(database_hash[:teams], headers: true, header_converters: :symbol).map do |row|
+            one_team = Team.new(
+              row[:team_id],
+              row[:franchiseid],
+              row[:teamname],
+              row[:stadium]
+              )
+            end
+            team_array << teams
+        else
+          game_teams = CSV.read(database_hash[:game_teams], headers: true, header_converters: :symbol).map do |row|
+            require 'pry'; binding.pry
+          # one_game_team = GameTeams.new(
+            
+          # )  
+          end
         end
-        game_array << games
-      elsif key == :teams
-        teams = CSV.read(database_hash[:teams], headers: true, header_converters: :symbol).map do |row|
-          one_team = Team.new(
-            row[:team_id],
-            row[:franchiseid],
-            row[:teamname],
-            row[:stadium]
-          )
-        end
-        team_array << teams
       end
-    end
-    data_hash[:games] = game_array.flatten
-    data_hash[:teams] = team_array.flatten
+      data_hash[:games] = game_array.flatten
+      data_hash[:teams] = team_array.flatten
     new(data_hash)
   end
 
