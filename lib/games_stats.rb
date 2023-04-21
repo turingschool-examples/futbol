@@ -14,6 +14,18 @@ class GamesStats < Futbol
     end.sort.last
   end
 
+  # count of games by season
+  # =
+  # has with season names as keys
+  # counts of games as values
+  # ex. 20122013 => 32
+
+  def count_of_games_by_season
+    game_count = Hash.new
+    games.map do |game|   
+    end
+  end
+
   def lowest_total_score
     games.map do |game|
       game.away_team_goals + game.home_team_goals
@@ -43,5 +55,5 @@ class GamesStats < Futbol
     end
     (num_ties.to_f/num_games).round(2)
   end
-
 end
+
