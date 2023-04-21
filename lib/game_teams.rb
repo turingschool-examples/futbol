@@ -1,5 +1,5 @@
 require_relative './stat_tracker'
-
+require_relative "./stat_helper"
 class GameTeams
 
   attr_reader :game_id, 
