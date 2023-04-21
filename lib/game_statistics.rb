@@ -53,40 +53,40 @@ class GameStatistics < StatHelper
     end
     (total_goals.sum / games.length.to_f).round(2)
   end
-  # # Pseudocode:
-  #   for each game (away_goals + home_goals)
-  #   sum all games total goals
-  #   divide by total number of games
-  #   (rounded to the nearest 100th)
-  #   return Float
-  # Description: Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
-  # Return Value: Float
-
 
   # def average_goals_by_season
   #   season_goals = Hash.new { |h, k| h[k] = { home_goals: 0, away_goals: 0, games_played: 0 } }
-    
   #   games.each do |game|
   #     season_goals[game.season][:home_goals] += game.home_goals.to_i
   #     season_goals[game.season][:away_goals] += game.away_goals.to_i
   #     season_goals[game.season][:count_of_games_by_season]
   #   end
+  #   season_goals.map do |goal|
+  #     if goal.key ==
+  #   end
+  #   season_goals[:games_played].merge(count_of_games_by_season)
+
+  #     require 'pry'; binding.pry
     
   #   season_goals.transform_values do |goals|
   #     total_goals = goals[:home_goals] + goals[:away_goals]
-  #     require 'pry'; binding.pry
   #     total_goals.to_f / goals[:count_of_games_by_season]
+
   #   end
   # end
 
-  # # Pseudocode:
-  #   separate season
-  #   for each season: (away_goals + home_goals)
-  #   create a hash (season => (total goals by season divided by season by count_of_games_by_season)
-  #   (rounded to the nearest 100th)
-  #   return Hash
-
-  # Description: Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)
-  # Return Value: Hash
-
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    games.each do |game|
+      season = game.season
+      total_goals = game.away_goals + game.home_goals
+      goals_by_season[season] += total_goals
+    end
+    average_goals = {}
+    goals_by_season.each do |season, total_goals|
+      games_played = count_of_games_by_season[season]
+      average_goals[season] = (total_goals.to_f / games_played).round(2)
+    end
+    average_goals
+  end
 end

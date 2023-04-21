@@ -69,10 +69,10 @@ RSpec.describe GameStatistics do
     end
 
   describe "#average_goals_by_season" do 
-    xit "can calculate the average goals per season" do 
-      expect(@stat_tracker.games.average_goals_by_season).to be_a(Hash)
-      expect(@stat_tracker.games.average_goals_by_season.keys[0]).to be_a String
-      expect(@stat_tracker.games.average_goals_by_season.values[0]).to be_a Float
+    it "can calculate the average goals per season" do 
+      expect(@game_stats.average_goals_by_season).to be_a(Hash)
+      expect(@game_stats.average_goals_by_season.keys[0]).to be_a (String)
+      expect(@game_stats.average_goals_by_season.values[0]).to be_a (Float)
     end
   end
 end
