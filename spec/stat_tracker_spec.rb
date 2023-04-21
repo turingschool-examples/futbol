@@ -13,6 +13,7 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(@locations)
+    @test_games = @stat_tracker.games[0..100]
   end
   
   describe '#initialize' do 
@@ -32,6 +33,13 @@ RSpec.describe StatTracker do
     it 'has an array of teams' do 
       expect(@stat_tracker.teams).to be_a Array
       expect(@stat_tracker.teams[0]).to be_a Team
+    end
+  end
+
+  describe 'game averages' do 
+    it '#average_goals_per_game' do 
+      allow(@stat_tracker).to receive(:games) {@test_games}
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
 end
