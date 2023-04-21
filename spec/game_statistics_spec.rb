@@ -45,7 +45,7 @@ RSpec.describe GameStatistics do
 
   describe "#percentage_home_wins" do
     it "returns a percentage of games that a home team has won as a float (rounded to the nearest 100th)" do
-      
+      # expect(@game_stats.percentage_home_wins).to be_a(Float)
     end
   end
 
