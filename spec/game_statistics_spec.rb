@@ -45,7 +45,19 @@ RSpec.describe GameStatistics do
 
   describe "#percentage_home_wins" do
     it "returns a percentage of games that a home team has won as a float (rounded to the nearest 100th)" do
-      # expect(@game_stats.percentage_home_wins).to be_a(Float)
+      expect(@game_stats.percentage_home_wins).to be_a(Float)
+    end
+  end
+
+  describe "#percentage_visitor_wins" do
+    it "returns a percentage of games that a visiting team has won as a float (rounded to the nearest 100th)" do
+      expect(@game_stats.percentage_visitor_wins).to be_a(Float)
+    end
+  end
+
+    describe "#percentage_ties" do
+      it "returns a percentage of games that both teams have won as a float (rounded to the nearest 100th)" do
+        expect(@game_stats.percentage_home_wins).to be_a(Float)
     end
   end
 
@@ -66,14 +78,14 @@ RSpec.describe GameStatistics do
     end
   end
   describe "#average_goals_per_game" do 
-      xit "can calculate the average goals per game" do 
+      it "can calculate the average goals per game" do 
         expect(@stat_tracker.games.average_goals_per_game).to be_a(Float)
         expect(@stat_tracker.games.average_goals_per_game).to eq(4.22)
       end
     end
 
   describe "#average_goals_by_season" do 
-    xit "can calculate the average goals per season" do 
+    it "can calculate the average goals per season" do 
       expect(@stat_tracker.games.average_goals_by_season).to be_a(Hash)
       expect(@stat_tracker.games.average_goals_by_season.keys[0]).to be_a String
       expect(@stat_tracker.games.average_goals_by_season.values[0]).to be_a Float
