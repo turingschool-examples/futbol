@@ -53,7 +53,7 @@ class StatTracker
               row[:head_coach],
               row[:goals],
               row[:tackles]
-              )  
+              )
             end
             game_teams_array << game_teams
         end
@@ -63,10 +63,7 @@ class StatTracker
       data_hash[:game_teams] = game_teams_array.flatten
       new(data_hash)
     end
-    
-    
-    
-    
+
     def highest_total_score
       require 'pry'; binding.pry
     end

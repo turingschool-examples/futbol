@@ -6,7 +6,7 @@ class GameTeams
               :head_coach,
               :goals,
               :tackles
-              
+
   def initialize(game_id, team_id, hoa, result, head_coach, goals, tackles)
     @game_id = game_id
     @team_id = team_id
