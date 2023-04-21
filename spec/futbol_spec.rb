@@ -14,6 +14,7 @@ RSpec.describe Futbol do
 
     @futbol = Futbol.new(locations)
     @futbol.merge_game_game_teams
+    @futbol.merge_teams_to_game_game_teams
   end
 
   describe "#initialize" do
