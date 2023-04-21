@@ -33,4 +33,31 @@ attr_reader :game_id,
     @giveaways =      row[:giveaways]
     @takeaways =      row[:takeaways]
   end
+
+  def percentage_home_wins
+    home_wins = 0
+    @game_teams.find_all do |row|
+      home_wins += 1 if (row[:HoA]) == "home" && row[:result] == "WIN" ||
+      (row[:HoA]) =="away" && row[:result] == "LOSS"
+    end
+    (home_wins.to_f / @game_teams.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_wins = 0
+    @game_teams.find_all do |row|
+      visitor_wins += 1 if (row[:HoA]) == "away" && row[:result] == "WIN" ||
+      (row[:HoA]) =="home" && row[:result] == "LOSS"
+    end
+    (visitor_wins.to_f / @game_teams.count.to_f).round(2)
+  end
+
+  def percentage_ties
+    no_lose = 0
+    @game_teams.find_all do |row|
+      no lose += 1 if (row[:HoA]) == "home" && row[:result] == "TIE" ||
+      (row[:HoA]) =="away" && row[:result] == "TIE"
+    end
+    (no_lose.to_f / @game_teams.count. to_f).round(2)
+  end
 end
