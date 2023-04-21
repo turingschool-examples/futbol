@@ -5,15 +5,16 @@ RSpec.describe Futbol do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
+
     locations = {
     games: game_path,
     teams: team_path,
     game_teams: game_teams_path
     }
 
-  @futbol = Futbol.new(locations)
-  @futbol.merge_game_game_teams
-  require 'pry'; binding.pry
+    @futbol = Futbol.new(locations)
+    @futbol.merge_game_game_teams
+    require 'pry'; binding.pry
   end
 
   describe "#initialize" do

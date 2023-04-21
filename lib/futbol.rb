@@ -6,13 +6,12 @@ class Futbol
               :game_teams
   
   def initialize(locations)
-    @games = (CSV.open locations[:games], headers: true, header_converters: :symbol).map { |game| Game.new(game) } 
+    @games = (CSV.read locations[:games], headers: true, header_converters: :symbol).map { |game| Game.new(game) } 
     # @teams = (CSV.open locations[:teams], headers: true, header_converters: :symbol).map { |team| Team.new(team) } 
     @game_teams = (CSV.open locations[:game_teams], headers: true, header_converters: :symbol).map { |game_team| GameTeam.new(game_team) } 
   end
 
   def merge_game_game_teams
-    
     @games.map! do |game|
       @game_teams.each do |game_team|
         if game_team.game_id == game.game_id 
@@ -31,7 +30,6 @@ class Futbol
           end
         end
       end
-      game
     end
   end
 end
