@@ -20,12 +20,12 @@ class Game
                 :away_team_name
 
   def initialize(details)
-    @game_id = details[:game_id].to_i
-    @away_team_id = details[:away_team_id].to_i
-    @home_team_id = details[:home_team_id].to_i
+    @game_id = details[:game_id]
+    @away_team_id = details[:away_team_id]
+    @home_team_id = details[:home_team_id]
     @home_team_goals = details[:home_goals].to_i
     @away_team_goals = details[:away_goals].to_i
-    @season = details[:season].to_i
+    @season = details[:season]
     @home_head_coach = details[:home_head_coach]
     @away_head_coach = details[:away_head_coach]
     @home_shots = details[:home_shots].to_i
