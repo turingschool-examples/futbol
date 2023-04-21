@@ -25,6 +25,7 @@ RSpec.describe Futbol do
   end
 
   describe "#merge methods" do
+  # expand tests if there is time
     it 'merge_game_game_teams' do 
       @futbol.merge_game_game_teams
       expect(@futbol.games[0].home_tackles).not_to eq(nil)
