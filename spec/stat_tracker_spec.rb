@@ -52,4 +52,10 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#lowest_total_score" do
+    it "can calculate lowest_total_score" do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
+  end
+
 end
