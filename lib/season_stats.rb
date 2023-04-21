@@ -18,6 +18,27 @@ class SeasonStats < Futbol
     num_coach_wins.max_by do |coach, wins|
       wins
     end.first
-      # require 'pry'; binding.pry
+  end
+
+  def worst_coach(season)
+    num_coach_losses = Hash.new(0)
+    @games.map do |game|
+      if game.home_result == "LOSS" && game.season == season
+        num_coach_losses[game.home_head_coach] += 1
+      elsif
+        game.away_result == "LOSS" && game.season == season
+        num_coach_losses[game.away_head_coach] += 1
+      end
+    end
+    require 'pry'; binding.pry
+      num_coach_losses.each_pair do |coach, losses|
+      losses.to_f / head_coach_games(coach)
+    end
+  end
+
+  def head_coach_games(coach)
+    games.count do |game|
+      game.home_head_coach == coach || game.away_head_coach == coach
+    end
   end
 end
