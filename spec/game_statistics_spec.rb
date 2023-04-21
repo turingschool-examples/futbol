@@ -49,6 +49,17 @@ RSpec.describe GameStatistics do
     end
   end
 
+  describe "#count of games by season" do
+    it "returns a hash of season names as keys with counts of games as values" do
+      expected = {"20122013"=>806,
+                  "20162017"=>1317,
+                  "20142015"=>1319,
+                  "20152016"=>1321,
+                  "20132014"=>1323,
+                  "20172018"=>1355}
+      expect(@game_stats.count_of_games_by_season).to eq(expected)
+    end
+  end
   describe "#average_goals_per_game" do
     it "calculates average number of goals per game" do
       expect(@stat_tracker.games.average_goals_per_game).to be_a(Float)
