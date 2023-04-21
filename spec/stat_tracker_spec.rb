@@ -19,6 +19,16 @@ RSpec.describe StatTracker do
     it "exists" do 
       expect(@stat_tracker).to be_a(StatTracker)
     end
+  end
+
+  describe "Game Statistics" do
+    xit "finds the game with the highest score." do
+      expect(@stat_tracker.highest_total_score).to eq(11)
+    end
+
+    xit "fnds the game with the lowest score." do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
 
     xit "calculates average number of goals per game" do
       expect(@stat_tracker.average_goals_per_game).to be_a(Float)
