@@ -3,10 +3,11 @@ require './spec_helper'
 RSpec.describe Game do
   before(:each) do
     game_path = './data_dummy/games_dummy.csv'
-    games_data = CSV.open(game_path, headers: true, header_converters: :symbol)
+    games_data = CSV.read(game_path, headers: true, header_converters: :symbol)
     @game = Game.new(games_data)
+
     game_path2 = './data_dummy/game_teams_dummy.csv'
-    games_data2 = CSV.open(game_path2, headers: true, header_converters: :symbol)
+    games_data2 = CSV.read(game_path2, headers: true, header_converters: :symbol)
     @game2 = Game.new(games_data2)
   end
   
