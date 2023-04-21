@@ -19,11 +19,17 @@ RSpec.describe SeasonStats do
 
   describe '#initialize' do
     it 'exists' do
-    expect(@season_stats).to be_a(SeasonStats)
+      expect(@season_stats).to be_a(SeasonStats)
     end
   end
 
-
+  describe '#most_accurate_team' do
+    it 'returns the team name with best shot:goal' do
+      expect(@season_stats.most_accurate_team(games.season)).to be_a(String)
+      expect(@season_stats.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      expect(@season_stats.most_accurate_team("20142015")).to eq "Toronto FC"
+    end
+  end
 
 
 
