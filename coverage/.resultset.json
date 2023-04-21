@@ -1,7 +1,11 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/runner.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/runner.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           null,
           null,
@@ -20,7 +24,11 @@
           1
         ]
       },
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/stat_tracker.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/stat_tracker.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           1,
           1,
@@ -35,6 +43,7 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           3,
           null,
           null,
@@ -42,6 +51,15 @@
           22326,
           44649,
           99,
+=======
+          12,
+          null,
+          null,
+          1,
+          89304,
+          178596,
+          396,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null,
           null,
           1,
@@ -84,6 +102,10 @@
           0,
           null,
           null,
+<<<<<<< HEAD
+=======
+          null,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           1,
           0,
           null,
@@ -102,7 +124,11 @@
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/game.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/game.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           1,
           1,
@@ -120,6 +146,7 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           37205,
           37205,
           37205,
@@ -130,11 +157,27 @@
           37205,
           37205,
           37205,
+=======
+          171143,
+          171143,
+          171143,
+          171143,
+          171143,
+          171143,
+          171143,
+          171143,
+          171143,
+          171143,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/stat_helper.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/stat_helper.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           1,
           1,
@@ -147,14 +190,24 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           14884,
           29766,
           66,
+=======
+          81862,
+          163713,
+          363,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/game_teams.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/game_teams.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           1,
           1,
@@ -177,6 +230,7 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           74410,
           74410,
           74410,
@@ -192,11 +246,32 @@
           74410,
           74410,
           74410,
+=======
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+          342286,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/teams.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/teams.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           1,
           1,
@@ -210,23 +285,37 @@
           null,
           null,
           1,
+<<<<<<< HEAD
           160,
           160,
           160,
           160,
           160,
           160,
+=======
+          736,
+          736,
+          736,
+          736,
+          736,
+          736,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null,
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/game_statistics.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/game_statistics.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           1,
           1,
           1,
           null,
           1,
+<<<<<<< HEAD
           0,
           null,
           null,
@@ -367,14 +456,81 @@
           null,
           null,
           null,
+=======
+          11,
+          null,
+          null,
+          1,
+          37210,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          2,
+          2,
+          29764,
+          null,
+          2,
+          null,
+          null,
+          1,
+          1,
+          1,
+          14882,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null,
           1,
           null,
           null,
+<<<<<<< HEAD
           null,
           14883,
           null,
           1,
+=======
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null,
           null,
           null,
@@ -385,7 +541,11 @@
           null
         ]
       },
+<<<<<<< HEAD
       "/Users/ashleyplasket/1mod/projects/futbol/lib/season_statistics.rb": {
+=======
+      "/Users/garrettvarenhorst/turing/mod1/projects/5week/futbol/lib/league_statistics.rb": {
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
         "lines": [
           1,
           1,
@@ -419,10 +579,35 @@
           null,
           null,
           null,
+<<<<<<< HEAD
+=======
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
           null
         ]
       }
     },
+<<<<<<< HEAD
     "timestamp": 1682111635
+=======
+    "timestamp": 1682110126
+>>>>>>> e00033093ca45abac9084ad2e12e0733e4ed03e9
   }
 }
