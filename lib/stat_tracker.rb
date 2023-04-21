@@ -56,5 +56,10 @@ class StatTracker
     (goals.to_f / total_games).round(2)
   end
 
-
+  def lowest_total_score
+    min_game = @games.min_by do |game|
+      game.home_goals + game.away_goals
+    end
+    min_game.home_goals + min_game.away_goals
+  end
 end
