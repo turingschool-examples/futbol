@@ -19,20 +19,28 @@ class GameStatistics < StatHelper
   end
 
   def percentage_home_wins
-    games_played = 0 
-    home_games_won = 0
-    @game_teams.map do |game_team|
-      game_team.hoa
+    home_wins = 0
+    @game_teams.find_all do |row|
+      home_wins += 1 if row.hoa == "home" && row.result == "win" || row.hoa == "away" && row.result == "loss"
     end
+    (home_wins.to_f / @game_teams.count.to_f).round(2)
   end
 
-  # def percentage_visitor_wins
-    
-  # end
+  def percentage_visitor_wins
+    visitor_wins = 0
+    @game_teams.find_all do |row|
+      visitor_wins += 1 if row.hoa == "away" && row.result == "win" || row.hoa == "home" && row.result == "loss"
+    end
+    (visitor_wins.to_f / @game_teams.count.to_f).round(2)
+  end
 
-  # def percentage_ties
-  #   method
-  # end
+  def percentage_ties
+    no_lose = 0
+    @game_teams.find_all do |row|
+      no lose += 1 if row.hoa == "home" && row.result == "tie" || row.hoa == "away" && row.result == "tie"
+    end
+    (no_lose.to_f / @game_teams.count.to_f).round(2)
+  end
 
   def count_of_games_by_season
     season_games_count = {}
@@ -43,16 +51,16 @@ class GameStatistics < StatHelper
         season_games_count[game.season] = 1
       end
     end
-    season_games_count
-  end
-
-  
-  def average_goals_per_game
-    total_goals = games.map do |game|
-      game.away_goals.to_i + game.home_goals.to_i
+      season_games_count
     end
-    (total_goals.sum / games.length.to_f).round(2)
-  end
+
+    def average_goals_per_game
+      total_goals = games.map do |game|
+        game.away_goals.to_i + game.home_goals.to_i
+      end
+      (total_goals.sum / games.length.to_f).round(2)
+    end
+  
   # # Pseudocode:
   #   for each game (away_goals + home_goals)
   #   sum all games total goals
@@ -61,7 +69,6 @@ class GameStatistics < StatHelper
   #   return Float
   # Description: Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)
   # Return Value: Float
-
 
   # def average_goals_by_season
   #   season_goals = Hash.new { |h, k| h[k] = { home_goals: 0, away_goals: 0, games_played: 0 } }

@@ -23,17 +23,18 @@ class GameTeams
     @game_id =        row[:game_id]
     @team_id =        row[:team_id]
     @hoa =            row[:hoa]
+    @hoa =            row[:hoa]
     @result =         row[:result]
     @settled_in =     row[:settled_in]
     @head_coach =     row[:head_coach]
-    @goals =          row[:goals]
-    @shots =          row[:shots]
-    @tackles =        row[:tackles]
-    @pim =            row[:pim]
-    @powerplayopp =   row[:powerplayopportunities]
-    @powerplaygoals = row[:powerplaygoals]
-    @faceoffwinperc = row[:faceoffwinpercentage]
-    @giveaways =      row[:giveaways]
-    @takeaways =      row[:takeaways]
+    @goals =          row[:goals].to_i
+    @shots =          row[:shots].to_i
+    @tackles =        row[:tackles].to_i
+    @pim =            row[:pim].to_i
+    @powerplayopp =   row[:powerplayopportunities].to_i
+    @powerplaygoals = row[:powerplaygoals].to_i
+    @faceoffwinperc = row[:faceoffwinpercentage].to_f
+    @giveaways =      row[:giveaways].to_i
+    @takeaways =      row[:takeaways].to_i
   end
 end
