@@ -1,21 +1,22 @@
 require_relative 'stat_tracker'
+
 class GameTeams
 
   attr_reader :game_id, 
-            :team_id, 
-            :HoA, 
-            :result, 
-            :settled_in,
-            :head_coach,
-            :goals,
-            :shots, 
-            :tackles, 
-            :pim,
-            :powerPlayOpportunities,
-            :powerPlayGoals,
-            :faceOffWinPercentage,
-            :giveaways,
-            :takeaways
+              :team_id, 
+              :hoa, 
+              :result, 
+              :settled_in,
+              :head_coach,
+              :goals,
+              :shots, 
+              :tackles, 
+              :pim,
+              :powerplayopp,
+              :powerplaygoals,
+              :faceoffwinperc,
+              :giveaways,
+              :takeaways
 
   def initialize(row)
     @game_id =        row[:game_id]
@@ -25,6 +26,7 @@ class GameTeams
     @settled_in =     row[:settled_in]
     @head_coach =     row[:head_coach]
     @goals =          row[:goals]
+    @shots =          row[:shots]
     @tackles =        row[:tackles]
     @pim =            row[:pim]
     @powerplayopp =   row[:powerPlayOpportunities]
