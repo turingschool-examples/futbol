@@ -5,7 +5,7 @@ require 'rspec'
 
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = './data/games.csv',
+    game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
 
@@ -16,18 +16,31 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    
+
   end
 
   describe "initialize" do
     it "exists" do
-      expect(@stat_tracker).to be_an(Array)
+      expect(@stat_tracker).to be_an(StatTracker)
+
     end
 
     it "has readable attributes" do
-      
+      # @games is an array
+      # @games.first is Game object
+
     end
   end
+  #fixture_files = test 10 line test data
+
+#   describe "#from_csv" do
+#     it "can do all the things" do
+# stat_tracker object
+# game and class instances
+#     initializing data at the end
+
+#     end
+#   end
 
   describe "#highest_total_score" do
     it "can calculate highest_total_score" do
