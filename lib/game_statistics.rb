@@ -1,6 +1,5 @@
 require_relative "./stat_tracker"
 require_relative "./stat_helper"
-
 class GameStatistics < StatHelper
 
   def initialize(files)

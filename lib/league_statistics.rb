@@ -1,15 +1,14 @@
 require_relative "./stat_tracker"
 require_relative "./stat_helper"
-
 class LeagueStatistics < StatHelper
 
   def initialize(files)
     super
   end
 
-  def count_of_teams
-    @teams.length
-  end
+  # def count_of_teams
+  #   @teams.length
+  # end
 
   # def offense_avg
     

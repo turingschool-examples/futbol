@@ -23,11 +23,11 @@ RSpec.describe Game do
     end
     
     it " has attributes" do
-      expect(game.game_id).to eq(2012030221)
-      expect(game.game_id).to be_a(Integer)
+      expect(game.game_id).to eq("2012030221")
+      expect(game.game_id).to be_a(String)
 
-      expect(game.season).to eq(20122013)
-      expect(game.season).to be_a(Integer)
+      expect(game.season).to eq("20122013")
+      expect(game.season).to be_a(String)
 
       expect(game.type).to eq("Postseason")
       expect(game.type).to be_a(String)
@@ -35,11 +35,11 @@ RSpec.describe Game do
       expect(game.date_time).to eq("5/16/13")
       expect(game.date_time).to be_a(String)
 
-      expect(game.away_team_id).to eq(3)
-      expect(game.away_team_id).to be_a(Integer)
+      expect(game.away_team_id).to eq("3")
+      expect(game.away_team_id).to be_a(String)
 
-      expect(game.home_team_id).to eq(6)
-      expect(game.home_team_id).to be_a(Integer)
+      expect(game.home_team_id).to eq("6")
+      expect(game.home_team_id).to be_a(String)
 
       expect(game.away_goals).to eq(2)
       expect(game.away_goals).to be_a(Integer)
