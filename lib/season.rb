@@ -29,15 +29,17 @@ class Season
   def most_tackles(season)
     team_tackle_totals = Hash.new(0)
 
+    # iterates through every game in a specific season and creates a hash with team_id => total # of tackles
     create_season(season).each do |row|
-      tackles = row[:tackles].to_i
-      team_tackle_totals[row[:team_id]] += tackles
+      team_tackle_totals[row[:team_id]] += row[:tackles].to_i
     end
     
+    # iterates throug the hash and finds the team_id associated with the highest tackle #
     team_most_tackles_id = team_tackle_totals.max_by do |team_id, tackles|
       tackles
     end
 
+    # returns the team name from the team_id of the team with the most tackles
     get_team_name(team_most_tackles_id[0])
   end
 
