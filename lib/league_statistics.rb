@@ -1,5 +1,6 @@
 require_relative "./stat_tracker"
 require_relative "./stat_helper"
+
 class LeagueStatistics < StatHelper
 
   def initialize(files)
@@ -47,5 +48,22 @@ class LeagueStatistics < StatHelper
 # Identify the team_id of the team with the lowest average
 # Match the team_id to the teamName (in the teams.csv file)
 # Return teamName (in a string)
+
+
+#   def highest_scoring_visitor 
+#     method
+#   end
+
+#   def highest_scoring_home_team 
+#     method
+#   end
+
+#   def lowest_scoring_visitor 
+#     method
+#   end
+
+#   def lowest_scoring_home_team 
+#     method
+#   end
 
 end
