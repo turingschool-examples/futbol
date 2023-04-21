@@ -30,30 +30,23 @@ class GamesStats < Futbol
   end
 
   def average_goals_per_game
-    # all_season_goals = games.sum do |game|
-    #   game.away_team_goals + game.home_team_goals
-    # end
+    all_season_goals = games.sum do |game|
+      game.away_team_goals + game.home_team_goals
+    end
     all_season_goals.fdiv(games.length).round(2)
   end
 
   def average_goals_by_season
-    season_goals.merge!(count_of_games_by_season) do |season, goals, games|
+    goalie_goals.merge!(count_of_games_by_season) do |season, goals, games|
       goals.fdiv(games).round(2)
     end
-    
-      
-      
-    # creating a hash from an array
-    # key = season
-    # value = #avg_goals_game
-    # combine above 2 methods?
+  end
+
+  def goalie_goals
+    go_gos = Hash.new(0)
+    games.each do |game|
+      go_gos[game.season] += game.total_score
     end
-end
-
-private
-
-def all_season_goals
-  games.sum do |game|
-    game.away_team_goals + game.home_team_goals
+    go_gos
   end
 end

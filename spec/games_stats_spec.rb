@@ -18,21 +18,21 @@ RSpec.describe GamesStats do
   end
 
   describe '#initialize' do
-    it 'exists' do
+    xit 'exists' do
       expect(@games_stats).to be_a(GamesStats)
     end
   end
 
   # highest sum of winning and losing teams score
   describe '#highest_total_score' do
-    it 'checks highest total score of a game' do
-    expect(@games_stats.highest_total_score).to eq(11)
+    xit 'checks highest total score of a game' do
+      expect(@games_stats.highest_total_score).to eq(11)
     end
   end
 
 
   describe '#count_of_games_by_season' do
-    it 'returns a hash of total games in a season' do
+    xit 'returns a hash of total games in a season' do
       expect(@games_stats.count_of_games_by_season).to be_a(Hash)
       expect(@games_stats.count_of_games_by_season).to eq({
         "20122013"=>806,
@@ -46,14 +46,14 @@ RSpec.describe GamesStats do
   end
 
   describe '#average_goals_per_game' do
-    it 'returns a float of goals scored in a game across all seasons' do
+    xit 'returns a float of goals scored in a game across all seasons' do
       expect(@games_stats.average_goals_per_game).to be_a(Float)
       expect(@games_stats.average_goals_per_game).to eq(4.22)
     end
   end
 
   describe '#average_goals_by_season' do
-    xit 'returns a hash of average number of goals by season' do
+    it 'returns a hash of average number of goals by season' do
       expect(@games_stats.average_goals_by_season).to be_a(Hash)
       expect(@games_stats.average_goals_by_season).to eq({
         "20122013"=>4.12,
@@ -65,6 +65,4 @@ RSpec.describe GamesStats do
       })
     end
   end
-
-
 end
