@@ -1,23 +1,27 @@
-require_relative "stat_tracker"
+require_relative "./stat_tracker"
+require_relative "./stat_helper"
 
-class GameStatistics
-  # def self.from_csv(files)
-  #   require 'pry'; binding.pry
-  # end
+class GameStatistics < StatHelper
 
-  # def initialize(locations)
-  # end
-# def highest_total_score
-  #   method
-  # end
+  def initialize(files)
+    super
+  end
 
-  # def lowest_total_score
-  #   method
-  # end
+  def scores
+    scores = @games.map { |game| (game.away_goals + game.home_goals)}
+  end
 
-  # def percentage_home_wins
-  #   # method
-  # end
+  def highest_total_score
+    scores.max
+  end
+
+  def lowest_total_score
+    scores.min
+  end
+
+  def percentage_home_wins
+    
+  end
 
   # def percentage_visitor_wins
   #   method
