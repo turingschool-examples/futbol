@@ -13,7 +13,7 @@ RSpec.describe Game do
   describe '#initialize' do
     it 'can initialize with attributes' do
       expect(@game1).to be_a(Game)
-      expect(@game1.game_id).to eq("5")
+      expect(@game1.game_id).to eq(5)
       expect(@game1.away_team_id).to eq("2")
       expect(@game1.home_team_id).to eq("1")
       expect(@game1.home_team_goals).to eq("1")
