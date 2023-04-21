@@ -22,10 +22,6 @@ RSpec.describe LeagueStatistics do
       expect(@stat_tracker).to be_a(StatTracker)
     end
   end
-end
-
-
-
 # Commented out tests below for now so running `rspec spec` will pass tests since we have not yet begun our code. 
 
 
@@ -85,4 +81,4 @@ end
 #     end
 #   end
 
-# end
+end
