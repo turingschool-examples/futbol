@@ -6,7 +6,7 @@ RSpec.describe GameTeams do
   let(:row) do {
     game_id: "2012030221",
     team_id: "3",
-    HoA: "away",
+    hoa: "away",
     result: "LOSS",
     settled_in: "OT",
     head_coach: "John Tortorella",
@@ -14,9 +14,9 @@ RSpec.describe GameTeams do
     shots: 8,
     tackles: 44,
     pim: 8,
-    powerPlayOpportunities: 3,
-    powerPlayGoals: 0,
-    faceOffWinPercentage: 44.8,
+    powerplayopportunities: 3,
+    powerplaygoals: 0,
+    faceoffwinpercentage: 44.8,
     giveaways: 17,
     takeaways: 7
     }
