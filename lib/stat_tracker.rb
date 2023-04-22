@@ -72,56 +72,36 @@ class StatTracker
     season_name.map {|season_string, game| games_by_season[season_string] = game.count }
     games_by_season
   end
-  
+
   def percentage_home_wins
     hoa = @game_teams.find_all {|gameteam| gameteam.hoa == "home" }
     results = hoa.select {|game| game.result == "WIN" }.count
     (results.to_f  / @games.count).round(2)
   end
-  
+
   def percentage_visitor_wins
     hoa = @game_teams.find_all {|gameteam| gameteam.hoa == "away" }
     results = hoa.select {|game| game.result == "WIN" }.count
     (results.to_f  / @games.count).round(2)
   end
-  
+
   def count_of_teams
     @teams.count
   end
 
   def best_offense
 
-    teamGoals = {}
-    @games.each do |game|
-      if teamGoals[game.home_team_id] == nil
-        teamGoals[game.home_team_id] = 0
-      end
+    team_goals = total_goals
+    team_games = total_games
 
-      if teamGoals[game.away_team_id] == nil
-        teamGoals[game.away_team_id] = 0
-      end
-
-      teamGoals[game.home_team_id] = teamGoals[game.home_team_id] + game.home_goals
-      teamGoals[game.away_team_id] = teamGoals[game.away_team_id] + game.away_goals
-    end
-
-    teamGames = {}
-    @game_teams.each do |gameteam|
-      if teamGames[gameteam.team_id] == nil
-        teamGames[gameteam.team_id] = 0
-      end
-
-      teamGames[gameteam.team_id] += 1
-    end
-
-    averages = {}
-    teamGames.each do |team_id, game_count|
-      goal_count = teamGoals[team_id]
-
+    averages = Hash.new(0)
+    team_games.each do |team_id, game_count|
+      goal_count = team_goals[team_id]
       if goal_count != nil
         averages[team_id] = goal_count / game_count.to_f
       end
     end
+
     highest_average_team = nil
     highest_average_score = nil
     averages.each do |id, ave|
@@ -144,4 +124,22 @@ class StatTracker
     end
     best_average
   end
+
+  def total_goals
+    team_goals = Hash.new(0)
+    @games.each do |game|
+      team_goals[game.home_team_id] = team_goals[game.home_team_id] + game.home_goals
+      team_goals[game.away_team_id] = team_goals[game.away_team_id] + game.away_goals
+    end
+    team_goals
+  end
+
+  def total_games
+    team_games = Hash.new(0)
+    @game_teams.each do |gameteam|
+      team_games[gameteam.team_id] += 1
+    end
+    team_games
+  end
+
 end
