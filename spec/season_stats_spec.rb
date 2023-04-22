@@ -43,6 +43,35 @@ RSpec.describe SeasonStats do
     end
   end
 
+  describe 'Accuracy helper methods' do
+    it '#all_goals_by_team_by_season' do
+    expect(@season_stats.all_goals_by_team_by_season("20132014")).to be_a Hash
+    expect(@season_stats.all_goals_by_team_by_season("20132014").length).to eq(30)
+    expect(@season_stats.all_goals_by_team_by_season("20132014")["1"]).to eq(157)
+    end
+  
+    it '#all_shots_by_team_by_season' do
+      expect(@season_stats.all_shots_by_team_by_season('20132014')).to be_a Hash
+      expect(@season_stats.all_shots_by_team_by_season('20132014').length).to eq(30)
+      expect(@season_stats.all_shots_by_team_by_season('20132014')['1']).to eq(513)
+    end
+  
+    it '#teams_shot_ratio' do
+      expect(@season_stats.teams_shot_ratio('20132014')).to be_a Hash
+      expect(@season_stats.teams_shot_ratio('20132014').length).to eq(30) 
+      expect(@season_stats.teams_shot_ratio('20132014')['1']).to eq(0.3060428849902534) 
+    end
+  
+    it '#best_shot_ratio_team_id' do
+      expect(@season_stats.best_shot_ratio_team_id('20132014')).to eq('24')
+      expect(@season_stats.best_shot_ratio_team_id('20142015')).to eq('20')
+    end
+    
+    it '#worst_shot_ratio_team_id' do
+      expect(@season_stats.worst_shot_ratio_team_id('20132014')).to eq('9')
+      expect(@season_stats.worst_shot_ratio_team_id('20142015')).to eq('53')
+    end
+  end
   # Name of the Coach with the best win percentage for the season
   describe '#winningest_coach' do
     it 'returns the coach with the best win percentage for the season' do

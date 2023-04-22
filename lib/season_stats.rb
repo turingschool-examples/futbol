@@ -53,7 +53,6 @@ class SeasonStats < Futbol
   end
 
   def most_accurate_team(season)
-    return invalid_season if season_not_found?(season)
     team = @teams.select do |team|
       team.team_id == best_shot_ratio_team_id(season)
     end
@@ -61,21 +60,10 @@ class SeasonStats < Futbol
   end
 
   def least_accurate_team(season)
-    return invalid_season if season_not_found?(season)
     team = @teams.select do |team|
       team.team_id == worst_shot_ratio_team_id(season)
     end
     team.first.teamname
-  end
-
-  # Helpers for accuracy stats
-  def season_not_found?(season)
-    seasons = @games.map(&:season)
-    !seasons.include?(season)
-  end
-  
-  def invalid_season
-    'Season Not Found'
   end
   
   def all_goals_by_team_by_season(season)
