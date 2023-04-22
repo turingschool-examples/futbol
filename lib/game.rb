@@ -11,8 +11,6 @@ class Game
               :home_goals,
               :venue
 
-
-  # def initialize(id, season, type, away_team_id, home_team_id, away_goals, home_goals, venue)
   def initialize(row)
     @id = row[:game_id]
     @season = row[:season]
