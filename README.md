@@ -22,6 +22,28 @@ A 2-3 sentence summary describing your approach to the code design.
   - This will continue to evolve as we continue to progress.
   - We are planning to check in with our overall design after we complete th einitial setup.
 
+**Retro:**
+
+*Tools Used:*
+[Google-Docs](https://docs.google.com/document/d/1LtddE9DXIhgl7Htfok98tAfuANCegmElSIAi6rFdXho/edit), the [Jamboard](https://jamboard.google.com/d/1aAd-3OtME0SsgxoZilykxEz4W1OsDpOVIHZ4uYI9TG8/viewer?f=4) [GitHub-Project-Board](https://github.com/users/jpasko1112/projects/1/views/1?layout=board), [Atlassian](https://www.atlassian.com/team-playbook/plays/retrospective#instructions), and our [DTR](https://docs.google.com/document/d/1qt17K0ZjPpvDKq4OKXtNOhf78Oan1A3GajNV4ks-E_w/edit).
+
+*Top 4 things that went well:*
+- Communication and planning - design and hearing everyone’s opinion
+Project organization went well because of great communication
+- Positive attitudes! Positivity and upbeat attitudes helped us to get through difficult road blocks. - difficulties, questions, etc. were communicated with positivity.
+- Driver/Navigator all four of us were engaged and collaborative, looking for rogue commas and ends! We didn’t have to use Driver/Nav - but we did it well and it really helped us stay on the same page with design and cohesiveness of the project overall. Helped to talk things through and find best approach to issues/obstacles.
+- Organizational skills as a group have been really good - GitHub project board organizing tasks. Pacing went really well. We broke up the work and maintained a reasonable schedule to get the project done and maintain our sanity. - Not too much pressure
+We managed/organized our work time to accommodate three different time zones and four disparate schedules! 
+
+*Top 4 things we'd do differently:*
+- Planning/rollout  - smoother planning phase with more efficient execution. However, we didn’t have ANY experience in this kind of project. 
+It might have been hard to do this better. It would have been a major setback to have started coding and then gone back to design.
+- Stick with tools that we have experience with anxiety about learning yet another thing while doing the project. 
+- Fixtures - would be beneficial to use. We didn’t implement code to use these. In future, with larger datasets, these may be beneficial for time savings in testing/running code. 
+- If creating a branch, stick to plan - create the designated methods/task for that branch and nothing else. If you see things outside of what’s been designated for a branch that need fixing, communicate that to the group and make another branch for said fix. Limit scope of branches to help avoid merge conflicts.
+
+
+
 **DTR Link:** https://docs.google.com/document/d/1qt17K0ZjPpvDKq4OKXtNOhf78Oan1A3GajNV4ks-E_w/edit  *completed: 4/17/2023*
 
 
