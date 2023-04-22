@@ -31,38 +31,18 @@ RSpec.describe LeagueStatistics do
   end
 
   describe "#best_offense" do
-    it " names the team with the highest average number of goals scored per game across all seasons" do 
-
+    xit " names the team with the highest average number of goals scored per game across all seasons" do 
         expect(@league_stats.best_offense).to be_a(String)
-        expect(@league_stats.best_offense).to eq("INSERTNAME")
+        # expect(@league_stats.best_offense).to eq("INSERTNAME")
     end
   end
 
   describe "#worst_offense" do
     xit " names the team with the lowest average number of goals scored per game across all seasons" do 
-
         expect(@league_stats.worst_offense).to be_a(String)
-        expect(@league_stats.teams.worst_offense).to eq("INSERTNAME")
-      # return value string
+        # expect(@league_stats.teams.worst_offense).to eq("INSERTNAME")
     end
   end
-
-  describe "#highest_scoring_visitor" do
-    xit " names the team with the highest average score per game across all seasons when they are away" do 
-
-      # return value string
-    end
-  end
-
-  describe "#highest_scoring_home_team" do
-    xit " names the team with the highest average score per game across all seasons when they are home" do 
-
-      # return value string
-    end
-  end
-
-  describe "#lowest_scoring_visitor" do
-    xit " names the team with the lowest average score per game across all seasons when they are away" do 
 
   describe "#highest scoring visitor" do
     it " names the team with the highest average score per game across all seasons when they are away" do 
@@ -75,10 +55,10 @@ RSpec.describe LeagueStatistics do
     it "names the team with the highest average score per game across all seasons when they are home" do 
       expect(@league_stats.highest_scoring_home_team).to eq("Reign FC")
       expect(@league_stats.highest_scoring_home_team).to be_a(String)
+    end
   end
-end
 
-describe "#lowest scoring visitor" do
+  describe "#lowest scoring visitor" do
     it " names the team with the lowest average score per game across all seasons when they are away" do 
       expect(@league_stats.lowest_scoring_visitor).to eq("San Jose Earthquakes")
       expect(@league_stats.lowest_scoring_visitor).to be_a(String)

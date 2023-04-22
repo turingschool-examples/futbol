@@ -57,10 +57,10 @@ RSpec.describe GameStatistics do
     end
   end
 
-    describe "#percentage_ties" do
-      it "returns a percentage of games that both teams have won as a float (rounded to the nearest 100th)" do
-        expect(@game_stats.percentage_ties).to be_a(Float)
-        expect(@game_stats.percentage_ties).to eq(0.20)
+  describe "#percentage_ties" do
+    it "returns a percentage of games that both teams have won as a float (rounded to the nearest 100th)" do
+      expect(@game_stats.percentage_ties).to be_a(Float)
+      expect(@game_stats.percentage_ties).to eq(0.20)
     end
   end
 

@@ -31,7 +31,7 @@ class GameStatistics < StatHelper
     visitor_wins = 0
     @game_teams.find_all do |row|
       visitor_wins += 1 if row.hoa == "away" && row.result == "WIN" || 
-                          row.hoa == "home" && row.result == "LOSS"
+                           row.hoa == "home" && row.result == "LOSS"
     end
     (visitor_wins.to_f / @game_teams.count.to_f).round(2)
   end
