@@ -60,7 +60,8 @@ class SeasonStats < Futbol
   # .first for best, .last for worst
 
   def most_accurate_team(season)
-    
+    return invalid_season if season_not_found?(season)
+    team = games.select do 
   end
 
   def least_accurate_team(season)
@@ -68,6 +69,10 @@ class SeasonStats < Futbol
   end
 
   # Helpers for accuracy stats
+  def all_team_names  
+    game.home_team_name && game.away_team_name
+  end
+  
   def season_not_found?(season)
     seasons = @games.map(:&season)
     if !seasons.include?(season)
