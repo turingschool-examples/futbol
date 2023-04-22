@@ -19,35 +19,46 @@ RSpec.describe StatTracker do
   end
 
   describe "initialize" do
+    it "has readable attributes" do
+      expect(@stat_tracker.games).to be_an(Array)
+      expect(@stat_tracker.games.first).to be_a(Game)
+      expect(@stat_tracker.teams).to be_an(Array)
+      expect(@stat_tracker.teams.first).to be_a(Team)
+      expect(@stat_tracker.game_teams).to be_an(Array)
+      expect(@stat_tracker.game_teams.first).to be_a(GameTeams)
+    end
+  end
+
+  describe "self.from_csv" do
     it "exists" do
       expect(@stat_tracker).to be_an(StatTracker)
     end
 
-    it "has readable attributes" do
-      # @games is an array
-      # @games.first is Game object
+    it "parses games" do
+      expect(@stat_tracker.games.length).to satisfy { |n| n > 1 }
+      expect(@stat_tracker.games[0]).to be_a(Game)
+    end
+
+    it "parses teams" do
+      expect(@stat_tracker.teams.length).to satisfy { |n| n > 1 }
+      expect(@stat_tracker.teams[0]).to be_a(Team)
+    end
+
+    it "parses game_teams" do
+      expect(@stat_tracker.game_teams.length).to satisfy { |n| n > 1 }
+      expect(@stat_tracker.game_teams[0]).to be_a(GameTeams)
     end
   end
-  
-  describe "#average_goals_per_game" do
-    it "gets the average goals per game over every season, every game" do
-      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
-    end
-  end
-  #fixture_files = test 10 line test data
-
-#   describe "#from_csv" do
-#     it "can do all the things" do
-# stat_tracker object
-# game and class instances
-#     initializing data at the end
-
-#     end
-#   end
 
   describe "#highest_total_score" do
     it "can calculate highest_total_score" do
       expect(@stat_tracker.highest_total_score).to eq(11)
+    end
+  end
+
+  describe "#average_goals_per_game" do
+    it "gets the average goals per game over every season, every game" do
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
 
@@ -71,12 +82,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "#percentage_home_wins" do
-    it "gets Percentage of games that a home team has won" do
-      expect(@stat_tracker.percentage_home_wins).to(eq 0.44)
-    end
-  end
-
   describe "#count_of_games_by_season" do
     it "can calculate count_of_games_by_season" do
       expected = {
@@ -90,4 +95,23 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.count_of_games_by_season).to eq expected
     end
   end
+
+  describe "#percentage_home_wins" do
+    it "gets Percentage of games that a home team has won" do
+      expect(@stat_tracker.percentage_home_wins).to(eq 0.44)
+    end
+  end
+
+  describe "#count of teams" do
+    it "returns the total amount of teams in data" do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+  end
+
+  describe "#best_offense" do
+    it "returns name of the team with the highest average number of goals scored per game across all seasons" do
+      expect(@stat_tracker.best_offense).to eq("Reign FC")
+    end
+  end
+
 end
