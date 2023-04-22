@@ -14,6 +14,7 @@ RSpec.describe LeagueStats do
       @league_stats = LeagueStats.new(@locations)
       @league_stats.merge_game_game_teams
       @league_stats.merge_teams_to_game_game_teams
+      require 'pry'; binding.pry
   end
   # league_stats tests below are basic tests that are also
   # tested in stat_tracker

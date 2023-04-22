@@ -7,13 +7,14 @@ class LeagueStats < Futbol
   end
 
   def count_of_teams
-    @games.map(&:game_id).uniq.length
+    @games.map(&:away_team_id).uniq.length
   end
 
   def best_offense
     best_offense = Hash.new(0)
     @games.each do |game|
-      best_offense[game.team_id] = average_number_of_goals(game)
+      best_offense[game.away_team_id] = average_number_of_goals(game)
+      best_offense[game.home_team_id] = average_number_of_goals(game)
     end
     sorted = best_offense.max_by{|team, avg_goals| avg_goals}
     team_string = sorted[0]
@@ -134,3 +135,4 @@ class LeagueStats < Futbol
       end
     end
   end
+end
