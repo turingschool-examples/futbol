@@ -5,6 +5,9 @@ require_relative 'game_teams'
 
 
 class StatTracker
+  attr_reader :games,
+              :teams,
+              :game_teams
 
   def initialize(data_hash)
     @games = data_hash[:games]
@@ -13,33 +16,27 @@ class StatTracker
   end
 
   def self.from_csv(database_hash)
-    data_hash = {}
-    game_array = []
-    team_array = []
-    game_teams_array = []
-    database_hash.map do |key, value|
-      if key == :games
-        games = CSV.read(database_hash[:games], headers: true, header_converters: :symbol).map do |row|
-          one_game = Game.new(row)
-          end
-          game_array << games
-        elsif key == :teams
-          teams = CSV.read(database_hash[:teams], headers: true, header_converters: :symbol).map do |row|
-            one_team = Team.new(row)
-            end
-            team_array << teams
-        else
-          game_teams = CSV.read(database_hash[:game_teams], headers: true, header_converters: :symbol).map do |row|
-            one_game_team = GameTeams.new(row)
-            end
-            game_teams_array << game_teams
-        end
+    data_hash = { :games => [], :teams => [], :game_teams => [] }
+
+    if database_hash.keys.include?(:games)
+      games = CSV.read(database_hash[:games], headers: true, header_converters: :symbol).each do |row|
+        data_hash[:games] << Game.new(row)
       end
-      data_hash[:games] = game_array.flatten
-      data_hash[:teams] = team_array.flatten
-      data_hash[:game_teams] = game_teams_array.flatten
-      new(data_hash)
     end
+
+    if database_hash.keys.include?(:teams)
+      teams = CSV.read(database_hash[:teams], headers: true, header_converters: :symbol).each do |row|
+        data_hash[:teams] << Team.new(row)
+      end
+    end
+
+    if database_hash.keys.include?(:game_teams)
+      game_teams = CSV.read(database_hash[:game_teams], headers: true, header_converters: :symbol).each do |row|
+        data_hash[:game_teams] << GameTeams.new(row)
+      end
+    end
+    new(data_hash)
+  end
 
   def highest_total_score
       max_game = @games.max_by do |game|
@@ -58,7 +55,7 @@ class StatTracker
   def average_goals_by_season
     season_name = @games.group_by {|game| game.season }.transform_values do |games|
       total_goals = games.sum { |game| game.away_goals + game.home_goals }
-      (total_goals.to_f / games.count).round(2) 
+      (total_goals.to_f / games.count).round(2)
     end
   end
 
@@ -71,7 +68,7 @@ class StatTracker
 
   def count_of_games_by_season
     games_by_season = Hash.new(0)
-    season_name = @games.group_by {|game| game.season } 
+    season_name = @games.group_by {|game| game.season }
     season_name.map {|season_string, game| games_by_season[season_string] = game.count }
     games_by_season
   end
@@ -80,5 +77,65 @@ class StatTracker
     hoa = @game_teams.find_all {|gameteam| gameteam.hoa == "home" }
     results = hoa.select {|game| game.result == "WIN" }.count
     (results.to_f  / @games.count).round(2)
+  end
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+
+    teamGoals = {}
+    @games.each do |game|
+      if teamGoals[game.home_team_id] == nil
+        teamGoals[game.home_team_id] = 0
+      end
+
+      if teamGoals[game.away_team_id] == nil
+        teamGoals[game.away_team_id] = 0
+      end
+
+      teamGoals[game.home_team_id] = teamGoals[game.home_team_id] + game.home_goals
+      teamGoals[game.away_team_id] = teamGoals[game.away_team_id] + game.away_goals
+    end
+
+    teamGames = {}
+    @game_teams.each do |gameteam|
+      if teamGames[gameteam.team_id] == nil
+        teamGames[gameteam.team_id] = 0
+      end
+
+      teamGames[gameteam.team_id] += 1
+    end
+
+    averages = {}
+    teamGames.each do |team_id, game_count|
+      goal_count = teamGoals[team_id]
+
+      if goal_count != nil
+        averages[team_id] = goal_count / game_count.to_f
+      end
+    end
+    highest_average_team = nil
+    highest_average_score = nil
+    averages.each do |id, ave|
+      if highest_average_team == nil
+        highest_average_team = id
+        highest_average_score = ave
+      end
+
+      if ave > highest_average_score
+        highest_average_team = id
+        highest_average_score = ave
+      end
+    end
+
+    best_average = nil
+    @teams.each do |team|
+      if team.team_id == highest_average_team
+        best_average = team.teamname
+      end
+    end
+    best_average
   end
 end
