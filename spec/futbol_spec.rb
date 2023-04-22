@@ -13,6 +13,7 @@ RSpec.describe Futbol do
     }
 
     @futbol = Futbol.new(locations)
+    
   end
 
   describe "#initialize" do
