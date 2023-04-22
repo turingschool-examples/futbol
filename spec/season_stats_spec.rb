@@ -38,8 +38,8 @@ RSpec.describe SeasonStats do
 
   describe '#least_accurate_team' do
     it 'returns the team name with the worst shot:goal' do
-      expect(@season_stats.most_accurate_team("20132014")).to eq "New York City FC"
-      expect(@season_stats.most_accurate_team("20142015")).to eq "Columbus Crew SC"  
+      expect(@season_stats.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(@season_stats.least_accurate_team("20142015")).to eq "Columbus Crew SC"  
     end
   end
 
