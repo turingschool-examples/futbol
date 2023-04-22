@@ -14,6 +14,7 @@ class SeasonStats < Futbol
           num_coach_wins[game.away_head_coach] = 0
       end
     end
+  end
 
   def winningest_coach(season)
     num_coach_wins = Hash.new(0)
@@ -58,26 +59,25 @@ class SeasonStats < Futbol
   # Argument -> season ""
   # Find ratio of shots to goals  
   # .first for best, .last for worst
+  # Need to have all teams ids and all team names?
 
-  def most_accurate_team(season)
-    return invalid_season if season_not_found?(season)
-    team = games.select do 
-  end
+  # def most_accurate_team(season)
+  #   return invalid_season if season_not_found?(season)
+  #   team = games.select do |game|
+  #     game.team_id == team_id_best_shot_ratio(season)
+  #   end
+  #   team.first.team_name
+  #   end
+  # end
 
-  def least_accurate_team(season)
+  # def least_accurate_team(season)
 
-  end
+  # end
 
   # Helpers for accuracy stats
-  def all_team_names  
-    game.home_team_name && game.away_team_name
-  end
-  
   def season_not_found?(season)
-    seasons = @games.map(:&season)
-    if !seasons.include?(season)
-      true
-    end
+    seasons = @games.map(&:season)
+    !seasons.include?(season)
   end
   
   def invalid_season
@@ -88,21 +88,38 @@ class SeasonStats < Futbol
     team_goals_season = Hash.new(0)
     @games.each do |game|
       if game.season == season
-      team_goals_season[game.team_id] += game.goals.to_i
+        team_goals_season[game.home_team_id] += game.home_goals.to_i
+        team_goals_season[game.away_team_id] += game.away_goals.to_i
       end
     end
     team_goals_season
   end
       
   def all_shots_by_team_by_season(season)
-    team_shots_season = Hash.new(0)
-    @games.each do |game|
-      if game.season == season
-        team_shots_season[game.team_id] += game.shots.to_i
+  team_shots_season = Hash.new(0)
+  @games.each do |game|
+    if game.season == season
+      team_shots_season[game.home_team_id] += game.home_shots.to_i
+      team_shots_season[game.away_team_id] += game.away_shots.to_i
+    end
+  end
+  team_shots_season
+end
+
+  def team_shot_ratio(season)
+    team_ids = [@game.home_team_id, @game.away_team_id]
+    team_goals = all_goals_by_team_by_season(season)
+    team_shots = all_shots_by_team_by_season(season)
+  
+    team_goals.merge(team_shots) do |team_id, goals, shots|
+      if team_ids.include?(team_id)
+        goals.fdiv(shots)
+      else
+        0
       end
     end
-    team_shots_season
   end
+
 
   ##
 
