@@ -90,41 +90,28 @@ class StatTracker
   end
 
   def best_offense
+    average = averages_id_by_goals_games
 
-    team_goals = total_goals
-    team_games = total_games
-
-    averages = Hash.new(0)
-    team_games.each do |team_id, game_count|
-      goal_count = team_goals[team_id]
-      if goal_count != nil
-        averages[team_id] = goal_count / game_count.to_f
-      end
+    best = average.max_by do |id, ave|
+      ave
     end
-
-    highest_average_team = nil
-    highest_average_score = nil
-    averages.each do |id, ave|
-      if highest_average_team == nil
-        highest_average_team = id
-        highest_average_score = ave
-      end
-
-      if ave > highest_average_score
-        highest_average_team = id
-        highest_average_score = ave
-      end
+    best_name = @teams.select do |team|
+      return team.teamname if best[0] == team.team_id
     end
-
-    best_average = nil
-    @teams.each do |team|
-      if team.team_id == highest_average_team
-        best_average = team.teamname
-      end
-    end
-    best_average
   end
 
+  def worst_offense
+    average = averages_id_by_goals_games
+
+    worst = average.min_by do |key, value|
+      value
+    end
+    worst_name = @teams.select do |team|
+      return team.teamname if worst[0] == team.team_id
+    end
+  end
+
+  #helper method returns hash home/away team_id and total goals scored
   def total_goals
     team_goals = Hash.new(0)
     @games.each do |game|
@@ -134,12 +121,26 @@ class StatTracker
     team_goals
   end
 
+  #helper method returns hash home/away team_id and total games played
   def total_games
     team_games = Hash.new(0)
     @game_teams.each do |gameteam|
       team_games[gameteam.team_id] += 1
     end
     team_games
+  end
+
+  #helper method returns hash home/away team_id and average goals scored
+  def averages_id_by_goals_games
+    average = Hash.new(0)
+    total_goals.each do |id, goals|
+      total_games.each do |eye_d, games|
+        if id == eye_d
+          average[id] = goals/games.to_f
+        end
+      end
+    end
+    average
   end
 
 end
