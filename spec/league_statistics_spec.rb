@@ -67,18 +67,17 @@ RSpec.describe LeagueStatistics do
   end
 end
 
-#   describe "#lowest_scoring_visitor" do
-#     xit " names the team with the lowest average score per game across all seasons when they are away" do 
+describe "#lowest scoring visitor" do
+    it " names the team with the lowest average score per game across all seasons when they are away" do 
+      expect(@league_stats.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+      expect(@league_stats.lowest_scoring_visitor).to be_a(String)
+    end
+  end
 
-#       # return value string
-#     end
-#   end
-
-#   describe "#lowest_scoring_home_team" do
-#     xit " names the team with the lowest average score per game across all seasons when they are home" do 
-
-#       # return value string
-#     end
-#   end
-
+  describe "#lowest scoring home team" do
+    it " names the team with the lowest average score per game across all seasons when they are home" do 
+      expect(@league_stats.lowest_scoring_home_team).to eq("Utah Royals FC")
+      expect(@league_stats.lowest_scoring_home_team).to be_a(String)
+    end
+  end
 end
