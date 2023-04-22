@@ -2,7 +2,15 @@ require "spec_helper"
 
 RSpec.describe GameTeam do 
   before(:each) do 
-    @gameteam = GameTeam.new(game_id: "20", team_id: "3", hoa: "home", head_coach: "Kim Bergstrom", goals: "5", shots: "4", tackles: "3", result: "w")
+    @gameteam = GameTeam.new(
+      game_id: "20", 
+      team_id: "3", 
+      hoa: "home", 
+      head_coach: "Kim Bergstrom", 
+      goals: "5", 
+      shots: "4", 
+      tackles: "3", 
+      result: "w")
   end
 
   describe "#initialize" do 
