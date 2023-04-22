@@ -6,13 +6,10 @@ class SeasonStats < Futbol
     super(locations)
   end
 
-  def num_coach_wins(season)
-    num_coach_wins = Hash.new
-    @games.map do |game|
-      if game.season == season
-          num_coach_wins[game.home_head_coach] = 0
-          num_coach_wins[game.away_head_coach] = 0
-      end
+  def most_accurate_team(season)
+    return invalid_season if season_no_existy?(@games.season)
+    team = @teams.select do |team|
+      team.team_id == 
     end
   end
 
@@ -26,55 +23,30 @@ class SeasonStats < Futbol
         num_coach_wins[game.away_head_coach] += 1
       end
     end
-    num_coach_wins
-  end
-
-  def winningest_coach(season)
-    coach_wins = num_coach_wins(season)
-    coach_wins.each_pair do |coach, wins|
-      coach_wins[coach] = (wins.to_f / head_coach_games(coach, season))
-    end
-    coach_wins.max_by do |coach, percent|
-      percent
+    num_coach_wins.max_by do |coach, wins|
+      wins
     end.first
   end
-  
+
   def worst_coach(season)
-    coach_wins = num_coach_wins(season)
-    coach_wins.each_pair do |coach, wins|
-      coach_wins[coach] = (wins.to_f / head_coach_games(coach, season))
-    end
-    coach_wins.min_by do |coach, percent|
-      percent
-    end.first
-  end
-
-  def head_coach_games(coach, season)
-    games.count do |game|
-      game.season == season && (game.home_head_coach == coach || game.away_head_coach == coach)
-    end
-  end
-
-  def num_team_tackles(season)
-    num_team_tackles = Hash.new(0)
+    num_coach_losses = Hash.new(0)
     @games.map do |game|
-      if game.season == season
-        num_team_tackles[game.home_team_name] += game.home_tackles 
-        num_team_tackles[game.away_team_name] += game.away_tackles
+      if game.home_result == "LOSS" && game.season == season
+        num_coach_losses[game.home_head_coach] += 1
+      elsif
+        game.away_result == "LOSS" && game.season == season
+        num_coach_losses[game.away_head_coach] += 1
       end
     end
-    num_team_tackles
+    require 'pry'; binding.pry
+      num_coach_losses.each_pair do |coach, losses|
+      losses.to_f / head_coach_games(coach)
+    end
   end
 
-  def most_tackles(season)
-    num_team_tackles(season).max_by do |name, tackles|
-      tackles
-    end.first
-  end
-
-  def fewest_tackles(season)
-    num_team_tackles(season).min_by do |name, tackles|
-      tackles
-    end.first
+  def head_coach_games(coach)
+    games.count do |game|
+      game.home_head_coach == coach || game.away_head_coach == coach
+    end
   end
 end
