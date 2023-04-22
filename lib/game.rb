@@ -1,6 +1,3 @@
-# Psuedocode
-# ------------
-# this Game Class will only feature game attributes, no methods.
 class Game
   attr_accessor :game_id,
                 :away_team_id,
@@ -17,7 +14,8 @@ class Game
                 :home_result,
                 :away_result,
                 :home_team_name,
-                :away_team_name
+                :away_team_name,
+                :total_score
 
   def initialize(details)
     @game_id = details[:game_id]
@@ -36,5 +34,6 @@ class Game
     @away_result = details[:away_result]
     @home_team_name = details[:home_team_name]
     @away_team_name = details[:away_team_name]
+    @total_score = @home_team_goals.to_i + @away_team_goals.to_i
   end
 end

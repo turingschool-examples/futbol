@@ -25,25 +25,38 @@ RSpec.describe Futbol do
     end
   end
 
-  describe "#merge methods" do
-  # expand tests if there is time
-    it 'merge_game_game_teams' do 
+  describe "#merge_game_game_teams" do
+    it "merges GameTeam attribute data into Game attributes in @games" do 
       @futbol.merge_game_game_teams
+      expect(@futbol.games[0].home_team_goals).not_to eq(nil)
+      expect(@futbol.games[0].away_team_goals).not_to eq(nil)
+      expect(@futbol.games[0].home_result).not_to eq(nil)
+      expect(@futbol.games[0].away_result).not_to eq(nil)
+      expect(@futbol.games[0].home_shots).not_to eq(nil)
+      expect(@futbol.games[0].away_shots).not_to eq(nil)
+      expect(@futbol.games[0].home_head_coach).not_to eq(nil)
+      expect(@futbol.games[0].away_head_coach).not_to eq(nil)
       expect(@futbol.games[0].home_tackles).not_to eq(nil)
-    end
-
-    it 'merge_game_game_teams' do 
-      @futbol.merge_teams_to_game_game_teams
-      expect(@futbol.games[0].home_team_name).not_to eq(nil)
+      expect(@futbol.games[0].away_tackles).not_to eq(nil)
     end
   end
 
-  describe "#check Turing" do
-    it 'check_no_exrtraneous method' do
+    describe 'merge_game_game_teams' do 
+      it 'merges Team attribute data into Game attribuest in @games' do
+      @futbol.merge_teams_to_game_game_teams
+      expect(@futbol.games[0].home_team_name).not_to eq(nil)
+      expect(@futbol.games[0].away_team_name).not_to eq(nil)
+    end
+  end
+
+  describe "#check_no_extraneous" do
+    it 'returns true if number of unique game ids in @games and @game_teams is equal' do
       expect(@futbol.check_no_extraneous).to be true
     end
+  end
 
-    it 'check no_bad_teams' do
+  describe '#check_no_bad_teams' do
+    it 'returns true if the number of teams is equal in @games, @teams, and @game_teams' do 
       expect(@futbol.check_no_bad_teams).to be true
     end
   end
