@@ -25,7 +25,6 @@ RSpec.describe Futbol do
   end
 
   describe "#merge_game_game_teams" do
-  # expand tests if there is time
     it "merges GameTeam attribute data into Game attributes in @games" do 
       @futbol.merge_game_game_teams
       expect(@futbol.games[0].home_team_goals).not_to eq(nil)
@@ -53,6 +52,7 @@ RSpec.describe Futbol do
     it 'returns true if number of unique game ids in @games and @game_teams is equal' do
       expect(@futbol.check_no_extraneous).to be true
     end
+  end
 
   describe '#check_no_bad_teams' do
     it 'returns true if the number of teams is equal in @games, @teams, and @game_teams' do 
