@@ -6,16 +6,16 @@ RSpec.describe LeagueStats do
     @team_path = './data/teams.csv'
     @game_teams_path = './data/game_teams.csv'
     @locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
       }
     
       @league_stats = LeagueStats.new(@locations)
       @league_stats.merge_game_game_teams
       @league_stats.merge_teams_to_game_game_teams
+      require 'pry'; binding.pry
   end
-
   # league_stats tests below are basic tests that are also
   # tested in stat_tracker
   describe '#initialize' do
@@ -28,14 +28,15 @@ RSpec.describe LeagueStats do
     it 'counts teams and returns an integer' do
       expect(@league_stats.count_of_teams).to eq(32)
     end
+  end
   
   describe '#offenses' do
     it 'returns a string of the best offense' do
-      expect(@league_stats.best_offense) to eq("Reign FC")
+      expect(@league_stats.best_offense).to eq("Reign FC")
     end
     
     it 'returns a string of the worst offense' do
-      expect(@league_stats.worst_offense) to eq("Utah Royals FC") 
+      expect(@league_stats.worst_offense).to eq("Utah Royals FC") 
     end
   end
 
