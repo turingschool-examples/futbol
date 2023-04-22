@@ -49,21 +49,23 @@ class LeagueStatistics < StatHelper
 # Match the team_id to the teamName (in the teams.csv file)
 # Return teamName (in a string)
 
+  def highest_scoring_visitor
+    # Name of the team with the highest average score per game 
+    # across all seasons when they are away.	returns string
 
-#   def highest_scoring_visitor 
-#     method
-#   end
+    # away_teams = []
+    # @game_teams.find_all do |row| 
+    #   require 'pry'; binding.pry
+    #   row.hoa == "away"
 
-#   def highest_scoring_home_team 
-#     method
-#   end
+    # end
 
-#   def lowest_scoring_visitor 
-#     method
-#   end
+    # away_teams.each do |
+        #search all the goals 
+        #find the averages score
+        # for the highest average score, take the team_id
+        # go into the teams.csv and print the team_name associated
 
-#   def lowest_scoring_home_team 
-#     method
-#   end
+  end
 
 end

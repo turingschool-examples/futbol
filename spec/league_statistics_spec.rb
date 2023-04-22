@@ -22,13 +22,9 @@ RSpec.describe LeagueStatistics do
       expect(@stat_tracker).to be_a(StatTracker)
     end
   end
-end
-
-
-
 # Commented out tests below for now so running `rspec spec` will pass tests since we have not yet begun our code. 
 
-# RSpec.describe StatTracker do 
+
   
 #   describe "#count_of_teams" do
 #     xit " counts the total number of teams in the data" do
@@ -57,12 +53,12 @@ end
 #     end
 #   end
 
-#   describe "#highest_scoring_visitor" do
-#     xit " names the team with the highest average score per game across all seasons when they are away" do 
-
-#       # return value string
-#     end
-#   end
+  describe "#highest_scoring_visitor" do
+    it " names the team with the highest average score per game across all seasons when they are away" do 
+      expect(@league_stats.highest_scoring_visitor).to eq("FC Dallas")
+      expect(@league_stats.highest_scoring_visitor).to be_a(String)
+    end
+  end
 
 #   describe "#highest_scoring_home_team" do
 #     xit " names the team with the highest average score per game across all seasons when they are home" do 
@@ -85,4 +81,4 @@ end
 #     end
 #   end
 
-# end
+end
