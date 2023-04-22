@@ -41,7 +41,6 @@ class SeasonStats < Futbol
         num_coach_losses[game.away_head_coach] += 1
       end
     end
-    require 'pry'; binding.pry
       num_coach_losses.each_pair do |coach, losses|
       losses.to_f / head_coach_games(coach)
     end
@@ -55,18 +54,18 @@ class SeasonStats < Futbol
 
   def most_accurate_team(season)
     return invalid_season if season_not_found?(season)
-    team = games.select do |game|
-      game.team_id == team_id_best_shot_ratio(season)
+    team = @teams.select do |team|
+      team.team_id == best_shot_ratio_team_id(season)
     end
-    team.first.team_name
+    team.first.teamname
   end
 
   def least_accurate_team(season)
     return invalid_season if season_not_found?(season)
-    team = games.select do |game|
-      game.team_id == team_id_worst_shot_ratio(season)
+    team = @teams.select do |team|
+      team.team_id == worst_shot_ratio_team_id(season)
     end
-    team.first.team_name
+    team.first.teamname
   end
 
   # Helpers for accuracy stats
@@ -83,8 +82,8 @@ class SeasonStats < Futbol
     team_goals_season = Hash.new(0)
     @games.each do |game|
       if game.season == season
-        team_goals_season[game.home_team_id] += game.home_goals.to_i
-        team_goals_season[game.away_team_id] += game.away_goals.to_i
+        team_goals_season[game.home_team_id] += game.home_team_goals.to_i
+        team_goals_season[game.away_team_id] += game.away_team_goals.to_i
       end
     end
     team_goals_season
@@ -102,11 +101,10 @@ class SeasonStats < Futbol
   end
 
   def teams_shot_ratio(season)
-    team_ids = [game.home_team_id, game.away_team_id]
     team_goals = all_goals_by_team_by_season(season)
     team_shots = all_shots_by_team_by_season(season)
     team_goals.merge(team_shots) do |team_id, goals, shots|
-      if team_ids.include?(team_id)
+      if team_id.include?(team_id)
         goals.fdiv(shots)
       else
         0

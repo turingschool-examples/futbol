@@ -15,7 +15,6 @@ RSpec.describe SeasonStats do
     @season_stats = SeasonStats.new(@locations)
     @season_stats.merge_game_game_teams
     @season_stats.merge_teams_to_game_game_teams
-    require 'pry'; binding.pry
   end
 
   describe '#initialize' do
@@ -32,7 +31,6 @@ RSpec.describe SeasonStats do
 
   describe '#most_accurate_team' do
     it 'returns the team name with best shot:goal' do
-      expect(@season_stats.most_accurate_team(games.season)).to be_a(String)
       expect(@season_stats.most_accurate_team("20132014")).to eq "Real Salt Lake"
       expect(@season_stats.most_accurate_team("20142015")).to eq "Toronto FC"
     end
@@ -40,7 +38,6 @@ RSpec.describe SeasonStats do
 
   describe '#least_accurate_team' do
     it 'returns the team name with the worst shot:goal' do
-      expect(@season_stats.most_accurate_team(games.season)).to be_a(String)
       expect(@season_stats.most_accurate_team("20132014")).to eq "New York City FC"
       expect(@season_stats.most_accurate_team("20142015")).to eq "Columbus Crew SC"  
     end
