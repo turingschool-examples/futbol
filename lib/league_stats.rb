@@ -1,5 +1,6 @@
 module LeagueStats
-  
+  include GameStats
+
   def count_of_teams 
     @teams.count
   end
@@ -30,7 +31,6 @@ module LeagueStats
     @teams.find { |team| team.team_id == lowest_avg_team.first }.team_name
   end
 
-
   def highest_scoring_visitor
     grouped_teams = @game_teams.group_by { |game| game.team_id }
     sorted_teams = filter_away_games(grouped_teams)
@@ -52,7 +52,21 @@ module LeagueStats
     @teams.each { |team| high_team = team.team_name if team.team_id == id_string } 
     high_team 
   end
+
+  def best_offense
+    best_offense = calculate_average_goals(@game_teams)
+    team_id_string = best_offense.max_by { |team, avg_goals| avg_goals }&.first
+    best_team = @teams.find { |team| team.team_id == team_id_string }
+    best_team&.team_name || ""
+    end
   
+    def worst_offense
+    worst_offense = calculate_average_goals(@game_teams)
+    team_id_string = worst_offense.min_by { |team, avg_goals| avg_goals }&.first
+    worst_team = @teams.find { |team| team.team_id == team_id_string }
+    worst_team&.team_name || ""
+  end
+
   #helper methods for highest scoring team
   def avg_score_away_games(sorted_teams)
     sorted_teams.transform_values do |games|
@@ -72,7 +86,15 @@ module LeagueStats
       games.select{ |game| game.hoa == "home" }
     end
   end
+
+  def calculate_average_goals(game_teams)
+    average_goals = Hash.new(0)
+    game_teams.each do |game_team|
+      team_id = game_team.team_id
+      total_goals = game_teams.select { |game_team| game_team.team_id == team_id }.sum(&:goals)
+      total_games = game_teams.count { |game_team| game_team.team_id == team_id }
+      average_goals[team_id] = total_goals.fdiv(total_games)
+    end
+    average_goals
+  end
 end
-
-
-
