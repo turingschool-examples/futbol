@@ -50,22 +50,34 @@ class LeagueStatistics < StatHelper
 # Return teamName (in a string)
 
   def highest_scoring_visitor
-    # Name of the team with the highest average score per game 
-    # across all seasons when they are away.	returns string
+    visitors = @games.group_by(&:away_team_id)
+    avg_score = Hash.new(0)
 
-    # away_teams = []
-    # @game_teams.find_all do |row| 
-    #   require 'pry'; binding.pry
-    #   row.hoa == "away"
+    visitors.map do |team, games|
+      total_score = games.map do |game|
+        game.away_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      avg_score[team] = avg_score_per_game
+    end
 
-    # end
-
-    # away_teams.each do |
-        #search all the goals 
-        #find the averages score
-        # for the highest average score, take the team_id
-        # go into the teams.csv and print the team_name associated
-
+    highest_avg_score = avg_score.max_by {|id, avg| avg}  
+    @teams.find {|team| team.team_id == highest_avg_score.first}.team_name
   end
 
+  def highest_scoring_home_team
+    homers = @games.group_by(&:home_team_id)
+    avg_score = Hash.new(0)
+
+    homers.map do |team, games|
+      total_score = games.map do |game|
+        game.home_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      avg_score[team] = avg_score_per_game
+    end
+
+    highest_avg_score = avg_score.max_by {|id, avg| avg}  
+    @teams.find {|team| team.team_id == highest_avg_score.first}.team_name
+  end
 end
