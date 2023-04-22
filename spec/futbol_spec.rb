@@ -24,16 +24,28 @@ RSpec.describe Futbol do
     end
   end
 
-  describe "#merge methods" do
+  describe "#merge_game_game_teams" do
   # expand tests if there is time
-    it 'merge_game_game_teams' do 
+    it "merges GameTeam attribute data into Game attributes in @games" do 
       @futbol.merge_game_game_teams
+      expect(@futbol.games[0].home_team_goals).not_to eq(nil)
+      expect(@futbol.games[0].away_team_goals).not_to eq(nil)
+      expect(@futbol.games[0].home_result).not_to eq(nil)
+      expect(@futbol.games[0].away_result).not_to eq(nil)
+      expect(@futbol.games[0].home_shots).not_to eq(nil)
+      expect(@futbol.games[0].away_shots).not_to eq(nil)
+      expect(@futbol.games[0].home_head_coach).not_to eq(nil)
+      expect(@futbol.games[0].away_head_coach).not_to eq(nil)
       expect(@futbol.games[0].home_tackles).not_to eq(nil)
+      expect(@futbol.games[0].away_tackles).not_to eq(nil)
     end
+  end
 
-    it 'merge_game_game_teams' do 
+    describe 'merge_game_game_teams' do 
+      it 'merges Team attribute data into Game attribuest in @games' do
       @futbol.merge_teams_to_game_game_teams
       expect(@futbol.games[0].home_team_name).not_to eq(nil)
+      expect(@futbol.games[0].away_team_name).not_to eq(nil)
     end
   end
 
