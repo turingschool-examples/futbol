@@ -137,5 +137,7 @@ class StatTracker
       end
     end
     best_average
+  def percentage_visitor_wins
+    require 'pry'; binding.pry
   end
 end
