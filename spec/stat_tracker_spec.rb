@@ -64,9 +64,16 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.average_goals_by_season).to eq(expected)
     end
   end
+
   describe "#lowest_total_score" do
     it "can calculate lowest_total_score" do
       expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
+  end
+
+  describe "#percentage_home_wins" do
+    it "gets Percentage of games that a home team has won" do
+      expect(@stat_tracker.percentage_home_wins).to(eq 0.44)
     end
   end
 

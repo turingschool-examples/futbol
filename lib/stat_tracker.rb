@@ -75,4 +75,10 @@ class StatTracker
     season_name.map {|season_string, game| games_by_season[season_string] = game.count }
     games_by_season
   end
+
+  def percentage_home_wins
+    hoa = @game_teams.find_all {|gameteam| gameteam.hoa == "home" }
+    results = hoa.select {|game| game.result == "WIN" }.count
+    (results.to_f  / @games.count).round(2)
+  end
 end
