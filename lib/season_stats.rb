@@ -14,10 +14,6 @@ class SeasonStats < Futbol
           num_coach_wins[game.away_head_coach] = 0
       end
     end
-  end
-
-  def winningest_coach(season)
-    num_coach_wins = Hash.new(0)
     @games.map do |game|
       if game.home_result == "WIN" && game.season == season
         num_coach_wins[game.home_head_coach] += 1
