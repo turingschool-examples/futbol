@@ -121,16 +121,31 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#worst_offesne" do
+    it "returns name of the team with the lowest average number of goals scored per game across all seasons" do
+      expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+  end
+
   describe "#total_goals" do
     it "returns hash of home/away_team_id and total goals" do
       expect(@stat_tracker.total_goals.keys.count).to eq(@stat_tracker.count_of_teams)
+      expect(@stat_tracker.total_goals["6"]).to eq(1154)
     end
   end
 
   describe "total_games" do
     it "returns a hash of home/away team_id and total games played" do
       expect(@stat_tracker.total_goals.keys.count).to eq(@stat_tracker.count_of_teams)
-      # establishes that the number of teams equals the number of keys but probably needs something else to establish truth? 
+      expect(@stat_tracker.total_games["3"]).to eq(531)
+      # establishes that the number of teams equals the number of keys but probably needs something else to establish truth?
+    end
+  end
+
+  describe "averages_id_by_goals_games" do
+    it "returns hash of home/away team_id and average goals per game" do
+      expect(@stat_tracker.averages_id_by_goals_games.keys.count).to eq(@stat_tracker.count_of_teams)
+      expect(@stat_tracker.averages_id_by_goals_games["6"]).to eq(2.2627450980392156)
     end
   end
 end
