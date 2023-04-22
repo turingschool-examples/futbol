@@ -26,10 +26,11 @@ RSpec.describe SeasonStats do
   describe '#num_coach_wins' do 
     it 'returns a hash with coach name as key and number of wins over a given season as a value' do 
       expect(@season_stats.num_coach_wins("20132014")).to be_a(Hash)
+    end
+  end
 
   describe '#most_accurate_team' do
     it 'returns the team name with best shot:goal' do
-      expect(@season_stats.most_accurate_team(games.season)).to be_a(String)
       expect(@season_stats.most_accurate_team("20132014")).to eq "Real Salt Lake"
       expect(@season_stats.most_accurate_team("20142015")).to eq "Toronto FC"
     end
@@ -37,9 +38,8 @@ RSpec.describe SeasonStats do
 
   describe '#least_accurate_team' do
     it 'returns the team name with the worst shot:goal' do
-      expect(@season_stats.most_accurate_team(games.season)).to be_a(String)
-      expect(@season_stats.most_accurate_team("20132014")).to eq "New York City FC"
-      expect(@season_stats.most_accurate_team("20142015")).to eq "Columbus Crew SC"  
+      expect(@season_stats.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(@season_stats.least_accurate_team("20142015")).to eq "Columbus Crew SC"  
     end
   end
 
