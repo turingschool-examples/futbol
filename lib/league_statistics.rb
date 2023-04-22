@@ -71,7 +71,7 @@ class LeagueStatistics < StatHelper
 
     homers.map do |team, games|
       total_score = games.map do |game|
-        game.away_goals
+        game.home_goals
       end
       avg_score_per_game = total_score.sum.fdiv(total_score.count)
       avg_score[team] = avg_score_per_game
