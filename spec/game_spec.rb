@@ -6,8 +6,8 @@ RSpec.describe Game do
       game_id: "5", 
       home_team_id: "1", 
       away_team_id: "2", 
-      home_team_goals: "1",
-      away_team_goals: "2",
+      home_goals: "3",
+      away_goals: "2",
       season: "5",
       home_head_coach: "Kim B",
       away_head_coach: "K.D.",
@@ -25,11 +25,11 @@ RSpec.describe Game do
   describe '#initialize' do
     it 'can initialize with attributes' do
       expect(@game1).to be_a(Game)
-      expect(@game1.game_id).to eq(5)
+      expect(@game1.game_id).to eq("5")
       expect(@game1.away_team_id).to eq("2")
       expect(@game1.home_team_id).to eq("1")
-      expect(@game1.home_team_goals).to eq("1")
-      expect(@game1.away_team_goals).to eq("2")
+      expect(@game1.home_team_goals).to eq(3)
+      expect(@game1.away_team_goals).to eq(2)
       expect(@game1.season).to eq("5")
       expect(@game1.home_head_coach).to eq("Kim B")
       expect(@game1.away_head_coach).to eq("K.D.")
