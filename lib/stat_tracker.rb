@@ -91,7 +91,6 @@ class StatTracker
 
   def best_offense
     average = averages_id_by_goals_games
-
     best = average.max_by do |id, ave|
       ave
     end
@@ -102,7 +101,6 @@ class StatTracker
 
   def worst_offense
     average = averages_id_by_goals_games
-
     worst = average.min_by do |key, value|
       value
     end
