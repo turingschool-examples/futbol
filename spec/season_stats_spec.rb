@@ -23,6 +23,14 @@ RSpec.describe SeasonStats do
     end
   end
 
+  describe '#most_accurate_team' do
+    it 'returns the team name with best shot:goal' do
+      expect(@season_stats.most_accurate_team(games.season)).to be_a(String)
+      expect(@season_stats.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      expect(@season_stats.most_accurate_team("20142015")).to eq "Toronto FC"
+    end
+  end
+
   # Name of the Coach with the best win percentage for the season
   describe '#winningest_coach' do
     xit 'returns the coach with the best win percentage for the season' do
