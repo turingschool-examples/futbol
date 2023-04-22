@@ -19,20 +19,31 @@ class GameStatistics < StatHelper
   end
 
   def percentage_home_wins
-    games_played = 0 
-    home_games_won = 0
-    @game_teams.map do |game_team|
-      game_team.hoa
+    home_wins = 0
+    @game_teams.find_all do |row|
+      !home_wins += 1 if row.hoa == "home" && row.result == "WIN" || 
+                          row.hoa == "away" && row.result == "LOSS"
     end
+    (home_wins / @game_teams.count.to_f).round(2)
   end
 
-  # def percentage_visitor_wins
-    
-  # end
+  def percentage_visitor_wins
+    visitor_wins = 0
+    @game_teams.find_all do |row|
+      visitor_wins += 1 if row.hoa == "away" && row.result == "WIN" || 
+                          row.hoa == "home" && row.result == "LOSS"
+    end
+    (visitor_wins.to_f / @game_teams.count.to_f).round(2)
+  end
 
-  # def percentage_ties
-  #   method
-  # end
+  def percentage_ties
+    no_lose = 0
+    @game_teams.find_all do |row|
+      no_lose += 1 if row.hoa == "home" && row.result == "TIE" || 
+                      row.hoa == "away" && row.result == "TIE"
+    end
+    (no_lose.to_f / @game_teams.count.to_f).round(2)
+  end
 
   def count_of_games_by_season
     season_games_count = {}

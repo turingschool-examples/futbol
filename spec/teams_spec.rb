@@ -4,12 +4,12 @@ require "spec_helper"
 RSpec.describe Teams do
   let(:team) {Teams.new(row)}
   let(:row) do {
-    team_id = "1"
-    franchise_id = "23"
-    team_name = "Atlanta United"
-    abbreviation = "ATL"
-    stadium = "Mercedes-Benz Stadium"
-    link = "Mercedes-Benz Stadium,/api/v1/teams/1"
+    team_id: "1",
+    franchiseid:  "23",
+    teamname:  "Atlanta United",
+    abbreviation: "ATL",
+    stadium:  "Mercedes-Benz Stadium",
+    link: "Mercedes-Benz Stadium,/api/v1/teams/1"
     }
   end
   
@@ -20,22 +20,22 @@ RSpec.describe Teams do
     
     it " has attributes" do
       expect(team.team_id).to eq("1")
-      expect(game.team_id).to be_a(String)
+      expect(team.team_id).to be_a(String)
 
       expect(team.franchise_id).to eq("23")
-      expect(game.franchise_id).to be_a(String)
+      expect(team.franchise_id).to be_a(String)
 
       expect(team.team_name).to eq("Atlanta United")
-      expect(game.team_name).to be_a(String)
+      expect(team.team_name).to be_a(String)
 
       expect(team.abbreviation).to eq("ATL")
-      expect(game.abbreviation).to be_a(String)
+      expect(team.abbreviation).to be_a(String)
 
       expect(team.stadium).to eq("Mercedes-Benz Stadium")
-      expect(game.stadium).to be_a(String)
+      expect(team.stadium).to be_a(String)
 
       expect(team.link).to eq("Mercedes-Benz Stadium,/api/v1/teams/1")
-      expect(game.link).to be_a(String)
+      expect(team.link).to be_a(String)
     end
   end 
 end

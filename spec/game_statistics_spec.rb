@@ -45,7 +45,22 @@ RSpec.describe GameStatistics do
 
   describe "#percentage_home_wins" do
     it "returns a percentage of games that a home team has won as a float (rounded to the nearest 100th)" do
-      # expect(@game_stats.percentage_home_wins).to be_a(Float)
+      expect(@game_stats.percentage_home_wins).to be_a(Float)
+      expect(@game_stats.percentage_home_wins).to eq(0.44)
+    end
+  end
+
+  describe "#percentage_visitor_wins" do
+    it "returns a percentage of games that a visiting team has won as a float (rounded to the nearest 100th)" do
+      expect(@game_stats.percentage_visitor_wins).to be_a(Float)
+      expect(@game_stats.percentage_visitor_wins).to eq(0.36)
+    end
+  end
+
+    describe "#percentage_ties" do
+      it "returns a percentage of games that both teams have won as a float (rounded to the nearest 100th)" do
+        expect(@game_stats.percentage_ties).to be_a(Float)
+        expect(@game_stats.percentage_ties).to eq(0.20)
     end
   end
 
@@ -58,6 +73,7 @@ RSpec.describe GameStatistics do
                   "20132014"=>1323,
                   "20172018"=>1355}
       expect(@game_stats.count_of_games_by_season).to eq(expected)
+      expect(@game_stats.count_of_games_by_season).to be_a(Hash)
     end
   end
 
