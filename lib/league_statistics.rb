@@ -53,12 +53,35 @@ class LeagueStatistics < StatHelper
     # Name of the team with the highest average score per game 
     # across all seasons when they are away.	returns string
 
-    # away_teams = []
-    # @game_teams.find_all do |row| 
-    #   require 'pry'; binding.pry
-    #   row.hoa == "away"
+    visitor= {}
 
-    # end
+    away_teams = @game_teams.find_all do |game_team| 
+      game_team.hoa == "away"
+      game_team
+    end
+    away_teams
+    
+    @teams.each do |team|
+      goals_per_team = 0
+      games_per_team = 0
+      
+      away_teams.select do |game_team|
+        if game_team.team_id == team.team_id
+          goals_per_team += game_team.goals.to_f
+          games_per_team += 1
+          avg = (goals_per_team / games_per_team.to_f)
+          visitor[team.team_id] = avg
+        end
+      end
+    end
+    
+    visitor 
+    
+    highest_scoring_visitor = visitor.max_by {|id, avg| avg}
+    require 'pry'; binding.pry
+    
+    @teams.find {|team| team.team_id == highest_scoring_visitor.first}.team_name
+
 
     # away_teams.each do |
         #search all the goals 
