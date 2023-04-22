@@ -54,6 +54,34 @@ class SeasonStats < Futbol
     end
   end
 
+  # Name of the Team with best ratio of shots to goals for season
+  # Argument -> season ""
+  # Find ratio of shots to goals  
+  # .first for best, .last for worst
+
+  def most_accurate_team(season)
+
+  end
+
+  def least_accurate_team(season)
+
+  end
+
+  # Helpers for accuracy
+  def all_goals_by_team_by_season(season)
+    team_goals_season = Hash.new(0)
+      @games.each do |game|
+        if game.season == season
+        team_goals_season[game.team_id] += game.goals.to_i
+      end
+    end
+    team_goals_season
+  end
+      
+  def all_shots_by_team_by_season(season)
+    team_shots_season = Hash.new(0)
+  end
+
   def num_team_tackles(season)
     num_team_tackles = Hash.new(0)
     @games.map do |game|
