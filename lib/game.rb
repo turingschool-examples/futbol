@@ -1,6 +1,3 @@
-# Psuedocode
-# ------------
-# this Game Class will only feature game attributes, no methods.
 class Game
   attr_accessor :game_id,
                 :away_team_id,

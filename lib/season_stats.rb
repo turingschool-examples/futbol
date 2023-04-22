@@ -13,18 +13,6 @@ class SeasonStats < Futbol
     end
   end
 
-  def least_accurate_team
-
-  end
-
-  def season_no_existy?(season)
-    seasons = 
-  end
-
-  def invalid_season
-    'Season does not exist'
-  end
-
   def winningest_coach(season)
     num_coach_wins = Hash.new(0)
     @games.map do |game|
