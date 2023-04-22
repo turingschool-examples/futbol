@@ -20,9 +20,9 @@ RSpec.describe GameTeam do
       expect(@gameteam.team_id).to eq("3")
       expect(@gameteam.home_away).to eq("home")
       expect(@gameteam.head_coach).to eq("Kim Bergstrom")
-      expect(@gameteam.goals).to eq("5")
-      expect(@gameteam.shots).to eq("4")
-      expect(@gameteam.tackles).to eq("3")
+      expect(@gameteam.goals).to eq(5)
+      expect(@gameteam.shots).to eq(4)
+      expect(@gameteam.tackles).to eq(3)
       expect(@gameteam.result).to eq("w")
 
     end
