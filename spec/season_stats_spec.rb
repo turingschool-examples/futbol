@@ -26,6 +26,8 @@ RSpec.describe SeasonStats do
   describe '#num_coach_wins' do 
     it 'returns a hash with coach name as key and number of wins over a given season as a value' do 
       expect(@season_stats.num_coach_wins("20132014")).to be_a(Hash)
+    end
+  end
 
   describe '#most_accurate_team' do
     it 'returns the team name with best shot:goal' do

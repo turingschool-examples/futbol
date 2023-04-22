@@ -14,6 +14,15 @@ class SeasonStats < Futbol
           num_coach_wins[game.away_head_coach] = 0
       end
     end
+    @games.map do |game|
+      if game.home_result == "WIN" && game.season == season
+        num_coach_wins[game.home_head_coach] += 1
+      elsif
+        game.away_result == "WIN" && game.season == season
+        num_coach_wins[game.away_head_coach] += 1
+      end
+    end
+    num_coach_wins
   end
 
   def winningest_coach(season)
@@ -32,18 +41,13 @@ class SeasonStats < Futbol
   end
 
   def worst_coach(season)
-    num_coach_losses = Hash.new(0)
-    @games.map do |game|
-      if game.home_result == "LOSS" && game.season == season
-        num_coach_losses[game.home_head_coach] += 1
-      elsif
-        game.away_result == "LOSS" && game.season == season
-        num_coach_losses[game.away_head_coach] += 1
-      end
+    coach_wins = num_coach_wins(season)
+    coach_wins.each_pair do |coach, wins|
+      coach_wins[coach] = (wins.to_f / head_coach_games(coach, season))
     end
-      num_coach_losses.each_pair do |coach, losses|
-      losses.to_f / head_coach_games(coach)
-    end
+    coach_wins.min_by do |coach, percent|
+      percent
+    end.first
   end
 
   def head_coach_games(coach, season)
