@@ -80,4 +80,36 @@ class LeagueStatistics < StatHelper
     highest_avg_score = avg_score.max_by {|id, avg| avg}  
     @teams.find {|team| team.team_id == highest_avg_score.first}.team_name
   end
+
+  def lowest_scoring_visitor
+    visitors = @games.group_by(&:away_team_id)
+    avg_score = Hash.new(0)
+
+    visitors.map do |team, games|
+      total_score = games.map do |game|
+        game.away_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      avg_score[team] = avg_score_per_game
+    end
+
+    lowest_avg_score = avg_score.min_by {|id, avg| avg}
+    @teams.find {|team| team.team_id == lowest_avg_score.first}.team_name
+  end
+
+  def lowest_scoring_home_team
+    homers = @games.group_by(&:home_team_id)
+    avg_score = Hash.new(0)
+
+    homers.map do |team, games|
+      total_score = games.map do |game|
+        game.home_goals
+      end
+      avg_score_per_game = total_score.sum.fdiv(total_score.count)
+      avg_score[team] = avg_score_per_game
+    end
+
+    lowest_avg_score = avg_score.min_by {|id, avg| avg}  
+    @teams.find {|team| team.team_id == lowest_avg_score.first}.team_name
+  end
 end
