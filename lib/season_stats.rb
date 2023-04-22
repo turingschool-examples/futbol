@@ -60,19 +60,30 @@ class SeasonStats < Futbol
   # .first for best, .last for worst
 
   def most_accurate_team(season)
-
+    
   end
 
   def least_accurate_team(season)
 
   end
 
-  # Helpers for accuracy
+  # Helpers for accuracy stats
+  def season_not_found?(season)
+    seasons = @games.map(:&season)
+    if !seasons.include?(season)
+      true
+    end
+  end
+  
+  def invalid_season
+    'Season Not Found'
+  end
+  
   def all_goals_by_team_by_season(season)
     team_goals_season = Hash.new(0)
-      @games.each do |game|
-        if game.season == season
-        team_goals_season[game.team_id] += game.goals.to_i
+    @games.each do |game|
+      if game.season == season
+      team_goals_season[game.team_id] += game.goals.to_i
       end
     end
     team_goals_season
@@ -80,7 +91,15 @@ class SeasonStats < Futbol
       
   def all_shots_by_team_by_season(season)
     team_shots_season = Hash.new(0)
+    @games.each do |game|
+      if game.season == season
+        team_shots_season[game.team_id] += game.shots.to_i
+      end
+    end
+    team_shots_season
   end
+
+  ##
 
   def num_team_tackles(season)
     num_team_tackles = Hash.new(0)
