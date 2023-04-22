@@ -49,12 +49,13 @@ RSpec.describe Futbol do
     end
   end
 
-  describe "#check Turing" do
-    it 'check_no_exrtraneous method' do
+  describe "#check_no_extraneous" do
+    it 'returns true if number of unique game ids in @games and @game_teams is equal' do
       expect(@futbol.check_no_extraneous).to be true
     end
 
-    it 'check no_bad_teams' do
+  describe '#check_no_bad_teams' do
+    it 'returns true if the number of teams is equal in @games, @teams, and @game_teams' do 
       expect(@futbol.check_no_bad_teams).to be true
     end
   end
