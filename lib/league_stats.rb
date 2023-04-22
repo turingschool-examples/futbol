@@ -29,6 +29,49 @@ module LeagueStats
     lowest_avg_team = home_games_by_team.min_by { |_, stats| stats[:goals].to_f / stats[:games] }
     @teams.find { |team| team.team_id == lowest_avg_team.first }.team_name
   end
+
+
+  def highest_scoring_visitor
+    grouped_teams = @game_teams.group_by { |game| game.team_id }
+    sorted_teams = filter_away_games(grouped_teams)
+    avg_game = avg_score_away_games(sorted_teams)
+    highest_scoring_visitor_array = avg_game.max_by { |team, avg_score| avg_score }
+    id_string = highest_scoring_visitor_array[0]
+    high_team = " "
+    @teams.each { |team| high_team = team.team_name if team.team_id == id_string } 
+    high_team 
+  end 
+
+  def highest_scoring_home_team
+    grouped_teams = @game_teams.group_by { |game| game.team_id }
+    sorted_teams = filter_home_games(grouped_teams)
+    avg_game = avg_score_away_games(sorted_teams)
+    highest_scoring_home_array = avg_game.max_by { |team, avg_score| avg_score }
+    id_string = highest_scoring_home_array[0]
+    high_team = " "
+    @teams.each { |team| high_team = team.team_name if team.team_id == id_string } 
+    high_team 
+  end
+  
+  #helper methods for highest scoring team
+  def avg_score_away_games(sorted_teams)
+    sorted_teams.transform_values do |games|
+      goals = games.sum{ |game| game.goals }
+      goals.fdiv(games.length)
+    end
+  end
+
+  def filter_away_games(sorted_teams)
+    sorted_teams.transform_values do |games|
+      games.select{ |game| game.hoa == "away" }
+    end
+  end
+
+  def filter_home_games(sorted_teams)
+    sorted_teams.transform_values do |games|
+      games.select{ |game| game.hoa == "home" }
+    end
+  end
 end
 
 
