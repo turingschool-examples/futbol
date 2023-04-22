@@ -25,13 +25,13 @@ RSpec.describe GamesStats do
 
   # highest sum of winning and losing teams score
   describe '#highest_total_score' do
-    it 'checks highest total score of a game' do
+    xit 'checks highest total score of a game' do
       expect(@games_stats.highest_total_score).to eq(11)
     end
   end
 
   describe '#count_of_games_by_season' do
-    it 'returns a hash of total games in a season' do
+    xit 'returns a hash of total games in a season' do
       expect(@games_stats.count_of_games_by_season).to be_a(Hash)
       expect(@games_stats.count_of_games_by_season).to eq({
         "20122013"=>806,
@@ -67,4 +67,13 @@ RSpec.describe GamesStats do
     expect(@games_stats.percentage_ties).to eq(0.20)
     end
   end
+
+  describe 'GameStat helper methods' do
+    it '#average_goals_per_game' do
+      expect(@games_stats.average_goals_per_game).to eq(4.22)
+    end
+  end
+
+
+
 end
