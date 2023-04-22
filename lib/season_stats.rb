@@ -14,6 +14,7 @@ class SeasonStats < Futbol
           num_coach_wins[game.away_head_coach] = 0
       end
     end
+  end
 
   def winningest_coach(season)
     num_coach_wins = Hash.new(0)
