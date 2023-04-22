@@ -61,7 +61,7 @@ RSpec.describe LeagueStatistics do
   end
 
   describe "#highest_scoring_visitor" do
-    it " names the team with the highest average score per game across all seasons when they are away" do 
+    it "names the team with the highest average score per game across all seasons when they are home" do 
       expect(@league_stats.highest_scoring_visitor).to eq("Reign FC")
       expect(@league_stats.highest_scoring_visitor).to be_a(String)
   end
