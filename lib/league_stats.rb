@@ -13,7 +13,7 @@ class LeagueStats < Futbol
   def best_offense
     best_offense = Hash.new(0)
     @games.each do |game|
-      best_offense[game_team.team_id] = average_number_of_goals(game_team)
+      best_offense[game_team.team_id] = average_number_of_goals(game)
     end
     sorted = best_offense.max_by{|team, avg_goals| avg_goals}
     team_id_string = sorted[0]
@@ -119,8 +119,8 @@ class LeagueStats < Futbol
     name_of_team
   end
 
-  def avg_score_games(sorted_teams)
-    sorted_teams.transform_values do |games|
+  def avg_score_games(filtered_teams)
+    filtered_teams.transform_values do |games|
       goals = games.sum{|game| game.goals}
       goals.fdiv(games.length)
     end
