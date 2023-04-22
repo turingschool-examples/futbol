@@ -49,6 +49,12 @@ RSpec.describe SeasonStats do
     expect(@season_stats.all_goals_by_team_by_season("20132014").length).to eq(30)
     expect(@season_stats.all_goals_by_team_by_season("20132014")["1"]).to eq(157)
     end
+  
+    it '#all_shots_by_team_by_season' do
+      expect(@season_stats.all_shots_by_team_by_season('20132014')).to be_a Hash
+      expect(@season_stats.all_shots_by_team_by_season('20132014').length).to eq(30)
+      expect(@season_stats.all_shots_by_team_by_season('20132014')['1']).to eq(513)
+    end
   end
   # Name of the Coach with the best win percentage for the season
   describe '#winningest_coach' do
