@@ -126,6 +126,13 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#fewest_tackles' do 
+    it 'can track the team with the least tackles per season' do 
+      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+    end
+  end
+
   describe 'helpers' do 
     it '#total_goals' do 
       expect(@stat_tracker.total_goals(@test_games)).to eq(397)
