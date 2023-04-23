@@ -35,6 +35,21 @@ module SeasonStats
     accuracies.max_by { |_, accuracy| accuracy }.first
   end
 
+  def least_accurate_team(season)
+    filtered_game_teams = @game_teams.select { |game| game.game_id.start_with?(season[0, 4]) }
+    grouped_game_teams = filtered_game_teams.group_by { |game_team| game_team.team_id }
+    goals_and_shots = grouped_game_teams.transform_values do |games|
+      total_goals = games.sum(&:goals).to_i
+      total_shots = games.sum(&:shots).to_i
+      accuracy = (total_goals.to_f / total_shots).round(5)
+      [total_goals, total_shots, accuracy]
+    end
+    team_id, _total_goals, _total_shots, accuracy = goals_and_shots.min_by { |_team_id, (total_goals, total_shots, accuracy)| accuracy }
+    least_accurate_team = @teams.find { |team| team.team_id == team_id.to_s }
+    least_accurate_team.team_name
+  end
+  
+
   def most_tackles(season)
     games_for_season = @games.find_all { |game| game.season == season }
     game_teams_for_season = @game_teams.find_all do |game_team|
