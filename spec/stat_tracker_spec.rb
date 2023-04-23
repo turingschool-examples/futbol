@@ -37,6 +37,7 @@ RSpec.describe StatTracker do
   end
 
 #game class
+
   describe 'game averages' do 
     it '#average_goals_per_game' do 
       expect(@stat_tracker.average_goals_per_game).to eq(4.22)
