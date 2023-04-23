@@ -148,4 +148,93 @@ class StatTracker
     average
   end
 
+  def winningest_coach(year)
+    season_sort = @games.group_by { |game| game.season } 
+    game_id_sort = @game_teams.group_by { |id| id.game_id }
+ 
+    game_ids_season = Hash.new(0)
+    @games.each { |game| game_ids_season[game.id] = game.season } 
+
+    game_teams_ids = Hash.new(0)
+    game_id_sort.each do |team, value|
+      game_teams_ids[team] = [value[0].head_coach], [value[1].head_coach]
+    end
+
+    season_coaches = []
+    game_ids_season.each do |id, season|
+      game_teams_ids.each do |ids, coaches|
+        if id == ids
+          season_coaches << [season, coaches]
+        end
+      end
+    end
+
+    game_ids_wins = Hash.new(0)
+    @game_teams.each do |team| 
+      if team.result == "WIN"
+        game_ids_wins[team.game_id] = team.head_coach
+      end
+    end
+
+    season_game_id_hash = Hash.new(0)
+    season_sort.each do |season, season_arr|
+      season_game_id_hash[season] = []
+      season_arr.each do |game|
+        season_game_id_hash[season] << game.id
+      end
+    end
+
+    coach_game_count = Hash.new(0)
+    @game_teams.each do |coach|
+      if !coach_game_count.keys.include?(coach.head_coach)
+        coach_game_count[coach.head_coach] += 1
+      else 
+        coach_game_count[coach.head_coach] += 1
+      end
+    end
+
+    wins = Hash.new(0)
+    game_ids_wins.each do |key, value|
+      coach_game_count.keys.each do |coach|
+        if value == coach
+          if wins.keys.include?(coach)
+            wins[coach] += 1
+          else
+            wins[coach] += 1
+          end
+        end
+      end
+    end
+
+    win_coach_hash = Hash.new(0)
+    season_game_id_hash.each do |season, game_id_array|
+      game_ids_wins.each do |game_id, winning_coach|
+        win_coach_hash[winning_coach] += 1 if season == year && game_id_array.include?(game_id)
+      end
+    end
+
+    coach_count_hash = Hash.new(0)
+    season_game_id_hash.each do |season, game_id_array|
+      game_teams_ids.each do |game_id, coaches|
+        if game_id_array.include?(game_id) && season == year
+          coaches.each do |coach|
+            coach_count_hash[coach[0]] += 1 
+          end
+        end
+      end
+    end
+    final_hash = Hash.new(0)
+    win_coach_hash.each do |coach, wins|
+      coach_count_hash.each do |coaches, games|
+        final_hash[coach] = (wins/games.to_f).round(2) if coach == coaches
+      end
+    end
+    high_avg = final_hash.max_by do |coach, average|
+      average
+    end
+    high_avg[0]
+  end
+
+  
+
 end

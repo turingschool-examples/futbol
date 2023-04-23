@@ -155,4 +155,9 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.averages_id_by_goals_games["6"]).to eq(2.2627450980392156)
     end
   end
+
+  it "#winningest_coach" do
+    expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+    expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+  end
 end
