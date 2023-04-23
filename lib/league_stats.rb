@@ -6,15 +6,15 @@ module LeagueStats
   end
 
   def best_offense
-    best_offense = calculate_average_goals(@game_teams)
-    team_id_string = best_offense.max_by { |team, avg_goals| avg_goals }&.first
+    best_team_offense = calculate_average_goals(@game_teams)
+    team_id_string = best_team_offense.max_by { |team, avg_goals| avg_goals }&.first
     best_team = @teams.find { |team| team.team_id == team_id_string }
     best_team&.team_name || ""
   end
   
   def worst_offense
-    worst_offense = calculate_average_goals(@game_teams)
-    team_id_string = worst_offense.min_by { |team, avg_goals| avg_goals }&.first
+    worst_team_offense = calculate_average_goals(@game_teams)
+    team_id_string = worst_team_offense.min_by { |team, avg_goals| avg_goals }&.first
     worst_team = @teams.find { |team| team.team_id == team_id_string }
     worst_team&.team_name || ""
   end
