@@ -99,13 +99,6 @@ class StatTracker
     end
   end
   
-  def lowest_scoring_home_team
-    averages_id_by_goals_games
-    low_team_id = averages_id_by_goals_games.min_by {|id, value| value }.first
-    @teams.select { |team| team.team_id == low_team_id }.flat_map {|team| team.teamname }.join
-  end
-    
-
   def worst_offense
     average = averages_id_by_goals_games
     worst = average.min_by do |key, value|
@@ -115,7 +108,14 @@ class StatTracker
       return team.teamname if worst[0] == team.team_id
     end
   end
+  
+  def lowest_scoring_home_team
+    averages_id_by_goals_games
+    low_team_id = averages_id_by_goals_games.min_by {|id, value| value }.first
+    @teams.select { |team| team.team_id == low_team_id }.flat_map {|team| team.teamname }.join
+  end
 
+#helper method returns hash home/away team_id and total goals scored
   def total_goals
     team_goals = Hash.new(0)
     @games.each do |game|
@@ -125,6 +125,7 @@ class StatTracker
     team_goals
   end
 
+#helper method returns hash home/away team_id and total games played
   def total_games
     team_games = Hash.new(0)
     @game_teams.each do |gameteam|
