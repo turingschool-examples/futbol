@@ -126,6 +126,20 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe 'most accurate team' do
+    it "#most_accurate_team" do
+      expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+    end
+  end
+
+  describe 'least accurate team' do
+    it "#least_accurate_team" do
+      expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
+  end
+
   describe '#fewest_tackles' do 
     it 'can track the team with the least tackles per season' do 
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
