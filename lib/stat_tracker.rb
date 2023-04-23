@@ -116,9 +116,6 @@ class StatTracker
     end
   end
 
-  
-  
-  #helper method returns hash home/away team_id and total goals scored
   def total_goals
     team_goals = Hash.new(0)
     @games.each do |game|
@@ -127,7 +124,7 @@ class StatTracker
     end
     team_goals
   end
-  
+
   def total_games
     team_games = Hash.new(0)
     @game_teams.each do |gameteam|
