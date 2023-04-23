@@ -5,32 +5,20 @@ module LeagueStats
     @teams.count
   end
 
-  def lowest_scoring_visitor
-    away_games_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, games: 0 } }
-    
-    @games.each do |game|
-      away_games_by_team[game.away_team_id][:goals] += game.away_goals
-      away_games_by_team[game.away_team_id][:games] += 1
-    end
-    
-    lowest_avg_team = away_games_by_team.min_by { |_, stats| stats[:goals].to_f / stats[:games] }
-    @teams.find { |team| team.team_id == lowest_avg_team.first }.team_name
+  def best_offense
+    best_offense = calculate_average_goals(@game_teams)
+    team_id_string = best_offense.max_by { |team, avg_goals| avg_goals }&.first
+    best_team = @teams.find { |team| team.team_id == team_id_string }
+    best_team&.team_name || ""
   end
-
-  # helper methods to combine code? A lot of repeating
   
-  def lowest_scoring_home_team
-    home_games_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, games: 0 } }
-    
-    @games.each do |game|
-      home_games_by_team[game.home_team_id][:goals] += game.home_goals
-      home_games_by_team[game.home_team_id][:games] += 1
-    end
-    
-    lowest_avg_team = home_games_by_team.min_by { |_, stats| stats[:goals].to_f / stats[:games] }
-    @teams.find { |team| team.team_id == lowest_avg_team.first }.team_name
+  def worst_offense
+    worst_offense = calculate_average_goals(@game_teams)
+    team_id_string = worst_offense.min_by { |team, avg_goals| avg_goals }&.first
+    worst_team = @teams.find { |team| team.team_id == team_id_string }
+    worst_team&.team_name || ""
   end
-
+  
   def highest_scoring_visitor
     grouped_teams = @game_teams.group_by { |game| game.team_id }
     sorted_teams = filter_away_games(grouped_teams)
@@ -53,21 +41,32 @@ module LeagueStats
     high_team 
   end
 
-  def best_offense
-    best_offense = calculate_average_goals(@game_teams)
-    team_id_string = best_offense.max_by { |team, avg_goals| avg_goals }&.first
-    best_team = @teams.find { |team| team.team_id == team_id_string }
-    best_team&.team_name || ""
+  def lowest_scoring_visitor
+    away_games_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, games: 0 } }
+    
+    @games.each do |game|
+      away_games_by_team[game.away_team_id][:goals] += game.away_goals
+      away_games_by_team[game.away_team_id][:games] += 1
     end
+    
+    lowest_avg_team = away_games_by_team.min_by { |_, stats| stats[:goals].to_f / stats[:games] }
+    @teams.find { |team| team.team_id == lowest_avg_team.first }.team_name
+  end
   
-    def worst_offense
-    worst_offense = calculate_average_goals(@game_teams)
-    team_id_string = worst_offense.min_by { |team, avg_goals| avg_goals }&.first
-    worst_team = @teams.find { |team| team.team_id == team_id_string }
-    worst_team&.team_name || ""
+  def lowest_scoring_home_team
+    home_games_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, games: 0 } }
+    
+    @games.each do |game|
+      home_games_by_team[game.home_team_id][:goals] += game.home_goals
+      home_games_by_team[game.home_team_id][:games] += 1
+    end
+    
+    lowest_avg_team = home_games_by_team.min_by { |_, stats| stats[:goals].to_f / stats[:games] }
+    @teams.find { |team| team.team_id == lowest_avg_team.first }.team_name
   end
 
   #helper methods for highest scoring team
+  
   def avg_score_away_games(sorted_teams)
     sorted_teams.transform_values do |games|
       goals = games.sum{ |game| game.goals }
