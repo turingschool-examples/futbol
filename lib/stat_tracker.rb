@@ -72,23 +72,23 @@ class StatTracker
     season_name.map {|season_string, game| games_by_season[season_string] = game.count }
     games_by_season
   end
-
+  
   def percentage_home_wins
     hoa = @game_teams.find_all {|gameteam| gameteam.hoa == "home" }
     results = hoa.select {|game| game.result == "WIN" }.count
     (results.to_f  / @games.count).round(2)
   end
-
+  
   def percentage_visitor_wins
     hoa = @game_teams.find_all {|gameteam| gameteam.hoa == "away" }
     results = hoa.select {|game| game.result == "WIN" }.count
     (results.to_f  / @games.count).round(2)
   end
-
+  
   def count_of_teams
     @teams.count
   end
-
+  
   def best_offense
     average = averages_id_by_goals_games
     best = average.max_by do |id, ave|
@@ -98,7 +98,7 @@ class StatTracker
       return team.teamname if best[0] == team.team_id
     end
   end
-
+  
   def worst_offense
     average = averages_id_by_goals_games
     worst = average.min_by do |key, value|
@@ -108,8 +108,14 @@ class StatTracker
       return team.teamname if worst[0] == team.team_id
     end
   end
+  
+  def lowest_scoring_home_team
+    averages_id_by_goals_games
+    low_team_id = averages_id_by_goals_games.min_by {|id, value| value }.first
+    @teams.select { |team| team.team_id == low_team_id }.flat_map {|team| team.teamname }.join
+  end
 
-  #helper method returns hash home/away team_id and total goals scored
+#helper method returns hash home/away team_id and total goals scored
   def total_goals
     team_goals = Hash.new(0)
     @games.each do |game|
@@ -119,7 +125,7 @@ class StatTracker
     team_goals
   end
 
-  #helper method returns hash home/away team_id and total games played
+#helper method returns hash home/away team_id and total games played
   def total_games
     team_games = Hash.new(0)
     @game_teams.each do |gameteam|
@@ -127,6 +133,7 @@ class StatTracker
     end
     team_games
   end
+
 
   #helper method returns hash home/away team_id and average goals scored
   def averages_id_by_goals_games

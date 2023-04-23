@@ -200,3 +200,14 @@
   #   require 'pry'; binding.pry
   #   new(games)
   # end
+
+  # def lowest_scoring_home_team
+  #     # home_team_goals = Hash.new(0)
+  #   # @games.each do |game|
+  #   #   home_team_goals[game.home_team_id] = home_team_goals[game.home_team_id] + game.home_goals
+  #   # end
+  #   # avg_goals = Hash.new(0)
+  #   # home_games = @games.group_by { |game| game.home_team_id }.transform_values {|games| games.count {|game| game } }
+  #   # lowest_percentage = home_team_goals.map { |key, value| avg_goals[key] = value.to_f / home_games[key] }
+  #   # team_id_min_value = avg_goals.min_by {|id , low_value| low_value }.first
+  # end
