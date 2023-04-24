@@ -1,5 +1,11 @@
 module SeasonStats
 
+  def worst_coach(season)
+    @games.each do |game|
+
+    end
+  end
+
   def most_accurate_team(season)
     team_ratios = Hash.new { |hash, key| hash[key] = [0, 0] }
   
@@ -87,5 +93,12 @@ module SeasonStats
   def team_by_id(id)
     team = @teams.find{|team| team.team_id == id.to_s}
     team.team_name
+  end
+
+  def season_by_id(id)
+    seasonal_game = @games.find do |game|
+      game.game_id == id
+    end
+    seasonal_game.season 
   end
 end
