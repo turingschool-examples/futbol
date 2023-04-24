@@ -1,6 +1,8 @@
 require './lib/league_stats'
+require './lib/season_stats'
+
 class GameTeam
-    include LeagueStats
+    include LeagueStats, SeasonStats
     attr_reader :game_id,
                 :team_id,
                 :hoa,
@@ -16,6 +18,7 @@ class GameTeam
                 :face_off_win_percentage,
                 :giveaways,
                 :takeaways
+  attr_accessor :season
   
   def initialize(stats)
     @game_id = stats[:game_id]
@@ -33,5 +36,6 @@ class GameTeam
     @face_off_win_percentage = stats[:face_off_win_percentage].to_i
     @giveaways = stats[:giveaways].to_i
     @takeaways = stats[:takeaways].to_i
+    @season = nil
   end
 end

@@ -44,5 +44,9 @@ RSpec.describe GameTeam do
       expect(@game_team.giveaways).to eq(17)
       expect(@game_team.takeaways).to eq(7)
     end
+
+    it 'begins without a season' do 
+      expect(@game_team.season).to be nil
+    end
   end
 end

@@ -42,7 +42,7 @@ class StatTracker
   def instantiate_game_teams(locations)
     game_team_info = CSV.open(locations, headers: true, header_converters: :symbol)
     game_team_info.map do |row| 
-      @game_teams << GameTeam.new({
+      game_team = GameTeam.new({
         game_id: row[:game_id],
         team_id: row[:team_id],
         hoa: row[:hoa],
@@ -57,7 +57,10 @@ class StatTracker
         power_play_goals: row[:power_play_goals],
         face_off_win_percentage: row[:face_off_win_percentage],
         giveaways: row[:giveaways],
-        takeaways: row[:takeaways]})
+        takeaways: row[:takeaways]
+        })
+        game_team.season = assign_season(row[:game_id])
+        @game_teams << game_team
     end
   end
 
@@ -71,5 +74,11 @@ class StatTracker
         abbreviation: row[:abbreviation],
         link: row[:link]})
     end
+  end
+
+#helper
+  def assign_season(game_id) 
+    the_season = season_by_id(game_id)
+    @season = the_season
   end
 end
