@@ -30,6 +30,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.game_teams).to be_a Array
       expect(@stat_tracker.game_teams[0]).to be_a GameTeam
     end
+
+    it 'game_teams have seasons by assignment' do 
+      expect(@stat_tracker.game_teams[0].season).to eq('20122013')
+    end
+
     it 'has an array of teams' do 
       expect(@stat_tracker.teams).to be_a Array
       expect(@stat_tracker.teams[0]).to be_a Team
