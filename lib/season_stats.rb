@@ -73,6 +73,8 @@ module SeasonStats
     team_by_id(team.first)
   end
 
+  # Helper Methods
+
   def filter_game_teams_by_season(season)
     year = season[0,4]
     @game_teams.select{|game| game.game_id.start_with?(year)}
