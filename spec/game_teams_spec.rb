@@ -48,10 +48,5 @@ RSpec.describe GameTeam do
     it 'begins without a season' do 
       expect(@game_team.season).to be nil
     end
-
-    it 'can be given a season' do 
-      @game_team.season = '20122013'
-      expect(@game_team.season)
-    end
   end
 end
