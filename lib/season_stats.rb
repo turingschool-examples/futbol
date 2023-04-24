@@ -44,10 +44,10 @@ module SeasonStats
       home_team = @teams.find { |team| team.team_id == home_team_id }
       away_team = @teams.find { |team| team.team_id == away_team_id }
   
-      team_ratios[home_team.name][0] += home_shots
-      team_ratios[home_team.name][1] += home_goals
-      team_ratios[away_team.name][0] += away_shots
-      team_ratios[away_team.name][1] += away_goals
+      team_ratios[home_team.team_name][0] += home_shots
+      team_ratios[home_team.team_name][1] += home_goals
+      team_ratios[away_team.team_name][0] += away_shots
+      team_ratios[away_team.team_name][1] += away_goals
     end
   
     accuracies = {}
@@ -97,6 +97,8 @@ module SeasonStats
     team = total_tackles.min_by{|team, tackles| tackles}
     team_by_id(team.first)
   end
+
+  # Helper Methods
 
   def filter_game_teams_by_season(season)
     year = season[0,4]
