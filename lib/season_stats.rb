@@ -90,4 +90,13 @@ module SeasonStats
     team = @teams.find{|team| team.team_id == id.to_s}
     team.team_name
   end
+
+  #helpers
+  
+  def season_by_id(id)
+    seasonal_game = @games.find do |game|
+      game.game_id == id
+    end
+    seasonal_game.season 
+  end
 end
