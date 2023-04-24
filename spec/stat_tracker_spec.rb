@@ -126,9 +126,14 @@ RSpec.describe StatTracker do
     end
   end
 
+#helpers
   describe 'helpers' do 
     it '#total_goals' do 
       expect(@stat_tracker.total_goals(@test_games)).to eq(397)
+    end
+
+    it '#season_by_id' do 
+      expect(@stat_tracker.season_by_id('2012030312')).to eq('20122013')
     end
   end
 end
