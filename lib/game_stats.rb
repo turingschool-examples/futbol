@@ -48,6 +48,8 @@ module GameStats
     seasonal_goals
   end
 
+  # Helper method
+
   def total_goals(games)
     games.sum(&:away_goals) + games.sum(&:home_goals)
   end
