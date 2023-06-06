@@ -14,7 +14,7 @@ project board: https://miro.com/app/board/uXjVMB5T6lc=/#tpicker-content
 
 1. summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
 
-  We discussed using a project board or direct/group messages, but we ended up deciding that a project board to encapsulate all the ideas that we want to do explore and discuss. We also also using slack for messages that can be async. 
+  We discussed using a project board or direct/group messages, but we ended up deciding that a project board to encapsulate all the ideas that we want to do explore and discuss. We also using slack for messages that can be async. 
 
 1. sentence summary describing your approach to the code design.
 
