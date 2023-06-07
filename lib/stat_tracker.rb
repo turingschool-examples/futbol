@@ -1,4 +1,7 @@
 require 'csv'
+require './lib/game'
+require './lib/team'
+require './lib/game_by_team'
 
 class StatTracker
 
