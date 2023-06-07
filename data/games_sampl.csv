@@ -11,3 +11,4 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2013020674,20132014,Regular Season,1/11/14,19,23,1,2,Saputo Stadium,/api/v1/venues/null
 2013020177,20132014,Regular Season,10/29/13,24,4,3,2,SeatGeek Stadium,/api/v1/venues/null
 2012020225,20122013,Regular Season,2/19/13,29,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2012020510,20122013,Regular Season,3/31/13,26,30,3,3,Exploria Stadium,/api/v1/venues/null
