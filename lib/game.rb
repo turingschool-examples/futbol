@@ -8,7 +8,7 @@ class Game
     ties = @games.find_all do |game|
       game[:home_goals] == game[:away_goals]
     end
-    ties.count.to_f / @games.count.to_f
+    (ties.count.to_f / @games.count.to_f).round(2)
   end
   
 end

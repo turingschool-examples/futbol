@@ -15,4 +15,3 @@ RSpec.describe 'Game' do
   end
 end
 
-# percentage_ties	Percentage of games that has resulted in a tie (rounded to the nearest 100th)
