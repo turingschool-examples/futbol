@@ -1,31 +1,22 @@
 require "./lib/stat_tracker"
 require "./lib/game"
+require "./lib/team"
+require "csv"
+
 
 RSpec.describe StatTracker do
   before do
-    game_file = "./data/games.csv"
-    team_file = "./data/teams.csv"
-    game_teams_file = "./data/teams.csv"
-    game_lines = CSV.open game_file, headers: true, header_converters: :symbol
-    team_lines = CSV.open game_file, headers: true, header_converters: :symbol
-    game_teams_lines = CSV.open game_file, headers: true, header_converters: :symbol
-    games = []
-    teams = []
-    game_teams = []
-    game_lines.each do |line|
-      games << Game.new(line)
-    end
-    team_lines.each do |line|
-      teams << Team.new(line)
-    end
-    game_team_lines.each do |line|
-      game_teams << GameTeam.new(line)
-    end
-    @game_1 = games[0]
-    @game_2 = games[2] 
-    @game_3 = games[11] 
-    @game_4 = games[5] 
-    @game_5 = games[12]
-    @game_6 = games[9]
+    game_path = './data/games_sampl.csv'
+    teams_path = './data/teams_sampl.csv'
+    game_teams_path = './data/game_teams_sampl.csv'
+    @stat_tracker_1 = StatTracker.from_csv(game_path, teams_path, game_teams_path)
+  end
+
+  it "exists" do
+    expect(@stat_tracker_1).to be_a(StatTracker)
+  end
+
+  xit "can calculate the highest total score of games" do
+   expect(@stat_tracker_1.highest_total_score).to eq(6)
   end
 end
