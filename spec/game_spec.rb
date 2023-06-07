@@ -4,17 +4,17 @@ require "csv"
 
 describe Game do
   before do
-    @game_file = "./data/games_sampl.csv"
-    @game_lines = CSV.open @game_file, headers: true, header_converters: :symbol
-    @games = []
-    @game_lines.each do |line|
-      @games << Game.new(line)
+    game_file = "./data/games_sampl.csv"
+    game_lines = CSV.open game_file, headers: true, header_converters: :symbol
+    games = []
+    game_lines.each do |line|
+      games << Game.new(line)
     end
-    @game_1 = @games[0]
-    @game_2 = @games[2] 
-    @game_3 = @games[11] 
-    @game_4 = @games[5] 
-    @game_5 = @games[12]
+    @game_1 = games[0]
+    @game_2 = games[2] 
+    @game_3 = games[11] 
+    @game_4 = games[5] 
+    @game_5 = games[12]
   end
 
   it "exists" do
