@@ -31,4 +31,15 @@ class StatTracker
     stat_tracker.create_teams(teams_path)
     stat_tracker
   end
+
+  def highest_total_score
+    highest_score = 0
+
+    @games.each do |game|
+      total_score = game.away_goals + game.home_goals
+      highest_score = total_score if total_score > highest_score
+    end
+
+    highest_score
+  end
 end
