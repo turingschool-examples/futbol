@@ -42,8 +42,8 @@ describe Game do
 
   it "has a winner" do
     expect(@game_1.winner).to eq("home")
-    expect(@game_2.winner).to eq("home")
-    expect(@game_3.winner).to eq("away")
+    expect(@game_2.winner).to eq("away")
+    expect(@game_3.winner).to eq("home")
     expect(@game_4.winner).to eq("away")
     expect(@game_5.winner).to eq("tie")
   end
