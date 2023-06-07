@@ -28,7 +28,7 @@ We plan to use a Kanban board to track issues and assign to one another. We are 
 
 ### Contributors
 
-Ethan Black
-Daniel Gallagher
-Hayden McSorley
-Connor Richmond
+Ethan Black | [LinkedIn](https://www.linkedin.com/in/ethanrossblack/) | [Github](https://github.com/ethanrossblack)
+Daniel Gallagher | [LinkedIn](https://www.linkedin.com/in/daniel-gallagher-5b29271a1/) | [Github](https://github.com/Daniel-Gallagher92)
+Hayden McSorley | [LinkedIn](https://www.linkedin.com/in/hayden-mcsorley-a28337202/) | [Github](https://github.com/haydenmcsorley)
+Connor Richmond | [LinkedIn](https://www.linkedin.com/in/connor-richmond-1506231aa/) | [Github](https://github.com/ConnorRichmond)
