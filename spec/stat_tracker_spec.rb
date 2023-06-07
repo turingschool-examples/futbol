@@ -2,7 +2,16 @@ require 'spec_helper.rb'
 
 RSpec.describe StatTracker do
   before do
+    games_csv = 'feature/game_test.csv'
+    game_teams_csv = 'feature/game_team_test.csv'
+    team_csv = 'feature/team_test.csv'
+    @locations = {
+      games: games_csv,
+      teams: team_csv,
+      game_teams: game_teams_csv
+    }
     @stat_tracker = StatTracker.new
+    @stat_tracker.from_csv(@locations)
   end
   describe "#exists" do
     it "exists" do
@@ -16,18 +25,27 @@ RSpec.describe StatTracker do
     end
   end
 
-
-
   describe "#from_csv" do
     it "creates game objects" do
-
-
-      @stat_tracker.from_csv(@locations)
+      
       expect(@stat_tracker.games[0]).to be_a(Game)
+      expect(@stat_tracker.games.count).to eq(5)
       expect(@stat_tracker.games)
-      expect(@stat_tracker.games.count).to eq(7441)
-      expect(@stat_tracker.game_teams.count).to eq(14822)
-      expect(@stat_tracker.teams.count).to eq(32)
+
+    end
+
+    it 'creates team_games objects' do
+
+      expect(@stat_tracker.game_by_team[0]).to be_a(Game_By_Team)
+      expect(@stat_tracker.game_by_team.count).to eq(5)
+      expect(@stat_tracker.game_by_team)
+
+    end
+
+    it 'creates team objects' do
+      expect(@stat_tracker.teams[0]).to be_a(Team)
+      expect(@stat_tracker.teams.count).to eq(5)
+      expect(@stat_tracker.teams)
 
     end
   end
