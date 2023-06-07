@@ -1,8 +1,7 @@
 require "./lib/game"
-require "rspec"
 require "csv"
 
-describe Game do
+RSpec.describe Game do
   before do
     game_file = "./data/games_sampl.csv"
     game_lines = CSV.open game_file, headers: true, header_converters: :symbol
@@ -64,11 +63,15 @@ describe Game do
     expect(@game_5.total_goals).to eq(6)
   end
 
-  it "has a winner" do
-    expect(@game_1.winner).to eq("home")
-    expect(@game_2.winner).to eq("away")
-    expect(@game_3.winner).to eq("home")
-    expect(@game_4.winner).to eq("away")
-    expect(@game_5.winner).to eq("tie")
+  it "has a winner or tie" do
+    expect(@game_1.home_win?).to eq(true)
+    expect(@game_1.visitor_win?).to eq(false)
+    expect(@game_1.tie?).to eq(false)
+    expect(@game_2.home_win?).to eq(false)
+    expect(@game_2.visitor_win?).to eq(true)
+    expect(@game_2.tie?).to eq(false)
+    expect(@game_5.home_win?).to eq(false)
+    expect(@game_5.visitor_win?).to eq(false)
+    expect(@game_5.tie?).to eq(true)
   end
 end
