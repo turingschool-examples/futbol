@@ -24,4 +24,11 @@ class Season
     def games_count
         @games.count
     end
+
+    def average_goals_per_game
+        averages = @games.map do |game|
+            game.goals_averaged
+        end
+        (averages.sum / averages.length).round(2)
+    end
 end
