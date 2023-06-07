@@ -19,7 +19,7 @@ class Game
   def total_goals
     @away_goals + @home_goals
   end
-
+  # To use in highest_scoring_visitor, highest_scoring_home_team, etc? Or else other class using the game_team file data?
   def winner
     return "home" if @home_goals > @away_goals
     return "away" if @away_goals > @home_goals
