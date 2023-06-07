@@ -19,6 +19,10 @@ class Game
   def total_goals
     @away_goals + @home_goals
   end
+
+  def goals_averaged
+    (total_goals.to_f/2).round(2)
+  end
   # To use in highest_scoring_visitor, highest_scoring_home_team, etc? Or else other class using the game_team file data?
   def home_win?
     @home_goals > @away_goals

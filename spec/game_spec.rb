@@ -63,6 +63,13 @@ RSpec.describe Game do
     expect(@game_5.total_goals).to eq(6)
   end
 
+  it "has an average goals scored" do
+    expect(@game_1.goals_averaged).to eq(2.50)
+    expect(@game_2.goals_averaged).to eq(1.50)
+    expect(@game_3.goals_averaged).to eq(2.50)
+    expect(@game_5.goals_averaged).to eq(3)
+  end
+
   it "has a winner or tie" do
     expect(@game_1.home_win?).to eq(true)
     expect(@game_1.visitor_win?).to eq(false)
