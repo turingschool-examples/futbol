@@ -1,11 +1,8 @@
 require 'simplecov'
 SimpleCov.start
 
-require './lib/coach'
-require './lib/offense'
-require './lib/score'
-require './lib/season'
-require './lib/tackles'
-require './lib/team'
-require './lib/visitor'
-require './lib/wins'
+require_relative './season'
+require_relative './game'
+require_relative './league'
+require_relative './csv_method'
+require_relative './stat_tracker'
