@@ -26,4 +26,12 @@ RSpec.describe Season do
         expect(@season.games.sample).to be_a(Game)
     end
 
+    xit "has a coach for a given team in a given season" do
+
+    end
+
+    it "can count each game in a season" do
+        expect(@season.games_count).to eq(9)
+    end
+
 end
