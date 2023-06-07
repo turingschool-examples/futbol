@@ -2,6 +2,7 @@
 
 ## Link to DTR https://docs.google.com/document/d/1iD8hqcVgayQFIAnYl54o92BrTDVvPKB-JtCJIObAWWI/edit
 
+## Link to Project breakdown board. https://www.icloud.com/freeform/0cfpn21i328TWUhV7rvl_gROg#Futbol_Write_Out
 
 ### Conventions
  - Branches based off various statistics methods, ie, game_statistics branch, league_statistics branch, etc.
