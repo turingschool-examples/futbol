@@ -1,4 +1,4 @@
-require 'rspec'
+require 'csv'
 require './lib/team'
 
 RSpec.describe Team do
