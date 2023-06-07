@@ -15,10 +15,15 @@ RSpec.describe Season do
         expect(@season).to be_a(Season)
     end
 
+    it "can tell us the season and type of the season" do
+        expect(@season.type).to eq("Postseason")
+        expect(@season.season).to eq("20122013")
+    end
+
     it "has a series of games" do
         expect(@season.games).to be_an(Array)
-        expect(@season.games.length).to eq(13)
-        expect(@season.sample).to be_a(Game)
+        expect(@season.games.length).to eq(9)
+        expect(@season.games.sample).to be_a(Game)
     end
 
 end
