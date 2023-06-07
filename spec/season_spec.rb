@@ -36,6 +36,7 @@ RSpec.describe Season do
 
     it "can generate team stats" do
         expect(@season.team_stats).to be_an(Array)
+        expect(@season.team_stats.first.include?(:hoa)).to eq(true)
     end
 
     it "can keep track of all game ids" do
