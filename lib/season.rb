@@ -20,4 +20,8 @@ class Season
             end
         end
     end
+
+    def games_count
+        @games.count
+    end
 end
