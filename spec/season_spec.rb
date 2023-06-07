@@ -15,4 +15,10 @@ RSpec.describe Season do
         expect(@season).to be_a(Season)
     end
 
+    it "has a series of games" do
+        expect(@season.games).to be_an(Array)
+        expect(@season.games.length).to eq(13)
+        expect(@season.sample).to be_a(Game)
+    end
+
 end
