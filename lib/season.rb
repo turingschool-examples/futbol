@@ -36,6 +36,9 @@ class Season
     def generate_team_stats(game_team_file)
         game_lines = CSV.open game_team_file, headers: true, header_converters: :symbol
         game_lines.each do |line|
+            if @game_ids.include?(line[:game_id])
+                @team_stats << line
+            end
         end
     end
 
