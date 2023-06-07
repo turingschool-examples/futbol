@@ -10,10 +10,11 @@ describe Game do
     @game_lines.each do |line|
       @games << Game.new(line)
     end
-    @game_1 = @games[0] #2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
-    @game_2 = @games[2] #2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
-    @game_3 = @games[11] #2012020225,20122013,Regular Season,2/19/13,29,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+    @game_1 = @games[0]
+    @game_2 = @games[2] 
+    @game_3 = @games[11] 
     @game_4 = @games[5] 
+    @game_5 = @games[12]
   end
 
   it "exists" do
@@ -31,10 +32,19 @@ describe Game do
     expect(@game_1.home_goals).to eq(3)
   end
 
-  it 'has a total goals scored' do
+  it "has a total goals scored" do
     expect(@game_1.total_goals).to eq(5)
-    expect(@game_2.total_goals).to eq(5)
+    expect(@game_2.total_goals).to eq(3)
     expect(@game_3.total_goals).to eq(5)
     expect(@game_4.total_goals).to eq(3)
+    expect(@game_5.total_goals).to eq(6)
+  end
+
+  it "has a winner" do
+    expect(@game_1.winner).to eq("home")
+    expect(@game_2.winner).to eq("home")
+    expect(@game_3.winner).to eq("away")
+    expect(@game_4.winner).to eq("away")
+    expect(@game_5.winner).to eq("tie")
   end
 end
