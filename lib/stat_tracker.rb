@@ -3,6 +3,16 @@ require "csv"
 class StatTracker
   
   def from_csv(csv)
+    if csv[0][1] == "franchiseId"
+      teams_csv(csv)
+    elsif csv[0][1] == "season"
+      games_csv(csv)
+    else
+      game_teams_csv(csv)
+    end
+  end
+
+  def teams_csv(csv)
     team_id = csv[0].index("team_id")
     franchiseId = csv[0].index("franchiseId")
     teamName = csv[0].index("teamName")
@@ -25,7 +35,7 @@ class StatTracker
     #elsif games teams >>> games_teams
   end
 
-  def game_teams_csv
+  def game_teams_csv(csv)
     game_id = csv[0].index("game_id")
     season = csv[0].index("season")
     teamName = csv[0].index("teamName")
@@ -42,7 +52,7 @@ class StatTracker
       new_arr.drop(1)
   end
 
-  def games_csv
+  def games_csv(csv)
     game_id = csv[0].index("game_id")
     season = csv[0].index("season")
     type = csv[0].index("type")
