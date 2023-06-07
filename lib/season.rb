@@ -3,13 +3,19 @@ require 'csv'
 class Season
     attr_reader :games,
                 :type,
-                :season
+                :season,
+                :team_stats,
+                :game_ids
 
     def initialize(game_file, game_team_file, season, type)
         @games = []
+        @team_stats = []
         @season = season
         @type = type
+        @game_ids = []
         generate_games(game_file)
+        generate_game_ids
+        generate_team_stats(game_team_file)
     end
 
     def generate_games(game_file)
@@ -18,6 +24,18 @@ class Season
             if line[:season] == @season && line[:type] == @type
                 @games << Game.new(line)
             end
+        end
+    end
+
+    def generate_game_ids
+        @games.each do |game|
+            @game_ids << game.game_id
+        end
+    end
+    
+    def generate_team_stats(game_team_file)
+        game_lines = CSV.open game_team_file, headers: true, header_converters: :symbol
+        game_lines.each do |line|
         end
     end
 
