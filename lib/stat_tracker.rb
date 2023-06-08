@@ -85,7 +85,7 @@ class StatTracker
     total_tackle_by_team = {}
     @game_by_team.each do |game|
       if total_tackle_by_team.key?(game.team_id)
-      total_tackle_by_team[game.team_id] += game.tackles.to_i
+        total_tackle_by_team[game.team_id] += game.tackles.to_i
       else
         total_tackle_by_team[game.team_id] = game.tackles.to_i
       end
@@ -93,6 +93,21 @@ class StatTracker
 
     team_with_most_tackles = total_tackle_by_team.max_by { |key, value| value }&.first
     result = @teams.find { |team| team.team_id == team_with_most_tackles }
+    result.team_name
+  end
+
+  def fewest_tackles
+    total_tackle_by_team = {}
+    @game_by_team.each do |game|
+      if total_tackle_by_team.key?(game.team_id)
+        total_tackle_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_tackle_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+
+    team_with_fewest_tackles = total_tackle_by_team.min_by { |key, value| value }&.first
+    result = @teams.find { |team| team.team_id == team_with_fewest_tackles }
     result.team_name
   end
 end
