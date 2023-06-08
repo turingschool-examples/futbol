@@ -1,7 +1,4 @@
-require 'csv'
-require './lib/games'
-require './lib/teams'
-require './lib/game_teams'
+require './spec/spec_helper'
 
 class RawStats
   attr_reader :games, :teams, :game_teams

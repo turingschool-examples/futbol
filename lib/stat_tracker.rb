@@ -1,6 +1,6 @@
-require './lib/games'
-require './lib/teams'
-require './lib/game_teams'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
 require './lib/raw_stats'
 
 class StatTracker
@@ -12,7 +12,8 @@ class StatTracker
 
   def initialize(data)
   # Variable names for methods to be implimented
-  # @game_stats = GameStats.new(data)
+    @stats = RawStats.new(data)
+    require 'pry'; binding.pry
   # How do we want to get these objects to have statistics characteristics (for connecting raw stats)?
   # class GameStats < RawStats
   end
