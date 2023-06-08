@@ -23,6 +23,8 @@ attr_reader :stats
     end
   end
 
+  # potential refactor to create game and shovel in within stat_organizer method (SRP)
+
   def create_games(type, row) 
     @stats[type] << Game.new(
       row[:game_id],
@@ -37,6 +39,8 @@ attr_reader :stats
       row[:venue_link])
   end
 
+  # potential refactor to create teams and shovel in within stat_organizer method (SRP)
+
   def create_teams(type, row) 
     @stats[type] << Team.new(
       row[:team_id], 
@@ -46,6 +50,8 @@ attr_reader :stats
       row[:Stadium], 
       row[:link])
   end
+
+  # potential refactor to create game_teams and shovel in within stat_organizer method (SRP)
 
   def create_game_teams(type, row)
     @stats[type] << GameTeam.new(
