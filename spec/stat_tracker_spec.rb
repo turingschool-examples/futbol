@@ -94,4 +94,11 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#league_statics' do
+
+    it 'can calculate #highest_scoring_visitor' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("Los Angeles FC")
+    end
+  end
 end
