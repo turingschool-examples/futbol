@@ -44,10 +44,10 @@ attr_reader :stats
   def create_teams(type, row) 
     @stats[type] << Team.new(
       row[:team_id], 
-      row[:franchiseId], 
-      row[:teamName], 
+      row[:franchiseid], 
+      row[:teamname], 
       row[:abbreviation], 
-      row[:Stadium], 
+      row[:stadium], 
       row[:link])
   end
 
@@ -57,7 +57,7 @@ attr_reader :stats
     @stats[type] << GameTeam.new(
       row[:game_id], 
       row[:team_id], 
-      row[:HoA], 
+      row[:hoa], 
       row[:result], 
       row[:settled_in], 
       row[:head_coach], 
@@ -65,9 +65,9 @@ attr_reader :stats
       row[:shots], 
       row[:tackles], 
       row[:pim], 
-      row[:powerPlayOpportunities], 
-      row[:powerPlayGoals], 
-      row[:faceOffWinPercentage], 
+      row[:powerplayopportunities], 
+      row[:powerplaygoals], 
+      row[:faceoffwinpercentage], 
       row[:giveaways], 
       row[:takeaways])
   end
