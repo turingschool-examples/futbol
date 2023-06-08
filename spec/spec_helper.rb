@@ -1,8 +1,9 @@
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 
 require 'csv'
-require './lib/game_teams'
-require './lib/games'
+require './lib/team'
+require './lib/game'
+require './lib/game_team'
+require './lib/raw_stats'
 require './lib/stat_tracker'
-require './lib/teams'
