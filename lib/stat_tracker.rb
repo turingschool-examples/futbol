@@ -25,7 +25,7 @@ class StatTracker
       @game_by_team << Game_By_Team.new(row)
     end
   end
-      
+
 #---------Game Statics Methods-----------
   def percentage_ties
     tie_count = @games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
@@ -81,4 +81,18 @@ class StatTracker
 
 #-------------- League Statics Methods --------
 #-------------- Season Statics Methods --------
+  def most_tackles
+    total_tackle_by_team = {}
+    @game_by_team.each do |game|
+      if total_tackle_by_team.key?(game.team_id)
+      total_tackle_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_tackle_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+
+    team_with_most_tackles = total_tackle_by_team.max_by { |key, value| value }&.first
+    result = @teams.find { |team| team.team_id == team_with_most_tackles }
+    result.team_name
+  end
 end
