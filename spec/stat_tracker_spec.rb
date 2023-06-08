@@ -1,6 +1,6 @@
 require './lib/stat_tracker'
 require "csv"
-
+require 'spec_helper'
 
 RSpec.describe 'Stat_Tracker' do
   

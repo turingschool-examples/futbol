@@ -24,14 +24,14 @@ class StatTracker
   def create_teams_array(path)
     team_factory = TeamFactory.new
     team_factory.create_teams(path)
-    require 'pry'; binding.pry
+    #require 'pry'; binding.pry
   end
   
 
   def create_games_array(path)
    game_factory = GameFactory.new
    game_factory.create_games(path)
-   require 'pry'; binding.pry
+   #require 'pry'; binding.pry
   end
 
 
