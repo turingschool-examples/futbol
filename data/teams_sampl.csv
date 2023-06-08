@@ -9,3 +9,9 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
 28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28
 9,30,New York City FC,NYC,Yankee Stadium,/api/v1/teams/9
+16,11,New England Revolution,NE,Gillette Stadium,/api/v1/teams/16
+8,1,New York Red Bulls,NY,Red Bull Arena,/api/v1/teams/8
+30,37,Orlando City SC,ORL,Exploria Stadium,/api/v1/teams/30
+19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
+7,19,Utah Royals FC,URF,Rio Tinto Stadium,/api/v1/teams/7
+
