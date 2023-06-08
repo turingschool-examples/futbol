@@ -88,9 +88,9 @@ class StatTracker
 
   def worst_offense
     average_goals_by_team
-    lowest_scoring_team = average_goals_by_team.max_by {|team, avg_goals| avg_goals}
-    @teams.each {|team| return highest_scoring_team_name = team.team_name if team.team_id == highest_scoring_team[0]}
-    highest_scoring_team_name
+    lowest_scoring_team = average_goals_by_team.min_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return lowest_scoring_team_name = team.team_name if team.team_id == lowest_scoring_team[0]}
+    lowest_scoring_team_name
   end
 
   def average_goals_by_team
