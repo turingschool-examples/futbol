@@ -94,4 +94,22 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#league statics' do
+    it 'can determine which team has #best_offense' do
+    expect(@stat_tracker.best_offense).to eq("Chicago Red Stars")
+    end
+
+    xit 'can determine which team has #worst_offense' do
+      
+    end
+
+    xit 'can determine which team was #lowest_scoring_visitor' do
+      
+    end
+
+    xit 'can determine which team was #lowest_scoring_home_team' do
+      
+    end
+  end
 end
