@@ -33,7 +33,7 @@ We reviewed iteration 2/method requirements and used the Miro board to visualize
 [back to top](#table-of-contents)
 
 ## DTRs
-[Initial DTR, completed June 5th, 2023](https://docs.google.com/document/d/1lOCoLH7pUqNNJmmAIsmMe2ZGIiGfHvu5xhDQebHQWkE/edit)
+[Initial DTR, completed June 5th, 2023](https://docs.google.com/document/d/1lOCoLH7pUqNNJmmAIsmMe2ZGIiGfHvu5xhDQebHQWkE/edit)[Updated DTR, completed June 8th, 2023](select File, select version history))
 
 ## Contributors
 ### Garrett Varenhorst        
