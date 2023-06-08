@@ -72,15 +72,38 @@ class StatTracker
   # League Statistics
 
   def count_of_teams
-
+    @teams.uniq.count
   end
 
   def best_offense
-
+    teams_data = @game_teams.group_by { |team| team.team_id} # group data by team
+    avg_goals_by_team = teams_data.each do |team_id, game_info|
+      sum = game_info.sum { |game| game.goals}
+      num_games = game_info.count
+      teams_data[team_id] = (sum / num_games)
+    end
+    highest = avg_goals_by_team.max_by do |team_id, avg_goals|
+      avg_goals
+    end
+    id = highest[0]
+    team = @teams.find { |team| team.team_id == id}
+    team.team_name
   end
 
   def worst_offense
+    teams_data = @game_teams.group_by { |team| team.team_id} # group data by team
+    avg_goals_by_team = teams_data.each do |team_id, game_info|
+      sum = game_info.sum { |game| game.goals}
+      num_games = game_info.count
+      teams_data[team_id] = (sum / num_games)
+    end
+    lowest = avg_goals_by_team.min_by do |team_id, avg_goals|
+      avg_goals
+    end
 
+    id = lowest[0]
+    team = @teams.find { |team| team.team_id == id}
+    team.team_name
   end
 
   def highest_scoring_visitor
