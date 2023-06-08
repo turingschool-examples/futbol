@@ -1,14 +1,15 @@
-require './lib/game'
-require './lib/team'
-require './lib/season'
-require 'pry'
-require 'csv'
+require "./lib/game"
+require "./lib/team"
+require "./lib/season"
+require "pry"
+require "csv"
 
 RSpec.describe Season do
     before do
         game_file = "./data/games_sampl.csv"
         game_team_file = "./data/game_teams_sampl.csv"
-        @season = Season.new(game_file, game_team_file, "20122013", "Postseason")
+        team_data = "./data/teams_sampl.csv"
+        @season = Season.new(game_file, game_team_file, "20122013", "Postseason", team_data)
     end
 
     it "exists" do
@@ -42,6 +43,17 @@ RSpec.describe Season do
     it "can keep track of all game ids" do
         expect(@season.game_ids).to be_an(Array)
         expect(@season.game_ids).to eq(["2012030221", "2012030222", "2012030223", "2012030224", "2012030225", "2012030311", "2012030312", "2012030313", "2012030314"]) 
+    end
+
+    it "can generate unique team ids" do
+        expect(@season.generate_team_ids).to be_an(Array)
+        expect(@season.team_ids).to eq(["3", "6", "5"])
+    end
+
+    it "can generate new teams" do
+        expect(@season.teams[0]).to be_a(Team)
+        expect(@season.teams).to be_an(Array)
+        expect(@season.teams.first.team_name).to eq("Atlanta United")
     end
     
 end
