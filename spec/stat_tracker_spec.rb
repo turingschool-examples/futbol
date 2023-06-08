@@ -30,8 +30,7 @@ RSpec.describe StatTracker do
     it "creates game objects" do
       
       expect(@stat_tracker.games[0]).to be_a(Game)
-      expect(@stat_tracker.games.count).to eq(4)
-      expect(@stat_tracker.games)
+      expect(@stat_tracker.games.count).to eq(5)
 
     end
 
@@ -54,7 +53,7 @@ RSpec.describe StatTracker do
   describe '#game_statics' do
     
     it "#highest_total_score" do
-      expect(@stat_tracker.highest_total_score).to eq(5)
+      expect(@stat_tracker.highest_total_score).to eq(6)
     end
 
     it "#lowest_total_score" do
@@ -62,7 +61,16 @@ RSpec.describe StatTracker do
     end
 
     it "can find the percentage of home wins" do
-      expect(@stat_tracker.percentage_home_wins).to eq(0.08)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.1)
+    end
+
+    it 'can calculate #percentage_ties' do
+      expect(@stat_tracker.percentage_ties).to eq(20.0)
+    end
+
+    it 'can calculate #count_of_games_by_season' do
+    expected = {"20122013" => 5}
+    expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
 end
