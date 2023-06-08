@@ -100,8 +100,40 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.most_tackles).to eq("Houston Dynamo")
     end
 
-    it "can display the name of the team with the least tackles in the season" do
+    it "can display the name of the team with the fewest tackles in the season" do
       expect(@stat_tracker.fewest_tackles).to eq("Toronto FC")
+    end
+
+    it "can find the total amount of goals per team" do
+      expect(@stat_tracker.total_goals_by_teams).to eq({
+        "3"=>56,
+        "6"=>30,
+        "5"=>38,
+        "17"=>27,
+        "16"=>62,
+        "9"=>24,
+        "8"=>19,
+        "30"=>45,
+        "26"=>49,
+        "19"=>30,
+        "24"=>40,
+        "2"=>11,
+        "15"=>22,
+        "20"=>7,
+        "14"=>25,
+        "28"=>12,
+        "4"=>6,
+        "21"=>12,
+        "25"=>15
+      })
+    end
+
+    it "can name the team with the best ratio of shots to goals for the season"do
+      expect(@stat_tracker.most_accurate_team).to eq("Chicago Fire")
+    end
+
+    it "can name the team with the worst ratio of shots to goals for the season"do
+      expect(@stat_tracker.least_accurate_team).to eq("Chicago Red Stars")
     end
   end
 end
