@@ -93,4 +93,8 @@ class StatTracker
     end
     goal_count
   end
+
+  def count_of_teams
+    @teams.count
+  end
 end
