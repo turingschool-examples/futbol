@@ -12,12 +12,15 @@ class StatTracker
 
   def initialize(data)
   # Variable names for methods to be implimented
-    @stats = RawStats.new(data)
-    require 'pry'; binding.pry
+    stats = RawStats.new(data)
+    @games = stats.games
+    @teams = stats.teams
+    @game_teams = stats.game_teams
+    #require 'pry'; binding.pry
   # How do we want to get these objects to have statistics characteristics (for connecting raw stats)?
   # class GameStats < RawStats
   end
-
   # Implement the remaining methods for statistics calculations
   # ...
+
 end
