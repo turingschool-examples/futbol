@@ -27,13 +27,17 @@ RSpec.describe GameTeam do
     end
 
     it "has attributes" do
-        expect(@game_team_1.team_id).to eq(3)
+        expect(@game_team_1.team_id).to eq("3")
         expect(@game_team_1.home_or_away).to eq("away")
         expect(@game_team_1.result).to eq("LOSS")
         expect(@game_team_1.head_coach).to eq("John Tortorella")
         expect(@game_team_1.goals).to eq(2)
         expect(@game_team_1.shots).to eq(8)
         expect(@game_team_1.tackles).to eq(44)
+    end
+
+    it "can calculate a ratio of shots to goals" do
+        expect(@game_team_1.accuracy).to eq(0.25)
     end
 
 
