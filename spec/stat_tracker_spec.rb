@@ -61,15 +61,15 @@ RSpec.describe StatTracker do
 
   describe 'League Statistics' do
     it 'calculates count_of_teams' do
-      #code here
+      expect(@stat_tracker.count_of_teams).to eq(32)
     end
   
     it 'calculates best_offense' do
-      #code here
+      expect(@stat_tracker.best_offense).to eq("FC Dallas")
     end
   
     it 'calculates worst_offense' do
-      #code here
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
     end
   
     it 'calculates highest_scoring_visitor' do
