@@ -39,6 +39,4 @@ RSpec.describe GameTeam do
     it "can calculate a ratio of shots to goals" do
         expect(@game_team_1.accuracy).to eq(0.25)
     end
-
-
 end
