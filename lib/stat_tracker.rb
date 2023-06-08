@@ -11,6 +11,7 @@ class StatTracker
     @teams = []
     @season_hash = {}
     @game_teams = []
+    @grouped_game_teams = {}
   end
   
   def create_games(game_path)
@@ -27,7 +28,7 @@ class StatTracker
     end
   end
 
-  def create_season_hash(game_path)
+  def create_season_hash
     @season_hash = @games.group_by {|game| game.season}
   end
 
@@ -42,8 +43,9 @@ class StatTracker
     stat_tracker = self.new
     stat_tracker.create_games(game_path)
     stat_tracker.create_teams(teams_path)
-    stat_tracker.create_season_hash(game_path)
+    stat_tracker.create_season_hash
     stat_tracker.create_game_teams(game_teams_path)
+    stat_tracker.group_teams
     stat_tracker
   end
 
@@ -100,12 +102,15 @@ class StatTracker
     @teams.count
   end
 
-  def offense_helper
-    grouped_by_team = @game_teams.group_by do |team|
+  def group_teams
+    @grouped_game_teams = @game_teams.group_by do |team|
       team.team_id
     end
+  end
+  #move into helper class?
+  def offense_helper
     team_average_scores = {}
-    grouped_by_team.each do |team, games|
+    @grouped_game_teams.each do |team, games|
       game_scores = games.map { |game| game.goals }
       average_goals = game_scores.sum.to_f/game_scores.length
       team_average_scores[team] = average_goals
@@ -121,7 +126,22 @@ class StatTracker
   end
 
   def worst_offense
-    top_team_array = offense_helper.min_by {|team, score| score}
+    worst_team_array = offense_helper.min_by {|team, score| score}
+    worst_team_id = worst_team_array[0].to_s
+    worst_team = @teams.find {|team| team.id == worst_team_id }
+    worst_team.team_name
+  end
+
+  def highest_scoring_visitor
+    @grouped_game_teams
+    scores_when_visitor = {}
+    @grouped_game_teams.each do |team, games|
+      away_games = games.select {|game| game.home_or_away == "away"}
+      scores = away_games.map { |game| game.goals }
+      average_visitor_score = scores.sum.to_f/scores.length
+      scores_when_visitor[team] = average_visitor_score
+    end
+    top_team_array = scores_when_visitor.max_by {|team, score| score}
     top_team_id = top_team_array[0].to_s
     top_team = @teams.find {|team| team.id == top_team_id }
     top_team.team_name
