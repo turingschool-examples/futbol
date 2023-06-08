@@ -81,26 +81,27 @@ class StatTracker
 
 #-------------- League Statics Methods --------
 
-def highest_scoring_visitor
-  highest_average_score = 0
-  highest_scoring_team = ''
+  def highest_scoring_visitor
+    highest_average_score = 0
+    highest_scoring_team = ''
 
-  @game_by_team.each do |game|
-    next unless game.hoa == 'away'  
+    @game_by_team.each do |game|
+      next unless game.hoa == 'away'  
     
-    team = @teams.find { |t| t.team_id == game.team_id }  
-    next unless team  
+      team = @teams.find { |t| t.team_id == game.team_id }  
+      next unless team  
     
-    total_games = @game_by_team.count { |g| g.team_id == team.team_id }
-    average_score = (game.goals.to_f / total_games)
+      total_games = @game_by_team.count { |g| g.team_id == team.team_id }
+      average_score = (game.goals.to_f / total_games)
     
-    if average_score > highest_average_score
-      highest_average_score = average_score
-      highest_scoring_team = team.team_name
+      if average_score > highest_average_score
+        highest_average_score = average_score
+        highest_scoring_team = team.team_name
+      end
     end
+
+    highest_scoring_team
   end
 
-  highest_scoring_team
-end
+  
 #-------------- Season Statics Methods --------
-end
