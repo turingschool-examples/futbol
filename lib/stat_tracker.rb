@@ -41,7 +41,6 @@ class StatTracker
   def highest_total_score
     highest_score = 0
     @games.each do |game|
-      # binding.pry
       total_score = game.home_goals.to_i + game.away_goals.to_i
       highest_score = total_score if total_score > highest_score
     end
@@ -80,5 +79,39 @@ class StatTracker
   end
 
 #-------------- League Statics Methods --------
+  def best_offense
+    goals_scored = @game_by_team.each_with_object(Hash.new(0)) {|game, team_hash| team_hash[game.team_id] += game.goals.to_i}
+    games_played = @game_by_team.each_with_object(Hash.new(0)) {|game, team_hash| team_hash[game.team_id] += 1}
+    average_goals_per_game = Hash.new(0)
+    goals_scored.each do |key1, value1|
+      games_played.each do |key2, value2|
+        if key1 == key2
+          average_goals_per_game[key1] = value1.to_f / value2.to_f
+        else
+        end
+      end
+    end
+  highest_scoring_team = average_goals_per_game.max_by {|team, avg_goals| avg_goals}
+  highest_scoring_team_name = nil
+  @teams.each do |team|
+    if team.team_id == highest_scoring_team
+      highest_scoring_team_name = team.team_name
+    else
+    end
+    end
+  highest_scoring_team_name
+  end
+
+  def worst_offense
+    @game_by_team
+  end
+
+  def lowest_scoring_visitor
+
+  end
+
+  def lowest_scoring_home_team
+
+  end
 #-------------- Season Statics Methods --------
 end
