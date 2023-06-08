@@ -79,6 +79,6 @@ class StatTracker
     @games.count * home_wins.count / 100.to_f
   end
 
-#--------------Team Statics Methods -----------
+#-------------- League Statics Methods --------
 #-------------- Season Statics Methods --------
 end
