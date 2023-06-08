@@ -20,6 +20,19 @@ class StatTracker
   # How do we want to get these objects to have statistics characteristics (for connecting raw stats)?
   # class GameStats < RawStats
   end
+
+  def count_of_games_by_season
+    result = {}
+    @games.each do |game|
+      if result[game.season].nil?
+        result[game.season] = 1
+      else
+        result[game.season] += 1
+      end
+    end
+    result
+  end
+
   # Implement the remaining methods for statistics calculations
   # ...
 
