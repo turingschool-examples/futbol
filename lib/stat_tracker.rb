@@ -9,6 +9,7 @@ class StatTracker
   def initialize
     @games = []
     @teams = []
+    @season_hash = {}
     # @game_teams = []
   end
   
@@ -26,6 +27,10 @@ class StatTracker
     end
   end
 
+  def create_season_hash(game_path)
+    @season_hash = @games.group_by {|game| game.season}
+  end
+
   # def create_game_teams
   #   game_teams_lines = CSV.open game_path, headers: true, header_converters: :symbol
   #   game_teams_lines.each do |line|
@@ -36,6 +41,7 @@ class StatTracker
     stat_tracker = self.new
     stat_tracker.create_games(game_path)
     stat_tracker.create_teams(teams_path)
+    stat_tracker.create_season_hash(game_path)
     stat_tracker
   end
 
@@ -63,5 +69,13 @@ class StatTracker
     ties = @games.count{|game| game.home_goals == game.away_goals}
     total_games = @games.length
     (ties/total_games.to_f).round(2)
+  end 
+
+  def count_of_games_by_season
+    game_count = {}
+    @season_hash.each do |season, games|
+      game_count[season] = games.count
+    end
+    game_count
   end
 end
