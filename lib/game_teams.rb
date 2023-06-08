@@ -22,8 +22,4 @@ class GameTeam
     def accuracy
         @goals.to_f / @shots
     end
-
-
-
-
 end
