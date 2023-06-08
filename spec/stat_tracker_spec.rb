@@ -4,6 +4,7 @@ SimpleCov.start
 require "./lib/stat_tracker"
 require "./lib/game"
 require "./lib/team"
+require "./lib/game_teams"
 require "csv"
 
 
@@ -56,8 +57,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq(9)
   end
 
+  it "can report team with best offense" do
+    #best_offense
+#Name of the team with the highest average number of goals scored per game across all seasons.	
+    expect(@stat_tracker.best_offense).to eq("")
+  end
 
-  #best_offense
   #worst_offense
   #highest_scoring_visitor
   #highest_scoring_home_team
