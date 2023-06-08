@@ -83,4 +83,27 @@ RSpec.describe StatsManager do
       expect(test_game_teams).to be_a(GameTeam)
     end
   end
+
+  describe "#Stat_organizer" do 
+    it "can create game objects from a csv file" do 
+      file_path = "./data/games.csv"
+      expect(@stats_manager.stats[:games]).to eq([]) 
+      @stats_manager.stat_organizer(file_path, :games)
+      expect(@stats_manager.stats[:games].first).to be_a(Game)
+    end
+    
+    it "can create team objects from a csv file" do 
+      file_path = "./data/teams.csv"
+      expect(@stats_manager.stats[:teams]).to eq([]) 
+      @stats_manager.stat_organizer(file_path, :teams)
+      expect(@stats_manager.stats[:teams].first).to be_a(Team)
+    end
+    
+    it "can create game_team objects from a csv file" do 
+      file_path = "./data/game_teams.csv"
+      expect(@stats_manager.stats[:game_teams]).to eq([]) 
+      @stats_manager.stat_organizer(file_path, :game_teams)
+      expect(@stats_manager.stats[:game_teams].first).to be_a(GameTeam)
+    end
+  end
 end
