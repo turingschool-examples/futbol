@@ -10,7 +10,7 @@ class GameTeam
                 :tackles
 
     def initialize(game_team_data)
-        @team_id = game_team_data[:team_id].to_i
+        @team_id = game_team_data[:team_id]
         @home_or_away = game_team_data[:hoa]
         @result = game_team_data[:result]
         @head_coach = game_team_data[:head_coach]
@@ -19,7 +19,7 @@ class GameTeam
         @tackles = game_team_data[:tackles].to_i
     end
 
-
-
-
+    def accuracy
+        @goals.to_f / @shots
+    end
 end
