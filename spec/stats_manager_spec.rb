@@ -1,4 +1,4 @@
-require './lib/stats_manager'
+require 'spec_helper'
 
 RSpec.describe StatsManager do 
   #it can recieve data from csv file

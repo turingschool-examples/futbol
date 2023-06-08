@@ -1,5 +1,4 @@
 require 'csv'
-require './lib/game'
 
 class  StatsManager
 attr_reader :stats
@@ -39,7 +38,6 @@ attr_reader :stats
   end
 
   def create_teams(type, row) 
-    require 'pry'; binding.pry
     @stats[type] << Team.new(
       row[:team_id], 
       row[:franchiseId], 
@@ -69,8 +67,8 @@ attr_reader :stats
   end
 end
 
-x = StatsManager.new
-x.stat_organizer("./data/teams.csv", :teams)
+# x = StatsManager.new
+# x.stat_organizer("./data/teams.csv", :teams)
 
 
 
