@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class Season
     attr_reader :games,

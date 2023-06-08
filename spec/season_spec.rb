@@ -1,8 +1,8 @@
-require './lib/game'
-require './lib/team'
-require './lib/season'
-require 'pry'
-require 'csv'
+require "./lib/game"
+require "./lib/team"
+require "./lib/season"
+require "pry"
+require "csv"
 
 RSpec.describe Season do
     before do
