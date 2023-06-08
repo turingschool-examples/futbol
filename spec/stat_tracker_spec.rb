@@ -54,7 +54,7 @@ RSpec.describe StatTracker do
   end
 
   it "can count all teams" do
-    expect(@stat_tracker.count_of_teams).to eq(10)
+    expect(@stat_tracker.count_of_teams).to eq(16)
   end
 
   #test offense helper method? Move helper into other class?
@@ -83,8 +83,16 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
   end
 
-  #winningest_coach
-  #worst_coach
+  it "has a best coach" do
+    expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+  end
+
+  it "has a worst coach" do
+    expect(@stat_tracker.worst_coach).to eq("Mike Yeo")
+  end
+
+  
+
   #most_accurate_team
   #least_accurate_team
   #most_tackles
