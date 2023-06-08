@@ -8,3 +8,4 @@ team_id,franchiseId,teamName,abbreviation,Stadium,link
 5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
 17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
 28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28
+9,30,New York City FC,NYC,Yankee Stadium,/api/v1/teams/9
