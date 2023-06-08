@@ -38,4 +38,24 @@ RSpec.describe StatTracker do
   it "can calculate the pecentage of games that end up in a tie" do
     expect(@stat_tracker_1.percentage_ties).to eq(0.08)
   end
+
+  it "can count games in each season" do
+    expect(@stat_tracker_1.count_of_games_by_season).to eq({"20122013"=>11, "20132014"=>2})
+  end
+
+  #average_goals_per_game
+  #average_goals_by_season
+  #count_of_teams
+  #best_offense
+  #worst_offense
+  #highest_scoring_visitor
+  #highest_scoring_home_team
+  #lowest_scoring_visitor
+  #lowest_scoring_home_team
+  #winningest_coach
+  #worst_coach
+  #most_accurate_team
+  #least_accurate_team
+  #most_tackles
+  #fewest_tackles
 end
