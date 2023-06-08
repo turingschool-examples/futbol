@@ -57,13 +57,16 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq(9)
   end
 
-  it "can report team with best offense" do
-    #best_offense
-#Name of the team with the highest average number of goals scored per game across all seasons.	
-    expect(@stat_tracker.best_offense).to eq("")
+  #test offense helper method? Move helper into other class?
+
+  it "can report team with best offense" do	
+    expect(@stat_tracker.best_offense).to eq("New York City FC")
   end
 
-  #worst_offense
+  it "can report team with worst offense" do
+    expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+  end
+
   #highest_scoring_visitor
   #highest_scoring_home_team
   #lowest_scoring_visitor
