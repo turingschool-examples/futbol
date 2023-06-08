@@ -129,12 +129,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.worst_offense).to eq("Chicago Fire")
     end
 
-    xit 'can determine which team was #lowest_scoring_visitor' do
-      
+    it 'can determine which team was #lowest_scoring_visitor' do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Seattle Sounders FC")
     end
 
-    xit 'can determine which team was #lowest_scoring_home_team' do
-      
+    it 'can determine which team was #lowest_scoring_home_team' do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Chicago Fire")
     end
   end
 end
