@@ -26,5 +26,15 @@ RSpec.describe GameTeam do
         expect(@game_team_1).to be_a(GameTeam)
     end
 
+    it "has attributes" do
+        expect(@game_team_1.team_id).to eq(3)
+        expect(@game_team_1.home_or_away).to eq("away")
+        expect(@game_team_1.result).to eq("LOSS")
+        expect(@game_team_1.head_coach).to eq("John Tortorella")
+        expect(@game_team_1.goals).to eq(2)
+        expect(@game_team_1.shots).to eq(8)
+        expect(@game_team_1.tackles).to eq(44)
+    end
+
 
 end
