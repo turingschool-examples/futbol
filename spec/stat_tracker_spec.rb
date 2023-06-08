@@ -50,4 +50,19 @@ RSpec.describe StatTracker do
 
     end
   end
+
+  describe '#game_statics' do
+    
+    it "#highest_total_score" do
+      expect(@stat_tracker.highest_total_score).to eq(5)
+    end
+
+    it "#lowest_total_score" do
+      expect(@stat_tracker.lowest_total_score).to eq(3)
+    end
+
+    it "can find the percentage of home wins" do
+      expect(@stat_tracker.percentage_home_wins).to eq(0.08)
+    end
+  end
 end
