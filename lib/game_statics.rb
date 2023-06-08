@@ -14,7 +14,7 @@ class GameStatics
    season_games = @games.each_with_object(Hash.new(0)) {|game, hash| hash[game.season] += 1}
    p season_games
   end
-  
+
   def highest_total_score
     highest_score = 0
     @games.each do |game|
@@ -31,7 +31,7 @@ class GameStatics
       lowest_score = total_score if lowest_score.nil? || total_score < lowest_score
     end
     lowest_score
-  end   
+  end
 
 
   def percentage_visitor_wins(games_array)
@@ -48,5 +48,11 @@ class GameStatics
     end
     (total_goals.to_f / games_array.count.to_f).ceil(2)
   end
+
+  def percentage_home_wins
+    home_wins = @games.find_all do |game|
+      game["home_goals"] > game["away_goals"]
+    end
+    @games.count * home_wins.count / 100.to_f
+  end
 end
-  
