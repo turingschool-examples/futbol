@@ -110,4 +110,57 @@ class StatTracker
     result = @teams.find { |team| team.team_id == team_with_fewest_tackles }
     result.team_name
   end
+
+  def most_accurate_team
+    total_shots_by_team = {}
+    @game_by_team.each do |game|
+      if total_shots_by_team.key?(game.team_id)
+        total_shots_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_shots_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+    most_accurate = {}
+
+    total_shots_by_team.each do |key, value|
+      most_accurate[key] = value.to_f / total_goals_by_teams[key]
+    end
+
+    result = most_accurate.max_by { |key, value| value }&.first
+    final_result = @teams.find { |team| team.team_id == result }
+    final_result.team_name
+  end
+
+  def least_accurate_team
+    total_shots_by_team = {}
+    @game_by_team.each do |game|
+      if total_shots_by_team.key?(game.team_id)
+        total_shots_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_shots_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+    least_accurate = {}
+
+    total_shots_by_team.each do |key, value|
+      least_accurate[key] = value.to_f / total_goals_by_teams[key]
+    end
+
+    result = least_accurate.min_by { |key, value| value }&.first
+    final_result = @teams.find { |team| team.team_id == result }
+    final_result.team_name
+    require 'pry'; binding.pry
+  end
+
+  def total_goals_by_teams
+    total_goals = {}
+    @game_by_team.each do |game|
+      if total_goals.key?(game.team_id)
+        total_goals[game.team_id] += game.goals.to_i
+      else
+        total_goals[game.team_id] = game.goals.to_i
+      end
+    end
+    total_goals
+  end
 end
