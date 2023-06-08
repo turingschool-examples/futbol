@@ -48,11 +48,20 @@ class StatTracker
   end
 
   def percentage_home_wins
-    home_wins = @games.count{|game| game.home_goals > game.away_goals}
+    home_wins = @games.count{|game| game.home_win?}
     total_games = @games.length
-# ***We may refactor this method when the season class is created***
-    home_win_percentage = (home_wins/total_games.to_f).round(2) * 100
+    (home_wins/total_games.to_f).round(2)
   end
 
+  def percentage_visitor_wins
+    visitor_wins = @games.count{|game| game.visitor_win?}
+    total_games = @games.length
+    (visitor_wins/total_games.to_f).round(2)
+  end
 
+  def percentage_ties
+    ties = @games.count{|game| game.home_goals == game.away_goals}
+    total_games = @games.length
+    (ties/total_games.to_f).round(2)
+  end
 end
