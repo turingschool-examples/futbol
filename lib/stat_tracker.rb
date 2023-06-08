@@ -141,7 +141,6 @@ class StatTracker
       sorted_scores[team] = average_score
     end
     sorted_scores
-    # require 'pry'; binding.pry
   end
 
   def highest_scoring_visitor
@@ -170,5 +169,26 @@ class StatTracker
     worst_team_id = worst_team_array[0].to_s
     worst_team = @teams.find {|team| team.id == worst_team_id }
     worst_team.team_name
+  end
+
+  def coach_stats 
+    coach_data = @game_teams.group_by {|game| game.head_coach}
+    coach_percentages = {}
+    coach_data.each do |coach, games|
+      wins = games.count { |game| game.result == "WIN" }
+      win_percentage = wins.to_f/games.length
+      coach_percentages[coach] = win_percentage
+    end
+    coach_percentages
+  end
+
+  def winningest_coach
+    best_coach_stats = coach_stats.max_by {|coach, percentage| percentage}
+    best_coach_stats[0]
+  end
+
+  def worst_coach
+    worst_coach_stats = coach_stats.min_by {|coach, percentage| percentage}
+    worst_coach_stats[0]
   end
 end
