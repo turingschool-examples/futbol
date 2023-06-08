@@ -78,4 +78,19 @@ class StatTracker
     end
     game_count
   end
+
+  def average_goals_per_game
+    average_goals = @games.map {|game| game.goals_averaged}
+    (average_goals.sum.to_f/average_goals.count).round(2)
+  end
+
+  def average_goals_by_season
+    goal_count = {}
+    @season_hash.each do |season, games|
+      averaged_goals = games.map {|game| game.goals_averaged}
+      combined_average = (averaged_goals.sum.to_f/averaged_goals.count).round(2)
+      goal_count[season] = combined_average
+    end
+    goal_count
+  end
 end
