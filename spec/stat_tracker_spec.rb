@@ -63,6 +63,13 @@ RSpec.describe StatTracker do
     it 'calculates count_of_teams' do
       expect(@stat_tracker.count_of_teams).to eq(32)
     end
+
+    it 'has average_goals_by_team list (hash)' do
+      expect(@stat_tracker.avg_goals_by_team).to be_a(Hash)
+      expected = {"16"=>1, "17"=>1, "3"=>1, "30"=>2, "5"=>0, "6"=>2, "8"=>1, "9"=>2}
+
+      expect(@stat_tracker.avg_goals_by_team).to eq(expected)
+    end
   
     it 'calculates best_offense' do
       expect(@stat_tracker.best_offense).to eq("FC Dallas")
