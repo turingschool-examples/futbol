@@ -71,11 +71,18 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 
-  it ""
+  it "can report the highest scoring home team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+  end
 
-  #highest_scoring_home_team
-  #lowest_scoring_visitor
-  #lowest_scoring_home_team
+  it "can report the lowest scoring visitor" do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  end
+
+  it "can report the lowest scoring home team" do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+  end
+
   #winningest_coach
   #worst_coach
   #most_accurate_team
