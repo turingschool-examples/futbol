@@ -1,8 +1,8 @@
 # Futbol
 
 ## Table of Contents
-  - [Setup](#check-ins)
-  - [Plan](#plan-for-project-organization)
+  - [Check-ins](#check-ins)
+  - [Approach To Code Design](#plan-for-project-organization)
   - [Organization](#approaches-to-project-organization)
   - [DTR](#dtrs)
   - [Contributors](#contributors)
