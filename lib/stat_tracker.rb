@@ -145,28 +145,28 @@ class StatTracker
 
   def highest_scoring_visitor
     top_team_array = scoring_helper_method("away").max_by {|team, score| score}
-    top_team_id = top_team_array[0].to_s
+    top_team_id = top_team_array[0]
     top_team = @teams.find {|team| team.id == top_team_id }
     top_team.team_name
   end
 
   def lowest_scoring_visitor
     worst_team_array = scoring_helper_method("away").min_by {|team, score| score}
-    worst_team_id = worst_team_array[0].to_s
+    worst_team_id = worst_team_array[0]
     worst_team = @teams.find {|team| team.id == worst_team_id }
     worst_team.team_name
   end
 
   def highest_scoring_home_team
     top_team_array = scoring_helper_method("home").max_by {|team, score| score}
-    top_team_id = top_team_array[0].to_s
+    top_team_id = top_team_array[0]
     top_team = @teams.find {|team| team.id == top_team_id }
     top_team.team_name
   end
 
   def lowest_scoring_home_team
     worst_team_array = scoring_helper_method("home").min_by {|team, score| score}
-    worst_team_id = worst_team_array[0].to_s
+    worst_team_id = worst_team_array[0]
     worst_team = @teams.find {|team| team.id == worst_team_id }
     worst_team.team_name
   end
@@ -190,5 +190,9 @@ class StatTracker
   def worst_coach
     worst_coach_stats = coach_stats.min_by {|coach, percentage| percentage}
     worst_coach_stats[0]
+  end
+
+  def most_accurate_team
+    
   end
 end
