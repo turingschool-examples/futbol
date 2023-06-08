@@ -80,6 +80,20 @@ class StatTracker
 
 #-------------- League Statics Methods --------
   def best_offense
+    average_goals_by_team
+    highest_scoring_team = average_goals_by_team.max_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return highest_scoring_team_name = team.team_name if team.team_id == highest_scoring_team[0]}
+    highest_scoring_team_name
+  end
+
+  def worst_offense
+    average_goals_by_team
+    lowest_scoring_team = average_goals_by_team.max_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return highest_scoring_team_name = team.team_name if team.team_id == highest_scoring_team[0]}
+    highest_scoring_team_name
+  end
+
+  def average_goals_by_team
     goals_scored = @game_by_team.each_with_object(Hash.new(0)) {|game, team_hash| team_hash[game.team_id] += game.goals.to_i}
     games_played = @game_by_team.each_with_object(Hash.new(0)) {|game, team_hash| team_hash[game.team_id] += 1}
     average_goals_per_game = Hash.new(0)
@@ -91,19 +105,7 @@ class StatTracker
         end
       end
     end
-  highest_scoring_team = average_goals_per_game.max_by {|team, avg_goals| avg_goals}
-  highest_scoring_team_name = nil
-  @teams.each do |team|
-    if team.team_id == highest_scoring_team
-      highest_scoring_team_name = team.team_name
-    else
-    end
-    end
-  highest_scoring_team_name
-  end
-
-  def worst_offense
-    @game_by_team
+    average_goals_per_game
   end
 
   def lowest_scoring_visitor
