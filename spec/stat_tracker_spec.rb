@@ -27,4 +27,8 @@ RSpec.describe StatTracker do
   it "can calculate the home win percentage" do
     expect(@stat_tracker_1.percentage_home_wins).to eq(54)
   end
+
+  it "can calculate the visitor win percentage" do
+    expect(@stat_tracker_1.pecentage_visitor_wins).to be_a Float
+  end
 end
