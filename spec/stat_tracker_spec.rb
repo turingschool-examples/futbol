@@ -31,13 +31,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.games).to be_a(Array)
       expect(@stat_tracker.teams).to be_a(Array)
       expect(@stat_tracker.game_by_team).to be_a(Array)
-      
+
     end
   end
 
   describe "#from_csv" do
     it "creates game objects" do
-      
+
       expect(@stat_tracker.games[0]).to be_a(Game)
       expect(@stat_tracker.games.count).to eq(52)
 
@@ -60,7 +60,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#game_statics' do
-    
+
     it "#highest_total_score" do
       expect(@stat_tracker.highest_total_score).to eq(6)
     end
@@ -76,7 +76,7 @@ RSpec.describe StatTracker do
     it 'can find the percentage of away wins' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(22.68)
     end
-    
+
     it 'can find average goals per game' do
       expect(@stat_tracker.average_goals_per_game).to eq(3.72)
     end
@@ -92,6 +92,12 @@ RSpec.describe StatTracker do
       "20162017" => 5
       }
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
+    end
+  end
+
+  describe "#season_statistics" do
+    it "can display the name of the team with the most tackles in the season" do
+      expect(@stat_tracker.most_tackles).to eq("Houston Dynamo")
     end
   end
 end
