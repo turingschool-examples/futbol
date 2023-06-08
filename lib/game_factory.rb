@@ -1,3 +1,5 @@
+require 'csv'
+
 class GameFactory
   attr_reader :games
 
