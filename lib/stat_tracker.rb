@@ -10,7 +10,7 @@ class StatTracker
     @games = []
     @teams = []
     @season_hash = {}
-    # @game_teams = []
+    @game_teams = []
   end
   
   def create_games(game_path)
@@ -31,17 +31,19 @@ class StatTracker
     @season_hash = @games.group_by {|game| game.season}
   end
 
-  # def create_game_teams
-  #   game_teams_lines = CSV.open game_path, headers: true, header_converters: :symbol
-  #   game_teams_lines.each do |line|
-  #     @game_teams << Game.new(line)
-  # end
+  def create_game_teams(game_teams_path)
+    game_teams_lines = CSV.open game_teams_path, headers: true, header_converters: :symbol
+    game_teams_lines.each do |line|
+      @game_teams << GameTeam.new(line)
+    end
+  end
   
   def self.from_csv(game_path, teams_path, game_teams_path)
     stat_tracker = self.new
     stat_tracker.create_games(game_path)
     stat_tracker.create_teams(teams_path)
     stat_tracker.create_season_hash(game_path)
+    stat_tracker.create_game_teams(game_teams_path)
     stat_tracker
   end
 
@@ -96,5 +98,15 @@ class StatTracker
 
   def count_of_teams
     @teams.count
+  end
+
+  def best_offense
+    grouped_by_team = @game_teams.group_by do |team|
+      team[:team_id]
+    end
+    #grouped_by_team should be a hash with keys of team, and values of their game data {team_id: [all the games]}
+    #map the game data to be an average of their scores
+    #return the team_id with highest value in hash
+    #match team_id against team list to get name
   end
 end
