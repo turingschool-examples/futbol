@@ -4,7 +4,7 @@ require './lib/game_team'
 require './lib/raw_stats'
 
 class StatTracker
-
+  attr_reader :stats
 
   def self.from_csv(data)
     StatTracker.new(data)
@@ -12,7 +12,7 @@ class StatTracker
 
   def initialize(data)
   # Variable names for methods to be implimented
-    stats = RawStats.new(data)
+    @stats = RawStats.new(data)
     @games = stats.games
     @teams = stats.teams
     @game_teams = stats.game_teams
