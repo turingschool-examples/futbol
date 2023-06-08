@@ -7,15 +7,19 @@ class Season
                 :team_stats,
                 :game_ids
 
-    def initialize(game_file, game_team_file, season, type)
+    def initialize(game_file, game_team_file, season, type, team_data)
         @games = []
         @team_stats = []
         @season = season
         @type = type
         @game_ids = []
+        @teams = []
+        @home_team_ids = []
+        @away_team_ids = []
         generate_games(game_file)
         generate_game_ids
         generate_team_stats(game_team_file)
+        generate_teams(team_data)
     end
 
     def generate_games(game_file)
@@ -39,6 +43,23 @@ class Season
             if @game_ids.include?(line[:game_id])
                 @team_stats << line
             end
+        end
+    end
+
+    def generate_team_ids
+        @games.each do |game|
+            @home_team_ids << game.home_team_id
+            @away_team_ids << game.away_team_id
+        end
+    end
+
+    def generate_teams(team_data)
+        game_lines = CSV.open team_data, headers: true, header_converters: :symbol
+        game_lines.each do |line|
+            if @team_stats.include?(line[:team_id])
+                # binding.pry
+            end
+            @teams << Team.new(line)
         end
     end
 
