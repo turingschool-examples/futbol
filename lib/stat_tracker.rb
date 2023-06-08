@@ -132,18 +132,43 @@ class StatTracker
     worst_team.team_name
   end
 
-  def highest_scoring_visitor
-    @grouped_game_teams
-    scores_when_visitor = {}
+  def scoring_helper_method(home_or_away_status)
+    sorted_scores = {}
     @grouped_game_teams.each do |team, games|
-      away_games = games.select {|game| game.home_or_away == "away"}
-      scores = away_games.map { |game| game.goals }
-      average_visitor_score = scores.sum.to_f/scores.length
-      scores_when_visitor[team] = average_visitor_score
+      selected_games = games.select {|game| game.home_or_away == home_or_away_status}
+      scores = selected_games.map { |game| game.goals }
+      average_score = scores.sum.to_f/scores.length
+      sorted_scores[team] = average_score
     end
-    top_team_array = scores_when_visitor.max_by {|team, score| score}
+    sorted_scores
+    # require 'pry'; binding.pry
+  end
+
+  def highest_scoring_visitor
+    top_team_array = scoring_helper_method("away").max_by {|team, score| score}
     top_team_id = top_team_array[0].to_s
     top_team = @teams.find {|team| team.id == top_team_id }
     top_team.team_name
+  end
+
+  def lowest_scoring_visitor
+    worst_team_array = scoring_helper_method("away").min_by {|team, score| score}
+    worst_team_id = worst_team_array[0].to_s
+    worst_team = @teams.find {|team| team.id == worst_team_id }
+    worst_team.team_name
+  end
+
+  def highest_scoring_home_team
+    top_team_array = scoring_helper_method("home").max_by {|team, score| score}
+    top_team_id = top_team_array[0].to_s
+    top_team = @teams.find {|team| team.id == top_team_id }
+    top_team.team_name
+  end
+
+  def lowest_scoring_home_team
+    worst_team_array = scoring_helper_method("home").min_by {|team, score| score}
+    worst_team_id = worst_team_array[0].to_s
+    worst_team = @teams.find {|team| team.id == worst_team_id }
+    worst_team.team_name
   end
 end
