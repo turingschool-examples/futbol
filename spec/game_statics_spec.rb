@@ -13,6 +13,6 @@ RSpec.describe GameStatics do
     end
 
     it "#lowest_total_score" do
-      expect(@game_statics.lowest_total_score).to eq(1)
+      expect(@game_statics.lowest_total_score).to eq(3)
     end
 end

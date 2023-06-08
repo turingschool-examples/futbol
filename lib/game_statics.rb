@@ -14,6 +14,17 @@ class GameStatics
       
         highest_score
     end
+
+    def lowest_total_score
+        lowest_score = nil
+
+        @games.each do |game|
+            total_score = game["home_goals"].to_i + game["away_goals"].to_i
+            lowest_score = total_score if lowest_score.nil? || total_score < lowest_score
+        end
+
+        lowest_score
+    end
            
 end
   
