@@ -64,6 +64,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_home_wins).to eq(0.1)
     end
 
+    it 'can find the percentage of away wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0)
+    end
+    
+    it 'can find average goals per game' do
+      expect(@stat_tracker.average_goals_per_game).to eq(4.8)
+    end
     it 'can calculate #percentage_ties' do
       expect(@stat_tracker.percentage_ties).to eq(20.0)
     end
