@@ -97,7 +97,6 @@ RSpec.describe StatTracker do
 
   describe '#league statics' do
     it 'can determine #average_goals_by_team' do
-
     expected = {
       "3"=>1.8064516129032258,
       "6"=>2.727272727272727,
@@ -126,8 +125,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.best_offense).to eq("FC Dallas")
     end
 
-    xit 'can determine which team has #worst_offense' do
-      
+    it 'can determine which team has #worst_offense' do
+    expect(@stat_tracker.worst_offense).to eq("Chicago Fire")
     end
 
     xit 'can determine which team was #lowest_scoring_visitor' do
