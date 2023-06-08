@@ -92,7 +92,7 @@ def highest_scoring_visitor
     next unless team  
     
     total_games = @game_by_team.count { |g| g.team_id == team.team_id }
-    average_score = (game.goals / total_games)
+    average_score = (game.goals.to_f / total_games)
     
     if average_score > highest_average_score
       highest_average_score = average_score
