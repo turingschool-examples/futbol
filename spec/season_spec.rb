@@ -1,3 +1,6 @@
+require "simplecov"
+SimpleCov.start
+
 require "./lib/game"
 require "./lib/team"
 require "./lib/season"
