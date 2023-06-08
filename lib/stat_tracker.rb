@@ -100,13 +100,30 @@ class StatTracker
     @teams.count
   end
 
-  def best_offense
+  def offense_helper
     grouped_by_team = @game_teams.group_by do |team|
-      team[:team_id]
+      team.team_id
     end
-    #grouped_by_team should be a hash with keys of team, and values of their game data {team_id: [all the games]}
-    #map the game data to be an average of their scores
-    #return the team_id with highest value in hash
-    #match team_id against team list to get name
+    team_average_scores = {}
+    grouped_by_team.each do |team, games|
+      game_scores = games.map { |game| game.goals }
+      average_goals = game_scores.sum.to_f/game_scores.length
+      team_average_scores[team] = average_goals
+    end
+    team_average_scores
+  end
+
+  def best_offense
+    top_team_array = offense_helper.max_by {|team, score| score}
+    top_team_id = top_team_array[0].to_s
+    top_team = @teams.find {|team| team.id == top_team_id }
+    top_team.team_name
+  end
+
+  def worst_offense
+    top_team_array = offense_helper.min_by {|team, score| score}
+    top_team_id = top_team_array[0].to_s
+    top_team = @teams.find {|team| team.id == top_team_id }
+    top_team.team_name
   end
 end
