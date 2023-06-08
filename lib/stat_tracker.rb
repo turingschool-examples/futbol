@@ -4,7 +4,7 @@ require './lib/game_team'
 require './lib/raw_stats'
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
+
 
   def self.from_csv(data)
     StatTracker.new(data)
@@ -32,15 +32,21 @@ class StatTracker
   end
 
   def percentage_home_wins
-
+    total_games = @games.length
+    home_wins = @games.count { |game| game.home_goals > game.away_goals }
+    (home_wins.to_f / total_games * 100).round(2)
   end
 
   def percentage_visitor_wins
-
+    total_games = @games.length
+    visitor_wins = @games.count { |game| game.away_goals > game.home_goals }
+    (visitor_wins.to_f / total_games * 100).round(2)
   end
 
   def percentage_ties
-
+    total_games = @games.length
+    ties = @games.count { |game| game.home_goals == game.away_goals }
+    (ties.to_f / total_games * 100).round(2)
   end
 
   def count_of_games_by_season
