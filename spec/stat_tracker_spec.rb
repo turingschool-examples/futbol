@@ -27,11 +27,11 @@ RSpec.describe StatTracker do
 
   describe 'Game Statistics' do
     it 'calculates highest_total_score' do
-      #code here
+      expect(@stat_tracker.highest_total_score).to eq(6)
     end
   
     it 'calculates lowest_total_score' do
-      #code here
+      expect(@stat_tracker.lowest_total_score).to eq(1)
     end
   
     it 'calculates percentage_home_wins' do
