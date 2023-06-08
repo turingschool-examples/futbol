@@ -99,5 +99,9 @@ RSpec.describe StatTracker do
     it "can display the name of the team with the most tackles in the season" do
       expect(@stat_tracker.most_tackles).to eq("Houston Dynamo")
     end
+
+    it "can display the name of the team with the least tackles in the season" do
+      expect(@stat_tracker.fewest_tackles).to eq("Toronto FC")
+    end
   end
 end
