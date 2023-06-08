@@ -109,11 +109,57 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-
+    goals_scored_as_visitor = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+      if game.hoa == "away"
+        team_hash[game.team_id] += game.goals.to_i
+      else
+      end
+    end
+    games_played_as_visitor = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+      if game.hoa == "away"
+        team_hash[game.team_id] += 1
+      else
+      end
+    end
+    average_goals_per_game = Hash.new(0)
+    goals_scored_as_visitor.each do |key1, value1|
+      games_played_as_visitor.each do |key2, value2|
+        if key1 == key2
+          average_goals_per_game[key1] = value1.to_f / value2.to_f
+        else
+        end
+      end
+    end
+    lowest_scoring_team = average_goals_per_game.min_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return lowest_scoring_team_name = team.team_name if team.team_id == lowest_scoring_team[0]}
+    lowest_scoring_team_name
   end
 
   def lowest_scoring_home_team
-
+    goals_scored_at_home = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+      if game.hoa == "home"
+        team_hash[game.team_id] += game.goals.to_i
+      else
+      end
+    end
+    games_played_at_home = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+      if game.hoa == "home"
+        team_hash[game.team_id] += 1
+      else
+      end
+    end
+    average_goals_per_game = Hash.new(0)
+    goals_scored_at_home.each do |key1, value1|
+      games_played_at_home.each do |key2, value2|
+        if key1 == key2
+          average_goals_per_game[key1] = value1.to_f / value2.to_f
+        else
+        end
+      end
+    end
+    lowest_scoring_team = average_goals_per_game.min_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return lowest_scoring_team_name = team.team_name if team.team_id == lowest_scoring_team[0]}
+    lowest_scoring_team_name
   end
 #-------------- Season Statics Methods --------
 end
