@@ -14,9 +14,9 @@ class StatTracker
     @games = game_init(data)
     @teams = teams_init(data)
     @game_teams = game_teams_init(data)
-    @seasons = Season.new(@games)
-    @league = League.new(@teams, @games)
-    @game_stats = GameStats.new(@teams)
+    # @seasons = Season.new(@games)           # Might use later, not yet implemented
+    # @league = League.new(@teams, @games)    # Might use later, not yet implemented
+    # @game_stats = GameStats.new(@teams)     # Might use later, not yet implemented
   end
 
   def game_init(data)
