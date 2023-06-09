@@ -257,4 +257,21 @@ class StatTracker
 
     return team_with_most_tackles.team_name
   end
+
+  def fewest_tackles(season)
+    season_data = find_season(season)
+    team_tackles = Hash.new(0)
+  
+    season_data.game_teams.each do |game_team|
+      team_id = game_team.team_id
+      tackles = game_team.tackles
+  
+      team_tackles[team_id] += tackles
+    end
+  
+    team_id_with_fewest_tackles = team_tackles.min_by { |_, tackles| tackles }[0]
+    team_with_fewest_tackles = @teams.find { |team| team.id == team_id_with_fewest_tackles }
+  
+    team_with_fewest_tackles.team_name
+  end
 end
