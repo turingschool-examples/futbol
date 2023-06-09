@@ -33,3 +33,15 @@ Ian Lyell - https://www.linkedin.com/in/ian-lyell-1a7479279/
 Dylan Timmons - https://www.linkedin.com/in/dylan-timmons-7264a116b/
                 https://github.com/DylanScotty
                 
+
+# Retro
+- Link to board: https://easyretro.io/publicboard/aOzrcMtRlXNaIOQHUwFzFHztvrs2/1938fb3b-9a18-41f2-a7c6-419aacd803d5
+
+## Top 3 That Went Well
+1. Communication
+2. Structure and planning
+3. Time management
+## Top 3 To Improve
+1. Thoroughness to instructions
+2. Syntax
+3. Could slightly optimize workflow / number of commits per person
