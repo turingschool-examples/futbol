@@ -48,13 +48,6 @@ end
     return output.away_goals + output.home_goals
   end
 
-  def percentage_ties
-
-  end
-
-  def count_of_games_by_season
-
-  end
 
   #league_stats
 
