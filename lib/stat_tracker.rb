@@ -127,12 +127,19 @@ class StatTracker
 
   # Season Statistics
 
-  def winningest_coach
-
+  def winningest_coach(season_id)
+    games_in_season = @game_teams.find_all do |game|
+      game.game_id[0..3] == season_id[0..3]
+    end
+    grouped_by_coach = games_in_season.group_by { |game| game.head_coach }
+    wins_by_coach = grouped_by_coach.each do |coach, games|
+      grouped_by_coach[coach] = games.find_all { |game| game.result == "WIN"}.length
+    end
+    wins_by_coach.sort_by { |coach, wins| wins }.last[0]
   end
 
   def worst_coach
-
+    
   end
 
   def most_accurate_team
