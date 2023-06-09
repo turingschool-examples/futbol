@@ -14,7 +14,7 @@ class StatTracker
     @game_teams = create_game_teams(locations[:game_teams])
   end
 
-# helper methods
+  # Helper methods for initialization
   def read_csv(file_path)
     CSV.parse(File.read(file_path), headers: true, header_converters: :symbol)
   end
