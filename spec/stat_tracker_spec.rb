@@ -12,6 +12,7 @@ RSpec.describe 'Stat_Tracker' do
   it 'creates GameFactory with games as a hash' do
     stat_tracker = StatTracker.new
     stat_tracker.from_csv(path)
+    stat_tracker.create_games_array(path).percentage_home_wins
   end
 
   it 'creates TeamFactory with team as a hash' do
