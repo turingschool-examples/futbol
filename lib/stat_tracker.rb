@@ -25,17 +25,18 @@ class StatTracker
       @game_by_team << Game_By_Team.new(row)
     end
   end
+      
 
 #---------Game Statics Methods-----------
   def percentage_ties
     tie_count = @games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
     percentage = (tie_count.to_f / @games.count.to_f).round(4) * 100
-    p percentage
+    percentage
   end
 
   def count_of_games_by_season
   season_games = @games.each_with_object(Hash.new(0)) {|game, hash| hash[game.season] += 1}
-  p season_games
+  season_games
   end
 
   def highest_total_score
@@ -78,6 +79,26 @@ class StatTracker
     @games.count * home_wins.count / 100.to_f
   end
 
+  def average_goals_by_season
+    goals_by_season = {}
+    @games.each do |game|
+      away = game.away_goals.to_i
+      home = game.home_goals.to_i
+
+      if goals_by_season.key?(game.season)
+        goals_by_season[game.season] += (away + home)
+      else
+        goals_by_season[game.season] = away + home
+      end
+    end
+
+    average_goals_by_s = {}
+    goals_by_season.each do |key, value|
+      average_goals_by_s[key] = (value.to_f / count_of_games_by_season[key]).round(2)
+    end
+
+    average_goals_by_s
+  end
 #-------------- League Statics Methods --------
   def count_of_teams
     @teams.count
@@ -147,32 +168,10 @@ class StatTracker
 
   def highest_scoring_visitor
     highest_average_score = 0
-    highest_scoring_team = ''
+    highest_scoring_team = ""
 
     @game_by_team.each do |game|
-      next unless game.hoa == 'away'  
-    
-      team = @teams.find { |t| t.team_id == game.team_id }  
-      next unless team  
-    
-      total_games = @game_by_team.count { |g| g.team_id == team.team_id }
-      average_score = (game.goals.to_f / total_games)
-    
-      if average_score > highest_average_score
-        highest_average_score = average_score
-        highest_scoring_team = team.team_name
-      end
-    end
-
-    highest_scoring_team
-  end
-
-  def highest_scoring_home_team
-    highest_average_score = 0
-    highest_scoring_team = ''
-
-    @game_by_team.each do |game|
-      next unless game.hoa == 'home'
+      next unless game.hoa == "away"
 
       team = @teams.find { |t| t.team_id == game.team_id }
       next unless team
@@ -188,7 +187,29 @@ class StatTracker
 
     highest_scoring_team
   end
-end
+
+  def highest_scoring_home_team
+    highest_average_score = 0
+    highest_scoring_team = ""
+
+    @game_by_team.each do |game|
+      next unless game.hoa == "home"
+
+      team = @teams.find { |t| t.team_id == game.team_id }
+      next unless team
+
+      total_games = @game_by_team.count { |g| g.team_id == team.team_id }
+      average_score = (game.goals.to_f / total_games)
+
+      if average_score > highest_average_score
+        highest_average_score = average_score
+        highest_scoring_team = team.team_name
+      end
+    end
+
+    highest_scoring_team
+  end
+
 #-------------- Season Statics Methods --------
   def most_tackles
     total_tackle_by_team = {}
@@ -258,7 +279,6 @@ end
     result = least_accurate.min_by { |key, value| value }&.first
     final_result = @teams.find { |team| team.team_id == result }
     final_result.team_name
-    require 'pry'; binding.pry
   end
 
   def total_goals_by_teams
@@ -271,6 +291,38 @@ end
       end
     end
     total_goals
+  end
+
+  def winningest_coach(season_id)
+    coachs = []
+    @game_by_team.find_all do |game|
+      coachs << game.head_coach
+    end
+    games_by_season = []
+    @games.each do |game| 
+      games_by_season << game.game_id if game.season == season_id
+    end
+    coachs.uniq!.max_by do |coach|
+      coach_wins = @game_by_team.find_all {|game|  (game.head_coach == coach && game.result == "WIN") && (games_by_season.include?(game.game_id))}
+      coach_games = game_by_team.find_all {|game| game.head_coach == coach}
+      ((coach_wins.count.to_f / coach_games.count.to_f) * 100)
+    end
+  end
+
+  def worst_coach(season_id)
+    coachs = []
+    @game_by_team.find_all do |game|
+      coachs << game.head_coach
+    end
+    games_by_season = []
+    @games.each do |game| 
+      games_by_season << game.game_id if game.season == season_id
+    end
+    coachs.uniq!.max_by do |coach|
+      coach_wins = @game_by_team.find_all {|game|  game.head_coach == coach && game.result == "LOSS" && (games_by_season.include?(game.game_id))}
+      coach_games = @game_by_team.find_all {|game| game.head_coach == coach}
+      ((coach_wins.count.to_f / coach_games.count.to_f) * 100)
+    end
   end
 end
 
