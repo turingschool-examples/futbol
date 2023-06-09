@@ -56,7 +56,7 @@ class StatTracker
   end
 
   def create_game_teams(file_path)
-    data = csv_reader(file_path)
+    data = read_csv(file_path)
     game_teams = []
     data.each do |row|
       game_teams << GameTeam.new(
