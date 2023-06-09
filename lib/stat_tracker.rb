@@ -29,8 +29,10 @@ class StatTracker
   end
 
   def lowest_total_score
-
-
+    output = @games.min do |game1, game2|
+      (game1.away_goals + game1.home_goals) <=> (game2.away_goals + game2.home_goals)
+    end
+    return output.away_goals + output.home_goals
   end
 
   def percentage_ties
