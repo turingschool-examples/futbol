@@ -93,7 +93,7 @@ RSpec.describe StatTracker do
 
   it "has a most accurate team" do
     #Name of the Team with the best ratio of shots to goals for the season	
-    expect(@stat_tracker.most_accurate_team("20122013")).to eq("")
+    expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
   end
 
   xit "has a least accurate team" do
