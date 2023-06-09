@@ -120,4 +120,11 @@ RSpec.describe StatTracker do
       expect(test_game_team.team_id).to eq(expected_game_team_data[:team_id])
     end
   end
+
+  describe "#count_of_teams" do
+    it "returns the number of teams in the league" do
+      expect(@stat_tracker.count_of_teams).to be_a(Integer)
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+  end
 end
