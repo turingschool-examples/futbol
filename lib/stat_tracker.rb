@@ -131,6 +131,15 @@ class StatTracker
 
   end
 
+  def calculate_team_scores(team_id_key)
+    team_scores = Hash.new(0)
+    @games.each do |game|
+      team_id = game.send(team_id_key)
+      team_scores[team_id] += game.home_goals + game.away_goals
+    end
+    team_scores
+  end
+
   # Season Statistics
 
   def winningest_coach
@@ -141,38 +150,49 @@ class StatTracker
 
   end
 
-  def most_accurate_team
-    team_accuracies = calculate_team_accuracies
-    team_accuracies.max_by { |team, _| team_accuracies[team] }[0]
+  def most_accurate_team(season)
+    season_games = organize_games_by_season(season)
+    team_accuracies = calculate_team_accuracies(season, season_games)
+    team_accuracies.max_by { |_, accuracy| accuracy }[0]
+  end
+  
+  def least_accurate_team(season)
+    season_games = organize_games_by_season(season)
+    team_accuracies = calculate_team_accuracies(season, season_games)
+    team_accuracies.min_by { |_, accuracy| accuracy }[0]
   end
 
-  def least_accurate_team
-    team_accuracies = calculate_team_accuracies
-    team_accuracies.min_by { |team, _| team_accuracies[team] }[0]
-  end
-
-  def calculate_team_accuracies
+  def calculate_team_accuracies(season_id, season_games)
     team_goals = Hash.new { |hash, key| hash[key] = [0, 0] }
-    @game_teams.each do |game|
-      team_goals[game.team_id][0] += game.goals
-      team_goals[game.team_id][1] += game.shots
+  
+    season_games.each do |game_team|
+      team_goals[game_team.team_id][0] += game_team.goals
+      team_goals[game_team.team_id][1] += game_team.shots
     end
   
     team_accuracies = {}
+  
     team_goals.each do |team_id, (goals, shots)|
-      accuracy = (goals.to_f / shots.to_f) * 100
+      accuracy = shots.zero? ? 0 : (goals.to_f / shots.to_f) * 100
       team_name = team_name_by_id(team_id)
       team_accuracies[team_name] = accuracy.round(2)
     end
   
     team_accuracies
   end
+  
+
+  def organize_games_by_season(season_id)
+    games_in_season = @games.find_all {|game| game.season == season_id}
+    season_game_ids = games_in_season.map {|game| game.game_id}
+    @game_teams.find_all {|game| season_game_ids.include?(game.game_id)}
+  end
 
   def team_name_by_id(team_id)
     team = @teams.find { |team| team.team_id == team_id }
     team.team_name if team
   end
-
+  
   def most_tackles(season_id)
     games_in_season = @game_teams.find_all do |game|
       game.game_id[0..3] == season_id[0..3]
@@ -199,14 +219,7 @@ class StatTracker
     @teams.find { |team| team.team_id == highest_total.first}.team_name
   end
 
-  def calculate_team_scores(team_id_key)
-    team_scores = Hash.new(0)
-    @games.each do |game|
-      team_id = game.send(team_id_key)
-      team_scores[team_id] += game.home_goals + game.away_goals
-    end
-    team_scores
-  end
+  
   # Implement the remaining methods for statistics calculations
   # ...
 end
