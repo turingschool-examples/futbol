@@ -21,7 +21,7 @@ class StatTracker
       GameTeam.new(row)
     end
   end
-  
+
   def self.from_csv(files)
     StatTracker.new(files)
   end
@@ -75,7 +75,8 @@ class StatTracker
     home_wins = @games.find_all do |game|
       game.home_goals > game.away_goals
     end
-    @games.count / home_wins.count * 100.to_f
+    result = ((home_wins.count.to_f / @games.count) * 100) / 100
+    result.round(2)
   end
 
   def average_goals_by_season
@@ -298,7 +299,7 @@ class StatTracker
       coachs << game.head_coach
     end
     games_by_season = []
-    @games.each do |game| 
+    @games.each do |game|
       games_by_season << game.game_id if game.season == season_id
     end
     coachs.uniq!.max_by do |coach|
@@ -314,7 +315,7 @@ class StatTracker
       coachs << game.head_coach
     end
     games_by_season = []
-    @games.each do |game| 
+    @games.each do |game|
       games_by_season << game.game_id if game.season == season_id
     end
     coachs.uniq!.max_by do |coach|
