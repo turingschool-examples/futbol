@@ -44,4 +44,6 @@ class GameFactory
     percentage_wins = (visitor_wins.to_f / @games.count.to_f) * 100
     percentage_wins.round(2)
   end
+
+  
 end
