@@ -28,11 +28,11 @@ RSpec.describe StatTracker do
 
     it "can create games" do 
       expected_game_data = {
-        away_goals: "2",
+        away_goals: 2,
         away_team_id: "3",
         date_time: "5/16/13",
         game_id: "2012030221",
-        home_goals: "3",
+        home_goals: 3,
         home_team_id: "6",
         season: "20122013",
         type: "Postseason",
@@ -83,20 +83,20 @@ RSpec.describe StatTracker do
   describe "#Create_game_teams" do
     it "can create a game_team" do 
       expected_game_team_data = {
-        face_off_win_percentage: "44.8",
+        face_off_win_percentage: 44.8,
         game_id: "2012030221",
-        giveaways: "17",
-        goals: "2",
+        giveaways: 17,
+        goals: 2,
         head_coach: "John Tortorella",
         hoa: "away",
-        pim: "8",
-        power_play_goals: "0",
-        power_play_opportunities: "3",
+        pim: 8,
+        power_play_goals: 0,
+        power_play_opportunities: 3,
         result: "LOSS",
         settled_in: "OT",
-        shots: "8",
-        tackles: "44",
-        takeaways: "7",
+        shots: 8,
+        tackles: 44,
+        takeaways: 7,
         team_id: "3"
       }
 
