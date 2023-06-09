@@ -78,6 +78,26 @@ class StatTracker
     @games.count * home_wins.count / 100.to_f
   end
 
+  def average_goals_by_season
+    goals_by_season = {}
+    @games.each do |game|
+      away = game.away_goals.to_i
+      home = game.home_goals.to_i
+
+      if goals_by_season.key?(game.season)
+        goals_by_season[game.season] += (away + home)
+      else
+        goals_by_season[game.season] = away + home
+      end
+    end
+
+    average_goals_by_s = {}
+    goals_by_season.each do |key, value|
+      average_goals_by_s[key] = (value.to_f / count_of_games_by_season[key]).round(2)
+    end
+
+    average_goals_by_s
+  end
 #-------------- League Statics Methods --------
   def best_offense
     average_goals_by_team

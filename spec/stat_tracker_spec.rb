@@ -93,6 +93,16 @@ RSpec.describe StatTracker do
     }
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
+
+    it "can find the average goals per season" do
+      expect(@stat_tracker.average_goals_by_season).to eq({
+        "20122013"=>3.9,
+        "20132014"=>3.64,
+        "20142015"=>5.0,
+        "20162017"=>2.8
+      })
+    end
+
   end
 
 
