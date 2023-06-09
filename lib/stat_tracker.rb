@@ -99,10 +99,7 @@ class StatTracker
     average_goals_per_game = Hash.new(0)
     goals_scored.each do |key1, value1|
       games_played.each do |key2, value2|
-        if key1 == key2
-          average_goals_per_game[key1] = value1.to_f / value2.to_f
-        else
-        end
+          average_goals_per_game[key1] = value1.to_f / value2.to_f if key1 == key2
       end
     end
     average_goals_per_game
@@ -110,24 +107,15 @@ class StatTracker
 
   def lowest_scoring_visitor
     goals_scored_as_visitor = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
-      if game.hoa == "away"
-        team_hash[game.team_id] += game.goals.to_i
-      else
-      end
+        team_hash[game.team_id] += game.goals.to_i if game.hoa == "away"
     end
     games_played_as_visitor = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
-      if game.hoa == "away"
-        team_hash[game.team_id] += 1
-      else
-      end
+        team_hash[game.team_id] += 1 if game.hoa == "away"
     end
     average_goals_per_game = Hash.new(0)
     goals_scored_as_visitor.each do |key1, value1|
       games_played_as_visitor.each do |key2, value2|
-        if key1 == key2
-          average_goals_per_game[key1] = value1.to_f / value2.to_f
-        else
-        end
+          average_goals_per_game[key1] = value1.to_f / value2.to_f if key1 == key2
       end
     end
     lowest_scoring_team = average_goals_per_game.min_by {|team, avg_goals| avg_goals}
@@ -137,24 +125,15 @@ class StatTracker
 
   def lowest_scoring_home_team
     goals_scored_at_home = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
-      if game.hoa == "home"
-        team_hash[game.team_id] += game.goals.to_i
-      else
-      end
+        team_hash[game.team_id] += game.goals.to_i if game.hoa == "home"
     end
     games_played_at_home = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
-      if game.hoa == "home"
-        team_hash[game.team_id] += 1
-      else
-      end
+        team_hash[game.team_id] += 1 if game.hoa == "home"
     end
     average_goals_per_game = Hash.new(0)
     goals_scored_at_home.each do |key1, value1|
       games_played_at_home.each do |key2, value2|
-        if key1 == key2
-          average_goals_per_game[key1] = value1.to_f / value2.to_f
-        else
-        end
+          average_goals_per_game[key1] = value1.to_f / value2.to_f if key1 == key2
       end
     end
     lowest_scoring_team = average_goals_per_game.min_by {|team, avg_goals| avg_goals}
