@@ -6,6 +6,7 @@
   - [Organization](#approaches-to-project-organization)
   - [DTR](#dtrs)
   - [Contributors](#contributors)
+  - [Retro](#retro)
 
 
 ## Check-ins
@@ -29,6 +30,20 @@ We felt using GitHub Projects would be useful since we were already using GitHub
 
 ## Approach to code design
 We reviewed iteration 2/method requirements and used the Miro board to visualize what classes would be good choices to hold the right responsibilities to organize that data. We are planning to build class by class to first have objects to hold data/state, and then work on methods to access that data/behavior.
+
+## Retro
+Tools Used: [Mural](https://app.mural.co/t/futbolprojectretro7402/m/futbolprojectretro7402/1686253588311/c385cc206826b54edbfba89527791e949ae8db2e?sender=udf60eddcf1fd211b730a6618)
+
+What went well:
+- Giving/Recieving feedback
+- GitHub Project Board
+- Check-Ins
+
+What we would do differently:
+- Take more breaks
+- Swap/Driver Navigator more frequently
+- Spec_Harness should have been added earlier
+
 
 [back to top](#table-of-contents)
 
