@@ -1,60 +1,65 @@
 require "csv"
-require "./lib/game"
-require "./lib/team"
-require "./lib/season"
+require_relative "./game"
+require_relative "./team"
+require_relative "./season"
+require_relative "./game_teams"
 
 class StatTracker
   attr_reader :games,
               :teams
 
-  def initialize
-    @games = []
-    @teams = []
-    @season_teams = {}
-    @game_teams = []
+  def initialize(locations)
+    @games = create_games(locations[:games])
+    @teams = create_teams(locations[:teams])
+    @game_teams = create_game_teams(locations[:game_teams])
+    @season_games = {}
+    create_season_games_hash
+    @seasons = create_seasons(locations)
     @grouped_game_teams = {}
-    @seasons = []
+    group_teams
   end
   
   def create_games(game_path)
+    games = []
     game_lines = CSV.open game_path, headers: true, header_converters: :symbol
     game_lines.each do |line|
-      @games << Game.new(line)
+      games << Game.new(line)
     end
+    @games = games
   end
   
   def create_teams(teams_path)
+    teams = []
     teams_lines = CSV.open teams_path, headers: true, header_converters: :symbol
     teams_lines.each do |line|
-      @teams << Team.new(line)
+      teams << Team.new(line)
     end
+    @teams = teams
   end
 
-  def create_season_hash
-    @season_teams = @games.group_by {|game| game.season}
+  def create_season_games_hash
+    @season_games = @games.group_by {|game| game.season}
   end
 
   def create_game_teams(game_teams_path)
+    game_teams = []
     game_teams_lines = CSV.open game_teams_path, headers: true, header_converters: :symbol
     game_teams_lines.each do |line|
-      @game_teams << GameTeam.new(line)
+      game_teams << GameTeam.new(line)
     end
+    @game_teams = game_teams
   end
 
-  def create_seasons(game_path, game_teams_path, teams_path)
-    @season_teams.keys.each do |season|
-      @seasons << Season.new(game_path, game_teams_path, season, teams_path)
+  def create_seasons(locations)
+    seasons = []
+    @season_games.keys.each do |season|
+      seasons << Season.new(locations[:games], locations[:game_teams], season, locations[:teams])
     end
+    @seasons = seasons
   end
   
-  def self.from_csv(game_path, teams_path, game_teams_path)
-    stat_tracker = self.new
-    stat_tracker.create_games(game_path)
-    stat_tracker.create_teams(teams_path)
-    stat_tracker.create_season_hash
-    stat_tracker.create_game_teams(game_teams_path)
-    stat_tracker.create_seasons(game_path, game_teams_path, teams_path)
-    stat_tracker.group_teams
+  def self.from_csv(locations)
+    stat_tracker = self.new(locations)
     stat_tracker
   end
 
@@ -86,7 +91,7 @@ class StatTracker
 
   def count_of_games_by_season
     game_count = {}
-    @season_teams.each do |season, games|
+    @season_games.each do |season, games|
       game_count[season] = games.count
     end
     game_count
@@ -99,7 +104,7 @@ class StatTracker
 
   def average_goals_by_season
     goal_count = {}
-    @season_teams.each do |season, games|
+    @season_games.each do |season, games|
       averaged_goals = games.map {|game| game.goals_averaged}
       combined_average = (averaged_goals.sum.to_f/averaged_goals.count).round(2)
       goal_count[season] = combined_average
