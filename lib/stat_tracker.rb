@@ -30,12 +30,12 @@ class StatTracker
   def percentage_ties
     tie_count = @games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
     percentage = (tie_count.to_f / @games.count.to_f).round(4) * 100
-    p percentage
+    percentage
   end
 
   def count_of_games_by_season
   season_games = @games.each_with_object(Hash.new(0)) {|game, hash| hash[game.season] += 1}
-  p season_games
+  season_games
   end
 
   def highest_total_score
@@ -143,17 +143,17 @@ class StatTracker
 
   def highest_scoring_visitor
     highest_average_score = 0
-    highest_scoring_team = ''
+    highest_scoring_team = ""
 
     @game_by_team.each do |game|
-      next unless game.hoa == 'away'  
-    
-      team = @teams.find { |t| t.team_id == game.team_id }  
-      next unless team  
-    
+      next unless game.hoa == "away"
+
+      team = @teams.find { |t| t.team_id == game.team_id }
+      next unless team
+
       total_games = @game_by_team.count { |g| g.team_id == team.team_id }
       average_score = (game.goals.to_f / total_games)
-    
+
       if average_score > highest_average_score
         highest_average_score = average_score
         highest_scoring_team = team.team_name
@@ -165,10 +165,10 @@ class StatTracker
 
   def highest_scoring_home_team
     highest_average_score = 0
-    highest_scoring_team = ''
+    highest_scoring_team = ""
 
     @game_by_team.each do |game|
-      next unless game.hoa == 'home'
+      next unless game.hoa == "home"
 
       team = @teams.find { |t| t.team_id == game.team_id }
       next unless team
