@@ -106,11 +106,11 @@ RSpec.describe StatTracker do
     end
   
     it 'calculates most_accurate_team' do
-      #code here
+      expect(@stat_tracker.most_accurate_team).to eq("New York City FC")
     end
   
     it 'calculates least_accurate_team' do
-      #code here
+      expect(@stat_tracker.least_accurate_team).to eq("Sporting Kansas City")
     end
   
     it 'calculates most_tackles' do

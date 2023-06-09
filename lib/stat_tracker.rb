@@ -142,13 +142,36 @@ class StatTracker
   end
 
   def most_accurate_team
-
+    team_accuracies = calculate_team_accuracies
+    team_accuracies.max_by { |team, _| team_accuracies[team] }[0]
   end
 
   def least_accurate_team
+    team_accuracies = calculate_team_accuracies
+    team_accuracies.min_by { |team, _| team_accuracies[team] }[0]
+  end
 
+  def calculate_team_accuracies
+    team_goals = Hash.new { |hash, key| hash[key] = [0, 0] }
+    @game_teams.each do |game|
+      team_goals[game.team_id][0] += game.goals
+      team_goals[game.team_id][1] += game.shots
+    end
+
+    team_accuracies = {}
+    team_goals.each do |team_id, (goals, shots)|
+      accuracy = (goals.to_f / shots.to_f) * 100
+      team_name = team_name_by_id(team_id)
+      team_accuracies[team_name] = accuracy.round(2)
+    end
+
+    team_accuracies
   end
   
+  def team_name_by_id(team_id)
+    team = @teams.find { |team| team.team_id == team_id }
+    team.team_name if team
+  end
 
   def most_tackles(season_id)
     games_in_season = @game_teams.find_all do |game|
