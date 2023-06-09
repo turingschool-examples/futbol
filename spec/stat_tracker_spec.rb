@@ -120,5 +120,10 @@ RSpec.describe StatTracker do
     it 'calculates fewest_tackles' do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Orlando City SC")
     end
+
+    it 'does something with season id' do
+      expect(@stat_tracker.season_games("20122013")).to be_a(Array)
+      expect(@stat_tracker.season_games("20122013").length).to eq(49)
+    end
   end
 end
