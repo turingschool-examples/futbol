@@ -31,5 +31,4 @@ RSpec.describe GameFactory do
       expect(game_factory.percentage_visitor_wins).to eq(36.11)
     end   
   end
-
 end

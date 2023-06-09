@@ -8,7 +8,6 @@ RSpec.describe 'Stat_Tracker' do
   let(:path_2) { './data/teams.csv' }
   let(:path_3) { './data/game_teams.csv' }
 
-
   it 'creates GameFactory with games as a hash' do
     stat_tracker = StatTracker.new
     stat_tracker.from_csv(path)
