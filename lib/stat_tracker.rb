@@ -167,11 +167,6 @@ class StatTracker
 
     team_accuracies
   end
-  
-  def team_name_by_id(team_id)
-    team = @teams.find { |team| team.team_id == team_id }
-    team.team_name if team
-  end
 
   def most_tackles(season_id)
     games_in_season = @game_teams.find_all do |game|
