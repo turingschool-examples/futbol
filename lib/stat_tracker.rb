@@ -15,12 +15,12 @@ class StatTracker
   end
 
 # helper methods
-  def csv_reader(file_path)
+  def read_csv(file_path)
     CSV.parse(File.read(file_path), headers: true, header_converters: :symbol)
   end
 
   def create_games(file_path) 
-    data = csv_reader(file_path)
+    data = read_csv(file_path)
     games = []
     data.each do |row|
       games << Game.new(
