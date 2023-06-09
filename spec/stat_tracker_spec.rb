@@ -94,4 +94,20 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#league_statics' do
+    it '#count_of_teams' do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+
+    it '#winningest_coach' do
+
+      expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+    end
+
+    it '#worst_coach' do
+      expect(@stat_tracker.worst_coach).to eq("Glen Gulutzan")
+      
+    end
+  end
 end
