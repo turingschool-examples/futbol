@@ -154,19 +154,20 @@ class StatTracker
   def calculate_team_accuracies
     team_goals = Hash.new { |hash, key| hash[key] = [0, 0] }
     @game_teams.each do |game|
-      team_goals[game.team_id][0] += game.goals
-      team_goals[game.team_id][1] += game.shots
+      team_name = game.team_name
+      team_goals[team_name][0] += game.goals
+      team_goals[team_name][1] += game.shots
     end
-
+  
     team_accuracies = {}
-    team_goals.each do |team_id, (goals, shots)|
+    team_goals.each do |team_name, (goals, shots)|
       accuracy = (goals.to_f / shots.to_f) * 100
-      team_name = team_name_by_id(team_id)
       team_accuracies[team_name] = accuracy.round(2)
     end
-
+  
     team_accuracies
   end
+  
 
   def most_tackles(season_id)
     games_in_season = @game_teams.find_all do |game|
