@@ -194,5 +194,13 @@ end
     it "#least_accurate_team" do
       expect(@stat_tracker.least_accurate_team).to eq("Chicago Red Stars")
     end
+
+    it 'checks winningest coach' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+
+    it 'checks winningest coach' do
+      expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    end
   end
 end

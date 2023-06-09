@@ -25,6 +25,7 @@ class StatTracker
       @game_by_team << Game_By_Team.new(row)
     end
   end
+      
 
 #---------Game Statics Methods-----------
   def percentage_ties
@@ -286,6 +287,38 @@ class StatTracker
       end
     end
     total_goals
+  end
+
+  def winningest_coach(season_id)
+    coachs = []
+    @game_by_team.find_all do |game|
+      coachs << game.head_coach
+    end
+    games_by_season = []
+    @games.each do |game| 
+      games_by_season << game.game_id if game.season == season_id
+    end
+    coachs.uniq!.max_by do |coach|
+      coach_wins = @game_by_team.find_all {|game|  (game.head_coach == coach && game.result == "WIN") && (games_by_season.include?(game.game_id))}
+      coach_games = game_by_team.find_all {|game| game.head_coach == coach}
+      ((coach_wins.count.to_f / coach_games.count.to_f) * 100)
+    end
+  end
+
+  def worst_coach(season_id)
+    coachs = []
+    @game_by_team.find_all do |game|
+      coachs << game.head_coach
+    end
+    games_by_season = []
+    @games.each do |game| 
+      games_by_season << game.game_id if game.season == season_id
+    end
+    coachs.uniq!.max_by do |coach|
+      coach_wins = @game_by_team.find_all {|game|  game.head_coach == coach && game.result == "LOSS" && (games_by_season.include?(game.game_id))}
+      coach_games = @game_by_team.find_all {|game| game.head_coach == coach}
+      ((coach_wins.count.to_f / coach_games.count.to_f) * 100)
+    end
   end
 end
 
