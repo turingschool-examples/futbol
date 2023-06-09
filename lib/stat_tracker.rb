@@ -25,7 +25,11 @@ class StatTracker
       @game_by_team << Game_By_Team.new(row)
     end
   end
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> bd40b5054073d17e6b744d2db0b5c2dd8d9fb741
 #---------Game Statics Methods-----------
   def percentage_ties
     tie_count = @games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
@@ -81,6 +85,89 @@ class StatTracker
 
 #-------------- League Statics Methods --------
 #-------------- Season Statics Methods --------
+  def most_tackles
+    total_tackle_by_team = {}
+    @game_by_team.each do |game|
+      if total_tackle_by_team.key?(game.team_id)
+        total_tackle_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_tackle_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+
+    team_with_most_tackles = total_tackle_by_team.max_by { |key, value| value }&.first
+    result = @teams.find { |team| team.team_id == team_with_most_tackles }
+    result.team_name
+  end
+
+  def fewest_tackles
+    total_tackle_by_team = {}
+    @game_by_team.each do |game|
+      if total_tackle_by_team.key?(game.team_id)
+        total_tackle_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_tackle_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+
+    team_with_fewest_tackles = total_tackle_by_team.min_by { |key, value| value }&.first
+    result = @teams.find { |team| team.team_id == team_with_fewest_tackles }
+    result.team_name
+  end
+
+  def most_accurate_team
+    total_shots_by_team = {}
+    @game_by_team.each do |game|
+      if total_shots_by_team.key?(game.team_id)
+        total_shots_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_shots_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+    most_accurate = {}
+
+    total_shots_by_team.each do |key, value|
+      most_accurate[key] = value.to_f / total_goals_by_teams[key]
+    end
+
+    result = most_accurate.max_by { |key, value| value }&.first
+    final_result = @teams.find { |team| team.team_id == result }
+    final_result.team_name
+  end
+
+  def least_accurate_team
+    total_shots_by_team = {}
+    @game_by_team.each do |game|
+      if total_shots_by_team.key?(game.team_id)
+        total_shots_by_team[game.team_id] += game.tackles.to_i
+      else
+        total_shots_by_team[game.team_id] = game.tackles.to_i
+      end
+    end
+    least_accurate = {}
+
+    total_shots_by_team.each do |key, value|
+      least_accurate[key] = value.to_f / total_goals_by_teams[key]
+    end
+
+    result = least_accurate.min_by { |key, value| value }&.first
+    final_result = @teams.find { |team| team.team_id == result }
+    final_result.team_name
+    require 'pry'; binding.pry
+  end
+
+  def total_goals_by_teams
+    total_goals = {}
+    @game_by_team.each do |game|
+      if total_goals.key?(game.team_id)
+        total_goals[game.team_id] += game.goals.to_i
+      else
+        total_goals[game.team_id] = game.goals.to_i
+      end
+    end
+    total_goals
+  end
+
   def winningest_coach
     coachs = []
     @game_by_team.find_all do |game|
