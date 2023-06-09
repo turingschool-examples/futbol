@@ -100,6 +100,10 @@ class StatTracker
     average_goals_by_s
   end
 #-------------- League Statics Methods --------
+  def count_of_teams
+    @teams.count
+  end
+
   def best_offense
     average_goals_by_team
     highest_scoring_team = average_goals_by_team.max_by {|team, avg_goals| avg_goals}

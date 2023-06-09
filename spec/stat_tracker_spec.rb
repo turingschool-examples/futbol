@@ -89,6 +89,19 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
 
+  describe '#league_statics' do
+    it '#count_of_teams' do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
+
+    it '#winningest_coach' do
+
+      expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+    end
+
+    it '#worst_coach' do
+      expect(@stat_tracker.worst_coach).to eq("Glen Gulutzan")
+      
     it "can find the average goals per season" do
       expect(@stat_tracker.average_goals_by_season).to eq({
         "20122013"=>3.9,
@@ -98,9 +111,6 @@ RSpec.describe StatTracker do
       })
     end
 
-  end
-
-  describe "#league statics" do
     it "#average_goals_by_team" do
     expected = {
       "3"=>1.8064516129032258,
@@ -141,9 +151,6 @@ RSpec.describe StatTracker do
     it "#lowest_scoring_home_team" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Chicago Fire")
   end
-end
-
-  describe '#league_statics' do
 
     it "#highest_scoring_visitor" do
       expect(@stat_tracker.highest_scoring_visitor).to eq("Los Angeles FC")
