@@ -114,11 +114,11 @@ RSpec.describe StatTracker do
     end
   
     it 'calculates most_tackles' do
-      #code here
+      expect(@stat_tracker.most_tackles("20122013")).to eq("New England Revolution")
     end
   
     it 'calculates fewest_tackles' do
-      #code here
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Orlando City SC")
     end
   end
 end
