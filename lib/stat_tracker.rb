@@ -56,4 +56,62 @@ class StatTracker
   def percentage_visitor_wins
     (away_win?.to_f / @games.size).round(2)
   end
+
+  # LEAGUE STATS
+
+  def count_of_teams
+    @teams.count
+  end
+
+  # SEASON STATS
+  def winningest_coach(season_id)
+    season_games = @games.select { |game| game.season_id == season_id }
+    season_game_ids = season_games.map(&:game_id)
+
+    # Filter game_teams by season_game_ids
+    season_game_teams = @game_teams.select { |game_team| season_game_ids.include?(game_team.game_id) }
+
+    coach_wins = Hash.new(0)
+    coach_games = Hash.new(0)
+
+    season_game_teams.each do |game_team|
+      coach_games[game_team.coach] += 1
+      coach_wins[game_team.coach] += 1 if game_team.game_result == 'WIN'
+    end
+
+    win_percentages = coach_wins.each_with_object({}) do |(coach, wins), percentages|
+      percentages[coach] = wins.to_f / coach_games[coach]
+    end
+
+    win_percentages.max_by { |_, percentage| percentage }.first
+  end
+
+  def worst_coach(season_id)
+    season_games = @games.select { |game| game.season_id == season_id }
+    season_game_ids = season_games.map(&:game_id)
+
+    # Filter game_teams by season_game_ids
+    season_game_teams = @game_teams.select { |game_team| season_game_ids.include?(game_team.game_id) }
+
+    coach_wins = Hash.new(0)
+    coach_games = Hash.new(0)
+
+    season_game_teams.each do |game_team|
+      coach_games[game_team.coach] += 1
+      coach_wins[game_team.coach] += 1 if game_team.game_result == 'WIN'
+    end
+
+    worst_win_percentage = 1.0
+    worst_coach = ''
+
+    coach_games.each do |coach, games|
+      win_percentage = coach_wins[coach].to_f / games
+      if win_percentage < worst_win_percentage
+        worst_win_percentage = win_percentage
+        worst_coach = coach
+      end
+    end
+
+    worst_coach
+  end
 end
