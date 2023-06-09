@@ -84,30 +84,30 @@ RSpec.describe StatTracker do
   end
 
   it "has a best coach" do
-    expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+    expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
   end
 
   it "has a worst coach" do
-    expect(@stat_tracker.worst_coach).to eq("Mike Yeo")
+    expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
   end
 
-  xit "has a most accurate team" do
+  it "has a most accurate team" do
     #Name of the Team with the best ratio of shots to goals for the season	
-    expect(@stat_tracker.most_accurate_team).to eq("")
+    expect(@stat_tracker.most_accurate_team("20122013")).to eq("")
   end
 
   xit "has a least accurate team" do
     #Name of the Team with the worst ratio of shots to goals for the season	
-    expect(@stat_tracker.least_accurate_team).to eq("")
+    expect(@stat_tracker.least_accurate_team("20122013")).to eq("")
   end
 
   xit "has a team with most tackles" do
     # Name of the Team with the most tackles in the season	
-    expect(@stat_tracker.most_tackles).to eq("")
+    expect(@stat_tracker.most_tackles("20122013")).to eq("")
   end
 
   xit "has a team with fewest tackles" do
     #Name of the Team with the fewest tackles in the season	
-    expect(@stat_tracker.fewest_tackles).to eq("")
+    expect(@stat_tracker.fewest_tackles("20122013")).to eq("")
   end
 end
