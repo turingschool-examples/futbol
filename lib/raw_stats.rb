@@ -1,4 +1,7 @@
-require './spec/spec_helper'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
+require 'csv'
 
 class RawStats
   attr_reader :games, :teams, :game_teams
@@ -13,25 +16,3 @@ class RawStats
     CSV.read(file, headers: true, header_converters: :symbol).map { |row| class_type.new(row) }
   end
 end
-
-  # def initialize(locations)
-  #   @games = []
-  #   @teams = []
-  #   @game_teams = []
-  #   parse_games(locations[:games])
-  #   parse_teams(locations[:teams])
-  #   parse_game_teams(locations[:game_teams])
-  # end
-
-  # def parse_games(data) = CSV.foreach(data, headers:true, header_converters: :symbol) do |line|
-  #   @games << Game.new(line)
-
-  # end
-
-  # def parse_teams(data) = CSV.foreach(data, headers:true, header_converters: :symbol) do |line|
-  #   @teams <<
-  # end
-
-  # def parse_game_teams(data) = CSV.foreach(data, headers:true, header_converters: :symbol) do |line|
-
-  # end
