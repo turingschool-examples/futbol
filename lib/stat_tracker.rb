@@ -110,11 +110,17 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-
+    team_scores = calculate_team_scores(:away_team_id)
+    team_id_with_highest_score = team_scores.max_by { |_team_id, score| score }&.first
+    team_with_highest_score = @teams.find { |team| team.team_id == team_id_with_highest_score }
+    team_with_highest_score&.team_name
   end
 
   def highest_scoring_home_team
-
+    team_scores = calculate_team_scores(:home_team_id)
+    team_id_with_highest_score = team_scores.max_by { |_team_id, score| score }&.first
+    team_with_highest_score = @teams.find { |team| team.team_id == team_id_with_highest_score }
+    team_with_highest_score&.team_name
   end
 
   def lowest_scoring_visitor
@@ -169,7 +175,15 @@ class StatTracker
     highest_total = tackle_totals.min_by { |team, tackles| tackles}
     @teams.find { |team| team.team_id == highest_total.first}.team_name
   end
-  
+
+  def calculate_team_scores(team_id_key)
+    team_scores = Hash.new(0)
+    @games.each do |game|
+      team_id = game.send(team_id_key)
+      team_scores[team_id] += game.home_goals + game.away_goals
+    end
+    team_scores
+  end
   # Implement the remaining methods for statistics calculations
   # ...
 end
