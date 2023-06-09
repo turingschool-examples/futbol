@@ -6,7 +6,8 @@ class Season
                 :game_teams,
                 :game_ids,
                 :team_ids,
-                :teams
+                :teams,
+                :team_tackles
 
     def initialize(game_file, game_team_file, season, team_data)
         @games = []
@@ -15,11 +16,13 @@ class Season
         @game_ids = []
         @teams = []
         @team_ids = []
+        @team_tackles = {}
         generate_games(game_file)
         generate_game_ids
         generate_game_teams(game_team_file)
         generate_teams(team_data)
         generate_team_ids
+        tackle_data
     end
 
     def generate_games(game_file)
@@ -75,5 +78,15 @@ class Season
             game.goals_averaged
         end
         (averages.sum / averages.length).round(2)
+    end
+
+    def tackle_data
+        team_tackles = Hash.new(0)
+        @game_teams.each do |game_team|
+            team_id = game_team.team_id
+            tackles = game_team.tackles
+            team_tackles[team_id] += tackles
+        end
+        @team_tackles = team_tackles
     end
 end
