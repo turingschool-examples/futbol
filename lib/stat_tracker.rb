@@ -221,4 +221,18 @@ class StatTracker
     top_team = @teams.find {|team| team.id == top_team_id }
     top_team.team_name
   end
+
+  def least_accurate_team(season)
+    id_hash = find_season(season).game_teams.group_by { |game_team_object| game_team_object.team_id }
+    team_percentages = {}
+    id_hash.each do |team_id, games_array|
+      team_accuracy = games_array.map { |game_team_object| game_team_object.accuracy }
+      accurate_percentage = team_accuracy.sum.to_f / team_accuracy.length
+      team_percentages[team_id] = accurate_percentage
+    end
+    top_team_array = team_percentages.min_by {|team_id, percentage| percentage }
+    top_team_id = top_team_array[0]
+    top_team = @teams.find {|team| team.id == top_team_id }
+    top_team.team_name
+  end
 end
