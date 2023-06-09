@@ -6,6 +6,7 @@ require "./lib/team"
 require "./lib/season"
 require "pry"
 require "csv"
+require "./lib/game_teams"
 
 RSpec.describe Season do
     before do
@@ -39,8 +40,8 @@ RSpec.describe Season do
     end
 
     it "can generate team stats" do
-        expect(@season.team_stats).to be_an(Array)
-        expect(@season.team_stats.first.include?(:hoa)).to eq(true)
+        expect(@season.game_teams).to be_an(Array)
+        expect(@season.game_teams[0]).to be_a(GameTeam)
     end
 
     it "can keep track of all game ids" do

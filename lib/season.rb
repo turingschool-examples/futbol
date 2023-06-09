@@ -4,14 +4,14 @@ class Season
     attr_reader :games,
                 :type,
                 :season,
-                :team_stats,
+                :game_teams,
                 :game_ids,
                 :team_ids,
                 :teams
 
     def initialize(game_file, game_team_file, season, type, team_data)
         @games = []
-        @team_stats = []
+        @game_teams = []
         @season = season
         @type = type
         @game_ids = []
@@ -19,7 +19,7 @@ class Season
         @team_ids = []
         generate_games(game_file)
         generate_game_ids
-        generate_team_stats(game_team_file)
+        generate_game_teams(game_team_file)
         generate_teams(team_data)
     end
 
@@ -38,11 +38,11 @@ class Season
         end
     end
     
-    def generate_team_stats(game_team_file)
+    def generate_game_teams(game_team_file)
         game_lines = CSV.open game_team_file, headers: true, header_converters: :symbol
         game_lines.each do |line|
             if @game_ids.include?(line[:game_id])
-                @team_stats << line
+                @game_teams << GameTeam.new(line)
             end
         end
     end
