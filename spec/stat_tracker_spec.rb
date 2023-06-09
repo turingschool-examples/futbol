@@ -31,30 +31,24 @@ RSpec.describe StatTracker do
 
   describe "#from_csv" do
     it "creates game objects" do
-
       expect(@stat_tracker.games[0]).to be_a(Game)
       expect(@stat_tracker.games.count).to eq(52)
-
     end
 
     it 'creates team_games objects' do
-
       expect(@stat_tracker.game_by_team[0]).to be_a(Game_By_Team)
       expect(@stat_tracker.game_by_team.count).to eq(269)
       expect(@stat_tracker.game_by_team)
-
     end
 
     it "creates team objects" do
       expect(@stat_tracker.teams[0]).to be_a(Team)
       expect(@stat_tracker.teams.count).to eq(32)
       expect(@stat_tracker.teams)
-
     end
   end
 
   describe "#game_statics" do
-
     it "#highest_total_score" do
       expect(@stat_tracker.highest_total_score).to eq(6)
     end
@@ -88,19 +82,25 @@ RSpec.describe StatTracker do
     }
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
+  end
 
   describe '#league_statics' do
     it '#count_of_teams' do
       expect(@stat_tracker.count_of_teams).to eq(32)
     end
-
-    it '#winningest_coach' do
-
-      expect(@stat_tracker.winningest_coach).to eq("Claude Julien")
+      
+    it "can find the average goals per season" do
+      expect(@stat_tracker.average_goals_by_season).to eq({
+        "20122013"=>3.9,
+        "20132014"=>3.64,
+        "20142015"=>5.0,
+        "20162017"=>2.8
+      })
     end
 
-    it '#worst_coach' do
-      expect(@stat_tracker.worst_coach).to eq("Glen Gulutzan")
+    it '#count_of_teams' do
+      expect(@stat_tracker.count_of_teams).to eq(32)
+    end
       
     it "can find the average goals per season" do
       expect(@stat_tracker.average_goals_by_season).to eq({
@@ -150,16 +150,16 @@ RSpec.describe StatTracker do
 
     it "#lowest_scoring_home_team" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Chicago Fire")
-  end
+    end
 
-    it "#highest_scoring_visitor" do
+    it 'can calculate #highest_scoring_visitor' do
       expect(@stat_tracker.highest_scoring_visitor).to eq("Los Angeles FC")
     end
 
     it "#highest_scoring_home_team" do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Seattle Sounders FC")
+    end
   end
-end
 
   describe "#season_statistics" do
     it "#most_tackles" do
@@ -206,7 +206,7 @@ end
       expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
 
-    it 'checks winningest coach' do
+    it 'checks worst coach' do
       expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
     end
   end
