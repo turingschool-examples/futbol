@@ -90,10 +90,52 @@ RSpec.describe StatTracker do
       "20132014" => 25,
       "20142015" => 2,
       "20162017" => 5
-      }
+    }
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
+
+  describe '#league statics' do
+    it 'can determine #average_goals_by_team' do
+    expected = {
+      "3"=>1.8064516129032258,
+      "6"=>2.727272727272727,
+      "5"=>1.9,
+      "17"=>1.9285714285714286,
+      "16"=>2.1379310344827585,
+      "9"=>2.1818181818181817,
+      "8"=>1.7272727272727273,
+      "30"=>1.875,
+      "26"=>2.130434782608696,
+      "19"=>1.6666666666666667,
+      "24"=>2.3529411764705883,
+      "2"=>1.8333333333333333,
+      "15"=>1.6923076923076923,
+      "20"=>1.75,
+      "14"=>1.9230769230769231,
+      "28"=>2.4,
+      "4"=>1.0,
+      "21"=>1.7142857142857142,
+      "25"=>2.5
+    }
+    expect(@stat_tracker.average_goals_by_team).to eq(expected)
+    end
+
+    it 'can determine which team has #best_offense' do
+    expect(@stat_tracker.best_offense).to eq("FC Dallas")
+    end
+
+    it 'can determine which team has #worst_offense' do
+    expect(@stat_tracker.worst_offense).to eq("Chicago Fire")
+    end
+
+    it 'can determine which team was #lowest_scoring_visitor' do
+    expect(@stat_tracker.lowest_scoring_visitor).to eq("Seattle Sounders FC")
+    end
+
+    it 'can determine which team was #lowest_scoring_home_team' do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq("Chicago Fire")
 
   describe '#league_statics' do
 
@@ -103,6 +145,7 @@ RSpec.describe StatTracker do
 
     it 'can calculate #highest_scoring_home_team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Seattle Sounders FC")
+
     end
   end
 end
