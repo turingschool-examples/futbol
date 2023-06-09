@@ -62,11 +62,23 @@ class StatTracker
   end
 
   def average_goals_per_game
-
+    game_totals = @games.map do |game|
+      game.away_goals + game.home_goals
+    end
+    number_of_games = game_totals.length
+    game_totals.sum.fdiv(number_of_games).round(2)
   end
 
   def average_goals_by_season
-
+    result = {}
+    season_groups = @games.group_by { |game| game.season }
+    season_groups.each do |season, games|
+      season_totals = games.map { |game| game.away_goals + game.home_goals}
+      number_of_games = season_totals.length
+      season_average = season_totals.sum.fdiv(number_of_games).round(2)
+      result[season] = season_average
+    end
+    result
   end
 
   # League Statistics
@@ -145,5 +157,4 @@ class StatTracker
   
   # Implement the remaining methods for statistics calculations
   # ...
-
 end
