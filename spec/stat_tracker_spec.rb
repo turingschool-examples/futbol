@@ -35,15 +35,15 @@ RSpec.describe StatTracker do
     end
   
     it 'calculates percentage_home_wins' do
-      expect(@stat_tracker.percentage_home_wins).to eq(65.31)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.65)
     end
   
     it 'calculates percentage_visitor_wins' do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(32.65)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.33)
     end
   
     it 'calculates percentage_ties' do
-      expect(@stat_tracker.percentage_ties).to eq(2.04)
+      expect(@stat_tracker.percentage_ties).to eq(0.02)
     end
   
     it 'calculates count_of_games_by_season' do
@@ -66,13 +66,13 @@ RSpec.describe StatTracker do
 
     it 'has average_goals_by_team list (hash)' do
       expect(@stat_tracker.avg_goals_by_team).to be_a(Hash)
-      expected = {"16"=>1, "17"=>1, "3"=>1, "30"=>2, "5"=>0, "6"=>2, "8"=>1, "9"=>2}
+      expected = {"16"=>1.82, "17"=>1.86, "3"=>1.6, "30"=>2.0, "5"=>0.5, "6"=>2.67, "8"=>1.8, "9"=>2.8}
 
       expect(@stat_tracker.avg_goals_by_team).to eq(expected)
     end
   
     it 'calculates best_offense' do
-      expect(@stat_tracker.best_offense).to eq("FC Dallas")
+      expect(@stat_tracker.best_offense).to eq("New York City FC")
     end
   
     it 'calculates worst_offense' do

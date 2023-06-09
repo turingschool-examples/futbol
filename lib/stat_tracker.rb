@@ -1,7 +1,7 @@
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
-require './lib/raw_stats'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
+require_relative './raw_stats'
 
 class StatTracker
   attr_reader :stats
@@ -34,19 +34,19 @@ class StatTracker
   def percentage_home_wins
     total_games = @games.length
     home_wins = @games.count { |game| game.home_goals > game.away_goals }
-    (home_wins.to_f / total_games * 100).round(2)
+    (home_wins.to_f / total_games).round(2)
   end
 
   def percentage_visitor_wins
     total_games = @games.length
     visitor_wins = @games.count { |game| game.away_goals > game.home_goals }
-    (visitor_wins.to_f / total_games * 100).round(2)
+    (visitor_wins.to_f / total_games).round(2)
   end
 
   def percentage_ties
     total_games = @games.length
     ties = @games.count { |game| game.home_goals == game.away_goals }
-    (ties.to_f / total_games * 100).round(2)
+    (ties.to_f / total_games).round(2)
   end
 
   def count_of_games_by_season
@@ -93,24 +93,20 @@ class StatTracker
     teams_data.each do |team_id, game_info|
       sum = game_info.sum { |game| game.goals}
       num_games = game_info.count
-      teams_data[team_id] = (sum / num_games)
+      teams_data[team_id] = (sum / num_games.to_f).round(2)
     end
   end
 
   def best_offense
-    highest = avg_goals_by_team.max_by do |team_id, avg_goals|
-      avg_goals
-    end
-    team = @teams.find { |team| team.team_id == highest[0]}
-    team.team_name
+    highest = avg_goals_by_team.max_by { |team_id, avg_goals|  avg_goals }
+    best = @teams.find { |team| team.team_id == highest[0]}
+    best.team_name
   end
 
   def worst_offense
-    lowest = avg_goals_by_team.min_by do |team_id, avg_goals|
-      avg_goals
-    end
-    team = @teams.find { |team| team.team_id == lowest[0]}
-    team.team_name
+    lowest = avg_goals_by_team.min_by { |team_id, avg_goals|avg_goals }
+    worst = @teams.find { |team| team.team_id == lowest[0]}
+    worst.team_name
   end
 
   def highest_scoring_visitor
