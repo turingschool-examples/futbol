@@ -2,18 +2,16 @@ require "csv"
 
 class Season
     attr_reader :games,
-                :type,
                 :season,
                 :game_teams,
                 :game_ids,
                 :team_ids,
                 :teams
 
-    def initialize(game_file, game_team_file, season, type, team_data)
+    def initialize(game_file, game_team_file, season, team_data)
         @games = []
         @game_teams = []
         @season = season
-        @type = type
         @game_ids = []
         @teams = []
         @team_ids = []
@@ -26,7 +24,7 @@ class Season
     def generate_games(game_file)
         game_lines = CSV.open game_file, headers: true, header_converters: :symbol
         game_lines.each do |line|
-            if line[:season] == @season && line[:type] == @type
+            if line[:season] == @season
                 @games << Game.new(line)
             end
         end
