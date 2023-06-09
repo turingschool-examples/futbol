@@ -80,10 +80,6 @@ class StatTracker
   end
 
 #-------------- League Statics Methods --------
-  def count_of_teams
-    @teams.count
-  end
-
 #-------------- Season Statics Methods --------
   def winningest_coach
     coachs = []
