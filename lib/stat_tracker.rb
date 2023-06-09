@@ -4,21 +4,32 @@ require_relative 'game_team'
 require 'CSV'
 
 class StatTracker
-
+  attr_reader :games, :teams, :game_teams
+  # , :seasons, :league
+  
+  def self.from_csv(locations)
+    StatTracker.new(locations)
+  end
   def initialize(data)
-    @games = CSV.read(data[:games], headers: true, header_converters: :symbol).map {|row| Game.new(row) }
-    @teams = CSV.read(data[:teams], headers: true, header_converters: :symbol).map {|row| Team.new(row) }
-    @game_teams = CSV.read(data[:game_teams], headers: true, header_converters: :symbol).map {|row| GameTeam.new(row) }
+    @games = game_init(data)
+    @teams = teams_init(data)
+    @game_teams = game_teams_init(data)
+    # @seasons = Season.new(@games)
+    # @league = League.new(@teams, @games)
+    # @game_stats = GameStats.new(@teams)
   end
 
-  def self.from_csv(data)
-    new(data)
-    
+  def game_init(data)
+    CSV.read(data[:games], headers: true, header_converters: :symbol).map {|row| Game.new(row) }
   end
 
+  def teams_init(data)
+    CSV.read(data[:teams], headers: true, header_converters: :symbol).map {|row| Team.new(row) }
+  end
 
-
-
+  def game_teams_init(data)
+    CSV.read(data[:game_teams], headers: true, header_converters: :symbol).map {|row| GameTeam.new(row) }
+  end
 
   #game_stats
   def highest_total_score
