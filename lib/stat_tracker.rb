@@ -1,6 +1,7 @@
 require "csv"
 require "./lib/game"
 require "./lib/team"
+require "./lib/season"
 
 class StatTracker
   attr_reader :games,
@@ -9,9 +10,10 @@ class StatTracker
   def initialize
     @games = []
     @teams = []
-    @season_hash = {}
+    @season_teams = {}
     @game_teams = []
     @grouped_game_teams = {}
+    @seasons = []
   end
   
   def create_games(game_path)
@@ -29,13 +31,19 @@ class StatTracker
   end
 
   def create_season_hash
-    @season_hash = @games.group_by {|game| game.season}
+    @season_teams = @games.group_by {|game| game.season}
   end
 
   def create_game_teams(game_teams_path)
     game_teams_lines = CSV.open game_teams_path, headers: true, header_converters: :symbol
     game_teams_lines.each do |line|
       @game_teams << GameTeam.new(line)
+    end
+  end
+
+  def create_seasons(game_path, game_teams_path, teams_path)
+    @season_teams.keys.each do |season|
+      @seasons << Season.new(game_path, game_teams_path, season, teams_path)
     end
   end
   
@@ -45,6 +53,7 @@ class StatTracker
     stat_tracker.create_teams(teams_path)
     stat_tracker.create_season_hash
     stat_tracker.create_game_teams(game_teams_path)
+    stat_tracker.create_seasons(game_path, game_teams_path, teams_path)
     stat_tracker.group_teams
     stat_tracker
   end
@@ -77,7 +86,7 @@ class StatTracker
 
   def count_of_games_by_season
     game_count = {}
-    @season_hash.each do |season, games|
+    @season_teams.each do |season, games|
       game_count[season] = games.count
     end
     game_count
@@ -90,7 +99,7 @@ class StatTracker
 
   def average_goals_by_season
     goal_count = {}
-    @season_hash.each do |season, games|
+    @season_teams.each do |season, games|
       averaged_goals = games.map {|game| game.goals_averaged}
       combined_average = (averaged_goals.sum.to_f/averaged_goals.count).round(2)
       goal_count[season] = combined_average
@@ -171,8 +180,9 @@ class StatTracker
     worst_team.team_name
   end
 
-  def coach_stats 
-    coach_data = @game_teams.group_by {|game| game.head_coach}
+  def coach_stats(season)
+    coach_data = find_season(season).game_teams.group_by {|game| game.head_coach}
+    # require 'pry'; binding.pry
     coach_percentages = {}
     coach_data.each do |coach, games|
       wins = games.count { |game| game.result == "WIN" }
@@ -181,18 +191,48 @@ class StatTracker
     end
     coach_percentages
   end
+  
+  def find_season(season_id)
+    @seasons.find do |season|
+      season.season == season_id
+    end
+  end
 
-  def winningest_coach
-    best_coach_stats = coach_stats.max_by {|coach, percentage| percentage}
+  def winningest_coach(season)
+    best_coach_stats = coach_stats(season).max_by {|coach, percentage| percentage}
     best_coach_stats[0]
   end
 
-  def worst_coach
-    worst_coach_stats = coach_stats.min_by {|coach, percentage| percentage}
+  def worst_coach(season)
+    worst_coach_stats = coach_stats(season).min_by {|coach, percentage| percentage}
     worst_coach_stats[0]
   end
 
-  def most_accurate_team
-    
+  def most_accurate_team(season)
+    id_hash = find_season(season).game_teams.group_by { |game_team_object| game_team_object.team_id }
+    team_percentages = {}
+    id_hash.each do |team_id, games_array|
+      team_accuracy = games_array.map { |game_team_object| game_team_object.accuracy }
+      accurate_percentage = team_accuracy.sum.to_f / team_accuracy.length
+      team_percentages[team_id] = accurate_percentage
+    end
+    top_team_array = team_percentages.max_by {|team_id, percentage| percentage }
+    top_team_id = top_team_array[0]
+    top_team = @teams.find {|team| team.id == top_team_id }
+    top_team.team_name
+  end
+
+  def least_accurate_team(season)
+    id_hash = find_season(season).game_teams.group_by { |game_team_object| game_team_object.team_id }
+    team_percentages = {}
+    id_hash.each do |team_id, games_array|
+      team_accuracy = games_array.map { |game_team_object| game_team_object.accuracy }
+      accurate_percentage = team_accuracy.sum.to_f / team_accuracy.length
+      team_percentages[team_id] = accurate_percentage
+    end
+    top_team_array = team_percentages.min_by {|team_id, percentage| percentage }
+    top_team_id = top_team_array[0]
+    top_team = @teams.find {|team| team.id == top_team_id }
+    top_team.team_name
   end
 end

@@ -45,7 +45,7 @@ class Season
             end
         end
     end
-
+        
     def generate_team_ids
         @games.each do |game|
             if !@team_ids.include?(game.away_team_id)
