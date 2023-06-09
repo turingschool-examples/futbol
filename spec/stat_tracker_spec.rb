@@ -10,10 +10,15 @@ require "csv"
 
 RSpec.describe StatTracker do
   before do
-    game_path = './data/games_sampl.csv'
-    teams_path = './data/teams_sampl.csv'
-    game_teams_path = './data/game_teams_sampl.csv'
-    @stat_tracker = StatTracker.from_csv(game_path, teams_path, game_teams_path)
+    game_path = "./data/games_sampl.csv"
+    teams_path = "./data/teams_sampl.csv"
+    game_teams_path = "./data/game_teams_sampl.csv"
+    locations = {
+      games: game_path,
+      teams: teams_path,
+      game_teams: game_teams_path
+    }
+    @stat_tracker = StatTracker.from_csv(locations)
   end
 
   it "exists" do
