@@ -204,7 +204,7 @@ class StatTracker
 
     highest_scoring_team
   end
-end
+
 #-------------- Season Statics Methods --------
   def most_tackles
     total_tackle_by_team = {}
@@ -274,7 +274,6 @@ end
     result = least_accurate.min_by { |key, value| value }&.first
     final_result = @teams.find { |team| team.team_id == result }
     final_result.team_name
-    require 'pry'; binding.pry
   end
 
   def total_goals_by_teams
