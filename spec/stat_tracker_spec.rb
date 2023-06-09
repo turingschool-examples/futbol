@@ -95,8 +95,6 @@ RSpec.describe StatTracker do
     end
   end
 
-
-
   describe '#league statics' do
     it 'can determine #average_goals_by_team' do
     expected = {
@@ -137,6 +135,8 @@ RSpec.describe StatTracker do
 
     it 'can determine which team was #lowest_scoring_home_team' do
     expect(@stat_tracker.lowest_scoring_home_team).to eq("Chicago Fire")
+  end
+end
 
   describe '#league_statics' do
 
@@ -146,6 +146,8 @@ RSpec.describe StatTracker do
 
     it 'can calculate #highest_scoring_home_team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Seattle Sounders FC")
+  end
+end
 
   describe "#season_statistics" do
     it "can display the name of the team with the most tackles in the season" do
