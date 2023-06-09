@@ -80,19 +80,19 @@ RSpec.describe StatTracker do
     end
   
     it 'calculates highest_scoring_visitor' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq("LA Galaxy")
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
   
     it 'calculates highest_scoring_home_team' do
-      expect(@stat_tracker.highest_scoring_home_team).to eq("New England Revolution")
+      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
     end
   
     it 'calculates lowest_scoring_visitor' do
-      #code here
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Seattle Sounders FC")
     end
   
     it 'calculates lowest_scoring_home_team' do
-      #code here
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Orlando City SC")
     end
   end
 

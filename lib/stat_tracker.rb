@@ -110,25 +110,50 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    team_scores = calculate_team_scores(:away_team_id)
+    team_scores = average_team_scores("away")
     team_id_with_highest_score = team_scores.max_by { |_team_id, score| score }&.first
     team_with_highest_score = @teams.find { |team| team.team_id == team_id_with_highest_score }
     team_with_highest_score&.team_name
   end
 
   def highest_scoring_home_team
-    team_scores = calculate_team_scores(:home_team_id)
+    team_scores = average_team_scores("home")
     team_id_with_highest_score = team_scores.max_by { |_team_id, score| score }&.first
     team_with_highest_score = @teams.find { |team| team.team_id == team_id_with_highest_score }
     team_with_highest_score&.team_name
   end
-
+  
   def lowest_scoring_visitor
-
+    away_scores = average_team_scores("away")
+    away_with_lowest_score = away_scores.min_by { |team_id, score| score}.first
+    team_with_lowest_score = @teams.find { |team| team.team_id == away_with_lowest_score }
+    team_with_lowest_score.team_name
   end
 
   def lowest_scoring_home_team
+    home_scores = average_team_scores("home")
+    home_with_lowest_score = home_scores.min_by { |team_id, score| score}.first
+    team_with_lowest_score = @teams.find { |team| team.team_id == home_with_lowest_score }
+    team_with_lowest_score.team_name
+  end
 
+  # this is a helper method for lowest scoring visitor/team
+  def average_team_scores(away_or_home)
+    if away_or_home == "away"
+      away_data = @games.group_by { |game| game.away_team_id }
+      away_data.each do |team_id, game_info|
+        sum = game_info.sum { |game| game.away_goals }
+        game_count = game_info.count
+        away_data[team_id] = (sum / game_count.to_f).round(2)
+        end
+    else away_or_home == "home"
+      home_data = @games.group_by { |game| game.home_team_id }
+      home_data.each do |team_id, game_info|
+        sum = game_info.sum { |game| game.home_goals }
+        game_count = game_info.count
+        home_data[team_id] = (sum / game_count.to_f).round(2)
+        end
+    end
   end
 
   def calculate_team_scores(team_id_key)
@@ -218,8 +243,4 @@ class StatTracker
     highest_total = tackle_totals.min_by { |team, tackles| tackles}
     @teams.find { |team| team.team_id == highest_total.first}.team_name
   end
-
-  
-  # Implement the remaining methods for statistics calculations
-  # ...
 end
