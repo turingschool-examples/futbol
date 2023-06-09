@@ -140,5 +140,49 @@ class StatTracker
     @teams.each {|team| return lowest_scoring_team_name = team.team_name if team.team_id == lowest_scoring_team[0]}
     lowest_scoring_team_name
   end
-#-------------- Season Statics Methods --------
+
+  def highest_scoring_visitor
+    highest_average_score = 0
+    highest_scoring_team = ''
+
+    @game_by_team.each do |game|
+      next unless game.hoa == 'away'  
+    
+      team = @teams.find { |t| t.team_id == game.team_id }  
+      next unless team  
+    
+      total_games = @game_by_team.count { |g| g.team_id == team.team_id }
+      average_score = (game.goals.to_f / total_games)
+    
+      if average_score > highest_average_score
+        highest_average_score = average_score
+        highest_scoring_team = team.team_name
+      end
+    end
+
+    highest_scoring_team
+  end
+
+  def highest_scoring_home_team
+    highest_average_score = 0
+    highest_scoring_team = ''
+
+    @game_by_team.each do |game|
+      next unless game.hoa == 'home'
+
+      team = @teams.find { |t| t.team_id == game.team_id }
+      next unless team
+
+      total_games = @game_by_team.count { |g| g.team_id == team.team_id }
+      average_score = (game.goals.to_f / total_games)
+
+      if average_score > highest_average_score
+        highest_average_score = average_score
+        highest_scoring_team = team.team_name
+      end
+    end
+
+    highest_scoring_team
+  end
 end
+#-------------- Season Statics Methods --------
