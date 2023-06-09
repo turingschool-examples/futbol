@@ -41,7 +41,6 @@ class StatTracker
   def highest_total_score
     highest_score = 0
     @games.each do |game|
-      # binding.pry
       total_score = game.home_goals.to_i + game.away_goals.to_i
       highest_score = total_score if total_score > highest_score
     end
@@ -80,6 +79,112 @@ class StatTracker
   end
 
 #-------------- League Statics Methods --------
+  def best_offense
+    average_goals_by_team
+    highest_scoring_team = average_goals_by_team.max_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return highest_scoring_team_name = team.team_name if team.team_id == highest_scoring_team[0]}
+    highest_scoring_team_name
+  end
+
+  def worst_offense
+    average_goals_by_team
+    lowest_scoring_team = average_goals_by_team.min_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return lowest_scoring_team_name = team.team_name if team.team_id == lowest_scoring_team[0]}
+    lowest_scoring_team_name
+  end
+
+  def average_goals_by_team
+    goals_scored = @game_by_team.each_with_object(Hash.new(0)) {|game, team_hash| team_hash[game.team_id] += game.goals.to_i}
+    games_played = @game_by_team.each_with_object(Hash.new(0)) {|game, team_hash| team_hash[game.team_id] += 1}
+    average_goals_per_game = Hash.new(0)
+    goals_scored.each do |key1, value1|
+      games_played.each do |key2, value2|
+          average_goals_per_game[key1] = value1.to_f / value2.to_f if key1 == key2
+      end
+    end
+    average_goals_per_game
+  end
+
+  def lowest_scoring_visitor
+    goals_scored_as_visitor = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+        team_hash[game.team_id] += game.goals.to_i if game.hoa == "away"
+    end
+    games_played_as_visitor = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+        team_hash[game.team_id] += 1 if game.hoa == "away"
+    end
+    average_goals_per_game = Hash.new(0)
+    goals_scored_as_visitor.each do |key1, value1|
+      games_played_as_visitor.each do |key2, value2|
+          average_goals_per_game[key1] = value1.to_f / value2.to_f if key1 == key2
+      end
+    end
+    lowest_scoring_team = average_goals_per_game.min_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return lowest_scoring_team_name = team.team_name if team.team_id == lowest_scoring_team[0]}
+    lowest_scoring_team_name
+  end
+
+  def lowest_scoring_home_team
+    goals_scored_at_home = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+        team_hash[game.team_id] += game.goals.to_i if game.hoa == "home"
+    end
+    games_played_at_home = @game_by_team.each_with_object(Hash.new(0)) do |game, team_hash|
+        team_hash[game.team_id] += 1 if game.hoa == "home"
+    end
+    average_goals_per_game = Hash.new(0)
+    goals_scored_at_home.each do |key1, value1|
+      games_played_at_home.each do |key2, value2|
+          average_goals_per_game[key1] = value1.to_f / value2.to_f if key1 == key2
+      end
+    end
+    lowest_scoring_team = average_goals_per_game.min_by {|team, avg_goals| avg_goals}
+    @teams.each {|team| return lowest_scoring_team_name = team.team_name if team.team_id == lowest_scoring_team[0]}
+    lowest_scoring_team_name
+  end
+
+  def highest_scoring_visitor
+    highest_average_score = 0
+    highest_scoring_team = ''
+
+    @game_by_team.each do |game|
+      next unless game.hoa == 'away'  
+    
+      team = @teams.find { |t| t.team_id == game.team_id }  
+      next unless team  
+    
+      total_games = @game_by_team.count { |g| g.team_id == team.team_id }
+      average_score = (game.goals.to_f / total_games)
+    
+      if average_score > highest_average_score
+        highest_average_score = average_score
+        highest_scoring_team = team.team_name
+      end
+    end
+
+    highest_scoring_team
+  end
+
+  def highest_scoring_home_team
+    highest_average_score = 0
+    highest_scoring_team = ''
+
+    @game_by_team.each do |game|
+      next unless game.hoa == 'home'
+
+      team = @teams.find { |t| t.team_id == game.team_id }
+      next unless team
+
+      total_games = @game_by_team.count { |g| g.team_id == team.team_id }
+      average_score = (game.goals.to_f / total_games)
+
+      if average_score > highest_average_score
+        highest_average_score = average_score
+        highest_scoring_team = team.team_name
+      end
+    end
+
+    highest_scoring_team
+  end
+end
 #-------------- Season Statics Methods --------
   def most_tackles
     total_tackle_by_team = {}
@@ -164,3 +269,4 @@ class StatTracker
     total_goals
   end
 end
+
