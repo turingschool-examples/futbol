@@ -161,8 +161,17 @@ class StatTracker
     @teams.find { |team| team.team_id == highest_total.first}.team_name
   end
 
-  def fewest_tackles
-
+  def fewest_tackles(season_id)
+    games_in_season = @game_teams.find_all do |game|
+      game.game_id[0..3] == season_id[0..3]
+    end
+    games_group_by_team = games_in_season.group_by { |team| team.team_id }
+    team_tackles = games_group_by_team.map do |team, tackles|
+    [team, tackles.map { |game| game.tackles}]
+    end
+    tackle_totals = team_tackles.map {|team, tackles| [team, tackles.sum]}.to_h
+    highest_total = tackle_totals.min_by { |team, tackles| tackles}
+    @teams.find { |team| team.team_id == highest_total.first}.team_name
   end
   
   # Implement the remaining methods for statistics calculations
