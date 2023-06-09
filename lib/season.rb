@@ -19,6 +19,7 @@ class Season
         generate_game_ids
         generate_game_teams(game_team_file)
         generate_teams(team_data)
+        generate_team_ids
     end
 
     def generate_games(game_file)
