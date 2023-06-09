@@ -6,7 +6,7 @@ RSpec.describe GameFactory do
     expect(GameFactory.new).to be_a(GameFactory)
   end
 
-  it "can find the percertage of games that are ties" do
+  it "can find the percentage of games that are ties" do
     game_factory = GameFactory.new
     game_factory.create_games('./data/games.csv')
 

@@ -9,7 +9,7 @@ RSpec.describe 'Stat_Tracker' do
   let(:path_3) { './data/game_teams.csv' }
   
   it 'exists as a csv hash' do
-
+    @stat_tracker = StatTracker.new
   end
 
   it 'can establish data from csv' do

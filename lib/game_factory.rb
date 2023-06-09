@@ -43,7 +43,4 @@ class GameFactory
     end
     (ties.to_f / @games.length).round(2)
   end
-
-
-
 end
