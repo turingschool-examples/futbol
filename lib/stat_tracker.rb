@@ -40,4 +40,20 @@ class StatTracker
     end
     output.away_goals + output.home_goals
   end
+
+  def home_win?
+    @games.count { |game| game.home_goals > game.away_goals }
+  end
+
+  def percentage_home_wins
+    (home_win?.to_f / @games.size).round(2)
+  end
+
+  def away_win?
+    @games.count { |game| game.away_goals > game.home_goals }
+  end
+
+  def percentage_visitor_wins
+    (away_win?.to_f / @games.size).round(2)
+  end
 end
