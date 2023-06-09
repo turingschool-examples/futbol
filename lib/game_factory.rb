@@ -1,3 +1,5 @@
+require 'csv'
+
 class GameFactory
   attr_reader :games
 
@@ -20,9 +22,9 @@ class GameFactory
         :venue => row[:venue],
         :venue_link => row[:venue_link]
       }
-    @games.push(game_details)
+      @games.push(game_details)
+    end
   end
-end
   
   def percentage_home_wins
     home_wins = 0 
@@ -33,5 +35,12 @@ end
     end
     home_wins / @games.count * 100
   end
+  
+  def percent_of_ties
+    ties = @games.count do |game|
+      game[:away_goals] == game[:home_goals]
 
+    end
+    (ties.to_f / @games.length).round(2)
+  end
 end
