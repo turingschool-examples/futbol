@@ -235,4 +235,21 @@ class StatTracker
     top_team = @teams.find {|team| team.id == top_team_id }
     top_team.team_name
   end
+
+  def most_tackles(season)
+    season_data = find_season(season)
+    team_tackles = Hash.new(0)
+
+    season_data.game_teams.each do |game_team|
+      team_id = game_team.team_id
+      tackles = game_team.tackles
+
+      team_tackles[team_id] += tackles
+    end
+
+    team_id_with_most_tackles = team_tackles.max_by { |_, tackles| tackles }[0]
+    team_with_most_tackles = @teams.find { |team| team.id == team_id_with_most_tackles }
+
+    return team_with_most_tackles.team_name
+  end
 end
