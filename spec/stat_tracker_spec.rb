@@ -55,7 +55,7 @@ RSpec.describe StatTracker do
     end
   
     it 'calculates average_goals_by_season' do
-      #code here
+      expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>3.92}) 
     end  
   end
 
