@@ -22,6 +22,7 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.new
     @stat_tracker.from_csv(@locations)
   end
+
   describe "#exists" do
     it "exists" do
       expect(@stat_tracker).to be_a(StatTracker)
@@ -134,6 +135,14 @@ RSpec.describe StatTracker do
 
     it "can name the team with the worst ratio of shots to goals for the season"do
       expect(@stat_tracker.least_accurate_team).to eq("Chicago Red Stars")
+    end
+
+    it 'checks winningest coach' do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+
+    it 'checks winningest coach' do
+      expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
     end
   end
 end

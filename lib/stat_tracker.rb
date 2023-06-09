@@ -25,11 +25,8 @@ class StatTracker
       @game_by_team << Game_By_Team.new(row)
     end
   end
-<<<<<<< HEAD
       
-=======
 
->>>>>>> bd40b5054073d17e6b744d2db0b5c2dd8d9fb741
 #---------Game Statics Methods-----------
   def percentage_ties
     tie_count = @games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
@@ -153,7 +150,6 @@ class StatTracker
     result = least_accurate.min_by { |key, value| value }&.first
     final_result = @teams.find { |team| team.team_id == result }
     final_result.team_name
-    require 'pry'; binding.pry
   end
 
   def total_goals_by_teams
@@ -168,26 +164,34 @@ class StatTracker
     total_goals
   end
 
-  def winningest_coach
+  def winningest_coach(season_id)
     coachs = []
     @game_by_team.find_all do |game|
       coachs << game.head_coach
     end
+    games_by_season = []
+    @games.each do |game| 
+      games_by_season << game.game_id if game.season == season_id
+    end
     coachs.uniq!.max_by do |coach|
-      coach_wins = @game_by_team.find_all {|game|  (game.head_coach == coach && game.result == "WIN")}
+      coach_wins = @game_by_team.find_all {|game|  (game.head_coach == coach && game.result == "WIN") && (games_by_season.include?(game.game_id))}
       coach_games = game_by_team.find_all {|game| game.head_coach == coach}
       ((coach_wins.count.to_f / coach_games.count.to_f) * 100)
     end
   end
 
-  def worst_coach
+  def worst_coach(season_id)
     coachs = []
     @game_by_team.find_all do |game|
       coachs << game.head_coach
     end
+    games_by_season = []
+    @games.each do |game| 
+      games_by_season << game.game_id if game.season == season_id
+    end
     coachs.uniq!.max_by do |coach|
-      coach_wins = @game_by_team.find_all {|game|  (game.head_coach == coach && game.result == "LOSS")}
-      coach_games = game_by_team.find_all {|game| game.head_coach == coach}
+      coach_wins = @game_by_team.find_all {|game|  game.head_coach == coach && game.result == "LOSS" && (games_by_season.include?(game.game_id))}
+      coach_games = @game_by_team.find_all {|game| game.head_coach == coach}
       ((coach_wins.count.to_f / coach_games.count.to_f) * 100)
     end
   end
