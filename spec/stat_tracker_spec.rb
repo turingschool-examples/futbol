@@ -31,13 +31,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.games).to be_a(Array)
       expect(@stat_tracker.teams).to be_a(Array)
       expect(@stat_tracker.game_by_team).to be_a(Array)
-      
+
     end
   end
 
   describe "#from_csv" do
     it "creates game objects" do
-      
+
       expect(@stat_tracker.games[0]).to be_a(Game)
       expect(@stat_tracker.games.count).to eq(52)
 
@@ -60,7 +60,7 @@ RSpec.describe StatTracker do
   end
 
   describe '#game_statics' do
-    
+
     it "#highest_total_score" do
       expect(@stat_tracker.highest_total_score).to eq(6)
     end
@@ -76,7 +76,7 @@ RSpec.describe StatTracker do
     it 'can find the percentage of away wins' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(22.68)
     end
-    
+
     it 'can find average goals per game' do
       expect(@stat_tracker.average_goals_per_game).to eq(3.72)
     end
@@ -94,6 +94,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+
 
 
   describe '#league statics' do
@@ -146,6 +147,45 @@ RSpec.describe StatTracker do
     it 'can calculate #highest_scoring_home_team' do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Seattle Sounders FC")
 
+  describe "#season_statistics" do
+    it "can display the name of the team with the most tackles in the season" do
+      expect(@stat_tracker.most_tackles).to eq("Houston Dynamo")
+    end
+
+    it "can display the name of the team with the fewest tackles in the season" do
+      expect(@stat_tracker.fewest_tackles).to eq("Toronto FC")
+    end
+
+    it "can find the total amount of goals per team" do
+      expect(@stat_tracker.total_goals_by_teams).to eq({
+        "3"=>56,
+        "6"=>30,
+        "5"=>38,
+        "17"=>27,
+        "16"=>62,
+        "9"=>24,
+        "8"=>19,
+        "30"=>45,
+        "26"=>49,
+        "19"=>30,
+        "24"=>40,
+        "2"=>11,
+        "15"=>22,
+        "20"=>7,
+        "14"=>25,
+        "28"=>12,
+        "4"=>6,
+        "21"=>12,
+        "25"=>15
+      })
+    end
+
+    it "can name the team with the best ratio of shots to goals for the season"do
+      expect(@stat_tracker.most_accurate_team).to eq("Chicago Fire")
+    end
+
+    it "can name the team with the worst ratio of shots to goals for the season"do
+      expect(@stat_tracker.least_accurate_team).to eq("Chicago Red Stars")
     end
   end
 end
