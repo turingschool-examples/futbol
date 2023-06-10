@@ -167,12 +167,33 @@ class StatTracker
 
   # Season Statistics
 
-  def winningest_coach
-
+  def winningest_coach(season_id)
+    games_in_season = @game_teams.find_all do |game|
+      game.game_id[0..3] == season_id[0..3]
+    end
+    grouped_by_coach = games_in_season.group_by { |game| game.head_coach }
+    wins_by_coach = grouped_by_coach.each do |coach, games|
+      grouped_by_coach[coach] = games.find_all { |game| game.result == "WIN"}.length
+      # Returns a hash of Coach=>wins
+    end
+    wins_by_coach.sort_by { |coach, wins| wins }.last[0]
+    # Sorts hash into arrays from least to most wins
   end
+  # Test runs OK with fixture files.
+  # There is a tie for coach with most wins in at least one season.
+  # This MAY cause issue with spec harness.
 
-  def worst_coach
-
+  def worst_coach(season_id)
+    games_in_season = @game_teams.find_all do |game|
+      game.game_id[0..3] == season_id[0..3]
+    end
+    grouped_by_coach = games_in_season.group_by { |game| game.head_coach }
+    wins_by_coach = grouped_by_coach.each do |coach, games|
+      grouped_by_coach[coach] = games.find_all { |game| game.result == "WIN"}.length
+      # Returns a hash of Coach=>wins
+    end
+    wins_by_coach.sort_by { |coach, wins| wins }.first[0]
+    # Sorts hash into arrays from least to most wins
   end
 
   def most_accurate_team(season)

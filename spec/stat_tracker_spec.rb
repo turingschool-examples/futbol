@@ -98,11 +98,11 @@ RSpec.describe StatTracker do
 
   describe 'Season Statistics' do
     it 'calculates winningest_coach' do
-      #code here
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
-  
+    
     it 'calculates worst_coach' do
-      #code here
+      expect(@stat_tracker.worst_coach("20122013")).to eq("Dan Bylsma")
     end
   
     it 'calculates most_accurate_team' do
