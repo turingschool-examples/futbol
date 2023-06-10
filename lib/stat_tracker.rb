@@ -49,6 +49,63 @@ end
 
 
   #league_stats
+# Name of the team with the highest average number of 
+# goals scored per game across all seasons.
+  def best_offense
+    game_team_goals = {}
+    @game_teams.each do |game_team|
+      game_team_goals[game_team.team_id.to_sym] = []
+      end
+    @game_teams.each do |game_team|
+      goal_array = game_team_goals[game_team.team_id.to_sym]
+      goal_array << game_team.goals.to_i
+    end
+    game_team_goals.map do |team, goal_array|
+      game_team_goals[team] = (goal_array.sum.to_f / goal_array.length.to_f)
+    end
+
+    best_avg = game_team_goals.max_by{ |team, goals| goals }
+
+    team = @teams.find do |team|
+    best_avg[0].to_s == team.team_id
+    end
+    team.team_name
+  end
+    # make array of goals from each team's games into separate values of team total goals (goals on gameteam)
+    # add up all goals from each of those arrays -- array#sum
+    # divide each of those values by the count -- array#count
+    # find largest number
+
+  def worst_offense
+    game_team_goals = {}
+    @game_teams.each do |game_team|
+      game_team_goals[game_team.team_id.to_sym] = []
+      end
+    @game_teams.each do |game_team|
+      goal_array = game_team_goals[game_team.team_id.to_sym]
+      goal_array << game_team.goals.to_i
+    end
+    game_team_goals.map do |team, goal_array|
+      game_team_goals[team] = (goal_array.sum.to_f / goal_array.length.to_f)
+    end
+
+    worst_avg = game_team_goals.min_by{ |team, goals| goals }
+
+    team = @teams.find do |team|
+    worst_avg[0].to_s == team.team_id
+    end
+    team.team_name
+  end
 
   #season_stats
+  
+  #Name of the Team with the most tackles in the season
+  # def most_tackles(season_id)
+    # find all GameTeam objects with the season id argument
+    # iterate through these GameTeam objects
+    # return a hash with the team id pointing to an array of all the tackle stats from each game
+    # 
+
+
+  # end
 end
