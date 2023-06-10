@@ -94,5 +94,17 @@ class StatTracker
     team_goals
   end
 
-  
+  def look_up_team_name(team_id)
+    team = @team_factory.teams.find do |team|
+      team_id == team[:team_id]
+    end
+    team[:team_name]
+  end
+
+  def lowest_scoring_visitor
+    lsv = @game_factory.games.min_by do |game|
+      game[:away_goals]
+    end
+    look_up_team_name(lsv[:away_team_id])  
+  end
 end
