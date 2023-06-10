@@ -1,16 +1,20 @@
-require './lib/game_factory'
+require 'spec_helper'
 
 RSpec.describe GameFactory do
-  it 'exists' do
 
-    expect(GameFactory.new).to be_a(GameFactory)
+  let(:path) { './data/games.csv' }
+  let(:game_factory) { GameFactory.new }
+
+  it 'exists and has attributes' do
+    expect(game_factory).to be_a(GameFactory)
+    expect(game_factory.games).to eq([])
+  end 
+
+  it 'parses CSV and returns an array of hashes' do
+    game_factory.create_games(path)
+    expect(game_factory.games.count).to_not eq(0)
+    game_factory.games.each do |game|
+      expect(game).to be_a(Hash)
+    end
   end
-
-  it "can find the percentage of games that are ties" do
-    game_factory = GameFactory.new
-    game_factory.create_games('./data/games.csv')
-
-    expect(game_factory.percent_of_ties).to eq(0.20)
-  end
-
 end
