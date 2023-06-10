@@ -48,6 +48,7 @@ class StatTracker
     ties = @game_factory.games.count do |game|
       game[:away_goals] == game[:home_goals]
     end
+    (ties.to_f / @games.length).round(2)
   end
 
   def percentage_visitor_wins
