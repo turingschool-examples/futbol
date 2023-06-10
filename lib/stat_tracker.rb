@@ -31,19 +31,58 @@ class StatTracker
     game_teams_factory = GameTeamsFactory.new
     game_teams_factory.create_game_teams(path)
     game_teams_factory
-    # require 'pry'; binding.pry
   end
 
   def percentage_home_wins
-    @game_factory.percentage_home_wins
+    home_wins = 0 
+    @game_factory.games.each do |game|
+      if game[:home_goals] > game[:away_goals]
+        home_wins += 1
+      end
+    end
+    percentage_wins = (home_wins.to_f / @game_factory.games.count.to_f)
+    percentage_wins.round(2)
+  end
+  
+  def percent_of_ties
+    ties = @game_factory.games.count do |game|
+      game[:away_goals] == game[:home_goals]
+    end
+    (ties.to_f / @games.length).round(2)
   end
 
   def percentage_visitor_wins
-    @game_factory.percentage_visitor_wins
+    visitor_wins = 0 
+    @game_factory.games.each do |game|
+      if game[:away_goals] > game[:home_goals]
+        visitor_wins += 1
+      end
+    end
+    percentage_wins = (visitor_wins.to_f / @game_factory.games.count.to_f)
+    percentage_wins.round(2)
   end
 
   def percentage_ties
     @game_factory.percentage_ties
   end
 
+  def best_offense
+    team_goals = Hash.new(0)
+    @game_teams_factory.game_teams.each do |game|
+      team_goals[game[:team_id]] += game[:goals].to_i
+    end
+    best_offense_team_id = team_goals.max_by { |team_id, goals| goals }[0]
+    best_team = @team_factory.teams.find do |team|
+      if best_offense_team_id == team[:team_id]
+        team
+      end
+    end
+    best_team[:team_name]  
+  end
+
+
+
+
+
+  
 end

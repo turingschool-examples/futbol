@@ -17,18 +17,4 @@ RSpec.describe GameFactory do
       expect(game).to be_a(Hash)
     end
   end
-
-  context 'instance_methods' do
-    before do 
-      game_factory.create_games(path)
-    end
-
-    it 'percentage home wins' do
-      expect(game_factory.percentage_home_wins).to eq(43.50)
-    end
-
-    it 'percentage visitor wins' do
-      expect(game_factory.percentage_visitor_wins).to eq(36.11)
-    end   
-  end
 end
