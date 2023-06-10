@@ -122,7 +122,7 @@ class StatTracker
       team.team_id
     end
   end
-  #move into helper class?
+  
   def offense_helper
     team_average_scores = {}
     @grouped_game_teams.each do |team, games|
