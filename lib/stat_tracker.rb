@@ -31,7 +31,6 @@ def game_teams_init(data)
   CSV.read(data[:game_teams], headers: true, header_converters: :symbol).map {|row| GameTeam.new(row) }
 end
 
-# GAME STATS
 
   def highest_total_score
     output = @games.max do |game1, game2|
@@ -48,9 +47,6 @@ end
   end
 
 
-  #league_stats
-# Name of the team with the highest average number of 
-# goals scored per game across all seasons.
   def best_offense
     game_team_goals = {}
     @game_teams.each do |game_team|
@@ -71,10 +67,6 @@ end
     end
     team.team_name
   end
-    # make array of goals from each team's games into separate values of team total goals (goals on gameteam)
-    # add up all goals from each of those arrays -- array#sum
-    # divide each of those values by the count -- array#count
-    # find largest number
 
   def worst_offense
     game_team_goals = {}
@@ -96,16 +88,42 @@ end
     end
     team.team_name
   end
-
-  #season_stats
   
-  #Name of the Team with the most tackles in the season
-  # def most_tackles(season_id)
-    # find all GameTeam objects with the season id argument
-    # iterate through these GameTeam objects
-    # return a hash with the team id pointing to an array of all the tackle stats from each game
-    # 
+  def most_tackles(season_id)
+    season =  @games.find_all do |game|
+      game.season_id == season_id
+    end
+    season_game_ids = season.map do |game|
+      game.game_id
+    end
 
+    season_game_teams = []
+    @game_teams.each do |game_team|
+      if season_game_ids.include?(game_team.game_id)
+        season_game_teams << game_team
+      end
+    end
+    
+    game_team_tackles = {}
+    season_game_teams.each do |game_team|
+      game_team_tackles[game_team.team_id.to_sym] = []
+    end
 
-  # end
+    season_game_teams.each do |game_team|
+      tackle_array = game_team_tackles[game_team.team_id.to_sym]
+      tackle_array << game_team.tackles.to_i
+    end
+
+    game_team_tackles.map do |team, tackles_array|
+      game_team_tackles[team] = tackles_array.sum
+    end
+
+    most = game_team_tackles.max_by{ |team, tackles| tackles }
+    
+    team = @teams.find do |team|
+      most[0].to_s == team.team_id
+    end
+    team.team_name
+  end
+
 end
