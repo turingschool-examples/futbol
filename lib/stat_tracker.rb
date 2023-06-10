@@ -29,7 +29,7 @@ class StatTracker
 #---------Game Statics Methods-----------
   def percentage_ties
     tie_count = @games.count { |game| game.away_goals.to_i == game.home_goals.to_i }
-    percentage = (tie_count.to_f / @games.count.to_f).round(4) * 100
+    percentage = (tie_count.to_f / @games.count.to_f).round(1)
     percentage
   end
 
@@ -75,7 +75,7 @@ class StatTracker
     home_wins = @games.find_all do |game|
       game.home_goals > game.away_goals
     end
-    result = ((home_wins.count.to_f / @games.count) * 100) / 100
+    result = (home_wins.count.to_f / @games.count.to_f)
     result.round(2)
   end
 
@@ -332,36 +332,38 @@ end
   end
 
   def winningest_coach(season_id)
-    games_by_season = [] 
+    games_by_season = []
     @games.each do |game|
-      games_by_season << game.game_id if (game.season == season_id) 
+      games_by_season << game.game_id if (game.season == season_id)
     end
-    coachs = [] 
-    @game_teams.find_all do |game| 
-      coachs << game.head_coach if games_by_season.include?(game.game_id) 
-    end 
-    coachs.uniq.max_by do |coach| 
-      coach_wins = @game_teams.find_all {|game|  (game.head_coach == coach) && (game.result == "WIN") && (games_by_season.include?(game.game_id))} 
+    coachs = []
+    @game_teams.find_all do |game|
+      coachs << game.head_coach if games_by_season.include?(game.game_id)
+    end
+    coachs.uniq.max_by do |coach|
+      coach_wins = @game_teams.find_all {|game|  (game.head_coach == coach) && (game.result == "WIN") && (games_by_season.include?(game.game_id))}
       coach_games = @game_teams.find_all {|game| (game.head_coach == coach) && (games_by_season.include?(game.game_id))}
-      (coach_wins.count.to_f / coach_games.count.to_f).round(2) 
+      (coach_wins.count.to_f / coach_games.count.to_f).round(2)
     end
   end
 
   def worst_coach(season_id)
-    games_by_season = [] 
+    games_by_season = []
     @games.each do |game|
-      games_by_season << game.game_id if (game.season == season_id) 
+      games_by_season << game.game_id if (game.season == season_id)
     end
-    coachs = [] 
-    @game_teams.find_all do |game| 
-      coachs << game.head_coach if games_by_season.include?(game.game_id) 
-    end 
-    coachs.uniq.min_by do |coach| 
-      coach_wins = @game_teams.find_all {|game|  (game.head_coach == coach) && (game.result == "WIN") && (games_by_season.include?(game.game_id))} 
+    coachs = []
+    @game_teams.find_all do |game|
+      coachs << game.head_coach if games_by_season.include?(game.game_id)
+    end
+    coachs.uniq.min_by do |coach|
+      coach_wins = @game_teams.find_all {|game|  (game.head_coach == coach) && (game.result == "WIN") && (games_by_season.include?(game.game_id))}
       coach_games = @game_teams.find_all {|game| (game.head_coach == coach) && (games_by_season.include?(game.game_id))}
-      (coach_wins.count.to_f / coach_games.count.to_f).round(2) 
+      (coach_wins.count.to_f / coach_games.count.to_f).round(2)
     end
   end
+
+  #------------------------------Helper Methods---------------------------------
 end
 
 
