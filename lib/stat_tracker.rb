@@ -225,11 +225,20 @@ def season_selecter(season_id)
   selected_season = season_ids.select { |game_ids, season_ids| season_ids == season_id }
 end
 
+def games_by_s
+  games_by_season = []
+  @games.each do |game|
+    games_by_season << game.game_id if (game.season == season_id)
+  end
+  games_by_season
+end
+
+
 def most_tackles(season_id)
   tackles_by_team_season = Hash.new(0)
 
   # season_selecter(season_id).each do |game_ids, _|
-    @game_teams.find_all do |game|
+    @game_teams.each do |game|
       if season_selecter(season_id).key?(game.game_id) && tackles_by_team_season.key?(game.team_id)
         tackles_by_team_season[game.team_id] += game.tackles.to_i
       else
