@@ -7,7 +7,7 @@ class StatTracker
 
   def from_csv(path)
     if path == './data/games.csv'
-     @game_factory = create_games_factory(path)
+    @game_factory = create_games_factory(path)
     elsif path == './data/teams.csv'
       @team_factory = create_teams_factory(path)
     else
@@ -22,9 +22,9 @@ class StatTracker
   end
   
   def create_games_factory(path)
-   game_factory = GameFactory.new
-   game_factory.create_games(path)
-   game_factory
+    game_factory = GameFactory.new
+    game_factory.create_games(path)
+    game_factory
   end
 
   def create_game_teams_factory(path)
@@ -48,6 +48,7 @@ class StatTracker
     ties = @game_factory.games.count do |game|
       game[:away_goals] == game[:home_goals]
     end
+    (ties.to_f / @games.length).round(2)
   end
 
   def percentage_visitor_wins
@@ -59,6 +60,10 @@ class StatTracker
     end
     percentage_wins = (visitor_wins.to_f / @game_factory.games.count.to_f)
     percentage_wins.round(2)
+  end
+
+  def percentage_ties
+    @game_factory.percentage_ties
   end
 
   def best_offense
