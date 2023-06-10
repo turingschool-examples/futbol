@@ -61,7 +61,10 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq(16)
   end
 
-  #test offense helper method? Move helper into other class?
+  it "can create a hash with offense_helper" do
+    expect(@stat_tracker.offense_helper).to be_a Hash
+    expect(@stat_tracker.offense_helper.keys.first).to eq("3")
+  end
 
   it "can report team with best offense" do	
     expect(@stat_tracker.best_offense).to eq("New York City FC")
