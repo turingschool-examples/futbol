@@ -9,7 +9,7 @@ RSpec.describe StatTracker do
     @locations = {
       games: games_test_csv,
       teams: team_test_csv,
-      game_by_team: game_teams_test_csv
+      game_teams: game_teams_test_csv
     }
 
     @stat_tracker = StatTracker.new
@@ -24,7 +24,7 @@ RSpec.describe StatTracker do
     it "has readable attributes" do
       expect(@stat_tracker.games).to be_a(Array)
       expect(@stat_tracker.teams).to be_a(Array)
-      expect(@stat_tracker.game_by_team).to be_a(Array)
+      expect(@stat_tracker.game_teams).to be_a(Array)
 
     end
   end
@@ -36,9 +36,9 @@ RSpec.describe StatTracker do
     end
 
     it 'creates team_games objects' do
-      expect(@stat_tracker.game_by_team[0]).to be_a(Game_By_Team)
-      expect(@stat_tracker.game_by_team.count).to eq(269)
-      expect(@stat_tracker.game_by_team)
+      expect(@stat_tracker.game_teams[0]).to be_a(game_teams)
+      expect(@stat_tracker.game_teams.count).to eq(269)
+      expect(@stat_tracker.game_teams)
     end
 
     it "creates team objects" do
