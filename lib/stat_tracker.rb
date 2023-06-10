@@ -166,47 +166,47 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    highest_average_score = 0
-    highest_scoring_team = ""
-
-    @game_teams.each do |game|
-      next unless game.hoa == "away"
-
-      team = @teams.find { |t| t.team_id == game.team_id }
-      next unless team
-
-      total_games = @game_teams.count { |g| g.team_id == team.team_id }
-      average_score = (game.goals.to_f / total_games)
-
-      if average_score > highest_average_score
-        highest_average_score = average_score
-        highest_scoring_team = team.team_name
+    hoa_all_game_teams = @game_teams.group_by { |game_team| game_team.hoa }
+    away_team_goals_hash = Hash.new { |hash, key| hash[key] = [] }
+    hoa_all_game_teams.each do |hoa, game_team_array|
+      game_team_array.each do |game_team|
+        if hoa == "away"
+          away_team_goals_hash[game_team.team_id] << game_team.goals.to_i
+        end
       end
     end
-
-    highest_scoring_team
+    team_and_goal_avg = Hash.new { |hash, key| hash[key] = 0 }
+    away_team_goals_hash.each do |team_id, goals_scored|
+      avg_goals = (goals_scored.sum.to_f / goals_scored.length.to_f).round(6)
+      team_and_goal_avg[team_id] = avg_goals
+    end
+    sorted_team_avg = team_and_goal_avg.sort_by { |_, value| value }
+    id = sorted_team_avg.last.first
+    @teams.each do |team|
+      return team.team_name if team.team_id == id
+    end
   end
 
   def highest_scoring_home_team
-    highest_average_score = 0
-    highest_scoring_team = ""
-
-    @game_teams.each do |game|
-      next unless game.hoa == "home"
-
-      team = @teams.find { |t| t.team_id == game.team_id }
-      next unless team
-
-      total_games = @game_teams.count { |g| g.team_id == team.team_id }
-      average_score = (game.goals.to_f / total_games)
-
-      if average_score > highest_average_score
-        highest_average_score = average_score
-        highest_scoring_team = team.team_name
+    hoa_all_game_teams = @game_teams.group_by { |game_team| game_team.hoa }
+    home_team_goals_hash = Hash.new { |hash, key| hash[key] = [] }
+    hoa_all_game_teams.each do |hoa, game_team_array|
+      game_team_array.each do |game_team|
+        if hoa == "home"
+          home_team_goals_hash[game_team.team_id] << game_team.goals.to_i
+        end
       end
     end
-
-    highest_scoring_team
+    team_and_goal_avg = Hash.new { |hash, key| hash[key] = 0 }
+    home_team_goals_hash.each do |team_id, goals_scored|
+      avg_goals = (goals_scored.sum.to_f / goals_scored.length.to_f).round(6)
+      team_and_goal_avg[team_id] = avg_goals
+    end
+    sorted_team_avg = team_and_goal_avg.sort_by { |_, value| value }
+    id = sorted_team_avg.last.first
+    @teams.each do |team|
+      return team.team_name if team.team_id == id
+    end
   end
 
 #-------------- Season Statics Methods --------
