@@ -98,11 +98,11 @@ RSpec.describe StatTracker do
 
   describe 'Season Statistics' do
     it 'calculates winningest_coach' do
-      #code here
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
     end
-  
+    
     it 'calculates worst_coach' do
-      #code here
+      expect(@stat_tracker.worst_coach("20122013")).to eq("Dan Bylsma")
     end
   
     it 'calculates most_accurate_team' do
@@ -121,7 +121,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Orlando City SC")
     end
 
-    it 'does something with season id' do
+    it 'lists games in array matching the season id' do
       expect(@stat_tracker.season_games("20122013")).to be_a(Array)
       expect(@stat_tracker.season_games("20122013").length).to eq(49)
     end

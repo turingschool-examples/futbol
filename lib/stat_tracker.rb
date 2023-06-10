@@ -142,13 +142,38 @@ class StatTracker
     end
   end
 
-# Season Statistics
-  def winningest_coach
-
+  def calculate_team_scores(team_id_key)
+    team_scores = Hash.new(0)
+    @games.each do |game|
+      team_id = game.send(team_id_key)
+      team_scores[team_id] += game.home_goals + game.away_goals
+    end
+    team_scores
   end
 
-  def worst_coach
+  # Season Statistics
 
+  def winningest_coach(season_id)
+    games_in_season = season_games(season_id)
+    grouped_by_coach = games_in_season.group_by { |game| game.head_coach }
+    wins_by_coach = grouped_by_coach.each do |coach, games|
+      grouped_by_coach[coach] = games.find_all { |game| game.result == "WIN"}.length
+      # Returns a hash of Coach=>wins
+    end
+    wins_by_coach.sort_by { |coach, wins| wins }.last[0]
+    # Sorts hash into arrays from least to most wins
+  end
+  
+
+  def worst_coach(season_id)
+    games_in_season = season_games(season_id)
+    grouped_by_coach = games_in_season.group_by { |game| game.head_coach }
+    wins_by_coach = grouped_by_coach.each do |coach, games|
+      grouped_by_coach[coach] = games.find_all { |game| game.result == "WIN"}.length
+      # Returns a hash of Coach=>wins
+    end
+    wins_by_coach.sort_by { |coach, wins| wins }.first[0]
+    # Sorts hash into arrays from least to most wins
   end
 
   def most_accurate_team(season)
