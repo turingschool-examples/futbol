@@ -51,6 +51,13 @@ RSpec.describe 'Stat_Tracker' do
     stat_tracker.lowest_sum(arr) 
   end
 
+  it 'count_teams works' do
+    stat_tracker = StatTracker.new
+    arr = stat_tracker.from_csv(:path_2)
+    stat_tracker.count_teams(arr)
+   
+  end
+
 
 
 end

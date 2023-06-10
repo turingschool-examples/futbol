@@ -25,7 +25,6 @@ class StatTracker
     team_factory = TeamFactory.new
     team_factory.create_teams(path)
     team_factory.teams
-    #require 'pry'; binding.pry
   end
   
 
@@ -33,7 +32,6 @@ class StatTracker
    game_factory = GameFactory.new
    game_factory.create_games(path)
    game_factory.games
-   #require 'pry'; binding.pry
   end
 
 
@@ -42,7 +40,6 @@ class StatTracker
     game_teams_factory = GameTeamsFactory.new
     game_teams_factory.create_game_teams(path)
     game_teams_factory.game_teams
-    #require 'pry'; binding.pry
   end
 
   def highest_sum(arr) 
@@ -61,7 +58,7 @@ class StatTracker
     end
 
     end
-   p hash.values.max
+    hash.values.max
   end
 
   def lowest_sum(arr) 
@@ -80,9 +77,7 @@ class StatTracker
     end
 
     end
-   p hash.values.min
+    hash.values.min
   end
   
-
-
 end
