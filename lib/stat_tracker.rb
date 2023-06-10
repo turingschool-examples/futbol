@@ -7,7 +7,7 @@ class StatTracker
 
   def from_csv(path)
     if path == './data/games.csv'
-    @game_factory = create_games_factory(path)
+      @game_factory = create_games_factory(path)
     elsif path == './data/teams.csv'
       @team_factory = create_teams_factory(path)
     else
