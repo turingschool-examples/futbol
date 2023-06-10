@@ -49,9 +49,8 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>11, "20132014"=>2})
   end
 
-  #may have misunderstood wording in instructions-- may need to refactor average goals methods after checking against spec harness (remove goals_averaged per game, use total goals instead)
   it "can count average goals per game" do
-    expect(@stat_tracker.average_goals_per_game).to eq(2.04)
+    expect(@stat_tracker.average_goals_per_game).to eq(4.08)
   end
 
   it "can count average goals by season" do
