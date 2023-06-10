@@ -211,45 +211,70 @@ class StatTracker
   end
 
 #-------------- Season Statics Methods --------
-  def most_tackles
-    total_tackle_by_team = {}
-    @game_teams.each do |game|
-      if total_tackle_by_team.key?(game.team_id)
-        total_tackle_by_team[game.team_id] += game.tackles.to_i
+
+def season_selecter(season_id)
+  season_ids = {}
+
+  @games.each do |game|
+    if season_ids.key?(game.game_id)
+      season_ids[game.game_id] += game.season
+    else
+      season_ids[game.game_id] = game.season
+    end
+  end
+  selected_season = season_ids.select { |game_ids, season_ids| season_ids == season_id }
+end
+
+def most_tackles(season_id)
+  tackles_by_team_season = Hash.new(0)
+
+  # season_selecter(season_id).each do |game_ids, _|
+    @game_teams.find_all do |game|
+      if season_selecter(season_id).key?(game.game_id) && tackles_by_team_season.key?(game.team_id)
+        tackles_by_team_season[game.team_id] += game.tackles.to_i
       else
-        total_tackle_by_team[game.team_id] = game.tackles.to_i
+        tackles_by_team_season[game.team_id] = game.tackles.to_i
       end
     end
+  # end
 
-    team_with_most_tackles = total_tackle_by_team.max_by { |key, value| value }&.first
-    result = @teams.find { |team| team.team_id == team_with_most_tackles }
-    result.team_name
-  end
+  most_tackles_id = tackles_by_team_season.max_by { |team_id, tackles| tackles }&.first
+  result = @teams.find { |team| team.team_id == most_tackles_id }
+  result.team_name
+end
 
-  def fewest_tackles
-    total_tackle_by_team = {}
+def fewest_tackles(season_id)
+  tackles_by_team_season = {}
+
+  season_selecter(season_id).each do |game_ids, _|
     @game_teams.each do |game|
-      if total_tackle_by_team.key?(game.team_id)
-        total_tackle_by_team[game.team_id] += game.tackles.to_i
+      if game.game_id.include?(game_ids) && tackles_by_team_season.key?(game.team_id)
+        tackles_by_team_season[game.team_id] += game.tackles.to_i
       else
-        total_tackle_by_team[game.team_id] = game.tackles.to_i
+        tackles_by_team_season[game.team_id] = game.tackles.to_i
       end
     end
-
-    team_with_fewest_tackles = total_tackle_by_team.min_by { |key, value| value }&.first
-    result = @teams.find { |team| team.team_id == team_with_fewest_tackles }
-    result.team_name
   end
 
-  def most_accurate_team
+  fewest_tackles_id = tackles_by_team_season.min_by { |team_id, tackles| tackles }&.first
+  result = @teams.find { |team| team.team_id == fewest_tackles_id }
+  result.team_name
+end
+
+
+  def most_accurate_team(season_id)
     total_shots_by_team = {}
-    @game_teams.each do |game|
-      if total_shots_by_team.key?(game.team_id)
-        total_shots_by_team[game.team_id] += game.tackles.to_i
-      else
-        total_shots_by_team[game.team_id] = game.tackles.to_i
+
+    season_selecter(season_id).each do |game_ids, _|
+      @game_teams.each do |game|
+        if game.game_id.include?(game_ids) && total_shots_by_team.key?(game.team_id)
+          total_shots_by_team[game.team_id] += game.tackles.to_i
+        else
+          total_shots_by_team[game.team_id] = game.tackles.to_i
+        end
       end
     end
+
     most_accurate = {}
 
     total_shots_by_team.each do |key, value|
@@ -261,22 +286,26 @@ class StatTracker
     final_result.team_name
   end
 
-  def least_accurate_team
-    total_shots_by_team = {}
-    @game_teams.each do |game|
-      if total_shots_by_team.key?(game.team_id)
-        total_shots_by_team[game.team_id] += game.tackles.to_i
-      else
-        total_shots_by_team[game.team_id] = game.tackles.to_i
+  def least_accurate_team(season_id)
+     total_shots_by_team = {}
+
+    season_selecter(season_id).each do |game_ids, _|
+      @game_teams.each do |game|
+        if game.game_id.include?(game_ids) && total_shots_by_team.key?(game.team_id)
+          total_shots_by_team[game.team_id] += game.tackles.to_i
+        else
+          total_shots_by_team[game.team_id] = game.tackles.to_i
+        end
       end
     end
-    least_accurate = {}
+
+    most_accurate = {}
 
     total_shots_by_team.each do |key, value|
-      least_accurate[key] = value.to_f / total_goals_by_teams[key]
+      most_accurate[key] = value.to_f / total_goals_by_teams[key]
     end
 
-    result = least_accurate.min_by { |key, value| value }&.first
+    result = most_accurate.max_by { |key, value| value }&.first
     final_result = @teams.find { |team| team.team_id == result }
     final_result.team_name
   end
@@ -325,4 +354,6 @@ class StatTracker
     end
   end
 end
+
+
 
