@@ -80,36 +80,37 @@ class StatTracker
     best_team[:team_name]  
   end
 
-  def average_goals_per_game(csv_array)
-    csv_array.each do |game|
-      @all_goals << game[:away_goals].to_i + game[:home_goals].to_i
+  def average_goals_per_game
+    all_goals = []
+    @game_factory.games.each do |game|
+      all_goals << game[:away_goals].to_i + game[:home_goals].to_i
     end
-    total_goals = @all_goals.sum
-    amount_of_games = @all_goals.count
+    total_goals = all_goals.sum
+    amount_of_games = all_goals.count
     average_goals = total_goals.to_f / amount_of_games
     average_goals.round(2)
   end
   
-  def average_goals_by_season(csv_array)
-    csv_array.each do |game|
-      @goals_by_season[game[:season]] = []
+  def average_goals_by_season
+    goals_by_season = {}
+    @game_factory.games.each do |game|
+      goals_by_season[game[:season]] = []
     end
-    csv_array.each do |game|
+    @game_factory.games.each do |game|
       all_goals = game[:away_goals].to_i + game[:home_goals].to_i
-      @goals_by_season[game[:season]]<< all_goals
+      goals_by_season[game[:season]]<< all_goals
     end
-    @goals_by_season.transform_values! {|v| v.sum.to_f / v.count}
-    @goals_by_season.transform_values! {|v| v.round(2)}
-    require 'pry'; binding.pry
+    goals_by_season.transform_values! {|v| v.sum.to_f / v.count}
+    goals_by_season.transform_values! {|v| v.round(2)}
   end
   
   #The first enumeration will assign a key to the @goals_by_season hash that is the number of the season and a value of and empty hash
   #The 2nd enumeration will gather all goals in game and then add them to the array value that is associated to that season
   #transform_values will display a new hash that averages then rounds
   
-  def highest_scoring_visitor(csv, csv2)
+  def highest_scoring_visitor
     highest_scores = {}
-    csv.each do |game|
+    @game_factory.games.each do |game|
       if highest_scores[game[:away_team_id]] == nil
         highest_scores[game[:away_team_id]] = []
         highest_scores[game[:away_team_id]] << game[:away_goals].to_i
@@ -119,22 +120,21 @@ class StatTracker
     end
     highest_scores.transform_values! {|v| v.sum.to_f / v.count}
     highest_scores.transform_values! {|v| v.round(2)}
-    require 'pry'; binding.pry
     top = highest_scores.values.find do |score|
       score == highest_scores.values.max
     end
     top_team_id = highest_scores.keys.find do |team|
       highest_scores[team] == top
     end
-    top_team = csv2.find do |team|
+    top_team = @team_factory.teams.find do |team|
       team[:team_id] == top_team_id
     end
     top_team[:team_name]
   end
   
-  def highest_scoring_home_team(csv, csv2)
+  def highest_scoring_home_team
     highest_scores = {}
-    csv.each do |game|
+    @game_factory.games.each do |game|
       if highest_scores[game[:home_team_id]] == nil
         highest_scores[game[:home_team_id]] = []
         highest_scores[game[:home_team_id]] << game[:home_goals].to_i
@@ -151,7 +151,7 @@ class StatTracker
     top_team_id = highest_scores.keys.find do |team|
       highest_scores[team] == top
     end
-    top_team = csv2.find do |team|
+    top_team = @team_factory.teams.find do |team|
       team[:team_id] == top_team_id
     end
     top_team[:team_name]
@@ -165,9 +165,9 @@ class StatTracker
   #The method then searches the othe csv to find the team associated with that team_id and assigns them to top_team
   #return top_team[:team_name] for a string that represents the team name.
   
-  def most_tackles(csv, csv2) 
+  def most_tackles
     tackles_by_team = {}
-    csv.each do |game|
+    @game_teams_factory.game_teams.each do |game|
       if tackles_by_team[game[:team_id]] == nil
         tackles_by_team[game[:team_id]] = []
         tackles_by_team[game[:team_id]] << game[:tackles].to_i
@@ -182,15 +182,15 @@ class StatTracker
     top_tackle_team_id = tackles_by_team.find do |team|
       team[1]== highest_tackles
     end
-    top_tackle_team = csv2.find do |team|
+    top_tackle_team = @team_factory.teams.find do |team|
       team[:team_id] == top_tackle_team_id[0]
     end
     top_tackle_team[:team_name]
   end
   
-  def fewest_tackles(csv, csv2) 
+  def fewest_tackles
     tackles_by_team = {}
-    csv.each do |game|
+    @game_teams_factory.game_teams.each do |game|
       if tackles_by_team[game[:team_id]] == nil
         tackles_by_team[game[:team_id]] = []
         tackles_by_team[game[:team_id]] << game[:tackles].to_i
@@ -205,15 +205,15 @@ class StatTracker
     least_tackle_team_id = tackles_by_team.find do |team|
       team[1]== lowest_tackles
     end
-    least_tackle_team = csv2.find do |team|
+    least_tackle_team = @team_factory.teams.find do |team|
       team[:team_id] == least_tackle_team_id[0]
     end
     least_tackle_team[:team_name]
   end
   
-  def most_accurate_team(csv, csv2)
+  def most_accurate_team
     accuracy_by_team = {}
-    csv.each do |game|
+    @game_teams_factory.game_teams.each do |game|
       if accuracy_by_team[game[:team_id]] == nil
         accuracy_by_team[game[:team_id]] = []
         accuracy = game[:goals].to_f / game[:shots].to_i
@@ -231,15 +231,15 @@ class StatTracker
     top_accuracy_team_id = accuracy_by_team.find do |team|
       team[1]== highest_accuracy
     end
-    top_accuracy_team = csv2.find do |team|
+    top_accuracy_team =  @team_factory.teams.find do |team|
       team[:team_id] == top_accuracy_team_id[0]
     end
     top_accuracy_team[:team_name]
   end
   
-  def least_accurate_team(csv, csv2)
+  def least_accurate_team
     accuracy_by_team = {}
-    csv.each do |game|
+    @game_teams_factory.game_teams.each do |game|
       if accuracy_by_team[game[:team_id]] == nil
         accuracy_by_team[game[:team_id]] = []
         accuracy = game[:goals].to_f / game[:shots].to_i
@@ -257,10 +257,9 @@ class StatTracker
     least_accuracy_team_id = accuracy_by_team.find do |team|
       team[1]== lowest_accuracy
     end
-    least_accuracy_team = csv2.find do |team|
+    least_accuracy_team =  @team_factory.teams.find do |team|
       team[:team_id] == least_accuracy_team_id[0]
     end
-    require 'pry'; binding.pry
     least_accuracy_team[:team_name]
   end
 
