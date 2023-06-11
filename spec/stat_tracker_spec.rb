@@ -12,8 +12,7 @@ RSpec.describe StatTracker do
       game_teams: game_teams_test_csv
     }
 
-    @stat_tracker = StatTracker.new
-    @stat_tracker.from_csv(@locations)
+    @stat_tracker = StatTracker.new(@locations)
   end
 
   describe "#exists" do
@@ -36,7 +35,7 @@ RSpec.describe StatTracker do
     end
 
     it 'creates team_games objects' do
-      expect(@stat_tracker.game_teams[0]).to be_a(game_teams)
+      expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
       expect(@stat_tracker.game_teams.count).to eq(269)
       expect(@stat_tracker.game_teams)
     end
@@ -58,19 +57,19 @@ RSpec.describe StatTracker do
     end
 
     it "#percentage_home_wins" do
-      expect(@stat_tracker.percentage_home_wins).to eq(12.48)
+      expect(@stat_tracker.percentage_home_wins).to eq( 0.46)
     end
 
     it "#percentage_visitor_wins" do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(22.68)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.37)
     end
 
     it "#average_goals_per_game" do
-      expect(@stat_tracker.average_goals_per_game).to eq(3.72)
+      expect(@stat_tracker.average_goals_per_game).to eq(3.71)
     end
 
     it "#percentage_ties" do
-      expect(@stat_tracker.percentage_ties).to eq(17.31)
+      expect(@stat_tracker.percentage_ties).to eq(0.2)
     end
 
     it "#count_of_games_by_season" do
@@ -153,7 +152,7 @@ RSpec.describe StatTracker do
     end
 
     it 'can calculate #highest_scoring_visitor' do
-      expect(@stat_tracker.highest_scoring_visitor).to eq("Los Angeles FC")
+      expect(@stat_tracker.highest_scoring_visitor).to eq( "Chicago Red Stars")
     end
 
     it "#highest_scoring_home_team" do
@@ -163,11 +162,11 @@ RSpec.describe StatTracker do
 
   describe "#season_statistics" do
     it "#most_tackles" do
-      expect(@stat_tracker.most_tackles).to eq("Houston Dynamo")
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
     end
 
     it "#fewest_tackles" do
-      expect(@stat_tracker.fewest_tackles).to eq("Toronto FC")
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Sporting Kansas City")
     end
 
     it "#total_goals_by_teams" do
@@ -194,12 +193,12 @@ RSpec.describe StatTracker do
       })
     end
 
-    it "#most_accurate_team)" do
-      expect(@stat_tracker.most_accurate_team).to eq("Chicago Fire")
+    it "#most_accurate_team" do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("LA Galaxy")
     end
 
     it "#least_accurate_team" do
-      expect(@stat_tracker.least_accurate_team).to eq("Chicago Red Stars")
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
     end
 
     it 'checks winningest coach' do

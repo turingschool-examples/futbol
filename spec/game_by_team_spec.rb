@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe game_teams do
+RSpec.describe GameTeam do
   before do
     @data = {
     :game_id      => 2012030221,
@@ -13,13 +13,13 @@ RSpec.describe game_teams do
     :shots        => 8,
     :tackles      => 44
     }
-    
-    @game_teams = game_teams.new(@data)
+
+    @game_teams = GameTeam.new(@data)
   end
 
   describe "#exists" do
     it "#exists" do
-      expect(@game_teams).to be_a(game_teams)
+      expect(@game_teams).to be_a(GameTeam)
     end
 
     it "has readable attributes" do
