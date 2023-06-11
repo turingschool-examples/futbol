@@ -1,11 +1,11 @@
 require 'simplecov'
 SimpleCov.start
 
-
 require 'RSpec'
+require 'rspec'
 require 'pry'
-require './lib/team'
-require './lib/game'
-require './lib/game_team'
-require 'CSV'
+require 'csv'
+require 'team'
+require 'game'
+require 'game_team'
 require 'stat_tracker'
