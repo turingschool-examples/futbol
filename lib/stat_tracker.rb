@@ -57,6 +57,31 @@ class StatTracker
     (away_win?.to_f / @games.size).round(2)
   end
 
+  def percentage_ties
+    tie_games = @game_teams.find_all do |game|
+      game.game_result.include?("TIE")
+    end
+    results = tie_games.length.to_f / @game_teams.length.to_f
+    results.round(2)
+  end
+
+  def count_of_games_by_season
+    ids = []
+    only_ids = []
+      @games.find_all do |game|
+        ids = game.season_id
+        only_ids << ids
+      end
+    uniq_ids = only_ids.uniq
+    count_games = []
+    final_count = Hash.new
+      uniq_ids.each do |id|
+        count_games = @games.find_all {|game|game.season_id.include?(id)}
+        final_count[id] = count_games.length
+      end
+      final_count
+  end
+
   # LEAGUE STATS
 
   def count_of_teams
@@ -64,6 +89,7 @@ class StatTracker
   end
 
   # SEASON STATS
+  
   def winningest_coach(season_id)
     season_games = @games.select { |game| game.season_id == season_id }
     season_game_ids = season_games.map(&:game_id)
