@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Game_By_Team do
+RSpec.describe GameTeam do
   before do
     @data = {
     :game_id      => 2012030221,
@@ -13,25 +13,25 @@ RSpec.describe Game_By_Team do
     :shots        => 8,
     :tackles      => 44
     }
-    
-    @game_by_team = Game_By_Team.new(@data)
+
+    @game_teams = GameTeam.new(@data)
   end
 
   describe "#exists" do
     it "#exists" do
-      expect(@game_by_team).to be_a(Game_By_Team)
+      expect(@game_teams).to be_a(GameTeam)
     end
 
     it "has readable attributes" do
-      expect(@game_by_team.game_id).to eq(2012030221)
-      expect(@game_by_team.team_id).to eq(3)
-      expect(@game_by_team.hoa).to eq("away")
-      expect(@game_by_team.result).to eq("LOSS")
-      expect(@game_by_team.settled_in).to eq("OT")
-      expect(@game_by_team.head_coach).to eq("John Tortorella")
-      expect(@game_by_team.goals).to eq(2)
-      expect(@game_by_team.shots).to eq(8)
-      expect(@game_by_team.tackles).to eq(44)
+      expect(@game_teams.game_id).to eq(2012030221)
+      expect(@game_teams.team_id).to eq(3)
+      expect(@game_teams.hoa).to eq("away")
+      expect(@game_teams.result).to eq("LOSS")
+      expect(@game_teams.settled_in).to eq("OT")
+      expect(@game_teams.head_coach).to eq("John Tortorella")
+      expect(@game_teams.goals).to eq(2)
+      expect(@game_teams.shots).to eq(8)
+      expect(@game_teams.tackles).to eq(44)
     end
 
   end
