@@ -94,8 +94,8 @@ class StatTracker
     team_goals
   end
 
-  def count_of_teams(arr) 
-    arr.teams.each.count
+  def count_of_teams 
+    @team_factory.teams.count
   end
 
   

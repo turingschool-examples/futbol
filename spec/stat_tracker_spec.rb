@@ -102,7 +102,7 @@ RSpec.describe 'Stat_Tracker' do
 
   it 'count_of_teams' do
     stat_tracker = StatTracker.new
-    arr = stat_tracker.from_csv(path_2)
-    expect(stat_tracker.count_of_teams(arr)).to eq(32)
+    stat_tracker.from_csv(path_2)
+    expect(stat_tracker.count_of_teams).to eq(32)
   end
 end
