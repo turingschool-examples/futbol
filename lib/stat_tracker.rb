@@ -157,7 +157,6 @@ class StatTracker
     top_team[:team_name]
   end
   
-  
   #This method starts with a hash where the key is the team_id and the value is an array of the goals if home/away
   #The value is then summed, averaged, and rounded.
   #top is equal to the highest average score per game
