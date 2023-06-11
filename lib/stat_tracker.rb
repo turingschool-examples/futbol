@@ -107,4 +107,8 @@ class StatTracker
     end
     look_up_team_name(lsv[:away_team_id])  
   end
+
+  def count_of_teams 
+    @team_factory.teams.count
+  end
 end

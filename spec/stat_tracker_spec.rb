@@ -103,4 +103,10 @@ RSpec.describe 'Stat_Tracker' do
       expect(stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
     end
   end
+
+  it 'count_of_teams' do
+    stat_tracker = StatTracker.new
+    stat_tracker.from_csv(path_2)
+    expect(stat_tracker.count_of_teams).to eq(32)
+  end
 end
