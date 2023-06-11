@@ -99,4 +99,10 @@ RSpec.describe 'Stat_Tracker' do
       expect(stat_tracker.worst_offense).to eq("Reign FC")
     end
   end
+
+  it 'count_of_teams' do
+    stat_tracker = StatTracker.new
+    stat_tracker.from_csv(path_2)
+    expect(stat_tracker.count_of_teams).to eq(32)
+  end
 end
