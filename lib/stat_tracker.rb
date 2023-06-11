@@ -94,9 +94,9 @@ class StatTracker
     team_goals
   end
 
-  def highest_sum(arr) 
+  def highest_sum 
     hash = {}
-    arr.games.each do |i|
+    @game_factory.games.each do |i|
       if hash.key?(i[:home_team_id])
         hash[i[:home_team_id]] += i[:home_goals].to_i
       else
@@ -112,9 +112,9 @@ class StatTracker
   hash.values.max
   end
 
-  def lowest_sum(arr) 
+  def lowest_sum 
     hash = {}
-    arr.games.each do |i|
+    @game_factory.games.each do |i|
       if hash.key?(i[:home_team_id])
         hash[i[:home_team_id]] += i[:home_goals].to_i
       else

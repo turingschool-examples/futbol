@@ -102,8 +102,8 @@ RSpec.describe 'Stat_Tracker' do
 
   it 'sums works' do
     stat_tracker = StatTracker.new
-    arr = stat_tracker.from_csv(path)
-    expect(stat_tracker.highest_sum(arr)).to eq(1262)
-    expect(stat_tracker.lowest_sum(arr)).to eq(239) 
+    stat_tracker.from_csv(path)
+    expect(stat_tracker.highest_sum).to eq(1262)
+    expect(stat_tracker.lowest_sum).to eq(239) 
   end
 end
