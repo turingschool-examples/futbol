@@ -98,6 +98,10 @@ RSpec.describe 'Stat_Tracker' do
     it 'worst offense' do
       expect(stat_tracker.worst_offense).to eq("Reign FC")
     end
+
+    it "can find the lowest scoring visitor" do
+      expect(stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
   end
 
   it 'count_of_teams' do
