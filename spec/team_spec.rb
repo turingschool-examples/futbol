@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 describe Team do
   describe '#initialize' do
     it 'exists' do
@@ -38,3 +39,8 @@ describe Team do
     end
   end
 end
+
+team_path = './data/teams.csv'
+describe Team do
+end
+

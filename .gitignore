@@ -1,3 +1,4 @@
+/coverage
 games_and_game_teams_test.rb
 games_test.rb
 teams_test.rb
@@ -5,3 +6,4 @@ teams_test.rb
 .DS_Store
 Gemfile.lock
 lib/tempCodeRunnerFile.rb
+
