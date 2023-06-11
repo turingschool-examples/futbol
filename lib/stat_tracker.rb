@@ -269,51 +269,51 @@ end
 
 
   def most_accurate_team(season_id)
-    total_shots_by_team = {}
-
-    season_selecter(season_id).each do |game_ids, _|
-      @game_teams.each do |game|
-        if game.game_id.include?(game_ids) && total_shots_by_team.key?(game.team_id)
-          total_shots_by_team[game.team_id] += game.tackles.to_i
-        else
-          total_shots_by_team[game.team_id] = game.tackles.to_i
-        end
-      end
+    games_by_season = [] 
+    @games.each { |game| games_by_season << game.game_id if (game.season == season_id)}
+    games_by_season
+    team_stats = []
+    game_teams.find_all { |game| team_stats << game if games_by_season.include?(game.game_id)}
+    total_goals_per_team = team_stats.each_with_object(Hash.new(0)) do |game, team_hash|
+      team_hash[game.team_id] += game.goals.to_i
+  end
+    total_shots_per_team = team_stats.each_with_object(Hash.new(0)) do |game, team_hash|
+      team_hash[game.team_id] += game.shots.to_i
+  end
+  average_goals_per_shot = Hash.new(0)
+  total_goals_per_team.each do |key1, value1|
+    total_shots_per_team.each do |key2, value2|
+        average_goals_per_shot[key1] = value1.to_f / value2.to_f if key1 == key2
     end
-
-    most_accurate = {}
-
-    total_shots_by_team.each do |key, value|
-      most_accurate[key] = value.to_f / total_goals_by_teams[key]
-    end
-
-    result = most_accurate.max_by { |key, value| value }&.first
-    final_result = @teams.find { |team| team.team_id == result }
-    final_result.team_name
+  end
+  most_accurate_team = average_goals_per_shot.max_by {|team, avg_goals| avg_goals}
+  most_accurate_team_name = nil
+  @teams.each { |team| most_accurate_team_name = team.team_name if team.team_id == most_accurate_team[0]}
+  most_accurate_team_name
   end
 
   def least_accurate_team(season_id)
-  total_shots_by_team = {}
-
-    season_selecter(season_id).each do |game_ids, _|
-      @game_teams.each do |game|
-        if game.game_id.include?(game_ids) && total_shots_by_team.key?(game.team_id)
-          total_shots_by_team[game.team_id] += game.tackles.to_i
-        else
-          total_shots_by_team[game.team_id] = game.tackles.to_i
-        end
-      end
+    games_by_season = [] 
+    @games.each { |game| games_by_season << game.game_id if (game.season == season_id)}
+    games_by_season
+    team_stats = []
+    game_teams.find_all { |game| team_stats << game if games_by_season.include?(game.game_id)}
+    total_goals_per_team = team_stats.each_with_object(Hash.new(0)) do |game, team_hash|
+      team_hash[game.team_id] += game.goals.to_i
+  end
+    total_shots_per_team = team_stats.each_with_object(Hash.new(0)) do |game, team_hash|
+      team_hash[game.team_id] += game.shots.to_i
+  end
+  average_goals_per_shot = Hash.new(0)
+  total_goals_per_team.each do |key1, value1|
+    total_shots_per_team.each do |key2, value2|
+        average_goals_per_shot[key1] = value1.to_f / value2.to_f if key1 == key2
     end
-
-    most_accurate = {}
-
-    total_shots_by_team.each do |key, value|
-      most_accurate[key] = value.to_f / total_goals_by_teams[key]
-    end
-
-    result = most_accurate.max_by { |key, value| value }&.first
-    final_result = @teams.find { |team| team.team_id == result }
-    final_result.team_name
+  end
+  least_accurate_team = average_goals_per_shot.min_by {|team, avg_goals| avg_goals}
+  least_accurate_team_name = nil
+  @teams.each { |team| least_accurate_team_name = team.team_name if team.team_id == least_accurate_team[0]}
+  least_accurate_team_name
   end
 
   def total_goals_by_teams
