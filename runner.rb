@@ -10,24 +10,15 @@ locations = {
   teams: team_path,
   game_teams: game_teams_path
 }
-#require 'pry'; binding.pry
-def list_out
-  id = @csv[0].index("id")
-  first_Name = @csv[0].index("first_Name")
-  last_Name = @csv[0].index("last_Name")
-  zipcode = @csv[0].index("Zipcode")
-   new_arr = @csv.map do |attendee|
-   Attendee.new(attendee[id], attendee[first_Name], attendee[last_Name], attendee[zipcode])
-   end
-   new_arr.drop(1)
-end
 
-p CSV.parse(File.read('./data/teams.csv'), headers: true)
+stat_tracker = StatTracker.from_csv(locations)
 
-#p CSV.read './data/teams.csv'#, headers: true
-#contents = CSV.read './teams.csv'#, headers: true, header_converters: :symbol
-#p stat_tracker = StatTracker.from_csv(locations)
+p "The winningest coach for season 20132014 is #{stat_tracker.winningest_coach("20132014")}." 
 
-#p locations
+p "The lowest scoring visiting team is #{stat_tracker.lowest_scoring_visitor}."
 
-require 'pry'; binding.pry
+p "The team with the least accuracy for season 20132014 is #{stat_tracker.least_accurate_team("20132014")}."
+
+p "There are #{stat_tracker.count_of_teams} teams represented in the CSV data."
+
+p "The count of games by season is #{stat_tracker.count_of_games}."
