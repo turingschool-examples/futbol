@@ -109,8 +109,36 @@ RSpec.describe 'Stat_Tracker' do
 
   it 'can check which team was the least accurate' do
     stat_tracker = StatTracker.new
+    stat_tracker.from_csv(path)
     stat_tracker.from_csv(path_3)
     stat_tracker.from_csv(path_2)
     expect(stat_tracker.least_accurate_team).to eq("Sky Blue FC")
   end
+
+  it 'winningest coach' do 
+    stat_tracker = StatTracker.new
+    stat_tracker.from_csv(path)
+    stat_tracker.from_csv(path_3)
+    stat_tracker.from_csv(path_2)
+    stat_tracker.winningest_coach("5")
+  end
+
+  it "#least_accurate_team" do
+    stat_tracker = StatTracker.new
+    stat_tracker.from_csv(path)
+    stat_tracker.from_csv(path_3)
+    stat_tracker.from_csv(path_2)
+    expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  end
+
+  it "#most_accurate_team" do
+    stat_tracker = StatTracker.new
+    stat_tracker.from_csv(path)
+    stat_tracker.from_csv(path_3)
+    stat_tracker.from_csv(path_2)
+    expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC" #this comes back as "DC United"
+  end
+
 end

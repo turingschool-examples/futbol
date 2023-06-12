@@ -209,60 +209,68 @@ class StatTracker
     end
     least_tackle_team[:team_name]
   end
-  
-  def most_accurate_team
-    accuracy_by_team = {}
-    @game_teams_factory.game_teams.each do |game|
-      if accuracy_by_team[game[:team_id]] == nil
-        accuracy_by_team[game[:team_id]] = []
-        accuracy = game[:goals].to_f / game[:shots].to_i
-        accuracy_by_team[game[:team_id]] << accuracy
-      else
-        accuracy = game[:goals].to_f / game[:shots].to_i
-        accuracy_by_team[game[:team_id]] << accuracy
+
+  def most_accurate_team(season_id)
+    games_per_season = @game_factory.games.find_all do |game|
+      game if game[:season] == season_id
+    end
+
+    game_teams_per_season = []
+    games_per_season.each do |game|
+      @game_teams_factory.game_teams.each do |game_team|
+        game_teams_per_season.push(game_team) if game[:game_id] == game_team[:game_id]
       end
     end
-    accuracy_by_team.transform_values! {|v| v.sum / v.count }
-    accuracy_by_team.transform_values! {|v| v.round(2)}
-    highest_accuracy = accuracy_by_team.values.find do |accuracy|
-      accuracy == accuracy_by_team.values.max
+    
+    avg_by_team = Hash.new(0)
+    game_teams_per_season.each do |game_team|
+      avg_per_game = game_team[:goals].to_f / game_team[:shots].to_i
+      avg_by_team[game_team[:team_id]] += avg_per_game
     end
-    top_accuracy_team_id = accuracy_by_team.find do |team|
-      team[1]== highest_accuracy
+
+    avg_overall = Hash.new(0)
+    avg_by_team.map do |team, avg|
+      avg_overall[team] = avg / games_per_season.count
     end
-    top_accuracy_team =  @team_factory.teams.find do |team|
-      team[:team_id] == top_accuracy_team_id[0]
+    
+    highest_accuracy_team = avg_overall.max_by {|team, avg| avg}[0]
+    highest_team_that_season = @team_factory.teams.find do |team| 
+      team if highest_accuracy_team == team[:team_id]
     end
-    top_accuracy_team[:team_name]
+    
+    highest_team_that_season[:team_name]
   end
-  
-  def least_accurate_team
-    accuracy_by_team = {}
-    @game_teams_factory.game_teams.each do |game|
-      if accuracy_by_team[game[:team_id]] == nil
-        accuracy_by_team[game[:team_id]] = []
-        accuracy = game[:goals].to_f / game[:shots].to_i
-        accuracy_by_team[game[:team_id]] << accuracy
-      else
-        accuracy = game[:goals].to_f / game[:shots].to_i
-        accuracy_by_team[game[:team_id]] << accuracy
+
+  def least_accurate_team(season_id)
+    games_per_season = @game_factory.games.find_all do |game|
+      game if game[:season] == season_id
+    end
+
+    game_teams_per_season = []
+    games_per_season.each do |game|
+      @game_teams_factory.game_teams.each do |game_team|
+        game_teams_per_season.push(game_team) if game[:game_id] == game_team[:game_id]
       end
     end
-    accuracy_by_team.transform_values! {|v| v.sum / v.count }
-    accuracy_by_team.transform_values! {|v| v.round(2)}
-    lowest_accuracy = accuracy_by_team.values.find do |accuracy|
-      accuracy == accuracy_by_team.values.min
+    
+    avg_by_team = Hash.new(0)
+    game_teams_per_season.each do |game_team|
+      avg_per_game = game_team[:goals].to_f / game_team[:shots].to_i
+      avg_by_team[game_team[:team_id]] += avg_per_game
     end
-    least_accuracy_team_id = accuracy_by_team.find do |team|
-      team[1]== lowest_accuracy
+
+    avg_overall = Hash.new(0)
+    avg_by_team.map do |team, avg|
+      avg_overall[team] = avg / games_per_season.count
     end
-    least_accuracy_team =  @team_factory.teams.find do |team|
-      team[:team_id] == least_accuracy_team_id[0]
+
+    lowest_accuracy_team = avg_overall.min_by {|team, avg| avg}[0]
+
+    lowest_team_that_season = @team_factory.teams.find do |team| 
+      team if lowest_accuracy_team == team[:team_id]
     end
-    least_accuracy_team[:team_name]
+
+    lowest_team_that_season[:team_name]
   end
-
-
-
-  
 end
+
