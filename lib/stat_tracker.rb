@@ -299,6 +299,17 @@ class StatTracker
   def lowest_total_score
     new_arr =[]
     @game_factory.games.each do |game|
+      if hash.key?(game[:home_team_id])
+        hash[game[:home_team_id]] += game[:home_goals].to_i
+      else
+        hash[game[:home_team_id]] = game[:home_goals].to_i
+      end
+
+      if hash.key?(game[:away_team_id])
+        hash[game[:away_team_id]] += game[:away_goals].to_i
+      else
+        hash[game[:away_team_id]] = game[:away_goals].to_i
+      end
       new_arr << (game[:home_goals].to_i + game[:away_goals].to_i)
     end
     new_arr.min
@@ -342,6 +353,25 @@ class StatTracker
     
     wins_per_coach.max_by { |coach, wins| wins }[0] 
   end
+
+
+  def count_of_games_by_season
+    games_by_season = {}
+    @game_factory.games.each do |game|
+      if games_by_season[game[:season]] != nil 
+        games_by_season[game[:season]] += 1
+      else 
+        games_by_season[game[:season]] = 1
+      end 
+    end 
+    games_by_season
+  end 
+
+  def lowest_scoring_home_team
+    lowest_home_scores = @game_factory.games.min_by do |game|
+      game[:home_goals]
+    end
+    look_up_team_name(lowest_home_scores[:home_team_id])  
 
   def worst_coach(season_id)
     games_per_season = @game_factory.games.find_all do |game|
