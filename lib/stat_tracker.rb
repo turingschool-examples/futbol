@@ -185,7 +185,6 @@ class StatTracker
     highest_tackle_team_that_season = @team_factory.teams.find do |team| 
       team if highest_tackle_team == team[:team_id]
     end
-    require 'pry'; binding.pry
     highest_tackle_team_that_season[:team_name]
   end
 
