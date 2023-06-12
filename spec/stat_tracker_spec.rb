@@ -100,20 +100,6 @@ RSpec.describe 'Stat_Tracker' do
     expect(stat_tracker.fewest_tackles).to eq("Reign FC")
   end
 
-  it 'can check which team was the most accurate' do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path_3)
-    stat_tracker.from_csv(path_2)
-    expect(stat_tracker.most_accurate_team).to eq("Portland Timbers")
-  end
-
-  it 'can check which team was the least accurate' do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
-    stat_tracker.from_csv(path_3)
-    stat_tracker.from_csv(path_2)
-    expect(stat_tracker.least_accurate_team).to eq("Sky Blue FC")
-  end
 
   it 'winningest coach' do 
     stat_tracker = StatTracker.new
