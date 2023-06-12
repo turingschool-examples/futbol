@@ -145,4 +145,21 @@ RSpec.describe 'Stat_Tracker' do
     expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     #expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC" #this comes back as "DC United"
   end
+
+  it 'counts number of games by season' do 
+    season_totals = {
+      "20122013" => 806,
+      "20132014" => 1323,
+      "20142015" => 1319,
+      "20152016" => 1321,
+      "20162017" => 1317,
+      "20172018" => 1355
+      }
+    expect(stat_tracker.count_of_games_by_season).to eq(season_totals)
+  end
+
+  it 'returns lowest scoring home team' do
+    expect(stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+  end
+
 end
