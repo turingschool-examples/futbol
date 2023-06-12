@@ -114,13 +114,13 @@ class StatTracker
     end
   end
 
-  def highest_scoring_home_team
+  def highest_scoring_visitor_team
     highest_scoring = team_goal_average('away').max_by{ |team_id, average_goals| average_goals }
     find_team_name(highest_scoring)
   end
 
 
-  def lowest_scoring_home_team
+  def lowest_scoring_visitor_team
     lowest_scoring = team_goal_average('away').min_by{ |id, average| average }
   find_team_name(lowest_scoring)
   end
@@ -138,7 +138,7 @@ class StatTracker
       all_seasons.select do |season_id|
         if season_id[0,4] == game_team.game_id[0,4]
           season << game_team
-          season_data[season_id[0,4].to_sym] = season
+          season_data[season_id[0,4]] = season
         end
       end
     end
@@ -149,9 +149,9 @@ class StatTracker
     season_goals = {}
     team_shots = {}
 
-    game_team_season = @season_data[season.to_sym]
-      season_goals[game_team_season.team_id.to_sym] += game_team_season.goals.to_i
-      team_shots[game_team_season.team_id.to_sym] += game_team_season.shots.to_i
+    game_team_season = @season_data[season]
+      season_goals[game_team_season.team_id] += game_team_season.goals.to_i
+      team_shots[game_team_season.team_id] += game_team_season.shots.to_i
     
     team_accuracy = {}
 
