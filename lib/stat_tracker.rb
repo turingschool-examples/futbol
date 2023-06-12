@@ -182,6 +182,37 @@ class StatTracker
 
     worst_coach
   end
+  
+  def fewest_tackles(season)
+    season_games = @games.find_all do |game|
+      game.season_id == season
+    end
+    season_game_ids = season_games.map do |game|
+      game.game_id
+    end
+    game_team_array = []
+    @game_teams.each do |game_team|
+      if season_game_ids.include?(game_team.game_id)
+        game_team_array <<  game_team
+      end
+    end
+    season_game_tackles = Hash.new
+    game_team_array.each do |game_team|
+      season_game_tackles[game_team.team_id.to_sym] = []
+    end
+    game_team_array.each do |game_team|
+      tackles_array = season_game_tackles[game_team.team_id.to_sym]
+      tackles_array << game_team.tackles.to_i
+    end
+    season_game_tackles.map do |team, goal_array|
+      season_game_tackles[team] = goal_array.sum
+    end
+    min_key_value = season_game_tackles.min_by{ |team, tackles| tackles }
+    team = @teams.find do |team|
+      min_key_value[0].to_s == team.team_id
+    end
+    team.team_name
+  end
 
   def lowest_total_score
     output = @games.min do |game1, game2|
