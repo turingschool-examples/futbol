@@ -372,6 +372,7 @@ class StatTracker
       game[:home_goals]
     end
     look_up_team_name(lowest_home_scores[:home_team_id])  
+  end
 
   def worst_coach(season_id)
     games_per_season = @game_factory.games.find_all do |game|
