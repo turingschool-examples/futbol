@@ -97,6 +97,44 @@ class StatTracker
     team_goals
   end
 
+
+  def highest_sum 
+    hash = {}
+    @game_factory.games.each do |game|
+      if hash.key?(game[:home_team_id])
+        hash[game[:home_team_id]] += game[:home_goals].to_i
+      else
+        hash[game[:home_team_id]] = game[:home_goals].to_i
+      end
+
+      if hash.key?(game[:away_team_id])
+        hash[game[:away_team_id]] += game[:away_goals].to_i
+      else
+        hash[game[:away_team_id]] = game[:away_goals].to_i
+      end
+    end
+  hash.values.max
+  end
+
+  def lowest_sum 
+    hash = {}
+    @game_factory.games.each do |game|
+      if hash.key?(game[:home_team_id])
+        hash[game[:home_team_id]] += game[:home_goals].to_i
+      else
+        hash[game[:home_team_id]] = game[:home_goals].to_i
+     end
+
+      if hash.key?(game[:away_team_id])
+        hash[game[:away_team_id]] += game[:away_goals].to_i
+      else
+        hash[game[:away_team_id]] = game[:away_goals].to_i
+      end
+
+    end
+  hash.values.min
+  end
+  
   def look_up_team_name(team_id)
     team = @team_factory.teams.find do |team|
       team_id == team[:team_id]
@@ -114,6 +152,7 @@ class StatTracker
   def count_of_teams 
     @team_factory.teams.count
   end
+
 
   def winningest_coach(season_id)
     games_per_season = @game_factory.games.find_all do |game|

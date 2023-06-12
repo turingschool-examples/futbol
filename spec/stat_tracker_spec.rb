@@ -100,8 +100,16 @@ RSpec.describe 'Stat_Tracker' do
     expect(stat_tracker.count_of_teams).to eq(32)
   end
 
+
+  it 'sums works' do
+    stat_tracker = StatTracker.new
+    stat_tracker.from_csv(path)
+    expect(stat_tracker.highest_sum).to eq(1262)
+    expect(stat_tracker.lowest_sum).to eq(239) 
+
   it '#winningest_coach' do
     expect(stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
     expect(stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+
   end
 end
