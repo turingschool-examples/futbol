@@ -96,17 +96,17 @@ class StatTracker
 
   def highest_sum 
     hash = {}
-    @game_factory.games.each do |i|
-      if hash.key?(i[:home_team_id])
-        hash[i[:home_team_id]] += i[:home_goals].to_i
+    @game_factory.games.each do |game|
+      if hash.key?(game[:home_team_id])
+        hash[game[:home_team_id]] += game[:home_goals].to_i
       else
-        hash[i[:home_team_id]] = i[:home_goals].to_i
+        hash[game[:home_team_id]] = game[:home_goals].to_i
       end
 
-      if hash.key?(i[:away_team_id])
-        hash[i[:away_team_id]] += i[:away_goals].to_i
+      if hash.key?(game[:away_team_id])
+        hash[game[:away_team_id]] += game[:away_goals].to_i
       else
-        hash[i[:away_team_id]] = i[:away_goals].to_i
+        hash[game[:away_team_id]] = game[:away_goals].to_i
       end
     end
   hash.values.max
@@ -114,17 +114,17 @@ class StatTracker
 
   def lowest_sum 
     hash = {}
-    @game_factory.games.each do |i|
-      if hash.key?(i[:home_team_id])
-        hash[i[:home_team_id]] += i[:home_goals].to_i
+    @game_factory.games.each do |game|
+      if hash.key?(game[:home_team_id])
+        hash[game[:home_team_id]] += game[:home_goals].to_i
       else
-        hash[i[:home_team_id]] = i[:home_goals].to_i
+        hash[game[:home_team_id]] = game[:home_goals].to_i
      end
 
-      if hash.key?(i[:away_team_id])
-        hash[i[:away_team_id]] += i[:away_goals].to_i
+      if hash.key?(game[:away_team_id])
+        hash[game[:away_team_id]] += game[:away_goals].to_i
       else
-        hash[i[:away_team_id]] = i[:away_goals].to_i
+        hash[game[:away_team_id]] = game[:away_goals].to_i
       end
 
     end
