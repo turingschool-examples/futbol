@@ -134,13 +134,15 @@ RSpec.describe 'Stat_Tracker' do
     expect(stat_tracker.highest_scoring_home_team).to eq("Reign FC")
   end
 
-  it 'can check which team had the most tackles' do 
-    expect(stat_tracker.most_tackles).to eq("FC Cincinnati")
+  it "#most_tackles" do
+    expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+    expect(stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  it 'can check which team had the fewest tackles' do 
-    expect(stat_tracker.fewest_tackles).to eq("Reign FC")
-  end
+  it "#fewest_tackles" do
+    expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United" 
+    expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC" 
+end
 
   it "#least_accurate_team" do
     expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"

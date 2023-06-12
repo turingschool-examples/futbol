@@ -163,50 +163,54 @@ class StatTracker
   # #The method then searches the othe csv to find the team associated with that team_id and assigns them to top_team
   # #return top_team[:team_name] for a string that represents the team name.
   
-  def most_tackles
-    tackles_by_team = {}
-    @game_teams_factory.game_teams.each do |game|
-      if tackles_by_team[game[:team_id]] == nil
-        tackles_by_team[game[:team_id]] = []
-        tackles_by_team[game[:team_id]] << game[:tackles].to_i
-      else
-        tackles_by_team[game[:team_id]] << game[:tackles].to_i
+  def most_tackles(season_id)
+    games_per_season = @game_factory.games.find_all do |game|
+      game if game[:season] == season_id
+    end
+
+    game_teams_per_season = []
+    games_per_season.each do |game|
+      @game_teams_factory.game_teams.each do |game_team|
+        game_teams_per_season.push(game_team) if game[:game_id] == game_team[:game_id]
       end
     end
-    tackles_by_team.transform_values! {|v| v.sum}
-    highest_tackles = tackles_by_team.values.find do |tackle|
-      tackle == tackles_by_team.values.max
+
+    tackles_by_team = Hash.new(0)
+    game_teams_per_season.each do |game_team|
+      tackles_per_team = game_team[:tackles].to_i
+      tackles_by_team[game_team[:team_id]] += tackles_per_team
     end
-    top_tackle_team_id = tackles_by_team.find do |team|
-      team[1]== highest_tackles
+    
+    highest_tackle_team = tackles_by_team.max_by {|team, tackles| tackles}[0]
+    highest_tackle_team_that_season = @team_factory.teams.find do |team| 
+      team if highest_tackle_team == team[:team_id]
     end
-    top_tackle_team = @team_factory.teams.find do |team|
-      team[:team_id] == top_tackle_team_id[0]
-    end
-    top_tackle_team[:team_name]
+    highest_tackle_team_that_season[:team_name]
   end
-  
-  def fewest_tackles
-    tackles_by_team = {}
-    @game_teams_factory.game_teams.each do |game|
-      if tackles_by_team[game[:team_id]] == nil
-        tackles_by_team[game[:team_id]] = []
-        tackles_by_team[game[:team_id]] << game[:tackles].to_i
-      else
-        tackles_by_team[game[:team_id]] << game[:tackles].to_i
+
+  def fewest_tackles(season_id)
+    games_per_season = @game_factory.games.find_all do |game|
+      game if game[:season] == season_id
+    end
+
+    game_teams_per_season = []
+    games_per_season.each do |game|
+      @game_teams_factory.game_teams.each do |game_team|
+        game_teams_per_season.push(game_team) if game[:game_id] == game_team[:game_id]
       end
     end
-    tackles_by_team.transform_values! {|v| v.sum}
-    lowest_tackles = tackles_by_team.values.find do |tackle|
-      tackle == tackles_by_team.values.min
+
+    tackles_by_team = Hash.new(0)
+    game_teams_per_season.each do |game_team|
+      tackles_per_team = game_team[:tackles].to_i
+      tackles_by_team[game_team[:team_id]] += tackles_per_team
     end
-    least_tackle_team_id = tackles_by_team.find do |team|
-      team[1]== lowest_tackles
+    
+    fewest_tackle_team = tackles_by_team.min_by {|team, tackles| tackles}[0]
+    fewest_tackle_team_that_season = @team_factory.teams.find do |team| 
+      team if fewest_tackle_team == team[:team_id]
     end
-    least_tackle_team = @team_factory.teams.find do |team|
-      team[:team_id] == least_tackle_team_id[0]
-    end
-    least_tackle_team[:team_name]
+    fewest_tackle_team_that_season[:team_name]
   end
 
   def most_accurate_team(season_id)
