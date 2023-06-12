@@ -42,3 +42,20 @@ Anna Wiley - [GitHub](https://github.com/awiley33) [LinkedIn](https://www.linked
 Mike Wood - [GitHub](https://github.com/MWoodshop) [LinkedIn](https://www.linkedin.com/in/michaelwilliamwood/)
 
 Zanna Fitch - [GitHub](https://github.com/z-fitch) [LinkedIn](https://www.linkedin.com/in/zanna-fitch-2841a1279/)
+
+Re-DTR
+
+* We revisited our initial DTR as a group and decided not to edit anything.
+
+Retro
+
+* Completed 6/11
+* We used a tool called Easy Retro. It is a collaborative workspace similar to Trello but to use during live discussion. Here is a link to the board we worked on together live during our zoom call: [Retro Workspace](https://easyretro.io/publicboard/fMKwvKTF02gj6GDFT5rTOF4XXU93/e482bf75-43d6-472d-ad2e-45ad23ed6259?list=false)
+* Top 3 Things that Went Well
+  - We were able to adapt and change direction of our project when necessary with a group consensus.
+  - We were able to work in our preferred styles (async/paired/etc) on our separate portions.
+  - Discussing issues together, and making well informed decisions that no-one disagreed with.
+* Top 3 Things to Improve
+  - We could have all met synchronously and paired for an hour or so at the beginning so that we could have been on the same page before we broke out and worked on methods separately.
+  - Our git workflow could be smoother. We could have been more specific on our DTR with expectations regarding open PRs and reviews.
+  - We could have communicated more via Slack messaging since we had agreed to work async and keep in touch that way on our DTR.
