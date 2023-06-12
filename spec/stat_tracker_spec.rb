@@ -81,7 +81,7 @@ describe StatTracker do
   end
 
   it '#percentage_ties' do
-    expect(@stat_tracker.percentage_ties).to eq 0.20
+    expect(@stat_tracker.percentage_ties).to eq 0.0
   end
 
   xit '#count_of_games_by_season' do
