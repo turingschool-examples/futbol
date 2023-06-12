@@ -21,4 +21,4 @@ p "The team with the least accuracy for season 20132014 is #{stat_tracker.least_
 
 p "There are #{stat_tracker.count_of_teams} teams represented in the CSV data."
 
-p "There count of games by season is #{stat_tracker.count_of_games}."
+p "The count of games by season is #{stat_tracker.count_of_games}."
