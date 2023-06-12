@@ -288,41 +288,20 @@ class StatTracker
     team_goals
   end
 
-  def highest_sum 
-    hash = {}
+  def highest_total_score
+    new_arr =[]
     @game_factory.games.each do |game|
-      if hash.key?(game[:home_team_id])
-        hash[game[:home_team_id]] += game[:home_goals].to_i
-      else
-        hash[game[:home_team_id]] = game[:home_goals].to_i
-      end
-
-      if hash.key?(game[:away_team_id])
-        hash[game[:away_team_id]] += game[:away_goals].to_i
-      else
-        hash[game[:away_team_id]] = game[:away_goals].to_i
-      end
+      new_arr << (game[:home_goals].to_i + game[:away_goals].to_i)
     end
-  hash.values.max
+    new_arr.max
   end
 
-  def lowest_sum 
-    hash = {}
+  def lowest_total_score
+    new_arr =[]
     @game_factory.games.each do |game|
-      if hash.key?(game[:home_team_id])
-        hash[game[:home_team_id]] += game[:home_goals].to_i
-      else
-        hash[game[:home_team_id]] = game[:home_goals].to_i
-     end
-
-      if hash.key?(game[:away_team_id])
-        hash[game[:away_team_id]] += game[:away_goals].to_i
-      else
-        hash[game[:away_team_id]] = game[:away_goals].to_i
-      end
-
+      new_arr << (game[:home_goals].to_i + game[:away_goals].to_i)
     end
-  hash.values.min
+    new_arr.min
   end
   
   def look_up_team_name(team_id)
