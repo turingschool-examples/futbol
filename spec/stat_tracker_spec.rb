@@ -101,8 +101,8 @@ RSpec.describe 'Stat_Tracker' do
   end
 
   it 'sums works' do
-    expect(stat_tracker.highest_sum).to eq(1262)
-    expect(stat_tracker.lowest_sum).to eq(239)
+    expect(stat_tracker.highest_total_score).to eq(11)
+    expect(stat_tracker.lowest_total_score).to eq(0)
   end
 
   it '#winningest_coach' do
