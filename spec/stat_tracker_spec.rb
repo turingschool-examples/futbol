@@ -100,7 +100,6 @@ RSpec.describe 'Stat_Tracker' do
     expect(stat_tracker.fewest_tackles).to eq("Reign FC")
   end
 
-
   it 'winningest coach' do 
     stat_tracker = StatTracker.new
     stat_tracker.from_csv(path)
