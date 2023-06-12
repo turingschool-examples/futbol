@@ -101,13 +101,19 @@ RSpec.describe 'Stat_Tracker' do
   end
 
   it 'sums works' do
-    expect(stat_tracker.highest_sum).to eq(1262)
-    expect(stat_tracker.lowest_sum).to eq(239)
+    expect(stat_tracker.highest_total_score).to eq(11)
+    expect(stat_tracker.lowest_total_score).to eq(0)
   end
 
   it '#winningest_coach' do
     expect(stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
     expect(stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+  end
+
+
+  it '#worst_coach' do
+    expect(stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+    expect(stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
   it 'can find the average goal per game' do

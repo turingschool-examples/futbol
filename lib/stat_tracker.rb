@@ -288,26 +288,16 @@ class StatTracker
     team_goals
   end
 
-  def highest_sum 
-    hash = {}
+  def highest_total_score
+    new_arr =[]
     @game_factory.games.each do |game|
-      if hash.key?(game[:home_team_id])
-        hash[game[:home_team_id]] += game[:home_goals].to_i
-      else
-        hash[game[:home_team_id]] = game[:home_goals].to_i
-      end
-
-      if hash.key?(game[:away_team_id])
-        hash[game[:away_team_id]] += game[:away_goals].to_i
-      else
-        hash[game[:away_team_id]] = game[:away_goals].to_i
-      end
+      new_arr << (game[:home_goals].to_i + game[:away_goals].to_i)
     end
-  hash.values.max
+    new_arr.max
   end
 
-  def lowest_sum 
-    hash = {}
+  def lowest_total_score
+    new_arr =[]
     @game_factory.games.each do |game|
       if hash.key?(game[:home_team_id])
         hash[game[:home_team_id]] += game[:home_goals].to_i
@@ -320,9 +310,9 @@ class StatTracker
       else
         hash[game[:away_team_id]] = game[:away_goals].to_i
       end
-
+      new_arr << (game[:home_goals].to_i + game[:away_goals].to_i)
     end
-  hash.values.min
+    new_arr.min
   end
   
   def look_up_team_name(team_id)
@@ -364,6 +354,7 @@ class StatTracker
     wins_per_coach.max_by { |coach, wins| wins }[0] 
   end
 
+
   def count_of_games_by_season
     games_by_season = {}
     @game_factory.games.each do |game|
@@ -381,5 +372,24 @@ class StatTracker
       game[:home_goals]
     end
     look_up_team_name(lowest_home_scores[:home_team_id])  
+
+  def worst_coach(season_id)
+    games_per_season = @game_factory.games.find_all do |game|
+      game if game[:season] == season_id
+    end
+
+    game_teams_per_season = []
+    games_per_season.each do |game|
+      @game_teams_factory.game_teams.each do |game_team|
+        game_teams_per_season.push(game_team) if game[:game_id] == game_team[:game_id]
+      end
+    end
+
+    losses_per_coach = Hash.new(0)
+    game_teams_per_season.each do |game_team|
+      losses_per_coach[game_team[:head_coach]] += 1 if game_team[:result] == "LOSS"
+    end
+    
+    losses_per_coach.min_by { |coach, losses| losses }[0] 
   end
 end
