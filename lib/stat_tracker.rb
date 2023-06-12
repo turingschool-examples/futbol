@@ -142,15 +142,6 @@ class StatTracker
     end
   end
 
-  def calculate_team_scores(team_id_key)
-    team_scores = Hash.new(0)
-    @games.each do |game|
-      team_id = game.send(team_id_key)
-      team_scores[team_id] += game.home_goals + game.away_goals
-    end
-    team_scores
-  end
-
   # Season Statistics
 
   def winningest_coach(season_id)
