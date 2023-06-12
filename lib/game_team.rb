@@ -18,7 +18,7 @@ class GameTeam
   def initialize(data)
     @game_id = data[:game_id]
     @team_id = data[:team_id]
-    @home_or_away = data[:HoA]
+    @home_or_away = data[:hoa]
     @game_result = data[:result]
     @reg_or_ot = data[:settled_in]
     @coach = data[:head_coach]
