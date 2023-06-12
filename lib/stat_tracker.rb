@@ -4,14 +4,7 @@ require_relative 'game_teams_factory'
 require_relative 'game_factory'
 
 class StatTracker 
-  def from_csv(path)
-    if path == './data/games.csv'
-      @game_factory = create_games_factory(path)
-    elsif path == './data/teams.csv'
-      @team_factory = create_teams_factory(path)
-    else
-      @game_teams_factory = create_game_teams_factory(path)
-    end
+  
   def self.from_csv(locations)
     game_factory = create_games_factory(locations[:games])
     team_factory = create_teams_factory(locations[:teams])
@@ -370,5 +363,4 @@ class StatTracker
     
     wins_per_coach.max_by { |coach, wins| wins }[0] 
   end
-end
 end
