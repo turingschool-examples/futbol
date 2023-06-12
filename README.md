@@ -65,5 +65,5 @@ Top 3 things that went well during your project
 Top 3 things your team would do differently next time
 
   - get a clearer understanding of what the project entails before set up 
-  - more overshire of PRs to Merge
+  - more oversight of PRs to Merge
   - give classes more definition
