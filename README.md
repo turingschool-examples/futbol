@@ -48,5 +48,19 @@ Name: Jorja
 Github: JorjaF
 Linkedin: https://www.linkedin.com/in/jorja-f-25027a70/
 
+The name of and links (if applicable) to any tools you used for retro
+  https://www.atlassian.com/team-playbook/plays/retrospective
+
+  https://miro.com/app/board/uXjVMB5T6lc=/
 
 
+Top 3 things that went well during your project
+  - communication with each other
+  - repected each other
+  - consideration of all ideas
+
+Top 3 things your team would do differently next time
+
+  - get a clearer understanding of what the project entails before set up 
+  - more oversight of PRs to Merge
+  - give classes more definition
