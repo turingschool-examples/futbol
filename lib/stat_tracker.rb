@@ -5,32 +5,35 @@ require_relative 'game_factory'
 
 class StatTracker 
 
-  def from_csv(path)
-    if path == './data/games.csv'
-    @game_factory = create_games_factory(path)
-    elsif path == './data/teams.csv'
-      @team_factory = create_teams_factory(path)
-    else
-      @game_teams_factory = create_game_teams_factory(path)
-    end
+  def self.from_csv(locations)
+    game_factory = create_games_factory(locations[:games])
+    team_factory = create_teams_factory(locations[:teams])
+    game_teams_factory = create_game_teams_factory(locations[:game_teams])
+    StatTracker.new(game_factory, team_factory, game_teams_factory)
   end
 
-  def create_teams_factory(path)
+  def self.create_teams_factory(path)
     team_factory = TeamFactory.new
     team_factory.create_teams(path)
     team_factory
   end
   
-  def create_games_factory(path)
+  def self.create_games_factory(path)
     game_factory = GameFactory.new
     game_factory.create_games(path)
     game_factory
   end
 
-  def create_game_teams_factory(path)
+  def self.create_game_teams_factory(path)
     game_teams_factory = GameTeamsFactory.new
     game_teams_factory.create_game_teams(path)
     game_teams_factory
+  end
+
+  def initialize(game_factory, team_factory, game_teams_factory)
+    @game_factory = game_factory
+    @team_factory = team_factory
+    @game_teams_factory = game_teams_factory
   end
 
   def percentage_home_wins
@@ -110,5 +113,25 @@ class StatTracker
 
   def count_of_teams 
     @team_factory.teams.count
+  end
+
+  def winningest_coach(season_id)
+    games_per_season = @game_factory.games.find_all do |game|
+      game if game[:season] == season_id
+    end
+
+    game_teams_per_season = []
+    games_per_season.each do |game|
+      @game_teams_factory.game_teams.each do |game_team|
+        game_teams_per_season.push(game_team) if game[:game_id] == game_team[:game_id]
+      end
+    end
+
+    wins_per_coach = Hash.new(0)
+    game_teams_per_season.each do |game_team|
+      wins_per_coach[game_team[:head_coach]] += 1 if game_team[:result] == "WIN"
+    end
+    
+    wins_per_coach.max_by { |coach, wins| wins }[0] 
   end
 end
