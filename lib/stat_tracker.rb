@@ -83,10 +83,10 @@ class StatTracker
   def team_goals(home_or_away)
     team_goals = {}
     @game_teams.each do |game_team|
-      if team_goals[game_team.team_id.to_sym] != nil && game_team.home_or_away == home_or_away
-        team_goals[game_team.team_id.to_sym].push(game_team.goals.to_i)
+      if team_goals[game_team.team_id] != nil && game_team.home_or_away == home_or_away
+        team_goals[game_team.team_id].push(game_team.goals.to_i)
       elsif  game_team.home_or_away == home_or_away
-        team_goals[game_team.team_id.to_sym] = [game_team.goals.to_i]
+        team_goals[game_team.team_id] = [game_team.goals.to_i]
       end
     end
     team_goals
