@@ -140,7 +140,7 @@ end
 
   def highest_scoring_home_team
     highest_scoring = team_goal_average('home').max_by{ |team_id, average_goals| average_goals }
-    find_team_name(highest_ascoring)
+    find_team_name(highest_scoring)
   end
 
 
