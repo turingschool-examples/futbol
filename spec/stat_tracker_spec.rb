@@ -101,10 +101,9 @@ RSpec.describe 'Stat_Tracker' do
   end
 
   it 'sums works' do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
     expect(stat_tracker.highest_sum).to eq(1262)
-    expect(stat_tracker.lowest_sum).to eq(239) 
+    expect(stat_tracker.lowest_sum).to eq(239)
+  end
 
   it '#winningest_coach' do
     expect(stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
@@ -112,63 +111,38 @@ RSpec.describe 'Stat_Tracker' do
   end
 
   it 'can find the average goal per game' do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
     expect(stat_tracker.average_goals_per_game).to eq(4.22)
   end
 
   it 'can find the average goals by season' do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
     expect(stat_tracker.average_goals_by_season).to be_a Hash
     expect(stat_tracker.average_goals_by_season["20122013"]).to eq(4.12)
     expect(stat_tracker.average_goals_by_season["20162017"]).to eq(4.23)
   end
 
   it 'can find the highest scoring visitor' do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
-    stat_tracker.from_csv(path_2)
     expect(stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
   end
 
   it 'can find the highest scoring home team' do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
-    stat_tracker.from_csv(path_2)
     expect(stat_tracker.highest_scoring_home_team).to eq("Reign FC")
   end
 
   it 'can check which team had the most tackles' do 
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path_3)
-    stat_tracker.from_csv(path_2)
     expect(stat_tracker.most_tackles).to eq("FC Cincinnati")
   end
 
   it 'can check which team had the fewest tackles' do 
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path_3)
-    stat_tracker.from_csv(path_2)
     expect(stat_tracker.fewest_tackles).to eq("Reign FC")
   end
 
   it "#least_accurate_team" do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
-    stat_tracker.from_csv(path_3)
-    stat_tracker.from_csv(path_2)
     expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
   it "#most_accurate_team" do
-    stat_tracker = StatTracker.new
-    stat_tracker.from_csv(path)
-    stat_tracker.from_csv(path_3)
-    stat_tracker.from_csv(path_2)
     expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
     #expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC" #this comes back as "DC United"
   end
-
 end

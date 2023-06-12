@@ -4,14 +4,7 @@ require_relative 'game_teams_factory'
 require_relative 'game_factory'
 
 class StatTracker 
-  def from_csv(path)
-    if path == './data/games.csv'
-      @game_factory = create_games_factory(path)
-    elsif path == './data/teams.csv'
-      @team_factory = create_teams_factory(path)
-    else
-      @game_teams_factory = create_game_teams_factory(path)
-    end
+  
   def self.from_csv(locations)
     game_factory = create_games_factory(locations[:games])
     team_factory = create_teams_factory(locations[:teams])
@@ -163,12 +156,12 @@ class StatTracker
     top_team[:team_name]
   end
   
-  #This method starts with a hash where the key is the team_id and the value is an array of the goals if home/away
-  #The value is then summed, averaged, and rounded.
-  #top is equal to the highest average score per game
-  #top_team_id finds the team_id associated with the highest average score per game
-  #The method then searches the othe csv to find the team associated with that team_id and assigns them to top_team
-  #return top_team[:team_name] for a string that represents the team name.
+  # #This method starts with a hash where the key is the team_id and the value is an array of the goals if home/away
+  # #The value is then summed, averaged, and rounded.
+  # #top is equal to the highest average score per game
+  # #top_team_id finds the team_id associated with the highest average score per game
+  # #The method then searches the othe csv to find the team associated with that team_id and assigns them to top_team
+  # #return top_team[:team_name] for a string that represents the team name.
   
   def most_tackles
     tackles_by_team = {}
@@ -269,6 +262,13 @@ class StatTracker
     avg_by_team.map do |team, avg|
       avg_overall[team] = avg / games_per_season.count
     end
+    lowest_accuracy_team = avg_overall.min_by {|team, avg| avg}[0]
+
+    lowest_team_that_season = @team_factory.teams.find do |team| 
+      team if lowest_accuracy_team == team[:team_id]
+    end
+    lowest_team_that_season[:team_name]
+  end
 
   def worst_offense
     worst_offense_team_id = goals_per_team.min_by { |team_id, goals| goals }[0]
@@ -286,16 +286,6 @@ class StatTracker
       team_goals[game[:team_id]] += game[:goals].to_i
     end
     team_goals
-  end
-
-
-    lowest_accuracy_team = avg_overall.min_by {|team, avg| avg}[0]
-
-    lowest_team_that_season = @team_factory.teams.find do |team| 
-      team if lowest_accuracy_team == team[:team_id]
-    end
-
-    lowest_team_that_season[:team_name]
   end
 
   def highest_sum 
@@ -374,4 +364,3 @@ class StatTracker
     wins_per_coach.max_by { |coach, wins| wins }[0] 
   end
 end
-
