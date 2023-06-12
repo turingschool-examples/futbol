@@ -14,9 +14,9 @@ describe GameTeam do
         shots: '8',
         tackles: '44',
         pim: '8',
-        powerPlayOpportunities: '3',
-        powerPlayGoals: '0',
-        faceOffWinPercentage: '8',
+        powerplayopportunities: '3',
+        powerplaygoals: '0',
+        faceoffwinpercentage: '8',
         giveaways: '17',
         takeaways: '7'
       }
@@ -30,7 +30,7 @@ describe GameTeam do
       info = {
         game_id: '1',
         team_id: '5',
-        HoA: 'away',
+        hoa: 'away',
         result: 'WIN',
         settled_in: 'OT',
         head_coach: 'John Tortorella',
@@ -38,9 +38,9 @@ describe GameTeam do
         shots: '8',
         tackles: '44',
         pim: '8',
-        powerPlayOpportunities: '3',
-        powerPlayGoals: '0',
-        faceOffWinPercentage: '8',
+        powerplayopportunities: '3',
+        powerplaygoals: '0',
+        faceoffwinpercentage: '8',
         giveaways: '17',
         takeaways: '7'
       }
@@ -67,7 +67,7 @@ describe GameTeam do
       info = {
         game_id: '1234',
         team_id: '9',
-        HoA: 'home',
+        hoa: 'home',
         result: 'LOSS',
         settled_in: 'REG',
         head_coach: 'Jane Smith',
@@ -75,9 +75,9 @@ describe GameTeam do
         shots: '10',
         tackles: '40',
         pim: '10',
-        powerPlayOpportunities: '4',
-        powerPlayGoals: '1',
-        faceOffWinPercentage: '10',
+        powerplayopportunities: '4',
+        powerplaygoals: '1',
+        faceoffwinpercentage: '10',
         giveaways: '20',
         takeaways: '10'
       }
