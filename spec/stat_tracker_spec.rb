@@ -141,7 +141,7 @@ RSpec.describe 'Stat_Tracker' do
 
   it "#fewest_tackles" do
     expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United" 
-    expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC" "Seattle Sounders FC"
+    expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC" 
 end
 
   it "#least_accurate_team" do
