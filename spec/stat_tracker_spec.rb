@@ -151,7 +151,8 @@ end
 
   it "#most_accurate_team" do
     expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
-    expect(stat_tracker.most_accurate_team("20142015")).to eq "DC United" #this comes back as "DC United" instead of "Toronto FC".  end
+    expect(stat_tracker.most_accurate_team("20142015")).to eq "DC United" #this comes back as "DC United" instead of "Toronto FC".  
+  end
 
   it 'counts number of games by season' do 
     season_totals = {
