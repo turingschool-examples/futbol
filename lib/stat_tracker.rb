@@ -58,7 +58,7 @@ class StatTracker
 
   def percentage_ties
     tie_games = @game_teams.find_all do |game|
-      game.game_result.include?("TIE")
+      game.game_result && game.game_result.include?("TIE")
     end
     results = tie_games.length.to_f / @game_teams.length.to_f
     results.round(2)
@@ -102,13 +102,13 @@ class StatTracker
       game_team_goals[team] = (goal_array.sum.to_f / goal_array.length.to_f)
     end
     max_key_value = game_team_goals.max_by{ |team, goals| goals }
-  
+
     team = @teams.find do |team|
       max_key_value[0].to_s == team.team_id
     end
     team.team_name
   end
-  
+
   def lowest_scoring_home_team
     game_team_goals = Hash.new
     @game_teams.each do |game_team|
@@ -182,7 +182,7 @@ class StatTracker
 
     worst_coach
   end
-  
+
   def fewest_tackles(season)
     season_games = @games.find_all do |game|
       game.season_id == season
@@ -263,7 +263,7 @@ class StatTracker
     end
     team.team_name
   end
-  
+
   def most_tackles(season_id)
     season =  @games.find_all do |game|
       game.season_id == season_id
@@ -278,7 +278,7 @@ class StatTracker
         season_game_teams << game_team
       end
     end
-    
+
     game_team_tackles = {}
     season_game_teams.each do |game_team|
       game_team_tackles[game_team.team_id.to_sym] = []
@@ -294,7 +294,7 @@ class StatTracker
     end
 
     most = game_team_tackles.max_by{ |team, tackles| tackles }
-    
+
     team = @teams.find do |team|
       most[0].to_s == team.team_id
     end
