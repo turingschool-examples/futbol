@@ -134,4 +134,24 @@ class StatTracker
     
     wins_per_coach.max_by { |coach, wins| wins }[0] 
   end
+
+  def worst_coach(season_id)
+    games_per_season = @game_factory.games.find_all do |game|
+      game if game[:season] == season_id
+    end
+
+    game_teams_per_season = []
+    games_per_season.each do |game|
+      @game_teams_factory.game_teams.each do |game_team|
+        game_teams_per_season.push(game_team) if game[:game_id] == game_team[:game_id]
+      end
+    end
+
+    losses_per_coach = Hash.new(0)
+    game_teams_per_season.each do |game_team|
+      losses_per_coach[game_team[:head_coach]] += 1 if game_team[:result] == "LOSS"
+    end
+    
+    losses_per_coach.min_by { |coach, losses| losses }[0] 
+  end
 end
