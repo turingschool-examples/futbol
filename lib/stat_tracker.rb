@@ -44,7 +44,7 @@ class StatTracker
     percentage_wins.round(2)
   end
   
-  def percent_of_ties
+  def percentage_ties
     ties = @game_factory.games.count do |game|
       game[:away_goals] == game[:home_goals]
     end
@@ -94,6 +94,7 @@ class StatTracker
     team_goals
   end
 
+
   def highest_sum 
     hash = {}
     @game_factory.games.each do |game|
@@ -131,4 +132,22 @@ class StatTracker
   hash.values.min
   end
   
+  def look_up_team_name(team_id)
+    team = @team_factory.teams.find do |team|
+      team_id == team[:team_id]
+    end
+    team[:team_name]
+  end
+
+  def lowest_scoring_visitor
+    lsv = @game_factory.games.min_by do |game|
+      game[:away_goals]
+    end
+    look_up_team_name(lsv[:away_team_id])  
+  end
+
+  def count_of_teams 
+    @team_factory.teams.count
+  end
+
 end
