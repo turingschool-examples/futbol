@@ -1,0 +1,3 @@
+class GameStatistics
+  
+end
