@@ -1,6 +1,8 @@
 # Futbol
 
 https://backend.turing.edu/module1/projects/futbol_pd/index
+https://backend.turing.edu/module1/projects/eventmanager
+
 A 1-2 summary or bullet points outlining your plan for check-ins throughout the duration of the project.
  - daily
  - as required for feature collaboration and debugging
