@@ -1,0 +1,36 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2013020924,20132014,Regular Season,3/5/14,13,6,1,2,Toyota Stadium,/api/v1/venues/null
+2012020205,20122013,Regular Season,2/17/13,9,10,0,3,WakeMed Soccer Park,/api/v1/venues/null
+2013021213,20132014,Regular Season,4/12/14,4,5,2,3,Children's Mercy Park,/api/v1/venues/null
+2013020972,20132014,Regular Season,3/11/14,52,21,2,3,BC Place,/api/v1/venues/null
+2013021119,20132014,Regular Season,3/30/14,20,9,3,4,Yankee Stadium,/api/v1/venues/null
+2015020811,20152016,Regular Season,2/12/16,24,29,3,3,Exploria Stadium,/api/v1/venues/null
+2017020923,20172018,Regular Season,2/21/18,28,19,3,2,Talen Energy Stadium,/api/v1/venues/null
+2015020640,20152016,Regular Season,1/13/16,14,21,2,0,BC Place,/api/v1/venues/null
+2017021138,20172018,Regular Season,3/22/18,53,12,3,4,Yurcak Field,/api/v1/venues/null
+2015020928,20152016,Regular Season,2/28/16,9,20,4,2,BMO Field,/api/v1/venues/null
+2013020096,20132014,Regular Season,10/17/13,23,7,3,0,Rio Tinto Stadium,/api/v1/venues/null
+2012020292,20122013,Regular Season,3/1/13,7,13,3,3,BBVA Stadium,/api/v1/venues/null
+2013021015,20132014,Regular Season,3/16/14,22,12,2,1,Yurcak Field,/api/v1/venues/null
+2013020625,20132014,Regular Season,1/4/14,22,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2013021007,20132014,Regular Season,3/15/14,1,14,0,3,Audi Field,/api/v1/venues/null
+2014020183,20142015,Regular Season,11/5/14,10,53,2,3,Mapfre Stadium,/api/v1/venues/null
+2014020603,20142015,Regular Season,1/9/15,16,30,2,2,Exploria Stadium,/api/v1/venues/null
+2014020289,20142015,Regular Season,11/21/14,12,26,2,3,Nippert Stadium,/api/v1/venues/null
+2014021176,20142015,Regular Season,4/5/15,25,18,2,3,Allianz Field,/api/v1/venues/null
+2014020896,20142015,Regular Season,2/25/15,20,3,0,1,BBVA Stadium,/api/v1/venues/null
+2015020973,20152016,Regular Season,3/6/16,15,6,2,1,Toyota Stadium,/api/v1/venues/null
+2015021121,20152016,Regular Season,3/26/16,24,9,2,3,Yankee Stadium,/api/v1/venues/null
+2016020692,20162017,Regular Season,1/21/17,12,29,2,3,Exploria Stadium,/api/v1/venues/null
+2017021061,20172018,Regular Season,3/11/18,25,5,1,3,Children's Mercy Park,/api/v1/venues/null
+2015020208,20152016,Regular Season,11/8/15,3,53,2,1,Mapfre Stadium,/api/v1/venues/null
+2013020347,20132014,Regular Season,11/24/13,25,19,1,4,Talen Energy Stadium,/api/v1/venues/null
+2013020199,20132014,Regular Season,11/2/13,16,52,3,1,Providence Park,/api/v1/venues/null
+2012020463,20122013,Regular Season,3/24/13,21,25,2,3,SeatGeek Stadium,/api/v1/venues/null
+2013020892,20132014,Regular Season,2/28/14,15,13,3,2,BBVA Stadium,/api/v1/venues/null
+2013021182,20132014,Regular Season,4/8/14,12,3,1,2,BBVA Stadium,/api/v1/venues/null
+2014020755,20142015,Regular Season,2/4/15,12,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2014020674,20142015,Regular Season,1/19/15,53,52,3,3,Providence Park,/api/v1/venues/null
+2014020599,20142015,Regular Season,1/9/15,15,4,2,3,SeatGeek Stadium,/api/v1/venues/null
+2014020282,20142015,Regular Season,11/21/14,19,8,1,2,Red Bull Arena,/api/v1/venues/null
+2014020801,20142015,Regular Season,2/11/15,4,8,1,2,Red Bull Arena,/api/v1/venues/null
