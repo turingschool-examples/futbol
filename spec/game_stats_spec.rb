@@ -1,11 +1,25 @@
 require "csv"
 require "./lib/game_stats"
 require 'pry'
-
+require './lib/stat_tracker'
 
 RSpec.describe GameStats do
   before :each do
-    @game_stats = GameStats.new
+    @game_path = './data/games.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
+    @games_fixture_path = './data/games_fixture.csv'
+    @games_teams_fixture_path = './data/games_teams_fixture.csv'
+    @locations = 
+    {
+      games: @games_fixture_path,
+      teams: @team_path,
+      game_teams: @game_teams_path,
+      games_fixture_path: @games_fixture_path,
+      games_teams_fixture_path: @games_teams_fixture_path
+    
+    }
+    @game_stats = GameStats.new(@locations)
   end
 
   describe "game_stats exists" do
@@ -29,7 +43,7 @@ RSpec.describe GameStats do
   end
 
   describe "#percentage_home_wins" do
-    it 'finds the percentage of games that a home team has won (rounded to the nearest 100th)' do
+    xit 'finds the percentage of games that a home team has won (rounded to the nearest 100th)' do
       # binding.pry
       expect(@game_stats.percentage_home_wins).to eq()
     end
