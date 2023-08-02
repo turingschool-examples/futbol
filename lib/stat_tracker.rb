@@ -14,6 +14,7 @@ class StatTracker
     @game_team_file = CSV.open data[:game_teams], headers: true, header_converters: :symbol
     @teams = []
     @seasons = []
+    @games = []
   end
 
   def rewind(file)
@@ -40,6 +41,13 @@ class StatTracker
       @seasons << Season.new(season, count_of_games_by_season(season), seasonal_game_collector(season), average_goals_per_game(season))
     end
   end
+
+  def create_games
+    @game_file.each do |game|
+      @games << Game.new(game, @team_file)
+    end
+  end
+
   
   def season_finder
     all_seasons = @game_file.map { |row| row[:season] }.uniq
