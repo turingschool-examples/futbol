@@ -15,6 +15,13 @@ describe GameStats do
       expect(game_stats.games).to all be_a(Game)
     end
   end
+
+  describe "#highest_total_score" do
+    xit "returns the highest combined game score" do
+
+      expect(game_stats.highest_total_score).to eq(11)
+    end
+  end
 end
 
   
