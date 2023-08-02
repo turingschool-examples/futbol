@@ -1,7 +1,7 @@
 require './lib/helper_class'
 
 module Teams
-  def count_of_teams
-    Teams.teams.count
+  def Team.count_of_teams
+    Team.teams.count
   end  
 end

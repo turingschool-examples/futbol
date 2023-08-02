@@ -4,7 +4,7 @@ class StatTracker
   attr_reader :data, 
               :team_file,
               :game_file,
-              :game_team_file,
+              :game_team_file
 
   def initialize(data)
     @data = data
@@ -21,12 +21,6 @@ class StatTracker
   
   def self.from_csv(locations)
     StatTracker.new(locations)
-  end
-  
-  def create_teams
-    @team_file.each do |team|
-      @teams << Teams.new(team)
-    end
   end
   
   def create_seasons
