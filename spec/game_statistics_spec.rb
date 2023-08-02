@@ -28,4 +28,10 @@ RSpec.describe GameStatistics do
       expect(@game_stats.percentage_visitor_wins).to eq(0.26)
     end
   end
+
+  describe "percent ties" do
+    it "finds percntage of tied away and home games" do
+      expect(@game_stats.percentage_ties).to eq(.05)
+    end
+  end
 end
