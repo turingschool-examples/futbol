@@ -11,5 +11,10 @@ RSpec.describe GameStatistics do
     end
   end
 
+  describe "lowest_total_score" do
+    it "finds the lowest total score from stat data" do
+      expect(@game_stats.highest_total_score).to eq(1)
+    end
+  end
 
 end
