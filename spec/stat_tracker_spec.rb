@@ -1,3 +1,4 @@
+require 'csv'
 require './lib/stat_tracker'
 
 # stat_tracker = StatTracker.from_csv(locations)
@@ -28,9 +29,19 @@ RSpec.describe StatTracker do
     it "has a game, game_team, and teams attribute that is readable" do
       tracker = StatTracker.new(@game_path, @game_teams_path, @teams_path)
 
-      expect(tracker.game).to eq(@game_path)
+      expect(tracker.games).to eq(@game_path)
       expect(tracker.game_teams).to eq(@game_teams_path)
       expect(tracker.teams).to eq(@teams_path)
+    end
+  end
+
+  describe "##from_csv" do
+    it "returns a new instance of a StatTracker object given a hash of filepaths" do
+      tracker = StatTracker.from_csv(@locations)
+
+      expect(tracker.games).to eq(@locations[:games])
+      expect(tracker.game_teams).to eq(@locations[:game_teams])
+      expect(tracker.teams).to eq(@locations[:teams])
     end
   end
 
