@@ -6,6 +6,6 @@ RSpec.describe LeagueStatistics do
   end
 
   it "can show total number of teams" do 
-    
+    expect(@league.count_of_teams).to eq(20)
   end
 end
