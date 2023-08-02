@@ -18,5 +18,11 @@ RSpec.describe StatDaddy do
     it "exists" do
       expect(@stat_daddy).to be_a StatDaddy
     end
+
+    it "has readable games, teams, and game_teams attributes" do
+      expect(@stat_daddy.games).to be_an Array
+      expect(@stat_daddy.teams).to be_an Array
+      expect(@stat_daddy.game_teams).to be_an Array
+    end
   end
 end
