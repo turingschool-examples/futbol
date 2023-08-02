@@ -1,32 +1,29 @@
 require_relative 'helper_class'
 
 class GameTeam
+  @@game_teams = []
   attr_reader :game_id,
               :team_id,
-              :home,
+              :hoa,
               :result,
               :coach,
               :goals,
-              :teamname
+              :shots,
+              :tackles
 
-  def initialize(game_team_file, team_file)
+  def initialize(game_team_file)
     @game_id = game_team_file[:game_id]
     @team_id = game_team_file[:team_id]
-    @home = game_team_file[:hoa] == "home"
-    @result = game_team_file[:results]
-    @coach = game_team_file[:coach]
+    @hoa = game_team_file[:hoa]
+    @result = game_team_file[:result]
+    @coach = game_team_file[:head_coach]
     @goals = game_team_file[:goals]
-    @teamname = find_teamname(team_file)
+    @shots = game_team_file[:shots]
+    @tackles = game_team_file[:tackles]
+    @@game_teams << self
   end
 
-private
-
-  def find_teamname(team_file)
-    name = nil
-    team_file.each do |team| if team[:team_id] == @team_id
-      name = team[:teamname]
-      end
-    end
-    name
+  def self.game_teams
+    @@game_teams
   end
 end

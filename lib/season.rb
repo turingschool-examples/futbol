@@ -1,27 +1,25 @@
 require_relative 'helper_class'
 
 class Season
+  @@seasons = []
   attr_reader :season,
-              :game_count,
-              :games_played,
-              :avg_goals,
-              :winningest_coach,
-              :worst_coach,
-              :most_accurate_team,
-              :least_accurate_team,
-              :most_tackles,
-              :fewest_tackles
+              :game_id,
+              :away_team_id,
+              :home_team_id,
+              :away_goals,
+              :home_goals
 
-  def initialize(season, game_count, games_played, avg_goals)
-    @season = season
-    @game_count = game_count
-    @games_played = games_played
-    @avg_goals = avg_goals
-    @winningest_coach = nil
-    @worst_coach = nil
-    @most_accurate_team = nil
-    @least_accurate_team = nil
-    @most_tackles = nil
-    @fewest_tackles = nil
+  def initialize(data)
+    @season = data[:season]
+    @game_id = data[:game_id]
+    @away_team_id = data[:away_team_id]
+    @home_team_id = data[:home_team_id]
+    @away_goals = data[:away_goals]
+    @home_goals = data[:home_goals]
+    @@seasons << self
+  end
+
+  def self.seasons
+    @@seasons
   end
 end
