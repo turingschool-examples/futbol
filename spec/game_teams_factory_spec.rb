@@ -13,10 +13,10 @@ describe GameTeamsFactory do
   
   describe "#create_game_teams" do
     it "can add game_teams" do
-      expect(@factory.create_game_teams("./fixture/game_teams_fixture.csv")).to be_an Array
-      expect(@factory.create_game_teams("./fixture/game_teams_fixture.csv")).to all be_a GameTeams
+      expect(@factory.create_game_teams("./fixture/game_teams_fixtures.csv")).to be_an Array
+      expect(@factory.create_game_teams("./fixture/game_teams_fixtures.csv")).to all be_a GameTeams
 
-      @factory.create_game_teams("./fixture/game_teams_fixture.csv")
+      @factory.create_game_teams("./fixture/game_teams_fixtures.csv")
 
       expect(@factory.game_teams[0].game_id).to be 2012030221
       expect(@factory.game_teams[0].team_id).to be 3
