@@ -30,8 +30,8 @@ Include link to your initial DTR document and the date it was completed. If you 
 Create a section in your README called “Contributors”. List each group member’s name and link to their LinkedIn and Github profiles.
 
 ***Contributors:***
-- https://github.com/coryrpow (Cory Powell)
-- https://github.com/TheAveryRodriguez (Edward Rodriguez)
-- https://github.com/tblackmon-tiel (Tyler Blackmon)
-- https://github.com/WillWeston94 (Will Weston)
+- Cory Powell - [Github](https://github.com/coryrpow) || [LinkedIn](https://www.linkedin.com/in/cory-powell-515853284/)
+- Edward Rodriguez - [Github](https://github.com/TheAveryRodriguez) || [LinkedIn](https://www.linkedin.com/in/edward-avery-rodriguez/)
+- Tyler Blackmon - [Github](https://github.com/tblackmon-tiel) || [LinkedIn](https://www.linkedin.com/in/tyler-blackmon-674842284/)
+- Will Weston - [Github](https://github.com/WillWeston94) || [LinkedIn](https://www.linkedin.com/in/will-weston-39577b286/)
  
