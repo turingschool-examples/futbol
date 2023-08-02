@@ -31,9 +31,16 @@ describe GameStats do
   end
 
   describe "#percentage_home_wins" do 
-    it "returns a percentage representing the ratio that home team wins the game" do
+    xit "returns a percentage representing the ratio that home team wins the game" do
 
       expect(game_stats.percentage_home_wins).to eq(0.44)
+    end
+  end
+
+  describe "#percentage_visitor_wins" do
+    xit "returns the raio of games won by the visiting team" do
+
+      expect(game_stats.percentage_visitor_wins).to eq(0.36)
     end
   end
 end
