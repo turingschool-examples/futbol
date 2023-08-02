@@ -12,9 +12,5 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-require 'pry'; binding.pry
-stat_tracker.create_seasons
-
-puts stat_tracker.seasons
 
 # team_data =CSV.open './data/teams.csv', headers: true, header_converters: :symbol
