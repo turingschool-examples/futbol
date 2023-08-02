@@ -34,32 +34,31 @@
 
 **Summary:** We will begin by building out all objects and parsing files through the stat tracker. We will then build relevant methods in classes. Eventually, we will move methods into modules for each class and leave the classes to only have instance variables. We will perhaps also have a module for standard calculations such as percentage calculations, etc. 
 
-**Classes:**
+**Classes:**  
 - GameStat
 - LeagueStat 
 - SeasonStat 
 - StatTracker 
 
-**Modules:**
+**Modules:**  
 - GameStatable
 - LeagueStatable
 - SeasonStatable
 
-**External Files:**
+**External Files:**  
 - Data files
 - Sample data files
 - Runner
 - Spec Harness
 
-**Additional Documents:**
-
-[Google Doc Brainstom](https://docs.google.com/document/d/1gS0AAn056CZI1Cn7MSnpMDbgAODSe6wiQGfNmsCnGRE/edit) 
-
-[DTR Document](https://docs.google.com/document/d/1ge9dOOicZM7uRql86bdureXG470FcPbfWdJxfzakB2k/edit)
+**Additional Documents:**  
+[Futbol Architechture](https://miro.com/app/board/uXjVMxAWfME=/#tpicker-content)  
+[Google Doc Brainstom](https://docs.google.com/document/d/1gS0AAn056CZI1Cn7MSnpMDbgAODSe6wiQGfNmsCnGRE/edit)  
+[DTR Document](https://docs.google.com/document/d/1ge9dOOicZM7uRql86bdureXG470FcPbfWdJxfzakB2k/edit)  
 
 ## Contributors:
 Charles Ren [GitHub](https://github.com/chuckrenny) [LinkedIn](https://www.linkedin.com/in/charles-ren-42673816b/)
 
-Antoine Aube[Github](https://github.com/Antoine-Aube)   [LinkedIn](https://www.linkedin.com/in/antoine-aube-4b40a11b3/)
+Antoine Aube [Github](https://github.com/Antoine-Aube)   [LinkedIn](https://www.linkedin.com/in/antoine-aube-4b40a11b3/)
 
-Jimmy Trulock[Github](https://github.com/JimmyTrulock)  [LinkedIn](https://www.linkedin.com/in/thomas-trulock-253976281/)
+Jimmy Trulock [Github](https://github.com/JimmyTrulock)  [LinkedIn](https://www.linkedin.com/in/thomas-trulock-253976281/)
