@@ -1,0 +1,33 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/calculable.rb": {
+        "lines": [
+          1,
+          1,
+          6,
+          4,
+          2,
+          null,
+          2,
+          null,
+          null,
+          2,
+          null,
+          null,
+          null,
+          1,
+          null,
+          15,
+          4,
+          null,
+          2,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1690945512
+  }
+}
