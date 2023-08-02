@@ -18,7 +18,7 @@ class StatTracker
     @games = []
     @game_teams = []
   end
-
+  
   def rewind(file)
     file.rewind
   end
@@ -26,13 +26,17 @@ class StatTracker
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-
+  
   def create_teams
     @team_file.each do |team|
       @teams << Teams.new(team)
     end
   end
-
+  
+  def count_of_teams
+    @teams.count
+  end
+  
   def create_seasons
     season_finder.each do |season|
       season_id = season
@@ -64,9 +68,9 @@ class StatTracker
   end
   
   def count_of_games_by_season(season)
-      game_count = @game_file.count { |game| game[:season] == season }
-      rewind(@game_file)
-      game_count
+    game_count = @game_file.count { |game| game[:season] == season }
+    rewind(@game_file)
+    game_count
   end
 
   def seasonal_game_collector(season)
