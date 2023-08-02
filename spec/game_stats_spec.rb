@@ -50,6 +50,13 @@ describe GameStats do
       expect(game_stats.percentage_ties).to eq(0.20)
     end
   end
+
+  describe "#average_goals_per_game" do
+    xit "returns average goals scored per game" do
+
+      expect(game_stats.average_goals_per_game).to eq(4.22)
+    end
+  end
 end
 
   
