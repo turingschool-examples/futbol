@@ -5,7 +5,8 @@ class StatTracker
               :team_file,
               :game_file,
               :game_team_file,
-              :seasons
+              :seasons,
+              :game_teams
 
   def initialize(data)
     @data = data
@@ -15,7 +16,7 @@ class StatTracker
     @teams = []
     @seasons = []
     @games = []
-    @game_teams =[]
+    @game_teams = []
   end
 
   def rewind(file)
