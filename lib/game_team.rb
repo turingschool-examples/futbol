@@ -18,13 +18,11 @@ class GameTeam
     @teamname = find_teamname(team_file)
   end
 
-
-
-  private
+private
 
   def find_teamname(team_file)
     name = nil
-    team_file.each do |team| if team[:team_id] == @away_team_id
+    team_file.each do |team| if team[:team_id] == @team_id
       name = team[:teamname]
       end
     end
