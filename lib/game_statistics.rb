@@ -45,5 +45,20 @@ class GameStatistics
     percentage_home_wins.round(2)
   end
 
+  def percentage_visitor_wins  
+    total_games = 0
+    visitor_team_wins = 0
+    game_contents = CSV.open './fixture/games_fixture.csv', headers: true, header_converters: :symbol
+    game_contents.each do |row|
+      away_goals = row[:away_goals].to_f
+      home_goals = row[:home_goals].to_f
+      total_games += 1.00
+      if away_goals > home_goals
+        visitor_team_wins += 1.00
+      end
+    end
+    percentage_home_wins = visitor_team_wins / total_games
+    percentage_home_wins.round(2)
+  end
 
 end
