@@ -1,14 +1,15 @@
 require 'csv'
 
 class StatTracker
-  attr_reader :games,
-              :game_teams,
-              :teams
+  attr_reader :game_stats,
+              :season_stats,
+              :league_stats
 
   def initialize(locations)
     @game_stats = GameStats.new(locations)
     @season_stats = SeasonStats.new(locations)
-    @league_stats = LeagueStats.new(locations)
+    # @league_stats = LeagueStats.new(locations)
+    @league_stats = nil
   end
 
   def self.from_csv(locations)
