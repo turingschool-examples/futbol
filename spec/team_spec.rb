@@ -2,7 +2,7 @@ require "./lib/team.rb"
 
 RSpec.describe Team do
   before (:each) do
-    @team1 = Team.new({name: "Astros", wins: 61, losses: 47, head_coach: "Billy Joe Bob"})
+    @team1 = Team.new({name: "Astros", id: 3})
   end
 
   it "can initialize" do 
@@ -11,8 +11,6 @@ RSpec.describe Team do
 
   it "has readable attributes" do
     expect(@team1.name).to eq "Astros"
-    expect(@team1.wins).to eq 61
-    expect(@team1.losses).to eq 47
-    expect(@team1.head_coach).to eq "Billy Joe Bob"
+    expect(@team1.id).to eq 3
   end
 end
