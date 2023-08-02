@@ -4,7 +4,8 @@ class StatTracker
   attr_reader :data, 
               :team_file,
               :game_file,
-              :game_team_file
+              :game_team_file,
+              :seasons
 
   def initialize(data)
     @data = data
@@ -12,6 +13,11 @@ class StatTracker
     @team_file = CSV.open data[:teams], headers: true, header_converters: :symbol
     @game_team_file = CSV.open data[:game_teams], headers: true, header_converters: :symbol
     @teams = []
+    @seasons = []
+  end
+
+  def rewind(file)
+    file.rewind
   end
   
   def self.from_csv(locations)
@@ -22,9 +28,5 @@ class StatTracker
     @team_file.each do |team|
       @teams << Teams.new(team)
     end
-  end
-
-  def count_of_teams
-    @teams.count
   end
 end
