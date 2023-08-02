@@ -2,11 +2,12 @@ require_relative 'helper_class'
 
 class StatTracker
   attr_reader :data, 
-  :team_file,
-  :game_file,
-  :game_team_file,
-  :seasons
-  
+              :team_file,
+              :game_file,
+              :game_team_file,
+              :seasons,
+              :game_teams
+
   def initialize(data)
     @data = data
     @game_file = CSV.open data[:games], headers: true, header_converters: :symbol
@@ -14,6 +15,8 @@ class StatTracker
     @game_team_file = CSV.open data[:game_teams], headers: true, header_converters: :symbol
     @teams = []
     @seasons = []
+    @games = []
+    @game_teams = []
   end
   
   def rewind(file)
@@ -44,6 +47,19 @@ class StatTracker
       @seasons << Season.new(season, count_of_games_by_season(season), seasonal_game_collector(season), average_goals_per_game(season))
     end
   end
+
+  def create_games
+    @game_file.each do |game|
+      @games << Game.new(game, @team_file)
+    end
+  end
+
+  def create_game_team
+    @game_team_file.each do |game_team|
+      @game_teams << Game.new(game_team, @team_file)
+    end
+  end
+
   
   def season_finder
     all_seasons = @game_file.map { |row| row[:season] }.uniq
