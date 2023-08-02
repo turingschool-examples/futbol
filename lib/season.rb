@@ -1,7 +1,8 @@
 require_relative 'helper_class'
 
 class Season
-  attr_reader :season
+  attr_reader :season,
+              :game_count,
               :games_played,
               :avg_goals,
               :winningest_coach,
@@ -11,10 +12,11 @@ class Season
               :most_tackles,
               :fewest_tackles
 
-  def initialize(season_details)
-    @season = season_details[:season]
-    @games_played = 0
-    @avg_goals = 0
+  def initialize(season, game_count, games_played, avg_goals)
+    @season = season
+    @game_count = game_count
+    @games_played = games_played
+    @avg_goals = avg_goals
     @winningest_coach = nil
     @worst_coach = nil
     @most_accurate_team = nil
