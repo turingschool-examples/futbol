@@ -43,6 +43,13 @@ describe GameStats do
       expect(game_stats.percentage_visitor_wins).to eq(0.36)
     end
   end
+
+  describe "#percentage_ties" do
+    xit "returns the ratio of games ending in a tie" do
+      
+      expect(game_stats.percentage_ties).to eq(0.20)
+    end
+  end
 end
 
   
