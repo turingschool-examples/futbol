@@ -22,15 +22,15 @@ RSpec.describe GameStats do
 
   describe "#lowest_total_score" do
     it 'finds the lowest sum of the winning and losing teams scores' do
-      binding.pry
+      # binding.pry
       expect(@game_stats.lowest_total_score).to eq(1)
     end
   end
 
   describe "#percentage_home_wins" do
-    xit 'finds the percentage of games that a home team has won (rounded to the nearest 100th)' do
+    it 'finds the percentage of games that a home team has won (rounded to the nearest 100th)' do
       # binding.pry
-      expect(@game_stats.lowest_total_score).to eq()
+      expect(@game_stats.percentage_home_wins).to eq()
     end
   end
 
