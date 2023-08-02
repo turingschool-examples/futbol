@@ -15,16 +15,27 @@ class LeagueStatistics
   end
 
   def best_offense
-    teams = read_csv(@file)
+    games = read_csv(@file)
 
     offense = Hash.new { |hash, key| hash[key] = [] }
 
-    teams.each do |row|
-      team = row["Team"]
-      goals = row["Goals"].to_i
+    games.each do |row|
+      team = row["team_id"].to_i
+      goals = row["goals"].to_i
       offense[team] << goals
     end
 
-    
+    best_offense_team_id = nil
+    highest_average_goals = -1
+
+    offense.each do |team_id, goals|
+      average_goals = goals.sum.to_f / goals.size
+      if average_goals > highest_average_goals
+        highest_average_goals = average_goals
+        best_offense_team_id = team_id
+      end
+    end
+
+    best_offense_team_id
   end
 end

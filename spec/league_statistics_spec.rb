@@ -11,12 +11,12 @@ RSpec.describe LeagueStatistics do
   it "can show total number of teams" do 
     league = LeagueStatistics.new(@teams_csv_file_path)
 
-    expect(league.count_of_teams).to eq(19)
+    expect(league.count_of_teams).to eq(32)
   end
 
-  xit "can show the name of the team with the highest average number of goals scored per game across all seasons " do 
+  it "can show the name of the team with the highest average number of goals scored per game across all seasons " do 
     league = LeagueStatistics.new(@game_teams_fixture_file_path)
 
-    expect(league.best_offense).to eq("")
+    expect(league.best_offense).to eq(6)
   end
 end
