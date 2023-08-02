@@ -1,0 +1,51 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
+2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
+2012030225,20122013,Postseason,5/25/13,3,6,1,3,Toyota Stadium,/api/v1/venues/null
+2015030411,20152016,Postseason,5/31/16,28,5,2,3,Children's Mercy Park,/api/v1/venues/null
+2015030412,20152016,Postseason,6/2/16,28,5,1,2,Children's Mercy Park,/api/v1/venues/null
+2015030413,20152016,Postseason,6/5/16,5,28,2,3,Banc of California Stadium,/api/v1/venues/null
+2015030414,20152016,Postseason,6/7/16,5,28,3,1,Banc of California Stadium,/api/v1/venues/null
+2015030415,20152016,Postseason,6/10/16,28,5,2,2,Children's Mercy Park,/api/v1/venues/null
+2015030416,20152016,Postseason,6/13/16,5,28,3,1,Banc of California Stadium,/api/v1/venues/null
+2013020662,20132014,Regular Season,1/10/14,10,12,1,4,Yurcak Field,/api/v1/venues/null
+2012020715,20122013,Regular Season,4/27/13,30,21,3,1,BC Place,/api/v1/venues/null
+2013021162,20132014,Regular Season,4/5/14,15,2,3,3,Centruy Link Field,/api/v1/venues/null
+2012020142,20122013,Regular Season,2/8/13,14,1,2,2,Mercedes-Benz Stadium,/api/v1/venues/null
+2012020280,20122013,Regular Season,2/27/13,5,13,2,4,BBVA Stadium,/api/v1/venues/null
+2012020279,20122013,Regular Season,2/27/13,7,14,2,1,Audi Field,/api/v1/venues/null
+2013020191,20132014,Regular Season,11/1/13,15,4,5,0,SeatGeek Stadium,/api/v1/venues/null
+2012020597,20122013,Regular Season,4/11/13,8,7,3,1,Rio Tinto Stadium,/api/v1/venues/null
+2012020535,20122013,Regular Season,4/2/13,13,14,2,2,Audi Field,/api/v1/venues/null
+2012020133,20122013,Regular Season,2/6/13,14,4,1,2,SeatGeek Stadium,/api/v1/venues/null
+2012020467,20122013,Regular Season,3/24/13,15,3,2,2,BBVA Stadium,/api/v1/venues/null
+2013021030,20132014,Regular Season,3/18/14,21,8,3,4,Red Bull Arena,/api/v1/venues/null
+2013020777,20132014,Regular Season,1/26/14,15,8,3,0,Red Bull Arena,/api/v1/venues/null
+2013020320,20132014,Regular Season,11/20/13,13,23,2,2,Saputo Stadium,/api/v1/venues/null
+2012020368,20122013,Regular Season,3/10/13,52,1,2,2,Mercedes-Benz Stadium,/api/v1/venues/null
+2012020497,20122013,Regular Season,3/29/13,26,19,2,2,Talen Energy Stadium,/api/v1/venues/null
+2014020203,20142015,Regular Season,11/9/14,5,7,4,1,Rio Tinto Stadium,/api/v1/venues/null
+2014020698,20142015,Regular Season,1/28/15,53,4,3,3,SeatGeek Stadium,/api/v1/venues/null
+2014021186,20142015,Regular Season,4/6/15,29,3,3,2,BBVA Stadium,/api/v1/venues/null
+2014020859,20142015,Regular Season,2/20/15,18,2,2,3,Centruy Link Field,/api/v1/venues/null
+2014020488,20142015,Regular Season,12/21/14,18,30,4,3,Exploria Stadium,/api/v1/venues/null
+2014020325,20142015,Regular Season,11/27/14,4,17,2,3,Dignity Health Sports Park,/api/v1/venues/null
+2014020511,20142015,Regular Season,12/24/14,52,16,3,1,Gillette Stadium,/api/v1/venues/null
+2014020454,20142015,Regular Season,12/17/14,24,10,2,4,WakeMed Soccer Park,/api/v1/venues/null
+2014020990,20142015,Regular Season,3/10/15,5,28,1,1,Banc of California Stadium,/api/v1/venues/null
+2014020849,20142015,Regular Season,2/18/15,2,12,2,1,Yurcak Field,/api/v1/venues/null
+2014020790,20142015,Regular Season,2/8/15,21,52,3,3,Providence Park,/api/v1/venues/null
+2017021264,20172018,Regular Season,4/7/18,16,52,1,2,Providence Park,/api/v1/venues/null
+2015020994,20152016,Regular Season,3/9/16,5,2,1,2,Centruy Link Field,/api/v1/venues/null
+2017021208,20172018,Regular Season,3/31/18,29,23,2,3,Saputo Stadium,/api/v1/venues/null
+2016020447,20162017,Regular Season,12/16/16,53,10,2,2,WakeMed Soccer Park,/api/v1/venues/null
+2016021201,20162017,Regular Season,4/7/17,30,21,2,3,BC Place,/api/v1/venues/null
+2016020131,20162017,Regular Season,11/1/16,14,2,4,1,Centruy Link Field,/api/v1/venues/null
+2015020248,20152016,Regular Season,11/15/15,28,7,2,1,Rio Tinto Stadium,/api/v1/venues/null
+2016020570,20162017,Regular Season,1/4/17,8,18,2,1,Allianz Field,/api/v1/venues/null
+2015020614,20152016,Regular Season,1/9/16,15,3,2,3,BBVA Stadium,/api/v1/venues/null
+2017020827,20172018,Regular Season,2/9/18,20,1,3,2,Mercedes-Benz Stadium,/api/v1/venues/null
+2017020248,20172018,Regular Season,11/11/17,52,54,2,3,Cheney Stadium,/api/v1/venues/null
+2017020876,20172018,Regular Season,2/15/18,29,10,3,4,WakeMed Soccer Park,/api/v1/venues/null
