@@ -22,6 +22,13 @@ describe GameStats do
       expect(game_stats.highest_total_score).to eq(11)
     end
   end
+
+  describe "#lowest_total_score" do
+    xit "returns the lowest combined game score" do
+
+      expect(game_stats.lowest_total_score).to eq(0)
+    end
+  end
 end
 
   
