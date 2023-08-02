@@ -1,0 +1,20 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/theaveryrodriguez/turing_work/1mod/projects/futbol/spec/season_stats_spec.rb": {
+        "lines": [
+          1
+        ]
+      },
+      "/Users/theaveryrodriguez/turing_work/1mod/projects/futbol/lib/season_stats.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1690998108
+  }
+}
