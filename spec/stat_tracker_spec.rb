@@ -38,7 +38,7 @@ RSpec.describe StatTracker do
   describe '#create_teams' do
     it 'should populate the @teams array with Team objects' do
       stat_tracker.create_teams
-      expect(stat_tracker.teams).to all(be_a(Teams))
+      expect(Teams.count_of_teams).to eq 32
     end
   end
 end

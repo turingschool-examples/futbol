@@ -12,6 +12,8 @@ class StatTracker
     @team_file ||= CSV.foreach(data[:teams], headers: true, header_converters: :symbol) { |row| Team.new(row) }
     @game_team_file ||= CSV.foreach(data[:game_teams], headers: true, header_converters: :symbol) { |row| GameTeam.new(row) }
   end
+
+  include Teams
   
   def rewind(file)
     file.rewind
@@ -25,10 +27,6 @@ class StatTracker
     @team_file.each do |team|
       @teams << Teams.new(team)
     end
-  end
-  
-  def count_of_teams
-    @teams.count
   end
   
   def create_seasons
