@@ -1,6 +1,7 @@
 require "./lib/game_stats"
 require "./lib/league_stats"
 require "./lib/season_stats"
+require 'csv'
 
 class StatTracker
   def highest_total_score
