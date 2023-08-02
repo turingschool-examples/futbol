@@ -4,7 +4,7 @@ class StatDaddy
   attr_reader :games,
               :teams,
               :game_teams
-              
+
   def initialize(locations)
     @games = CSV.open(locations[:games], headers: true, header_converters: :symbol).map do |game|
       # Game.new(game)
@@ -13,7 +13,7 @@ class StatDaddy
       # Team.new(team)
     end
     @game_teams = CSV.open(locations[:game_teams], headers: true, header_converters: :symbol).map do |game_team|
-      # GameTeam.new(team)
+      # GameTeam.new(game_team)
     end
   end
 end
