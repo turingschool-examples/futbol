@@ -7,7 +7,7 @@ module Calculable
         ((value1.to_f) / (value2.to_f) * 100).round(2)
       end
     else
-      p "Inputs must be integers or floats."
+      p "Inputs must be integers and/or floats."
     end
   end
 end
