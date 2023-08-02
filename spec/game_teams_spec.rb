@@ -22,7 +22,7 @@ RSpec.describe GameTeam do
       }
 
       team1= GameTeam.new(game_team_data)
-      expect(team1).to be_a Team
+      expect(team1).to be_a(GameTeam)
     end
 
     it 'can access attributes in GameTeam class' do
@@ -44,14 +44,23 @@ RSpec.describe GameTeam do
         takeaways: "7"
       }
 
-      team1= GameTeam.new(game_team_data)
-      
-      expect(team1.team_id).to eq("1")
-      expect(team1.franchise_id).to eq("2")
-      expect(team1.team_name).to eq("Atlanta United")
-      expect(team1.abbreviation).to eq("ATL")
-      expect(team1.stadium).to eq("Mercedes-Benz")
-      expect(team1.link).to eq("/api/v1/teams/1")
+      gameteam1= GameTeam.new(game_team_data)
+
+      expect(gameteam1.game_id).to eq("2012030221")
+      expect(gameteam1.team_id).to eq("3")
+      expect(gameteam1.hoa).to eq("away")
+      expect(gameteam1.result).to eq("LOSS")
+      expect(gameteam1.settled_in).to eq("OT")
+      expect(gameteam1.head_coach).to eq("John Tortorella")
+      expect(gameteam1.goals).to eq("2")
+      expect(gameteam1.shots).to eq("8")
+      expect(gameteam1.tackles).to eq("44")
+      expect(gameteam1.pim).to eq("8")
+      expect(gameteam1.powerplayopportunities).to eq("3")
+      expect(gameteam1.powerplaygoals).to eq("0")
+      expect(gameteam1.faceoffwinpercentage).to eq("44.8")
+      expect(gameteam1.giveaways).to eq("17")
+      expect(gameteam1.takeaways).to eq("7")
     end
   end
 end
