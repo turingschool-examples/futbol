@@ -18,7 +18,7 @@ RSpec.describe Team do
   
   describe '#team_id' do
     it 'reads the team id' do
-      expect(team.team_id).to eq(1)
+      expect(team.team_id).to be 1
     end  
   end
 end

@@ -23,4 +23,8 @@ class StatTracker
       @teams << Teams.new(team)
     end
   end
+
+  def count_of_teams
+    @teams.count
+  end
 end
