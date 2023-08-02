@@ -1,6 +1,7 @@
 require 'csv'
 
 class LeagueStatistics
+
   def initialize(file)
     @file = file
   end
@@ -18,7 +19,7 @@ class LeagueStatistics
     games = read_csv(@file)
 
     offense = Hash.new { |hash, key| hash[key] = [] }
-
+    
     games.each do |row|
       team = row["team_id"].to_i
       goals = row["goals"].to_i
@@ -36,6 +37,15 @@ class LeagueStatistics
       end
     end
 
-    best_offense_team_id
+    best_offense_team = nil
+    teams = read_csv("./data/teams.csv")
+
+    teams.each do |row|
+      if row["team_id"].to_i == best_offense_team_id
+        best_offense_team = row["teamName"]
+      end
+    end
+
+    best_offense_team
   end
 end
