@@ -17,21 +17,21 @@ RSpec.describe GameStatistics do
     end
   end
 
-  describe "percentage_home_wins" do
+  describe "#percentage_home_wins" do
     it "finds percentage of games that a home team has won(rounded to nearedst 100th)" do
       expect(@game_stats.percentage_home_wins).to eq(0.68)
     end
   end
 
-  describe "percentage_away_wins" do
+  describe "#percentage_away_wins" do
     it "finds percentage of games that a visitor team has won(rounded to nearedst 100th)" do
       expect(@game_stats.percentage_visitor_wins).to eq(0.26)
     end
   end
 
-  describe "percent ties" do
+  describe "#percent ties" do
     it "finds percntage of tied away and home games" do
-      expect(@game_stats.percentage_ties).to eq(.05)
+      expect(@game_stats.percentage_ties).to eq(0.05)
     end
   end
 end
