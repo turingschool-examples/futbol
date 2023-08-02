@@ -1,4 +1,14 @@
 class StatTracker
+  attr_reader :game,
+              :game_teams,
+              :teams
+
+  def initialize(game, game_teams, teams)
+    @game = game
+    @game_teams = game_teams
+    @teams = teams
+  end
+
   def highest_total_score
 
   end

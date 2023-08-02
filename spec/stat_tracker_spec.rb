@@ -1,24 +1,39 @@
 require './lib/stat_tracker'
 
-game_path = './data/games.csv'
-team_path = './data/teams.csv'
-game_teams_path = './data/game_teams.csv'
-games_fixture_path = './data/games_fixture.csv'
-games_teams_fixture_path = './data/games_teams_fixture.csv'
-
-
-locations = {
-  games: game_path,
-  teams: team_path,
-  game_teams: game_teams_path,
-  games_fixture_path: games_fixture_path,
-  games_teams_fixture_path: games_teams_fixture_path
-
-}
-
-stat_tracker = StatTracker.from_csv(locations)
+# stat_tracker = StatTracker.from_csv(locations)
+# stat_tracker.game.each
 
 RSpec.describe StatTracker do
+  before(:each) do
+    @game_path = './data/games.csv'
+    @teams_path = './data/teams.csv'
+    @game_teams_path = './data/game_teams.csv'
+    @games_fixture_path = './data/games_fixture.csv'
+    @game_teams_fixture_path = './data/games_teams_fixture.csv'
+    @locations = {
+      games: @game_path,
+      teams: @teams_path,
+      game_teams: @game_teams_path,
+      games_fixture_path: @games_fixture_path,
+      games_teams_fixture_path: @game_teams_fixture_path
+    }
+  end
+  describe "#initialize" do
+    it "exists" do
+      tracker = StatTracker.new("game", "game_teams", "teams")
+
+      expect(tracker).to be_a StatTracker
+    end
+
+    it "has a game, game_team, and teams attribute that is readable" do
+      tracker = StatTracker.new(@game_path, @game_teams_path, @teams_path)
+
+      expect(tracker.game).to eq(@game_path)
+      expect(tracker.game_teams).to eq(@game_teams_path)
+      expect(tracker.teams).to eq(@teams_path)
+    end
+  end
+
   describe "#highest_total_score" do
     it "" do
 
