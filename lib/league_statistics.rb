@@ -13,4 +13,18 @@ class LeagueStatistics
     teams = read_csv(@file)
     teams.size
   end
+
+  def best_offense
+    teams = read_csv(@file)
+
+    offense = Hash.new { |hash, key| hash[key] = [] }
+
+    teams.each do |row|
+      team = row["Team"]
+      goals = row["Goals"].to_i
+      offense[team] << goals
+    end
+
+    
+  end
 end
