@@ -7,7 +7,9 @@ describe Game do
                                     away_team_id: 7337,
                                     away_team_goals: 100,
                                     home_team_id: 4008,
-                                    home_team_goals: 2 })}
+                                    home_team_goals: 2 }, 
+                                    [{teamname: "chinchillas", team_id: 7337},
+                                    {teamname: "sloths", team_id: 4008}])}
 
     it "exists" do
       expect(game1).to be_a Game
@@ -20,6 +22,8 @@ describe Game do
       expect(game1.away_team_goals).to eq(100)
       expect(game1.home_team_id).to eq(4008)
       expect(game1.home_team_goals).to eq(2)
+      expect(game1.away_team_name).to eq("chinchillas")
+      expect(game1.home_team_name).to eq("sloths")
     end
   end
 end
