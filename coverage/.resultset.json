@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/stat_tracker.rb": {
+      "/Users/charlesren/turing_work/1mod/mod1_projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -22,7 +22,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/team.rb": {
+      "/Users/charlesren/turing_work/1mod/mod1_projects/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -43,7 +43,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/game_team.rb": {
+      "/Users/charlesren/turing_work/1mod/mod1_projects/futbol/lib/game_team.rb": {
         "lines": [
           1,
           1,
@@ -82,7 +82,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/game.rb": {
+      "/Users/charlesren/turing_work/1mod/mod1_projects/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -111,7 +111,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/spec/game_teams_spec.rb": {
+      "/Users/charlesren/turing_work/1mod/mod1_projects/futbol/spec/game_teams_spec.rb": {
         "lines": [
           1,
           null,
@@ -181,7 +181,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/spec/stat_tracker_spec.rb": {
+      "/Users/charlesren/turing_work/1mod/mod1_projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           null,
@@ -205,7 +205,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/spec/team_spec.rb": {
+      "/Users/charlesren/turing_work/1mod/mod1_projects/futbol/spec/team_spec.rb": {
         "lines": [
           1,
           null,
@@ -248,6 +248,6 @@
         ]
       }
     },
-    "timestamp": 1691008878
+    "timestamp": 1691009661
   }
 }
