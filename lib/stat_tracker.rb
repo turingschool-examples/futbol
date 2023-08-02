@@ -5,17 +5,14 @@ class StatTracker
               :game_teams,
               :teams
 
-  def initialize(games, game_teams, teams)
-    @games = games
-    @game_teams = game_teams
-    @teams = teams
+  def initialize(locations)
+    @game_stats = GameStats.new(locations)
+    @season_stats = SeasonStats.new(locations)
+    @league_stats = LeagueStats.new(locations)
   end
 
   def self.from_csv(locations)
-    games_contents = locations[:games]
-    game_teams_contents = locations[:game_teams]
-    teams_contents = locations[:teams]
-    StatTracker.new(games_contents, game_teams_contents, teams_contents)
+    StatTracker.new(locations)
   end
 
   def highest_total_score
