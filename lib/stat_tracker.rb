@@ -15,6 +15,7 @@ class StatTracker
     @teams = []
     @seasons = []
     @games = []
+    @game_teams =[]
   end
 
   def rewind(file)
@@ -45,6 +46,12 @@ class StatTracker
   def create_games
     @game_file.each do |game|
       @games << Game.new(game, @team_file)
+    end
+  end
+
+  def create_game_team
+    @game_team_file.each do |game_team|
+      @game_teams << Game.new(game_team, @team_file)
     end
   end
 
