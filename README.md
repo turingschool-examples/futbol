@@ -1,8 +1,5 @@
 # Futbol
 
-Starter repository for the [Turing School](https://turing.io/) Futbol project.
-
-
 ### Check ins
 - Daily Stand-ups in the morning, to check in on our current progress
 - Scheduled project checkins with instructors
