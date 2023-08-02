@@ -29,32 +29,37 @@
           null
         ]
       },
-      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/teams.rb": {
+      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/game_teams_factory.rb": {
+        "lines": [
+          null
+        ]
+      },
+      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/game_teams.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          97,
-          97,
-          97,
-          97,
-          97,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           null,
           null
         ]
       },
       "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/game.rb": {
-        "lines": [
-          null
-        ]
-      },
-      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/games_factory.rb": {
-        "lines": [
-          null
-        ]
-      },
-      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/games_teams_factory.rb": {
         "lines": [
           null
         ]
@@ -200,21 +205,17 @@
           null
         ]
       },
-      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/games.rb": {
+      "/Users/reedhillmar/turing_work/1mod/projects/futbol/lib/teams.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
+          97,
+          97,
+          97,
+          97,
+          97,
           null,
           null
         ]
@@ -229,12 +230,7 @@
 
         ]
       },
-      "/Users/reedhillmar/turing_work/1mod/projects/futbol/spec/games_factory_spec.rb": {
-        "lines": [
-
-        ]
-      },
-      "/Users/reedhillmar/turing_work/1mod/projects/futbol/spec/games_spec.rb": {
+      "/Users/reedhillmar/turing_work/1mod/projects/futbol/spec/game_teams_spec.rb": {
         "lines": [
           1,
           null,
@@ -243,6 +239,12 @@
           1,
           null,
           null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -339,6 +341,6 @@
         ]
       }
     },
-    "timestamp": 1691012306
+    "timestamp": 1691014218
   }
 }

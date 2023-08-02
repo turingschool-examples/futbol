@@ -18,9 +18,9 @@ describe GameTeams do
       expect(@game_team1.shots).to be 8
       expect(@game_team1.tackles).to be 44
       expect(@game_team1.pim).to be 8
-      expect(@game_team1.powerPlayOpportunities).to be 3
-      expect(@game_team1.powerPlayGoals).to be 0
-      expect(@game_team1.faceOffWinPercentage).to be 44.8
+      expect(@game_team1.power_play_opportunities).to be 3
+      expect(@game_team1.power_play_goals).to be 0
+      expect(@game_team1.face_off_win_percentage).to be 44.8
       expect(@game_team1.giveaways).to be 17
       expect(@game_team1.takeaways).to be 7
     end
