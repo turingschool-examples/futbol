@@ -5,18 +5,12 @@ class StatTracker
               :team_file,
               :game_file,
               :game_team_file,
-              :seasons,
-              :game_teams
 
   def initialize(data)
     @data = data
-    @game_file = CSV.open data[:games], headers: true, header_converters: :symbol
-    @team_file = CSV.open data[:teams], headers: true, header_converters: :symbol
-    @game_team_file = CSV.open data[:game_teams], headers: true, header_converters: :symbol
-    @teams = []
-    @seasons = []
-    @games = []
-    @game_teams = []
+    @game_file ||= CSV.foreach(data[:games], headers: true, header_converters: :symbol) { |row| Season.new(row) }
+    @team_file ||= CSV.foreach(data[:teams], headers: true, header_converters: :symbol) { |row| Team.new(row) }
+    @game_team_file ||= CSV.foreach(data[:game_teams], headers: true, header_converters: :symbol) { |row| GameTeam.new(row) }
   end
   
   def rewind(file)
