@@ -35,16 +35,15 @@
 **Summary:** We will begin by building out all objects and parsing files through the stat tracker. We will then build relevant methods in classes. Eventually, we will move methods into modules for each class and leave the classes to only have instance variables. We will perhaps also have a module for standard calculations such as percentage calculations, etc. 
 
 **Classes**
-- GameStats - Gamestat objects
-- TeamStats - TeamSta objects
-- Teams - Team objets
+- GameTeam 
+- Game 
+- Team 
 - StatTracker 
 
 **Modules**
 - GameStatable
-- Teamstable
-- Teamable
-- calculable
+- LeagueStatable
+- SeasonStatable
 
 **External Files**
 - Data files
