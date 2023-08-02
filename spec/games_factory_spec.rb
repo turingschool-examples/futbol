@@ -1,0 +1,1 @@
+#./spec/games_factory_spec.rb
