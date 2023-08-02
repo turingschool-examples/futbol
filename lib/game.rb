@@ -8,7 +8,7 @@ class Game
               :home_team_id,
               :home_team_goals
 
-  def initialize(game)
+  def initialize(game_file)
     @game_id = game_file[:game_id]
     @season = game_file[:season]
     @away_team_id = game_file[:away_team_id]
