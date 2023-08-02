@@ -23,4 +23,9 @@ RSpec.describe GameStatistics do
     end
   end
 
+  describe "percentage_away_wins" do
+    it "finds percentage of games that a visitor team has won(rounded to nearedst 100th)" do
+      expect(@game_stats.percentage_visitor_wins).to eq(0.26)
+    end
+  end
 end
