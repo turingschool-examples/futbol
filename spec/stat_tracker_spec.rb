@@ -8,33 +8,20 @@ RSpec.describe StatTracker do
       game_teams: './data/game_teams.csv'
     }
   end
-  let(:stat_tracker) { StatTracker.new(data) }
+  let(:stat_tracker) { StatTracker.from_csv(data) }
 
   #before :each mocks and stubs seem good here
 
   describe '#initialize' do
     it 'should initialize with the correct instance variables' do
+      expect(stat_tracker).to be_a StatTracker
       expect(stat_tracker.data).to eq(data)
     end
   end
-
-  describe '.from_csv' do
-    it 'should create a new instance of StatTracker' do
-      expect(StatTracker.from_csv(data)).to be_a StatTracker 
+  
+  describe '#count_of_teams' do
+    it 'counts the total number of teams' do
+      expect(Team.count_of_teams).to eq 32
     end
   end
-
-  # describe '#create_teams' do
-  #   it 'should populate the @teams array with Team objects' do
-  #     stat_tracker.create_teams
-  #     expect(stat_tracker.teams).to all(be_a(Teams))
-  #   end
-  # end
-  
-  # describe '#create_teams' do
-  #   it 'should populate the @teams array with Team objects' do
-  #     stat_tracker.create_teams
-  #     expect(stat_tracker.teams).to all(be_a(Teams))
-  #   end
-  # end
 end
