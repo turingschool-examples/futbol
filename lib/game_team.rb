@@ -6,6 +6,7 @@ class GameTeam
               :home,
               :result,
               :coach,
+              :goals,
               :teamname
 
   def initialize(game_team_file, team_file)
@@ -28,5 +29,4 @@ private
     end
     name
   end
-
 end
