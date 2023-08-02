@@ -7,6 +7,7 @@ class Team
               :link
 
   def initialize(row)
+    # require 'pry';binding.pry
     @team_id = row[:team_id]
     @franchise_id = row[:franchiseid]
     @team_name = row[:teamname]
