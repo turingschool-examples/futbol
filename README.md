@@ -34,25 +34,27 @@
 
 **Summary:** We will begin by building out all objects and parsing files through the stat tracker. We will then build relevant methods in classes. Eventually, we will move methods into modules for each class and leave the classes to only have instance variables. We will perhaps also have a module for standard calculations such as percentage calculations, etc. 
 
-**Classes**
-- GameTeam 
-- Game 
-- Team 
+**Classes:**
+- GameStat
+- LeagueStat 
+- SeasonStat 
 - StatTracker 
 
-**Modules**
+**Modules:**
 - GameStatable
 - LeagueStatable
 - SeasonStatable
 
-**External Files**
+**External Files:**
 - Data files
 - Sample data files
 - Runner
 - Spec Harness
 
-**Additional Documents**
-[Google Doc Brainstom](https://docs.google.com/document/d/1gS0AAn056CZI1Cn7MSnpMDbgAODSe6wiQGfNmsCnGRE/edit)
+**Additional Documents:**
+
+[Google Doc Brainstom](https://docs.google.com/document/d/1gS0AAn056CZI1Cn7MSnpMDbgAODSe6wiQGfNmsCnGRE/edit) 
+
 [DTR Document](https://docs.google.com/document/d/1ge9dOOicZM7uRql86bdureXG470FcPbfWdJxfzakB2k/edit)
 
 ## Contributors:
