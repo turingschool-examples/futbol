@@ -51,11 +51,10 @@ class StatTracker
     all_seasons
   end
   
-
   def count_of_games_by_season(season)
-      game_count = @game_file.count { |game| game[:season] == season }
-      rewind(@game_file)
-      game_count
+    game_count = @game_file.count { |game| game[:season] == season }
+    rewind(@game_file)
+    game_count
   end
 
   def seasonal_game_collector(season)
