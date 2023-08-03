@@ -17,6 +17,11 @@ class StatTracker
     end
   end
 
+  def highest_total_score
+    @games.map { |game| game.away_goals + game.home_goals }.max
+  end
+
+
   def self.from_csv(files)
     StatTracker.new(files)
   end
