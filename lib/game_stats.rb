@@ -40,6 +40,22 @@ class GameStats
   end
 
   def percentage_home_wins
+    home_wins = 0 
+    total_games = 0
+
+    @games.each do |data|
+      home_goals = data.home_goals.to_i
+      away_goals = data.away_goals.to_i
+
+      if home_goals > away_goals
+        home_wins += 1
+      end
+
+      total_games += 1
+    end
+
+    home_win_percentage = (home_wins.to_f / total_games) * 100
+    home_win_percentage.round(2)
   end
 
   def percentage_visitor_wins

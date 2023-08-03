@@ -43,9 +43,9 @@ RSpec.describe GameStats do
   end
 
   describe "#percentage_home_wins" do
-    xit 'finds the percentage of games that a home team has won (rounded to the nearest 100th)' do
+    it 'finds the percentage of games that a home team has won (rounded to the nearest 100th)' do
       # binding.pry
-      expect(@game_stats.percentage_home_wins).to eq()
+      expect(@game_stats.percentage_home_wins).to eq(60.0)
     end
   end
 
