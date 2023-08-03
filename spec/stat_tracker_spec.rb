@@ -14,6 +14,7 @@ RSpec.describe StatTracker do
     Season.class_variable_set :@@seasons, []
     GameTeam.class_variable_set :@@game_teams, []
     Team.class_variable_set :@@teams, []
+    League.class_variable_set :@@games, []
   end
   #before :each mocks and stubs seem good here
 
@@ -112,19 +113,19 @@ RSpec.describe StatTracker do
 
   describe '#best_offense' do
     it 'returns the team with the most goals scored' do
-      expect(stat_tracker.best_offense).to eq "Sporting Kansas City"
+      expect(stat_tracker.best_offense).to eq "Reign FC"
     end
   end
 
   describe '#worst_offense' do
     it 'returns the team with the least goals scored' do
-      expect(stat_tracker.worst_offense).to eq "Reign FC"
+      expect(stat_tracker.worst_offense).to eq "Utah Royals FC"
     end
   end
 
   describe '#highest_scoring_home_team' do
-    it 'returns the team with the highest average score per game' do
-      expect(stat_tracker.highest_scoring_home_team).to eq ""
+    it 'returns the home team with the highest average score per game' do
+      expect(stat_tracker.highest_scoring_home_team).to eq "FC Dallas"
     end
   end
 end

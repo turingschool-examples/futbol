@@ -14,15 +14,19 @@ module Games
   end
 
   def highest_scoring_home_team
-    # require 'pry';binding.pry
+    grouped_home = League.games.group_by(&:home_team_id)
+    tally_results = grouped_home.transform_values { |games| games.sum(&:home_team_goals) }
+    require 'pry';binding.pry
   end
 
   def team_goals
-    gamez = Hash.new(0)
+    goals_team = Hash.new(0)
     League.games.each do |game|
-      gamez[game.home_team_id] += game.home_team_goals
-      gamez[game.away_team_id] += game.away_team_goals
+      goals_team[game.home_team_id] += game.home_team_goals
+      goals_team[game.away_team_id] += game.away_team_goals
     end
-    gamez
+    goals_team 
+    # require 'pry';binding.pry
+    # goals_team.sort_by { |_, goals| -goals }
   end
 end
