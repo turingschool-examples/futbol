@@ -47,27 +47,33 @@ RSpec.describe StatTracker do
 
     it "#percentage_home_wins" do
       expect(stat_tracker.percentage_home_wins).to be_a(Float)
-      expect(stat_tracker.percentage_home_wins).to eq(44.0)
+      expect(stat_tracker.percentage_home_wins).to eq(0.44)
     end
     
     it "#percentage_visitor_wins" do
       expect(stat_tracker.percentage_visitor_wins).to be_a(Float)
-      expect(stat_tracker.percentage_visitor_wins).to eq(36.0)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
 
     it "#percentage_ties" do
       expect(stat_tracker.percentage_ties).to be_a(Float)
-      expect(stat_tracker.percentage_ties).to eq(20.0)
+      expect(stat_tracker.percentage_ties).to eq(0.2)
     end
-    
-    it "#count_of_games_by_season" do
+        
+    it "#average_goals_per_game" do
+      expect(stat_tracker.average_goals_per_game).to be_a(Float)
+    end
+  end
+
+    describe "League Statistics" do
+      it "#count_of_games_by_season" do
     require 'pry';binding.pry
       expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
       expect(stat_tracker.count_of_games_by_season.keys[0]).to be_a(String)
       expect(stat_tracker.count_of_games_by_season.values[0]).to be_a(Integer)
 
     it "#count_of_teams" do
-      expect(stat_tracker.count_of_teams).to be_a(Integer)
+        expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
   end
 end
