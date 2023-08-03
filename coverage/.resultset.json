@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/stat_tracker.rb": {
+      "/Users/antoine/Turing/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -31,7 +31,7 @@
           null,
           null,
           1,
-          52094,
+          59536,
           null,
           null,
           1,
@@ -51,11 +51,11 @@
           null,
           null,
           1,
-          1,
-          14882,
+          2,
+          29764,
           null,
           null,
-          1,
+          2,
           null,
           null,
           1,
@@ -64,7 +64,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/team.rb": {
+      "/Users/antoine/Turing/1mod/projects/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -76,46 +76,17 @@
           null,
           1,
           null,
-          224,
-          224,
-          224,
-          224,
-          224,
-          224,
+          226,
+          226,
+          226,
+          226,
+          226,
+          226,
           null,
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/game.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          52089,
-          52089,
-          52089,
-          52089,
-          52089,
-          52089,
-          52089,
-          52089,
-          52089,
-          52089,
-          null,
-          null
-        ]
-      },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/lib/game_team.rb": {
+      "/Users/antoine/Turing/1mod/projects/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -129,6 +100,35 @@
           null,
           null,
           null,
+          1,
+          52089,
+          52089,
+          52089,
+          52089,
+          52089,
+          52089,
+          52089,
+          52089,
+          52089,
+          52089,
+          null,
+          null
+        ]
+      },
+      "/Users/antoine/Turing/1mod/projects/futbol/lib/game_team.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -154,7 +154,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/spec/game_teams_spec.rb": {
+      "/Users/antoine/Turing/1mod/projects/futbol/spec/game_teams_spec.rb": {
         "lines": [
           1,
           null,
@@ -224,7 +224,7 @@
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/spec/stat_tracker_spec.rb": {
+      "/Users/antoine/Turing/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           null,
@@ -285,13 +285,13 @@
           null,
           1,
           1,
-          0,
+          1,
           null,
           null,
           null
         ]
       },
-      "/Users/jimmytrulock/turing_work/1mod/futbol_project/spec/team_spec.rb": {
+      "/Users/antoine/Turing/1mod/projects/futbol/spec/team_spec.rb": {
         "lines": [
           1,
           null,
@@ -299,7 +299,7 @@
           1,
           1,
           null,
-          0,
+          1,
           null,
           null,
           null,
@@ -307,13 +307,13 @@
           null,
           null,
           null,
-          0,
-          0,
+          1,
+          1,
           null,
           null,
           1,
           null,
-          0,
+          1,
           null,
           null,
           null,
@@ -321,19 +321,19 @@
           null,
           null,
           null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1691035970
+    "timestamp": 1691036766
   }
 }
