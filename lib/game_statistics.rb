@@ -29,9 +29,7 @@ class GameStatistics
     lowest_total_score = nil
     @game_data.each do |row|
     total_score = row[:away_goals].to_i + row[:home_goals].to_i #away_goals + home_goals
-      if lowest_total_score == nil || total_score < lowest_total_score
-        lowest_total_score = total_score
-      end
+      lowest_total_score = total_score if lowest_total_score == nil || total_score < lowest_total_score
     end
     lowest_total_score
   end
