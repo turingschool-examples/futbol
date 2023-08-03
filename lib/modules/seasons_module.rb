@@ -65,6 +65,16 @@ module Seasons
     Team.teams_lookup[team_hash]
   end
 
+  def most_accurate_team(request_season)
+    team_hash = all_accuracies(request_season).max_by {|team, accuracies| accuracies} [0]
+    Team.teams_lookup[team_hash]
+  end
+
+  # def least_accurate_team(request_season)
+  #   team_hash = all_accuracies(request_season).max_by {|team, accuracies| accuracies} [0]
+  #   Team.teams_lookup[team_hash]
+  # end
+
   private
   
   def all_tackles_in(request_season)
@@ -81,11 +91,31 @@ module Seasons
       end
     end
     all_tackles
-  end
+  end 
+
+  def all_accuracies(request_season)
+    season_game_teams = GameTeam.game_teams.select { |game| game_id_season(request_season).include?(game.game_id) }
+    only_team_id = season_game_teams.map { |team| team.team_id }.uniq
+    
+    all_goals = Hash.new(0)
+    all_shots = Hash.new(0)
+    
+    only_team_id.each do |id|
+      season_game_teams.each do |teams|
+        if teams.team_id == id
+          all_goals[id] += teams.goals.to_i
+          all_shots[id] += teams.shots.to_i
+        end
+      end
+    end
+    all_accuracies = all_goals.merge(all_shots) {|team_id, old_data, new_data| old_data.to_f / new_data.to_f }
+  end 
   
   def game_id_season(request_season)
     the_season = SeasonGameID.games.select { |game| game.season == request_season }
     the_season.map { |game| game.game_id }
   end
+
+
 
 end
