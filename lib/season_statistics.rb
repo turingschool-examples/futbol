@@ -13,7 +13,6 @@ class SeasonStatistics
 
   def winningest_coach(season_id)
     season_games = find_season_games(season_id)
-
     season_game_teams = find_season_game_teams(season_games)
 
     winning_games = Hash.new(0)
@@ -29,21 +28,11 @@ class SeasonStatistics
       end
     end
 
-    win_percentage = Hash.new(0)
-
     successful_team = winning_games.max_by do |team, games_won|
         (games_won/games_played[team] * 100).to_f
     end
 
-    @game_team_data.rewind #fix?
-
-    coach_name = ""
-    
-    @game_team_data.each do |row|
-      coach_name = row[:head_coach] if row[:team_id] == successful_team[0]
-    end
-
-    coach_name
+    get_coach_name(successful_team)
   end
 
   def worst_coach(season_id)
@@ -64,21 +53,11 @@ class SeasonStatistics
       end
     end
 
-    win_percentage = Hash.new(0)
-
     losing_team = winning_games.min_by do |team, games_won|
         (games_won/games_played[team] * 100).to_f
     end
 
-    @game_team_data.rewind
-
-    coach_name = ""
-    
-    @game_team_data.each do |row|
-      coach_name = row[:head_coach] if row[:team_id] == losing_team[0]
-    end
-
-    coach_name
+    get_coach_name(losing_team)
   end
 
   def most_accurate_team(season_id)
@@ -180,6 +159,18 @@ class SeasonStatistics
       end
     end
 
+    @game_team_data.rewind
+
     season_game_teams
+  end
+
+  def get_coach_name(team)
+    coach_name = ""
+    
+    @game_team_data.each do |row|
+      coach_name = row[:head_coach] if row[:team_id] == team[0]
+    end
+
+    coach_name
   end
 end
