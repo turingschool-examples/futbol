@@ -32,5 +32,10 @@ RSpec.describe StatTracker do
     # require 'pry';binding.pry
       expect(stat_tracker.highest_total_score).to be_a(Integer)
     end
+
+    it "#lowest_total_score" do 
+    # require 'pry';binding.pry
+      expect(stat_tracker.lowest_total_score).to be_a(Integer)
+    end
   end
 end
