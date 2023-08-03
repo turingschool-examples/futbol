@@ -31,11 +31,22 @@ RSpec.describe StatTracker do
     it "#highest_total_score" do 
     # require 'pry';binding.pry
       expect(stat_tracker.highest_total_score).to be_a(Integer)
+      expect(stat_tracker.highest_total_score).to eq(11)
     end
 
     it "#lowest_total_score" do 
     # require 'pry';binding.pry
       expect(stat_tracker.lowest_total_score).to be_a(Integer)
+      expect(stat_tracker.lowest_total_score).to eq(0)
+    end
+
+    it "#total_games" do
+      expect(stat_tracker.total_games).to be_a(Float)
+      expect(stat_tracker.total_games).to eq(7441)
+    end
+
+    it "#percentage_home_wins" do
+      expect(stat_tracker.percentage_home_wins).to be_a(Float)
     end
   end
 end

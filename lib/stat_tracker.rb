@@ -24,7 +24,19 @@ class StatTracker
   def lowest_total_score
     @games.map { |game| game.away_goals + game.home_goals }.min
   end
-  
+
+  def total_games
+    @games.count { |game| game }.to_f
+  end
+
+  def percentage_home_wins
+    home_wins = @game_teams.count do |game|
+      game.result == "WIN" && game.hoa == "home"
+    end
+
+    (home_wins / self.total_games).round(2)*100
+  end
+
   def self.from_csv(files)
     StatTracker.new(files)
   end
