@@ -1,13 +1,23 @@
+# require "./lib/stat_tracker.rb"
+require_relative 'game'
+require "csv"
 require "pry"
 
-class GameStats < StatDaddy
-  # Highest sum of the winning and losing teams’ scores	Return Value: Integer
+# binding.pry
+class GameStats
+
+  def initialize(locations)
+    # @games_fixture_data = CSV.open "./data/games_fixture.csv", headers: true, header_converters: :symbol
+    @games = CSV.open(locations[:games], headers: true, header_converters: :symbol).map {|game| Game.new(game)}
+    # binding.pry
+  end
+
   def highest_total_score
     highest_total_score = 0
 
-    @games_fixture_data.each do |data|
-      away_goals = data[:away_goals].to_i
-      home_goals = data[:home_goals].to_i
+    @games.each do |data|
+      away_goals = data.away_goals.to_i
+      home_goals = data.home_goals.to_i
       score = away_goals + home_goals
 
       highest_total_score = score if score > highest_total_score
@@ -19,9 +29,9 @@ class GameStats < StatDaddy
     # By assigning Float::INFINITY we ensure that with each encounter during the iteration we set the new lowest total score to the new found summed scores encountered in the data 
     lowest_total_score = Float::INFINITY 
 
-    @games_fixture_data.each do |data|
-      away_goals = data[:away_goals].to_i
-      home_goals = data[:home_goals].to_i
+    @games.each do |data|
+      away_goals = data.away_goals.to_i
+      home_goals = data.home_goals.to_i
       score = away_goals + home_goals
 
       lowest_total_score = score if score < lowest_total_score

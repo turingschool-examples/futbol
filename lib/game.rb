@@ -1,4 +1,4 @@
-class GameStats
+class Game
   attr_reader :game_id,
               :season,
               :type,
@@ -23,5 +23,3 @@ class GameStats
     @venue_link = data[:venue_link]
   end
 end
-              
-              
