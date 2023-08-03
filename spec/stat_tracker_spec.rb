@@ -1,8 +1,4 @@
-require "csv"
 require "./lib/stat_tracker"
-
-# stat_tracker = StatTracker.from_csv(locations)
-# stat_tracker.game.each
 
 RSpec.describe StatTracker do
   before(:each) do
@@ -28,7 +24,7 @@ RSpec.describe StatTracker do
 
       expect(@tracker.game_stats).to be_a GameStats
       expect(@tracker.season_stats).to be_a SeasonStats
-      expect(@tracker.league_stats).to eq(nil)
+      expect(@tracker.league_stats).to be_a LeagueStats
     end
   end
 
@@ -38,7 +34,7 @@ RSpec.describe StatTracker do
 
       expect(tracker.game_stats).to be_a GameStats
       expect(tracker.season_stats).to be_a SeasonStats
-      expect(tracker.league_stats).to eq(nil)
+      expect(tracker.league_stats).to be_a LeagueStats
     end
   end
 
