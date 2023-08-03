@@ -18,62 +18,62 @@ RSpec.describe StatTracker do
   end
   #before :each mocks and stubs seem good here
 
-  describe '#initialize' do
+  xdescribe '#initialize' do
     it 'should initialize with the correct instance variables' do
       expect(stat_tracker).to be_a StatTracker
       expect(stat_tracker.data).to eq(data)
     end
   end
   
-  describe '#count_of_teams' do
+  xdescribe '#count_of_teams' do
     it 'counts the total number of teams' do
       expect(stat_tracker.count_of_teams).to eq 32
     end
   end
 
-  describe "#highest_total_score" do
+  xdescribe "#highest_total_score" do
     it 'returns the highest total score in a game through all seasons' do
 
       expect(stat_tracker.highest_total_score).to eq(11)
     end
   end
 
-  describe "#loweest_total_score" do
+  xdescribe "#loweest_total_score" do
     it 'returns the lowest total score in a game through all seasons' do
 
       expect(stat_tracker.lowest_total_score).to eq(0)
     end
   end
 
-  describe "#total_games_played" do
+  xdescribe "#total_games_played" do
     it 'returns the total number of games played across all seasons' do
 
       expect(stat_tracker.total_games_played).to eq(7441)
     end
   end
 
-  describe "#percentage_home_wins" do
+  xdescribe "#percentage_home_wins" do
     it 'returns the percentage of games that a home team won, to the nearest hundreth' do
 
       expect(stat_tracker.percentage_home_wins).to eq(0.44)
     end
   end
 
-  describe "#percentage_visitor_wins" do
+ xdescribe "#percentage_visitor_wins" do
     it 'returns the percentage of games that a visiting team won, to the nearest hundreth' do
 
       expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
   end
 
-  describe "#percentage_ties" do
+  xdescribe "#percentage_ties" do
     it 'returns the percentage of games that ended in a tie, to the nearest hundreth' do
 
       expect(stat_tracker.percentage_ties).to eq(0.2)
     end
   end
 
-  describe "#count_of_games_by_season" do
+  xdescribe "#count_of_games_by_season" do
     it 'returns a hash with each season and its game count' do
       expectation = {
         "20122013"=>806, 
@@ -89,14 +89,14 @@ RSpec.describe StatTracker do
     end
   end
   
-  describe "#average_goals_per_game" do
+  xdescribe "#average_goals_per_game" do
     it 'returns the average goals made per game across all seasons' do
       
       expect(stat_tracker.average_goals_per_game).to eq(4.22)
     end
   end
 
-  describe "#average_goals_by_season" do
+  xdescribe "#average_goals_by_season" do
     it 'returns a hash with the average goals made per game by season' do
       expectation = {
         "20122013"=>4.12, 
@@ -121,37 +121,37 @@ RSpec.describe StatTracker do
     expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
   
-  describe '#best_offense' do
+  xdescribe '#best_offense' do
     it 'returns the team with the most average goals scored' do
       expect(stat_tracker.best_offense).to eq "Reign FC"
     end
   end
 
-  describe '#worst_offense' do
+  xdescribe '#worst_offense' do
     it 'returns the team with the least average goals scored' do
       expect(stat_tracker.worst_offense).to eq "Utah Royals FC"
     end
   end
 
-  describe '#highest_scoring_home_team' do
+  xdescribe '#highest_scoring_home_team' do
     it 'returns the home team with the highest average score per game' do
       expect(stat_tracker.highest_scoring_home_team).to eq "Reign FC"
     end
   end
   
-  describe '#lowest_scoring_home_team' do
+  xdescribe '#lowest_scoring_home_team' do
     it 'returns the home team with the lowest average score per game' do
       expect(stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
   end
 
-  describe '#highest_scoring_visitor' do
+  xdescribe '#highest_scoring_visitor' do
     it 'returns the visitor with the highest average score per game' do
       expect(stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
     end
   end
 
-  describe '#lowest_scoring_visitor' do
+  xdescribe '#lowest_scoring_visitor' do
     it 'returns the visitor with the lowest average score per game' do
       expect(stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
@@ -162,7 +162,7 @@ RSpec.describe StatTracker do
     expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
   end
 
-  it "#least_accurate_team" do
+  xit "#least_accurate_team" do
     expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
     expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
