@@ -17,4 +17,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker).to be_a StatTracker
     end
   end
+
+  describe "Game Statistics" do 
+    it "#highest_total_score" do 
+      expect(stat_tracker.highest_total_score).to be_a(Integer)
+    end
+  end
 end
