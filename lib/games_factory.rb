@@ -1,5 +1,6 @@
 #./lib/games_factory.rb
 require 'csv'
+require_relative 'games'
 
 class GamesFactory
   attr_reader :games

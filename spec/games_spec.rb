@@ -2,6 +2,7 @@ require 'spec_helper'
 require './lib/game'
 
 describe Team do 
+  #will need to rename this class
   before(:each) do 
     @game1 = Game.new(2012030221, 20122013, "Postseason", "5/16/13", 3, 6, 2, 3, "Toyota Stadium")
   end
