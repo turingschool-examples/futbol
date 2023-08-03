@@ -1,8 +1,11 @@
 require "./lib/stat_daddy"
 
 class SeasonStats < StatDaddy
+
+  
   def winningest_coach
     # Name of the Coach with the best win percentage for the season
+
   end
 
   def worst_coach
@@ -19,6 +22,7 @@ class SeasonStats < StatDaddy
 
   def most_tackles
     # Name of the Team with the most tackles in the season
+    @game_teams.each do |data|
   end
 
   def fewest_tackles
