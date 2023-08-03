@@ -22,7 +22,7 @@ module Seasons
 
   def percentage_home_wins
     home_wins = GameTeam.game_teams.count { |game| game.hoa == "home" && game.result == "WIN"}
-    (home_wins / total_games_played).round(2)
+    (home_wins.to_f / total_games_played.to_f).round(2)
   end
 
 

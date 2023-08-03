@@ -48,5 +48,8 @@ RSpec.describe StatTracker do
 
   describe "#percentage_home_wins" do
     it 'returns the percentage of games that a home team won, to the nearest hundreth' do
-      
+
+      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+    end
+  end
 end
