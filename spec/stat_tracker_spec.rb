@@ -122,4 +122,11 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#highest_scoring_home_team' do
+    it 'returns the team with the highest average score per game' do
+      expect(stat_tracker.highest_scoring_home_team).to eq ""
+    end
+  end
 end
+
+
