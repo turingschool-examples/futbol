@@ -37,5 +37,9 @@ RSpec.describe StatTracker do
     # require 'pry';binding.pry
       expect(stat_tracker.lowest_total_score).to be_a(Integer)
     end
+
+    it "#percentage_home_wins" do
+    expect(stat_tracker.percentage_home_wins).to be_a(Float)
+    end
   end
 end
