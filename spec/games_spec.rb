@@ -1,5 +1,5 @@
 require 'spec_helper'
-require './lib/game'
+require './lib/game_stats'
 
 describe Team do 
   #will need to rename this class

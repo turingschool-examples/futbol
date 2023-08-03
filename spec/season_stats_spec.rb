@@ -1,4 +1,4 @@
-require './lib/season'
+require './lib/season_stats'
 require './lib/game_teams_factory'
 require './lib/games_factory'
 require './lib/teams_factory'
@@ -19,13 +19,13 @@ RSpec.describe Season do
     end
   end
 
-  # describe '#most_accurate_team' do
-  #   it "can return which team was most accurate in a season" do
-  #     searched_season = Season.new(20122013)
-  #     searched_season.most_tackles
-  #     expect(searched_season.most_accurate_team).to eq('Galaxy')
-  #   end
-  # end
+  describe '#most_accurate_team' do
+    it "can return which team was most accurate in a season" do
+      searched_season = Season.new(20122013)
+      searched_season.most_tackles
+      expect(searched_season.most_accurate_team).to eq('Galaxy')
+    end
+  end
 
 
 end
