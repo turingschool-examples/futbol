@@ -202,4 +202,38 @@ class SeasonStatistics
 
     team[:teamname]
   end
+
+  def least_tackles(season_id)
+    season_games = []
+
+    @game_data.each do |row|
+      if row[:season] == season_id
+        season_games << row
+      end
+    end
+
+    season_game_teams = []
+
+    @game_team_data.each do |row|
+      season_games.each do |game|
+        if game[:game_id] == row[:game_id]
+          season_game_teams << row
+        end
+      end
+    end
+
+    tackles = Hash.new(0)
+    
+    season_game_teams.each do |game|
+      tackles[game[:team_id]] += game[:tackles].to_f
+    end
+
+    most_tackles = tackles.min
+    
+    team = @teams_data.find do |row|
+      row[:team_id] == most_tackles[0]
+    end
+
+    team[:teamname]
+  end
 end
