@@ -5,7 +5,7 @@ class League
   attr_reader :away_team_id,
               :away_team_goals,
               :home_team_id,
-              :home_team_goals,
+              :home_team_goals
 
   def initialize(test_game_file)
     @away_team_id = test_game_file[:away_team_id]
