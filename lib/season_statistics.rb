@@ -12,13 +12,7 @@ class SeasonStatistics
   end
 
   def winningest_coach(season_id)
-    season_games = []
-
-    @game_data.each do |row|
-      if row[:season] == season_id
-        season_games << row
-      end
-    end
+    season_games = find_season_games(season_id)
 
     winning_games = Hash.new(0)
     games_played = Hash.new(0)
@@ -53,13 +47,7 @@ class SeasonStatistics
   end
 
   def worst_coach(season_id)
-    season_games = []
-
-    @game_data.each do |row|
-      if row[:season] == season_id
-        season_games << row
-      end
-    end
+    season_games = find_season_games(season_id)
 
     winning_games = Hash.new(0)
     games_played = Hash.new(0)
@@ -94,13 +82,7 @@ class SeasonStatistics
   end
 
   def most_accurate_team(season_id)
-    season_games = []
-
-    @game_data.each do |row|
-      if row[:season] == season_id
-        season_games << row
-      end
-    end
+    season_games = find_season_games(season_id)
 
     season_game_teams = []
 
@@ -132,13 +114,7 @@ class SeasonStatistics
   end
 
   def least_accurate_team(season_id)
-    season_games = []
-
-    @game_data.each do |row|
-      if row[:season] == season_id
-        season_games << row
-      end
-    end
+    season_games = find_season_games(season_id)
 
     season_game_teams = []
 
@@ -170,13 +146,7 @@ class SeasonStatistics
   end
 
   def most_tackles(season_id)
-    season_games = []
-
-    @game_data.each do |row|
-      if row[:season] == season_id
-        season_games << row
-      end
-    end
+    season_games = find_season_games(season_id)
 
     season_game_teams = []
 
@@ -204,13 +174,7 @@ class SeasonStatistics
   end
 
   def least_tackles(season_id)
-    season_games = []
-
-    @game_data.each do |row|
-      if row[:season] == season_id
-        season_games << row
-      end
-    end
+    season_games = find_season_games(season_id)
 
     season_game_teams = []
 
@@ -235,5 +199,17 @@ class SeasonStatistics
     end
 
     team[:teamname]
+  end
+
+  def find_season_games(season_id)
+    season_games = []
+
+    @game_data.each do |row|
+      if row[:season] == season_id
+        season_games << row
+      end
+    end
+
+    season_games
   end
 end
