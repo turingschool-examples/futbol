@@ -24,25 +24,7 @@ class TeamPerformance
   end
 
   private
-
-  def find_away_team_names(team_file)
-    name = nil
-    team_file.each do |team| if team[:team_id] == @away_team_id
-      name = team[:teamname]
-      end
-    end
-    name
-  end
-
-  def find_home_team_names(team_file)
-    name = nil
-    team_file.each do |team| if team[:team_id] == @home_team_id
-      name = team[:teamname]
-      end
-    end
-    name
-  end
-
+  
   def self.games
     @@games
   end
