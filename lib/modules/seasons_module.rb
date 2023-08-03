@@ -71,7 +71,7 @@ module Seasons
   end
 
   def least_accurate_team(request_season)
-    team_hash = all_accuracies(request_season).max_by {|team, accuracies| accuracies} [0]
+    team_hash = all_accuracies(request_season).min_by {|team, accuracies| accuracies} [0]
     Team.teams_lookup[team_hash]
   end
 
