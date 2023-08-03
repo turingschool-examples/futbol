@@ -1,10 +1,10 @@
 require './lib/helper_class'
 
 module Seasons
-  def Season.best_offense
-    require 'pry';binding.pry
-    combined_games = Season.seasons.group_by { |game| team[:game_id] }
-  end
+  # def Season.best_offense
+  #   # require 'pry';binding.pry
+  #    = Season.seasons.group_by { |season| team[:home_team_id] }
+  # end
 
   def highest_total_score
     away_goals = Season.seasons.map { |season| season.away_goals.map(&:to_i) }.flatten

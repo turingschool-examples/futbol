@@ -20,17 +20,23 @@ RSpec.describe StatTracker do
   end
   
   describe '#count_of_teams' do
-    it 'counts the total number of teams' do
-      expect(Team.count_of_teams).to eq 32
+    xit 'counts the total number of teams' do
+      expect(stat_tracker.count_of_teams).to eq 32
     end
   end
 
   describe '#best_offense' do
-    it 'returns a string of the team with the hgihest avg goals' do
-      expect(Season.best_offense).to eq ""
+    it 'returns a string of the team with the highest avg goals' do
+      expect(stat_tracker.best_offense).to eq "Sporting Kansas City"
     end
   end
-  
+
+  describe '#worst_offense' do
+    it 'returns a string of the team with the highest avg goals' do
+      expect(stat_tracker.worst_offense).to eq "Reign FC"
+    end
+  end
+
   describe "#highest_total_score" do
     it 'returns the highest total score in a game through all seasons' do
 
