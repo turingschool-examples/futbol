@@ -97,8 +97,14 @@ RSpec.describe SeasonStatistics do
   end
 
   describe "#get_coach_name" do
-    it "finds coach name based off of team" do
+    it "finds coach name based off of team id" do
       expect(@season_statistics.get_coach_name(["6", 9])).to eq("Claude Julien")
+    end
+  end
+
+  describe "#get_team_name" do
+    it "finds team name based off of team id" do
+      expect(@season_statistics.get_team_name(["6", 24.0])).to eq("FC Dallas")
     end
   end
 end
