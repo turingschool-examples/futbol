@@ -43,8 +43,7 @@ module Seasons
     away_goals = Season.seasons.map { |season| season.away_goals.map(&:to_i) }.flatten
     home_goals = Season.seasons.map { |season| season.home_goals.map(&:to_i) }.flatten
     totals = [away_goals, home_goals].transpose.map { |each| each.sum }
-    totals.max
-    require 'pry'; binding.pry
+    (totals.sum.to_i / total_games_played.to_f).round(2)
   end
 
 end

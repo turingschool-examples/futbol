@@ -24,10 +24,4 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  def average_goals_per_game(season)
-    total_goals = @game_file.sum { |game| game[:away_goals] + game[:home_goals] }
-    rewind(@game_file) 
-    total_goals / count_of_games_by_season(season)
-  end
-
 end
