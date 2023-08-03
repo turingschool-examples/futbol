@@ -14,7 +14,7 @@ describe TeamsFactory do
   describe "#create_teams" do
     it "can add teams" do
       expect(@factory.create_teams("./data/teams.csv")).to be_an Array
-      expect(@factory.create_teams("./data/teams.csv")).to all be_a Team
+      expect(@factory.create_teams("./data/teams.csv")).to all be_a Teams
 
       @factory.create_teams("./data/teams.csv")
 

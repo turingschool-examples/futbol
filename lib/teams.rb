@@ -1,4 +1,4 @@
-class Team
+class Teams
   attr_reader :team_id, :franchise_id, :team_name, :abbreviation, :stadium
 
   def initialize(team_id, franchise_id, team_name, abbreviation, stadium)

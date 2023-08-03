@@ -1,1 +1,0 @@
-#./lib/games_teams_factory.rb
