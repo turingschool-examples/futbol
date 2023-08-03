@@ -1,10 +1,10 @@
 require './lib/helper_class'
 
 module Seasons
-  # def Season.best_offense
-  #   # require 'pry';binding.pry
-  #    = Season.seasons.group_by { |season| team[:home_team_id] }
-  # end
+
+  def total_games_played
+    Season.seasons.map { |season| season.game_id }.flatten.count
+  end
 
   def highest_total_score
     away_goals = Season.seasons.map { |season| season.away_goals.map(&:to_i) }.flatten
@@ -19,4 +19,31 @@ module Seasons
     totals = [away_goals, home_goals].transpose.map { |each| each.sum }
     totals.min
   end
+
+  def percentage_home_wins
+    home_wins = GameTeam.game_teams.count { |game| game.hoa == "home" && game.result == "WIN" }
+    (home_wins.to_f / total_games_played.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    away_wins = GameTeam.game_teams.count { |game| game.hoa == "away" && game.result == "WIN" }
+    (away_wins.to_f / total_games_played.to_f).round(2)
+  end
+
+  def percentage_ties
+    ties = GameTeam.game_teams.count { |game| game.result == "TIE" }/2
+    (ties.to_f / total_games_played.to_f).round(2)
+  end
+
+  def count_of_games_by_season
+    Season.seasons.each_with_object({}) { |season, hash| hash[season.season] = season.game_id.count }
+  end
+
+  def average_goals_per_game
+    away_goals = Season.seasons.map { |season| season.away_goals.map(&:to_i) }.flatten
+    home_goals = Season.seasons.map { |season| season.home_goals.map(&:to_i) }.flatten
+    totals = [away_goals, home_goals].transpose.map { |each| each.sum }
+    (totals.sum.to_i / total_games_played.to_f).round(2)
+  end
+
 end
