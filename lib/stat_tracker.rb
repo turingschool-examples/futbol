@@ -33,24 +33,26 @@ class StatTracker
     home_wins = @game_teams.count do |game|
       game.result == "WIN" && game.hoa == "home"
     end
-
-    (home_wins / self.total_games).round(2)*100
+    (home_wins / self.total_games).round(2).to_f
   end
   
   def percentage_visitor_wins
     visitor_wins = @game_teams.count do |game|
       game.result == "WIN" && game.hoa == "away"
     end
-
-    (visitor_wins / self.total_games).round(2)*100
+    (visitor_wins / self.total_games).round(2).to_f
   end
 
   def percentage_ties
     ties = @game_teams.count do |game|
       game.result == "TIE" && game.hoa == "away"
     end
+    (ties / self.total_games).round(2).to_f
+  end
 
-    (ties / self.total_games).round(2)*100
+  def average_goals_per_game
+    total_goals = @games.map { |game| game.away_goals + game.home_goals }.sum
+    (total_goals / @games.count).round(2).to_f
   end
 
   def count_of_teams
