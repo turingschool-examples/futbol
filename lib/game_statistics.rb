@@ -39,9 +39,7 @@ class GameStatistics
     home_team_wins = 0
     @game_data.each do |row|
       total_games += 1.0
-      if row[:home_goals].to_f > row[:away_goals].to_f 
-        home_team_wins += 1.0
-      end
+      home_team_wins += 1.0 if row[:home_goals].to_f > row[:away_goals].to_f
     end
     percentage_calculator(home_team_wins, total_games)
   end
@@ -51,9 +49,7 @@ class GameStatistics
     visitor_team_wins = 0
     @game_data.each do |row|
       total_games += 1.00
-      if row[:away_goals].to_f > row[:home_goals].to_f
-        visitor_team_wins += 1.00
-      end
+      visitor_team_wins += 1.00 if row[:away_goals].to_f > row[:home_goals].to_f
     end
     percentage_calculator(visitor_team_wins, total_games)
   end
@@ -63,9 +59,7 @@ class GameStatistics
     tied_games = 0
     @game_data.each do |row|
       total_games += 1.00
-      if row[:away_goals].to_f == row[:home_goals].to_f
-        tied_games += 1.00
-      end
+      tied_games += 1.00 if row[:away_goals].to_f == row[:home_goals].to_f
     end
     percentage_calculator(tied_games, total_games)
   end  
