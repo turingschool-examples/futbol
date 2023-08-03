@@ -53,8 +53,8 @@ RSpec.describe SeasonStats do
   end
 
   describe "#most_tackles" do
-    xit "can name the team with the most tackles in the season" do
-      expect(@season_stats.most_tackles).to eq
+    it "can name the team with the most tackles in the season" do
+      expect(@season_stats.most_tackles).to eq(6)
     end
   end
 
