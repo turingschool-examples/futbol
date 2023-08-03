@@ -16,6 +16,7 @@ attr_reader :year, :teams, :games, :game_teams, :searched_season
   def initialize(year)
     @year = year
     @teams = TeamsFactory.new
+    @teams.create_teams('./data/teams.csv')
     @games = GamesFactory.new
     @games.create_games('./fixture/games_fixtures.csv')
     @game_teams = GameTeamsFactory.new
@@ -62,20 +63,25 @@ attr_reader :year, :teams, :games, :game_teams, :searched_season
   end
 
   @all_games.each do |game|
-    @team_tackles[@all_games.team_id] += @all_games.tackles
+    @team_tackles[game.team_id] += game.tackles
   end
-  puts team_tackles
+  
+  @most_tackles_team = @team_tackles.max_by do |team_id, tackles|
+    tackles
   end
 
- 
-    
+  @most_tackles_team_name = @teams.teams.find do |team|
+    team.team_id == @most_tackles_team[0]
+  end.team_name
+
+
+  # puts @most_tackles_team_name.team_name
+
+  #Later print a message that mentions goals
 
 
 
-
-
-
-  # end
+  end
 
   def fewest_tackles
   end

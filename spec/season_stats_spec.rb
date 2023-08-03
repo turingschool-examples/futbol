@@ -19,11 +19,10 @@ RSpec.describe Season do
     end
   end
 
-  describe '#most_accurate_team' do
-    it "can return which team was most accurate in a season" do
+  describe '#most_tackles' do
+    it "can return which team has the most tackles in a season" do
       searched_season = Season.new(20122013)
-      searched_season.most_tackles
-      expect(searched_season.most_accurate_team).to eq('Galaxy')
+      expect(searched_season.most_tackles).to eq('Sporting Kansas City')
     end
   end
 
