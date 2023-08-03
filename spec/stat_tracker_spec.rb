@@ -38,4 +38,15 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_total_score).to eq(0)
     end
   end
+
+  describe "#total_games_played" do
+    it 'returns the total number of games played across all seasons' do
+
+      expect(stat_tracker.total_games_played).to eq(29764)
+    end
+  end
+
+  describe "#percentage_home_wins" do
+    it 'returns the percentage of games that a home team won, to the nearest hundreth' do
+      
 end
