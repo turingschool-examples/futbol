@@ -76,4 +76,60 @@ RSpec.describe StatTracker do
         expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
   end
+
+
+    it "#total_goals_by_season" do 
+      expect(stat_tracker.total_goals_by_season).to be_a Hash
+  
+      expected = {
+        "20122013"=>3322.0,
+        "20162017"=>5565.0,
+        "20142015"=>5461.0,
+        "20152016"=>5499.0,
+        "20132014"=>5547.0,
+        "20172018"=>6019.0
+      }
+      
+      expect(stat_tracker.total_goals_by_season).to eq(expected)
+    end
+
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    it "#average_goals_by_season" do
+      expect(stat_tracker.average_goals_by_season).to be_a(Hash)
+      
+      expected = {
+        "20122013"=>4.12,
+        "20162017"=>4.23,
+        "20142015"=>4.14,
+        "20152016"=>4.16,
+        "20132014"=>4.19,
+        "20172018"=>4.44
+      }
+      
+      expect(stat_tracker.average_goals_by_season).to eq(expected)
+
+    end
+
+
+
+
+
+
+
+
+
+
+
+
+
 end
