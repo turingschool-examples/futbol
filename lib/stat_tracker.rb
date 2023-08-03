@@ -29,9 +29,13 @@ class StatTracker
     @games.count { |game| game }.to_f
   end
 
-  # def percentage_home_wins
+  def percentage_home_wins
+    home_wins = @game_teams.count do |game|
+      game.result == "WIN" && game.hoa == "home"
+    end
 
-  # end
+    (home_wins / self.total_games).round(2)*100
+  end
 
   def self.from_csv(files)
     StatTracker.new(files)
