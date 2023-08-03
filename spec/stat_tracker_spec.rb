@@ -81,5 +81,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#average_goals_per_game" do
+    it 'returns the average goals made per game across all seasons' do
+
+      expect(stat_tracker.average_goals_per_game).to eq(6.75)
+    end
+  end
+
   
 end
