@@ -29,13 +29,13 @@ RSpec.describe LeagueStats do
 
   describe "#count_of_teams" do
     it "returns total number of teams in the data" do
-
+      expect(@ls.count_of_teams).to be(32)
     end
   end
 
   describe "#best_offense" do
     it "returns name of team with highest avg goals scored per game across all seasons" do
-
+      
     end
   end
 
