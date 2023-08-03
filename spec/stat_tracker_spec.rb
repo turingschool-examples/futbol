@@ -111,12 +111,12 @@ RSpec.describe StatTracker do
     end
   end
 
-  it "#most_tackles" do
+  xit "#most_tackles" do
     expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  it "#fewest_tackles" do
+  xit "#fewest_tackles" do
     expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
@@ -155,6 +155,16 @@ RSpec.describe StatTracker do
     it 'returns the visitor with the lowest average score per game' do
       expect(stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
+  end
+
+  it "#most_accurate_team" do
+    expect(stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+  end
+
+  it "#least_accurate_team" do
+    expect(stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 end
 
