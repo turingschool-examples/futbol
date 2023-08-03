@@ -1,16 +1,8 @@
-# require "./lib/stat_tracker.rb"
-require "csv"
 require "pry"
 
-# binding.pry
-class GameStats
-  attr_reader :csv_data
-
-  def initialize
-    @games_fixture_data = CSV.open "./data/games_fixture.csv", headers: true, header_converters: :symbol
-  end
-
-  def highest_total_score 
+class GameStats < StatDaddy
+  # Highest sum of the winning and losing teams’ scores	Return Value: Integer
+  def highest_total_score
     highest_total_score = 0
 
     @games_fixture_data.each do |data|
