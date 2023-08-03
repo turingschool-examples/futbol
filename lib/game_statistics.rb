@@ -12,7 +12,7 @@ class GameStatistics
     @game_team_data = CSV.open locations[:game_teams], headers: true, header_converters: :symbol  
   end
 
-  def percentage(portion, whole)
+  def percentage_calculator(portion, whole)
     percentage_return = (portion / whole).round(2)
   end
 
@@ -20,9 +20,7 @@ class GameStatistics
     highest_total_score = 0
     @game_data.each do |row|
     total_score = row[:away_goals].to_i + row[:home_goals].to_i #away_goals + home_goals
-      if total_score > highest_total_score
-        highest_total_score = total_score
-      end
+    highest_total_score = total_score if total_score > highest_total_score
     end
     highest_total_score
   end
@@ -47,7 +45,7 @@ class GameStatistics
         home_team_wins += 1.0
       end
     end
-    percentage(home_team_wins, total_games)
+    percentage_calculator(home_team_wins, total_games)
   end
 
   def percentage_visitor_wins  
@@ -59,7 +57,7 @@ class GameStatistics
         visitor_team_wins += 1.00
       end
     end
-    percentage(visitor_team_wins, total_games)
+    percentage_calculator(visitor_team_wins, total_games)
   end
 
   def percentage_ties
@@ -71,6 +69,6 @@ class GameStatistics
         tied_games += 1.00
       end
     end
-    percentage(tied_games, total_games)
+    percentage_calculator(tied_games, total_games)
   end  
 end
