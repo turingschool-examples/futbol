@@ -1,16 +1,9 @@
-# require "./lib/stat_tracker.rb"
-require_relative "game"
+require './lib/stat_daddy'
 require "csv"
 require "pry"
 
 # binding.pry
-class GameStats
-  def initialize(locations)
-    # @games_fixture_data = CSV.open "./data/games_fixture.csv", headers: true, header_converters: :symbol
-    @games = CSV.open(locations[:games], headers: true, header_converters: :symbol).map { |game| Game.new(game) }
-    # binding.pry
-  end
-
+class GameStats < StatDaddy
   def highest_total_score
     highest_total_score = 0
 
