@@ -62,14 +62,22 @@ class StatTracker
 
 
 
+  def count_of_games_by_season
+    @games.each_with_object(Hash.new(0)) { |game, game_count| game_count[game.season] += 1 }
+  end
+ 
 
-def 
+  def total_goals_by_season
+    total_goals_by_season = @games.each_with_object(Hash.new(0.0)) { |game, hash| hash[game.season] += game.away_goals + game.home_goals}
+  end 
 
-
-
-
-
-
+  def average_goals_by_season
+    average_goals_by_season = Hash.new(0)
+    total_goals_by_season.each do |key, value| 
+      average_goals_by_season[key] = (value / count_of_games_by_season[key]).round(2)
+    end
+    average_goals_by_season
+  end 
 
 
   def self.from_csv(files)
