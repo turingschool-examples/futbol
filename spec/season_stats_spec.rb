@@ -1,9 +1,25 @@
 require "csv"
 require "./lib/season_stats"
+require "pry"
+require "./lib/stat_tracker"
 
 RSpec.describe SeasonStats do
   before :each do
-    @season_stats = SeasonStats.new
+    @game_path = "./data/games.csv"
+    @team_path = "./data/teams.csv"
+    @game_teams_path = "./data/game_teams.csv"
+    @games_fixture_path = "./data/games_fixture.csv"
+    @games_teams_fixture_path = "./data/games_teams_fixture.csv"
+    @locations =
+      {
+        games: @games_fixture_path,
+        teams: @team_path,
+        game_teams: @game_teams_path,
+        games_fixture_path: @games_fixture_path,
+        games_teams_fixture_path: @games_teams_fixture_path
+
+      }
+    @season_stats = SeasonStats.new(@locations)
   end
 
   describe "#initialize" do

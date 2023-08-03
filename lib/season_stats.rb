@@ -2,9 +2,12 @@ require_relative "game_teams"
 require "csv"
 require "pry"
 
-class GameStats
+class SeasonStats
   def initialize(locations)
-    @gameteams = CSV.open(locations[:gameteams], headers: true, header_converters: :symbol).map { |gameteam| GameTeams.new(gameteam) }
+    require "pry"
+    binding.pry
+
+    @game_teams = CSV.open(locations[:game_teams], headers: true, header_converters: :symbol).map { |game_team| GameTeams.new(game_team) }
   end
 
   def winningest_coach
