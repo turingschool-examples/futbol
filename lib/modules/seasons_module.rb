@@ -54,5 +54,4 @@ module Seasons
       hash[season.season] = (total.to_f / season.game_id.count.to_f).round(2)
     end
   end
-
 end
