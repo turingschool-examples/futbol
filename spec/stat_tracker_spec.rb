@@ -61,6 +61,7 @@ RSpec.describe StatTracker do
     end
 
     it "#count_of_games_by_season" do
+    require 'pry';binding.pry
       expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
       expect(stat_tracker.count_of_games_by_season.keys[0]).to be_a(String)
       expect(stat_tracker.count_of_games_by_season.values[0]).to be_a(Integer)
