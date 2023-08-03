@@ -26,5 +26,13 @@ RSpec.describe Season do
     end
   end
 
+  describe '#least_tackles' do
+    it "can return which team has the least tackles in a seasom" do
+      searched_season = Season.new(20122013)
+      expect(searched_season.least_tackles).to eq('Chivas')
+    end
+  end
+
+
 
 end
