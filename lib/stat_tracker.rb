@@ -39,10 +39,18 @@ class StatTracker
   
   def percentage_visitor_wins
     visitor_wins = @game_teams.count do |game|
-      game.result == "WIN" && game.hoa == "visitor"
+      game.result == "WIN" && game.hoa == "away"
     end
 
     (visitor_wins / self.total_games).round(2)*100
+  end
+
+  def percentage_ties
+    ties = @game_teams.count do |game|
+      game.result == "TIE" && game.hoa == "away"
+    end
+
+    (ties / self.total_games).round(2)*100
   end
 
   def self.from_csv(files)
