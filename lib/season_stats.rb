@@ -1,12 +1,6 @@
-# require "./lib/stattracker.rb"
-require "csv"
+require "./lib/stat_daddy"
 
-lines = File.readlines "./data/games_teams_fixture.csv"
-lines.each do |line|
-  puts line
-end
-
-class SeasonStats
+class SeasonStats < StatDaddy
   def winningest_coach
     # Name of the Coach with the best win percentage for the season
   end

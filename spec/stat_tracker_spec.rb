@@ -12,26 +12,23 @@ RSpec.describe StatTracker do
     @games_fixture_path = './data/games_fixture.csv'
     @game_teams_fixture_path = './data/games_teams_fixture.csv'
     @locations = {
-      games: @game_path,
+      games: @games_fixture_path,
       teams: @teams_path,
-      game_teams: @game_teams_path,
-      games_fixture_path: @games_fixture_path,
-      games_teams_fixture_path: @game_teams_fixture_path
+      game_teams: @game_teams_fixture_path,
     }
+    @tracker = StatTracker.new(@locations)
   end
   describe "#initialize" do
     it "exists" do
-      tracker = StatTracker.new("game", "game_teams", "teams")
-
-      expect(tracker).to be_a StatTracker
+      expect(@tracker).to be_a StatTracker
     end
 
-    it "has a game, game_team, and teams attribute that is readable" do
-      tracker = StatTracker.new(@game_path, @game_teams_path, @teams_path)
+    it "has a game_stats, season_stats, and league_stats attribute that is readable" do
+      tracker = StatTracker.new(@locations)
 
-      expect(tracker.games).to eq(@game_path)
-      expect(tracker.game_teams).to eq(@game_teams_path)
-      expect(tracker.teams).to eq(@teams_path)
+      expect(@tracker.game_stats).to be_a GameStats
+      expect(@tracker.season_stats).to be_a SeasonStats
+      expect(@tracker.league_stats).to eq(nil)
     end
   end
 
@@ -39,9 +36,9 @@ RSpec.describe StatTracker do
     it "returns a new instance of a StatTracker object given a hash of filepaths" do
       tracker = StatTracker.from_csv(@locations)
 
-      expect(tracker.games).to eq(@locations[:games])
-      expect(tracker.game_teams).to eq(@locations[:game_teams])
-      expect(tracker.teams).to eq(@locations[:teams])
+      expect(tracker.game_stats).to be_a GameStats
+      expect(tracker.season_stats).to be_a SeasonStats
+      expect(tracker.league_stats).to eq(nil)
     end
   end
 

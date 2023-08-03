@@ -7,6 +7,7 @@ class StatTracker
 
   def initialize(locations)
     @game_stats = GameStats.new(locations)
+
   end
 
   def highest_total_score
