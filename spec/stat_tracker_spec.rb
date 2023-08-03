@@ -59,5 +59,9 @@ RSpec.describe StatTracker do
       expect(stat_tracker.percentage_ties).to be_a(Float)
       expect(stat_tracker.percentage_ties).to eq(20.0)
     end
+
+    it "#count_of_teams" do
+      expect(stat_tracker.count_of_teams).to be_a(Integer)
+    end
   end
 end
