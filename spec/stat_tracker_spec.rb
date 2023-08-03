@@ -59,5 +59,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.percentage_ties).to be_a(Float)
       expect(stat_tracker.percentage_ties).to eq(20.0)
     end
+
+    it "#count_of_games_by_season" do
+      expect(stat_tracker.count_of_games_by_season).tp be_a(Hash)
+      expect(stat_tracker.count_of_games_by_season.keys[0]).tp be_a(Integer)
+      expect(stat_tracker.count_of_games_by_season.values[0]).tp be_a(Integer)
+    end
   end
 end
