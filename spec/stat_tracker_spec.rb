@@ -48,5 +48,9 @@ RSpec.describe StatTracker do
     it "#percentage_home_wins" do
       expect(stat_tracker.percentage_home_wins).to be_a(Float)
     end
+    
+    it "#percentage_visitor_wins" do
+      expect(stat_tracker.percentage_visitor_wins).to be_a(Float)
+    end
   end
 end
