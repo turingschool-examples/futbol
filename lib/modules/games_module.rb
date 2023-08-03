@@ -14,9 +14,8 @@ module Games
   end
 
   def highest_scoring_home_team
-
+    # require 'pry';binding.pry
   end
-
 
   def team_goals
     gamez = Hash.new(0)
@@ -25,7 +24,5 @@ module Games
       gamez[game.away_team_id] += game.away_team_goals
     end
     gamez
-    require 'pry';binding.pry
   end
-
 end
