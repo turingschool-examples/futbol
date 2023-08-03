@@ -25,7 +25,6 @@ module Games
       gamez[game.away_team_id] += game.away_team_goals
     end
     gamez
-    require 'pry';binding.pry
   end
 
 end
