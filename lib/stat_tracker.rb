@@ -53,6 +53,10 @@ class StatTracker
     (ties / self.total_games).round(2)*100
   end
 
+  def count_of_games_by_season
+    @games.each_with_object(Hash.new(0)) { |game, game_count| game_count[game.season] += 1 }
+  end
+  
   def count_of_teams
     @teams.count
   end
