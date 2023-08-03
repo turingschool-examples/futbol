@@ -47,37 +47,37 @@ RSpec.describe SeasonStatistics do
 
   describe "#winningest_coach" do
     it "returns coach with best win percentage for season" do
-      expect(@season_statistics.winningest_coach(20122013)).to eq("Claude Julien")
+      expect(@season_statistics.winningest_coach("20122013")).to eq("Claude Julien")
     end
   end
 
   describe "#worst_coach" do
     it "returns coach with worse win percentage for season" do
-      expect(@season_statistics.worst_coach(20122013)).to eq("John Tortorella")
+      expect(@season_statistics.worst_coach("20122013")).to eq("John Tortorella")
     end
   end
 
   describe "#most_accurate_team" do
     it "returns the team with the best ratio of shots to goals for the season" do
-      expect(@season_statistics.most_accurate_team(20122013)).to eq("FC Dallas")
+      expect(@season_statistics.most_accurate_team("20122013")).to eq("FC Dallas")
     end
   end
   
   describe "#least_accurate_team" do
     it "returns the team with the worst ratio of shots to goals for the season" do
-      expect(@season_statistics.least_accurate_team(20122013)).to eq("Sporting Kansas City")
+      expect(@season_statistics.least_accurate_team("20122013")).to eq("Sporting Kansas City")
     end
   end
   
   describe "#most_tackles" do
     it "returns name of the team with the most tackles in the season" do
-      expect(@season_statistics.most_tackles(20122013)).to eq("FC Dallas")
+      expect(@season_statistics.most_tackles("20122013")).to eq("FC Dallas")
     end
   end
   
   describe "#fewest_tackles" do
     it "returns name of the team with the least tackles in the season" do
-      expect(@season_statistics.least_tackles(20122013)).to eq("LA Galaxy")
+      expect(@season_statistics.least_tackles("20122013")).to eq("LA Galaxy")
     end
   end
 end
