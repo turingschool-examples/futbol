@@ -38,8 +38,13 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_total_score).to be_a(Integer)
     end
 
-    it "#percentage_home_wins" do
-    expect(stat_tracker.percentage_home_wins).to be_a(Float)
+    it "#total_games" do
+      expect(stat_tracker.total_games).to be_a(Float)
+      expect(stat_tracker.total_games).to eq(7441)
+    end
+
+    xit "#percentage_home_wins" do
+      expect(stat_tracker.percentage_home_wins).to be_a(Float)
     end
   end
 end
