@@ -2,47 +2,30 @@ require './lib/helper_class'
 
 module Games
   def best_offense
-    team_goals = Hash.new(0)
-
-    TeamPerformance.games.each do |team_performance|
-      home_team_name = team_performance.home_team_name
-      away_team_name = team_performance.away_team_name
-      home_team_goals = team_performance.home_team_goals
-      away_team_goals = team_performance.away_team_goals
-
-      team_goals[home_team_name] += home_team_goals
-
-      team_goals[away_team_name] += away_team_goals
-    end
-    
-    require 'pry';binding.pry
-
-    total_goals_per_team = team_goals.map do |team_name, total_goals|
-      { team_name: team_name, total_goals: total_goals }
-    end
-
-    total_goals_per_team.max_by { |team| team[:total_goals] }[:team_name]
+    team_goals
+    most_goals_team_id = team_goals.key(team_goals.values.max)
+    Team.teams_lookup[most_goals_team_id]
   end
 
   def worst_offense
-    team_goals = Hash.new(0)
-
-
-    TeamPerformance.games.each do |team_performance|
-      home_team_name = team_performance.home_team_name
-      away_team_name = team_performance.away_team_name
-      home_team_goals = team_performance.home_team_goals
-      away_team_goals = team_performance.away_team_goals
-
-      team_goals[home_team_name] += home_team_goals
-
-      team_goals[away_team_name] += away_team_goals
-    end
-
-    total_goals_per_team = team_goals.map do |team_name, total_goals|
-      { team_name: team_name, total_goals: total_goals }
-    end
-
-    total_goals_per_team.min_by { |team| team[:total_goals] }[:team_name]
+    team_goals
+    worst_goals_team_id = team_goals.key(team_goals.values.min)
+    Team.teams_lookup[worst_goals_team_id]
   end
+
+  def highest_scoring_home_team
+
+  end
+
+
+  def team_goals
+    gamez = Hash.new(0)
+    League.games.each do |game|
+      gamez[game.home_team_id] += game.home_team_goals
+      gamez[game.away_team_id] += game.away_team_goals
+    end
+    gamez
+    require 'pry';binding.pry
+  end
+
 end
