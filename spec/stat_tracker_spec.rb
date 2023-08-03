@@ -35,10 +35,10 @@ RSpec.describe StatTracker do
   describe "##from_csv" do
     it "returns a new instance of a StatTracker object given a hash of filepaths" do
       tracker = StatTracker.from_csv(@locations)
-
+      
       expect(tracker.game_stats).to be_a GameStats
       expect(tracker.season_stats).to be_a SeasonStats
-      expect(tracker.league_stats).to eq(nil)
+      expect(tracker.league_stats).to be_a LeagueStats
     end
   end
 
