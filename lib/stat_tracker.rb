@@ -55,6 +55,10 @@ class StatTracker
     (total_goals / @games.count).to_f.round(2)
   end
 
+  def count_of_games_by_season
+    @games.each_with_object(Hash.new(0)) { |game, game_count| game_count[game.season] += 1 }
+  end
+  
   def count_of_teams
     @teams.count
   end

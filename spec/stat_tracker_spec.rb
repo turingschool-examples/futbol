@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative 'spec_helper'
 
 RSpec.describe StatTracker do
   # let(:game_path) {'./data/data_games.csv'}
@@ -59,14 +59,20 @@ RSpec.describe StatTracker do
       expect(stat_tracker.percentage_ties).to be_a(Float)
       expect(stat_tracker.percentage_ties).to eq(0.2)
     end
-    
+        
     it "#average_goals_per_game" do
       expect(stat_tracker.average_goals_per_game).to be_a(Float)
     end
   end
 
     describe "League Statistics" do
-      it "#count_of_teams" do
+      it "#count_of_games_by_season" do
+    require 'pry';binding.pry
+      expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
+      expect(stat_tracker.count_of_games_by_season.keys[0]).to be_a(String)
+      expect(stat_tracker.count_of_games_by_season.values[0]).to be_a(Integer)
+
+    it "#count_of_teams" do
         expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
   end
