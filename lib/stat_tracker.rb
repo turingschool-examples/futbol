@@ -26,11 +26,7 @@ class StatTracker
   end
 
   def total_games
-    total = 0.0
-    @games.count do |game|
-      total += 1
-    end
-    total
+    @games.count { |game| game }.to_f
   end
 
   # def percentage_home_wins
