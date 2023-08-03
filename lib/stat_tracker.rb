@@ -53,6 +53,10 @@ class StatTracker
     (ties / self.total_games).round(2)*100
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
   def self.from_csv(files)
     StatTracker.new(files)
   end
