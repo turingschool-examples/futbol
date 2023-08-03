@@ -24,4 +24,10 @@ RSpec.describe StatTracker do
       expect(Team.count_of_teams).to eq 32
     end
   end
+
+  describe '#best_offense' do
+    it 'returns a string of the team with the hgihest avg goals' do
+      expect(Season.best_offense).to eq ""
+    end
+  end
 end
