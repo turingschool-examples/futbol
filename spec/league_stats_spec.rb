@@ -8,11 +8,11 @@ RSpec.describe LeagueStats do
     @games_fixture_path = './data/games_fixture.csv'
     @game_teams_fixture_path = './data/games_teams_fixture.csv'
     @locations = {
-      games: @game_path,
+      games: @games_fixture_path,
       teams: @teams_path,
-      game_teams: @game_teams_path,
+      game_teams: @game_teams_fixture_path,
     }
-    @leage_stats = LeagueStats.new(@locations)
+    @ls = LeagueStats.new(@locations)
   end
 
   describe "#initialize" do
@@ -21,7 +21,9 @@ RSpec.describe LeagueStats do
     end
 
     it "has readable attributes for games data, teams data, and games_teams data" do
-      expect
+      expect(@ls.games).to be_an Array
+      expect(@ls.teams).to be_an Array
+      expect(@ls.game_teams).to be_an Array
     end
   end
 
