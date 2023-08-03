@@ -51,4 +51,45 @@ class SeasonStatistics
 
     coach_name
   end
+
+  def worst_coach(season_id)
+    season_games = []
+
+    @game_data.each do |row|
+      if row[:season] == season_id
+        season_games << row
+      end
+    end
+
+    winning_games = Hash.new(0)
+    games_played = Hash.new(0)
+
+    season_games.each do |game|
+      @game_team_data.each do |row|
+        if row[:result] == "WIN"
+          winning_games[row[:team_id]] += 1
+          games_played[row[:team_id]] += 1
+        elsif row[:result] == "LOSS"
+          winning_games[row[:team_id]] = 0
+          games_played[row[:team_id]] += 1
+        end
+      end
+    end
+
+    win_percentage = Hash.new(0)
+
+    losing_team = winning_games.min_by do |team, games_won|
+        (games_won/games_played[team] * 100).to_f
+    end
+
+    @game_team_data.rewind
+
+    coach_name = ""
+    
+    @game_team_data.each do |row|
+      coach_name = row[:head_coach] if row[:team_id] == losing_team[0]
+    end
+
+    coach_name
+  end
 end
