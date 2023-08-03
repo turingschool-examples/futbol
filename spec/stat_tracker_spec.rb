@@ -63,24 +63,16 @@ RSpec.describe StatTracker do
     it "#average_goals_per_game" do
       expect(stat_tracker.average_goals_per_game).to be_a(Float)
     end
-  end
 
-    describe "League Statistics" do
-      it "#count_of_games_by_season" do
-    require 'pry';binding.pry
+    it "#count_of_games_by_season" do
       expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
       expect(stat_tracker.count_of_games_by_season.keys[0]).to be_a(String)
       expect(stat_tracker.count_of_games_by_season.values[0]).to be_a(Integer)
-
-    it "#count_of_teams" do
-        expect(stat_tracker.count_of_teams).to be_a(Integer)
-    end
-  end
-
+    end 
 
     it "#total_goals_by_season" do 
       expect(stat_tracker.total_goals_by_season).to be_a Hash
-  
+
       expected = {
         "20122013"=>3322.0,
         "20162017"=>5565.0,
@@ -89,21 +81,10 @@ RSpec.describe StatTracker do
         "20132014"=>5547.0,
         "20172018"=>6019.0
       }
-      
+    
       expect(stat_tracker.total_goals_by_season).to eq(expected)
     end
 
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
     it "#average_goals_by_season" do
       expect(stat_tracker.average_goals_by_season).to be_a(Hash)
       
@@ -119,17 +100,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expected)
 
     end
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
+  describe "League Statistics" do
+    it "#count_of_teams" do
+      expect(stat_tracker.count_of_teams).to be_a(Integer)
+    end
+  end
 end
