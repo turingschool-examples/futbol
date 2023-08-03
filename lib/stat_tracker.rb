@@ -57,6 +57,21 @@ class StatTracker
     @teams.count
   end
 
+
+
+
+
+
+
+def 
+
+
+
+
+
+
+
+
   def self.from_csv(files)
     StatTracker.new(files)
   end
