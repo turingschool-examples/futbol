@@ -118,6 +118,8 @@ RSpec.describe StatTracker do
   xit "#fewest_tackles" do
     expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+  end
+  
   describe '#best_offense' do
     it 'returns the team with the most goals scored' do
       expect(stat_tracker.best_offense).to eq "Sporting Kansas City"
