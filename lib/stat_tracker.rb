@@ -21,6 +21,10 @@ class StatTracker
     @games.map { |game| game.away_goals + game.home_goals }.max
   end
 
+  def lowest_total_score
+    @games.map { |game| game.away_goals + game.home_goals }.min
+  end
+
 
   def self.from_csv(files)
     StatTracker.new(files)
