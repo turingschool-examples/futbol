@@ -2,6 +2,7 @@ require './lib/season_stats'
 require './lib/game_teams_factory'
 require './lib/games_factory'
 require './lib/teams_factory'
+require './lib/calculable'
 
 
 RSpec.describe Season do
@@ -27,11 +28,25 @@ RSpec.describe Season do
   end
 
   describe '#least_tackles' do
-    it "can return which team has the least tackles in a seasom" do
+    it "can return which team has the fewest tackles in a seasom" do
       searched_season = Season.new(20122013)
-      expect(searched_season.least_tackles).to eq('Chivas')
+      expect(searched_season.fewest_tackles).to eq('FC Dallas')
     end
   end
+
+  describe '#least_accurate_team' do
+    it "can return which team had the lowest shot to goal percentage in a season" do
+      searched_season = Season.new(20122013)
+      expect(searched_season.least_accurate_team).to eq('Washington Spirit FC')
+    end
+  end
+
+  describe '#most_accurate_team' do
+  it "can return which team had the highest shot to goal percentage in a season" do
+    searched_season = Season.new(20122013)
+    expect(searched_season.least_accurate_team).to eq('Chivas')
+  end
+end
 
 
 
