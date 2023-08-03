@@ -1,13 +1,25 @@
 require 'csv'
 class GameStatistics
-  
+  attr_reader :locations,
+              :teams_data,
+              :game_data,
+              :game_team_data
+
+  def initialize(locations)
+    @locations = locations
+    @game_data = CSV.open locations[:games], headers: true, header_converters: :symbol
+    @teams_data = CSV.open locations[:teams], headers: true, header_converters: :symbol
+    @game_team_data = CSV.open locations[:game_teams], headers: true, header_converters: :symbol  
+  end
+
+  def percentage(portion, whole)
+    percentage_return = (portion / whole).round(2)
+  end
+
   def highest_total_score
     highest_total_score = 0
-    game_contents = CSV.open './fixture/games_fixture.csv', headers: true, header_converters: :symbol
-    game_contents.each do |row|
-    away_goals = row[:away_goals].to_i
-    home_goals = row[:home_goals].to_i
-    total_score = away_goals + home_goals
+    @game_data.each do |row|
+    total_score = row[:away_goals].to_i + row[:home_goals].to_i #away_goals + home_goals
       if total_score > highest_total_score
         highest_total_score = total_score
       end
@@ -17,11 +29,8 @@ class GameStatistics
 
   def lowest_total_score
     lowest_total_score = nil
-    game_contents = CSV.open './fixture/games_fixture.csv', headers: true, header_converters: :symbol
-    game_contents.each do |row|
-    away_goals = row[:away_goals].to_i
-    home_goals = row[:home_goals].to_i
-    total_score = away_goals + home_goals
+    @game_data.each do |row|
+    total_score = row[:away_goals].to_i + row[:home_goals].to_i #away_goals + home_goals
       if lowest_total_score == nil || total_score < lowest_total_score
         lowest_total_score = total_score
       end
@@ -32,48 +41,36 @@ class GameStatistics
   def percentage_home_wins  
     total_games = 0
     home_team_wins = 0
-    game_contents = CSV.open './fixture/games_fixture.csv', headers: true, header_converters: :symbol
-    game_contents.each do |row|
-      away_goals = row[:away_goals].to_f
-      home_goals = row[:home_goals].to_f
-      total_games += 1.00
-      if home_goals > away_goals
-        home_team_wins += 1.00
+    @game_data.each do |row|
+      total_games += 1.0
+      if row[:home_goals].to_f > row[:away_goals].to_f 
+        home_team_wins += 1.0
       end
     end
-    percentage_home_wins = home_team_wins / total_games
-    percentage_home_wins.round(2)
+    percentage(home_team_wins, total_games)
   end
 
   def percentage_visitor_wins  
     total_games = 0
     visitor_team_wins = 0
-    game_contents = CSV.open './fixture/games_fixture.csv', headers: true, header_converters: :symbol
-    game_contents.each do |row|
-      away_goals = row[:away_goals].to_f
-      home_goals = row[:home_goals].to_f
+    @game_data.each do |row|
       total_games += 1.00
-      if away_goals > home_goals
+      if row[:away_goals].to_f > row[:home_goals].to_f
         visitor_team_wins += 1.00
       end
     end
-    percentage_home_wins = visitor_team_wins / total_games
-    percentage_home_wins.round(2)
+    percentage(visitor_team_wins, total_games)
   end
 
   def percentage_ties
     total_games = 0
     tied_games = 0
-    game_contents = CSV.open './fixture/games_fixture.csv', headers: true, header_converters: :symbol
-    game_contents.each do |row|
-      away_goals = row[:away_goals].to_f
-      home_goals = row[:home_goals].to_f
+    @game_data.each do |row|
       total_games += 1.00
-      if away_goals == home_goals
+      if row[:away_goals].to_f == row[:home_goals].to_f
         tied_games += 1.00
       end
     end
-    percentage_home_wins = tied_games / total_games
-    percentage_home_wins.round(2)
+    percentage(tied_games, total_games)
   end  
 end
