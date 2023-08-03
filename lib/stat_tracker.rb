@@ -1,5 +1,5 @@
 require "./lib/game_stats"
-# require "./lib/league_stats"
+require "./lib/league_stats"
 require "./lib/season_stats"
 require "csv"
 
@@ -7,7 +7,8 @@ class StatTracker
 
   def initialize(locations)
     @game_stats = GameStats.new(locations)
-
+    @league_stats = LeagueStats.new(locations)
+    @season_stats = SeasonStats.new(locations)
   end
 
   def highest_total_score

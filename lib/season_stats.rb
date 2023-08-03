@@ -1,12 +1,8 @@
-require_relative "game_teams"
+require './lib/stat_daddy'
 require "csv"
 require "pry"
 
-class SeasonStats
-  def initialize(locations)
-    @games_teams_fixture_path = CSV.open(locations[:games_teams_fixture_path], headers: true, header_converters: :symbol).map { |game_team| GameTeams.new(game_team) }
-  end
-
+class SeasonStats < StatDaddy
   def winningest_coach
     @games_teams_fixture_path.each do |data|
       # Name of the Coach with the best win percentage for the season

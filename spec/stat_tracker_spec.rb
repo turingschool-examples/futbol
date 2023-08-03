@@ -28,7 +28,7 @@ RSpec.describe StatTracker do
 
       expect(@tracker.game_stats).to be_a GameStats
       expect(@tracker.season_stats).to be_a SeasonStats
-      expect(@tracker.league_stats).to eq(nil)
+      expect(@tracker.league_stats).to be_a LeagueStats
     end
   end
 

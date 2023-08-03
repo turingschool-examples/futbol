@@ -12,10 +12,7 @@ RSpec.describe LeagueStats do
       teams: @teams_path,
       game_teams: @game_teams_path,
     }
-    @stat_tracker = StatTracker.from_csv(@locations)
-    allow(@stat_tracker).to receive(:games).and_return(@games_fixture_path)
-    allow(@stat_tracker).to receive(:game_teams).and_return(@game_teams_fixture_pathÍ)
-    require 'pry';binding.pry
+    @leage_stats = LeagueStats.new(@locations)
   end
 
   describe "#initialize" do

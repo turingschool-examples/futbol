@@ -1,6 +1,6 @@
 require "csv"
 require "./lib/game"
-require "./lib/teams"
+require "./lib/team"
 require "./lib/game_teams"
 
 class StatDaddy
@@ -16,7 +16,7 @@ class StatDaddy
       Team.new(team)
     end
     @game_teams = CSV.open(locations[:game_teams], headers: true, header_converters: :symbol).map do |game_team|
-      GameTeam.new(game_team)
+      GameTeams.new(game_team)
     end
   end
 end
