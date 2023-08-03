@@ -21,11 +21,18 @@ module Seasons
   end
 
   def percentage_home_wins
-    home_wins = GameTeam.game_teams.count { |game| game.hoa == "home" && game.result == "WIN"}
+    home_wins = GameTeam.game_teams.count { |game| game.hoa == "home" && game.result == "WIN" }
     (home_wins.to_f / total_games_played.to_f).round(2)
   end
 
+  def percentage_visitor_wins
+    away_wins = GameTeam.game_teams.count { |game| game.hoa == "away" && game.result == "WIN" }
+    (away_wins.to_f / total_games_played.to_f).round(2)
+  end
 
-
+  def percentage_ties
+    ties = GameTeam.game_teams.count { |game| game.result == "TIE" }/2
+    (ties.to_f / total_games_played.to_f).round(2)
+  end
 
 end

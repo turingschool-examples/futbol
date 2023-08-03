@@ -10,6 +10,11 @@ RSpec.describe StatTracker do
   end
   let(:stat_tracker) { StatTracker.from_csv(data) }
 
+  before(:each) do
+    Season.class_variable_set :@@seasons, []
+    GameTeam.class_variable_set :@@game_teams, []
+    Team.class_variable_set :@@teams, []
+  end
   #before :each mocks and stubs seem good here
 
   describe '#initialize' do
@@ -21,7 +26,7 @@ RSpec.describe StatTracker do
   
   describe '#count_of_teams' do
     it 'counts the total number of teams' do
-      expect(Team.count_of_teams).to eq 32
+      expect(stat_tracker.count_of_teams).to eq 32
     end
   end
 
@@ -42,7 +47,7 @@ RSpec.describe StatTracker do
   describe "#total_games_played" do
     it 'returns the total number of games played across all seasons' do
 
-      expect(stat_tracker.total_games_played).to eq(29764)
+      expect(stat_tracker.total_games_played).to eq(7441)
     end
   end
 
@@ -52,4 +57,20 @@ RSpec.describe StatTracker do
       expect(stat_tracker.percentage_home_wins).to eq(0.44)
     end
   end
+
+  describe "#percentage_visitor_wins" do
+    it 'returns the percentage of games that a visiting team won, to the nearest hundreth' do
+
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
+    end
+  end
+
+  describe "#percentage_ties" do
+    it 'returns the percentage of games that ended in a tie, to the nearest hundreth' do
+
+      expect(stat_tracker.percentage_ties).to eq(0.2)
+    end
+  end
+
+  
 end
