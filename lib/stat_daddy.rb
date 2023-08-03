@@ -1,9 +1,9 @@
-require 'csv'
+require "csv"
 
 class StatDaddy
   attr_reader :games,
-              :teams,
-              :game_teams
+    :teams,
+    :game_teams
 
   def initialize(locations)
     @games = CSV.open(locations[:games], headers: true, header_converters: :symbol).map do |game|

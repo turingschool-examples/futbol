@@ -1,14 +1,13 @@
 # require "./lib/stat_tracker.rb"
-require_relative 'game'
+require_relative "game"
 require "csv"
 require "pry"
 
 # binding.pry
 class GameStats
-
   def initialize(locations)
     # @games_fixture_data = CSV.open "./data/games_fixture.csv", headers: true, header_converters: :symbol
-    @games = CSV.open(locations[:games], headers: true, header_converters: :symbol).map {|game| Game.new(game)}
+    @games = CSV.open(locations[:games], headers: true, header_converters: :symbol).map { |game| Game.new(game) }
     # binding.pry
   end
 
@@ -26,8 +25,8 @@ class GameStats
   end
 
   def lowest_total_score
-    # By assigning Float::INFINITY we ensure that with each encounter during the iteration we set the new lowest total score to the new found summed scores encountered in the data 
-    lowest_total_score = Float::INFINITY 
+    # By assigning Float::INFINITY we ensure that with each encounter during the iteration we set the new lowest total score to the new found summed scores encountered in the data
+    lowest_total_score = Float::INFINITY
 
     @games.each do |data|
       away_goals = data.away_goals.to_i
