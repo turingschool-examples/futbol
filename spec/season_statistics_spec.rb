@@ -80,4 +80,10 @@ RSpec.describe SeasonStatistics do
       expect(@season_statistics.least_tackles("20122013")).to eq("LA Galaxy")
     end
   end
+
+  describe "#find_season_games" do
+    it "finds games based on given season id" do
+      expect(@season_statistics.find_season_games("20122013").count).to eq(19)
+    end
+  end
 end
