@@ -2,7 +2,23 @@ require "spec_helper"
 
 RSpec.describe GameStatistics do
   before :each do
-    @game_stats = GameStatistics.new
+    @game_path = './fixture/games_fixture.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './fixture/game_teams_fixture.csv'
+    
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+
+    @game_stats = GameStatistics.new(@locations)
+  end
+
+  describe "#initialize" do
+    it 'exists' do
+      expect(@game_stats).to be_a GameStatistics
+    end
   end
 
   describe "#highest_total_score" do
