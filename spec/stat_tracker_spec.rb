@@ -72,5 +72,14 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#count_of_games_by_season" do
+    it 'returns a hash with each season and its game count' do
+      expectation = {"20122013"=>806, "20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355}
+
+      expect(stat_tracker.count_of_games_by_season).to be_a Hash
+      expect(stat_tracker.count_of_games_by_season).to eq(expectation)
+    end
+  end
+
   
 end

@@ -35,4 +35,8 @@ module Seasons
     (ties.to_f / total_games_played.to_f).round(2)
   end
 
+  def count_of_games_by_season
+    Season.seasons.each_with_object({}) { |season, hash| hash[season.season] = season.game_id.count }
+  end
+
 end
