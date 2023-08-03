@@ -54,4 +54,37 @@ module Seasons
       hash[season.season] = (total.to_f / season.game_id.count.to_f).round(2)
     end
   end
+
+  def most_tackles(request_season)
+    team_hash = all_tackles_in(request_season).max_by {|team, total_tackles| total_tackles}[0]
+    Team.teams_lookup[team_hash]
+  end
+  
+  def fewest_tackles(request_season)
+    team_hash = all_tackles_in(request_season).min_by {|team, total_tackles| total_tackles}[0]
+    Team.teams_lookup[team_hash]
+  end
+
+  private
+  
+  def all_tackles_in(request_season)
+    the_season = SeasonGameID.games.select { |game| game.season == request_season }
+    just_game_ids = the_season.map { |game| game.game_id }
+  
+    season_game_teams = GameTeam.game_teams.select { |game| just_game_ids.include?(game.game_id) }
+    only_team_id = season_game_teams.map { |team| team.team_id }.uniq
+  
+    all_tackles = Hash.new(0)
+    
+    only_team_id.each do |id|
+      season_game_teams.each do |teams|
+        if teams.team_id == id
+          all_tackles[id] += teams.tackles.to_i
+        end
+      end
+    end
+    all_tackles
+  end
+  
+
 end

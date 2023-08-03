@@ -10,7 +10,7 @@ class StatTracker
   def initialize(data)
     @data = data
     @game_file ||= CSV.open(data[:games], headers: true, header_converters: :symbol).group_by { |row| row[:season] }.map {|key, value| Season.new(key, value)}
-    @game_file ||= CSV.open(data[:games], headers: true, header_converters: :symbol).group_by { |row| row[:season] }.map {|key, value| Season.new(key, value)}
+    @game_file2 ||= CSV.foreach(data[:games], headers: true, header_converters: :symbol) { |row| SeasonGameID.new(row) }
     @team_file ||= CSV.foreach(data[:teams], headers: true, header_converters: :symbol) { |row| Team.new(row) }
     @game_team_file ||= CSV.foreach(data[:game_teams], headers: true, header_converters: :symbol) { |row| GameTeam.new(row) }
     @test_game_file ||= CSV.foreach(data[:games], headers: true, header_converters: :symbol) { |row| League.new(row) }
