@@ -15,6 +15,7 @@ class StatTracker
   end
 
   include Teams
+  include Seasons
   
   def rewind(file)
     file.rewind

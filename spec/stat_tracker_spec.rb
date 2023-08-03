@@ -30,4 +30,18 @@ RSpec.describe StatTracker do
       expect(Season.best_offense).to eq ""
     end
   end
+  
+  describe "#highest_total_score" do
+    it 'returns the highest total score in a game through all seasons' do
+
+      expect(stat_tracker.highest_total_score).to eq(11)
+    end
+  end
+
+  describe "#loweest_total_score" do
+    it 'returns the lowest total score in a game through all seasons' do
+
+      expect(stat_tracker.lowest_total_score).to eq(0)
+    end
+  end
 end
