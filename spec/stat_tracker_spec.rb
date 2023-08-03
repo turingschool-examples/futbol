@@ -1,9 +1,18 @@
 require 'spec_helper'
 
 RSpec.describe StatTracker do
-  let(:game_path) {'./data/data_games.csv'}
-  let(:team_path) {'./data/data_teams.csv'}
-  let(:game_teams_path) {'./data/data_game_teams.csv'}
+  # let(:game_path) {'./data/data_games.csv'}
+  # let(:team_path) {'./data/data_teams.csv'}
+  # let(:game_teams_path) {'./data/data_game_teams.csv'}
+  # let(:locations) {{
+  #   games: game_path,
+  #   teams: team_path,
+  #   game_teams: game_teams_path
+  # }}
+
+  let(:game_path) {'./data/games.csv'}
+  let(:team_path) {'./data/teams.csv'}
+  let(:game_teams_path) {'./data/game_teams.csv'}
   let(:locations) {{
     games: game_path,
     teams: team_path,
@@ -15,6 +24,13 @@ RSpec.describe StatTracker do
     it "exists" do 
 
       expect(stat_tracker).to be_a StatTracker
+    end
+  end
+
+  describe "Game Statistics" do 
+    it "#highest_total_score" do 
+    # require 'pry';binding.pry
+      expect(stat_tracker.highest_total_score).to be_a(Integer)
     end
   end
 end
