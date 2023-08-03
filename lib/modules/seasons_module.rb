@@ -42,8 +42,17 @@ module Seasons
   def average_goals_per_game
     away_goals = Season.seasons.map { |season| season.away_goals.map(&:to_i) }.flatten
     home_goals = Season.seasons.map { |season| season.home_goals.map(&:to_i) }.flatten
-    totals = [away_goals, home_goals].transpose.map { |each| each.sum }
-    (totals.sum.to_i / total_games_played.to_f).round(2)
+    totals = [away_goals, home_goals].transpose.sum { |each| each.sum }
+    (totals.to_f / total_games_played.to_f).round(2)
+  end
+
+  def average_goals_by_season
+    Season.seasons.each_with_object({}) do |season, hash| 
+      away = season.away_goals.map(&:to_i)
+      home = season.home_goals.map(&:to_i)
+      total = [away, home].transpose.sum { |each| each.sum }
+      hash[season.season] = (total.to_f / season.game_id.count.to_f).round(2)
+    end
   end
 
 end
