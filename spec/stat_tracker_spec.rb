@@ -109,4 +109,17 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season).to eq(expectation)
     end
   end
+
+  describe '#best_offense' do
+    it 'returns the team with the most goals scored' do
+      expect(stat_tracker.best_offense).to eq "Sporting Kansas City"
+    end
+  end
+
+  describe '#worst_offense' do
+    it 'returns the team with the least goals scored' do
+      expect(stat_tracker.worst_offense).to eq "Reign FC"
+    end
+  end
+
 end
