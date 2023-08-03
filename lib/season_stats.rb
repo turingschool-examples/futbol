@@ -84,6 +84,29 @@ attr_reader :year, :teams, :games, :game_teams, :searched_season
   end
 
   def fewest_tackles
+  @team_tackles = Hash.new(0)
+  @find_game_ids = []
+  @searched_season.each do |game|
+    @find_game_ids << game.game_id
+  end
+  
+  @all_games = @game_teams.game_teams.select do |game_team|
+    @find_game_ids.each do |game|
+      game_team.team_id == game
+    end
+  end
+
+  @all_games.each do |game|
+    @team_tackles[game.team_id] += game.tackles
+  end
+  
+  @least_tackles_team = @team_tackles.min_by do |team_id, tackles|
+    tackles
+  end
+
+  @least_tackles_team_name = @teams.teams.find do |team|
+    team.team_id == @least_tackles_team[0]
+  end.team_name
   end
 
   
