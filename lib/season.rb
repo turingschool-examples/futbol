@@ -12,19 +12,22 @@ class Season
   # season, game_id      'games_fixtures'
   # game_id, team_id, tackles   'games_teams_fixtures'
   # team_id, franchiseId 'teams.csv'
-attr_reader :year, :teams, :games, :game_teams
+attr_reader :year, :teams, :games, :game_teams, :searched_season
   def initialize(year)
     @year = year
     @teams = TeamsFactory.new
     @games = GamesFactory.new
     @games.create_games('./fixture/games_fixtures.csv')
     @game_teams = GameTeamsFactory.new
+    @searched_season = []
     within_searched_season
   end
 
   def within_searched_season
-    @within_season = @games.games.select do |game| 
-      game.season == @year
+    @games.games.select do |game| 
+      if game.season == @year
+      @searched_season << game
+      end
     end
   end
 
@@ -42,13 +45,12 @@ attr_reader :year, :teams, :games, :game_teams
   def least_accurate_team
   end
 #most tackles in a season
-  def most_tackles
-  #   @within_season = @games.games.select do |game| 
-  #     game.season == @year
-  #   end
+#   def most_tackles
 
-  team_tackles = Hash.new(0)
-
+#   team_tackles = Hash.new(0)
+#   @searched_season.each do |game|
+#   end
+# end
 
   # within_season.each do |game|
     
@@ -58,7 +60,7 @@ attr_reader :year, :teams, :games, :game_teams
 
 
 
-  end
+  # end
 
   def fewest_tackles
   end

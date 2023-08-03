@@ -14,9 +14,8 @@ RSpec.describe Season do
 
   describe '#within_searched_season' do
     it "can return games within a season" do
-      searched_season = Season.new(20122013)
-      expect(searched_season.within_searched_season).not_to eq nil
-      require 'pry';binding.pry
+      searched_season2 = Season.new(20122013)
+      expect(searched_season2.within_searched_season).not_to eq nil
     end
   end
 
