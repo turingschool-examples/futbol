@@ -1,7 +1,7 @@
 require "./lib/game_stats"
 # require "./lib/league_stats"
 require "./lib/season_stats"
-require 'csv'
+require "csv"
 
 class StatTracker
 
