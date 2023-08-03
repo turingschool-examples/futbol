@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative 'spec_helper'
 
 RSpec.describe StatTracker do
   # let(:game_path) {'./data/data_games.csv'}
@@ -61,9 +61,9 @@ RSpec.describe StatTracker do
     end
 
     it "#count_of_games_by_season" do
-      expect(stat_tracker.count_of_games_by_season).tp be_a(Hash)
-      expect(stat_tracker.count_of_games_by_season.keys[0]).tp be_a(Integer)
-      expect(stat_tracker.count_of_games_by_season.values[0]).tp be_a(Integer)
+      expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
+      expect(stat_tracker.count_of_games_by_season.keys[0]).to be_a(String)
+      expect(stat_tracker.count_of_games_by_season.values[0]).to be_a(Integer)
     end
   end
 end
