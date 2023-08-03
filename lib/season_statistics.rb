@@ -77,9 +77,7 @@ class SeasonStatistics
       (goals/shots[team] * 100)
     end
 
-    team = @teams_data.find do |row|
-      row[:team_id] == accurate_team[0]
-    end[:teamname]
+    get_team_name(accurate_team)
   end
 
   def least_accurate_team(season_id)
@@ -99,9 +97,7 @@ class SeasonStatistics
       (goals/shots[team] * 100)
     end
 
-    team = @teams_data.find do |row|
-      row[:team_id] == least_accurate_team[0]
-    end[:teamname]
+    get_team_name(least_accurate_team)
   end
 
   def most_tackles(season_id)
@@ -115,9 +111,9 @@ class SeasonStatistics
       tackles[game[:team_id]] += game[:tackles].to_f
     end
     
-    team = @teams_data.find do |row|
-      row[:team_id] == tackles.max[0]
-    end[:teamname]
+    most_tackle_team = tackles.max
+
+    get_team_name(most_tackle_team)
   end
 
   def least_tackles(season_id)
@@ -130,10 +126,10 @@ class SeasonStatistics
     season_game_teams.each do |game|
       tackles[game[:team_id]] += game[:tackles].to_f
     end
-    
-    team = @teams_data.find do |row|
-      row[:team_id] == tackles.min[0]
-    end[:teamname]
+
+    least_tackle_team = tackles.min
+
+    get_team_name(least_tackle_team)
   end
 
   def find_season_games(season_id)
@@ -172,5 +168,11 @@ class SeasonStatistics
     end
 
     coach_name
+  end
+
+  def get_team_name(team)
+    team = @teams_data.find do |row|
+      row[:team_id] == team[0]
+    end[:teamname]
   end
 end
