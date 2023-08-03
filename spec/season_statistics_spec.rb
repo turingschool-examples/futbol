@@ -86,4 +86,14 @@ RSpec.describe SeasonStatistics do
       expect(@season_statistics.find_season_games("20122013").count).to eq(19)
     end
   end
+
+  describe "#find_season_game_teams" do
+    it "finds game_team entries based off of given array of season games" do
+
+      season_games = @season_statistics.find_season_games("20122013")
+
+      expect(@season_statistics.find_season_game_teams(season_games).count).to eq(19)
+      expect(@season_statistics.find_season_game_teams(season_games)).to be_a(Array)
+    end
+  end
 end
