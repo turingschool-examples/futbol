@@ -18,7 +18,7 @@ class TeamsFactory
       abbreviation = team[:abbreviation]
       stadium = team[:stadium]
 
-      Team.new(team_id, franchise_id, team_name, abbreviation, stadium)
+      Teams.new(team_id, franchise_id, team_name, abbreviation, stadium)
     end
   end
 end
