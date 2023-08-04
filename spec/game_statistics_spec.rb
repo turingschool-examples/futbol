@@ -61,7 +61,7 @@ RSpec.describe GameStatistics do
 
   describe "#count_of_games_by_season_do" do
     it "returns a hash with season names as keys and count of games as values" do
-      expect(@game_stats.count_of_games_by_season).to eq({"Postseason" => 19, "Regular Season" => 0})
+      expect(@game_stats.count_of_games_by_season).to eq({ "20122013" => 19 })
     end
   end
 
