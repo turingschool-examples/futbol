@@ -140,4 +140,8 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
       expect(stat_tracker.lowest_scoring_visitor).to eq( "San Jose Earthquakes")
     end
+
+    it "#winningest_coach" do
+      expect(stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
+    end
 end
