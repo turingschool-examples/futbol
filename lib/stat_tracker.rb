@@ -25,27 +25,24 @@ include GameStatable
     @teams.each_with_object(Hash.new) { |team, team_list| team_list[team.team_id] = team.team_name}
   end
   
-  def best_offense
+  def average_goals_per_team_id
     goals_made = @game_teams.each_with_object(Hash.new(0.0)) { |game, goals_made| goals_made[game.team_id] += game.goals.to_i}
     games_played_per_team = @game_teams.each_with_object(Hash.new(0.0)) { |game, goals_made| goals_made[game.team_id] += 1}
     average_goals_per_team = Hash.new(0.0)
     goals_made.each do |key, value|
       average_goals_per_team[key] = (value / games_played_per_team[key]).round(4)
     end
-    max_average = average_goals_per_team.values.max
-    best_team_id = average_goals_per_team.key(max_average)
+  end
+
+  def best_offense
+    max_average = average_goals_per_team_id.values.max
+    best_team_id = average_goals_per_team_id.key(max_average)
     team_list[best_team_id]
   end
   
   def worst_offense
-    goals_made = @game_teams.each_with_object(Hash.new(0.0)) { |game, goals_made| goals_made[game.team_id] += game.goals.to_i}
-    games_played_per_team = @game_teams.each_with_object(Hash.new(0.0)) { |game, goals_made| goals_made[game.team_id] += 1}
-    average_goals_per_team = Hash.new(0.0)
-    goals_made.each do |key, value|
-      average_goals_per_team[key] = (value / games_played_per_team[key]).round(4)
-    end
-    max_average = average_goals_per_team.values.min
-    worst_team_id = average_goals_per_team.key(max_average)
+    max_average = average_goals_per_team_id.values.min
+    worst_team_id = average_goals_per_team_id.key(max_average)
     team_list[worst_team_id]
   end
 

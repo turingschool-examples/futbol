@@ -112,7 +112,6 @@ RSpec.describe StatTracker do
     end
     
     it "#worst_offense" do
-    require'pry';binding.pry
       expect(stat_tracker.worst_offense).to be_a(String)
     end
 
