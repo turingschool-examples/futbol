@@ -19,10 +19,13 @@ class LeagueStatistics
     team_ids.size
   end
 
-  def average_goals_by_team
+  def best_offense
     total_goals_by_team = Hash.new(0)
     total_games_by_team = Hash.new(0)
 
-    
+    @game_data.each do |row|
+      home_team_id = row[:home_team_id].to_i
+      away_team_id = row[:away_team_id].to_i
+      total_goals_by_team[home_team_id] += ro
   end
 end
