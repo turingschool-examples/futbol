@@ -107,6 +107,14 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
 
+    it "#best_offense" do
+      expect(stat_tracker.best_offense).to be_a(String)
+    end
+    
+    it "#worst_offense" do
+      expect(stat_tracker.worst_offense).to be_a(String)
+    end
+
     it "#total_home_goals" do
       expect(stat_tracker.total_home_goals).to be_a(Hash)
     end
