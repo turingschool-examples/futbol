@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe LeagueStatistics do
-  before(:each) do 
+  before :each do 
     @game_path = './fixture/games_fixture.csv'
     @team_path = './data/teams.csv'
     @game_teams_path = './fixture/game_teams_fixture.csv'
@@ -19,7 +19,7 @@ RSpec.describe LeagueStatistics do
     expect(@league_stats.count_of_teams).to eq(32)
   end
 
-  xit "can show the name of the team with the highest average number of goals scored per game across all seasons " do 
-    expect(@league_stats.best_offense).to eq(" ")
+  it "can show the name of the team with the highest average number of goals scored per game across all seasons " do 
+    expect(@league_stats.best_offense).to eq("FC Dallas")
   end
 end

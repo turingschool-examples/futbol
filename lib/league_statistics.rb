@@ -19,20 +19,33 @@ class LeagueStatistics
     team_ids.size
   end
 
-  def average_goals_per_game
-    total_games = 0
-    total_goals = 0
-
-    @game_data.each do |row|
-      total_goals += row[:home_goals].to_i + row[:away_goals].to_i
-      total_games += 1
-    end
-    average_goals = total_goals.to_f / total_games
-    average_goals.round(2)
+  def team_name_by_id(team_id)
+    team_id = team_id.to_i
+    team = @teams_data.find { |row| row[:team_id].to_i == team_id }
+    team[:teamname] if team
   end
 
   def best_offense
-    total_games = 0
-    total_goals = 0
+    goals_per_team = Hash.new { |hash, key| hash[key] = { total_goals: 0, games_played: 0 } }
+
+    @game_team_data.each do |row|
+      team_id = row[:team_id].to_i
+      goals = row[:goals].to_i
+      goals_per_team[team_id][:total_goals] += goals
+      goals_per_team[team_id][:games_played] += 1
+    end
+
+    highest_average_team_id = nil
+    highest_average = 0.0
+
+    goals_per_team.each do |team_id, data|
+      average_goals = data[:total_goals].to_f / data[:games_played]
+      if average_goals > highest_average
+        highest_average = average_goals
+        highest_average_team_id = team_id
+      end
+    end
+
+    team_name_by_id(highest_average_team_id)
   end
 end
