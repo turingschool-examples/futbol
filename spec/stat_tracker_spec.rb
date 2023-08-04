@@ -20,6 +20,13 @@ RSpec.describe StatTracker do
   }}
   let(:stat_tracker) { StatTracker.from_csv(locations) }
 
+  describe "Season Statistics" do
+    it "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to be_a(String)
+      expect(stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
+    end
+  end
+  
   describe "#initialize" do 
     it "exists" do 
       expect(stat_tracker).to be_a StatTracker
@@ -140,4 +147,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
       expect(stat_tracker.lowest_scoring_visitor).to eq( "San Jose Earthquakes")
     end
+
+  
 end
