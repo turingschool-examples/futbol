@@ -70,4 +70,10 @@ RSpec.describe GameStatistics do
       expect(@game_stats.average_goals_per_game).to eq(3.68)
     end
   end
+
+  xdescribe "#average_goals_by_season" do
+    it "returns average number of goals scored in a game in that season" do
+      expect(@game_stats.average_goals_per_season).to eq({"20122013" => 0})
+    end
+  end
 end
