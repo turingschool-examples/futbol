@@ -21,6 +21,39 @@ include GameStatable
     end
   end
 
+  def total_home_goals 
+    total_goals = @game_teams.each_with_object({}) do |game, hash|
+      hash[game.team_id] = hash[game.team_id] || [0, 0]
+      hash[game.team_id] = [game.goals + hash[game.team_id][0], hash[game.team_id][1] + 1] if game.hoa == "home"
+    end
+  end
+
+  def highest_scoring_home_team
+    avg_goals = total_home_goals.transform_values do |value|
+      (value[0] / value[1].to_f).round(4)
+    end
+    highest_avg_goals = avg_goals.values.max
+    
+    highest_team_id = avg_goals.key(highest_avg_goals)
+
+    @teams.each do |team| 
+      return team.team_name if team.team_id == highest_team_id
+    end
+  end
+
+  def lowest_scoring_home_team
+    avg_goals = total_home_goals.transform_values do |value|
+      (value[0] / value[1].to_f).round(4)
+    end
+    lowest_avg_goals = avg_goals.values.min
+
+    lowest_team_id = avg_goals.key(lowest_avg_goals)
+
+    @teams.each do |team| 
+      return team.team_name if team.team_id == lowest_team_id
+    end
+  end
+
   def highest_scoring_visitor 
     #make a hash of of total away games by team id
     away_games_by_team_id = @games.each_with_object(Hash.new(0.0)) do |game, hash|
@@ -73,7 +106,6 @@ include GameStatable
     team = lowest_scoring_team.team_name
     # require 'pry';binding.pry
   end
-
 
   def self.from_csv(files)
     StatTracker.new(files)

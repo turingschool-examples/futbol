@@ -46,11 +46,6 @@ module GameStatable
     @teams.count
   end
 
-
-
-
-
-
   def count_of_games_by_season
     @games.each_with_object(Hash.new(0)) { |game, game_count| game_count[game.season] += 1 }
   end
@@ -67,5 +62,4 @@ module GameStatable
     end
     average_goals_by_season
   end 
-  
 end
