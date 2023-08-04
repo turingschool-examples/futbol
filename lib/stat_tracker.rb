@@ -21,15 +21,15 @@ include GameStatable
     end
   end
 
-  def highest_scoring_home_team
+  def total_home_goals 
     total_goals = @game_teams.each_with_object({}) do |game, hash|
       hash[game.team_id] = hash[game.team_id] || [0, 0]
-      if game.hoa == "home"
-        hash[game.team_id] = [game.goals + hash[game.team_id][0], hash[game.team_id][1] + 1]
-      end
+      hash[game.team_id] = [game.goals + hash[game.team_id][0], hash[game.team_id][1] + 1] if game.hoa == "home"
     end
+  end
 
-    avg_goals = total_goals.transform_values do |value|
+  def highest_scoring_home_team
+    avg_goals = total_home_goals.transform_values do |value|
       (value[0] / value[1].to_f).round(4)
     end
     highest_avg_goals = avg_goals.values.max
@@ -42,14 +42,7 @@ include GameStatable
   end
 
   def lowest_scoring_home_team
-    total_goals = @game_teams.each_with_object({}) do |game, hash|
-      hash[game.team_id] = hash[game.team_id] || [0, 0]
-      if game.hoa == "home"
-        hash[game.team_id] = [game.goals + hash[game.team_id][0], hash[game.team_id][1] + 1]
-      end
-    end
-
-    avg_goals = total_goals.transform_values do |value|
+    avg_goals = total_home_goals.transform_values do |value|
       (value[0] / value[1].to_f).round(4)
     end
     lowest_avg_goals = avg_goals.values.min
