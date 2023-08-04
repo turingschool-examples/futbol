@@ -21,6 +21,30 @@ RSpec.describe GameStatistics do
     end
   end
 
+    describe "#locations" do
+    it "returns the location attribute" do
+      expect(@game_stats.locations).to eq(@locations)
+    end
+  end
+
+  describe "#game_data" do
+    it "returns game_data" do
+      expect(@game_stats.game_data).to be_a(CSV::Table)
+    end
+  end
+
+  describe "#teams_data" do
+    it "returns teams_data" do
+      expect(@game_stats.teams_data).to be_a(CSV::Table)
+    end
+  end
+
+  describe "#game_team_data" do
+    it "returns game_team_data" do
+      expect(@game_stats.game_team_data).to be_a(CSV::Table)
+    end
+  end
+
   describe "#highest_total_score" do
     it "finds the highest total score from stat data" do
       expect(@game_stats.highest_total_score).to eq(5)
