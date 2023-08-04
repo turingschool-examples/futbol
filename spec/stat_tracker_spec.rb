@@ -144,9 +144,15 @@ RSpec.describe StatTracker do
   describe "#Season_statistics" do 
 
      it "#games_played_per_season" do
-      expect(stat_tracker.games_played_per_season("20132014")).to be_a Array
+    #  require 'pry';binding.pry
+      expect(stat_tracker.games_played_in_season("20132014")).to be_a Array
      end
-     
+
+     it "total_tackles_per_team" do 
+      require 'pry';binding.pry
+      expect(stat_tracker.total_tackles_per_team("20132014")).to be a Hash
+     end
+
     xit "#most_tackles" do 
       expect(stat_tracker.most_tackles("20132014")).to be_a(String)
       # expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
