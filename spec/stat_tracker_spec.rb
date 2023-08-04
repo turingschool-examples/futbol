@@ -141,7 +141,15 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_visitor).to eq( "San Jose Earthquakes")
     end
 
-  describe "#Season_statistics" do 
+  describe "Season Statistics" do
+    it "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to be_a(String)
+      expect(stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
+    end
+
+    it "#least_accurate_team" do
+      expect(stat_tracker.least_accurate_team("20132014")).to be_a(String)
+      expect(stat_tracker.least_accurate_team("20132014")).to eq("New York City FC")
 
     it "all_season_game_id" do 
       expect(stat_tracker.all_season_game_id("20132014")).to be_a(Array)

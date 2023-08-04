@@ -23,6 +23,44 @@ include LeagueStatable
     end
   end
 
+  def most_accurate_team(season)
+    all_season_game_id = @games.map do |game|
+      game.game_id if game.season == season
+    end.compact
+
+    team_id_goals_shots = @game_teams.each_with_object(Hash.new([0,0])) do |game, hash|
+      if all_season_game_id.include?(game.game_id)
+        hash[game.team_id] = [game.goals + hash[game.team_id][0], game.shots + hash[game.team_id][1]]
+      end
+    end
+    
+    avg_goals_made = team_id_goals_shots.transform_values do |value|
+      (value[0] / value[1].to_f).round(4)
+    end
+
+    team_name = avg_goals_made.key(avg_goals_made.values.max)
+    team_list[team_name]
+  end
+
+  def least_accurate_team(season)
+    all_season_game_id = @games.map do |game|
+      game.game_id if game.season == season
+    end.compact
+    
+    team_id_goals_shots = @game_teams.each_with_object(Hash.new([0,0])) do |game, hash|
+      if all_season_game_id.include?(game.game_id)
+        hash[game.team_id] = [game.goals + hash[game.team_id][0], game.shots + hash[game.team_id][1]]
+      end
+    end
+    
+    avg_goals_made = team_id_goals_shots.transform_values do |value|
+      (value[0] / value[1].to_f).round(4)
+    end
+    
+    team_name = avg_goals_made.key(avg_goals_made.values.min)
+    team_list[team_name]
+  end
+  
   def all_season_game_id(season)
     @games.map do |game|
       game.game_id if game.season == season
