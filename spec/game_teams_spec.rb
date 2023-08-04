@@ -10,7 +10,7 @@ RSpec.describe GameTeam do
         result: "LOSS",
         settled_in: "OT",
         head_coach: "John Tortorella",
-        goals: "2",
+        goals: 2,
         shots: "8",
         tackles: "44",
         pim: "8",
@@ -33,7 +33,7 @@ RSpec.describe GameTeam do
         result: "LOSS",
         settled_in: "OT",
         head_coach: "John Tortorella",
-        goals: "2",
+        goals: 2,
         shots: "8",
         tackles: "44",
         pim: "8",
@@ -52,7 +52,7 @@ RSpec.describe GameTeam do
       expect(gameteam1.result).to eq("LOSS")
       expect(gameteam1.settled_in).to eq("OT")
       expect(gameteam1.head_coach).to eq("John Tortorella")
-      expect(gameteam1.goals).to eq("2")
+      expect(gameteam1.goals).to eq(2)
       expect(gameteam1.shots).to eq("8")
       expect(gameteam1.tackles).to eq("44")
       expect(gameteam1.pim).to eq("8")
