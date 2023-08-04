@@ -106,5 +106,9 @@ RSpec.describe StatTracker do
     it "#count_of_teams" do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
+
+    it "#highest_scoring_home_team" do
+      expect(stat_tracker.highest_scoring_home_team).to be_a(String)
+    end
   end
 end
