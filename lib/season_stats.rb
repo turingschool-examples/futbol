@@ -26,18 +26,6 @@ class SeasonStats < StatDaddy
     end
     winningest_coach
   end
-  #   @games.team_id.each do |data|
-  #     loss = data.result("loss")
-  #     win = data.result("win")
-  #     tie = data.result("tie")
-
-  #     # lost + win + tie and then the percentage somehow
-
-  #   home_win_percentage = (home_wins.to_f / total_games) * 100
-  #   home_win_percentage.round(2)
-  # end
-
-  # end
 
   def worst_coach(season)
   end
