@@ -64,4 +64,10 @@ RSpec.describe GameStatistics do
       expect(@game_stats.count_of_games_by_season).to eq({"Postseason" => 19, "Regular Season" => 0})
     end
   end
+
+  describe "#average_goals_per_game" do
+    it "returns average number of goals scored in a game across all seasons including both home and away goals" do
+      
+    end
+  end
 end
