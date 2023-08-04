@@ -79,7 +79,10 @@ class GameStatistics
     total_goals = 0
 
     @game_data.each do |row|
-      
+      total_goals += row[:away_goals].to_i + row[:home_goals].to_i
+      total_games += 1
     end
+    average_goals = total_goals / total_games
+    average_goals
   end
 end
