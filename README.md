@@ -62,3 +62,23 @@
 - Charles Ren - [GitHub](https://github.com/chuckrenny), [LinkedIn](https://www.linkedin.com/in/charles-ren-42673816b/)
 - Antoine Aube - [GitHub](https://github.com/Antoine-Aube), [LinkedIn](https://www.linkedin.com/in/antoine-aube-4b40a11b3/)
 - Jimmy Trulock - [GitHub](https://github.com/JimmyTrulock), [LinkedIn](https://www.linkedin.com/in/thomas-trulock-253976281/)
+
+# RETRO
+
+## Tools used for retro
+[Retro outline](https://docs.google.com/document/d/17RAxiIajq-_j0huVj-npaqTOPzxJOJFkNgLIVpdR9ZI/edit) 
+[Trello Board](https://trello.com/b/nZVs6Do1/futbol)
+
+## Top 3 things that went well during your project
+Time Management - clear expectations on work times and meetings times and sticking to them. We were always on time for calls and for deliverables. 
+
+Async work - We were able to divide and conquer once we got warmed up and did some pseudo coding together. This was reflective of an actual work environment where developers review each other’s PR, leave comments, and adjust their code accordingly before merging into main. 
+
+Collaboration on roadblocks and synchronizing code format - With our Async work, we each developed some unique solutions to solving assigned deliverables. When we came back together and there was overlap, we were able to fuse solutions together. When one solution was clearly more efficient than the other, we utilized it, but also made sure that this was a group consensus. Any code that was not your own was explained, so that each team member clearly understood the methods. 
+
+## Top 3 things your team would do differently next time
+Perhaps some shorter evening sessions in the future - Due to some weekend scheduling constraints, we had to pack in a bit more work during the evenings. With regards to a real work environment, we could communicate our inability to take on certain tasks within a 40 hour work-week. Given that this is school and we had more time available, we made it work!
+
+Assigning the work by relevant and potentially overlapping helper methods - Each do one section from iteration 2, that way we could have developed the whole suite of methods and not needed to combine methods. This however was conducive to learning as we got to see each other solve similar problems in different ways. 
+
+Splitting up talking points from the beginning - at the beginning during check ins and group discussion, not all team members contributed as much as we did as we are doing now. As part of the DTR, we could focus on that aspect to ensure that we divide up communication more evenly. For example, before the 2nd check-in, we divided up talking points based on Code, workflow, and project organization to be able to present more equally. 
