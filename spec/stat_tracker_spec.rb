@@ -107,4 +107,8 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
   end
+
+    it "#highest_scoring_visitor" do 
+      expect(stat_tracker.highest_scoring_visitor).to be_a Hash
+    end
 end
