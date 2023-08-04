@@ -25,8 +25,13 @@ RSpec.describe StatTracker do
       expect(stat_tracker.most_accurate_team("20132014")).to be_a(String)
       expect(stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
     end
+
+    it "#least_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to be_a(String)
+      expect(stat_tracker.most_accurate_team("20132014")).to eq("New York City FC")
+    end
   end
-  
+
   describe "#initialize" do 
     it "exists" do 
       expect(stat_tracker).to be_a StatTracker
