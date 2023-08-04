@@ -15,6 +15,13 @@ class SeasonStats < StatDaddy
       coach_wins[coach] += 1 if game_team.result == "WIN"
       coach_games[coach] += 1
     end
+
+    coach_win_percentages = {}
+    coach_wins.each do |coach, wins|
+      total_games = coach_games[coach]
+      win_percentage = (wins.to_f / total_games) * 100
+      coach_win_percentages[coach] = win_percentage.round(2)
+    end
   end
 
   def worst_coach(season)
