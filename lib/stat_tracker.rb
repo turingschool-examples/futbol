@@ -41,7 +41,32 @@ include GameStatable
       team.team_name if team.team_id == highest_average_scoring_team_id
     end
     team = highest_scoring_team.team_name
-    require 'pry';binding.pry
+    # require 'pry';binding.pry
+  end
+
+    #I reused all the code from above, but only changes the names of the last variables
+    #to say "lowest"
+  def lowest_scoring_visitor 
+    away_games_by_team_id = @games.each_with_object(Hash.new(0.0)) do |game, hash|
+      hash[game.away_team_id] += 1
+    end
+
+    away_goals_by_team_id = @games.each_with_object(Hash.new(0.0)) do |game, hash|
+      hash[game.away_team_id] += game.away_goals
+    end
+    
+    average_away_goals_by_team_id = Hash.new(0.0)
+    away_goals_by_team_id.each do |key, value|
+      average_away_goals_by_team_id[key] = (value/ away_games_by_team_id[key]).round(2)
+    end
+    average_away_goals_by_team_id
+    lowest_average_scoring_team_id = average_away_goals_by_team_id.min_by {|k, v| v}.first
+    
+    lowest_scoring_team = @teams.find do |team|
+      team.team_name if team.team_id == lowest_average_scoring_team_id
+    end
+    team = lowest_scoring_team.team_name
+    # require 'pry';binding.pry
   end
 
 
