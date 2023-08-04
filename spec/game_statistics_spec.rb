@@ -58,4 +58,10 @@ RSpec.describe GameStatistics do
       expect(@game_stats.percentage_calculator(1.0, 19.0)).to eq(0.05)
     end
   end
+
+  describe "#count_of_games_by_season_do" do
+    it "returns a hash with season names as keys and count of games as values" do
+
+    end
+  end
 end

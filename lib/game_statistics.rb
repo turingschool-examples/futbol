@@ -63,4 +63,8 @@ class GameStatistics
     end
     percentage_calculator(tied_games, total_games)
   end  
+
+  def count_of_games_by_season
+    
+  end
 end
