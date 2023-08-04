@@ -6,6 +6,11 @@ class SeasonStats < StatDaddy
   def winningest_coach(season)
     coach_wins = Hash.new(0)
     coach_games = Hash.new(0)
+
+    @game_teams.each do |game_team|
+      game = @games.find { |game| game.game_id == game_team.game_id }
+      next if game.nil? || game.season != season
+    end
   end
 
   def worst_coach(season)
