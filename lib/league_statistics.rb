@@ -26,6 +26,10 @@ class LeagueStatistics
     @game_data.each do |row|
       home_team_id = row[:home_team_id].to_i
       away_team_id = row[:away_team_id].to_i
-      total_goals_by_team[home_team_id] += ro
+      total_goals_by_team[home_team_id] += row[:home_goals].to_i
+      total_goals_by_team[away_team_id] += row[:away_goals].to_i
+      total_games_by_team[home_team_id] += 1
+      total_games_by_team[away_team_id] += 1
+    end
   end
 end
