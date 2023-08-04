@@ -106,5 +106,10 @@ RSpec.describe StatTracker do
     it "#count_of_teams" do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
+
+    it "#best_offense" do
+    require'pry';binding.pry
+      expect(stat_tracker.best_offense).to be_a(String)
+    end
   end
 end
