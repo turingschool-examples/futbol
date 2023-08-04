@@ -62,9 +62,7 @@ include GameStatable
     
     highest_team_id = avg_goals.key(highest_avg_goals)
 
-    @teams.each do |team| 
-      return team.team_name if team.team_id == highest_team_id
-    end
+    team_list[highest_team_id]
   end
 
   def lowest_scoring_home_team
@@ -75,9 +73,7 @@ include GameStatable
 
     lowest_team_id = avg_goals.key(lowest_avg_goals)
 
-    @teams.each do |team| 
-      return team.team_name if team.team_id == lowest_team_id
-    end
+    team_list[lowest_team_id]
   end
 
   def total_away_goals 
@@ -95,9 +91,7 @@ include GameStatable
     
     highest_team_id = avg_goals.key(highest_avg_goals)
 
-    @teams.each do |team| 
-      return team.team_name if team.team_id == highest_team_id
-    end
+    team_list[highest_team_id]
   end
 
   def lowest_scoring_visitor
@@ -108,9 +102,7 @@ include GameStatable
 
     lowest_team_id = avg_goals.key(lowest_avg_goals)
 
-    @teams.each do |team| 
-      return team.team_name if team.team_id == lowest_team_id
-    end
+    team_list[lowest_team_id]
   end
 
   def self.from_csv(files)
