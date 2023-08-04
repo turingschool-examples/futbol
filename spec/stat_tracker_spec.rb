@@ -140,4 +140,15 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
       expect(stat_tracker.lowest_scoring_visitor).to eq( "San Jose Earthquakes")
     end
+
+  describe "#Season_statistics" do 
+    it "#most_tackles" do 
+      expect(stat_tracker.most_tackles()).to be_a(String)
+    
+    end
+
+    # it "#fewest_tackles" do 
+    #   expect(stat_tracker.fewest_tackles()).to be_a (String)
+    # end
+  end
 end
