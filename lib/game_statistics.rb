@@ -82,7 +82,7 @@ class GameStatistics
       total_goals += row[:away_goals].to_i + row[:home_goals].to_i
       total_games += 1
     end
-    average_goals = total_goals / total_games
-    average_goals
+    average_goals = total_goals.to_f / total_games
+    average_goals.round(2)
   end
 end
