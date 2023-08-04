@@ -121,4 +121,15 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
   end
+
+    it "#highest_scoring_visitor" do 
+    # require 'pry';binding.pry
+      expect(stat_tracker.highest_scoring_visitor).to be_a(String)
+      expect(stat_tracker.highest_scoring_visitor).to eq( "FC Dallas")
+    end
+
+    it "#lowest_scoring_visitor" do 
+      expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
+      expect(stat_tracker.lowest_scoring_visitor).to eq( "San Jose Earthquakes")
+    end
 end
