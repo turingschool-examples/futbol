@@ -144,24 +144,24 @@ RSpec.describe StatTracker do
   describe "#Season_statistics" do 
 
      it "#games_played_per_season" do
-    #  require 'pry';binding.pry
       expect(stat_tracker.games_played_in_season("20132014")).to be_a Array
      end
 
-     it "total_tackles_per_team" do 
-      require 'pry';binding.pry
-      expect(stat_tracker.total_tackles_per_team("20132014")).to be a Hash
+     it "total_tackles_by_team_id" do 
+      expect(stat_tracker.total_tackles_by_team_id("20132014")).to be_a Hash
      end
 
-    xit "#most_tackles" do 
+    it "#most_tackles" do 
       expect(stat_tracker.most_tackles("20132014")).to be_a(String)
-      # expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-      # expect(stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+      expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     
     end
 
-    xit "#fewest_tackles" do 
-      expect(stat_tracker.fewest_tackles()).to be_a (String)
+    it "#fewest_tackles" do 
+      expect(stat_tracker.fewest_tackles("20132014")).to be_a (String)
+      expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
   end
 end
