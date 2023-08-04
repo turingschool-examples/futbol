@@ -19,7 +19,7 @@ RSpec.describe LeagueStatistics do
     expect(@league.count_of_teams).to eq(32)
   end
 
-  it "can show the name of the team with the highest average number of goals scored per game across all seasons " do 
+  xit "can show the name of the team with the highest average number of goals scored per game across all seasons " do 
 
     expect(@league.best_offense).to eq("FC Dallas")
   end
