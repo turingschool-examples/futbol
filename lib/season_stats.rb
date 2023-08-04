@@ -6,25 +6,6 @@ class SeasonStats < StatDaddy
   def winningest_coach(season)
     coach_wins = Hash.new(0)
     coach_games = Hash.new(0)
-
-    @game_teams.each do |data|
-      coach = data.head_coach
-      result = data.result
-      if result == "WIN"
-        coach_wins[coach] += 1
-      end
-      coach_games[coach] += 1
-    end
-    highest_win_percentage = 0.0
-    winningest_coach = nil
-    coach_wins.each do |coach, wins|
-      win_percentage = wins.to_f / coach_games[coach]
-      if win_percentage > highest_win_percentage
-        highest_win_percentage = win_percentage
-        winningest_coach = coach
-      end
-    end
-    winningest_coach
   end
 
   def worst_coach(season)
