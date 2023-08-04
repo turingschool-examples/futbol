@@ -30,6 +30,8 @@ RSpec.describe SeasonStats do
 
   describe "#winningest_coach" do
     it "can name the coach with the best win percentage of the season" do
+      # require 'pry';binding.pry
+    
       expect(@season_stats.winningest_coach("20132014")).to eq "Claude Julien"
       expect(@season_stats.winningest_coach("20142015")).to eq "Alain Vigneault"
     end
@@ -57,9 +59,10 @@ RSpec.describe SeasonStats do
   end
 
   describe "#most_tackles" do
-    xit "can name the team with the most tackles in the season" do
-      expect(@season_stats.most_tackles("20132014")).to eq "FC Cincinnati"
-      expect(@season_stats.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    it "can name the team with the most tackles in the season" do
+      expect(@season_stats.tackles).to eq "5"=>14657
+      # expect(@season_stats.most_tackles("20132014")).to eq "FC Cincinnati"
+      # expect(@season_stats.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
   end
 
