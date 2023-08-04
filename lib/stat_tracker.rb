@@ -22,26 +22,31 @@ include GameStatable
   end
 
   def highest_scoring_visitor 
+    #make a hash of of total away games by team id
     away_games_by_team_id = @games.each_with_object(Hash.new(0.0)) do |game, hash|
       hash[game.away_team_id] += 1
     end
-
+    #make a hash of total away goals by team id
     away_goals_by_team_id = @games.each_with_object(Hash.new(0.0)) do |game, hash|
       hash[game.away_team_id] += game.away_goals
     end
     
+    #average them together, very similar to the average we did with #average_goals_by_season
     average_away_goals_by_team_id = Hash.new(0.0)
     away_goals_by_team_id.each do |key, value|
       average_away_goals_by_team_id[key] = (value/ away_games_by_team_id[key]).round(2)
     end
     average_away_goals_by_team_id
+    #find the lowest scoring team key/value pair and return only the key because
+    #this produces at array
     highest_average_scoring_team_id = average_away_goals_by_team_id.max_by {|k, v| v}.first
     
+    #iterate through @teams data and find which team has the id that matched to the
+    #previous variable
     highest_scoring_team = @teams.find do |team|
       team.team_name if team.team_id == highest_average_scoring_team_id
     end
     team = highest_scoring_team.team_name
-    # require 'pry';binding.pry
   end
 
     #I reused all the code from above, but only changes the names of the last variables
