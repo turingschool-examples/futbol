@@ -10,11 +10,10 @@ class SeasonStats < StatDaddy
     @game_teams.each do |game_team|
       game = @games.find { |game| game.game_id == game_team.game_id }
       next if game.nil? || game.season != season
-    end
 
-    coach = game_team.head_coach
-    coach_wins[coach] += 1 if game_team.result == "WIN"
-    coach_games[coach] += 1
+      coach = game_team.head_coach
+      coach_wins[coach] += 1 if game_team.result == "WIN"
+      coach_games[coach] += 1
     end
 
     coach_win_percentages = {}
@@ -24,9 +23,32 @@ class SeasonStats < StatDaddy
       coach_win_percentages[coach] = win_percentage.round(2)
     end
 
+    winningest_coach = coach_win_percentages.max_by { |_, percentage| percentage }
+    winningest_coach.first
   end
 
   def worst_coach(season)
+    coach_wins = Hash.new(0)
+    coach_games = Hash.new(0)
+
+    @game_teams.each do |game_team|
+      game = @games.find { |game| game.game_id == game_team.game_id }
+      next if game.nil? || game.season != season
+
+      coach = game_team.head_coach
+      coach_wins[coach] += 1 if game_team.result == "WIN"
+      coach_games[coach] += 1
+    end
+
+    coach_win_percentages = {}
+    coach_wins.each do |coach, wins|
+      total_games = coach_games[coach]
+      win_percentage = (wins.to_f / total_games) * 100
+      coach_win_percentages[coach] = win_percentage.round(2)
+    end
+
+    winningest_coach = coach_win_percentages.max_by { |_, percentage| percentage }
+    winningest_coach.last
   end
 
   def most_accurate_team(season)
