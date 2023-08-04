@@ -109,6 +109,10 @@ RSpec.describe StatTracker do
   end
 
     it "#highest_scoring_visitor" do 
-      expect(stat_tracker.highest_scoring_visitor).to be_a Hash
+      expect(stat_tracker.highest_scoring_visitor).to be_a(String)
+    end
+
+    it "#lowest_scoring_visitor" do 
+      expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
     end
 end
