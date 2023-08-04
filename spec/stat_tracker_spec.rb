@@ -107,6 +107,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
 
+    it "#total_home_goals" do
+      expect(stat_tracker.total_home_goals).to be_a(Hash)
+    end
+
     it "#highest_scoring_home_team" do
       expect(stat_tracker.highest_scoring_home_team).to be_a(String)
       expect(stat_tracker.highest_scoring_home_team).to eq("Reign FC")
