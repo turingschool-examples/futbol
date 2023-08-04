@@ -11,6 +11,10 @@ class SeasonStats < StatDaddy
       game = @games.find { |game| game.game_id == game_team.game_id }
       next if game.nil? || game.season != season
     end
+
+    coach = @game_teams.head_coach
+    coach_wins[coach] += 1 if game_team.result == "WIN"
+    coach_games[coach] += 1
   end
 
   def worst_coach(season)
