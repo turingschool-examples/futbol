@@ -2,12 +2,12 @@
 require_relative 'game'
 require "csv"
 require "pry"
+require_relative "stat_daddy"
 
 # binding.pry
-class GameStats
+class GameStats < StatDaddy
 
   def initialize(locations)
-    # @games_fixture_data = CSV.open "./data/games_fixture.csv", headers: true, header_converters: :symbol
     @games = CSV.open(locations[:games], headers: true, header_converters: :symbol).map {|game| Game.new(game)}
     # binding.pry
   end
@@ -59,15 +59,66 @@ class GameStats
   end
 
   def percentage_visitor_wins
+    away_wins = 0 
+    total_games = 0
+
+    @games.each do |data|
+      home_goals = data.home_goals.to_i
+      away_goals = data.away_goals.to_i
+
+      if away_goals > home_goals
+        away_wins += 1
+      end
+
+      total_games += 1
+    end
+
+    away_win_percentage = (away_wins.to_f / total_games) * 100
+    away_win_percentage.round(2)
   end
 
   def percentage_ties
+    ties = 0
+    total_games = 0
+    
+    @games.each do |data|
+      home_goals = data.home_goals.to_i
+      away_goals = data.away_goals.to_i
+
+      if away_goals == home_goals
+        ties += 1
+      end
+
+      total_games += 1
+    end
+
+    tie_percentage = (ties.to_f / total_games) * 100
+    tie_percentage.round(2)
   end
 
   def count_of_games_by_season
+    games_by_season = Hash.new(0)
+
+    @games.each do |data|
+      season = @games[1]
+      games_by_season.season += 1
+    end
+
+    games_by_season
   end
 
   def average_goals_per_game
+    total_goals = 0
+    total_games = @games.length
+
+    @games.each do |data|
+      home_goals = data.home_goals.to_i
+      away_goals = data.away_goals.to_i
+      total_goals += home_goals + away_goals
+    end
+
+    average_goals_per_game = (total_goals.to_f / total_games)
+    average_goals_per_game.round(2)
   end
 
   def average_goals_by_season
