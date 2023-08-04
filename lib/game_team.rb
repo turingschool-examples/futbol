@@ -22,7 +22,7 @@ class GameTeam
     @result = row[:result]
     @settled_in = row[:settled_in]
     @head_coach = row[:head_coach]
-    @goals = row[:goals]
+    @goals = row[:goals].to_i
     @shots = row[:shots]
     @tackles = row[:tackles]
     @pim = row[:pim]
