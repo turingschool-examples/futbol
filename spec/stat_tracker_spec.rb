@@ -143,11 +143,12 @@ RSpec.describe StatTracker do
 
   describe "#Season_statistics" do 
 
-     it "#games_played_per_season" do
-      expect(stat_tracker.games_played_in_season("20132014")).to be_a Array
-     end
+    it "all_season_game_id" do 
+      expect(stat_tracker.all_season_game_id("20132014")).to be_a(Array)
+      expect(stat_tracker.all_season_game_id("20132014")).to all be_a(String)
+    end
 
-     it "total_tackles_by_team_id" do 
+    it "total_tackles_by_team_id" do 
       expect(stat_tracker.total_tackles_by_team_id("20132014")).to be_a Hash
      end
 
