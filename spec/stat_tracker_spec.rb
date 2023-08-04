@@ -95,7 +95,6 @@ RSpec.describe StatTracker do
       }
       
       expect(stat_tracker.average_goals_by_season).to eq(expected)
-
     end
   end
 
@@ -125,7 +124,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_home_team).to be_a(String)
       expect(stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC")
     end
-  end
 
     it "#total_away_goals" do 
       expect(stat_tracker.total_away_goals).to be_a(Hash)
@@ -140,7 +138,9 @@ RSpec.describe StatTracker do
       expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
       expect(stat_tracker.lowest_scoring_visitor).to eq( "San Jose Earthquakes")
     end
+  end
 
+  describe "Season Statistics" do
     it "#winningest_coach" do
       expect(stat_tracker.winningest_coach("20132014")).to eq("Claude Julien")
     end
@@ -149,4 +149,36 @@ RSpec.describe StatTracker do
       expect(stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
       expect(stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
     end
+    
+    it "#most_accurate_team" do
+      expect(stat_tracker.most_accurate_team("20132014")).to be_a(String)
+      expect(stat_tracker.most_accurate_team("20132014")).to eq("Real Salt Lake")
+    end
+
+    it "#least_accurate_team" do
+      expect(stat_tracker.least_accurate_team("20132014")).to be_a(String)
+      expect(stat_tracker.least_accurate_team("20132014")).to eq("New York City FC")
+    end
+
+    it "all_season_game_id" do 
+      expect(stat_tracker.all_season_game_id("20132014")).to be_a(Array)
+      expect(stat_tracker.all_season_game_id("20132014")).to all be_a(String)
+    end
+
+    it "total_tackles_by_team_id" do 
+      expect(stat_tracker.total_tackles_by_team_id("20132014")).to be_a Hash
+     end
+
+    it "#most_tackles" do 
+      expect(stat_tracker.most_tackles("20132014")).to be_a(String)
+      expect(stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    end
+
+    it "#fewest_tackles" do 
+      expect(stat_tracker.fewest_tackles("20132014")).to be_a (String)
+      expect(stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+    end
+  end
 end
