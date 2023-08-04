@@ -58,4 +58,22 @@ RSpec.describe GameStatistics do
       expect(@game_stats.percentage_calculator(1.0, 19.0)).to eq(0.05)
     end
   end
+
+  describe "#count_of_games_by_season_do" do
+    it "returns a hash with season names as keys and count of games as values" do
+      expect(@game_stats.count_of_games_by_season).to eq({ "20122013" => 19 })
+    end
+  end
+
+  describe "#average_goals_per_game" do
+    it "returns average number of goals scored in a game across all seasons including both home and away goals" do
+      expect(@game_stats.average_goals_per_game).to eq(3.68)
+    end
+  end
+
+  describe "#average_goals_by_season" do
+    it "returns average number of goals scored in a game in that season" do
+      expect(@game_stats.average_goals_by_season).to eq({ "20122013" => 3.68 })
+    end
+  end
 end
