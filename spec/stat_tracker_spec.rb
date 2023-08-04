@@ -109,6 +109,11 @@ RSpec.describe StatTracker do
 
     it "#highest_scoring_home_team" do
       expect(stat_tracker.highest_scoring_home_team).to be_a(String)
+      expect(stat_tracker.highest_scoring_home_team).to eq("Reign FC")
+    end
+
+    it "#lowest_scoring_home_team" do
+      expect(stat_tracker.lowest_scoring_home_team).to be_a(String)
     end
   end
 end
