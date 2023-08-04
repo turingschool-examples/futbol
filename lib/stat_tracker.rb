@@ -46,10 +46,6 @@ include LeagueStatable
       hash[gameteam.team_id] += gameteam.tackles.to_i
     end
   end
-  #reutilized this from the previous methods, not sure how we could modulize this?
-  def team_list
-    @teams.each_with_object(Hash.new) { |team, team_list| team_list[team.team_id] = team.team_name}
-  end
 
   def most_tackles(season)
     team_with_most_tackles = total_tackles_by_team_id(season).values.max
