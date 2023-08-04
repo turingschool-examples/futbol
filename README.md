@@ -63,6 +63,7 @@
 - Antoine Aube - [GitHub](https://github.com/Antoine-Aube), [LinkedIn](https://www.linkedin.com/in/antoine-aube-4b40a11b3/)
 - Jimmy Trulock - [GitHub](https://github.com/JimmyTrulock), [LinkedIn](https://www.linkedin.com/in/thomas-trulock-253976281/)
 
+# RETRO
 
 ## Tools used for retro
 [Retro outline](https://docs.google.com/document/d/17RAxiIajq-_j0huVj-npaqTOPzxJOJFkNgLIVpdR9ZI/edit) 
