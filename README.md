@@ -25,6 +25,9 @@ Include link to your initial DTR document and the date it was completed. If you 
 
  - https://docs.google.com/document/d/1tWRJ1N3V8-vryFd-SK7gJx_W7BpI6POs2E0VnT4-dOw/edit
  - Completed August 1st 0800MT
+ - https://docs.google.com/document/d/16rJEoGtx7d3ZboO12BUKFXQDYTyBsieeQ7ft-Q9eYL4/edit
+ - Completed August 3rd 1030MT 
+
 
 
 Create a section in your README called “Contributors”. List each group member’s name and link to their LinkedIn and Github profiles.

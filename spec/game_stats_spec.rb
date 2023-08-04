@@ -45,42 +45,43 @@ RSpec.describe GameStats do
   describe "#percentage_home_wins" do
     xit "finds the percentage of games that a home team has won (rounded to the nearest 100th)" do
       # binding.pry
-      expect(@game_stats.percentage_home_wins).to eq()
+      expect(@game_stats.percentage_home_wins).to eq(60.0)
     end
   end
 
   describe "#percentage_visitor_wins" do
     xit "finds the percentage of games that a visitor has won (rounded to the nearest 100th)" do
       # binding.pry
-      expect(@game_stats.lowest_total_score).to eq()
+      expect(@game_stats.percentage_visitor_wins).to eq(31.43)
     end
   end
   
   describe "#percentage_ties" do
     xit "finds the percentage of games that has resulted in a tie (rounded to the nearest 100th)" do
+
       # binding.pry
-      expect(@game_stats.lowest_total_score).to eq()
+      expect(@game_stats.percentage_ties).to eq(8.57)
     end
   end
 
   describe "#count_of_games_by_season" do
     xit "creates a hash with season names (e.g. 20122013) as keys and counts of games as values" do
       # binding.pry
-      expect(@game_stats.lowest_total_score).to eq()
+      expect(@game_stats.count_of_games_by_season).to eq()
     end
   end
   
   describe "#average_goals_per_game" do
     xit "finds the average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)" do
       # binding.pry
-      expect(@game_stats.lowest_total_score).to eq()
+      expect(@game_stats.average_goals_per_game).to eq(4.11)
     end
   end
 
   describe "#average_goals_by_season" do
     xit "finds the average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as values (rounded to the nearest 100th)" do
       # binding.pry
-      expect(@game_stats.lowest_total_score).to eq()
+      expect(@game_stats.average_goals_by_season).to eq()
     end
   end
 end
