@@ -75,6 +75,11 @@ class GameStatistics
   end
 
   def average_goals_per_game
-    
+    total_games = 0
+    total_goals = 0
+
+    @game_data.each do |row|
+      
+    end
   end
 end
