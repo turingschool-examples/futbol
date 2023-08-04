@@ -65,6 +65,12 @@ class GameStatistics
   end  
 
   def count_of_games_by_season
-    
+    games_by_season = Hash.new(0)
+
+    @game_data.each do |row|
+      season = row[:season]
+      games_by_season[season] += 1
+    end
+    games_by_season
   end
 end
