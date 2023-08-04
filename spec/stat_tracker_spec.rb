@@ -147,8 +147,8 @@ RSpec.describe StatTracker do
     
     end
 
-    # it "#fewest_tackles" do 
-    #   expect(stat_tracker.fewest_tackles()).to be_a (String)
-    # end
+    it "#fewest_tackles" do 
+      expect(stat_tracker.fewest_tackles()).to be_a (String)
+    end
   end
 end
