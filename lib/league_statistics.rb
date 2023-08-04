@@ -13,6 +13,12 @@ class LeagueStatistics
     @game_team_data = CSV.open locations[:game_teams], headers: true, header_converters: :symbol  
   end
 
+  def count_of_teams
+    team_ids = teams_data.map { |row| row[:team_id].to_i }
+
+    team_ids.size
+  end
+
 
   # def best_offense
   #   games = read_csv(@file)
