@@ -122,8 +122,11 @@ RSpec.describe StatTracker do
     end
   end
 
+    it "#total_away_goals" do 
+      expect(stat_tracker.total_away_goals).to be_a(Hash)
+    end
+
     it "#highest_scoring_visitor" do 
-    # require 'pry';binding.pry
       expect(stat_tracker.highest_scoring_visitor).to be_a(String)
       expect(stat_tracker.highest_scoring_visitor).to eq( "FC Dallas")
     end
