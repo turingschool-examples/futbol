@@ -8,14 +8,19 @@ module LeagueStatable
     @teams.each_with_object(Hash.new) { |team, team_list| team_list[team.team_id] = team.team_name}
   end
   
+  def total_goals_made_per_team
+     @game_teams.each_with_object(Hash.new(0.0)) { |game, hash| hash[game.team_id] += game.goals.to_i}
+   
+  end
+
+  def games_played_per_team
+      @game_teams.each_with_object(Hash.new(0.0)) { |game, goals_made| goals_made[game.team_id] += 1}
+  end
+  
   def average_goals_per_team_id
-    goals_made = @game_teams.each_with_object(Hash.new(0.0)) { |game, goals_made| goals_made[game.team_id] += game.goals.to_i}
-    games_played_per_team = @game_teams.each_with_object(Hash.new(0.0)) { |game, goals_made| goals_made[game.team_id] += 1}
-    average_goals_per_team = Hash.new(0.0)
-    goals_made.each do |key, value|
-      average_goals_per_team[key] = (value / games_played_per_team[key]).round(4)
+    total_goals_made_per_team.each_with_object(Hash.new(0.0)) do |(key, value), hash|
+      hash[key] = (value / games_played_per_team[key]).round(4)
     end
-    average_goals_per_team
   end
 
   def best_offense
