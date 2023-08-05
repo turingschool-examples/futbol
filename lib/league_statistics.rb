@@ -124,17 +124,16 @@ class LeagueStatistics
     average_goals_per_hometeam = total_home_goals / home_games.length 
   end  
 
-    def lowest_scoring_visitor 
-
-           team_ids = @game_team_data[:team_id].uniq
-           lowest_scoring_visitor = team_ids.min_by do |team_id|
-             average_goals_by_visitor(team_id)
-        end 
-             team = @teams_data.find do |team|
-             team[:team_id] == lowest_scoring_visitor
-        end 
-            team[:teamname] 
-      end  
+  def lowest_scoring_visitor 
+    team_ids = @game_team_data[:team_id].uniq
+    lowest_scoring_visitor = team_ids.min_by do |team_id|
+      average_goals_by_visitor(team_id)
+    end 
+    team = @teams_data.find do |team|
+      team[:team_id] == lowest_scoring_visitor
+    end 
+    team[:teamname] 
+  end  
     
     
       def lowest_scoring_hometeam
