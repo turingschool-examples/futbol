@@ -136,6 +136,18 @@ RSpec.describe StatTracker do
       expect(stat_tracker.total_home_goals).to be_a(Hash)
     end
 
+    it "#avg_goals_results" do
+      total_goals_sample = {
+        "17"=>[504, 247],
+        "16"=>[558, 266],
+        "9"=>[498, 248],
+        "8"=>[500, 249],
+        "30"=>[506, 252],
+        "26"=>[519, 256],
+        }
+      expect(stat_tracker.avg_goals_results(total_goals_sample)).to be_a(Hash)
+    end
+
     it "#highest_scoring_home_team" do
       expect(stat_tracker.highest_scoring_home_team).to be_a(String)
       expect(stat_tracker.highest_scoring_home_team).to eq("Reign FC")
