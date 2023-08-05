@@ -136,6 +136,12 @@ include LeagueStatable
     end
   end
 
+  def biggest_team_blowout(team_id)
+    # biggest difference between team and opponent goals for a win for the given team
+    # Use @game_teams.csv
+    # 1. Iterate
+  end
+
   def self.from_csv(files)
     StatTracker.new(files)
   end

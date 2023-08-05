@@ -195,5 +195,9 @@ RSpec.describe StatTracker do
       expect(stat_tracker.team_info("1")).to be_a(Hash)
       expect(stat_tracker.team_info("1")).to eq(team_info)
     end
+
+    it "#biggest_team_blowout" do
+      expect(stat_tracker.biggest_team_blowout).to be_a(Integer)
+    end
   end
 end
