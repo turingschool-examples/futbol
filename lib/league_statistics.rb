@@ -62,23 +62,22 @@ class LeagueStatistics
       average_goals_for_team(team_id)
     end  
 
-      team = @teams_data.find do |team|
-      team[:team_id] == lowest_scoring_team
+    team = @teams_data.find do |team|
+    team[:team_id] == lowest_scoring_team
     end 
-       team[:teamname] 
+    team[:teamname] 
   end 
   
-     def  average_goals_for_team(team_id)
+  def average_goals_for_team(team_id)
+    games = @game_team_data.find_all do |game_team|
+    game_team[:team_id] == team_id  
+    end 
 
-           games = @game_team_data.find_all do |game_team|
-           game_team[:team_id] == team_id  
-        end 
-
-              total_goals = games.map do |game|
-              game[:goals].to_i 
-        end.sum
-             average_goals_per_season = total_goals / games.length 
-     end    
+    total_goals = games.map do |game|
+    game[:goals].to_i 
+    end.sum
+    average_goals_per_season = total_goals / games.length 
+  end    
   
    
 
