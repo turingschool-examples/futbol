@@ -24,6 +24,20 @@ RSpec.describe LeagueStatistics do
     expect(@league.best_offense).to eq("FC Dallas")
   end
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   it " can show name of the team with the lowest average number of goals scored per game across all seasons." do
 
      expect(@league.worst_offense).to eq("Sporting Kansas City")

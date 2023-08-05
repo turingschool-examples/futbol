@@ -21,6 +21,34 @@ class LeagueStatistics
     teams.size 
   end
   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   def worst_offense
 
     team_ids = @game_team_data[:team_id].uniq
