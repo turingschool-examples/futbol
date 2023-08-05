@@ -26,7 +26,11 @@ RSpec.describe LeagueStatistics do
 
   it " can show name of the team with the lowest average number of goals scored per game across all seasons." do
 
-     expect(@league.worst_offense_team).to eq("Sporting Kansas City")
+     expect(@league.worst_offense).to eq("Sporting Kansas City")
   end 
+
+  it "can show name of the team with the highest average score per game across all seasons when they are away." do
+    expect(@league.highest_scoring_visitor).to eq("FC Dallas")
+ end 
 end  
  
