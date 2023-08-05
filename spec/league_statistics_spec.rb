@@ -36,5 +36,14 @@ RSpec.describe LeagueStatistics do
    it "can show the name of the team with the highest average score per game across all seasons when they are home." do
     expect(@league.highest_scoring_home_team).to eq("FC Dallas")
   end  
+  
+  it " can name of the team with the lowest average score per game across all seasons when they are a visitor." do
+     expect(@league.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  end  
+  
+  it " can name of the team with the lowest average score per game across all seasons when they are at home." do
+    expect(@league.lowest_scoring_hometeam).to eq("Sporting Kansas City")
+ end 
 end 
+
  
