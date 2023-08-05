@@ -36,60 +36,42 @@ module LeagueStatable
   end
 
   def total_home_goals 
-    total_goals = @game_teams.each_with_object({}) do |game, hash|
+    @game_teams.each_with_object({}) do |game, hash|
       hash[game.team_id] = hash[game.team_id] || [0, 0]
       hash[game.team_id] = [game.goals + hash[game.team_id][0], hash[game.team_id][1] + 1] if game.hoa == "home"
     end
   end
 
-  def highest_scoring_home_team
-    avg_goals = total_home_goals.transform_values do |value|
+  def avg_goals_results(total_goals)
+    total_goals.transform_values do |value|
       (value[0] / value[1].to_f).round(4)
     end
-    highest_avg_goals = avg_goals.values.max
-    
-    highest_team_id = avg_goals.key(highest_avg_goals)
+  end
 
-    team_list[highest_team_id]
+  def highest_scoring_home_team
+    avg_goals = avg_goals_results(total_home_goals)
+    team_list[avg_goals.key(avg_goals.values.max)]
   end
 
   def lowest_scoring_home_team
-    avg_goals = total_home_goals.transform_values do |value|
-      (value[0] / value[1].to_f).round(4)
-    end
-    lowest_avg_goals = avg_goals.values.min
-
-    lowest_team_id = avg_goals.key(lowest_avg_goals)
-
-    team_list[lowest_team_id]
+    avg_goals = avg_goals_results(total_home_goals)
+    team_list[avg_goals.key(avg_goals.values.min)]
   end
 
   def total_away_goals 
-    total_goals = @game_teams.each_with_object({}) do |game, hash|
+    @game_teams.each_with_object({}) do |game, hash|
       hash[game.team_id] = hash[game.team_id] || [0, 0]
       hash[game.team_id] = [game.goals + hash[game.team_id][0], hash[game.team_id][1] + 1] if game.hoa == "away"
     end
   end
 
   def highest_scoring_visitor
-    avg_goals = total_away_goals.transform_values do |value|
-      (value[0] / value[1].to_f).round(4)
-    end
-    highest_avg_goals = avg_goals.values.max
-    
-    highest_team_id = avg_goals.key(highest_avg_goals)
-
-    team_list[highest_team_id]
+    avg_goals = avg_goals_results(total_away_goals)
+    team_list[avg_goals.key(avg_goals.values.max)]
   end
 
   def lowest_scoring_visitor
-    avg_goals = total_away_goals.transform_values do |value|
-      (value[0] / value[1].to_f).round(4)
-    end
-    lowest_avg_goals = avg_goals.values.min
-
-    lowest_team_id = avg_goals.key(lowest_avg_goals)
-
-    team_list[lowest_team_id]
+    avg_goals = avg_goals_results(total_away_goals)
+    team_list[avg_goals.key(avg_goals.values.min)]
   end
 end
