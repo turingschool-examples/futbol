@@ -11,6 +11,7 @@ module LeagueStatable
     goals_made.each do |key, value|
       average_goals_per_team[key] = (value / games_played_per_team[key]).round(4)
     end
+    average_goals_per_team
   end
 
   def best_offense
