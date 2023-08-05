@@ -1,5 +1,9 @@
 module LeagueStatable
   
+  def count_of_teams
+    @teams.count
+  end
+
   def team_list
     @teams.each_with_object(Hash.new) { |team, team_list| team_list[team.team_id] = team.team_name}
   end
