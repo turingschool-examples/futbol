@@ -102,16 +102,16 @@ class LeagueStatistics
   end  
     
 
-      def highest_scoring_home_team
-        team_ids = @game_team_data[:team_id].uniq
-        highest_scoring_hometeam = team_ids.max_by do |team_id|
-          average_goals_by_hometeam(team_id)
-     end  
-         team = @teams_data.find do |team|
-         team[:team_id] == highest_scoring_hometeam
+  def highest_scoring_home_team
+    team_ids = @game_team_data[:team_id].uniq
+    highest_scoring_hometeam = team_ids.max_by do |team_id|
+    average_goals_by_hometeam(team_id)
+    end  
+    team = @teams_data.find do |team|
+      team[:team_id] == highest_scoring_hometeam
     end 
-          team[:teamname] 
-    end 
+    team[:teamname] 
+  end 
 
     def  average_goals_by_hometeam(team_id)
             home_games = @game_team_data.find_all do |game_team|
