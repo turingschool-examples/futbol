@@ -90,18 +90,16 @@ class LeagueStatistics
     team[:teamname] 
   end 
 
-    def  average_goals_by_visitor(team_id)
-  
-            away_games = @game_team_data.find_all do |game_team|
-                       game_team[:hoa]== "away"
-                       game_team[:team_id] == team_id 
-        end
-             total_away_goals = away_games.map do |away_game|
-                      away_game[:goals].to_i 
-        end.sum
-
-            average_goals_by_visitor = total_away_goals / away_games.length  
-        end  
+  def average_goals_by_visitor(team_id)
+    away_games = @game_team_data.find_all do |game_team|
+    game_team[:hoa]== "away"
+    game_team[:team_id] == team_id 
+    end
+    total_away_goals = away_games.map do |away_game|
+    away_game[:goals].to_i 
+    end.sum
+    average_goals_by_visitor = total_away_goals / away_games.length  
+  end  
     
 
       def highest_scoring_home_team
