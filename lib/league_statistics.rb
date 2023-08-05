@@ -146,7 +146,7 @@ class LeagueStatistics
       end  
     
     
-      def lowest_scoring_hometeam 
+      def lowest_scoring_hometeam
 
         team_ids = @game_team_data[:team_id].uniq
         highest_scoring_hometeam = team_ids.min_by do |team_id|
