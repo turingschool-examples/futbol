@@ -56,62 +56,85 @@ class LeagueStatistics
   
   
   def worst_offense
+
     team_ids = @game_team_data[:team_id].uniq
     lowest_scoring_team = team_ids.min_by do |team_id|
       average_goals_for_team(team_id)
     end  
-    team = @teams_data.find do |team|
+
+      team = @teams_data.find do |team|
       team[:team_id] == lowest_scoring_team
     end 
-    team[:teamname] 
+       team[:teamname] 
   end 
   
      def  average_goals_for_team(team_id)
+
            games = @game_team_data.find_all do |game_team|
            game_team[:team_id] == team_id  
         end 
+
               total_goals = games.map do |game|
               game[:goals].to_i 
         end.sum
              average_goals_per_season = total_goals / games.length 
      end    
   
-     def highest_scoring_visitor
-          games = @game_team_data.find_all do |game_team|
-          team_ids = @game_te
-           game_team[:team_id] == team_id 
-           game_team[:hoa] == "away" 
-      end 
-            visitor_total_goals = games.map do |game|
-            game[:goals].to_i 
-  end.sum
-          average_goals_for_visitor = visitor_total_goals / games.length 
-      end    
+   
+
 
   def highest_scoring_visitor
-    team_ids = @game_team_data[:team_id].uniq
-    highest_scoring_visitor = team_ids.max_by do |team_id|
-      average_goals_for_visitor(team_id)
-    end  
+
+      team_ids = @game_team_data[:team_id].uniq
+      highest_scoring_visitor = team_ids.max_by do |team_id|
+      average_goals_by_visitor(team_id)
+    end 
+  
        team = @teams_data.find do |team|
        team[:team_id] == highest_scoring_visitor
     end 
         team[:teamname] 
   end 
 
-    def  average_goals_for_visitor(team_id)
+    def  average_goals_by_visitor(team_id)
   
-              games = @game_team_data.find_all do |game_team|
-              game_team[:hoa]== "away"
-              game_team[:team_id] == team_id 
+            games = @game_team_data.find_all do |game_team|
+            game_team[:hoa]== "away"
+            game_team[:team_id] == team_id 
         end
-             total_goals = games.map do |game|
-             game[:goals].to_i 
+            total_goals = games.map do |game|
+            game[:goals].to_i 
         end.sum
 
-            average_goals_per_visitor = total_goals / games.length  
+            average_goals_by_visitor = total_goals / games.length  
         end  
-    end 
-  
+    
 
+
+
+      def highest_scoring_home_team
+        team_ids = @game_team_data[:team_id].uniq
+        highest_scoring_hometeam = team_ids.max_by do |team_id|
+          average_goals_by_hometeam(team_id)
+     end  
+         team = @teams_data.find do |team|
+         team[:team_id] == highest_scoring_hometeam
+    end 
+          team[:teamname] 
+    end 
+
+    def  average_goals_by_hometeam(team_id)
+  
+            games = @game_team_data.find_all do |game_team|
+            game_team[:hoa]== "home"
+            game_team[:team_id] == team_id 
+        end
+            total_goals = games.map do |game|
+            game[:goals].to_i 
+        end.sum
+
+            average_goals_per_hometeam = total_goals / games.length 
+        end  
+    
+    end 
   
