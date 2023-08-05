@@ -7,9 +7,9 @@ class GameStatistics
 
   def initialize(locations)
     @locations = locations
-    @game_data = CSV.open locations[:games], headers: true, header_converters: :symbol
-    @teams_data = CSV.open locations[:teams], headers: true, header_converters: :symbol
-    @game_team_data = CSV.open locations[:game_teams], headers: true, header_converters: :symbol  
+    @game_data = CSV.read locations[:games], headers: true, header_converters: :symbol
+    @teams_data = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    @game_team_data = CSV.read locations[:game_teams], headers: true, header_converters: :symbol  
   end
 
   def percentage_calculator(portion, whole)
@@ -63,4 +63,46 @@ class GameStatistics
     end
     percentage_calculator(tied_games, total_games)
   end  
+
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+
+    @game_data.each do |row|
+      season = row[:season]
+      games_by_season[season] += 1
+    end
+    games_by_season
+  end
+
+  def average_goals_per_game
+    total_games = 0
+    total_goals = 0
+
+    @game_data.each do |row|
+      total_goals += row[:home_goals].to_i + row[:away_goals].to_i
+      total_games += 1
+    end
+    average_goals = total_goals.to_f / total_games
+    average_goals.round(2)
+  end
+
+  def average_goals_by_season
+    total_goals_by_season = Hash.new(0)
+    total_games_by_season = Hash.new(0)
+
+    @game_data.each do |row|
+      season = row[:season]
+      total_goals_by_season[season] += row[:away_goals].to_i + row[:home_goals].to_i
+      total_games_by_season[season] += 1
+    end
+
+    average_goals_by_season = {}
+    total_goals_by_season.each do |season, total_goals|
+      total_games = total_games_by_season[season]
+      average_goals = total_goals.to_f / total_games
+      average_goals_by_season[season] = average_goals.round(2)
+    end
+
+    average_goals_by_season
+  end
 end

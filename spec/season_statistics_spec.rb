@@ -29,19 +29,19 @@ RSpec.describe SeasonStatistics do
 
   describe "#game_data" do
     it "returns game_data" do
-      expect(@season_statistics.game_data).to be_a(CSV)
+      expect(@season_statistics.game_data).to be_a(CSV::Table)
     end
   end
 
   describe "#teams_data" do
     it "returns teams_data" do
-      expect(@season_statistics.teams_data).to be_a(CSV)
+      expect(@season_statistics.teams_data).to be_a(CSV::Table)
     end
   end
 
   describe "#game_team_data" do
     it "returns game_team_data" do
-      expect(@season_statistics.game_team_data).to be_a(CSV)
+      expect(@season_statistics.game_team_data).to be_a(CSV::Table)
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe SeasonStatistics do
   
   describe "#fewest_tackles" do
     it "returns name of the team with the least tackles in the season" do
-      expect(@season_statistics.least_tackles("20122013")).to eq("LA Galaxy")
+      expect(@season_statistics.fewest_tackles("20122013")).to eq("LA Galaxy")
     end
   end
 

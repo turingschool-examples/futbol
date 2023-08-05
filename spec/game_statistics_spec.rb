@@ -21,6 +21,30 @@ RSpec.describe GameStatistics do
     end
   end
 
+    describe "#locations" do
+    it "returns the location attribute" do
+      expect(@game_stats.locations).to eq(@locations)
+    end
+  end
+
+  describe "#game_data" do
+    it "returns game_data" do
+      expect(@game_stats.game_data).to be_a(CSV::Table)
+    end
+  end
+
+  describe "#teams_data" do
+    it "returns teams_data" do
+      expect(@game_stats.teams_data).to be_a(CSV::Table)
+    end
+  end
+
+  describe "#game_team_data" do
+    it "returns game_team_data" do
+      expect(@game_stats.game_team_data).to be_a(CSV::Table)
+    end
+  end
+
   describe "#highest_total_score" do
     it "finds the highest total score from stat data" do
       expect(@game_stats.highest_total_score).to eq(5)
@@ -56,6 +80,24 @@ RSpec.describe GameStatistics do
       expect(@game_stats.percentage_calculator(13.0, 19.0)).to eq(0.68)
       expect(@game_stats.percentage_calculator(5.0, 19.0)).to eq(0.26)
       expect(@game_stats.percentage_calculator(1.0, 19.0)).to eq(0.05)
+    end
+  end
+
+  describe "#count_of_games_by_season_do" do
+    it "returns a hash with season names as keys and count of games as values" do
+      expect(@game_stats.count_of_games_by_season).to eq({ "20122013" => 19 })
+    end
+  end
+
+  describe "#average_goals_per_game" do
+    it "returns average number of goals scored in a game across all seasons including both home and away goals" do
+      expect(@game_stats.average_goals_per_game).to eq(3.68)
+    end
+  end
+
+  describe "#average_goals_by_season" do
+    it "returns average number of goals scored in a game in that season" do
+      expect(@game_stats.average_goals_by_season).to eq({ "20122013" => 3.68 })
     end
   end
 end
