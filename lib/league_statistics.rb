@@ -54,7 +54,7 @@ class LeagueStatistics
   #   best_offense_team
   # end  
   
-  
+   
   def worst_offense
 
     team_ids = @game_team_data[:team_id].uniq
@@ -78,20 +78,16 @@ class LeagueStatistics
     end.sum
     average_goals_per_season = total_goals / games.length 
   end    
-  
-   
-
 
   def highest_scoring_visitor
-
-      team_ids = @game_team_data[:team_id].uniq
-      highest_scoring_visitor = team_ids.max_by do |team_id|
-      average_goals_by_visitor(team_id)
+    team_ids = @game_team_data[:team_id].uniq
+    highest_scoring_visitor = team_ids.max_by do |team_id|
+    average_goals_by_visitor(team_id)
     end 
-       team = @teams_data.find do |team|
-       team[:team_id] == highest_scoring_visitor
+    team = @teams_data.find do |team|
+    team[:team_id] == highest_scoring_visitor
     end 
-        team[:teamname] 
+    team[:teamname] 
   end 
 
     def  average_goals_by_visitor(team_id)
