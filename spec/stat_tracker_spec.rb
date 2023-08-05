@@ -103,19 +103,52 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_teams).to be_a(Integer)
     end
 
-    xit "#best_offense" do
+    it "#team_list" do
+      expect(stat_tracker.team_list).to be_a(Hash)
+    end
+
+    it "#total_goals_made_per_team" do
+    
+      expect(stat_tracker.total_goals_made_per_team).to be_a(Hash)
+    end
+
+    it "#games_played_per_team" do
+  
+      expect(stat_tracker.games_played_per_team).to be_a(Hash)
+    end
+
+    it "#average_goals_per_team_id" do
+      expect(stat_tracker.average_goals_per_team_id).to be_a(Hash)
+    end
+
+    it "#best_offense" do
       expect(stat_tracker.best_offense).to be_a(String)
+      expect(stat_tracker.best_offense).to eq "Reign FC"
+
     end
     
     xit "#worst_offense" do
       expect(stat_tracker.worst_offense).to be_a(String)
+      expect(stat_tracker.worst_offense).to eq "Utah Royals FC"
     end
 
     xit "#total_home_goals" do
       expect(stat_tracker.total_home_goals).to be_a(Hash)
     end
 
-    xit "#highest_scoring_home_team" do
+    it "#avg_goals_results" do
+      total_goals_sample = {
+        "17"=>[504, 247],
+        "16"=>[558, 266],
+        "9"=>[498, 248],
+        "8"=>[500, 249],
+        "30"=>[506, 252],
+        "26"=>[519, 256],
+        }
+      expect(stat_tracker.avg_goals_results(total_goals_sample)).to be_a(Hash)
+    end
+
+    it "#highest_scoring_home_team" do
       expect(stat_tracker.highest_scoring_home_team).to be_a(String)
       expect(stat_tracker.highest_scoring_home_team).to eq("Reign FC")
     end
