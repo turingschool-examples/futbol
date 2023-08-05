@@ -42,15 +42,6 @@ module GameStatable
     @games.each_with_object(Hash.new(0)) { |game, game_count| game_count[game.season] += 1 }
   end
   
-  def count_of_teams
-    @teams.count
-  end
-
-  def count_of_games_by_season
-    @games.each_with_object(Hash.new(0)) { |game, game_count| game_count[game.season] += 1 }
-  end
- 
-
   def total_goals_by_season
     total_goals_by_season = @games.each_with_object(Hash.new(0.0)) { |game, hash| hash[game.season] += game.away_goals + game.home_goals}
   end 
