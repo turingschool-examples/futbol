@@ -1,51 +1,51 @@
 require 'csv'
 
 class LeagueStatistics
+  attr_reader :locations,
+              :teams_data,
+              :game_data,
+              :game_team_data
 
-  def initialize(file)
-    @file = file
+  def initialize(locations)
+    @locations = locations
+    @game_data = CSV.open locations[:games], headers: true, header_converters: :symbol
+    @teams_data = CSV.open locations[:teams], headers: true, header_converters: :symbol
+    @game_team_data = CSV.open locations[:game_teams], headers: true, header_converters: :symbol  
   end
 
-  def read_csv(file)
-    CSV.read(file, headers:true)
+  def count_of_teams
+    team_ids = teams_data.map { |row| row[:team_id].to_i }
+
+    team_ids.size
   end
 
-  def count_of_teams 
-    teams = read_csv(@file)
-    teams.size
+  def team_name_by_id(team_id)
+    team_id = team_id.to_i
+    team = @teams_data.find { |row| row[:team_id].to_i == team_id }
+    team[:teamname] if team
   end
 
   def best_offense
-    games = read_csv(@file)
+    goals_per_team = Hash.new { |hash, key| hash[key] = { total_goals: 0, games_played: 0 } }
 
-    offense = Hash.new { |hash, key| hash[key] = [] }
-    
-    games.each do |row|
-      team = row["team_id"].to_i
-      goals = row["goals"].to_i
-      offense[team] << goals
+    @game_team_data.each do |row|
+      team_id = row[:team_id].to_i
+      goals = row[:goals].to_i
+      goals_per_team[team_id][:total_goals] += goals
+      goals_per_team[team_id][:games_played] += 1
     end
 
-    best_offense_team_id = nil
-    highest_average_goals = -1
+    highest_average_team_id = nil
+    highest_average = 0.0
 
-    offense.each do |team_id, goals|
-      average_goals = goals.sum.to_f / goals.size
-      if average_goals > highest_average_goals
-        highest_average_goals = average_goals
-        best_offense_team_id = team_id
+    goals_per_team.each do |team_id, data|
+      average_goals = data[:total_goals].to_f / data[:games_played]
+      if average_goals > highest_average
+        highest_average = average_goals
+        highest_average_team_id = team_id
       end
     end
 
-    best_offense_team = nil
-    teams = read_csv("./data/teams.csv")
-
-    teams.each do |row|
-      if row["team_id"].to_i == best_offense_team_id
-        best_offense_team = row["teamName"]
-      end
-    end
-
-    best_offense_team
+    team_name_by_id(highest_average_team_id)
   end
 end

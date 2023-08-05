@@ -6,9 +6,9 @@ class SeasonStatistics
               
   def initialize(locations)
     @locations = locations
-    @game_data = CSV.open locations[:games], headers: true, header_converters: :symbol
-    @teams_data = CSV.open locations[:teams], headers: true, header_converters: :symbol
-    @game_team_data = CSV.open locations[:game_teams], headers: true, header_converters: :symbol
+    @game_data = CSV.read locations[:games], headers: true, header_converters: :symbol
+    @teams_data = CSV.read locations[:teams], headers: true, header_converters: :symbol
+    @game_team_data = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
   end
 
   def winningest_coach(season_id)
@@ -116,7 +116,7 @@ class SeasonStatistics
     get_team_name(most_tackle_team)
   end
 
-  def least_tackles(season_id)
+  def fewest_tackles(season_id)
     season_games = find_season_games(season_id)
 
     season_game_teams = find_season_game_teams(season_games)
@@ -154,8 +154,6 @@ class SeasonStatistics
         end
       end
     end
-
-    @game_team_data.rewind
 
     season_game_teams
   end
