@@ -18,15 +18,22 @@ RSpec.describe StatTracker do
     it 'exists' do
       expect(@stats).to be_instance_of(StatTracker)
     end
-
+    
     it 'has attributes' do
       expect(@stats.all_data.values.all? { |file| File.exist?(file) } ).to be true
     end
   end
-
+  
   describe '::from_csv' do
     it 'Gets data and makes instance' do
       expect(StatTracker.from_csv(@locations)).to be_instance_of(StatTracker)
+    end
+  end
+  
+  describe '#highest_total_score' do
+    it 'gets highest total score' do
+      @stats.highest_total_score
+      expect(@stats.highest_total_score).to eq(8)
     end
   end
 end
