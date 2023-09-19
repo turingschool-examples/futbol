@@ -4,19 +4,29 @@
 
 ## Check-in Plan
 
-- A 1-2 summary or bullet points outlining your plan for check-ins throughout the duration of the project.
+- Check-ins will occur daily
+- Planning for the next iteration will occur after previous iteration completion
 
 ## Project Plan
 
-- A 2-4 sentence summary of your plan for project organization and workflow. This can include bullet points. If you plan to use a project management tool, please include a link to your project board.
+- Iteration Planning will occur as a team
+  - Iteration features will be clearly known and agreed upon prior to iteration kickoff
+  - features will be broken down into reasonable sub-functionalities
+  - sub-functionality features will be available for anyone on the team to own and will be obtained from a kahnban board
+- Iteration milestone and deliverables will be tracked in Github Projects
 
 ## Plan of Attack Considerations
 
-- A 2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
+- Studying the interaction pattern provides overview of functionality
+- Studying the spec_harness should help drive spec dev
 
 ## Code Design
 
-- A 2-3 sentence summary describing your approach to the code design.
+- StatTracker class will house all logic for
+  - Game stats
+  - League stats
+  - Season stats
+- After implementing full functionality, there may be opportunity for reusable calculations to be extracted into modules or superclasses; refactoring will be **post-hoc**
 
 ## DTR
 
@@ -24,6 +34,6 @@
 
 ## Contributors
 
-- Blaine Kennedy [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white)](https://github.com/bkchilidawg) ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=plastic&logo=linkedin&logoColor=white)
-- Kam Kennedy [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white)](https://github.com/kameronk92) ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=plastic&logo=linkedin&logoColor=white)
+- Blaine Kennedy [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white)](https://github.com/bkchilidawg) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=plastic&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/blaine-kennedy-3462a7140/)
+- Kam Kennedy [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white)](https://github.com/kameronk92) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=plastic&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kameron-kennedy-pe-98019469/)
 - Taylor Pubins [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white)](https://github.com/trpubz) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=plastic&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/trpubins/)
