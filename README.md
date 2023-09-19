@@ -12,7 +12,8 @@ Starter repository for the [Turing School](https://turing.io/) Futbol project.
 
 - We will try to be as DRY as possible. Refactoring is built-in to iteration 3, but we will try to maek our code as single responsible as possible as we work through.
 
-# Include link to your initial DTR document and the date it was completed. If you do additional DTRs later in the project, you should link the revised versions here as well with the date. New versions should be listed alongside older versions. Do not delete old DTRs.
+# Include link to your initial DTR document and the date it was completed. If you do additional DTRs later in the project, you should link the revised versions here as well with the date. New versions should be listed alongside older versions. Do not delete old DTRs. 
+https://docs.google.com/document/d/1NUJcmA-vbEgt1MOEZ9AMtp8D0DJWoKYct48TbbfzKg4/edit
 
 # Contributors
 ## Xander Hendry, Joseph Lee, Nathan Trautenberg
