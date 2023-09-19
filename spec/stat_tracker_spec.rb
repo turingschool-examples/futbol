@@ -17,6 +17,7 @@ RSpec.describe StatTracker do
     @locations = {gtf: gtf_path}
 
     @stats = StatTracker.from_csv(@locations)
+    require 'pry'; binding.pry
   end
   
   describe '#initialize' do
