@@ -1,5 +1,4 @@
 require "./spec/spec_helper"
-require 'csv'
 
 RSpec.describe StatTracker do
 
@@ -14,21 +13,18 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
     }
 
-    
-   @stat_tracker = StatTracker.from_csv(locations)
+    @stat_tracker = StatTracker.from_csv(locations)
   end
 
   describe "#highest_total_score" do
     it "returns the highest total score" do
-      
       expect(@stat_tracker.highest_total_score).to eq(5)
     end
   end
 
   describe "#lowest_total_score" do
     it "returns the lowest total score" do
-      
-      expect(@stat_tracker.lowest_total_score).to eq(3)  
+      expect(@stat_tracker.lowest_total_score).to eq(3)
     end
   end
 end
