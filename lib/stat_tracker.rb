@@ -1,3 +1,5 @@
-class StatTracker
+require 'csv'
 
+class StatTracker
+  
 end
