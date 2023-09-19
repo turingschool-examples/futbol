@@ -24,10 +24,8 @@ RSpec.describe StatTracker do
     it 'returns an instance of StatTracker' do
       stat_tracker = StatTracker.from_csv(locations)
       expect(stat_tracker).to be_a(StatTracker)
-      expect(stat_tracker.team_data).to be_a(Array)
-      stat_tracker.team_data.each do |team|
-        expect(team).to be_a(String)
-      end
+      require 'pry'; binding.pry
+      expect(stat_tracker.team_data).to be_a(CSV::Table)
     end
   end
 end
