@@ -1,7 +1,5 @@
 require './spec/spec_helper'
 
-require './spec/spec_helper'
-
 RSpec.describe StatTracker do
   let(:stat_tracker) { StatTracker.new(locations) }
   game_path = './data/games.csv'
@@ -24,8 +22,9 @@ RSpec.describe StatTracker do
     it 'returns an instance of StatTracker' do
       stat_tracker = StatTracker.from_csv(locations)
       expect(stat_tracker).to be_a(StatTracker)
-      require 'pry'; binding.pry
       expect(stat_tracker.team_data).to be_a(CSV::Table)
+      expect(stat_tracker.game).to be_a(CSV::Table)
+      expect(stat_tracker.game_teams).to be_a(CSV::Table)
     end
   end
 end
