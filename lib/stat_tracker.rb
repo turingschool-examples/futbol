@@ -28,10 +28,14 @@ class StatTracker
   end
 
   # return: hash of all for all seasons {team_id => avg_goals}
-  def team_avg_goals
+  def team_avg_goals(filter = nil, value = nil)
     team_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams_data.each do |game|
-      team_goals[game[:team_id]] << game[:goals].to_i
+      if filter.nil?
+        team_goals[game[:team_id]] << game[:goals].to_i
+      elsif game[filter] == value
+        team_goals[game[:team_id]] << game[:goals].to_i
+      end
     end
 
     team_goals.transform_values! do |goals|
@@ -41,16 +45,26 @@ class StatTracker
   end
 
   def best_offense
-    team_id = team_avg_goals.max[0]  # max => [team_id, value] from hash
+    team_id = team_avg_goals.max_by { |k, v| v }[0]  # max => [team_id, value] from hash
 
     team_name_from_id(team_id)
   end
 
   def worst_offense
-    team_id = team_avg_goals.min[0]
+    team_id = team_avg_goals.min_by { |k, v| v }[0]
 
     team_name_from_id(team_id)
   end
 
-  private
+  def highest_scoring_visitor
+    team_id = team_avg_goals(:hoa, "away").max_by { |k, v| v }[0]
+
+    team_name_from_id(team_id)
+  end
+
+  def highest_scoring_home_team
+    team_id = team_avg_goals(:hoa, "home").max_by { |k, v| v }[0]
+
+    team_name_from_id(team_id)
+  end
 end
