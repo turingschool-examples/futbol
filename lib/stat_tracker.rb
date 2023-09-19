@@ -1,5 +1,4 @@
-require 'csv'
-require './runner'
+require './spec_helper'
 
 
 class StatTracker
@@ -9,11 +8,11 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    game_data = CSV.open locations.games, headers: true, header_converters: :symbol
-    game_data.map do |row|
-      row
-    end
-    StatTracker.new
+    contents = CSV.open locations[:games], headers: true, header_converters: :symbol
+    # contents.map do |row|
+    #   row
+    # end
+    # StatTracker.new
   end
   
 end
