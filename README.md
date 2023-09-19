@@ -8,7 +8,7 @@ A 1-2 summary or bullet points outlining your plan for check-ins throughout the 
 
 A 2-4 sentence summary of your plan for project organization and workflow. This can include bullet points. If you plan to use a project management tool, please include a link to your project board.
 
-- We will try using Trello, and hithub projects and see which is going to work best for us. We will also be using branches in github to keep track of where we are working.
+- We will try using Trello, and github projects and see which is going to work best for us. We will also be using branches in github to keep track of where we are working.
 
 A 2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
 
