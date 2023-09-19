@@ -1,3 +1,4 @@
+
 require './spec_helper'
 
 
@@ -15,6 +16,6 @@ class StatTracker
     end
     # StatTracker.new
   end
-  
+
 end
 
