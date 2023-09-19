@@ -17,4 +17,28 @@ class StatTracker
     new(games_data, teams_data, game_teams_data)
   end
 
+  def count_of_teams
+    teams_data.size
+  end
+
+  def best_offense
+    team_id = team_goals.max[0]
+
+    @teams_data.each do |tm|
+      return tm[:teamname] if tm[:team_id] == team_id
+    end
+
+  end
+
+  def team_goals
+    team_goals = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams_data.each do |game|
+      team_goals[game[:team_id]] << game[:goals].to_i
+    end
+
+    team_goals.transform_values! do |goals|
+      (goals.reduce(:+) / goals.size.to_f).round(1)
+    end
+    team_goals
+  end
 end
