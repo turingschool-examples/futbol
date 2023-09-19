@@ -1,0 +1,37 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/kameron/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          null,
+          null
+        ],
+        "branches": {
+        }
+      },
+      "/Users/kameron/turing_work/1mod/projects/futbol/lib/runner.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      }
+    },
+    "timestamp": 1695136597
+  }
+}
