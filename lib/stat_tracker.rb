@@ -9,9 +9,10 @@ class StatTracker
 
   def self.from_csv(locations)
     contents = CSV.open locations[:games], headers: true, header_converters: :symbol
-    # contents.map do |row|
-    #   row
-    # end
+    contents.each do |row|
+      row
+      require 'pry'; binding.pry
+    end
     # StatTracker.new
   end
   
