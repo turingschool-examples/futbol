@@ -14,6 +14,9 @@
   - features will be broken down into reasonable sub-functionalities
   - sub-functionality features will be available for anyone on the team to own and will be obtained from a kahnban board
 - Iteration milestone and deliverables will be tracked in Github Projects
+  ![stattracker_v1-2](https://github.com/trpubz/futbol/assets/25095319/145c4c0a-6e35-4e45-b885-ec02c224d179)
+
+
 
 ## Plan of Attack Considerations
 
@@ -27,10 +30,13 @@
   - League stats
   - Season stats
 - After implementing full functionality, there may be opportunity for reusable calculations to be extracted into modules or superclasses; refactoring will be **post-hoc**
+- 
 
 ## DTR
 
 - [v1](https://docs.google.com/document/d/1xlq3COkAis2Ka8S6jJ9tsDimgus19CnItrIJYnmH5xM/edit)
+- Recommended conventions
+  - feature branches => feat/sub/<name_or_functionality>
 
 ## Contributors
 
