@@ -67,4 +67,16 @@ class StatTracker
 
     team_name_from_id(team_id)
   end
+
+  def lowest_scoring_visitor
+    team_id = team_avg_goals(:hoa, "away").min_by { |k, v| v }[0]
+
+    team_name_from_id(team_id)
+  end
+
+  def lowest_scoring_home_team
+    team_id = team_avg_goals(:hoa, "home").min_by { |k, v| v }[0]
+
+    team_name_from_id(team_id)
+  end
 end
