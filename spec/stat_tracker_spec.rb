@@ -24,16 +24,18 @@ RSpec.describe StatTracker do
       expect(@stats).to be_instance_of(StatTracker)
     end
 
-    xit 'has attributes' do
-
+    it 'has attributes' do
+      expect(@stats.all_data.values.all? { |file| File.exist?(file) } ).to be true
     end
   end
 
   describe '::from_csv' do
-    gtf_path = './data/game_team_fixture.csv'
-    locations = {gtf: gtf_path}
+    it 'Gets data and makes instance' do
+      gtf_path = './data/game_team_fixture.csv'
+      locations = {gtf: gtf_path}
 
-    # Cannot think of a better test at the moment
-    expect(StatTracker.from_csv(locations)).to be_instance_of(StatTracker)
+      # Cannot think of a better test at the moment
+      expect(StatTracker.from_csv(locations)).to be_instance_of(StatTracker)
+    end
   end
 end
