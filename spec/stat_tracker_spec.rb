@@ -64,4 +64,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.highest_scoring_home_team).to eq "FC Dallas"
     end
   end
+
+  describe "#lowest_scoring_visitor" do
+    it "names team with lowest avg score when away across all seasons" do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq "Houston Dynamo"
+    end
+  end
+
+  describe "#lowest_scoring_home_team" do
+    it "names team with lowest avg score when home across all seasons" do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Chicago Fire"
+    end
+  end
 end
