@@ -1,0 +1,62 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
+2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
+2012030225,20122013,Postseason,5/25/13,3,6,1,3,Toyota Stadium,/api/v1/venues/null
+2012030311,20122013,Postseason,6/2/13,6,5,3,0,Children's Mercy Park,/api/v1/venues/null
+2012030312,20122013,Postseason,6/4/13,6,5,4,1,Children's Mercy Park,/api/v1/venues/null
+2012030313,20122013,Postseason,6/6/13,5,6,1,2,Toyota Stadium,/api/v1/venues/null
+2012030314,20122013,Postseason,6/8/13,5,6,0,1,Toyota Stadium,/api/v1/venues/null
+2012030231,20122013,Postseason,5/16/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
+2012030232,20122013,Postseason,5/18/13,17,16,2,1,Gillette Stadium,/api/v1/venues/null
+2012030233,20122013,Postseason,5/20/13,16,17,1,3,Dignity Health Sports Park,/api/v1/venues/null
+2012030234,20122013,Postseason,5/24/13,16,17,0,2,Dignity Health Sports Park,/api/v1/venues/null
+2012030235,20122013,Postseason,5/26/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
+2012030236,20122013,Postseason,5/28/13,16,17,2,3,Dignity Health Sports Park,/api/v1/venues/null
+2012030237,20122013,Postseason,5/30/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
+2012030121,20122013,Postseason,5/2/13,9,8,2,2,Red Bull Arena,/api/v1/venues/null
+2012030122,20122013,Postseason,5/3/13,9,8,1,3,Red Bull Arena,/api/v1/venues/null
+2012030123,20122013,Postseason,5/5/13,8,9,1,4,Yankee Stadium,/api/v1/venues/null
+2012030124,20122013,Postseason,5/7/13,8,9,2,3,Yankee Stadium,/api/v1/venues/null
+2012030125,20122013,Postseason,5/9/13,9,8,4,1,Red Bull Arena,/api/v1/venues/null
+2012030151,20122013,Postseason,5/1/13,30,16,1,2,Gillette Stadium,/api/v1/venues/null
+2012030152,20122013,Postseason,5/4/13,30,16,2,3,Gillette Stadium,/api/v1/venues/null
+2012030153,20122013,Postseason,5/5/13,16,30,2,3,Exploria Stadium,/api/v1/venues/null
+2012030154,20122013,Postseason,5/8/13,16,30,3,0,Exploria Stadium,/api/v1/venues/null
+2012030155,20122013,Postseason,5/10/13,30,16,1,3,Gillette Stadium,/api/v1/venues/null
+2012030181,20122013,Postseason,5/1/13,26,19,1,2,Talen Energy Stadium,/api/v1/venues/null
+2012030182,20122013,Postseason,5/3/13,26,19,1,2,Talen Energy Stadium,/api/v1/venues/null
+2012030183,20122013,Postseason,5/5/13,19,26,0,1,Nippert Stadium,/api/v1/venues/null
+2012030184,20122013,Postseason,5/7/13,19,26,3,2,Nippert Stadium,/api/v1/venues/null
+2013020236,20132014,Regular Season,11/8/13,25,17,2,3,Dignity Health Sports Park,/api/v1/venues/null
+2012020128,20122013,Regular Season,2/6/13,3,1,1,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2012020064,20122013,Regular Season,1/27/13,18,24,2,2,Rio Tinto Stadium,/api/v1/venues/null
+2013020876,20132014,Regular Season,2/8/14,8,12,2,1,Yurcak Field,/api/v1/venues/null
+2012020697,20122013,Regular Season,4/25/13,5,1,2,3,Mercedes-Benz Stadium,/api/v1/venues/null
+2013020782,20132014,Regular Season,1/26/14,24,26,3,0,Nippert Stadium,/api/v1/venues/null
+2013020160,20132014,Regular Season,10/26/13,4,2,3,2,Centruy Link Field,/api/v1/venues/null
+2013021016,20132014,Regular Season,3/16/14,28,3,1,0,BBVA Stadium,/api/v1/venues/null
+2013021113,20132014,Regular Season,3/29/14,1,2,1,1,Centruy Link Field,/api/v1/venues/null
+2013021062,20132014,Regular Season,3/22/14,12,52,3,2,Providence Park,/api/v1/venues/null
+2012020606,20122013,Regular Season,4/12/13,19,29,1,2,Exploria Stadium,/api/v1/venues/null
+2013020400,20132014,Regular Season,12/1/13,30,21,2,2,BC Place,/api/v1/venues/null
+2012020154,20122013,Regular Season,4/25/13,14,6,0,2,Toyota Stadium,/api/v1/venues/null
+2013021032,20132014,Regular Season,3/18/14,10,17,2,3,Dignity Health Sports Park,/api/v1/venues/null
+2013020848,20132014,Regular Season,2/5/14,10,13,1,2,BBVA Stadium,/api/v1/venues/null
+2012020247,20122013,Regular Season,2/23/13,13,5,1,3,Children's Mercy Park,/api/v1/venues/null
+2013020063,20132014,Regular Season,10/12/13,1,20,2,3,BMO Field,/api/v1/venues/null
+2012020592,20122013,Regular Season,4/10/13,10,3,2,2,BBVA Stadium,/api/v1/venues/null
+2012020680,20122013,Regular Season,4/23/13,16,23,1,3,Saputo Stadium,/api/v1/venues/null
+2013020183,20132014,Regular Season,10/30/13,26,27,1,3,Avaya Stadium,/api/v1/venues/null
+2013020902,20132014,Regular Season,3/1/14,15,6,2,2,Toyota Stadium,/api/v1/venues/null
+2013020125,20132014,Regular Season,10/21/13,25,24,3,4,Rio Tinto Stadium,/api/v1/venues/null
+2012020210,20122013,Regular Season,2/17/13,29,27,3,3,Avaya Stadium,/api/v1/venues/null
+2013021216,20132014,Regular Season,4/12/14,29,13,3,2,BBVA Stadium,/api/v1/venues/null
+2013020138,20132014,Regular Season,10/24/13,6,7,3,2,Rio Tinto Stadium,/api/v1/venues/null
+2013020929,20132014,Regular Season,3/5/14,5,18,3,1,Allianz Field,/api/v1/venues/null
+2013020820,20132014,Regular Season,2/1/14,19,12,1,3,Yurcak Field,/api/v1/venues/null
+2012020428,20122013,Regular Season,3/19/13,27,26,0,2,Nippert Stadium,/api/v1/venues/null
+2013020392,20132014,Regular Season,11/30/13,23,3,2,3,BBVA Stadium,/api/v1/venues/null
+2012020707,20122013,Regular Season,4/27/13,21,27,2,2,Avaya Stadium,/api/v1/venues/null
+2013020339,20132014,Regular Season,11/23/13,29,23,2,4,Saputo Stadium,/api/v1/venues/null
