@@ -34,7 +34,7 @@ RSpec.describe StatTracker do
 
   describe "#team_avg_goals" do
     it "returns the average goals from all teams for all seasons" do
-      expect(@stat_tracker.team_avg_goals).to eq({ "3" => 2.0, "6" => 2.7})
+      expect(@stat_tracker.team_avg_goals).to eq({"3" => 2.0, "6" => 2.7})
     end
   end
 
@@ -47,6 +47,12 @@ RSpec.describe StatTracker do
   describe "#worst_offense" do
     it "names team with worst avg goals per game for all seasons" do
       expect(@stat_tracker.worst_offense).to eq "Houston Dynamo"
+    end
+  end
+
+  describe "#highest_scoring_visitor" do
+    it "names team with highest avg score when away across all seasons" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq
     end
   end
 end

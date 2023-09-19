@@ -52,5 +52,5 @@ class StatTracker
     team_name_from_id(team_id)
   end
 
-  private
+
 end
