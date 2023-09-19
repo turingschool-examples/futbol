@@ -1,5 +1,6 @@
 class StatTracker
   attr_reader :all_data
+  
   def initialize(all_data)
     @all_data = all_data
   end
@@ -12,4 +13,3 @@ class StatTracker
     end
     StatTracker.new(all_data)
   end
-end
