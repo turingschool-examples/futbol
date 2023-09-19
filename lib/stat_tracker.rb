@@ -17,20 +17,18 @@ class StatTracker
     new(games_data, teams_data, game_teams_data)
   end
 
+  def team_name_from_id(team_id)
+    @teams_data.each do |tm|
+      return tm[:teamname] if tm[:team_id] == team_id
+    end
+  end
+
   def count_of_teams
     teams_data.size
   end
 
-  def best_offense
-    team_id = team_goals.max[0]
-
-    @teams_data.each do |tm|
-      return tm[:teamname] if tm[:team_id] == team_id
-    end
-
-  end
-
-  def team_goals
+  # return: hash of all for all seasons {team_id => avg_goals}
+  def team_avg_goals
     team_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams_data.each do |game|
       team_goals[game[:team_id]] << game[:goals].to_i
@@ -41,4 +39,18 @@ class StatTracker
     end
     team_goals
   end
+
+  def best_offense
+    team_id = team_avg_goals.max[0]  # max => [team_id, value] from hash
+
+    team_name_from_id(team_id)
+  end
+
+  def worst_offense
+    team_id = team_avg_goals.min[0]
+
+    team_name_from_id(team_id)
+  end
+
+  private
 end
