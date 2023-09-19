@@ -38,7 +38,7 @@
 
 - [v1](https://docs.google.com/document/d/1xlq3COkAis2Ka8S6jJ9tsDimgus19CnItrIJYnmH5xM/edit)
 - Recommended conventions
-  - feature branches => sfeat/<branch>/<name_or_functionality>
+  - feature branches => sfeat/<grouped_feature>/<name_or_functionality>
 
 ## Contributors
 
