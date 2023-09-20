@@ -43,11 +43,10 @@ class StatTracker
   end
 
   def percentage_home_wins
-    games = @games_data.length  
-    return 0.0 if games == 0   
-  
+    games = @games_data.length
+
     home_wins = @games_data.count { |game| game[:home_goals].to_i > game[:away_goals].to_i }
-  
+
     (home_wins.to_f / games * 100.0).round(1)
   end
 
@@ -56,10 +55,10 @@ class StatTracker
   end
 
   def percentage_ties
-    games = @games_data.length  
-    return 0.0 if games == 0   
+    games = @games_data.length
+    return 0.0 if games == 0
     ties = @games_data.count {|game| game[:away_goals].to_i == game[:home_goals].to_i}
-    
+
     (ties.to_f / games * 100.0).round(1)
   end
 
