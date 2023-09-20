@@ -83,7 +83,7 @@ class StatTracker
       total_score = home_score + away_score
     end
     total_scores.sort.first
-
   end
+
 
 end
