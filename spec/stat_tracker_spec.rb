@@ -10,8 +10,7 @@ RSpec.describe StatTracker do
     game_teams: game_teams_path
     }
   
-  StatTracker.from_csv(locations)
-  let(:stat_tracker) { StatTracker.new }
+  let(:stat_tracker) { StatTracker.from_csv(locations) }
 
   describe '#initialize' do
     it 'can initialize' do
@@ -25,7 +24,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.team_data).to be_a(CSV::Table)
       expect(stat_tracker.game).to be_a(CSV::Table)
       expect(stat_tracker.game_teams).to be_a(CSV::Table)
-      expect(stat_tracker.percentage_home_win(true))
     end
   end
 
@@ -44,6 +42,12 @@ RSpec.describe StatTracker do
   describe '#highest_total_score' do
     it 'returns the highest sum of the winning and losing teams scores' do
       expect(stat_tracker.highest_total_score(true)).to eq(5)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'returns the lowest sum of the winning and losing teams scores' do
+      expect(stat_tracker.lowest_total_score(true)).to eq(1)
     end
   end
 

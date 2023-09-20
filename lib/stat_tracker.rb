@@ -75,8 +75,15 @@ class StatTracker
     highest_score
   end 
 
-  def method(testing = false)
+  def lowest_total_score(testing = false)
     testing ? data = game.take(20) : data = game
+    total_scores = data.map do |game|
+      home_score = game[:home_goals].to_i 
+      away_score = game[:away_goals].to_i
+      total_score = home_score + away_score
+    end
+    total_scores.sort.first
+
   end
 
 end
