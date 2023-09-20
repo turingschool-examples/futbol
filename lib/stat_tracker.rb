@@ -20,6 +20,7 @@ class StatTracker
   end
 
   def compile
+    create_teams
     create_games
     create_game_teams
     game_ids
@@ -101,7 +102,25 @@ class StatTracker
   def count_of_teams
     @teams.count
   end
+
+  # Hash of team_id as string with total games played
+  def team_games_season_total
+    @teams.reduce(Hash.new(0)) do |team_games_total, team|
+      @game_teams.each do |game|
+        team_games_total[team.team_id] += 1 if game.team_id.to_i == team.team_id.to_i
+      end
+      team_games_total
+    end
+  end
   
+  # Hash of team_id with total goals scored in a season
+  def team_goals_season_total
+    @teams.reduce(Hash.new(0)) do |team_goals_total, team|
+      @games_teams.each do |game|
+        team_goals_total[team.team_id] += game.goals if game.team_id.to_i == team.team_id.to_i
+      end
+    end
+  end
   ## Returns average goals per game across ALL seasons rounded to nearest 100th (FLOAT)
   def average_goals_per_game
     game_count = game_ids.count.to_f

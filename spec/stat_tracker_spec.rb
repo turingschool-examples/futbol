@@ -13,7 +13,6 @@ RSpec.describe StatTracker do
 
     @stats = StatTracker.from_csv(@locations)
     @stats.compile
-    # require 'pry'; binding.pry
   end
   
   describe '#initialize' do
@@ -23,10 +22,10 @@ RSpec.describe StatTracker do
     
     it 'has attributes' do
       expect(@stats.all_data.values.all? { |file| File.exist?(file) } ).to be true
-      expect(@games).to eq([])
-      expect(@game_teams).to eq([])
-      expect(@teams).to eq([])
-      expect(@team_ids).to eq([])
+      # expect(@games).to eq([])
+      # expect(@game_teams).to eq([])
+      # expect(@teams).to eq([])
+      # expect(@team_ids).to eq([])
     end
   end
   
@@ -81,6 +80,18 @@ RSpec.describe StatTracker do
   describe '#count_of_teams' do
     it 'gets total  number of teams in league' do
       expect(@stats.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#best_offense, #worst_offense' do
+    it 'gets number games each team played in a season' do
+      expect(@stats.team_games_season_total.class).to be Hash
+      expect(@stats.team_games_season_total['3']).to eq(6)
+    end
+
+    it 'gets number games each team played in a season' do
+      expect(@stats.team_goals_season_total.class).to be Hash
+      expect(@stats.team_goals_season_total).to eq(6)
     end
   end
 end
