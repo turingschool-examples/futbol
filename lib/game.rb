@@ -1,12 +1,9 @@
 class Game
-  attr_reader :game_id, :team_id, :goals, :hoa, :result
+  attr_reader :season, :away_goals, :home_goals
 
-  def initialize(game_id, team_id, goals, hoa, result)
-    @game_id = game_id
-    @team_id = team_id
-    @goals = goals
-    @hoa = hoa
-    @result = result
+  def initialize(season, away_goals, home_goals)
+    @season = season
+    @away_goals = away_goals
+    @home_goals = home_goals
   end
-
 end
