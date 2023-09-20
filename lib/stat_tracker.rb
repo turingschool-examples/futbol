@@ -75,4 +75,23 @@ class StatTracker
     highest_score
   end 
 
+  # Methods for League Statistics
+
+  def best_offense(testing = false)
+    testing ? data = game_teams.take(10) : data = game_teams
+    number_of_games = Hash.new(0)
+    total_score = 0
+    data.each do |team|
+      number_of_games[team[:team_id]] += 1
+      total_score += team[:goals].to_i
+    end
+    number_of_games
+    total_score
+    
+    number_of_games.each do |team_id, num_games|
+      average_score = total_score/num_games.to_f
+      require 'pry'; binding.pry
+    end
+  end
+  
 end

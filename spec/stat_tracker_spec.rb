@@ -46,4 +46,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  # Test for League Statistics
+
+  describe '#best_offense' do
+    it 'list best offense' do
+      expect(stat_tracker.best_offense(true)).to eq("FC Dallas")
+    end
+  end
+
 end
