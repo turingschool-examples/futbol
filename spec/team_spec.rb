@@ -1,7 +1,7 @@
 require 'spec_helper'
 RSpec.describe Team do 
-  let(team_data) { CSV.readlines('./data/test_teams.csv', headers: true, header_converters: :symbol) } 
-  let(team) { Team.new(team_data.first) } 
+  let(:team_data) { CSV.readlines('./data/test_teams.csv', headers: true, header_converters: :symbol) } 
+  let(:team) { Team.new(team_data.first) } 
   describe 'Initialize' do 
     it 'can initialize' do 
       expect(team).to be_a(Team)
