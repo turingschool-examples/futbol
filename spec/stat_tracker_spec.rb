@@ -45,6 +45,11 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#percentage_ties' do
+    it 'calculates the percentage of tied games' do
+      expect(stat_tracker.percentage_ties).to eq(0.20)
+    end
+    
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams scores' do
       expect(stat_tracker.lowest_total_score(true)).to eq(1)
