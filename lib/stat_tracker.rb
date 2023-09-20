@@ -100,7 +100,13 @@ class StatTracker
     end
     max_team_tackles = season_team_tackles.max_by { |team_id, tackles| tackles }
     
-    max_team_tackles[0]
+    team_name_from_id(max_team_tackles[0])
+  end
+
+  def team_name_from_id(team_id)
+    @teams_data.each do |tm|
+      return tm[:teamname] if tm[:team_id] == team_id
+    end
   end
 
   def fewest_tackles(season)
