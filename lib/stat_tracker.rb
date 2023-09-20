@@ -1,6 +1,8 @@
 require "csv"
 
 class StatTracker
+  attr_accessor :games_data, :teams_data, :game_teams_data
+
   def self.from_csv(locations)
     games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
@@ -8,11 +10,17 @@ class StatTracker
 
     new(games_data, teams_data, game_teams_data)
   end
-  attr_accessor :games_data, :teams_data, :game_teams_data
+
   def initialize(games_data, teams_data, game_teams_data)
     @games_data = games_data
     @teams_data = teams_data
     @game_teams_data = game_teams_data
+  end
+
+  def team_name_from_id(team_id)
+    @teams_data.each do |tm|
+      return tm[:teamname] if tm[:team_id] == team_id
+    end
   end
 
   def highest_total_score
@@ -54,7 +62,7 @@ class StatTracker
     end
 
     if home_games != 0
-      (home_wins.to_f/home_games * 100.0).round(1)
+      (home_wins.to_f / home_games * 100.0).round(1)
     else
       "no home games recorded"
     end
@@ -63,7 +71,7 @@ class StatTracker
   def percentage_visitor_wins(team)
     visitor_games = 0
     visitor_wins = 0
-    # require "byebug"; byebug
+
     @games_data.each do |game|
       if game[:away_team_id] == team
         visitor_games += 1
@@ -74,7 +82,7 @@ class StatTracker
     end
 
     if visitor_games != 0
-      (visitor_wins.to_f/visitor_games * 100.0).round(1)
+      (visitor_wins.to_f / visitor_games * 100.0).round(1)
     else
       "no visitor games recorded"
     end
@@ -86,12 +94,12 @@ class StatTracker
     @games_data.each do |game|
       if game[:season] == season
         game_id = game[:game_id]
-          @game_teams_data.each do |game_team|
-            if game_team[:game_id] == game_id
-              team_id = game_team[:team_id]
-              season_team_tackles[team_id] += game_team[:tackles].to_i
-            end
+        @game_teams_data.each do |game_team|
+          if game_team[:game_id] == game_id
+            team_id = game_team[:team_id]
+            season_team_tackles[team_id] += game_team[:tackles].to_i
           end
+        end
       end
     end
 
@@ -99,21 +107,14 @@ class StatTracker
   end
 
   def most_tackles(season)
-    max_team_tackles = season_team_tackles(season).max_by { |team_id, tackles| tackles }
-    # require "byebug"; byebug
+    max_team_tackles = season_team_tackles(season).max_by { |_, tackles| tackles }
+
     team_name_from_id(max_team_tackles[0])
   end
 
-  def team_name_from_id(team_id)
-    @teams_data.each do |tm|
-      return tm[:teamname] if tm[:team_id] == team_id
-    end
-  end
-
   def fewest_tackles(season)
-    low_team_tackles = season_team_tackles(season).min_by { |team_id, tackles| tackles }
-    
+    low_team_tackles = season_team_tackles(season).min_by { |_, tackles| tackles }
+
     team_name_from_id(low_team_tackles[0])
   end
-
 end

@@ -1,7 +1,6 @@
 require "./spec/spec_helper"
 
 RSpec.describe StatTracker do
-
   before :each do
     game_path = "./data/games_mock.csv"
     team_path = "./data/teams.csv"
@@ -37,7 +36,6 @@ RSpec.describe StatTracker do
 
   describe "#percentage_visitor_wins" do
     it "returns the percentage of home games a team has won" do
-
       expect(@stat_tracker.percentage_visitor_wins("18")).to eq(0.0)
       expect(@stat_tracker.percentage_visitor_wins("3")).to eq(0.0)
       expect(@stat_tracker.percentage_visitor_wins("6")).to eq(100.0)
@@ -45,13 +43,13 @@ RSpec.describe StatTracker do
   end
 
   describe "#most_tackles" do
-    it "takes seasaon ID argument and finds team with most tackles in a single season" do
+    it "takes season ID argument and finds team with most tackles in a single season" do
       expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
     end
   end
 
   describe "#fewest_tackles" do
-    it "takes seasaon ID argument and finds team with fewest tackles in a single season" do
+    it "takes season ID argument and finds team with fewest tackles in a single season" do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Houston Dynamo")
     end
   end
