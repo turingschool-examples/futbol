@@ -1,17 +1,13 @@
 class StatTracker
 
-  attr_reader :all_data, :games, :games_list
+  attr_reader :all_data, :games, :game_teams, :teams, :game_ids
   
   def initialize(all_data)
     @all_data = all_data
     @games = []
-<<<<<<< HEAD
-    # @games_list = {}
-    # @games_team_list = {}
-=======
     @game_teams = []
     @teams = []
->>>>>>> 3fd9aa55d22a392ed5f1dd987c6996053f955758
+    @game_ids = []
   end
 
   def self.from_csv(locations)
@@ -26,7 +22,8 @@ class StatTracker
   ## Creates game objects from the CSV file
   def create_games
     @all_data[:games].each do |row|
-      game = Game.new(row[:season],
+      game = Game.new(row[:game_id],
+                      row[:season],
                       row[:away_goals],
                       row[:home_goals], 
                       )
@@ -88,27 +85,6 @@ class StatTracker
    count_games
   end
 
-  ## Helper method to create a seasons list from the games_fixture file
-  def games_list
-    @all_data[:games_f].each do |row|
-      @games_list[row[:game_id]] = {season: row[:season], away_goals: row[:away_goals], home_goals: row[:home_goals]}
-    end
-    @games_list
-  end
-
-  def games_team_list
-    @all_data[:game_team_f].each do |row|
-      @games_team_list[row[:game_id]] = {home_away: row[:hoa], goals: row[:goals]}
-    end
-    @games_team_list
-    # games_team_list
-  end
-
-  ## Creates an array of game_ids, acts as helper method
-  def game_ids
-    @game_ids = @games.map{|game| game.game_id}.uniq
-  end
-
   # require 'pry'; binding.pry
 
   def percentage_home_wins
@@ -161,4 +137,9 @@ class StatTracker
     end
     percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
   end
+
+    ## Creates an array of game_ids, acts as helper method
+    def game_ids
+      @game_ids = @game_teams.map{|game| game.game_id}.uniq
+    end
 end
