@@ -115,9 +115,10 @@ class StatTracker
   end
 
   def team_accuracies(season)
-    team_accuracies = Hash.new { |hash, key| hash[key] = [] }
-
-    game_teams_in_season = @game_teams_data.select do |game_team|  # array of hashes, each hash is data for a game team for specific season.
+    team_accuracies = Hash.new { |hash, key| hash[key] = [] }  # {team_id: [goals, shots]}
+    # array of hashes, each hash is data for a game team for specific season.
+    # [{CSV::Row from game_teams_data}]
+    game_teams_in_season = @game_teams_data.select do |game_team|  
       game_id = game_team[:game_id]
       game = @games_data.find { |game| game[:game_id] == game_id }
 
@@ -130,13 +131,11 @@ class StatTracker
       shots = game_team[:shots].to_i
 
       team_accuracies[team_id] << goals.to_f / shots
-   
     end
 
     team_accuracies.transform_values! do |ratios|
-      (ratios.reduce(:+) / ratios.size).round(2)
+      (ratios.reduce(:+) / ratios.size).round(1)
     end
-
     team_accuracies
   end
 

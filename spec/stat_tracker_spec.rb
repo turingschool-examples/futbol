@@ -95,6 +95,17 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe "#team_accuracies" do
+    it "should calculate team accuracies for a certain season" do
+
+      exected_accuracies = {
+        "6" => 0.3,
+        "3" => 0.2,
+      }
+      expect(@stat_tracker.team_accuracies("20122013")).to eq exected_accuracies
+    end
+  end
+
   describe "#most_accurate_team" do
     it "should return the most accurate team" do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
