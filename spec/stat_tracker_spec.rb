@@ -99,8 +99,9 @@ RSpec.describe StatTracker do
       expect(@stats.avg_team_goals_season['3']).to eq(1.5)
     end
 
-    it 'team goal average per game in a season' do
-      expect(@stats.avg_team_goals_season['3']).to eq(1.5)
+    it 'team id with best avg goals per game in season' do
+      expect(@stats.max_avg_team_goals_season.class).to be Hash
+      expect(@stats.max_avg_team_goals_season).to eq({"6"=>6.0})
     end
   end
 end

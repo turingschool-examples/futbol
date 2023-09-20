@@ -127,9 +127,17 @@ class StatTracker
   def avg_team_goals_season
     team_games_season_total.reduce(Hash.new) do |team_avgs, (team, tot_games)|
       team_goals_season_total.each do |team, tot_goals|
-        team_avgs[team] = (tot_goals.to_f / tot_games).round(1)
+        team_avgs[team] = (tot_goals.to_f / tot_games).round(2)
       end
       team_avgs
+    end
+  end
+
+  # Gets team id with lowest AND highest goal average per game statistic
+  def max_avg_team_goals_season
+    max_avg = avg_team_goals_season.values.max
+    max_ids = avg_team_goals_season.select do |team_id, average|
+      average == max_avg
     end
   end
 
