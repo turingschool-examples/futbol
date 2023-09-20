@@ -66,8 +66,5 @@ class StatTracker
     end
     game_data
   end
-
-
-  
 end
 

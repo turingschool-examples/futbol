@@ -1,4 +1,6 @@
 class Game
+  attr_reader :game_data
+
   def initialize(game_data)
     @game_data = game_data
   end
@@ -17,7 +19,7 @@ class Game
     lowest_score.min
   end
 
-
+  #Work in Progress
   def count_of_games_by_season
     season_hash = {}
     @game_data.each do |game|
