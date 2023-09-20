@@ -123,26 +123,47 @@ class StatTracker
   end
 
   def worst_offense
-    # testing ? data = game.take(67) : data = game
-    # average_goals_by_team_id = 0
-    # goals = 0
-    # game_teams.each do |game_team|
-    #   if game_team[:team_id] == game_team[:team_id]
-    #       game_teams[:goals].each do |goal|
-    #         goals += goal.to_i
-    #       end 
-    #       require 'pry'; binding.pry
-    #  end
-    # end 
-
-    games_and_scores = {}
-    game_teams.each do |game_team|
-      games_and_scores[game_team[:team_id]] = game_team[:goals].to_i
-      # require 'pry'; binding.pry
-    end
+    worst_offense = ""
+    team_number = games_and_scores.sort_by { |team, data| data[:average] }.first[0]
+    team_data.each do |team|
+      if team[:team_id] == team_number
+        worst_offense << team[:teamname]
+      end
+    end 
+    worst_offense
   end
 
-  # def average_goals_by_team_id
-  #   require 'pry'; binding.pry
-  # end
+  def games_and_scores
+    games_and_scores = {}
+
+    team_data.each do |team|
+      games_and_scores[team[:team_id]] = {
+        games_played: number_of_games(team[:team_id]),
+        total_score: total_score_for_teams(team[:team_id]),
+        average: (total_score_for_teams(team[:team_id])/
+        number_of_games(team[:team_id]).to_f)
+      }
+    end
+    games_and_scores
+  end 
+
+  def number_of_games(team)
+    number_of_games = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        number_of_games += 1
+      end 
+    end
+    number_of_games
+  end
+
+  def total_score_for_teams(team)
+    total_score = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        total_score += game[:goals].to_i
+      end 
+    end
+    total_score
+  end
 end
