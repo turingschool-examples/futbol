@@ -79,4 +79,12 @@ class StatTracker
       "no visitor games recorded"
     end
   end
+
+  def most_tackles(season)
+
+  end
+
+  def fewest_tackles(season)
+    
+  end
 end
