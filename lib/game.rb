@@ -88,4 +88,14 @@ class Game
     end
     tie_percent = (ties.to_f/total_games).round(2)
   end
+
+  def average_goals_per_game
+    games = 0
+    goals = 0
+    @game_data.each do |row|
+    games += 1
+    goals += row[:home_goals].to_i + row[:away_goals].to_i
+    end
+    avg = (goals.to_f / games).round(2)
+  end
 end
