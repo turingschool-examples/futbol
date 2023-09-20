@@ -8,6 +8,7 @@ class StatTracker
     @game_teams = []
     @teams = []
     @game_ids = []
+    @team_ids = []
   end
 
   def self.from_csv(locations)
@@ -25,7 +26,9 @@ class StatTracker
       game = Game.new(row[:game_id],
                       row[:season],
                       row[:away_goals],
-                      row[:home_goals], 
+                      row[:home_goals],
+                      row[:away_team_id],
+                      row[:home_team_id]
                       )
       @games << game
     end
@@ -127,7 +130,28 @@ class StatTracker
 
   ## LEAGUE SCORING
   def highest_scoring_visitor
-    ## Name of the team with the highest average score per game across all seasons when they are away.
+    team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'away' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          away_games: game_team.goals.to_f,
+          total: 1
+          }
+      elsif game_team.hoa == 'away' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:away_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    new_hash = {}
+    team_goals.each do |team_goal, value|
+      new_hash[team_goal] = (value[:away_games] / value[:total])
+    end
+    max = new_hash.max_by{|k,v| v}
+    max.first
+
+    @teams.each do |team|
+    #return key if value is highest
+
   end
 
   def highest_scoring_home_team
@@ -146,5 +170,9 @@ class StatTracker
     ## Creates an array of game_ids, acts as helper method
     def game_ids
       @game_ids = @game_teams.map{|game| game.game_id}.uniq
+    end
+
+    def team_ids
+      @team_ids = @game_teams.map {|game| game.team_id}.uniq
     end
 end
