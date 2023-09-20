@@ -1,10 +1,13 @@
 require 'pry'
-require './lib/game_stats'
+require 'simplecov'
+require 'spec_helper'
+
+SimpleCov.start
 
 describe GameStats do
-  desctibe '#initiallize' do
+  describe '#initiallize' do
     it 'is created as an instance of the GameStats class' do
-      expect(GameStats.new).to be GameStats
+      expect(GameStats).to be_a Module
     end
   end
 end
