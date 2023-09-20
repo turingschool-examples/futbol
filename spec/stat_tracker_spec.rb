@@ -102,7 +102,7 @@ RSpec.describe StatTracker do
   end
 
   describe "#least_accurate_team" do 
-    xit "should return the least accurate team" do
+    it "should return the least accurate team" do
       expect(@stat_tracker.least_accurate_team('20122013')).to eq("Houston Dynamo")
     end
   end
