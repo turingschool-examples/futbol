@@ -80,7 +80,7 @@ class StatTracker
     end
   end
 
-  def most_tackles(season)
+  def season_team_tackles(season)
     season_team_tackles = Hash.new(0)
 
     @games_data.each do |game|
@@ -89,17 +89,18 @@ class StatTracker
           @game_teams_data.each do |game_team|
             if game_team[:game_id] == game_id
               team_id = game_team[:team_id]
-              if season_team_tackles.key?(team_id)
-                season_team_tackles[team_id] += game_team[:tackles].to_i
-              else
-                season_team_tackles[team_id] = game_team[:tackles].to_i           
-              end
+              season_team_tackles[team_id] += game_team[:tackles].to_i
             end
           end
       end
     end
-    max_team_tackles = season_team_tackles.max_by { |team_id, tackles| tackles }
-    
+
+    season_team_tackles
+  end
+
+  def most_tackles(season)
+    max_team_tackles = season_team_tackles(season).max_by { |team_id, tackles| tackles }
+    # require "byebug"; byebug
     team_name_from_id(max_team_tackles[0])
   end
 
@@ -110,6 +111,9 @@ class StatTracker
   end
 
   def fewest_tackles(season)
+    low_team_tackles = season_team_tackles(season).min_by { |team_id, tackles| tackles }
     
+    team_name_from_id(low_team_tackles[0])
   end
+
 end
