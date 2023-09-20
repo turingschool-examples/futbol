@@ -94,9 +94,13 @@ class StatTracker
               else
                 season_team_tackles[team_id] = game_team[:tackles]           
               end
+            end
           end
       end
     end
+    max_team_tackles = season_team_tackles.max_by { |team_id, tackles| tackles }
+    
+    max_team_tackles[0]
   end
 
   def fewest_tackles(season)
