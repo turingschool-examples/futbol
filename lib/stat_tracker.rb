@@ -26,14 +26,6 @@ class StatTracker
     game_ids
   end
 
-  def create_teams
-    @all_data[:teams].each do |row|
-      team = Team.new(row[:team_id])
-      @teams << team
-    end
-    @teams
-  end
-
   ## Returns highest total score of added scores of that game (INTEGER)
   def highest_total_score
     games_hash.values.max
@@ -133,7 +125,7 @@ class StatTracker
     end
   end
 
-  # Gets hash of team id(s) with highest goal average per game statistic
+  # Gets hashes of team id(s) with highest goal average per game statistic
   def max_avg_team_goals_season
     max_avg = avg_team_goals_season.values.max
     max_ids = avg_team_goals_season.select do |team_id, average|
@@ -141,12 +133,15 @@ class StatTracker
     end
   end
 
+  # Gets hashes of team id(s) with lowest goal average per game statistic
   def min_avg_team_goals_season
     min_avg = avg_team_goals_season.values.min
     min_ids = avg_team_goals_season.select do |team_id, average|
       average == min_avg
     end
   end
+
+
 
   ## Returns average goals per game across ALL seasons rounded to nearest 100th (FLOAT)
   def average_goals_per_game
@@ -169,6 +164,15 @@ class StatTracker
     end
 
     ## Creates game objects from the CSV file
+
+  def create_teams
+    @all_data[:teams].each do |row|
+      team = Team.new(row[:team_id], row[:teamName])
+      @teams << team
+    end
+    @teams
+  end
+
   def create_games
     @all_data[:games].each do |row|
       game = Game.new(row[:game_id],
