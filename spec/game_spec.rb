@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 
 RSpec.describe Game do
-  let(:game_data) { CSV.readlines ('./data/test_games.csv', headers: true, header_converters: :symbol) }
+  let(:game_data) { CSV.readlines('./data/test_games.csv', headers: true, header_converters: :symbol) }
   let(:game) { Game.new(game_data.first) }
 
   describe '#initialize' do
