@@ -85,9 +85,9 @@ class StatTracker
         games_played: nil,
         total_score: nil,
       }
+      # require 'pry'; binding.pry
     end
     games_and_scores
-    require 'pry'; binding.pry
 
     # name of the team with best average goals
     # need team id and goals
@@ -97,14 +97,12 @@ class StatTracker
 
 
 
-    # number_of_games = Hash.new(0)
-    # total_score = 0
-    # data.each do |team|
-    #   number_of_games[team[:team_id]] += 1
-    #   total_score += team[:goals].to_i
-    # end
-    # number_of_games
-    # total_score
+    number_of_games = Hash.new(0)
+    data.each do |team|
+      number_of_games[team[:team_id]] += 1
+    end
+    number_of_games
+    require 'pry'; binding.pry
 
     # highest_average_goals = {}
     # number_of_games.each do |team_id, num_games|
