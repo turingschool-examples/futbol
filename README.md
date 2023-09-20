@@ -10,7 +10,7 @@ Make it work. Make it good. Make it fast. In seriousness, we plan to write funct
 
 [Here is the link to our initial DTR (9-18-23)](https://docs.google.com/document/d/e/2PACX-1vQL3NUJU_tlAAOqS84-4H1GUD6sxCn-aicIZ_PnCSxowvXuEhSBA0qkFuPes3RtcG9XZhAbtslwOfD-/pub)
 
-###Contributors
+### Contributors
 *Billy Burch*
 [Linkedin](https://www.linkedin.com/in/billy-burch-084823289/)
 [Github](https://github.com/billyburch)
