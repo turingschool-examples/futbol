@@ -54,7 +54,7 @@ class StatTracker
     end
 
     if home_games != 0
-      (home_wins.to_f/home_games * 100.0).round(1)
+      (home_wins.to_f / home_games * 100.0).round(1)
     end
   end
 
@@ -72,7 +72,7 @@ class StatTracker
     end
 
     if visitor_games != 0
-      (visitor_wins.to_f/visitor_games * 100.0).round(1)
+      (visitor_wins.to_f / visitor_games * 100.0).round(1)
     end
   end
 end
