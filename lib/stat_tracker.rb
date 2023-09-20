@@ -49,4 +49,30 @@ class StatTracker
     end
     percentage = (count.to_f / game.length).round(2)
   end
+
+  def percentage_home_wins #(testing = false)
+    #testing ? data = game.take(10) : data = game
+    count = 0
+    game.each do |single_game|
+      if single_game[:home_goals].to_i > single_game[:away_goals].to_i
+        count += 1
+      end
+    end
+    percentage = (count.to_f / game.count).round(2)
+    
+  end
+
+  def highest_total_score(testing = false)
+    testing ? data = game.take(10) : data = game
+    highest_score = 0
+    data.each do |game|
+      home_score = game[:home_goals].to_i 
+      away_score = game[:away_goals].to_i
+      total_score = home_score + away_score
+
+      highest_score = total_score if total_score > highest_score
+    end
+    highest_score
+  end 
+
 end
