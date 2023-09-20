@@ -40,17 +40,17 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#percentage_ties' do
-    it 'returns the percentage of games ending in a tie' do
+  describe "#percentage_ties" do
+    it "returns the percentage of games ending in a tie" do
       expect(@stat_tracker.percentage_ties).to eq(10.0)
     end
+  end
 
   describe "#count_of_games_by_season" do
     it "returns the number of games in a season" do
-
       expected_outcome = {
-        '20122013' => 8,
-        '20132014' => 2
+        "20122013" => 8,
+        "20132014" => 2
       }
       expect(@stat_tracker.count_of_games_by_season).to eq(expected_outcome)
     end
@@ -65,11 +65,10 @@ RSpec.describe StatTracker do
   describe "average_goals_per_season" do
     it "should return the average points per season" do
       expected_outcome = {
-        '20122013' => 4.38,
-        '20132014' => 4.0
+        "20122013" => 4.38,
+        "20132014" => 4.0
       }
       expect(@stat_tracker.average_goals_per_season).to eq(expected_outcome)
     end
-
   end
 end

@@ -1,7 +1,8 @@
 require "csv"
-# require "byebug"; byebug
 
 class StatTracker
+  attr_accessor :games_data, :teams_data, :game_teams_data
+
   def self.from_csv(locations)
     games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
@@ -9,7 +10,7 @@ class StatTracker
 
     new(games_data, teams_data, game_teams_data)
   end
-  attr_accessor :games_data, :teams_data, :game_teams_data
+
   def initialize(games_data, teams_data, game_teams_data)
     @games_data = games_data
     @teams_data = teams_data
@@ -40,7 +41,6 @@ class StatTracker
     end
     lowest_score
   end
-
 
   def percentage_home_wins
     games = 0
@@ -84,6 +84,8 @@ class StatTracker
 
     if games != 0
       (ties.to_f / games * 100.0).round(1)
+    end
+  end
 
   def count_of_games_by_season
     games_by_season = Hash.new(0)
@@ -97,7 +99,7 @@ class StatTracker
 
   def average_goals_per_game
     total_goals = 0
-    total_games = @games_data.length  
+    total_games = @games_data.length
 
     @games_data.each do |game|
       total_goals += game[:home_goals].to_i + game[:away_goals].to_i
