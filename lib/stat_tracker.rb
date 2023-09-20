@@ -2,43 +2,19 @@
 require_relative './spec_helper'
 
 
-# class StatTracker
-
-#   def initialize
-  
-#   end
-
-#   def self.from_csv(locations)
-#     contents = CSV.open locations[:games], headers: true, header_converters: :symbol
-#     contents.each do |row|
-#       row
-#       require 'pry'; binding.pry
-#     end
-#     # StatTracker.new
-#   end
-
-# end
-require 'pry'
-require 'pry-nav'
-require_relative 'game_stats'
-
 class StatTracker
-  include GameStats
+
+  def initialize
+  
+  end
 
   def self.from_csv(locations)
-    binding.pry
     contents = CSV.open locations[:games], headers: true, header_converters: :symbol
-    game_data = contents.map do |row|
+    contents.each do |row|
       row
-      # require 'pry'; binding.pry
+      require 'pry'; binding.pry
     end
-
-    def percentage_home_wins
-
-    end
+    # StatTracker.new
   end
+
 end
-
-
-
-def games 
