@@ -28,4 +28,23 @@ RSpec.describe StatTracker do
       expect(stat_tracker.percentage_home_win(true))
     end
   end
+
+  describe '#percentage_visitor_wins' do
+    it 'calculates the percentage of visitor wins' do
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
+    end
+  end
+
+  describe '#percentage_home_wins' do
+    it 'calculates percentage home wins' do
+      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+    end
+  end
+
+  describe '#highest_total_score' do
+    it 'returns the highest sum of the winning and losing teams scores' do
+      expect(stat_tracker.highest_total_score(true)).to eq(5)
+    end
+  end
+
 end
