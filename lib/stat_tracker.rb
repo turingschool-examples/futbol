@@ -19,30 +19,10 @@ class StatTracker
     StatTracker.new(all_data)
   end
 
-  ## Creates game objects from the CSV file
-  def create_games
-    @all_data[:games].each do |row|
-      game = Game.new(row[:game_id],
-                      row[:season],
-                      row[:away_goals],
-                      row[:home_goals], 
-                      )
-      @games << game
-    end
-    @games
-  end
-
-  def create_game_teams
-    @all_data[:game_teams].each do |row|
-      game_team = GameTeam.new(row[:game_id],
-                      row[:team_id],
-                      row[:goals], 
-                      row[:hoa], 
-                      row[:result]
-                      )
-      @game_teams << game_team
-    end
-    @game_teams
+  def compile
+    create_games
+    create_game_teams
+    game_ids
   end
 
   ## Returns highest total score of added scores of that game (INTEGER)
@@ -124,11 +104,37 @@ class StatTracker
     average_goals_by_season
   end
 
-  ##HELPER METHODS
+##HELPER METHODS
     ## Creates an array of game_ids, acts as helper method
     def game_ids
       @game_ids = @game_teams.map{|game| game.game_id}.uniq
     end
+
+    ## Creates game objects from the CSV file
+  def create_games
+    @all_data[:games].each do |row|
+      game = Game.new(row[:game_id],
+                      row[:season],
+                      row[:away_goals],
+                      row[:home_goals], 
+                      )
+      @games << game
+    end
+    @games
+  end
+
+  def create_game_teams
+    @all_data[:game_teams].each do |row|
+      game_team = GameTeam.new(row[:game_id],
+                      row[:team_id],
+                      row[:goals], 
+                      row[:hoa], 
+                      row[:result]
+                      )
+      @game_teams << game_team
+    end
+    @game_teams
+  end
 
     ##Returns a hash of game ID for key and total goals as value
     def games_hash
@@ -154,5 +160,4 @@ class StatTracker
        end
        total_scores_by_season
     end
-
 end
