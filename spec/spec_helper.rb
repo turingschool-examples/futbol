@@ -1,6 +1,7 @@
 # require 'simplecov'
 # SimpleCov.start
 require './lib/stat_tracker'
+require './lib/game'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
