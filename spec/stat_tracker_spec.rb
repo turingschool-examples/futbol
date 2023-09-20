@@ -2,36 +2,39 @@ require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
-    # game_path = './data/games.csv'
-    # team_path = './data/teams.csv'
-    # game_teams_path = './data/game_teams.csv'
-
-    # @locations = {
-    #   games: game_path,
-    #   teams: team_path,
-    #   game_teams: game_teams_path
-    # }
-
-    # Just the one small file for now to test, idk what this exactly is
-    gtf_path = './data/game_team_fixture.csv'
-    @locations = {gtf: gtf_path}
+    ## LOCATING CSV FILES
+    game_team_path = './data/game_team_fixture.csv'
+    games_path = './data/games_fixture.csv'
+    teams_path = './data/teams_fixture.csv'
+    @locations = {  game_team_f: game_team_path, 
+                    games_f: games_path, 
+                    teams_f: teams_path,
+                  }
 
     @stats = StatTracker.from_csv(@locations)
+    @stats.create_games
   end
   
   describe '#initialize' do
     it 'exists' do
       expect(@stats).to be_instance_of(StatTracker)
     end
-
+    
     it 'has attributes' do
       expect(@stats.all_data.values.all? { |file| File.exist?(file) } ).to be true
     end
   end
-
+  
   describe '::from_csv' do
     it 'Gets data and makes instance' do
       expect(StatTracker.from_csv(@locations)).to be_instance_of(StatTracker)
+    end
+  end
+  
+  describe '#highest_total_score' do
+    it 'gets highest total score' do
+      @stats.highest_total_score
+      expect(@stats.highest_total_score).to eq(8)
     end
   end
 end
