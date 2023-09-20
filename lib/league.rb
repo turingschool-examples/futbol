@@ -5,4 +5,11 @@ class League
     @team_data = team_data
     @game_team_data = game_team_data
   end
+
+  def count_of_teams
+    teams = @team_data.map do |row|
+      row[:team_name]
+    end
+    teams.count
+  end
 end
