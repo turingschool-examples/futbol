@@ -25,6 +25,10 @@ RSpec.describe StatTracker do
     
     it 'has attributes' do
       expect(@stats.all_data.values.all? { |file| File.exist?(file) } ).to be true
+      expect(@games).to eq([])
+      expect(@game_teams).to eq([])
+      expect(@teams).to eq([])
+      expect(@team_ids).to eq([])
     end
   end
   
@@ -61,6 +65,12 @@ RSpec.describe StatTracker do
     it 'rounds to 100 percent' do
       expect((@stats.percentage_ties + @stats.percentage_home_wins + @stats.percentage_visitor_wins).round).to eq(100.00)
       # require 'pry'; binding.pry
+    end
+  end
+
+  describe '#create_teams' do
+    it 'does stuff' do
+      expect().to
     end
   end
 
