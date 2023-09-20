@@ -11,7 +11,7 @@ RSpec.describe StatTracker do
 
   describe '#highest_total_score' do
     it 'returns the highest total score for a given team' do
-
+      
     end
   end
 end
