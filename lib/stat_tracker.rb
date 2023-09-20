@@ -45,6 +45,14 @@ class StatTracker
     @game_teams
   end
 
+  def create_teams
+    @all_data[:teams].each do |row|
+      team = Team.new(row[:team_id])
+      @teams << team
+    end
+    @teams
+  end
+
   ## Returns highest total score of added scores of that game (INTEGER)
   def highest_total_score
     games_hash = {}
@@ -125,6 +133,9 @@ class StatTracker
     percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
   end
 
+  def count_of_teams
+    @teams.count
+  end
   ##HELPER METHODS
     ## Creates an array of game_ids, acts as helper method
     def game_ids
