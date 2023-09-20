@@ -76,4 +76,23 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Chicago Fire"
     end
   end
+
+  describe "#coach_season_win_pct" do
+    it "returns all coaching win pct by season" do
+      expected = {"John Tortorella" => 0.0, "Claude Julien" => 100.0}
+      expect(@stat_tracker.coach_season_win_pct("20122013")).to eq expected
+    end
+  end
+  describe "#winningest_coach" do
+    it "names coach with best win percentage for season" do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
+    end
+  end
+
+  describe "#worst_coach" do
+    it "names coach with worst win pct for season" do
+      expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
+    end
+  end
+
 end
