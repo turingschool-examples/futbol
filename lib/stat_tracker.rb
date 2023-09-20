@@ -63,12 +63,12 @@ class StatTracker
   def percentage_visitor_wins(team)
     visitor_games = 0
     visitor_wins = 0
-    
+    # require "byebug"; byebug
     @games_data.each do |game|
       if game[:away_team_id] == team
-        home_games += 1
-        if game[:away_goals].to_i > game[:away_goals].to_i
-          home_wins += 1
+        visitor_games += 1
+        if game[:away_goals].to_i > game[:home_goals].to_i
+          visitor_wins += 1
         end
       end
     end
