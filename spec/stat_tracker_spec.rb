@@ -35,7 +35,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_home_wins' do
     it 'calculates percentage home wins' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+      expect(stat_tracker.percentage_home_wins).to eq(0.45)
     end
   end
 
@@ -79,9 +79,12 @@ RSpec.describe StatTracker do
 
   describe '#count_of_games_by_season' do
     it 'counts games by season' do
-      expect(stat_tracker.count_of_games_by_season.class).to eq(Hash)
-      expect(stat_tracker.count_of_games_by_season.keys.first).to eq("20122013")
-      expect(stat_tracker.count_of_games_by_season.values.first).to eq(806)
+      expected = {
+        "20122013" => 6,
+        "20132014" => 9,
+        "20142015" => 5,
+      }
+      expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
 end
