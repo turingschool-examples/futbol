@@ -1,9 +1,12 @@
 class StatTracker
-  attr_reader :all_data, :games
+
+  attr_reader :all_data, :games, :games_list
   
   def initialize(all_data)
     @all_data = all_data
     @games = []
+    @games_list = {}
+    @games_team_list = {}
   end
 
   def self.from_csv(locations)
@@ -27,12 +30,6 @@ class StatTracker
       @games << game
     end
     @games
-  end
-
-  ## Creates an array of game_ids, acts as helper method
-  def game_ids
-    game_ids = @games.map{|game| game.game_id}
-    game_ids
   end
 
   ## Returns highest total score of added scores of that game
@@ -60,6 +57,45 @@ class StatTracker
     end
     games_hash.values.min
   end
+
+  ## A hash with season names (e.g. 20122013) as keys and counts of games as values
+  def count_of_games_by_season
+  games_list
+  count_games = {}
+   @games_list.each do |entry|
+    if count_games[entry[1][:season]].nil? # Added [1] to continue method with adjustment to games_list
+      count_games[entry[1][:season]] = 0
+    else
+      count_games[entry[1][:season]] +=1
+    end
+   end
+   count_games
+  end
+
+  ## Helper method to create a seasons list from the games_fixture file
+  def games_list
+    @all_data[:games_f].each do |row|
+      @games_list[row[:game_id]] = {season: row[:season], away_goals: row[:away_goals], home_goals: row[:home_goals]}
+    end
+    @games_list
+  end
+
+  def games_team_list
+    @all_data[:game_team_f].each do |row|
+      @games_team_list[row[:game_id]] = {home_away: row[:hoa], goals: row[:goals]}
+    end
+    @games_team_list
+    # games_team_list
+  end
+
+  ## Creates an array of game_ids, acts as helper method
+  def game_ids
+    @game_ids = @games.map{|game| game.game_id}.uniq
+  end
+
+end
+
+# require 'pry'; binding.pry
 
   def percentage_home_wins
     # Percentage of games that a home team has won (rounded to the nearest 100th)

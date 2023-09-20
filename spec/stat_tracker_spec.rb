@@ -12,7 +12,7 @@ RSpec.describe StatTracker do
                   }
 
     @stats = StatTracker.from_csv(@locations)
-    @stats.create_games
+    # @stats.create_games
   end
   
   describe '#initialize' do
@@ -31,14 +31,12 @@ RSpec.describe StatTracker do
     end
   end
   
-  describe '#highest_total_score' do
+  describe '#GameStatistics' do
     it 'gets highest total score' do
       @stats.highest_total_score
       expect(@stats.highest_total_score).to eq(7)
     end
-  end
 
-  describe '#lowest_total_score' do
     it 'gets the lowest total score' do
       expect(@stats.lowest_total_score).to eq(1)
     end
