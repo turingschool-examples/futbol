@@ -43,4 +43,20 @@ RSpec.describe StatTracker do
       expect(@stats.lowest_total_score).to eq(1)
     end
   end
+
+  describe 'game percentages' do
+    it 'returns percentage of games home team won' do
+      expect(@stats.percentage_home_wins).to be_a Float
+      
+    end
+     
+    it 'returns percentage of games visitor team won' do
+      expect(@stats.percentage_visitor_wins).to be_a Float
+    end
+    
+    it 'returns percentage of games resulting in a tie' do
+      expect(@stats.percentage_ties).to be_a Float
+
+    end
+  end
 end

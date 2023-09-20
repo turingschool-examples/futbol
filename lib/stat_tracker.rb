@@ -57,14 +57,16 @@ class StatTracker
   end
 
   # def percentage_home_wins
+    ## Percentage of games that a home team has won (rounded to the nearest 100th)
 
   # end
-
+  
   # def percentage_visitor_wins
+    ## Percentage of games that a visitor has won (rounded to the nearest 100th)
 
   # end
 
   # def percentage_ties
-
+    ## Percentage of games that has resulted in a tie (rounded to the nearest 100th)
   # end
 end
