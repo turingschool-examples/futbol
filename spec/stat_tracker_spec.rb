@@ -31,10 +31,16 @@ RSpec.describe StatTracker do
     end
   end
   
-  describe '#highest_total_score' do
+  describe '#GameStatistics' do
     it 'gets highest total score' do
       @stats.highest_total_score
-      expect(@stats.highest_total_score).to eq(8)
+      expect(@stats.highest_total_score).to eq(7)
+    end
+
+    it 'gets lowest total score' do
+      @stats.lowest_total_score
+      require 'pry'; binding.pry
+      expect(@stats.lowest_total_score).to eq(1)
     end
   end
 end

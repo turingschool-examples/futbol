@@ -1,9 +1,10 @@
 class StatTracker
-  attr_reader :all_data
+  attr_reader :all_data, :games, :seasons_list
   
   def initialize(all_data)
     @all_data = all_data
     @games = []
+    @seasons_list = []
   end
 
   def self.from_csv(locations)
@@ -24,16 +25,9 @@ class StatTracker
     @games
   end
 
-  ## Creates an array of game_ids, acts as helper method
-  def game_ids
-    game_ids = @games.map{|game| game.game_id}
-    game_ids
-  end
-
   ## Returns highest total score of added scores of that game
   def highest_total_score
     games_hash = {}
-    binding.pry
     game_ids.each do |game_id|
       games_hash[game_id]=0
     end
@@ -55,6 +49,32 @@ class StatTracker
       games_hash[game.game_id]+=game.goals.to_i
     end
     games_hash.values.min
+  end
+
+  ## A hash with season names (e.g. 20122013) as keys and counts of games as values
+  def count_of_games_by_season
+  count_games = {}
+   seasons_list.each do |entry|
+    if count_games[entry[:season]].nil?
+      count_games[entry[:season]] = 0
+    else
+      count_games[entry[:season]] +=1
+    end
+   end
+   count_games
+  end
+
+  ## Helper method to create a seasons list from the games_fixture file
+  def seasons_list
+    @all_data[:games_f].each do |row|
+        @seasons_list << {season: row[:season], game_id: row[:game_id], away_goals: row[:away_goals], home_goals: row[:home_goals]}
+      end
+     @seasons_list
+  end
+
+  ## Creates an array of game_ids, acts as helper method
+  def game_ids
+    @game_ids = @games.map{|game| game.game_id}
   end
 
 end
