@@ -67,6 +67,22 @@ class StatTracker
     game_data
   end
 
+
+  def highest_total_score
+    highest_score = @game_data.map do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end
+    highest_score.max
+  end
+
+  def lowest_total_score
+    lowest_score = @game_data.map do |row|
+      row[:away_goals].to_i + row[:home_goals].to_i
+    end
+    lowest_score.min
+  end
+
+
   def count_of_games_by_season
     season_hash = {}
     @game_data.each do |game|
@@ -76,3 +92,4 @@ class StatTracker
     end
   end
 end
+
