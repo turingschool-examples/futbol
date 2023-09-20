@@ -34,7 +34,13 @@ RSpec.describe StatTracker do
   describe '#highest_total_score' do
     it 'gets highest total score' do
       @stats.highest_total_score
-      expect(@stats.highest_total_score).to eq(8)
+      expect(@stats.highest_total_score).to eq(7)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'gets the lowest total score' do
+      expect(@stats.lowest_total_score).to eq(1)
     end
   end
 end
