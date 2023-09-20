@@ -40,4 +40,13 @@ class StatTracker
     contents.readlines
   end
 
+  def percentage_visitor_wins
+    count = 0
+    game.each do |single_game|
+      if single_game[:away_goals].to_i > single_game[:home_goals].to_i
+        count +=1
+      end
+    end
+    percentage = (count.to_f / game.length).round(2)
+  end
 end
