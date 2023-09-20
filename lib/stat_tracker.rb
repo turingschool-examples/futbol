@@ -86,13 +86,10 @@ class StatTracker
   def percentage_home_wins
     # Percentage of games that a home team has won (rounded to the nearest 100th)
     #find total number of games
-    all_games = @games.map do |game|
-      game.game_id
-    end
-    number_of_games = all_games.uniq.length
+    number_of_games = game_ids.length
     #find when home/away is home and result is win
     games_won = 0
-    @games.each do |game|
+    @game_teams.each do |game|
       if game.hoa == 'home' && game.result == 'WIN'
         games_won += 1
       end
@@ -103,13 +100,10 @@ class StatTracker
   def percentage_visitor_wins
     ## Percentage of games that a visitor has won (rounded to the nearest 100th)
     ##find total number of games
-    all_games = @games.map do |game|
-      game.game_id
-    end
-    number_of_games = all_games.uniq.length
+    number_of_games = game_ids.length
     ##find when home/away is away and result is win
     games_won = 0
-    @games.each do |game|
+    @game_teams.each do |game|
       if game.hoa == 'away' && game.result == 'WIN'
         games_won += 1
       end
@@ -120,13 +114,10 @@ class StatTracker
   def percentage_ties   
     # Percentage of games that has resulted in a tie (rounded to the nearest 100th)
     #total number of games
-    all_games = @games.map do |game|
-      game.game_id
-    end
-    number_of_games = all_games.uniq.length
+    number_of_games = game_ids.length
     #result is tie
     games_tied = 0
-    @games.each do |game|
+    @game_teams.each do |game|
       if game.hoa == 'away' && game.result == 'TIE'
         games_tied += 1
       end
