@@ -27,7 +27,7 @@ class StatTracker
     teams_data.size
   end
 
-  # return: hash of all for all seasons {team_id => avg_goals}
+  # return: hash of all for all seasons {team_id => [goals]} => after reduce {team_id => avg_goals}
   def team_avg_goals(filter = nil, value = nil)
     team_goals = Hash.new { |hash, key| hash[key] = [] }
     @game_teams_data.each do |game|
@@ -80,14 +80,37 @@ class StatTracker
     team_name_from_id(team_id)
   end
 
-  # @return: name of coach with highest winning pct.
-  def winningest_coach(season)
-    # takes a string representing the season
-    # @game_teams_data has :game_id, :result, and :head_coach
-    # @games_data has :game_id and :season
-    # iterate over @games_data, filter season arg to match and return all :game_ids in array
+  def coach_season_win_pct(season)
+    season_games = []
+    @games_data.each do |game|
+      season_games << game[:game_id] if game[:season] == season
+    end
     # iterate over @game_teams_mock to verify :game_id is .include? in predicate array
     # if :game_id is valid, use :head_coach name as hash key, and shovel :result onto hash value array
-    # with hash values arrays, use #transform_values! to flatten to win pct.
+    coach_results = Hash.new { |hash, key| hash[key] = [] }
+    @game_teams_data.each do |team_game|
+      if season_games.include?(team_game[:game_id]) # game is in the queried season
+        coach_results[team_game[:head_coach]] << team_game[:result]
+      end
+    end
+    # with hash values arrays, use #transform_values! to reduce to win pct.
+    coach_results.transform_values! do |results|
+      (results.count("WIN") / results.size.to_f * 100.0).round(1)
+    end
+    coach_results
+  end
+
+  # @season: string of season year start finish: YYYYYYYY
+  # @return: name of coach with highest winning pct.
+  def winningest_coach(season)
+    coach_results = coach_season_win_pct(season)
+
+    coach_results.max_by { |k, v| v }[0]
+  end
+
+  def worst_coach(season)
+    coach_results = coach_season_win_pct(season)
+
+    coach_results.min_by { |k, v| v }[0]
   end
 end
