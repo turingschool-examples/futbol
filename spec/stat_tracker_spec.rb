@@ -27,4 +27,12 @@ RSpec.describe StatTracker do
       expect(stat_tracker.game_teams).to be_a(CSV::Table)
     end
   end
+
+  describe '#count_of_games_by_season' do
+    it 'counts games by season' do
+      expect(stat_tracker.count_of_games_by_season.class).to eq(Hash)
+      expect(stat_tracker.count_of_games_by_season.keys.first).to eq("20122013")
+      expect(stat_tracker.count_of_games_by_season.values.first).to eq(806)
+    end
+  end
 end

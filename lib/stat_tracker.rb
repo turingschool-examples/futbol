@@ -28,4 +28,12 @@ class StatTracker
     contents.readlines
   end
 
+  def count_of_games_by_season
+    counts = Hash.new(0)
+    game.each do |single_game|
+      counts[single_game[:season]] += 1
+    end
+    counts
+  end
+
 end
