@@ -1,4 +1,5 @@
 class StatTracker
+
   attr_reader :all_data, :games, :games_list
   
   def initialize(all_data)
@@ -20,7 +21,12 @@ class StatTracker
   ## Creates game objects from the CSV file
   def create_games
     @all_data[:game_team_f].each do |row|
-      game = Game.new(row[:game_id],row[:team_id],row[:goals])
+      game = Game.new(row[:game_id],
+                      row[:team_id],
+                      row[:goals], 
+                      row[:hoa], 
+                      row[:result]
+                      )
       @games << game
     end
     @games
@@ -90,3 +96,55 @@ class StatTracker
 end
 
 # require 'pry'; binding.pry
+
+  def percentage_home_wins
+    # Percentage of games that a home team has won (rounded to the nearest 100th)
+    #find total number of games
+    all_games = @games.map do |game|
+      game.game_id
+    end
+    number_of_games = all_games.uniq.length
+    #find when home/away is home and result is win
+    games_won = 0
+    @games.each do |game|
+      if game.hoa == 'home' && game.result == 'WIN'
+        games_won += 1
+      end
+    end
+    percentage = (games_won.to_f / number_of_games.to_f * 100).round(2)
+  end
+  
+  def percentage_visitor_wins
+    ## Percentage of games that a visitor has won (rounded to the nearest 100th)
+    ##find total number of games
+    all_games = @games.map do |game|
+      game.game_id
+    end
+    number_of_games = all_games.uniq.length
+    ##find when home/away is away and result is win
+    games_won = 0
+    @games.each do |game|
+      if game.hoa == 'away' && game.result == 'WIN'
+        games_won += 1
+      end
+    end
+    percentage = (games_won.to_f / number_of_games.to_f * 100).round(2)
+  end
+
+  def percentage_ties   
+    # Percentage of games that has resulted in a tie (rounded to the nearest 100th)
+    #total number of games
+    all_games = @games.map do |game|
+      game.game_id
+    end
+    number_of_games = all_games.uniq.length
+    #result is tie
+    games_tied = 0
+    @games.each do |game|
+      if game.hoa == 'away' && game.result == 'TIE'
+        games_tied += 1
+      end
+    end
+    percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
+  end
+end
