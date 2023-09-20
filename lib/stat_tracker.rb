@@ -1,8 +1,8 @@
 # require 'csv'
 require './spec/spec_helper'
 
-class StatTracker
-  
+class StatTracker 
+
   def initialize(locations)
     @@game = game_data_parser(locations[:games])
     @@team_data = team_data_parser(locations[:teams])
@@ -75,6 +75,52 @@ class StatTracker
     highest_score
   end 
 
+  def percentage_ties 
+    count = 0
+    game.each do |single_game|
+      if single_game[:home_goals] == single_game[:away_goals] 
+        count += 1
+      end 
+    end
+    percentage = (count.to_f / game.count).round(2)
+  end
+  
+  def lowest_total_score(testing = false)
+    testing ? data = game.take(20) : data = game
+    total_scores = data.map do |game|
+      home_score = game[:home_goals].to_i 
+      away_score = game[:away_goals].to_i
+      total_score = home_score + away_score
+    end
+    total_scores.sort.first
+  end
+
+  def average_goals_per_game(testing = false)
+    testing ? data = game_teams.take(20) : data = game_teams
+    numerator = data.sum { |game| game[:goals].to_i }.to_f
+    numerator / data.count
+  end 
+
+  def average_goals_by_season(testing = false)
+    testing ? data = game.take(67) : data = game
+    goals = Hash.new { |hash, season| hash[season] = [] }
+    data.each do |game|
+      season = game[:season]
+      home_score = game[:home_goals].to_i 
+      away_score = game[:away_goals].to_i
+      total_score = home_score + away_score
+      
+      goals[season] << total_score
+    end
+    average_goals = goals.transform_values do |goals|
+      (goals.sum.to_f / goals.length).round(2)
+    end
+    average_goals
+  end
+
+  def count_of_teams
+    team_data.count
+  end
   def percentage_visitor_wins
     count = 0
     game.each do |single_game|
