@@ -16,7 +16,7 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    @season = Season.new(@stat_tracker.game_data, @stat_tracker.team_data, @stat_tracker.game_team_data)  
+    @season = Season.new(@stat_tracker.game_team_data, @stat_tracker.team_data)  
   end
 
   it "exists" do
