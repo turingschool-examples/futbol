@@ -43,6 +43,11 @@ RSpec.describe StatTracker do
     it 'gets the lowest total score' do
       expect(@stats.lowest_total_score).to eq(1)
     end
+
+    it 'returns a hash of season names as keys and counts of games as values' do
+      expect(@stats.count_of_games_by_season).to eq({"20122013"=>18, "20152016"=>32, "20162017"=>35, "20172018"=>34})
+      expect(@stats.count_of_games_by_season.class).to be Hash
+    end
   end
 
   describe 'game percentages' do
