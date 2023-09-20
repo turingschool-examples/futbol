@@ -25,6 +25,14 @@ class StatTracker
     game_ids
   end
 
+  def create_teams
+    @all_data[:teams].each do |row|
+      team = Team.new(row[:team_id])
+      @teams << team
+    end
+    @teams
+  end
+
   ## Returns highest total score of added scores of that game (INTEGER)
   def highest_total_score
     games_hash.values.max
@@ -90,6 +98,10 @@ class StatTracker
     percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
   end
 
+  def count_of_teams
+    @teams.count
+  end
+  
   ## Returns average goals per game across ALL seasons rounded to nearest 100th (FLOAT)
   def average_goals_per_game
     game_count = game_ids.count.to_f

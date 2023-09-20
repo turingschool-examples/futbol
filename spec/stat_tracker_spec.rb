@@ -23,6 +23,10 @@ RSpec.describe StatTracker do
     
     it 'has attributes' do
       expect(@stats.all_data.values.all? { |file| File.exist?(file) } ).to be true
+      expect(@games).to eq([])
+      expect(@game_teams).to eq([])
+      expect(@teams).to eq([])
+      expect(@team_ids).to eq([])
     end
   end
   
@@ -72,5 +76,11 @@ RSpec.describe StatTracker do
       expect(@stats.average_goals_by_season.class).to be Hash
     end
 
+  end
+
+  describe '#count_of_teams' do
+    it 'gets total  number of teams in league' do
+      expect(@stats.count_of_teams).to eq(32)
+    end
   end
 end
