@@ -1,5 +1,5 @@
 
-# require './spec_helper'
+require_relative './spec_helper'
 
 
 # class StatTracker
@@ -30,8 +30,15 @@ class StatTracker
     contents = CSV.open locations[:games], headers: true, header_converters: :symbol
     game_data = contents.map do |row|
       row
+      # require 'pry'; binding.pry
     end
-    game_datA
-  end
 
+    def percentage_home_wins
+
+    end
+  end
 end
+
+
+
+def games 
