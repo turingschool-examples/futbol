@@ -48,6 +48,16 @@ class StatTracker
     @game_teams
   end
 
+  def create_teams 
+    @all_data[:teams].each do |row|
+      team = Team.new(row[:team_id],
+                      row[:teamname]
+                      )
+    @teams << team
+    end
+    @teams
+  end
+
   ## Returns highest total score of added scores of that game (INTEGER)
   def highest_total_score
     games_hash = {}
@@ -142,16 +152,13 @@ class StatTracker
         team_goals[game_team.team_id][:total] += 1
       end
     end
-    new_hash = {}
+    team_averages = {}
     team_goals.each do |team_goal, value|
-      new_hash[team_goal] = (value[:away_games] / value[:total])
+      team_averages[team_goal] = (value[:away_games] / value[:total])
     end
-    max = new_hash.max_by{|k,v| v}
-    max.first
-
-    @teams.each do |team|
-    #return key if value is highest
-
+    max = team_averages.max_by{|k,v| v}
+    highest_team = @teams.find { |team| team.team_id == max.first}
+    highest_team.team_name
   end
 
   def highest_scoring_home_team
