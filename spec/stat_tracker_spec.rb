@@ -1,156 +1,32 @@
 require './spec_helper'
 
 RSpec.describe StatTracker do
-  before(:each) do
-    @stat_tracker = StatTracker.new
-    @game_path = double('game_path')
-    allow(@game_path).to receive(:games).and_return(games_test_data)
+  before :each do
+    @game_path = './fixture/games_fixture.csv'
+    @team_path = './data/teams.csv'
+    @game_teams_path = './fixture/game_teams_fixture.csv'
+
+    @locations = {
+      games: @game_path,
+      teams: @team_path,
+      game_teams: @game_teams_path
+    }
+    @game_stats = StatTracker.new(@locations)
   end
-  describe '#Percentage_home_wins' do
-    it 'checks the percentage of home wins' do
-      # require 'pry'; binding.pry
-      expect().to eq()
+
+  describe "#percent ties" do
+    it "finds percntage of tied away and home games" do
+      expect(@game_stats.percentage_ties).to eq(0.05)
     end
   end
 
+  describe "#percentage_calculator" do
+    it "finds the percentage for given numbers rounded to nearest 100th" do
+      expect(@game_stats.percentage_calculator(13.0, 19.0)).to eq(0.68)
+      expect(@game_stats.percentage_calculator(5.0, 19.0)).to eq(0.26)
+      expect(@game_stats.percentage_calculator(1.0, 19.0)).to eq(0.05)
+    end
+  end 
 
-
-
-
-  def games_test_data
-    [{:game_id=>"2012030221",
-      :season=>"20122013",
-      :type=>"Postseason",
-      :date_time=>"5/16/13",
-      :away_team_id=>"3",
-      :home_team_id=>"6",
-      :away_goals=>"2",
-      :home_goals=>"3",
-      :venue=>"Toyota Stadium",
-      :venue_link=>"/api/v1/venues/null"},
-    {:game_id=>"2012030222",
-      :season=>"20122013",
-      :type=>"Postseason",
-      :date_time=>"5/19/13",
-      :away_team_id=>"3",
-      :home_team_id=>"6",
-      :away_goals=>"2",
-      :home_goals=>"3",
-      :venue=>"Toyota Stadium",
-      :venue_link=>"/api/v1/venues/null"},
-    {:game_id=>"2012030223",
-      :season=>"20122013",
-      :type=>"Postseason",
-      :date_time=>"5/21/13",
-      :away_team_id=>"6",
-      :home_team_id=>"3",
-      :away_goals=>"2",
-      :home_goals=>"1",
-      :venue=>"Toyota Stadium",
-      :venue_link=>"/api/v1/venues/null"},
-    {:game_id=>"2012030224",
-      :season=>"20122013",
-      :type=>"Postseason",
-      :date_time=>"5/23/13",
-      :away_team_id=>"6",
-      :home_team_id=>"3",
-      :away_goals=>"3",
-      :home_goals=>"2",
-      :venue=>"Toyota Stadium",
-      :venue_link=>"/api/v1/venues/null"}]
-  end
+  
 end
-
-
-def game_teams_test_data
-  [ {:game_id => "2012030221",
-    :team_id => "3",
-    :HoA => "away",
-    :result => "LOSS",
-    :settled_in => "OT",
-    :head_coach => "John Tortorella",
-    :goals => "2",
-    :shots => "8",
-    :tackles => "44",
-    :pim => "8",
-    :powerPlayOpportunities => "3",
-    :powerPlayGoals => "0",
-    :faceOffWinPercentage => "44.8",
-    :giveaways =>"17",
-    :takeaways => "7"}, 
-    {:game_id => "2012030221",
-    :team_id => "6",
-    :HoA => "home",
-    :result => "WIN",
-    :settled_in => "OT",
-    :head_coach => "Claude Julien",
-    :goals => "3",
-    :shots => "12",
-    :tackles => "51",
-    :pim => "6",
-    :powerPlayOpportunities => "4",
-    :powerPlayGoals => "1",
-    :faceOffWinPercentage => "55.2",
-    :giveaways =>"4",
-    :takeaways => "5"}, 
-    {:game_id => "2012030222",
-    :team_id => "3",
-    :HoA => "away",
-    :result => "LOSS",
-    :settled_in => "REG",
-    :head_coach => "John Tortorella",
-    :goals => "2",
-    :shots => "9",
-    :tackles => "33",
-    :pim => "11",
-    :powerPlayOpportunities => "5",
-    :powerPlayGoals => "0",
-    :faceOffWinPercentage => "51.7",
-    :giveaways =>"1",
-    :takeaways => "4"}, 
-    {:game_id => "2012030222",
-    :team_id => "6",
-    :HoA => "home",
-    :result => "WIN",
-    :settled_in => "REG",
-    :head_coach => "Claude Julien",
-    :goals => "3",
-    :shots => "8",
-    :tackles => "36",
-    :pim => "19",
-    :powerPlayOpportunities => "1",
-    :powerPlayGoals => "0",
-    :faceOffWinPercentage => "48.3",
-    :giveaways =>"16",
-    :takeaways => "6"}, 
-    {:game_id => "2012030223",
-    :team_id => "6",
-    :HoA => "away",
-    :result => "WIN",
-    :settled_in => "REG",
-    :head_coach => "Claude Julien",
-    :goals => "2",
-    :shots => "8",
-    :tackles => "28",
-    :pim => "6",
-    :powerPlayOpportunities => "0",
-    :powerPlayGoals => "0",
-    :faceOffWinPercentage => "61.8",
-    :giveaways =>"10",
-    :takeaways => "7"}, 
-    {:game_id => "2012030223",
-    :team_id => "3",
-    :HoA => "home",
-    :result => "LOSS",
-    :settled_in => "REG",
-    :head_coach => "John Tororella",
-    :goals => "1",
-    :shots => "6",
-    :tackles => "37",
-    :pim => "2",
-    :powerPlayOpportunities => "2",
-    :powerPlayGoals => "0",
-    :faceOffWinPercentage => "38.2",
-    :giveaways =>"7",
-    :takeaways => "9"} ]
-  end
