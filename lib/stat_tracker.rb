@@ -17,6 +17,8 @@ class StatTracker
     # StatTracker.new
   end
 
+  def percentage_home_wins
+
 end
 
   
