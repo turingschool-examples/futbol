@@ -14,7 +14,9 @@
   - features will be broken down into reasonable sub-functionalities
   - sub-functionality features will be available for anyone on the team to own and will be obtained from a kahnban board
 - Iteration milestone and deliverables will be tracked in Github Projects
-  ![stattracker_v1-2](https://github.com/trpubz/futbol/assets/25095319/145c4c0a-6e35-4e45-b885-ec02c224d179)
+
+![stattracker_v1-3](https://github.com/trpubz/futbol/assets/25095319/d2e34cc1-273a-4510-aa1a-463cd9963a7a)
+
 
 
 
@@ -36,7 +38,7 @@
 
 - [v1](https://docs.google.com/document/d/1xlq3COkAis2Ka8S6jJ9tsDimgus19CnItrIJYnmH5xM/edit)
 - Recommended conventions
-  - feature branches => feat/sub/<name_or_functionality>
+  - feature branches => sfeat/<grouped_feature>/<name_or_functionality>
 
 ## Contributors
 
