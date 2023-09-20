@@ -28,11 +28,20 @@ RSpec.describe StatTracker do
     end
   end
 
+
+  describe '#percentage_home_wins' do
+    it 'calculates percentage home wins' do
+      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+    end
+  end
+
+
   describe '#highest_total_score' do
     it 'returns the highest sum of the winning and losing teams scores' do
       expect(stat_tracker.highest_total_score(true)).to eq(5)
     end
   end
+
 
   describe '#average_goals_by_season' do
     it 'returns the average goals scored per season' do
