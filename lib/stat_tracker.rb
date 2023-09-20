@@ -79,19 +79,40 @@ class StatTracker
 
   def best_offense(testing = false)
     testing ? data = game_teams.take(10) : data = game_teams
-    number_of_games = Hash.new(0)
-    total_score = 0
+    games_and_scores = {}
     data.each do |team|
-      number_of_games[team[:team_id]] += 1
-      total_score += team[:goals].to_i
+      games_and_scores[team[:team_id]] = {
+        games_played: nil,
+        total_score: nil,
+      }
     end
-    number_of_games
-    total_score
-    
-    number_of_games.each do |team_id, num_games|
-      average_score = total_score/num_games.to_f
-      require 'pry'; binding.pry
-    end
+    games_and_scores
+    require 'pry'; binding.pry
+
+    # name of the team with best average goals
+    # need team id and goals
+    # need sum of games played
+    # divide goals/games played
+    # link the team id to the team name 
+
+
+
+    # number_of_games = Hash.new(0)
+    # total_score = 0
+    # data.each do |team|
+    #   number_of_games[team[:team_id]] += 1
+    #   total_score += team[:goals].to_i
+    # end
+    # number_of_games
+    # total_score
+
+    # highest_average_goals = {}
+    # number_of_games.each do |team_id, num_games|
+    #   average_score = total_score/num_games.to_f
+    #   highest_average_goals[team_id] = average_score
+    # end
+    # highest_average_goals
+    # require 'pry'; binding.pry
   end
   
 end
