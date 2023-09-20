@@ -52,6 +52,14 @@ RSpec.describe StatTracker do
   end
 
 
+  describe '#average_goals_per_game' do
+    it 'returns the average number of goals scored by a single team' do
+      expect(stat_tracker.average_goals_per_game(true)).to eq(1.85)
+    end
+  end
+
+
+
   describe '#average_goals_by_season' do
     it 'returns the average goals scored per season' do
       expected_value = { '20122013' => 3.86, '20142015' => 3.5, '20162017' => 4.75 }
