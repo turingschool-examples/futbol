@@ -163,14 +163,71 @@ class StatTracker
 
   def highest_scoring_home_team
    ##Name of the team with the highest average score per game across all seasons when they are home. 
+   team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'home' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          home_games: game_team.goals.to_f,
+          total: 1
+          }
+      elsif game_team.hoa == 'home' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:home_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    team_averages = {}
+    team_goals.each do |team_goal, value|
+      team_averages[team_goal] = (value[:home_games] / value[:total])
+    end
+    max = team_averages.max_by{|k,v| v}
+    highest_team = @teams.find { |team| team.team_id == max.first}
+    highest_team.team_name
   end
 
   def lowest_scoring_visitor
     ##Name of the team with the lowest average score per game across all seasons when they are a visitor.
+    team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'away' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          away_games: game_team.goals.to_f,
+          total: 1
+          }
+      elsif game_team.hoa == 'away' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:away_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    team_averages = {}
+    team_goals.each do |team_goal, value|
+      team_averages[team_goal] = (value[:away_games] / value[:total])
+    end
+    min = team_averages.min_by{|k,v| v}
+    lowest_team = @teams.find { |team| team.team_id == min.first}
+    lowest_team.team_name
   end
 
   def lowest_scoring_home_team
     ##Name of the team with the lowest average score per game across all seasons when they are at home.
+    team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'home' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          home_games: game_team.goals.to_f,
+          total: 1
+          }
+      elsif game_team.hoa == 'home' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:home_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    team_averages = {}
+    team_goals.each do |team_goal, value|
+      team_averages[team_goal] = (value[:home_games] / value[:total])
+    end
+    min = team_averages.min_by{|k,v| v}
+    lowest_team = @teams.find { |team| team.team_id == min.first}
+    lowest_team.team_name
   end
 
   ##HELPER METHODS

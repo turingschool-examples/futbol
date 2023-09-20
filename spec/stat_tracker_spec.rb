@@ -67,20 +67,23 @@ RSpec.describe StatTracker do
 
   describe 'league scoring' do
     it 'returns name of team with highest average when away' do
-      require 'pry'; binding.pry
-      expect(@stats.highest_scoring_visitor).to be String
+      expect(@stats.highest_scoring_visitor.class).to be String
+      expect(@stats.highest_scoring_visitor).to eq('New York Red Bulls')
+    end
+    
+    it 'returns name of team with highest average when home' do
+      expect(@stats.highest_scoring_home_team.class).to be String
+      expect(@stats.highest_scoring_home_team).to eq('Los Angeles FC')
     end
 
-    xit 'returns name of team with highest average when home' do
-      expect(@stats.highest_scoring_home_team).to be String
+    it 'returns name of team with lowest average when away' do
+      expect(@stats.lowest_scoring_visitor.class).to be String
+      expect(@stats.lowest_scoring_visitor).to eq('Sporting Kansas City')
     end
 
-    xit 'returns name of team with lowest average when away' do
-      expect(@stats.lowest_scoring_visitor).to be String
-    end
-
-    xit 'returns name of team with lowest average when home' do
-      expect(@stats.lowest_scoring_home_team).to be String
+    it 'returns name of team with lowest average when home' do
+      expect(@stats.lowest_scoring_home_team.class).to be String
+      expect(@stats.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
 end
