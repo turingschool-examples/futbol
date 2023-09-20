@@ -61,4 +61,25 @@ class StatTracker
     average_goals = total_goals.to_f / total_games
     average_goals.round(2)
   end
+
+  def average_goals_per_season
+    goals_by_season = Hash.new(0)
+    games_by_season = Hash.new(0)
+
+    @games_data.each do |game|
+      season = game[:season]
+      goals = game[:home_goals].to_i + game[:away_goals].to_i
+
+      goals_by_season[season] += goals
+      games_by_season[season] += 1
+    end
+    average_goals = {}
+
+    goals_by_season.each do |season, total_goals|
+      games_played = games_by_season[season]
+      average = total_goals.to_f / games_played
+      average_goals[season] = average.round(2)
+    end
+    average_goals
+  end
 end
