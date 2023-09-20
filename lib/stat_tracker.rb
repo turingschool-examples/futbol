@@ -79,4 +79,15 @@ class StatTracker
 
     team_name_from_id(team_id)
   end
+
+  # @return: name of coach with highest winning pct.
+  def winningest_coach(season)
+    # takes a string representing the season
+    # @game_teams_data has :game_id, :result, and :head_coach
+    # @games_data has :game_id and :season
+    # iterate over @games_data, filter season arg to match and return all :game_ids in array
+    # iterate over @game_teams_mock to verify :game_id is .include? in predicate array
+    # if :game_id is valid, use :head_coach name as hash key, and shovel :result onto hash value array
+    # with hash values arrays, use #transform_values! to flatten to win pct.
+  end
 end
