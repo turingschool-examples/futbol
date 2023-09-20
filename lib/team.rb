@@ -5,7 +5,6 @@ class Team
               :abbreviation,
               :stadium,
               :link
-              
   def initialize(team_info)
     @team_id = team_info[:team_id]
     @franchise_id = team_info[:franchiseid]
