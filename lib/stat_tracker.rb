@@ -81,7 +81,7 @@ class StatTracker
   end
 
   def most_tackles(season)
-    season_team_tackles = {}
+    season_team_tackles = Hash.new(0)
 
     @games_data.each do |game|
       if game[:season] == season
@@ -89,10 +89,10 @@ class StatTracker
           @game_teams_data.each do |game_team|
             if game_team[:game_id] == game_id
               team_id = game_team[:team_id]
-              if season_team_tackles.has_key?(team_id)
-                season_team_tackles[team_id] += game_team[:tackles]
+              if season_team_tackles.key?(team_id)
+                season_team_tackles[team_id] += game_team[:tackles].to_i
               else
-                season_team_tackles[team_id] = game_team[:tackles]           
+                season_team_tackles[team_id] = game_team[:tackles].to_i           
               end
             end
           end
