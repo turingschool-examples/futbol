@@ -27,4 +27,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.game_teams).to be_a(CSV::Table)
     end
   end
+
+  describe '#percentage_home_wins' do
+    it 'calculates percentage home wins' do
+      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+    end
+  end
+
 end

@@ -40,4 +40,15 @@ class StatTracker
     contents.readlines
   end
 
+  def percentage_home_wins #(testing = false)
+    #testing ? data = game.take(10) : data = game
+    count = 0
+    game.each do |single_game|
+      if single_game[:home_goals].to_i > single_game[:away_goals].to_i
+        count += 1
+      end
+    end
+    percentage = (count.to_f / game.count).round(2)
+    
+  end
 end
