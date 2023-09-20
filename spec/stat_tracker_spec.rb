@@ -38,5 +38,13 @@ RSpec.describe 'StatTracker' do
       expect(@stat_tracker.game_data[0]).to be_a Hash
 
     end
+
+    it 'Highest Total Score' do
+      expect(@stat_tracker.highest_total_score).to eq(11)
+    end
+
+    it 'Lowest Total Score' do
+      expect(@stat_tracker.lowest_total_score).to eq(0)
+    end
   end
 end
