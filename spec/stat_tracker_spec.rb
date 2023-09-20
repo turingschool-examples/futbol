@@ -12,6 +12,7 @@ RSpec.describe StatTracker do
                   }
 
     @stats = StatTracker.from_csv(@locations)
+    @stats.create_games
   end
   
   describe '#initialize' do

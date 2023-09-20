@@ -1,12 +1,9 @@
-require 'csv'
-require './lib/stat_tracker'
-require 'pry'
-
 class StatTracker
   attr_reader :all_data
   
   def initialize(all_data)
     @all_data = all_data
+    @games = []
   end
 
   def self.from_csv(locations)
@@ -18,31 +15,45 @@ class StatTracker
     StatTracker.new(all_data)
   end
 
-  def dummy_method
+  ## Creates game objects from the CSV file
+  def create_games
     @all_data[:game_team_f].each do |row|
-      name = row[:game_id]
-      puts "#{name}"
+      game = Game.new(row[:game_id],row[:team_id],row[:goals])
+      @games << game
     end
+    @games
   end
 
+  ## Creates an array of game_ids, acts as helper method
+  def game_ids
+    game_ids = @games.map{|game| game.game_id}
+    game_ids
+  end
+
+  ## Returns highest total score of added scores of that game
   def highest_total_score
-    game_ids_list = @all_data[:game_team_f].map{|row| row[:game_id]}.uniq.sort
-    data_list = {}
-    ## Separating list to return only Game ID, Goals as a HASH
-    @all_data[:game_team_f].each do |row|
-      game_id = row[:game_id]
-      goals = row[:goals]
-      data_list[game_id]=goals
-      require'pry';binding.pry
+    games_hash = {}
+    game_ids.each do |game_id|
+      games_hash[game_id]=0
     end
-    ##iterate through all games. if gameid1 = gameid2, add gameid1 + gameid2
-    data_list
+
+    @games.each do |game|
+      games_hash[game.game_id]+=game.goals.to_i
+    end
+    games_hash.values.max
   end
-## SUM the total score for the teams
 
-## if team A scores 10 goals and Team B scores 9 goals then total_score is 19
+  ## Returns lowest total score of added scores of that game
+  def lowest_total_score
+    games_hash = {}
+    game_ids.each do |game_id|
+      games_hash[game_id]=0
+    end
 
-## Calculate this for every game that is played
+    @games.each do |game|
+      games_hash[game.game_id]+=game.goals.to_i
+    end
+    games_hash.values.min
+  end
 
-## which team has the highest total score?
 end
