@@ -5,6 +5,7 @@ class StatTracker
     @all_data = all_data
     @games = []
     @games_list = {}
+    @games_team_list = {}
   end
 
   def self.from_csv(locations)
@@ -74,13 +75,11 @@ class StatTracker
   end
 
   def games_team_list
-    games_team_list = {}
     @all_data[:game_team_f].each do |row|
-      home_away = row[:hoa]
-      # binding.pry
-      # games_team_list[row[:game_id]] = {home_away: row[:hoa], goals: row[:goals]}
+      @games_team_list[row[:game_id]] = {home_away: row[:hoa], goals: row[:goals]}
     end
-    games_team_list
+    @games_team_list
+    # games_team_list
   end
 
   ## Creates an array of game_ids, acts as helper method
@@ -89,3 +88,5 @@ class StatTracker
   end
 
 end
+
+# require 'pry'; binding.pry

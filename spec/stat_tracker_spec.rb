@@ -12,7 +12,7 @@ RSpec.describe StatTracker do
                   }
 
     @stats = StatTracker.from_csv(@locations)
-    @stats.create_games
+    # @stats.create_games
   end
   
   describe '#initialize' do
@@ -39,7 +39,7 @@ RSpec.describe StatTracker do
 
     it 'gets lowest total score' do
       @stats.lowest_total_score
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
       expect(@stats.lowest_total_score).to eq(1)
     end
   end
