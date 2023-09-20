@@ -157,5 +157,14 @@ class StatTracker
 
     team_name
   end
+  def least_accurate_team(season)
+    team_accuracies = calculate_team_accuracies(season)
+
+    least_accurate_team_id = team_accuracies.min_by { |_, ratio| ratio }.first
+
+    team_name = @teams_data.find { |team| team[:team_id] == least_accurate_team_id }[:teamname]
+
+    team_name
+  end
 
 end
