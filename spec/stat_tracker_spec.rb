@@ -53,4 +53,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.average_goals_by_season(true)).to eq(expected_value)
     end
   end
+
+  describe '#worst_offense' do
+    it 'can return the team with the lowest average number of goals per game across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("Utah Royals FC")
+    end
+  end
 end

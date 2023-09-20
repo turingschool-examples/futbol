@@ -90,4 +90,9 @@ class StatTracker
     end
     average_goals
   end
+
+  def worst_offense
+    # testing ? data = game.take(67) : data = game
+    require 'pry'; binding.pry
+  end
 end
