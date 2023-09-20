@@ -33,4 +33,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.highest_total_score(true)).to eq(5)
     end
   end
+
+  describe '#average_goals_by_season' do
+    it 'returns the average goals scored per season' do
+      expected_value = { '20122013' => 3.86, '20142015' => 3.5, '20162017' => 4.75 }
+      expect(stat_tracker.average_goals_by_season(true)).to eq(expected_value)
+    end
+  end
 end
