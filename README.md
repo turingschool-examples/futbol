@@ -32,7 +32,9 @@
   - League stats
   - Season stats
 - After implementing full functionality, there may be opportunity for reusable calculations to be extracted into modules or superclasses; refactoring will be **post-hoc**
-- 
+### ERD for Data
+![erd_v1](https://github.com/trpubz/futbol/assets/25095319/9071d533-9f56-4e2a-ba61-359107162d1a)
+
 
 ## DTR
 
