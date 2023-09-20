@@ -1,18 +1,18 @@
 require './spec/spec_helper'
 
-RSpec.describe Teams do
+RSpec.describe Team do
   before(:each) do
     team_id = 1
-    @teams = Teams.new(team_id)
+    @team = Team.new(team_id)
   end
 
   describe '#initialize' do
     it 'exists' do
-      expect(@teams).to be_instance_of(Teams)
+      expect(@team).to be_instance_of(Team)
     end
 
     it 'has attributes' do
-      expect(@teams.team_id).to eq(1)
+      expect(@team.team_id).to eq(1)
     end
   end
 end

@@ -63,4 +63,8 @@ RSpec.describe StatTracker do
       # require 'pry'; binding.pry
     end
   end
+
+  describe '#count_of_teams' do
+    
+  end
 end
