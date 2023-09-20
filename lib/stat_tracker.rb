@@ -45,27 +45,26 @@ class StatTracker
     @game_teams
   end
 
-  ## Returns highest total score of added scores of that game
+  ## Returns highest total score of added scores of that game (INTEGER)
   def highest_total_score
     games_hash = {}
     game_ids.each do |game_id|
       games_hash[game_id]=0
     end
-
-    @games.each do |game|
+    @game_teams.each do |game|
       games_hash[game.game_id]+=game.goals.to_i
     end
     games_hash.values.max
   end
 
-  ## Returns lowest total score of added scores of that game
+  ## Returns lowest total score of added scores of that game (INTEGER)
   def lowest_total_score
+    games_hash = {}
     games_hash = {}
     game_ids.each do |game_id|
       games_hash[game_id]=0
     end
-
-    @games.each do |game|
+    @game_teams.each do |game|
       games_hash[game.game_id]+=game.goals.to_i
     end
     games_hash.values.min
@@ -73,30 +72,24 @@ class StatTracker
 
   ## A hash with season names (e.g. 20122013) as keys and counts of games as values
   def count_of_games_by_season
-  games_list
   count_games = {}
-   @games_list.each do |entry|
-    if count_games[entry[1][:season]].nil? # Added [1] to continue method with adjustment to games_list
-      count_games[entry[1][:season]] = 0
+   @games.each do |game|
+    if count_games[game.season].nil? # Added [1] to continue method with adjustment to games_list
+      count_games[game.season] = 0
     else
-      count_games[entry[1][:season]] +=1
+      count_games[game.season] +=1
     end
    end
    count_games
   end
 
-  # require 'pry'; binding.pry
-
   def percentage_home_wins
     # Percentage of games that a home team has won (rounded to the nearest 100th)
     #find total number of games
-    all_games = @games.map do |game|
-      game.game_id
-    end
-    number_of_games = all_games.uniq.length
+    number_of_games = game_ids.length
     #find when home/away is home and result is win
     games_won = 0
-    @games.each do |game|
+    @game_teams.each do |game|
       if game.hoa == 'home' && game.result == 'WIN'
         games_won += 1
       end
@@ -107,13 +100,10 @@ class StatTracker
   def percentage_visitor_wins
     ## Percentage of games that a visitor has won (rounded to the nearest 100th)
     ##find total number of games
-    all_games = @games.map do |game|
-      game.game_id
-    end
-    number_of_games = all_games.uniq.length
+    number_of_games = game_ids.length
     ##find when home/away is away and result is win
     games_won = 0
-    @games.each do |game|
+    @game_teams.each do |game|
       if game.hoa == 'away' && game.result == 'WIN'
         games_won += 1
       end
@@ -124,13 +114,10 @@ class StatTracker
   def percentage_ties   
     # Percentage of games that has resulted in a tie (rounded to the nearest 100th)
     #total number of games
-    all_games = @games.map do |game|
-      game.game_id
-    end
-    number_of_games = all_games.uniq.length
+    number_of_games = game_ids.length
     #result is tie
     games_tied = 0
-    @games.each do |game|
+    @game_teams.each do |game|
       if game.hoa == 'away' && game.result == 'TIE'
         games_tied += 1
       end
@@ -138,6 +125,7 @@ class StatTracker
     percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
   end
 
+  ##HELPER METHODS
     ## Creates an array of game_ids, acts as helper method
     def game_ids
       @game_ids = @game_teams.map{|game| game.game_id}.uniq

@@ -14,6 +14,8 @@ RSpec.describe StatTracker do
     @stats = StatTracker.from_csv(@locations)
     @stats.create_games
     @stats.create_game_teams
+    @stats.game_ids
+    # require 'pry'; binding.pry
   end
   
   describe '#initialize' do
@@ -58,7 +60,7 @@ RSpec.describe StatTracker do
 
     it 'rounds to 100 percent' do
       expect((@stats.percentage_ties + @stats.percentage_home_wins + @stats.percentage_visitor_wins).round).to eq(100.00)
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
     end
   end
 end
