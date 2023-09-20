@@ -85,5 +85,9 @@ class StatTracker
     total_scores.sort.first
   end
 
-
+  def average_goals_per_game(testing = false)
+    testing ? data = game_teams.take(20) : data = game_teams
+    numerator = data.sum { |game| game[:goals].to_i }.to_f
+    numerator / data.count
+  end
 end
