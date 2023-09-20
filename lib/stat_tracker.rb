@@ -93,6 +93,25 @@ class StatTracker
 
   def worst_offense
     # testing ? data = game.take(67) : data = game
-    require 'pry'; binding.pry
+    # average_goals_by_team_id = 0
+    # goals = 0
+    # game_teams.each do |game_team|
+    #   if game_team[:team_id] == game_team[:team_id]
+    #       game_teams[:goals].each do |goal|
+    #         goals += goal.to_i
+    #       end 
+    #       require 'pry'; binding.pry
+    #  end
+    # end 
+
+    games_and_scores = {}
+    game_teams.each do |game_team|
+      games_and_scores[game_team[:team_id]] = game_team[:goals].to_i
+      require 'pry'; binding.pry
+    end
   end
+
+  # def average_goals_by_team_id
+  #   require 'pry'; binding.pry
+  # end
 end
