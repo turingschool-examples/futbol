@@ -86,4 +86,21 @@ class StatTracker
 
   end
 
+
+  def average_goals_by_season(testing = false)
+    testing ? data = game.take(67) : data = game
+    goals = Hash.new { |hash, season| hash[season] = [] }
+    data.each do |game|
+      season = game[:season]
+      home_score = game[:home_goals].to_i 
+      away_score = game[:away_goals].to_i
+      total_score = home_score + away_score
+      
+      goals[season] << total_score
+    end
+    average_goals = goals.transform_values do |goals|
+      (goals.sum.to_f / goals.length).round(2)
+    end
+    average_goals
+  end
 end
