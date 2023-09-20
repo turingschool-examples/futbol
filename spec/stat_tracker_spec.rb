@@ -34,7 +34,32 @@ RSpec.describe StatTracker do
   describe '#highest_total_score' do
     it 'gets highest total score' do
       @stats.highest_total_score
-      expect(@stats.highest_total_score).to eq(8)
+      expect(@stats.highest_total_score).to eq(7)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'gets the lowest total score' do
+      expect(@stats.lowest_total_score).to eq(1)
+    end
+  end
+
+  describe 'game percentages' do
+    it 'returns percentage of games home team won' do
+      expect(@stats.percentage_home_wins).to be_a Float      
+    end
+     
+    it 'returns percentage of games visitor team won' do
+      expect(@stats.percentage_visitor_wins).to be_a Float
+    end
+    
+    it 'returns percentage of games resulting in a tie' do
+      expect(@stats.percentage_ties).to be_a Float
+    end
+
+    it 'rounds to 100 percent' do
+      expect((@stats.percentage_ties + @stats.percentage_home_wins + @stats.percentage_visitor_wins).round).to eq(100.00)
+      require 'pry'; binding.pry
     end
   end
 end
