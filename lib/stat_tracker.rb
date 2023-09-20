@@ -41,5 +41,42 @@ class StatTracker
     lowest_score
   end
 
+  def percentage_home_wins(team)
+    home_games = 0
+    home_wins = 0
+    @games_data.each do |game|
+      if game[:home_team_id] == team
+        home_games += 1
+        if game[:home_goals].to_i > game[:away_goals].to_i
+          home_wins += 1
+        end
+      end
+    end
 
+    if home_games != 0
+      (home_wins.to_f/home_games * 100.0).round(1)
+    else
+      "no home games recorded"
+    end
+  end
+
+  def percentage_visitor_wins(team)
+    visitor_games = 0
+    visitor_wins = 0
+    
+    @games_data.each do |game|
+      if game[:away_team_id] == team
+        home_games += 1
+        if game[:away_goals].to_i > game[:away_goals].to_i
+          home_wins += 1
+        end
+      end
+    end
+
+    if visitor_games != 0
+      (visitor_wins.to_f/visitor_games * 100.0).round(1)
+    else
+      "no visitor games recorded"
+    end
+  end
 end
