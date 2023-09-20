@@ -19,54 +19,19 @@ class StatTracker
     StatTracker.new(all_data)
   end
 
-  ## Creates game objects from the CSV file
-  def create_games
-    @all_data[:games].each do |row|
-      game = Game.new(row[:game_id],
-                      row[:season],
-                      row[:away_goals],
-                      row[:home_goals], 
-                      )
-      @games << game
-    end
-    @games
-  end
-
-  def create_game_teams
-    @all_data[:game_teams].each do |row|
-      game_team = GameTeam.new(row[:game_id],
-                      row[:team_id],
-                      row[:goals], 
-                      row[:hoa], 
-                      row[:result]
-                      )
-      @game_teams << game_team
-    end
-    @game_teams
+  def compile
+    create_games
+    create_game_teams
+    game_ids
   end
 
   ## Returns highest total score of added scores of that game (INTEGER)
   def highest_total_score
-    games_hash = {}
-    game_ids.each do |game_id|
-      games_hash[game_id]=0
-    end
-    @game_teams.each do |game|
-      games_hash[game.game_id]+=game.goals.to_i
-    end
     games_hash.values.max
   end
 
   ## Returns lowest total score of added scores of that game (INTEGER)
   def lowest_total_score
-    games_hash = {}
-    games_hash = {}
-    game_ids.each do |game_id|
-      games_hash[game_id]=0
-    end
-    @game_teams.each do |game|
-      games_hash[game.game_id]+=game.goals.to_i
-    end
     games_hash.values.min
   end
 
@@ -125,9 +90,74 @@ class StatTracker
     percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
   end
 
-  ##HELPER METHODS
+  ## Returns average goals per game across ALL seasons rounded to nearest 100th (FLOAT)
+  def average_goals_per_game
+    game_count = game_ids.count.to_f
+    average_goals_per_game = games_hash.values.sum.to_f/game_count
+    average_goals_per_game.round(2)
+  end
+
+  ## Returns average goals per game with season names as keys and a float for average num of goals per game (HASH)
+  def average_goals_by_season
+    total_scores_by_season = {"20122013"=>65, "20152016"=>137, "20162017"=>160, "20172018"=>149}
+    average_goals_by_season = total_scores_by_season.map { |season, total_scores| [season, (total_scores.to_f/count_of_games_by_season[season].to_f).round(2)]}.to_h
+    average_goals_by_season
+  end
+
+##HELPER METHODS
     ## Creates an array of game_ids, acts as helper method
     def game_ids
       @game_ids = @game_teams.map{|game| game.game_id}.uniq
+    end
+
+    ## Creates game objects from the CSV file
+  def create_games
+    @all_data[:games].each do |row|
+      game = Game.new(row[:game_id],
+                      row[:season],
+                      row[:away_goals],
+                      row[:home_goals], 
+                      )
+      @games << game
+    end
+    @games
+  end
+
+  def create_game_teams
+    @all_data[:game_teams].each do |row|
+      game_team = GameTeam.new(row[:game_id],
+                      row[:team_id],
+                      row[:goals], 
+                      row[:hoa], 
+                      row[:result]
+                      )
+      @game_teams << game_team
+    end
+    @game_teams
+  end
+
+    ##Returns a hash of game ID for key and total goals as value
+    def games_hash
+      games_hash = {}
+      game_ids.each do |game_id|
+        games_hash[game_id]=0
+      end
+      @game_teams.each do |game|
+        games_hash[game.game_id]+=game.goals.to_i
+      end
+      games_hash
+    end
+
+    ##Returns a hash of season as key and total scores of all games in that season for value
+    def total_scores_by_season
+      total_scores_by_season = {}
+      @games.each do |game|
+        if total_scores_by_season[game.season].nil? # Added [1] to continue method with adjustment to games_list
+          total_scores_by_season[game.season] = 0
+        else
+          total_scores_by_season[game.season] += (game.away_goals+game.home_goals)
+        end
+       end
+       total_scores_by_season
     end
 end
