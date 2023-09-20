@@ -1,4 +1,4 @@
-require './spec_helper'
+require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   before :each do
@@ -28,5 +28,10 @@ RSpec.describe StatTracker do
     end
   end 
 
-  
+  describe "#highest_scoring_visitor" do
+    it 'finds team with highest average score when away' do
+      require 'pry'; binding.pry
+      expect()
+    end
+  end
 end
