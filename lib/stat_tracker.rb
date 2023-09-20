@@ -17,14 +17,14 @@ class StatTracker
     @game_teams_data = game_teams_data
   end
 
-  def total_scores 
-     total_scores = @games_data.map { |game| game[:home_goals].to_i + game[:away_goals].to_i }
+  def total_scores
+    @games_data.map { |game| game[:home_goals].to_i + game[:away_goals].to_i }
   end
 
   def highest_total_score
     total_scores.max
   end
-    
+
   def lowest_total_score
     total_scores.min
   end
@@ -99,7 +99,6 @@ class StatTracker
 
   def average_goals_per_season
     goals_by_season = Hash.new { |hash, key| hash[key] = [] }  # {season: [goals_per_game]}
-    
 
     @games_data.each do |game|
       season = game[:season]
@@ -107,12 +106,11 @@ class StatTracker
       goals_by_season[season] << game[:home_goals].to_i + game[:away_goals].to_i
     end
 
- 
-
     goals_by_season.transform_values! do |game_goals|
       average = game_goals.reduce(:+) / game_goals.size.to_f
       average.round(2)
     end
+
     goals_by_season
   end
 end
