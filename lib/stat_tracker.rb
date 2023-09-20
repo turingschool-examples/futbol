@@ -114,10 +114,10 @@ class StatTracker
     coach_results.min_by { |k, v| v }[0]
   end
 
-  def calculate_team_accuracies(season)
-    team_accuracies = {}
+  def team_accuracies(season)
+    team_accuracies = Hash.new { |hash, key| hash[key] = [] }
 
-    game_teams_in_season = @game_teams_data.select do |game_team|
+    game_teams_in_season = @game_teams_data.select do |game_team|  # array of hashes, each hash is data for a game team for specific season.
       game_id = game_team[:game_id]
       game = @games_data.find { |game| game[:game_id] == game_id }
 
@@ -129,29 +129,25 @@ class StatTracker
       goals = game_team[:goals].to_i
       shots = game_team[:shots].to_i
 
-      if shots > 0
-        accuracy_ratio = goals.to_f / shots
-        team_accuracies[team_id] ||= []
-        team_accuracies[team_id] << accuracy_ratio
-      end
+      team_accuracies[team_id] << goals.to_f / shots
+   
     end
 
-    team_accuracies.each do |team_id, ratios|
-      average_accuracy = (ratios.reduce(:+) / ratios.size).round(2)
-      team_accuracies[team_id] = average_accuracy
+    team_accuracies.transform_values! do |ratios|
+      (ratios.reduce(:+) / ratios.size).round(2)
     end
 
     team_accuracies
   end
 
   def most_accurate_team(season)
-    most_accurate_team = calculate_team_accuracies(season).max_by { |_, ratio| ratio }
+    most_accurate_team = team_accuracies(season).max_by { |_, ratio| ratio }
 
     team_name_from_id(most_accurate_team[0])
   end
 
   def least_accurate_team(season)
-    least_accurate_team = calculate_team_accuracies(season).min_by { |_, ratio| ratio }
+    least_accurate_team = team_accuracies(season).min_by { |_, ratio| ratio }
 
     team_name_from_id(least_accurate_team[0])
   end
