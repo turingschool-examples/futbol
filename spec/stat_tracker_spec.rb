@@ -28,15 +28,15 @@ RSpec.describe StatTracker do
     end
   end
   describe "#percentage home wins" do 
-    xit 'will find the percentage of games that a home team has won' do 
+    it 'will find the percentage of games that a home team has won' do 
       expect(stat_tracker.percentage_home_wins).to  be_a(Float)
-      expect(stat_tracker.percentage_home_wins).to  eq()
+      expect(stat_tracker.percentage_home_wins).to  eq(0.6)
     end
   end
   describe "#percentage visitor wins" do 
-    xit 'will find the percentage of games that a visitor has won' do 
+    it 'will find the percentage of games that a visitor has won' do 
       expect(stat_tracker.percentage_visitor_wins).to  be_a(Float)
-      expect(stat_tracker.percentage_visitor_wins).to  eq()
+      expect(stat_tracker.percentage_visitor_wins).to  eq(0.4)
     end
   end
   describe "#percentage_ties" do 
