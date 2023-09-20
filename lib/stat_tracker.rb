@@ -1,10 +1,10 @@
 class StatTracker
-  attr_reader :all_data, :games, :seasons_list
+  attr_reader :all_data, :games, :games_list
   
   def initialize(all_data)
     @all_data = all_data
     @games = []
-    @seasons_list = []
+    @games_list = {}
   end
 
   def self.from_csv(locations)
@@ -53,28 +53,38 @@ class StatTracker
 
   ## A hash with season names (e.g. 20122013) as keys and counts of games as values
   def count_of_games_by_season
+  games_list
   count_games = {}
-   seasons_list.each do |entry|
-    if count_games[entry[:season]].nil?
-      count_games[entry[:season]] = 0
+   @games_list.each do |entry|
+    if count_games[entry[1][:season]].nil? # Added [1] to continue method with adjustment to games_list
+      count_games[entry[1][:season]] = 0
     else
-      count_games[entry[:season]] +=1
+      count_games[entry[1][:season]] +=1
     end
    end
    count_games
   end
 
   ## Helper method to create a seasons list from the games_fixture file
-  def seasons_list
+  def games_list
     @all_data[:games_f].each do |row|
-        @seasons_list << {season: row[:season], game_id: row[:game_id], away_goals: row[:away_goals], home_goals: row[:home_goals]}
-      end
-     @seasons_list
+      @games_list[row[:game_id]] = {season: row[:season], away_goals: row[:away_goals], home_goals: row[:home_goals]}
+    end
+    @games_list
+  end
+
+  def games_team_list
+    games_team_list = {}
+    @all_data[:game_team_f].each do |row|
+      games_team_list[row[:game_id]] = {home_away: row[:hoa], goals: row[:goals]}
+    end
+    binding.pry
+    games_team_list
   end
 
   ## Creates an array of game_ids, acts as helper method
   def game_ids
-    @game_ids = @games.map{|game| game.game_id}
+    @game_ids = @games.map{|game| game.game_id}.uniq
   end
 
 end
