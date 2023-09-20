@@ -76,9 +76,10 @@ class StatTracker
   def games_team_list
     games_team_list = {}
     @all_data[:game_team_f].each do |row|
-      games_team_list[row[:game_id]] = {home_away: row[:hoa], goals: row[:goals]}
+      home_away = row[:hoa]
+      # binding.pry
+      # games_team_list[row[:game_id]] = {home_away: row[:hoa], goals: row[:goals]}
     end
-    binding.pry
     games_team_list
   end
 
