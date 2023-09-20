@@ -5,8 +5,8 @@ class StatTracker
   def initialize(all_data)
     @all_data = all_data
     @games = []
-    @games_list = {}
-    @games_team_list = {}
+    # @games_list = {}
+    # @games_team_list = {}
   end
 
   def self.from_csv(locations)
