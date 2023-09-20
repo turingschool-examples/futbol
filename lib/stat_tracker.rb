@@ -5,20 +5,18 @@
 class StatTracker
 
   def initialize
-   
+  
   end
 
   def self.from_csv(locations)
     contents = CSV.open locations[:games], headers: true, header_converters: :symbol
     contents.each do |row|
       row
-      # require 'pry'; binding.pry
+      require 'pry'; binding.pry
     end
-
-    def percentage_home_wins
-
-    end
+    # StatTracker.new
   end
+
 end
 
   
