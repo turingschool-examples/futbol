@@ -27,4 +27,10 @@ RSpec.describe StatTracker do
       expect(stat_tracker.game_teams).to be_a(CSV::Table)
     end
   end
+
+  describe '#highest_total_score' do
+    it 'returns the highest sum of the winning and losing teams scores' do
+      expect(stat_tracker.highest_total_score(true)).to eq(5)
+    end
+  end
 end
