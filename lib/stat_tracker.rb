@@ -30,7 +30,6 @@ class StatTracker
       team_data << teams_hash
     end
     team_data
-    # require 'pry'; binding.pry
   end
 
   def game_team_data_creation(data)
@@ -49,7 +48,6 @@ class StatTracker
       game_team_data << game_teams_hash
     end
     game_team_data
-    # require 'pry'; binding.pry
   end
 
   def game_data_creation(data)
@@ -67,5 +65,14 @@ class StatTracker
       game_data << game_data_hash
     end
     game_data
+  end
+
+  def count_of_games_by_season
+    season_hash = {}
+    @game_data.each do |game|
+      game.each do |key, value|
+        
+      end
+    end
   end
 end
