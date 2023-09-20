@@ -145,19 +145,15 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    team_accuracies = calculate_team_accuracies(season)
+    most_accurate_team = calculate_team_accuracies(season).max_by { |_, ratio| ratio }
 
-    most_accurate_team_id = team_accuracies.max_by { |_, ratio| ratio }.first
-
-    @teams_data.find { |team| team[:team_id] == most_accurate_team_id }[:teamname]
+    team_name_from_id(most_accurate_team[0])
   end
 
   def least_accurate_team(season)
-    team_accuracies = calculate_team_accuracies(season)
+    least_accurate_team = calculate_team_accuracies(season).min_by { |_, ratio| ratio }
 
-    least_accurate_team_id = team_accuracies.min_by { |_, ratio| ratio }.first
-
-    @teams_data.find { |team| team[:team_id] == least_accurate_team_id }[:teamname]
+    team_name_from_id(least_accurate_team[0])
   end
 
 end
