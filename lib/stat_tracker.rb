@@ -66,13 +66,5 @@ class StatTracker
     end
     game_data
   end
-
-  def count_of_games_by_season
-    season_hash = {}
-    @game_data.each do |game|
-      game.each do |key, value|
-        
-      end
-    end
-  end
 end
+
