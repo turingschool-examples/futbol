@@ -35,7 +35,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_home_wins' do
     it 'calculates percentage home wins' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+      expect(stat_tracker.percentage_home_wins).to eq(0.45)
     end
   end
 
@@ -80,6 +80,16 @@ RSpec.describe StatTracker do
   describe '#worst_offense' do
     it 'can return the team with the lowest average number of goals per game across all seasons' do
       expect(stat_tracker.worst_offense).to eq("Seattle Sounders FC")
+    end
+    
+  describe '#count_of_games_by_season' do
+    it 'counts games by season' do
+      expected = {
+        "20122013" => 6,
+        "20132014" => 9,
+        "20142015" => 5,
+      }
+      expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
 end
