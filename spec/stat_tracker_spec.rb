@@ -27,4 +27,26 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_total_score).to eq(3)
     end
   end
+
+  describe "#count_of_games_by_season" do
+    it "returns the number of games in a season" do
+
+      expected_outcome = {
+        '20122013' => 8,
+        '20132014' => 2
+      }
+      expect(@stat_tracker.count_of_games_by_season).to eq(expected_outcome)
+    end
+  end
+
+  describe "average_goals_per_game" do
+    it "should return the average goals per game" do
+      expect(@stat_tracker.average_goals_per_game).to eq(4.3)  
+    end
+  end
+
+  describe "average_points_per_game" do
+    
+
+  end
 end
