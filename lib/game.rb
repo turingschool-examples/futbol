@@ -21,12 +21,12 @@ class Game
 
   #Work in Progress
   def count_of_games_by_season
-    season_hash = {}
+    season_hash = Hash.new(0)
     @game_data.each do |game|
-      game.each do |key, value|
-        
-      end
+      season = game[:season]
+      season_hash[season] += 1
     end
+    season_hash
   end
 
   # GAME STATS: Percentage Category; Home wins, Away wins, Ties. EB
