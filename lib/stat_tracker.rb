@@ -5,8 +5,8 @@ class StatTracker
   def initialize(all_data)
     @all_data = all_data
     @games = []
-    @games_list = {}
-    @games_team_list = {}
+    @game_teams = []
+    @teams = []
   end
 
   def self.from_csv(locations)
@@ -20,16 +20,27 @@ class StatTracker
 
   ## Creates game objects from the CSV file
   def create_games
-    @all_data[:game_team_f].each do |row|
-      game = Game.new(row[:game_id],
+    @all_data[:games].each do |row|
+      game = Game.new(row[:season],
+                      row[:away_goals],
+                      row[:home_goals], 
+                      )
+      @games << game
+    end
+    @games
+  end
+
+  def create_game_teams
+    @all_data[:game_teams].each do |row|
+      game_team = GameTeam.new(row[:game_id],
                       row[:team_id],
                       row[:goals], 
                       row[:hoa], 
                       row[:result]
                       )
-      @games << game
+      @game_teams << game_team
     end
-    @games
+    @game_teams
   end
 
   ## Returns highest total score of added scores of that game
@@ -93,9 +104,7 @@ class StatTracker
     @game_ids = @games.map{|game| game.game_id}.uniq
   end
 
-end
-
-# require 'pry'; binding.pry
+  # require 'pry'; binding.pry
 
   def percentage_home_wins
     # Percentage of games that a home team has won (rounded to the nearest 100th)

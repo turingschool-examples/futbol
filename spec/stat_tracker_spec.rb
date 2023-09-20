@@ -5,14 +5,15 @@ RSpec.describe StatTracker do
     ## LOCATING CSV FILES
     game_team_path = './data/game_team_fixture.csv'
     games_path = './data/games_fixture.csv'
-    teams_path = './data/teams_fixture.csv'
-    @locations = {  game_team_f: game_team_path, 
-                    games_f: games_path, 
-                    teams_f: teams_path,
+    teams_path = './data/teams.csv'
+    @locations = {  game_teams: game_team_path, 
+                    games: games_path, 
+                    teams: teams_path,
                   }
 
     @stats = StatTracker.from_csv(@locations)
-    # @stats.create_games
+    @stats.create_games
+    @stats.create_game_teams
   end
   
   describe '#initialize' do
