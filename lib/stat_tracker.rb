@@ -81,7 +81,20 @@ class StatTracker
   end
 
   def most_tackles(season)
-
+    #set most/ fewest tackles to 0/10000
+    most_tackles = 0
+    #take season ID to games data, grab game ID from matching game
+    @games_data.each do |game|
+      if game[:season] == season
+        game_id = game[:game_id]
+          @game_teams_data.each do |game_team|
+            if game_team[:game_id] == game_id
+              if game_team[:tackles].to_i > most_tackles
+                most_tackles = game_team[:tackles].to_i
+              end
+          end
+      end
+    end
   end
 
   def fewest_tackles(season)

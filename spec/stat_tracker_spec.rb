@@ -43,4 +43,5 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_visitor_wins("6")).to eq(100.0)
     end
   end
+  
 end
