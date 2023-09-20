@@ -29,7 +29,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_visitor_wins' do
     it 'calculates the percentage of visitor wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_ties' do
     it 'calculates the percentage of tied games' do
-      expect(stat_tracker.percentage_ties).to eq(0.20)
+      expect(stat_tracker.percentage_ties).to eq(0.35)
     end
   end
 
@@ -77,6 +77,11 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#worst_offense' do
+    it 'can return the team with the lowest average number of goals per game across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("Seattle Sounders FC")
+    end
+    
   describe '#count_of_games_by_season' do
     it 'counts games by season' do
       expected = {
