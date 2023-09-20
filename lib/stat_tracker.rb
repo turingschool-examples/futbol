@@ -1,8 +1,8 @@
 # require 'csv'
 require './spec/spec_helper'
 
-class StatTracker
-  
+class StatTracker 
+
   def initialize(locations)
     @@game = game_data_parser(locations[:games])
     @@team_data = team_data_parser(locations[:teams])
@@ -38,6 +38,10 @@ class StatTracker
   def game_teams_data_parser(file_location)
     contents = CSV.open file_location, headers: true, header_converters: :symbol
     contents.readlines
+  end
+
+  def method(testing = false)
+    testing ? data = game.take(20) : data = game
   end
 
 end
