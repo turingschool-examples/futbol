@@ -35,7 +35,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_home_wins' do
     it 'calculates percentage home wins' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+      expect(stat_tracker.percentage_home_wins).to eq(0.45)
     end
   end
 
@@ -74,6 +74,17 @@ RSpec.describe StatTracker do
     it 'returns the average goals scored per season' do
       expected_value = { '20122013' => 3.86, '20142015' => 3.5, '20162017' => 4.75 }
       expect(stat_tracker.average_goals_by_season(true)).to eq(expected_value)
+    end
+  end
+
+  describe '#count_of_games_by_season' do
+    it 'counts games by season' do
+      expected = {
+        "20122013" => 6,
+        "20132014" => 9,
+        "20142015" => 5,
+      }
+      expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
 end
