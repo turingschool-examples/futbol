@@ -91,7 +91,16 @@ RSpec.describe StatTracker do
 
     it 'gets number games each team played in a season' do
       expect(@stats.team_goals_season_total.class).to be Hash
-      expect(@stats.team_goals_season_total).to eq(6)
+      expect(@stats.team_goals_season_total['3']).to eq(9)
+    end
+
+    it 'team goal average per game in a season' do
+      expect(@stats.avg_team_goals_season.class).to be Hash
+      expect(@stats.avg_team_goals_season['3']).to eq(1.5)
+    end
+
+    it 'team goal average per game in a season' do
+      expect(@stats.avg_team_goals_season['3']).to eq(1.5)
     end
   end
 end
