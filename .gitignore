@@ -1,3 +1,4 @@
 .vscode/
-.byebughistory
-coverage/
+.byebug_history
+coverage/*
+.DS_Store
