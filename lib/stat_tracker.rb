@@ -33,6 +33,7 @@ class StatTracker
   ## Returns highest total score of added scores of that game
   def highest_total_score
     games_hash = {}
+    binding.pry
     game_ids.each do |game_id|
       games_hash[game_id]=0
     end
