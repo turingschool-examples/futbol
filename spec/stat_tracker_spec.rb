@@ -46,8 +46,7 @@ RSpec.describe StatTracker do
 
   describe 'game percentages' do
     it 'returns percentage of games home team won' do
-      expect(@stats.percentage_home_wins).to be_a Float
-      
+      expect(@stats.percentage_home_wins).to be_a Float      
     end
      
     it 'returns percentage of games visitor team won' do
@@ -56,7 +55,11 @@ RSpec.describe StatTracker do
     
     it 'returns percentage of games resulting in a tie' do
       expect(@stats.percentage_ties).to be_a Float
+    end
 
+    it 'rounds to 100 percent' do
+      expect((@stats.percentage_ties + @stats.percentage_home_wins + @stats.percentage_visitor_wins).round).to eq(100.00)
+      require 'pry'; binding.pry
     end
   end
 end
