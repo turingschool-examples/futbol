@@ -98,3 +98,4 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030134,15,away,WIN,REG,Adam Oates,3,7,20,8,2,0,35.8,9,2
 2012030134,3,home,LOSS,REG,John Tortorella,2,8,38,4,4,1,64.2,4,8
 2012030135,3,away,LOSS,OT,John Tortorella,1,6,43,4,4,0,41.7,14,9
+2012030135,15,home,WIN,OT,Adam Oates,2,8,53,8,2,1,58.3,13,13

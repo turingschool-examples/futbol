@@ -58,17 +58,17 @@ class StatTracker
       elsif hash.values.flatten.first < @value1
         hash[@key] = @value_array
       else
-        hash
+        #hash[@key] = [0, "tie,"]
       end
     end
-    @home_win = 0
-    @total_games = 0
+    @home_win = 0.00
+    @total_games = 0.00
     hash.values.each do |winner|
       if winner[1] == "home"
-        @home_win += 1.0
-        @total_games += 1.0
+        @home_win += 1.00
+        @total_games += 1.00
       else
-        @total_games += 1.0
+        @total_games += 1.00
       end
     end
     @home_win / @total_games
@@ -87,20 +87,80 @@ class StatTracker
         hash[@key] = @value_array
       elsif hash.values.flatten.first < @value1
         hash[@key] = @value_array
+      elsif hash.values.flatten.first == @value1
+        #hash[@key] = [0, "tie,"]
       else
         hash
       end
     end
-    @visitor_win = 0
-    @total_games = 0
+    @visitor_win = 0.00
+    @total_games = 0.00
     hash.values.each do |winner|
       if winner[1] == "away"
-        @visitor_win += 1.0
-        @total_games += 1.0
+        @visitor_win += 1.00
+        @total_games += 1.00
       else
-        @total_games += 1.0
+        @total_games += 1.00
       end
     end
     @visitor_win / @total_games
+  end
+
+  def percentage_ties
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @game_teams.each do |game|
+      @key = game[:game_id].to_i
+      @value_array = []
+      @value2 = game[:hoa]
+      @value1 = game[:goals].to_f
+      @value_array << @value1
+      @value_array << @value2
+      if hash.values == nil
+        hash[@key] = @value_array
+      elsif hash.values.flatten.first < @value1
+        hash[@key] = @value_array
+      else
+        hash[@key] = [0, "tie,"]
+      end
+    end
+    @visitor_win = 0.00
+    @home_win = 0.00
+    @total_games = 0.00
+    hash.values.each do |winner|
+      if winner[1] == "away"
+        @visitor_win += 1.00
+        @total_games += 1.00
+      elsif winner[1] == "home"
+        @home_win += 1.00
+        @total_games += 1.00
+      else
+        @total_games += 1.00
+      end
+    end
+    (@total_games - @home_win - @visitor_win) / @total_games
+  end
+
+  def percentage_home_wins_v2
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @total_games = 0
+    #stat_tracker.game_teams.each do |game|
+    @game_teams.each do |game|
+      @total_games += 0.50
+      @key = game[:game_id].to_i
+      @value_array = []
+      @value1 = game[:result]
+      @value2 = game[:hoa]
+      @value_array << @value1
+      @value_array << @value2
+      hash[@key] = @value_array
+    end
+    @home_win = 0.00
+    hash.values.each do |hashy|
+      if hashy[0] == "WIN" && hashy[1] == "home"
+        @home_win += 1.00
+      end
+    end
+    x = @home_win / @total_games
+    x.round(2)
   end
 end
