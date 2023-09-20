@@ -98,7 +98,7 @@ class StatTracker
   end
 
   def average_goals_per_season
-    goals_by_season = Hash.new { |hash, key| hash[key] = [] } #{season: [goals_per_game]}
+    goals_by_season = Hash.new { |hash, key| hash[key] = [] }  # {season: [goals_per_game]}
     
 
     @games_data.each do |game|
