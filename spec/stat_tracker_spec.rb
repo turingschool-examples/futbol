@@ -1,9 +1,9 @@
 require './spec/spec_helper'
 
 RSpec.describe StatTracker do
-  game_path = './data/games.csv'
-  team_path = './data/teams.csv'
-  game_teams_path = './data/game_teams.csv'
+  game_path = './data/games_fixture.csv'
+  team_path = './data/teams_fixture.csv'
+  game_teams_path = './data/game_teams_fixture.csv'
   locations = {
     games: game_path,
     teams: team_path,
@@ -49,7 +49,8 @@ RSpec.describe StatTracker do
     it 'calculates the percentage of tied games' do
       expect(stat_tracker.percentage_ties).to eq(0.20)
     end
-    
+  end
+
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams scores' do
       expect(stat_tracker.lowest_total_score(true)).to eq(1)

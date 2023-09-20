@@ -99,7 +99,7 @@ class StatTracker
     testing ? data = game_teams.take(20) : data = game_teams
     numerator = data.sum { |game| game[:goals].to_i }.to_f
     numerator / data.count
-
+  end 
 
   def average_goals_by_season(testing = false)
     testing ? data = game.take(67) : data = game
