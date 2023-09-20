@@ -107,4 +107,8 @@ class StatTracker
     end
     average_goals
   end
+
+  def count_of_teams
+    team_data.count
+  end
 end
