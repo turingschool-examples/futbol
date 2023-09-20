@@ -125,6 +125,23 @@ class StatTracker
     percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
   end
 
+  ## LEAGUE SCORING
+  def highest_scoring_visitor
+    ## Name of the team with the highest average score per game across all seasons when they are away.
+  end
+
+  def highest_scoring_home_team
+   ##Name of the team with the highest average score per game across all seasons when they are home. 
+  end
+
+  def lowest_scoring_visitor
+    ##Name of the team with the lowest average score per game across all seasons when they are a visitor.
+  end
+
+  def lowest_scoring_home_team
+    ##Name of the team with the lowest average score per game across all seasons when they are at home.
+  end
+
   ##HELPER METHODS
     ## Creates an array of game_ids, acts as helper method
     def game_ids
