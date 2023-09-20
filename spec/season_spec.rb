@@ -21,7 +21,7 @@ RSpec.describe StatTracker do
 
   # it "exists" do
   #   expect(@stat_tracker).to be_an_instance_of StatTracker
-  # end
+
 
   it "#winningest_coach" do
     expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
