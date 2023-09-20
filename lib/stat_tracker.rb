@@ -55,8 +55,6 @@ class StatTracker
 
     if home_games != 0
       (home_wins.to_f/home_games * 100.0).round(1)
-    else
-      "no home games recorded"
     end
   end
 
@@ -75,8 +73,6 @@ class StatTracker
 
     if visitor_games != 0
       (visitor_wins.to_f/visitor_games * 100.0).round(1)
-    else
-      "no visitor games recorded"
     end
   end
 end
