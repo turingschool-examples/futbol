@@ -1,5 +1,5 @@
 
-require './spec_helper'
+require_relative './spec_helper'
 
 
 class StatTracker
@@ -12,10 +12,15 @@ class StatTracker
     contents = CSV.open locations[:games], headers: true, header_converters: :symbol
     contents.each do |row|
       row
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
     end
-    # StatTracker.new
-  end
 
+    def percentage_home_wins
+
+    end
+  end
 end
 
+
+
+def games 
