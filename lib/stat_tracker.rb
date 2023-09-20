@@ -16,10 +16,3 @@ class StatTracker
     return GameStats.high_score(GAME_DATA)
   end
 end
-
-# questions re: modules, other
-
-
-# Seems like spec_helper
-
-# 
