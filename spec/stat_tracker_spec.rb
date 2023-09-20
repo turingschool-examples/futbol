@@ -43,5 +43,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_visitor_wins("6")).to eq(100.0)
     end
   end
-  
+
+  describe "#most_tackles" do
+    it "takes seasaon ID argument and finds team with most tackles in a single game" do
+      expect().to eq()
+    end
+  end
 end
