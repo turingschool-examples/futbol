@@ -14,6 +14,8 @@ RSpec.describe StatTracker do
     @stats = StatTracker.from_csv(@locations)
     @stats.create_games
     @stats.create_game_teams
+    @stats.game_ids
+    require 'pry'; binding.pry
   end
   
   describe '#initialize' do
