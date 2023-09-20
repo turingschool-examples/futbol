@@ -16,38 +16,40 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    # should we instantiate an object?
+    @league = League.new(@stat_tracker.game_data, @stat_tracker.team_data, @stat_tracker.game_team_data)
   end
+
   
-  # it "exists" do
-  #   expect(@stat_tracker).to be_an_instance_of StatTracker
-  # end
+  
+  it "exists" do
+    expect(@league).to be_an_instance_of League
+  end
 
   it "#count_of_teams" do
-    expect(@stat_tracker.count_of_teams).to eq 32
+    expect(@league.count_of_teams).to eq 32
   end
 
   it "#best_offense" do
-    expect(@stat_tracker.best_offense).to eq "Reign FC"
+    expect(@league.best_offense).to eq "Reign FC"
   end
 
   it "#worst_offense" do
-    expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+    expect(@league.worst_offense).to eq "Utah Royals FC"
   end
 
   it "#highest_scoring_visitor" do
-    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+    expect(@league.highest_scoring_visitor).to eq "FC Dallas"
   end
 
   it "#highest_scoring_home_team" do
-    expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+    expect(@league.highest_scoring_home_team).to eq "Reign FC"
   end
 
   it "#lowest_scoring_visitor" do
-    expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    expect(@league.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
   it "#lowest_scoring_home_team" do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    expect(@league.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
 end
