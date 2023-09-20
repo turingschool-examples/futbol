@@ -90,4 +90,8 @@ class StatTracker
     numerator = data.sum { |game| game[:goals].to_i }.to_f
     numerator / data.count
   end
+
+  def count_of_teams
+    team_data.count
+  end
 end
