@@ -2,7 +2,7 @@ require 'spec_helper'
 RSpec.describe StatTracker do
   let(:game_path) { './data/test_games.csv' }
   let(:team_path) { './data/test_teams.csv' } 
-  let(:game_teams_path) { './data/test_teams.csv' } 
+  let(:game_teams_path) { './data/test_game_teams.csv' } 
   let(:test_locations) { 
     {games: game_path,
     teams: team_path,
@@ -18,29 +18,29 @@ RSpec.describe StatTracker do
   describe "#highest total score" do 
     it 'will find the highest sum of the winning and losing teams scores and return them as integers' do
       expect(stat_tracker.highest_total_score).to be_an(Integer)
-      expect(stat_tracker.highest_total_score).to eq()
+      expect(stat_tracker.highest_total_score).to eq(6)
     end 
   end
   describe "#lowest total score" do 
     it 'will find the lowest sum of the winning and losing teams scores' do 
      expect(stat_tracker.lowest_total_score).to be_an(Integer)
-     expect(stat_tracker.lowest_total_score).to eq()
+     expect(stat_tracker.lowest_total_score).to eq(1)
     end
   end
   describe "#percentage home wins" do 
-    it 'will find the percentage of games that a home team has won' do 
+    xit 'will find the percentage of games that a home team has won' do 
       expect(stat_tracker.percentage_home_wins).to  be_a(Float)
       expect(stat_tracker.percentage_home_wins).to  eq()
     end
   end
   describe "#percentage visitor wins" do 
-    it 'will find the percentage of games that a visitor has won' do 
+    xit 'will find the percentage of games that a visitor has won' do 
       expect(stat_tracker.percentage_visitor_wins).to  be_a(Float)
       expect(stat_tracker.percentage_visitor_wins).to  eq()
     end
   end
   describe "#percentage_ties" do 
-    it 'will find the percentage of games that ended in a tie' do 
+    xit 'will find the percentage of games that ended in a tie' do 
       expect(stat_tracker.percentage_ties).to  be_a(Float)
       expect(stat_tracker.percentage_ties).to  eq()
     end
