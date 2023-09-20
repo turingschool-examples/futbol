@@ -75,4 +75,13 @@ class StatTracker
     highest_score
   end 
 
+  def percentage_ties 
+    count = 0
+    game.each do |single_game|
+      if single_game[:home_goals] == single_game[:away_goals] 
+        count += 1
+      end 
+    end
+    percentage = (count.to_f / game.count).round(2)
+  end
 end
