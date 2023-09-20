@@ -36,7 +36,6 @@ RSpec.describe StatTracker do
   
   describe '#GameStatistics' do
     it 'gets highest total score' do
-      @stats.highest_total_score
       expect(@stats.highest_total_score).to eq(7)
     end
 
@@ -48,9 +47,7 @@ RSpec.describe StatTracker do
       expect(@stats.count_of_games_by_season).to eq({"20122013"=>18, "20152016"=>32, "20162017"=>35, "20172018"=>34})
       expect(@stats.count_of_games_by_season.class).to be Hash
     end
-  end
 
-  describe 'game percentages' do
     it 'returns percentage of games home team won' do
       expect(@stats.percentage_home_wins).to be_a Float      
     end
@@ -65,7 +62,17 @@ RSpec.describe StatTracker do
 
     it 'rounds to 100 percent' do
       expect((@stats.percentage_ties + @stats.percentage_home_wins + @stats.percentage_visitor_wins).round).to eq(100.00)
-      # require 'pry'; binding.pry
     end
+
+    it 'returns average number of goals scored in a game across all seasons' do
+      expect(@stats.average_goals_per_game).to eq(3.91)
+      expect(@stats.average_goals_per_game.class).to be Float
+    end
+
+    it 'returns average number of goals scored in a game' do
+      expect(@stats.average_goals_by_season).to eq({"20122013"=>3.61, "20152016"=>4.28, "20162017"=>4.57, "20172018"=>4.38})
+      expect(@stats.average_goals_by_season.class).to be Hash
+    end
+
   end
 end
