@@ -138,7 +138,7 @@ class StatTracker
     games_and_scores = {}
     game_teams.each do |game_team|
       games_and_scores[game_team[:team_id]] = game_team[:goals].to_i
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
     end
   end
 

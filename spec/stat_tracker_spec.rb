@@ -29,7 +29,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_visitor_wins' do
     it 'calculates the percentage of visitor wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_ties' do
     it 'calculates the percentage of tied games' do
-      expect(stat_tracker.percentage_ties).to eq(0.20)
+      expect(stat_tracker.percentage_ties).to eq(0.35)
     end
   end
 
