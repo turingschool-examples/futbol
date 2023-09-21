@@ -57,7 +57,7 @@ RSpec.describe StatTracker do
     expect(@league.visitor_goals["3"]).to eq(572)
   end
 
-  it '#visitor_games' do
+  it '#total_games' do
     expect(@league.visitor_games["3"]).to eq(531)
   end
 

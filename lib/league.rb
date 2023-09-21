@@ -28,7 +28,7 @@ class League
   end
 
   # count total visitor games per team
-  def visitor_games
+  def total_games
     visitor_games = Hash.new(0)
     @game_team_data.each do |game|
       team_id = game[:team_id]
