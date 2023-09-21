@@ -101,8 +101,24 @@ class StatTracker
     x = @tie / @total_games
     (x * 100).round(2)
   end
-
-
+#will return a hash with season names as keys, 
+#and a float representing the average number of goals in a game for that season as values
+  def average_goals_by_season
+    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
+    @total_goals = 0.00
+    @total_games = 0.00
+    @games.each do |game|
+      @key = game.season
+      @value1 = game.away_goals
+      @value2 = game.home_goals
+      @total_games += 1.00
+      @total_goals += @value1
+      @total_goals += @value2
+      @avg_goals_game = (@total_goals / @total_games)
+      hash[@key] = @avg_goals_game
+    end
+    hash
+  end
   # original from_csv left for reference
   # def self.from_csv(locations)
   #   content = {}
