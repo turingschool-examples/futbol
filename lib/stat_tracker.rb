@@ -229,12 +229,14 @@ class StatTracker
     @game_ids = @game_teams.map{|game| game.game_id}.uniq
   end
   
+  ## Finds the max average score by game id and returns team name
   def max(team_averages)
     max = team_averages.max_by{|k,v| v}
     highest_team = @teams.find { |team| team.team_id == max.first}
     highest_team.team_name
   end
 
+  ## Finds the min average score by game id and returns team name
   def min(team_averages)
     min = team_averages.min_by{|k,v| v}
     lowest_team = @teams.find { |team| team.team_id == min.first}
