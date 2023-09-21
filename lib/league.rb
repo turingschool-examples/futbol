@@ -42,8 +42,7 @@ class League
   def ave_visitor_goals
     ave_visitor_goals = Hash.new(0)
     visitor_goals.each do |team_id, goals|
-      total_games = visitor_games[team_id]
-      average = (goals.to_f / total_games)
+      average = (goals.to_f / total_games[team_id])
       ave_visitor_goals[team_id] = average
     end
     ave_visitor_goals
