@@ -45,7 +45,7 @@ RSpec.describe StatTracker do
     expect(@league.highest_scoring_home_team).to eq "Reign FC"
   end
 
-  xit "#lowest_scoring_visitor" do
+  it "#lowest_scoring_visitor" do
     expect(@league.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
@@ -67,5 +67,9 @@ RSpec.describe StatTracker do
 
   it '#highest_ave_visitor_goals' do
     expect(@league.highest_ave_visitor_goals).to eq(["6", 1.1137254901960785])
+  end
+
+  it '#lowest_ave_visitor_goals' do
+    expect(@league.lowest_ave_visitor_goals).to eq(["27", 0.9230769230769231])
   end
 end
