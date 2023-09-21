@@ -3,7 +3,6 @@ class StatTracker
   attr_reader :teams,
               :games,
               :game_teams
-
   def initialize(content)
     @teams = content[:teams]
     @games = content[:games]
@@ -118,13 +117,8 @@ class StatTracker
     end
     hash
   end
-  # original from_csv left for reference
-  # def self.from_csv(locations)
-  #   content = {}
-  #   content[:teams] = CSV.readlines(locations[:teams], headers: true, header_converters: :symbol),
-  #   content[:games] = CSV.readlines(locations[:games], headers: true, header_converters: :symbol),
-  #   content[:game_teams] = CSV.readlines(locations[:game_teams], headers: true, header_converters: :symbol)
-  #   StatTracker.new(content)
-  ## in pry you can then do stat_tracker[:team_id] and it will print stuff
-  # end
+
+  def count_of_teams
+    @teams.count
+  end
 end
