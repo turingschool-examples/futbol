@@ -12,6 +12,7 @@ RSpec.describe StatTracker do
                   }
 
     @stats = StatTracker.from_csv(@locations)
+    binding.pry
   end
   
   describe '#initialize' do
