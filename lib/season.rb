@@ -1,7 +1,8 @@
 class Season
-  def initialize(game_team_data, game_data)
+  def initialize(game_team_data, game_data, team_data)
     @game_team_data = game_team_data
     @game_data = game_data
+    @team_data = team_data
   end
 
   def coach_totals(season)
@@ -19,7 +20,7 @@ class Season
     end
     coach_hash_total
   end
-
+  
   def coach_wins(season)
     coach_hash_winnings =  Hash.new(0)
     @game_data.each do |game_row|
@@ -34,6 +35,7 @@ class Season
       end
     end
     coach_hash_winnings
+    require 'pry'; binding.pry
   end
 
 
