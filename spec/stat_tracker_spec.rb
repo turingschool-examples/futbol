@@ -152,4 +152,11 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#winningest_coach(season)' do
+    it 'returns name of the coacg with the best win percentage for the season' do
+      expect(stat_tracker.winningest_coach('20122013')).to eq('Peter DeBoer')
+      expect(stat_tracker.winningest_coach('20132014')).to eq('Craig Berube')
+      expect(stat_tracker.winningest_coach('20142015')).to eq('Alain Vigneault')
+    end
+  end
 end
