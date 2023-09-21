@@ -72,4 +72,8 @@ RSpec.describe StatTracker do
   it '#lowest_ave_visitor_goals' do
     expect(@league.lowest_ave_visitor_goals).to eq(["27", 0.9230769230769231])
   end
+
+  it '#home_goals' do
+    expect(@league.home_goals["6"]).to eq(586)
+  end
 end

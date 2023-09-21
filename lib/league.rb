@@ -75,7 +75,6 @@ class League
     lowest_ave_id
   end
 
-  #Name of the team with the lowest average score per game across all seasons when they are a visitor.
   def lowest_scoring_visitor
     lowest_scoring_name = ""
     @team_data.each do |team|
@@ -84,5 +83,19 @@ class League
       end
     end
     lowest_scoring_name
+  end
+
+  # count total visitor goals per team
+  def home_goals
+    home_goals = Hash.new(0)
+    @game_team_data.each do |game|
+      home_or_away = game[:hoa]
+      goals = game[:goals].to_i
+      team_id = game[:team_id]
+      if home_or_away == "home"
+        home_goals[team_id] += goals
+      end
+    end
+    home_goals
   end
 end
