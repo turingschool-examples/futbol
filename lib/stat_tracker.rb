@@ -46,12 +46,13 @@ class StatTracker
 
   def most_tackles
     Game.games.group_by {|game| game.season}
+    GameTeam.gameteam.group_by {|}
     require 'pry'; binding.pry
     #sort season by team_id
     #use teams csv team id, sort through teams and store tackles.sum in array
     #find max value in array
     #find team id that matches max value
-    #return team name and max value
+    #return team name
   end
 
   def least_tackles
