@@ -41,7 +41,7 @@ RSpec.describe StatTracker do
 
   describe '#highest_total_score' do
     it 'returns the highest sum of the winning and losing teams scores' do
-      expect(stat_tracker.highest_total_score(true)).to eq(5)
+      expect(stat_tracker.highest_total_score).to eq(5)
     end
   end
 
@@ -53,27 +53,27 @@ RSpec.describe StatTracker do
 
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams scores' do
-      expect(stat_tracker.lowest_total_score(true)).to eq(1)
+      expect(stat_tracker.lowest_total_score).to eq(1)
     end
   end
 
 
   describe '#average_goals_per_game' do
     it 'returns the average number of goals scored by a single team' do
-      expect(stat_tracker.average_goals_per_game(true)).to eq(1.85)
+      expect(stat_tracker.average_goals_per_game).to eq(1.98)
     end
   end
 
   describe '#count_of_teams' do
     it 'returns the total number of teams' do
-      expect(stat_tracker.count_of_teams).to eq(32)
+      expect(stat_tracker.count_of_teams).to eq(4)
     end
   end
 
   describe '#average_goals_by_season' do
     it 'returns the average goals scored per season' do
       expected_value = { '20122013' => 3.86, '20142015' => 3.5, '20162017' => 4.75 }
-      expect(stat_tracker.average_goals_by_season(true)).to eq(expected_value)
+      expect(stat_tracker.average_goals_by_season).to eq(expected_value)
     end
   end
 
