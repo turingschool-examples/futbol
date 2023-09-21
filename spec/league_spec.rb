@@ -79,7 +79,7 @@ RSpec.describe StatTracker do
     expect(@league.ave_home_goals["6"]).to eq(1.1490196078431372)
   end
 
-  it '#highest_ave_visitor_goals' do
-    expect(@league.highest_ave_visitor_goals).to eq(["6", 1.1137254901960785])
+  it '#highest_ave_home_goals' do
+    expect(@league.highest_ave_home_goals).to eq(["54", 1.2941176470588236])
   end
 end

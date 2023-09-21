@@ -108,10 +108,20 @@ class League
   end
 
   # determine highest average, put team id and ave in an array
-  def highest_ave_visitor_goals
-    highest_ave_id = ave_visitor_goals.max_by do |team_id, goals|
+  def highest_ave_home_goals
+    highest_ave_id = ave_home_goals.max_by do |team_id, goals|
       goals
     end
     highest_ave_id
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_name = ""
+    @team_data.each do |team|
+      if highest_ave_home_goals[0] == team[:team_id]
+        highest_scoring_name += team[:team_name]
+      end
+    end
+    highest_scoring_name
   end
 end
