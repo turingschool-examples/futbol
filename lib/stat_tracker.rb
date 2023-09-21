@@ -198,4 +198,24 @@ class StatTracker
   def home_team?(team_id)
     game_teams.find_all { |game_team| game_team[:team_id] == team_id && game_team[:hoa] == 'home' }
   end
+  
+  def away_team?(team_id)
+    game_teams.find_all |game_team| 
+      game_team[:team_id] == team_id && game_team[:hoa] == 'away'
+      require 'pry'; binding.pry
+    end 
+  end
+
+  def highest_scoring_visitor
+    highest_scoring_visitor = ""
+    away_teams = games_and_scores.select { |team_id, data| away_team?(team_id) }
+    highest_average = away_teams.sort_by { |team, data| data[:average] }.first[0]
+
+    team_data.each do |team|
+      if team[:team_id] == highest_average
+        highest_scoring_visitor << team[:teamname]
+      end
+    end 
+    highest_scoring_visitor
+  end
 end
