@@ -1,6 +1,4 @@
 game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
-#create hash with the game_id, add the goal values
-#hash keys will always be unique - so look at the unique values in your data (aka game_id here)
 2012030221,3,away,LOSS,OT,John Tortorella,2,8,44,8,3,0,44.8,17,7
 2012030221,6,home,WIN,OT,Claude Julien,3,12,51,6,4,1,55.2,4,5
 2012030222,3,away,LOSS,REG,John Tortorella,2,9,33,11,5,0,51.7,1,4
@@ -99,3 +97,5 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030134,3,home,LOSS,REG,John Tortorella,2,8,38,4,4,1,64.2,4,8
 2012030135,3,away,LOSS,OT,John Tortorella,1,6,43,4,4,0,41.7,14,9
 2012030135,15,home,WIN,OT,Adam Oates,2,8,53,8,2,1,58.3,13,13
+2012030136,15,away,LOSS,REG,Adam Oates,0,6,28,14,0,0,40,5,3
+2012030136,3,home,WIN,REG,John Tortorella,1,7,33,4,5,0,60,7,6
