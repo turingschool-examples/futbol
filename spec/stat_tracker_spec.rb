@@ -28,10 +28,31 @@ RSpec.describe StatTracker do
     end
   end 
 
+  describe "#average_goals_per_game" do
+    it 'will find the average goals' do
+      expect(@game_stats.average_goals_per_game).to eq(3.67)
+      # expect(@game_stats.average_goals_per_game).to eq(4.22)
+    end
+  end
+  
   describe "#highest_scoring_visitor" do
     it 'finds team with highest average score when away' do
-      require 'pry'; binding.pry
-      expect()
+      expect(@game_stats.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+  describe "#lowest_scoring_visitor" do
+    xit 'finds team with lowest average score when away' do
+      expect(@game_stats.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+  end
+  describe "#highest_scoring_home_team" do
+    xit 'finds team with highest average score when away' do
+      expect(@game_stats.highest_scoring_home_team).to eq("LA Galaxy")
+    end
+  end
+  describe "#lowest_scoring_home_team" do
+    xit 'finds team with lowest average score when away' do
+      expect(@game_stats.lowest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
 end

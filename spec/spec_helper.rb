@@ -6,6 +6,7 @@
 
 require 'simplecov'
 SimpleCov.start
-require "./lib/game_statistics"
+require "./lib/stat_tracker"
 require "csv"
 require "pry"
+
