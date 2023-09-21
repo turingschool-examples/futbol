@@ -1,5 +1,6 @@
-class StatTracker
+require './spec/spec_helper'
 
+class StatTracker
   attr_reader :all_data, :games, :game_teams, :teams, :game_ids
   
   def initialize(all_data)
@@ -8,6 +9,10 @@ class StatTracker
     @game_teams = []
     @teams = []
     @game_ids = []
+    create_games
+    create_game_teams
+    game_ids
+    create_teams
   end
 
   def self.from_csv(locations)
@@ -17,20 +22,6 @@ class StatTracker
       all_data[file_name] = formatted_csv
     end
     StatTracker.new(all_data)
-  end
-
-  def compile
-    create_games
-    create_game_teams
-    game_ids
-  end
-
-  def create_teams
-    @all_data[:teams].each do |row|
-      team = Team.new(row[:team_id])
-      @teams << team
-    end
-    @teams
   end
 
   ## Returns highest total score of added scores of that game (INTEGER)
@@ -48,7 +39,7 @@ class StatTracker
   count_games = {}
    @games.each do |game|
     if count_games[game.season].nil? # Added [1] to continue method with adjustment to games_list
-      count_games[game.season] = 0
+      count_games[game.season] = 1
     else
       count_games[game.season] +=1
     end
@@ -67,7 +58,7 @@ class StatTracker
         games_won += 1
       end
     end
-    percentage = (games_won.to_f / number_of_games.to_f * 100).round(2)
+    percentage = (games_won.to_f / number_of_games.to_f).round(2)
   end
   
   def percentage_visitor_wins
@@ -81,7 +72,7 @@ class StatTracker
         games_won += 1
       end
     end
-    percentage = (games_won.to_f / number_of_games.to_f * 100).round(2)
+    percentage = (games_won.to_f / number_of_games.to_f).round(2)
   end
 
   def percentage_ties   
@@ -95,7 +86,7 @@ class StatTracker
         games_tied += 1
       end
     end
-    percentage = (games_tied.to_f / number_of_games.to_f * 100).round(2)
+    percentage = (games_tied.to_f / number_of_games.to_f).round(2)
   end
 
   def count_of_teams
@@ -111,7 +102,7 @@ class StatTracker
 
   ## Returns average goals per game with season names as keys and a float for average num of goals per game (HASH)
   def average_goals_by_season
-    total_scores_by_season = {"20122013"=>65, "20152016"=>137, "20162017"=>160, "20172018"=>149}
+    total_scores_by_season
     average_goals_by_season = total_scores_by_season.map { |season, total_scores| [season, (total_scores.to_f/count_of_games_by_season[season].to_f).round(2)]}.to_h
     average_goals_by_season
   end
@@ -122,7 +113,16 @@ class StatTracker
       @game_ids = @game_teams.map{|game| game.game_id}.uniq
     end
 
-    ## Creates game objects from the CSV file
+     ## Creates an array of teams
+    def create_teams
+      @all_data[:teams].each do |row|
+        team = Team.new(row[:team_id])
+        @teams << team
+      end
+      @teams
+    end
+
+  ## Creates game objects from the CSV file
   def create_games
     @all_data[:games].each do |row|
       game = Game.new(row[:game_id],
