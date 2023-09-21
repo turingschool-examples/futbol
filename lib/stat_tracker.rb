@@ -118,6 +118,57 @@ class StatTracker
     end
     hash
   end
+
+  def highest_scoring_visitor
+    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
+    @total_goals = 0.00
+    @total_games = 0.00
+    @game_teams.each do |game|
+      if game.hoa == "away"
+        @key = game.team_id
+        @value1 = game.goals
+        @total_games += 1.00
+        @total_goals += @value1
+        @avg_goals_game = (@total_goals / @total_games)
+        hash[@key] = @avg_goals_game
+      end
+    end
+    max = hash.values.max
+    max_array = hash.find do |h|
+      h[1] == max
+    end
+    team_code = max_array[0].to_s
+    @x = @teams.find do |team|
+      team.team_id == team_code
+    end
+    @x.name
+  end
+
+  def lowest_scoring_visitor
+    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
+    @total_goals = 0.00
+    @total_games = 0.00
+    @game_teams.each do |game|
+      if game.hoa == "away"
+        @key = game.team_id
+        @value1 = game.goals
+        @total_games += 1.00
+        @total_goals += @value1
+        @avg_goals_game = (@total_goals / @total_games)
+        hash[@key] = @avg_goals_game
+      end
+    end
+    min = hash.values.min
+    min_array = hash.find do |h|
+      h[1] == min
+    end
+    @team_code = min_array[0].to_s
+    @x = @teams.find do |team|
+      #require 'pry'; binding.pry
+      team.team_id == @team_code 
+    end
+    @x.name
+  end
   # original from_csv left for reference
   # def self.from_csv(locations)
   #   content = {}
