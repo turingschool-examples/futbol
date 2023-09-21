@@ -15,6 +15,7 @@ class StatTracker
     @games_data = games_data
     @teams_data = teams_data
     @game_teams_data = game_teams_data
+    @percentage_results = nil
   end
 
   ###=== GLOBAL HELPERS ===###
@@ -41,24 +42,37 @@ class StatTracker
     total_scores.min
   end
 
+  def percentage_results
+    if @percentage_results.nil?
+      @percentage_results = {}
+      number_games = @games_data.length
+
+      home_wins = @games_data.count { |game| game[:home_goals].to_i > game[:away_goals].to_i }
+
+      @percentage_results[:home_wins] = (home_wins.to_f / number_games * 100.0).round(2)
+
+      away_wins = @games_data.count { |game| game[:away_goals].to_i > game[:home_goals].to_i }
+
+      @percentage_results[:away_wins] = (away_wins.to_f / number_games * 100.0).round(2)
+
+      ties = @games_data.count { |game| game[:away_goals].to_i == game[:home_goals].to_i }
+
+      @percentage_results[:ties] = (ties.to_f / number_games * 100.0).round(2)
+    end
+
+    @percentage_results
+  end
+
   def percentage_home_wins
-    games = @games_data.length
-
-    home_wins = @games_data.count { |game| game[:home_goals].to_i > game[:away_goals].to_i }
-
-    (home_wins.to_f / games * 100.0).round(2)
+    percentage_results[:home_wins]
   end
 
   def percentage_visitor_wins
-    100.0 - percentage_home_wins - percentage_ties
+    percentage_results[:away_wins]
   end
 
   def percentage_ties
-    games = @games_data.length
-    return 0.0 if games == 0
-    ties = @games_data.count { |game| game[:away_goals].to_i == game[:home_goals].to_i }
-
-    (ties.to_f / games * 100.0).round(2)
+    percentage_results[:ties]
   end
 
   def count_of_games_by_season
