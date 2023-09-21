@@ -169,7 +169,7 @@ RSpec.describe StatTracker do
     it "should calculate team accuracies for a certain season" do
       expected_accuracies = {
         "6" => 0.29,
-        "3" => 0.24,
+        "3" => 0.24
       }
       expect(@stat_tracker.team_accuracies("20122013")).to eq expected_accuracies
     end
@@ -190,7 +190,7 @@ RSpec.describe StatTracker do
   # helper
   describe "#season_team_tackles" do
     it "returns all teams tackles from given season" do
-      expected = { }
+      expected = {"3" => 77, "6" => 115}
       expect(@stat_tracker.season_team_tackles("20122013")).to eq expected
     end
   end
