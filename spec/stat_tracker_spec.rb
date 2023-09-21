@@ -81,6 +81,7 @@ RSpec.describe StatTracker do
     it 'can return the team with the lowest average number of goals per game across all seasons' do
       expect(stat_tracker.worst_offense).to eq("Seattle Sounders FC")
     end
+  end
     
   describe '#count_of_games_by_season' do
     it 'counts games by season' do
