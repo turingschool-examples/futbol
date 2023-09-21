@@ -28,7 +28,7 @@ class GameTeam
     @shots                  = attributes[:shots]
     @tackles                = attributes[:tackles]
     @pim                    = attributes[:pim]
-    @powerPlayOppertunities = attributes[:powerPlayOpportunities]
+    @powerPlayOpportunities = attributes[:powerPlayOpportunities]
     @powerPlayGoals         = attributes[:powerPlayGoals]
     @faceOffWinPercentage   = attributes[:faceOffWinPercentage]
     @giveaways              = attributes[:giveaways]
