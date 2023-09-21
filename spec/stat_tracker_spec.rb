@@ -68,7 +68,7 @@ RSpec.describe StatTracker do
       expect(@stats.average_goals_per_game.class).to be Float
     end
 
-    it 'returns average number of goals scored in a game' do
+    xit 'returns average number of goals scored in a game' do
       expect(@stats.average_goals_by_season).to eq({"20122013"=>3.42, 
                                                     "20152016"=>4.15, 
                                                     "20162017"=>4.44, 

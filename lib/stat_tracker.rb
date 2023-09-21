@@ -118,6 +118,7 @@ class StatTracker
     max(team_goals)
   end
 
+
   def highest_scoring_visitor
     team_goals = Hash.new(0)
     @game_teams.each do |game_team, goals|
@@ -129,6 +130,7 @@ class StatTracker
     end
     max(team_goals)
   end
+
   
   ##HELPER METHODS
   ## Creates an array of game_ids, acts as helper method
@@ -287,7 +289,8 @@ class StatTracker
                       row[:team_id],
                       row[:goals], 
                       row[:hoa], 
-                      row[:result]
+                      row[:result],
+                      row[:head_coach]
                       )
       @game_teams << game_team
     end
