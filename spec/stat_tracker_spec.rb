@@ -152,4 +152,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#worst_coach(season)' do
+    it 'returns name of the coach with the worst win percentage for the season' do
+      expect(stat_tracker.worst_coach('20122013')).to eq('Peter Laviolette')
+      expect(stat_tracker.worst_coach('20132014')).to eq('Jack Capuano')
+      expect(stat_tracker.worst_coach('20142015')).to eq('Peter DeBoer')
+    end
+  end
+
 end
