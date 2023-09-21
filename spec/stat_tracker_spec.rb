@@ -77,4 +77,48 @@ RSpec.describe StatTracker do
       end
     end
   end
+  context 'League Statistic Methods' do
+    xdescribe '#count_of_teams' do 
+      it 'will return an integer with the total number of teams in the data' do
+        expect(stat_tracker.count_of_teams).to be_a(Integer)
+        expect(stat_tracker.count_of_teams).to eq()
+      end
+    end
+    xdescribe '#best_offense' do 
+      it 'will return a string with the name of the team with the highest average number of goals scored per game across all seasons' do
+        expect(stat_tracker.count_of_teams).to be_a(String)
+        expect(stat_tracker.count_of_teams).to eq()
+      end
+    end
+    xdescribe '#worst_offense' do 
+      it 'will return a string with the name of the team with the lowest average number of goals scored per game across all seasons' do
+        expect(stat_tracker.count_of_teams).to be_a(String)
+        expect(stat_tracker.count_of_teams).to eq()
+      end
+    end
+    xdescribe '#highest_scoring_visitor' do 
+      it 'will return a string with the name of the team with the highest average score per game across all seasons when they are away' do
+        expect(stat_tracker.count_of_teams).to be_a(String)
+        expect(stat_tracker.count_of_teams).to eq()
+      end
+    end
+    xdescribe '#lowest_scoring_visitor' do 
+      it 'will return a string with the name of the team with the lowest average score per game across all seasons when they are away' do
+        expect(stat_tracker.count_of_teams).to be_a(String)
+        expect(stat_tracker.count_of_teams).to eq()
+      end
+    end
+    xdescribe '#highest_scoring_home_team' do 
+      it 'will return a string with the name of the team of the team with the highest average score per game across all seasons when they are home' do
+        expect(stat_tracker.count_of_teams).to be_a(String)
+        expect(stat_tracker.count_of_teams).to eq()
+      end
+    end
+    xdescribe '#lowest_scoring_home_team' do 
+      it 'will return a string with the name of the team of the team with the lowest average score per game across all seasons when they are home' do
+        expect(stat_tracker.count_of_teams).to be_a(String)
+        expect(stat_tracker.count_of_teams).to eq()
+      end
+    end
+  end
 end 
