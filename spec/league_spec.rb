@@ -19,8 +19,6 @@ RSpec.describe StatTracker do
     @league = League.new(@stat_tracker.game_data, @stat_tracker.team_data, @stat_tracker.game_team_data)
   end
 
-  
-  
   it "exists" do
     expect(@league).to be_an_instance_of League
   end
@@ -75,5 +73,9 @@ RSpec.describe StatTracker do
 
   it '#home_goals' do
     expect(@league.home_goals["6"]).to eq(586)
+  end
+
+  it '#ave_home_goals' do
+    expect(@league.ave_home_goals["6"]).to eq(1.1490196078431372)
   end
 end

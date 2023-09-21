@@ -56,7 +56,6 @@ class League
     highest_ave_id
   end
 
-  # link team_id to team_name
   def highest_scoring_visitor
     highest_scoring_name = ""
     @team_data.each do |team|
@@ -84,7 +83,7 @@ class League
     lowest_scoring_name
   end
 
-  # count total visitor goals per team
+  # count total home goals per team
   def home_goals
     home_goals = Hash.new(0)
     @game_team_data.each do |game|
@@ -96,5 +95,14 @@ class League
       end
     end
     home_goals
+  end
+
+  def ave_home_goals
+    ave_home_goals = Hash.new(0)
+    home_goals.each do |team_id, goals|
+      average = (goals.to_f / total_games[team_id])
+      ave_home_goals[team_id] = average
+    end
+    ave_home_goals
   end
 end
