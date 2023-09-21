@@ -53,11 +53,22 @@ class StatTracker
   
   def most_tackles
     season_sorted = Game.games.group_by {|game| game.season}
-    
-    
-    require 'pry'; binding.pry
-      
+    teams = GameTeam.gameteam.group_by {|team| team.team_id}
+    team_tackles = Hash.new(0)
+    teams.each do |team, data_array|
+      count = 0  
+      data_array.each do |data|
+        count += data.tackles.to_i
         
+        require 'pry'; binding.pry
+      end
+      team_tackles[team] = count
+    end
+      
+
+  end
+  
+  
       
     
     #sort season by team_id
@@ -65,7 +76,7 @@ class StatTracker
     #find max value in array
     #find team id that matches max value
     #return team name and max value
-  end
+  
 
   def least_tackles
 
