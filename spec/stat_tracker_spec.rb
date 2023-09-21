@@ -85,5 +85,12 @@ RSpec.describe StatTracker do
         expect(stat_tracker.winningest_coach).to eq("Claude Julien")
       end 
     end
+
+    describe "#worst_coach" do 
+      it 'will find the coach with the lowest win percentage' do
+        expect(stat_tracker.worst_coach).to be_an(String)
+        expect(stat_tracker.worst_coach).to eq("Adam Oates")
+      end 
+    end
   end
 end 

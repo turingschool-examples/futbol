@@ -145,6 +145,28 @@ class StatTracker
     winningest_coach = coach_win_percentage.find{ |key, value| value  == coach_win_percentage.values.max }
     winningest_coach.first
   end
+
+  def worst_coach
+    coach_losses = Hash.new(0)
+    @game_teams.each do |row|
+      if row.result == "LOSS"
+        coach_losses[row.head_coach] += 1
+      end
+    end
+    #number of games played by each coach's team
+    coach_total_games = Hash.new(0)
+    @game_teams.each do |row|
+      coach_total_games[row.head_coach] += 1
+    end
+    #now we divide each coach's wins by the number of games their team played
+    coach_loss_percentage = {}
+    coach_losses.each do |coach, losses|
+        coach_loss_percentage["#{coach}"] = (losses.to_f/coach_total_games["#{coach}"].to_f)
+    end
+    worst_coach = coach_loss_percentage.find{ |key, value| value  == coach_loss_percentage.values.min }
+    worst_coach.first
+    require 'pry'; binding.pry
+  end
 end
 
 
