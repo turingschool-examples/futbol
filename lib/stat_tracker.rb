@@ -300,7 +300,8 @@ class StatTracker
   end
 
   def most_accurate_team
-
+    best = total_accuracy_hash.sort_by { |team, data| data[:accuracy] }.last[0]
+    team_data.find { |row| row[:team_id] == best }[:teamname]
   end
 
   def away_games_and_scores
@@ -334,5 +335,27 @@ class StatTracker
 
   def away_team?(row)
     row[:hoa] == 'away'
+  end
+
+  def total_accuracy_hash
+    shots_by_team = {}
+    team_data.each do |team|
+      shots_by_team[team[:team_id]] = {
+        shots: total_shots(team[:team_id]),
+        goals: total_score_for_teams(team[:team_id]),
+        accuracy: (total_score_for_teams(team[:team_id]).to_f/ total_shots(team[:team_id]))
+      }
+    end
+    shots_by_team
+  end
+  
+  def total_shots(team)
+    total_shots = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        total_shots += game[:shots].to_i
+      end 
+    end
+    total_shots
   end
 end
