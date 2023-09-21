@@ -20,7 +20,7 @@ class GameTeam
   def initialize(attributes)
     @game_id                = attributes[:game_id]
     @team_id                = attributes[:team_id]
-    @HoA                    = attributes[:HoA]
+    @HoA                    = attributes[:hoa]
     @result                 = attributes[:result]
     @settled_in             = attributes[:settled_in]
     @head_coach             = attributes[:head_coach]
@@ -28,9 +28,9 @@ class GameTeam
     @shots                  = attributes[:shots]
     @tackles                = attributes[:tackles]
     @pim                    = attributes[:pim]
-    @powerPlayOppertunities = attributes[:powerPlayOpportunities]
-    @powerPlayGoals         = attributes[:powerPlayGoals]
-    @faceOffWinPercentage   = attributes[:faceOffWinPercentage]
+    @powerPlayOpportunities = attributes[:powerplayopportunities]
+    @powerPlayGoals         = attributes[:powerplaygoals]
+    @faceOffWinPercentage   = attributes[:faceoffwinpercentage]
     @giveaways              = attributes[:giveaways]
     @takeaways              = attributes[:takeaways]
     @@gameteam << self
