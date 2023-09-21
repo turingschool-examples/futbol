@@ -95,8 +95,7 @@ class StatTracker
     @teams.count
   end
 
-  # Hash of team_id as string with total games played
-  def team_games_season_total
+  def team_games_league_total
     @teams.reduce(Hash.new(0)) do |team_games_total, team|
       @game_teams.each do |game|
         team_games_total[team.team_id] += 1 if game.team_id.to_i == team.team_id.to_i
@@ -105,7 +104,6 @@ class StatTracker
     end
   end
   
-  # Hash of team_id with total goals scored in a season
   def team_goals_season_total
     @teams.reduce(Hash.new(0)) do |team_goals_total, team|
       @game_teams.each do |game|
@@ -115,7 +113,6 @@ class StatTracker
     end
   end
 
-  # Hash of goal average per game
   def avg_team_goals_season
     team_games_season_total.reduce(Hash.new) do |team_avgs, (team, tot_games)|
       team_goals_season_total.each do |team, tot_goals|
@@ -125,7 +122,6 @@ class StatTracker
     end
   end
 
-  # Gets hashes of team id(s) with highest goal average per game statistic
   def max_avg_team_goals_season
     max_avg = avg_team_goals_season.values.max
     max_ids = avg_team_goals_season.select do |team_id, average|
@@ -133,7 +129,6 @@ class StatTracker
     end
   end
 
-  # Gets hashes of team id(s) with lowest goal average per game statistic
   def min_avg_team_goals_season
     min_avg = avg_team_goals_season.values.min
     min_ids = avg_team_goals_season.select do |team_id, average|
@@ -151,6 +146,17 @@ class StatTracker
       names
     end
     team_names.join(' ')
+  end
+
+  def worst_offense
+    worst_team_ids = min_avg_team_goals_season.keys
+    team_names = @teams.reduce([]) do |names, team| 
+      worst_team_ids.each do |id|
+        names << team.team_name if id == team.team_id
+      end
+      names
+    end
+    team_names.join(', ')
   end
 
   ## Returns average goals per game across ALL seasons rounded to nearest 100th (FLOAT)
@@ -189,6 +195,8 @@ class StatTracker
                       row[:season],
                       row[:away_goals],
                       row[:home_goals], 
+                      row[:away_team_id], 
+                      row[:home_team_id] 
                       )
       @games << game
     end

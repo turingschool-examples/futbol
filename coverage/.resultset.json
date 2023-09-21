@@ -1,32 +1,8 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/samueltran/turing/1mod/projects/futbol/spec/team_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          2,
-          2,
-          2,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null
-        ]
-      }
     },
-    "timestamp": 1695255522
+    "timestamp": 1695262245
   },
   "Unknown Test Framework": {
     "coverage": {
