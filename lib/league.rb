@@ -67,4 +67,11 @@ class League
     end
     highest_scoring_name
   end
+
+  def lowest_ave_visitor_goals
+    lowest_ave_id = ave_visitor_goals.min_by do |team_id, goals|
+      goals
+    end
+    lowest_ave_id
+  end
 end
