@@ -97,9 +97,9 @@ RSpec.describe StatTracker do
 
   describe "#team_avg_goals" do
     it "returns the average goals from all teams for all seasons" do
-      expected = {"3" => 2.0,
-                  "6" => 2.7,
-                  "4" => 2.5}
+      expected = {"3" => 2.00,
+                  "6" => 2.67,
+                  "4" => 2.50}
       expect(@stat_tracker.team_avg_goals).to eq expected
     end
   end
@@ -168,8 +168,8 @@ RSpec.describe StatTracker do
   describe "#team_accuracies" do
     it "should calculate team accuracies for a certain season" do
       expected_accuracies = {
-        "6" => 0.3,
-        "3" => 0.2,
+        "6" => 0.29,
+        "3" => 0.24,
       }
       expect(@stat_tracker.team_accuracies("20122013")).to eq expected_accuracies
     end
