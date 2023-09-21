@@ -81,6 +81,7 @@ RSpec.describe StatTracker do
     it 'can return the team with the lowest average number of goals per game across all seasons' do
       expect(stat_tracker.worst_offense).to eq("Seattle Sounders FC")
     end
+  end
     
   describe '#count_of_games_by_season' do
     it 'counts games by season' do
@@ -92,4 +93,12 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
+  # Test for League Statistics
+
+  describe '#best_offense' do
+    it 'list best offense' do
+      expect(stat_tracker.best_offense).to eq("Houston Dynamo")
+    end
+  end
+
 end

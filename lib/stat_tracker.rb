@@ -50,8 +50,7 @@ class StatTracker
     percentage = (count.to_f / game.length).round(2)
   end
 
-  def percentage_home_wins #(testing = false)
-    #testing ? data = game.take(10) : data = game
+  def percentage_home_wins 
     count = 0
     game.each do |single_game|
       if single_game[:home_goals].to_i > single_game[:away_goals].to_i
@@ -74,6 +73,18 @@ class StatTracker
     end
     highest_score
   end 
+
+  def best_offense
+    team_number = games_and_scores.sort_by { |team, data| data[:average] }.last[0]
+    
+    best_offense = ""
+    team_data.each do |team|
+      if team[:team_id] == team_number
+        best_offense << team[:teamname] 
+      end
+    end
+    best_offense
+  end
 
   def percentage_ties 
     count = 0
@@ -177,8 +188,7 @@ class StatTracker
     percentage = (count.to_f / game.length).round(2)
   end
 
-  def percentage_home_wins #(testing = false)
-    #testing ? data = game.take(10) : data = game
+  def percentage_home_wins 
     count = 0
     game.each do |single_game|
       if single_game[:home_goals].to_i > single_game[:away_goals].to_i
@@ -186,7 +196,6 @@ class StatTracker
       end
     end
     percentage = (count.to_f / game.count).round(2)
-    
   end
 
   def highest_total_score(testing = false)
@@ -209,4 +218,5 @@ class StatTracker
     end
     counts
   end
+
 end
