@@ -152,4 +152,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#most_accurate_team' do
+    it 'returns name of the team with the highest percentage of goals made vs. shots taken' do
+      expect(stat_tracker.most_accurate_team).to eq('Chicago Fire')
+    end
+  end
+
+
+
 end

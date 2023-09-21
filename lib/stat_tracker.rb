@@ -299,6 +299,10 @@ class StatTracker
     team_data.find { |row| row[:team_id] == lowest }[:teamname]
   end
 
+  def most_accurate_team
+
+  end
+
   def away_games_and_scores
     away_games_hash = {}
     team_data.each do |team|
