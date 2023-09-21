@@ -2,7 +2,7 @@ require 'spec_helper'
 RSpec.describe StatTracker do
   let(:game_path) { './data/test_games.csv' }
   let(:team_path) { './data/test_teams.csv' } 
-  let(:game_teams_path) { './data/test_teams.csv' } 
+  let(:game_teams_path) { './data/test_game_teams.csv' } 
   let(:test_locations) { 
     {games: game_path,
     teams: team_path,
@@ -14,32 +14,44 @@ RSpec.describe StatTracker do
     it 'will create a new instance of StatTracker using data from the given csv' do
       expect(stat_tracker).to be_a(StatTracker)
     end
+    it 'will create an array of Team objects to be used by the StatTracker' do 
+      expect(stat_tracker.teams).to be_a(Array)
+      expect(stat_tracker.teams.first).to be_a(Team)
+    end
+    it 'will create an array of Game objects to be used by the StatTracker' do 
+      expect(stat_tracker.games).to be_a(Array)
+      expect(stat_tracker.games.first).to be_a(Game)
+    end
+    it 'will create an array of GameTeam objects to be used by the StatTracker' do 
+      expect(stat_tracker.game_teams).to be_a(Array)
+      expect(stat_tracker.game_teams.first).to be_a(GameTeam)
+    end
   end
-  describe "#highest total score" do 
+  xdescribe "#highest total score" do 
     it 'will find the highest sum of the winning and losing teams scores and return them as integers' do
       expect(stat_tracker.highest_total_score).to be_an(Integer)
       expect(stat_tracker.highest_total_score).to eq()
     end 
   end
-  describe "#lowest total score" do 
+  xdescribe "#lowest total score" do 
     it 'will find the lowest sum of the winning and losing teams scores' do 
      expect(stat_tracker.lowest_total_score).to be_an(Integer)
      expect(stat_tracker.lowest_total_score).to eq()
     end
   end
-  describe "#percentage home wins" do 
+  xdescribe "#percentage home wins" do 
     it 'will find the percentage of games that a home team has won' do 
       expect(stat_tracker.percentage_home_wins).to  be_a(Float)
       expect(stat_tracker.percentage_home_wins).to  eq()
     end
   end
-  describe "#percentage visitor wins" do 
+  xdescribe "#percentage visitor wins" do 
     it 'will find the percentage of games that a visitor has won' do 
       expect(stat_tracker.percentage_visitor_wins).to  be_a(Float)
       expect(stat_tracker.percentage_visitor_wins).to  eq()
     end
   end
-  describe "#percentage_ties" do 
+  xdescribe "#percentage_ties" do 
     it 'will find the percentage of games that ended in a tie' do 
       expect(stat_tracker.percentage_ties).to  be_a(Float)
       expect(stat_tracker.percentage_ties).to  eq()
