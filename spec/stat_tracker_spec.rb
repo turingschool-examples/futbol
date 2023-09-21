@@ -15,6 +15,20 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
+  describe "#init" do
+    it "exists" do
+      expect(@stat_tracker).to be_a StatTracker
+    end
+  end
+
+  describe "#team_name_from_id" do
+    it "gets team name from team id" do
+      expect(@stat_tracker.team_name_from_id("6")).to eq "FC Dallas"
+    end
+  end
+
+  ###=== GAME QUERIES ===###
+
   describe "#highest_total_score" do
     it "returns the highest total score" do
       expect(@stat_tracker.highest_total_score).to eq(5)
@@ -29,19 +43,19 @@ RSpec.describe StatTracker do
 
   describe "#percentage_home_wins" do
     it "returns the percentage of home games a team has won" do
-      expect(@stat_tracker.percentage_home_wins).to eq(60.0)
+      expect(@stat_tracker.percentage_home_wins).to eq(60.00)
     end
   end
 
   describe "#percentage_visitor_wins" do
     it "returns the percentage of home games a team has won" do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(30.0)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(30.00)
     end
   end
 
   describe "#percentage_ties" do
     it "returns the percentage of games ending in a tie" do
-      expect(@stat_tracker.percentage_ties).to eq(10.0)
+      expect(@stat_tracker.percentage_ties).to eq(10.00)
     end
   end
 
@@ -57,7 +71,7 @@ RSpec.describe StatTracker do
 
   describe "average_goals_per_game" do
     it "should return the average goals per game" do
-      expect(@stat_tracker.average_goals_per_game).to eq(4.3)
+      expect(@stat_tracker.average_goals_per_game).to eq(4.30)
     end
   end
 
@@ -65,23 +79,15 @@ RSpec.describe StatTracker do
     it "should return the average points per season" do
       expected_outcome = {
         "20122013" => 4.38,
-        "20132014" => 4.0
+        "20132014" => 4.00
       }
       expect(@stat_tracker.average_goals_per_season).to eq(expected_outcome)
     end
   end
 
-  describe "#init" do
-    it "exists" do
-      expect(@stat_tracker).to be_a StatTracker
-    end
-  end
+  ###=== GAME QUERIES ===###
 
-  describe "#team_name_from_id" do
-    it "gets team name from team id" do
-      expect(@stat_tracker.team_name_from_id("6")).to eq "FC Dallas"
-    end
-  end
+  ###=== LEAGUE QUERIES ===###
 
   describe "#count_of_teams" do
     it "returns number of teams" do
@@ -91,9 +97,9 @@ RSpec.describe StatTracker do
 
   describe "#team_avg_goals" do
     it "returns the average goals from all teams for all seasons" do
-      expected = {"3" => 2.0,
-                  "6" => 2.7,
-                  "4" => 2.5}
+      expected = {"3" => 2.00,
+                  "6" => 2.67,
+                  "4" => 2.50}
       expect(@stat_tracker.team_avg_goals).to eq expected
     end
   end
@@ -134,6 +140,11 @@ RSpec.describe StatTracker do
     end
   end
 
+  ###=== LEAGUE QUERIES ===###
+
+  ###=== SEASON QUERIES ===###
+
+  # helper
   describe "#coach_season_win_pct" do
     it "returns all coaching win pct by season" do
       expected = {"John Tortorella" => 0.0, "Claude Julien" => 100.0}
@@ -142,10 +153,10 @@ RSpec.describe StatTracker do
   end
 
   describe "#winningest_coach" do
-  it "names coach with best win percentage for season" do
-    expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
+    it "names coach with best win percentage for season" do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
+    end
   end
-end
 
   describe "#worst_coach" do
     it "names coach with worst win pct for season" do
@@ -153,11 +164,12 @@ end
     end
   end
 
+  # helper
   describe "#team_accuracies" do
     it "should calculate team accuracies for a certain season" do
       expected_accuracies = {
-        "6" => 0.3,
-        "3" => 0.2,
+        "6" => 0.29,
+        "3" => 0.24
       }
       expect(@stat_tracker.team_accuracies("20122013")).to eq expected_accuracies
     end
@@ -172,6 +184,14 @@ end
   describe "#least_accurate_team" do
     it "should return the least accurate team" do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+    end
+  end
+
+  # helper
+  describe "#season_team_tackles" do
+    it "returns all teams tackles from given season" do
+      expected = {"3" => 77, "6" => 115}
+      expect(@stat_tracker.season_team_tackles("20122013")).to eq expected
     end
   end
 
