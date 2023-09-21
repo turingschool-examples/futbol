@@ -136,7 +136,7 @@ class StatTracker
       total_goals += value1
       total_goals += value2
       avg_goals_game = (total_goals / total_games)
-      hash[key] = avg_goals_game
+      hash[key] = avg_goals_game.round(2)
     end
     hash
   end
@@ -182,7 +182,6 @@ class StatTracker
     worst_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.min}
     worst_offense.first
   end
-end
 #Season Statistic Methods
   def winningest_coach
     #number of wins for each coach
@@ -225,7 +224,6 @@ end
     end
     worst_coach = coach_loss_percentage.find{ |key, value| value  == coach_loss_percentage.values.min }
     worst_coach.first
-    require 'pry'; binding.pry
   end
 end
 
