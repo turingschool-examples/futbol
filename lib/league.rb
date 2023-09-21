@@ -13,6 +13,7 @@ class League
     teams.count
   end
 
+  #this method is not DRY. It has same functionality as def total_games
   def team_total_games
     team_and_games = Hash.new(0)
     @game_team_data.each do |game|
