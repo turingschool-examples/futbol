@@ -247,6 +247,47 @@ class StatTracker
     game_teams.find_all { |game_team| game_team[:team_id] == team_id && game_team[:hoa] == 'home' }
   end
 
+
+  def highest_scoring_visitor
+    highest_scoring_visitor = ""
+    highest = visitor_games_and_scores.sort_by { |team, data| data[:average] }.last[0]
+  
+    team_data.each do |team|
+      if team[:team_id] == highest
+        highest_scoring_visitor << team[:teamname]
+      end
+    end 
+    highest_scoring_visitor
+  end
+
+  def visitor_games_and_scores
+    games_and_scores = {}
+        team_data.each do |team|
+          games_and_scores[team[:team_id]] = {
+            games_played: number_of_visitor_games(team[:team_id]),
+            total_score: total_score_for_visiting_teams(team[:team_id]),
+            average: (total_score_for_visiting_teams(team[:team_id])/
+            number_of_visitor_games(team[:team_id]).to_f)
+          }
+        end
+      games_and_scores
+  end 
+
+  def number_of_visitor_games(team)
+    number_of_games = 0
+    game_teams.each do |game|
+      if game[:team_id] == team && game[:hoa] == "away"
+        number_of_games += 1
+      end 
+    end
+    number_of_games
+  end
+
+  def total_score_for_visiting_teams(team)
+    total_score = 0
+    game_teams.each do |game|
+      if game[:team_id] == team && game[:hoa] == "away"
+
   def lowest_scoring_visitor
     lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
     team_data.find { |row| row[:team_id] == lowest }[:teamname]
@@ -280,6 +321,7 @@ class StatTracker
     end
     total_score
   end
+
   
   def away_team?(row)
     row[:hoa] == 'away'

@@ -127,6 +127,12 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#highest_scoring_visitor' do
+    it 'returns the team with the highest average number of goals per game when away' do
+      expect(stat_tracker.highest_scoring_visitor).to eq("Seattle Sounders FC")
+    end
+  end
+
   describe '#lowest_scoring_home_team' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
       expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
