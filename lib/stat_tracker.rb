@@ -46,7 +46,7 @@ class StatTracker
 
     home_wins = @games_data.count { |game| game[:home_goals].to_i > game[:away_goals].to_i }
 
-    (home_wins.to_f / games * 100.0).round(1)
+    (home_wins.to_f / games * 100.0).round(2)
   end
 
   def percentage_visitor_wins
@@ -58,7 +58,7 @@ class StatTracker
     return 0.0 if games == 0
     ties = @games_data.count {|game| game[:away_goals].to_i == game[:home_goals].to_i}
 
-    (ties.to_f / games * 100.0).round(1)
+    (ties.to_f / games * 100.0).round(2)
   end
 
   def count_of_games_by_season
@@ -118,7 +118,7 @@ class StatTracker
     end
 
     team_goals.transform_values! do |goals|
-      (goals.reduce(:+) / goals.size.to_f).round(1)
+      (goals.reduce(:+) / goals.size.to_f).round(2)
     end
 
     team_goals
@@ -187,7 +187,7 @@ class StatTracker
     end
     # with hash values arrays, use #transform_values! to reduce to win pct.
     coach_results.transform_values! do |results|
-      (results.count("WIN") / results.size.to_f * 100.0).round(1)
+      (results.count("WIN") / results.size.to_f * 100.0).round(2)
     end
     coach_results
   end
@@ -212,7 +212,7 @@ class StatTracker
     end
 
     team_accuracies.transform_values! do |ratios|
-      (ratios.reduce(:+) / ratios.size).round(1)
+      (ratios.reduce(:+) / ratios.size).round(2)
     end
     team_accuracies
   end
