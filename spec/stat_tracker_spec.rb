@@ -105,19 +105,19 @@ RSpec.describe StatTracker do
     describe '#lowest_scoring_visitor' do 
       it 'will return a string with the name of the team with the lowest average score per game across all seasons when they are away' do
         expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
-        expect(stat_tracker.lowest_scoring_visitor).to eq("New York Red Bulls")
+        expect(stat_tracker.lowest_scoring_visitor).to eq("Seattle Sounders FC")
       end
     end
     describe '#highest_scoring_home_team' do 
       it 'will return a string with the name of the team of the team with the highest average score per game across all seasons when they are home' do
         expect(stat_tracker.highest_scoring_home_team).to be_a(String)
-        expect(stat_tracker.highest_scoring_home_team).to eq("Seattle Sounders FC")
+        expect(stat_tracker.highest_scoring_home_team).to eq("New York City FC")
       end
     end
     describe '#lowest_scoring_home_team' do 
       it 'will return a string with the name of the team of the team with the lowest average score per game across all seasons when they are home' do
         expect(stat_tracker.lowest_scoring_home_team).to be_a(String)
-        expect(stat_tracker.lowest_scoring_home_team).to eq("FC Dallas")
+        expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dynamo")
       end
     end
   end

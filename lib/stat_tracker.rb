@@ -120,24 +120,29 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
-    @total_goals = 0.00
-    @total_games = 0.00
+    hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "away"
+        @total_goals = 0.00
+        @total_games = 0.00
         @key = game.team_id
         @value1 = game.goals
         @total_games += 1.00
         @total_goals += @value1
-        @avg_goals_game = (@total_goals / @total_games)
-        hash[@key] = @avg_goals_game
+        hash[@key] << [@value1, @total_games]
       end
     end
-    max = hash.values.max
-    max_array = hash.find do |h|
-      h[1] == max
+    @transpo = hash.map { |key, value| value.transpose}
+    @jay = @transpo.map do |a|
+      [a[0].sum, a[1].sum]
     end
-    team_code = max_array[0].to_s
+    @zay = @jay.map do |b|
+      b[0] / b[1]
+    end
+    max = @zay.max
+    index = @zay.find_index(max)
+    @this_team = hash.keys[index]
+    team_code = @this_team
     @x = @teams.find do |team|
       team.team_id == team_code
     end
@@ -145,79 +150,91 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
-    @total_goals = 0.00
-    @total_games = 0.00
+    hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "away"
+        @total_goals = 0.00
+        @total_games = 0.00
         @key = game.team_id
         @value1 = game.goals
         @total_games += 1.00
         @total_goals += @value1
-        @avg_goals_game = (@total_goals / @total_games)
-        hash[@key] = @avg_goals_game
+        hash[@key] << [@value1, @total_games]
       end
     end
-    min = hash.values.min
-    min_array = hash.find do |h|
-      h[1] == min
+    @transpo = hash.map { |key, value| value.transpose}
+    @jay = @transpo.map do |a|
+      [a[0].sum, a[1].sum]
     end
-    @team_code = min_array[0].to_s
+    @zay = @jay.map do |b|
+      b[0] / b[1]
+    end
+    min = @zay.min
+    index = @zay.find_index(min)
+    @this_team = hash.keys[index]
+    team_code = @this_team
     @x = @teams.find do |team|
-      #require 'pry'; binding.pry
-      team.team_id == @team_code 
+      team.team_id == team_code
     end
     @x.name
   end
 
   def highest_scoring_home_team
-    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
-    @total_goals = 0.00
-    @total_games = 0.00
+    hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "home"
+        @total_goals = 0.00
+        @total_games = 0.00
         @key = game.team_id
         @value1 = game.goals
         @total_games += 1.00
         @total_goals += @value1
-        @avg_goals_game = (@total_goals / @total_games)
-        hash[@key] = @avg_goals_game
+        hash[@key] << [@value1, @total_games]
       end
     end
-    max = hash.values.max
-    max_array = hash.find do |h|
-      h[1] == max
+    @transpo = hash.map { |key, value| value.transpose}
+    @jay = @transpo.map do |a|
+      [a[0].sum, a[1].sum]
     end
-    @team_code = max_array[0].to_s
+    @zay = @jay.map do |b|
+      b[0] / b[1]
+    end
+    max = @zay.max
+    index = @zay.find_index(max)
+    @this_team = hash.keys[index]
+    team_code = @this_team
     @x = @teams.find do |team|
-      #require 'pry'; binding.pry
-      team.team_id == @team_code 
+      team.team_id == team_code
     end
     @x.name
   end
 
   def lowest_scoring_home_team
-    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
-    @total_goals = 0.00
-    @total_games = 0.00
+    hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "home"
+        @total_goals = 0.00
+        @total_games = 0.00
         @key = game.team_id
         @value1 = game.goals
         @total_games += 1.00
         @total_goals += @value1
-        @avg_goals_game = (@total_goals / @total_games)
-        hash[@key] = @avg_goals_game
+        hash[@key] << [@value1, @total_games]
       end
     end
-    min = hash.values.min
-    min_array = hash.find do |h|
-      h[1] == min
+    @transpo = hash.map { |key, value| value.transpose}
+    @jay = @transpo.map do |a|
+      [a[0].sum, a[1].sum]
     end
-    @team_code = min_array[0].to_s
+    @zay = @jay.map do |b|
+      b[0] / b[1]
+    end
+    min = @zay.min
+    index = @zay.find_index(min)
+    @this_team = hash.keys[index]
+    team_code = @this_team
     @x = @teams.find do |team|
-      #require 'pry'; binding.pry
-      team.team_id == @team_code 
+      team.team_id == team_code
     end
     @x.name
   end
