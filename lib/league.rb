@@ -13,15 +13,8 @@ class League
     teams.count
   end
 
-  # num games per team
-  # total score per team
-  # games and scores, total scores and 
-
-  def highest_scoring_visitor
-    # calc average score for each team's away goals, store in hash with team_id => ave_score
-
-    # count total goals per game
-    # this could potentially be a helper method
+  # count total visitor goals per team
+  def visitor_goals
     visitor_goals = Hash.new(0)
     @game_team_data.each do |game|
       home_or_away = game[:hoa]
@@ -31,36 +24,44 @@ class League
         visitor_goals[team_id] += goals
       end
     end
+    visitor_goals
+  end
 
-    # count total games per team
-    # this could potentially be a helper method
+  # count total visitor games per team
+  def visitor_games
     visitor_games = Hash.new(0)
     @game_team_data.each do |game|
       team_id = game[:team_id]
       visitor_games[team_id] += 1
     end
+    visitor_games
+  end
 
-    # calculate average goals per game
-    # this could potentially be a helper method
-    ave_away_goals = Hash.new(0)
+  # calculate average goals per game
+  # this is broken
+  def ave_visitor_goals
+    ave_visitor_goals = Hash.new(0)
     visitor_goals.each do |team_id, goals|
       total_games = visitor_games[team_id]
       average = (goals.to_f / total_games)
-      ave_away_goals[team_id] = average
+      ave_visitor_goals[team_id] = average
     end
+    ave_visitor_goals
+  end
 
-    
-    # determine highest average
-    # this could potentially be a helper method
-    highest_ave_id = ave_away_goals.max_by do |team_id, goals|
+  # determine highest average, put team id and ave in an array
+  def highest_ave_visitor_goals
+    highest_ave_id = ave_visitor_goals.max_by do |team_id, goals|
       goals
     end
+    highest_ave_id
+  end
 
-    # link team_id to team_name
-    # this could potentially be a helper method
+  # link team_id to team_name
+  def highest_scoring_visitor
     highest_scoring_name = ""
     @team_data.each do |team|
-      if highest_ave_id[0] == team[:team_id]
+      if highest_ave_visitor_goals[0] == team[:team_id]
         highest_scoring_name += team[:team_name]
       end
     end
