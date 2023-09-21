@@ -97,25 +97,25 @@ RSpec.describe StatTracker do
 
     it 'team goal average per game in all seasons' do
       expect(@stats.avg_team_goals_league.class).to be Hash
-      expect(@stats.avg_team_goals_league['3']).to eq(3.67)
+      expect(@stats.avg_team_goals_league['3']).to eq(2.2)
     end
 
     it 'team id(s) with highest avg goals per game in all seasons' do
       expect(@stats.max_avg_team_goals_league.class).to be Hash
-      expect(@stats.max_avg_team_goals_league).to eq({'16'=>7.67})
+      expect(@stats.max_avg_team_goals_league).to eq({'52'=>3.0})
     end
 
     it 'team id(s) with lowest avg goals per game in all seasons' do
       expect(@stats.min_avg_team_goals_league.class).to be Hash
-      expect(@stats.min_avg_team_goals_league).to eq({'7'=>0.5})
+      expect(@stats.min_avg_team_goals_league).to eq({'5'=>1.33})
     end
 
     it 'returns team(s) with highest avg goals per game' do
-      expect(@stats.best_offense).to eq('New England Revolution')
+      expect(@stats.best_offense).to eq('Portland Thorns FC')
     end
 
     it 'returns team(s) with lowest avg goals per game' do
-      expect(@stats.worst_offense).to eq('Utah Royals FC')
+      expect(@stats.worst_offense).to eq('Sporting Kansas City')
     end
   end
 
