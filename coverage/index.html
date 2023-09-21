@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-09-20T16:44:14-05:00">2023-09-20T16:44:14-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-09-20T19:25:58-05:00">2023-09-20T19:25:58-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  97.2%
+  97.96%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2831.78
+         2349.18
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>107</b> relevant lines,
-    <span class="green"><b>104</b> lines covered</span> and
+    <b>147</b> relevant lines,
+    <span class="green"><b>144</b> lines covered</span> and
     <span class="red"><b>3</b> lines missed. </span>
     (<span class="green">
-  97.2%
+  97.96%
 </span>
 )
   </div>
@@ -72,12 +72,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#5caf04e46a0d43d7c81f7d5385b0e57b45df608b" class="src_link" title="lib/game.rb">lib/game.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">95.16 %</td>
-            <td class="cell--number">101</td>
-            <td class="cell--number">62</td>
-            <td class="cell--number">59</td>
+            <td class="green strong cell--number t-file__coverage">97.06 %</td>
+            <td class="cell--number">161</td>
+            <td class="cell--number">102</td>
+            <td class="cell--number">99</td>
             <td class="cell--number">3</td>
-            <td class="cell--number">1764.23</td>
+            <td class="cell--number">1487.37</td>
             
           </tr>
         
@@ -114,7 +114,7 @@
     <h3>lib/game.rb</h3>
     <h4>
       <span class="green">
-  95.16%
+  97.06%
 </span>
 
       lines covered
@@ -123,8 +123,8 @@
     
 
     <div class="t-line-summary">
-      <b>62</b> relevant lines.
-      <span class="green"><b>59</b> lines covered</span> and
+      <b>102</b> relevant lines.
+      <span class="green"><b>99</b> lines covered</span> and
       <span class="red"><b>3</b> lines missed.</span>
     </div>
 
@@ -1237,6 +1237,666 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="101">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="102">
+            
+            
+
+            
+
+            <code class="ruby">  # def average_goals_by_season</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="103">
+            
+            
+
+            
+
+            <code class="ruby">  #   agbs = {}</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="104">
+            
+            
+
+            
+
+            <code class="ruby">  #   seasons = []</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="105">
+            
+            
+
+            
+
+            <code class="ruby">  #   @game_data.each do |row|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="106">
+            
+            
+
+            
+
+            <code class="ruby">  #     seasons &lt;&lt; row[:season]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="107">
+            
+            
+
+            
+
+            <code class="ruby">  #   end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="108">
+            
+            
+
+            
+
+            <code class="ruby">  #   seasons = season.uniq</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="109">
+            
+            
+
+            
+
+            <code class="ruby">  #   seasons.each do |season|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="110">
+            
+            
+
+            
+
+            <code class="ruby">  #     agbs[season] = </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="111">
+            
+            
+
+            
+
+            <code class="ruby">  #   end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="112">
+            
+            
+
+            
+
+            <code class="ruby">  # end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="113">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="114">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def average_goals_by_season</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="115">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    agbs = {}</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="116">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    games_by_season1 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="117">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    games_by_season2 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="118">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    games_by_season3 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="119">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    games_by_season4 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="120">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    games_by_season5 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="121">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    games_by_season6 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="122">
+            
+            
+
+            
+
+            <code class="ruby">    </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="123">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    goals_by_season1 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="124">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    goals_by_season2 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="125">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    goals_by_season3 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="126">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    goals_by_season4 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="127">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    goals_by_season5 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="128">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    goals_by_season6 = 0</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="129">
+            
+            
+
+            
+
+            <code class="ruby">    </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="130">
+            
+            
+
+            
+
+            <code class="ruby">    </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="131">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @game_data.each do |row|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="7441" data-linenumber="132">
+            <span class="hits">7441</span>
+            
+
+            
+
+            <code class="ruby">    if row[:season] == &quot;20122013&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="806" data-linenumber="133">
+            <span class="hits">806</span>
+            
+
+            
+
+            <code class="ruby">      games_by_season1 += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="806" data-linenumber="134">
+            <span class="hits">806</span>
+            
+
+            
+
+            <code class="ruby">      goals_by_season1 += row[:home_goals].to_i + row[:away_goals].to_i</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="6635" data-linenumber="135">
+            <span class="hits">6635</span>
+            
+
+            
+
+            <code class="ruby">    elsif row[:season] == &quot;20162017&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1317" data-linenumber="136">
+            <span class="hits">1317</span>
+            
+
+            
+
+            <code class="ruby">      games_by_season2 += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1317" data-linenumber="137">
+            <span class="hits">1317</span>
+            
+
+            
+
+            <code class="ruby">      goals_by_season2 += row[:home_goals].to_i + row[:away_goals].to_i</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="5318" data-linenumber="138">
+            <span class="hits">5318</span>
+            
+
+            
+
+            <code class="ruby">    elsif row[:season] == &quot;20142015&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1319" data-linenumber="139">
+            <span class="hits">1319</span>
+            
+
+            
+
+            <code class="ruby">      games_by_season3 += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1319" data-linenumber="140">
+            <span class="hits">1319</span>
+            
+
+            
+
+            <code class="ruby">      goals_by_season3 += row[:home_goals].to_i + row[:away_goals].to_i</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3999" data-linenumber="141">
+            <span class="hits">3999</span>
+            
+
+            
+
+            <code class="ruby">    elsif row[:season] == &quot;20152016&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1321" data-linenumber="142">
+            <span class="hits">1321</span>
+            
+
+            
+
+            <code class="ruby">      games_by_season4 += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1321" data-linenumber="143">
+            <span class="hits">1321</span>
+            
+
+            
+
+            <code class="ruby">      goals_by_season4 += row[:home_goals].to_i + row[:away_goals].to_i</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2678" data-linenumber="144">
+            <span class="hits">2678</span>
+            
+
+            
+
+            <code class="ruby">    elsif row[:season] == &quot;20132014&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1323" data-linenumber="145">
+            <span class="hits">1323</span>
+            
+
+            
+
+            <code class="ruby">      games_by_season5 += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1323" data-linenumber="146">
+            <span class="hits">1323</span>
+            
+
+            
+
+            <code class="ruby">      goals_by_season5 += row[:home_goals].to_i + row[:away_goals].to_i</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1355" data-linenumber="147">
+            <span class="hits">1355</span>
+            
+
+            
+
+            <code class="ruby">    elsif row[:season] == &quot;20172018&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1355" data-linenumber="148">
+            <span class="hits">1355</span>
+            
+
+            
+
+            <code class="ruby">      games_by_season6 += 1</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1355" data-linenumber="149">
+            <span class="hits">1355</span>
+            
+
+            
+
+            <code class="ruby">      goals_by_season6 += row[:home_goals].to_i + row[:away_goals].to_i</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="150">
+            
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="151">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="152">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    result1 = (goals_by_season1.to_f/games_by_season1).round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="153">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    result2 = (goals_by_season2.to_f/games_by_season2).round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="154">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    result3 = (goals_by_season3.to_f/games_by_season3).round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="155">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    result4 = (goals_by_season4.to_f/games_by_season4).round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="156">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    result5 = (goals_by_season5.to_f/games_by_season5).round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="157">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    result6 = (goals_by_season6.to_f/games_by_season6).round(2)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="158">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    agbs = {&quot;20122013&quot; =&gt; result1,&quot;20162017&quot; =&gt; result2,&quot;20142015&quot; =&gt; result3,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="159">
+            
+            
+
+            
+
+            <code class="ruby">            &quot;20152016&quot; =&gt; result4, &quot;20132014&quot; =&gt; result5, &quot;20172018&quot; =&gt; result6 }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="160">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="161">
             
             
 
