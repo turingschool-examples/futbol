@@ -22,7 +22,6 @@ class StatTracker
     data.map do |row| 
     Game.new(row)
     end
-    
   end
 
   def self.from_csv(locations)
@@ -36,7 +35,7 @@ class StatTracker
   
   def percentage_ties 
     ties = @game_data.count do |game|
-     game.away_goals.to_f == game.home_goals.to_f
+      game.away_goals.to_f == game.home_goals.to_f
     end.to_f
     (ties/@game_data.count).round(2)
   end
