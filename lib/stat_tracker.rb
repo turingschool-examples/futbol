@@ -220,7 +220,6 @@ class StatTracker
             average: (total_score_for_visiting_teams(team[:team_id])/
             number_of_visitor_games(team[:team_id]).to_f)
           }
-          
         end
       games_and_scores
   end 
