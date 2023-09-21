@@ -27,27 +27,9 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#percentage_visitor_wins' do
-    it 'calculates the percentage of visitor wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
-    end
-  end
-
-  describe '#percentage_home_wins' do
-    it 'calculates percentage home wins' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.45)
-    end
-  end
-
   describe '#highest_total_score' do
     it 'returns the highest sum of the winning and losing teams scores' do
-      expect(stat_tracker.highest_total_score).to eq(5)
-    end
-  end
-
-  describe '#percentage_ties' do
-    it 'calculates the percentage of tied games' do
-      expect(stat_tracker.percentage_ties).to eq(0.35)
+      expect(stat_tracker.highest_total_score).to eq(6)
     end
   end
 
@@ -57,32 +39,24 @@ RSpec.describe StatTracker do
     end
   end
 
-
-  describe '#average_goals_per_game' do
-    it 'returns the average number of goals scored by a single team' do
-      expect(stat_tracker.average_goals_per_game).to eq(1.98)
+  describe '#percentage_home_wins' do
+    it 'calculates percentage home wins' do
+      expect(stat_tracker.percentage_home_wins).to eq(0.45)
     end
   end
 
-  describe '#count_of_teams' do
-    it 'returns the total number of teams' do
-      expect(stat_tracker.count_of_teams).to eq(4)
+  describe '#percentage_visitor_wins' do
+    it 'calculates the percentage of visitor wins' do
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
     end
   end
 
-  describe '#average_goals_by_season' do
-    it 'returns the average goals scored per season' do
-      expected_value = { '20122013' => 3.86, '20142015' => 3.5, '20162017' => 4.75 }
-      expect(stat_tracker.average_goals_by_season).to eq(expected_value)
+  describe '#percentage_ties' do
+    it 'calculates the percentage of tied games' do
+      expect(stat_tracker.percentage_ties).to eq(0.35)
     end
   end
 
-  describe '#worst_offense' do
-    it 'can return the team with the lowest average number of goals per game across all seasons' do
-      expect(stat_tracker.worst_offense).to eq("Seattle Sounders FC")
-    end
-  end
-    
   describe '#count_of_games_by_season' do
     it 'counts games by season' do
       expected = {
@@ -93,7 +67,25 @@ RSpec.describe StatTracker do
       expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
-  # Test for League Statistics
+
+  describe '#average_goals_per_game' do
+    it 'returns the average number of goals scored by a single team' do
+      expect(stat_tracker.average_goals_per_game).to eq(1.98)
+    end
+  end
+
+  describe '#average_goals_by_season' do
+    it 'returns the average goals scored per season' do
+      expected_value = { '20122013' => 3.67, '20132014' => 3.78, '20142015' => 4.60 }
+      expect(stat_tracker.average_goals_by_season).to eq(expected_value)
+    end
+  end
+
+  describe '#count_of_teams' do
+    it 'returns the total number of teams' do
+      expect(stat_tracker.count_of_teams).to eq(4)
+    end
+  end
 
   describe '#best_offense' do
     it 'list best offense' do
@@ -101,4 +93,19 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#worst_offense' do
+    it 'can return the team with the lowest average number of goals per game across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("Seattle Sounders FC")
+    end
+  end
+
+  # Add tests for best/worst offence helper methods
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns name of the team with the lowest average score per home game across all seasons' do
+      expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
+    end
+  end
+
+  # Add test for home team helper method
 end
