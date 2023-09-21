@@ -11,13 +11,14 @@ class Season
     coach_hash =  Hash.new(0)
     @game_data.each do |game_row|
       # require 'pry'; binding.pry
-      game_row[:season] == season
-      total_games += 1
-      season_game_id = game_row[:game_id]
-      @game_team_data.each do |row|
-        if row[:game_id] == season_game_id && row[:result] == "WIN"
-          head_coach = row[:head_coach]
-          coach_hash[head_coach] += 1
+      if game_row[:season] == season
+        total_games += 1
+        season_game_id = game_row[:game_id]
+        @game_team_data.each do |row|
+          if row[:game_id] == season_game_id && row[:result] == "WIN"
+           head_coach = row[:head_coach]
+           coach_hash[head_coach] += 1
+          end
         end
       end
     end
