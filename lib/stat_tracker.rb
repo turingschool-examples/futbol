@@ -89,10 +89,184 @@ class StatTracker
     percentage = (games_tied.to_f / number_of_games.to_f).round(2)
   end
 
+  ## LEAGUE SCORING
+  def highest_scoring_visitor
+    team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'away' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          away_games: game_team.goals.to_f,
+          total: 1
+          }
+      elsif game_team.hoa == 'away' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:away_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    team_averages = {}
+    team_goals.each do |team_goal, value|
+      team_averages[team_goal] = (value[:away_games] / value[:total])
+    end
+    max(team_averages)
+  end
+  
+  def highest_scoring_home_team
+    ##Name of the team with the highest average score per game across all seasons when they are home. 
+    team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'home' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          home_games: game_team.goals.to_f,
+          total: 1
+        }
+      elsif game_team.hoa == 'home' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:home_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    team_averages = {}
+    team_goals.each do |team_goal, value|
+      team_averages[team_goal] = (value[:home_games] / value[:total])
+    end
+    max(team_averages)
+  end
+  
+  def lowest_scoring_visitor
+    ##Name of the team with the lowest average score per game across all seasons when they are a visitor.
+    team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'away' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          away_games: game_team.goals.to_f,
+          total: 1
+        }
+      elsif game_team.hoa == 'away' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:away_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    team_averages = {}
+    team_goals.each do |team_goal, value|
+      team_averages[team_goal] = (value[:away_games] / value[:total])
+    end
+    min(team_averages)
+  end
+  
+  def lowest_scoring_home_team
+    ##Name of the team with the lowest average score per game across all seasons when they are at home.
+    team_goals = Hash.new(0)
+    @game_teams.each do |game_team|
+      if game_team.hoa == 'home' && !team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id] = {
+          home_games: game_team.goals.to_f,
+          total: 1
+        }
+      elsif game_team.hoa == 'home' && team_goals.include?(game_team.team_id)
+        team_goals[game_team.team_id][:home_games] += game_team.goals.to_f
+        team_goals[game_team.team_id][:total] += 1
+      end
+    end
+    team_averages = {}
+    team_goals.each do |team_goal, value|
+      team_averages[team_goal] = (value[:home_games] / value[:total])
+    end
+    min(team_averages)
+  end
+  
+  ##HELPER METHODS
+  ## Creates an array of game_ids, acts as helper method
+  def game_ids
+    @game_ids = @game_teams.map{|game| game.game_id}.uniq
+  end
+  
+  ## Finds the max average score by game id and returns team name
+  def max(team_averages)
+    max = team_averages.max_by{|k,v| v}
+    highest_team = @teams.find { |team| team.team_id == max.first}
+    highest_team.team_name
+  end
+
+  ## Finds the min average score by game id and returns team name
+  def min(team_averages)
+    min = team_averages.min_by{|k,v| v}
+    lowest_team = @teams.find { |team| team.team_id == min.first}
+    lowest_team.team_name
+  end
+
   def count_of_teams
     @teams.count
   end
+
+  def team_games_league_total
+    @teams.reduce(Hash.new(0)) do |team_games_total, team|
+      @games.each do |game|
+        if team.team_id == game.home_team_id || team.team_id == game.away_team_id
+          team_games_total[team.team_id] += 1 
+        end
+      end
+      team_games_total
+    end
+  end
   
+  def team_goals_league_total
+    @teams.reduce(Hash.new(0)) do |team_goals_total, team|
+      @games.each do |game|
+        if team.team_id == game.home_team_id
+          team_goals_total[team.team_id] += game.home_goals
+        elsif team.team_id == game.away_team_id
+          team_goals_total[team.team_id] += game.away_goals
+        end
+      end
+      team_goals_total
+    end
+  end
+
+  def avg_team_goals_league
+    team_games_league_total.reduce(Hash.new) do |team_avgs, (team, tot_games)|
+      team_goals_league_total.each do |team, tot_goals|
+        team_avgs[team] = (tot_goals.to_f / tot_games).round(2)
+      end
+      team_avgs
+    end
+  end
+
+  def max_avg_team_goals_league
+    max_avg = avg_team_goals_league.values.max
+    max_ids = avg_team_goals_league.select do |team_id, average|
+      average == max_avg
+    end
+  end
+
+  def min_avg_team_goals_league
+    min_avg = avg_team_goals_league.values.min
+    min_ids = avg_team_goals_league.select do |team_id, average|
+      average == min_avg
+    end
+  end
+
+  # Finally the actual methods
+  def best_offense
+    best_team_ids = max_avg_team_goals_league.keys
+    team_names = @teams.reduce([]) do |names, team| 
+      best_team_ids.each do |id|
+        names << team.team_name if id == team.team_id
+      end
+      names
+    end
+    team_names.join(' ')
+  end
+
+  def worst_offense
+    worst_team_ids = min_avg_team_goals_league.keys
+    team_names = @teams.reduce([]) do |names, team| 
+      worst_team_ids.each do |id|
+        names << team.team_name if id == team.team_id
+      end
+      names
+    end
+    team_names.join(', ')
+  end
+
   ## Returns average goals per game across ALL seasons rounded to nearest 100th (FLOAT)
   def average_goals_per_game
     game_count = game_ids.count.to_f
@@ -113,22 +287,24 @@ class StatTracker
       @game_ids = @game_teams.map{|game| game.game_id}.uniq
     end
 
-     ## Creates an array of teams
-    def create_teams
-      @all_data[:teams].each do |row|
-        team = Team.new(row[:team_id])
-        @teams << team
-      end
-      @teams
-    end
+    ## Creates game objects from the CSV file
 
-  ## Creates game objects from the CSV file
+  def create_teams
+    @all_data[:teams].each do |row|
+      team = Team.new(row[:team_id], row[:teamname])
+      @teams << team
+    end
+    @teams
+  end
+
   def create_games
     @all_data[:games].each do |row|
       game = Game.new(row[:game_id],
                       row[:season],
                       row[:away_goals],
                       row[:home_goals], 
+                      row[:away_team_id], 
+                      row[:home_team_id] 
                       )
       @games << game
     end
@@ -172,4 +348,5 @@ class StatTracker
        end
        total_scores_by_season
     end
+
 end

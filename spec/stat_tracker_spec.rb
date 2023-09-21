@@ -77,4 +77,67 @@ RSpec.describe StatTracker do
     end
 
   end
+
+  describe '#count_of_teams' do
+    it 'gets total  number of teams in league' do
+      expect(@stats.count_of_teams).to eq(32)
+    end
+  end
+
+  describe '#best_offense, #worst_offense' do
+    it 'gets number games each team played in all seasons' do
+      expect(@stats.team_games_league_total.class).to be Hash
+      expect(@stats.team_games_league_total['3']).to eq(10)
+    end
+
+    it 'gets number games each team played in all seasons' do
+      expect(@stats.team_goals_league_total.class).to be Hash
+      expect(@stats.team_goals_league_total['3']).to eq(22)
+    end
+
+    it 'team goal average per game in all seasons' do
+      expect(@stats.avg_team_goals_league.class).to be Hash
+      expect(@stats.avg_team_goals_league['3']).to eq(3.67)
+    end
+
+    it 'team id(s) with highest avg goals per game in all seasons' do
+      expect(@stats.max_avg_team_goals_league.class).to be Hash
+      expect(@stats.max_avg_team_goals_league).to eq({'16'=>7.67})
+    end
+
+    it 'team id(s) with lowest avg goals per game in all seasons' do
+      expect(@stats.min_avg_team_goals_league.class).to be Hash
+      expect(@stats.min_avg_team_goals_league).to eq({'7'=>0.5})
+    end
+
+    it 'returns team(s) with highest avg goals per game' do
+      expect(@stats.best_offense).to eq('New England Revolution')
+    end
+
+    it 'returns team(s) with lowest avg goals per game' do
+      expect(@stats.worst_offense).to eq('Utah Royals FC')
+    end
+  end
+
+  describe '#highest_scoring and #lowest_scoring' do
+    it 'returns name of team with highest average when away' do
+      expect(@stats.highest_scoring_visitor.class).to be String
+      expect(@stats.highest_scoring_visitor).to eq('New York Red Bulls')
+    end
+    
+    it 'returns name of team with highest average when home' do
+      expect(@stats.highest_scoring_home_team.class).to be String
+      expect(@stats.highest_scoring_home_team).to eq('Los Angeles FC')
+    end
+
+    it 'returns name of team with lowest average when away' do
+      expect(@stats.lowest_scoring_visitor.class).to be String
+      expect(@stats.lowest_scoring_visitor).to eq('Sporting Kansas City')
+    end
+
+    it 'returns name of team with lowest average when home' do
+      expect(@stats.lowest_scoring_home_team.class).to be String
+      expect(@stats.lowest_scoring_home_team).to eq('Sporting Kansas City')
+    end
+  end
 end
