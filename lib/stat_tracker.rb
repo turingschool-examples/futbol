@@ -3,7 +3,6 @@ class StatTracker
   attr_reader :teams,
               :games,
               :game_teams
-
   def initialize(content)
     @teams = content[:teams]
     @games = content[:games]
@@ -24,7 +23,7 @@ class StatTracker
     # pass contents hash on to StatTracker to initiate the class.
     StatTracker.new(contents)
   end
-
+# Game Statistic Method
   def highest_total_score
     max = @games.map {|game| game.home_goals + game.away_goals }.max
   end
@@ -35,72 +34,73 @@ class StatTracker
 
   def percentage_home_wins
     hash = Hash.new{ |hash, key| hash[key] = [] }
-    @total_games = 0
+    total_games = 0
     @game_teams.each do |game|
-      @total_games += 0.50
-      @key = game.game_id
-      @value_array = []
-      @value1 = game.result
-      @value2 = game.hoa
-      @value_array << @value1
-      @value_array << @value2
-      hash[@key] = @value_array
+      total_games += 0.50
+      key = game.game_id
+      value_array = []
+      value1 = game.result
+      value2 = game.hoa
+      value_array << value1
+      value_array << value2
+      hash[key] = value_array
     end
-    @home_win = 0.00
+    home_win = 0.00
     hash.values.each do |hashy|
       if hashy[0] == "WIN" && hashy[1] == "home"
-        @home_win += 1.00
+        home_win += 1.00
       end
     end
-    x = @home_win / @total_games
+    x = home_win / total_games
     (x * 100).round(2)
   end
 
   def percentage_visitor_wins
     hash = Hash.new{ |hash, key| hash[key] = [] }
-    @total_games = 0
+    total_games = 0
     @game_teams.each do |game|
-      @total_games += 0.50
-      @key = game.game_id
-      @value_array = []
-      @value1 = game.result
-      @value2 = game.hoa
-      @value_array << @value1
-      @value_array << @value2
-      hash[@key] = @value_array
+      total_games += 0.50
+      key = game.game_id
+      value_array = []
+      value1 = game.result
+      value2 = game.hoa
+      value_array << value1
+      value_array << value2
+      hash[key] = value_array
     end
-    @visitor_win = 0.00
+    visitor_win = 0.00
     hash.values.each do |hashy|
       if hashy[0] == "LOSS" && hashy[1] == "home"
-        @visitor_win += 1.00
+        visitor_win += 1.00
       end
     end
-    x = @visitor_win / @total_games
+    x = visitor_win / total_games
     (x * 100).round(2)
   end
 
   def percentage_ties
     hash = Hash.new{ |hash, key| hash[key] = [] }
-    @total_games = 0
+    total_games = 0
     @game_teams.each do |game|
-      @total_games += 0.50
-      @key = game.game_id
-      @value_array = []
-      @value1 = game.result
-      @value2 = game.hoa
-      @value_array << @value1
-      @value_array << @value2
-      hash[@key] = @value_array
+      total_games += 0.50
+      key = game.game_id
+      value_array = []
+      value1 = game.result
+      value2 = game.hoa
+      value_array << value1
+      value_array << value2
+      hash[key] = value_array
     end
-    @tie = 0.00
+    tie = 0.00
     hash.values.each do |hashy|
       if hashy[0] == "TIE" && hashy[1] == "home"
-        @tie += 1.00
+        tie += 1.00
       end
     end
-    x = @tie / @total_games
+    x = tie / total_games
     (x * 100).round(2)
   end
+
 
   def count_of_games_by_season
     games_per_season = Hash.new(0)
@@ -110,7 +110,7 @@ class StatTracker
     games_per_season
   end
 
-  #take all the home goals, add to all the away goals, and divide by number of games
+
   def average_goals_per_game
     @home_goals = 0.0
     @away_goals = 0.0
@@ -124,6 +124,66 @@ class StatTracker
     @average_goals.round(2)
   end
 
+  def average_goals_by_season
+    hash = Hash.new{ |hash, key| hash[key] = 0.00 }
+    total_goals = 0.00
+    total_games = 0.00
+    @games.each do |game|
+      key = game.season
+      value1 = game.away_goals
+      value2 = game.home_goals
+      total_games += 1.00
+      total_goals += value1
+      total_goals += value2
+      avg_goals_game = (total_goals / total_games)
+      hash[key] = avg_goals_game
+    end
+    hash
+  end
+# League Statistic Methods
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    teams_goals_average = {}
+    @teams.each do |team|
+      total_games = 0
+      total_goals = 0
+      games = @game_teams.each do |game_team| 
+        if game_team.team_id == team.team_id
+          total_games +=1
+          total_goals += game_team.goals
+        end
+      end
+      if total_games > 0 && total_goals
+      teams_goals_average["#{team.name}"] = (total_goals.to_f / total_games.to_f)
+      end
+    end
+    best_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.max}
+    best_offense.first
+  end
+
+  def worst_offense
+    teams_goals_average = {}
+    @teams.each do |team|
+      total_games = 0
+      total_goals = 0
+      games = @game_teams.each do |game_team| 
+        if game_team.team_id == team.team_id
+          total_games +=1
+          total_goals += game_team.goals
+        end
+      end
+      if total_games > 0 && total_goals
+      teams_goals_average["#{team.name}"] = (total_goals.to_f / total_games.to_f)
+      end
+    end
+    worst_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.min}
+    worst_offense.first
+  end
+end
+#Season Statistic Methods
   def winningest_coach
     #number of wins for each coach
     coach_wins = Hash.new(0)
@@ -169,14 +229,3 @@ class StatTracker
   end
 end
 
-
-
-  # original from_csv left for reference
-  # def self.from_csv(locations)
-  #   content = {}
-  #   content[:teams] = CSV.readlines(locations[:teams], headers: true, header_converters: :symbol),
-  #   content[:games] = CSV.readlines(locations[:games], headers: true, header_converters: :symbol),
-  #   content[:game_teams] = CSV.readlines(locations[:game_teams], headers: true, header_converters: :symbol)
-  #   StatTracker.new(content)
-  ## in pry you can then do stat_tracker[:team_id] and it will print stuff
-  # end
