@@ -6,6 +6,7 @@ class Stats
     @teams_data = teams_data
     @game_teams_data = game_teams_data
     @percentage_results = nil
+    @teams_hash = nil
   end
 
   ###=== GLOBAL HELPERS ===###
@@ -159,4 +160,24 @@ class Stats
 
   ##== SEASON HELPERS ==##
 
+  ##== TEAM HELPERS ==##
+
+  def teams_hash(team_id)
+    if @teams_hash.nil?
+      @teams_hash = {}
+
+      @teams_hash[:team_info] = team_info(team_id)
+      @teams_hash[:seasonal_summary] = seasonal_summary(team_id)
+
+    end
+
+    @teams_hash
+
+  end
+
+  def team_info(team_id)
+
+  end
+
+  ##== TEAM HELPERS ==##
 end
