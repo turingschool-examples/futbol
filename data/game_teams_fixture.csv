@@ -1,4 +1,4 @@
- game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
 2012020122,1,away,WIN,REG,Peter DeBoer,3,6,19,21,3,1,46.6,6,9
 2012020122,2,home,LOSS,REG,Jack Capuano,0,5,24,15,7,0,53.4,12,6
 2013020444,1,away,LOSS,OT,Peter DeBoer,2,6,26,8,2,1,46.3,3,5
