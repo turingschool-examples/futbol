@@ -133,4 +133,56 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.lowest_scoring_home_team).to eq "Chicago Fire"
     end
   end
+
+  describe "#coach_season_win_pct" do
+    it "returns all coaching win pct by season" do
+      expected = {"John Tortorella" => 0.0, "Claude Julien" => 100.0}
+      expect(@stat_tracker.coach_season_win_pct("20122013")).to eq expected
+    end
+  end
+  describe "#winningest_coach" do
+    it "names coach with best win percentage for season" do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
+    end
+  end
+
+  describe "#worst_coach" do
+    it "names coach with worst win pct for season" do
+      expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
+    end
+  end
+
+  describe "#team_accuracies" do
+    it "should calculate team accuracies for a certain season" do
+      exected_accuracies = {
+        "6" => 0.3,
+        "3" => 0.2,
+      }
+      expect(@stat_tracker.team_accuracies("20122013")).to eq exected_accuracies
+    end
+  end
+
+  describe "#most_accurate_team" do
+    it "should return the most accurate team" do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+    end
+  end
+
+  describe "#least_accurate_team" do 
+    it "should return the least accurate team" do
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+    end
+  end
+
+  describe "#most_tackles" do
+    it "takes season ID argument and finds team with most tackles in a single season" do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    end
+  end
+
+  describe "#fewest_tackles" do
+    it "takes season ID argument and finds team with fewest tackles in a single season" do
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Houston Dynamo")
+    end
+  end
 end
