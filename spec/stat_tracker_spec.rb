@@ -1,15 +1,15 @@
-require './spec_helper'
+require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   before :each do
-    @game_path = './fixture/games_fixture.csv'
-    @team_path = './data/teams.csv'
-    @game_teams_path = './fixture/game_teams_fixture.csv'
+    game_path = './fixture/games_fixture.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './fixture/game_teams_fixture.csv'
 
     @locations = {
-      games: @game_path,
-      teams: @team_path,
-      game_teams: @game_teams_path
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
     }
     @game_stats = StatTracker.new(@locations)
   end
