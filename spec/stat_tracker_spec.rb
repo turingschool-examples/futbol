@@ -99,7 +99,33 @@ RSpec.describe StatTracker do
     end
   end
 
-  # Add tests for best/worst offence helper methods
+  describe '#games_and_scores' do
+    it 'returns a hash with team id, games played, total score and average' do
+      expected ={ "1"=>{:games_played=>9, :total_score=>16, :average=>1.78},
+      "2"=>{:games_played=>11, :total_score=>19, :average=>1.73},
+      "3"=>{:games_played=>11, :total_score=>25, :average=>2.27},
+      "4"=>{:games_played=>9, :total_score=>19, :average=>2.11}}
+      expect(stat_tracker.games_and_scores).to eq(expected)
+    end
+  end
+
+  describe '#number_of_games' do
+    it 'returns number of game' do
+      expect(stat_tracker.number_of_games("1")).to eq(9)
+    end
+  end
+
+  describe '#total_score_for_teams' do
+    it 'returns total scores for teams' do
+      expect(stat_tracker.total_score_for_teams("1")).to eq(16)
+    end
+  end
+
+  describe '#highest_scoring_home_team' do
+    it 'return the highest scoring home team' do
+      expect(stat_tracker.highest_scoring_home_team).to eq("Houston Dynamo")
+    end
+  end
 
   describe '#lowest_scoring_home_team' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
