@@ -56,7 +56,7 @@ class StatTracker
   def percentage_ties
     games = @games_data.length
     return 0.0 if games == 0
-    ties = @games_data.count {|game| game[:away_goals].to_i == game[:home_goals].to_i}
+    ties = @games_data.count { |game| game[:away_goals].to_i == game[:home_goals].to_i }
 
     (ties.to_f / games * 100.0).round(2)
   end
@@ -72,33 +72,33 @@ class StatTracker
     games_by_season
   end
 
-  def average_goals_per_game
-    total_goals = 0
-    total_games = @games_data.length
+  def average_goals_per(interval)
+    # if interval argument ==  :game {total: [goals_per_game]}
+    # if interval argument == :season { season: [goals_per_game] }
+    goals_by_interval = Hash.new { |hash, key| hash[key] = [] }
 
     @games_data.each do |game|
-      total_goals += game[:home_goals].to_i + game[:away_goals].to_i
+      if interval == :season
+        goals_by_interval[game[:season]] << game[:home_goals].to_i + game[:away_goals].to_i
+      else
+        goals_by_interval[:total] << game[:home_goals].to_i + game[:away_goals].to_i
+      end
     end
 
-    average_goals = total_goals.to_f / total_games
-    average_goals.round(2)
+    goals_by_interval.transform_values! do |game_goals|
+      (game_goals.reduce(:+) / game_goals.size.to_f).round(2)
+    end
+
+    # { interval: avg_goals }
+    goals_by_interval
+  end
+
+  def average_goals_per_game
+    average_goals_per(:game)[:total]
   end
 
   def average_goals_per_season
-    goals_by_season = Hash.new { |hash, key| hash[key] = [] }  # { season: [goals_per_game] }
-
-    @games_data.each do |game|
-      season = game[:season]
-
-      goals_by_season[season] << game[:home_goals].to_i + game[:away_goals].to_i
-    end
-
-    goals_by_season.transform_values! do |game_goals|
-      average = game_goals.reduce(:+) / game_goals.size.to_f
-      average.round(2)
-    end
-
-    goals_by_season
+    average_goals_per(:season)
   end
 
   ###=== GAME QUERIES ===###
