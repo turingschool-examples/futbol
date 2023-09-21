@@ -21,6 +21,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
+
   describe '#Creates usable data' do
     xit '#game_team_data_creation' do
       expect(@stat_tracker.game_team_data).to be_a Array
@@ -50,8 +51,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.best_offense).to eq("Madrid")
     end
   end
-  # these methods are listed in Iteration4
-
+  
+  
+  ### These methods are listed in Iteration4 ###
+  
   # it "#team_info" do
   #   expected = {
   #     "team_id" => "18",
