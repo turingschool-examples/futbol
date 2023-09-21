@@ -31,10 +31,12 @@ RSpec.describe StatTracker do
 
   it "team_total_goals" do
     expect(@league.team_total_goals).to be_a(Hash)
+    expect(@league.team_total_goals["3"]).to eq(1129)
   end
 
   it "#team_total_games" do
     expect(@league.team_total_games).to be_a(Hash)
+    expect(@league.team_total_games["3"]).to eq(531)
   end
 
   it "#best_offense" do
