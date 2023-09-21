@@ -20,6 +20,7 @@ class Stats
 
   ##== GAME HELPERS ==##
 
+  # Returns an array with elements of total points scored each game
   def total_scores
     @games_data.map { |game| game[:home_goals].to_i + game[:away_goals].to_i }
   end
@@ -157,5 +158,5 @@ class Stats
   end
 
   ##== SEASON HELPERS ==##
-  
+
 end
