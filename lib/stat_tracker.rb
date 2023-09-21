@@ -102,9 +102,7 @@ class StatTracker
 
   ## Returns average goals per game with season names as keys and a float for average num of goals per game (HASH)
   def average_goals_by_season
-    total_scores_by_season
     average_goals_by_season = total_scores_by_season.map { |season, total_scores| [season, (total_scores.to_f/count_of_games_by_season[season].to_f).round(2)]}.to_h
-    average_goals_by_season
   end
 
 ##HELPER METHODS

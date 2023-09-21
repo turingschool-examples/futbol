@@ -13,6 +13,7 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
+    # binding.pry
   end
 
   it "exists" do
