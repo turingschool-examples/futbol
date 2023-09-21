@@ -109,13 +109,22 @@ class StatTracker
     end
     games_per_season
   end
-    #we want to create a hash with seasons as the key and the count as the value
-    #start by creating an array of seasons
-    #iterate through the array, and each time it hits that season, +1 to the key(which is the season)
 
+  #take all the home goals, add to all the away goals, and divide by number of games
   def average_goals_per_game
-    
+    @home_goals = 0.0
+    @away_goals = 0.0
+    @games.each do |game|
+      @home_goals += game.home_goals
+      @away_goals += game.away_goals
+    end
+    total_goals = @home_goals+@away_goals
+    number_of_games = @games.count
+    @average_goals = (total_goals/number_of_games)
+    @average_goals.round(2)
   end
+end
+
 
 
   # original from_csv left for reference
@@ -127,4 +136,3 @@ class StatTracker
   #   StatTracker.new(content)
   ## in pry you can then do stat_tracker[:team_id] and it will print stuff
   # end
-end
