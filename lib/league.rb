@@ -49,7 +49,20 @@ class League
     end
   end
 
-  # def worst_offense
+  def worst_offense
+    goals_per_game = Hash.new(0)
 
-  # end
+    team_total_games.each do |team_id, games|
+      goals = team_total_goals[team_id]
+      gpg = (goals.to_f / games.to_f)
+      goals_per_game[team_id] = gpg
+    end
+    worst_team_id = goals_per_game.min_by { |team_id, gpg| gpg }
+
+    @team_data.each do |team|
+      if team[:team_id] == worst_team_id[0]
+        return team[:team_name]
+      end
+    end
+  end
 end

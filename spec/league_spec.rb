@@ -41,9 +41,9 @@ RSpec.describe StatTracker do
     expect(@league.best_offense).to eq "Reign FC"
   end
 
-  # it "#worst_offense" do
-  #   expect(@league.worst_offense).to eq "Utah Royals FC"
-  # end
+  it "#worst_offense" do
+    expect(@league.worst_offense).to eq "Utah Royals FC"
+  end
 
   # it "#highest_scoring_visitor" do
   #   expect(@league.highest_scoring_visitor).to eq "FC Dallas"
