@@ -52,4 +52,20 @@ RSpec.describe StatTracker do
   xit "#lowest_scoring_home_team" do
     expect(@league.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
+
+  it '#visitor goals' do
+    expect(@league.visitor_goals["3"]).to eq(572)
+  end
+
+  it '#visitor_games' do
+    expect(@league.visitor_games["3"]).to eq(531)
+  end
+
+  it '#ave_visitor_goals' do
+    expect(@league.ave_visitor_goals["3"]).to eq(1.0772128060263653)
+  end
+
+  it '#highest_ave_visitor_goals' do
+    expect(@league.highest_ave_visitor_goals).to eq(["6", 1.1137254901960785])
+  end
 end
