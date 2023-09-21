@@ -331,4 +331,37 @@ class StatTracker
   def away_team?(row)
     row[:hoa] == 'away'
   end
+
+
+  def least_accurate_team
+    least_accurate = ""
+    team_number = teams_ratio.sort_by { |team, data| data[:ratio] }.first[0]
+    team_data.each do |team|
+      if team[:team_id] == team_number
+        least_accurate << team[:teamname]
+      end
+    end
+    least_accurate
+  end
+  
+  def teams_ratio
+  team_info = {}
+  team_data.each do  |team|
+    team_info[team[:team_id]] = {
+      ratio: total_score_for_teams(team[:team_id])/total_shots(team[:team_id]).to_f.round(2),
+    }
+  end
+  team_info
+  end
+  
+  def total_shots(team)
+  total_shots = 0
+  game_teams.each do |game|
+    if game[:team_id] == team
+      total_shots += game[:shots].to_i
+    end 
+  end
+  total_shots
+  end
 end
+

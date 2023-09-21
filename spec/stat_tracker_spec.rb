@@ -152,4 +152,10 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#least_accurate_team' do
+    it 'list least accurate team' do
+      expect(stat_tracker.least_accurate_team).to eq("Seattle Sounders FC")
+    end
+  end
+
 end
