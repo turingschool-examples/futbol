@@ -97,48 +97,54 @@ class StatTracker
 
   def team_games_league_total
     @teams.reduce(Hash.new(0)) do |team_games_total, team|
-      @game_teams.each do |game|
-        team_games_total[team.team_id] += 1 if game.team_id.to_i == team.team_id.to_i
+      @games.each do |game|
+        if team.team_id == game.home_team_id || team.team_id == game.away_team_id
+          team_games_total[team.team_id] += 1 
+        end
       end
       team_games_total
     end
   end
   
-  def team_goals_season_total
+  def team_goals_league_total
     @teams.reduce(Hash.new(0)) do |team_goals_total, team|
-      @game_teams.each do |game|
-        team_goals_total[team.team_id] += game.goals.to_i if game.team_id.to_i == team.team_id.to_i
+      @games.each do |game|
+        if team.team_id == game.home_team_id
+          team_goals_total[team.team_id] += game.home_goals
+        elsif team.team_id == game.away_team_id
+          team_goals_total[team.team_id] += game.away_goals
+        end
       end
       team_goals_total
     end
   end
 
-  def avg_team_goals_season
-    team_games_season_total.reduce(Hash.new) do |team_avgs, (team, tot_games)|
-      team_goals_season_total.each do |team, tot_goals|
+  def avg_team_goals_league
+    team_games_league_total.reduce(Hash.new) do |team_avgs, (team, tot_games)|
+      team_goals_league_total.each do |team, tot_goals|
         team_avgs[team] = (tot_goals.to_f / tot_games).round(2)
       end
       team_avgs
     end
   end
 
-  def max_avg_team_goals_season
-    max_avg = avg_team_goals_season.values.max
-    max_ids = avg_team_goals_season.select do |team_id, average|
+  def max_avg_team_goals_league
+    max_avg = avg_team_goals_league.values.max
+    max_ids = avg_team_goals_league.select do |team_id, average|
       average == max_avg
     end
   end
 
-  def min_avg_team_goals_season
-    min_avg = avg_team_goals_season.values.min
-    min_ids = avg_team_goals_season.select do |team_id, average|
+  def min_avg_team_goals_league
+    min_avg = avg_team_goals_league.values.min
+    min_ids = avg_team_goals_league.select do |team_id, average|
       average == min_avg
     end
   end
 
   # Finally the actual methods
   def best_offense
-    best_team_ids = max_avg_team_goals_season.keys
+    best_team_ids = max_avg_team_goals_league.keys
     team_names = @teams.reduce([]) do |names, team| 
       best_team_ids.each do |id|
         names << team.team_name if id == team.team_id
@@ -149,7 +155,7 @@ class StatTracker
   end
 
   def worst_offense
-    worst_team_ids = min_avg_team_goals_season.keys
+    worst_team_ids = min_avg_team_goals_league.keys
     team_names = @teams.reduce([]) do |names, team| 
       worst_team_ids.each do |id|
         names << team.team_name if id == team.team_id

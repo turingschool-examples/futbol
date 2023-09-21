@@ -84,37 +84,37 @@ RSpec.describe StatTracker do
   end
 
   describe '#best_offense, #worst_offense' do
-    it 'gets number games each team played in a season' do
+    it 'gets number games each team played in all seasons' do
       expect(@stats.team_games_league_total.class).to be Hash
-      expect(@stats.team_games_league_total['3']).to eq(6)
+      expect(@stats.team_games_league_total['3']).to eq(10)
     end
 
-    xit 'gets number games each team played in a season' do
-      expect(@stats.team_goals_season_total.class).to be Hash
-      expect(@stats.team_goals_season_total['3']).to eq(9)
+    it 'gets number games each team played in all seasons' do
+      expect(@stats.team_goals_league_total.class).to be Hash
+      expect(@stats.team_goals_league_total['3']).to eq(22)
     end
 
-    xit 'team goal average per game in a season' do
-      expect(@stats.avg_team_goals_season.class).to be Hash
-      expect(@stats.avg_team_goals_season['3']).to eq(1.5)
+    it 'team goal average per game in all seasons' do
+      expect(@stats.avg_team_goals_league.class).to be Hash
+      expect(@stats.avg_team_goals_league['3']).to eq(3.67)
     end
 
-    xit 'team id(s) with highest avg goals per game in season' do
-      expect(@stats.max_avg_team_goals_season.class).to be Hash
-      expect(@stats.max_avg_team_goals_season).to eq({"6"=>6.0})
+    it 'team id(s) with highest avg goals per game in all seasons' do
+      expect(@stats.max_avg_team_goals_league.class).to be Hash
+      expect(@stats.max_avg_team_goals_league).to eq({'16'=>7.67})
     end
 
-    xit 'team id(s) with lowest avg goals per game in season' do
-      expect(@stats.min_avg_team_goals_season.class).to be Hash
-      expect(@stats.min_avg_team_goals_season).to eq({"5"=>0.33, "9"=>0.33})
+    it 'team id(s) with lowest avg goals per game in all seasons' do
+      expect(@stats.min_avg_team_goals_league.class).to be Hash
+      expect(@stats.min_avg_team_goals_league).to eq({'7'=>0.5})
     end
 
-    xit 'returns team(s) with highest avg goals per game' do
-      expect(@stats.best_offense).to eq('FC Dallas')
+    it 'returns team(s) with highest avg goals per game' do
+      expect(@stats.best_offense).to eq('New England Revolution')
     end
 
-    xit 'returns team(s) with lowest avg goals per game' do
-      expect(@stats.worst_offense).to eq('Sporting Kansas City, New York City FC')
+    it 'returns team(s) with lowest avg goals per game' do
+      expect(@stats.worst_offense).to eq('Utah Royals FC')
     end
   end
 end
