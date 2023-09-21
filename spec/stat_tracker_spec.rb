@@ -140,4 +140,15 @@ RSpec.describe StatTracker do
       expect(@stats.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
+
+  describe '#most_tackles, #fewest_tackles' do
+    it 'list of teams who played in a season' do
+      expect(@stats.teams_ids_season).to eq(['3', '6', '5', '28', '19', '8', '9'])
+    end
+
+    it 'list of tackles for teams' do
+      expect(@stats.team_season_tackles.class).to be Hash
+      expect(@stats.team_season_tackles).to eq(1)
+    end
+  end
 end

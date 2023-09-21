@@ -287,7 +287,8 @@ class StatTracker
                       row[:team_id],
                       row[:goals], 
                       row[:hoa], 
-                      row[:result]
+                      row[:result],
+                      row[:tackles]
                       )
       @game_teams << game_team
     end
@@ -316,5 +317,18 @@ class StatTracker
       total_scores_by_season[game.season] += (game.away_goals+game.home_goals)
     end
     total_scores_by_season
+  end
+
+  def teams_ids_season
+    team_ids = @game_teams.map { |team| team.team_id }
+    team_ids.uniq
+  end
+
+  def team_season_tackles
+    teams_ids_season.reduce(Hash.new(0)) do |team_tackles, team_id|
+      @game_teams.each do |game|
+        team_tackles[team_id] += game.tackles
+      end
+    end
   end
 end
