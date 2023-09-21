@@ -1,6 +1,7 @@
 
 # require_relative './spec_helper'
  require_relative './game'
+ require_relative './game_team'
 
 
 
@@ -10,6 +11,8 @@ class StatTracker
   def initialize(locations)
     @game_data = create_games(locations[:games])
     # require 'pry'; binding.pry
+    @game_teams_data = create_game_teams(locations[:game_teams])
+    # require 'pry'; binding.pry
     # @locations = locations 
     # @game_data = CSV.read locations[:games], headers: true, header_converters: :symbol
     #@teams_data = CSV.read locations[:teams], headers: true, header_converters: :symbol
@@ -17,13 +20,20 @@ class StatTracker
   end
   
   def create_games(path)
+    # require 'pry'; binding.pry
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     # data.map { |row| Game.new(row) } 
     data.map do |row| 
     Game.new(row)
     end
-    
   end
+  
+  def create_game_teams(path)
+    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
+    data.map do |row| 
+      # require 'pry'; binding.pry
+    GameTeam.new(row)
+    end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -35,24 +45,21 @@ class StatTracker
   end
   
   def percentage_ties 
-    total_games = 0
-    tied_games = 0
-    @game_data.each  do |row|
-    total_games += 1.00
-    tied_games += 1.00 if row[:away_goals].to_f == row[:home_goals].to_f
-    end
-    percentage_calculator(tied_games, total_games)
+    ties = @game_data.count do |game|
+      # require 'pry'; binding.pry
+      game.away_goals.to_f == game.home_goals.to_f
+    end.to_f
+    (ties/@game_data.count).round(2)
   end
-
+  
   def most_tackles
     Game.games.group_by {|game| game.season}
-    GameTeam.gameteam.group_by {|}
     require 'pry'; binding.pry
     #sort season by team_id
     #use teams csv team id, sort through teams and store tackles.sum in array
     #find max value in array
     #find team id that matches max value
-    #return team name
+    #return team name and max value
   end
 
   def least_tackles
@@ -76,8 +83,9 @@ class StatTracker
     total_goals = 0
     total_games = []
     @game_teams_data.each do |row|
-      total_goals += row[:goals].to_i
-      total_games << row[:game_id]
+      # require 'pry'; binding.pry
+      total_goals += row.goals.to_i
+      total_games << row.game_id
     end
     average = total_goals.to_f / total_games.uniq.count
     average.round(2)
