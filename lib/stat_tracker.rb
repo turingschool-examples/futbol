@@ -50,8 +50,7 @@ class StatTracker
     percentage = (count.to_f / game.length).round(2)
   end
 
-  def percentage_home_wins #(testing = false)
-    #testing ? data = game.take(10) : data = game
+  def percentage_home_wins 
     count = 0
     game.each do |single_game|
       if single_game[:home_goals].to_i > single_game[:away_goals].to_i
@@ -75,44 +74,50 @@ class StatTracker
     highest_score
   end 
 
-  # Methods for League Statistics
-
-  def best_offense(testing = false)
-    testing ? data = game_teams.take(10) : data = game_teams
-    games_and_scores = {}
-    data.each do |team|
-      games_and_scores[team[:team_id]] = {
-        games_played: nil,
-        total_score: nil,
-      }
-      # require 'pry'; binding.pry
+  def best_offense
+    team_number = games_and_scores.sort_by { |team, data| data[:average] }.last[0]
+    
+    best_offense = ""
+    team_data.each do |team|
+      if team[:team_id] == team_number
+        best_offense << team[:teamname] 
+      end
     end
+    best_offense
+  end
+
+  def games_and_scores
+    games_and_scores = {}
+    team_data.each do |team|
+        games_and_scores[team[:team_id]] = {
+          games_played: number_of_games(team[:team_id]),
+          total_score: total_score_for_teams(team[:team_id]),
+          average: (total_score_for_teams(team[:team_id])/number_of_games(team[:team_id]).to_f)
+        }
+      end
     games_and_scores
+  end
 
-    # name of the team with best average goals
-    # need team id and goals
-    # need sum of games played
-    # divide goals/games played
-    # link the team id to the team name 
-
-
-
-    number_of_games = Hash.new(0)
-    data.each do |team|
-      number_of_games[team[:team_id]] += 1
+  def number_of_games(team)
+    number_of_games = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        number_of_games += 1
+      end
     end
     number_of_games
-    require 'pry'; binding.pry
-
-    # highest_average_goals = {}
-    # number_of_games.each do |team_id, num_games|
-    #   average_score = total_score/num_games.to_f
-    #   highest_average_goals[team_id] = average_score
-    # end
-    # highest_average_goals
-    # require 'pry'; binding.pry
   end
   
+  def total_score_for_teams(team)
+    total_score = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        total_score += game[:goals].to_i
+      end
+    end
+    total_score
+  end
+
   def percentage_ties 
     count = 0
     game.each do |single_game|

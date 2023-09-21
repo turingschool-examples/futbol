@@ -80,7 +80,7 @@ RSpec.describe StatTracker do
 
   describe '#best_offense' do
     it 'list best offense' do
-      expect(stat_tracker.best_offense(true)).to eq("FC Dallas")
+      expect(stat_tracker.best_offense).to eq("Houston Dynamo")
     end
   end
 
