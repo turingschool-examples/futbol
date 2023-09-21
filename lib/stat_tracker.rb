@@ -11,20 +11,19 @@ class StatTracker
     #@teams_data = CSV.read locations[:teams], headers: true, header_converters: :symbol
     #@game_team_data = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
   end
-  
 
-  def self.from_csv(locations)
-    contents = CSV.open locations[:games], headers: true, header_converters: :symbol
-    contents.each do |row|
-      row
-      require 'pry'; binding.pry
-    end
-    # StatTracker.new
+  def create_game(path)
+    
+    
+  end
+
+  def self.from_csv(path)
+    StatTracker.new
   end
 
 
   def percentage_calculator(portion, whole)
-    percentage =(portion/whole).round(2)
+    percentage = (portion/whole).round(2)
   end
 
   def percentage_ties 
@@ -35,6 +34,29 @@ class StatTracker
     tied_games += 1.00 if row[:away_goals].to_f == row[:home_goals].to_f
     end
     percentage_calculator(tied_games, total_games)
+  end
+
+  def most_tackles
+    #sort season by team_id
+    #use teams csv team id, sort through teams and store tackles.sum in array
+
+    end
+  end
+
+  def least_tackles
+
+  end
+
+  def most_accurate_team
+
+  end
+
+  def least_accurate_team
+
+  end
+
+  def count_of_teams
+
   end
 
 end

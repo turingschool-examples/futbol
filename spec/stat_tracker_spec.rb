@@ -28,5 +28,16 @@ RSpec.describe StatTracker do
     end
   end 
 
+  describe '#Tackles' do
+    it 'finds most number of tackles' do
+      expect(@game_stats.most_tackles).to eq(95)
+    end
+
+    it 'finds least number of tackles' do
+      expect(@game_stats.least_tackles).to eq()
+    end
+  end
+
+
   
 end
