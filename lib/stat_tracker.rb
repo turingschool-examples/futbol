@@ -172,4 +172,21 @@ class StatTracker
     end
     counts
   end
+
+  def lowest_scoring_home_team
+    lowest_scoring = ""
+    home_teams = games_and_scores.select { |team_id, data| home_team?(team_id) }
+    lowest_avg = home_teams.sort_by { |team, data| data[:average] }.first[0]
+
+    team_data.each do |team|
+      if team[:team_id] == lowest_avg
+        lowest_scoring << team[:teamname]
+      end
+    end 
+    lowest_scoring
+  end
+  
+  def home_team?(team_id)
+    game_teams.find_all { |game_team| game_team[:team_id] == team_id && game_team[:hoa] == 'home' }
+  end
 end
