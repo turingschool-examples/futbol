@@ -17,9 +17,6 @@
 
 ![stattracker_v1-3](https://github.com/trpubz/futbol/assets/25095319/d2e34cc1-273a-4510-aa1a-463cd9963a7a)
 
-
-
-
 ## Plan of Attack Considerations
 
 - Studying the interaction pattern provides overview of functionality
@@ -41,6 +38,31 @@
 - [v1](https://docs.google.com/document/d/1xlq3COkAis2Ka8S6jJ9tsDimgus19CnItrIJYnmH5xM/edit)
 - Recommended conventions
   - feature branches => sfeat/<grouped_feature>/<name_or_functionality>
+
+## Retro
+
+[miro retro board](https://miro.com/app/board/uXjVMjam68c=/?share_link_id=784845189724)
+![Quick Retrospective](https://github.com/trpubz/futbol/assets/25095319/b4294a2c-4d69-4d65-a3d0-2d0fbf71288d)
+
+### Went Well
+
+- async
+- kanban board
+- pairing before unproductive struggle
+
+### Do Diff
+
+- group code blocks when doing async
+- providing contextual comments on shared code
+- celebrating successes more often
+
+### Considerations
+
+- continue, stop, invent, act
+- working, not working, start doing, stop doing
+- path of least resistance
+- effectiveness high because more technical version of mid-DTR
+  - conduct mid-DTR after retro
 
 ## Contributors
 
