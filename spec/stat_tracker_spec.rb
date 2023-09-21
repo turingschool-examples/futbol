@@ -31,7 +31,7 @@ RSpec.describe StatTracker do
     describe "#highest total score" do 
       it 'will find the highest sum of the winning and losing teams scores and return them as integers' do
         expect(stat_tracker.highest_total_score).to be_an(Integer)
-        expect(stat_tracker.highest_total_score).to eq(6)
+        expect(stat_tracker.highest_total_score).to eq(7)
       end 
     end
     describe "#lowest total score" do 
@@ -58,16 +58,16 @@ RSpec.describe StatTracker do
         expect(stat_tracker.percentage_ties).to  eq(2.00)
       end
     end
-    xdescribe '#count_of_games_by_season' do 
+    describe '#count_of_games_by_season' do 
       it 'will return a A hash with season names as keys and counts of games as values' do
         expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
-        expect(stat_tracker.count_of_games_by_season).to eq({20122013 => 9, 20132014 => 1})
+        expect(stat_tracker.count_of_games_by_season).to eq({20122013=>57, 20162017=>4, 20142015=>6, 20152016=>6})
       end
     end
-    xdescribe '#average_goals_per_game' do 
+    describe '#average_goals_per_game' do 
       it 'will return the average number of goals scored accross all seasons including both home and away goals' do 
         expect(stat_tracker.average_goals_per_game).to be_a(Float)
-        expect(stat_tracker.average_goals_per_game).to eq()
+        expect(stat_tracker.average_goals_per_game).to eq(3.95)
       end
     end
     describe '#average_goals_by_season' do 
@@ -119,6 +119,22 @@ RSpec.describe StatTracker do
         expect(stat_tracker.count_of_teams).to be_a(String)
         expect(stat_tracker.count_of_teams).to eq()
       end
+    end
+  end
+
+  context 'Season Statistic Methods' do
+    describe "#winningest_coach" do 
+      it 'will find the coach with the highest win percentage' do
+        expect(stat_tracker.winningest_coach).to be_an(String)
+        expect(stat_tracker.winningest_coach).to eq("Claude Julien")
+      end 
+    end
+
+    describe "#worst_coach" do 
+      it 'will find the coach with the lowest win percentage' do
+        expect(stat_tracker.worst_coach).to be_an(String)
+        expect(stat_tracker.worst_coach).to eq("Adam Oates")
+      end 
     end
   end
 end 
