@@ -199,7 +199,7 @@ class StatTracker
     game_teams.find_all { |game_team| game_team[:team_id] == team_id && game_team[:hoa] == 'home' }
   end
 
-  def lowest_scoring_away_team
+  def lowest_scoring_visitor
     lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
     team_data.find { |row| row[:team_id] == lowest }[:teamname]
   end
