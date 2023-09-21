@@ -12,4 +12,20 @@ class League
     end
     teams.count
   end
+
+  # num games per team
+  # total score per team
+  # games and scores, total scores and 
+
+  def highest_scoring_visitor
+    # Name of the team with the highest average score per game across all seasons when they are away
+    # calc average score for each team's away goals, store in hash with team_id => ave_score
+    # determine highest average
+    # link team_id to team_name
+    hash = {}
+    @game_data.each do |game|
+      
+      team_id = game[:team_id] 
+    end
+  end
 end
