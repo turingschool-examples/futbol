@@ -158,4 +158,21 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#teams_shots_goals_ratio' do
+    it 'returns a hash of team id and total score to total shot ratio' do
+      expected = {
+        "1" => {:ratio => 0.30},
+        "2"=> {:ratio => 0.25},
+        "3"=> {:ratio => 0.30},
+        "4"=> {:ratio => 0.33},
+      }
+      expect(stat_tracker.teams_shots_goals_ratio).to eq(expected)
+    end
+  end
+
+  describe '#total_shots' do
+    it 'returns total shots made by a team' do
+      expect(stat_tracker.total_shots("1")).to eq(53)
+    end
+  end
 end

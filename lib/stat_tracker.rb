@@ -335,7 +335,7 @@ class StatTracker
 
   def least_accurate_team
     least_accurate = ""
-    team_number = teams_ratio.sort_by { |team, data| data[:ratio] }.first[0]
+    team_number = teams_shots_goals_ratio.sort_by { |team, data| data[:ratio] }.first[0]
     team_data.each do |team|
       if team[:team_id] == team_number
         least_accurate << team[:teamname]
@@ -344,11 +344,11 @@ class StatTracker
     least_accurate
   end
   
-  def teams_ratio
+  def teams_shots_goals_ratio
   team_info = {}
   team_data.each do  |team|
     team_info[team[:team_id]] = {
-      ratio: total_score_for_teams(team[:team_id])/total_shots(team[:team_id]).to_f.round(2),
+      ratio: (total_score_for_teams(team[:team_id])/total_shots(team[:team_id]).to_f).round(2),
     }
   end
   team_info
