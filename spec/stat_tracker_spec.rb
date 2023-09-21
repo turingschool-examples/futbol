@@ -34,28 +34,28 @@ RSpec.describe StatTracker do
         expect(stat_tracker.highest_total_score).to eq(6)
       end 
     end
-    xdescribe "#lowest total score" do 
+    describe "#lowest total score" do 
       it 'will find the lowest sum of the winning and losing teams scores' do 
       expect(stat_tracker.lowest_total_score).to be_an(Integer)
       expect(stat_tracker.lowest_total_score).to eq(1)
       end
     end
-    xdescribe "#percentage home wins" do 
+    describe "#percentage home wins" do 
       it 'will find the percentage of games that a home team has won' do 
         expect(stat_tracker.percentage_home_wins).to  be_a(Float)
-        expect(stat_tracker.percentage_home_wins).to  eq()
+        expect(stat_tracker.percentage_home_wins).to  eq(68.0)
       end
     end
-    xdescribe "#percentage visitor wins" do 
+    describe "#percentage visitor wins" do 
       it 'will find the percentage of games that a visitor has won' do 
         expect(stat_tracker.percentage_visitor_wins).to  be_a(Float)
-        expect(stat_tracker.percentage_visitor_wins).to  eq()
+        expect(stat_tracker.percentage_visitor_wins).to  eq(30.0)
       end
     end
-    xdescribe "#percentage_ties" do 
+    describe "#percentage_ties" do 
       it 'will find the percentage of games that ended in a tie' do 
         expect(stat_tracker.percentage_ties).to  be_a(Float)
-        expect(stat_tracker.percentage_ties).to  eq()
+        expect(stat_tracker.percentage_ties).to  eq(2.00)
       end
     end
     xdescribe '#count_of_games_by_season' do 

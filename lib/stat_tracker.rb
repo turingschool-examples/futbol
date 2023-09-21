@@ -25,6 +25,84 @@ class StatTracker
     StatTracker.new(contents)
   end
 
+  def highest_total_score
+    max = @games.map {|game| game.home_goals + game.away_goals }.max
+  end
+
+  def lowest_total_score
+    min = @games.map {|game| game.home_goals + game.away_goals }.min
+  end
+
+  def percentage_home_wins
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @total_games = 0
+    @game_teams.each do |game|
+      @total_games += 0.50
+      @key = game.game_id
+      @value_array = []
+      @value1 = game.result
+      @value2 = game.hoa
+      @value_array << @value1
+      @value_array << @value2
+      hash[@key] = @value_array
+    end
+    @home_win = 0.00
+    hash.values.each do |hashy|
+      if hashy[0] == "WIN" && hashy[1] == "home"
+        @home_win += 1.00
+      end
+    end
+    x = @home_win / @total_games
+    (x * 100).round(2)
+  end
+
+  def percentage_visitor_wins
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @total_games = 0
+    @game_teams.each do |game|
+      @total_games += 0.50
+      @key = game.game_id
+      @value_array = []
+      @value1 = game.result
+      @value2 = game.hoa
+      @value_array << @value1
+      @value_array << @value2
+      hash[@key] = @value_array
+    end
+    @visitor_win = 0.00
+    hash.values.each do |hashy|
+      if hashy[0] == "LOSS" && hashy[1] == "home"
+        @visitor_win += 1.00
+      end
+    end
+    x = @visitor_win / @total_games
+    (x * 100).round(2)
+  end
+
+  def percentage_ties
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @total_games = 0
+    @game_teams.each do |game|
+      @total_games += 0.50
+      @key = game.game_id
+      @value_array = []
+      @value1 = game.result
+      @value2 = game.hoa
+      @value_array << @value1
+      @value_array << @value2
+      hash[@key] = @value_array
+    end
+    @tie = 0.00
+    hash.values.each do |hashy|
+      if hashy[0] == "TIE" && hashy[1] == "home"
+        @tie += 1.00
+      end
+    end
+    x = @tie / @total_games
+    (x * 100).round(2)
+  end
+
+
   # original from_csv left for reference
   # def self.from_csv(locations)
   #   content = {}
