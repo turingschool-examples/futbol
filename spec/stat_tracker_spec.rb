@@ -57,7 +57,7 @@ RSpec.describe StatTracker do
 
   describe "average_goals_per_game" do
     it "should return the average goals per game" do
-      expect(@stat_tracker.average_goals_per_game).to eq(4.3)  
+      expect(@stat_tracker.average_goals_per_game).to eq(4.3)
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe StatTracker do
         "20132014" => 4.0
       }
       expect(@stat_tracker.average_goals_per_season).to eq(expected_outcome)
-      
+    end
   end
 
   describe "#init" do
@@ -140,11 +140,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.coach_season_win_pct("20122013")).to eq expected
     end
   end
+
   describe "#winningest_coach" do
-    it "names coach with best win percentage for season" do
-      expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
-    end
+  it "names coach with best win percentage for season" do
+    expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
   end
+end
 
   describe "#worst_coach" do
     it "names coach with worst win pct for season" do
@@ -154,11 +155,11 @@ RSpec.describe StatTracker do
 
   describe "#team_accuracies" do
     it "should calculate team accuracies for a certain season" do
-      exected_accuracies = {
+      expected_accuracies = {
         "6" => 0.3,
         "3" => 0.2,
       }
-      expect(@stat_tracker.team_accuracies("20122013")).to eq exected_accuracies
+      expect(@stat_tracker.team_accuracies("20122013")).to eq expected_accuracies
     end
   end
 
@@ -168,7 +169,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "#least_accurate_team" do 
+  describe "#least_accurate_team" do
     it "should return the least accurate team" do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
     end

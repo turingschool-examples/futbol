@@ -21,6 +21,7 @@ class StatTracker
     @teams_data.each do |tm|
       return tm[:teamname] if tm[:team_id] == team_id
     end
+  end
 
   def total_scores
     @games_data.map { |game| game[:home_goals].to_i + game[:away_goals].to_i }
@@ -101,7 +102,7 @@ class StatTracker
   # return: hash of all for all seasons { team_id => [goals] } => after reduce { team_id => avg_goals }
   def team_avg_goals(filter = nil, value = nil)
     team_goals = Hash.new { |hash, key| hash[key] = [] }
-    
+
     @game_teams_data.each do |game|
       if filter.nil?
         team_goals[game[:team_id]] << game[:goals].to_i
@@ -113,7 +114,7 @@ class StatTracker
     team_goals.transform_values! do |goals|
       (goals.reduce(:+) / goals.size.to_f).round(1)
     end
-    
+
     team_goals
   end
 
@@ -192,7 +193,7 @@ class StatTracker
     team_accuracies = Hash.new { |hash, key| hash[key] = [] }  # {team_id: [goals, shots]}
     # array of hashes, each hash is data for a game team for specific season.
     # [{CSV::Row from game_teams_data}]
-    game_teams_in_season = @game_teams_data.select do |game_team|  
+    game_teams_in_season = @game_teams_data.select do |game_team|
       game_id = game_team[:game_id]
       game = @games_data.find { |game| game[:game_id] == game_id }
 
@@ -218,7 +219,7 @@ class StatTracker
 
     team_name_from_id(most_accurate_team[0])
   end
-    
+
   def least_accurate_team(season)
     least_accurate_team = team_accuracies(season).min_by { |_, ratio| ratio }
 
