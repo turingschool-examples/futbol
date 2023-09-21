@@ -109,6 +109,8 @@ RSpec.describe StatTracker do
       expect(@stats.min_avg_team_goals_season).to eq({"5"=>0.33, "9"=>0.33})
     end
 
-    it 'returns team(s) with highest avg goals per game'
+    it 'returns team(s) with highest avg goals per game' do
+      expect(@stats.best_offense).to eq('FC Dallas')
+    end
   end
 end

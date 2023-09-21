@@ -141,7 +141,17 @@ class StatTracker
     end
   end
 
-
+  # Finally the actual methods
+  def best_offense
+    best_team_ids = max_avg_team_goals_season.keys
+    team_names = @teams.reduce([]) do |names, team| 
+      best_team_ids.each do |id|
+        names << team.team_name if id == team.team_id
+      end
+      names
+    end
+    team_names.join(' ')
+  end
 
   ## Returns average goals per game across ALL seasons rounded to nearest 100th (FLOAT)
   def average_goals_per_game
@@ -167,7 +177,7 @@ class StatTracker
 
   def create_teams
     @all_data[:teams].each do |row|
-      team = Team.new(row[:team_id], row[:teamName])
+      team = Team.new(row[:team_id], row[:teamname])
       @teams << team
     end
     @teams
