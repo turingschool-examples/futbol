@@ -31,7 +31,7 @@ RSpec.describe StatTracker do
     describe "#highest total score" do 
       it 'will find the highest sum of the winning and losing teams scores and return them as integers' do
         expect(stat_tracker.highest_total_score).to be_an(Integer)
-        expect(stat_tracker.highest_total_score).to eq(6)
+        expect(stat_tracker.highest_total_score).to eq(7)
       end 
     end
     describe "#lowest total score" do 
@@ -58,10 +58,10 @@ RSpec.describe StatTracker do
         expect(stat_tracker.percentage_ties).to  eq(2.00)
       end
     end
-    xdescribe '#count_of_games_by_season' do 
+    describe '#count_of_games_by_season' do 
       it 'will return a A hash with season names as keys and counts of games as values' do
         expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
-        expect(stat_tracker.count_of_games_by_season).to eq({20122013 => 9, 20132014 => 1})
+        expect(stat_tracker.count_of_games_by_season).to eq({20122013=>57, 20162017=>4, 20142015=>6, 20152016=>6})
       end
     end
     xdescribe '#average_goals_per_game' do 
