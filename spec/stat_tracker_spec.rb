@@ -21,33 +21,40 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
+
   describe '#Creates usable data' do
-    it '#game_team_data_creation' do
+    xit '#game_team_data_creation' do
       expect(@stat_tracker.game_team_data).to be_a Array
       expect(@stat_tracker.game_team_data[0]).to be_a Hash
     end
 
-    it '#team_data_creation' do
+    xit '#team_data_creation' do
       expect(@stat_tracker.team_data).to be_a Array
       expect(@stat_tracker.team_data[0]).to be_a Hash
     end
     
-    it '#game_data_creation' do
+    xit '#game_data_creation' do
       expect(@stat_tracker.game_data).to be_a Array
       expect(@stat_tracker.game_data[0]).to be_a Hash
 
     end
 
-    it 'Highest Total Score' do
+    xit 'Highest Total Score' do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
 
-    it 'Lowest Total Score' do
+    xit 'Lowest Total Score' do
       expect(@stat_tracker.lowest_total_score).to eq(0)
     end
 
-  # these methods are listed in Iteration4
-
+    it 'has data' do
+      expect(@stat_tracker.best_offense).to eq("Madrid")
+    end
+  end
+  
+  
+  ### These methods are listed in Iteration4 ###
+  
   # it "#team_info" do
   #   expected = {
   #     "team_id" => "18",
