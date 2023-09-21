@@ -102,6 +102,21 @@ class StatTracker
     (x * 100).round(2)
   end
 
+  def count_of_games_by_season
+    games_per_season = Hash.new(0)
+    @games.each do |game|
+      games_per_season[game.season] += 1
+    end
+    games_per_season
+  end
+    #we want to create a hash with seasons as the key and the count as the value
+    #start by creating an array of seasons
+    #iterate through the array, and each time it hits that season, +1 to the key(which is the season)
+
+  def average_goals_per_game
+    
+  end
+
 
   # original from_csv left for reference
   # def self.from_csv(locations)
