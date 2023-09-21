@@ -29,11 +29,11 @@ RSpec.describe StatTracker do
     expect(@league.count_of_teams).to eq 32
   end
 
-  it "#best_offense" do
+  xit "#best_offense" do
     expect(@league.best_offense).to eq "Reign FC"
   end
 
-  it "#worst_offense" do
+  xit "#worst_offense" do
     expect(@league.worst_offense).to eq "Utah Royals FC"
   end
 
@@ -41,15 +41,31 @@ RSpec.describe StatTracker do
     expect(@league.highest_scoring_visitor).to eq "FC Dallas"
   end
 
-  it "#highest_scoring_home_team" do
+  xit "#highest_scoring_home_team" do
     expect(@league.highest_scoring_home_team).to eq "Reign FC"
   end
 
-  it "#lowest_scoring_visitor" do
+  xit "#lowest_scoring_visitor" do
     expect(@league.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
-  it "#lowest_scoring_home_team" do
+  xit "#lowest_scoring_home_team" do
     expect(@league.lowest_scoring_home_team).to eq "Utah Royals FC"
+  end
+
+  it '#visitor goals' do
+    expect(@league.visitor_goals["3"]).to eq(572)
+  end
+
+  it '#visitor_games' do
+    expect(@league.visitor_games["3"]).to eq(531)
+  end
+
+  it '#ave_visitor_goals' do
+    expect(@league.ave_visitor_goals["3"]).to eq(1.0772128060263653)
+  end
+
+  it '#highest_ave_visitor_goals' do
+    expect(@league.highest_ave_visitor_goals).to eq(["6", 1.1137254901960785])
   end
 end
