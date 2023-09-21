@@ -24,9 +24,17 @@ class Season
         end
       end
     end
-    coach_hash_winnings.sort
-    coach_hash_total.sort
-    require 'pry'; binding.pry
+    coach_win_percentage = Hash.new(0)
+
+    coach_hash_total.each do |coach, total|
+      win_count = coach_hash_winnings[coach]
+      percentage = (win_count.to_f / total.to_f) * 100
+      coach_win_percentage[coach] = percentage
+    end
+    winningest_coach = coach_win_percentage.max_by { |coach, percentage| percentage }
+
+    return winningest_coach[0]
+    # require 'pry'; binding.pry
   end
 end
 
