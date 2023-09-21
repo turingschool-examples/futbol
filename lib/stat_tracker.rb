@@ -156,7 +156,7 @@ class StatTracker
         games_played: number_of_games(team[:team_id]),
         total_score: total_score_for_teams(team[:team_id]),
         average: (total_score_for_teams(team[:team_id])/
-        number_of_games(team[:team_id]).to_f)
+        number_of_games(team[:team_id]).to_f).round(2)
       }
     end
     games_and_scores
@@ -178,6 +178,54 @@ class StatTracker
       if game[:team_id] == team
         total_score += game[:goals].to_i
       end 
+    end
+    total_score
+  end
+
+  def highest_scoring_home_team
+    highest_score = ""
+    team_number = home_team_games_scores.sort_by{ |team, data| data[:average] }.last[0]
+    team_data.each do |team|
+      if team[:team_id] == team_number
+        highest_score << team[:teamname]
+      end
+    end 
+    highest_score
+  end
+
+  def home_team_games_scores
+    games_and_scores = {}
+    home_team_games.each do |team|
+      games_and_scores[team[:team_id]] = {
+        games_played: home_team_games_count(team[:team_id]),
+        total_score: home_game_total_score(team[:team_id]),
+        average: (home_game_total_score(team[:team_id])/
+        home_team_games_count(team[:team_id]).to_f)
+      }
+    end
+    games_and_scores
+  end
+
+  def home_team_games
+    home_team_games = []
+    game_teams.each do |game|
+      home_team_games << game if game[:hoa] == "home"
+    end
+    home_team_games
+  end
+
+  def home_team_games_count(team)
+    number_of_games = 0
+    home_team_games.each do |game|
+      number_of_games += 1 if game[:team_id] == team
+    end
+    number_of_games
+  end
+
+  def home_game_total_score(team)
+    total_score = 0
+    home_team_games.each do |game|
+      total_score += game[:goals].to_i if game[:team_id] == team
     end
     total_score
   end
