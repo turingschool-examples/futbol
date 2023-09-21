@@ -43,19 +43,19 @@ RSpec.describe StatTracker do
 
   describe "#percentage_home_wins" do
     it "returns the percentage of home games a team has won" do
-      expect(@stat_tracker.percentage_home_wins).to eq(60.0)
+      expect(@stat_tracker.percentage_home_wins).to eq(60.00)
     end
   end
 
   describe "#percentage_visitor_wins" do
     it "returns the percentage of home games a team has won" do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(30.0)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(30.00)
     end
   end
 
   describe "#percentage_ties" do
     it "returns the percentage of games ending in a tie" do
-      expect(@stat_tracker.percentage_ties).to eq(10.0)
+      expect(@stat_tracker.percentage_ties).to eq(10.00)
     end
   end
 
@@ -71,7 +71,7 @@ RSpec.describe StatTracker do
 
   describe "average_goals_per_game" do
     it "should return the average goals per game" do
-      expect(@stat_tracker.average_goals_per_game).to eq(4.3)
+      expect(@stat_tracker.average_goals_per_game).to eq(4.30)
     end
   end
 
@@ -190,7 +190,7 @@ RSpec.describe StatTracker do
   # helper
   describe "#season_team_tackles" do
     it "returns all teams tackles from given season" do
-      expected = { }
+      expected = {"3"=>77, "6"=>115}
       expect(@stat_tracker.season_team_tackles("20122013")).to eq expected
     end
   end
