@@ -36,7 +36,9 @@ RSpec.describe StatTracker do
 
     it 'finds least number of tackles' do
       expect(@game_stats.least_tackles).to eq()
-
+    end
+  end
+  
   describe "#average_goals_per_game" do
     it 'will find the average goals' do
       expect(@game_stats.average_goals_per_game).to eq(3.67)
