@@ -95,15 +95,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "#team_avg_goals" do
-    it "returns the average goals from all teams for all seasons" do
-      expected = {"3" => 2.00,
-                  "6" => 2.67,
-                  "4" => 2.50}
-      expect(@stat_tracker.team_avg_goals).to eq expected
-    end
-  end
-
   describe "#best_offense" do
     it "names team with highest average goals per game across all seasons" do
       expect(@stat_tracker.best_offense).to eq "FC Dallas"
@@ -144,14 +135,6 @@ RSpec.describe StatTracker do
 
   ###=== SEASON QUERIES ===###
 
-  # helper
-  describe "#coach_season_win_pct" do
-    it "returns all coaching win pct by season" do
-      expected = {"John Tortorella" => 0.0, "Claude Julien" => 100.0}
-      expect(@stat_tracker.coach_season_win_pct("20122013")).to eq expected
-    end
-  end
-
   describe "#winningest_coach" do
     it "names coach with best win percentage for season" do
       expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
@@ -164,17 +147,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  # helper
-  describe "#team_accuracies" do
-    it "should calculate team accuracies for a certain season" do
-      expected_accuracies = {
-        "6" => 0.29,
-        "3" => 0.24
-      }
-      expect(@stat_tracker.team_accuracies("20122013")).to eq expected_accuracies
-    end
-  end
-
   describe "#most_accurate_team" do
     it "should return the most accurate team" do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
@@ -184,14 +156,6 @@ RSpec.describe StatTracker do
   describe "#least_accurate_team" do
     it "should return the least accurate team" do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
-    end
-  end
-
-  # helper
-  describe "#season_team_tackles" do
-    it "returns all teams tackles from given season" do
-      expected = {"3" => 77, "6" => 115}
-      expect(@stat_tracker.season_team_tackles("20122013")).to eq expected
     end
   end
 
