@@ -13,7 +13,7 @@ RSpec.describe Team do
     end
 
     it 'has attributes' do
-      expect(@team.team_id).to eq(1)
+      expect(@team.team_id).to eq('1')
       expect(@team.team_name).to eq('blah')
     end
   end

@@ -222,23 +222,28 @@ class StatTracker
   end
 
   def avg_team_goals_league
-    team_games_league_total.reduce(Hash.new) do |team_avgs, (team, tot_games)|
-      team_goals_league_total.each do |team, tot_goals|
-        team_avgs[team] = (tot_goals.to_f / tot_games).round(2)
+      team_avgs = Hash.new
+      @teams.each do |team|
+        team_games = team_games_league_total[team.team_id]
+        team_goals = team_goals_league_total[team.team_id]
+        goal_stat = (team_goals.to_f / team_games.to_f).round(2)
+        team_avgs[team.team_id] = goal_stat
       end
       team_avgs
-    end
   end
 
   def max_avg_team_goals_league
-    max_avg = avg_team_goals_league.values.max
+    averages_with_nan = avg_team_goals_league.values
+    # gets rid of any values taht are true for nan?
+    max_avg = averages_with_nan.reject(&:nan?).max
     max_ids = avg_team_goals_league.select do |team_id, average|
       average == max_avg
     end
   end
 
   def min_avg_team_goals_league
-    min_avg = avg_team_goals_league.values.min
+    averages_with_nan = avg_team_goals_league.values
+    min_avg = averages_with_nan.reject(&:nan?).min
     min_ids = avg_team_goals_league.select do |team_id, average|
       average == min_avg
     end
