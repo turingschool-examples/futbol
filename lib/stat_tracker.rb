@@ -331,4 +331,12 @@ class StatTracker
   def away_team?(row)
     row[:hoa] == 'away'
   end
+
+  def most_tackles(season_id)
+
+  end
+
+  def fewest_tackles(season_id)
+    
+  end
 end
