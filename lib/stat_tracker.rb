@@ -17,16 +17,22 @@ class StatTracker
     @game_teams_data = game_teams_data
   end
 
+  ###=== GLOBAL HELPERS ===###
   def team_name_from_id(team_id)
     @teams_data.each do |tm|
       return tm[:teamname] if tm[:team_id] == team_id
     end
   end
 
+  ###=== GLOBAL HELPERS ===###
+
+  ###=== GAME QUERIES ===###
+  ##== GAME HELPERS ==##
   def total_scores
     @games_data.map { |game| game[:home_goals].to_i + game[:away_goals].to_i }
   end
 
+  ##== GAME HELPERS ==##
   def highest_total_score
     total_scores.max
   end
@@ -95,10 +101,10 @@ class StatTracker
     goals_by_season
   end
 
-  def count_of_teams
-    teams_data.size
-  end
+  ###=== GAME QUERIES ===###
 
+  ###=== LEAGUE QUERIES ===###
+  ##== LEAGUE HELPERS ==##
   # return: hash of all for all seasons { team_id => [goals] } => after reduce { team_id => avg_goals }
   def team_avg_goals(filter = nil, value = nil)
     team_goals = Hash.new { |hash, key| hash[key] = [] }
@@ -116,6 +122,12 @@ class StatTracker
     end
 
     team_goals
+  end
+
+  ##== LEAGUE HELPERS ==##
+
+  def count_of_teams
+    teams_data.size
   end
 
   def best_offense
@@ -154,6 +166,11 @@ class StatTracker
     team_name_from_id(team_id)
   end
 
+  ###=== LEAGUE QUERIES ===###
+
+  ###=== SEASON QUERIES ===###
+  ##== SEASON HELPERS ==##
+
   def coach_season_win_pct(season)
     season_games = []
 
@@ -173,20 +190,6 @@ class StatTracker
       (results.count("WIN") / results.size.to_f * 100.0).round(1)
     end
     coach_results
-  end
-
-  # @season: string of season year start finish: YYYYYYYY
-  # @return: name of coach with highest winning pct.
-  def winningest_coach(season)
-    coach_results = coach_season_win_pct(season)
-
-    coach_results.max_by { |k, v| v }[0]
-  end
-
-  def worst_coach(season)
-    coach_results = coach_season_win_pct(season)
-
-    coach_results.min_by { |k, v| v }[0]
   end
 
   def team_accuracies(season)
@@ -214,18 +217,6 @@ class StatTracker
     team_accuracies
   end
 
-  def most_accurate_team(season)
-    most_accurate_team = team_accuracies(season).max_by { |_, ratio| ratio }
-
-    team_name_from_id(most_accurate_team[0])
-  end
-
-  def least_accurate_team(season)
-    least_accurate_team = team_accuracies(season).min_by { |_, ratio| ratio }
-
-    team_name_from_id(least_accurate_team[0])
-  end
-
   def season_team_tackles(season)
     season_team_tackles = Hash.new(0)
 
@@ -244,6 +235,34 @@ class StatTracker
     season_team_tackles
   end
 
+  ##== SEASON HELPERS ==##
+
+  # @season: string of season year start finish: YYYYYYYY
+  # @return: name of coach with highest winning pct.
+  def winningest_coach(season)
+    coach_results = coach_season_win_pct(season)
+
+    coach_results.max_by { |k, v| v }[0]
+  end
+
+  def worst_coach(season)
+    coach_results = coach_season_win_pct(season)
+
+    coach_results.min_by { |k, v| v }[0]
+  end
+
+  def most_accurate_team(season)
+    most_accurate_team = team_accuracies(season).max_by { |_, ratio| ratio }
+
+    team_name_from_id(most_accurate_team[0])
+  end
+
+  def least_accurate_team(season)
+    least_accurate_team = team_accuracies(season).min_by { |_, ratio| ratio }
+
+    team_name_from_id(least_accurate_team[0])
+  end
+
   def most_tackles(season)
     max_team_tackles = season_team_tackles(season).max_by { |_, tackles| tackles }
 
@@ -255,4 +274,5 @@ class StatTracker
 
     team_name_from_id(low_team_tackles[0])
   end
+  ###=== SEASON QUERIES ===###
 end
