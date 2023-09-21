@@ -165,7 +165,6 @@ def worst_coach
     end
   end 
   coach_count.min_by{|k,v| v}.first
-  binding.pry
 end
 
   ##HELPER METHODS
