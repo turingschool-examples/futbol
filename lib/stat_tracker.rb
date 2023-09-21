@@ -262,15 +262,15 @@ class StatTracker
 
   def visitor_games_and_scores
     games_and_scores = {}
-        team_data.each do |team|
-          games_and_scores[team[:team_id]] = {
-            games_played: number_of_visitor_games(team[:team_id]),
-            total_score: total_score_for_visiting_teams(team[:team_id]),
-            average: (total_score_for_visiting_teams(team[:team_id])/
-            number_of_visitor_games(team[:team_id]).to_f)
-          }
-        end
-      games_and_scores
+    team_data.each do |team|
+      games_and_scores[team[:team_id]] = {
+        games_played: number_of_visitor_games(team[:team_id]),
+        total_score: total_score_for_visiting_teams(team[:team_id]),
+        average: (total_score_for_visiting_teams(team[:team_id])/
+        number_of_visitor_games(team[:team_id]).to_f)
+      }
+    end
+    games_and_scores
   end 
 
   def number_of_visitor_games(team)
@@ -287,6 +287,12 @@ class StatTracker
     total_score = 0
     game_teams.each do |game|
       if game[:team_id] == team && game[:hoa] == "away"
+        total_score += game[:goals].to_i
+      end 
+    end
+    total_score
+  end
+      
 
   def lowest_scoring_visitor
     lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
