@@ -16,10 +16,10 @@ class Season
           if row[:game_id] == season_game_id && row[:result] == "WIN"
             head_coach = row[:head_coach]
             coach_hash_winnings[head_coach] += 1
-            if row[:game_id] == season_game_id 
-              head_coach = row[:head_coach]
-              coach_hash_total[head_coach] += 1
-            end
+          end
+          if row[:game_id] == season_game_id 
+            head_coach = row[:head_coach]
+            coach_hash_total[head_coach] += 1
           end
         end
       end
