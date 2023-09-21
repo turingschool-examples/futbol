@@ -1,7 +1,5 @@
-
 # require_relative './spec_helper'
  require_relative './game'
-
 
 
 class StatTracker
@@ -19,7 +17,7 @@ class StatTracker
   def create_games(path)
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     # data.map { |row| Game.new(row) } 
-    data.map do |row| 
+    data.map do |row|
     Game.new(row)
     end
     
@@ -82,7 +80,6 @@ class StatTracker
     average.round(2)
   end
 
-  
 
   # def highest_scoring_visitor
   #   team_information = {}
