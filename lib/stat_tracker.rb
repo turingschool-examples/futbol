@@ -3,7 +3,6 @@ class StatTracker
   attr_reader :teams,
               :games,
               :game_teams
-
   def initialize(content)
     @teams = content[:teams]
     @games = content[:games]
@@ -118,13 +117,46 @@ class StatTracker
     end
     hash
   end
-  # original from_csv left for reference
-  # def self.from_csv(locations)
-  #   content = {}
-  #   content[:teams] = CSV.readlines(locations[:teams], headers: true, header_converters: :symbol),
-  #   content[:games] = CSV.readlines(locations[:games], headers: true, header_converters: :symbol),
-  #   content[:game_teams] = CSV.readlines(locations[:game_teams], headers: true, header_converters: :symbol)
-  #   StatTracker.new(content)
-  ## in pry you can then do stat_tracker[:team_id] and it will print stuff
-  # end
+
+  def count_of_teams
+    @teams.count
+  end
+
+  def best_offense
+    teams_goals_average = {}
+    @teams.each do |team|
+      total_games = 0
+      total_goals = 0
+      games = @game_teams.each do |game_team| 
+        if game_team.team_id == team.team_id
+          total_games +=1
+          total_goals += game_team.goals
+        end
+      end
+      if total_games > 0 && total_goals
+      teams_goals_average["#{team.name}"] = (total_goals.to_f / total_games.to_f)
+      end
+    end
+    best_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.max}
+    best_offense.first
+  end
+
+  def worst_offense
+    teams_goals_average = {}
+    @teams.each do |team|
+      total_games = 0
+      total_goals = 0
+      games = @game_teams.each do |game_team| 
+        if game_team.team_id == team.team_id
+          total_games +=1
+          total_goals += game_team.goals
+        end
+      end
+      if total_games > 0 && total_goals
+      teams_goals_average["#{team.name}"] = (total_goals.to_f / total_games.to_f)
+      end
+    end
+    worst_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.min}
+    worst_offense.first
+  end
 end

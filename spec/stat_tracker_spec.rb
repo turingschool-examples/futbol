@@ -81,19 +81,19 @@ RSpec.describe StatTracker do
     xdescribe '#count_of_teams' do 
       it 'will return an integer with the total number of teams in the data' do
         expect(stat_tracker.count_of_teams).to be_a(Integer)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.count_of_teams).to eq(32)
       end
     end
-    xdescribe '#best_offense' do 
+    describe '#best_offense' do 
       it 'will return a string with the name of the team with the highest average number of goals scored per game across all seasons' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.best_offense).to be_a(String)
+        expect(stat_tracker.best_offense).to eq("New York City FC")
       end
     end
-    xdescribe '#worst_offense' do 
+    describe '#worst_offense' do 
       it 'will return a string with the name of the team with the lowest average number of goals scored per game across all seasons' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        # expect(stat_tracker.worst_offense).to be_a(String)
+        expect(stat_tracker.worst_offense).to eq("Houston Dynamo")
       end
     end
     xdescribe '#highest_scoring_visitor' do 
