@@ -1,4 +1,5 @@
 class Game
+  @@games = []
   attr_reader :game_id,
               :season,
               :type,
@@ -22,5 +23,10 @@ class Game
     @home_goals = attributes[:home_goals]
     @venue = attributes[:venue]
     @venue_link = attributes[:venue_link]
+    @@games << self
+  end
+
+  def self.games
+    @@games
   end
 end

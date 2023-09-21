@@ -30,7 +30,7 @@ class StatTracker
   
   
   def percentage_calculator(portion, whole)
-    percentage =(portion/whole).round(2)
+    percentage = (portion/whole).round(2)
   end
   
   def percentage_ties 
