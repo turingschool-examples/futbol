@@ -198,4 +198,42 @@ class StatTracker
   def home_team?(team_id)
     game_teams.find_all { |game_team| game_team[:team_id] == team_id && game_team[:hoa] == 'home' }
   end
+
+  def lowest_scoring_away_team
+    lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
+    team_data.find { |row| row[:team_id] == lowest }[:teamname]
+  end
+
+  def away_games_and_scores
+    away_games_hash = {}
+    team_data.each do |team|
+      away_games_hash[team[:team_id]] = {
+        games_played: number_of_away_games(team[:team_id]),
+        total_score: total_score_for_away_teams(team[:team_id]),
+        average: (total_score_for_away_teams(team[:team_id])/
+        number_of_away_games(team[:team_id]).to_f)
+      }
+    end
+    away_games_hash
+  end 
+
+  def number_of_away_games(team)
+    away_team_data = game_teams.select { |row| away_team?(row) }
+    game_teams.count { |game| game[:team_id] == team }
+  end
+
+  def total_score_for_away_teams(team)
+    away_team_data = game_teams.select { |row| away_team?(row) }
+    total_score = 0
+    away_team_data.each do |game|
+      if game[:team_id] == team
+        total_score += game[:goals].to_i
+      end 
+    end
+    total_score
+  end
+  
+  def away_team?(row)
+    row[:hoa] == 'away'
+  end
 end
