@@ -140,4 +140,23 @@ class StatTracker
     best_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.max}
     best_offense.first
   end
+
+  def worst_offense
+    teams_goals_average = {}
+    @teams.each do |team|
+      total_games = 0
+      total_goals = 0
+      games = @game_teams.each do |game_team| 
+        if game_team.team_id == team.team_id
+          total_games +=1
+          total_goals += game_team.goals
+        end
+      end
+      if total_games > 0 && total_goals
+      teams_goals_average["#{team.name}"] = (total_goals.to_f / total_games.to_f)
+      end
+    end
+    worst_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.min}
+    worst_offense.first
+  end
 end
