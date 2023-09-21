@@ -289,29 +289,27 @@ class StatTracker
     @game_teams
   end
 
-    ##Returns a hash of game ID for key and total goals as value
-    def games_hash
-      games_hash = {}
-      game_ids.each do |game_id|
-        games_hash[game_id]=0
-      end
-      @game_teams.each do |game|
-        games_hash[game.game_id]+=game.goals.to_i
-      end
-      games_hash
+  ##Returns a hash of game ID for key and total goals as value
+  def games_hash
+    games_hash = {}
+    game_ids.each do |game_id|
+      games_hash[game_id]=0
     end
-
-    ##Returns a hash of season as key and total scores of all games in that season for value
-    def total_scores_by_season
-      total_scores_by_season = {}
-      @games.each do |game|
-        if total_scores_by_season[game.season].nil? # Added [1] to continue method with adjustment to games_list
-          total_scores_by_season[game.season] = 0
-        else
-          total_scores_by_season[game.season] += (game.away_goals+game.home_goals)
-        end
-       end
-       total_scores_by_season
+    @game_teams.each do |game|
+      games_hash[game.game_id]+=game.goals.to_i
     end
+    games_hash
+  end
 
+  ##Returns a hash of season as key and total scores of all games in that season for value
+  def total_scores_by_season
+    total_scores_by_season = {}
+    @games.each do |game|
+      if total_scores_by_season[game.season].nil? # Added [1] to continue method with adjustment to games_list
+        total_scores_by_season[game.season] = 0
+      end
+      total_scores_by_season[game.season] += (game.away_goals+game.home_goals)
+    end
+    total_scores_by_season
+  end
 end
