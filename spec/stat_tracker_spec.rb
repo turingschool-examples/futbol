@@ -77,4 +77,13 @@ RSpec.describe StatTracker do
       end
     end
   end
+
+  context 'Season Statistic Methods' do
+    describe "#winningest_coach" do 
+      it 'will find the coach with the highest win percentage' do
+        expect(stat_tracker.winningest_coach).to be_an(String)
+        expect(stat_tracker.winningest_coach).to eq("Claude Julien")
+      end 
+    end
+  end
 end 

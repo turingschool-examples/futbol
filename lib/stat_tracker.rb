@@ -123,6 +123,28 @@ class StatTracker
     @average_goals = (total_goals/number_of_games)
     @average_goals.round(2)
   end
+
+  def winningest_coach
+    #number of wins for each coach
+    coach_wins = Hash.new(0)
+    @game_teams.each do |row|
+      if row.result == "WIN"
+        coach_wins[row.head_coach] += 1
+      end
+    end
+    #number of games played by each coach's team
+    coach_total_games = Hash.new(0)
+    @game_teams.each do |row|
+      coach_total_games[row.head_coach] += 1
+    end
+    #now we divide each coach's wins by the number of games their team played
+    coach_win_percentage = {}
+    coach_wins.each do |coach, wins|
+        coach_win_percentage["#{coach}"] = (wins.to_f/coach_total_games["#{coach}"].to_f)
+    end
+    winningest_coach = coach_win_percentage.find{ |key, value| value  == coach_win_percentage.values.max }
+    winningest_coach.first
+  end
 end
 
 
