@@ -164,4 +164,92 @@ class StatTracker
   def count_of_teams
     team_data.count
   end
+
+  def worst_offense
+    worst_offense = ""
+    team_number = games_and_scores.sort_by { |team, data| data[:average] }.first[0]
+    team_data.each do |team|
+      if team[:team_id] == team_number
+        worst_offense << team[:teamname]
+      end
+    end 
+    worst_offense
+  end
+
+  def games_and_scores
+    games_and_scores = {}
+
+    team_data.each do |team|
+      games_and_scores[team[:team_id]] = {
+        games_played: number_of_games(team[:team_id]),
+        total_score: total_score_for_teams(team[:team_id]),
+        average: (total_score_for_teams(team[:team_id])/
+        number_of_games(team[:team_id]).to_f)
+      }
+    end
+    games_and_scores
+  end 
+
+  def number_of_games(team)
+    number_of_games = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        number_of_games += 1
+      end 
+    end
+    number_of_games
+  end
+
+  def total_score_for_teams(team)
+    total_score = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        total_score += game[:goals].to_i
+      end 
+    end
+    total_score
+  end
+
+  def percentage_visitor_wins
+    count = 0
+    game.each do |single_game|
+      if single_game[:away_goals].to_i > single_game[:home_goals].to_i
+        count +=1
+      end
+    end
+    percentage = (count.to_f / game.length).round(2)
+  end
+
+  def percentage_home_wins #(testing = false)
+    #testing ? data = game.take(10) : data = game
+    count = 0
+    game.each do |single_game|
+      if single_game[:home_goals].to_i > single_game[:away_goals].to_i
+        count += 1
+      end
+    end
+    percentage = (count.to_f / game.count).round(2)
+    
+  end
+
+  def highest_total_score(testing = false)
+    testing ? data = game.take(10) : data = game
+    highest_score = 0
+    data.each do |game|
+      home_score = game[:home_goals].to_i 
+      away_score = game[:away_goals].to_i
+      total_score = home_score + away_score
+
+      highest_score = total_score if total_score > highest_score
+    end
+    highest_score
+  end 
+
+  def count_of_games_by_season
+    counts = Hash.new(0)
+    game.each do |single_game|
+      counts[single_game[:season]] += 1
+    end
+    counts
+  end
 end

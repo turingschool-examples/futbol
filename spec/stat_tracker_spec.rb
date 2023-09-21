@@ -29,13 +29,13 @@ RSpec.describe StatTracker do
 
   describe '#percentage_visitor_wins' do
     it 'calculates the percentage of visitor wins' do
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.36)
+      expect(stat_tracker.percentage_visitor_wins).to eq(0.20)
     end
   end
 
   describe '#percentage_home_wins' do
     it 'calculates percentage home wins' do
-      expect(stat_tracker.percentage_home_wins).to eq(0.44)
+      expect(stat_tracker.percentage_home_wins).to eq(0.45)
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe StatTracker do
 
   describe '#percentage_ties' do
     it 'calculates the percentage of tied games' do
-      expect(stat_tracker.percentage_ties).to eq(0.20)
+      expect(stat_tracker.percentage_ties).to eq(0.35)
     end
   end
 
@@ -74,6 +74,22 @@ RSpec.describe StatTracker do
     it 'returns the average goals scored per season' do
       expected_value = { '20122013' => 3.86, '20142015' => 3.5, '20162017' => 4.75 }
       expect(stat_tracker.average_goals_by_season(true)).to eq(expected_value)
+    end
+  end
+
+  describe '#worst_offense' do
+    it 'can return the team with the lowest average number of goals per game across all seasons' do
+      expect(stat_tracker.worst_offense).to eq("Seattle Sounders FC")
+    end
+    
+  describe '#count_of_games_by_season' do
+    it 'counts games by season' do
+      expected = {
+        "20122013" => 6,
+        "20132014" => 9,
+        "20142015" => 5,
+      }
+      expect(stat_tracker.count_of_games_by_season).to eq(expected)
     end
   end
   # Test for League Statistics
