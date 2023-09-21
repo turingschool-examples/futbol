@@ -33,11 +33,26 @@ class League
     end
 
     # count total games per team
-    
+    # this could potentially be a helper method
+    visitor_games = Hash.new(0)
+    @game_team_data.each do |game|
+      team_id = game[:team_id]
+      visitor_games[team_id] += 1
+    end
 
+    # calculate average goals per game
+    # this could potentially be a helper method
+    ave_away_goals = Hash.new(0)
+    visitor_goals.each do |team_id, goals|
+      total_games = visitor_games[team_id]
+      average = (goals.to_f / total_games)
+      ave_away_goals[team_id] = average
+    end
+
+    
     # determine highest average
     # this could potentially be a helper method
-    highest_scoring_id = visitor_goals.max_by do |team_id, goals|
+    highest_ave_id = ave_away_goals.max_by do |team_id, goals|
       goals
     end
 
@@ -45,7 +60,7 @@ class League
     # this could potentially be a helper method
     highest_scoring_name = ""
     @team_data.each do |team|
-      if highest_scoring_id[0] == team[:team_id]
+      if highest_ave_id[0] == team[:team_id]
         highest_scoring_name += team[:team_name]
       end
     end
