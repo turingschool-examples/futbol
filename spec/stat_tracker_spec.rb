@@ -12,7 +12,6 @@ RSpec.describe StatTracker do
                   }
 
     @stats = StatTracker.from_csv(@locations)
-    @stats.compile
   end
   
   describe '#initialize' do
@@ -115,6 +114,28 @@ RSpec.describe StatTracker do
 
     it 'returns team(s) with lowest avg goals per game' do
       expect(@stats.worst_offense).to eq('Utah Royals FC')
+    end
+  end
+
+  describe '#highest_scoring and #lowest_scoring' do
+    it 'returns name of team with highest average when away' do
+      expect(@stats.highest_scoring_visitor.class).to be String
+      expect(@stats.highest_scoring_visitor).to eq('New York Red Bulls')
+    end
+    
+    it 'returns name of team with highest average when home' do
+      expect(@stats.highest_scoring_home_team.class).to be String
+      expect(@stats.highest_scoring_home_team).to eq('Los Angeles FC')
+    end
+
+    it 'returns name of team with lowest average when away' do
+      expect(@stats.lowest_scoring_visitor.class).to be String
+      expect(@stats.lowest_scoring_visitor).to eq('Sporting Kansas City')
+    end
+
+    it 'returns name of team with lowest average when home' do
+      expect(@stats.lowest_scoring_home_team.class).to be String
+      expect(@stats.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
 end
