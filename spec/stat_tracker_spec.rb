@@ -133,18 +133,18 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#home_team?(team_id)' do
-  #   xit '' do
-  #     expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
-  #   end
-  # end
-
   describe '#lowest_scoring_home_team' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
       expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
     end
   end
-  # Add test for lowest scoring home team helper method
+
+  describe '#home_team?(team_id)' do
+    it 'returns an array of all the home games for a given team' do
+      expect(stat_tracker.home_team?('1')).to be_a(Array)
+    end
+  end
+
 
   describe '#lowest_scoring_visitor' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
