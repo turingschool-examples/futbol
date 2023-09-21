@@ -154,7 +154,6 @@ RSpec.describe StatTracker do
 
   describe "#team_accuracies" do
     it "should calculate team accuracies for a certain season" do
-
       exected_accuracies = {
         "6" => 0.3,
         "3" => 0.2,
@@ -172,6 +171,18 @@ RSpec.describe StatTracker do
   describe "#least_accurate_team" do 
     it "should return the least accurate team" do
       expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+    end
+  end
+
+  describe "#most_tackles" do
+    it "takes season ID argument and finds team with most tackles in a single season" do
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+    end
+  end
+
+  describe "#fewest_tackles" do
+    it "takes season ID argument and finds team with fewest tackles in a single season" do
+      expect(@stat_tracker.fewest_tackles("20122013")).to eq("Houston Dynamo")
     end
   end
 end
