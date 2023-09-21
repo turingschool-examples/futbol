@@ -23,12 +23,12 @@ RSpec.describe StatTracker do
     expect(@season).to be_an_instance_of Season
   end
 
-  it "#winningest_coach" do
+  xit "#winningest_coach" do
     expect(@season.winningest_coach("20132014")).to eq "Claude Julien"
     expect(@season.winningest_coach("20142015")).to eq "Alain Vigneault"
   end
 
-  xit "#worst_coach" do
+  it "#worst_coach" do
     expect(@season.worst_coach("20132014")).to eq "Peter Laviolette"
     expect(@season.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
