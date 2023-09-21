@@ -19,8 +19,6 @@ RSpec.describe StatTracker do
     @league = League.new(@stat_tracker.game_data, @stat_tracker.team_data, @stat_tracker.game_team_data)
   end
 
-  
-  
   it "exists" do
     expect(@league).to be_an_instance_of League
   end
@@ -28,7 +26,6 @@ RSpec.describe StatTracker do
   it "#count_of_teams" do
     expect(@league.count_of_teams).to eq 32
   end
-
 
   it "team_total_goals" do
     expect(@league.team_total_goals).to be_a(Hash)
@@ -52,11 +49,11 @@ RSpec.describe StatTracker do
   #   expect(@league.highest_scoring_visitor).to eq "FC Dallas"
   # end
 
-  xit "#highest_scoring_home_team" do
+  it "#highest_scoring_home_team" do
     expect(@league.highest_scoring_home_team).to eq "Reign FC"
   end
 
-  xit "#lowest_scoring_visitor" do
+  it "#lowest_scoring_visitor" do
     expect(@league.lowest_scoring_visitor).to eq "San Jose Earthquakes"
   end
 
@@ -68,8 +65,8 @@ RSpec.describe StatTracker do
     expect(@league.visitor_goals["3"]).to eq(572)
   end
 
-  it '#visitor_games' do
-    expect(@league.visitor_games["3"]).to eq(531)
+  it '#total_games' do
+    expect(@league.total_games["3"]).to eq(531)
   end
 
   it '#ave_visitor_goals' do
@@ -84,4 +81,15 @@ RSpec.describe StatTracker do
     expect(@league.lowest_ave_visitor_goals).to eq(["27", 0.9230769230769231])
   end
 
+  it '#home_goals' do
+    expect(@league.home_goals["6"]).to eq(586)
+  end
+
+  it '#ave_home_goals' do
+    expect(@league.ave_home_goals["6"]).to eq(1.1490196078431372)
+  end
+
+  it '#highest_ave_home_goals' do
+    expect(@league.highest_ave_home_goals).to eq(["54", 1.2941176470588236])
+  end
 end

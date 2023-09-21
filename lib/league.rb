@@ -82,7 +82,7 @@ class League
   end
 
   # count total visitor games per team
-  def visitor_games
+  def total_games
     visitor_games = Hash.new(0)
     @game_team_data.each do |game|
       team_id = game[:team_id]
@@ -92,12 +92,10 @@ class League
   end
 
   # calculate average goals per game
-  # this is broken
   def ave_visitor_goals
     ave_visitor_goals = Hash.new(0)
     visitor_goals.each do |team_id, goals|
-      total_games = visitor_games[team_id]
-      average = (goals.to_f / total_games)
+      average = (goals.to_f / total_games[team_id])
       ave_visitor_goals[team_id] = average
     end
     ave_visitor_goals
@@ -111,7 +109,6 @@ class League
     highest_ave_id
   end
 
-  # link team_id to team_name
   def highest_scoring_visitor
     highest_scoring_name = ""
     @team_data.each do |team|
@@ -122,6 +119,7 @@ class League
     highest_scoring_name
   end
 
+  # determine lowest average, put team id and ave in an array
   def lowest_ave_visitor_goals
     lowest_ave_id = ave_visitor_goals.min_by do |team_id, goals|
       goals
@@ -129,7 +127,6 @@ class League
     lowest_ave_id
   end
 
-  #Name of the team with the lowest average score per game across all seasons when they are a visitor.
   def lowest_scoring_visitor
     lowest_scoring_name = ""
     @team_data.each do |team|
@@ -138,6 +135,48 @@ class League
       end
     end
     lowest_scoring_name
+  end
+
+  # count total home goals per team
+  def home_goals
+    home_goals = Hash.new(0)
+    @game_team_data.each do |game|
+      home_or_away = game[:hoa]
+      goals = game[:goals].to_i
+      team_id = game[:team_id]
+      if home_or_away == "home"
+        home_goals[team_id] += goals
+      end
+    end
+    home_goals
+  end
+
+  # calculate average goals per game
+  def ave_home_goals
+    ave_home_goals = Hash.new(0)
+    home_goals.each do |team_id, goals|
+      average = (goals.to_f / total_games[team_id])
+      ave_home_goals[team_id] = average
+    end
+    ave_home_goals
+  end
+
+  # determine highest average, put team id and ave in an array
+  def highest_ave_home_goals
+    highest_ave_id = ave_home_goals.max_by do |team_id, goals|
+      goals
+    end
+    highest_ave_id
+  end
+
+  def highest_scoring_home_team
+    highest_scoring_name = ""
+    @team_data.each do |team|
+      if highest_ave_home_goals[0] == team[:team_id]
+        highest_scoring_name += team[:team_name]
+      end
+    end
+    highest_scoring_name
   end
 end
 
