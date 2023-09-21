@@ -35,7 +35,7 @@ class Season
       end
     end
     coach_hash_winnings
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 
 
