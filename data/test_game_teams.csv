@@ -6,8 +6,6 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030223,6,away,WIN,REG,Claude Julien,2,8,28,6,0,0,61.8,10,7
 2012030223,3,home,LOSS,REG,John Tortorella,1,6,37,2,2,0,38.2,7,9
 2012030224,6,away,WIN,OT,Claude Julien,3,10,24,8,4,2,53.7,8,6
-2012030224,3,home,LOSS,OT,John Tortorella,2,8,40,8,4,1,46.3,9,7
-2012030225,3,away,LOSS,REG,John Tortorella,1,7,25,13,2,1,50.9,5,3
 2012030225,6,home,WIN,REG,Claude Julien,3,8,35,11,3,1,49.1,12,9
 2012030311,6,away,WIN,REG,Claude Julien,3,7,19,17,4,0,66.7,1,5
 2012030311,5,home,LOSS,REG,Dan Bylsma,0,7,34,28,4,0,33.3,8,9
@@ -99,3 +97,5 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030134,3,home,LOSS,REG,John Tortorella,2,8,38,4,4,1,64.2,4,8
 2012030135,3,away,LOSS,OT,John Tortorella,1,6,43,4,4,0,41.7,14,9
 2012030135,15,home,WIN,OT,Adam Oates,2,8,53,8,2,1,58.3,13,13
+2012030136,15,away,LOSS,REG,Adam Oates,0,6,28,14,0,0,40,5,3
+2012030136,3,home,WIN,REG,John Tortorella,1,7,33,4,5,0,60,7,6
