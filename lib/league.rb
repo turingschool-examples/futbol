@@ -38,7 +38,6 @@ class League
   end
 
   # calculate average goals per game
-  # this is broken
   def ave_visitor_goals
     ave_visitor_goals = Hash.new(0)
     visitor_goals.each do |team_id, goals|
@@ -66,6 +65,7 @@ class League
     highest_scoring_name
   end
 
+  # determine lowest average, put team id and ave in an array
   def lowest_ave_visitor_goals
     lowest_ave_id = ave_visitor_goals.min_by do |team_id, goals|
       goals
@@ -97,6 +97,7 @@ class League
     home_goals
   end
 
+  # calculate average goals per game
   def ave_home_goals
     ave_home_goals = Hash.new(0)
     home_goals.each do |team_id, goals|
@@ -104,5 +105,13 @@ class League
       ave_home_goals[team_id] = average
     end
     ave_home_goals
+  end
+
+  # determine highest average, put team id and ave in an array
+  def highest_ave_visitor_goals
+    highest_ave_id = ave_visitor_goals.max_by do |team_id, goals|
+      goals
+    end
+    highest_ave_id
   end
 end
