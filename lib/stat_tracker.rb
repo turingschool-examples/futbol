@@ -45,6 +45,7 @@ class StatTracker
       game_teams_hash[:goals] = row[:goals]
       game_teams_hash[:shots] = row[:shots]
       game_teams_hash[:tackles] = row[:tackles]
+      game_teams_hash[:game_id] = row[:game_id]
 
       game_team_data << game_teams_hash
     end
