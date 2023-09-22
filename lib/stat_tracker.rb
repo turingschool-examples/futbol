@@ -160,5 +160,18 @@ class StatTracker < Stats
   def seasonal_summary(team_id)
     seasonal_summaries[team_id]
   end
+
+  def best_season(team_id)
+
+  end
+
+  def worst_season(team_id)
+
+  end
+
+  def average_win_percentage(team_id)
+
+  end
+  
   ###=== TEAM QUERIES ===###
 end
