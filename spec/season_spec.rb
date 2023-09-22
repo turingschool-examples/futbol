@@ -51,7 +51,7 @@ RSpec.describe Season do
     expect(@season.shots_accurate_team("20122013")).to be_a(Hash)
   end
 
-  xit "#most_accurate_team" do
+  it "#most_accurate_team" do
     expect(@season.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@season.most_accurate_team("20142015")).to eq "Toronto FC"
   end

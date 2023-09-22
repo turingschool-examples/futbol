@@ -159,8 +159,14 @@ class Season
       goals_made = goals_accurate_team(season)[team]
       ratio = (goals_made / attempts.to_f)
       accuracy[team] = ratio
-
     end
+    most_accurate = accuracy.max_by { |team_id, ratio| ratio }
+
+    @team_data.each do |team_row|
+      if team_row[:team_id] == most_accurate[0]
+        return team_row[:team_name]
+      end
+    end    
   end
 end
 
