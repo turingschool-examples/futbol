@@ -1,4 +1,4 @@
-class Stats 
+class Stats
   attr_reader :games_data, :teams_data, :game_teams_data
 
   def initialize(games_data, teams_data, game_teams_data)
@@ -10,7 +10,7 @@ class Stats
   end
 
   ###=== GLOBAL HELPERS ===###
-  
+
   def team_name_from_id(team_id)
     @teams_data.each do |tm|
       return tm[:teamname] if tm[:team_id] == team_id
@@ -195,7 +195,39 @@ class Stats
   end
 
   def win_pct_opp
+    win_pct_opp = Hash.new { |hash, key| hash[key] = {} }  # {team_id: {head_to_head: {opp: win_pct},
+    #                                                                   favorite_opponent: opp string,
+    #                                                                   rival: opp string}}
 
+    game_team_size = @game_teams_data.size
+    @game_teams_data.each_with_index do |team_game, idx|
+      # a team_game will have a :game_id match in another row; look in the index next or before
+      # need to check that index in range or will hit NoMethodError when calling [:game_id] key
+      opp = if idx + 1 < game_team_size && @game_teams_data[idx + 1][:game_id] == team_game[:game_id]
+        @game_teams_data[idx + 1][:team_id]
+      elsif idx - 1 > 0 && @game_teams_data[idx - 1][:game_id] == team_game[:game_id]
+        @game_teams_data[idx - 1][:team_id]
+      else
+        next  # no game_id match was found, skip the iteration
+      end
+
+      win_pct_opp[team_game[:team_id]][:head_to_head] ||= {}
+      win_pct_opp[team_game[:team_id]][:head_to_head][opp] ||= []
+      win_pct_opp[team_game[:team_id]][:head_to_head][opp] << team_game[:result]
+    end
+
+    win_pct_opp.each do |team_id, win_data|
+      win_data[:head_to_head].transform_values! do |results|  # => array of "WIN" || "LOSS"
+        (results.count("WIN") / results.size.to_f).round(2)
+      end
+
+      fav_opp_id = win_data[:head_to_head].max_by { |_, pct| pct }[0]
+      rival_id = win_data[:head_to_head].min_by { |_, pct| pct }[0]
+      win_pct_opp[team_id][:favorite_opponent] = team_name_from_id(fav_opp_id)
+      win_pct_opp[team_id][:rival] = team_name_from_id(rival_id)
+    end
+
+    win_pct_opp
   end
 
   # Each game record has home and away team_id, each iteration will add values to two keys

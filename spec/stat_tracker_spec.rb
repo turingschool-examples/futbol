@@ -199,5 +199,23 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.team_info("1")).to eq(expected_team_info)
     end
   end
+
+  describe "#head_to_head" do
+    it "returns a hash of all opponents and their win_pct against" do
+      expect(@stat_tracker.head_to_head("6")).to eq({"3" => 1.00})
+    end
+  end
+
+  describe "#favorite_opponent" do
+    it "returns the team name for the highest win pct against" do
+      expect(@stat_tracker.favorite_opponent("6")).to eq "Houston Dynamo"
+    end
+  end
+  
+  describe "#rival" do
+    it "returns the team name for the lowest win pct against" do
+      expect(@stat_tracker.rival("3")).to eq "FC Dallas"
+    end
+  end
   ###=== TEAM QUERIES ===###
 end

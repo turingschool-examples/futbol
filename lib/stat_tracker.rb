@@ -156,5 +156,17 @@ class StatTracker < Stats
     # require 'byebug'; byebug
     teams_hash[:teams_info][team_id]
   end
+
+  def head_to_head(team_id)
+    teams_hash[:win_pct_opp][team_id][:head_to_head]
+  end
+
+  def favorite_opponent(team_id)
+    teams_hash[:win_pct_opp][team_id][:favorite_opponent]
+  end
+
+  def rival(team_id)
+    teams_hash[:win_pct_opp][team_id][:rival]
+  end
   ###=== TEAM QUERIES ===###
 end
