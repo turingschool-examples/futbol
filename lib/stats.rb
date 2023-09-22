@@ -162,14 +162,14 @@ class Stats
 
   ##== TEAM HELPERS ==##
 
-  # @return: { team_id: {subqueries} }
+  # @return: { team_id: {sub queries} }
   def teams_hash
     if @teams_hash.nil?
       @teams_hash = {}
 
       @teams_hash[:team_info] = team_info
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
-      @teams_hash[:seasonal_summary] = seasonal_summary
+      # @teams_hash[:seasonal_summary] = seasonal_summary
 
     end
 
@@ -197,8 +197,8 @@ class Stats
   def goal_diffs
     goal_diffs = Hash.new { |hash, key| hash[key] = [] }  # {team_id: [goal_diffs]}
     @games_data.each do |game|
-      goal_diffs[game[:home_team_id]] << game[:home_team_id] - game[:away_team_id]
-      goal_diffs[game[:away_team_id]] << game[:away_team_id] - game[:home_team_id]
+      goal_diffs[game[:home_team_id]] << game[:home_goals].to_i - game[:away_goals].to_i
+      goal_diffs[game[:away_team_id]] << game[:away_goals].to_i - game[:home_goals].to_i
     end
 
     goal_diffs
