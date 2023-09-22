@@ -1,2 +1,4 @@
 echo coverage >> .gitignore
 coverage/
+benchmark.rb
+lib/game.rb

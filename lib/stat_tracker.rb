@@ -2,43 +2,36 @@
 require './spec/spec_helper'
 
 class StatTracker 
-
+  attr_reader :all_season_data, :game, :team_data, :game_teams
+  attr_accessor :team_data
   def initialize(locations)
-    @@game = game_data_parser(locations[:games])
-    @@team_data = team_data_parser(locations[:teams])
-    @@game_teams = game_teams_data_parser(locations[:game_teams])
-  end
-  
-  def game
-    @@game
-  end
-
-  def team_data
-    @@team_data
-  end
-
-  def game_teams
-    @@game_teams
+    @all_season_data = AllSeasonData.new(self)
+    @game = all_season_data.game_data_parser(locations[:games])
+    @team_data = all_season_data.team_data_parser(locations[:teams])
+    @game_teams = all_season_data.game_teams_data_parser(locations[:game_teams])
+    @all_season_data.single_seasons_creator
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
-  def team_data_parser(file_location)
-    contents = CSV.open file_location, headers: true, header_converters: :symbol
-    contents.readlines
-  end
+  # def team_data_parser(file_location)
+  #   @team_data ||= begin
+  #     contents = CSV.open file_location, headers: true, header_converters: :symbol
+  #     contents.readlines
+  #   end
+  # end
 
-  def game_data_parser(file_location)
-    contents = CSV.open file_location, headers: true, header_converters: :symbol
-    contents.readlines
-  end
+  # def game_data_parser(file_location)
+  #   contents = CSV.open file_location, headers: true, header_converters: :symbol
+  #   contents.readlines
+  # end
 
-  def game_teams_data_parser(file_location)
-    contents = CSV.open file_location, headers: true, header_converters: :symbol
-    contents.readlines
-  end
+  # def game_teams_data_parser(file_location)
+  #   contents = CSV.open file_location, headers: true, header_converters: :symbol
+  #   contents.readlines
+  # end
 
   def highest_total_score
     highest_score = 0
@@ -282,6 +275,9 @@ class StatTracker
     end
     number_of_games
   end
+
+  # @all_season_data.number_of_visitor_games(team)
+  # number_of_visitor_games
 
   def total_score_for_visiting_teams(team)
     total_score = 0
