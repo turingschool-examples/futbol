@@ -81,6 +81,12 @@ RSpec.describe Stats do
       expect(@stat_tracker.goal_diffs["1"].max).to eq 2
     end
   end
+
+  describe "#win_pct_opp" do
+    it "returns win_pct against opp data" do
+      expect(@stat_tracker.win_pct_opp["6"][:head_to_head]).to eq({"3" => 1.00})
+    end
+  end
   ##== TEAM ==##
 
   ##== SEASON STATS AND HELPERS==##
