@@ -13,7 +13,7 @@ RSpec.describe GameTeam do
     @game_team = GameTeam.new(game_id, team_id, goals, hoa, result, tackles, head_coach, shots)
   end  
 
-  describe 'initialize' do 
+  itdescribe 'initialize' do 
     it 'exists' do 
       expect(@game_team).to be_a_instance_of(GameTeam)
     end
