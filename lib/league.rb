@@ -24,14 +24,11 @@ class League
 
   def best_offense
     goals_per_game = Hash.new(0)
-
     total_games.each do |team_id, games|
       goals = team_total_goals[team_id]
-      gpg = (goals.to_f / games.to_f)
-      goals_per_game[team_id] = gpg
+      goals_per_game[team_id] = (goals.to_f / games.to_f)
     end
     best_team_id = goals_per_game.max_by { |team_id, gpg| gpg }
-
     @team_data.each do |team|
       if team[:team_id] == best_team_id[0]
         return team[:team_name]
@@ -41,14 +38,11 @@ class League
 
   def worst_offense
     goals_per_game = Hash.new(0)
-
     total_games.each do |team_id, games|
       goals = team_total_goals[team_id]
-      gpg = (goals.to_f / games.to_f)
-      goals_per_game[team_id] = gpg
+      goals_per_game[team_id] = (goals.to_f / games.to_f)
     end
     worst_team_id = goals_per_game.min_by { |team_id, gpg| gpg }
-
     @team_data.each do |team|
       if team[:team_id] == worst_team_id[0]
         return team[:team_name]
@@ -70,14 +64,14 @@ class League
     visitor_goals
   end
 
-  # count total visitor games per team
+  # count total games per team
   def total_games
-    visitor_games = Hash.new(0)
+    total_games = Hash.new(0)
     @game_team_data.each do |game|
       team_id = game[:team_id]
-      visitor_games[team_id] += 1
+      total_games[team_id] += 1
     end
-    visitor_games
+    total_games
   end
 
   # calculate average goals per game
