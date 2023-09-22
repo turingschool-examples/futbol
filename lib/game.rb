@@ -26,9 +26,15 @@ class Game
     @@games << self
   end
 
+  def self.reset
+    @@games = []
+  end
+
   def self.games
     @@games
   end
+
+
 
   # def seasons_games
   #   seasons = Game.games.group_by {|game| game.season}
