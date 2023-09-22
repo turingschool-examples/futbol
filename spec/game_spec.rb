@@ -3,7 +3,7 @@ SimpleCov.start
 require './lib/stat_tracker'
 require './lib/game'
 
-RSpec.describe StatTracker do
+RSpec.describe Game do
   before(:all) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
