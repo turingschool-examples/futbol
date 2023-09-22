@@ -1,7 +1,6 @@
 require 'simplecov'
 SimpleCov.start
 require './lib/stat_tracker'
-require './lib/league'
 
 RSpec.describe League do
   before(:all) do
