@@ -30,10 +30,10 @@ class Game
     @@games
   end
 
-  def seasons_games
-    seasons = Game.games.group_by {|game| game.season}
-    require 'pry'; binding.pry
-  end
+  # def seasons_games
+  #   seasons = Game.games.group_by {|game| game.season}
+  #   require 'pry'; binding.pry
+  # end
 
   # def most_tackles(season)
   #   season_sorted = Game.games.group_by {|game| game.season}

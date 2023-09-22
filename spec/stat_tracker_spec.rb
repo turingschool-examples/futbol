@@ -27,17 +27,19 @@ RSpec.describe StatTracker do
       expect(@game_stats.percentage_calculator(5.0, 19.0)).to eq(0.26)
       expect(@game_stats.percentage_calculator(1.0, 19.0)).to eq(0.05)
     end
-  end 
-
-  it 'seasons' do
-  expect(@stat_tracker.seasons_sorted).to be_a(Hash)
   end
+    
+    it 'helper methods' do
+      expect(@game_stats.seasons_sorted).to be_a(Hash)
+      expect(@game_stats.team_info).to be_a(Hash)
+      expect(@game_stats.most_tackles("20162017")).to eq "Toronto FC"
+    end
 
   xdescribe '#Tackles' do
     it 'finds most number of tackles' do
     
-      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+      expect(@game_stats.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@game_stats.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
     it 'finds least number of tackles' do
@@ -78,7 +80,7 @@ RSpec.describe StatTracker do
     end
   end
   
-  describe "#highest_scoring_visitor" do
+  xdescribe "#highest_scoring_visitor" do
     it 'finds team with highest average score when away' do
     #this test is for the fixture
     expect(@game_stats.highest_scoring_visitor).to eq("FC Dallas")

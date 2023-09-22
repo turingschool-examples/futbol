@@ -64,15 +64,49 @@ class StatTracker
   
   def seasons_sorted
     season_sorted = Game.games.group_by {|game| game.season}
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
     
-  def team_info(team_id)
+  def team_info
     teams = GameTeam.gameteam.group_by {|team| team.team_id}
+    # require 'pry'; binding.pry
   end
     
   def most_tackles(season)
-    season_sorted[season].key (max_by {|game| game.tackles})
+    games = seasons_sorted
+    potato = []
+    games.each do |season, game_array|
+      game_array.each do |game|
+        potato << game.game_id
+      end
+      require 'pry'; binding.pry
+
+    end
+    # season_with_most_tackles = @game_teams_data.each_with_object(0) {|game, data| data += game.tackles.to_i}
+    tackles = Hash.new(0)
+    team_info.each do |team, data_array|
+      total_tackles = 0
+      data_array.each_with_object(0) do |data|
+        total_tackles += data.tackles.to_i
+      end
+      tackles[team] = total_tackles
+    end
+    team_id = tackles.key(tackles.values.max)
+    team_name = @team_data.select {|team| team.franchise_id == team_id}
+    require 'pry'; binding.pry
+    return team_name.first.team_name
+  end
+
+
+    # game_with_most_tackles = @game_teams_data.max_by {|game| game.tackles}
+    # team_id = game_with_most_tackles.team_id
+    # team_name = @team_data.select {|team| team.franchise_id == team_id}
+    # require 'pry'; binding.pry
+    # return team_name.first.team_name
+  
+  # def most_tackles(season)
+  #   require 'pry'; binding.pry
+  #   seasons_sorted[season].key ( {|game| game.tackles}.max)
 
     # team_tackles = Hash.new(0)
     # teams.each do |team, data_array|
@@ -83,10 +117,7 @@ class StatTracker
     #   end
     #   team_tackles[team] = count
     # end
-    require 'pry'; binding.pry
-      
-
-  end
+    
   
   def least_tackles
 
@@ -220,7 +251,7 @@ class StatTracker
   #   require 'pry'; binding.pry
 
   end
-end
+
 
 
 # combine both of these into one for the games_by_team
