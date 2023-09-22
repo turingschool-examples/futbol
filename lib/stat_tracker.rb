@@ -156,5 +156,9 @@ class StatTracker < Stats
     # require 'byebug'; byebug
     teams_hash[:teams_info][team_id]
   end
+
+  def seasonal_summary(team_id)
+    seasonal_summaries[team_id]
+  end
   ###=== TEAM QUERIES ===###
 end
