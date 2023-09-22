@@ -141,4 +141,6 @@ class StatTracker < Stats
     team_name_from_id(low_team_tackles[0])
   end
   ###=== SEASON QUERIES ===###
+
+  
 end
