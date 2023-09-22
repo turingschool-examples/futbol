@@ -96,28 +96,28 @@ RSpec.describe StatTracker do
         expect(stat_tracker.worst_offense).to eq("Houston Dynamo")
       end
     end
-    xdescribe '#highest_scoring_visitor' do 
+    describe '#highest_scoring_visitor' do 
       it 'will return a string with the name of the team with the highest average score per game across all seasons when they are away' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.highest_scoring_visitor).to be_a(String)
+        expect(stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
       end
     end
-    xdescribe '#lowest_scoring_visitor' do 
+    describe '#lowest_scoring_visitor' do 
       it 'will return a string with the name of the team with the lowest average score per game across all seasons when they are away' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.lowest_scoring_visitor).to be_a(String)
+        expect(stat_tracker.lowest_scoring_visitor).to eq("Seattle Sounders FC")
       end
     end
-    xdescribe '#highest_scoring_home_team' do 
+    describe '#highest_scoring_home_team' do 
       it 'will return a string with the name of the team of the team with the highest average score per game across all seasons when they are home' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.highest_scoring_home_team).to be_a(String)
+        expect(stat_tracker.highest_scoring_home_team).to eq("New York City FC")
       end
     end
-    xdescribe '#lowest_scoring_home_team' do 
+    describe '#lowest_scoring_home_team' do 
       it 'will return a string with the name of the team of the team with the lowest average score per game across all seasons when they are home' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.lowest_scoring_home_team).to be_a(String)
+        expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dynamo")
       end
     end
   end

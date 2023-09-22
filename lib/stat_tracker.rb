@@ -142,8 +142,8 @@ class StatTracker
     end
     hash
   end
-
-# League Statistic Methods
+  
+  # League Statistic Methods
   def count_of_teams
     @teams.count
   end
@@ -186,6 +186,126 @@ class StatTracker
     worst_offense.first
   end
 
+  def highest_scoring_visitor
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @game_teams.each do |game|
+      if game.hoa == "away"
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
+      end
+    end
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
+      [a[0].sum, a[1].sum]
+    end
+    avg = sum_array.map do |b|
+      b[0] / b[1]
+    end
+    max = avg.max
+    index = avg.find_index(max)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
+    @x = @teams.find do |team|
+      team.team_id == team_code
+    end
+    @x.name
+  end
+
+  def lowest_scoring_visitor
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @game_teams.each do |game|
+      if game.hoa == "away"
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
+      end
+    end
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
+      [a[0].sum, a[1].sum]
+    end
+    avg = sum_array.map do |b|
+      b[0] / b[1]
+    end
+    min = avg.min
+    index = avg.find_index(min)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
+    @x = @teams.find do |team|
+      team.team_id == team_code
+    end
+    @x.name
+  end
+
+  def highest_scoring_home_team
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @game_teams.each do |game|
+      if game.hoa == "home"
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
+      end
+    end
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
+      [a[0].sum, a[1].sum]
+    end
+    avg = sum_array.map do |b|
+      b[0] / b[1]
+    end
+    max = avg.max
+    index = avg.find_index(max)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
+    @x = @teams.find do |team|
+      team.team_id == team_code
+    end
+    @x.name
+  end
+
+  def lowest_scoring_home_team
+    hash = Hash.new{ |hash, key| hash[key] = [] }
+    @game_teams.each do |game|
+      if game.hoa == "home"
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
+      end
+    end
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
+      [a[0].sum, a[1].sum]
+    end
+    avg = sum_array.map do |b|
+      b[0] / b[1]
+    end
+    min = avg.min
+    index = avg.find_index(min)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
+    @x = @teams.find do |team|
+      team.team_id == team_code
+    end
+    @x.name
+  end
+  
 #Season Statistic Methods
   def winningest_coach(season)
     #number of wins for each coach
