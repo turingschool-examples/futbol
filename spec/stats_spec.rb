@@ -137,4 +137,16 @@ RSpec.describe Stats do
       expect(@stat_tracker.seasonal_summaries["6"]["20122013"][:postseason]).to eq(expected)
     end
   end
+
+  describe '#most_goals_scored_totals' do
+    it 'returns the highest number of goals scored by any team in a single game' do
+      expect(@stat_tracker.most_goals_scored_totals).to eq({"3"=>2, "4"=>4, "6"=>3})
+    end
+  end
+
+  describe '#least_goals_scored_totals' do
+    it 'returns the highest number of goals scored by any team in a single game' do
+      expect(@stat_tracker.least_goals_scored_totals).to eq({"3"=>2, "4"=>1, "6"=>2})
+    end
+  end
 end
