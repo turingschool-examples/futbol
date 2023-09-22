@@ -228,11 +228,17 @@ class Stats
   end
 
   def average_goals_scored(season_type, season_id, team_id)
+    total_scored = total_goals_scored(season_type, season_id, team_id)
+    total_games = @games_data.count { |game| game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)}
 
+    (total_scored.to_f / total_games.to_f).round(2)
   end
 
   def average_goals_against(season_type, season_id, team_id)
+    total_scored = total_goals_against(season_type, season_id, team_id)
+    total_games = @games_data.count { |game| game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)}
 
+    (total_scored.to_f / total_games.to_f).round(2)
   end
 
   ##== SEASON SUMMARY HELPERS ==##

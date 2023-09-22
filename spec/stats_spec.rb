@@ -101,4 +101,16 @@ RSpec.describe Stats do
       expect(@stat_tracker.total_goals_against("Postseason", "20122013", "6")).to eq(8)
     end
   end
+
+  describe "#average_goals_scored" do
+    it "returns the average goals scored for a team in a season" do
+      expect(@stat_tracker.average_goals_scored("Postseason", "20122013", "6")).to eq(2.8)
+    end
+  end
+
+  describe "#average_goals_against" do
+    it "returns the average goals scored against a team in a season" do
+      expect(@stat_tracker.average_goals_against("Postseason", "20122013", "6")).to eq(1.6)
+    end
+  end
 end
