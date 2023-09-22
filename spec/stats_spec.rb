@@ -145,7 +145,7 @@ RSpec.describe Stats do
   end
 
   describe "#percent_wins" do
-    it "creats a hash with all teams and hashes with their win percentages" do
+    it "creates a hash with all teams and hashes with their win percentages" do
       expect(@stat_tracker.percent_wins["6"]["20122013"]).to eq(100.00)
     end
   end

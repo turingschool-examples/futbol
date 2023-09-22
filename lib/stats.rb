@@ -194,14 +194,14 @@ class Stats
     season_stats
   end
 
-  # returns win percentage as a float for a given team in a given season
+  # @return: win percentage as a float for a given team in a given season
   def win_percentage(season_type, season_id, team_id)
     winning_game_count = 0
     game_count = 0
 
     @games_data.each do |game|
       if game[:type] == season_type && game[:season] == season_id
-        if  game[:away_team_id] == team_id || game[:home_team_id] == team_id
+        if game[:away_team_id] == team_id || game[:home_team_id] == team_id
           game_count += 1
           if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i ||
               game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i
@@ -307,8 +307,8 @@ class Stats
   end
 
   def percent_wins
-    # {team_id: {season: win percentage, season: win percentage}}
-    percent_wins = Hash.new { |hash, key| hash = {} }
+    # {team_id: {season: win percentage}}
+    percent_wins = Hash.new { |hash, key| hash[key] = {} }
     season_ids = @games_data.map { |game| game[:season] }.uniq
 
     @teams_data.each do |team|
@@ -325,7 +325,6 @@ class Stats
               game_count += 1
               if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i || \
                   game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i
-
                 winning_game_count += 1
               end
             end
@@ -344,7 +343,7 @@ class Stats
   end
 
   def average_wins
-    average_wins = Hash.new { |hash, key| hash = {} }
+    average_wins = Hash.new { |hash, key| hash[key] = {} }
 
     @teams_data.each do |team|
       team_id = team[:team_id]
@@ -382,12 +381,12 @@ class Stats
       # a team_game will have a :game_id match in another row; look in the index next or before
       # need to check that index in range or will hit NoMethodError when calling [:game_id] key
       opp = if idx + 1 < game_team_size && @game_teams_data[idx + 1][:game_id] == team_game[:game_id]
-              @game_teams_data[idx + 1][:team_id]
-            elsif idx - 1 > 0 && @game_teams_data[idx - 1][:game_id] == team_game[:game_id]
-              @game_teams_data[idx - 1][:team_id]
-            else
-              next  # no game_id match was found, skip the iteration
-            end
+        @game_teams_data[idx + 1][:team_id]
+      elsif idx - 1 > 0 && @game_teams_data[idx - 1][:game_id] == team_game[:game_id]
+        @game_teams_data[idx - 1][:team_id]
+      else
+        next  # no game_id match was found, skip the iteration
+      end
 
       win_pct_opp[team_game[:team_id]][:head_to_head] ||= {}
       win_pct_opp[team_game[:team_id]][:head_to_head][opp] ||= []

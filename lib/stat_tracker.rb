@@ -174,6 +174,7 @@ class StatTracker < Stats
   end
 
   def best_season(team_id)
+    # teams_hash[key]
     percent_wins[team_id].max_by { |k, v| v }[0]
   end
 
