@@ -316,5 +316,12 @@ class StatTracker
       team_tackles
     end
   end
-  
+
+  def most_tackles
+    max_team_id = team_season_tackles.max_by { |team_id, tackles| tackles }[0]
+    best_team = @teams.find do |team|
+      team.team_id == max_team_id
+    end
+    best_team.team_name
+  end
 end
