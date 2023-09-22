@@ -178,18 +178,18 @@ class Stats
   end
 
   def team_info
-    team_info_hash = Hash.new { |hash, key| hash[key] = [] }
+    team_info_hash = Hash.new { |hash, key| hash[key] = {} } # {:team_id, CSV::Row from teams_data}
 
-    @teams_data.each do |team|
-      team_info_hash[team[:team_id]] ={
+    @teams_data.reduce do |team_info_hash, team|
+      team_info_hash[team[:team_id]] = {
         team_id: team[:team_id],
         franchise_id: team[:franchiseid],
         team_name:team[:teamname],
         abbreviation: team[:abbreviation],
         link: team[:link]
       }
+      team_info_hash
     end
-    team_info_hash
   end
 
   # Each game record has home and away team_id, each iteration will add values to two keys
