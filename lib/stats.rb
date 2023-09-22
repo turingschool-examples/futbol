@@ -183,10 +183,14 @@ class Stats
     game_count = 0 
     
     @games_data.each do |game|
-      if game[:type] == season && game[:season] == season_id && (game[:away_team_id] == team || game[:home_team_id] == team)
+      if game[:type] == season && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)
+        game_count += 1
+      elsif game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i
+        winning_game_count += 1
+      elsif game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i 
+        winning_game_count += 1
+      end
     end
-    # @games_teams_data.each do |game_team|
-    #   if game_team[:team_id] == team_id && game_team[:season_id] == season_id && game_team[]
     end
   end
 
