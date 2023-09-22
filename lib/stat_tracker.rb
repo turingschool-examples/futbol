@@ -151,6 +151,11 @@ class StatTracker < Stats
   def worst_loss(team_id)
     teams_hash[:goal_diffs][team_id].min
   end
+
+  def team_info(team_id)
+    # require 'byebug'; byebug
+    teams_hash[:teams_info][team_id]
+  end
   ###=== TEAM QUERIES ===###
 end
 

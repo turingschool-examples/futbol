@@ -186,5 +186,19 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#team_info' do
+      it 'returns a hash with team information' do
+        expected_team_info = {
+            team_id: "1",
+            franchise_id: "23",
+            team_name: 'Atlanta United',
+            abbreviation: 'ATL',
+            link: '/api/v1/teams/1' 
+        }
+
+        expect(@stat_tracker.team_info("1")).to eq(expected_team_info)
+      end
+    end
+
   ###=== TEAM QUERIES ===###
 end

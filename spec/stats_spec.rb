@@ -81,34 +81,6 @@ RSpec.describe Stats do
       expect(@stat_tracker.goal_diffs["1"].max).to eq 2
     end
   end
-  describe '#team_info' do
-      it 'returns a hash with team information' do
-        expected_team_info = {
-          1 => {
-            team_id: "1",
-            franchise_id: "23",
-            team_name: 'Atlanta United',
-            abbreviation: 'ATL',
-            link: '/api/v1/teams/1'
-          },
-          4 => {
-            team_id: 4,
-            franchise_id: 16,
-            team_name: 'Chicago Fire',
-            abbreviation: 'CHI',
-            link: '/api/v1/teams/4'
-          },
-          10 => {
-            team_id: 10,
-            franchise_id: 5,
-            team_name: 'Team C',
-            abbreviation: 'C',
-            link: '/team/c'
-          }
-        }
-
-        expect(@stat_tracker.team_info).to eq(expected_team_info)
-      end
-    end
+  
   ##== TEAM ==##
 end
