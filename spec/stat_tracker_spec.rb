@@ -146,11 +146,11 @@ RSpec.describe StatTracker do
     end
 
     it '#gets team with most tackles in a season' do
-      expect()
+      expect(@stats.most_tackles).to eq(1)
     end
 
     it '#gets team with most tackles in a season' do
-
+      expect(@stats.fewest_tackles).to eq (1)
     end
   end
 end

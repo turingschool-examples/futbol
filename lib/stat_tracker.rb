@@ -316,6 +316,5 @@ class StatTracker
       team_tackles
     end
   end
-
-
+  
 end
