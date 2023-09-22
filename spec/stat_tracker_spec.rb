@@ -132,6 +132,7 @@ RSpec.describe StatTracker do
     end
   end
   
+  describe "#winningest_coach and #worst_coach" do
    it 'returns name of the Coach with the best win percentage for the season' do 
       expect(@stats.winningest_coach('20122013').class).to be String
       expect(@stats.winningest_coach('20122013')).to eq("Claude Julien")
@@ -140,6 +141,19 @@ RSpec.describe StatTracker do
    it 'returns name of the Coach with the worst win percentage for the season' do
      expect(@stats.worst_coach('20122013')).to eq("Dan Bylsma")
    end
+  end
+
+  describe '#most_accurate_team and #least_accurate_team' do
+    it 'can return the most accurate team of the season by name' do
+      expect(@stats.most_accurate_team('20122013').class).to be String
+      expect(@stats.most_accurate_team('20122013')).to eq("FC Dallas")
+    end
+
+    it 'can return the least accurate team of the season by name' do
+      expect(@stats.least_accurate_team('20122013').class).to be String
+      expect(@stats.least_accurate_team('20122013')).to eq("Sporting Kansas City")
+    end
+  end
   
    describe '#most_tackles, #fewest_tackles' do
     it 'list of teams who played in a season' do

@@ -6,3 +6,4 @@ class Team
     @team_name = team_name
   end
 end
+
