@@ -13,7 +13,6 @@ class League
     teams.count
   end
 
-
   def team_total_games
     team_and_games = Hash.new(0)
     @game_team_data.each do |game|

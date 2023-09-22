@@ -16,13 +16,12 @@ RSpec.describe StatTracker do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    # should we instantiate an object?
     @game = Game.new(@stat_tracker.game_data)
   end
 
-  # it "exists" do
-  #   expect(@stat_tracker).to be_an_instance_of StatTracker
-  # end
+  it "exists" do
+    expect(@stat_tracker).to be_an_instance_of StatTracker
+  end
 
   it "#highest_total_score" do
     expect(@game.highest_total_score).to eq 11
