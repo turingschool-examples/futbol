@@ -185,5 +185,15 @@ class League
     end
     lowest_ave_id
   end
+
+  def lowest_scoring_home_team
+    lowest_scoring_name = ""
+    @team_data.each do |team|
+      if lowest_ave_home_goals[0] == team[:team_id]
+        lowest_scoring_name += team[:team_name]
+      end
+    end
+    lowest_scoring_name
+  end
 end
 
