@@ -63,7 +63,9 @@ class StatTracker
   end
 
   def average_goals_by_season
-   #
+    total_goal_season = Hash.new(0)
+    total_goal_season = Hash.new(0)
+    @game_data
   end
 
   def average_goals_per_game
