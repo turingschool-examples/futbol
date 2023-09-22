@@ -141,7 +141,7 @@ class StatTracker < Stats
     team_name_from_id(low_team_tackles[0])
   end
   ###=== SEASON QUERIES ===###
-  
+
   ###=== TEAM QUERIES ===###
 
   def biggest_team_blowout(team_id)
@@ -157,5 +157,4 @@ class StatTracker < Stats
     teams_hash[:teams_info][team_id]
   end
   ###=== TEAM QUERIES ===###
-
 end
