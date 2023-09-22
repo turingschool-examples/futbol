@@ -4,9 +4,7 @@ class Season
     @game_team_data = game_team_data
     @game_data = game_data
     @team_data = team_data
-    @games_data = games_data
   end
-
 
   def most_tackles(season)
     game_ids = []
@@ -63,7 +61,6 @@ class Season
 
     least_tackle_team[:team_name]
   end 
-end
 
   def coach_totals(season)
     coach_hash_total = Hash.new(0)
@@ -95,9 +92,7 @@ end
       end
     end
     coach_hash_winnings
-    # require 'pry'; binding.pry
   end
-
 
   def winningest_coach(season)
     coach_win_percentage = Hash.new(0)

@@ -3,7 +3,7 @@ SimpleCov.start
 require './lib/stat_tracker'
 require './lib/season'
 
-RSpec.describe Seasons do
+RSpec.describe Season do
   before(:all) do
     game_path = './data/games.csv'
     team_path = './data/teams.csv'
@@ -20,7 +20,7 @@ RSpec.describe Seasons do
   end
 
   xit "exists" do
-    expect(@seasons).to be_an_instance_of Season
+    expect(@season).to be_an_instance_of Season
   end
 
   it "#coach_totals" do
