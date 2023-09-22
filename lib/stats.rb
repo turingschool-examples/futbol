@@ -172,11 +172,19 @@ class Stats
 
   ##== SEASON SUMMARY HELPERS ==##
 
-  # def season_stats(season_type,season_id, team_id)
-  #   win_percentage(season_type, season_id, team_id)
-  # end
+  def season_stats(season_type,season_id, team_id)
+    season_stats = Hash.new{}
 
-  #this method returns win percentage as a float for a given team in a given season
+    season_stats[:win_percentage] = win_percentage(season_type, season_id, team_id)
+    season_stats[:total_goals_scored] = total_goals_scored(season_type, season_id, team_id)
+    season_stats[:total_goals_against] = total_goals_against(season_type, season_id, team_id)
+    season_stats[:average_goals_scored] = average_goals_scored(season_type, season_id, team_id)
+    season_stats[:average_goals_against] = average_goals_against(season_type, season_id, team_id)
+
+    season_stats
+  end
+
+  #returns win percentage as a float for a given team in a given season
   def win_percentage(season_type, season_id, team_id)
     winning_game_count = 0
     game_count = 0 
@@ -197,6 +205,7 @@ class Stats
     ((winning_game_count.to_f/game_count) * 100.0).round(2)
   end
 
+  #returns integer for total goals scored by a given team in a given season
   def total_goals_scored(season_type, season_id, team_id)
     total_goals_scored = 0
 
@@ -212,6 +221,7 @@ class Stats
     total_goals_scored
   end
 
+  #returns integer for total goals scored AGAINST a given team in a given season
   def total_goals_against(season_type, season_id, team_id)
     total_goals_against = 0
 
@@ -227,6 +237,7 @@ class Stats
     total_goals_against
   end
 
+  #returns a float for average goals scored by a given team in a given season
   def average_goals_scored(season_type, season_id, team_id)
     total_scored = total_goals_scored(season_type, season_id, team_id)
     total_games = @games_data.count { |game| game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)}
@@ -234,6 +245,7 @@ class Stats
     (total_scored.to_f / total_games.to_f).round(2)
   end
 
+  #returns a float for average goals scored AGAINST a given team in a given season
   def average_goals_against(season_type, season_id, team_id)
     total_scored = total_goals_against(season_type, season_id, team_id)
     total_games = @games_data.count { |game| game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)}
