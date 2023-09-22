@@ -315,5 +315,35 @@ class Stats
     goal_diffs
   end
 
-  ##== TEAM HELPERS ==##
+  def most_goals_scored_totals
+    team_highest_goals = Hash.new { |hash, key| hash[key] = 0 } # a hash of {team_id: [highest goals scored]}
+
+    @game_teams_data.each do |game_team|
+      team_id = game_team[:team_id]
+      goals_scored = game_team[:goals].to_i
+
+      if goals_scored > team_highest_goals[team_id]
+        team_highest_goals[team_id] = goals_scored
+      end
+    end
+
+  team_highest_goals
+end
+
+def least_goals_scored_totals
+    team_lowest_goals = Hash.new { |hash, key| hash[key] = Float::INFINITY  } # a hash of {team_id: [lowest goals scored]}
+
+    @game_teams_data.each do |game_team|
+      team_id = game_team[:team_id]
+      goals_scored = game_team[:goals].to_i
+
+      if goals_scored < team_lowest_goals[team_id]
+        team_lowest_goals[team_id] = goals_scored
+      end
+    end
+
+  team_lowest_goals
+end
+
+  #== TEAM HELPERS ==##
 end
