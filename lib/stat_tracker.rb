@@ -1,4 +1,7 @@
 require "csv"
+require_relative './team'
+require_relative './game'
+require_relative './game_teams'
 class StatTracker
   attr_reader :teams,
               :games,
@@ -306,6 +309,7 @@ class StatTracker
   
 #Season Statistic Methods
   def winningest_coach(season)
+    season = season.to_i
     #number of wins for each coach
     coach_wins = Hash.new(0)
     #opportunity here to create a helper method (to find all games in a season) and just call that
@@ -335,6 +339,7 @@ class StatTracker
   end
 
   def worst_coach(season)
+    season = season.to_i
     coach_losses = Hash.new(0)
     season_games = @games.find_all { |game| game.season == season }
     season_games = season_games.map do |game|
@@ -356,6 +361,7 @@ class StatTracker
   end
 
   def most_accurate_team(season)
+    season = season.to_i
     accuracy_by_team = {}
     #sets team names to keys
     @teams.each do |team|
@@ -380,6 +386,7 @@ class StatTracker
   end
 
   def least_accurate_team(season)
+    season = season.to_i
     accuracy_by_team = {}
     #sets team names to keys
     @teams.each do |team|
@@ -404,6 +411,7 @@ class StatTracker
   end
 
   def most_tackles(season)
+    season = season.to_i
     tackles_by_team = {}
     @teams.each do |team|
       season_games = @games.find_all { |game| game.season == season}
@@ -424,6 +432,7 @@ class StatTracker
   end
 
   def fewest_tackles(season)
+    season = season.to_i
     tackles_by_team = {}
     @teams.each do |team|
       season_games = @games.find_all { |game| game.season == season}
