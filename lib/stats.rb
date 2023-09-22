@@ -163,8 +163,7 @@ class Stats
   def seasonal_summary(team_id) ##WORK IN PROGRESS
     seasonal_summary = Hash.new(0)
       @games_data.each do |game|
-        seasonal_summary[game[:season_id]] = {[:regular_season] = regular_season_stats, [:post_season] = post_season_stats}
-
+        seasonal_summary[game[:season_id]] = {[:regular_season] = season_stats("Regular Season", game[:season_id], team_id), [:post_season] = season_stats("Postseason", game[:season_id], team_id)}
       end
     end
 
@@ -174,8 +173,21 @@ class Stats
   def 
 
   ##== SEASON SUMMARY HELPERS ==##
-  def win_percentage(team_id)
 
+  def season_stats(season,season_id, team_id)
+    win_percentage(season, season_id, team_id)
+  end
+
+  def win_percentage(season, season_id, team_id)
+    winning_game_count = 0
+    game_count = 0 
+    
+    @games_data.each do |game|
+      if game[:type] == season && game[:season] == season_id && (game[:away_team_id] == team || game[:home_team_id] == team)
+    end
+    # @games_teams_data.each do |game_team|
+    #   if game_team[:team_id] == team_id && game_team[:season_id] == season_id && game_team[]
+    end
   end
 
   def total_goals_scored(team_id)
