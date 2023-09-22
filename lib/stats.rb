@@ -172,22 +172,11 @@ class Stats
 
   ##== SEASON SUMMARY HELPERS ==##
 
-  def season_stats(season_type,season_id, team_id)
-    win_percentage(season_type, season_id, team_id)
-  end
-
-  #potentially useful filters/ helpers
-  # def relevant_game?(game_id, season_type, season_id, team_id)
-  #   game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)
-  # end
-  
-  # def team_won?(game, team_id)
-  #   (game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i) ||
-  #   (game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i)
+  # def season_stats(season_type,season_id, team_id)
+  #   win_percentage(season_type, season_id, team_id)
   # end
 
-
-  #this method needs help. Always returns 0.0
+  #this method returns win percentage as a float for a given team in a given season
   def win_percentage(season_type, season_id, team_id)
     winning_game_count = 0
     game_count = 0 
@@ -198,7 +187,8 @@ class Stats
           game_count += 1
           if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i || 
             game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i 
-        winning_game_count += 1
+            
+            winning_game_count += 1
           end
         end
       end
@@ -207,19 +197,30 @@ class Stats
     ((winning_game_count.to_f/game_count) * 100.0).round(2)
   end
 
-  def total_goals_scored(team_id)
+  def total_goals_scored(season_type, season_id, team_id)
+    total_goals_scored = 0
+
+    @games_data.each do |game|
+      if game[:type] == season_type && game[:season] == season_id
+        if game[:away_team_id] == team_id 
+          total_goals_scored += game[:away_goals].to_i
+        elsif game[:home_team_id] == team_id
+          total_goals_scored += game[:home_goals].to_i
+        end
+      end
+    end
+    total_goals_scored
+  end
+
+  def total_goals_against(season_type, season_id, team_id)
 
   end
 
-  def total_goals_agains(team_id)
+  def average_goals_scored(season_type, season_id, team_id)
 
   end
 
-  def average_goals_scored(team_id)
-
-  end
-
-  def average_goals_against(team_id)
+  def average_goals_against(season_type, season_id, team_id)
 
   end
 

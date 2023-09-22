@@ -83,9 +83,16 @@ RSpec.describe Stats do
   end
   ##== TEAM ==##
 
+  ##== SEASON STATS AND HELPERS==##
   describe "#win_percentage" do
     it "returns percentage of games won that seaon for a team" do
-      expect(@stat_tracker.win_percentage("Postseason", "20122013", "3")).to eq 60
+      expect(@stat_tracker.win_percentage("Postseason", "20122013", "6")).to eq 100
+    end
+  end
+
+  describe "#total_goals_scored" do
+    it "returns total goals scored for a team in a season" do
+      expect(@stat_tracker.total_goals_scored("Postseason", "20122013", "6")).to eq(14)
     end
   end
 end
