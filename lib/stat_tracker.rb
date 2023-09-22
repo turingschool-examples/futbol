@@ -308,6 +308,11 @@ class StatTracker
     team_ids.uniq
   end
 
+  def season_ids
+    season_ids = @games.map { |game| game.season }
+    season_ids.uniq
+  end
+
   def team_season_tackles
     teams_ids_season.reduce(Hash.new(0)) do |team_tackles, team_id|
       @game_teams.each do |game|
