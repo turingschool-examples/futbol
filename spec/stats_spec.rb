@@ -143,4 +143,10 @@ RSpec.describe Stats do
       expect(@stat_tracker.percent_wins["6"]["20122013"]).to eq(100.00)
     end
   end
+
+  describe "#average_wins" do
+    it "creates a hash with all teams and their average wins over all games" do
+      expect(@stat_tracker.average_wins["6"]).to eq(100.00)
+    end
+  end
 end

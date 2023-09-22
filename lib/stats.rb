@@ -333,14 +333,14 @@ class Stats
             if team_id == game[:home_team_id] || team_id == game[:away_team_id]
               game_count += 1
               if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i || \
-                game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i
+                  game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i
 
                 winning_game_count += 1
               end
             end
           end
         end
-        
+
         if game_count == 0
           percent_wins[team_id][season_id] = 0
         else
@@ -348,7 +348,37 @@ class Stats
         end
       end
     end
+
     percent_wins
+  end
+
+  def average_wins
+    average_wins = Hash.new { |hash, key| hash = {} }
+
+    @teams_data.each do |team|
+      team_id = team[:team_id]
+      average_wins[team_id] = {}
+
+      winning_game_count = 0
+      game_count = 0
+
+      @game_teams_data.each do |game|
+        if team_id == game[:team_id]
+          game_count += 1
+          if game[:result] == "WIN"
+            winning_game_count += 1
+          end
+        end
+      end
+
+      if game_count == 0
+        average_wins[team_id] = 0.0
+      else
+        average_wins[team_id] = ((winning_game_count.to_f / game_count)*100.0).round(2)
+      end
+    end
+
+    average_wins
   end
 
   ##== TEAM HELPERS ==##

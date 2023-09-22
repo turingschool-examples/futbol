@@ -170,7 +170,7 @@ class StatTracker < Stats
   end
 
   def average_win_percentage(team_id)
-    
+    average_wins[team_id]
   end
 
   ###=== TEAM QUERIES ===###
