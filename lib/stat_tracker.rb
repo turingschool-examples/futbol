@@ -1,7 +1,7 @@
 require "csv"
 require "stats"
 
-class StatTracker < Stats  
+class StatTracker < Stats
   def self.from_csv(locations)
     games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
@@ -15,7 +15,7 @@ class StatTracker < Stats
   end
 
   ###=== GAME QUERIES ===###
-  
+
   def highest_total_score
     total_scores.max
   end
@@ -141,6 +141,17 @@ class StatTracker < Stats
     team_name_from_id(low_team_tackles[0])
   end
   ###=== SEASON QUERIES ===###
+
+  ###=== TEAM QUERIES ===###
+
+  def biggest_team_blowout(team_id)
+    teams_hash[team_id][:goal_diffs].max
+  end
+
+  def worst_loss(team_id)
+    teams_hash[team_id][:goal_diffs].min
+  end
+  ###=== TEAM QUERIES ===###
 end
 
 #
