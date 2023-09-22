@@ -68,11 +68,8 @@ RSpec.describe StatTracker do
       expect(@stats.average_goals_per_game.class).to be Float
     end
 
-    xit 'returns average number of goals scored in a game' do
-      expect(@stats.average_goals_by_season).to eq({"20122013"=>3.42, 
-                                                    "20152016"=>4.15, 
-                                                    "20162017"=>4.44, 
-                                                    "20172018"=>4.26})
+    it 'returns average number of goals scored in a game' do
+      expect(@stats.average_goals_by_season).to eq({"20122013"=>3.68, "20152016"=>4.24, "20162017"=>4.53, "20172018"=>4.40})
       expect(@stats.average_goals_by_season.class).to be Hash
     end
 
@@ -135,13 +132,13 @@ RSpec.describe StatTracker do
     end
   end
   
-   xit 'returns name of the Coach with the best win percentage for the season' do 
+   it 'returns name of the Coach with the best win percentage for the season' do 
       expect(@stats.winningest_coach('20122013').class).to be String
       expect(@stats.winningest_coach('20122013')).to eq("Claude Julien")
    end
 
    it 'returns name of the Coach with the worst win percentage for the season' do
-     expect(@stats.worst_coach('20122013')).to eq("Guy Boucher")
+     expect(@stats.worst_coach('20122013')).to eq("Dan Bylsma")
    end
   
    describe '#most_tackles, #fewest_tackles' do
