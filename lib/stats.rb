@@ -158,7 +158,41 @@ class Stats
     season_team_tackles
   end
 
-  ##== SEASON HELPERS ==##
+
+  ## SEASONAL SUMMARY AND HELPERS ## 
+  def seasonal_summary(team_id) ##WORK IN PROGRESS
+    seasonal_summary = Hash.new(0)
+      @games_data.each do |game|
+        seasonal_summary[game[:season_id]] = {[:regular_season] = regular_season_stats, [:post_season] = post_season_stats}
+
+      end
+    end
+  end
+
+  def 
+
+  ##== SEASON SUMMARY HELPERS ==##
+  def win_percentage(team_id)
+
+  end
+
+  def total_goals_scored(team_id)
+
+  end
+
+  def total_goals_agains(team_id)
+
+  end
+
+  def average_goals_scored(team_id)
+
+  end
+
+  def average_goals_against(team_id)
+
+  end
+
+  ##== SEASON SUMMARY HELPERS ==##
 
   ##== TEAM HELPERS ==##
 
