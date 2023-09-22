@@ -160,5 +160,14 @@ class StatTracker < Stats
   def seasonal_summary(team_id)
     seasonal_summaries[team_id]
   end
+
+  def most_goals_scored(team_id)
+    most_goals_scored_totals[team_id]
+  end
+
+   def least_goals_scored(team_id)
+    least_goals_scored_totals[team_id]
+  end
+
   ###=== TEAM QUERIES ===###
 end
