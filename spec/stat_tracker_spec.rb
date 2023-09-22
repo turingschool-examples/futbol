@@ -214,19 +214,22 @@ RSpec.describe StatTracker do
 
   describe "#best_season(team_id)" do
     it "returns the best season for given team" do
-      expect(@stat_tracker.best_season(team_id)).to eq("20122013")
+      expect(@stat_tracker.best_season("6")).to be_a(String)
+      expect(@stat_tracker.best_season("6")).to eq("20122013")
     end
   end
 
   describe "#worst_season(team_id)" do
     it "returns the worst season for given team" do
-      expect(@stat_tracker.worst_season(team_id)).to eq("20132014")
+      expect(@stat_tracker.worst_season("6")).to be_a(String)
+      expect(@stat_tracker.worst_season("6")).to eq("20132014")
     end
   end
 
-  describe "#best_season(team_id)" do
-    it "returns the best season for given team" do
-      expect(@stat_tracker.best_season(team_id)).to eq("20122013")
+  describe "#average_win_percentage(team_id)" do
+    it "returns the average win percentage across all seasonss for given team" do
+      expect(@stat_tracker.average_win_percentage("6")).to eq(50)
+      expect(@stat_tracker.average_win_percentage("6")).to be_a(Float)
     end
   end
   ###=== TEAM QUERIES ===###

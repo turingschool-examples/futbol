@@ -340,7 +340,12 @@ class Stats
             end
           end
         end
-      percent_wins[team_id][season_id] = ((winning_game_count.to_f / game_count) * 100.0).round(2)
+        
+        if game_count == 0
+          percent_wins[team_id][season_id] = 0
+        else
+          percent_wins[team_id][season_id] = ((winning_game_count.to_f / game_count) * 100.0).round(2)
+        end
       end
     end
     percent_wins
