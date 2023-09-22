@@ -3,6 +3,7 @@ class StatTracker
   attr_reader :teams,
               :games,
               :game_teams
+  
   def initialize(content)
     @teams = content[:teams]
     @games = content[:games]
@@ -23,6 +24,7 @@ class StatTracker
     # pass contents hash on to StatTracker to initiate the class.
     StatTracker.new(contents)
   end
+
 # Game Statistic Method
   def highest_total_score
     max = @games.map {|game| game.home_goals + game.away_goals }.max
@@ -140,6 +142,7 @@ class StatTracker
     end
     hash
   end
+
 # League Statistic Methods
   def count_of_teams
     @teams.count
@@ -182,10 +185,12 @@ class StatTracker
     worst_offense = teams_goals_average.find { |team, avg| avg == teams_goals_average.values.min}
     worst_offense.first
   end
+
 #Season Statistic Methods
   def winningest_coach(season)
     #number of wins for each coach
     coach_wins = Hash.new(0)
+    #opportunity here to create a helper method (to find all games in a season) and just call that
     season_games = @games.find_all { |game| game.season == season }
     season_games = season_games.map do |game|
       game.game_id
@@ -205,7 +210,7 @@ class StatTracker
     #now we divide each coach's wins by the number of games their team played
     coach_win_percentage = {}
     coach_wins.each do |coach, wins|
-        coach_win_percentage["#{coach}"] = (wins.to_f/coach_total_games["#{coach}"].to_f)
+      coach_win_percentage["#{coach}"] = (wins.to_f/coach_total_games["#{coach}"].to_f)
     end
     winningest_coach = coach_win_percentage.find{ |key, value| value  == coach_win_percentage.values.max }
     winningest_coach.first
@@ -224,14 +229,10 @@ class StatTracker
     end
     #number of games played by each coach's team
     coach_total_games = Hash.new(0)
-    @game_teams.each do |game_team|
-      coach_total_games[game_team.head_coach] += 1
-    end
+    @game_teams.each { |game_team| coach_total_games[game_team.head_coach] += 1 }
     #now we divide each coach's wins by the number of games their team played
     coach_loss_percentage = {}
-    coach_losses.each do |coach, losses|
-        coach_loss_percentage["#{coach}"] = (losses.to_f/coach_total_games["#{coach}"].to_f)
-    end
+    coach_losses.each { |coach, losses| coach_loss_percentage[coach] = (losses.to_f/coach_total_games[coach].to_f) }
     worst_coach = coach_loss_percentage.find{ |key, value| value  == coach_loss_percentage.values.min }
     worst_coach.first
   end
