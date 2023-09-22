@@ -162,7 +162,7 @@ def worst_coach(season)
       coach_count[game.head_coach] += 1
     end
   end 
-  coach_count.min_by{|k,v| v}.first
+  coach_count.max_by{|k,v| v}.first
 end
 
   ##HELPER METHODS
