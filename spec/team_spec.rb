@@ -15,7 +15,7 @@ RSpec.describe Team do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    @team = Team.new(@stat_tracker.game_team_data, @stat_tracker.game_data, @stat_tracker.team_dat)
+    @team = Team.new(@stat_tracker.game_team_data, @stat_tracker.game_data, @stat_tracker.team_data)
   end
 
   it 'exists' do
@@ -60,6 +60,5 @@ RSpec.describe Team do
 
   xit "#rival" do
     expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
-  end
   end
 end
