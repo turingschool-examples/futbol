@@ -19,6 +19,7 @@ class StatTracker
   end
   
   def create_games(path)
+    Game.reset
     # require 'pry'; binding.pry
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     # data.map { |row| Game.new(row) } 
@@ -63,10 +64,15 @@ class StatTracker
   end
 
   def average_goals_by_season
-    
     season_hash =Game.games.group_by{|game| game.season }
+    av_goals = {}
     
-    # require 'pry'; binding.pry
+    season_hash.each do |season,games|
+      total_goals = games.map {|game| game.home_goals.to_i + game.away_goals.to_i}
+      av_goals[season] = (total_goals.sum.to_f / games.length).round(2)
+    end
+    av_goals
+    require 'pry'; binding.pry
   end
 
   def average_goals_per_game

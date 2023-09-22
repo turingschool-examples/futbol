@@ -12,5 +12,5 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-averagegoals = stat_tracker.average_goals_by_season
-require 'pry'; binding.pry
+# averagegoals = stat_tracker.average_goals_by_season
+# require 'pry'; binding.pry
