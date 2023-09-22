@@ -160,30 +160,40 @@ class Stats
 
 
   ## SEASONAL SUMMARY AND HELPERS ## 
-  def seasonal_summary(team_id) ##WORK IN PROGRESS
-    seasonal_summary = Hash.new(0)
-      @games_data.each do |game|
-        seasonal_summary[game[:season_id]] = {[:regular_season] = season_stats("Regular Season", game[:season_id], team_id), [:post_season] = season_stats("Postseason", game[:season_id], team_id)}
-      end
-    end
+  # def seasonal_summary(team_id) ##WORK IN PROGRESS
+  #   seasonal_summary = Hash.new(0)
+  #     @games_data.each do |game|
+  #       seasonal_summary[game[:season_id]] = {[:regular_season] = season_stats("Regular Season", game[:season_id], team_id), [:post_season] = season_stats("Postseason", game[:season_id], team_id)}
+  #     end
+  #   end
 
-    seasonal_summary
-  end
-
-  def 
+  #   seasonal_summary
+  # end
 
   ##== SEASON SUMMARY HELPERS ==##
 
-  def season_stats(season,season_id, team_id)
-    win_percentage(season, season_id, team_id)
+  def season_stats(season_type,season_id, team_id)
+    win_percentage(season_type, season_id, team_id)
   end
 
-  def win_percentage(season, season_id, team_id)
+  #potentially useful filters/ helpers
+  # def relevant_game?(game_id, season_type, season_id, team_id)
+  #   game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)
+  # end
+  
+  # def team_won?(game, team_id)
+  #   (game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i) ||
+  #   (game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i)
+  # end
+
+
+  #this method needs help. Always returns 0.0
+  def win_percentage(season_type, season_id, team_id)
     winning_game_count = 0
     game_count = 0 
     
     @games_data.each do |game|
-      if game[:type] == season && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)
+      if game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)
         game_count += 1
       elsif game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i
         winning_game_count += 1
@@ -191,6 +201,9 @@ class Stats
         winning_game_count += 1
       end
     end
+
+    if game_count !=0 
+      ((winning_game_count.to_f/game_count) * 100.0).round(2)
     end
   end
 
