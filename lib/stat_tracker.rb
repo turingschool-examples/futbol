@@ -144,5 +144,12 @@ class StatTracker < Stats
 
   ###=== TEAM QUERIES ===###
 
+  def biggest_team_blowout(team_id)
+    teams_hash[team_id][:goal_diffs].max
+  end
+
+  def worst_loss(team_id)
+    teams_hash[team_id][:goal_diffs].min
+  end
   ###=== TEAM QUERIES ===###
 end
