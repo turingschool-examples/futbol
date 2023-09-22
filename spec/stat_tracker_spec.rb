@@ -154,18 +154,18 @@ RSpec.describe StatTracker do
 
   describe '#most_tackles(season)' do
     it 'returns name of the team with the most tackles in the season' do
-      expect(stat_tracker.most_tackles(20122013)).to eq('Seattle Sounders FC')
-      expect(stat_tracker.most_tackles(20132014)).to eq('Houston Dynamo')
-      expect(stat_tracker.most_tackles(20142015)).to eq('Chicago Fire')
+      expect(stat_tracker.most_tackles("20122013")).to eq('Seattle Sounders FC')
+      expect(stat_tracker.most_tackles("20132014")).to eq('Houston Dynamo')
+      expect(stat_tracker.most_tackles("20142015")).to eq('Chicago Fire')
     end
   end
 
-  # describe '#fewest_tackles(season)' do
-  #   it 'returns name of the team with the fewest tackles in the season' do
-  #     expect(stat_tracker.fewest_tackles(20122013)).to eq('Chicago Fire')
-  #     expect(stat_tracker.fewest_tackles(20132014)).to eq('Atlanta United')
-  #     expect(stat_tracker.fewest_tackles(20142015)).to eq('Houston Dynamo')
-  #   end
-  # end
+  describe '#fewest_tackles(season)' do
+    it 'returns name of the team with the fewest tackles in the season' do
+      expect(stat_tracker.fewest_tackles("20122013")).to eq('Chicago Fire')
+      expect(stat_tracker.fewest_tackles("20132014")).to eq('Atlanta United')
+      expect(stat_tracker.fewest_tackles("20142015")).to eq('Houston Dynamo')
+    end
+  end
 
 end
