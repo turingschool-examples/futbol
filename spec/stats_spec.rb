@@ -78,7 +78,7 @@ RSpec.describe Stats do
   ##== TEAM ==##
   describe "#goal_diffs" do
     it "returns all goal differentials for each game" do
-      expect(@stat_tracker.goal_diffs("6")).to eq [0]
+      expect(@stat_tracker.goal_diffs["1"].max).to eq 2
     end
   end
   ##== TEAM ==##

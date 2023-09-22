@@ -271,12 +271,12 @@ class Stats
 
   ##== TEAM HELPERS ==##
 
-  # @return: { team_id: {subqueries} }
+  # @return: { team_id: {sub queries} }
   def teams_hash
     if @teams_hash.nil?
       @teams_hash = {}
 
-      @teams_hash[:team_info] = team_info
+      @teams_hash[:teams_info] = teams_info
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       @teams_hash[:seasonal_summaries] = seasonal_summaries
 
@@ -286,8 +286,20 @@ class Stats
 
   end
 
-  def team_info
+  def teams_info
+    team_info_hash = Hash.new { |hash, key| hash[key] = {} } # {:team_id, CSV::Row from teams_data}
 
+    @teams_data.each do |team|
+      team_info_hash[team[:team_id]] = {
+        team_id: team[:team_id],
+        franchise_id: team[:franchiseid],
+        team_name:team[:teamname],
+        abbreviation: team[:abbreviation],
+        link: team[:link]
+      }
+    end
+    
+    team_info_hash
   end
 
   # Each game record has home and away team_id, each iteration will add values to two keys
@@ -295,8 +307,8 @@ class Stats
   def goal_diffs
     goal_diffs = Hash.new { |hash, key| hash[key] = [] }  # {team_id: [goal_diffs]}
     @games_data.each do |game|
-      goal_diffs[game[:home_team_id]] << game[:home_team_id] - game[:away_team_id]
-      goal_diffs[game[:away_team_id]] << game[:away_team_id] - game[:home_team_id]
+      goal_diffs[game[:home_team_id]] << game[:home_goals].to_i - game[:away_goals].to_i
+      goal_diffs[game[:away_team_id]] << game[:away_goals].to_i - game[:home_goals].to_i
     end
 
     goal_diffs
