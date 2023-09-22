@@ -167,6 +167,8 @@ class Stats
 
       end
     end
+
+    seasonal_summary
   end
 
   def 
