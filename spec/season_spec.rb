@@ -19,7 +19,7 @@ RSpec.describe Season do
     @season = Season.new(@stat_tracker.game_team_data, @stat_tracker.game_data, @stat_tracker.team_data)  
   end
 
-  xit "exists" do
+  it "exists" do
     expect(@season).to be_an_instance_of Season
   end
 
@@ -53,12 +53,12 @@ RSpec.describe Season do
     expect(@season.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  xit "#most_tackles" do
+  it "#most_tackles" do
     expect(@season.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(@season.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  xit "#fewest_tackles" do
+  it "#fewest_tackles" do
     expect(@season.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@season.fewest_tackles("20142015")).to eq "Orlando City SC"
   end

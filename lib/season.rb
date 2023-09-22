@@ -8,7 +8,7 @@ class Season
 
   def most_tackles(season)
     game_ids = []
-    @games_data.each do |row|
+    @game_data.each do |row|
       game_ids << row[:game_id] if row[:season] == season
     end
     game_ids
@@ -36,7 +36,7 @@ class Season
 
   def fewest_tackles(season)
     game_ids = []
-    @games_data.each do |row|
+    @game_data.each do |row|
       game_ids << row[:game_id] if row[:season] == season
     end
     game_ids
