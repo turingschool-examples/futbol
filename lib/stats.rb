@@ -168,15 +168,19 @@ class Stats
 
     @teams_data.each do |team|
       team_id = team[:team_id]
+      seasonal_summaries[team_id] = {}
       season_ids.each do |season_id|
-        seasonal_summaries[team_id] = {season_id => {:regular_season => season_stats("Regular Season", season_id, team_id),
-        :post_season => season_stats("Postseason", season_id, team_id)}}
+
+        regular_season_stats = season_stats("Regular Season", season_id, team_id)
+        postseason_stats = season_stats("Postseason", season_id, team_id)
+
+
+        seasonal_summaries[team_id][season_id] = {
+        regular_season: regular_season_stats,
+        postseason: postseason_stats}
       end
     end
-    #create an hash of unique season ID's(pre/post season) for the the team ID, 
-    #plug season into season stats
-    #assemble into hash
-    require 'pry'; binding.pry
+
     seasonal_summaries
   end
 
