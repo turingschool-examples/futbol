@@ -29,17 +29,17 @@ RSpec.describe Stats do
 
   describe "#percentage_results" do
     it "returns the percentage results" do
-      expect(@stat_tracker.percentage_results).to eq({:away_wins=>30.0, :home_wins=>60.0, :ties=>10.0})
+      expect(@stat_tracker.percentage_results).to eq({away_wins: 30.0, home_wins: 60.0, ties: 10.0})
     end
   end
 
   describe "#average_goals_per" do
     it "returns the average goals" do
-      expect(@stat_tracker.average_goals_per(:game)).to eq({:total=>4.3})
+      expect(@stat_tracker.average_goals_per(:game)).to eq({total: 4.3})
     end
   end
 
- describe "#team_avg_goals" do
+  describe "#team_avg_goals" do
     it "returns the average goals from all teams for all seasons" do
       expected = {"3" => 2.00,
                   "6" => 2.67,
@@ -56,7 +56,7 @@ RSpec.describe Stats do
     end
   end
 
-    # helper
+  # helper
   describe "#team_accuracies" do
     it "should calculate team accuracies for a certain season" do
       expected_accuracies = {
@@ -75,5 +75,11 @@ RSpec.describe Stats do
     end
   end
 
-
+  ##== TEAM ==##
+  describe "#goal_diffs" do
+    it "returns all goal differentials for each game" do
+      expect(@stat_tracker.goal_diffs("6")).to eq [0]
+    end
+  end
+  ##== TEAM ==##
 end
