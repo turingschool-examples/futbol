@@ -332,6 +332,72 @@ class StatTracker
     row[:hoa] == 'away'
   end
 
+
+
+
+  def most_tackles(season)
+    most = season_tackle_hash(season).sort_by { |team, data| data[:tackles] }.last[0]
+    team_data.find { |row| row[:team_id] == most }[:teamname]
+  end
+
+  def fewest_tackles(season)
+    fewest = season_tackle_hash(season).sort_by { |team, data| data[:tackles] }.first[0]
+    team_data.find { |row| row[:team_id] == fewest }[:teamname]
+  end
+
+  def season_tackle_hash(season)
+    tackles_by_team = {}
+    team_data.each do |team|
+      tackles_by_team[team[:team_id]] = {
+        tackles: season_tackles(team[:team_id], season)
+      }
+    end
+    tackles_by_team
+  end
+  
+  def season_tackles(team, season)
+    total_tackles = 0
+    season_game_teams(season).each do |game|
+      if game[:team_id] == team
+        total_shots += game[:tackles].to_i
+      end 
+    end
+    total_tackles
+  end
+
+  def games_by_season
+    games_by_season_hash = Hash.new([])
+    game.each do |one_game|
+      games_by_season_hash[one_game[:season]] += [one_game[:game_id]]
+    end
+    games_by_season_hash
+  end
+  
+  def season_game_teams(season)
+    season_array = games_by_season[season]
+    game_teams.find_all { |game| season_array.include?(game[:game_id]) }
+    require 'pry'; binding.pry
+  end 
+
+  # def season_game_teams(season)
+  #   games_by_season.each do |season_id, game_id|
+  #     game_teams.find_all do |game|
+  #       games_by_season[season_id].include?(game[:game_id])
+  #       require 'pry'; binding.pry
+      
+  #     end 
+  #   end
+  # end
+
+
+
+
+
+
+
+
+
+
   # def most_tackles(season_id)
   #   game.each do |game| 
   #     if game.include?(season_id) && game[:game_id]
@@ -339,45 +405,45 @@ class StatTracker
   #   end 
   # end
 
-  def tackle_count(team)
-    tackle_count = 0
-    game_teams.each do |game|
-      if game[:team_id] == team
-        tackle_count += game[:tackles].to_i
-      end
-    end
-    # require 'pry'; binding.pry
-    tackle_count
-  end
+  # def tackle_count(team)
+  #   tackle_count = 0
+  #   game_teams.each do |game|
+  #     if game[:team_id] == team
+  #       tackle_count += game[:tackles].to_i
+  #     end
+  #   end
+  #   # require 'pry'; binding.pry
+  #   tackle_count
+  # end
 
-  def tackles_by_team
-    tackles_by_team = {}
-    game_teams.each do |single_game|
-      tackles_by_team[single_game[:team_id]] = {
-        game_id: single_game[:game_id],
-        tackles: single_game[:tackles]
-      }
-    end
-    tackles_by_team 
-    require 'pry'; binding.pry
-  end
+  # def tackles_by_team
+  #   tackles_by_team = {}
+  #   game_teams.each do |single_game|
+  #     tackles_by_team[single_game[:team_id]] = {
+  #       game_id: single_game[:game_id],
+  #       tackles: single_game[:tackles]
+  #     }
+  #   end
+  #   tackles_by_team 
+  #   require 'pry'; binding.pry
+  # end
 
-  def season_total_tackles(team, season_number)
-    total_tackles = 0
-    season(season_number).each do |game|
-      if game[:season] == season_number
-        total_tackles += game[:tackles].to_i
-      end 
-    end
-    total_tackles
-  end
+  # def season_total_tackles(team, season_number)
+  #   total_tackles = 0
+  #   season(season_number).each do |game|
+  #     if game[:season] == season_number
+  #       total_tackles += game[:tackles].to_i
+  #     end 
+  #   end
+  #   total_tackles
+  # end
 
-  def season(season_number)
-    season_games = []
-    game.each do |game|  
-      season_games << game if game[:season] == season_number 
-    end 
-    season_games
-    require 'pry'; binding.pry
-  end 
+  # def season(season_number)
+  #   season_games = []
+  #   game.each do |game|  
+  #     season_games << game if game[:season] == season_number 
+  #   end 
+  #   season_games
+  #   require 'pry'; binding.pry
+  # end 
 end
