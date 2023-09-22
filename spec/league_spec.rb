@@ -19,22 +19,14 @@ RSpec.describe StatTracker do
     @league = League.new(@stat_tracker.game_data, @stat_tracker.team_data, @stat_tracker.game_team_data)
   end
 
+  
+  
   it "exists" do
     expect(@league).to be_an_instance_of League
   end
 
   it "#count_of_teams" do
     expect(@league.count_of_teams).to eq 32
-  end
-
-  it "team_total_goals" do
-    expect(@league.team_total_goals).to be_a(Hash)
-    expect(@league.team_total_goals["3"]).to eq(1129)
-  end
-
-  it "#team_total_games" do
-    expect(@league.team_total_games).to be_a(Hash)
-    expect(@league.team_total_games["3"]).to eq(531)
   end
 
   it "#best_offense" do

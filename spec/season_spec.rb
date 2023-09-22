@@ -19,16 +19,16 @@ RSpec.describe Season do
     @season = Season.new(@stat_tracker.game_team_data, @stat_tracker.game_data, @stat_tracker.team_data)  
   end
 
-  xit "exists" do
+  it "exists" do
     expect(@season).to be_an_instance_of Season
   end
 
-  xit "#coach_totals" do
+  it "#coach_totals" do
     expect(@season.coach_totals("20132014")).to be_a Hash
     expect(@season.coach_totals("20132014")["Joel Quenneville"]).to eq(101)
   end
 
-  xit "#coach_wins" do
+  it "#coach_wins" do
     expect(@season.coach_wins("20132014")).to be_a Hash
     expect(@season.coach_wins("20132014")["Joel Quenneville"]).to eq(47)
   end
@@ -61,12 +61,31 @@ RSpec.describe Season do
     expect(@season.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  xit "#most_tackles" do
+  it "#most_tackles" do
     expect(@season.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(@season.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  xit "#fewest_tackles" do
+  it "#tackles_game_id" do
+    expect(@season.tackles_game_id("20132014")[0]).to eq("2013030161")
+  end
+
+  it "#tackles_season_id" do
+    expected = {
+      :game_id=>"2013030161", 
+      :team_id=>"16", 
+      :hoa=>"away", 
+      :result=>"WIN", 
+      :head_coach=>"Joel Quenneville", 
+      :goals=>"3", 
+      :shots=>"10", 
+      :tackles=>"27"
+    }
+    
+    expect(@season.tackles_season_id("20132014")[0]).to eq expected
+  end
+
+  it "#fewest_tackles" do
     expect(@season.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@season.fewest_tackles("20142015")).to eq "Orlando City SC"
   end

@@ -1,6 +1,7 @@
 require 'csv'
+require_relative 'game'
 
-class StatTracker
+class StatTracker < Game
   attr_reader :game_team_data, :game_data, :team_data
   
   def initialize(game_data, team_data, game_team_data)
