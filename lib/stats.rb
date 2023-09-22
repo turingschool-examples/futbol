@@ -167,7 +167,7 @@ class Stats
     if @teams_hash.nil?
       @teams_hash = {}
 
-      @teams_hash[:team_info] = team_info
+      @teams_hash[:teams_info] = teams_info
       @teams_hash[:win_pct_opp] = win_pct_opp
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       # @teams_hash[:seasonal_summary] = seasonal_summary
@@ -178,8 +178,20 @@ class Stats
 
   end
 
-  def team_info
+  def teams_info
+    team_info_hash = Hash.new { |hash, key| hash[key] = {} } # {:team_id, CSV::Row from teams_data}
 
+    @teams_data.each do |team|
+      team_info_hash[team[:team_id]] = {
+        team_id: team[:team_id],
+        franchise_id: team[:franchiseid],
+        team_name: team[:teamname],
+        abbreviation: team[:abbreviation],
+        link: team[:link]
+      }
+    end
+
+    team_info_hash
   end
 
   def win_pct_opp
