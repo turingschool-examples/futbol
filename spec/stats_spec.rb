@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe Stats do
   before(:each) do
-    game_path = "./data/games_mock.csv"
+    game_path = "./data/games.csv"
     team_path = "./data/teams.csv"
     game_teams_path = "./data/game_teams_mock.csv"
 
@@ -135,6 +135,12 @@ RSpec.describe Stats do
                   win_percentage: 100.0}
       expect(@stat_tracker.seasonal_summaries["6"]).to be_a Hash
       expect(@stat_tracker.seasonal_summaries["6"]["20122013"][:postseason]).to eq(expected)
+    end
+  end
+
+  describe "#percent_wins" do
+    it "creats a hash with all teams and hashes with their win percentages" do
+      expect(@stat_tracker.percent_wins["6"]["20122013"]).to eq(54.29)
     end
   end
 end
