@@ -332,9 +332,6 @@ class StatTracker
     row[:hoa] == 'away'
   end
 
-
-
-
   def most_tackles(season)
     most = season_tackle_hash(season).sort_by { |team, data| data[:tackles] }.last[0]
     team_data.find { |row| row[:team_id] == most }[:teamname]
@@ -364,18 +361,5 @@ class StatTracker
     end
     total_tackles
   end
-
-  def games_by_season
-    games_by_season_hash = Hash.new([])
-    game.each do |one_game|
-      games_by_season_hash[one_game[:season]] += [one_game[:game_id]]
-    end
-    games_by_season_hash
-  end
-  
-  def season_game_teams(season)
-    season_array = games_by_season[season]
-    game_teams.find_all { |game| season_array.include?(game[:game_id]) }
-  end 
 
 end
