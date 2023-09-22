@@ -344,7 +344,7 @@ class Stats
       end
     end
     percent_wins
-    # require 'pry'; binding.pry
   end
+
   ##== TEAM HELPERS ==##
 end
