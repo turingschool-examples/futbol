@@ -21,9 +21,18 @@ RSpec.describe StatTracker do
   describe '::from_csv' do
     it 'returns an instance of StatTracker' do
       expect(stat_tracker).to be_a(StatTracker)
-      expect(stat_tracker.team_data).to be_a(CSV::Table)
-      expect(stat_tracker.game).to be_a(CSV::Table)
-      expect(stat_tracker.game_teams).to be_a(CSV::Table)
+      expect(stat_tracker.team_data).to be_a(Array)
+      stat_tracker.team_data.each do |team|
+        expect(team).to be_a(CSV::Row)
+      end
+      expect(stat_tracker.game).to be_a(Array)
+      stat_tracker.game.each do |game|
+        expect(game).to be_a(CSV::Row)
+      end
+      expect(stat_tracker.game_teams).to be_a(Array)
+      stat_tracker.game_teams.each do |game|
+        expect(game).to be_a(CSV::Row)
+      end
     end
   end
 
