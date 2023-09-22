@@ -308,30 +308,29 @@ class StatTracker
     team_ids.uniq
   end
 
-  def season_ids
-    season_ids = @games.map { |game| game.season }
-    season_ids.uniq
-  end
-
-  def team_season_tackles
+  def team_season_tackles(season)
+    season_comparer = season[0..3]
     teams_ids_season.reduce(Hash.new(0)) do |team_tackles, team_id|
       @game_teams.each do |game|
-        team_tackles[team_id] += game.tackles if team_id == game.team_id
+        game_id_comparer = game.game_id[0..3]
+        if team_id == game.team_id && season_comparer == game_id_comparer
+          team_tackles[team_id] += game.tackles
+        end
       end
       team_tackles
     end
   end
 
-  def most_tackles
-    max_team_id = team_season_tackles.max_by { |team_id, tackles| tackles }[0]
+  def most_tackles(season)
+    max_team_id = team_season_tackles(season).max_by { |team_id, tackles| tackles }[0]
     best_team = @teams.find do |team|
       team.team_id == max_team_id
     end
     best_team.team_name
   end
 
-  def fewest_tackles
-    min_team_id = team_season_tackles.min_by { |team_id, tackles| tackles }[0]
+  def fewest_tackles(season)
+    min_team_id = team_season_tackles(season).min_by { |team_id, tackles| tackles }[0]
     worst_team = @teams.find do |team|
       team.team_id == min_team_id
     end
