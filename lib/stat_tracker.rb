@@ -168,5 +168,9 @@ class StatTracker < Stats
   def rival(team_id)
     teams_hash[:win_pct_opp][team_id][:rival]
   end
+
+  def seasonal_summary(team_id)
+    seasonal_summaries[team_id]
+  end
   ###=== TEAM QUERIES ===###
 end

@@ -211,11 +211,24 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.favorite_opponent("6")).to eq "Houston Dynamo"
     end
   end
-  
+
   describe "#rival" do
     it "returns the team name for the lowest win pct against" do
       expect(@stat_tracker.rival("3")).to eq "FC Dallas"
     end
   end
+
+  describe "#seasonal_summary" do
+    it "returns a hash with seasonal summary information" do
+      expected = {average_goals_against: 1.6,
+                  average_goals_scored: 2.8,
+                  total_goals_against: 8,
+                  total_goals_scored: 14,
+                  win_percentage: 100.0}
+
+      expect(@stat_tracker.seasonal_summary("6")["20122013"][:postseason]).to eq(expected)
+    end
+  end
+
   ###=== TEAM QUERIES ===###
 end
