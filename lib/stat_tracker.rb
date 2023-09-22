@@ -2,7 +2,7 @@
  require_relative './game'
  require_relative './game_team'
  require_relative './teams'
- require 'pry-nav'
+#  require 'pry-nav'
 
 
 class StatTracker
@@ -136,20 +136,30 @@ class StatTracker
   #   # row[:game_id]
   #   # row[:hoa]
 
-  def team_goals
+  def team_goals(home_or_away)
     teams = @game_teams_data.group_by { |row| row.team_id}
-    team_goals = Hash.new
+    team_home_goals = Hash.new
+    team_away_goals = Hash.new
     teams.each do |team, data_array|
-      goals = 0
+      away_goals = 0
+      home_goals = 0
       data_array.each do |data|
-        goals += data.goals.to_i
+        if data.hoa == "home"
+          home_goals += data.goals.to_i
+        elsif data.hoa == "away"
+          away_goals += data.goals.to_i
+        end
       end
-      team_goals[team] = goals
+      team_away_goals[team] = away_goals
+      team_home_goals[team] = home_goals
     end
-    team_goals
+    if home_or_away == "away"
+      team_away_goals
+    else 
+      team_home_goals
+    end
+    # require 'pry'; binding.pry
   end
-  
-
   
   def games_by_team(home_or_away)
     teams = @game_teams_data.group_by { |row| row.team_id }
@@ -159,6 +169,12 @@ class StatTracker
       games[team] = game_location.count
     end
     games
+  end
+
+  # def highest_scoring_visitor
+  #   team_goals("away")
+  #   require 'pry'; binding.pry
+
   end
 end
 
