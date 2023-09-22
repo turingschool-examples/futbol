@@ -64,7 +64,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    season_hash =Game.games.group_by{|game| game.season }
+    season_hash =@game_data.group_by{|game| game.season }
     av_goals = {}
     
     season_hash.each do |season,games|
@@ -72,7 +72,7 @@ class StatTracker
       av_goals[season] = (total_goals.sum.to_f / games.length).round(2)
     end
     av_goals
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 
   def average_goals_per_game
