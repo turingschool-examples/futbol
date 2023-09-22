@@ -199,5 +199,18 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.team_info("1")).to eq(expected_team_info)
     end
   end
+
+  describe "#seasonal_summary" do
+    it "returns a hash with seasonal summary information" do
+      expected = {average_goals_against: 1.6,
+                  average_goals_scored: 2.8,
+                  total_goals_against: 8,
+                  total_goals_scored: 14,
+                  win_percentage: 100.0}
+
+      expect(@stat_tracker.seasonal_summary("6")["20122013"][:postseason]).to eq(expected)
+    end
+  end
+
   ###=== TEAM QUERIES ===###
 end

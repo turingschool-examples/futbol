@@ -82,4 +82,59 @@ RSpec.describe Stats do
     end
   end
   ##== TEAM ==##
+
+  ##== SEASON STATS AND HELPERS==##
+  describe "#win_percentage" do
+    it "returns percentage of games won that season for a team" do
+      expect(@stat_tracker.win_percentage("Postseason", "20122013", "6")).to eq 100
+    end
+  end
+
+  describe "#total_goals_scored" do
+    it "returns total goals scored for a team in a season" do
+      expect(@stat_tracker.total_goals_scored("Postseason", "20122013", "6")).to eq(14)
+    end
+  end
+
+  describe "#total_goals_against" do
+    it "returns total goals scored against a team in a season" do
+      expect(@stat_tracker.total_goals_against("Postseason", "20122013", "6")).to eq(8)
+    end
+  end
+
+  describe "#average_goals_scored" do
+    it "returns the average goals scored for a team in a season" do
+      expect(@stat_tracker.average_goals_scored("Postseason", "20122013", "6")).to eq(2.8)
+    end
+  end
+
+  describe "#average_goals_against" do
+    it "returns the average goals scored against a team in a season" do
+      expect(@stat_tracker.average_goals_against("Postseason", "20122013", "6")).to eq(1.6)
+    end
+  end
+
+  describe "#season_stats" do
+    it "creates a new hash of season stats" do
+      expected = {average_goals_against: 1.6,
+                  average_goals_scored: 2.8,
+                  total_goals_against: 8,
+                  total_goals_scored: 14,
+                  win_percentage: 100.0}
+      expect(@stat_tracker.season_stats("Postseason", "20122013", "6")).to be_a Hash
+      expect(@stat_tracker.season_stats("Postseason", "20122013", "6")).to eq(expected)
+    end
+  end
+
+  describe "#seasonal_summaries" do
+    it "creates a new hash of seasonal stats" do
+      expected = {average_goals_against: 1.6,
+                  average_goals_scored: 2.8,
+                  total_goals_against: 8,
+                  total_goals_scored: 14,
+                  win_percentage: 100.0}
+      expect(@stat_tracker.seasonal_summaries["6"]).to be_a Hash
+      expect(@stat_tracker.seasonal_summaries["6"]["20122013"][:postseason]).to eq(expected)
+    end
+  end
 end
