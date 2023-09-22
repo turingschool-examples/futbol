@@ -123,26 +123,26 @@ class StatTracker
     hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "away"
-        @total_goals = 0.00
-        @total_games = 0.00
-        @key = game.team_id
-        @value1 = game.goals
-        @total_games += 1.00
-        @total_goals += @value1
-        hash[@key] << [@value1, @total_games]
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
       end
     end
-    @transpo = hash.map { |key, value| value.transpose}
-    @jay = @transpo.map do |a|
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
       [a[0].sum, a[1].sum]
     end
-    @zay = @jay.map do |b|
+    avg = sum_array.map do |b|
       b[0] / b[1]
     end
-    max = @zay.max
-    index = @zay.find_index(max)
-    @this_team = hash.keys[index]
-    team_code = @this_team
+    max = avg.max
+    index = avg.find_index(max)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
     @x = @teams.find do |team|
       team.team_id == team_code
     end
@@ -153,26 +153,26 @@ class StatTracker
     hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "away"
-        @total_goals = 0.00
-        @total_games = 0.00
-        @key = game.team_id
-        @value1 = game.goals
-        @total_games += 1.00
-        @total_goals += @value1
-        hash[@key] << [@value1, @total_games]
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
       end
     end
-    @transpo = hash.map { |key, value| value.transpose}
-    @jay = @transpo.map do |a|
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
       [a[0].sum, a[1].sum]
     end
-    @zay = @jay.map do |b|
+    avg = sum_array.map do |b|
       b[0] / b[1]
     end
-    min = @zay.min
-    index = @zay.find_index(min)
-    @this_team = hash.keys[index]
-    team_code = @this_team
+    min = avg.min
+    index = avg.find_index(min)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
     @x = @teams.find do |team|
       team.team_id == team_code
     end
@@ -183,26 +183,26 @@ class StatTracker
     hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "home"
-        @total_goals = 0.00
-        @total_games = 0.00
-        @key = game.team_id
-        @value1 = game.goals
-        @total_games += 1.00
-        @total_goals += @value1
-        hash[@key] << [@value1, @total_games]
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
       end
     end
-    @transpo = hash.map { |key, value| value.transpose}
-    @jay = @transpo.map do |a|
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
       [a[0].sum, a[1].sum]
     end
-    @zay = @jay.map do |b|
+    avg = sum_array.map do |b|
       b[0] / b[1]
     end
-    max = @zay.max
-    index = @zay.find_index(max)
-    @this_team = hash.keys[index]
-    team_code = @this_team
+    max = avg.max
+    index = avg.find_index(max)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
     @x = @teams.find do |team|
       team.team_id == team_code
     end
@@ -213,26 +213,26 @@ class StatTracker
     hash = Hash.new{ |hash, key| hash[key] = [] }
     @game_teams.each do |game|
       if game.hoa == "home"
-        @total_goals = 0.00
-        @total_games = 0.00
-        @key = game.team_id
-        @value1 = game.goals
-        @total_games += 1.00
-        @total_goals += @value1
-        hash[@key] << [@value1, @total_games]
+        total_goals = 0.00
+        total_games = 0.00
+        key = game.team_id
+        value1 = game.goals
+        total_games += 1.00
+        total_goals += value1
+        hash[key] << [value1, total_games]
       end
     end
-    @transpo = hash.map { |key, value| value.transpose}
-    @jay = @transpo.map do |a|
+    transpo = hash.map { |key, value| value.transpose}
+    sum_array = transpo.map do |a|
       [a[0].sum, a[1].sum]
     end
-    @zay = @jay.map do |b|
+    avg = sum_array.map do |b|
       b[0] / b[1]
     end
-    min = @zay.min
-    index = @zay.find_index(min)
-    @this_team = hash.keys[index]
-    team_code = @this_team
+    min = avg.min
+    index = avg.find_index(min)
+    best_visitor = hash.keys[index]
+    team_code = best_visitor
     @x = @teams.find do |team|
       team.team_id == team_code
     end
