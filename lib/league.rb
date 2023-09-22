@@ -177,5 +177,13 @@ class League
     end
     highest_scoring_name
   end
+
+  # determine lowest average, put team id and ave in an array
+  def lowest_ave_home_goals
+    lowest_ave_id = ave_home_goals.min_by do |team_id, goals|
+      goals
+    end
+    lowest_ave_id
+  end
 end
 
