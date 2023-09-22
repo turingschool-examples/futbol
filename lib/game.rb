@@ -1,4 +1,6 @@
-class Game
+require_relative 'league'
+
+class Game < League
   attr_reader :game_data
 
   def initialize(game_data)

@@ -1,4 +1,6 @@
-class League 
+require_relative 'season'
+
+class League < Season
   def initialize(game_data, team_data, game_team_data)
     @game_data = game_data
     @team_data = team_data
