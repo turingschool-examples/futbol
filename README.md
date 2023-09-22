@@ -8,7 +8,21 @@ We will begin by looking at a initial tests and example methods as a group, to i
 
 Make it work. Make it good. Make it fast. In seriousness, we plan to write functional code and then use red to green refactoring.
 
-[Here is the link to our initial DTR (9-18-23)](https://docs.google.com/document/d/e/2PACX-1vQL3NUJU_tlAAOqS84-4H1GUD6sxCn-aicIZ_PnCSxowvXuEhSBA0qkFuPes3RtcG9XZhAbtslwOfD-/pub)
+[Link to our initial DTR (9-18-23)](https://docs.google.com/document/d/e/2PACX-1vQL3NUJU_tlAAOqS84-4H1GUD6sxCn-aicIZ_PnCSxowvXuEhSBA0qkFuPes3RtcG9XZhAbtslwOfD-/pub)
+DTR was revisited on 9-21-23.
+
+[Link to our retro, made in EasyRetro](https://easyretro.io/publicboard/jvoGWc46JmT3xpejuO5Kwxg8Cuk2/21148f3c-0663-41f5-aabb-edaa481e2fa3)
+
+## Retro Results
+### Top 3 Thinkgs that Went Well
+- GitHub projects board
+- Timeline
+- Organization/Direction
+
+### Top 3 Things to Improve
+- Project big picture visualization
+- Being open to ask for help when needed
+- Recognizing productivity struggles
 
 ### Contributors
 *Billy Burch*
