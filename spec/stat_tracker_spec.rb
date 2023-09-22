@@ -49,6 +49,10 @@ RSpec.describe StatTracker do
     end
   end
 
+  it "#percentage_visitor_wins" do 
+    expect(@game_stats.percentage_visitor_wins).to eq 0.0
+  end
+
 
   describe "#percentage_calculator" do
     it "finds the percentage for given numbers rounded to nearest 100th" do

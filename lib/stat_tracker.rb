@@ -72,7 +72,13 @@ class StatTracker
       av_goals[season] = (total_goals.sum.to_f / games.length).round(2)
     end
     av_goals
-    # require 'pry'; binding.pry
+  end
+  
+  def percentage_visitor_wins
+    away_wins = GameTeam.gameteam.count do |game|
+      game.HoA == "away" && game.result == "WIN"
+    end 
+    (away_wins.to_f / Game.games.count.to_f).round(2)
   end
 
   def average_goals_per_game
