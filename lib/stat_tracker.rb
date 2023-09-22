@@ -1,7 +1,7 @@
 # require_relative './spec_helper'
- require_relative './game'
- require_relative './game_team'
- require_relative './teams'
+require_relative './game'
+require_relative './game_team'
+require_relative './teams'
 
 
 class StatTracker
@@ -72,9 +72,11 @@ class StatTracker
     average.round(2)
   end
 
+
+  #this will need to separate home and away goals
   def team_goals
     teams = @game_teams_data.group_by { |row| row.team_id}
-    team_goals = Hash.new(0)
+    team_goals = Hash.new
     teams.each do |team, data_array|
       goals = 0
       data_array.each do |data|
@@ -88,7 +90,6 @@ class StatTracker
   
   def games_by_team(home_or_away)
     teams = @game_teams_data.group_by { |row| row.team_id }
-    # require 'pry'; binding.pry
     games = Hash.new
     teams.each do |team, data_array|
       game_location = data_array.select { |data| data.hoa == home_or_away }
@@ -99,7 +100,7 @@ class StatTracker
 end
 
 
-# combine both of these into one
+# combine both of these into one for the games_by_team
 # def home_games_by_team
 #   teams = @game_teams_data.group_by { |row| row.team_id}
 #   games_at_home = Hash.new(0)

@@ -53,7 +53,6 @@ RSpec.describe StatTracker do
       expect(@game_stats.team_goals).to eq({"3"=>8, "6"=>24, "5"=>2, "17"=>6, "16"=>4})
     end
   end
-  
   describe "#games_by_team" do 
     it 'will find the amount of home games per team' do
       expect(@game_stats.games_by_team("home")).to be_instance_of(Hash)
