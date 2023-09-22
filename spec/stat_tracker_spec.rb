@@ -78,7 +78,7 @@ RSpec.describe StatTracker do
     end
   end
   context 'League Statistic Methods' do
-    xdescribe '#count_of_teams' do 
+    describe '#count_of_teams' do 
       it 'will return an integer with the total number of teams in the data' do
         expect(stat_tracker.count_of_teams).to be_a(Integer)
         expect(stat_tracker.count_of_teams).to eq(32)
