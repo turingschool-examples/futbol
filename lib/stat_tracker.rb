@@ -62,22 +62,31 @@ class StatTracker
     (ties/@game_data.count).round(2)
   end
   
-  # def most_tackles(season)
-  #   # season_sorted = Game.games.group_by {|game| game.season}
-  #   teams = GameTeam.gameteam.group_by {|team| team.team_id}
-  #   team_tackles = Hash.new(0)
-  #   teams.each do |team, data_array|
-  #     count = 0  
-  #     data_array.each do |data|
-  #       count += data.tackles.to_i
+  def seasons_sorted
+    season_sorted = Game.games.group_by {|game| game.season}
+    require 'pry'; binding.pry
+  end
+    
+  def team_info(team_id)
+    teams = GameTeam.gameteam.group_by {|team| team.team_id}
+  end
+    
+  def most_tackles(season)
+    season_sorted[season].key (max_by {|game| game.tackles})
+
+    # team_tackles = Hash.new(0)
+    # teams.each do |team, data_array|
+    #   count = 0  
+    #   data_array.each do |data|
+    #     count += data.tackles.to_i
         
-  #     end
-  #     team_tackles[team] = count
-  #   end
-  #   require 'pry'; binding.pry
+    #   end
+    #   team_tackles[team] = count
+    # end
+    require 'pry'; binding.pry
       
 
-  # end
+  end
   
   def least_tackles
 

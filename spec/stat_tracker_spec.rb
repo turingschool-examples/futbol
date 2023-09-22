@@ -30,13 +30,15 @@ RSpec.describe StatTracker do
   end 
 
 
-  describe '#Tackles' do
-    xit 'finds most number of tackles' do
-      expect(@game_stats.most_tackles).to eq(95)
-    end
+  xdescribe '#Tackles' do
+    it 'finds most number of tackles' do
+      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
 
-    xit 'finds least number of tackles' do
-      expect(@game_stats.least_tackles).to eq()
+    it 'finds least number of tackles' do
+      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
   end
 
