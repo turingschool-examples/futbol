@@ -210,7 +210,7 @@ class StatTracker
     #now we divide each coach's wins by the number of games their team played
     coach_win_percentage = {}
     coach_wins.each do |coach, wins|
-      coach_win_percentage["#{coach}"] = (wins.to_f/coach_total_games["#{coach}"].to_f)
+      coach_win_percentage[coach] = (wins.to_f/coach_total_games[coach].to_f)
     end
     winningest_coach = coach_win_percentage.find{ |key, value| value  == coach_win_percentage.values.max }
     winningest_coach.first
@@ -233,7 +233,7 @@ class StatTracker
     #now we divide each coach's wins by the number of games their team played
     coach_loss_percentage = {}
     coach_losses.each { |coach, losses| coach_loss_percentage[coach] = (losses.to_f/coach_total_games[coach].to_f) }
-    worst_coach = coach_loss_percentage.find{ |key, value| value  == coach_loss_percentage.values.min }
+    worst_coach = coach_loss_percentage.find{ |key, value| value  == coach_loss_percentage.values.max }
     worst_coach.first
   end
 
