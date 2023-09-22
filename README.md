@@ -25,15 +25,15 @@ DTR was revisited on 9-21-23.
 - Recognizing productivity struggles
 
 ### Contributors
-*Billy Burch*
-[Linkedin](https://www.linkedin.com/in/billy-burch-084823289/)
-[Github](https://github.com/billyburch)
-*Victor Antonio Sanchez*
-[Linkedin](https://www.linkedin.com/in/victor-sanchez-a7952a210/)
-[Github](https://github.com/vsanantone)
-*Kevin Zolman*
-[Linkedin](www.linkedin.com/in/kevin-zolman-a108a8222)
-[Github](https://github.com/zkevkev)
-*Eric Belongea*
-[Linkedin](https://www.linkedin.com/in/eric-belongea/)
-[Github](https://github.com/EricBelongea)
+*Billy Burch*<br>
+[Linkedin](https://www.linkedin.com/in/billy-burch-084823289/)<br>
+[Github](https://github.com/billyburch)<br>
+*Victor Antonio Sanchez*<br>
+[Linkedin](https://www.linkedin.com/in/victor-sanchez-a7952a210/)<br>
+[Github](https://github.com/vsanantone)<br>
+*Kevin Zolman*<br>
+[Linkedin](www.linkedin.com/in/kevin-zolman-a108a8222)<br>
+[Github](https://github.com/zkevkev)<br>
+*Eric Belongea*<br>
+[Linkedin](https://www.linkedin.com/in/eric-belongea/)<br>
+[Github](https://github.com/EricBelongea)<br>
