@@ -170,4 +170,21 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Houston Dynamo")
     end
   end
+
+  ###=== SEASON QUERIES ===###
+
+  ###=== TEAM QUERIES ===###
+  describe "#biggest_team_blowout" do
+    it "returns the biggest goal differential" do
+      expect(@stat_tracker.biggest_team_blowout("1")).to eq 2
+    end
+  end
+
+  describe "#worst_loss" do
+    it "returns the biggest loss for given team" do
+      expect(@stat_tracker.worst_loss("3")).to eq(-2)
+    end
+  end
+
+  ###=== TEAM QUERIES ===###
 end
