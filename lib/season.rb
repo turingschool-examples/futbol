@@ -6,26 +6,29 @@ class Season
     @team_data = team_data
   end
 
-  def most_tackles(season)
+  def most_tackles_game_id(season)
     game_ids = []
     @game_data.each do |row|
       game_ids << row[:game_id] if row[:season] == season
     end
     game_ids
+  end
    
+  def most_tackles_season_id(season)
     season_game_team_data = []
     @game_team_data.each do |row|
-     season_game_team_data << row if game_ids.include?(row[:game_id]) 
+     season_game_team_data << row if most_tackles_game_id(season).include?(row[:game_id]) 
     end
-
     season_game_team_data
+  end
   
+  def most_tackles(season)
     tackles_by_team = Hash.new(0)
-    season_game_team_data.each do |row|
+    most_tackles_season_id(season).each do |row|
       tackles_by_team[row[:team_id]] += row[:tackles].to_i   
     end
 
-    top_team_tackles = tackles_by_team.max_by{ |k, v| v}
+    top_team_tackles = tackles_by_team.max_by{ |team, tackles| tackles}
   
     top_tackle_team = @team_data.find do |row|
       top_team_tackles.first == row[:team_id]
@@ -53,7 +56,7 @@ class Season
       tackles_by_team[row[:team_id]] += row[:tackles].to_i   
     end
 
-    least_team_tackles = tackles_by_team.min_by{ |k, v| v}
+    least_team_tackles = tackles_by_team.min_by{ |team, tackles| tackles}
   
     least_tackle_team = @team_data.find do |row|
       least_team_tackles.first == row[:team_id]
