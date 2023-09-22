@@ -1,3 +1,5 @@
+
+
 class Game
   @@games = []
   attr_reader :game_id,
@@ -28,5 +30,27 @@ class Game
 
   def self.games
     @@games
+  end
+
+  def season_sorted
+    seasons_sorted = Game.games.group_by {|game| game.season}
+    require 'pry'; binding.pry
+
+  end
+
+  def most_tackles(season)
+    season_sorted = Game.games.group_by {|game| game.season}
+    teams = GameTeam.gameteam.group_by {|team| team.team_id}
+    team_tackles = Hash.new(0)
+    teams.each do |team, data_array|
+      count = 0  
+      data_array.each do |data|
+        if data.game_id == game_id
+          count = data.tackles
+        end
+      end
+      team_tackles[team] = count
+    end
+    team_tackles.max_by {|team, tackles| tackles}[0]
   end
 end

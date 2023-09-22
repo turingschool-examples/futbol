@@ -1,4 +1,4 @@
-# require_relative './spec_helper'
+ require_relative '../spec/spec_helper'
  require_relative './game'
  require_relative './game_team'
 
@@ -27,9 +27,10 @@ class StatTracker
   end
   
   def create_game_teams(path)
+    GameTeam.reset
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     data.map do |row| 
-      # require 'pry'; binding.pry
+   
     GameTeam.new(row)
     end
   end
@@ -51,22 +52,22 @@ class StatTracker
     (ties/@game_data.count).round(2)
   end
   
-  def most_tackles
-    season_sorted = Game.games.group_by {|game| game.season}
-    teams = GameTeam.gameteam.group_by {|team| team.team_id}
-    team_tackles = Hash.new(0)
-    teams.each do |team, data_array|
-      count = 0  
-      data_array.each do |data|
-        count += data.tackles.to_i
+  # def most_tackles(season)
+  #   # season_sorted = Game.games.group_by {|game| game.season}
+  #   teams = GameTeam.gameteam.group_by {|team| team.team_id}
+  #   team_tackles = Hash.new(0)
+  #   teams.each do |team, data_array|
+  #     count = 0  
+  #     data_array.each do |data|
+  #       count += data.tackles.to_i
         
-        require 'pry'; binding.pry
-      end
-      team_tackles[team] = count
-    end
+  #     end
+  #     team_tackles[team] = count
+  #   end
+  #   require 'pry'; binding.pry
       
 
-  end
+  # end
   
   
       
