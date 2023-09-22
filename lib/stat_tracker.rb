@@ -4,21 +4,22 @@ require './spec/spec_helper'
 class StatTracker 
 
   def initialize(locations)
-    @@game = game_data_parser(locations[:games])
-    @@team_data = team_data_parser(locations[:teams])
-    @@game_teams = game_teams_data_parser(locations[:game_teams])
+    @game = game_data_parser(locations[:games])
+    @team_data = team_data_parser(locations[:teams])
+    @game_teams = game_teams_data_parser(locations[:game_teams])
+    # @all_season_data = AllSeasonData.new
   end
   
   def game
-    @@game
+    @game
   end
 
   def team_data
-    @@team_data
+    @team_data
   end
 
   def game_teams
-    @@game_teams
+    @game_teams
   end
 
   def self.from_csv(locations)
@@ -29,6 +30,10 @@ class StatTracker
     contents = CSV.open file_location, headers: true, header_converters: :symbol
     contents.readlines
   end
+
+  # def team_data_parser(file_location)
+  #   @all_season_data.team_data_parser(file_location)
+  # end
 
   def game_data_parser(file_location)
     contents = CSV.open file_location, headers: true, header_converters: :symbol
