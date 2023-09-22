@@ -9,6 +9,7 @@ class StatTracker
   def initialize(locations)
     @game_data = create_games(locations[:games])
     # require 'pry'; binding.pry
+    # @teams = create_teams(locations[:teams])
     @game_teams_data = create_game_teams(locations[:game_teams])
     # require 'pry'; binding.pry
     # @locations = locations 
@@ -29,11 +30,10 @@ class StatTracker
   def create_game_teams(path)
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     data.map do |row| 
-      # require 'pry'; binding.pry
-    GameTeam.new(row)
+      GameTeam.new(row)
     end
   end
-
+  
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
@@ -43,12 +43,27 @@ class StatTracker
     percentage = (portion/whole).round(2)
   end
   
+  def count_of_games_by_season 
+    # require 'pry'; binding.pry
+    games_seasons = Hash.new(0)
+    
+    @game_data.each do |row|
+      season = row.season
+      games_seasons[season] += 1
+    end 
+    games_seasons
+  end
+  
   def percentage_ties 
     ties = @game_data.count do |game|
       # require 'pry'; binding.pry
       game.away_goals.to_f == game.home_goals.to_f
     end.to_f
     (ties/@game_data.count).round(2)
+  end
+
+  def average_goals_by_season
+   #
   end
 
   def average_goals_per_game
