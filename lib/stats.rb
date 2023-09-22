@@ -280,6 +280,7 @@ class Stats
       @teams_hash = {}
 
       @teams_hash[:teams_info] = teams_info
+      @teams_hash[:win_pct] = win_pct
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       @teams_hash[:seasonal_summaries] = seasonal_summaries
     end
@@ -316,7 +317,7 @@ class Stats
   end
 
   def percent_wins
-    #{team_id: {season: win percentage, season: win percentage}}
+    # {team_id: {season: win percentage, season: win percentage}}
     percent_wins = Hash.new { |hash, key| hash = {} }
     season_ids = @games_data.map { |game| game[:season] }.uniq
 
@@ -341,10 +342,10 @@ class Stats
           end
         end
 
-        if game_count == 0
-          percent_wins[team_id][season_id] = 0
+        percent_wins[team_id][season_id] = if game_count == 0
+          0
         else
-          percent_wins[team_id][season_id] = ((winning_game_count.to_f / game_count) * 100.0).round(2)
+          ((winning_game_count.to_f / game_count) * 100.0).round(2)
         end
       end
     end
@@ -371,10 +372,10 @@ class Stats
         end
       end
 
-      if game_count == 0
-        average_wins[team_id] = 0.0
+      average_wins[team_id] = if game_count == 0
+        0.0
       else
-        average_wins[team_id] = ((winning_game_count.to_f / game_count)*100.0).round(2)
+        ((winning_game_count.to_f / game_count)*100.0).round(2)
       end
     end
 
