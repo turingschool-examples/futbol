@@ -332,11 +332,52 @@ class StatTracker
     row[:hoa] == 'away'
   end
 
-  def most_tackles(season_id)
+  # def most_tackles(season_id)
+  #   game.each do |game| 
+  #     if game.include?(season_id) && game[:game_id]
+  #     # require 'pry'; binding.pry
+  #   end 
+  # end
 
+  def tackle_count(team)
+    tackle_count = 0
+    game_teams.each do |game|
+      if game[:team_id] == team
+        tackle_count += game[:tackles].to_i
+      end
+    end
+    # require 'pry'; binding.pry
+    tackle_count
   end
 
-  def fewest_tackles(season_id)
-    
+  def tackles_by_team
+    tackles_by_team = {}
+    game_teams.each do |single_game|
+      tackles_by_team[single_game[:team_id]] = {
+        game_id: single_game[:game_id],
+        tackles: single_game[:tackles]
+      }
+    end
+    tackles_by_team 
+    require 'pry'; binding.pry
   end
+
+  def season_total_tackles(team, season_number)
+    total_tackles = 0
+    season(season_number).each do |game|
+      if game[:season] == season_number
+        total_tackles += game[:tackles].to_i
+      end 
+    end
+    total_tackles
+  end
+
+  def season(season_number)
+    season_games = []
+    game.each do |game|  
+      season_games << game if game[:season] == season_number 
+    end 
+    season_games
+    require 'pry'; binding.pry
+  end 
 end

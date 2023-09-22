@@ -167,4 +167,29 @@ RSpec.describe StatTracker do
       expect(stat_tracker.fewest_tackles(20142015)).to eq('Houston Dynamo')
     end
   end
+
+  describe '#season(season_number)' do
+    it 'returns list of games in that season' do
+      expect(stat_tracker.season("20122013").class).to eq(Array)
+      expect(stat_tracker.season("20122013").first[:game_id]).to eq("2012020122")
+    end
+  end
+
+  describe '#season_total_tackles(team, season_number)' do
+    it 'returns total goals made by a team' do
+      expect(stat_tracker.season_total_tackles("1", "20122013")).to eq(5)
+    end
+  end
+
+  describe '#tackle_count(team)' do
+    it 'returns the tackle count for a team' do
+      expect(stat_tracker.tackle_count("1")).to eq(5)
+    end
+  end
+
+  describe '#tackles_by_team' do
+    it 'returns the tackle count for a team' do
+      expect(stat_tracker.tackles_by_team).to eq(5)
+    end
+  end
 end
