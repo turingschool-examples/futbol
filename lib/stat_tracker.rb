@@ -27,7 +27,6 @@ class StatTracker
       teams_hash[:team_id] = row[:team_id]
       teams_hash[:team_name] = row[:teamname]
       teams_hash[:stadium] = row[:stadium]
-      teams_hash[:team_id] = row[:team_id]
       
       team_data << teams_hash
     end
@@ -39,6 +38,7 @@ class StatTracker
 
     data.each do |row|
       game_teams_hash = {}
+      game_teams_hash[:game_id] = row[:game_id]
       game_teams_hash[:team_id] = row[:team_id]
       game_teams_hash[:hoa] = row[:hoa]
       game_teams_hash[:result] = row[:result]
