@@ -7,6 +7,6 @@ class GameTeam
     @goals = goals
     @hoa = hoa
     @result = result
-    @tackles = tackles
+    @tackles = tackles.to_i
   end
 end

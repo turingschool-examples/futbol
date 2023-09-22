@@ -85,6 +85,10 @@ RSpec.describe StatTracker do
   end
 
   describe '#best_offense, #worst_offense' do
+    it 'gets game_teams list' do
+      expect(@stats.game_team_ids).to eq(['3', '6', '5', '28', '19', '8', '9'])
+    end
+
     it 'gets number games each team played in all seasons' do
       expect(@stats.team_games_league_total.class).to be Hash
       expect(@stats.team_games_league_total['3']).to eq(10)
@@ -100,18 +104,8 @@ RSpec.describe StatTracker do
       expect(@stats.avg_team_goals_league['3']).to eq(2.2)
     end
 
-    it 'team id(s) with highest avg goals per game in all seasons' do
-      expect(@stats.max_avg_team_goals_league.class).to be Hash
-      expect(@stats.max_avg_team_goals_league).to eq({'52'=>3.0})
-    end
-
-    it 'team id(s) with lowest avg goals per game in all seasons' do
-      expect(@stats.min_avg_team_goals_league.class).to be Hash
-      expect(@stats.min_avg_team_goals_league).to eq({'5'=>1.33})
-    end
-
     it 'returns team(s) with highest avg goals per game' do
-      expect(@stats.best_offense).to eq('Portland Thorns FC')
+      expect(@stats.best_offense).to eq('FC Dallas')
     end
 
     it 'returns team(s) with lowest avg goals per game' do
@@ -148,7 +142,15 @@ RSpec.describe StatTracker do
 
     it 'list of tackles for teams' do
       expect(@stats.team_season_tackles.class).to be Hash
-      expect(@stats.team_season_tackles).to eq(1)
+      expect(@stats.team_season_tackles['3']).to eq(216)
+    end
+
+    it '#gets team with most tackles in a season' do
+      expect()
+    end
+
+    it '#gets team with most tackles in a season' do
+
     end
   end
 end
