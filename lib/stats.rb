@@ -167,6 +167,7 @@ class Stats
       @teams_hash = {}
 
       @teams_hash[:team_info] = team_info(team_id)
+      @teams_hash[:goal_diffs] = goal_diffs(team_id)
       @teams_hash[:seasonal_summary] = seasonal_summary(team_id)
 
     end
@@ -176,6 +177,11 @@ class Stats
   end
 
   def team_info(team_id)
+
+  end
+
+  # @return: array of all goal differentials
+  def goal_diffs(team_id)
 
   end
 
