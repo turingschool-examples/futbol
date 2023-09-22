@@ -118,6 +118,7 @@ class StatTracker
     max(team_goals)
   end
 
+
   def highest_scoring_visitor
     team_goals = Hash.new(0)
     @game_teams.each do |game_team, goals|
@@ -130,6 +131,42 @@ class StatTracker
     max(team_goals)
   end
   
+  def winningest_coach
+  "Name of the Coach with the 
+  best win percentage for the season"
+  # create a unique list of head_coachs
+  # add a count + 1 each time that coach wins 
+  # find the coach with the highest win 
+   winning_games = @game_teams.find_all{|game_team| game_team.result == "WIN"}
+   coach_count = {}
+   winning_games.each do |game|
+    if coach_count[game.head_coach].nil? 
+      coach_count[game.head_coach] = 1
+    else 
+      coach_count[game.head_coach] += 1
+    end
+  end 
+  coach_count.max_by{|k,v| v}.first
+end
+
+def worst_coach
+  "	Name of the Coach with the worst win
+   percentage for the season"
+  # create a unique list of head_coachs
+  # add a count + 1 each time that coach wins 
+  # find the coach with the lowest win 
+   winning_games = @game_teams.find_all{|game_team| game_team.result == "WIN"}
+   coach_count = {}
+   winning_games.each do |game|
+    if coach_count[game.head_coach].nil? 
+      coach_count[game.head_coach] = 1
+    else 
+      coach_count[game.head_coach] += 1
+    end
+  end 
+  coach_count.min_by{|k,v| v}.first
+end
+
   ##HELPER METHODS
   ## Creates an array of game_ids, acts as helper method
   def game_ids
@@ -272,7 +309,8 @@ class StatTracker
                       row[:goals], 
                       row[:hoa], 
                       row[:result],
-                      row[:tackles]
+                      row[:tackles],
+                      row[:head_coach]
                       )
       @game_teams << game_team
     end
@@ -336,4 +374,5 @@ class StatTracker
     end
     worst_team.team_name
   end
+
 end

@@ -134,8 +134,17 @@ RSpec.describe StatTracker do
       expect(@stats.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
+  
+   it 'returns name of the Coach with the best win percentage for the season' do 
+      expect(@stats.winningest_coach.class).to be String
+      expect(@stats.winningest_coach).to eq("Claude Julien")
+   end
 
-  describe '#most_tackles, #fewest_tackles' do
+   it 'returns name of the Coach with the worst win percentage for the season' do
+     expect(@stats.worst_coach).to eq("Guy Boucher")
+   end
+  
+   describe '#most_tackles, #fewest_tackles' do
     it 'list of teams who played in a season' do
       expect(@stats.teams_ids_season).to eq(['3', '6', '5', '28', '19', '8', '9'])
     end
