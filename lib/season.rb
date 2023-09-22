@@ -119,6 +119,49 @@ class Season
 
     return winningest_coach[0]
   end
+
+  def goals_accurate_team(season)
+    goals = Hash.new(0)
+    @game_data.each do |row|
+      if row[:season] == season
+        season_game_id = row[:game_id]
+        @game_team_data.each do |game_row|
+          if game_row[:game_id] == season_game_id
+            team = game_row[:team_id]
+            goals[team] += game_row[:goals].to_i
+          end
+        end
+      end
+    end
+    goals
+  end
+
+  def shots_accurate_team(season)
+    shots = Hash.new(0)
+    @game_data.each do |row|
+      if row[:season] == season
+        season_game_id = row[:game_id]
+        @game_team_data.each do |game_row|
+          if game_row[:game_id] == season_game_id
+            team = game_row[:team_id]
+            shots[team] += game_row[:shots].to_i
+          end
+        end
+      end
+    end
+    shots
+  end
+
+  def most_accurate_team(season)
+    accuracy = Hash.new(0)
+
+    shots_accurate_team(season).each do |team, attempts|
+      goals_made = goals_accurate_team(season)[team]
+      ratio = (goals_made / attempts.to_f)
+      accuracy[team] = ratio
+
+    end
+  end
 end
 
 

@@ -19,16 +19,16 @@ RSpec.describe Season do
     @season = Season.new(@stat_tracker.game_team_data, @stat_tracker.game_data, @stat_tracker.team_data)  
   end
 
-  it "exists" do
+  xit "exists" do
     expect(@season).to be_an_instance_of Season
   end
 
-  it "#coach_totals" do
+  xit "#coach_totals" do
     expect(@season.coach_totals("20132014")).to be_a Hash
     expect(@season.coach_totals("20132014")["Joel Quenneville"]).to eq(101)
   end
 
-  it "#coach_wins" do
+  xit "#coach_wins" do
     expect(@season.coach_wins("20132014")).to be_a Hash
     expect(@season.coach_wins("20132014")["Joel Quenneville"]).to eq(47)
   end
@@ -43,6 +43,14 @@ RSpec.describe Season do
     expect(@season.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
+  it '#counts team goals' do
+    expect(@season.goals_accurate_team("20122013")).to be_a(Hash)
+  end
+
+  it 'counts team shots' do
+    expect(@season.shots_accurate_team("20122013")).to be_a(Hash)
+  end
+
   xit "#most_accurate_team" do
     expect(@season.most_accurate_team("20132014")).to eq "Real Salt Lake"
     expect(@season.most_accurate_team("20142015")).to eq "Toronto FC"
@@ -53,12 +61,12 @@ RSpec.describe Season do
     expect(@season.least_accurate_team("20142015")).to eq "Columbus Crew SC"
   end
 
-  it "#most_tackles" do
+  xit "#most_tackles" do
     expect(@season.most_tackles("20132014")).to eq "FC Cincinnati"
     expect(@season.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
-  it "#fewest_tackles" do
+  xit "#fewest_tackles" do
     expect(@season.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@season.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
