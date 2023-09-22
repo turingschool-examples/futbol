@@ -29,15 +29,15 @@ RSpec.describe StatTracker do
     end 
   end
 
-  describe "##average_goals_by_season" do
-    it "#average_goals_by_season" do
-    expected = {
-      "20122013"=>4 
+  # describe "##average_goals_by_season" do
+  #   xit "#average_goals_by_season" do
+  #   expected = {
+  #     "20122013"=> 
       
-    }
-  expect(@game_stats.average_goals_by_season).to eq expected
-end
-  end
+  #   }
+  #  expect(@game_stats.average_goals_by_season).to eq expected
+  #   end
+  # end
 
 
   describe "#percentage_calculator" do

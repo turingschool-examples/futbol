@@ -63,16 +63,16 @@ class StatTracker
   end
 
   def average_goals_by_season
-    total_goal_season = Hash.new(0)
-    total_goal_season = Hash.new(0)
-    @game_data
+    
+    season_hash =Game.games.group_by{|game| game.season }
+    
+    # require 'pry'; binding.pry
   end
 
   def average_goals_per_game
     total_goals = 0
     total_games = []
     @game_teams_data.each do |row|
-      # require 'pry'; binding.pry
       total_goals += row.goals.to_i
       total_games << row.game_id
     end

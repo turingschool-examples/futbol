@@ -1,4 +1,5 @@
-require 'spec_helper'
+require_relative 'spec_helper'
+
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
@@ -11,5 +12,5 @@ locations = {
 }
 
 stat_tracker = StatTracker.from_csv(locations)
-
-# require 'pry'; binding.pry
+averagegoals = stat_tracker.average_goals_by_season
+require 'pry'; binding.pry
