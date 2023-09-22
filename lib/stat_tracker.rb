@@ -131,15 +131,14 @@ class StatTracker
     max(team_goals)
   end
   
-  def winningest_coach
-  "Name of the Coach with the 
-  best win percentage for the season"
-  # create a unique list of head_coachs
-  # add a count + 1 each time that coach wins 
-  # find the coach with the highest win 
-   winning_games = @game_teams.find_all{|game_team| game_team.result == "WIN"}
+  def winningest_coach(season)
+  season_comparer = season[0..3]
+    winning_games_in_season = @game_teams.find_all do |game_team| 
+    game_id_comparer = game_team.game_id[0..3]
+    game_team.result == "WIN" && season_comparer == game_id_comparer
+   end
    coach_count = {}
-   winning_games.each do |game|
+   winning_games_in_season.each do |game|
     if coach_count[game.head_coach].nil? 
       coach_count[game.head_coach] = 1
     else 
@@ -149,15 +148,14 @@ class StatTracker
   coach_count.max_by{|k,v| v}.first
 end
 
-def worst_coach
-  "	Name of the Coach with the worst win
-   percentage for the season"
-  # create a unique list of head_coachs
-  # add a count + 1 each time that coach wins 
-  # find the coach with the lowest win 
-   winning_games = @game_teams.find_all{|game_team| game_team.result == "WIN"}
+def worst_coach(season) 
+  season_comparer = season[0..3]
+   losing_games_in_season = @game_teams.find_all do |game_team| 
+    game_id_comparer = game_team.game_id[0..3]
+    game_team.result == "LOSS" && season_comparer == game_id_comparer
+   end
    coach_count = {}
-   winning_games.each do |game|
+   losing_games_in_season.each do |game|
     if coach_count[game.head_coach].nil? 
       coach_count[game.head_coach] = 1
     else 
@@ -337,8 +335,8 @@ end
         total_scores_by_season[game.season] = 0
       end
       total_scores_by_season[game.season] += (game.away_goals+game.home_goals)
-    end
-    total_scores_by_season
+     end
+     total_scores_by_season
   end
 
   def teams_ids_season
