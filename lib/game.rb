@@ -28,61 +28,37 @@ class Game
     season_hash
   end
 
-  # GAME STATS: Percentage Category; Home wins, Away wins, Ties. EB
   def percentage_home_wins
     home_wins = 0
-    away_wins = 0
     total_games = 0
-    ties = 0
-    # The following could be a module that gets our basic data and the math on the last three lines would be the entire method.
     @game_data.each do |row|
       total_games += 1
       if row[:home_goals] > row[:away_goals]
         home_wins +=1
-      elsif row[:home_goals] == row[:away_goals]
-        ties += 1
-      else
-        away_wins += 1
       end
     end
     home_team_win_percent = (home_wins.to_f/total_games).round(2)
   end
 
-  # GAME STATS: Percentage Category; Home wins, Away wins, Ties. EB
   def percentage_visitor_wins
-    home_wins = 0
     away_wins = 0
     total_games = 0
-    ties = 0
-    # The following could be a module that gets our basic data and the math on the last three lines would be the entire method.
     @game_data.each do |row|
       total_games += 1
-      if row[:home_goals] > row[:away_goals]
-        home_wins +=1
-      elsif row[:home_goals] == row[:away_goals]
-        ties += 1
-      else
-        away_wins += 1
+      if row[:home_goals] < row[:away_goals]
+        away_wins +=1
       end
     end
     visitor_win_percent = (away_wins.to_f/total_games).round(2)
   end
 
-  # GAME STATS: Percentage Category; Home wins, Away wins, Ties. EB
   def percentage_ties
-    home_wins = 0
-    away_wins = 0
     total_games = 0
     ties = 0
-    # The following could be a module that gets our basic data and the math on the last three lines would be the entire method.
     @game_data.each do |row|
       total_games += 1
-      if row[:home_goals] > row[:away_goals]
-        home_wins +=1
-      elsif row[:home_goals] == row[:away_goals]
+      if row[:home_goals] == row[:away_goals]
         ties += 1
-      else
-        away_wins += 1
       end
     end
     tie_percent = (ties.to_f/total_games).round(2)
