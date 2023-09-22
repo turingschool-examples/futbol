@@ -213,7 +213,18 @@ class Stats
   end
 
   def total_goals_against(season_type, season_id, team_id)
+    total_goals_against = 0
 
+    @games_data.each do |game|
+      if game[:type] == season_type && game[:season] == season_id
+        if game[:away_team_id] == team_id 
+          total_goals_against += game[:home_goals].to_i
+        elsif game[:home_team_id] == team_id
+          total_goals_against += game[:away_goals].to_i
+        end
+      end
+    end
+    total_goals_against
   end
 
   def average_goals_scored(season_type, season_id, team_id)
