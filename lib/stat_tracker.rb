@@ -1,17 +1,18 @@
-
 # require_relative './spec_helper'
  require_relative './game'
  require_relative './game_team'
-
+ require_relative './teams'
 
 
 class StatTracker
-  attr_reader :locations, :teams_data, :game_data, :game_teams_data
+  attr_reader :locations, :team_data, :game_data, :game_teams_data
   
   def initialize(locations)
     @game_data = create_games(locations[:games])
     # require 'pry'; binding.pry
     @game_teams_data = create_game_teams(locations[:game_teams])
+    # require 'pry'; binding.pry
+    @team_data = create_teams(locations[:teams])
     # require 'pry'; binding.pry
     # @locations = locations 
     # @game_data = CSV.read locations[:games], headers: true, header_converters: :symbol
@@ -23,7 +24,7 @@ class StatTracker
     # require 'pry'; binding.pry
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     # data.map { |row| Game.new(row) } 
-    data.map do |row| 
+    data.map do |row|
     Game.new(row)
     end
   end
@@ -36,10 +37,16 @@ class StatTracker
     end
   end
 
+  def create_teams(path)
+    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
+    data.map do |row|
+      Team.new(row)
+    end
+  end
+
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
-  
   
   def percentage_calculator(portion, whole)
     percentage = (portion/whole).round(2)
@@ -64,8 +71,6 @@ class StatTracker
     average = total_goals.to_f / total_games.uniq.count
     average.round(2)
   end
-
-  
 
   def team_goals
     teams = @game_teams_data.group_by { |row| row.team_id}
@@ -126,4 +131,3 @@ end
 # end
 
 
-  
