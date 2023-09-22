@@ -150,9 +150,9 @@ RSpec.describe StatTracker do
       expect(@stats.most_tackles).to eq('FC Dallas')
     end
 
-    xit '#gets team with least tackles in a season' do
+    it '#gets team with least tackles in a season' do
       expect(@stats.fewest_tackles.class).to be String
-      expect(@stats.fewest_tackles).to eq (1)
+      expect(@stats.fewest_tackles).to eq ('New York City FC')
     end
   end
 end

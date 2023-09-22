@@ -324,4 +324,12 @@ class StatTracker
     end
     best_team.team_name
   end
+
+  def fewest_tackles
+    min_team_id = team_season_tackles.min_by { |team_id, tackles| tackles }[0]
+    worst_team = @teams.find do |team|
+      team.team_id == min_team_id
+    end
+    worst_team.team_name
+  end
 end
