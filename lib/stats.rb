@@ -193,18 +193,18 @@ class Stats
     game_count = 0 
     
     @games_data.each do |game|
-      if game[:type] == season_type && game[:season] == season_id && (game[:away_team_id] == team_id || game[:home_team_id] == team_id)
-        game_count += 1
-      elsif game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i
+      if game[:type] == season_type && game[:season] == season_id
+        if  game[:away_team_id] == team_id || game[:home_team_id] == team_id      
+          game_count += 1
+          if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i || 
+            game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i 
         winning_game_count += 1
-      elsif game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i 
-        winning_game_count += 1
+          end
+        end
       end
     end
 
-    if game_count !=0 
-      ((winning_game_count.to_f/game_count) * 100.0).round(2)
-    end
+    ((winning_game_count.to_f/game_count) * 100.0).round(2)
   end
 
   def total_goals_scored(team_id)
