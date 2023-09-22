@@ -98,18 +98,6 @@ class Game
     avg = (goals.to_f / games).round(2)
   end
 
-  # def average_goals_by_season
-  #   agbs = {}
-  #   seasons = []
-  #   @game_data.each do |row|
-  #     seasons << row[:season]
-  #   end
-  #   seasons = season.uniq
-  #   seasons.each do |season|
-  #     agbs[season] = 
-  #   end
-  # end
-
   def average_goals_by_season
     agbs = {}
     games_by_season1 = 0
@@ -125,7 +113,6 @@ class Game
     goals_by_season4 = 0
     goals_by_season5 = 0
     goals_by_season6 = 0
-    
     
     @game_data.each do |row|
     if row[:season] == "20122013"
