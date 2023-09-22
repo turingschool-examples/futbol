@@ -135,19 +135,64 @@ class StatTracker
   #   # row[:team_id]
   #   # row[:game_id]
   #   # row[:hoa]
+
+  def team_goals
+    teams = @game_teams_data.group_by { |row| row.team_id}
+    team_goals = Hash.new(0)
+    teams.each do |team, data_array|
+      goals = 0
+      data_array.each do |data|
+        goals += data.goals.to_i
+      end
+      team_goals[team] = goals
+    end
+    team_goals
+  end
   
-  # end
-    
-  #   #Turns it into hash
-  #   # teams = @game_teams_data.group_by { |row| row[:team_id]}
-  #   # # require 'pry'; binding.pry
 
-  #   #turns it into array
-  #   # teams.each do |row|
-  #   #   team_id = row.shift
-
-
-  #   # end 
-  # end
+  
+  def games_by_team(home_or_away)
+    teams = @game_teams_data.group_by { |row| row.team_id }
+    # require 'pry'; binding.pry
+    games = Hash.new
+    teams.each do |team, data_array|
+      game_location = data_array.select { |data| data.hoa == home_or_away }
+      games[team] = game_location.count
+    end
+    games
+  end
 end
+
+
+# combine both of these into one
+# def home_games_by_team
+#   teams = @game_teams_data.group_by { |row| row.team_id}
+#   games_at_home = Hash.new(0)
+#   teams.each do |team, data_array|
+#     home_games = []
+#     data_array.each do |data|
+#       if data.hoa == "home"
+#       home_games << data.game_id
+#       end
+#     end
+#     games_at_home[team] = home_games.count
+#   end
+#   games_at_home
+# end
+
+# def away_games_by_team
+#   teams = @game_teams_data.group_by { |row| row.team_id}
+#   games_not_at_home = Hash.new(0)
+#   teams.each do |team, data_array|
+#     away_games = []
+#     data_array.each do |data|
+#       if data.hoa == "away"
+#       away_games << data.game_id
+#       end
+#     end
+#     games_not_at_home[team] = away_games.count
+#   end
+#   games_not_at_home
+# end
+
 
