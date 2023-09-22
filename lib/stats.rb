@@ -162,7 +162,7 @@ class Stats
 
   ##== TEAM HELPERS ==##
 
-  # @return: { team_id: {subqueries} }
+  # @return: { team_id: {sub queries} }
   def teams_hash
     if @teams_hash.nil?
       @teams_hash = {}
