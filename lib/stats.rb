@@ -183,7 +183,7 @@ class Stats
   ##== SEASON SUMMARY HELPERS ==##
 
   def season_stats(season_type, season_id, team_id)
-    season_stats = Hash.new{}
+    season_stats = Hash.new({})
 
     season_stats[:win_percentage] = win_percentage(season_type, season_id, team_id)
     season_stats[:total_goals_scored] = total_goals_scored(season_type, season_id, team_id)
@@ -276,7 +276,6 @@ class Stats
       @teams_hash[:teams_info] = teams_info
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       @teams_hash[:seasonal_summaries] = seasonal_summaries
-
     end
 
     @teams_hash
