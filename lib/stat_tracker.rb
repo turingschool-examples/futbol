@@ -78,16 +78,6 @@ class StatTracker
 
   # end
   
-  
-      
-    
-    #sort season by team_id
-    #use teams csv team id, sort through teams and store tackles.sum in array
-    #find max value in array
-    #find team id that matches max value
-    #return team name and max value
-  
-
   def least_tackles
 
   end

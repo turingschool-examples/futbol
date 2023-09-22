@@ -17,6 +17,7 @@ class Team
     @@teams << self
   end
 
-def self.teams
-  @@teams
+  def self.teams
+    @@teams
+  end
 end
