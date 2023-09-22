@@ -31,7 +31,7 @@ RSpec.describe StatTracker do
     describe "#highest total score" do 
       it 'will find the highest sum of the winning and losing teams scores and return them as integers' do
         expect(stat_tracker.highest_total_score).to be_an(Integer)
-        expect(stat_tracker.highest_total_score).to eq(6)
+        expect(stat_tracker.highest_total_score).to eq(7)
       end 
     end
     describe "#lowest total score" do 
@@ -58,22 +58,22 @@ RSpec.describe StatTracker do
         expect(stat_tracker.percentage_ties).to  eq(2.00)
       end
     end
-    xdescribe '#count_of_games_by_season' do 
+    describe '#count_of_games_by_season' do 
       it 'will return a A hash with season names as keys and counts of games as values' do
         expect(stat_tracker.count_of_games_by_season).to be_a(Hash)
-        expect(stat_tracker.count_of_games_by_season).to eq({20122013 => 9, 20132014 => 1})
+        expect(stat_tracker.count_of_games_by_season).to eq({20122013=>57, 20162017=>4, 20142015=>6, 20152016=>6})
       end
     end
-    xdescribe '#average_goals_per_game' do 
+    describe '#average_goals_per_game' do 
       it 'will return the average number of goals scored accross all seasons including both home and away goals' do 
         expect(stat_tracker.average_goals_per_game).to be_a(Float)
-        expect(stat_tracker.average_goals_per_game).to eq()
+        expect(stat_tracker.average_goals_per_game).to eq(3.95)
       end
     end
     describe '#average_goals_by_season' do 
       it 'will return a hash with season names as keys, and a float representing the average number of goals in a game for that season as values' do
         expect(stat_tracker.average_goals_by_season).to be_a(Hash)
-        expect(stat_tracker.average_goals_by_season).to eq({20122013=>3.9})
+        expect(stat_tracker.average_goals_by_season).to eq({20122013=>3.86, 20162017=>3.92, 20142015=>3.88, 20152016=>3.95})
       end
     end
   end
@@ -81,19 +81,19 @@ RSpec.describe StatTracker do
     xdescribe '#count_of_teams' do 
       it 'will return an integer with the total number of teams in the data' do
         expect(stat_tracker.count_of_teams).to be_a(Integer)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.count_of_teams).to eq(32)
       end
     end
-    xdescribe '#best_offense' do 
+    describe '#best_offense' do 
       it 'will return a string with the name of the team with the highest average number of goals scored per game across all seasons' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        expect(stat_tracker.best_offense).to be_a(String)
+        expect(stat_tracker.best_offense).to eq("New York City FC")
       end
     end
-    xdescribe '#worst_offense' do 
+    describe '#worst_offense' do 
       it 'will return a string with the name of the team with the lowest average number of goals scored per game across all seasons' do
-        expect(stat_tracker.count_of_teams).to be_a(String)
-        expect(stat_tracker.count_of_teams).to eq()
+        # expect(stat_tracker.worst_offense).to be_a(String)
+        expect(stat_tracker.worst_offense).to eq("Houston Dynamo")
       end
     end
     describe '#highest_scoring_visitor' do 
@@ -119,6 +119,50 @@ RSpec.describe StatTracker do
         expect(stat_tracker.lowest_scoring_home_team).to be_a(String)
         expect(stat_tracker.lowest_scoring_home_team).to eq("Houston Dynamo")
       end
+    end
+  end
+
+  context 'Season Statistic Methods' do
+    describe "#winningest_coach" do 
+      it 'will find the coach with the highest win percentage' do
+        expect(stat_tracker.winningest_coach(20122013)).to be_an(String)
+        expect(stat_tracker.winningest_coach(20122013)).to eq("Claude Julien")
+      end 
+    end
+
+    describe "#worst_coach" do 
+      it 'will find the coach with the lowest win percentage' do
+        expect(stat_tracker.worst_coach(20122013)).to be_an(String)
+        expect(stat_tracker.worst_coach(20122013)).to eq("John Tortorella")
+      end 
+    end
+
+    describe "#most_accurate_team" do 
+      it 'will find the team with best shots to goals ratio for the season' do
+        expect(stat_tracker.most_accurate_team(20122013)).to be_an(String)
+        expect(stat_tracker.most_accurate_team(20122013)).to eq("Sporting Kansas City")
+      end 
+    end
+
+    describe "#least_accurate_team" do 
+      it 'will find the team with worst shots to goals ratio for the season' do
+        expect(stat_tracker.least_accurate_team(20122013)).to be_an(String)
+        expect(stat_tracker.least_accurate_team(20122013)).to eq("FC Cincinnati")
+      end 
+    end
+
+    describe "#most_tackles" do 
+      it 'will find the team with the most tackles in the season' do
+        expect(stat_tracker.most_tackles(20122013)).to be_an(String)
+        expect(stat_tracker.most_tackles(20122013)).to eq("Sporting Kansas City")
+      end 
+    end
+
+    describe "#fewest_tackles" do 
+      it 'will find the team with the fewest tackles in the season' do
+        expect(stat_tracker.fewest_tackles(20122013)).to be_an(String)
+        expect(stat_tracker.fewest_tackles(20122013)).to eq("FC Cincinnati")
+      end 
     end
   end
 end 
