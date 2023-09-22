@@ -10,6 +10,7 @@ RSpec.describe StatTracker do
       games: game_path,
       teams: team_path,
       game_teams: game_teams_path
+      
     }
     @game_stats = StatTracker.new(@locations)
   end
@@ -29,10 +30,9 @@ RSpec.describe StatTracker do
   end 
 
 
-  xdescribe '#Tackles' do
-    it 'finds most number of tackles' do
-      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  describe '#Tackles' do
+    xit 'finds most number of tackles' do
+      expect(@game_stats.most_tackles).to eq(95)
     end
 
     xit 'finds least number of tackles' do
@@ -44,6 +44,24 @@ RSpec.describe StatTracker do
     it 'will find the average goals' do
       expect(@game_stats.average_goals_per_game).to eq(3.67)
       # expect(@game_stats.average_goals_per_game).to eq(4.22)
+    end
+  end
+
+  describe "#team_goals" do 
+    it 'will find the amount of goals per team' do
+      expect(@game_stats.team_goals).to be_instance_of(Hash)
+      expect(@game_stats.team_goals).to eq({"3"=>8, "6"=>24, "5"=>2, "17"=>6, "16"=>4})
+    end
+  end
+  
+  describe "#games_by_team" do 
+    it 'will find the amount of home games per team' do
+      expect(@game_stats.games_by_team("home")).to be_instance_of(Hash)
+      expect(@game_stats.games_by_team("home")).to eq({"3"=>2, "6"=>5, "5"=>2, "17"=>1, "16"=>2})
+    end
+    it 'will find the amount of away games per team' do
+      expect(@game_stats.games_by_team("away")).to be_instance_of(Hash)
+      expect(@game_stats.games_by_team("away")).to eq({"3"=>3, "6"=>4, "5"=>2, "17"=>2, "16"=>1})
     end
   end
   
