@@ -232,8 +232,8 @@ class StatTracker
 
   def lowest_scoring_home_team
     lowest_scoring = ""
-    home_teams = games_and_scores.select { |team_id, data| home_team?(team_id) }
-    lowest_avg = home_teams.sort_by { |team, data| data[:average] }.first[0]
+    home_team_scores = games_and_scores.select { |team_id, data| home_team?(team_id) }
+    lowest_avg = home_team_scores.sort_by { |team, data| data[:average] }.first[0]
 
     team_data.each do |team|
       if team[:team_id] == lowest_avg
@@ -292,7 +292,6 @@ class StatTracker
     end
     total_score
   end
-      
 
   def lowest_scoring_visitor
     lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
@@ -338,6 +337,23 @@ class StatTracker
   end
 
 
+  def winningest_coach(season)
+    coach_stats = Hash.new { |hash, coach_name| hash[coach_name] = { wins: 0, games: 0 } }
+    game_teams.each do |game_team|
+      game_id = game_team[:game_id]
+      coach = game_team[:head_coach]
+      result = game_team[:result]
+      if (games = game.find { |g| g[:game_id] == game_team[:game_id] && g[:season] == season })
+        coach_stats[coach][:wins] += 1 if result == "WIN"
+        coach_stats[coach][:games] += 1
+      end
+    end
+    coach_win_percentages = coach_stats.transform_values do |stats|
+      (stats[:wins].to_f / stats[:games]).round(2)
+    end
+    coach_win_percentages.key(coach_win_percentages.values.max)
+  end
+
   def season_accuracy_hash(season)
     shots_by_team = {}
     team_data.each do |team|
@@ -381,7 +397,7 @@ class StatTracker
   def season_game_teams(season)
     season_array = games_by_season[season]
     game_teams.find_all { |game| season_array.include?(game[:game_id]) }
-
+  end
 
   def least_accurate_team(season_number)
     least_accurate = ""
@@ -436,7 +452,7 @@ class StatTracker
       end
     end
     season_games_both_teams
-
   end
+
 end
 

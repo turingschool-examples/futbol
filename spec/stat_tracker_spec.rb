@@ -133,18 +133,17 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#home_team?(team_id)' do
-  #   xit '' do
-  #     expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
-  #   end
-  # end
-
   describe '#lowest_scoring_home_team' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
       expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
     end
   end
-  # Add test for lowest scoring home team helper method
+
+  describe '#home_team?(team_id)' do
+    it 'returns an array of all the home games for a given team' do
+      expect(stat_tracker.home_team?('1')).to be_a(Array)
+    end
+  end
 
   describe '#lowest_scoring_visitor' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
@@ -152,6 +151,13 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#winningest_coach(season)' do
+    it 'returns name of the coacg with the best win percentage for the season' do
+      expect(stat_tracker.winningest_coach('20122013')).to eq('Peter DeBoer')
+      expect(stat_tracker.winningest_coach('20132014')).to eq('Craig Berube')
+      expect(stat_tracker.winningest_coach('20142015')).to eq('Alain Vigneault')
+    end
+  end
 
   describe '#most_accurate_team' do
     it 'returns name of the team with the highest percentage of goals made vs. shots taken' do
@@ -160,9 +166,6 @@ RSpec.describe StatTracker do
       expect(stat_tracker.most_accurate_team("20142015")).to eq('Houston Dynamo')
     end
   end
-
-
-
 
   describe '#least_accurate_team' do
     it 'list least accurate team' do
@@ -202,3 +205,4 @@ RSpec.describe StatTracker do
   end
 
 end
+
