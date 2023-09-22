@@ -168,6 +168,23 @@ class Season
       end
     end    
   end
+
+  def least_accurate_team(season)
+    accuracy = Hash.new(0)
+
+    shots_accurate_team(season).each do |team, attempts|
+      goals_made = goals_accurate_team(season)[team]
+      ratio = (goals_made / attempts.to_f)
+      accuracy[team] = ratio
+    end
+    least_accurate = accuracy.min_by { |team_id, ratio| ratio }
+
+    @team_data.each do |team_row|
+      if team_row[:team_id] == least_accurate[0]
+        return team_row[:team_name]
+      end
+    end    
+  end
 end
 
 
