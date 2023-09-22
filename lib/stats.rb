@@ -160,15 +160,20 @@ class Stats
 
 
   ## SEASONAL SUMMARY AND HELPERS ## 
-  # def seasonal_summary(team_id) ##WORK IN PROGRESS
-  #   seasonal_summary = Hash.new(0)
-  #     @games_data.each do |game|
-  #       seasonal_summary[game[:season_id]] = {[:regular_season] = season_stats("Regular Season", game[:season_id], team_id), [:post_season] = season_stats("Postseason", game[:season_id], team_id)}
-  #     end
-  #   end
+  def seasonal_summary(team_id) ##WORK IN PROGRESS
+    seasonal_summary = Hash.new { |hash, key| hash[key] = {} }
 
-  #   seasonal_summary
-  # end
+    #create an hash of unique season ID's(pre/post season) for the the team ID, 
+    #plug season into season stats
+    #assemble into hash
+      @games_data.each do |game|
+         seasonal_summary[game[:season_id]] => {[:regular_season] => season_stats("Regular Season", game[:season_id], team_id) 
+        [:post_season] => season_stats("Postseason", game[:season_id], team_id)}
+      end
+    
+
+    seasonal_summary
+  end
 
   ##== SEASON SUMMARY HELPERS ==##
 
