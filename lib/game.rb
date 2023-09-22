@@ -16,7 +16,7 @@ class Game
     @game_id = attributes[:game_id]
     @season = attributes[:season]
     @type = attributes[:type]
-    @date_time = attributes[:date_type]
+    @date_time = attributes[:date_time]
     @away_team_id = attributes[:away_team_id]
     @home_team_id = attributes[:home_team_id]
     @away_goals = attributes[:away_goals]
