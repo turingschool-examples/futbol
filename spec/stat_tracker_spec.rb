@@ -85,6 +85,10 @@ RSpec.describe StatTracker do
   end
 
   describe '#best_offense, #worst_offense' do
+    it 'gets game_teams list' do
+      expect(@stats.game_team_ids).to eq(['3', '6', '5', '28', '19', '8', '9'])
+    end
+
     it 'gets number games each team played in all seasons' do
       expect(@stats.team_games_league_total.class).to be Hash
       expect(@stats.team_games_league_total['3']).to eq(10)
@@ -100,18 +104,8 @@ RSpec.describe StatTracker do
       expect(@stats.avg_team_goals_league['3']).to eq(2.2)
     end
 
-    it 'team id(s) with highest avg goals per game in all seasons' do
-      expect(@stats.max_avg_team_goals_league.class).to be Hash
-      expect(@stats.max_avg_team_goals_league).to eq({'52'=>3.0})
-    end
-
-    it 'team id(s) with lowest avg goals per game in all seasons' do
-      expect(@stats.min_avg_team_goals_league.class).to be Hash
-      expect(@stats.min_avg_team_goals_league).to eq({'5'=>1.33})
-    end
-
     it 'returns team(s) with highest avg goals per game' do
-      expect(@stats.best_offense).to eq('Portland Thorns FC')
+      expect(@stats.best_offense).to eq('FC Dallas')
     end
 
     it 'returns team(s) with lowest avg goals per game' do
@@ -140,7 +134,7 @@ RSpec.describe StatTracker do
       expect(@stats.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
-
+  
    it 'returns name of the Coach with the best win percentage for the season' do 
       expect(@stats.winningest_coach.class).to be String
       expect(@stats.winningest_coach).to eq("Claude Julien")
@@ -149,4 +143,25 @@ RSpec.describe StatTracker do
    it 'returns name of the Coach with the worst win percentage for the season' do
      expect(@stats.worst_coach).to eq("Guy Boucher")
    end
+  
+   describe '#most_tackles, #fewest_tackles' do
+    it 'list of teams who played in a season' do
+      expect(@stats.teams_ids_season).to eq(['3', '6', '5', '28', '19', '8', '9'])
+    end
+
+    it 'list of tackles for teams' do
+      expect(@stats.team_season_tackles('20122013').class).to be Hash
+      expect(@stats.team_season_tackles('20122013')['3']).to eq(179)
+    end
+
+    it '#gets team with most tackles in a season' do
+      expect(@stats.most_tackles('20122013').class).to be String
+      expect(@stats.most_tackles('20122013')).to eq('FC Dallas')
+    end
+
+    it '#gets team with least tackles in a season' do
+      expect(@stats.fewest_tackles('20122013').class).to be String
+      expect(@stats.fewest_tackles('20122013')).to eq ('Sporting Kansas City')
+    end
+  end
 end
