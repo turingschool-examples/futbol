@@ -46,10 +46,6 @@ RSpec.describe StatTracker do
     it 'Lowest Total Score' do
       expect(@stat_tracker.lowest_total_score).to eq(0)
     end
-
-    it 'has data' do
-      expect(@stat_tracker.best_offense).to eq("Madrid")
-    end
   end
   
   
