@@ -168,6 +168,7 @@ class Stats
       @teams_hash = {}
 
       @teams_hash[:team_info] = team_info
+      @teams_hash[:win_pct_opp] = win_pct_opp
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       # @teams_hash[:seasonal_summary] = seasonal_summary
 
@@ -178,6 +179,10 @@ class Stats
   end
 
   def team_info
+
+  end
+
+  def win_pct_opp
 
   end
 
