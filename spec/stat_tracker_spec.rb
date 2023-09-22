@@ -133,24 +133,24 @@ RSpec.describe StatTracker do
     end
   end
 
-  # describe '#home_team?(team_id)' do
-  #   xit '' do
-  #     expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
-  #   end
-  # end
-
   describe '#lowest_scoring_home_team' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
       expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
     end
   end
-  # Add test for lowest scoring home team helper method
+
+  describe '#home_team?(team_id)' do
+    it 'returns an array of all the home games for a given team' do
+      expect(stat_tracker.home_team?('1')).to be_a(Array)
+    end
+  end
 
   describe '#lowest_scoring_visitor' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
       expect(stat_tracker.lowest_scoring_visitor).to eq('Chicago Fire')
     end
   end
+
 
   describe '#most_tackles(season)' do
     it 'returns name of the team with the most tackles in the season' do
@@ -168,4 +168,67 @@ RSpec.describe StatTracker do
     end
   end
 
+
+
+  describe '#worst_coach(season)' do
+    it 'returns name of the coach with the worst win percentage for the season' do
+      expect(stat_tracker.worst_coach('20122013')).to eq('Peter Laviolette')
+      expect(stat_tracker.worst_coach('20132014')).to eq('Jack Capuano')
+      expect(stat_tracker.worst_coach('20142015')).to eq('Peter DeBoer')
+    end
+  end
+
+  describe '#winningest_coach(season)' do
+    it 'returns name of the coacg with the best win percentage for the season' do
+      expect(stat_tracker.winningest_coach('20122013')).to eq('Peter DeBoer')
+      expect(stat_tracker.winningest_coach('20132014')).to eq('Craig Berube')
+      expect(stat_tracker.winningest_coach('20142015')).to eq('Alain Vigneault')
+    end
+  end
+
+  describe '#most_accurate_team' do
+    it 'returns name of the team with the highest percentage of goals made vs. shots taken' do
+      expect(stat_tracker.most_accurate_team("20122013")).to eq('Atlanta United')
+      expect(stat_tracker.most_accurate_team("20132014")).to eq('Chicago Fire')
+      expect(stat_tracker.most_accurate_team("20142015")).to eq('Houston Dynamo')
+    end
+  end
+
+  describe '#least_accurate_team' do
+    it 'list least accurate team' do
+      expect(stat_tracker.least_accurate_team("20122013")).to eq("Seattle Sounders FC")
+    end
+  end
+
+  describe '#teams_shots_goals_ratio' do
+    it 'returns a hash of team id and total score to total shot ratio' do
+      expected = {
+        "1" => {:ratio => 0.38},
+        "2"=> {:ratio => 0.23},
+        "3"=> {:ratio => 0.28},
+        "4"=> {:ratio => 0.27},
+      }
+      expect(stat_tracker.teams_shots_goals_ratio("20122013")).to eq(expected)
+    end
+  end
+  
+  describe '#season_total_goals' do
+    it 'returns total goals made by a team' do
+      expect(stat_tracker.season_total_goals("1", "20122013")).to eq(5)
+    end
+  end
+  
+  describe '#season_total_shots' do
+    it 'returns total shots made by a team' do
+      expect(stat_tracker.season_total_shots("1", "20122013")).to eq(13)
+    end
+  end
+
+  describe '#season' do
+    it 'returns list of games in that season' do
+      expect(stat_tracker.season("20122013").class).to eq(Array)
+      expect(stat_tracker.season("20122013").first[:game_id]).to eq("2012020122")
+    end
+  end
 end
+
