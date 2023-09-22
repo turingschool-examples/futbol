@@ -1,7 +1,7 @@
 require "csv"
 require "stats"
 
-class StatTracker < Stats  
+class StatTracker < Stats
   def self.from_csv(locations)
     games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
@@ -15,7 +15,7 @@ class StatTracker < Stats
   end
 
   ###=== GAME QUERIES ===###
-  
+
   def highest_total_score
     total_scores.max
   end
@@ -158,5 +158,3 @@ class StatTracker < Stats
   end
   ###=== TEAM QUERIES ===###
 end
-
-#

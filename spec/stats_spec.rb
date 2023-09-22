@@ -81,6 +81,5 @@ RSpec.describe Stats do
       expect(@stat_tracker.goal_diffs["1"].max).to eq 2
     end
   end
-  
   ##== TEAM ==##
 end
