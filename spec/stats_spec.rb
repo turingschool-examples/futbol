@@ -116,8 +116,25 @@ RSpec.describe Stats do
 
   describe "#season_stats" do
     it "creates a new hash of season stats" do
+      expected = {:average_goals_against=>1.6, 
+      :average_goals_scored=>2.8, 
+      :total_goals_against=>8, 
+      :total_goals_scored=>14, 
+      :win_percentage=>100.0}
       expect(@stat_tracker.season_stats("Postseason", "20122013", "6")).to be_a Hash
-      expect(@stat_tracker.season_stats("Postseason", "20122013", "6")).to eq({:average_goals_against=>1.6, :average_goals_scored=>2.8, :total_goals_against=>8, :total_goals_scored=>14, :win_percentage=>100.0})
+      expect(@stat_tracker.season_stats("Postseason", "20122013", "6")).to eq(expected)
+    end
+  end
+
+  describe "#seasonal_summaries" do
+    it "creates a new hash of seasonal stats" do
+      expected = {:average_goals_against=>1.6, 
+      :average_goals_scored=>2.8, 
+      :total_goals_against=>8, 
+      :total_goals_scored=>14, 
+      :win_percentage=>100.0}
+      expect(@stat_tracker.seasonal_summaries["6"]).to be_a Hash
+      expect(@stat_tracker.seasonal_summaries["6"]).to eq(expected)
     end
   end
 end

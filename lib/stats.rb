@@ -160,24 +160,29 @@ class Stats
 
 
   ## SEASONAL SUMMARY AND HELPERS ## 
-  def seasonal_summary(team_id) ##WORK IN PROGRESS
-    seasonal_summary = Hash.new { |hash, key| hash[key] = {} }
+  def seasonal_summaries
 
+    #seasonal summary {team_id: {season: {reg season: , post season: {win percengtae: float, total_goals_scored: int, total_goals_against: int, avg goals scored: float, avg goals against: float}} } }
+    seasonal_summaries = Hash.new { |hash, key| hash[key] = {} }
+    season_ids = @games_data.map { |game| game[:season] }.uniq
+
+    @teams_data.each do |team|
+      team_id = team[:team_id]
+      season_ids.each do |season_id|
+        seasonal_summaries[team_id] = {season_id => {:regular_season => season_stats("Regular Season", season_id, team_id),
+        :post_season => season_stats("Postseason", season_id, team_id)}}
+      end
+    end
     #create an hash of unique season ID's(pre/post season) for the the team ID, 
     #plug season into season stats
     #assemble into hash
-      @games_data.each do |game|
-         seasonal_summary[game[:season_id]] => {[:regular_season] => season_stats("Regular Season", game[:season_id], team_id) 
-        [:post_season] => season_stats("Postseason", game[:season_id], team_id)}
-      end
-    
-
-    seasonal_summary
+    require 'pry'; binding.pry
+    seasonal_summaries
   end
 
   ##== SEASON SUMMARY HELPERS ==##
 
-  def season_stats(season_type,season_id, team_id)
+  def season_stats(season_type, season_id, team_id)
     season_stats = Hash.new{}
 
     season_stats[:win_percentage] = win_percentage(season_type, season_id, team_id)
@@ -269,7 +274,7 @@ class Stats
 
       @teams_hash[:team_info] = team_info
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
-      @teams_hash[:seasonal_summary] = seasonal_summary
+      @teams_hash[:seasonal_summaries] = seasonal_summaries
 
     end
 
