@@ -152,6 +152,18 @@ RSpec.describe StatTracker do
     end
   end
 
+
+  describe '#most_accurate_team' do
+    it 'returns name of the team with the highest percentage of goals made vs. shots taken' do
+      expect(stat_tracker.most_accurate_team("20122013")).to eq('Atlanta United')
+      expect(stat_tracker.most_accurate_team("20132014")).to eq('Chicago Fire')
+      expect(stat_tracker.most_accurate_team("20142015")).to eq('Houston Dynamo')
+    end
+  end
+
+
+
+
   describe '#least_accurate_team' do
     it 'list least accurate team' do
       expect(stat_tracker.least_accurate_team("20122013")).to eq("Seattle Sounders FC")
@@ -188,4 +200,5 @@ RSpec.describe StatTracker do
       expect(stat_tracker.season("20122013").first[:game_id]).to eq("2012020122")
     end
   end
+
 end

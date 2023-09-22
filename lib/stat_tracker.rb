@@ -299,6 +299,11 @@ class StatTracker
     team_data.find { |row| row[:team_id] == lowest }[:teamname]
   end
 
+  def most_accurate_team(season)
+    best = season_accuracy_hash(season).sort_by { |team, data| data[:accuracy] }.last[0]
+    team_data.find { |row| row[:team_id] == best }[:teamname]
+  end
+
   def away_games_and_scores
     away_games_hash = {}
     team_data.each do |team|
@@ -331,6 +336,51 @@ class StatTracker
   def away_team?(row)
     row[:hoa] == 'away'
   end
+
+
+  def season_accuracy_hash(season)
+    shots_by_team = {}
+    team_data.each do |team|
+      shots_by_team[team[:team_id]] = {
+        shots: season_shots(team[:team_id], season),
+        goals: season_score_for_teams(team[:team_id], season),
+        accuracy: (season_score_for_teams(team[:team_id], season).to_f/ season_shots(team[:team_id], season))
+      }
+    end
+    shots_by_team
+  end
+  
+  def season_shots(team, season)
+    total_shots = 0
+    season_game_teams(season).each do |game|
+      if game[:team_id] == team
+        total_shots += game[:shots].to_i
+      end 
+    end
+    total_shots
+  end
+
+  def season_score_for_teams(team, season)
+    total_score = 0
+    season_game_teams(season).each do |game|
+      if game[:team_id] == team
+        total_score += game[:goals].to_i
+      end 
+    end
+    total_score
+  end
+
+  def games_by_season
+    games_by_season_hash = Hash.new([])
+    game.each do |one_game|
+      games_by_season_hash[one_game[:season]] += [one_game[:game_id]]
+    end
+    games_by_season_hash
+  end
+
+  def season_game_teams(season)
+    season_array = games_by_season[season]
+    game_teams.find_all { |game| season_array.include?(game[:game_id]) }
 
 
   def least_accurate_team(season_number)
@@ -386,6 +436,7 @@ class StatTracker
       end
     end
     season_games_both_teams
+
   end
 end
 
