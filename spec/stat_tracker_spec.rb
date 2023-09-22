@@ -152,6 +152,24 @@ RSpec.describe StatTracker do
   end
 
 
+  describe '#most_tackles(season)' do
+    it 'returns name of the team with the most tackles in the season' do
+      expect(stat_tracker.most_tackles("20122013")).to eq('Seattle Sounders FC')
+      expect(stat_tracker.most_tackles("20132014")).to eq('Houston Dynamo')
+      expect(stat_tracker.most_tackles("20142015")).to eq('Chicago Fire')
+    end
+  end
+
+  describe '#fewest_tackles(season)' do
+    it 'returns name of the team with the fewest tackles in the season' do
+      expect(stat_tracker.fewest_tackles("20122013")).to eq('Chicago Fire')
+      expect(stat_tracker.fewest_tackles("20132014")).to eq('Atlanta United')
+      expect(stat_tracker.fewest_tackles("20142015")).to eq('Houston Dynamo')
+    end
+  end
+
+
+
   describe '#worst_coach(season)' do
     it 'returns name of the coach with the worst win percentage for the season' do
       expect(stat_tracker.worst_coach('20122013')).to eq('Peter Laviolette')
@@ -213,3 +231,4 @@ RSpec.describe StatTracker do
     end
   end
 end
+

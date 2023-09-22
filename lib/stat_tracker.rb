@@ -336,6 +336,38 @@ class StatTracker
     row[:hoa] == 'away'
   end
 
+
+  def most_tackles(season)
+    most = season_tackle_hash(season).sort_by { |team, data| data[:tackles] }.last[0]
+    team_data.find { |row| row[:team_id] == most }[:teamname]
+  end
+  
+  def fewest_tackles(season)
+    fewest = season_tackle_hash(season).sort_by { |team, data| data[:tackles] }.first[0]
+    team_data.find { |row| row[:team_id] == fewest }[:teamname]
+  end
+  
+  def season_tackle_hash(season)
+    tackles_by_team = {}
+    team_data.each do |team|
+      tackles_by_team[team[:team_id]] = {
+        tackles: season_tackles(team[:team_id], season)
+      }
+    end
+    tackles_by_team
+  end
+  
+  def season_tackles(team, season)
+    total_tackles = 0
+    season_game_teams(season).each do |game|
+      if game[:team_id] == team
+        total_tackles += game[:tackles].to_i
+      end 
+    end
+    total_tackles
+  end
+
+
   def winningest_coach(season)
     coach_stats = Hash.new { |hash, coach_name| hash[coach_name] = { wins: 0, games: 0 } }
     game_teams.each do |game_team|
@@ -474,5 +506,6 @@ class StatTracker
     end
     season_games_both_teams
   end
+
 end
 
