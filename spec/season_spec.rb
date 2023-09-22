@@ -33,12 +33,12 @@ RSpec.describe Season do
     expect(@season.coach_wins("20132014")["Joel Quenneville"]).to eq(47)
   end
   #These two tests pass: They take awhile to run so be patient when uncommenting.  
-  xit "#winningest_coach" do
+  it "#winningest_coach" do
     expect(@season.winningest_coach("20132014")).to eq "Claude Julien"
     expect(@season.winningest_coach("20142015")).to eq "Alain Vigneault"
   end
   #These two tests pass: They take awhile to run so be patient when uncommenting.
-  xit "#worst_coach" do
+  it "#worst_coach" do
     expect(@season.worst_coach("20132014")).to eq "Peter Laviolette"
     expect(@season.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end

@@ -19,29 +19,29 @@ RSpec.describe StatTracker do
     @game = Game.new(@stat_tracker.game_data)
   end
 
-  # it "exists" do
-  #   expect(@stat_tracker).to be_an_instance_of StatTracker
-  # end
+  it "exists" do
+    expect(@stat_tracker).to be_an_instance_of StatTracker
+  end
 
-  # it "#highest_total_score" do
-  #   expect(@game.highest_total_score).to eq 11
-  # end
+  it "#highest_total_score" do
+    expect(@game.highest_total_score).to eq 11
+  end
 
-  # it "#lowest_total_score" do
-  #   expect(@game.lowest_total_score).to eq 0
-  # end
+  it "#lowest_total_score" do
+    expect(@game.lowest_total_score).to eq 0
+  end
 
-  # it "#percentage_home_wins" do
-  #   expect(@game.percentage_home_wins).to eq 0.44
-  # end
+  it "#percentage_home_wins" do
+    expect(@game.percentage_home_wins).to eq 0.44
+  end
 
-  # it "#percentage_visitor_wins" do
-  #   expect(@game.percentage_visitor_wins).to eq 0.36
-  # end
+  it "#percentage_visitor_wins" do
+    expect(@game.percentage_visitor_wins).to eq 0.36
+  end
 
-  # it "#percentage_ties" do
-  #   expect(@game.percentage_ties).to eq 0.20
-  # end
+  it "#percentage_ties" do
+    expect(@game.percentage_ties).to eq 0.20
+  end
 
   it "#count_of_games_by_season" do
     expected = {
