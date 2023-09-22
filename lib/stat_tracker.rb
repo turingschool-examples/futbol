@@ -14,8 +14,6 @@ class StatTracker
     game_data = CSV.open(locations[:games], headers: true, header_converters: :symbol)
     team_data = CSV.open(locations[:teams], headers: true, header_converters: :symbol)
     
-    # stat_tracker = StatTracker.new(game_data, team_data, game_team_data)
-    
     new(game_data, team_data, game_team_data)
   end
 
@@ -38,6 +36,7 @@ class StatTracker
 
     data.each do |row|
       game_teams_hash = {}
+      game_teams_hash[:game_id] = row[:game_id]
       game_teams_hash[:team_id] = row[:team_id]
       game_teams_hash[:hoa] = row[:hoa]
       game_teams_hash[:result] = row[:result]
@@ -45,6 +44,7 @@ class StatTracker
       game_teams_hash[:goals] = row[:goals]
       game_teams_hash[:shots] = row[:shots]
       game_teams_hash[:tackles] = row[:tackles]
+      game_teams_hash[:game_id] = row[:game_id]
 
       game_team_data << game_teams_hash
     end
