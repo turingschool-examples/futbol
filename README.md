@@ -11,7 +11,7 @@
 
 ![Example of Trello](https://i.ibb.co/C6CXfFD/Screenshot-2023-09-18-at-6-56-26-PM.png)
 - Project is divided into Iterations as well as check-lists that will be updated as the team progresses through, due to the large number of methods required we plan to begin this project in-sync for the first few methods then divide the workload (~5-6 methods) for Iteration II
-- For Iteration III, we will refactor with one another, which is where Tuple may be a helpful resource for us!
+- For Iteration III, we will refactor with one another,!
 
 #### A 2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
 We started off with researching each recommended method (Github Projects or Trello) and decided we liked the aesthetic and user interface of Trello because it felt easier to navigate. All of us in our previous paired projects had a more relaxed approach without the use of a workspace template and felt that this was a better approach to stay on-task and to continue efficient workflow with an expanded team.
@@ -22,7 +22,7 @@ The project will be separated into 4 conceptual classes including stat_tracker, 
 In regards to reorganization/refactoring, we plan to do this in Iteration III once the code is fully functional with use of inheritance, modules, and potentially clas methods. 
 
 #### Include link to your initial DTR document and the date it was completed. If you do additional DTRs later in the project, you should link the revised versions here as well with the date. New versions should be listed alongside older versions. Do not delete old DTRs.
-[DTR Document Completed by Team on September 18](https://docs.google.com/document/d/1HorUl1ZL4QoMXSVY2KQb0VZOctS4juJ0sL8aV9hGTBg/edit?usp=sharing)
+[DTR Document Completed by Team on September 18, Updated September 21 for 1 Week Check-In](https://docs.google.com/document/d/1HorUl1ZL4QoMXSVY2KQb0VZOctS4juJ0sL8aV9hGTBg/edit?usp=sharing)
 
 
 #### Create a section in your README called “Contributors”. List each group member’s name and link to their LinkedIn and Github profiles.
@@ -30,5 +30,5 @@ In regards to reorganization/refactoring, we plan to do this in Iteration III on
 | ----------- |   --------    |    --------  |
 | Anthea Yur  | [antheayur](https://www.linkedin.com/in/antheayur/) | [chisPmama](https://github.com/chisPmama)|
 | Nurudeen Sulaimon | [nurudeen-sulaimon](https://www.linkedin.com/in/nurudeen-sulaimon/) | [nurudeensulaimon](https://github.com/nurudeensulaimon) |
-| Samuel Tran | [sam-t-tran](www.linkedin.com/in/sam-t-tran)| [Sykogst](https://github.com/Sykogst)|
+| Samuel Tran | [sam-t-tran](https://www.linkedin.com/in/sam-t-tran/)| [Sykogst](https://github.com/Sykogst)|
 | Shawn Carpenter | [shawndcarpenter](https://www.linkedin.com/in/shawndcarpenter/)| [shawndcarpenter](https://github.com/shawndcarpenter)

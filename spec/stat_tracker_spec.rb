@@ -152,7 +152,6 @@ RSpec.describe StatTracker do
     it 'can return the least accurate team of the season by name' do
       expect(@stats.least_accurate_team('20122013').class).to be String
       expect(@stats.least_accurate_team('20122013')).to eq("Sporting Kansas City")
-      binding.pry
     end
   end
   
