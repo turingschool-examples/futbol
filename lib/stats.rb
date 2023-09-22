@@ -281,6 +281,8 @@ class Stats
 
       @teams_hash[:teams_info] = teams_info
       @teams_hash[:win_pct] = win_pct
+      @teams_hash[:team_goals] = nil
+      @teams_hash[:win_pct_opp] = win_pct_opp
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       @teams_hash[:seasonal_summaries] = seasonal_summaries
     end
@@ -304,18 +306,6 @@ class Stats
     team_info_hash
   end
 
-  # Each game record has home and away team_id, each iteration will add values to two keys
-  # @return: array of all goal differentials
-  def goal_diffs
-    goal_diffs = Hash.new { |hash, key| hash[key] = [] }  # {team_id: [goal_diffs]}
-    @games_data.each do |game|
-      goal_diffs[game[:home_team_id]] << game[:home_goals].to_i - game[:away_goals].to_i
-      goal_diffs[game[:away_team_id]] << game[:away_goals].to_i - game[:home_goals].to_i
-    end
-
-    goal_diffs
-  end
-
   def percent_wins
     # {team_id: {season: win percentage, season: win percentage}}
     percent_wins = Hash.new { |hash, key| hash = {} }
@@ -330,7 +320,7 @@ class Stats
         game_count = 0
 
         @games_data.each do |game|
-          if season_id == game[:season] 
+          if season_id == game[:season]
             if team_id == game[:home_team_id] || team_id == game[:away_team_id]
               game_count += 1
               if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i || \
@@ -380,6 +370,54 @@ class Stats
     end
 
     average_wins
+  end
+
+  def win_pct_opp
+    win_pct_opp = Hash.new { |hash, key| hash[key] = {} }  # {team_id: {head_to_head: {opp: win_pct},
+    #                                                                   favorite_opponent: opp string,
+    #                                                                   rival: opp string}}
+
+    game_team_size = @game_teams_data.size
+    @game_teams_data.each_with_index do |team_game, idx|
+      # a team_game will have a :game_id match in another row; look in the index next or before
+      # need to check that index in range or will hit NoMethodError when calling [:game_id] key
+      opp = if idx + 1 < game_team_size && @game_teams_data[idx + 1][:game_id] == team_game[:game_id]
+              @game_teams_data[idx + 1][:team_id]
+            elsif idx - 1 > 0 && @game_teams_data[idx - 1][:game_id] == team_game[:game_id]
+              @game_teams_data[idx - 1][:team_id]
+            else
+              next  # no game_id match was found, skip the iteration
+            end
+
+      win_pct_opp[team_game[:team_id]][:head_to_head] ||= {}
+      win_pct_opp[team_game[:team_id]][:head_to_head][opp] ||= []
+      win_pct_opp[team_game[:team_id]][:head_to_head][opp] << team_game[:result]
+    end
+
+    win_pct_opp.each do |team_id, win_data|
+      win_data[:head_to_head].transform_values! do |results|  # => array of "WIN" || "LOSS"
+        (results.count("WIN") / results.size.to_f).round(2)
+      end
+
+      fav_opp_id = win_data[:head_to_head].max_by { |_, pct| pct }[0]
+      rival_id = win_data[:head_to_head].min_by { |_, pct| pct }[0]
+      win_pct_opp[team_id][:favorite_opponent] = team_name_from_id(fav_opp_id)
+      win_pct_opp[team_id][:rival] = team_name_from_id(rival_id)
+    end
+
+    win_pct_opp
+  end
+
+  # Each game record has home and away team_id, each iteration will add values to two keys
+  # @return: array of all goal differentials
+  def goal_diffs
+    goal_diffs = Hash.new { |hash, key| hash[key] = [] }  # {team_id: [goal_diffs]}
+    @games_data.each do |game|
+      goal_diffs[game[:home_team_id]] << game[:home_goals].to_i - game[:away_goals].to_i
+      goal_diffs[game[:away_team_id]] << game[:away_goals].to_i - game[:home_goals].to_i
+    end
+
+    goal_diffs
   end
 
   ##== TEAM HELPERS ==##
