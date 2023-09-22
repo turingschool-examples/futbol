@@ -45,6 +45,10 @@
   
 ### Recommended behavior
 
+  - when you checkout a new feature branch; immediately open a draft PR
+    - this automatically moves the feature branch in Linear into 'In Progress'
+    - this allows commits to be periodically reviewed && commented as it realates to the new functionality
+    - when the PR is modified to 'Ready for Review' it automticlaly updates the issue to 'In Review'  
   - pause your work when a branch is ready to be merged
   - after PR merge, pull upstream branch into yours
   - comment your code
