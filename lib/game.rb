@@ -64,60 +64,31 @@ class Game
     tie_percent = (ties.to_f/total_games).round(2)
   end
 
+  def goals_by_season
+    goals_by_season = Hash.new(0)
+    @game_data.each do |game|
+      season = game[:season]
+      total_goals = game[:home_goals].to_f + game[:away_goals].to_f
+      goals_by_season[season] += total_goals
+    end
+    goals_by_season
+  end
+
   def average_goals_per_game
     games = 0
     goals = 0
     @game_data.each do |row|
-    games += 1
-    goals += row[:home_goals].to_i + row[:away_goals].to_i
+      games += 1
+      goals += row[:home_goals].to_i + row[:away_goals].to_i
     end
     avg = (goals.to_f / games).round(2)
   end
 
   def average_goals_by_season
-    agbs = {}
-    games_by_season1 = 0
-    games_by_season2 = 0
-    games_by_season3 = 0
-    games_by_season4 = 0
-    games_by_season5 = 0
-    games_by_season6 = 0
-    
-    goals_by_season1 = 0
-    goals_by_season2 = 0
-    goals_by_season3 = 0
-    goals_by_season4 = 0
-    goals_by_season5 = 0
-    goals_by_season6 = 0
-    
-    @game_data.each do |row|
-    if row[:season] == "20122013"
-      games_by_season1 += 1
-      goals_by_season1 += row[:home_goals].to_i + row[:away_goals].to_i
-    elsif row[:season] == "20162017"
-      games_by_season2 += 1
-      goals_by_season2 += row[:home_goals].to_i + row[:away_goals].to_i
-    elsif row[:season] == "20142015"
-      games_by_season3 += 1
-      goals_by_season3 += row[:home_goals].to_i + row[:away_goals].to_i
-    elsif row[:season] == "20152016"
-      games_by_season4 += 1
-      goals_by_season4 += row[:home_goals].to_i + row[:away_goals].to_i
-    elsif row[:season] == "20132014"
-      games_by_season5 += 1
-      goals_by_season5 += row[:home_goals].to_i + row[:away_goals].to_i
-    elsif row[:season] == "20172018"
-      games_by_season6 += 1
-      goals_by_season6 += row[:home_goals].to_i + row[:away_goals].to_i
-      end
+    average_goals_by_season = Hash.new(0)
+    goals_by_season.each do |season, total_goals|
+      average_goals_by_season[season] = (total_goals / count_of_games_by_season[season]).round(2)
     end
-    result1 = (goals_by_season1.to_f/games_by_season1).round(2)
-    result2 = (goals_by_season2.to_f/games_by_season2).round(2)
-    result3 = (goals_by_season3.to_f/games_by_season3).round(2)
-    result4 = (goals_by_season4.to_f/games_by_season4).round(2)
-    result5 = (goals_by_season5.to_f/games_by_season5).round(2)
-    result6 = (goals_by_season6.to_f/games_by_season6).round(2)
-    agbs = {"20122013" => result1,"20162017" => result2,"20142015" => result3,
-            "20152016" => result4, "20132014" => result5, "20172018" => result6 }
+    average_goals_by_season
   end
 end
