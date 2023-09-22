@@ -23,32 +23,28 @@ RSpec.describe StatTracker do
 
 
   describe '#Creates usable data' do
-    xit '#game_team_data_creation' do
+    it '#game_team_data_creation' do
       expect(@stat_tracker.game_team_data).to be_a Array
       expect(@stat_tracker.game_team_data[0]).to be_a Hash
     end
 
-    xit '#team_data_creation' do
+    it '#team_data_creation' do
       expect(@stat_tracker.team_data).to be_a Array
       expect(@stat_tracker.team_data[0]).to be_a Hash
     end
     
-    xit '#game_data_creation' do
+    it '#game_data_creation' do
       expect(@stat_tracker.game_data).to be_a Array
       expect(@stat_tracker.game_data[0]).to be_a Hash
 
     end
 
-    xit 'Highest Total Score' do
+    it 'Highest Total Score' do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
 
-    xit 'Lowest Total Score' do
+    it 'Lowest Total Score' do
       expect(@stat_tracker.lowest_total_score).to eq(0)
-    end
-
-    it 'has data' do
-      expect(@stat_tracker.best_offense).to eq("Madrid")
     end
   end
   
