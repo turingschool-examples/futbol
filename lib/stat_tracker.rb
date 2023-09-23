@@ -57,13 +57,8 @@ class StatTracker
 
   def percentage_home_wins 
     count = 0
-    game.each do |single_game|
-      if single_game[:home_goals].to_i > single_game[:away_goals].to_i
-        count += 1
-      end
-    end
+    game.each { |single_game| count += 1 if single_game[:home_goals].to_i > single_game[:away_goals].to_i }
     percentage = (count.to_f / game.count).round(2)
-    
   end
 
   def percentage_visitor_wins
@@ -88,9 +83,7 @@ class StatTracker
   
   def count_of_games_by_season
     counts = Hash.new(0)
-    game.each do |single_game|
-      counts[single_game[:season]] += 1
-    end
+    game.each { |single_game| counts[single_game[:season]] += 1 }
     counts
   end
 
@@ -120,15 +113,9 @@ class StatTracker
   end
 
   def best_offense
-    team_number = games_and_scores.sort_by { |team, data| data[:average] }.last[0]
-    
-    best_offense = ""
-    team_data.each do |team|
-      if team[:team_id] == team_number
-        best_offense << team[:teamname] 
-      end
-    end
-    best_offense
+    team_average = @all_season_data.team_score_game_average
+    best_offense_id = team_average.sort_by { |team_id, average| average }.last[0]
+    team_data.find { |team| team[:team_id] == best_offense_id }[:teamname]
   end
 
   def worst_offense

@@ -6,7 +6,10 @@ class TeamSeason
                 :shots,
                 :tackles,
                 :home_games,
-                :away_games
+                :away_games,
+                :home_goals,
+                :away_goals,
+                :season
   def initialize(season, team_id)
     @team_id = team_id
     @season = season
@@ -16,6 +19,8 @@ class TeamSeason
     @tackles = 0
     @home_games = 0
     @away_games = 0
+    @home_goals = 0
+    @away_goals = 0
   end
 end
 # hash = {}
