@@ -34,11 +34,36 @@ RSpec.describe Team do
     expect(@stat_tracker.team_info("18")).to eq expected
   end
 
-  xit "#best_season" do
+  it 'can find seasonal wins' do
+    expected = {
+      "20122013"=>22,
+      "20132014"=>49,
+      "20142015"=>52,
+      "20152016"=>39,
+      "20162017"=>44,
+      "20172018"=>24
+    }
+
+    expect(@stat_tracker.game_wins_per_season("3")).to eq(expected)
+  end
+
+  it 'can count season game totals' do
+    expected = {
+      "20122013"=>60,
+      "20132014"=>107,
+      "20142015"=>101,
+      "20152016"=>87,
+      "20162017"=>94,
+      "20172018"=>82
+    }
+    expect(@stat_tracker.games_per_season("3")).to eq(expected)
+  end
+
+  it "#best_season" do
     expect(@stat_tracker.best_season("6")).to eq "20132014"
   end
 
-  xit "#worst_season" do
+  it "#worst_season" do
     expect(@stat_tracker.worst_season("6")).to eq "20142015"
   end
 
