@@ -110,10 +110,10 @@ RSpec.describe StatTracker do
 
   describe '#games_and_scores' do
     it 'returns a hash with team id, games played, total score and average' do
-      expected ={ "1"=>{:games_played=>9, :total_score=>16, :average=>1.78},
-      "2"=>{:games_played=>11, :total_score=>19, :average=>1.73},
-      "3"=>{:games_played=>11, :total_score=>25, :average=>2.27},
-      "4"=>{:games_played=>9, :total_score=>19, :average=>2.11}}
+      expected ={ "1"=>{:average=>1.78},
+      "2"=>{:average=>1.73},
+      "3"=>{:average=>2.27},
+      "4"=>{:average=>2.11}}
       expect(stat_tracker.games_and_scores).to eq(expected)
     end
   end
@@ -145,12 +145,6 @@ RSpec.describe StatTracker do
   describe '#lowest_scoring_home_team' do
     it 'returns name of the team with the lowest average score per home game across all seasons' do
       expect(stat_tracker.lowest_scoring_home_team).to eq('Seattle Sounders FC')
-    end
-  end
-
-  describe '#home_team?(team_id)' do
-    it 'returns an array of all the home games for a given team' do
-      expect(stat_tracker.home_team?('1')).to be_a(Array)
     end
   end
 
@@ -212,12 +206,12 @@ RSpec.describe StatTracker do
   describe '#teams_shots_goals_ratio' do
     it 'returns a hash of team id and total score to total shot ratio' do
       expected = {
-        "1" => {:ratio => 0.38},
-        "2"=> {:ratio => 0.23},
+        "1" => {:ratio => 0.38462},
+        "2"=> {:ratio => 0.22581},
         "3"=> {:ratio => 0.28},
-        "4"=> {:ratio => 0.27},
+        "4"=> {:ratio => 0.27273},
       }
-      expect(stat_tracker.teams_shots_goals_ratio("20122013")).to eq(expected)
+      expect(stat_tracker.season_accuracy("20122013")).to eq(expected)
     end
   end
   
