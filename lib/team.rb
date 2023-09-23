@@ -7,7 +7,6 @@ class Team
 
   def game_wins_per_season(team_id)
     season_wins = Hash.new(0)
-
     @game_data.each do |row|
       if row[:away_team_id] == team_id || row[:home_team_id] == team_id
         season_id = row[:season]
@@ -20,7 +19,24 @@ class Team
       end
     end
     season_wins
-    # require 'pry'; binding.pry
+  end
+
+  def games_per_season(team_id)
+    season_games = Hash.new(0)
+    
+    @game_data.each do |row|
+      if row[:away_team_id] == team_id || row[:home_team_id] == team_id
+        season_id = row[:season]
+        game_season_id = row[:game_id]
+        @game_team_data.each do |game|
+          if game[:team_id] == team_id && game[:game_id] == game_season_id
+          season_games[season_id] += 1
+          end
+        end
+      end
+    end
+    season_games
+    require 'pry'; binding.pry
   end
 end
 

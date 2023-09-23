@@ -47,6 +47,10 @@ RSpec.describe Team do
     expect(@stat_tracker.game_wins_per_season("3")).to eq(expected)
   end
 
+  it 'can count season game totals' do
+    expect(@stat_tracker.games_per_season("3")).to eq("AHHH")
+  end
+
   xit "#best_season" do
     expect(@stat_tracker.best_season("6")).to eq "20132014"
   end
