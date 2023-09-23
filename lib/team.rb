@@ -47,4 +47,15 @@ class Team
     best_season = season_win_percentage.max_by { |season, percent| percent }
     best_season.first
   end
+
+  def worst_season(team_id)
+    season_win_percentage = Hash.new(0)
+    games_per_season(team_id).each do |season, games|
+      wins = game_wins_per_season(team_id)[season]
+      percentage = (wins / games.to_f) * 100
+      season_win_percentage[season] = percentage
+    end
+    worst_season = season_win_percentage.min_by { |season, percent| percent }
+    worst_season.first
+  end
 end
