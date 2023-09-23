@@ -218,12 +218,56 @@ class StatTracker
 
   # SEASON STATISTICS
 
-  def winningest_coach
-
+  def winningest_coach(season)
+    coach_wins = {}
+    season_game_ids = @game_data.reduce([]) do |game_ids, game|
+      if game.season == season
+        game_ids << game.game_id
+      end
+      game_ids
+    end
+    coach_win_loss_hash = @game_teams_data.reduce({}) do |hash, game|
+      if season_game_ids.include? (game.game_id)
+        result = game.result
+        if !hash[game.head_coach]
+          hash[game.head_coach] = { wins: 0, losses: 0 }
+        end
+          result == "WIN" ? hash[game.head_coach][:wins] += 1 : hash[game.head_coach][:losses] += 1
+      end
+      hash
+    end
+    coach_win_percent_hash = {}
+    coach_win_loss_hash.each do |coach, wins_losses|
+      win_percent = wins_losses[:wins].to_f/((wins_losses[:wins] + wins_losses[:losses])*100/100).round(3)
+      coach_win_percent_hash[coach] = win_percent
+    end
+    best_win_percent_coach = coach_win_percent_hash.key(coach_win_percent_hash.values.max)
   end
 
-  def worst_coach
-
+  def worst_coach(season)
+    coach_wins = {}
+    season_game_ids = @game_data.reduce([]) do |game_ids, game|
+      if game.season == season
+        game_ids << game.game_id
+      end
+      game_ids
+    end
+    coach_win_loss_hash = @game_teams_data.reduce({}) do |hash, game|
+      if season_game_ids.include? (game.game_id)
+        result = game.result
+        if !hash[game.head_coach]
+          hash[game.head_coach] = { wins: 0, losses: 0 }
+        end
+          result == "WIN" ? hash[game.head_coach][:wins] += 1 : hash[game.head_coach][:losses] += 1
+      end
+      hash
+    end
+    coach_win_percent_hash = {}
+    coach_win_loss_hash.each do |coach, wins_losses|
+      win_percent = wins_losses[:wins].to_f/((wins_losses[:wins] + wins_losses[:losses])*100/100).round(3)
+      coach_win_percent_hash[coach] = win_percent
+    end
+    worst_win_percent_coach = coach_win_percent_hash.key(coach_win_percent_hash.values.min)
   end
 
   def most_accurate_team
@@ -371,7 +415,7 @@ class StatTracker
     }
   end
 
-  def seasons_sorted
+  def seasons_sorted_short
     season_sorted = Game.games.group_by {|game| game.season}
   end
 

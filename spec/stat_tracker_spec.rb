@@ -131,15 +131,15 @@ RSpec.describe StatTracker do
   #   expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   # end
 
-  # it "#winningest_coach" do
-  #   expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
-  #   expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
-  # end
+  it "#winningest_coach" do
+    expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
+    expect(@stat_tracker.winningest_coach("20142015")).to eq "Alain Vigneault"
+  end
 
-  # it "#worst_coach" do
-  #   expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
-  #   expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
-  # end
+  it "#worst_coach" do
+    expect(@stat_tracker.worst_coach("20132014")).to eq "Peter Laviolette"
+    expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+  end
 
   # it "#most_accurate_team" do
   #   expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
