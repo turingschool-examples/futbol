@@ -11,6 +11,7 @@ attr_reader :locations, :team_data, :game_data, :game_teams_data
 def initialize(locations)
     @game_data = create_games(locations[:games])
     # require 'pry'; binding.pry
+    # @teams = create_teams(locations[:teams])
     @game_teams_data = create_game_teams(locations[:game_teams])
     # require 'pry'; binding.pry
     @team_data = create_teams(locations[:teams])
@@ -22,6 +23,7 @@ def initialize(locations)
   end
   
   def create_games(path)
+    Game.reset
     Game.reset
     # require 'pry'; binding.pry
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
@@ -35,8 +37,7 @@ def initialize(locations)
     GameTeam.reset
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     data.map do |row| 
-   
-    GameTeam.new(row)
+      GameTeam.new(row)
     end
   end
 
@@ -46,7 +47,7 @@ def initialize(locations)
       Team.new(row)
     end
   end
-
+  
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
@@ -55,12 +56,41 @@ def initialize(locations)
     percentage = (portion/whole).round(2)
   end
   
+  def count_of_games_by_season 
+    # require 'pry'; binding.pry
+    games_seasons = Hash.new(0)
+    
+    @game_data.each do |row|
+      season = row.season
+      games_seasons[season] += 1
+    end 
+    games_seasons
+  end
+  
   def percentage_ties 
     ties = @game_data.count do |game|
       # require 'pry'; binding.pry
       game.away_goals.to_f == game.home_goals.to_f
     end.to_f
     (ties/@game_data.count).round(2)
+  end
+
+  def average_goals_by_season
+    season_hash =@game_data.group_by{|game| game.season }
+    av_goals = {}
+    
+    season_hash.each do |season,games|
+      total_goals = games.map {|game| game.home_goals.to_i + game.away_goals.to_i}
+      av_goals[season] = (total_goals.sum.to_f / games.length).round(2)
+    end
+    av_goals
+  end
+  
+  def percentage_visitor_wins
+    away_wins = GameTeam.gameteam.count do |game|
+      game.HoA == "away" && game.result == "WIN"
+    end 
+    (away_wins.to_f / Game.games.count.to_f).round(2)
   end
   
   def seasons_sorted
@@ -145,7 +175,6 @@ def initialize(locations)
     total_goals = 0
     total_games = []
     @game_teams_data.each do |row|
-      # require 'pry'; binding.pry
       total_goals += row.goals.to_i
       total_games << row.game_id
     end
