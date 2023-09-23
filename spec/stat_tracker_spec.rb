@@ -67,9 +67,9 @@ RSpec.describe StatTracker do
 #     expect(@stat_tracker.average_goals_by_season).to eq expected
 #   end
 
-#   it "#count_of_teams" do
-#     expect(@stat_tracker.count_of_teams).to eq 32
-#   end
+  it "#count_of_teams" do
+    expect(@stat_tracker.count_of_teams).to eq 32
+  end
 
 #   it "#best_offense" do
 #     expect(@stat_tracker.best_offense).to eq "Reign FC"
@@ -164,7 +164,7 @@ RSpec.describe StatTracker do
 #     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
 #     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
 #   end
-end
+# end
 
 #   describe "#percent ties" do
 #     it "finds percntage of tied away and home games" do
@@ -223,27 +223,34 @@ end
 #     end
 #   end
   
-#   describe "#highest_scoring_visitor" do
-#     it 'finds team with highest average score when away' do
-#     #this test is for the fixture
-#     expect(@game_stats.highest_scoring_visitor).to eq("FC Dallas")
-#   end
-# end
-#   describe "#lowest_scoring_visitor" do
-#     xit 'finds team with lowest average score when away' do
-#   #this test is for the fixture
-#   expect(@game_stats.lowest_scoring_visitor).to eq("Sporting Kansas City")
-# end
-# end
-# describe "#highest_scoring_home_team" do
-# xit 'finds team with highest average score when away' do
-#   #this test is for the fixture
-#       expect(@game_stats.highest_scoring_home_team).to eq("LA Galaxy")
-#     end
-#   end
-#   describe "#lowest_scoring_home_team" do
-#     xit 'finds team with lowest average score when away' do
-#       expect(@game_stats.lowest_scoring_home_team).to eq("Sporting Kansas City")
-#     end
-#   end
-# end
+  describe "#highest_scoring_visitor" do
+    it 'finds team with highest average score when away' do
+    #this test is for the fixture
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+  end
+end
+  describe "#lowest_scoring_visitor" do
+    it 'finds team with lowest average score when away' do
+  #this test is for the fixture
+  # expect(@game_stats.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  #full data
+  expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+end
+end
+describe "#highest_scoring_home_team" do
+it 'finds team with highest average score when away' do
+  #this test is for the fixture
+      # expect(@game_stats.highest_scoring_home_team).to eq("LA Galaxy")
+      #full data
+      expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+    end
+  end
+  describe "#lowest_scoring_home_team" do
+    it 'finds team with lowest average score when away' do
+      #this test is for the fixture
+      # expect(@game_stats.lowest_scoring_home_team).to eq("Sporting Kansas City")
+      #full data
+      expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+    end
+  end
+end
