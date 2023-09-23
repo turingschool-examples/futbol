@@ -145,11 +145,53 @@ class StatTracker < Stats
   ###=== TEAM QUERIES ===###
 
   def biggest_team_blowout(team_id)
-    teams_hash[team_id][:goal_diffs].max
+    teams_hash[:goal_diffs][team_id].max
   end
 
   def worst_loss(team_id)
-    teams_hash[team_id][:goal_diffs].min
+    teams_hash[:goal_diffs][team_id].min
   end
+
+  def team_info(team_id)
+    # require 'byebug'; byebug
+    teams_hash[:teams_info][team_id]
+  end
+
+  def head_to_head(team_id)
+    teams_hash[:win_pct_opp][team_id][:head_to_head]
+  end
+
+  def favorite_opponent(team_id)
+    teams_hash[:win_pct_opp][team_id][:favorite_opponent]
+  end
+
+  def rival(team_id)
+    teams_hash[:win_pct_opp][team_id][:rival]
+  end
+
+  def seasonal_summary(team_id)
+    seasonal_summaries[team_id]
+  end
+
+  def best_season(team_id)
+    teams_hash[:percent_wins][team_id].max_by { |k, v| v }[0]
+  end
+
+  def worst_season(team_id)
+    teams_hash[:percent_wins][team_id].min_by { |k, v| v }[0]
+  end
+
+  def average_win_percentage(team_id)
+    teams_hash[:average_wins][team_id]
+  end
+
+  def most_goals_scored(team_id)
+    teams_hash[:max_min_goals][:highest_goals][team_id]
+  end
+
+  def least_goals_scored(team_id)
+   teams_hash[:max_min_goals][:lowest_goals][team_id]
+ end
+
   ###=== TEAM QUERIES ===###
 end

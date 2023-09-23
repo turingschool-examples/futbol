@@ -170,4 +170,100 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("Houston Dynamo")
     end
   end
+
+  ###=== SEASON QUERIES ===###
+
+  ###=== TEAM QUERIES ===###
+  describe "#biggest_team_blowout" do
+    it "returns the biggest goal differential" do
+      expect(@stat_tracker.biggest_team_blowout("1")).to eq 2
+    end
+  end
+
+  describe "#worst_loss" do
+    it "returns the biggest loss for given team" do
+      expect(@stat_tracker.worst_loss("3")).to eq(-2)
+    end
+  end
+
+  describe "#team_info" do
+    it "returns a hash with team information" do
+      expected_team_info = {
+        team_id: "1",
+        franchise_id: "23",
+        team_name: "Atlanta United",
+        abbreviation: "ATL",
+        link: "/api/v1/teams/1"
+      }
+
+      expect(@stat_tracker.team_info("1")).to eq(expected_team_info)
+    end
+  end
+
+  describe "#head_to_head" do
+    it "returns a hash of all opponents and their win_pct against" do
+      expect(@stat_tracker.head_to_head("6")).to eq({"3" => 1.00})
+    end
+  end
+
+  describe "#favorite_opponent" do
+    it "returns the team name for the highest win pct against" do
+      expect(@stat_tracker.favorite_opponent("6")).to eq "Houston Dynamo"
+    end
+  end
+
+  describe "#rival" do
+    it "returns the team name for the lowest win pct against" do
+      expect(@stat_tracker.rival("3")).to eq "FC Dallas"
+    end
+  end
+
+  describe "#seasonal_summary" do
+    it "returns a hash with seasonal summary information" do
+      expected = {average_goals_against: 1.6,
+                  average_goals_scored: 2.8,
+                  total_goals_against: 8,
+                  total_goals_scored: 14,
+                  win_percentage: 100.0}
+
+      expect(@stat_tracker.seasonal_summary("6")["20122013"][:postseason]).to eq(expected)
+    end
+  end
+
+
+  describe "#best_season(team_id)" do
+    it "returns the best season for given team" do
+      expect(@stat_tracker.best_season("6")).to be_a(String)
+      expect(@stat_tracker.best_season("6")).to eq("20122013")
+    end
+  end
+
+  describe "#worst_season(team_id)" do
+    it "returns the worst season for given team" do
+      expect(@stat_tracker.worst_season("6")).to be_a(String)
+      expect(@stat_tracker.worst_season("6")).to eq("20132014")
+    end
+  end
+
+  describe "#average_win_percentage(team_id)" do
+    it "returns the average win percentage across all seasonss for given team" do
+      expect(@stat_tracker.average_win_percentage("6")).to eq(100.00)
+      expect(@stat_tracker.average_win_percentage("6")).to be_a(Float)
+    end
+  end
+
+  describe '#most_goals_scored' do
+    it 'returns the highest number of goals scored by any team in a single game' do
+      expect(@stat_tracker.most_goals_scored("6")).to eq(3)
+    end
+  end
+
+  describe '#least_goals_scored' do
+    it 'returns the highest number of goals scored by any team in a single game' do
+      expect(@stat_tracker.most_goals_scored("6")).to eq(3)
+    end
+  end
+
+  ###=== TEAM QUERIES ===###
 end
+#to make new brnch 
