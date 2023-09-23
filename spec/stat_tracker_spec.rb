@@ -16,7 +16,7 @@ RSpec.describe StatTracker do
   end
 
   describe "#percent ties" do
-    it "finds percntage of tied away and home games" do
+    it "finds percentage of tied away and home games" do
       expect(@game_stats.percentage_ties).to eq(0.05)
     end
   end
