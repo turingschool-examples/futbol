@@ -39,4 +39,8 @@ class GameTeam
   def self.gameteam
     @@gameteam
   end
+
+  def self.reset
+    @@gameteam = []
+  end
 end

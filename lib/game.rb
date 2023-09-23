@@ -26,6 +26,10 @@ class Game
     @@games << self
   end
 
+  def self.reset
+    @@games = []
+  end
+
   def self.games
     @@games
   end
