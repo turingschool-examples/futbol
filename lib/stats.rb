@@ -280,7 +280,8 @@ class Stats
       @teams_hash = {}
 
       @teams_hash[:teams_info] = teams_info
-      @teams_hash[:win_pct] = win_pct
+      @teams_hash[:percent_wins] = percent_wins
+      @teams_hash[:average_wins] = average_wins
       @teams_hash[:team_goals] = nil
       @teams_hash[:win_pct_opp] = win_pct_opp
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}

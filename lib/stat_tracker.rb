@@ -174,16 +174,15 @@ class StatTracker < Stats
   end
 
   def best_season(team_id)
-    # teams_hash[key]
-    percent_wins[team_id].max_by { |k, v| v }[0]
+    teams_hash[:percent_wins][team_id].max_by { |k, v| v }[0]
   end
 
   def worst_season(team_id)
-    percent_wins[team_id].min_by { |k, v| v }[0]
+    teams_hash[:percent_wins][team_id].min_by { |k, v| v }[0]
   end
 
   def average_win_percentage(team_id)
-    average_wins[team_id]
+    teams_hash[:average_wins][team_id]
   end
 
   ###=== TEAM QUERIES ===###
