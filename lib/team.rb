@@ -33,9 +33,9 @@ class Team
     team.tackles += game.tackles
 
     team.home_games += 1 if game.hoa == "home"
-    team.home_scores += game.goals if game.hoa == "home"
+    team.home_goals += game.goals if game.hoa == "home"
     team.away_games += 1 if game.hoa == "away"
-    team.away_scores += game.goals if game.hoa == "away"
+    team.away_goals += game.goals if game.hoa == "away"
   end
 
   def total_score_for_teams #all season methods
@@ -45,6 +45,7 @@ class Team
         total_score += game[:goals].to_i
       end 
     end
+    
     total_score
   end
 
