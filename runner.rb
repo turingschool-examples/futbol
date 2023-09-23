@@ -1,22 +1,22 @@
 require './lib/stat_tracker'
 
-game_path = './data/games_fixture.csv'
-team_path = './data/teams_fixture.csv'
-game_teams_path = './data/game_teams_fixture.csv'
+game_path = './data/games.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
 
 locations = {
   games: game_path,
   teams: team_path,
   game_teams: game_teams_path
 }
-
-stat_tracker = StatTracker.from_csv(locations)
-
+puts Benchmark.measure {
+  @stat_tracker = StatTracker.from_csv(locations)
+}
 hash = {}
 
-puts Benchmark.measure {
-  stat_tracker.game_teams.map {|game| game[:team_id] }
-}
+
+  pp @stat_tracker.teams[0].seasons
+
 
 # puts Benchmark.measure {
 # stat_tracker.game.each do |one_game|

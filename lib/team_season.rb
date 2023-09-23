@@ -6,7 +6,9 @@ class TeamSeason
                 :shots,
                 :tackles,
                 :home_games,
-                :away_games
+                :away_games,
+                :home_scores,
+                :away_scores
   def initialize(season, team_id)
     @team_id = team_id
     @season = season
@@ -16,6 +18,8 @@ class TeamSeason
     @tackles = 0
     @home_games = 0
     @away_games = 0
+    @home_scores = 0
+    @away_scores = 0
   end
 end
 

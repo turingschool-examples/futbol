@@ -17,33 +17,26 @@ class Team
   end
 
   def seasons_builder
-    @games.each do |game|
-    #Figure out what season the game is in
-      curr_season = @stat_tracker.games_by_season.keys.find do |season|
-        @stat_tracker.games_by_season[season].include?(game[:game_id])
-      end
-      #Find corresponding games in other data set
-      single_game = @tgames.find do |one_game|
-        game[:game_id] == one_game[:game_id]
-      end
+    @game_objects.each do |game|
+      curr_season = game.season
       #Send the game row to the proper TeamSeason object
       team = @seasons[curr_season] 
       #Populate that object with game_team data       
-      team_season_populator(team, single_game) 
+      team_season_populator(team, game) 
     end
   end
 
   def team_season_populator(team, game)
-      team.games += 1
-      team.goals += game[:goals].to_i
-      team.shots += game[:shots].to_i
-      team.tackles += game[:tackles].to_i
-      team.home_games += 1 if game[:hoa] == "home"
-      team.away_games += 1 if game[:hoa] == "away"
-      home_scores
-      away_scores
-  end
+    team.games += 1
+    team.goals += game.goals
+    team.shots += game.shots
+    team.tackles += game.tackles
 
+    team.home_games += 1 if game.hoa == "home"
+    team.home_scores += game.goals if game.hoa == "home"
+    team.away_games += 1 if game.hoa == "away"
+    team.away_scores += game.goals if game.hoa == "away"
+  end
 
   def total_score_for_teams #all season methods
     total_score = 0
