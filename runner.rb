@@ -15,12 +15,6 @@ locations = {
 
 stat_tracker = StatTracker.new(locations)
 
-highest_scoring_game = stat_tracker.highest_total_score[0]
+# highest_scoring_game = stat_tracker.highest_total_score
 
-highest_scoring_playoff_game = stat_tracker.highest_total_score[1]
-
-lowest_scoring_game = stat_tracker.lowest_total_score[0]
-
-lowest_scoring_playoff_game = stat_tracker.lowest_total_score[1]
-
-require 'pry'; binding.pry
+# lowest_scoring_game = stat_tracker.lowest_total_score[0]
