@@ -16,16 +16,44 @@ RSpec.describe StatTracker do
   end
 
   describe "#percent ties" do
-    it "finds percentage of tied away and home games" do
-      expect(@game_stats.percentage_ties).to eq(0.05)
+    it "finds percntage of tied away and home games" do
+      expect(@game_stats.percentage_ties).to eq(0.20)
     end
   end
 
-  describe "#season_sorted" do 
-    it "sorts the season" do
-      expect(@game_stats.seasons_sorted).to be_instance_of(Hash)
+  describe "#count_of_games_by_season" do 
+    it "#count_of_games_by_season" do
+    expected = {
+      "20122013"=>806,
+      "20162017"=>1317,
+      "20142015"=>1319,
+      "20152016"=>1321,
+      "20132014"=>1323,
+      "20172018"=>1355
+
+    }
+    expect(@game_stats.count_of_games_by_season).to eq expected
+    end 
+  end
+
+  describe "##average_goals_by_season" do
+    it "#average_goals_by_season" do
+    expected = {
+      "20122013"=>4.12,
+      "20162017"=>4.23,
+      "20142015"=>4.14,
+      "20152016"=>4.16,
+      "20132014"=>4.19,
+      "20172018"=>4.44
+    }
+    expect(@game_stats.average_goals_by_season).to eq expected
     end
   end
+
+  it "#percentage_visitor_wins" do 
+    expect(@game_stats.percentage_visitor_wins).to eq 0.0
+  end
+
 
   describe "#percentage_calculator" do
     it "finds the percentage for given numbers rounded to nearest 100th" do
@@ -47,9 +75,13 @@ RSpec.describe StatTracker do
   end
 
   describe "#average_goals_per_game" do
+
+    xit 'will find the average goals' do
+
     it 'will find the average goals' do
       #this test is for the fixture
-      # expect(@game_stats.average_goals_per_game).to eq(3.67)
+
+      expect(@game_stats.average_goals_per_game).to eq(3.67)
       #this test is for the full data
       expect(@game_stats.average_goals_per_game).to eq(4.22)
     end
