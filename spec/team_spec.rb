@@ -22,7 +22,7 @@ RSpec.describe Team do
     expect(@team).to be_an_instance_of Team
   end
   
-  xit "#team_info" do
+  it "#team_info" do
     expected = {
       "team_id" => "18",
       "franchise_id" => "34",
