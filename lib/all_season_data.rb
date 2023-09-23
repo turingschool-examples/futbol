@@ -42,6 +42,7 @@ class AllSeasonData
     end
   end
 
+
   # def number_of_visitor_games(team)
   #   @number_away_games ||= begin
   #       number_of_games = 0
@@ -58,7 +59,7 @@ class AllSeasonData
     @seasons ||= begin
       seasons_hash = Hash.new
       games_by_season.keys.each do |season|
-        seasons_hash[season] = SingleSeasonData.new(@stat_tracker)
+        seasons_hash[season] = SingleSeasonData.new(@stat_tracker, season)
       end
      @seasons = seasons_hash
     end
