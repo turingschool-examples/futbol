@@ -35,24 +35,17 @@ class StatTracker
   end
 
   def highest_total_score
-    highest_score = 0
-    game.each do |goals|
-      home_score = goals[:home_goals].to_i 
-      away_score = goals[:away_goals].to_i
-      total_score = home_score + away_score
-
-      highest_score = total_score if total_score > highest_score
+    total_score = game.map do |goals|
+      home_score = goals[:home_goals].to_i + away_score = goals[:away_goals].to_i
     end
-    highest_score
+    total_score.sort.last
   end 
 
   def lowest_total_score
-    total_scores = game.map do |game|
-      home_score = game[:home_goals].to_i 
-      away_score = game[:away_goals].to_i
-      total_score = home_score + away_score
+    total_score = game.map do |goals|
+      home_score = goals[:home_goals].to_i + away_score = goals[:away_goals].to_i
     end
-    total_scores.sort.first
+    total_score.sort.first
   end
 
   def percentage_home_wins 
@@ -103,15 +96,10 @@ class StatTracker
     goals = Hash.new { |hash, season| hash[season] = [] }
     game.each do |single_game|
       season = single_game[:season]
-      home_score = single_game[:home_goals].to_i 
-      away_score = single_game[:away_goals].to_i
-      total_score = home_score + away_score
-      
+      total_score = home_score = single_game[:home_goals].to_i + single_game[:away_goals].to_i
       goals[season] << total_score
     end
-    average_goals = goals.transform_values do |goal|
-      (goal.sum.to_f / goal.length).round(2)
-    end
+    average_goals = goals.transform_values { |goal| (goal.sum.to_f / goal.length).round(2) }
     average_goals
   end
 
