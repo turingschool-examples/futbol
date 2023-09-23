@@ -10,5 +10,13 @@ class Team
     team_info = @team_data.find do |team|
       team[:team_id] == team_id
     end
+    key_map = {
+      team_id: "team_id", 
+      team_name: "team_name", 
+      franchise_id: "franchise_id",
+      abbreviation: "abbreviation",
+      link: "link"
+    }
+    team_info.transform_keys! { |k| key_map[k] }
   end
 end
