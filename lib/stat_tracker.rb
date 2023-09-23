@@ -151,12 +151,11 @@ class StatTracker
     lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
     team_data.find { |row| row[:team_id] == lowest }[:teamname]
   end
-
+  
   def lowest_scoring_home_team
     lowest_scoring = ""
-    home_team_scores = games_and_scores.select { |team_id, data| home_team?(team_id) }
-    lowest_avg = home_team_scores.sort_by { |team, data| data[:average] }.first[0]
-
+    lowest_avg = games_and_scores.sort_by { |team, data| data[:average] }.first[0]
+    
     team_data.each do |team|
       if team[:team_id] == lowest_avg
         lowest_scoring << team[:teamname]
@@ -204,13 +203,13 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    best = season_accuracy_hash(season).sort_by { |team, data| data[:accuracy] }.last[0]
+    best = season_accuracy(season).sort_by { |team, data| data[:ratio] }.last[0]
     team_data.find { |row| row[:team_id] == best }[:teamname]
   end
 
   def least_accurate_team(season_number)
     least_accurate = ""
-    team_number = teams_shots_goals_ratio(season_number).sort_by { |team, data| data[:ratio] }.first[0]
+    team_number = season_accuracy(season_number).sort_by { |team, data| data[:ratio] }.first[0]
     team_data.each do |team|
       if team[:team_id] == team_number
         least_accurate << team[:teamname]
@@ -229,13 +228,11 @@ class StatTracker
     team_data.find { |row| row[:team_id] == fewest }[:teamname]
   end
 
-  def games_and_scores
+  def games_and_scores #all seasons methods
     games_and_scores = {}
 
     team_data.each do |team|
       games_and_scores[team[:team_id]] = {
-        games_played: number_of_games(team[:team_id]), # remove?
-        total_score: total_score_for_teams(team[:team_id]), # remove?
         average: (total_score_for_teams(team[:team_id])/
         number_of_games(team[:team_id]).to_f).round(2)
       }
@@ -243,7 +240,7 @@ class StatTracker
     games_and_scores
   end 
 
-  def number_of_games(team)
+  def number_of_games(team) #all season methods
     number_of_games = 0
     game_teams.each do |game|
       if game[:team_id] == team
@@ -253,7 +250,7 @@ class StatTracker
     number_of_games
   end
 
-  def total_score_for_teams(team)
+  def total_score_for_teams(team) #all season methods
     total_score = 0
     game_teams.each do |game|
       if game[:team_id] == team
@@ -263,12 +260,10 @@ class StatTracker
     total_score
   end
 
-  def home_team_games_scores
+  def home_team_games_scores #all season methods, combine with visitor games and scores
     games_and_scores = {}
     home_team_games.each do |team|
       games_and_scores[team[:team_id]] = {
-        games_played: home_team_games_count(team[:team_id]),
-        total_score: home_game_total_score(team[:team_id]),
         average: (home_game_total_score(team[:team_id])/
         home_team_games_count(team[:team_id]).to_f)
       }
@@ -276,7 +271,7 @@ class StatTracker
     games_and_scores
   end
 
-  def home_team_games
+  def home_team_games #all season methods; combine with away team games; hash
     home_team_games = []
     game_teams.each do |game|
       home_team_games << game if game[:hoa] == "home"
@@ -284,7 +279,7 @@ class StatTracker
     home_team_games
   end
 
-  def home_team_games_count(team)
+  def home_team_games_count(team) #all season methods
     number_of_games = 0
     home_team_games.each do |game|
       number_of_games += 1 if game[:team_id] == team
@@ -292,24 +287,20 @@ class StatTracker
     number_of_games
   end
 
-  def home_game_total_score(team)
+  def home_game_total_score(team) #all season methods, combine with away_game_total_score 
+    #total_score = {}
+    #away_team_games.each do |game| xyz
     total_score = 0
     home_team_games.each do |game|
       total_score += game[:goals].to_i if game[:team_id] == team
     end
     total_score
   end
-  
-  def home_team?(team_id)
-    game_teams.find_all { |game_team| game_team[:team_id] == team_id && game_team[:hoa] == 'home' }
-  end
 
-  def visitor_games_and_scores
+  def visitor_games_and_scores # all season methods
     games_and_scores = {}
     team_data.each do |team|
       games_and_scores[team[:team_id]] = {
-        games_played: number_of_visitor_games(team[:team_id]),
-        total_score: total_score_for_visiting_teams(team[:team_id]),
         average: (total_score_for_visiting_teams(team[:team_id])/
         number_of_visitor_games(team[:team_id]).to_f)
       }
@@ -317,19 +308,10 @@ class StatTracker
     games_and_scores
   end 
 
-  def number_of_visitor_games(team)
-    number_of_games = 0
-    game_teams.each do |game|
-      if game[:team_id] == team && game[:hoa] == "away"
-        number_of_games += 1
-      end 
-    end
-    number_of_games
-  end
-
+  
   # @all_season_data.number_of_visitor_games(team)
   # number_of_visitor_games
-
+  
   def total_score_for_visiting_teams(team)
     total_score = 0
     game_teams.each do |game|
@@ -339,13 +321,11 @@ class StatTracker
     end
     total_score
   end
-
-  def away_games_and_scores
+  
+  def away_games_and_scores #all seasons ; combined with  home games and scores
     away_games_hash = {}
     team_data.each do |team|
       away_games_hash[team[:team_id]] = {
-        games_played: number_of_away_games(team[:team_id]),
-        total_score: total_score_for_away_teams(team[:team_id]),
         average: (total_score_for_away_teams(team[:team_id])/
         number_of_away_games(team[:team_id]).to_f)
       }
@@ -353,13 +333,23 @@ class StatTracker
     away_games_hash
   end 
 
-  def number_of_away_games(team)
-    away_team_data = game_teams.select { |row| away_team?(row) }
+  def number_of_visitor_games(team) # all season methods ; combine with number_of_away_games
+    number_of_games = 0
+    game_teams.each do |game|
+      if game[:team_id] == team && game[:hoa] == "away"
+        number_of_games += 1
+      end 
+    end
+    number_of_games
+  end
+
+  def number_of_away_games(team) #all season
+    away_team_data = game_teams.select { |row|  row[:hoa] == 'away' }
     game_teams.count { |game| game[:team_id] == team }
   end
 
-  def total_score_for_away_teams(team)
-    away_team_data = game_teams.select { |row| away_team?(row) }
+  def total_score_for_away_teams(team) #all season
+    away_team_data = game_teams.select { |row| row[:hoa] == 'away' }
     total_score = 0
     away_team_data.each do |game|
       if game[:team_id] == team
@@ -368,12 +358,8 @@ class StatTracker
     end
     total_score
   end
-
-  def away_team?(row)
-    row[:hoa] == 'away'
-  end
   
-  def season_tackle_hash(season)
+  def season_tackle_hash(season) #single seasons
     tackles_by_team = {}
     team_data.each do |team|
       tackles_by_team[team[:team_id]] = {
@@ -383,31 +369,27 @@ class StatTracker
     tackles_by_team
   end
   
-  def season_tackles(team, season)
+  def season_tackles(team, season) #single seasons
     total_tackles = 0
     season_game_teams(season).each do |game|
-      if game[:team_id] == team
-        total_tackles += game[:tackles].to_i
-      end 
+      total_tackles += game[:tackles].to_i if game[:team_id] == team
     end
     total_tackles
   end
 
-  def season_accuracy_hash(season)
-    shots_by_team = {}
-    team_data.each do |team|
-      shots_by_team[team[:team_id]] = {
-        shots: season_shots(team[:team_id], season),
-        goals: season_score_for_teams(team[:team_id], season),
-        accuracy: (season_score_for_teams(team[:team_id], season).to_f/ season_shots(team[:team_id], season))
+  def season_accuracy(season_number) #single season 
+    team_info = {}
+    season(season_number).each do  |team|
+      team_info[team[:team_id]] = { 
+        ratio: ((season_total_goals(team[:team_id], season_number)/season_total_shots(team[:team_id], season_number).to_f)).round(5),
       }
     end
-    shots_by_team
+    team_info
   end
-  
-  def season_shots(team, season)
+
+  def season_total_shots(team, season_number) #single season
     total_shots = 0
-    season_game_teams(season).each do |game|
+    season(season_number).each do |game|
       if game[:team_id] == team
         total_shots += game[:shots].to_i
       end 
@@ -415,40 +397,7 @@ class StatTracker
     total_shots
   end
 
-  def season_score_for_teams(team, season)
-    total_score = 0
-    season_game_teams(season).each do |game|
-      if game[:team_id] == team
-        total_score += game[:goals].to_i
-      end 
-    end
-    total_score
-  end
-
-  def games_by_season
-    games_by_season_hash = Hash.new([])
-    game.each do |one_game|
-      games_by_season_hash[one_game[:season]] += [one_game[:game_id]]
-    end
-    games_by_season_hash
-  end
-
-  def season_game_teams(season)
-    season_array = games_by_season[season]
-    game_teams.find_all { |game| season_array.include?(game[:game_id]) }
-  end
-  
-  def teams_shots_goals_ratio(season_number)
-    team_info = {}
-    season(season_number).each do  |team|
-      team_info[team[:team_id]] = { 
-        ratio: ((season_total_goals(team[:team_id], season_number)/season_total_shots(team[:team_id], season_number).to_f)).round(2),
-      }
-    end
-    team_info
-  end
-  
-  def season_total_goals(team, season_number)
+  def season_total_goals(team, season_number) #single season
     total_goals = 0
     season(season_number).each do |game|
       if game[:team_id] == team
@@ -458,17 +407,26 @@ class StatTracker
     total_goals
   end
 
-  def season_total_shots(team, season_number)
-    total_shots = 0
-    season(season_number).each do |game|
-      if game[:team_id] == team
-        total_shots += game[:shots].to_i
-      end 
+  def games_by_season #single seasons
+    games_by_season_hash = Hash.new([])
+    game.each do |one_game|
+      games_by_season_hash[one_game[:season]] += [one_game[:game_id]]
     end
-    total_shots
+    games_by_season_hash
   end
 
-  def season(season_number)
+  def season_game_teams(season) #single seasons
+    season_array = games_by_season[season]
+    game_teams.find_all { |game| season_array.include?(game[:game_id]) }
+  end
+  
+
+  
+
+
+
+
+  def season(season_number) #single season
     season_games = []
     season_games_both_teams = []
     game.each { |game|  season_games << game if game[:season] == season_number }
