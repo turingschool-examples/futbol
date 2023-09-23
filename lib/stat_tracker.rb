@@ -217,36 +217,28 @@ def initialize(locations)
   end
 
   def lowest_total_score
-
-    # helper method to remove any games that do not have lowest home + away score
-    def get_lowest_scores(sorted_goals)
-      lowest_score = sorted_goals.first.home_goals.to_i + sorted_goals.first.away_goals.to_i
-      sorted_goals.find_all do |game|
-        game.away_goals.to_i + game.home_goals.to_i == lowest_score
+    fewest_goals_game = @game_data.reduce(0) do |goals, game|
+      game_goals = game.home_goals.to_i + game.away_goals.to_i
+      if game_goals < goals
+        goals = game_goals
       end
+      goals
     end
-
-    # ascending sort of every game by sum of home and away goals
-    sorted_goals = @game_data.sort do |gm1, gm2|
-      gm1.away_goals.to_i + gm1.home_goals.to_i <=> gm2.away_goals.to_i + gm2.home_goals.to_i
-    end
-
-    # remove regular season games from ascending sorted_goals
-    playoff_goals_sorted = sorted_goals.find_all do |game|
-      game.type == "Postseason"
-    end
-
-    # lowest score among all games - regular and postseason
-    lowest_scoring_games = get_lowest_scores(sorted_goals)
-
-    # lowest score among postseason games
-    lowest_scoring_postseason = get_lowest_scores(playoff_goals_sorted)
-
-    # returned array with lowest scoring games among all games -> position 0; lowest scoring playoff game -> position 1 
-    [lowest_scoring_games, lowest_scoring_postseason]
-
+    fewest_goals_game
   end
     
+  # def highest_scoring_visitor
+  #   team_information = {}
+  #   season_goals = 0
+  #   @game_teams_data.find_all do |row|
+  #     season_goals += row[:goals].to_i
+  #     team_information[row[:team_id]] = season_goals + 
+  #     # require 'pry'; binding.pry
+  #   # require 'pry'; binding.pry
+  #   # row[:goals]
+  #   # row[:team_id]
+  #   # row[:game_id]
+  #   # row[:hoa
 
   def team_goals(home_or_away)
     teams = @game_teams_data.group_by { |row| row.team_id}
