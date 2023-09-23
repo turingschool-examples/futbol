@@ -1,7 +1,7 @@
-#  require_relative '../spec/spec_helper'
- require_relative './game'
- require_relative './game_team'
- require_relative './teams'
+# require_relative './spec_helper'
+  require_relative './game'
+  require_relative './game_team'
+  require_relative './teams'
 #  require 'pry-nav'
 
 
@@ -21,6 +21,21 @@ def initialize(locations)
     #@teams_data = CSV.read locations[:teams], headers: true, header_converters: :symbol
     #@game_team_data = CSV.read locations[:game_teams], headers: true, header_converters: :symbol
   end
+
+  def seasons_sorted
+    season_sorted = Game.games.group_by {|game| game.season}
+    game_ids = []
+    season_game_ids = Hash.new
+      season_sorted.each do |season|
+        season.last.each do |data|
+          game_ids << data.game_id
+        end
+        season_game_ids[season.first] = game_ids
+        # require 'pry'; binding.pry
+      end
+      require 'pry'; binding.pry
+    season_game_ids
+    end
   
   def create_games(path)
     Game.reset
@@ -202,34 +217,14 @@ def initialize(locations)
   end
 
   def lowest_total_score
-
-    # helper method to remove any games that do not have lowest home + away score
-    def get_lowest_scores(sorted_goals)
-      lowest_score = sorted_goals.first.home_goals.to_i + sorted_goals.first.away_goals.to_i
-      sorted_goals.find_all do |game|
-        game.away_goals.to_i + game.home_goals.to_i == lowest_score
+    fewest_goals_game = @game_data.reduce(0) do |goals, game|
+      game_goals = game.home_goals.to_i + game.away_goals.to_i
+      if game_goals < goals
+        goals = game_goals
       end
+      goals
     end
-
-    # ascending sort of every game by sum of home and away goals
-    sorted_goals = @game_data.sort do |gm1, gm2|
-      gm1.away_goals.to_i + gm1.home_goals.to_i <=> gm2.away_goals.to_i + gm2.home_goals.to_i
-    end
-
-    # remove regular season games from ascending sorted_goals
-    playoff_goals_sorted = sorted_goals.find_all do |game|
-      game.type == "Postseason"
-    end
-
-    # lowest score among all games - regular and postseason
-    lowest_scoring_games = get_lowest_scores(sorted_goals)
-
-    # lowest score among postseason games
-    lowest_scoring_postseason = get_lowest_scores(playoff_goals_sorted)
-
-    # returned array with lowest scoring games among all games -> position 0; lowest scoring playoff game -> position 1 
-    [lowest_scoring_games, lowest_scoring_postseason]
-
+    fewest_goals_game
   end
     
   # def highest_scoring_visitor
@@ -243,10 +238,11 @@ def initialize(locations)
   #   # row[:goals]
   #   # row[:team_id]
   #   # row[:game_id]
-  #   # row[:hoa]
+  #   # row[:hoa
 
   def team_goals(home_or_away)
     teams = @game_teams_data.group_by { |row| row.team_id}
+    # require 'pry'; binding.pry
     team_home_goals = Hash.new
     team_away_goals = Hash.new
     teams.each do |team, data_array|
@@ -267,7 +263,6 @@ def initialize(locations)
     else 
       team_home_goals
     end
-    # require 'pry'; binding.pry
   end
   
   def games_by_team(home_or_away)
@@ -280,43 +275,47 @@ def initialize(locations)
     games
   end
 
-  # def highest_scoring_visitor
-  #   team_goals("away")
-  #   require 'pry'; binding.pry
-
+  def average_goals_per_team(home_or_away)
+    team_goals(home_or_away)
+    games_by_team(home_or_away)
+    average_goals = Hash.new
+    team_goals(home_or_away).each do |key, value|
+      if games_by_team(home_or_away)[key]
+        average_goals[key] = (value.to_f / games_by_team(home_or_away)[key].to_f).round(2) 
+      end
+    end
+    average_goals
   end
 
+  def highest_scoring_visitor
+    team = average_goals_per_team("away")
+    most_avg = average_goals_per_team("away").values.max
+    # require 'pry'; binding.pry
+    return team.key(most_avg)
+  end
+  def lowest_scoring_visitor
+    team = average_goals_per_team("away")
+    lowest_average = average_goals_per_team("away").values.min
+    return team.key(lowest_average)
+  end
+  def highest_scoring_home_team
+    team = average_goals_per_team("home")
+    highest_average = average_goals_per_team("home").values.max
+    return team.key(highest_average)
+  end
+  def lowest_scoring_home_team
+    team = average_goals_per_team("home")
+    least_average = average_goals_per_team("home").values.min
+    return team.key(least_average)
+  end
+
+  def count_of_teams
+    @team_data.count
+    
+  end
+end
 
 
-# combine both of these into one for the games_by_team
-# def home_games_by_team
-#   teams = @game_teams_data.group_by { |row| row.team_id}
-#   games_at_home = Hash.new(0)
-#   teams.each do |team, data_array|
-#     home_games = []
-#     data_array.each do |data|
-#       if data.hoa == "home"
-#       home_games << data.game_id
-#       end
-#     end
-#     games_at_home[team] = home_games.count
-#   end
-#   games_at_home
-# end
 
-# def away_games_by_team
-#   teams = @game_teams_data.group_by { |row| row.team_id}
-#   games_not_at_home = Hash.new(0)
-#   teams.each do |team, data_array|
-#     away_games = []
-#     data_array.each do |data|
-#       if data.hoa == "away"
-#       away_games << data.game_id
-#       end
-#     end
-#     games_not_at_home[team] = away_games.count
-#   end
-#   games_not_at_home
-# end
 
 
