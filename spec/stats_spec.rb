@@ -29,7 +29,7 @@ RSpec.describe Stats do
 
   describe "#percentage_results" do
     it "returns the percentage results" do
-      expect(@stat_tracker.percentage_results).to eq({away_wins: 30.0, home_wins: 60.0, ties: 10.0})
+      expect(@stat_tracker.percentage_results).to eq({away_wins: 0.30, home_wins: 0.60, ties: 0.10})
     end
   end
 
@@ -92,7 +92,7 @@ RSpec.describe Stats do
   ##== SEASON STATS AND HELPERS==##
   describe "#win_percentage" do
     it "returns percentage of games won that season for a team" do
-      expect(@stat_tracker.win_percentage("Postseason", "20122013", "6")).to eq 100
+      expect(@stat_tracker.win_percentage("Postseason", "20122013", "6")).to eq 1.0
     end
   end
 
@@ -126,7 +126,7 @@ RSpec.describe Stats do
                   average_goals_scored: 2.8,
                   total_goals_against: 8,
                   total_goals_scored: 14,
-                  win_percentage: 100.0}
+                  win_percentage: 1.0}
       expect(@stat_tracker.season_stats("Postseason", "20122013", "6")).to be_a Hash
       expect(@stat_tracker.season_stats("Postseason", "20122013", "6")).to eq(expected)
     end
@@ -138,7 +138,7 @@ RSpec.describe Stats do
                   average_goals_scored: 2.8,
                   total_goals_against: 8,
                   total_goals_scored: 14,
-                  win_percentage: 100.0}
+                  win_percentage: 1.0}
       expect(@stat_tracker.seasonal_summaries["6"]).to be_a Hash
       expect(@stat_tracker.seasonal_summaries["6"]["20122013"][:postseason]).to eq(expected)
     end
@@ -152,7 +152,9 @@ RSpec.describe Stats do
 
   describe "#average_wins" do
     it "creates a hash with all teams and their average wins over all games" do
-      expect(@stat_tracker.average_wins["6"]).to eq(100.00)
+      expect(@stat_tracker.average_wins["6"]).to eq(1.0)
+    end
+  end
 
   describe '#max_min_goals' do
     it "creates an array goals scored totals" do

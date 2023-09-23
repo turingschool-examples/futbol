@@ -51,7 +51,7 @@ class StatTracker < Stats
     average_goals_per(:game)[:total]
   end
 
-  def average_goals_per_season
+  def average_goals_by_season
     average_goals_per(:season)
   end
 
@@ -119,6 +119,7 @@ class StatTracker < Stats
 
   def most_accurate_team(season)
     most_accurate_team = team_accuracies(season).max_by { |_, ratio| ratio }
+# require 'pry'; binding.pry
 
     team_name_from_id(most_accurate_team[0])
   end
@@ -189,7 +190,7 @@ class StatTracker < Stats
     teams_hash[:max_min_goals][:highest_goals][team_id]
   end
 
-  def least_goals_scored(team_id)
+  def fewest_goals_scored(team_id)
    teams_hash[:max_min_goals][:lowest_goals][team_id]
  end
 

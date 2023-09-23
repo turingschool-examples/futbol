@@ -33,15 +33,15 @@ class Stats
 
       home_wins = @games_data.count { |game| game[:home_goals].to_i > game[:away_goals].to_i }
 
-      @percentage_results[:home_wins] = (home_wins.to_f / number_games * 100.0).round(2)
+      @percentage_results[:home_wins] = (home_wins.to_f / number_games).round(2)
 
       away_wins = @games_data.count { |game| game[:away_goals].to_i > game[:home_goals].to_i }
 
-      @percentage_results[:away_wins] = (away_wins.to_f / number_games * 100.0).round(2)
+      @percentage_results[:away_wins] = (away_wins.to_f / number_games).round(2)
 
       ties = @games_data.count { |game| game[:away_goals].to_i == game[:home_goals].to_i }
 
-      @percentage_results[:ties] = (ties.to_f / number_games * 100.0).round(2)
+      @percentage_results[:ties] = (ties.to_f / number_games).round(2)
     end
 
     @percentage_results
@@ -119,11 +119,9 @@ class Stats
   def team_accuracies(season)
     team_accuracies = Hash.new { |hash, key| hash[key] = [] }  # {team_id: [goals, shots]}
     # array of hashes, each hash is data for a game team for specific season.
-    # [{CSV::Row from game_teams_data}]
     game_teams_in_season = @game_teams_data.select do |game_team|
       game_id = game_team[:game_id]
       game = @games_data.find { |game| game[:game_id] == game_id }
-
       game && game[:season] == season
     end
 
@@ -212,7 +210,7 @@ class Stats
       end
     end
 
-    ((winning_game_count.to_f / game_count) * 100.0).round(2)
+    ((winning_game_count.to_f / game_count)).round(2)
   end
 
   # returns integer for total goals scored by a given team in a given season
@@ -297,11 +295,11 @@ class Stats
 
     @teams_data.each do |team|
       team_info_hash[team[:team_id]] = {
-        team_id: team[:team_id],
-        franchise_id: team[:franchiseid],
-        team_name: team[:teamname],
-        abbreviation: team[:abbreviation],
-        link: team[:link]
+        "team_id" => team[:team_id],
+        "franchise_id" => team[:franchiseid],
+        "team_name" => team[:teamname],
+        "abbreviation" => team[:abbreviation],
+        "link" => team[:link]
       }
     end
 
@@ -366,7 +364,7 @@ class Stats
       average_wins[team_id] = if game_count == 0
         0.0
       else
-        ((winning_game_count.to_f / game_count)*100.0).round(2)
+        ((winning_game_count.to_f / game_count)).round(2)
       end
     end
 

@@ -43,19 +43,19 @@ RSpec.describe StatTracker do
 
   describe "#percentage_home_wins" do
     it "returns the percentage of home games a team has won" do
-      expect(@stat_tracker.percentage_home_wins).to eq(60.00)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.60)
     end
   end
 
   describe "#percentage_visitor_wins" do
     it "returns the percentage of home games a team has won" do
-      expect(@stat_tracker.percentage_visitor_wins).to eq(30.00)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.30)
     end
   end
 
   describe "#percentage_ties" do
     it "returns the percentage of games ending in a tie" do
-      expect(@stat_tracker.percentage_ties).to eq(10.00)
+      expect(@stat_tracker.percentage_ties).to eq(0.10)
     end
   end
 
@@ -75,13 +75,13 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe "average_goals_per_season" do
+  describe "average_goals_by_season" do
     it "should return the average points per season" do
       expected_outcome = {
         "20122013" => 4.38,
         "20132014" => 4.00
       }
-      expect(@stat_tracker.average_goals_per_season).to eq(expected_outcome)
+      expect(@stat_tracker.average_goals_by_season).to eq(expected_outcome)
     end
   end
 
@@ -189,11 +189,11 @@ RSpec.describe StatTracker do
   describe "#team_info" do
     it "returns a hash with team information" do
       expected_team_info = {
-        team_id: "1",
-        franchise_id: "23",
-        team_name: "Atlanta United",
-        abbreviation: "ATL",
-        link: "/api/v1/teams/1"
+        "abbreviation" => "ATL",
+        "franchise_id" => "23",
+        "link" => "/api/v1/teams/1",
+        "team_id" => "1",
+        "team_name" => "Atlanta United",
       }
 
       expect(@stat_tracker.team_info("1")).to eq(expected_team_info)
@@ -224,7 +224,7 @@ RSpec.describe StatTracker do
                   average_goals_scored: 2.8,
                   total_goals_against: 8,
                   total_goals_scored: 14,
-                  win_percentage: 100.0}
+                  win_percentage: 1.0}
 
       expect(@stat_tracker.seasonal_summary("6")["20122013"][:postseason]).to eq(expected)
     end
@@ -247,7 +247,7 @@ RSpec.describe StatTracker do
 
   describe "#average_win_percentage(team_id)" do
     it "returns the average win percentage across all seasonss for given team" do
-      expect(@stat_tracker.average_win_percentage("6")).to eq(100.00)
+      expect(@stat_tracker.average_win_percentage("6")).to eq(1.00)
       expect(@stat_tracker.average_win_percentage("6")).to be_a(Float)
     end
   end
@@ -258,9 +258,9 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#least_goals_scored' do
+  describe '#fewest_goals_scored' do
     it 'returns the highest number of goals scored by any team in a single game' do
-      expect(@stat_tracker.most_goals_scored("6")).to eq(3)
+      expect(@stat_tracker.fewest_goals_scored("6")).to eq(2)
     end
   end
 
