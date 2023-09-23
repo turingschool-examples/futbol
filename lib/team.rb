@@ -40,6 +40,8 @@ class Team
       team.tackles += game[:tackles].to_i
       team.home_games += 1 if game[:hoa] == "home"
       team.away_games += 1 if game[:hoa] == "away"
+      team.away_goals += game[:goals].to_i if game[:hoa] == "away"
+      team.home_goals += game[:goals].to_i if game[:hoa] == "home"
   end
 
 
@@ -50,6 +52,7 @@ class Team
         total_score += game[:goals].to_i
       end 
     end
+    
     total_score
   end
 
