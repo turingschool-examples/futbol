@@ -54,6 +54,10 @@ RSpec.describe StatTracker do
     expect(@game_stats.percentage_visitor_wins).to eq 0.0
   end
 
+  it "#percentage_home_wins" do 
+    expect(@game_stats.percentage_home_wins).to eq 0.0
+  end
+
 
   describe "#percentage_calculator" do
     it "finds the percentage for given numbers rounded to nearest 100th" do
@@ -66,20 +70,36 @@ RSpec.describe StatTracker do
     it 'helper methods' do
       expect(@game_stats.seasons_sorted).to be_a(Hash)
       expect(@game_stats.team_info).to be_a(Hash)
-      expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
-      expect(@game_stats.fewest_tackles("20122013")).to eq "Chicago Fire"
     end
-
-  xdescribe '#Tackles' do
+    
+    describe '#Tackles' do
     it 'finds most number of tackles' do
-    #full data test
+      #fixture test
+      expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
+
+      #full data test
       expect(@game_stats.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@game_stats.most_tackles("20142015")).to eq "Seattle Sounders FC"
-  end
-    #full data test
+    end
+
     it 'finds least number of tackles' do
+      #fixture test
+      expect(@game_stats.fewest_tackles("20122013")).to eq "Chicago Fire"
+    
+    #full data test
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
+    end
+  end
+
+  describe '#Team accuracy' do
+    it 'check the most accurate team for a season' do
+      #fixture test
+      expect(@game_stats.most_accurate_team("20122013")).to eq("Chicago Fire")
+
+      #full data test
+      expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
     end
   end
 

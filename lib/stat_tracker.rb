@@ -107,6 +107,13 @@ def initialize(locations)
     end 
     (away_wins.to_f / Game.games.count.to_f).round(2)
   end
+
+  def percentage_home_wins
+    home_wins = GameTeam.gameteam.count do |game|
+      game.HoA == "home" && game.result == "WIN"
+    end 
+    (home_wins.to_f / Game.games.count.to_f).round(2)
+  end
   
   def seasons_sorted
     season_sorted = Game.games.group_by {|game| game.season}
@@ -173,8 +180,17 @@ def initialize(locations)
       team_with_fewest_tackles.team_name
     end
 
-  def most_accurate_team
-
+  def most_accurate_team(season)
+    games_by_season = @game_data.find_all do |game|
+      game if game.season == season
+    end
+    game_teams_by_season = []
+    games_by_season.each do |game|
+      @game_teams_data.each do |game_team|
+        game_teams_by_season.push(game_team) if game.game_id == game_team.game_id
+      end
+    end
+    require 'pry'; binding.pry
   end
 
   def least_accurate_team
