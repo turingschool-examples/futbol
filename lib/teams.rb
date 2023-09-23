@@ -1,6 +1,6 @@
 class Team
   @@teams = []
-  attr_reader :game_id,
+  attr_reader :team_id,
               :franchise_id,
               :team_name,
               :abbreviation,
@@ -8,11 +8,11 @@ class Team
               :link
 
   def initialize(attributes)
-    @game_id      = attributes[:game_id]
+    @team_id      = attributes[:team_id]
     @franchise_id = attributes[:franchiseid]
     @team_name    = attributes[:teamname]
     @abbreviation = attributes[:abbreviation]
-    @Stadium = attributes[:Stadium]
+    @stadium = attributes[:stadium]
     @link = attributes[:link]
     @@teams << self
   end

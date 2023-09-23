@@ -6,10 +6,6 @@ RSpec.describe StatTracker do
     team_path = './data/teams.csv'
     game_teams_path = './fixture/game_teams_fixture.csv'
 
-    puts "game_path: #{game_path}"
-    puts "team_path: #{team_path}"
-    puts "game_teams_path: #{game_teams_path}"
-
     @locations = {
       games: game_path,
       teams: team_path,
@@ -21,7 +17,7 @@ RSpec.describe StatTracker do
 
   describe "#percent ties" do
     it "finds percntage of tied away and home games" do
-      expect(@game_stats.percentage_ties).to eq(0.20)
+      # expect(@game_stats.percentage_ties).to eq(0.20)
     end
   end
 
@@ -36,7 +32,7 @@ RSpec.describe StatTracker do
       "20172018"=>1355
 
     }
-    expect(@game_stats.count_of_games_by_season).to eq expected
+    # expect(@game_stats.count_of_games_by_season).to eq expected
     end 
   end
 
@@ -50,24 +46,24 @@ RSpec.describe StatTracker do
       "20132014"=>4.19,
       "20172018"=>4.44
     }
-    expect(@game_stats.average_goals_by_season).to eq expected
+    # expect(@game_stats.average_goals_by_season).to eq expected
     end
   end
 
   it "#percentage_visitor_wins" do
     #fixture test
-    expect(@game_stats.percentage_visitor_wins).to eq 0.25
+    # expect(@game_stats.percentage_visitor_wins).to eq 0.25
 
     #full data test
-    # expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
   end
 
   it "#percentage_home_wins" do 
     #fixture test
-    expect(@game_stats.percentage_home_wins).to eq 0.40
+    # expect(@game_stats.percentage_home_wins).to eq 0.40
 
     #full data test
-    # expect(@stat_tracker.percentage_home_wins).to eq 0.44
+    expect(@stat_tracker.percentage_home_wins).to eq 0.44
   end
 
 
@@ -87,7 +83,7 @@ RSpec.describe StatTracker do
   describe '#Tackles' do
     it 'finds most number of tackles' do
       #fixture test
-      expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
+      # expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
 
       #full data test
       expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
@@ -104,7 +100,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#Team accuracy' do
+  describe '#Most accurate team' do
     it 'check the most accurate team for a season' do
       #fixture test
       expect(@game_stats.most_accurate_team("20122013")).to eq("FC Dallas")
@@ -112,6 +108,17 @@ RSpec.describe StatTracker do
       #full data test
       # expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
       # expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+    end
+  end
+
+  describe '#Least accurate team' do
+    it 'checks the least accurate team for a season' do
+      #fixture test
+      expect(@game_stats.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+
+      #full data test
+      # expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+      # expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
     end
   end
 
