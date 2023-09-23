@@ -10,6 +10,7 @@ class TeamSeason
                 :home_goals,
                 :away_goals,
                 :season
+
   def initialize(season, team_id)
     @team_id = team_id
     @season = season
@@ -23,10 +24,4 @@ class TeamSeason
     @away_goals = 0
   end
 end
-# hash = {}
-# stat_tracker.game_teams do |game_team|
-#   hash[game_team[:game_id]] = (
-#   stat_stracker.game.find_all do |one_game|
-#     one_game[:game_id] == one_game[:game_id]
-#   end )
-# end
+
