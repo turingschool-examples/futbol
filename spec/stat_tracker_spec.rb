@@ -33,15 +33,16 @@ RSpec.describe StatTracker do
       expect(@game_stats.seasons_sorted).to be_a(Hash)
       expect(@game_stats.team_info).to be_a(Hash)
       expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
+      expect(@game_stats.least_tackles("20122013")).to eq "Chicago Fire"
     end
 
   xdescribe '#Tackles' do
     it 'finds most number of tackles' do
-    
+    #full data test
       expect(@game_stats.most_tackles("20132014")).to eq "FC Cincinnati"
       expect(@game_stats.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
-
+    #full data test
     it 'finds least number of tackles' do
       expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
       expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"

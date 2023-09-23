@@ -101,21 +101,26 @@ def initialize(locations)
   end  
     
   
-  def least_tackles
+  def least_tackles(season)
     #returns array of all games for specific season
     games_by_season = @game_data.find_all do |game|
       game if game.season == season
     end
       #returns array of all game_teams for specific season, game_teams track tackles
     game_teams_by_season = []
-    game_teams
+    games_by_season.each do |game|
+      @game_teams_data.each do |game_team|
+        game_team_by_season.push(game_team) if game.game_id == game_team.game_id
+      end
+    end
       #creats empty acumulator hash, sort teams by id as key, add all tackles for each team as value
-      
+      tackles_by_team = Hash.new(0)
+      game_team_by_season.each do |game_team|
+        require 'pry'; binding.pry
+      end
       #find team id with most tackles
 
       #call on team name attribute of team object
-
-  end
 
   end
 
