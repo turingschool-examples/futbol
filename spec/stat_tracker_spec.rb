@@ -61,16 +61,25 @@ RSpec.describe StatTracker do
       expect(@game_stats.percentage_calculator(5.0, 19.0)).to eq(0.26)
       expect(@game_stats.percentage_calculator(1.0, 19.0)).to eq(0.05)
     end
-  end 
-
-
-  describe '#Tackles' do
-    xit 'finds most number of tackles' do
-      expect(@game_stats.most_tackles).to eq(95)
+  end
+    
+    it 'helper methods' do
+      expect(@game_stats.seasons_sorted).to be_a(Hash)
+      expect(@game_stats.team_info).to be_a(Hash)
+      expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
+      expect(@game_stats.fewest_tackles("20122013")).to eq "Chicago Fire"
     end
 
-    xit 'finds least number of tackles' do
-      expect(@game_stats.least_tackles).to eq()
+  xdescribe '#Tackles' do
+    it 'finds most number of tackles' do
+    #full data test
+      expect(@game_stats.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@game_stats.most_tackles("20142015")).to eq "Seattle Sounders FC"
+  end
+    #full data test
+    it 'finds least number of tackles' do
+      expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
   end
 

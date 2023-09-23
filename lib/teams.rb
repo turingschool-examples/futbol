@@ -1,4 +1,5 @@
 class Team
+  @@teams = []
   attr_reader :game_id,
               :franchise_id,
               :team_name,
@@ -11,7 +12,12 @@ class Team
     @franchise_id = attributes[:franchiseid]
     @team_name    = attributes[:teamname]
     @abbreviation = attributes[:abbreviation]
-    @stadium      = attributes[:stadium]
-    @link         = attributes[:link]
+    @Stadium = attributes[:Stadium]
+    @link = attributes[:link]
+    @@teams << self
+  end
+
+  def self.teams
+    @@teams
   end
 end

@@ -6,9 +6,9 @@
 
 
 class StatTracker
-  attr_reader :locations, :team_data, :game_data, :game_teams_data
-  
-  def initialize(locations)
+attr_reader :locations, :team_data, :game_data, :game_teams_data
+
+def initialize(locations)
     @game_data = create_games(locations[:games])
     # require 'pry'; binding.pry
     # @teams = create_teams(locations[:teams])
@@ -39,6 +39,7 @@ class StatTracker
   
   def create_games(path)
     Game.reset
+    Game.reset
     # require 'pry'; binding.pry
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     # data.map { |row| Game.new(row) }
@@ -48,6 +49,7 @@ class StatTracker
   end
   
   def create_game_teams(path)
+    GameTeam.reset
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
     data.map do |row| 
       GameTeam.new(row)
@@ -105,6 +107,84 @@ class StatTracker
     end 
     (away_wins.to_f / Game.games.count.to_f).round(2)
   end
+  
+  def seasons_sorted
+    season_sorted = Game.games.group_by {|game| game.season}
+    # require 'pry'; binding.pry
+  end
+    
+  def team_info
+    teams = GameTeam.gameteam.group_by {|team| team.team_id}
+    # require 'pry'; binding.pry
+  end
+    
+  def most_tackles(season)
+    #returns array of all games for specific season
+    games_by_season = @game_data.find_all do |game|
+      game if game.season == season
+    end
+    #returns array of all game_teams for specific season, game_teams track tackles
+    game_teams_by_season = []
+    games_by_season.each do |game|
+      @game_teams_data.each do |game_team|
+        game_teams_by_season.push(game_team) if game.game_id == game_team.game_id
+      end
+    end
+    #creats empty acumulator hash, sort teams by id as key, add all tackles for each team as value
+    tackles_by_team = Hash.new(0)
+    game_teams_by_season.each do |game_team|
+      tackles_by_team[game_team.team_id] += game_team.tackles.to_i
+    end
+    #find team id with most tackles 
+    team_id_most_tackles = tackles_by_team.max_by {|team_id, tackles| tackles}.first
+    #find team object by id found above
+    team_with_most_tackles = @team_data.find do |team|
+      team_id_most_tackles == team.franchise_id
+    end
+    #call on team name attribute of team object
+    team_with_most_tackles.team_name
+  end  
+    
+  
+  def fewest_tackles(season)
+    #returns array of all games for specific season
+    games_by_season = @game_data.find_all do |game|
+      game if game.season == season
+    end
+      #returns array of all game_teams for specific season, game_teams track tackles
+    game_teams_by_season = []
+    games_by_season.each do |game|
+      @game_teams_data.each do |game_team|
+        game_teams_by_season.push(game_team) if game.game_id == game_team.game_id
+      end
+    end
+      #creats empty acumulator hash, sort teams by id as key, add all tackles for each team as value
+      tackles_by_team = Hash.new(0)
+      game_teams_by_season.each do |game_team|
+        tackles_by_team[game_team.team_id] = game_team.tackles.to_i
+      end
+      #find team id with most tackles
+      team_id_fewest_tackles = tackles_by_team.min_by {|team_id, tackles| tackles}.first
+      #find team object by id found above
+      team_with_fewest_tackles = @team_data.find do |team|
+        team_id_fewest_tackles == team.franchise_id
+      end
+      #call on team name attribute of team object
+      team_with_fewest_tackles.team_name
+    end
+
+  def most_accurate_team
+
+  end
+
+  def least_accurate_team
+
+  end
+
+  def count_of_teams
+
+  end
+
 
   def average_goals_per_game
     total_goals = 0
