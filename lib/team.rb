@@ -29,7 +29,7 @@ class Team
     end
     total_wins
   end
-
+  # Team Total Games could perhaps be a module??
   def teams_total_games(team_id)
     total_ties_loss = Hash.new(0)
     @game_team_data.each do |row|
@@ -43,7 +43,7 @@ class Team
   def average_win_percentage(team_id)
     team_avg = Hash.new(0)
     teams_total_wins(team_id).each do |team, wins|
-      total_games = teams_total_games[team]
+      total_games = teams_total_games(team_id)[team]
       percent = (wins / total_games.to_f).round(2)
       team_avg[team] = percent
     end
