@@ -33,7 +33,7 @@ RSpec.describe StatTracker do
       expect(@game_stats.seasons_sorted).to be_a(Hash)
       expect(@game_stats.team_info).to be_a(Hash)
       expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
-      expect(@game_stats.least_tackles("20122013")).to eq "Chicago Fire"
+      expect(@game_stats.fewest_tackles("20122013")).to eq "Chicago Fire"
     end
 
   xdescribe '#Tackles' do
