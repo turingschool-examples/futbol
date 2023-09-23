@@ -138,7 +138,7 @@ class StatTracker
 
   def highest_scoring_home_team
     highest_score = ""
-    team_number = home_team_games_scores.sort_by{ |team, data| data[:average] }.last[0]
+    team_number = @all_season_data.home_team_games_scores.sort_by{ |team, data| data[:average] }.last[0]
     team_data.each do |team|
       if team[:team_id] == team_number
         highest_score << team[:teamname]
@@ -260,42 +260,42 @@ class StatTracker
     total_score
   end
 
-  def home_team_games_scores #all season methods, combine with visitor games and scores
-    games_and_scores = {}
-    home_team_games.each do |team|
-      games_and_scores[team[:team_id]] = {
-        average: (home_game_total_score(team[:team_id])/
-        home_team_games_count(team[:team_id]).to_f)
-      }
-    end
-    games_and_scores
-  end
+  # def home_team_games_scores #all season methods, combine with visitor games and scores
+  #   games_and_scores = {}
+  #   @all_season_data.home_team_games.each do |team|
+  #     games_and_scores[team[:team_id]] = {
+  #       average: (home_game_total_score(team[:team_id])/
+  #       home_team_games_count(team[:team_id]).to_f)
+  #     }
+  #   end
+  #   games_and_scores
+  # end
 
-  def home_team_games #all season methods; combine with away team games; hash
-    home_team_games = []
-    game_teams.each do |game|
-      home_team_games << game if game[:hoa] == "home"
-    end
-    home_team_games
-  end
+  # def home_team_games #all season methods; combine with away team games; hash
+  #   home_team_games = []
+  #   game_teams.each do |game|
+  #     home_team_games << game if game[:hoa] == "home"
+  #   end
+  #   home_team_games
+  # end
 
-  def home_team_games_count(team) #all season methods
-    number_of_games = 0
-    home_team_games.each do |game|
-      number_of_games += 1 if game[:team_id] == team
-    end
-    number_of_games
-  end
+  # def home_team_games_count(team) #all season methods
+  #   number_of_games = 0
+  #   @all_season_data.home_team_games.each do |game|
+  #     number_of_games += 1 if game[:team_id] == team
+  #   end
+  #   number_of_games
+  # end
 
-  def home_game_total_score(team) #all season methods, combine with away_game_total_score 
-    #total_score = {}
-    #away_team_games.each do |game| xyz
-    total_score = 0
-    home_team_games.each do |game|
-      total_score += game[:goals].to_i if game[:team_id] == team
-    end
-    total_score
-  end
+  # def home_game_total_score(team) #all season methods, combine with away_game_total_score 
+  #   #total_score = {}
+  #   #away_team_games.each do |game| xyz
+  #   total_score = 0
+  #   @all_season_data.home_team_games.each do |game|
+  #     total_score += game[:goals].to_i if game[:team_id] == team
+  #   end
+  #   total_score
+  # end
 
   def visitor_games_and_scores # all season methods
     games_and_scores = {}
