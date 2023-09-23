@@ -212,18 +212,17 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#most_goals_scored' do
-    it 'returns the highest number of goals scored by any team in a single game' do
+  describe "#most_goals_scored" do
+    it "returns the highest number of goals scored by any team in a single game" do
       expect(@stat_tracker.most_goals_scored("6")).to eq(3)
     end
   end
 
-  describe '#least_goals_scored' do
-    it 'returns the lowest number of goals scored by any team in a single game' do
+  describe "#least_goals_scored" do
+    it "returns the lowest number of goals scored by any team in a single game" do
       expect(@stat_tracker.least_goals_scored("4")).to eq(1)
     end
   end
 
   ###=== TEAM QUERIES ===###
 end
-#to make new brnch 

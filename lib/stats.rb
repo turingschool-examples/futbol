@@ -201,7 +201,7 @@ class Stats
 
     @games_data.each do |game|
       if game[:type] == season_type && game[:season] == season_id
-        if  game[:away_team_id] == team_id || game[:home_team_id] == team_id
+        if game[:away_team_id] == team_id || game[:home_team_id] == team_id
           game_count += 1
           if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i ||
               game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i
@@ -327,11 +327,13 @@ class Stats
       end
     end
 
-  team_highest_goals
-end
+    team_highest_goals
+  end
 
-def least_goals_scored_totals
-    team_lowest_goals = Hash.new { |hash, key| hash[key] = Float::INFINITY  } # a hash of {team_id: [lowest goals scored]}
+  def least_goals_scored_totals
+    # total_goals_scored(season_type, season_id, team_id)
+    # unique seasons array
+    team_lowest_goals = Hash.new { |hash, key| hash[key] = Float::INFINITY } # a hash of {team_id: [lowest goals scored]}
 
     @game_teams_data.each do |game_team|
       team_id = game_team[:team_id]
@@ -342,8 +344,7 @@ def least_goals_scored_totals
       end
     end
 
-  team_lowest_goals
-end
-
+    team_lowest_goals
+  end
   #== TEAM HELPERS ==##
 end
