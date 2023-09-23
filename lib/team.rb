@@ -52,6 +52,7 @@ class Team
         total_score += game[:goals].to_i
       end 
     end
+    
     total_score
   end
 
