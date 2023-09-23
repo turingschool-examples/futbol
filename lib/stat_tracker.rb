@@ -9,6 +9,7 @@ class StatTracker
 attr_reader :locations, :team_data, :game_data, :game_teams_data
 
 def initialize(locations)
+  # require 'pry'; binding.pry
 @game_data = create_games(locations[:games])
 @game_teams_data = create_game_teams(locations[:game_teams])
 @team_data = create_teams(locations[:teams])
@@ -138,7 +139,7 @@ end
         game_teams_by_season.push(game_team) if game.game_id == game_team.game_id
       end
     end
-    #creats empty acumulator hash, sort teams by id as key, add all tackles for each team as value
+    #creates empty acumulator hash, sort teams by id as key, add all tackles for each team as value
     tackles_by_team = Hash.new(0)
     game_teams_by_season.each do |game_team|
       tackles_by_team[game_team.team_id] += game_team.tackles.to_i
@@ -225,118 +226,103 @@ end
     team_with_least_accuracy.team_name
   end
 
-def average_goals_per_game
-  total_goals = 0
-  total_games = []
-  @game_teams_data.each do |row|
-    total_goals += row.goals.to_i
-    total_games << row.game_id
+  def average_goals_per_game
+    total_goals = 0
+    total_games = []
+    @game_teams_data.each do |row|
+      total_goals += row.goals.to_i
+      total_games << row.game_id
+    end
+    # require 'pry'; binding.pry
+    average = total_goals.to_f / total_games.uniq.count
+    average.round(2)
   end
-  average = total_goals.to_f / total_games.uniq.count
-  average.round(2)
-end
 
-def team_goals(home_or_away)
-  teams = @game_teams_data.group_by { |row| row.team_id}
-  team_home_goals = Hash.new
-  team_away_goals = Hash.new
-  teams.each do |team, data_array|
-    away_goals = 0
-    home_goals = 0
-    data_array.each do |data|
-      if data.hoa == "home"
-        home_goals += data.goals.to_i
-      elsif data.hoa == "away"
-        away_goals += data.goals.to_i
+  def team_goals(home_or_away)
+    teams = @game_teams_data.group_by { |row| row.team_id}
+    hoa_hash = { home: Hash.new(0), away: Hash.new(0)}
+    teams.each do |team, data_array|
+      data_array.each do |data|
+        if data.hoa == "home" 
+          hoa_hash[:home][team] += data.goals.to_i
+        elsif data.hoa == "away"
+          hoa_hash[:away][team] += data.goals.to_i
+        end
       end
     end
-    team_away_goals[team] = away_goals
-    team_home_goals[team] = home_goals
-  end
-  if home_or_away == "away"
-    team_away_goals
-  else 
-    team_home_goals
-  end
-end
-
-def games_by_team(team_side)
-  teams = @game_teams_data.group_by { |row| row.team_id }
-  games = Hash.new
-  teams.each do |team, data_array|
-    game_location = data_array.select { |data| data.hoa == team_side}
-    games[team] = game_location.count
-  end
-  games
-end
-
-def average_goals_per_team(team_side)
-  team_goals(team_side)
-  games_by_team(team_side)
-  average_goals = Hash.new
-  team_goals(team_side).each do |key, value|
-    if games_by_team(team_side)[key]
-      average_goals[key] = (value.to_f / games_by_team(team_side)[key].to_f).round(3) 
+    # require 'pry'; binding.pry
+    if home_or_away == "away"
+      hoa_hash[:away]
+    else 
+      hoa_hash[:home]
     end
   end
-  average_goals
-end
 
-def highest_scoring_visitor
-  team = average_goals_per_team("away")
-  highest_a_avg = average_goals_per_team("away").values.max
-  team_identifier = team.key(highest_a_avg)
-  team_highest_a_avg = @team_data.find do |team|
-    team_identifier == team.team_id
+  def games_by_team(team_side)
+    teams = @game_teams_data.group_by { |row| row.team_id }
+    games = Hash.new
+    teams.each do |team, data_array|
+      game_location = data_array.select { |data| data.hoa == team_side}
+      games[team] = game_location.count
+    end
+    games
   end
-  team_highest_a_avg.team_name
-end
 
-def lowest_scoring_visitor
-  team = average_goals_per_team("away")
-  lowest_a_avg = average_goals_per_team("away").values.min
-  team_identifier = team.key(lowest_a_avg)
-  team_lowest_a_avg = @team_data.find do |team|
-    team_identifier == team.team_id
+  def average_goals_per_team(team_side)
+    team_goals(team_side)
+    games_by_team(team_side)
+    average_goals = Hash.new
+    team_goals(team_side).each do |key, value|
+      if games_by_team(team_side)[key]
+        average_goals[key] = (value.to_f / games_by_team(team_side)[key].to_f).round(3) 
+      end
+    end
+    # require 'pry'; binding.pry
+    average_goals
   end
-  team_lowest_a_avg.team_name
-end
 
-def highest_scoring_home_team
-  team = average_goals_per_team("home")
-  highest_h_avg = average_goals_per_team("home").values.max
-  team_identifier = team.key(highest_h_avg)
-  team_highest_h_avg = @team_data.find do |team|
-    team_identifier == team.team_id
+  def highest_scoring_visitor
+    avg_goals_away_team = average_goals_per_team("away")
+    highest_a_avg = average_goals_per_team("away").values.max
+    team_identifier = avg_goals_away_team.key(highest_a_avg)
+    team_highest_a_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_highest_a_avg.team_name
   end
-  team_highest_h_avg.team_name
-end
 
-def lowest_scoring_home_team
-  team = average_goals_per_team("home")
-  lowest_h_avg = average_goals_per_team("home").values.min
-  team_identifier = team.key(lowest_h_avg)
-  team_lowest_h_avg = @team_data.find do |team|
-    team_identifier == team.team_id
+  def lowest_scoring_visitor
+    avg_away_team = average_goals_per_team("away")
+    lowest_a_avg = average_goals_per_team("away").values.min
+    team_identifier = avg_away_team.key(lowest_a_avg)
+    team_lowest_a_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_lowest_a_avg.team_name
   end
-  team_lowest_h_avg.team_name
-end
 
-def count_of_teams
-  teams = @team_data.group_by { |team| team.team_name}
-  teams.keys.compact.count
-end
-end
-
-def seasons_sorted
-season_sorted = Game.games.group_by {|game| game.season}
-game_ids = []
-season_game_ids = Hash.new
-season_sorted.each do |season|
-  season.last.each do |data|
-    game_ids << data.game_id
+  def highest_scoring_home_team
+    avg_goals_home_team = average_goals_per_team("home")
+    highest_h_avg = average_goals_per_team("home").values.max
+    team_identifier = avg_goals_home_team.key(highest_h_avg)
+    team_highest_h_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_highest_h_avg.team_name
   end
-  season_game_ids[season.first] = game_ids
-end
-season_game_ids
+
+  def lowest_scoring_home_team
+    avg_goals_home = average_goals_per_team("home")
+    lowest_h_avg = average_goals_per_team("home").values.min
+    team_identifier = avg_goals_home.key(lowest_h_avg)
+    team_lowest_h_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_lowest_h_avg.team_name
+  end
+
+  def count_of_teams
+    teams = @team_data.group_by { |team| team.team_name}
+    teams.keys.compact.count
+  end
 end

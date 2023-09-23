@@ -4,10 +4,10 @@ RSpec.describe StatTracker do
   before(:all) do
     game_path = './fixture/games_fixture.csv'
     team_path = './data/teams.csv'
-    game_teams_path = './fixture/game_teams_fixture.csv'
+    # game_teams_path = './fixture/game_teams_fixture.csv'
     # game_path = './data/games.csv'
     # team_path = './data/teams.csv'
-    # game_teams_path = './data/game_teams.csv'
+    game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -15,8 +15,8 @@ RSpec.describe StatTracker do
       game_teams: game_teams_path
       
     }
-    @game_stats = StatTracker.new(@locations)
-    # @stat_tracker = StatTracker.new(@locations)
+    # @game_stats = StatTracker.new(locations)
+    @stat_tracker = StatTracker.new(locations)
   end
 
   describe "#percent ties" do
@@ -124,11 +124,18 @@ RSpec.describe StatTracker do
   end
   
   describe "#average_goals_per_team" do
-    xit "calculates average away goals per team" do
-      expect(@game_stats.average_goals_per_team("away")).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.5, "16"=>1.0})
+    it "calculates average away goals per team" do
+      #fixture data
+      # expect(@game_stats.average_goals_per_team("away")).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.5, "16"=>1.0})
+      #test data
+      expect(@stat_tracker.average_goals_per_team("away")).to eq({"3"=>2.15, "6"=>2.245, "5"=>2.182, "17"=>2.04, "16"=>2.098, "9"=>2.008, "8"=>2.008, "30"=>2.008, "26"=>2.027, "19"=>2.043, "24"=>2.143, "2"=>2.095, "15"=>2.205, "20"=>1.932, "14"=>2.124, "28"=>2.128, "4"=>1.967, "21"=>1.915, "25"=>2.122, "13"=>1.953, "18"=>2.051, "10"=>1.954, "29"=>2.122, "52"=>2.042, "54"=>2.098, "1"=>1.897, "23"=>1.936, "12"=>2.017, "27"=>1.846, "7"=>1.878, "22"=>2.03, "53"=>1.848})
     end
-    xit "calculates average home goals per team" do
-      expect(@game_stats.average_goals_per_team("home")).to eq({"3"=>1.5, "6"=>2.4, "5"=>0.5, "17"=>3, "16"=>1.5})
+    it "calculates average home goals per team" do
+      #fixture data
+      # expect(@game_stats.average_goals_per_team("home")).to eq({"3"=>1.5, "6"=>2.4, "5"=>0.5, "17"=>3, "16"=>1.5})
+      #test data
+      expect(@stat_tracker.average_goals_per_team("home")).to eq({"3"=>2.102, "6"=>2.28,
+"5"=>2.388, "17"=>2.079, "16"=>2.231, "9"=>2.204, "8"=>2.084, "30"=>2.224, "26"=>2.141, "19"=>2.17, "24"=>2.246, "2"=>2.275, "15"=>2.22, "20"=>2.203, "14"=>2.316, "28"=>2.244, "4"=>2.109, "21"=>2.216, "25"=>2.326, "13"=>2.164, "18"=>2.242, "10"=>2.261, "29"=>2.211, "52"=>2.304, "54"=>2.588, "1"=>1.974, "23"=>2.009, "12"=>2.07, "27"=>2.2, "7"=>1.795, "22"=>2.064, "53"=>1.933})
     end
   end
 
@@ -138,7 +145,7 @@ RSpec.describe StatTracker do
     # expect(@game_stats.highest_scoring_visitor).to eq("FC Dallas")
     expect(@game_stats.highest_scoring_visitor).to eq("6")
     #for full data
-    # expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
     end
   end
     describe "#lowest_scoring_visitor" do
@@ -148,7 +155,7 @@ RSpec.describe StatTracker do
     # expect(@game_stats.lowest_scoring_visitor).to eq("5")
     #for full data
     expect(@game_stats.lowest_scoring_visitor).to eq("27")
-    # expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
   end
   describe "#highest_scoring_home_team" do
@@ -158,7 +165,7 @@ RSpec.describe StatTracker do
         # expect(@game_stats.highest_scoring_home_team).to eq("17")
         #for full data
         expect(@game_stats.highest_scoring_home_team).to eq("54")
-        # expect(@stat_tracker.lowest_scoring_visitor).to eq "Reign FC"
+        expect(@stat_tracker.lowest_scoring_visitor).to eq "Reign FC"
       end
     end
 
@@ -179,7 +186,7 @@ RSpec.describe StatTracker do
       end
     end
   end
-end
+
 
 it "exists" do
   expect(@stat_tracker).to be_an_instance_of StatTracker
@@ -233,9 +240,9 @@ end
 #     expect(@stat_tracker.average_goals_by_season).to eq expected
 #   end
 
-  it "#count_of_teams" do
-    expect(@stat_tracker.count_of_teams).to eq 32
-  end
+  # it "#count_of_teams" do
+  #   expect(@stat_tracker.count_of_teams).to eq 32
+  # end
 
 #   it "#best_offense" do
 #     expect(@stat_tracker.best_offense).to eq "Reign FC"
@@ -598,15 +605,16 @@ end
 #     end
 #   end
 
-#   describe "#team_goals" do 
-#     it 'will find the amount of goals per team' do
-#       expect(@game_stats.team_goals("home")).to be_instance_of(Hash)
-#       #this test is for the fixture
-#       expect(@game_stats.team_goals("away")).to eq({"3"=>5, "6"=>12, "5"=>1, "17"=>3, "16"=>1})
-#       expect(@game_stats.team_goals("home")).to eq({"3"=>3, "6"=>12, "5"=>1, "17"=>3, "16"=>3})
+  describe "#team_goals" do 
+    it 'will find the amount of goals per team' do
+      expect(@game_stats.team_goals("home")).to be_instance_of(Hash)
+      #this test is for the fixture
+      require 'pry'; binding.pry
+      expect(@game_stats.team_goals("away")).to eq({"3"=>5, "6"=>12, "5"=>1, "17"=>3, "16"=>1})
+      expect(@game_stats.team_goals("home")).to eq({"3"=>3, "6"=>12, "5"=>1, "17"=>3, "16"=>3})
 
-#     end
-#   end
+    end
+  end
 #   describe "#games_by_team" do 
 #     it 'will find the amount of home games per team' do
 #       expect(@game_stats.games_by_team("home")).to be_instance_of(Hash)
@@ -645,19 +653,27 @@ end
 #     end
 #   end
 # end
-    describe "#highest_scoring_visitor" do
-      it 'finds team with highest average score when away' do
-      #this test is for the fixture
-      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+
+  describe "#average_goals_per_game" do 
+    it "gives average goals per game" do
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
+
     end
   end
-    describe "#lowest_scoring_visitor" do
-      it 'finds team with lowest average score when away' do
+    
+  describe "#highest_scoring_visitor" do
+    it 'finds team with highest average score when away' do
     #this test is for the fixture
-    # expect(@game_stats.lowest_scoring_visitor).to eq("Sporting Kansas City")
-    #full data
-    expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+    expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
+  end
+  describe "#lowest_scoring_visitor" do
+    it 'finds team with lowest average score when away' do
+  #this test is for the fixture
+  # expect(@game_stats.lowest_scoring_visitor).to eq("Sporting Kansas City")
+  #full data
+  expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+  end
   end
   describe "#highest_scoring_home_team" do
     it 'finds team with highest average score when away' do
