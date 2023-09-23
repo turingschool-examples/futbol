@@ -130,7 +130,7 @@ class StatTracker
   end
 
   def best_offense
-    total_team_goals_hash = {}
+   total_team_goals_hash = {}
     team_goals("home").each do |team_id, home_goals|
       total_team_goals_hash[team_id] = [
         home_goals + team_goals("away")[team_id],
@@ -138,7 +138,7 @@ class StatTracker
           game.team_id == team_id
         end.count
     ]
-    end
+    end 
     team_name_avg_goals = []
     total_team_goals_hash.each do |team, gls_gms_arr|
       team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
@@ -149,7 +149,22 @@ class StatTracker
   end
 
   def worst_offense
-
+    total_team_goals_hash = {}
+    team_goals("home").each do |team_id, home_goals|
+      total_team_goals_hash[team_id] = [
+        home_goals + team_goals("away")[team_id],
+        @game_teams_data.find_all do |game|
+          game.team_id == team_id
+        end.count
+    ]
+    end 
+    team_name_avg_goals = []
+    total_team_goals_hash.each do |team, gls_gms_arr|
+      team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
+    end
+    team_name_avg_goals.min_by do |team_arr|
+      team_arr.last
+    end.first
   end
 
   def highest_scoring_visitor
