@@ -39,13 +39,9 @@ def initialize(locations)
   
   def create_games(path)
     Game.reset
-    Game.reset
     # require 'pry'; binding.pry
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    # data.map { |row| Game.new(row) }
-    data.map do |row|
-    Game.new(row)
-    end
+    data.map { |row| Game.new(row) }
   end
   
   def create_game_teams(path)
@@ -55,6 +51,7 @@ def initialize(locations)
       GameTeam.new(row)
     end
   end
+  
 
   def create_teams(path)
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
@@ -125,14 +122,14 @@ def initialize(locations)
   
   def percentage_visitor_wins
     away_wins = GameTeam.gameteam.count do |game|
-      game.HoA == "away" && game.result == "WIN"
+      game.hoa == "away" && game.result == "WIN"
     end 
     (away_wins.to_f / Game.games.count.to_f).round(2)
   end
 
   def percentage_home_wins
     home_wins = GameTeam.gameteam.count do |game|
-      game.HoA == "home" && game.result == "WIN"
+      game.hoa == "home" && game.result == "WIN"
     end 
     (home_wins.to_f / Game.games.count.to_f).round(2)
   end
@@ -212,17 +209,21 @@ def initialize(locations)
         game_teams_by_season.push(game_team) if game.game_id == game_team.game_id
       end
     end
-    require 'pry'; binding.pry
+    most_accuracy_by_team = Hash.new(0)   
+    game_teams_by_season.each do |game_team|
+      most_accuracy_by_team[game_team.team_id] += ((game_team.goals.to_f) / (game_team.shots.to_f)).round(2)
+    end 
+    team_id_most_accurate = most_accuracy_by_team.max_by {|team_id, accuracy| accuracy}.first
+    team_with_most_accuracy = @team_data.find do |team|
+      team_id_most_accurate == team.franchise_id
+      require 'pry'; binding.pry
+    end
+    team_id_most_accurate.team_name
   end
 
   def least_accurate_team
 
   end
-
-  def count_of_teams
-
-  end
-
 
   def average_goals_per_game
     total_goals = 0

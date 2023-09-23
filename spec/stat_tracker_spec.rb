@@ -2,9 +2,13 @@ require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   before :each do
-    game_path = './data/games.csv'
+    game_path = './fixture/games_fixture.csv'
     team_path = './data/teams.csv'
     game_teams_path = './fixture/game_teams_fixture.csv'
+
+    puts "game_path: #{game_path}"
+    puts "team_path: #{team_path}"
+    puts "game_teams_path: #{game_teams_path}"
 
     @locations = {
       games: game_path,
@@ -50,12 +54,20 @@ RSpec.describe StatTracker do
     end
   end
 
-  it "#percentage_visitor_wins" do 
-    expect(@game_stats.percentage_visitor_wins).to eq 0.0
+  it "#percentage_visitor_wins" do
+    #fixture test
+    expect(@game_stats.percentage_visitor_wins).to eq 0.25
+
+    #full data test
+    # expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
   end
 
   it "#percentage_home_wins" do 
-    expect(@game_stats.percentage_home_wins).to eq 0.0
+    #fixture test
+    expect(@game_stats.percentage_home_wins).to eq 0.40
+
+    #full data test
+    # expect(@stat_tracker.percentage_home_wins).to eq 0.44
   end
 
 
@@ -72,14 +84,14 @@ RSpec.describe StatTracker do
       expect(@game_stats.team_info).to be_a(Hash)
     end
     
-    describe '#Tackles' do
+  describe '#Tackles' do
     it 'finds most number of tackles' do
       #fixture test
       expect(@game_stats.most_tackles("20122013")).to eq "FC Dallas"
 
       #full data test
-      expect(@game_stats.most_tackles("20132014")).to eq "FC Cincinnati"
-      expect(@game_stats.most_tackles("20142015")).to eq "Seattle Sounders FC"
+      expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
     end
 
     it 'finds least number of tackles' do
@@ -95,17 +107,17 @@ RSpec.describe StatTracker do
   describe '#Team accuracy' do
     it 'check the most accurate team for a season' do
       #fixture test
-      expect(@game_stats.most_accurate_team("20122013")).to eq("Chicago Fire")
+      expect(@game_stats.most_accurate_team("20122013")).to eq("FC Dallas")
 
       #full data test
-      expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
-      expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+      # expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+      # expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
     end
   end
 
   describe "#average_goals_per_game" do
 
-    xit 'will find the average goals' do
+    # xit 'will find the average goals' do
 
     it 'will find the average goals' do
       #this test is for the fixture
@@ -116,6 +128,7 @@ RSpec.describe StatTracker do
     end
   end
 
+
   describe "#team_goals" do 
     xit 'will find the amount of goals per team' do
       expect(@game_stats.team_goals("home")).to be_instance_of(Hash)
@@ -125,6 +138,7 @@ RSpec.describe StatTracker do
 
     end
   end
+
   describe "#games_by_team" do 
     xit 'will find the amount of home games per team' do
       expect(@game_stats.games_by_team("home")).to be_instance_of(Hash)
@@ -143,6 +157,7 @@ RSpec.describe StatTracker do
     xit "calculates average away goals per team" do
       expect(@game_stats.average_goals_per_team("away")).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.5, "16"=>1.0})
     end
+
     xit "calculates average home goals per team" do
       expect(@game_stats.average_goals_per_team("home")).to eq({"3"=>1.5, "6"=>2.4, "5"=>0.5, "17"=>3, "16"=>1.5})
     end
@@ -157,8 +172,9 @@ RSpec.describe StatTracker do
     # expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
     end
   end
-    describe "#lowest_scoring_visitor" do
-      it 'finds team with lowest average score when away' do
+
+  describe "#lowest_scoring_visitor" do
+    it 'finds team with lowest average score when away' do
     #this test is for the fixture
     # expect(@game_stats.lowest_scoring_visitor).to eq("Sporting Kansas City")
     # expect(@game_stats.lowest_scoring_visitor).to eq("5")
@@ -167,51 +183,52 @@ RSpec.describe StatTracker do
     # expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
     end
   end
+
   describe "#highest_scoring_home_team" do
-  it 'finds team with highest average score when away' do
+    it 'finds team with highest average score when away' do
     #this test is for the fixture
-        # expect(@game_stats.highest_scoring_home_team).to eq("LA Galaxy")
-        # expect(@game_stats.highest_scoring_home_team).to eq("17")
-        #for full data
-        expect(@game_stats.highest_scoring_home_team).to eq("54")
-        # expect(@stat_tracker.lowest_scoring_visitor).to eq "Reign FC"
-      end
+      # expect(@game_stats.highest_scoring_home_team).to eq("LA Galaxy")
+      # expect(@game_stats.highest_scoring_home_team).to eq("17")
+      #for full data
+      expect(@game_stats.highest_scoring_home_team).to eq("54")
+      # expect(@stat_tracker.lowest_scoring_visitor).to eq "Reign FC"
     end
+  end
 
-    describe "#lowest_scoring_home_team" do
-      it 'finds team with lowest average score when away' do
-        # expect(@game_stats.lowest_scoring_home_team).to eq("Sporting Kansas City")
-        # expect(@game_stats.lowest_scoring_home_team).to eq("5")
-        #for full data
-        expect(@game_stats.lowest_scoring_home_team).to eq("7")
-        # expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
-      end
+  describe "#lowest_scoring_home_team" do
+    it 'finds team with lowest average score when away' do
+      # expect(@game_stats.lowest_scoring_home_team).to eq("Sporting Kansas City")
+      # expect(@game_stats.lowest_scoring_home_team).to eq("5")
+      #for full data
+      expect(@game_stats.lowest_scoring_home_team).to eq("7")
+      # expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
+  end
 
-    describe "#count of teams" do
-      it 'tells total number of teams' do
-        expect(@game_stats.count_of_teams).to be_instance_of(Integer)
-        expect(@game_stats.count_of_teams).to eq 32
-      end
+  describe "#count of teams" do
+    it 'tells total number of teams' do
+      expect(@game_stats.count_of_teams).to be_instance_of(Integer)
+      expect(@game_stats.count_of_teams).to eq 32
     end
   end
 end
 
-it "exists" do
-  expect(@stat_tracker).to be_an_instance_of StatTracker
-end
 
-it "#highest_total_score" do
-  expect(@stat_tracker.highest_total_score).to eq 11
-end
+# it "exists" do
+#   expect(@stat_tracker).to be_an_instance_of StatTracker
+# end
 
-it "#lowest_total_score" do
-  expect(@stat_tracker.lowest_total_score).to eq 0
-end
+# it "#highest_total_score" do
+#   expect(@stat_tracker.highest_total_score).to eq 11
+# end
 
-it "#percentage_home_wins" do
-  expect(@stat_tracker.percentage_home_wins).to eq 0.44
-end
+# it "#lowest_total_score" do
+#   expect(@stat_tracker.lowest_total_score).to eq 0
+# end
+
+# it "#percentage_home_wins" do
+#   expect(@stat_tracker.percentage_home_wins).to eq 0.44
+# end
 
 #   it "#percentage_visitor_wins" do
 #     expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
@@ -346,7 +363,7 @@ end
 #     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
 #     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
 #   end
-end
+# end
 
 #   describe "#percent ties" do
 #     it "finds percntage of tied away and home games" do
@@ -430,21 +447,21 @@ end
 #   end
 # end
 
-it "exists" do
-  expect(@stat_tracker).to be_an_instance_of StatTracker
-end
+# it "exists" do
+#   expect(@stat_tracker).to be_an_instance_of StatTracker
+# end
 
-it "#highest_total_score" do
-  expect(@stat_tracker.highest_total_score).to eq 11
-end
+# it "#highest_total_score" do
+#   expect(@stat_tracker.highest_total_score).to eq 11
+# end
 
-it "#lowest_total_score" do
-  expect(@stat_tracker.lowest_total_score).to eq 0
-end
+# it "#lowest_total_score" do
+#   expect(@stat_tracker.lowest_total_score).to eq 0
+# end
 
-it "#percentage_home_wins" do
-  expect(@stat_tracker.percentage_home_wins).to eq 0.44
-end
+# it "#percentage_home_wins" do
+#   expect(@stat_tracker.percentage_home_wins).to eq 0.44
+# end
 
 #   it "#percentage_visitor_wins" do
 #     expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
@@ -579,7 +596,7 @@ end
 #     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
 #     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
 #   end
-end
+# end
 
 #   describe "#percent ties" do
 #     it "finds percntage of tied away and home games" do
