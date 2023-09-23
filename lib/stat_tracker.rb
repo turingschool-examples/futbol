@@ -239,6 +239,7 @@ class StatTracker
 
   def count_of_teams
     @team_data.count
+    
   end
 end
 
