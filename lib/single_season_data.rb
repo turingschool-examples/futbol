@@ -1,9 +1,10 @@
 require './spec/spec_helper'
 
-class SingleSeasonData
+class SingleSeasonData < AllSeasonData
 
-  def initialize(stat_tracker)
-    @stat_tracker = stat_tracker
+  def initialize(stat_tracker, name)
+    super(stat_tracker)
+    @name = name
   end
 
 end
