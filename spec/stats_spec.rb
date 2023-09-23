@@ -143,4 +143,11 @@ RSpec.describe Stats do
       expect(@stat_tracker.seasonal_summaries["6"]["20122013"][:postseason]).to eq(expected)
     end
   end
+
+  describe '#max_min_goals' do
+    it "creates an array goals scored totals" do
+      
+      expect(@stat_tracker.max_min_goals).to eq({:highest_goals=>{"3"=>2, "4"=>4, "6"=>3}, :lowest_goals=>{"3"=>2, "4"=>1, "6"=>2}})  
+    end
+  end
 end
