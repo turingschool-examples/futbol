@@ -26,6 +26,7 @@ class StatTracker
         end
       end
     end
+    @teams.each { |teams| teams.game_object_maker}
     @teams.each { |teams| teams.seasons_builder }
     @games_by_season = @all_season_data.games_by_season
   end

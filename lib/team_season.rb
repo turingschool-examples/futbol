@@ -18,10 +18,4 @@ class TeamSeason
     @away_games = 0
   end
 end
-# hash = {}
-# stat_tracker.game_teams do |game_team|
-#   hash[game_team[:game_id]] = (
-#   stat_stracker.game.find_all do |one_game|
-#     one_game[:game_id] == one_game[:game_id]
-#   end )
-# end
+
