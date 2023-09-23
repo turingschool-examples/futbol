@@ -287,7 +287,6 @@ end
 
 def count_of_teams
   teams = @team_data.group_by { |team| team.team_name}
-  # require 'pry'; binding.pry
   teams.keys.compact.count
 end
 end
