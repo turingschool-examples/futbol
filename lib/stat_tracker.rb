@@ -162,11 +162,11 @@ class StatTracker < Stats
   end
 
   def most_goals_scored(team_id)
-    most_goals_scored_totals[team_id]
+    teams_hash[:max_min_goals][:highest_goals][team_id]
   end
 
   def least_goals_scored(team_id)
-   least_goals_scored_totals[team_id]
+   teams_hash[:max_min_goals][:lowest_goals][team_id]
  end
 
   ###=== TEAM QUERIES ===###

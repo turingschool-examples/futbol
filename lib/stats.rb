@@ -278,7 +278,8 @@ class Stats
   def teams_hash
     if @teams_hash.nil?
       @teams_hash = {}
-
+      
+      @teams_hash[:max_min_goals] = max_min_goals
       @teams_hash[:teams_info] = teams_info
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       @teams_hash[:seasonal_summaries] = seasonal_summaries
@@ -315,8 +316,9 @@ class Stats
     goal_diffs
   end
 
-  def most_goals_scored_totals
+  def max_min_goals
     team_highest_goals = Hash.new { |hash, key| hash[key] = 0 } # a hash of {team_id: [highest goals scored]}
+    team_lowest_goals = Hash.new { |hash, key| hash[key] = Float::INFINITY } # a hash of {team_id: [lowest goals scored]}
 
     @game_teams_data.each do |game_team|
       team_id = game_team[:team_id]
@@ -325,26 +327,13 @@ class Stats
       if goals_scored > team_highest_goals[team_id]
         team_highest_goals[team_id] = goals_scored
       end
-    end
-
-    team_highest_goals
-  end
-
-  def least_goals_scored_totals
-    # total_goals_scored(season_type, season_id, team_id)
-    # unique seasons array
-    team_lowest_goals = Hash.new { |hash, key| hash[key] = Float::INFINITY } # a hash of {team_id: [lowest goals scored]}
-
-    @game_teams_data.each do |game_team|
-      team_id = game_team[:team_id]
-      goals_scored = game_team[:goals].to_i
 
       if goals_scored < team_lowest_goals[team_id]
         team_lowest_goals[team_id] = goals_scored
       end
     end
 
-    team_lowest_goals
+    { highest_goals: team_highest_goals, lowest_goals: team_lowest_goals }
   end
   #== TEAM HELPERS ==##
 end

@@ -138,15 +138,10 @@ RSpec.describe Stats do
     end
   end
 
-  describe '#most_goals_scored_totals' do
-    it 'returns the highest number of goals scored by any team in a single game' do
-      expect(@stat_tracker.most_goals_scored_totals).to eq({"3"=>2, "4"=>4, "6"=>3})
-    end
-  end
-
-  describe '#least_goals_scored_totals' do
-    it 'returns the highest number of goals scored by any team in a single game' do
-      expect(@stat_tracker.least_goals_scored_totals).to eq({"3"=>2, "4"=>1, "6"=>2})
+  describe '#max_min_goals' do
+    it "creates an array goals scored totals" do
+      
+      expect(@stat_tracker.max_min_goals).to eq({:highest_goals=>{"3"=>2, "4"=>4, "6"=>3}, :lowest_goals=>{"3"=>2, "4"=>1, "6"=>2}})  
     end
   end
 end
