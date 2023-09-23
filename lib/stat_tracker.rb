@@ -25,7 +25,9 @@ class StatTracker < Game
       teams_hash = {}
       teams_hash[:team_id] = row[:team_id]
       teams_hash[:team_name] = row[:teamname]
-      teams_hash[:stadium] = row[:stadium]
+      teams_hash[:franchise_id] = row[:franchiseid]
+      teams_hash[:abbreviation] = row[:abbreviation]
+      teams_hash[:link] = row[:link]
       
       team_data << teams_hash
     end
