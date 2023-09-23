@@ -187,10 +187,6 @@ def fewest_tackles(season)
 
   end
 
-  def count_of_teams
-
-  end
-
 
   def average_goals_per_game
     total_goals = 0
@@ -203,22 +199,8 @@ def fewest_tackles(season)
     average.round(2)
   end
 
-  # def highest_scoring_visitor
-  #   team_information = {}
-  #   season_goals = 0
-  #   @game_teams_data.find_all do |row|
-  #     season_goals += row[:goals].to_i
-  #     team_information[row[:team_id]] = season_goals + 
-  #     # require 'pry'; binding.pry
-  #   # require 'pry'; binding.pry
-  #   # row[:goals]
-  #   # row[:team_id]
-  #   # row[:game_id]
-  #   # row[:hoa]
-
   def team_goals(home_or_away)
     teams = @game_teams_data.group_by { |row| row.team_id}
-    # require 'pry'; binding.pry
     team_home_goals = Hash.new
     team_away_goals = Hash.new
     teams.each do |team, data_array|
@@ -257,7 +239,7 @@ def fewest_tackles(season)
     average_goals = Hash.new
     team_goals(team_side).each do |key, value|
       if games_by_team(team_side)[key]
-        average_goals[key] = (value.to_f / games_by_team(team_side)[key].to_f).round(2) 
+        average_goals[key] = (value.to_f / games_by_team(team_side)[key].to_f).round(3) 
       end
     end
     average_goals
@@ -265,28 +247,47 @@ def fewest_tackles(season)
 
   def highest_scoring_visitor
     team = average_goals_per_team("away")
-    most_avg = average_goals_per_team("away").values.max
-    # require 'pry'; binding.pry
-    return team.key(most_avg)
+    highest_a_avg = average_goals_per_team("away").values.max
+    team_identifier = team.key(highest_a_avg)
+    team_highest_a_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_highest_a_avg.team_name
   end
+
   def lowest_scoring_visitor
     team = average_goals_per_team("away")
-    lowest_average = average_goals_per_team("away").values.min
-    return team.key(lowest_average)
+    lowest_a_avg = average_goals_per_team("away").values.min
+    team_identifier = team.key(lowest_a_avg)
+    team_lowest_a_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_lowest_a_avg.team_name
   end
+
   def highest_scoring_home_team
     team = average_goals_per_team("home")
-    highest_average = average_goals_per_team("home").values.max
-    return team.key(highest_average)
+    highest_h_avg = average_goals_per_team("home").values.max
+    team_identifier = team.key(highest_h_avg)
+    team_highest_h_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_highest_h_avg.team_name
   end
+
   def lowest_scoring_home_team
     team = average_goals_per_team("home")
-    least_average = average_goals_per_team("home").values.min
-    return team.key(least_average)
+    lowest_h_avg = average_goals_per_team("home").values.min
+    team_identifier = team.key(lowest_h_avg)
+    team_lowest_h_avg = @team_data.find do |team|
+      team_identifier == team.team_id
+    end
+    team_lowest_h_avg.team_name
   end
 
   def count_of_teams
-    @team_data.count
+    teams = @team_data.group_by { |team| team.team_name}
+    teams.count
   end
 end
 

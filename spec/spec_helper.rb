@@ -11,4 +11,4 @@ require "csv"
 require "pry"
 require "./lib/game"
 require "./lib/stat_tracker"
-require 'pry-nav'
+# require 'pry-nav'
