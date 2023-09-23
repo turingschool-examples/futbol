@@ -236,38 +236,13 @@ class StatTracker
     least_average = average_goals_per_team("home").values.min
     return team.key(least_average)
   end
+
+  def count_of_teams
+    @team_data.count
+  end
 end
 
 
-# combine both of these into one for the games_by_team
-# def home_games_by_team
-#   teams = @game_teams_data.group_by { |row| row.team_id}
-#   games_at_home = Hash.new(0)
-#   teams.each do |team, data_array|
-#     home_games = []
-#     data_array.each do |data|
-#       if data.hoa == "home"
-#       home_games << data.game_id
-#       end
-#     end
-#     games_at_home[team] = home_games.count
-#   end
-#   games_at_home
-# end
 
-# def away_games_by_team
-#   teams = @game_teams_data.group_by { |row| row.team_id}
-#   games_not_at_home = Hash.new(0)
-#   teams.each do |team, data_array|
-#     away_games = []
-#     data_array.each do |data|
-#       if data.hoa == "away"
-#       away_games << data.game_id
-#       end
-#     end
-#     games_not_at_home[team] = away_games.count
-#   end
-#   games_not_at_home
-# end
 
 
