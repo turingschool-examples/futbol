@@ -1,8 +1,8 @@
 class Team
   @@teams = []
-  attr_reader :franchise_id,
-              :team_id,
-              :team_name, 
+  attr_reader :team_id,
+              :franchise_id,
+              :team_name,
               :abbreviation,
               :stadium,
               :link
