@@ -67,7 +67,15 @@ RSpec.describe Team do
     expect(@stat_tracker.worst_season("6")).to eq "20142015"
   end
 
-  xit "#average_win_percentage" do
+  it "#teams_total_wins" do
+    expect(@stat_tracker.teams_total_wins("6")).to eq({"6" => 251})
+  end
+
+  it '#teams_total_games' do
+    expect(@stat_tracker.teams_total_games("6")).to eq({"6" => 510})
+  end
+
+  it "#average_win_percentage" do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
