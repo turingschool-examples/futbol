@@ -1,4 +1,4 @@
- require_relative '../spec/spec_helper'
+#  require_relative '../spec/spec_helper'
  require_relative './game'
  require_relative './game_team'
  require_relative './teams'
