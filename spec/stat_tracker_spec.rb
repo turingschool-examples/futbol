@@ -67,9 +67,9 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq 32
   end
 
-  # it "#best_offense" do
-  #   expect(@stat_tracker.best_offense).to eq "Reign FC"
-  # end
+  it "#best_offense" do
+    expect(@stat_tracker.best_offense).to eq "Reign FC"
+  end
 
   # it "#worst_offense" do
   #   expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
@@ -91,7 +91,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
 
-  it "#team_info" do
+  it "#get_team_info" do
     expected = {
       "team_id" => "18",
       "franchise_id" => "34",
@@ -100,10 +100,9 @@ RSpec.describe StatTracker do
       "link" => "/api/v1/teams/18"
     }
 
-    # expect(@stat_tracker.team_info("18")).to eq expected
-    p @stat_tracker.team_info("18")
+    expect(@stat_tracker.get_team_info("18")).to eq expected
   end
-
+ 
   # it "#best_season" do
   #   expect(@stat_tracker.best_season("6")).to eq "20132014"
   # end
