@@ -175,7 +175,7 @@ end
       team_id_fewest_tackles = tackles_by_team.min_by {|team_id, tackles| tackles}.first
       #find team object by id found above
       team_with_fewest_tackles = @team_data.find do |team|
-        team_id_fewest_tackles == team.franchise_id
+        team_id_fewest_tackles == team.team_id
       end
       #call on team name attribute of team object
       team_with_fewest_tackles.team_name
@@ -200,11 +200,9 @@ end
       team_id_most_accurate == team.team_id
     end
     team_with_most_accuracy.team_name
-    # require 'pry'; binding.pry
   end
 
   def least_accurate_team(season)
-    # require 'pry'; binding.pry
     games_by_season = @game_data.find_all do |game|
       game if game.season == season
     end
