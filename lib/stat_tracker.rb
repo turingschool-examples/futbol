@@ -26,9 +26,8 @@ class StatTracker
         end
       end
     end
-    @teams.each { |teams| teams.game_object_maker}
-    @teams.each { |teams| teams.seasons_builder }
-    @games_by_season = @all_season_data.games_by_season
+    @teams.each { |teams| teams.initialize2}
+    @seasons.values.each { |season| season.initialize2}
   end
 
   def self.from_csv(locations)

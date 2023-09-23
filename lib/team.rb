@@ -16,6 +16,11 @@ class Team
     end
   end
 
+  def initialize2
+    game_object_maker
+    seasons_builder
+  end
+
   def seasons_builder
     @game_objects.each do |game|
       curr_season = game.season
@@ -23,6 +28,8 @@ class Team
       team = @seasons[curr_season] 
       #Populate that object with game_team data       
       team_season_populator(team, game) 
+      #Also send that object to it's appropriate season
+      @stat_tracker.seasons[curr_season].game_objects << game
     end
   end
 

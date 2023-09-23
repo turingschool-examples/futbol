@@ -16,7 +16,8 @@ class Game
               :goals,
               :shots,
               :tackles,
-              :hoa
+              :hoa,
+              :coach
   def initialize(game_info, half_game_info)
     @game_id = game_info[:game_id]
     @season = game_info[:season]
@@ -25,6 +26,7 @@ class Game
     @away_team_id = game_info[:away_team_id]
     @stadium = game_info[:venue]
     @hoa = half_game_info[:hoa]
+    @wl = half_game_info[:result]
     if @hoa == "home"
       @home_team_coach = half_game_info[:head_coach]
       @home_team_shots = half_game_info[:shots].to_i
@@ -33,6 +35,7 @@ class Game
       @goals = @home_team_goals
       @shots = @home_team_shots
       @tackles = @home_team_tackles
+      @coach = @home_team_coach
     end
     if @hoa == "away"
       @away_team_coach = half_game_info[:head_coach]
@@ -42,7 +45,11 @@ class Game
       @goals = @away_team_goals
       @shots = @away_team_shots
       @tackles = @away_team_tackles
+      @coach = @away_team_coach
     end
   end
 
+  def win?
+    @wl == "WIN"
+  end
 end
