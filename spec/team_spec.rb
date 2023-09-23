@@ -42,7 +42,7 @@ RSpec.describe Team do
     expect(@stat_tracker.worst_season("6")).to eq "20142015"
   end
 
-  xit "#average_win_percentage" do
+  it "#average_win_percentage" do
     expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
   end
 
