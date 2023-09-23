@@ -194,7 +194,7 @@ class Stats
     season_stats
   end
 
-  # returns win percentage as a float for a given team in a given season
+  # @return: win percentage as a float for a given team in a given season
   def win_percentage(season_type, season_id, team_id)
     winning_game_count = 0
     game_count = 0
@@ -281,6 +281,9 @@ class Stats
       
       @teams_hash[:max_min_goals] = max_min_goals
       @teams_hash[:teams_info] = teams_info
+      @teams_hash[:percent_wins] = percent_wins
+      @teams_hash[:average_wins] = average_wins
+      @teams_hash[:team_goals] = nil
       @teams_hash[:win_pct_opp] = win_pct_opp
       @teams_hash[:goal_diffs] = goal_diffs  # {team_id: [goal_diffs]}
       @teams_hash[:seasonal_summaries] = seasonal_summaries
@@ -303,6 +306,71 @@ class Stats
     end
 
     team_info_hash
+  end
+
+  def percent_wins
+    # {team_id: {season: win percentage}}
+    percent_wins = Hash.new { |hash, key| hash[key] = {} }
+    season_ids = @games_data.map { |game| game[:season] }.uniq
+
+    @teams_data.each do |team|
+      team_id = team[:team_id]
+      percent_wins[team_id] = {}
+
+      season_ids.each do |season_id|
+        winning_game_count = 0
+        game_count = 0
+
+        @games_data.each do |game|
+          if season_id == game[:season]
+            if team_id == game[:home_team_id] || team_id == game[:away_team_id]
+              game_count += 1
+              if game[:away_team_id] == team_id && game[:away_goals].to_i > game[:home_goals].to_i || \
+                  game[:home_team_id] == team_id && game[:home_goals].to_i > game[:away_goals].to_i
+                winning_game_count += 1
+              end
+            end
+          end
+        end
+
+        percent_wins[team_id][season_id] = if game_count == 0
+          0
+        else
+          ((winning_game_count.to_f / game_count) * 100.0).round(2)
+        end
+      end
+    end
+
+    percent_wins
+  end
+
+  def average_wins
+    average_wins = Hash.new { |hash, key| hash[key] = {} }
+
+    @teams_data.each do |team|
+      team_id = team[:team_id]
+      average_wins[team_id] = {}
+
+      winning_game_count = 0
+      game_count = 0
+
+      @game_teams_data.each do |game|
+        if team_id == game[:team_id]
+          game_count += 1
+          if game[:result] == "WIN"
+            winning_game_count += 1
+          end
+        end
+      end
+
+      average_wins[team_id] = if game_count == 0
+        0.0
+      else
+        ((winning_game_count.to_f / game_count)*100.0).round(2)
+      end
+    end
+
+    average_wins
   end
 
   def win_pct_opp

@@ -173,6 +173,18 @@ class StatTracker < Stats
     seasonal_summaries[team_id]
   end
 
+  def best_season(team_id)
+    teams_hash[:percent_wins][team_id].max_by { |k, v| v }[0]
+  end
+
+  def worst_season(team_id)
+    teams_hash[:percent_wins][team_id].min_by { |k, v| v }[0]
+  end
+
+  def average_win_percentage(team_id)
+    teams_hash[:average_wins][team_id]
+  end
+
   def most_goals_scored(team_id)
     teams_hash[:max_min_goals][:highest_goals][team_id]
   end
