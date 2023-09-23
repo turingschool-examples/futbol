@@ -278,7 +278,8 @@ class Stats
   def teams_hash
     if @teams_hash.nil?
       @teams_hash = {}
-
+      
+      @teams_hash[:max_min_goals] = max_min_goals
       @teams_hash[:teams_info] = teams_info
       @teams_hash[:percent_wins] = percent_wins
       @teams_hash[:average_wins] = average_wins
@@ -420,5 +421,24 @@ class Stats
     goal_diffs
   end
 
-  ##== TEAM HELPERS ==##
+  def max_min_goals
+    team_highest_goals = Hash.new { |hash, key| hash[key] = 0 } # a hash of {team_id: [highest goals scored]}
+    team_lowest_goals = Hash.new { |hash, key| hash[key] = Float::INFINITY } # a hash of {team_id: [lowest goals scored]}
+
+    @game_teams_data.each do |game_team|
+      team_id = game_team[:team_id]
+      goals_scored = game_team[:goals].to_i
+
+      if goals_scored > team_highest_goals[team_id]
+        team_highest_goals[team_id] = goals_scored
+      end
+
+      if goals_scored < team_lowest_goals[team_id]
+        team_lowest_goals[team_id] = goals_scored
+      end
+    end
+
+    { highest_goals: team_highest_goals, lowest_goals: team_lowest_goals }
+  end
+  #== TEAM HELPERS ==##
 end

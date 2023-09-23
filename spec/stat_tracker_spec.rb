@@ -230,6 +230,7 @@ RSpec.describe StatTracker do
     end
   end
 
+
   describe "#best_season(team_id)" do
     it "returns the best season for given team" do
       expect(@stat_tracker.best_season("6")).to be_a(String)
@@ -250,5 +251,19 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_win_percentage("6")).to be_a(Float)
     end
   end
+
+  describe '#most_goals_scored' do
+    it 'returns the highest number of goals scored by any team in a single game' do
+      expect(@stat_tracker.most_goals_scored("6")).to eq(3)
+    end
+  end
+
+  describe '#least_goals_scored' do
+    it 'returns the highest number of goals scored by any team in a single game' do
+      expect(@stat_tracker.most_goals_scored("6")).to eq(3)
+    end
+  end
+
   ###=== TEAM QUERIES ===###
 end
+#to make new brnch 

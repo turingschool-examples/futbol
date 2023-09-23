@@ -153,6 +153,11 @@ RSpec.describe Stats do
   describe "#average_wins" do
     it "creates a hash with all teams and their average wins over all games" do
       expect(@stat_tracker.average_wins["6"]).to eq(100.00)
+
+  describe '#max_min_goals' do
+    it "creates an array goals scored totals" do
+      
+      expect(@stat_tracker.max_min_goals).to eq({:highest_goals=>{"3"=>2, "4"=>4, "6"=>3}, :lowest_goals=>{"3"=>2, "4"=>1, "6"=>2}})  
     end
   end
 end
