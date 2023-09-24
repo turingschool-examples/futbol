@@ -255,18 +255,47 @@ def fewest_tackles(season)
     team_with_fewest_tackles.team_name
   end
 
-  def most_accurate_team
-
+  def most_accurate_team(season)
+    games_by_season = @game_data.find_all do |game|
+      game if game.season == season
+    end
+    game_teams_by_season = []
+    games_by_season.each do |game|
+      @game_teams_data.each do |game_team|
+        game_teams_by_season.push(game_team) if game.game_id == game_team.game_id
+      end
+    end
+    most_accuracy_by_team = Hash.new(0)   
+    game_teams_by_season.each do |game_team|
+      most_accuracy_by_team[game_team.team_id] += ((game_team.goals.to_f) / (game_team.shots.to_f)).round(2)
+    end 
+    team_id_most_accurate = most_accuracy_by_team.max_by {|team_id, accuracy| accuracy}.first
+    team_with_most_accuracy = @team_data.find do |team|
+      team_id_most_accurate == team.team_id
+    end
+    team_with_most_accuracy.team_name
   end
 
-  def least_accurate_team
-
+  def least_accurate_team(season)
+    games_by_season = @game_data.find_all do |game|
+      game if game.season == season
+    end
+    game_teams_by_season = []
+    games_by_season.each do |game|
+      @game_teams_data.each do |game_team|
+        game_teams_by_season.push(game_team) if game.game_id == game_team.game_id
+      end
+    end
+    least_accuracy_by_team = Hash.new(0)   
+    game_teams_by_season.each do |game_team|
+      least_accuracy_by_team[game_team.team_id] += ((game_team.goals.to_f) / (game_team.shots.to_f)).round(2)
+    end 
+    team_id_least_accurate = least_accuracy_by_team.min_by {|team_id, accuracy| accuracy}.first
+    team_with_least_accuracy = @team_data.find do |team|
+      team_id_least_accurate == team.team_id
+    end
+    team_with_least_accuracy.team_name
   end
-
-  def count_of_teams
-
-  end
-
 
   def average_goals_per_game
     total_goals = 0
