@@ -102,10 +102,9 @@ class Team
     end
     team_avg[team_id]
   end
-  
+
   # Highest number of goals a particular team has scored in a single game
   def most_goals_scored(team_id)
-   
     queried_team_games = @game_team_data.select do |game|
       game[:team_id] == team_id
     end
