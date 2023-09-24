@@ -162,43 +162,43 @@ end
 
 def best_offense
   total_team_goals_hash = {}
-   team_goals("home").each do |team_id, home_goals|
-     total_team_goals_hash[team_id] = [
-       home_goals + team_goals("away")[team_id],
-       @game_teams_data.find_all do |game|
-         game.team_id == team_id
-       end.count
-   ]
-   end 
-   team_name_avg_goals = []
-   total_team_goals_hash.each do |team, gls_gms_arr|
-     team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
-   end
-   team_name_avg_goals.max_by do |team_arr|
-     team_arr.last
-   end.first
- end
+  team_goals("home").each do |team_id, home_goals|
+    total_team_goals_hash[team_id] = [
+      home_goals + team_goals("away")[team_id],
+      @game_teams_data.find_all do |game|
+        game.team_id == team_id
+      end.count
+  ]
+  end 
+  team_name_avg_goals = []
+  total_team_goals_hash.each do |team, gls_gms_arr|
+    team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
+  end
+  team_name_avg_goals.max_by do |team_arr|
+    team_arr.last
+  end.first
+end
 
- def worst_offense
-   total_team_goals_hash = {}
-   team_goals("home").each do |team_id, home_goals|
-     total_team_goals_hash[team_id] = [
-       home_goals + team_goals("away")[team_id],
-       @game_teams_data.find_all do |game|
-         game.team_id == team_id
-       end.count
-   ]
-   end 
-   team_name_avg_goals = []
-   total_team_goals_hash.each do |team, gls_gms_arr|
-     team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
-   end
-   team_name_avg_goals.min_by do |team_arr|
-     team_arr.last
-   end.first
- end
+def worst_offense
+  total_team_goals_hash = {}
+  team_goals("home").each do |team_id, home_goals|
+    total_team_goals_hash[team_id] = [
+      home_goals + team_goals("away")[team_id],
+      @game_teams_data.find_all do |game|
+        game.team_id == team_id
+      end.count
+  ]
+  end 
+  team_name_avg_goals = []
+  total_team_goals_hash.each do |team, gls_gms_arr|
+    team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
+  end
+  team_name_avg_goals.min_by do |team_arr|
+    team_arr.last
+  end.first
+end
 
- 
+
   
 def most_tackles(season)
   #returns array of all games for specific season
@@ -309,18 +309,7 @@ def fewest_tackles(season)
     average.round(2)
   end
 
-  # def highest_scoring_visitor
-  #   team_information = {}
-  #   season_goals = 0
-  #   @game_teams_data.find_all do |row|
-  #     season_goals += row[:goals].to_i
-  #     team_information[row[:team_id]] = season_goals + 
-  #     # require 'pry'; binding.pry
-  #   # require 'pry'; binding.pry
-  #   # row[:goals]
-  #   # row[:team_id]
-  #   # row[:game_id]
-  #   # row[:hoa]
+
 
   def team_goals(home_or_away)
     teams = @game_teams_data.group_by { |row| row.team_id}
@@ -409,7 +398,7 @@ def fewest_tackles(season)
     teams = @team_data.group_by { |team| team.team_name}
     teams.keys.compact.count
   end
-end
+
 
   def seasons_sorted
     season_sorted = Game.games.group_by {|game| game.season}

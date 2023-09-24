@@ -2,12 +2,12 @@ require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   before(:all) do
-    game_path =         './fixture/games_fixture.csv'
-    team_path =         './data/teams.csv'
-    game_teams_path = './fixture/game_teams_fixture.csv'
-    # game_path = './data/games.csv'
-    # team_path = './data/teams.csv'
-    # game_teams_path =   './data/game_teams.csv'
+    # game_path =         './fixture/games_fixture.csv'
+    # team_path =         './data/teams.csv'
+    # game_teams_path = './fixture/game_teams_fixture.csv'
+    game_path = './data/games.csv'
+    team_path = './data/teams.csv'
+    game_teams_path =   './data/game_teams.csv'
 
     locations = {
       games:            game_path,
@@ -105,34 +105,34 @@ RSpec.describe StatTracker do
 
     expect(@stat_tracker.get_team_info("18")).to eq expected
   end
- 
-  # it "#best_season" do
-  #   expect(@stat_tracker.best_season("6")).to eq "20132014"
-  # end
 
-  # it "#worst_season" do
-  #   expect(@stat_tracker.worst_season("6")).to eq "20142015"
-  # end
+  it "#best_season" do
+    expect(@stat_tracker.best_season("6")).to eq "20132014"
+  end
 
-  # it "#average_win_percentage" do
-  #   expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
-  # end
+  it "#worst_season" do
+    expect(@stat_tracker.worst_season("6")).to eq "20142015"
+  end
 
-  # it "#most_goals_scored" do
-  #   expect(@stat_tracker.most_goals_scored("18")).to eq 7
-  # end
+  it "#average_win_percentage" do
+    expect(@stat_tracker.average_win_percentage("6")).to eq 0.49
+  end
 
-  # it "#fewest_goals_scored" do
-  #   expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
-  # end
+  it "#most_goals_scored" do
+    expect(@stat_tracker.most_goals_scored("18")).to eq 7
+  end
 
-  # it "#favorite_opponent" do
-  #   expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
-  # end
+  it "#fewest_goals_scored" do
+    expect(@stat_tracker.fewest_goals_scored("18")).to eq 0
+  end
 
-  # it "#rival" do
-  #   expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
-  # end
+  it "#favorite_opponent" do
+    expect(@stat_tracker.favorite_opponent("18")).to eq "DC United"
+  end
+
+  it "#rival" do
+    expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
+  end
 
   it "#winningest_coach" do
     expect(@stat_tracker.winningest_coach("20132014")).to eq "Claude Julien"
@@ -144,15 +144,15 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
   end
 
-  # it "#most_accurate_team" do
-  #   expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
-  #   expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
-  # end
+  it "#most_accurate_team" do
+    expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+  end
 
-  # it "#least_accurate_team" do
-  #   expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
-  #   expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
-  # end
+  it "#least_accurate_team" do
+    expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  end
 
   it "#most_tackles" do
     expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
@@ -163,26 +163,6 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.fewest_tackles("20132014")).to eq "Atlanta United"
     expect(@stat_tracker.fewest_tackles("20142015")).to eq "Orlando City SC"
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Group Tests
 # ==========================================================================================================
@@ -268,16 +248,16 @@ RSpec.describe StatTracker do
 #     end
 #   end
 
-  describe "#team_goals" do 
-    it 'will find the amount of goals per team' do
-      expect(@game_stats.team_goals("home")).to be_instance_of(Hash)
-      #this test is for the fixture
-      require 'pry'; binding.pry
-      expect(@game_stats.team_goals("away")).to eq({"3"=>5, "6"=>12, "5"=>1, "17"=>3, "16"=>1})
-      expect(@game_stats.team_goals("home")).to eq({"3"=>3, "6"=>12, "5"=>1, "17"=>3, "16"=>3})
+  # describe "#team_goals" do 
+  #   it 'will find the amount of goals per team' do
+  #     expect(@game_stats.team_goals("home")).to be_instance_of(Hash)
+  #     #this test is for the fixture
+  #     require 'pry'; binding.pry
+  #     expect(@game_stats.team_goals("away")).to eq({"3"=>5, "6"=>12, "5"=>1, "17"=>3, "16"=>1})
+  #     expect(@game_stats.team_goals("home")).to eq({"3"=>3, "6"=>12, "5"=>1, "17"=>3, "16"=>3})
 
-    end
-  end
+  #   end
+  # end
 #   describe "#games_by_team" do 
 #     xit 'will find the amount of home games per team' do
 #       expect(@game_stats.games_by_team("home")).to be_instance_of(Hash)
@@ -348,4 +328,4 @@ RSpec.describe StatTracker do
 #       end
 #     end
 #   end
-# end
+end
