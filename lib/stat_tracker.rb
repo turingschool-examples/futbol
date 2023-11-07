@@ -15,7 +15,7 @@ end
 
   # lowest_total_score - away_goals, home_goals
 
-  # count_of_games_by_season - season
+  # count_of_games_by_season - game_id, season
 
   # average_goals_per_game - away_goals, home_goals
 
