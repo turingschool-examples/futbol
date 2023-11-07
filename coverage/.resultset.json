@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/cardiganking/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/barrya/Turing/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -78,7 +78,7 @@
           null
         ]
       },
-      "/Users/cardiganking/turing_work/1mod/projects/futbol/lib/game.rb": {
+      "/Users/barrya/Turing/1mod/projects/futbol/lib/game.rb": {
         "lines": [
           null,
           1,
@@ -92,43 +92,68 @@
           null,
           null,
           1,
-          78,
-          78,
-          78,
-          78,
-          78,
-          78,
-          78,
-          78,
+          118,
+          118,
+          118,
+          118,
+          118,
+          118,
+          118,
+          118,
           null,
           null,
           1,
-          4,
-          4,
-          76,
-          76,
-          76,
-          76,
-          76,
-          76,
-          76,
-          76,
-          76,
-          76,
+          6,
+          6,
+          114,
+          114,
+          114,
+          114,
+          114,
+          114,
+          114,
+          114,
+          114,
+          114,
           null,
-          4,
+          6,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          19,
+          19,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          19,
+          19,
+          3,
+          null,
+          null,
+          1,
+          null,
           null,
           null
         ]
       },
-      "/Users/cardiganking/turing_work/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/barrya/Turing/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          0,
-          0,
+          1,
+          1,
           null,
           null,
           null,
@@ -156,6 +181,6 @@
         ]
       }
     },
-    "timestamp": 1699393203
+    "timestamp": 1699398746
   }
 }
