@@ -36,4 +36,29 @@ class Game
     end
     game_instance_array
   end
+
+  def highest_total_score
+    most_goals = 0
+    games_data = Game.create_games
+    games_data.each do |game|
+      total_goals = (game.home_goals).to_i + (game.away_goals).to_i
+      if total_goals > most_goals
+        most_goals = total_goals
+      end
+    end
+    most_goals
+  end
+
+  def lowest_total_score
+    fewest_goals = 11
+    games_data = Game.create_games
+    games_data.each do |game|
+      total_goals = (game.home_goals).to_i + (game.away_goals).to_i
+      if total_goals < fewest_goals
+        fewest_goals = total_goals
+      end
+    end
+    fewest_goals
+  end
+
 end
