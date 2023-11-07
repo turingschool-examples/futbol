@@ -1,6 +1,5 @@
 require 'CSV'
-require './spec/spec_helper'
-req
+require './lib/team'
 
 teams = []
 
