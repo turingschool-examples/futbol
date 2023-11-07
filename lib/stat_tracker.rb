@@ -11,22 +11,22 @@ end
 # information needed for each method
 
 # games.csv 
-  # highest_total_score - away_goals, home_goals
+  # highest_total_score - away_goals, home_goals # DYLAN
 
-  # lowest_total_score - away_goals, home_goals
+  # lowest_total_score - away_goals, home_goals # DYLAN
 
   # count_of_games_by_season - game_id, season
 
-  # average_goals_per_game - away_goals, home_goals
+  # average_goals_per_game - away_goals, home_goals # SAM
 
-  # average_goals_by_season - season, away_goals, home_goals
+  # average_goals_by_season - season, away_goals, home_goals # SAM
 
 # game_teams.csv
-  # percentage_home_wins - HoA, result
+  # percentage_home_wins - HoA, result # MARTIN
 
-  # percentage_visitor_wins - HoA, result
+  # percentage_visitor_wins - HoA, result # MARTIN
 
-  # percentage_ties - result
+  # percentage_ties - result # MARTIN
 
 # teams.csv
   # count_of_teams - team_id
