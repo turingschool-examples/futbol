@@ -2,7 +2,7 @@ require 'CSV'
 require './lib/team'
 require './lib/teams'
 
-RSpec.describe Team do
+RSpec.describe Teams do
     it "can correctly create new Teams class instance" do
         teams = Teams.new
 
