@@ -1,4 +1,4 @@
-require './lib/stat_tracker'
+require 'spec_helper'
 
 RSpec.describe StatTracker do
   it 'exits' do
@@ -12,6 +12,4 @@ RSpec.describe StatTracker do
 
     end
   end
-
-  desc
 end
