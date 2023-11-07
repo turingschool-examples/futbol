@@ -9,47 +9,56 @@ class StatTracker
   end
 
   def self.from_csv(locations_hash)
-    break_down_locations(locations_hash)
-    CSV.foreach(locations_hash, headers: true, header_converters: :symbol) do |row|
-      require 'pry'; binding.pry
-      team_id = row[:team_id]
-      franchise_id = row[:franchiseid]
-      team_name = row[:teamname]
-      abbreviation = row[:abbreviation]
-      stadium = row[:stadium]
-      link = row[:link]
-
-    end
-  end
-
-  def break_down_locations(locations_hash)
-    locations_hash.each do |file_location|
-      require 'pry'; binding.pry
-      CSV.foreach(file_location, headers: true, header_converters: :symbol) do |row|
-        require 'pry'; binding.pry
-        team_id = row[:team_id]
-        franchise_id = row[:franchiseid]
-        team_name = row[:teamname]
-        abbreviation = row[:abbreviation]
-        stadium = row[:stadium]
-        link = row[:link]
+    locations_hash.values.each do |filepath|
+      CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
+        if row[:game_id] && row[:shots]
+          game_id = row[:game_id]
+          team_id = row[:team_id]
+          home_or_away = row[:hoa]
+          result = row[:result]
+          settled_in = row[:settled_in]
+          head_coach = row[:head_coach]
+          goals = row[:goals]
+          shots = row[:shots]
+          tackles = row[:tackles]
+          pim = row[:pim]
+          power_play_opportunities = row[:powerplayopportunities]
+          power_play_goals = row[:powerplaygoals]
+          face_off_win_percentage = row[:faceoffwinpercentage]
+          giveaways = row[:giveaways]
+          takeaways = row[:takeaways]
+        elsif row[:game_id] && row[:venue_link]
+          game_id =row[:game_id]
+          season = row[:seaon]
+          game_type = row[:type]
+          game_date_time = row[:date_time]
+          away_team_id = row[:away_team_id]
+          home_team_id = row[:home_team_id]
+          away_goals = row[:away_goals]
+          home_goals = row[:home_goals]
+          venue = row[:venue]
+          venue_link = row[:venue_link]
+        else
+          team_id = row[:team_id]
+          franchise_id = row[:franchiseid]
+          team_name = row[:teamname]
+          abbreviation = row[:abbreviation]
+          stadium = row[:stadium]
+          link = row[:link]
+        end
       end
     end
   end
+end
+
+def create_games
 
 end
 
-  # def create_teams_data
-  #   CSV.foreach('./data/teams.csv', headers: true, header_converters: :symbol) do |row|
-  #     require 'pry'; binding.pry
-  #     team_id = row[:team_id]
-  #     franchise_id = row[:franchiseid]
-  #     team_name = row[:teamname]
-  #     abbreviation = row[:abbreviation]
-  #     stadium = row[:stadium]
-  #     link = row[:link]
+def create_teams
 
-  #     teams_data = TeamData.new(team_id, franchise_id, team_name, abbreviation, stadium, link)
+end
 
-  #   end
-  # end
+def create_game_teams
+  
+end
