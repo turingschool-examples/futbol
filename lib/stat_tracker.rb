@@ -34,7 +34,10 @@ class StatTracker
         link = row[:link]
 
       end
+    end
   end
+
+end
 
   # def create_teams_data
   #   CSV.foreach('./data/teams.csv', headers: true, header_converters: :symbol) do |row|
@@ -50,4 +53,3 @@ class StatTracker
 
   #   end
   # end
-end
