@@ -9,7 +9,7 @@ class StatTracker
   end
 
   def self.from_csv(locations_hash)
-    require 'pry'; binding.pry
+    break_down_locations(locations_hash)
     CSV.foreach(locations_hash, headers: true, header_converters: :symbol) do |row|
       require 'pry'; binding.pry
       team_id = row[:team_id]
@@ -24,6 +24,7 @@ class StatTracker
 
   def break_down_locations(locations_hash)
     locations_hash.each do |file_location|
+      require 'pry'; binding.pry
       CSV.foreach(file_location, headers: true, header_converters: :symbol) do |row|
         require 'pry'; binding.pry
         team_id = row[:team_id]
@@ -32,7 +33,6 @@ class StatTracker
         abbreviation = row[:abbreviation]
         stadium = row[:stadium]
         link = row[:link]
-
       end
     end
   end
