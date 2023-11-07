@@ -1,5 +1,7 @@
 # Futbol
 
+https://docs.google.com/spreadsheets/d/1v6x85L1qvHk5-tpt0FHqZrO9v1LS5NdLgFO1EKb3h8s/edit#gid=95404790
+
 Starter repository for the [Turing School](https://turing.io/) Futbol project.
 
 1. A 1-2 summary or bullet points outlining your plan for check-ins throughout the duration of the project.
