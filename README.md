@@ -20,5 +20,5 @@ Starter repository for the [Turing School](https://turing.io/) Futbol project.
 ### Contributors
 Barry Allahyar => [LinkedIn]() [GitHub]()
 Yain Porter => [LinkedIn]() [GitHub]()
-Nathan Lambertson => [LinkedIn]() [GitHub]()
+Nathan Lambertson => [LinkedIn](https://www.linkedin.com/in/nathan-lambertson-1b727261/) [GitHub](https://github.com/lambo1986)
 Isaac Mitchell => [LinkedIn]()  [GitHub](https://github.com/tmitchellisaac)
