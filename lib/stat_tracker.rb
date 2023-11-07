@@ -11,7 +11,7 @@ class StatTracker
   def self.from_csv(locations_hash)
     locations_hash.values.each do |filepath|
       CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
-        if row[:game_id] && row[:shots]
+        # if row[:game_id] && row[:shots]
           game_id = row[:game_id]
           team_id = row[:team_id]
           home_or_away = row[:hoa]
@@ -27,7 +27,7 @@ class StatTracker
           face_off_win_percentage = row[:faceoffwinpercentage]
           giveaways = row[:giveaways]
           takeaways = row[:takeaways]
-        elsif row[:game_id] && row[:venue_link]
+        # elsif row[:game_id] && row[:venue_link]
           game_id =row[:game_id]
           season = row[:seaon]
           game_type = row[:type]
@@ -38,7 +38,7 @@ class StatTracker
           home_goals = row[:home_goals]
           venue = row[:venue]
           venue_link = row[:venue_link]
-        else
+        # else
           team_id = row[:team_id]
           franchise_id = row[:franchiseid]
           team_name = row[:teamname]
@@ -60,5 +60,5 @@ def create_teams
 end
 
 def create_game_teams
-  
+
 end

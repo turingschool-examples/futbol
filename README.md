@@ -13,12 +13,18 @@ Starter repository for the [Turing School](https://turing.io/) Futbol project.
 ## A 2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
   - We discussed using Trello or GitHub Projects and decided to go with something new that we haven't used before. Barry says Atlassian makes good stuff :wink: :wink:
 ## A 2-3 sentence summary describing your approach to the code design.
-  - We will come back to this but will start out drawing out a visual for classes and methods using paper/pen. 
+  - We will first play around with the data
+  - We will then work together on creating the first couple of methods to establish team code conventions/design
+  - Once we feel comfortable, and understand how to access the data that we need, we will proceed to branch off individually
 ## Include link to your initial DTR document and the date it was completed. If you do additional DTRs later in the project, you should link the revised versions here as well with the date. New versions should be listed alongside older versions. Do not delete old DTRs.
   - Here's our [DTR](https://docs.google.com/document/d/1xdChJs9go9xLeWd-F0ynMmLErYvVvaVrOKScmiPf3vU/edit)
+  - Completed on 7 NOV 23
 
 ### Contributors
 Barry Allahyar => [LinkedIn]() [GitHub]()
+
 Yain Porter => [LinkedIn](https://www.linkedin.com/in/yain-porter-ab2798295/) [GitHub](https://github.com/yainporter)
+
 Nathan Lambertson => [LinkedIn](https://www.linkedin.com/in/nathan-lambertson-1b727261/) [GitHub](https://github.com/lambo1986)
+
 Isaac Mitchell => [LinkedIn]()  [GitHub](https://github.com/tmitchellisaac)
