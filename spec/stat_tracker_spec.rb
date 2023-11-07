@@ -1,14 +1,15 @@
 require 'spec_helper'
 
 RSpec.describe StatTracker do
-  it 'exits' do
-    expect(StatTracker.new).to be_a StatTracker
+  it 'exists' do
+    
   end
-
   describe '#self.from_csv' do
-    it 'has a #break_down_locations to '
+    it 'returns an instance of StatTracker'
+    expect(StatTracker.from_csv(locations)).to be_a StatTracker
 
-    it 'has a method #from_csv that takes a Hash parameter and returns an instance of StatTracker' do
+    it 'has 3 helper methods' do
+
 
     end
   end
