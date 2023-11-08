@@ -33,4 +33,23 @@ RSpec.describe StatTracker do
 
     expect(stat_tracker.percentage_ties).to eq(0.20)
   end
+
+  it 'returns a hash where the keys are seasons and the values are the count of games' do
+    stat_tracker = StatTracker.new
+
+    expect(stat_tracker.count_of_games_by_season).to be_a Hash
+    expect(stat_tracker.count_of_games_by_season).to eq({"20122013"=>806, "20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355})
+  end
+
+  it "can find the average goals of all games" do
+    stat_tracker = StatTracker.new
+
+    expect(stat_tracker.average_goals_per_game).to eq(4.22)
+  end
+
+  it "can return a Hash where seasons are keys and average goals are values" do
+    stat_tracker = StatTracker.new
+
+    expect(stat_tracker.average_goals_by_season).to be_a Hash
+  end
 end
