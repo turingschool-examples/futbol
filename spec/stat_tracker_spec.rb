@@ -15,19 +15,4 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.new
     expect(stat_tracker.lowest_total_score).to eq(1)
   end
-  # end
-
-  # describe '#self.from_csv' do
-
-  #   it 'returns an instance of StatTracker'
-  #   expect(StatTracker.from_csv(locations)).to be_a StatTracker
-
-  #   it 'has 3 helper methods' do
-
-  #   end
-  # end
-
-
-
-
 end

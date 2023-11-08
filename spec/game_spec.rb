@@ -26,12 +26,3 @@ RSpec.describe Game do
     end
   end
 end
-  # it "can return the highest amount of total goals in a game" do
-  #   game_1 = Game.new("2012030221","20122013","Postseason","5/16/13","3","6",2,3)
-  #   expect(game_1.highest_total_scores).to eq(5)
-  # end
-
-  # it "can return the lowest amount of total goals in a game" do
-  #   game_1 = Game.new("2012030314","20122013","Postseason","6/8/13","5","6",0,1)
-  #   expect(game_1.lowest_total_scores).to eq(1)
-  # end
