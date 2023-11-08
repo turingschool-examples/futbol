@@ -1,7 +1,7 @@
 require 'CSV'
 require './lib/game'
 
-class Games
+class GameList
     attr_reader :array
 
     def initialize
