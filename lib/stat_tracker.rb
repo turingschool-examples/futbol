@@ -1,12 +1,84 @@
 require 'CSV'
-require './data/game_teams'
-require './data/games'
-require './data/teams'
+require "./lib/game"
+require "./lib/team.rb"
+require "./lib/game_team.rb"
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
- 
-end
+  attr_reader :games, :teams, :game_teams, :combined_objects
+
+  def initialize(games_array, teams_array, game_teams_array, combined_array)
+    @games = games_array
+    @teams = teams_array
+    @game_teams = game_teams_array
+    @combined_objects = combined_array
+  end
+
+  @game_teams = []
+  def self.from_csv(locations_hash)
+
+    game_objects = []
+    team_objects = []
+    game_team_objects = []
+    
+    CSV.foreach(locations_hash[:games], headers: true, header_converters: :symbol) do |row|
+      game_id = row[:game_id]
+      season = row[:season]
+      # type = row[:type]
+      # date_time = row[:date_time]
+      # away_team_id = row[:away_team_id]
+      # home_team_id = row[:home_team_id]
+      away_goals = row[:away_goals]      
+      home_goals = row[:home_goals]
+      # venue = row[:venue]
+      # venue_link = [:venue_link]
+
+      game = Game.new(game_id, season, away_goals, home_goals)
+
+      game_objects << game
+    end
+
+    CSV.foreach(locations_hash[:teams], headers: true, header_converters: :symbol) do |row|
+      team_id = row[:team_id]
+      # franchise_id = row[:franchiseid]
+      team_name = row[:teamname]
+      # abbreviation = row[:abbreviation]
+      # stadium = row[:stadium]
+      # link = row[:link]
+
+      team = Team.new(team_id, team_name)
+
+      team_objects << team
+    end
+
+    CSV.foreach(locations_hash[:game_teams], headers: true, header_converters: :symbol) do |row|
+      game_id = row[:game_id]
+      team_id = row[:team_id]
+      home_or_away = row[:HoA]
+      result = row[:result]
+      # settled_in = row[:settled_in]
+      head_coach = row[:head_coach]
+      goals = row[:goals]
+      shots = row[:shots]
+      tackles = row[:tackles]
+      # pim = row[:pim]
+      # power_play_opportunities = row[:powerPlayOpportunities]
+      # power_play_goals = row[:powerPlayGoals]
+      # face_off_win_percentage = row[:faceOffWinPercentage]
+      # giveaways = row[:giveaways]
+      # takeaways = row[:takeaways]
+
+      game_team = GameTeam.new(game_id, team_id, home_or_away, result, head_coach, goals, shots, tackles)
+
+      game_team_objects << game_team
+    end
+
+    combined_objects = []
+    combined_objects << game_objects
+    combined_objects << team_objects
+    combined_objects << game_team_objects
+
+    StatTracker.new(game_objects, team_objects, game_team_objects, combined_objects)
+  end
 
 # information needed for each method
 
@@ -84,5 +156,4 @@ end
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
 
-
-
+end
