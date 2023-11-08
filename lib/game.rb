@@ -22,7 +22,7 @@ class Game
 
   def self.create_games
     game_instance_array = []
-    CSV.foreach("./data/game_subset.csv", headers: true, header_converters: :symbol) do |row|
+    CSV.foreach("./data/games.csv", headers: true, header_converters: :symbol) do |row|
       game_id =row[:game_id]
       season = row[:season]
       game_type = row[:type]
