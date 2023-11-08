@@ -2,9 +2,9 @@ require 'CSV'
 require './lib/game'
 require './lib/games'
 
-RSpec.describe Games do
+RSpec.describe GameList do
     it "can correctly create new Games class instance" do
-        games = Games.new
+        games = GameList.new
 
         expect(games.array.length).to eq(7441)
 

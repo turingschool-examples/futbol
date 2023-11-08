@@ -1,7 +1,7 @@
 require 'CSV'
-require './lib/teams'
+require './lib/team_list'
 
-class Teams
+class TeamList
     attr_reader :array
 
     def initialize
