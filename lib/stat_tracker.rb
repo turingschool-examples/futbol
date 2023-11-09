@@ -62,23 +62,21 @@ class StatTracker
     games.fdiv(@games.count).round(2)
   end
 
+  def average_goals_by_season
+    average_goals_hash = Hash.new(0)
+    average_goals = count_of_games_by_season.each do |season, game_count|
+      @games.each do |game|
+        average_goals_hash[season] += total_goals(game) if game.season == season
+      end
+    average_goals_hash[season] = average_goals_hash[season].fdiv(game_count).round(2)
+    end
+  average_goals_hash
+  end
+
+  private
+
   def total_goals(game)
     game.home_goals + game.away_goals
   end
 
-  def average_goals_by_season
-    goals_by_season = Hash.new(0)
-    @games.each do |game|
-      goals_by_season[game.season] += total_goals(game)
-    end
-    average_goals = goals_by_season.map do |season, total_goals|
-      total_goals.fdiv(count_of_games_by_season[season])
-    end
-    average_goals.each do |goals|
-      goals_by_season.each do |season, total_goals|
-        goals_by_season[season] = goals.round(2)
-      end
-    end
-    goals_by_season
-  end
 end

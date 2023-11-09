@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/lambo/turing/work/1mod/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/yainporter/turing_work/1mod/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -53,11 +53,11 @@
           null,
           null,
           1,
-          8,
-          8,
-          59528,
+          4,
+          4,
+          29764,
           null,
-          8,
+          4,
           null,
           null,
           1,
@@ -68,30 +68,26 @@
           null,
           null,
           1,
-          7441,
+          2,
+          2,
+          12,
+          89292,
+          null,
+          12,
+          null,
+          2,
           null,
           null,
           1,
-          1,
-          1,
-          7441,
           null,
           1,
-          6,
+          14882,
           null,
-          null,
-          1,
-          6,
-          36,
-          null,
-          null,
-          null,
-          1,
           null,
           null
         ]
       },
-      "/Users/lambo/turing/work/1mod/projects/futbol/lib/game.rb": {
+      "/Users/yainporter/turing_work/1mod/projects/futbol/lib/game.rb": {
         "lines": [
           null,
           1,
@@ -157,7 +153,7 @@
           null
         ]
       },
-      "/Users/lambo/turing/work/1mod/projects/futbol/lib/teams.rb": {
+      "/Users/yainporter/turing_work/1mod/projects/futbol/lib/teams.rb": {
         "lines": [
           null,
           1,
@@ -165,24 +161,24 @@
           null,
           null,
           1,
-          288,
-          288,
+          354,
+          354,
           null,
           null,
           1,
-          9,
-          9,
-          288,
-          288,
-          288,
-          288,
+          11,
+          11,
+          352,
+          352,
+          352,
+          352,
           null,
-          9,
+          11,
           null,
           null
         ]
       },
-      "/Users/lambo/turing/work/1mod/projects/futbol/lib/game_teams.rb": {
+      "/Users/yainporter/turing_work/1mod/projects/futbol/lib/game_teams.rb": {
         "lines": [
           null,
           1,
@@ -225,7 +221,7 @@
           null
         ]
       },
-      "/Users/lambo/turing/work/1mod/projects/futbol/spec/game_teams_spec.rb": {
+      "/Users/yainporter/turing_work/1mod/projects/futbol/spec/game_teams_spec.rb": {
         "lines": [
           1,
           null,
@@ -255,7 +251,7 @@
           null
         ]
       },
-      "/Users/lambo/turing/work/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/yainporter/turing_work/1mod/projects/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           null,
@@ -308,37 +304,46 @@
           null,
           1,
           1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           1,
           null,
           null
         ]
       },
-      "/Users/lambo/turing/work/1mod/projects/futbol/spec/teams_spec.rb": {
+      "/Users/yainporter/turing_work/1mod/projects/futbol/spec/teams_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          0,
+          1,
           null,
           null,
           1,
-          0,
-          0,
-          0,
+          1,
+          1,
+          1,
           null,
           null,
           1,
-          0,
-          0,
-          0,
+          1,
+          1,
+          32,
           null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1699484680
+    "timestamp": 1699495068
   }
 }
