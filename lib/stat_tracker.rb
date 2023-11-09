@@ -53,7 +53,7 @@ class StatTracker
     CSV.foreach(locations_hash[:game_teams], headers: true, header_converters: :symbol) do |row|
       game_id = row[:game_id]
       team_id = row[:team_id]
-      home_or_away = row[:HoA]
+      home_or_away = row[:hoa]
       result = row[:result]
       # settled_in = row[:settled_in]
       head_coach = row[:head_coach]
@@ -83,13 +83,14 @@ class StatTracker
   def percentage_home_wins
     home_wins = @game_teams.count do |game_team|
       game_team.home_or_away == 'home' && game_team.result == 'WIN'
+      # require 'pry'; binding.pry
     end
 
     total_home_games = @game_teams.count do |game_team|
       game_team.home_or_away == 'home'
     end
-    puts "Home Wins: #{home_wins}"
-    puts "Total Home Games: #{total_home_games}"
+    # puts "Home Wins: #{home_wins}"
+    # puts "Total Home Games: #{total_home_games}"
 
     (home_wins.to_f / total_home_games.to_f * 100).round(2)
   end
