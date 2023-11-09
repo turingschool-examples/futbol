@@ -97,10 +97,36 @@ class StatTracker
       total_score += game.away_goals + game.home_goals
     end
     average_goals = total_score / @games.length.to_f
-    return average_goals
+    average_goals.round(2)
   end
 
   # average_goals_by_season - season, away_goals, home_goals # SAM
+
+  def average_goals_per_season
+    season_goals = Hash.new(0)
+    season_counts = Hash.new(0)
+  
+    @games.each do |game|
+      season = game.season
+      total_score = game.away_goals + game.home_goals
+      season_goals[season] += total_score
+      season_counts[season] += 1
+    end
+  
+    average_goals_per_season = {}
+  
+    season_goals.each do |season, total_score|
+      count = season_counts[season]
+      if count > 0
+        average = total_score.to_f / count
+      else
+        average = 0
+      end
+      average_goals_per_season[season] = average.round(2)
+    end
+  
+    average_goals_per_season
+  end
 
 # game_teams.csv
   # percentage_home_wins - HoA, result # MARTIN
