@@ -6,6 +6,19 @@ RSpec.describe StatTracker do
     expect(stat_tracker).to be_a StatTracker
   end
 
+  it "can create a new instance of StatTracker with data" do
+    game_path = './data/games_subset.csv'
+    team_path = './data/teams.csv'
+    game_teams_path = './data/game_teams.csv'
+
+  locations = {
+    games: game_path,
+    teams: team_path,
+    game_teams: game_teams_path
+    }
+    expect(StatTracker.from_csv(locations)).to be_a StatTracker
+  end
+
   it "has a highest total points for a game" do
     stat_tracker = StatTracker.new
     expect(stat_tracker.highest_total_score).to eq(11)
