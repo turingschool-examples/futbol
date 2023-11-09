@@ -20,9 +20,9 @@ class Game
     @home_goals = home_goals
   end
 
-  def self.create_games
+  def self.create_games(data_path)
     game_instance_array = []
-    CSV.foreach("./data/games.csv", headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(data_path, headers: true, header_converters: :symbol) do |row|
       game_id =row[:game_id]
       season = row[:season]
       game_type = row[:type]

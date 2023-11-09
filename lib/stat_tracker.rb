@@ -7,12 +7,17 @@ class StatTracker
   attr_reader :game_teams
 
   def initialize
-    @games = Game.create_games
-    @teams = Teams.create_teams
-    @game_teams = GameTeams.create_game_teams
+    @games = nil
+    @teams = nil
+    @game_teams = nil
   end
 
   def self.from_csv(locations)
+
+    @games = Game.create_games(locations[:games])
+    @teams = Teams.create_teams(locations[:teams])
+    @game_teams = GameTeams.create_game_teams(locations[:game_teams])
+
     stat_tracker = StatTracker.new
   end
 
