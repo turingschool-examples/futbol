@@ -16,12 +16,18 @@ RSpec.describe StatTracker do
     }
     
     @stat_tracker = StatTracker.from_csv(locations)
-
+    require 'pry'; binding.pry
   end
 
   describe '#initialize' do
     it 'exists' do
       expect(@stat_tracker).to be_a(StatTracker)
+    end
+  end
+
+  describe '#percentage_home_wins' do
+    it 'calculates the percentage home wins ' do
+      expect(@stat_tracker.percentage_home_wins).to eq(53)
     end
   end
 end
