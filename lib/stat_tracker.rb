@@ -64,13 +64,17 @@ class StatTracker
 
   def average_goals_by_season
     average_goals_hash = Hash.new(0)
-    average_goals = count_of_games_by_season.each do |season, game_count|
+    count_of_games_by_season.each do |season, game_count|
       @games.each do |game|
         average_goals_hash[season] += total_goals(game) if game.season == season
       end
     average_goals_hash[season] = average_goals_hash[season].fdiv(game_count).round(2)
     end
   average_goals_hash
+  end
+
+  def count_of_teams
+    @teams.count
   end
 
   private
