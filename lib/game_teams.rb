@@ -1,7 +1,6 @@
+require_relative './helper_class'
 require 'CSV'
 require './spec/spec_helper'
-
-#comment
 
 class GameTeams
   attr_reader :array

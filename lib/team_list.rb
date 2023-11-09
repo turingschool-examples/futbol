@@ -1,3 +1,4 @@
+require_relative './helper_class'
 require 'CSV'
 require './lib/team'
 
