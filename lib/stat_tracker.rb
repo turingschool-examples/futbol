@@ -97,7 +97,7 @@ class StatTracker
 
   def percentage_visitor_wins
     visitor_wins = @game_teams.count do |game_team|
-      game_team.home_or_away == "away" && game_team == 'WIN'
+      game_team.home_or_away == "away" && game_team.result == 'WIN'
     end 
 
     total_visitor_games = @game_teams.count do |game_team|
