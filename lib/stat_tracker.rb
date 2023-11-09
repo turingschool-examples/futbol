@@ -99,6 +99,13 @@ class StatTracker
     visitor_wins = @game_teams.count do |game_team|
       game_team.home_or_away == "away" && game_team == 'WIN'
     end 
+
+    total_visitor_games = @game_teams.count do |game_team|
+      game_team.home_or_away == 'away'
+    end
+    puts "Visitor Wins: #{visitor_wins}"
+    puts "Total Visitor Games: #{total_visitor_games}"
+    (visitor_wins.to_f/total_visitor_games.to_f * 100).round(2)
   end
 
 # information needed for each method
