@@ -117,12 +117,16 @@ class StatTracker
       # require 'pry'; binding.pry
     end
 
+    average_goals = Hash.new(0)
     goals_by_season.each do |season, total_goals|
-      total_goals = @games.count do |game|
+      total_games = @games.count do |game|
         game.season == season
       end
+      average = (total_goals.to_f / total_games).round(2)
+      average_goals[season] = average
     end
-
+    # require 'pry'; binding.pry
+    average_goals
   end
 
 # information needed for each method

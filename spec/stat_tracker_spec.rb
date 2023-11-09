@@ -62,7 +62,7 @@ describe StatTracker do
   describe '#average_goals_by_season' do
     it 'does stuff' do
       expected = {
-        '20122013' => 99.9,
+        '20122013' => 3.79,
       }
       expect(@stat_tracker.average_goals_by_season).to eq(expected)
     end
