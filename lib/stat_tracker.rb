@@ -27,8 +27,8 @@ class StatTracker
       # date_time = row[:date_time]
       # away_team_id = row[:away_team_id]
       # home_team_id = row[:home_team_id]
-      away_goals = row[:away_goals]      
-      home_goals = row[:home_goals]
+      away_goals = row[:away_goals].to_i      
+      home_goals = row[:home_goals].to_i
       # venue = row[:venue]
       # venue_link = [:venue_link]
 
@@ -57,9 +57,9 @@ class StatTracker
       result = row[:result]
       # settled_in = row[:settled_in]
       head_coach = row[:head_coach]
-      goals = row[:goals]
-      shots = row[:shots]
-      tackles = row[:tackles]
+      goals = row[:goals].to_i
+      shots = row[:shots].to_i
+      tackles = row[:tackles].to_i
       # pim = row[:pim]
       # power_play_opportunities = row[:powerPlayOpportunities]
       # power_play_goals = row[:powerPlayGoals]
@@ -90,6 +90,15 @@ class StatTracker
   # count_of_games_by_season - game_id, season
 
   # average_goals_per_game - away_goals, home_goals # SAM
+
+  def average_goals_per_game
+    total_score = 0
+    @games.each do |game|
+      total_score += game.away_goals + game.home_goals
+    end
+    average_goals = total_score / @games.length.to_f
+    return average_goals
+  end
 
   # average_goals_by_season - season, away_goals, home_goals # SAM
 
