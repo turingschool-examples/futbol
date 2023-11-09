@@ -74,6 +74,12 @@ describe StatTracker do
     end
   end
 
+  describe '#highest_scoring_home_team' do
+    it 'returns the highest_home_scoring' do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("")
+    end
+  end
+
 end
 
 
