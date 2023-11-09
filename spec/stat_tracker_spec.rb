@@ -52,4 +52,11 @@ RSpec.describe StatTracker do
 
     expect(stat_tracker.average_goals_by_season).to be_a Hash
   end
+
+  it "can return a String of the team with the lowest average score per game across all seasons when they are a visitor" do
+    stat_tracker = StatTracker.new
+
+    expect(stat_tracker.lowest_scoring_visitor).to be_a String
+
+  end
 end

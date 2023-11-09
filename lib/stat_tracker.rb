@@ -81,4 +81,8 @@ class StatTracker
     end
     goals_by_season
   end
+
+  def lowest_scoring_visitor
+    @game_teams.min_by {|game_team| game_team.hoa == "away" }
+  end
 end
