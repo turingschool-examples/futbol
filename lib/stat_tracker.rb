@@ -85,10 +85,13 @@ class StatTracker
       game_team.home_or_away == 'home' && game_team.result == 'WIN'
     end
 
-    total_home_games = @games_teams.count do |game_team|
+    total_home_games = @game_teams.count do |game_team|
       game_team.home_or_away == 'home'
     end
-    (home_wins.to_f / total_home_games * 100).round(2)
+    puts "Home Wins: #{home_wins}"
+    puts "Total Home Games: #{total_home_games}"
+
+    (home_wins.to_f / total_home_games.to_f * 100).round(2)
   end
 
 # information needed for each method
