@@ -140,6 +140,10 @@ class StatTracker
         games_by_team[team_id] += 1
       end
     end
+
+    highest_scoring_team_id = goals_by_team.max_by do |team_id, goals|
+      goals.sum / games_by_team[team_id].to_f
+    end.first
   end 
 # information needed for each method
 
