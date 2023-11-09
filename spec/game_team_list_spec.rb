@@ -1,10 +1,8 @@
-require 'CSV'
-require './lib/game_teams'
+require 'spec_helper'
 
-
-RSpec.describe GameTeams do
+RSpec.describe GameTeamList do
   it 'can correctly create new Game class instance' do
-    game_teams = GameTeams.new
+    game_teams = GameTeamList.new
 
     expect(game_teams.array.length).to eq(14883)
 

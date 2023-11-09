@@ -1,9 +1,7 @@
-require 'CSV'
-require './lib/game'
-require './lib/game_list'
+require 'spec_helper'
 
 RSpec.describe GameList do
-    it "can correctly create new Games class instance" do
+    it "can correctly create new Game List class instance" do
         games = GameList.new
 
         expect(games.array.length).to eq(7441)

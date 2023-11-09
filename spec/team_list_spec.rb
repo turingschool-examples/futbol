@@ -1,9 +1,7 @@
-require 'CSV'
-require './lib/team'
-require './lib/team_list'
+require 'spec_helper'
 
 RSpec.describe TeamList do
-    it "can correctly create new Teams class instance" do
+    it "can correctly create new Team List class instance" do
         teams = TeamList.new
 
         expect(teams.array.length).to eq(32)
