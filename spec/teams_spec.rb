@@ -1,10 +1,10 @@
 require 'CSV'
 require './lib/team'
-require './lib/teams'
+require './lib/team_list'
 
-RSpec.describe Teams do
+RSpec.describe TeamList do
     it "can correctly create new Teams class instance" do
-        teams = Teams.new
+        teams = TeamList.new
 
         expect(teams.array.length).to eq(32)
 
