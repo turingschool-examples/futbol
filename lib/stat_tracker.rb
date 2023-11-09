@@ -1,5 +1,7 @@
-require 'CSV'
+require 'csv'
 require_relative './game'
+require_relative './teams'
+require_relative './game_teams'
 
 class StatTracker
   attr_reader :game_teams
@@ -8,6 +10,10 @@ class StatTracker
     @games = Game.create_games
     @teams = Teams.create_teams
     @game_teams = GameTeams.create_game_teams
+  end
+
+  def self.from_csv(locations)
+    stat_tracker = StatTracker.new
   end
 
   def highest_total_score
@@ -39,5 +45,40 @@ class StatTracker
       game.hoa == "away" && game.result == "TIE"
     end
     tie_count.fdiv(@game_teams.count / 2).round(2)
+  end
+
+  def count_of_games_by_season
+    season_game_count = Hash.new(0)
+    @games.each do |game|
+      season_game_count[game.season] += 1
+    end
+    season_game_count
+  end
+
+  def average_goals_per_game
+    games = @games.sum do |game|
+      game.home_goals + game.away_goals
+    end
+    games.fdiv(@games.count).round(2)
+  end
+
+  def total_goals(game)
+    game.home_goals + game.away_goals
+  end
+
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    @games.each do |game|
+      goals_by_season[game.season] += total_goals(game)
+    end
+    average_goals = goals_by_season.map do |season, total_goals|
+      total_goals.fdiv(count_of_games_by_season[season])
+    end
+    average_goals.each do |goals|
+      goals_by_season.each do |season, total_goals|
+        goals_by_season[season] = goals.round(2)
+      end
+    end
+    goals_by_season
   end
 end
