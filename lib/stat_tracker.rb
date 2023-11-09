@@ -186,6 +186,8 @@ class StatTracker
     average_goals_per_season
   end
 
+  
+
 # game_teams.csv
   # percentage_home_wins - HoA, result # MARTIN
 

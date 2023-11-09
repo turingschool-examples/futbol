@@ -68,6 +68,12 @@ describe StatTracker do
     end
   end
 
+  describe '#highest_scoring_visitor' do
+    it 'returns the highest_scoring_visitor' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq('team')
+    end
+  end
+
 end
 
 
