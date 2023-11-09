@@ -4,7 +4,7 @@ require_relative './team_list'
 require_relative './game_team_list'
 
 class StatTracker
-  
+
   def self.from_csv(locations)
     StatTracker.new(locations)
   end

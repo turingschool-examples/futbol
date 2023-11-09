@@ -15,15 +15,9 @@ class GameList
             Game.new(datum,self)
         end
     end
-
+  
     # def highest_total_score
 
     # end
 
 end
-
-
-
-
-
-
