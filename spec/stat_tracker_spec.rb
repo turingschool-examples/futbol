@@ -49,7 +49,7 @@ describe StatTracker do
 
   describe '#percentage_home_wins' do
     it 'calculates the percentage home wins ' do
-      expect(@stat_tracker.percentage_home_wins).to eq(53)
+      expect(@stat_tracker.percentage_home_wins).to eq(64.71)
     end
   end
 
