@@ -51,6 +51,22 @@ RSpec.describe StatTracker do
     stat_tracker = StatTracker.new
 
     expect(stat_tracker.average_goals_by_season).to be_a Hash
+
+    expected = {
+      "20122013"=>4.12,
+      "20162017"=>4.23,
+      "20142015"=>4.14,
+      "20152016"=>4.16,
+      "20132014"=>4.19,
+      "20172018"=>4.44}
+    expect(stat_tracker.average_goals_by_season).to eq(expected)
+  end
+
+  it "can count the total number of teams in the data and return an Integer" do
+    stat_tracker = StatTracker.new
+
+    expect(stat_tracker.count_of_teams).to be_a Integer
+    expect(stat_tracker.count_of_teams).to eq 32
   end
 
   it "can return a String of the team with the lowest average score per game across all seasons when they are a visitor" do
