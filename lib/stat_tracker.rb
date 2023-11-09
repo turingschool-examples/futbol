@@ -80,6 +80,12 @@ class StatTracker
     StatTracker.new(game_objects, team_objects, game_team_objects, combined_objects)
   end
 
+  def percentage_home_wins
+    home_wins = @game_teams.count do |game_team|
+      game_team.home_or_away == 'home' && game_team.result == 'WIN'
+    end
+  end
+
 # information needed for each method
 
 # games.csv 
