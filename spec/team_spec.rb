@@ -1,20 +1,4 @@
-require 'CSV'
-require './lib/team'
-
-teams = []
-
-CSV.foreach('./data/teams.csv', headers: true, header_converters: :symbol) do |row|
-    team_id = row[:team_id].to_i
-    franchise_id = row[:franchiseid].to_i
-    team_name = row[:teamname].to_s
-    abbreviation = row[:abbreviation].to_s
-    stadium = row[:stadium].to_s
-    link = row[:link].to_s
-
-    new_team = Team.new(team_id,franchise_id,team_name,abbreviation,stadium,link)
-
-    teams.append(new_team)
-end
+require 'spec_helper'
 
 RSpec.describe Team do
     it "can correctly create new Team class instance" do
