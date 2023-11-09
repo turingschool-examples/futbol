@@ -95,6 +95,12 @@ class StatTracker
     (home_wins.to_f / total_home_games.to_f * 100).round(2)
   end
 
+  def percentage_visitor_wins
+    visitor_wins = @game_teams.count do |game_team|
+      game_team.home_or_away == "away" && game_team == 'WIN'
+    end 
+  end
+
 # information needed for each method
 
 # games.csv 
