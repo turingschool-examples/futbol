@@ -87,7 +87,16 @@ class StatTracker
 
   # lowest_total_score - away_goals, home_goals # DYLAN
 
-  # count_of_games_by_season - game_id, season
+  # count_of_games_by_season - game_id, season # SAM
+
+  def count_of_games_by_season
+    games_by_season = Hash.new(0)
+    @games.each do |game|
+      season = game.season
+      games_by_season[season] += 1
+    end
+    games_by_season
+  end
 
   # average_goals_per_game - away_goals, home_goals # SAM
 
@@ -137,6 +146,15 @@ class StatTracker
 
 # teams.csv
   # count_of_teams - team_id
+
+  def count_of_teams
+    teams_total = []
+
+    @teams.each do |team|
+      teams_total << team.team_id
+    end
+    teams_total.count
+  end
 
 # Multiple csv required
   # best_offense
