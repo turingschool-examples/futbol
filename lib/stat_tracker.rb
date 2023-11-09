@@ -1,3 +1,5 @@
+
+require_relative './helper_class'
 require_relative './game_list'
 
 class StatTracker
