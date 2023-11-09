@@ -141,9 +141,20 @@ class StatTracker
       end
     end
 
-    highest_scoring_team_id = goals_by_team.max_by do |team_id, goals|
+    highest_scoring_team_enter = goals_by_team.max_by do |team_id, goals|
       goals.sum / games_by_team[team_id].to_f
-    end.first
+    end
+
+    if highest_scoring_team_enter 
+      highest_scoring_team_id = highest_scoring_team_enter.first
+
+      highest_scoring_team = @teams.find do |team|
+        team.team_id == highest_scoring_team_id
+      end
+      highest_scoring_team.team_name
+    else 
+      nil 
+    end
   end 
 # information needed for each method
 
