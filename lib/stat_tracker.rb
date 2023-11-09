@@ -129,6 +129,18 @@ class StatTracker
     average_goals
   end
 
+  def highest_scoring_visitor
+    goals_by_team = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team = Hash.new(0)
+    # require 'pry'; binding.pry
+    @game_teams.each do |game_team|
+      if game_team.home_or_away == 'away'
+        team_id = game_team.team_id
+        goals_by_team[team_id] << game_team.goals
+        games_by_team[team_id] += 1
+      end
+    end
+  end 
 # information needed for each method
 
 # games.csv 
@@ -186,7 +198,6 @@ class StatTracker
     average_goals_per_season
   end
 
-  
 
 # game_teams.csv
   # percentage_home_wins - HoA, result # MARTIN
