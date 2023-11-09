@@ -114,7 +114,15 @@ class StatTracker
       season = game.season
       total_goals = game.away_goals.to_i + game.home_goals.to_i
       goals_by_season[season] += total_goals
+      # require 'pry'; binding.pry
     end
+
+    goals_by_season.each do |season, total_goals|
+      total_goals = @games.count do |game|
+        game.season == season
+      end
+    end
+
   end
 
 # information needed for each method
