@@ -53,6 +53,12 @@ describe StatTracker do
     end
   end
 
+  describe '#percentage_visitor_wins' do
+    it 'returns the percent of visitor wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(11)
+    end
+  end
+
 end
 
 
