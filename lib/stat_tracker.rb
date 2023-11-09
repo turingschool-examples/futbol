@@ -145,7 +145,7 @@ class StatTracker
   # percentage_ties - result # MARTIN
 
 # teams.csv
-  # count_of_teams - team_id
+  # count_of_teams - team_id # SAM
 
   def count_of_teams
     teams_total = []
@@ -157,54 +157,54 @@ class StatTracker
   end
 
 # Multiple csv required
-  # best_offense
+  # best_offense # DYLAN
     # teams.csv - team_id, teamName
-    # games.csv - home_team_id, away_team_id, goals
+    # games.csv - home_team_id, away_team_id, goals 
 
-  # worst_offense
+  # worst_offense # DYLAN
     # teams.csv - team_id, teamName
-    # games.csv - home_team_id, away_team_id, goals
+    # games.csv - home_team_id, away_team_id, goals 
 
-  # highest_scoring_visitor
+  # highest_scoring_visitor # MARTIN
     # teams.csv - team_id, teamName
     # games.csv - away_team_id, goals
 
-  # highest_scoring_home_team
+  # highest_scoring_home_team # MARTIN
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, goals
 
-  # lowest_scoring_visitor
+  # lowest_scoring_visitor # MARTIN
     # teams.csv - team_id, teamName
     # games.csv - away_team_id, goals
 
-  # lowest_scoring_home_team
+  # lowest_scoring_home_team # MARTIN
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, goals
 
   # winningest_coach
-    # game_teams.csv - game_id, team_id, result, head_coach
+    # game_teams.csv - game_id, team_id, result, head_coach # DYLAN
     # games.csv - game_id, season 
 
   # worst_coach
-    # game_teams.csv - game_id, team_id, result, head_coach
+    # game_teams.csv - game_id, team_id, result, head_coach # DYLAN
     # games.csv - game_id, season 
 
-  # most_accurate_team
+  # most_accurate_team # SUNDAY
     # game_teams.csv - game_id, team_id, goals, shots
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
 
-  # least_accurate_team
+  # least_accurate_team # SUNDAY
     # game_teams.csv - game_id, team_id, goals, shots
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
 
-  # most_tackles
+  # most_tackles # SUNDAY
     # game_teams.csv - game_id, team_id, tackles
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
 
-  # least_tackles
+  # least_tackles # SUNDAY
     # game_teams.csv - game_id, team_id, tackles
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
