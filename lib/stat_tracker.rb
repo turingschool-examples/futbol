@@ -84,8 +84,24 @@ class StatTracker
 
 # games.csv 
   # highest_total_score - away_goals, home_goals # DYLAN
+  
+  def highest_total_score
+    total_scores = []
+    @games.map do |game|
+      total_scores << (game.home_goals + game.away_goals)
+    end
+    total_scores.sort.last
+  end
 
   # lowest_total_score - away_goals, home_goals # DYLAN
+
+  def lowest_total_score
+    total_scores = []
+    @games.map do |game|
+      total_scores << (game.home_goals + game.away_goals)
+    end
+    total_scores.sort.first
+  end
 
   # count_of_games_by_season - game_id, season # SAM
 

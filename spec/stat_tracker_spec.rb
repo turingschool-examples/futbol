@@ -41,7 +41,17 @@ describe StatTracker do
     end
   end
 
+  describe '#highest_total_score' do
+    it 'calculates the highest scoring game via total of both teams scores' do
+      expect(@stat_tracker.highest_total_score).to eq(5)
+    end
+  end
 
+  describe '#lowest_total_score' do
+    it 'calculates the lowest scoring game via total of both teams scores' do
+      expect(@stat_tracker.lowest_total_score).to eq(1)
+    end
+  end
 
 
 end
