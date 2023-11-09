@@ -108,6 +108,15 @@ class StatTracker
     (visitor_wins.to_f/total_visitor_games.to_f * 100).round(2)
   end
 
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    @games.each do |game|
+      season = game.season
+      total_goals = game.away_goals.to_i + game.home_goals.to_i
+      goals_by_season[season] += total_goals
+    end
+  end
+
 # information needed for each method
 
 # games.csv 
