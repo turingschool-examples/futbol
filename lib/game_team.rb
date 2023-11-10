@@ -13,7 +13,7 @@ class GameTeam
               :powerplaygoals,
               :faceoffwinpercentage,
               :giveaways,
-              :takeaways
+              :takeaways,
               :list
 
   def initialize(row, list)
@@ -32,7 +32,9 @@ class GameTeam
     @faceoffwinpercentage       = row[:faceoffwinpercentage]
     @giveaways                  = row[:giveaways]
     @takeaways                  = row[:takeaways]
-    @list                       = list
+
+    @list = list
+
   end
 
 end

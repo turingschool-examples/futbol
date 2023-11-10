@@ -23,6 +23,7 @@ class Game
     @venue          = row[:venue]
     @venue_link     = row[:venue_link]
     @list           = list
+
   end
 
 end
