@@ -53,7 +53,7 @@ class StatTracker
     CSV.foreach(locations_hash[:game_teams], headers: true, header_converters: :symbol) do |row|
       game_id = row[:game_id]
       team_id = row[:team_id]
-      home_or_away = row[:HoA]
+      home_or_away = row[:hoa]
       result = row[:result]
       # settled_in = row[:settled_in]
       head_coach = row[:head_coach]
@@ -160,7 +160,24 @@ class StatTracker
 
   # percentage_ties - result # MARTIN
 
-# teams.csv
+  def team_name(team_id) # Sam's helper method for returning team names from team IDs
+    found_team = @teams.find do |team|
+      team.team_id == team_id
+    end
+    if found_team
+      found_team.team_name
+    else
+      nil
+    end
+  end
+
+  def find_game(game_id)
+    found_game = @games.find do |game|
+      game.game_id == game_id
+    end
+  end
+  
+  # teams.csv
   # count_of_teams - team_id # SAM
 
   def count_of_teams
@@ -177,9 +194,53 @@ class StatTracker
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, away_team_id, goals 
 
+    def best_offense
+      team_ids = []
+      @game_teams.map do |game_team|
+        team_ids << game_team.team_id
+        team_ids.uniq!
+      end
+      
+      team_averages = []
+      team_ids.map do |team_id|
+        team_scores = []
+        @game_teams.map do |game_team|
+          if game_team.team_id == team_id
+            team_scores << game_team.goals.to_f
+          end
+        end
+        team_average_score = (team_scores.sum / team_scores.count)
+        team_averages << {team: team_name(team_id), average_score: team_average_score}
+      end
+      team_averages_sorted = team_averages.sort_by { |team| team[:average_score] }
+      team_averages_sorted.last[:team]
+    end
+
   # worst_offense # DYLAN
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, away_team_id, goals 
+
+    def worst_offense
+      team_ids = []
+      @game_teams.map do |game_team|
+        team_ids << game_team.team_id
+        team_ids.uniq!
+      end
+      
+      team_averages = []
+      team_ids.map do |team_id|
+        team_scores = []
+        @game_teams.map do |game_team|
+          if game_team.team_id == team_id
+            team_scores << game_team.goals.to_f
+          end
+        end
+        team_average_score = (team_scores.sum / team_scores.count)
+        team_averages << {team: team_name(team_id), average_score: team_average_score}
+      end
+      team_averages_sorted = team_averages.sort_by { |team| team[:average_score] }
+      team_averages_sorted.first[:team]
+    end
 
   # highest_scoring_visitor # MARTIN
     # teams.csv - team_id, teamName
@@ -201,9 +262,81 @@ class StatTracker
     # game_teams.csv - game_id, team_id, result, head_coach # DYLAN
     # games.csv - game_id, season 
 
+    def winningest_coach(season)
+      coaches = []
+      @game_teams.map do |game_team|
+        coaches << game_team.head_coach
+        coaches.uniq!
+      end
+      
+      coach_win_percents = []
+      coaches.map do |coach|
+        coach_wins = 0
+        coach_games = 0
+        @game_teams.map do |game_team|
+          if game_team.head_coach == coach && find_game(game_team.game_id).season == season
+            if game_team.result == "WIN"
+              coach_wins += 1
+            end
+            coach_games += 1
+          end
+        end
+        if coach_wins > 0 || coach_games > 0
+          coach_win_percent = (coach_wins.to_f / coach_games.to_f)
+          coach_win_percents << {coach: coach, win_percent: coach_win_percent}
+        else
+          return "Error: no game data for selected season."
+        end
+      end
+      coach_win_percents_sorted = coach_win_percents.sort_by { |coach| coach[:win_percent] }
+      winningest_coaches = []
+      coach_win_percents_sorted.filter_map do |coach_hash|
+        if coach_hash[:win_percent] == coach_win_percents_sorted.last[:win_percent]
+          winningest_coaches << coach_hash[:coach]
+        end
+      end
+      winningest_coaches.join(", ")
+    end
+
   # worst_coach
     # game_teams.csv - game_id, team_id, result, head_coach # DYLAN
-    # games.csv - game_id, season 
+    # games.csv - game_id, season
+
+    def worst_coach(season)
+      coaches = []
+      @game_teams.map do |game_team|
+        coaches << game_team.head_coach
+        coaches.uniq!
+      end
+      
+      coach_win_percents = []
+      coaches.map do |coach|
+        coach_wins = 0
+        coach_games = 0
+        @game_teams.map do |game_team|
+          if game_team.head_coach == coach && find_game(game_team.game_id).season == season
+            if game_team.result == "WIN"
+              coach_wins += 1
+            end
+            coach_games += 1
+          end
+        end
+        if coach_wins > 0 || coach_games > 0
+          coach_win_percent = (coach_wins.to_f / coach_games.to_f)
+          coach_win_percents << {coach: coach, win_percent: coach_win_percent}
+        else
+          return "Error: no game data for selected season."
+        end
+      end
+      coach_win_percents_sorted = coach_win_percents.sort_by { |coach| coach[:win_percent] }
+      worst_coaches = []
+      coach_win_percents_sorted.filter_map do |coach_hash|
+        if coach_hash[:win_percent] == coach_win_percents_sorted.first[:win_percent]
+          worst_coaches << coach_hash[:coach]
+        end
+      end
+      worst_coaches.join(", ")
+    end
 
   # most_accurate_team # SUNDAY
     # game_teams.csv - game_id, team_id, goals, shots
