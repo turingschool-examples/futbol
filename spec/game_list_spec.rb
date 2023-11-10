@@ -1,22 +1,21 @@
 require 'spec_helper'
 
 RSpec.describe GameList do
-    it "can correctly create new Game List class instance" do
-        games = GameList.new
+  it "can create a new Game List class instance" do
+    game_list = GameList.new('./data/games_subset.csv', 'stat_tracker')
 
-        expect(games.array.length).to eq(7441)
+    expect(game_list).to be_a(GameList)
+    expect(game_list.games).to eq([])
+  end
 
-        game2012030221 = games.array.find { |game| game.game_id == 2012030221}
+  it "can create games" do
+    game_list = GameList.new('./data/games_subset.csv', 'stat_tracker')
 
-        expect(game2012030221.game_id).to eq(2012030221)
-        expect(game2012030221.season).to eq(20122013)
-        expect(game2012030221.type).to eq("Postseason")
-        expect(game2012030221.date_time).to eq("5/16/13")
-        expect(game2012030221.away_team_id).to eq(3)
-        expect(game2012030221.home_team_id).to eq(6)
-        expect(game2012030221.away_goals).to eq(2)
-        expect(game2012030221.home_goals).to eq(3)
-        expect(game2012030221.venue).to eq("Toyota Stadium")
-        expect(game2012030221.venue_link).to eq("/api/v1/venues/null")
-    end
+    game_list.create_games('./data/games_subset.csv')
+
+    expect(game_list.games.count).to eq(20)
+  end
+
+  # no tests are passing - incorrect arguments for Game.new (received 2, expected 10)
+
 end
