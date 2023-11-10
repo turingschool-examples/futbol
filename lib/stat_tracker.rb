@@ -9,8 +9,8 @@ class StatTracker
   end
 
   def initialize(locations)
-    @game_list = GameList.new(locations[:games], self)
     @team_list = TeamList.new(locations[:teams], self)
+    @game_list = GameList.new(locations[:games], self)
     @game_team_list = GameTeamList.new(locations[:game_teams], self)
   end
 

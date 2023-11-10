@@ -11,7 +11,7 @@ class GameTeamList
   def create_game_teams(path)
       data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
       data.map do |datum|
-          GameTeams.new(datum,self)
+        GameTeam.new(datum, self)
       end
   end
 
