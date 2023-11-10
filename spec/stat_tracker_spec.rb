@@ -24,9 +24,9 @@ RSpec.describe StatTracker do
 
   it 'exists' do
     expect(@stat_tracker).to be_an_instance_of(StatTracker)
-    expect(@stat_tracker.game_list).to be_a(Array)
-    expect(@stat_tracker.team_list).to be_a(Array)
-    expect(@stat_tracker.game_team_list).to be_a(Array)
+    expect(@stat_tracker.game_list).to be_a(GameList)
+    expect(@stat_tracker.team_list).to be_a(TeamList)
+    expect(@stat_tracker.game_team_list).to be_a(GameTeamList)
   end
 
   it 'can get data from csv' do
