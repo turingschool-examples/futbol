@@ -140,14 +140,14 @@ class StatTracker
         games_by_team[team_id] += 1
       end
     end
-
+    
     highest_scoring_team_enter = goals_by_team.max_by do |team_id, goals|
       goals.sum / games_by_team[team_id].to_f
     end
-
+    
     if highest_scoring_team_enter 
       highest_scoring_team_id = highest_scoring_team_enter.first
-
+      
       highest_scoring_team = @teams.find do |team|
         team.team_id == highest_scoring_team_id
       end
@@ -156,6 +156,20 @@ class StatTracker
       nil 
     end
   end 
+  
+  def highest_home_scoring
+    goals_by_team = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team = Hash.new(0)
+    
+    @game_teams.each do |game_team|
+      if game_team.home_or_away == 'away'
+        team_id = game_team.team_id
+        goals_by_team[team_id] << game_team.goals
+        games_by_team[team_id] += 1
+      end
+    end
+
+  end
 # information needed for each method
 
 # games.csv 
