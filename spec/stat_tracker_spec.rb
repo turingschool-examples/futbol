@@ -9,8 +9,10 @@ describe StatTracker do
   before(:all) do
 
     game_path = './data/games_fixture.csv'
+    # game_path = './data/games.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_teams_fixture.csv'
+    # game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -83,6 +85,12 @@ describe StatTracker do
   describe '#lowest_scoring_visitor' do
     it 'returns lowest scoring visitor in all seasons' do
       expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns lowest scoring home team' do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("")
     end
   end
 
