@@ -1,6 +1,5 @@
-require_relative './helper_class'
 require 'CSV'
-require './lib/game'
+require_relative './game'
 
 class GameList
     attr_reader :games

@@ -1,4 +1,3 @@
-require_relative './helper_class'
 require_relative './game_list'
 require_relative './team_list'
 require_relative './game_team_list'
