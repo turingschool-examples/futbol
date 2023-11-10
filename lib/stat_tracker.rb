@@ -184,6 +184,17 @@ class StatTracker
       nil 
     end
   end
+
+  def  lowest_scoring_visitor
+    goals_by_team = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team = Hash.new(0)
+
+    @games.each do |game_team|
+      team_id = game_team.team_id 
+      goals_by_team[team_id] << game_team.goals
+      game_by_team[team_id] += 1
+    end
+  end
   # information needed for each method
 
 # games.csv 
