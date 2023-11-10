@@ -92,7 +92,7 @@ class StatTracker
     # puts "Home Wins: #{home_wins}"
     # puts "Total Home Games: #{total_home_games}"
 
-    (home_wins.to_f / total_home_games.to_f * 100).round(2)
+    (home_wins.to_f / total_home_games.to_f).round(2)
   end
 
   def percentage_visitor_wins
@@ -105,7 +105,7 @@ class StatTracker
     end
     # puts "Visitor Wins: #{visitor_wins}"
     # puts "Total Visitor Games: #{total_visitor_games}"
-    (visitor_wins.to_f/total_visitor_games.to_f * 100).round(2)
+    (visitor_wins.to_f/total_visitor_games.to_f).round(2)
   end
 
   def average_goals_by_season
