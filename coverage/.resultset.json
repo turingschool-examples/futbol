@@ -4,11 +4,107 @@
       "/Users/megroth/Turing/1mod/Projects/futbol/lib/game.rb": {
         "lines": [
           1,
+          1,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/megroth/Turing/1mod/Projects/futbol/lib/game_list.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/megroth/Turing/1mod/Projects/futbol/lib/team.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           null,
           null,
+          null
+        ]
+      },
+      "/Users/megroth/Turing/1mod/Projects/futbol/lib/team_list.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/megroth/Turing/1mod/Projects/futbol/lib/game_team.rb": {
+        "lines": [
+          1,
+          1,
           null,
           null,
           null,
@@ -17,6 +113,18 @@
           null,
           null,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -32,8 +140,55 @@
           null,
           null
         ]
+      },
+      "/Users/megroth/Turing/1mod/Projects/futbol/lib/game_team_list.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/megroth/Turing/1mod/Projects/futbol/lib/stat_tracker.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1699568211
+    "timestamp": 1699592362
   }
 }
