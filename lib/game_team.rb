@@ -1,5 +1,3 @@
-require_relative './helper_class'
-
 class GameTeam
   attr_reader :game_id, 
               :team_id,
@@ -11,28 +9,31 @@ class GameTeam
               :shots,
               :tackles,
               :pim,
-              :power_play_opportunities,
-              :power_play_goals,
-              :face_off_win_percentage,
+              :powerplayopportunities,
+              :powerplaygoals,
+              :faceoffwinpercentage,
               :giveaways,
-              :takeaways
+              :takeaways,
+              :list
 
-  def initialize(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim, power_play_opportunities, power_play_goals, face_off_win_percentage, giveaways, takeaways)
-    @game_id                    = game_id
-    @team_id                    = team_id
-    @hoa                        = hoa
-    @result                     = result
-    @settled_in                 = settled_in
-    @head_coach                 = head_coach
-    @goals                      = goals
-    @shots                      = shots
-    @tackles                    = tackles
-    @pim                        = pim
-    @power_play_opportunities   = power_play_opportunities
-    @power_play_goals           = power_play_goals
-    @face_off_win_percentage    = face_off_win_percentage
-    @giveaways                  = giveaways
-    @takeaways                  = takeaways
+  def initialize(row, list)
+    @game_id                    = row[:game_id]
+    @team_id                    = row[:team_id]
+    @hoa                        = row[:hoa]
+    @result                     = row[:result]
+    @settled_in                 = row[:settled_in]
+    @head_coach                 = row[:head_coach]
+    @goals                      = row[:goals]
+    @shots                      = row[:shots]
+    @tackles                    = row[:tackles]
+    @pim                        = row[:pim]
+    @powerplayopportunities     = row[:powerplayopportunities]
+    @powerplaygoals             = row[:powerplaygoals]
+    @faceoffwinpercentage       = row[:faceoffwinpercentage]
+    @giveaways                  = row[:giveaways]
+    @takeaways                  = row[:takeaways]
+
+    @list = list
   end
 
 end
