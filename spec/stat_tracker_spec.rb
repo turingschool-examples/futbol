@@ -1,5 +1,4 @@
 require 'spec_helper'
-require './spec/spec_helper'
 
 RSpec.describe StatTracker do
 
@@ -12,12 +11,12 @@ RSpec.describe StatTracker do
     # subset data
     game_path = './data/games_subset.csv'
     team_path = './data/teams_subset.csv'
-    game_teams_path = './data/game_teams_subset.csv'
+    game_team_path = './data/game_teams_subset.csv'
 
     locations = {
       games: game_path,
       teams: team_path,
-      game_teams: game_teams_path
+      game_teams: game_team_path
     }
     
     @stat_tracker = StatTracker.from_csv(locations)
