@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# no tests are passing - incorrect arguments for Game.new (received 2, expected 10)
+
 RSpec.describe GameList do
   it "can create a new Game List class instance" do
     game_list = GameList.new('./data/games_subset.csv', 'stat_tracker')
@@ -16,6 +18,22 @@ RSpec.describe GameList do
     expect(game_list.games.count).to eq(20)
   end
 
-  # no tests are passing - incorrect arguments for Game.new (received 2, expected 10)
+  it "can calculate percentage of home wins" do
+    game_list = GameList.new('./data/games_subset.csv', 'stat_tracker')
+
+    expect(game_list.percentage_home_wins).to eq(0.70)
+  end
+
+  it "can calculate percentage of visitor wins" do
+    game_list = GameList.new('./data/games_subset.csv', 'stat_tracker')
+
+    expect(game_list.percentage_visitor_wins).to eq(0.25)
+  end
+
+  it "can calculate percentage of ties" do
+    game_list = GameList.new('./data/games_subset.csv', 'stat_tracker')
+
+    expect(game_list.percentage_ties).to eq(0.05)
+  end
 
 end
