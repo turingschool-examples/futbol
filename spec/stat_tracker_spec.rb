@@ -80,6 +80,12 @@ describe StatTracker do
     end
   end
 
+  describe '#lowest_scoring_visitor' do
+    it 'returns lowest scoring visitor in all seasons' do
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("")
+    end
+  end
+
 end
 
 
