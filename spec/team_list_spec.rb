@@ -2,19 +2,27 @@ require 'spec_helper'
 
 RSpec.describe TeamList do
   before(:each) do
-    @new_teamlist = TeamList.new("./data/teams_subset.csv", StatTracker )
+    locations = {
+      games: "./data/games_subset.csv",
+      teams: "./data/teams_subset.csv",
+      game_teams: "./data/game_teams_subset.csv"
+    }
+
+    tracker = StatTracker.from_csv(locations)
+    @team_list = TeamList.new(locations[:teams], tracker)
   end
 
   it 'exists' do
-    expect(@new_teamlist).to be_a(TeamList)
+    expect(@team_list).to be_a(TeamList)
 
-    expect(@new_teamlist.teams).to be_a(Array)
-    expect(@new_teamlist.teams[0]).to be_a(Team)
+    expect(@team_list.teams).to be_a(Array)
+    expect(@team_list.teams[0]).to be_a(Team)
   end
 
   it 'can create teams' do
-    @new_teamlist.create_teams("./data/teams_subset.csv")
+    @team_list.create_teams("./data/teams_subset.csv")
     
-    expect(@new_teamlist.teams.count).to eq(20)
+    expect(@team_list.teams.count).to eq(20)
+    expect(@team_list.teams).to all(be_an_instance_of Team)
   end
 end
