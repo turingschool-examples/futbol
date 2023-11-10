@@ -1,14 +1,20 @@
 require 'spec_helper'
 
 RSpec.describe Team do
-    it "can correctly create new Team class instance" do
-        team1 = teams.find { |team| team.team_id == 1}
+    before(:each) do
+    @new_team = Team.new({:team_id => 1,:franchise_id => 23, :team_name => "Atlanta United", :abbreviation => "ATL", :stadium => "Mercedes-Benz Stadium", :link => "/api/v1/teams/1"}, TeamList)
+  end
 
-        expect(team1.team_id).to eq(1)
-        expect(team1.franchise_id).to eq(23)
-        expect(team1.team_name).to eq("Atlanta United")
-        expect(team1.abbreviation).to eq("ATL")
-        expect(team1.stadium).to eq("Mercedes-Benz Stadium")
-        expect(team1.link).to eq("/api/v1/teams/1")
-    end
+  it 'exists' do
+    expect(@new_team).to be_a(Team)
+  end
+
+  it 'has readable attributes' do
+    expect(@new_team.team_id).to eq(1)
+    expect(@new_team.franchise_id).to eq(23)
+    expect(@new_team.team_name).to eq("Atlanta United")
+    expect(@new_team.abbreviation).to eq("ATL")
+    expect(@new_team.stadium).to eq("Mercedes-Benz Stadium")
+    expect(@new_team.link).to eq("/api/v1/teams/1")
+  end
 end

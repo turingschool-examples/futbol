@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/megroth/Turing/1mod/Projects/futbol/lib/game.rb": {
+      "/Users/loganfinnegan/turing/1mod/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -15,59 +15,13 @@
           null,
           null,
           null,
-          1,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/megroth/Turing/1mod/Projects/futbol/lib/game_list.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          1,
-          null,
-          1,
-          0,
-          null,
           null,
           1,
           0,
           0,
           0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/megroth/Turing/1mod/Projects/futbol/lib/team.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
+          0,
+          0,
           0,
           0,
           0,
@@ -79,7 +33,7 @@
           null
         ]
       },
-      "/Users/megroth/Turing/1mod/Projects/futbol/lib/team_list.rb": {
+      "/Users/loganfinnegan/turing/1mod/futbol/lib/game_list.rb": {
         "lines": [
           1,
           1,
@@ -98,10 +52,64 @@
           null,
           null,
           null,
+          null,
+          null,
+          null,
+          null,
           null
         ]
       },
-      "/Users/megroth/Turing/1mod/Projects/futbol/lib/game_team.rb": {
+      "/Users/loganfinnegan/turing/1mod/futbol/lib/team.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/loganfinnegan/turing/1mod/futbol/lib/team_list.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          20,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/loganfinnegan/turing/1mod/futbol/lib/game_team.rb": {
         "lines": [
           1,
           1,
@@ -120,6 +128,7 @@
           null,
           null,
           null,
+          null,
           1,
           0,
           0,
@@ -137,11 +146,13 @@
           0,
           0,
           null,
+          0,
+          null,
           null,
           null
         ]
       },
-      "/Users/megroth/Turing/1mod/Projects/futbol/lib/game_team_list.rb": {
+      "/Users/loganfinnegan/turing/1mod/futbol/lib/game_team_list.rb": {
         "lines": [
           1,
           1,
@@ -163,7 +174,7 @@
           null
         ]
       },
-      "/Users/megroth/Turing/1mod/Projects/futbol/lib/stat_tracker.rb": {
+      "/Users/loganfinnegan/turing/1mod/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
@@ -189,6 +200,6 @@
         ]
       }
     },
-    "timestamp": 1699592362
+    "timestamp": 1699644984
   }
 }
