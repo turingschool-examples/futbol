@@ -15,7 +15,6 @@ RSpec.describe TeamList do
   it 'can create teams' do
     @new_teamlist.create_teams("./data/teams_subset.csv")
     
-    require 'pry'; binding.pry
     expect(@new_teamlist.teams.count).to eq(20)
   end
 end
