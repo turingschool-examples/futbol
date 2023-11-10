@@ -34,6 +34,7 @@ class GameTeam
     @takeaways                  = row[:takeaways]
 
     @list = list
+
   end
 
 end

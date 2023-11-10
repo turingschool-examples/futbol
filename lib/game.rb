@@ -9,9 +9,9 @@ class Game
               :home_goals,
               :venue,
               :venue_link,
-              :game_list
+              :list
 
-  def initialize(row, game_list)
+  def initialize(row, list)
     @game_id        = row[:game_id]
     @season         = row[:season]
     @type           = row[:type]
@@ -22,7 +22,8 @@ class Game
     @home_goals     = row[:home_goals]
     @venue          = row[:venue]
     @venue_link     = row[:venue_link]
-    @game_list      = game_list
+    @list           = list
+
   end
 
 end
