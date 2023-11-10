@@ -82,7 +82,7 @@ describe StatTracker do
 
   describe '#lowest_scoring_visitor' do
     it 'returns lowest scoring visitor in all seasons' do
-      expect(@stat_tracker.lowest_scoring_visitor).to eq("")
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
     end
   end
 
