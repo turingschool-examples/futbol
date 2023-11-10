@@ -189,15 +189,33 @@ class StatTracker
     goals_by_team = Hash.new { |hash, key| hash[key] = [] }
     games_by_team = Hash.new(0)
 
-    @games.each do |game_team|
-      team_id = game_team.team_id 
-      goals_by_team[team_id] << game_team.goals
-      game_by_team[team_id] += 1
+    @game_teams.each do |game_team|
+      if game_team.home_or_away == 'away'
+        team_id = game_team.team_id 
+        goals_by_team[team_id] << game_team.goals
+        games_by_team[team_id] += 1
+      end 
+    end
+
+    lowest_scoring_team_enter = goals_by_team.min_by do |team_id, goals|
+      goals.sum / games_by_team[team_id].to_f
+    end
+
+    if lowest_scoring_team_enter
+      lowest_scoring_team_id = lowest_scoring_team_enter.first
+
+      lowest_scoring_team = @teams.find do |team|
+        team.team_id == lowest_scoring_team_id
+      end
+      lowest_scoring_team.team_name
+    else 
+      nil 
     end
   end
+
   # information needed for each method
 
-# games.csv 
+ # games.csv 
   # highest_total_score - away_goals, home_goals # DYLAN
 
   # lowest_total_score - away_goals, home_goals # DYLAN
@@ -253,14 +271,14 @@ class StatTracker
   end
 
 
-# game_teams.csv
+ # game_teams.csv
   # percentage_home_wins - HoA, result # MARTIN
 
   # percentage_visitor_wins - HoA, result # MARTIN
 
   # percentage_ties - result # MARTIN
 
-# teams.csv
+ # teams.csv
   # count_of_teams - team_id # SAM
 
   def count_of_teams
@@ -272,7 +290,7 @@ class StatTracker
     teams_total.count
   end
 
-# Multiple csv required
+ # Multiple csv required
   # best_offense # DYLAN
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, away_team_id, goals 
