@@ -90,7 +90,7 @@ describe StatTracker do
 
   describe '#lowest_scoring_home_team' do
     it 'returns lowest scoring home team' do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("")
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
     end
   end
 
