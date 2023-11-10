@@ -1,12 +1,11 @@
-require_relative './helper_class'
 require 'CSV'
-require './lib/game_team'
+require_relative './game_team'
 
 class GameTeamList
   attr_reader :game_teams
 
   def initialize(path, stat_tracker)
-      @game_teams = create_teams(path)
+      @game_teams = create_game_teams(path)
   end
 
   def create_game_teams(path)
