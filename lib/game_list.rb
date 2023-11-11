@@ -2,7 +2,8 @@ require 'CSV'
 require_relative './game'
 
 class GameList
-  attr_reader :games, :stat_tracker
+  attr_reader :games, 
+              :stat_tracker
 
   def initialize(path, stat_tracker)
     @games = create_games(path)
