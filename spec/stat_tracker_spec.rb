@@ -29,8 +29,12 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_team_list).to be_a(GameTeamList)
   end
 
-  it 'can get data from csv' do
+  it 'can find highest score' do
+    expect(@stat_tracker.highest_total_score).to eq(5)
+  end
 
+  it 'can find the lowest score' do
+    expect(@stat_tracker.lowest_total_score).to eq(1)
   end
 
   xit "can calculate percentage of home wins" do

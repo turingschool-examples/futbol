@@ -2,10 +2,11 @@ require 'CSV'
 require_relative './team'
 
 class TeamList
-  attr_reader :teams
+  attr_reader :teams, :stat_tracker
 
   def initialize(path, stat_tracker)
     @teams = create_teams(path)
+    @stat_tracker = stat_tracker #added this to have access to stat tracker going backwards
   end
   
   def create_teams(path)
