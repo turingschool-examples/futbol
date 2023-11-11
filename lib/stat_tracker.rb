@@ -24,4 +24,9 @@ class StatTracker
   def lowest_total_score
     @game_list.lowest_total_score
   end
+
+  def count_of_games_by_season
+    @game_list.count_of_games_by_season
+  end
+
 end

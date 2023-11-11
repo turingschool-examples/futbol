@@ -43,4 +43,5 @@ RSpec.describe GameList do
   xit "can calculate percentage of ties" do
     expect(@game_list.percentage_ties).to eq(0.05)
   end
+
 end
