@@ -28,4 +28,13 @@ class GameList
       game.total_score
     end.total_score
   end
+
+  # need to change games_subset.csv in order to test this method properly. Currently, all 20 sample games are from the same season (20122013)
+  def count_of_games_by_season
+    games_per_season = Hash.new(0)
+    @games.map do |game|
+      games_per_season[game.season] += 1
+    end
+  end
+
 end
