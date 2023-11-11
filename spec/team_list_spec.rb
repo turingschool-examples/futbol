@@ -21,8 +21,15 @@ RSpec.describe TeamList do
 
   it 'can create teams' do
     @team_list.create_teams("./data/teams_subset.csv")
-    #this will break ousdie of dummy files
-    # expect(@team_list.teams.count).to eq(20)
     expect(@team_list.teams).to all(be_an_instance_of Team)
   end
+
+  xit 'can return the highest scoring visitor team' do
+    expect(@team_list.highest_scoring_visitor).to eq("FC Dallas")
+  end
+  
+  xit 'can return the highest scoring home team' do
+    expect(@team_list.highest_scoring_home_team).to eq("New York City FC")
+  end
+
 end
