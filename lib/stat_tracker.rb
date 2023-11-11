@@ -3,7 +3,9 @@ require_relative './team_list'
 require_relative './game_team_list'
 
 class StatTracker
-  attr_reader :team_list, :game_list, :game_team_list
+  attr_reader :team_list, 
+              :game_list, 
+              :game_team_list
 
   def self.from_csv(locations)
     StatTracker.new(locations)
