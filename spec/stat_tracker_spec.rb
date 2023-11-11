@@ -29,10 +29,6 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_team_list).to be_a(GameTeamList)
   end
 
-  # it 'can get data from csv' do
-
-  # end
-
   it 'can find highest score' do
     expect(@stat_tracker.highest_total_score).to eq(5)
   end
