@@ -42,9 +42,16 @@ describe StatTracker do
   end
 
   describe 'most accurate team' do
-    it 'returns most accurate team for each season' do
+    it 'returns most accurate team for each season as a string' do
 
     expect(@stat_tracker.most_accurate_team["20122013"]).to eq("FC Dallas")
+    end
+  end
+
+  describe 'least accurate team' do
+    it 'returns least accurate team for each season as a string' do
+
+      expect(@stat_tracker.least_accurate_team["20122013"]).to eq("Sporting Kansas City")
     end
   end
 

@@ -195,30 +195,44 @@ class StatTracker
     # teams.csv - team_id, teamName
 
   def most_accurate_team
-    team_accuracy_index = {} 
-
+    season_data = {}
+    
     @game_teams.each do |game_team|
+      game = find_game_by_id(game_team.game_id)
+      next unless game
+    
+      season = game.season
+      team_id = game_team.team_id
       goals = game_team.goals.to_f
       shots = game_team.shots.to_f
+        
+      #initialize nested hash for each new season or team
 
-      if shots > 0
-        accuracy = goals / shots
-      else
-        accuracy = 0
+      season_data[season] ||= {}
+      season_data[season][game_team.team_id] ||= { total_goals: 0, total_shots: 0 }
+    
+      season_data[season][game_team.team_id][:total_goals] += goals
+      season_data[season][game_team.team_id][:total_shots] += shots
+    end
+    
+    most_accurate_teams_per_season = {}
+    season_data.each do |season, teams|
+      highest_accuracy = 0.0
+      most_accurate_team_id = nil
+
+      teams.each do |team_id, data|
+        if data[:total_shots] > 0
+          accuracy = data[:total_goals] / data[:total_shots]
+          if accuracy > highest_accuracy
+            highest_accuracy = accuracy
+            most_accurate_team_id = team_id
+          end
+        end
       end
-
-      team_accuracy_index[game_team.team_id] = accuracy
+      most_accurate_teams_per_season[season] = team_name(most_accurate_team_id)
     end
-
-    most_accurate = team_accuracy_index.max_by { |team_id, accuracy| accuracy }
-
-    if most_accurate
-      most_accurate_team_id = most_accurate.first
-      team_name(most_accurate_team_id)
-    else
-      nil
-    end
-  end
+    most_accurate_teams_per_season
+  end    
 
   # least_accurate_team # SUNDAY
     # game_teams.csv - game_id, team_id, goals, shots
@@ -248,4 +262,11 @@ class StatTracker
       nil
     end
   end
+
+  #find game by ID
+  def find_game_by_id(game_id)
+    @games.find { |game| game.game_id == game_id }
+  end
+
+
 end
