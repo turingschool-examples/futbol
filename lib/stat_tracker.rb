@@ -219,6 +219,7 @@ class StatTracker
     total_games = @game_teams.count do |game_team|
       game_team.result != nil
     end 
+    
     (total_ties / total_games.to_f).round(2)
     
 
