@@ -642,32 +642,22 @@ def lowest_scoring_home_team
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
 
-  def fewest_tackles
+  def fewest_tackles(season)
     season_tackles = {}
     
     @game_teams.each do |game_team|
       game = find_game_by_id(game_team.game_id)
-      next unless game
+      next unless game && game.season == season
     
-      season = game.season
       team_id = game_team.team_id
       tackles = game_team.tackles.to_i
-        
-      #initialize nested hash for each new season or team
 
-      season_tackles[season] ||= {}
-      season_tackles[season][game_team.team_id] ||= 0
-      season_tackles[season][team_id] += tackles
-
+      season_tackles[team_id] ||= 0
+      season_tackles[team_id] += tackles
     end
+
+    team_with_fewest_tackles = season_tackles.min_by { |team_id, tackles| tackles }.first
     
-    teams_with_fewest_tackles_per_season = {}
-    season_tackles.each do |season, teams|
-      fewest_tackles = teams.values.min
-      team_with_fewest_tackles = teams.key(fewest_tackles)
-      teams_with_fewest_tackles_per_season[season] = team_name(team_with_fewest_tackles)
-    end
-    teams_with_fewest_tackles_per_season
+    team_name(team_with_fewest_tackles)
   end
-
 end
