@@ -136,19 +136,6 @@ class StatTracker
       # require 'pry'; binding.pry
     end
 
-    average_goals = Hash.new(0)
-    goals_by_season.each do |season, total_goals|
-      total_games = @games.count do |game|
-        game.season == season
-      end
-      average = (total_goals.to_f / total_games).round(2)
-      average_goals[season] = average
-    end
-    # require 'pry'; binding.pry
-    average_goals
-  end
-
-  def average_goals_per_season # Sam's version
     season_goals = Hash.new(0)
     season_counts = Hash.new(0)
   
@@ -159,7 +146,7 @@ class StatTracker
       season_counts[season] += 1
     end
   
-    average_goals_per_season = {}
+    average_goals_by_season = {}
   
     season_goals.each do |season, total_score|
       count = season_counts[season]
@@ -168,13 +155,13 @@ class StatTracker
       else
         average = 0
       end
-      average_goals_per_season[season] = average.round(2)
+      average_goals_by_season[season] = average.round(2)
     end
   
-    average_goals_per_season
+    average_goals_by_season
   end
 
-
+ # teams.csv
  # game_teams.csv
   # percentage_home_wins - HoA, result # MARTIN
   
@@ -238,6 +225,10 @@ class StatTracker
     end
   end
 
+  def find_game_by_id(game_id)
+    @games.find { |game| game.game_id == game_id }
+  end
+
   def find_game(game_id)
     found_game = @games.find do |game|
       game.game_id == game_id
@@ -245,7 +236,6 @@ class StatTracker
   end
   
   # teams.csv
-
   # count_of_teams - team_id # SAM
 
   def count_of_teams
@@ -523,19 +513,161 @@ def lowest_scoring_home_team
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
 
-  # least_accurate_team # SUNDAY
+  def most_accurate_team
+    season_data = {}
+    
+    @game_teams.each do |game_team|
+      game = find_game_by_id(game_team.game_id)
+      next unless game
+    
+      season = game.season
+      team_id = game_team.team_id
+      goals = game_team.goals.to_f
+      shots = game_team.shots.to_f
+        
+      #initialize nested hash for each new season or team
+
+      season_data[season] ||= {}
+      season_data[season][game_team.team_id] ||= { total_goals: 0, total_shots: 0 }
+    
+      season_data[season][game_team.team_id][:total_goals] += goals
+      season_data[season][game_team.team_id][:total_shots] += shots
+    end
+    
+    most_accurate_teams_per_season = {}
+    season_data.each do |season, teams|
+      highest_accuracy = 0.0 #lowest possible accuracy
+      most_accurate_team_id = nil
+
+      teams.each do |team_id, data|
+        if data[:total_shots] > 0
+          accuracy = data[:total_goals] / data[:total_shots]
+          if accuracy > highest_accuracy
+            highest_accuracy = accuracy
+            most_accurate_team_id = team_id
+          end
+        end
+      end
+      most_accurate_teams_per_season[season] = team_name(most_accurate_team_id)
+    end
+    most_accurate_teams_per_season
+  end    
+
+  # least_accurate_team # SAM
     # game_teams.csv - game_id, team_id, goals, shots
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
 
-  # most_tackles # SUNDAY
+  def least_accurate_team
+    season_data = {}
+        
+    @game_teams.each do |game_team|
+      game = find_game_by_id(game_team.game_id)
+      next unless game
+        
+      season = game.season
+      team_id = game_team.team_id
+      goals = game_team.goals.to_f
+      shots = game_team.shots.to_f
+            
+      # Initialize nested hash for each new season or team
+      season_data[season] ||= {}
+      season_data[season][team_id] ||= { total_goals: 0, total_shots: 0 }
+        
+      season_data[season][team_id][:total_goals] += goals
+      season_data[season][team_id][:total_shots] += shots
+    end
+        
+    least_accurate_teams_per_season = {}
+    season_data.each do |season, teams|
+      lowest_accuracy = 1.0 #perfect accuracy score
+      least_accurate_team_id = nil
+    
+      teams.each do |team_id, data|
+        if data[:total_shots] > 0
+          accuracy = data[:total_goals] / data[:total_shots]
+          if accuracy < lowest_accuracy
+            lowest_accuracy = accuracy
+            least_accurate_team_id = team_id
+          end
+        end
+      end
+      least_accurate_teams_per_season[season] = team_name(least_accurate_team_id) if least_accurate_team_id
+    end
+    least_accurate_teams_per_season
+  end
+
+  # most_tackles # SAM
+    # game_teams.csv - game_id, team_id, tackles
+    # games.csv - game_id, season
+    # teams.csv - team_id, teamName
+  def most_tackles
+    season_tackles = {}
+    
+    @game_teams.each do |game_team|
+      game = find_game_by_id(game_team.game_id)
+      next unless game
+    
+      season = game.season
+      team_id = game_team.team_id
+      tackles = game_team.tackles.to_i
+        
+      #initialize nested hash for each new season or team
+
+      season_tackles[season] ||= {}
+      season_tackles[season][game_team.team_id] ||= 0
+    
+      season_tackles[season][team_id] += tackles
+
+    end
+    
+    teams_with_most_tackles_per_season = {}
+    season_tackles.each do |season, teams|
+      most_tackles = 0
+      team_with_most_tackles = nil
+
+      teams.each do |team_id, tackles|
+        if tackles > most_tackles
+          most_tackles = tackles
+          team_with_most_tackles = team_id
+        end
+      end
+      teams_with_most_tackles_per_season[season] = team_name(team_with_most_tackles)
+    end
+    teams_with_most_tackles_per_season
+  end
+
+  # least_tackles # SAM
     # game_teams.csv - game_id, team_id, tackles
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
 
-  # least_tackles # SUNDAY
-    # game_teams.csv - game_id, team_id, tackles
-    # games.csv - game_id, season
-    # teams.csv - team_id, teamName
+  def fewest_tackles
+    season_tackles = {}
+    
+    @game_teams.each do |game_team|
+      game = find_game_by_id(game_team.game_id)
+      next unless game
+    
+      season = game.season
+      team_id = game_team.team_id
+      tackles = game_team.tackles.to_i
+        
+      #initialize nested hash for each new season or team
+
+      season_tackles[season] ||= {}
+      season_tackles[season][game_team.team_id] ||= 0
+      season_tackles[season][team_id] += tackles
+
+    end
+    
+    teams_with_fewest_tackles_per_season = {}
+    season_tackles.each do |season, teams|
+      fewest_tackles = teams.values.min
+      team_with_fewest_tackles = teams.key(fewest_tackles)
+      teams_with_fewest_tackles_per_season[season] = team_name(team_with_fewest_tackles)
+    end
+    teams_with_fewest_tackles_per_season
+  end
 
 end

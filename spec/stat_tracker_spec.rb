@@ -49,6 +49,34 @@ describe StatTracker do
     end
   end
 
+  describe 'most_accurate_team' do
+    it 'returns most accurate team for each season as a string' do
+
+    expect(@stat_tracker.most_accurate_team["20122013"]).to eq("FC Dallas")
+    end
+  end
+
+  describe 'least_accurate_team' do
+    it 'returns least accurate team for each season as a string' do
+
+    expect(@stat_tracker.least_accurate_team["20122013"]).to eq("New York City FC")
+    end
+  end
+
+  describe 'most_tackles' do
+    it 'returns teams with most stackles as a string' do
+
+    expect(@stat_tracker.most_tackles["20122013"]).to eq("FC Cincinnati")
+    end
+  end
+
+  describe 'fewest_tackles' do
+    it 'returns teams with fewest tackles as a string' do
+
+    expect(@stat_tracker.fewest_tackles["20122013"]).to eq("Atlanta United")
+    end
+  end
+
   describe '#highest_total_score' do
     it 'calculates the highest scoring game via total of both teams scores' do
       expect(@stat_tracker.highest_total_score).to eq(5)
