@@ -80,9 +80,9 @@ class StatTracker
     StatTracker.new(game_objects, team_objects, game_team_objects, combined_objects)
   end
 
-# information needed for each method
+  # information needed for each method
 
-# games.csv 
+ # games.csv 
   # highest_total_score - away_goals, home_goals # DYLAN
   
   def highest_total_score
@@ -126,8 +126,29 @@ class StatTracker
   end
 
   # average_goals_by_season - season, away_goals, home_goals # SAM
+  
+  def average_goals_by_season # Martin's version
+    goals_by_season = Hash.new(0)
+    @games.each do |game|
+      season = game.season
+      total_goals = game.away_goals.to_i + game.home_goals.to_i
+      goals_by_season[season] += total_goals
+      # require 'pry'; binding.pry
+    end
 
-  def average_goals_per_season
+    average_goals = Hash.new(0)
+    goals_by_season.each do |season, total_goals|
+      total_games = @games.count do |game|
+        game.season == season
+      end
+      average = (total_goals.to_f / total_games).round(2)
+      average_goals[season] = average
+    end
+    # require 'pry'; binding.pry
+    average_goals
+  end
+
+  def average_goals_per_season # Sam's version
     season_goals = Hash.new(0)
     season_counts = Hash.new(0)
   
@@ -153,12 +174,43 @@ class StatTracker
     average_goals_per_season
   end
 
-# game_teams.csv
+
+ # game_teams.csv
   # percentage_home_wins - HoA, result # MARTIN
+  
+  def percentage_home_wins
+    home_wins = @game_teams.count do |game_team|
+      game_team.home_or_away == 'home' && game_team.result == 'WIN'
+      # require 'pry'; binding.pry
+    end
+
+    total_home_games = @game_teams.count do |game_team|
+      game_team.home_or_away == 'home'
+    end
+    # puts "Home Wins: #{home_wins}"
+    # puts "Total Home Games: #{total_home_games}"
+
+    (home_wins.to_f / total_home_games.to_f).round(2)
+  end
 
   # percentage_visitor_wins - HoA, result # MARTIN
+  
+    def percentage_visitor_wins
+    visitor_wins = @game_teams.count do |game_team|
+      game_team.home_or_away == "away" && game_team.result == 'WIN'
+    end 
+
+    total_visitor_games = @game_teams.count do |game_team|
+      game_team.home_or_away == 'away'
+    end
+    # puts "Visitor Wins: #{visitor_wins}"
+    # puts "Total Visitor Games: #{total_visitor_games}"
+    (visitor_wins.to_f/total_visitor_games.to_f).round(2)
+  end
 
   # percentage_ties - result # MARTIN
+
+# Helper methods
 
   def team_name(team_id) # Sam's helper method for returning team names from team IDs
     found_team = @teams.find do |team|
@@ -178,6 +230,7 @@ class StatTracker
   end
   
   # teams.csv
+
   # count_of_teams - team_id # SAM
 
   def count_of_teams
@@ -189,7 +242,7 @@ class StatTracker
     teams_total.count
   end
 
-# Multiple csv required
+ # Multiple csv required
   # best_offense # DYLAN
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, away_team_id, goals 
@@ -246,17 +299,129 @@ class StatTracker
     # teams.csv - team_id, teamName
     # games.csv - away_team_id, goals
 
+def highest_scoring_visitor
+    goals_by_team = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team = Hash.new(0)
+    # require 'pry'; binding.pry
+    @game_teams.each do |game_team|
+      if game_team.home_or_away == 'away'
+        team_id = game_team.team_id
+        goals_by_team[team_id] << game_team.goals
+        games_by_team[team_id] += 1
+      end
+    end
+    
+    highest_scoring_team_enter = goals_by_team.max_by do |team_id, goals|
+      goals.sum / games_by_team[team_id].to_f
+    end
+    
+    if highest_scoring_team_enter 
+      highest_scoring_team_id = highest_scoring_team_enter.first
+      
+      highest_scoring_team = @teams.find do |team|
+        team.team_id == highest_scoring_team_id
+      end
+      highest_scoring_team.team_name
+    else 
+      nil 
+    end
+  end 
+
   # highest_scoring_home_team # MARTIN
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, goals
+
+def highest_scoring_home_team
+    goals_by_team = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team = Hash.new(0)
+    
+    @game_teams.each do |game_team|
+      if game_team.home_or_away == 'home'
+        team_id = game_team.team_id
+        goals_by_team[team_id] << game_team.goals
+        games_by_team[team_id] += 1
+      end
+    end
+    
+    highest_scoring_team_enter = goals_by_team.max_by do |team_id, goals|
+      goals.sum / games_by_team[team_id].to_f
+    end
+    
+    if highest_scoring_team_enter 
+      highest_scoring_team_id = highest_scoring_team_enter.first
+      
+      highest_scoring_team = @teams.find do |team|
+        team.team_id == highest_scoring_team_id
+      end
+      highest_scoring_team.team_name
+    else 
+      nil 
+    end
+  end
 
   # lowest_scoring_visitor # MARTIN
     # teams.csv - team_id, teamName
     # games.csv - away_team_id, goals
 
+def lowest_scoring_visitor
+    goals_by_team = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team = Hash.new(0)
+
+    @game_teams.each do |game_team|
+      if game_team.home_or_away == 'away'
+        team_id = game_team.team_id 
+        goals_by_team[team_id] << game_team.goals
+        games_by_team[team_id] += 1
+      end 
+    end
+
+    lowest_scoring_team_enter = goals_by_team.min_by do |team_id, goals|
+      goals.sum / games_by_team[team_id].to_f
+    end
+
+    if lowest_scoring_team_enter
+      lowest_scoring_team_id = lowest_scoring_team_enter.first
+
+      lowest_scoring_team = @teams.find do |team|
+        team.team_id == lowest_scoring_team_id
+      end
+      lowest_scoring_team.team_name
+    else 
+      nil 
+    end
+  end
+
   # lowest_scoring_home_team # MARTIN
     # teams.csv - team_id, teamName
     # games.csv - home_team_id, goals
+
+def lowest_scoring_home_team
+    goals_by_team = Hash.new { |hash, key| hash[key] = [] }
+    games_by_team = Hash.new(0)
+
+    @game_teams.each do |game_team|
+      if game_team.home_or_away == 'home'
+        team_id = game_team.team_id 
+        goals_by_team[team_id] << game_team.goals
+        games_by_team[team_id] += 1
+      end 
+    end
+
+    lowest_scoring_team_enter = goals_by_team.min_by do |team_id, goals|
+      goals.sum / games_by_team[team_id].to_f
+    end
+
+    if lowest_scoring_team_enter
+      lowest_scoring_team_id = lowest_scoring_team_enter.first
+
+      lowest_scoring_team = @teams.find do |team|
+        team.team_id == lowest_scoring_team_id
+      end
+      lowest_scoring_team.team_name
+    else 
+      nil 
+    end
+  end
 
   # winningest_coach
     # game_teams.csv - game_id, team_id, result, head_coach # DYLAN
