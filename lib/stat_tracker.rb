@@ -513,44 +513,42 @@ def lowest_scoring_home_team
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
 
-  def most_accurate_team
+  def most_accurate_team(season)
     season_data = {}
     
     @game_teams.each do |game_team|
       game = find_game_by_id(game_team.game_id)
-      next unless game
+      next unless game && game.season == season
     
-      season = game.season
       team_id = game_team.team_id
       goals = game_team.goals.to_f
       shots = game_team.shots.to_f
         
       #initialize nested hash for each new season or team
 
-      season_data[season] ||= {}
-      season_data[season][game_team.team_id] ||= { total_goals: 0, total_shots: 0 }
+      season_data[team_id] ||= { total_goals: 0, total_shots: 0 } unless season_data.key?(team_id)
     
-      season_data[season][game_team.team_id][:total_goals] += goals
-      season_data[season][game_team.team_id][:total_shots] += shots
+      season_data[team_id][:total_goals] += goals
+      season_data[team_id][:total_shots] += shots
     end
     
-    most_accurate_teams_per_season = {}
-    season_data.each do |season, teams|
-      highest_accuracy = 0.0 #lowest possible accuracy
-      most_accurate_team_id = nil
+    highest_accuracy = 0.0 #lowest possible accuracy
+    most_accurate_team_id = nil
 
-      teams.each do |team_id, data|
-        if data[:total_shots] > 0
-          accuracy = data[:total_goals] / data[:total_shots]
-          if accuracy > highest_accuracy
-            highest_accuracy = accuracy
-            most_accurate_team_id = team_id
-          end
+    season_data.each do |team_id, data|
+      if data[:total_shots] > 0
+        accuracy = data[:total_goals] / data[:total_shots]
+        if accuracy > highest_accuracy
+          highest_accuracy = accuracy
+          most_accurate_team_id = team_id
         end
       end
-      most_accurate_teams_per_season[season] = team_name(most_accurate_team_id)
     end
-    most_accurate_teams_per_season
+    if most_accurate_team_id
+      return team_name(most_accurate_team_id)
+    else
+      return nil
+    end
   end    
 
   # least_accurate_team # SAM
@@ -563,27 +561,23 @@ def lowest_scoring_home_team
         
     @game_teams.each do |game_team|
       game = find_game_by_id(game_team.game_id)
-      next unless game
+      next unless game && game.season == season
         
-      season = game.season
       team_id = game_team.team_id
       goals = game_team.goals.to_f
       shots = game_team.shots.to_f
             
       # Initialize nested hash for each new season or team
-      season_data[season] ||= {}
-      season_data[season][team_id] ||= { total_goals: 0, total_shots: 0 }
-        
-      season_data[season][team_id][:total_goals] += goals
-      season_data[season][team_id][:total_shots] += shots
+
+      season_data[team_id] ||= { total_goals: 0, total_shots: 0 } unless season_data.key?(team_id)   
+      season_data[team_id][:total_goals] += goals
+      season_data[team_id][:total_shots] += shots
     end
-        
-    least_accurate_teams_per_season = {}
-    season_data.each do |season, teams|
-      lowest_accuracy = 1.0 #perfect accuracy score
-      least_accurate_team_id = nil
     
-      teams.each do |team_id, data|
+    lowest_accuracy = 1.0 #perfect accuracy score
+    least_accurate_team_id = nil
+
+    season_data.each do |team_id, data|
         if data[:total_shots] > 0
           accuracy = data[:total_goals] / data[:total_shots]
           if accuracy < lowest_accuracy
@@ -592,15 +586,18 @@ def lowest_scoring_home_team
           end
         end
       end
-      least_accurate_teams_per_season[season] = team_name(least_accurate_team_id) if least_accurate_team_id
+      if least_accurate_team_id
+        return team_name(least_accurate_team_id)
+      else
+        return nil
+      end
     end
-    least_accurate_teams_per_season
-  end
 
   # most_tackles # SAM
     # game_teams.csv - game_id, team_id, tackles
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
+    
   def most_tackles(season)
     season_tackles = {}
     
@@ -610,8 +607,7 @@ def lowest_scoring_home_team
     
       team_id = game_team.team_id
       tackles = game_team.tackles.to_i
-        
-
+      
       season_tackles[team_id] ||= 0   
       season_tackles[team_id] += tackles
     end
