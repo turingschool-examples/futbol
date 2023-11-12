@@ -14,7 +14,7 @@ class GameTeam
               :faceoffwinpercentage,
               :giveaways,
               :takeaways,
-              :game_team_list #this is changed for clarity because it is an instance of game_team_list, not just a list in game_team
+              :game_team_list
 
   def initialize(row, game_team_list)
     @game_id                    = row[:game_id]

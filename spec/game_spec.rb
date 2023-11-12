@@ -27,7 +27,6 @@ RSpec.describe Game do
   end
   
   it 'exists' do
-    # this is a shortcut way of confirming that all of the games created by game list are instances of Game class
     expect(@new_game).to all(be_an_instance_of(Game))
   end
 

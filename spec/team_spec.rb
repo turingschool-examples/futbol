@@ -22,12 +22,10 @@ RSpec.describe Team do
 
     @stat_tracker = StatTracker.from_csv(locations)
     @team_list = TeamList.new(locations[:teams], @stat_tracker)
-    # this uses stat_tracker and team_list to create all the instances of Teams
     @new_team = @team_list.create_teams(locations[:teams])
   end
   
   it 'exists' do
-    # this is a shortcut way of confirming that all of the teams created by team list are instances of team class
     expect(@new_team).to all(be_an_instance_of(Team))
   end
 

@@ -14,8 +14,6 @@ RSpec.describe GameTeamList do
     team_path = './data/teams_subset.csv'
     game_team_path = './data/game_teams_subset.csv'
 
-    # why did this finally work?? suddenly needed to make locations an instance throughout...
-    # think about it, cause the answer is there, then ask Cyd if no one can deduce
     @locations = {
       games: game_path,
       teams: team_path,
@@ -31,6 +29,24 @@ RSpec.describe GameTeamList do
     expect(@game_team_list).to be_a(GameTeamList)
     expect(@game_team_list.game_teams).to be_a(Array)
     expect(@game_team_list.game_teams[0]).to be_a(GameTeam)
+  end
+
+  it ' verify each instance' do
+    expect(@game_team_list.game_teams[0].game_id).to eq("2012030221")
+    expect(@game_team_list.game_teams[0].team_id).to eq("3")
+    expect(@game_team_list.game_teams[0].hoa).to eq("away")
+    expect(@game_team_list.game_teams[0].result).to eq("LOSS")
+    expect(@game_team_list.game_teams[0].settled_in).to eq("OT")
+    expect(@game_team_list.game_teams[0].head_coach).to eq("John Tortorella")
+    expect(@game_team_list.game_teams[0].goals).to eq(2)
+    expect(@game_team_list.game_teams[0].shots).to eq(8)
+    expect(@game_team_list.game_teams[0].tackles).to eq(44)
+    expect(@game_team_list.game_teams[0].pim).to eq(8)
+    expect(@game_team_list.game_teams[0].powerplayopportunities).to eq(3)
+    expect(@game_team_list.game_teams[0].powerplaygoals).to eq(0)
+    expect(@game_team_list.game_teams[0].faceoffwinpercentage).to eq(44.8)
+    expect(@game_team_list.game_teams[0].giveaways).to eq(17)
+    expect(@game_team_list.game_teams[0].takeaways).to eq(7)
   end
 
 end

@@ -9,7 +9,7 @@ class Game
               :home_goals,
               :venue,
               :venue_link,
-              :game_list #this is changed for clarity because it is an instance of game_list, not just a list in game
+              :game_list
 
   def initialize(row, game_list)
     @game_id        = row[:game_id]

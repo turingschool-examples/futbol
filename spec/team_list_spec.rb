@@ -14,8 +14,6 @@ RSpec.describe TeamList do
     team_path = './data/teams_subset.csv'
     game_team_path = './data/game_teams_subset.csv'
 
-    # why did this finally work?? suddenly needed to make locations an instance throughout...
-    # think about it, cause the answer is there, then ask Cyd if no one can deduce
     @locations = {
       games: game_path,
       teams: team_path,
@@ -33,13 +31,12 @@ RSpec.describe TeamList do
     expect(@team_list.teams[0]).to be_a(Team)
   end
 
-    # Steve needs to write his damn methods, the two below specifically
-  xit 'can return the highest scoring visitor team' do
-    expect(@team_list.highest_scoring_visitor).to eq("FC Dallas")
-  end
-  
-  xit 'can return the highest scoring home team' do
-    expect(@team_list.highest_scoring_home_team).to eq("New York City FC")
-  end
+    xit 'can return the highest scoring home team' do
+      expect(@team_list.highest_scoring_home_team).to eq("New York City FC")
+    end
+
+    xit 'can return the highest scoring visitor team' do
+      expect(@team_list.highest_scoring_visitor).to eq("FC Dallas")
+    end
 
 end
