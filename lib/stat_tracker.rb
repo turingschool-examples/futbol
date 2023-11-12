@@ -323,7 +323,7 @@ class StatTracker
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
 
-  def least_tackles
+  def fewest_tackles
     season_tackles = {}
     
     @game_teams.each do |game_team|
@@ -342,13 +342,13 @@ class StatTracker
 
     end
     
-    teams_with_least_tackles_per_season = {}
+    teams_with_fewest_tackles_per_season = {}
     season_tackles.each do |season, teams|
-      least_tackles = teams.values.min
-      team_with_least_tackles = teams.key(least_tackles)
-      teams_with_least_tackles_per_season[season] = team_name(team_with_least_tackles)
+      fewest_tackles = teams.values.min
+      team_with_fewest_tackles = teams.key(fewest_tackles)
+      teams_with_fewest_tackles_per_season[season] = team_name(team_with_fewest_tackles)
     end
-    teams_with_least_tackles_per_season
+    teams_with_fewest_tackles_per_season
   end
 
   # helper methods

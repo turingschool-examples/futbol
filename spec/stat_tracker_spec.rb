@@ -62,10 +62,10 @@ describe StatTracker do
     end
   end
 
-  describe 'least_tackles' do
-    it 'returns teams with least tackles as a string' do
+  describe 'fewest_tackles' do
+    it 'returns teams with fewest tackles as a string' do
 
-    expect(@stat_tracker.most_tackles["20122013"]).to eq("Atlanta United")
+    expect(@stat_tracker.fewest_tackles["20122013"]).to eq("Atlanta United")
     end
   end
 
