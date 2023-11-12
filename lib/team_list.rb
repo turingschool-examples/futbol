@@ -6,7 +6,7 @@ class TeamList
 
   def initialize(path, stat_tracker)
     @teams = create_teams(path)
-    @stat_tracker = stat_tracker #added this to have access to stat tracker going backwards
+    @stat_tracker = stat_tracker
   end
   
   def create_teams(path)
@@ -15,5 +15,7 @@ class TeamList
       Team.new(datum, self)
     end
   end
+
+  
 
 end

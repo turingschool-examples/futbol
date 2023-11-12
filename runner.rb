@@ -1,3 +1,6 @@
+gem_name
+require 'bundler/setup'
+Bundler.require
 require './lib/stat_tracker'
 
 game_path = './data/games.csv'
