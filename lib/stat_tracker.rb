@@ -197,6 +197,21 @@ class StatTracker
 
   # percentage_ties - result # MARTIN
 
+
+  def percentage_ties
+    total_ties = @game_teams.count do |game_team|
+      game_team.result == "TIE"
+    end
+
+    total_games = @game_teams.count do |game_team|
+      game_team.result != nil
+    end 
+    
+    (total_ties / total_games.to_f).round(2)
+    
+
+  end 
+
 # Helper methods
 
   def team_name(team_id) # Sam's helper method for returning team names from team IDs
