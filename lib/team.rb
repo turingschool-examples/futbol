@@ -7,7 +7,7 @@ class Team
               :link,
               :team_list #this is changed for clarity because it is an instance of team_list, not just a list in team
   
-  def initialize(row, list)
+  def initialize(row, team_list)
     @team_id       = row[:team_id]
     @franchise_id  = row[:franchise_id]
     @team_name     = row[:team_name]

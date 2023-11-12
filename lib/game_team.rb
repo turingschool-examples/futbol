@@ -16,7 +16,7 @@ class GameTeam
               :takeaways,
               :game_team_list #this is changed for clarity because it is an instance of game_team_list, not just a list in game_team
 
-  def initialize(row, list)
+  def initialize(row, game_team_list)
     @game_id                    = row[:game_id]
     @team_id                    = row[:team_id]
     @hoa                        = row[:hoa]
@@ -33,7 +33,6 @@ class GameTeam
     @giveaways                  = row[:giveaways].to_i
     @takeaways                  = row[:takeaways].to_i
     @game_team_list             = game_team_list
-
   end
 
 end
