@@ -32,7 +32,7 @@ RSpec.describe GameList do
   end
 
   it 'can create instances of Game' do
-    @game_list.create_games(@locations[:games]) # makes it more dynamic, but needed more scope than the '.csv/path.whateveres'
+    @game_list.create_games(@locations[:games])
     
     expect(@game_list.games).to all(be_an_instance_of(Game))
   end
@@ -57,9 +57,8 @@ RSpec.describe GameList do
     expect(@game_list.percentage_ties).to eq(0.14)
   end
   
-  # Meg needs to write this test?
-  xit 'can calculate the count of games by season' do
-    expect(@game_list.count_of_games_by_season).to eq()
+  it 'can calculate the count of games by season' do
+    expect(@game_list.count_of_games_by_season).to eq({"20122013"=>25, "20132014"=>5})
   end
 
 end

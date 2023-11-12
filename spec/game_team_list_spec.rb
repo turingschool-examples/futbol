@@ -31,7 +31,7 @@ RSpec.describe GameTeamList do
     expect(@game_team_list.game_teams[0]).to be_a(GameTeam)
   end
 
-  it ' verify each instance' do
+  it 'verify each instance' do
     expect(@game_team_list.game_teams[0].game_id).to eq("2012030221")
     expect(@game_team_list.game_teams[0].team_id).to eq("3")
     expect(@game_team_list.game_teams[0].hoa).to eq("away")
@@ -48,5 +48,13 @@ RSpec.describe GameTeamList do
     expect(@game_team_list.game_teams[0].giveaways).to eq(17)
     expect(@game_team_list.game_teams[0].takeaways).to eq(7)
   end
+
+  # it 'can return the highest scoring home team' do
+  #   expect(@game_team_list.highest_scoring_home_team).to eq("New York City FC")
+  # end
+
+  # it 'can return the highest scoring visitor team' do
+  #   expect(@game_team_list.highest_scoring_visitor).to eq("FC Dallas")
+  # end
 
 end

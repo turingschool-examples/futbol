@@ -27,17 +27,7 @@ class GameList
       game.total_score
     end.total_score
   end
-
-  def percentage_home_wins
-    home_wins = Hash.new(0)
-
-    @games.each do |game|
-      home_wins[game.home_goals] += 1 if game.home_goals > game.away_goals
-    end
-    home_wins.values.sum / @games.length.to_f
-  end
   
-  # Can we pull the results from the percentages to a helper method?
   def percentage_home_wins
     home_wins = Hash.new(0)
 
@@ -75,5 +65,5 @@ class GameList
     end
     games_by_season
   end
-
+  
 end

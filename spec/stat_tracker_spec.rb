@@ -52,18 +52,10 @@ RSpec.describe StatTracker do
   it 'game_list: can calculate percentage of ties' do
     expect(@stat_tracker.percentage_ties).to eq(0.14)
   end
-  
-  # xit 'game_list: can calculate average goals per game' do
-  #   expect(@stat_tracker.average_goals_per_game).to eq(?????)
-  # end
-  
-  # xit 'game_list: can calculate average goals per season' do
-  #   expect(@stat_tracker.average_goals_per_season).to eq(?????)
-  # end
-  
-  # xit 'game_list: can calculate count of games by season' do
-  #   expect(@stat_tracker.count_of_games_by_season).to eq()
-  # end
+
+  it 'game_list: can calculate count of games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>25, "20132014"=>5})
+  end
 
   # xit 'team_list: can return the highest scoring visitor team' do
   #   expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")

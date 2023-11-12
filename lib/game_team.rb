@@ -34,5 +34,5 @@ class GameTeam
     @takeaways                  = row[:takeaways].to_i
     @game_team_list             = game_team_list
   end
-
+  
 end

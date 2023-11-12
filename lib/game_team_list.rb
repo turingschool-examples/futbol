@@ -16,4 +16,12 @@ class GameTeamList
     end
   end
 
+  # def highest_scoring_home_team
+    
+  # end
+
+  # def highest_scoring_visitor
+
+  # end
+  
 end

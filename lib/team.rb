@@ -5,7 +5,7 @@ class Team
               :abbreviation,
               :stadium,
               :link,
-              :team_list #this is changed for clarity because it is an instance of team_list, not just a list in team
+              :team_list
   
   def initialize(row, team_list)
     @team_id       = row[:team_id]
