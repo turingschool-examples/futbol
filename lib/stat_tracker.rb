@@ -194,6 +194,32 @@ class StatTracker
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
 
+  def most_accurate_team
+    team_accuracy_index = {} 
+
+    @game_teams.each do |game_team|
+      goals = game_team.goals.to_f
+      shots = game_team.shots.to_f
+
+      if shots > 0
+        accuracy = goals / shots
+      else
+        accuracy = 0
+      end
+
+      team_accuracy_index[game_team.team_id] = accuracy
+    end
+
+    most_accurate = team_accuracy_index.max_by { |team_id, accuracy| accuracy }
+
+    if most_accurate
+      most_accurate_team_id = most_accurate.first
+      team_name(most_accurate_team_id)
+    else
+      nil
+    end
+  end
+
   # least_accurate_team # SUNDAY
     # game_teams.csv - game_id, team_id, goals, shots
     # games.csv - game_id, season 
@@ -209,4 +235,17 @@ class StatTracker
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
 
+  # helper methods
+
+  # team_name finder
+  def team_name(team_id)
+    found_team = @teams.find do |team|
+      team.team_id == team_id
+    end
+    if found_team
+      found_team.team_name
+    else
+      nil
+    end
+  end
 end
