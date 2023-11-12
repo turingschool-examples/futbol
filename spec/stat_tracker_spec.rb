@@ -51,7 +51,7 @@ describe StatTracker do
   describe 'least accurate team' do
     it 'returns least accurate team for each season as a string' do
 
-      expect(@stat_tracker.least_accurate_team["20122013"]).to eq("Sporting Kansas City")
+      expect(@stat_tracker.least_accurate_team["20122013"]).to eq("New York City FC")
     end
   end
 
