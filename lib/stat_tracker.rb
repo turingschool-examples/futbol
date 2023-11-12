@@ -80,13 +80,6 @@ class StatTracker
     StatTracker.new(game_objects, team_objects, game_team_objects, combined_objects)
   end
 
-# information needed for each method
-
-# games.csv 
-  # highest_total_score - away_goals, home_goals # DYLAN
-
-  # lowest_total_score - away_goals, home_goals # DYLAN
-
   # count_of_games_by_season - game_id, season # SAM
 
   def count_of_games_by_season
@@ -137,13 +130,6 @@ class StatTracker
     average_goals_per_season
   end
 
-# game_teams.csv
-  # percentage_home_wins - HoA, result # MARTIN
-
-  # percentage_visitor_wins - HoA, result # MARTIN
-
-  # percentage_ties - result # MARTIN
-
 # teams.csv
   # count_of_teams - team_id # SAM
 
@@ -156,40 +142,7 @@ class StatTracker
     teams_total.count
   end
 
-# Multiple csv required
-  # best_offense # DYLAN
-    # teams.csv - team_id, teamName
-    # games.csv - home_team_id, away_team_id, goals 
-
-  # worst_offense # DYLAN
-    # teams.csv - team_id, teamName
-    # games.csv - home_team_id, away_team_id, goals 
-
-  # highest_scoring_visitor # MARTIN
-    # teams.csv - team_id, teamName
-    # games.csv - away_team_id, goals
-
-  # highest_scoring_home_team # MARTIN
-    # teams.csv - team_id, teamName
-    # games.csv - home_team_id, goals
-
-  # lowest_scoring_visitor # MARTIN
-    # teams.csv - team_id, teamName
-    # games.csv - away_team_id, goals
-
-  # lowest_scoring_home_team # MARTIN
-    # teams.csv - team_id, teamName
-    # games.csv - home_team_id, goals
-
-  # winningest_coach
-    # game_teams.csv - game_id, team_id, result, head_coach # DYLAN
-    # games.csv - game_id, season 
-
-  # worst_coach
-    # game_teams.csv - game_id, team_id, result, head_coach # DYLAN
-    # games.csv - game_id, season 
-
-  # most_accurate_team # SUNDAY
+  # most_accurate_team # SAM
     # game_teams.csv - game_id, team_id, goals, shots
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
@@ -234,7 +187,7 @@ class StatTracker
     most_accurate_teams_per_season
   end    
 
-  # least_accurate_team # SUNDAY
+  # least_accurate_team # SAM
     # game_teams.csv - game_id, team_id, goals, shots
     # games.csv - game_id, season 
     # teams.csv - team_id, teamName
@@ -278,7 +231,7 @@ class StatTracker
     least_accurate_teams_per_season
   end
 
-  # most_tackles # SUNDAY
+  # most_tackles # SAM
     # game_teams.csv - game_id, team_id, tackles
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
@@ -318,7 +271,7 @@ class StatTracker
     teams_with_most_tackles_per_season
   end
 
-  # least_tackles # SUNDAY
+  # least_tackles # SAM
     # game_teams.csv - game_id, team_id, tackles
     # games.csv - game_id, season
     # teams.csv - team_id, teamName
