@@ -1,25 +1,34 @@
-require './lib/game_team'
+require 'spec_helper'
 
 RSpec.describe GameTeam do
-    it "can correctly create new Team class instance" do
-        gameteam = GameTeam.new({:game_id=>2012030221, :team_id=>3, :hoa=>"away", :result=>"LOSS", :settled_in=>"OT", :head_coach=>"John Tortorella", :goals=>2, :shots=>8, :tackles=>44, :pim=>8, :powerplayopportunities=>3, :powerplaygoals=>0, :faceoffwinpercentage=>44.8, :giveaways=>17, :takeaways=>7}, nil)
-        
-        expect(gameteam.game_id).to eq(2012030221)
-        expect(gameteam.team_id).to eq(3)
-        expect(gameteam.hoa).to eq("away")
-        expect(gameteam.result).to eq("LOSS")
-        expect(gameteam.settled_in).to eq("OT")
-        expect(gameteam.head_coach).to eq("John Tortorella")
-        expect(gameteam.goals).to eq(2)
-        expect(gameteam.shots).to eq(8)
-        expect(gameteam.tackles).to eq(44)
-        expect(gameteam.pim).to eq(8)
-        expect(gameteam.powerplayopportunities).to eq(3)
-        expect(gameteam.powerplaygoals).to eq(0)
-        expect(gameteam.faceoffwinpercentage).to eq(44.8)
-        expect(gameteam.giveaways).to eq(17)
-        expect(gameteam.takeaways).to eq(7)
-    end
-end
 
-#expect().to eq()
+  before(:each) do
+    
+    # full data: for when we go live
+    # game_path = './data/games.csv'
+    # game_teams_path = './data/game_teams.csv'
+    # team_path = './data/teams.csv'
+    
+    # subset data: for faster testing purposes
+    game_path = './data/games_subset.csv'
+    team_path = './data/teams_subset.csv'
+    game_team_path = './data/game_teams_subset.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_team_path
+    }
+
+    @stat_tracker = StatTracker.from_csv(locations)
+    @game_team_list = GameTeamList.new(locations[:game_teams], @stat_tracker)
+    # this uses stat_tracker and game_team_list to create all the instances of GameTeams
+    @new_game_team = @game_team_list.create_game_teams(locations[:game_teams])
+  end
+  
+  it 'exists' do
+    # this is a shortcut way of confirming that all of the game_teams created by game_team list are instances of GameTeam class
+    expect(@new_game_team).to all(be_an_instance_of(GameTeam))
+  end
+
+end
