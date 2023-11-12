@@ -28,5 +28,5 @@ class Game
   def total_score
     @away_goals + @home_goals
   end
-
+  
 end

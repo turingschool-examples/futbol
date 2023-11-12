@@ -16,6 +16,4 @@ class TeamList
     end
   end
 
-  
-
 end

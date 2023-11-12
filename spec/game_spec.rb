@@ -22,7 +22,6 @@ RSpec.describe Game do
 
     @stat_tracker = StatTracker.from_csv(locations)
     @game_list = GameList.new(locations[:games], @stat_tracker)
-    # this uses stat_tracker and game_list to create all the instances of games
     @new_game = @game_list.create_games(locations[:games])
   end
   

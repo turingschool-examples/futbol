@@ -37,24 +37,16 @@ class StatTracker
     @game_list.percentage_ties
   end
 
-  def average_goals_per_game
-    @game_list.average_goals_per_game
-  end
-  
-  def average_goals_by_season
-    @game_list.average_goals_by_season
-  end
-
   def count_of_games_by_season
     @game_list.count_of_games_by_season
   end
 
-  def highest_scoring_visitor
-    @team_list.highest_scoring_visitor
-  end
+  # def highest_scoring_home_team
+  #   @team_list.highest_scoring_home_team
+  # end
 
-  def highest_scoring_home_team
-    @team_list.highest_scoring_home_team
-  end
+  # def highest_scoring_visitor
+  #   @team_list.highest_scoring_visitor
+  # end
 
 end

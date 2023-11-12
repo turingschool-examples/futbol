@@ -31,12 +31,4 @@ RSpec.describe TeamList do
     expect(@team_list.teams[0]).to be_a(Team)
   end
 
-    xit 'can return the highest scoring home team' do
-      expect(@team_list.highest_scoring_home_team).to eq("New York City FC")
-    end
-
-    xit 'can return the highest scoring visitor team' do
-      expect(@team_list.highest_scoring_visitor).to eq("FC Dallas")
-    end
-
 end
