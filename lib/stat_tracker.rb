@@ -210,6 +210,14 @@ class StatTracker
 
   # percentage_ties - result # MARTIN
 
+
+  def percentage_ties
+    
+
+
+
+  end 
+
 # Helper methods
 
   def team_name(team_id) # Sam's helper method for returning team names from team IDs
