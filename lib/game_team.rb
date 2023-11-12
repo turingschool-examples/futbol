@@ -14,15 +14,15 @@ class GameTeam
               :faceoffwinpercentage,
               :giveaways,
               :takeaways,
-              :list
+              :game_team_list #this is changed for clarity because it is an instance of game_team_list, not just a list in game_team
 
   def initialize(row, list)
-    @game_id                    = row[:game_id].to_i
-    @team_id                    = row[:team_id].to_i
-    @hoa                        = row[:hoa].to_s
-    @result                     = row[:result].to_s
-    @settled_in                 = row[:settled_in].to_s
-    @head_coach                 = row[:head_coach].to_s
+    @game_id                    = row[:game_id]
+    @team_id                    = row[:team_id]
+    @hoa                        = row[:hoa]
+    @result                     = row[:result]
+    @settled_in                 = row[:settled_in]
+    @head_coach                 = row[:head_coach]
     @goals                      = row[:goals].to_i
     @shots                      = row[:shots].to_i
     @tackles                    = row[:tackles].to_i
@@ -32,8 +32,7 @@ class GameTeam
     @faceoffwinpercentage       = row[:faceoffwinpercentage].to_f
     @giveaways                  = row[:giveaways].to_i
     @takeaways                  = row[:takeaways].to_i
-
-    @list = list
+    @game_team_list             = game_team_list
 
   end
 

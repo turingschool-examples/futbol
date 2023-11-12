@@ -9,7 +9,7 @@ class Game
               :home_goals,
               :venue,
               :venue_link,
-              :list
+              :game_list #this is changed for clarity because it is an instance of game_list, not just a list in game
 
   def initialize(row, list)
     @game_id        = row[:game_id]
@@ -22,10 +22,12 @@ class Game
     @home_goals     = row[:home_goals].to_i
     @venue          = row[:venue]
     @venue_link     = row[:venue_link]
-    @list           = list
+    @game_list      = game_list
   end
 
-  def total_score
-    @away_goals + @home_goals
-  end
+  # I beleive this is here as a temporary example, need to ask Logan
+  # def total_score
+  #   @away_goals + @home_goals
+  # end
+
 end
