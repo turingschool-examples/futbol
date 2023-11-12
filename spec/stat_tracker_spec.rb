@@ -23,9 +23,10 @@ describe StatTracker do
   end
 
   describe '#initialize' do
-  it 'exists' do
-    expect(@stat_tracker).to be_a(StatTracker)
-  end
+    it 'exists' do
+      expect(@stat_tracker).to be_a(StatTracker)
+    end
+  end 
 
   describe 'average_goals_per_game' do
     it 'calculates the average goals per game' do
@@ -134,6 +135,5 @@ describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq (0.06)
     end
   end
-
 end
-end 
+ 
