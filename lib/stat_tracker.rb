@@ -212,9 +212,11 @@ class StatTracker
 
 
   def percentage_ties
+    total_ties = @games_teams.count do |game_team|
+      game_team.result == "TIE"
+    end
+
     
-
-
 
   end 
 
