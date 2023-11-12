@@ -1,7 +1,7 @@
 require 'CSV'
-require "./lib/game"
-require "./lib/team.rb"
-require "./lib/game_team.rb"
+require_relative "./game"
+require_relative "./team.rb"
+require_relative "./game_team.rb"
 
 class StatTracker
   attr_reader :games, :teams, :game_teams, :combined_objects

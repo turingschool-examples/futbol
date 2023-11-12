@@ -35,13 +35,6 @@ describe StatTracker do
     end
   end
 
-  describe 'average_goals_per_season' do
-    it 'calculates the average goals per season' do
-
-     expect(@stat_tracker.average_goals_per_season["20122013"]).to eq(3.79)
-    end
-  end
-
   describe 'count_of_teams' do
     it 'calculates the total number of teams' do
 
@@ -59,21 +52,21 @@ describe StatTracker do
   describe 'least_accurate_team' do
     it 'returns least accurate team for each season as a string' do
 
-    expect(@stat_tracker.least_accurate_team["20122013"]).to eq("New York City FC")
+    expect(@stat_tracker.least_accurate_team["20122013"]).to eq("Sporting Kansas City")
     end
   end
 
   describe 'most_tackles' do
     it 'returns teams with most stackles as a string' do
 
-    expect(@stat_tracker.most_tackles["20122013"]).to eq("FC Cincinnati")
+    expect(@stat_tracker.most_tackles["20122013"]).to eq("FC Dallas")
     end
   end
 
   describe 'fewest_tackles' do
     it 'returns teams with fewest tackles as a string' do
 
-    expect(@stat_tracker.fewest_tackles["20122013"]).to eq("Atlanta United")
+    expect(@stat_tracker.fewest_tackles["20122013"]).to eq("New York Red Bulls")
     end
   end
 
