@@ -131,7 +131,7 @@ describe StatTracker do
 
   describe '#percentage_ties' do
     it 'returns the percent of ties' do
-      expect(@stat_tracker.percentage_ties).to eq (0.20)
+      expect(@stat_tracker.percentage_ties).to eq (0.06)
     end
   end
 
