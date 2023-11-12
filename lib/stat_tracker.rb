@@ -104,7 +104,7 @@ class StatTracker
 
   # average_goals_by_season - season, away_goals, home_goals # SAM
 
-  def average_goals_per_season
+  def average_goals_by_season
     season_goals = Hash.new(0)
     season_counts = Hash.new(0)
   
@@ -115,7 +115,7 @@ class StatTracker
       season_counts[season] += 1
     end
   
-    average_goals_per_season = {}
+    average_goals_by_season = {}
   
     season_goals.each do |season, total_score|
       count = season_counts[season]
@@ -124,10 +124,10 @@ class StatTracker
       else
         average = 0
       end
-      average_goals_per_season[season] = average.round(2)
+      average_goals_by_season[season] = average.round(2)
     end
   
-    average_goals_per_season
+    average_goals_by_season
   end
 
 # teams.csv
