@@ -6,8 +6,8 @@ RSpec.describe GameList do
     
     # full data: for when we go live
     # game_path = './data/games.csv'
-    # game_teams_path = './data/game_teams.csv'
-    # team_path = './data/teams.csv'
+    # game_team_path = './data/game_teams.csv'
+    # team_path = './data/games.csv'
     
     # subset data: for faster testing purposes
     game_path = './data/games_subset.csv'
@@ -35,6 +35,19 @@ RSpec.describe GameList do
     @game_list.create_games(@locations[:games])
     
     expect(@game_list.games).to all(be_an_instance_of(Game))
+  end
+
+  it 'can verify each instance' do
+    expect(@game_list.games[0].game_id).to eq("2012030221")
+    expect(@game_list.games[0].season).to eq("20122013")
+    expect(@game_list.games[0].type).to eq("Postseason")
+    expect(@game_list.games[0].date_time).to eq("5/16/13")
+    expect(@game_list.games[0].away_team_id).to eq("3")
+    expect(@game_list.games[0].home_team_id).to eq("6")
+    expect(@game_list.games[0].away_goals).to eq(2)
+    expect(@game_list.games[0].home_goals).to eq(3)
+    expect(@game_list.games[0].venue).to eq("Toyota Stadium")
+    expect(@game_list.games[0].venue_link).to eq("/api/v1/venues/null")
   end
 
   it 'can find highest total score' do
