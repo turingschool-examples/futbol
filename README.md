@@ -1,5 +1,9 @@
 # Futbol
 
+Excel Spreadsheet: https://docs.google.com/spreadsheets/d/1v6x85L1qvHk5-tpt0FHqZrO9v1LS5NdLgFO1EKb3h8s/edit#gid=95404790
+
+Presentation: https://docs.google.com/presentation/d/1-vCHQK_EJHKOipoyW17_Kr24mbWyHozBwgueFbjbB5I/edit#slide=id.g29a4cd3a521_0_16
+
 Starter repository for the [Turing School](https://turing.io/) Futbol project.
 
 1. A 1-2 summary or bullet points outlining your plan for check-ins throughout the duration of the project.
