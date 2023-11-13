@@ -454,8 +454,6 @@ def lowest_scoring_home_team
         if coach_wins > 0 || coach_games > 0
           coach_win_percent = (coach_wins.to_f / coach_games.to_f)
           coach_win_percents << {coach: coach, win_percent: coach_win_percent}
-        else
-          "Error: no game data for selected season."
         end
       end
       coach_win_percents_sorted = coach_win_percents.sort_by { |coach| coach[:win_percent] }
@@ -494,8 +492,6 @@ def lowest_scoring_home_team
         if coach_wins > 0 || coach_games > 0
           coach_win_percent = (coach_wins.to_f / coach_games.to_f)
           coach_win_percents << {coach: coach, win_percent: coach_win_percent}
-        else
-          "Error: no game data for selected season."
         end
       end
       coach_win_percents_sorted = coach_win_percents.sort_by { |coach| coach[:win_percent] }
