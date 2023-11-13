@@ -6,7 +6,7 @@ RSpec.describe GameTeamList do
     
     # full data: for when we go live
     # game_path = './data/games.csv'
-    # game_teams_path = './data/game_teams.csv'
+    # game_team_path = './data/game_teams.csv'
     # team_path = './data/teams.csv'
     
     # subset data: for faster testing purposes
@@ -31,7 +31,13 @@ RSpec.describe GameTeamList do
     expect(@game_team_list.game_teams[0]).to be_a(GameTeam)
   end
 
-  it 'verify each instance' do
+  it 'can create instances of GameTeam' do
+    @game_team_list.create_game_teams(@locations[:game_teams])
+    
+    expect(@game_team_list.game_teams).to all(be_an_instance_of(GameTeam))
+  end
+
+  it 'can verify each instance' do
     expect(@game_team_list.game_teams[0].game_id).to eq("2012030221")
     expect(@game_team_list.game_teams[0].team_id).to eq("3")
     expect(@game_team_list.game_teams[0].hoa).to eq("away")

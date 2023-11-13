@@ -6,7 +6,7 @@ RSpec.describe StatTracker do
     
     # full data: for when we go live
     # game_path = './data/games.csv'
-    # game_teams_path = './data/game_teams.csv'
+    # game_team_path = './data/game_teams.csv'
     # team_path = './data/teams.csv'
     
     # subset data: for faster testing purposes
