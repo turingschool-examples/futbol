@@ -45,6 +45,13 @@ describe StatTracker do
     end
   end
 
+  describe 'count_of_games_by_season' do
+    it 'returns the amount of teams by season' do
+
+      expect(@stat_tracker.count_of_games_by_season["20122013"]).to eq(34)
+    end
+  end
+
   describe 'most_accurate_team' do
     it 'returns most accurate team for each season as a string' do
 
