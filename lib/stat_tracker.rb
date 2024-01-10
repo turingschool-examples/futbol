@@ -1,4 +1,8 @@
 require 'csv'
+require_relative './stat_tracker'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
 
 class StatTracker
    def self.from_csv(location_path)
@@ -36,5 +40,23 @@ class StatTracker
          teams_data << Team.new(team_id, team_name)
       end
       teams_data
+   end
+
+   def read_game_teams_csv(location_path)
+      game_team_data = []
+      CSV.foreach(location_path, headers: true, header_converters: :symbol) do |row|
+         game_team_details = {
+            game_id: row[:game_id],
+            team_id: row[:team_id],
+            home_or_away: row[:HoA],
+            result: row[:result],
+            coach: row[:head_coach],
+            goals: row[:goals],
+            shots: row[:shots],
+            tackles: row[:tackles]
+         }
+         game_team_data << GameTeam.new(game_team_details)
+      end
+      game_team_data
    end
 end
