@@ -23,8 +23,9 @@ class Game
         @venue_link = venue_link
     end
 
-    # will need an array in this method
+    # need to determine how we will get array to StatTracker class
     def create_games(file_path)
+        games_array = []
         CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
             game_id =row[:game_id]
             season = row[:season]
@@ -36,7 +37,9 @@ class Game
             home_goals = row[:home_goals]
             venue = row[:venue]
             venue_link = row[:venue_link]
-            game_instance = Games.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
+            games_instance = Games.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
+            games_array << games_instance
         end
+        games_array
     end
 end

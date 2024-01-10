@@ -33,8 +33,9 @@ class GameTeams
         @takeaways = takeaways
     end
 
-    # will need an array in this method
+    # need to determine how we will get array to StatTracker class
     def create_game_teams(file_path)
+        game_teams_array = []
         CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
             game_id =row[:game_id]
             team_id = row[:team_id]
@@ -51,7 +52,9 @@ class GameTeams
             faceOffWinPercentage = row[:faceOffWinPercentage]
             giveaways = row[:giveaways]
             takeaways = row[:takeaways]
-            game_instance = GameTeams.new(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim, powerPlayOpportunities, powerPlayGoals, faceOffWinPercentage, giveaways, takeaways)``
+            game_teams_instance = GameTeams.new(game_id, team_id, hoa, result, settled_in, head_coach, goals, shots, tackles, pim, powerPlayOpportunities, powerPlayGoals, faceOffWinPercentage, giveaways, takeaways)``
+            game_teams_array << game_teams_instance
         end
+        game_teams_array
     end
 end

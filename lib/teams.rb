@@ -11,8 +11,9 @@ class Teams
         @link = link
     end
 
-    # will need an array in this method
+    # need to determine how we will get array to StatTracker class
     def create_teams(file_path)
+        teams_array = []
         CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
             team_name = row[:teamname]
             franchise_id = row [:franchiseid]
@@ -21,6 +22,8 @@ class Teams
             stadium = row[:stadium]
             link = row[:link]
             teams_instance = Teams.new(team_name, franchise_id, team_name, abbreviation, stadium, link)
+            teams_array << teams_instance
         end
+        teams_array
     end
 end
