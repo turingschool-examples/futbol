@@ -33,8 +33,8 @@
             @takeaways = takeaways
         end
     
-        def self.create_game_teams(data_path)
-        CSV.foreach(data_path, headers: true, header_converters: :symbol) do |row|
+        def self.create_game_teams(file_path)
+            CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
                 game_id =row[:game_id]
                 team_id = row[:team_id]
                 hoa = row[:hoa]
