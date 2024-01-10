@@ -23,6 +23,7 @@
             @venue_link = venue_link
         end
     
+        # did not add `.to_i` to any intergers depending on how we want to do it
         def self.create_games(data_path)
         CSV.foreach(data_path, headers: true, header_converters: :symbol) do |row|
                 game_id =row[:game_id]
