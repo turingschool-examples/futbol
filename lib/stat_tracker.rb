@@ -1,20 +1,20 @@
 require 'csv'
 
 class StatTracker
-   def self.from_csv(location)
+   def self.from_csv(location_path)
 
-      StatTracker.new(location)
+      StatTracker.new(location_path)
    end
 
-   def initialize(locations)
-      @data_game = read_games_csv(locations[:games])
-      @data_teams = read_teams_csv(locations[:teams])
-      @data_game_teams = read_game_teams_csv(locations[:game_teams])
+   def initialize(locations_path)
+      @data_game = read_games_csv(locations_path[:games])
+      @data_teams = read_teams_csv(locations_path[:teams])
+      @data_game_teams = read_game_teams_csv(locations_path[:game_teams])
    end
 
-   def read_games_csv(location)
+   def read_games_csv(location_path)
       games_data = []
-      CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
+      CSV.foreach(location_path, headers: true, header_converters: :symbol) do |row|
          game_details = {
             game_id: row[:game_id],
             season: row[:season],
@@ -28,9 +28,9 @@ class StatTracker
       games_data
    end
 
-   def read_teams_csv(location)
+   def read_teams_csv(location_path)
       teams_data = []
-      CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
+      CSV.foreach(location_path, headers: true, header_converters: :symbol) do |row|
          team_id = row[:id]
          team_name = row[:teamName]
          teams_data << Team.new(team_id, team_name)
