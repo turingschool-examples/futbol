@@ -18,4 +18,12 @@ RSpec.describe StatTracker do
    it 'exists' do
       expect(@stat_tracker).to be_a StatTracker
    end
+
+   describe '#read_games_csv' do
+      it 'create game objects' do
+         location = './data/games_fixture.csv'
+
+         expect(stat_tracker.read_games_csv(location)[0]).to be_a Game
+      end
+   end
 end
