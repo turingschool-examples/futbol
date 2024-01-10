@@ -34,4 +34,12 @@ RSpec.describe StatTracker do
          expect(@stat_tracker.read_teams_csv(location)[0]).to be_a Team
       end
    end
+
+   describe '#read_game_teams_csv' do
+      it 'create game_team objects' do
+         location = './data/team_fixture.csv'
+
+         expect(@stat_tracker.read_game_teams_csv(location)[0]).to be_a GameTeam
+      end
+   end
 end
