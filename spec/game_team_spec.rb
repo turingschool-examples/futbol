@@ -7,9 +7,9 @@ RSpec.describe GameTeam do
          game_team_details = {
             game_id: row[:game_id],
             team_id: row[:team_id],
-            home_or_away: row[:HoA],
+            hoa: row[:hoa],
             result: row[:result],
-            coach: row[:head_coach],
+            head_coach: row[:head_coach],
             goals: row[:goals],
             shots: row[:shots],
             tackles: row[:tackles]
