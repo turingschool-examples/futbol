@@ -23,7 +23,8 @@ class Game
         @venue_link = venue_link
     end
 
-    def self.create_games(file_path)
+    # will need an array in this method
+    def create_games(file_path)
         CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
             game_id =row[:game_id]
             season = row[:season]
