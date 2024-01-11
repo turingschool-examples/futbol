@@ -108,6 +108,23 @@ class StatTracker
       (total_goals.to_f / @data_games.count).round(2)
    end
 
+   def average_goals_by_season
+      goals_by_season = {}
+      @data_games.each do |game|
+         total_goals = game.away_goals + game.home_goals
+         if goals_by_season.key?(game.season)
+            goals_by_season[game.season] += total_goals
+         else
+            goals_by_season[game.season] = total_goals
+         end
+      end
+      avg_goals_by_season = {}
+      goals_by_season.each do |season , total_goals|
+         avg_goals_by_season[season] = (total_goals.to_f / count_of_games_by_season[season]).round(2)
+      end
+      avg_goals_by_season
+   end
+
 #Helper Method
    def calculate_percentage(num1 , num2)
       ((num1.to_f / num2) * 100).round(2)
