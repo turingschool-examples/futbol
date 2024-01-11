@@ -42,4 +42,16 @@ class GameStatistics
     end
     lowest_score == Float::INFINITY ? 0 : lowest_score
   end 
+
+  def percentage_home_wins 
+    total_games = @games.size 
+    home_wins = @games.count {|game| game.home_goals > game.away_goals}
+    (home_wins.to_f / total_games * 100).round(2)
+  end
+
+  def percentage_away_wins
+    total_games = @games.size 
+    away_wins = @games.count {|game| game.away_goals > game.home_goals}
+    (away_wins.to_f / total_games * 100).round(2)
+  end
 end
