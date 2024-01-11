@@ -1,23 +1,23 @@
 class StatTracker
-  attr_reader :games_statistics,
-  :league_statistics,
-  :season_statistics
+  attr_reader :game_statistics
+  # :league_statistics,
+  # :season_statistics
 
-  def initialize(games_statistics, league_statistics, season_statistics)
-    @games_statistics = games_statistics
-    @league_statistics = league_statistics
-    @season_statistics = season_statistics
+  def initialize(game_statistics) #, league_statistics, season_statistics)
+    @game_statistics = game_statistics
+    # @league_statistics = league_statistics
+    # @season_statistics = season_statistics
   end
 
   def self.from_csv(location)
-    games_statistics = GameStatistics.from_csv(location[:games])
+    game_statistics = GameStatistics.create_game_stats(location[:games])
 
 
-    new(games_statistics, league_statistics, season_statistics)
+    new(game_statistics) #, league_statistics, season_statistics)
   end
 
   def highest_total_score
-    @games_statistics.highest_total_score
+    @game_statistics.highest_total_score
   end
 
 end

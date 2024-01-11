@@ -22,7 +22,7 @@ class GameStatistics
       @games << Game.new(row)
     end
 
-    @games
+    @games 
   end
 
   def highest_total_score
