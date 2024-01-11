@@ -34,4 +34,10 @@ class GameTeam
         @takeaways = info[:takeaways]
     end
 
+    def get_season_from_game_id
+        first_half = @game_id.to_s.slice(0, 4)
+        second_half = first_half.to_i.next.to_s
+        season_id = first_half.concat(second_half).to_i
+    end
+
 end
