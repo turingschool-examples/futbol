@@ -88,4 +88,10 @@ RSpec.describe StatTracker do
          expect(@stat_tracker.calculate_percentage(20 , 30)).to eq (66.67)
       end
    end
+
+   describe '#percentage_visitor_wins' do
+      it 'returns percentage of games that a visitor has won' do
+         expect(@stat_tracker.percentage_visitor_wins).to eq(25.0)
+      end
+   end
 end
