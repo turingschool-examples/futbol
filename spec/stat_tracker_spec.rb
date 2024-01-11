@@ -94,4 +94,10 @@ RSpec.describe StatTracker do
          expect(@stat_tracker.percentage_visitor_wins).to eq(25.0)
       end
    end
+
+   describe '#percentage_ties' do
+      it 'returns percentage of games that has resulted in a tie' do
+         expect(@stat_tracker.percentage_ties).to eq(5.0)
+      end
+   end
 end
