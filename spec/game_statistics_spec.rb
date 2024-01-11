@@ -46,7 +46,16 @@ RSpec.describe GameStatistics do
             game_stats = GameStatistics.new
             game_stats.create_game_stats('./data/games_sample.csv')
 
-            expect(game_stats.percentage_home_wins).to eq(21.4)
+            expect(game_stats.percentage_home_wins).to eq(55.56)
         end
     end
+
+    describe '#percentage_away_wins' do 
+        it 'gives a percent of home wins' do 
+            game_stats = GameStatistics.new
+            game_stats.create_game_stats('./data/games_sample.csv')
+
+            expect(game_stats.percentage_away_wins).to eq(44.44)
+        end 
+    end 
 end
