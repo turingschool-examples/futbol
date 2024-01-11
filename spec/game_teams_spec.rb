@@ -84,21 +84,20 @@ RSpec.describe GameTeams do
         end
 
         it 'returns power play opportunities for a team' do
-            #should i keep the method name consistent with the hash key, or change the hash key
-            # and the method name to something like power_play_opps?
-            expect(@game_teams.powerPlayOpportunities).to eq(3)
+ 
+            expect(@game_teams.power_play_opps).to eq(3)
 
         end
 
         it 'returns power play goals for a team' do
-            #same question as above
-            expect(@game_teams.powerPlayGoals).to eq(0)
+            
+            expect(@game_teams.power_play_goals).to eq(0)
 
         end
 
         it 'returns a faceOffWinPercentage float for a team' do
-            #same question as above
-            expect(@game_teams.faceOffWinPercentage).to eq(44.8)
+           
+            expect(@game_teams.faceoff_win_percent).to eq(44.8)
 
         end
 
