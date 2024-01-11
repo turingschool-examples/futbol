@@ -2,14 +2,14 @@ require 'csv'
 require_relative 'game.rb'
 
 class GameStatistics
-  attr_reader :game
+  attr_reader :games
 
-  def initialize(games)
-    @games = games
+  def initialize
+    @games = []
   end
 
-  def self.from_csv(filepath)
-    games = []
+  def create_game_stats(filepath)
+    @games
 
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
       game_id = row[:game_id]
@@ -19,13 +19,19 @@ class GameStatistics
       away_goals = row[:away_goals]
       home_goals = row[:home_goals]
 
-      games << Games.new(game_id, away_team_id, home_team_id, away_goals, home_goals)
+      @games << Game.new(row)
     end
 
-    new(games)
+    @games
   end
 
 def highest_total_score
+  highest_score = 0
+  @games.each do |game| 
+    total_score = game.home_goals + game.away_goals 
+    highest_score = total_score if total_score > highest_score
+  end
+  highest_score
 end
 
 end

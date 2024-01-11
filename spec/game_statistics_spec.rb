@@ -23,5 +23,12 @@ RSpec.describe GameStatistics do
         end
     end
 
-   
+    describe '#highest_total_score' do 
+        it 'collects the highest score' do 
+            game_stats = GameStatistics.new
+            game_stats.create_game_stats('./data/games_sample.csv')
+            
+            expect(game_stats.highest_total_score).to eq(5)
+        end
+    end
 end
