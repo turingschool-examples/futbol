@@ -14,21 +14,27 @@ RSpec.describe Game do
    end
 
    describe '#initialize' do
-      it 'exists' do
-         game = Game.new(@game_details)
-
-         expect(game).to be_a Game
+      before(:each) do
+         @game = Game.new(@game_details)
       end
 
-      it 'has attributes' do
-         game = Game.new(@game_details)
+      it 'exists' do
+         expect(@game).to be_a Game
+      end
 
-         expect(game.game_id).to eq(2012030221)
-         expect(game.season).to eq(20122013)
-         expect(game.away_team_id).to eq(3)
-         expect(game.home_team_id).to eq(6)
-         expect(game.away_goals).to eq(2)
-         expect(game.home_goals).to eq(3)
+      it 'has a game id and season number' do
+         expect(@game.game_id).to eq(2012030221)
+         expect(@game.season).to eq(20122013)
+      end
+      
+      it "has different home and away team id's" do
+         expect(@game.away_team_id).to eq(3)
+         expect(@game.home_team_id).to eq(6)
+      end
+
+      it "has different home and away goals" do
+         expect(@game.away_goals).to eq(2)
+         expect(@game.home_goals).to eq(3)
       end
    end
 end
