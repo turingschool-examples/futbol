@@ -42,9 +42,9 @@ RSpec.describe GameTeamsFactory do
             expect(@game_teams_factory.create_game_teams.first.shots).to eq(8)
             expect(@game_teams_factory.create_game_teams.first.tackles).to eq(44)
             expect(@game_teams_factory.create_game_teams.first.pim).to eq(8)
-            expect(@game_teams_factory.create_game_teams.first.powerPlayOpportunities).to eq(3)
-            expect(@game_teams_factory.create_game_teams.first.powerPlayGoals).to eq(0)
-            expect(@game_teams_factory.create_game_teams.first.faceOffWinPercentage).to eq(44.8)
+            expect(@game_teams_factory.create_game_teams.first.power_play_opps).to eq(3)
+            expect(@game_teams_factory.create_game_teams.first.power_play_goals).to eq(0)
+            expect(@game_teams_factory.create_game_teams.first.faceoff_win_percent).to eq(44.8)
             expect(@game_teams_factory.create_game_teams.first.giveaways).to eq(8)
             expect(@game_teams_factory.create_game_teams.first.takeaways).to eq(17)
 
