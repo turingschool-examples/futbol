@@ -68,10 +68,27 @@ RSpec.describe StatTracker do
 
    describe '#count_of_teams' do
       it 'can count teams' do
-         location = './data/teams_fixture.csv'
-
-         all_teams = @stat_tracker.read_teams_csv(location)
-         expect(@stat_tracker.count_of_teams(all_teams)).to eq(20)
+         expect(@stat_tracker.count_of_teams).to eq(20)
       end
+   end
+
+   describe '#best_offense' do
+      it 'can identify the best offense' do
+         expect(@stat_tracker.best_offense).to eq("FC Dallas")
+      end
+   end
+
+   describe '#worst_offense' do
+      it 'can identify the worst offense' do
+         expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+      end
+   end
+
+   describe '#highest_scoring_visitor' do
+      
+   end
+
+   describe '#lowest_scoring_visitor' do
+      
    end
 end
