@@ -35,8 +35,8 @@ class StatTracker
    def read_teams_csv(location_path)
       teams_data = []
       CSV.foreach(location_path, headers: true, header_converters: :symbol) do |row|
-         team_id = row[:id]
-         team_name = row[:teamName]
+         team_id = row[:team_id]
+         team_name = row[:team_name]
          teams_data << Team.new(team_id, team_name)
       end
       teams_data
