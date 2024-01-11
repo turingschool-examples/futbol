@@ -20,4 +20,5 @@ class StatTracker
     @games_statistics.highest_total_score
   end
 
+
 end

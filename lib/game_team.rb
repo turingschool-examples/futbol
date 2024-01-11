@@ -1,4 +1,4 @@
-class GameTeams
+class GameTeam
   attr_reader :game_id,
               :team_id,
               :HoA,
@@ -9,15 +9,15 @@ class GameTeams
               :shots,
               :tackles,
               :pim,
-              :powerPlayOpportunity,
+              :powerPlayOpportunities,
               :powerPlayGoals,
               :faceOffWinPercentage,
               :giveaways,
               :takeaways
 
   def initialize(data)
-    @game_id = data[:game_id].to_i
-    @team_id = data[:team_id].to_i
+    @game_id = data[:game_id]
+    @team_id = data[:team_id]
     @HoA = data[:HoA]
     @result= data[:result]
     @settled_in = data[:settled_in]
@@ -26,9 +26,9 @@ class GameTeams
     @shots = data[:shots].to_i
     @tackles = data[:tackles].to_i
     @pim= data[:pim].to_i
-    @powerPlayOpportunity = data[:powerPlayOpportunity].to_i
+    @powerPlayOpportunities = data[:powerPlayOpportunities].to_i
     @powerPlayGoals = data[:powerPlayGoals].to_i
-    @faceOffWinPercentage = data[:faceOffWinPercentage].to_i
+    @faceOffWinPercentage = data[:faceOffWinPercentage].to_f
     @giveaways = data[:giveaways].to_i
     @takeaways = data[:takeaways].to_i
   end
