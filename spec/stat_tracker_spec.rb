@@ -42,13 +42,13 @@ RSpec.describe StatTracker do
 
          expect(@stat_tracker.read_game_teams_csv(location)[0]).to be_a GameTeam
          expect(game_team_0.game_id).to eq("2012030221")
-         expect(game_team_0.team_id).to eq("3")
+         expect(game_team_0.team_id).to eq(3)
          expect(game_team_0.hoa).to eq("away")
          expect(game_team_0.result).to eq("LOSS")
          expect(game_team_0.head_coach).to eq("John Tortorella")
-         expect(game_team_0.goals).to eq("2")
-         expect(game_team_0.shots).to eq("8")
-         expect(game_team_0.tackles).to eq("44")
+         expect(game_team_0.goals).to eq(2)
+         expect(game_team_0.shots).to eq(8)
+         expect(game_team_0.tackles).to eq(44)
       end
    end
 end
