@@ -25,13 +25,21 @@ class GameStatistics
     @games
   end
 
-def highest_total_score
-  highest_score = 0
-  @games.each do |game| 
-    total_score = game.home_goals + game.away_goals 
-    highest_score = total_score if total_score > highest_score
+  def highest_total_score
+    highest_score = 0
+    @games.each do |game| 
+      total_score = game.home_goals + game.away_goals 
+      highest_score = total_score if total_score > highest_score
+    end
+    highest_score
   end
-  highest_score
-end
 
+  def lowest_total_score
+    lowest_score = Float::INFINITY
+    @games.each do |game| 
+      total_score = game.home_goals + game.away_goals 
+      lowest_score = total_score if total_score < lowest_score
+    end
+    lowest_score == Float::INFINITY ? 0 : lowest_score
+  end 
 end
