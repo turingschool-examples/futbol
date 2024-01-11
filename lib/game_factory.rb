@@ -1,7 +1,7 @@
 require 'csv'
 
 # do we need to do this in a runner file? "The ./lib/runner.rb file is where we will be writing out code to read our files and create objects. To start, we are going to require 'CSV' so that we will have access to its methods. Next, we want to use the foreach method from CSV and pass it an argument of the file that we want to read. Similar to the each enumerable the foreach creates a block where the block variable will be a single row in the file. Now add a pry within the block so we can see what a row looks like in our block."
-class GamesFactory
+class GameFactory
 
   attr_reader :file_path
   
@@ -24,7 +24,7 @@ class GamesFactory
       game_info[:venue] = row[:venue]
       game_info[:venue_link] = row[:venue_link]
 
-      games << Games.new(game_info)
+      games << Game.new(game_info)
     end
     games
   end

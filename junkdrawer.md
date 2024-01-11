@@ -15,3 +15,6 @@
 2. Decide if we want separate classes to hold the logic for the methods that we are instructed to have work on the StatTracker, or just build them there
 3. See if anything about our initial plans need to change or be reorganized with the new info we got from the meeting today
 4. Maybe update our tasks on the github project too to make sure we're capturing the things that we did today and check them off?
+
+
+## Mocks and stubs
