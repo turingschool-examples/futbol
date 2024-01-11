@@ -32,6 +32,8 @@ RSpec.describe StatTracker do
          location = './data/teams_fixture.csv'
 
          expect(@stat_tracker.read_teams_csv(location)[0]).to be_a Team
+         expect(@stat_tracker.read_teams_csv(location)[0].team_id).to eq(1)
+         expect(@stat_tracker.read_teams_csv(location)[0].team_name).to eq("Atlanta United")
       end
    end
 
