@@ -76,4 +76,16 @@ RSpec.describe StatTracker do
          expect(@stat_tracker.lowest_total_score).to eq(1)
       end
    end
+
+   describe '#percentage_home_wins' do
+      it 'returns percentage of games that a home team has won' do
+         expect(@stat_tracker.percentage_home_wins).to eq(70.0)
+      end
+   end
+
+   describe '#calculate_percentage' do
+      it 'calculates percentages' do
+         expect(@stat_tracker.calculate_percentage(20 , 30)).to eq (66.67)
+      end
+   end
 end
