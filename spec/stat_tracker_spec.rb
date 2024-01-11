@@ -108,4 +108,10 @@ RSpec.describe StatTracker do
             })
       end
    end
+
+   describe '#average_goals_per_game' do
+      it 'average of goals scored in a game across all seasons including both home and away goals' do
+         expect(@stat_tracker.average_goals_per_game).to eq (3.75)
+      end
+   end
 end
