@@ -59,4 +59,16 @@ class StatTracker
       end
       game_team_data
    end
+
+   def count_of_teams(teams)
+      teams.count  
+   end
+
+   # def best_offense
+
+   # end
+
+   # def worst_offense
+
+   # end
 end
