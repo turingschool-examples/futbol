@@ -34,4 +34,10 @@ class GameFactory
       game.away_goals + game.home_goals
     end
   end
+
+  def games_by_team(team_id)
+    @games.find_all do |game|
+      game.away_team_id == team_id || game.home_team_id == team_id
+    end
+  end
 end
