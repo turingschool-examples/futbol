@@ -31,4 +31,13 @@ RSpec.describe GameStatistics do
             expect(game_stats.highest_total_score).to eq(5)
         end
     end
+
+    describe '#lowest_total_score' do 
+        it 'collects the lowest score' do 
+            game_stats = GameStatistics.new
+            game_stats.create_game_stats('./data/games_sample.csv')
+
+            expect(game_stats.lowest_total_score).to eq(1)
+        end
+    end
 end
