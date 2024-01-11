@@ -29,8 +29,8 @@ RSpec.describe StatTracker do
       it 'can identify attributes of game csv' do
          location = './data/games_fixture.csv'
 
-         expect(@stat_tracker.read_games_csv(location)[0].game_id).to eq(2012030221)
-         expect(@stat_tracker.read_games_csv(location)[0].season).to eq(20122013)
+         expect(@stat_tracker.read_games_csv(location)[0].game_id).to eq("2012030221")
+         expect(@stat_tracker.read_games_csv(location)[0].season).to eq("20122013")
          expect(@stat_tracker.read_games_csv(location)[0].away_team_id).to eq(3)
          expect(@stat_tracker.read_games_csv(location)[0].home_team_id).to eq(6)
          expect(@stat_tracker.read_games_csv(location)[0].away_goals).to eq(2)
