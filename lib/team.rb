@@ -3,10 +3,10 @@ class Team
 
   def initialize(attributes)
     @team_id = attributes[:team_id]
-    @franchise_id = attributes[:franchiseId]
-    @team_name = attributes[:teamName]
+    @franchise_id = attributes[:franchise_id]
+    @team_name = attributes[:team_name]
     @abbreviation = attributes[:abbreviation]
-    @stadium = attributes[:Stadium]
+    @stadium = attributes[:stadium]
   end
 
 
