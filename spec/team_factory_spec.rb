@@ -4,9 +4,12 @@ require 'pry'
 
 RSpec.describe TeamFactory do
     before do
+        
         @file_path = './data/teams_fixture.csv'
         @team_factory = TeamFactory.new(@file_path)
+        
     end
+    
     describe '#initialize' do
 
         it 'exists' do
