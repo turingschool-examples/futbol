@@ -20,8 +20,8 @@ class Game
         @venue = data_attributes[:venue]
     end 
 
-    def highest_total_score
-        
+    def total_score
+        @home_goals + @away_goals
     end
 
     def lowest_total_score
