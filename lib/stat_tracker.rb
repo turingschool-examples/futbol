@@ -8,6 +8,18 @@ class StatTracker
     @@teams = []
     @@game_teams = []
 
+    def self.games
+        @@games
+    end
+
+    def self.teams
+        @@teams
+    end
+
+    def self.game_teams
+        @@game_teams
+    end
+
     # class method for StatTracker
     def self.from_csv(locations)
         #iterate through each hash key/value pair (key elements -> file_name, value elements -> file_path)
