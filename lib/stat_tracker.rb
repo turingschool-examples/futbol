@@ -42,6 +42,7 @@ class StatTracker
                 elsif file_name == :teams
                     team_id = row[:team_id]
                     franchise_id = row[:franchise]
+                    team_name = row[:teamName]
                     abbreviation = row[:abbreviation]
                     stadium = row[:stadium]
                     @@teams << team = Team.new(team_id, franchise_id, abbreviation, stadium)
