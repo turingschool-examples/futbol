@@ -32,17 +32,28 @@ RSpec.describe GameFactory do
 
   describe 'count_of_goals(season_id)' do
     it 'returns an integer' do
+      @game_factory.create_games
       expect(@game_factory.count_of_goals(@season_id).class).to eq(Integer)
     end
     
     it 'returns the sum of away and home goals for every game per season' do
+      @game_factory.create_games
       expect(@game_factory.count_of_goals(@season_id)).to eq(75)
     end
   end
   
   describe 'games_by_team(team_id)' do
-     it 'returns an array of game objects when the either the home or away team matches the team_id argument' do
-     end
+    it 'returns an array of game objects' do
+      @game_factory.create_games
+      
+      expect(@game_factory.games_by_team(3).class).to eq(Array)
+    end
+    
+    it 'returned array considers team_id when played hoa' do
+      @game_factory.create_games
+      
+      expect(@game_factory.games_by_team(3).all? {|game| (game.away_team_id == 3 || game.home_team_id == 3)}).to be true
+    end
      
   end
 
