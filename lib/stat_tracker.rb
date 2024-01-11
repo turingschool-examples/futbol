@@ -11,7 +11,7 @@ class StatTracker
    end
 
    def initialize(locations_path)
-      @data_game = read_games_csv(locations_path[:games])
+      @data_games = read_games_csv(locations_path[:games])
       @data_teams = read_teams_csv(locations_path[:teams])
       @data_game_teams = read_game_teams_csv(locations_path[:game_teams])
    end
@@ -58,5 +58,12 @@ class StatTracker
          game_team_data << GameTeam.new(game_team_details)
       end
       game_team_data
+   end
+
+   def highest_total_score
+      highest_score_game = @data_games.max_by do |game|
+          game.away_goals + game.home_goals
+      end
+      highest_score_game.away_goals + highest_score_game.home_goals
    end
 end
