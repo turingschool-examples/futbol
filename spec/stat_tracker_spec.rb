@@ -64,4 +64,12 @@ RSpec.describe StatTracker do
          expect(game_team_0.tackles).to eq(44)
       end
    end
+
+   describe '#highest_total_score' do
+      it 'returns highest sum of winning and losing team score' do
+         expect(@stat_tracker.highest_total_score).to be_an(Integer)
+
+
+      end
+   end
 end
