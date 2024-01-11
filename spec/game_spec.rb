@@ -13,8 +13,8 @@ RSpec.describe Game do
                 home_goals: '3'})
 
             expect(game).to be_a Game
-            expect(game.game_id).to eq(2012030221)
-            expect(game.season).to eq(20122013)
+            expect(game.game_id).to eq("2012030221")
+            expect(game.season).to eq("20122013")
             expect(game.type).to eq('Postseason')
             expect(game.away_team_id).to eq(3)
             expect(game.home_team_id).to eq(6)

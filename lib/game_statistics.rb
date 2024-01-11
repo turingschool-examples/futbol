@@ -4,7 +4,7 @@ require './lib/game.rb'
 class GameStatistics
   attr_reader :games
 
-  def initialize(games)
+  def initialize(games = [])
     @games = games
   end
 
