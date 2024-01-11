@@ -100,6 +100,14 @@ class StatTracker
       @data_games.each_with_object(Hash.new(0)) {|game , hash| hash[game.season] += 1}
    end
 
+   def average_goals_per_game
+      total_goals = 0
+      @data_games.each do |game|
+         total_goals += (game.away_goals + game.home_goals)
+      end
+      (total_goals.to_f / @data_games.count).round(2)
+   end
+
 #Helper Method
    def calculate_percentage(num1 , num2)
       ((num1.to_f / num2) * 100).round(2)
