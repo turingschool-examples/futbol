@@ -12,7 +12,9 @@ RSpec.describe GamesFactory do
   end
 
   describe 'initialize' do
-    expect(@games_factory).to be_a(GamesFactory)
+    it 'exists' do
+      expect(@games_factory).to be_a(GamesFactory)
+    end
   end
 
     it 'has a file_path attributre' do
@@ -22,7 +24,7 @@ RSpec.describe GamesFactory do
   describe 'create_games' do
     it 'creates game objects from data stored in the file_path attribute' do
       expect(@games_factory.create_games).to be_a(Array)
-      expect(@games_factory.create_games.all? {|game| game.class == Game}).to true
+      expect(@games_factory.create_games.all? {|game| game.class == Games}).to true
     end
   end
 end
