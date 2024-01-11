@@ -52,7 +52,7 @@ RSpec.describe StatTracker do
       it 'create game_team objects' do
          location = './data/game_teams_fixture.csv'
          game_team_0 = @stat_tracker.read_game_teams_csv(location)[0]
-
+         require 'pry' ; binding.pry
          expect(@stat_tracker.read_game_teams_csv(location)[0]).to be_a GameTeam
          expect(game_team_0.game_id).to eq("2012030221")
          expect(game_team_0.team_id).to eq(3)
