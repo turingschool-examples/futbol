@@ -1,12 +1,15 @@
 require 'csv'
-# require_relative './lib/game'
-# require_relative './lib/team'
-# require_relative './lib/game_team'
 
 class StatTracker
-    @@games = []
-    @@teams = []
-    @@game_teams = []
+    attr_reader :games,
+                :teams,
+                :game_teams
+    
+    def initialize
+        @games = []
+        @teams = []
+        @game_teams = []
+    end
 
     # class method for StatTracker
     def self.from_csv(locations)
@@ -26,13 +29,14 @@ class StatTracker
                     home_goals = row[:home_goals]
                     venue = row[:venue]
                     game = Game.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue)
-                    @@games << game
+                    @games << game
                 elsif file_name == :teams
                     team_id = row[:team_id]
                     franchise_id = row[:franchise]
+                    team_name = row[:teamName]
                     abbreviation = row[:abbreviation]
                     stadium = row[:stadium]
-                    @@teams << team = Team.new(team_id, franchise_id, abbreviation, stadium)
+                    @teams << team = Team.new(team_id, franchise_id, abbreviation, stadium)
                 elsif file_name == :game_teams
                     game_id = row[:game_id]
                     team_id = row[:team_id]
@@ -50,11 +54,20 @@ class StatTracker
                     give_aways = row[:giveaways]
                     take_aways = row[:takeaway]
                     game_team = GameTeam(game_id, team_id, home_or_away_game, result, settled_in, head_coach, goals, shots, tackles, pentalty_infraction_min, power_play_opportunities, power_play_goals, face_off_win_percentage, give_aways, take_aways)
-                    @@game_teams << game_team
+                    @game_teams << game_team
                 else
                     puts "I don't have access to #{file_name}, sorry."
                 end
             end
         end
+    end
+
+    def highest_total_score
+        #.max may not be the correct method to call on games
+        @games.max {|game| game.total_score}
+    end
+
+    def lowest_total_score
+        #code
     end
 end
