@@ -100,4 +100,12 @@ RSpec.describe StatTracker do
          expect(@stat_tracker.percentage_ties).to eq(5.0)
       end
    end
+
+   describe '#count_of_games_by_season' do
+      it 'returns hash with season names as keys and counts of games as values' do
+            expect(@stat_tracker.count_of_games_by_season).to eq({
+               "20122013" => 20
+            })
+      end
+   end
 end
