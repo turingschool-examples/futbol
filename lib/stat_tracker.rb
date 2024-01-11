@@ -73,4 +73,16 @@ class StatTracker
      end
      lowest_score_game.away_goals + lowest_score_game.home_goals
    end
+
+   def percentage_home_wins
+      home_wins = @data_games.find_all do |game|
+         game.home_goals > game.away_goals
+      end
+      calculate_percentage(home_wins.count , @data_games.count)
+      # require'pry';binding.pry
+   end
+
+   def calculate_percentage(num1 , num2)
+      ((num1.to_f / num2) * 100).round(2)
+   end
 end
