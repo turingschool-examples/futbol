@@ -79,7 +79,6 @@ class StatTracker
          game.home_goals > game.away_goals
       end
       calculate_percentage(home_wins.count , @data_games.count)
-      # require'pry';binding.pry
    end
 
    def percentage_visitor_wins
