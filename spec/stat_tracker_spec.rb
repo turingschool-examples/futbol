@@ -43,6 +43,7 @@ RSpec.describe StatTracker do
          location = './data/teams_fixture.csv'
 
          expect(@stat_tracker.read_teams_csv(location)[0]).to be_a Team
+         #require 'pry' ; binding.pry
          expect(@stat_tracker.read_teams_csv(location)[0].team_id).to eq(1)
          expect(@stat_tracker.read_teams_csv(location)[0].team_name).to eq("Atlanta United")
       end
@@ -62,6 +63,15 @@ RSpec.describe StatTracker do
          expect(game_team_0.goals).to eq(2)
          expect(game_team_0.shots).to eq(8)
          expect(game_team_0.tackles).to eq(44)
+      end
+   end
+
+   describe '#count_of_teams' do
+      it 'can count teams' do
+         location = './data/teams_fixture.csv'
+
+         all_teams = @stat_tracker.read_teams_csv(location)
+         expect(@stat_tracker.count_of_teams(all_teams)).to eq(20)
       end
    end
 end
