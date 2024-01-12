@@ -30,4 +30,12 @@ class StatTracker
   def percentage_away_wins
     @game_statistics.percentage_away_wins
   end
+  
+  def percentage_ties
+    @game_statistics.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @game_statistics.count_of_games_by_season
+  end
 end

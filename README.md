@@ -25,9 +25,7 @@
 * Mel Langhoff Linkedin: https://www.linkedin.com/in/melissalanghoff/  Github: https://github.com/mel-langhoff
 
 * Hoa Dam Linkedin: https://www.linkedin.com/me?trk=p_mwlite_feed_updates-secondary_nav    Github: https://github.com/hoadam
-
-* Kevin Gonzalez Linkedin: https://www.linkedin.com/in/kevin-gonzalez-95077b247/    Github: https://github.com/readykgo    
-
+   
 * Joey Reyes Linkedin: https://www.linkedin.com/in/jose-reyes-590130297/  Github: https://github.com/JRIV-10 
 
 

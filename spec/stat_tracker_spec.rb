@@ -1,4 +1,4 @@
-require './spec/spec_helper.rb'
+require_relative './spec_helper.rb'
 
 RSpec.describe StatTracker do 
     describe '#initialize' do 
@@ -63,4 +63,22 @@ RSpec.describe StatTracker do
             expect(stat_tracker.percentage_away_wins).to eq(50)
         end
     end
+
+    describe '#percentage_ties' do 
+        it 'has percentage_ties' do 
+            game_stats = GameStatistics.from_csv('./data/games_sample.csv')
+            stat_tracker = StatTracker.new(game_stats)
+
+            expect(stat_tracker.percentage_ties).to eq(0)
+        end
+    end
+
+    describe '#count_of_games_by_season' do 
+    it 'has count_of_games_by_season' do 
+        game_stats = GameStatistics.from_csv('./data/games_sample.csv')
+        stat_tracker = StatTracker.new(game_stats)
+
+        expect(stat_tracker.count_of_games_by_season).to eq("20122013"=>4)
+    end
+end
 end
