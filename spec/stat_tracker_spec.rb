@@ -164,4 +164,10 @@ RSpec.describe StatTracker do
             })
       end
    end
+
+   describe '#most_accurate_team(season)' do
+      it 'returns the name of the Team with the best ratio of shots to goals for the season' do
+         expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
+      end
+   end
 end
