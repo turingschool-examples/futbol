@@ -5,16 +5,14 @@ class Team
               :abbreviation,
               :stadium
 
-  def initialize(attributes)
-    @team_id = attributes[:team_id]
-    @franchise_id = attributes[:franchise_id]
-    @team_name = attributes[:team_name]
-    @abbreviation = attributes[:abbreviation]
-    @stadium = attributes[:stadium]
+  def initialize(team_id, franchise_id, team_name, abbreviation, stadium)
+    @team_id = team_id
+    @franchise_id = franchise_id
+    @team_name = team_name
+    @abbreviation = abbreviation
+    @stadium = stadium
   end
-  
-=begin
-stat tracker is going to be the one to collect all the
-class of game shouldn't know anything about the class of teams
-
 end
+
+#stat tracker is going to be the one to collect all the
+#class of game shouldn't know anything about the class of teams
