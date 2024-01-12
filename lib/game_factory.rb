@@ -36,6 +36,8 @@ class GameFactory
     end
   end
 
-  
+  # def season_games(season)
+
+  # end
 
 end
