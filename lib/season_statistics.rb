@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/game_team'
 require './lib/game'
+require './lib/team'
 
 class SeasonStatistics
   attr_reader :games,
@@ -30,6 +31,7 @@ class SeasonStatistics
 
     CSV.foreach(teams_filepath, headers: true, header_converters: :symbol) do |row|
       teams << Team.new(row)
+
     end
 
     new(games, game_teams, teams)
@@ -62,9 +64,13 @@ class SeasonStatistics
     coach_games.each do |coach, game_teams|
       total_games = game_teams.length
       total_winning_games = game_teams.count {|game_team| game_team.result == "WIN"}
-      coach_average_win_pct[coach] = ((total_winning_games/total_games).to_f * 100).round(2)
+      if total_games > 0
+        coach_average_win_pct[coach] = ((total_winning_games/total_games).to_f * 100).round(2)
+      else
+        coach_average_win_pct[coach] = 0.0
+      end
     end
-
+    # require 'pry'; binding.pry
     coach_average_win_pct
   end
 
@@ -81,8 +87,11 @@ class SeasonStatistics
     team_games.each do |team_id, game_teams|
       total_goals = game_teams.sum { |game_team| game_team.goals }
       total_shots = game_teams.sum { |game_team| game_team.shots }
-
-      accurate_shots_pct_by_team[team_id] = ((total_goals.to_f/total_shots) * 100).round(2)
+      if total_shots > 0
+        accurate_shots_pct_by_team[team_id] = ((total_goals.to_f/total_shots) * 100).round(2)
+      else
+        accurate_shots_pct_by_team[team_id] = 0.0
+      end
     end
     accurate_shots_pct_by_team
   end
