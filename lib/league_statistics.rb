@@ -64,9 +64,19 @@ class LeagueStatistics
     worst_team.teamname
   end
 
-  def highest_scoring_vistor
+  def highest_scoring_visitor
+    away_teams = @game_teams.select { |game_team| game_team.hoa == 'away' }
+    highest_scorer = away_teams.max_by { |game_team| game_team.goals.to_i }
+  
+    best_team = @teams.find { |team| team.team_id == highest_scorer.team_id }
+    best_team.teamname
   end
 
   def lowest_scoring_visitor
+    away_teams = @game_teams.select { |game_team| game_team.hoa == 'away' }
+    lowest_scorer = away_teams.min_by { |game_team| game_team.goals.to_i }
+  
+    worst_team = @teams.find { |team| team.team_id == lowest_scorer.team_id }
+    worst_team.teamname
   end
 end

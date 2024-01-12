@@ -30,4 +30,15 @@ RSpec.describe LeagueStatistics do
     end
   end
 
+  describe '#highest_scoring_visitor' do
+    it 'returns the highest scoring visitor' do
+      expect(league_stats.highest_scoring_visitor).to eq('Houston Dynamo')
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do
+    it 'returns the lowest scoring visitor' do
+      expect(league_stats.lowest_scoring_visitor).to eq('Houston Dynamo')
+    end
+  end
 end
