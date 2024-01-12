@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/game.rb'
+require_relative './game.rb'
 
 class GameStatistics
   attr_reader :games

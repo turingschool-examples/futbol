@@ -1,4 +1,4 @@
-require_relative '/stat_tracker'
+require_relative './stat_tracker.rb'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
