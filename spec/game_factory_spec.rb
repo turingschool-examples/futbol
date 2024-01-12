@@ -36,7 +36,27 @@ RSpec.describe GameFactory do
 
     end
   end
+  #we only have post_season for our fixture file here. Should we include regular_season games as well?
+  # and then we have 20122013 regular_season and/or post_season games?
+  # then with the total_score method we could have total_score for regular_season and/or post_season?
+  describe '#season_games' do
+    it 'returns an integer of number of games from specified season' do
+      @game_factory.season_games(season)
 
-  
+      expect(@game_factory.season_games(season)).to be_a(Integer)
+      expect(@game_factory.season_games(20122013)).to eq(20)
+    
+    end
+  end
+    #the count_of_games seems like it would be testing the same as above method. I am a little unsure about this one.
+    # the total count of games in a season would include both regular_season and post_season 
+  describe '#count_of_games' do
+    it 'returns an integer of all games that are listed' do
+      @game_factory.count_of_games
+
+      expect(@game_factory.count_of_games).to be_a(Integer)
+      expect(@game_factory.count_of_games).to eq(20)
+    end
+  end
 
 end
