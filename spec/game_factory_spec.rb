@@ -26,4 +26,17 @@ RSpec.describe GameFactory do
       expect(@game_factory.create_games.all? {|game| game.class == Game}).to be true
     end
   end
+
+  describe '#total_score' do
+    it 'should return array of integers that is the sum of away_goals and home_goals' do
+      @game_factory.create_games
+
+      expect(@game_factory.total_score).to be_a(Array)
+      expect(@game_factory.total_score).to eq([5, 5, 3, 5, 4, 3, 5, 3, 1, 3, 3, 4, 2, 3, 5, 3, 4, 4, 5, 5])
+
+    end
+  end
+
+  
+
 end
