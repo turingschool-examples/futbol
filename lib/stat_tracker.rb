@@ -154,6 +154,22 @@ class StatTracker
       avg_goals_by_season
    end
 
+   def most_accurate_team(season)
+      most_accurate_team = team_accuracy.max_by { |game_team, accuracy| accuracy }.first
+      most_accurate_team_by_season = season_games(season).filter_map do |game|
+         most_accurate_team.team_id if game.game_id == most_accurate_team.game_id
+      end
+      convert_team_id_to_name(most_accurate_team_by_season[0])
+   end
+
+   def least_accurate_team(season)
+      least_accurate_team = team_accuracy.min_by { |game_team, accuracy| accuracy }.first
+      least_accurate_team_by_season = season_games(season).filter_map do |game|
+         least_accurate_team.team_id if game.game_id == least_accurate_team.game_id
+      end
+      convert_team_id_to_name(least_accurate_team_by_season[0])
+   end
+
 #Helper Method
    def calculate_percentage(num1 , num2)
       ((num1.to_f / num2)).round(2)
@@ -221,21 +237,5 @@ class StatTracker
       season_games = @data_games.find_all do |game| 
          game.season == season
       end
-   end
-   
-   def most_accurate_team(season)
-      most_accurate_team = team_accuracy.max_by { |game_team, accuracy| accuracy }.first
-      most_accurate_team_by_season = season_games(season).filter_map do |game|
-         most_accurate_team.team_id if game.game_id == most_accurate_team.game_id
-      end
-      convert_team_id_to_name(most_accurate_team_by_season[0])
-   end
-
-   def least_accurate_team(season)
-      least_accurate_team = team_accuracy.min_by { |game_team, accuracy| accuracy }.first
-      least_accurate_team_by_season = season_games(season).filter_map do |game|
-         least_accurate_team.team_id if game.game_id == least_accurate_team.game_id
-      end
-      convert_team_id_to_name(least_accurate_team_by_season[0])
    end
 end
