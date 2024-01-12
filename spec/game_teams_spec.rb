@@ -2,20 +2,20 @@ require './lib/game_teams'
 require 'pry'
 
 RSpec.describe GameTeam do
+    before do
+        
+        @game_team_info = { 
+                        game_id: 2012030221, team_id: 3, hoa: "away", result: "LOSS", 
+                        settled_in: "OT", head_coach: "John Tortorella", goals: 2, shots: 8, 
+                        tackles: 44, pim: 8, power_play_opps: 3, power_play_goals: 0, 
+                        faceoff_win_percent: 44.8, giveaways: 8, takeaways: 17 
+                        }
+        
+        @game_team = GameTeam.new(@game_team_info)
+    
+    end
     describe '#initialize' do
 
-        before do
-            
-            @game_team_info = { 
-                            game_id: 2012030221, team_id: 3, hoa: "away", result: "LOSS", 
-                            settled_in: "OT", head_coach: "John Tortorella", goals: 2, shots: 8, 
-                            tackles: 44, pim: 8, power_play_opps: 3, power_play_goals: 0, 
-                            faceoff_win_percent: 44.8, giveaways: 8, takeaways: 17 
-                            }
-            
-            @game_team = GameTeam.new(@game_team_info)
-
-        end
 
         it 'exists' do
             
@@ -111,6 +111,14 @@ RSpec.describe GameTeam do
 
             expect(@game_team.takeaways).to eq(17)
 
+        end
+    end
+
+    describe '#get_season_from_game_id' do
+        it 'will give you the season id for a game based off of the game_id' do
+
+            expect(@game_team.get_season_from_game_id).to eq(20122013)
+            
         end
     end
 end
