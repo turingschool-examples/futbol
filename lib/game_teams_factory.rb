@@ -93,6 +93,16 @@ class GameTeamFactory
             ((wins.to_f / losses.to_f) * 100).round(2)
         end
     end
+
+    def win_percentage_by_coach_by_season(season)
+        percentages_by_coach = {}
+        @game_teams.each do |game_team|
+            if game_team.get_season_from_game_id == season
+                percentages_by_coach[game_team.head_coach] = win_percentage_by_coach(game_team.head_coach)
+            end
+        end
+        percentages_by_coach
+    end
     
     
 end
