@@ -107,10 +107,88 @@ class StatTracker
    end
 
    def highest_scoring_visitor
+      away_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      @data_game_teams.each do |game_team|
+         if game_team.hoa == "away"
+         away_team_stats[game_team.team_id][:goals] += game_team.goals
+         away_team_stats[game_team.team_id][:games_played] += 1
+         end
+      end
+      away_team_averages = away_team_stats.transform_values do |stats|
+         stats[:goals].to_f / stats[:games_played]
+      end
+      highest_average_away_team_id = away_team_averages.max_by {|_team_id, average| average}.first
+      highest_average_away_team_name = "0"
+      @data_teams.each do |team| 
+            if team.team_id == highest_average_away_team_id
+            highest_average_away_team_name = team.team_name
+            end 
+      end
+      highest_average_away_team_name
+   end
 
+   def highest_scoring_home_team
+      home_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      @data_game_teams.each do |game_team|
+         if game_team.hoa == "home"
+         home_team_stats[game_team.team_id][:goals] += game_team.goals
+         home_team_stats[game_team.team_id][:games_played] += 1
+         end
+      end
+      home_team_averages = home_team_stats.transform_values do |stats|
+         stats[:goals].to_f / stats[:games_played]
+      end
+      
+      highest_average_home_team_id = home_team_averages.max_by {|_team_id, average| average}.first
+      highest_average_home_team_name = "0"
+      @data_teams.each do |team| 
+            if team.team_id == highest_average_home_team_id
+            highest_average_home_team_name = team.team_name
+            end 
+      end
+      highest_average_home_team_name
    end
 
    def lowest_scoring_visitor
+         away_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+         @data_game_teams.each do |game_team|
+            if game_team.hoa == "away"
+            away_team_stats[game_team.team_id][:goals] += game_team.goals
+            away_team_stats[game_team.team_id][:games_played] += 1
+            end
+         end
+         away_team_averages = away_team_stats.transform_values do |stats|
+            stats[:goals].to_f / stats[:games_played]
+         end
+         lowest_average_away_team_id = away_team_averages.min_by {|_team_id, average| average}.first
+         lowest_average_away_team_name = "0"
+         @data_teams.each do |team| 
+               if team.team_id == lowest_average_away_team_id
+               lowest_average_away_team_name = team.team_name
+               end 
+         end
+         lowest_average_away_team_name
+   end
 
+   def lowest_scoring_home_team
+      home_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      @data_game_teams.each do |game_team|
+         if game_team.hoa == "home"
+         home_team_stats[game_team.team_id][:goals] += game_team.goals
+         home_team_stats[game_team.team_id][:games_played] += 1
+         end
+      end
+      home_team_averages = home_team_stats.transform_values do |stats|
+         stats[:goals].to_f / stats[:games_played]
+      end
+      
+      lowest_average_home_team_id = home_team_averages.min_by {|_team_id, average| average}.first
+      lowest_average_home_team_name = "0"
+      @data_teams.each do |team| 
+            if team.team_id == lowest_average_home_team_id
+            lowest_average_home_team_name = team.team_name
+            end 
+      end
+      lowest_average_home_team_name
    end
 end
