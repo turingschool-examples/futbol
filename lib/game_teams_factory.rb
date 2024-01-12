@@ -6,10 +6,10 @@ class GameTeamFactory
 
         def initialize(file_path)
             @file_path = file_path
+            @game_team = []
         end
 
         def create_game_team 
-            game_team = []
             CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
                 game_team_info = {}
                 game_team_info[:game_id] = row[:game_id].to_i
@@ -28,9 +28,9 @@ class GameTeamFactory
                 game_team_info[:giveaways] = row[:giveaways].to_i
                 game_team_info[:takeaways] = row[:takeaways].to_i
 
-                game_team << GameTeam.new(game_team_info)
+                @game_team << GameTeam.new(game_team_info)
             end
-            game_team
+            @game_team
         end
 
 end

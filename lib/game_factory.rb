@@ -29,12 +29,13 @@ class GameFactory
     @games
   end
 
-  def count_of_goals(season_id)
-    @games.sum do |game|
+  def total_score
+    
+    @games.map do |game|
       game.away_goals + game.home_goals
     end
   end
-
+  
   def games_by_team(team_id)
     @games.find_all do |game|
       game.away_team_id == team_id || game.home_team_id == team_id
