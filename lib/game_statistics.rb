@@ -88,7 +88,7 @@ class GameStatistics
       averages_by_season[season] = average_goals.round(2)
     end
 
-    averages_by_season    
+    averages_by_season
   end
 
 end
