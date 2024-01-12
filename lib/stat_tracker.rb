@@ -199,4 +199,35 @@ class StatTracker
       end
       team_stats
    end
+
+   def games_goals_and_shots
+      games_goals_and_shots = Hash.new { |hash, key| hash[key] = {total_shots: 0, total_goals: 0}}
+      @data_game_teams.each do |data_game_team|
+         games_goals_and_shots[data_game_team][:total_shots] += data_game_team.shots
+         games_goals_and_shots[data_game_team][:total_goals] += data_game_team.goals
+      end
+      games_goals_and_shots
+   end
+
+   def team_accuracy
+      team_accuracy = Hash.new { |hash, key| hash[key] = {accuracy: 0} }
+      games_goals_and_shots.each do |game_team, goals_and_shots|
+         team_accuracy[game_team] = ((goals_and_shots[:total_goals]).to_f / (goals_and_shots[:total_shots])).round(2)
+      end
+      team_accuracy
+   end
+
+   def season_games(season)
+      season_games = @data_games.find_all do |game| 
+         game.season == season
+      end
+   end
+   
+   def most_accurate_team(season)
+      most_accurate_team = team_accuracy.max_by { |game_team, accuracy| accuracy }.first
+      most_accurate_team_by_season = season_games(season).filter_map do |game|
+         most_accurate_team.team_id if game.game_id == most_accurate_team.game_id
+      end
+      convert_team_id_to_name(most_accurate_team_by_season[0])
+   end
 end
