@@ -81,9 +81,5 @@ class GameTeamFactory
         end
         coaches_win_percentages
     end
-    
-    
 end
-
-# binding.pry
 
