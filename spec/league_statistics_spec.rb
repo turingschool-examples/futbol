@@ -26,4 +26,23 @@ RSpec.describe LeagueStatistics do
       expect(league_stats.game_teams.length).to eq(4)
     end
   end
+
+  describe '#count_of_teams' do
+    it 'can count all the teams' do
+      expect(league_stats.count_of_teams).to eq(4)
+    end
+  end
+
+  describe '#best_offense' do
+    it 'returns the best offense' do
+      expect(league_stats.best_offense).to eq('Chicago Fire')
+    end
+  end
+
+  describe '#worst_offense' do
+    it 'returns the name of the team with the lowest average number of goals scored per game' do
+      expect(subject.worst_offense).to eq('Atlanta United')
+    end
+  end
+
 end
