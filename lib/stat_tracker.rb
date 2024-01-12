@@ -65,65 +65,27 @@ class StatTracker
    end
 
    def best_offense
-      # team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
-      # @data_game_teams.each do |game_team|
-      #    team_stats[game_team.team_id][:goals] += game_team.goals
-      #    team_stats[game_team.team_id][:games_played] += 1
-      # end
       convert_team_id_to_name(highest_average_team_id(team_stats))
    end
 
    def worst_offense
-      team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
-      @data_game_teams.each do |game_team|
-         team_stats[game_team.team_id][:goals] += game_team.goals
-         team_stats[game_team.team_id][:games_played] += 1
-      end
       convert_team_id_to_name(lowest_average_team_id(team_stats))
    end
 
    def highest_scoring_visitor
-      away_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
-      @data_game_teams.each do |game_team|
-         if game_team.hoa == "away"
-            away_team_stats[game_team.team_id][:goals] += game_team.goals
-            away_team_stats[game_team.team_id][:games_played] += 1
-         end
-      end
-      convert_team_id_to_name(highest_average_team_id(away_team_stats))
+      convert_team_id_to_name(highest_average_team_id(team_stats_hoa("away")))
    end
 
    def highest_scoring_home_team
-      home_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
-      @data_game_teams.each do |game_team|
-         if game_team.hoa == "home"
-            home_team_stats[game_team.team_id][:goals] += game_team.goals
-            home_team_stats[game_team.team_id][:games_played] += 1
-         end
-      end
-      convert_team_id_to_name(highest_average_team_id(home_team_stats))
+      convert_team_id_to_name(highest_average_team_id(team_stats_hoa("home")))
    end
 
    def lowest_scoring_visitor
-      away_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
-      @data_game_teams.each do |game_team|
-         if game_team.hoa == "away"
-            away_team_stats[game_team.team_id][:goals] += game_team.goals
-            away_team_stats[game_team.team_id][:games_played] += 1
-         end
-      end
-      convert_team_id_to_name(lowest_average_team_id(away_team_stats))
+      convert_team_id_to_name(lowest_average_team_id(team_stats_hoa("away")))
    end
 
    def lowest_scoring_home_team
-      home_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
-      @data_game_teams.each do |game_team|
-         if game_team.hoa == "home"
-            home_team_stats[game_team.team_id][:goals] += game_team.goals
-            home_team_stats[game_team.team_id][:games_played] += 1
-         end
-      end
-      convert_team_id_to_name(lowest_average_team_id(home_team_stats))
+      convert_team_id_to_name(lowest_average_team_id(team_stats_hoa("home")))
    end
 
    #helper methods
@@ -157,6 +119,16 @@ class StatTracker
       @data_game_teams.each do |game_team|
          team_stats[game_team.team_id][:goals] += game_team.goals
          team_stats[game_team.team_id][:games_played] += 1
+      end
+      team_stats
+   end
+   def team_stats_hoa(hoa)
+      team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      @data_game_teams.each do |game_team|
+         if game_team.hoa == hoa
+            team_stats[game_team.team_id][:goals] += game_team.goals
+            team_stats[game_team.team_id][:games_played] += 1
+         end
       end
       team_stats
    end
