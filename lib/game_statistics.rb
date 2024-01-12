@@ -61,5 +61,35 @@ class GameStatistics
     end
     count_by_season
   end
+
+  def average_goals_per_game
+    total_goals = @games.sum { |game| game.away_goals + game.home_goals }
+    total_games = @games.size
+
+    average_goals = (total_goals.to_f / total_games).round(2)
+
+    average_goals
+  end
+
+  def average_goals_by_season
+    stats = Hash.new { |hash, key| hash[key] = { total_goals: 0, game_count: 0 } }
+
+    @games.each do |game|
+      season = game.season
+      total_goals = game.away_goals + game.home_goals
+
+      stats[season][:total_goals] += total_goals
+      stats[season][:game_count] += 1
+    end
+
+    averages_by_season = {}
+    stats.each do |season, stats|
+      average_goals = stats[:total_goals].to_f / stats[:game_count]
+      averages_by_season[season] = average_goals.round(2)
+    end
+
+    averages_by_season    
+  end
+
 end
 
