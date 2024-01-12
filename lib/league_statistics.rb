@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/game_team'
-require './lib/team'
-require './lib/game'
+require_relative './game_team'
+require_relative './team'
+require_relative './game'
 
 class LeagueStatistics
   attr_reader :teams,
