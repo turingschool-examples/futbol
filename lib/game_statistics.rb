@@ -14,7 +14,7 @@ class GameStatistics
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
       games << Game.new(row)
     end
-
+    
     new(games)
   end
 
@@ -46,6 +46,20 @@ class GameStatistics
     total_games = @games.size 
     away_wins = @games.count { |game| game.away_goals > game.home_goals }
     (away_wins.to_f / total_games * 100).round(2)
+  end
+
+  def percentage_ties
+    total_games = @games.size 
+    tie = @games.count { |game| game.away_goals == game.home_goals }
+    (tie.to_f / total_games * 100).round(2)
+  end
+
+  def count_of_games_by_season
+    count_by_season = Hash.new(0)
+    games.each do |game|
+      count_by_season[game.season] += 1
+    end
+    count_by_season
   end
 end
 
