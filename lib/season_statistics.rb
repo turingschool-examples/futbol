@@ -70,7 +70,7 @@ class SeasonStatistics
         coach_average_win_pct[coach] = 0.0
       end
     end
-    # require 'pry'; binding.pry
+
     coach_average_win_pct
   end
 
