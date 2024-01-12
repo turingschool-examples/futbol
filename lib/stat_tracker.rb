@@ -60,9 +60,10 @@ class StatTracker
       game_team_data
    end
 
- league_statistics
+# league_statistics
    def count_of_teams
       @data_teams.count  
+      # GameStats.count_of_teams(@data_teams)  
    end
 
    def best_offense
@@ -99,8 +100,8 @@ class StatTracker
    def lowest_total_score
       lowest_score_game = @data_games.min_by do |game|
          game.away_goals + game.home_goals
-     end
-     lowest_score_game.away_goals + lowest_score_game.home_goals
+      end
+      lowest_score_game.away_goals + lowest_score_game.home_goals
    end
 
    def percentage_home_wins
@@ -155,21 +156,18 @@ class StatTracker
 
 #Helper Method
    def calculate_percentage(num1 , num2)
-      ((num1.to_f / num2) * 100).round(2)
+      ((num1.to_f / num2)).round(2)
    end
-  
-  def convert_team_id_to_name(team_id)
-      team_name = "0"
-      @data_teams.each do |team| 
-         if team.team_id == team_id
-            team_name = team.team_name
-         end 
+
+   def convert_team_id_to_name(team_id)
+      team = @data_teams.find do |team|
+         team.team_id == team_id
       end
-      team_name
+      team.team_name
    end
 
    def lowest_average_team_id(team_stats)
-     team_averages = team_stats.transform_values do |stats|
+      team_averages = team_stats.transform_values do |stats|
          stats[:goals].to_f / stats[:games_played]
       end
       lowest_average_team_id = team_averages.min_by {|_team_id, average| average}.first
@@ -179,7 +177,7 @@ class StatTracker
       team_averages = team_stats.transform_values do |stats|
          stats[:goals].to_f / stats[:games_played]
       end
-      lowest_average_team_id = team_averages.max_by {|_team_id, average| average}.first
+      highest_average_team_id = team_averages.max_by {|_team_id, average| average}.first
    end
 
    def team_stats
