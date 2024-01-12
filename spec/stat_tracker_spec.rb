@@ -164,4 +164,16 @@ RSpec.describe StatTracker do
             })
       end
    end
+
+   describe '#winingest_coach' do
+      it 'can identify coach with most percentage of wins' do
+         expect(@stat_tracker.winingest_coach("20122013")).to eq("Claude Julien")
+      end
+   end
+
+   describe '#worst_coach' do
+      it 'can identify coach with least percentage of wins' do
+         expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+      end
+   end
 end
