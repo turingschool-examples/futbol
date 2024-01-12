@@ -19,3 +19,8 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030122,20122013,Postseason,5/3/13,9,8,1,3,Red Bull Arena,/api/v1/venues/null
 2012030123,20122013,Postseason,5/5/13,8,9,1,4,Yankee Stadium,/api/v1/venues/null
 2012030124,20122013,Postseason,5/7/13,8,9,2,3,Yankee Stadium,/api/v1/venues/null
+2017020227,20172018,Regular Season,11/8/17,13,12,1,3,Yurcak Field,/api/v1/venues/null
+2016020050,20162017,Regular Season,10/20/16,10,52,2,3,Providence Park,/api/v1/venues/null
+2017020704,20172018,Regular Season,1/19/18,5,26,3,1,Nippert Stadium,/api/v1/venues/null
+2017020726,20172018,Regular Season,1/23/18,21,10,2,2,WakeMed Soccer Park,/api/v1/venues/null
+2016020251,20162017,Regular Season,11/18/16,21,25,2,3,SeatGeek Stadium,/api/v1/venues/null

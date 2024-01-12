@@ -19,3 +19,8 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030314,6,home,WIN,REG,Claude Julien,1,6,25,8,3,0,52.5,11,5
 2012030231,17,away,LOSS,REG,Mike Babcock,1,5,43,10,3,0,52.5,6,4
 2012030231,16,home,WIN,REG,Joel Quenneville,2,10,24,10,3,1,47.5,2,11
+2017020704,26,home,LOSS,REG,John Stevens,1,7,31,23,2,0,49.1,4,3
+2017020726,21,away,TIE,REG,Jared Bednar,2,6,26,6,0,0,36.5,11,5
+2017020726,10,home,TIE,REG,Mike Babcock,2,7,26,0,3,0,63.5,20,7
+2016020251,21,away,LOSS,REG,Jared Bednar,2,9,12,14,2,0,48.8,6,3
+2016020251,25,home,WIN,REG,Lindy Ruff,3,5,7,4,7,2,51.2,8,5
