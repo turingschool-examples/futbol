@@ -7,11 +7,11 @@ class GameFactory
   
   def initialize(file_path)
     @file_path = file_path
+    @games = []
   end
 
   def create_games
-    games = []
-    CSV.foreach('./data/games.csv', headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
       game_info = {}
       game_info[:game_id] = row[:game_id].to_i
       game_info[:season] = row[:season].to_i
@@ -24,9 +24,18 @@ class GameFactory
       game_info[:venue] = row[:venue]
       game_info[:venue_link] = row[:venue_link]
 
-      games << Game.new(game_info)
+      @games << Game.new(game_info)
     end
-    games
+    @games
   end
+
+  def total_score
+    
+    @games.map do |game|
+      game.away_goals + game.home_goals
+    end
+  end
+
+  
 
 end
