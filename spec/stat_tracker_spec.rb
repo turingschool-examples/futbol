@@ -4,10 +4,14 @@ RSpec.describe StatTracker do
     describe '#initialize' do
         it 'exists' do
             game_statistics_instance = GameStatistics.new
-            stat_tracker = StatTracker.new(game_statistics_instance)
+            league_statistics_instance = LeagueStatistics.new(teams = [], game_teams = [])
+            season_statistics_instance = SeasonStatistics.new(teams = [], game_teams = [], teams = [])
+            stat_tracker = StatTracker.new(game_statistics_instance, league_statistics_instance, season_statistics_instance)
 
             expect(stat_tracker).to be_a StatTracker
             expect(stat_tracker.game_statistics).to be_a GameStatistics
+            expect(stat_tracker.league_statistics).to be_a LeagueStatistics
+            expect(stat_tracker.season_statistics).to be_a SeasonStatistics
         end
     end
 
@@ -103,7 +107,7 @@ RSpec.describe StatTracker do
     describe '#count_of_teams' do
         it 'counts all teams' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = GameStatistics.from_csv('/data/teams_sampe.csv')
+            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
             stat_tracker = StatTracker.new(game_stats)
 
             expect(stat_tracker.count_of_teams).to eq(6)
@@ -113,7 +117,7 @@ RSpec.describe StatTracker do
     describe '#best_offense' do
         it 'returns the best offense' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = GameStatistics.from_csv('/data/teams_sampe.csv')
+            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
             stat_tracker = StatTracker.new(game_stats)
 
             expect(stat_tracker.best_offense).to eq('FC Dallas')
@@ -123,7 +127,7 @@ RSpec.describe StatTracker do
     describe '#worst_offense' do
         it 'returns the worst offense' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = GameStatistics.from_csv('/data/teams_sampe.csv')
+            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
             stat_tracker = StatTracker.new(game_stats)
 
             expect(stat_tracker.worst_offense).to eq('Houston Dynamo')
@@ -133,7 +137,7 @@ RSpec.describe StatTracker do
     describe '#highest_scoring_visitor' do
         it 'returns the highest scoring visitor' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = GameStatistics.from_csv('/data/teams_sampe.csv')
+            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
             stat_tracker = StatTracker.new(game_stats)
 
             expect(stat_tracker.highest_scoring_visitor).to eq('Houston Dynamo')
@@ -143,7 +147,7 @@ RSpec.describe StatTracker do
     describe '#lowest_scoring_visitor' do
         it 'returns the lowest scoring visitor' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = GameStatistics.from_csv('/data/teams_sampe.csv')
+            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
             stat_tracker = StatTracker.new(game_stats)
 
             expect(stat_tracker.lowest_scoring_visitor).to eq('Houston Dynamo')
