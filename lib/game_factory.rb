@@ -40,4 +40,17 @@ class GameFactory
       game.away_team_id == team_id || game.home_team_id == team_id
     end
   end
+
+  def goals_by_team(team_id)
+    goals = []
+    @games.find_all do |game|
+      if game.away_team_id == team_id 
+        goals << game.away_goals
+      elsif game.home_team_id == team_id
+        goals << game.home_goals
+      end
+      goals
+    end
+    goals
+  end
 end
