@@ -9,45 +9,15 @@ class Game
                 :home_goals,
                 :venue
     def initialize(data_attributes)
-        @game_id = data_attributes[:game_id]
+        @game_id = data_attributes[:game_id].to_i
         @season = data_attributes[:season]
         @type = data_attributes[:type]
-        @data_time = data_attributes[:data_time]
+        @date_time = data_attributes[:data_time]
         @away_team_id = data_attributes[:away_team_id]
         @home_team_id = data_attributes[:home_team_id]
-        @away_goals = data_attributes[:away_goals]
-        @home_goals = data_attributes[:home_goals]
+        @away_goals = data_attributes[:away_goals].to_i
+        @home_goals = data_attributes[:home_goals].to_i
         @venue = data_attributes[:venue]
     end 
 
-    def highest_total_score
-        
-    end
-
-    def lowest_total_score
-
-    end
-    
-    def percentage_home_wins
-        
-    end
-
-    def percentage_visitor_wins
-
-    end 
-
-    def percentage_ties
-    end
-
-    def count_of_games_by_season
-
-    end
-
-    def average_goals_per_game
-
-    end
-
-    def average_goals_by_season
-
-    end
-end
+   
