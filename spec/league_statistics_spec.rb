@@ -7,7 +7,7 @@ RSpec.describe LeagueStatistics do
     it 'creates a LeagueStatistics instance from CSV file' do
       expect(league_stats.teams).to be_a(Array)
       expect(league_stats.game_teams).to be_a(Array)
-      expect(league_stats.teams.length).to eq(4)
+      expect(league_stats.teams.length).to eq(6)
       expect(league_stats.game_teams.length).to eq(4)
     end
   end
