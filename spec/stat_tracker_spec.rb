@@ -71,7 +71,9 @@ RSpec.describe StatTracker do
     describe '#percentage_away_wins' do
         it 'has percentage_away_wins' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.percentage_away_wins).to eq(50)
         end
