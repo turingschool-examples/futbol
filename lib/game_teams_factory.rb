@@ -33,36 +33,6 @@ class GameTeamFactory
         @game_teams
     end
 
-
-    def ratio_of_shots_to_goals_by_season(season)
-        ratios = {}
-        @game_teams.each do |game_team|
-            if game_team.get_season_from_game_id == season
-                ratios[game_team.team_id] = ratio_of_shots_to_goals_by_team(game_team.team_id)
-            end
-        end
-        ratios
-    end
-
-    def ratio_of_shots_to_goals_by_team(team_id)
-        shots = 0
-        goals = 0
-        @game_teams.each do |game_team|
-            shots += game_team.shots if game_team.team_id == team_id
-            goals += game_team.goals if game_team.team_id == team_id
-        end
-        ((goals.to_f / shots.to_f) * 100).round(2)
-    end
-
-    def ratio_of_shots_to_goals
-        hash = {}
-        @game_teams.each do |game_team|
-            hash[game_team.get_season_from_game_id] = ratio_of_shots_to_goals_by_season(game_team.get_season_from_game_id)
-        end
-        hash
-    end
-
-
     def game_result_by_hoa
         game_results = []
         @game_teams.each do |game_team|
