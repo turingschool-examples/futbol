@@ -94,4 +94,19 @@ RSpec.describe StatTracker do
 
         end
     end
+
+    describe 'count_of_games_by_season' do
+        it 'returns the count of games by season' do
+
+            game_path = './spec/fixtures/games_fixture.csv'
+            locations = {
+                games: game_path
+            }
+
+            stat_tracker = StatTracker.new(locations)
+
+            expect(stat_tracker.count_of_games_by_season).to eq({})
+        end
+    end
+
 end
