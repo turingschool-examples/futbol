@@ -77,4 +77,12 @@ RSpec.describe GameTeamFactory do
             expect(@game_team_factory.ratio_of_shots_to_goals).to eq({20122013 => {3 => 21.05, 6 => 31.58, 5 => 6.25, 17 => 20.00, 16 => 20.00}})
         end
     end
+
+    describe '#game_result_by_hoa' do
+        it 'returns an array of strings with the team that won (home, away, or tie)' do
+            @game_team_factory.create_game_team
+            
+            expect(@game_team_factory.game_result_by_hoa).to eq(['home', 'home', 'away', 'away', 'home', 'away', 'away', 'home', 'home', 'home'])
+        end
+    end
 end
