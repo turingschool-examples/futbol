@@ -173,7 +173,7 @@ RSpec.describe StatTracker do
 
    describe '#team_accuracy' do
       it 'returns accuracy for a team based on ratio gols to shots' do
-         expect(@stat_tracker.team_accuracy).to be_a GameTeam
+         expect(@stat_tracker.team_accuracy).to be_a Hash
       end
    end
 
@@ -182,4 +182,12 @@ RSpec.describe StatTracker do
          expect(@stat_tracker.games_goals_and_shots).to be_a Hash
       end
    end
+
+   describe '#season_games(season)' do
+      it 'returns an array of games for the season' do
+         expect(@stat_tracker.season_games("20122013")).to be_a Array 
+         expect(@stat_tracker.season_games("20122013")[0]).to be_a Game
+      end
+   end
+
 end
