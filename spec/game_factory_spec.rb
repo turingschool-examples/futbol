@@ -58,8 +58,26 @@ RSpec.describe GameFactory do
   end
 
   describe 'goals_by_team(team_id)' do
-    it 'returns an array of integers where the integers are the goals scored per game by the team that matches the team_id argument (this should be called on the array of the games_by_team(team_id) method)' do
-
+    it 'returns an array of integers' do
+      @game_factory.create_games
+      
+      expect(@game_factory.goals_by_team(3).class).to eq(Array)
+    end
+      
+    it 'returns the goals scored per game by the team that matches the team_id argument' do
+      @game_factory.create_games
+      
+      expect(@game_factory.goals_by_team(3)[0]).to eq(2)
+      expect(@game_factory.goals_by_team(3).all? {|goals| goals.class == Integer}).to be true
+      
+      expected_away = @game_factory.games_by_team(3).map {|game| (game.away_goals)}
+      expected_home = @game_factory.games_by_team(3).map {|game| (game.home_goals)}
+      index = 0
+      expect(@game_factory.goals_by_team(3).all? do |goal| 
+        (expected_away[index] == goal || expected_away[index] == goal)
+        index += 1
+        end
+        ).to be true
     end
   end
 end
