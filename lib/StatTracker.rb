@@ -1,18 +1,20 @@
 class StatTracker
-  attr_reader :game_statistics
-  # :league_statistics,
-  # :season_statistics
+  attr_reader :game_statistics,
+              :league_statistics,
+              :season_statistics
 
-  def initialize(game_statistics) #, league_statistics, season_statistics)
+  def initialize(game_statistics, league_statistics, season_statistics)
     @game_statistics = game_statistics
-    # @league_statistics = league_statistics
-    # @season_statistics = season_statistics
+    @league_statistics = league_statistics
+    @season_statistics = season_statistics
   end
 
   def self.from_csv(location)
-    games = GameStatistics.from_csv(location[:games])
+    games_statistics = GameStatistics.from_csv(location[:games])
+    league_statistics = LeagueStatistics.from_csv(location[:teams], location[:game_teams])
+    season_statistics = SeasonStatistics.from_csv(location[:games], location[:game_teams], location[:teams])
 
-    new(games) #, league_statistics, season_statistics)
+    new(games_statistics, league_statistics, season_statistics)
   end
 
   def highest_total_score
@@ -37,5 +39,33 @@ class StatTracker
 
   def count_of_games_by_season
     @game_statistics.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+    @game_statistics.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @game_statistics.average_goals_by_season
+  end
+
+  def count_of_teams
+    @league_statistics.count_of_teams
+  end
+
+  def best_offense
+    @league_statistics.best_offense
+  end
+
+  def worst_offense
+    @league_statistics.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @league_statistics.highest_scoring_visitor
+  end
+
+  def lowest_scoring_visitor
+    @league_statistics.lowest_scoring_visitor
   end
 end
