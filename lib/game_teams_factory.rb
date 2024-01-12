@@ -70,8 +70,17 @@ class GameTeamFactory
         end
         game_results
     end
+
+    def goals_by_team_and_hoa(team_id, hoa)
+        goals = []
+        @game_teams.each do |game_team|
+            goals << game_team.goals if game_team.hoa == hoa && game_team.team_id == team_id
+        end
+        goals
+    end
+    
     
 end
-# binding.pry
 
+# binding.pry
 

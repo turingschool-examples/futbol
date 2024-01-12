@@ -91,8 +91,8 @@ RSpec.describe GameTeamFactory do
             @game_team_factory.create_game_team
 
 
-            expect(@game_team_factory.goals_by_team_and_hoa(3, "HOME")).to eq([1, 2])
-            expect(@game_team_factory.goals_by_team_and_hoa(3, "AWAY")).to eq([2, 2, 1])
+            expect(@game_team_factory.goals_by_team_and_hoa(3, "home")).to eq([1, 2])
+            expect(@game_team_factory.goals_by_team_and_hoa(3, "away")).to eq([2, 2, 1])
         end
     end
 
