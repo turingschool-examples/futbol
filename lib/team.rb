@@ -12,7 +12,3 @@ class Team
     @abbreviation = abbreviation
     @stadium = stadium
   end
-end
-
-#stat tracker is going to be the one to collect all the
-#class of game shouldn't know anything about the class of teams

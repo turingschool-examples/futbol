@@ -1,10 +1,13 @@
 require 'csv'
+# require_relative './lib/game'
+# require_relative './lib/team'
+# require_relative './lib/game_team'
 
 class StatTracker
     attr_reader :games,
                 :teams,
                 :game_teams
-    
+
     def self.from_csv(locations)
         StatTracker.new(locations)
     end
@@ -68,11 +71,28 @@ class StatTracker
         game_teams_array
     end
 
-    def highest_total_score
-        #code
+    def percentage_home_wins
+
+        total_home_wins = @games.count do |game|
+            game.home_goals > game.away_goals
+        end
+        (total_home_wins.to_f / @games.size).round(2)
+
     end
 
-    def lowest_total_score
-        #code
+    def percentage_visitor_wins
+
+        total_home_wins = @games.count do |game|
+            game.home_goals < game.away_goals
+        end
+        (total_home_wins.to_f / @games.size).round(2)
+    end
+
+    def percentage_ties
+        total_ties = @games.count do |game|
+          game.home_goals == game.away_goals
+        end
+        (total_ties.to_f / @games.size).round(2)
+
     end
 end
