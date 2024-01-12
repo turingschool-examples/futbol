@@ -164,4 +164,10 @@ RSpec.describe StatTracker do
             })
       end
    end
+
+   describe '#winingest_coach' do
+      it 'can identify coach with most wins' do
+         expect(@stat_tracker.winingest_coach).to eq("Claude Julien")
+      end
+   end
 end
