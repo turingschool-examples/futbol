@@ -167,13 +167,19 @@ RSpec.describe StatTracker do
 
    describe '#most_accurate_team(season)' do
       it 'returns the name of the Team with the best ratio of shots to goals for the season' do
-         expect(@stat_tracker.most_accurate_team(20122013)).to eq("FC Dallas")
+         expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
       end
    end
 
    describe '#team_accuracy' do
       it 'returns accuracy for a team based on ratio gols to shots' do
-         expect(@stat_tracker.team_accuracy).to be_a Hash
+         expect(@stat_tracker.team_accuracy).to be_a GameTeam
+      end
+   end
+
+   describe '#games_goals_and_shots' do
+      it 'returns a hash with the game_team obj and its total shots and total goals' do
+         expect(@stat_tracker.games_goals_and_shots).to be_a Hash
       end
    end
 end
