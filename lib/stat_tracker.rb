@@ -60,6 +60,35 @@ class StatTracker
       game_team_data
    end
 
+ league_statistics
+   def count_of_teams
+      @data_teams.count  
+   end
+
+   def best_offense
+      convert_team_id_to_name(highest_average_team_id(team_stats))
+   end
+
+   def worst_offense
+      convert_team_id_to_name(lowest_average_team_id(team_stats))
+   end
+
+   def highest_scoring_visitor
+      convert_team_id_to_name(highest_average_team_id(team_stats_hoa("away")))
+   end
+
+   def highest_scoring_home_team
+      convert_team_id_to_name(highest_average_team_id(team_stats_hoa("home")))
+   end
+
+   def lowest_scoring_visitor
+      convert_team_id_to_name(lowest_average_team_id(team_stats_hoa("away")))
+   end
+
+   def lowest_scoring_home_team
+      convert_team_id_to_name(lowest_average_team_id(team_stats_hoa("home")))
+   end
+  
    def highest_total_score
       highest_score_game = @data_games.max_by do |game|
           game.away_goals + game.home_goals
@@ -127,5 +156,49 @@ class StatTracker
 #Helper Method
    def calculate_percentage(num1 , num2)
       ((num1.to_f / num2) * 100).round(2)
+   end
+  
+  def convert_team_id_to_name(team_id)
+      team_name = "0"
+      @data_teams.each do |team| 
+         if team.team_id == team_id
+            team_name = team.team_name
+         end 
+      end
+      team_name
+   end
+
+   def lowest_average_team_id(team_stats)
+     team_averages = team_stats.transform_values do |stats|
+         stats[:goals].to_f / stats[:games_played]
+      end
+      lowest_average_team_id = team_averages.min_by {|_team_id, average| average}.first
+   end
+
+   def highest_average_team_id(team_stats)
+      team_averages = team_stats.transform_values do |stats|
+         stats[:goals].to_f / stats[:games_played]
+      end
+      lowest_average_team_id = team_averages.max_by {|_team_id, average| average}.first
+   end
+
+   def team_stats
+      team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      @data_game_teams.each do |game_team|
+         team_stats[game_team.team_id][:goals] += game_team.goals
+         team_stats[game_team.team_id][:games_played] += 1
+      end
+      team_stats
+   end
+  
+   def team_stats_hoa(hoa)
+      team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      @data_game_teams.each do |game_team|
+         if game_team.hoa == hoa
+            team_stats[game_team.team_id][:goals] += game_team.goals
+            team_stats[game_team.team_id][:games_played] += 1
+         end
+      end
+      team_stats
    end
 end
