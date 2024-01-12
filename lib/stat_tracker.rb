@@ -110,8 +110,8 @@ class StatTracker
       away_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
       @data_game_teams.each do |game_team|
          if game_team.hoa == "away"
-         away_team_stats[game_team.team_id][:goals] += game_team.goals
-         away_team_stats[game_team.team_id][:games_played] += 1
+            away_team_stats[game_team.team_id][:goals] += game_team.goals
+            away_team_stats[game_team.team_id][:games_played] += 1
          end
       end
       away_team_averages = away_team_stats.transform_values do |stats|
@@ -120,9 +120,9 @@ class StatTracker
       highest_average_away_team_id = away_team_averages.max_by {|_team_id, average| average}.first
       highest_average_away_team_name = "0"
       @data_teams.each do |team| 
-            if team.team_id == highest_average_away_team_id
+         if team.team_id == highest_average_away_team_id
             highest_average_away_team_name = team.team_name
-            end 
+         end 
       end
       highest_average_away_team_name
    end
