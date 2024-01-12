@@ -26,4 +26,6 @@ class LeagueStatistics
 
     new(teams, game_teams)
   end
+
+  
 end
