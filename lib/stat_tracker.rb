@@ -230,4 +230,12 @@ class StatTracker
       end
       convert_team_id_to_name(most_accurate_team_by_season[0])
    end
+
+   def least_accurate_team(season)
+      least_accurate_team = team_accuracy.min_by { |game_team, accuracy| accuracy }.first
+      least_accurate_team_by_season = season_games(season).filter_map do |game|
+         least_accurate_team.team_id if game.game_id == least_accurate_team.game_id
+      end
+      convert_team_id_to_name(least_accurate_team_by_season[0])
+   end
 end
