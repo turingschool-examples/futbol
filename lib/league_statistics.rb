@@ -56,10 +56,10 @@ class LeagueStatistics
       teams_goals[team_id] ||= []
       teams_goals[team_id] << goals
     end
-
+  
     average_goals = teams_goals.transform_values { |goals| goals.sum / goals.size.to_f }
     worst_team_id = average_goals.key(average_goals.values.min)
-
+  
     worst_team = @teams.find { |team| team.team_id == worst_team_id }
     worst_team.teamname
   end

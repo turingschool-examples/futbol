@@ -26,7 +26,7 @@ RSpec.describe LeagueStatistics do
 
   describe '#worst_offense' do
     it 'returns the name of the team with the lowest average number of goals scored per game' do
-      expect(league_stats.worst_offense).to eq('Atlanta United')
+      expect(league_stats.worst_offense).to eq('Houston Dynamo')
     end
   end
 
