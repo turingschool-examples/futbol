@@ -64,4 +64,62 @@ RSpec.describe StatTracker do
          expect(game_team_0.tackles).to eq(44)
       end
    end
+
+   describe '#highest_total_score' do
+      it 'returns highest sum of winning and losing team score' do
+         expect(@stat_tracker.highest_total_score).to eq(5)
+      end
+   end
+
+   describe '#lowest_total_score' do
+      it 'returns lowest sum of winning and losing team score' do
+         expect(@stat_tracker.lowest_total_score).to eq(1)
+      end
+   end
+
+   describe '#percentage_home_wins' do
+      it 'returns percentage of games that a home team has won' do
+         expect(@stat_tracker.percentage_home_wins).to eq(70.0)
+      end
+   end
+
+   describe '#calculate_percentage' do
+      it 'calculates percentages' do
+         expect(@stat_tracker.calculate_percentage(20 , 30)).to eq (66.67)
+      end
+   end
+
+   describe '#percentage_visitor_wins' do
+      it 'returns percentage of games that a visitor has won' do
+         expect(@stat_tracker.percentage_visitor_wins).to eq(25.0)
+      end
+   end
+
+   describe '#percentage_ties' do
+      it 'returns percentage of games that has resulted in a tie' do
+         expect(@stat_tracker.percentage_ties).to eq(5.0)
+      end
+   end
+
+   describe '#count_of_games_by_season' do
+      it 'returns hash with season names as keys and counts of games as values' do
+            expect(@stat_tracker.count_of_games_by_season).to eq({
+               "20122013" => 20
+            })
+      end
+   end
+
+   describe '#average_goals_per_game' do
+      it 'average of goals scored in a game across all seasons including both home and away goals' do
+         expect(@stat_tracker.average_goals_per_game).to eq (3.75)
+      end
+   end
+
+   describe '#average_goals_by_season' do
+      it 'returns avg number of goals in a game across all season' do
+         expect(@stat_tracker.average_goals_by_season).to eq({
+               "20122013" => 3.75
+            })
+      end
+   end
 end
