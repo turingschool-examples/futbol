@@ -116,7 +116,7 @@ class StatTracker
             away_team_stats[game_team.team_id][:games_played] += 1
          end
       end
-      
+
       away_team_averages = away_team_stats.transform_values do |stats|
          stats[:goals].to_f / stats[:games_played]
       end
@@ -147,10 +147,11 @@ class StatTracker
       
       highest_average_home_team_id = home_team_averages.max_by {|_team_id, average| average}.first
       highest_average_home_team_name = "0"
+
       @data_teams.each do |team| 
-            if team.team_id == highest_average_home_team_id
+         if team.team_id == highest_average_home_team_id
             highest_average_home_team_name = team.team_name
-            end 
+         end 
       end
       highest_average_home_team_name
    end
