@@ -43,7 +43,6 @@ RSpec.describe StatTracker do
          location = './data/teams_fixture.csv'
 
          expect(@stat_tracker.read_teams_csv(location)[0]).to be_a Team
-         #require 'pry' ; binding.pry
          expect(@stat_tracker.read_teams_csv(location)[0].team_id).to eq(1)
          expect(@stat_tracker.read_teams_csv(location)[0].team_name).to eq("Atlanta United")
       end
@@ -53,7 +52,6 @@ RSpec.describe StatTracker do
       it 'create game_team objects' do
          location = './data/game_teams_fixture.csv'
          game_team_0 = @stat_tracker.read_game_teams_csv(location)[0]
-         # require 'pry' ; binding.pry
          expect(@stat_tracker.read_game_teams_csv(location)[0]).to be_a GameTeam
          expect(game_team_0.game_id).to eq("2012030221")
          expect(game_team_0.team_id).to eq(3)
@@ -66,7 +64,7 @@ RSpec.describe StatTracker do
       end
    end
 
-  league_statistics
+#   league_statistics
    describe '#count_of_teams' do
       it 'can count teams' do
          expect(@stat_tracker.count_of_teams).to eq(20)
@@ -123,25 +121,25 @@ RSpec.describe StatTracker do
 
    describe '#percentage_home_wins' do
       it 'returns percentage of games that a home team has won' do
-         expect(@stat_tracker.percentage_home_wins).to eq(70.0)
+         expect(@stat_tracker.percentage_home_wins).to eq(0.7)
       end
    end
 
    describe '#calculate_percentage' do
       it 'calculates percentages' do
-         expect(@stat_tracker.calculate_percentage(20 , 30)).to eq (66.67)
+         expect(@stat_tracker.calculate_percentage(20 , 30)).to eq (0.67)
       end
    end
 
    describe '#percentage_visitor_wins' do
       it 'returns percentage of games that a visitor has won' do
-         expect(@stat_tracker.percentage_visitor_wins).to eq(25.0)
+         expect(@stat_tracker.percentage_visitor_wins).to eq(0.25)
       end
    end
 
    describe '#percentage_ties' do
       it 'returns percentage of games that has resulted in a tie' do
-         expect(@stat_tracker.percentage_ties).to eq(5.0)
+         expect(@stat_tracker.percentage_ties).to eq(0.05)
       end
    end
 
