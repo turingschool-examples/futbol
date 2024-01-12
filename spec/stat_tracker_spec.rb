@@ -53,7 +53,7 @@ RSpec.describe StatTracker do
       it 'create game_team objects' do
          location = './data/game_teams_fixture.csv'
          game_team_0 = @stat_tracker.read_game_teams_csv(location)[0]
-         require 'pry' ; binding.pry
+         # require 'pry' ; binding.pry
          expect(@stat_tracker.read_game_teams_csv(location)[0]).to be_a GameTeam
          expect(game_team_0.game_id).to eq("2012030221")
          expect(game_team_0.team_id).to eq(3)
@@ -85,10 +85,27 @@ RSpec.describe StatTracker do
    end
 
    describe '#highest_scoring_visitor' do
-      
+      it 'can identify highest scoring visitor' do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+      end
+   end
+   
+   describe '#highest_scoring_home_team' do
+      it  'can identify highest scoring home team' do
+         expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+      end
+   end
+   
+   describe '#lowest_scoring_visitor' do
+      it  'can identify lowest scoring visitor' do
+         expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+      end
    end
 
-   describe '#lowest_scoring_visitor' do
-      
+   describe '#lowest_scoring_home_team' do
+      it  'can identify lowest scoring home team' do
+         expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+      end
    end
+
 end
