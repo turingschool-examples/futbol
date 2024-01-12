@@ -209,17 +209,17 @@
           1,
           1,
           1,
-          4,
-          4,
-          4,
-          4,
-          null,
-          null,
-          3,
           1,
+          0,
+          0,
+          0,
           null,
-          6,
-          1,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
           null,
           null,
           1,
@@ -442,21 +442,6 @@
       "/Users/mel/Turing/mod1/projects/futbol/spec/league_statistics_spec.rb": {
         "lines": [
           1,
-          1,
-          null,
-          4,
-          null,
-          null,
-          null,
-          null,
-          null,
-          4,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           4,
           4,
           4,
@@ -492,6 +477,6 @@
         ]
       }
     },
-    "timestamp": 1705086562
+    "timestamp": 1705086791
   }
 }

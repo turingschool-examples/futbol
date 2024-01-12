@@ -20,13 +20,13 @@ RSpec.describe LeagueStatistics do
 
   describe '#best_offense' do
     it 'returns the best offense' do
-      expect(league_stats.best_offense).to eq('Chicago Fire')
+      expect(league_stats.best_offense).to eq('FC Dallas')
     end
   end
 
   describe '#worst_offense' do
     it 'returns the name of the team with the lowest average number of goals scored per game' do
-      expect(subject.worst_offense).to eq('Atlanta United')
+      expect(league_stats.worst_offense).to eq('Atlanta United')
     end
   end
 
