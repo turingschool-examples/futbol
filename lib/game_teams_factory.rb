@@ -57,9 +57,18 @@ class GameTeamFactory
     def ratio_of_shots_to_goals
         hash = {}
         @game_teams.each do |game_team|
-            hash[game_team.get_season_from_game_id] = ratio_of_shots_to_goals(game_team.get_season_from_game_id)
+            hash[game_team.get_season_from_game_id] = ratio_of_shots_to_goals_by_season(game_team.get_season_from_game_id)
         end
         hash
+    end
+
+
+    def game_result_by_hoa
+        game_results = []
+        @game_teams.each do |game_team|
+            game_results << game_team.hoa if game_team.result == "WIN"
+        end
+        game_results
     end
     
 end
