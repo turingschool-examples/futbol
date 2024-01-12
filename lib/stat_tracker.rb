@@ -100,10 +100,10 @@ class StatTracker
       lowest_average_team_name = "0"
       @data_teams.each do |team| 
          if team.team_id == lowest_average_team_id
-         lowest_average_team_name = team.team_name
-      end 
-   end
-   lowest_average_team_name
+            lowest_average_team_name = team.team_name
+         end 
+      end
+      lowest_average_team_name
    end
 
    def highest_scoring_visitor
