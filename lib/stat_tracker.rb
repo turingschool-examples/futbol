@@ -65,11 +65,11 @@ class StatTracker
    end
 
    def best_offense
-      team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
-      @data_game_teams.each do |game_team|
-         team_stats[game_team.team_id][:goals] += game_team.goals
-         team_stats[game_team.team_id][:games_played] += 1
-      end
+      # team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      # @data_game_teams.each do |game_team|
+      #    team_stats[game_team.team_id][:goals] += game_team.goals
+      #    team_stats[game_team.team_id][:games_played] += 1
+      # end
       convert_team_id_to_name(highest_average_team_id(team_stats))
    end
 
@@ -81,7 +81,7 @@ class StatTracker
       end
       convert_team_id_to_name(lowest_average_team_id(team_stats))
    end
-   
+
    def highest_scoring_visitor
       away_team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
       @data_game_teams.each do |game_team|
@@ -150,5 +150,14 @@ class StatTracker
          stats[:goals].to_f / stats[:games_played]
       end
       lowest_average_team_id = team_averages.max_by {|_team_id, average| average}.first
+   end
+
+   def team_stats
+      team_stats = Hash.new {|hash, key| hash[key] = {goals: 0, games_played: 0 }}
+      @data_game_teams.each do |game_team|
+         team_stats[game_team.team_id][:goals] += game_team.goals
+         team_stats[game_team.team_id][:games_played] += 1
+      end
+      team_stats
    end
 end
