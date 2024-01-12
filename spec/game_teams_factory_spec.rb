@@ -118,7 +118,7 @@ RSpec.describe GameTeamFactory do
         it 'can return a hash with a season as the key and a hash with the key of coach name and their win percentage as the value for the value of the season key' do
             @game_team_factory.create_game_team
 
-            expect(@game_team_factory.find_coaches_win_percentages).to eq({})
+            expect(@game_team_factory.find_coaches_win_percentages).to eq({20122013=>{"Claude Julien"=>100.0, "Dan Bylsma"=>0.0, "Joel Quenneville"=>100.0, "John Tortorella"=>0.0, "Mike Babcock"=>0.0}})
         end
     end
 end

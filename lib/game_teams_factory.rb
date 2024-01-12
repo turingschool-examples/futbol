@@ -103,6 +103,14 @@ class GameTeamFactory
         end
         percentages_by_coach
     end
+
+    def find_coaches_win_percentages
+        coaches_win_percentages = {}
+        @game_teams.each do |game_team|
+            coaches_win_percentages[game_team.get_season_from_game_id] = win_percentage_by_coach_by_season(game_team.get_season_from_game_id)
+        end
+        coaches_win_percentages
+    end
     
     
 end
