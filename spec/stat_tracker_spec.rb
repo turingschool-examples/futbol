@@ -1,13 +1,6 @@
 require_relative './spec_helper.rb'
 
 RSpec.describe StatTracker do
-    # before :each do
-    #     game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-    #     team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
-    #     game_teams_stats = SeasonStatistics.from_csv('./data/game_teams_sample.csv')
-    #     stat_tracker = StatTracker.new(game_stats)
-    # end
-
     describe '#initialize' do
         it 'exists' do
             game_statistics_instance = GameStatistics.new
@@ -56,7 +49,9 @@ RSpec.describe StatTracker do
     describe '#lowest_total_score' do
         it 'has a lowest total score' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.lowest_total_score).to eq(3)
         end
@@ -65,7 +60,9 @@ RSpec.describe StatTracker do
     describe '#percentage_home_wins' do
         it 'has percentage_home_wins' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.percentage_home_wins).to eq(50)
         end
@@ -83,7 +80,9 @@ RSpec.describe StatTracker do
     describe '#percentage_ties' do
         it 'has percentage_ties' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.percentage_ties).to eq(0)
         end
@@ -92,7 +91,9 @@ RSpec.describe StatTracker do
     describe '#count_of_games_by_season' do
         it 'has count_of_games_by_season' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.count_of_games_by_season).to eq(20122013=>4)
         end
@@ -101,7 +102,9 @@ RSpec.describe StatTracker do
     describe '#average_goals_per_game' do
         it 'averages goals per game' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.average_goals_per_game).to eq(4.5)
         end
@@ -110,7 +113,9 @@ RSpec.describe StatTracker do
     describe '#average_goals_by_season' do
         it 'averages goals by season' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.average_goals_by_season).to eq({20122013=>4.5})
         end
@@ -119,8 +124,9 @@ RSpec.describe StatTracker do
     describe '#count_of_teams' do
         it 'counts all teams' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.count_of_teams).to eq(6)
         end
@@ -129,8 +135,9 @@ RSpec.describe StatTracker do
     describe '#best_offense' do
         it 'returns the best offense' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.best_offense).to eq('FC Dallas')
         end
@@ -139,8 +146,9 @@ RSpec.describe StatTracker do
     describe '#worst_offense' do
         it 'returns the worst offense' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.worst_offense).to eq('Houston Dynamo')
         end
@@ -149,8 +157,9 @@ RSpec.describe StatTracker do
     describe '#highest_scoring_visitor' do
         it 'returns the highest scoring visitor' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.highest_scoring_visitor).to eq('Houston Dynamo')
         end
@@ -159,8 +168,9 @@ RSpec.describe StatTracker do
     describe '#lowest_scoring_visitor' do
         it 'returns the lowest scoring visitor' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.lowest_scoring_visitor).to eq('Houston Dynamo')
         end
