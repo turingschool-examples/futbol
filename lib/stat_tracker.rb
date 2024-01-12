@@ -163,6 +163,15 @@ class StatTracker
       #require 'pry' ; binding.pry
    end
 
+   def worst_coach
+      worst_coach = coach_game_stats.min_by do |coach, stats|
+         lose_percentage = stats[:games_won].to_f / stats[:number_of_games]
+         lose_percentage 
+      end
+      worst_coach[0]
+      #require 'pry' ; binding.pry
+   end
+
 #Helper Method
    def calculate_percentage(num1 , num2)
       ((num1.to_f / num2)).round(2)
