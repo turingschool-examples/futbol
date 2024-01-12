@@ -74,11 +74,30 @@ RSpec.describe StatTracker do
     end
 
     describe '#count_of_games_by_season' do
-    it 'has count_of_games_by_season' do
-        game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-        stat_tracker = StatTracker.new(game_stats)
+        it 'has count_of_games_by_season' do
+            game_stats = GameStatistics.from_csv('./data/games_sample.csv')
+            stat_tracker = StatTracker.new(game_stats)
 
-        expect(stat_tracker.count_of_games_by_season).to eq(20122013=>4)
+            expect(stat_tracker.count_of_games_by_season).to eq(20122013=>4)
+        end
     end
-end
+
+    describe '#average_goals_per_game' do
+        it 'averages goals per game' do
+            game_stats = GameStatistics.from_csv('./data/games_sample.csv')
+            stat_tracker = StatTracker.new(game_stats)
+
+            expect(game_stats.average_goals_per_game).to eq(4.5)
+        end
+    end
+
+    describe '#average_goals_per_season' do
+        it 'averages goals per season' do
+            game_stats = GameStatistics.from_csv('./data/games_sample.csv')
+            stat_tracker = StatTracker.new(game_stats)
+
+            expect(game_stats.average_goals_by_season).to eq({20122013=>4.5})
+        end
+    end
+            
 end
