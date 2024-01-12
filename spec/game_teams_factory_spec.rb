@@ -52,21 +52,29 @@ RSpec.describe GameTeamFactory do
     end
 
 
-
-    describe '#ratio_of_shots_to_goals_by_season(season)' do
-        xit 'can give you a hash with the shot to goal ratio of each team by their team id' do
+    describe '#ratio_of_shots_to_goals_by_team(team_id)' do
+        it 'can tell you the ratio of shots to goals by the team id' do
             @game_team_factory.create_game_team
 
-            expect(@game_team_factory.ratio_of_shots_to_goals_by_season(20122013)).to eq({3 => 20.51, 6 => 31.58, 5 => 6.25, 17 => 20.00, 16 => 20.00})
+            expect(@game_team_factory.ratio_of_shots_to_goals_by_team(3)).to eq(21.05)
+        end
+    end
+
+    describe '#ratio_of_shots_to_goals_by_season(season)' do
+        it 'can give you a hash with the shot to goal ratio of each team by their team id' do
+            @game_team_factory.create_game_team
+
+            expect(@game_team_factory.ratio_of_shots_to_goals_by_season(20122013)).to eq({3 => 21.05, 6 => 31.58, 5 => 6.25, 17 => 20.00, 16 => 20.00})
         end
     end
     
-    describe '#ratio_of_shots_to_goals_by_team(team_id)' do
-        it 'can tell you the ratio of shots to goals' do
+
+    describe '#ratio_of_shots_to_goals' do
+    # should edit fixture to test this with multiple seasons
+        it 'can tell you the ratio of shots to goals for all teams by all seasons' do
             @game_team_factory.create_game_team
 
-            expect(@game_team_factory.ratio_of_shots_to_goals_by_team(3)).to eq(20.51)
+            expect(@game_team_factory.ratio_of_shots_to_goals).to eq({20122013 => {3 => 21.05, 6 => 31.58, 5 => 6.25, 17 => 20.00, 16 => 20.00}})
         end
     end
-
 end
