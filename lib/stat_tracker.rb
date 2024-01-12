@@ -154,6 +154,15 @@ class StatTracker
       avg_goals_by_season
    end
 
+   def winingest_coach
+      best_coach = coach_game_stats.max_by do |coach, stats|
+         win_percentage = stats[:games_won].to_f / stats[:number_of_games]
+         win_percentage 
+      end
+      best_coach[0]
+      #require 'pry' ; binding.pry
+   end
+
 #Helper Method
    def calculate_percentage(num1 , num2)
       ((num1.to_f / num2)).round(2)
@@ -187,6 +196,17 @@ class StatTracker
          team_stats[game_team.team_id][:games_played] += 1
       end
       team_stats
+   end
+
+   def coach_game_stats
+      game_stats = Hash.new {|hash, key| hash[key] = {number_of_games: 0, games_won: 0 }}
+      @data_game_teams.each do |game_team|
+         game_stats[game_team.head_coach][:number_of_games] += 1
+         if game_team.result == "WIN"
+         game_stats[game_team.head_coach][:games_won] += 1
+         end
+      end
+      game_stats
    end
   
    def team_stats_hoa(hoa)
