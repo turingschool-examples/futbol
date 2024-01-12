@@ -28,6 +28,20 @@
    
 * Joey Reyes Linkedin: https://www.linkedin.com/in/jose-reyes-590130297/  Github: https://github.com/JRIV-10 
 
+7. Retro 
+* The name of and links (if applicable) to any tools you used for retro
+https://easyretro.io/publicboard/GRhg0M6DVOM3OtOeJ5w4BaKdImZ2/3dde4d6d-24f6-4e96-8077-24e87d08f6d6 
+
+* Top 3 things that went well during your project 
+    1. Communication 
+    2. Flexibility 
+    3 assigned tasks properly
+
+* Top 3 things your team would do differently next time
+    1. Communicate on PR's more often 
+    2. Use Github Projects more effecitvily 
+    3. Set up more structured daily stand-ups
+
 
 
 

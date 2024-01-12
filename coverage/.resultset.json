@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/hoadam/mod_1/group_project/futbol/lib/game.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/lib/game.rb": {
         "lines": [
           1,
           1,
@@ -24,7 +24,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/lib/game_team.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/lib/game_team.rb": {
         "lines": [
           1,
           1,
@@ -55,7 +55,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/lib/team.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/lib/team.rb": {
         "lines": [
           1,
           1,
@@ -72,7 +72,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/lib/game_statistics.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/lib/game_statistics.rb": {
         "lines": [
           1,
           1,
@@ -141,7 +141,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/lib/league_statistics.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/lib/league_statistics.rb": {
         "lines": [
           1,
           1,
@@ -174,7 +174,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/lib/season_statistics.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/lib/season_statistics.rb": {
         "lines": [
           1,
           1,
@@ -321,7 +321,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/lib/StatTracker.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/lib/StatTracker.rb": {
         "lines": [
           1,
           1,
@@ -366,7 +366,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/spec/game_spec.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/spec/game_spec.rb": {
         "lines": [
           1,
           null,
@@ -395,7 +395,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/spec/game_statistics_spec.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/spec/game_statistics_spec.rb": {
         "lines": [
           1,
           null,
@@ -515,7 +515,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/spec/game_team_spec.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/spec/game_team_spec.rb": {
         "lines": [
           1,
           1,
@@ -554,7 +554,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/spec/league_statistics_spec.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/spec/league_statistics_spec.rb": {
         "lines": [
           1,
           2,
@@ -572,7 +572,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/spec/season_statistics_spec.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/spec/season_statistics_spec.rb": {
         "lines": [
           1,
           11,
@@ -647,7 +647,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/spec/stat_tracker_spec.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/spec/stat_tracker_spec.rb": {
         "lines": [
           1,
           null,
@@ -735,7 +735,7 @@
           null
         ]
       },
-      "/Users/hoadam/mod_1/group_project/futbol/spec/team_spec.rb": {
+      "/Users/joeyreyes/turing_work/1mod/group_project/futbol/spec/team_spec.rb": {
         "lines": [
           1,
           1,
@@ -760,6 +760,6 @@
         ]
       }
     },
-    "timestamp": 1705085301
+    "timestamp": 1705090611
   }
 }
