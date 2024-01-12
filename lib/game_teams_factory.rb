@@ -78,6 +78,21 @@ class GameTeamFactory
         end
         goals
     end
+
+    def win_percentage_by_coach(head_coach)
+        wins = 0
+        losses = 0
+        @game_teams.each do |game_team|
+            wins += 1 if game_team.result == 'WIN' && game_team.head_coach == head_coach
+        end
+        if wins == 0
+            0.00
+        elsif losses == 0
+            100.00
+        else
+            ((wins.to_f / losses.to_f) * 100).round(2)
+        end
+    end
     
     
 end

@@ -95,24 +95,17 @@ RSpec.describe GameTeamFactory do
         end
     end
 
-    describe '#find_coaches_win_percentages' do
-        it 'can return a hash with a season as the key and a hash with the key of coach name and their win percentage as the value for the value of the season key' do
-            @game_team_factory.create_game_team
-
-            expect(@game_team_factory.find_coaches_win_percentages).to eq({})
-        end
-    end
-
+    
     describe '#win_percentage_by_coach(head_coach)' do
-    # should add in some extra data in the fixture file that will give us percentages other than 0 and 100 for more thorough testing
+        # should add in some extra data in the fixture file that will give us percentages other than 0 and 100 for more thorough testing
         it 'can tell you the win percentage of the headcoach in the argument' do
             @game_team_factory.create_game_team
-
-            expect(@game_team_factory.win_percentage_by_coach("John Tortorella"))to eq(0.00)
-            expect(@game_team_factory.win_percentage_by_coach("Dan Bylsma"))to eq(100.00)
+            
+            expect(@game_team_factory.win_percentage_by_coach("John Tortorella")).to eq(0.00)
+            expect(@game_team_factory.win_percentage_by_coach("Claude Julien")).to eq(100.00)
         end
     end
-            
+
     describe '#win_percentage_by_coach_by_season(season)' do
         it 'can give you a hash with the shot to goal ratio of each team by their team id' do
             @game_team_factory.create_game_team
@@ -121,4 +114,11 @@ RSpec.describe GameTeamFactory do
         end
     end
 
+    describe '#find_coaches_win_percentages' do
+        it 'can return a hash with a season as the key and a hash with the key of coach name and their win percentage as the value for the value of the season key' do
+            @game_team_factory.create_game_team
+
+            expect(@game_team_factory.find_coaches_win_percentages).to eq({})
+        end
+    end
 end
