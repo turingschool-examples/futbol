@@ -99,4 +99,18 @@ RSpec.describe GameStatistics do
             expect(game_stats.percentage_ties).to eq(0)
         end 
     end 
+
+    describe '#count_of_games_by_season' do 
+    it 'counts games by season' do 
+        games = [
+            Game.new({ game_id: "2012030221", season: "20122013", away_team_id: "3", home_team_id: "6", away_goals: 2, home_goals: 3 }),
+            Game.new({ game_id: "2012030222", season: "20122013", away_team_id: "3", home_team_id: "6", away_goals: 2, home_goals: 3 }),
+            Game.new({ game_id: "2012030223", season: "20122013", away_team_id: "6", home_team_id: "3", away_goals: 2, home_goals: 1 }),
+            Game.new({ game_id: "2012030224", season: "20122013", away_team_id: "6", home_team_id: "3", away_goals: 3, home_goals: 2 })
+            ]
+            game_stats = GameStatistics.new(games)
+            
+            expect(game_stats.count_of_games_by_season).to eq({"20122013"=>4})
+        end 
+    end
 end
