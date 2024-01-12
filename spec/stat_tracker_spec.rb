@@ -1,6 +1,13 @@
 require_relative './spec_helper.rb'
 
 RSpec.describe StatTracker do
+    # before :each do
+    #     game_stats = GameStatistics.from_csv('./data/games_sample.csv')
+    #     team_stats = TeamStatistics.from_csv('/data/teams_sampe.csv')
+    #     game_teams_stats = SeasonStatistics.from_csv('./data/game_teams_sample.csv')
+    #     stat_tracker = StatTracker.new(game_stats)
+    # end
+
     describe '#initialize' do
         it 'exists' do
             game_statistics_instance = GameStatistics.new
@@ -17,7 +24,10 @@ RSpec.describe StatTracker do
 
     describe '#self.from_csv(location)' do
         it 'can access the location' do
-            location = { games: './data/games_sample.csv'}
+            location = { games: './data/games_sample.csv',
+                         teams: './data/teams_sample.csv',
+                         game_teams: './data/game_teams_sample.csv'
+                        }
             stat_tracker = StatTracker.from_csv(location)
 
             expect(stat_tracker).to be_a StatTracker
@@ -35,7 +45,9 @@ RSpec.describe StatTracker do
     describe '#highest_total_score' do
         it 'has a highest total score' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
-            stat_tracker = StatTracker.new(game_stats)
+            team_stats = LeagueStatistics.from_csv('./data/game_teams_sample.csv', './data/teams_sample.csv')
+            game_teams_stats = SeasonStatistics.from_csv('./data/games_sample.csv', './data/game_teams_sample.csv', './data/teams_sample.csv')
+            stat_tracker = StatTracker.new(game_stats, team_stats, game_teams_stats)
 
             expect(stat_tracker.highest_total_score).to eq(5)
         end
@@ -95,8 +107,8 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe '#average_goals_per_season' do
-        it 'averages goals per season' do
+    describe '#average_goals_by_season' do
+        it 'averages goals by season' do
             game_stats = GameStatistics.from_csv('./data/games_sample.csv')
             stat_tracker = StatTracker.new(game_stats)
 
