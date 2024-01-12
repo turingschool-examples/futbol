@@ -1,10 +1,10 @@
 require 'csv'
-# require_relative './lib/game'
-# require_relative './lib/team'
-# require_relative './lib/game_team'
 
 class StatTracker
-    attr_reader :games, :teams, :game_teams
+    attr_reader :games,
+                :teams,
+                :game_teams
+    
     def initialize
         @games = []
         @teams = []
@@ -33,6 +33,7 @@ class StatTracker
                 elsif file_name == :teams
                     team_id = row[:team_id]
                     franchise_id = row[:franchise]
+                    team_name = row[:teamName]
                     abbreviation = row[:abbreviation]
                     stadium = row[:stadium]
                     @teams << team = Team.new(team_id, franchise_id, abbreviation, stadium)
@@ -59,5 +60,14 @@ class StatTracker
                 end
             end
         end
+    end
+
+    def highest_total_score
+        #.max may not be the correct method to call on games
+        @games.max {|game| game.total_score}
+    end
+
+    def lowest_total_score
+        #code
     end
 end
