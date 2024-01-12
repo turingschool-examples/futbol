@@ -47,5 +47,11 @@ class GameStatistics
     away_wins = @games.count { |game| game.away_goals > game.home_goals }
     (away_wins.to_f / total_games * 100).round(2)
   end
+
+  def percentage_ties
+    total_games = @games.size 
+    tie = @games.count { |game| game.away_goals == game.home_goals }
+    (tie.to_f / total_games * 100).round(2)
+  end
 end
 
