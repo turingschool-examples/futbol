@@ -85,4 +85,15 @@ RSpec.describe GameTeamFactory do
             expect(@game_team_factory.game_result_by_hoa).to eq(['home', 'home', 'away', 'away', 'home', 'away', 'away', 'home', 'home', 'home'])
         end
     end
+
+    describe '#goals_by_team_and_hoa(team_id, home/away)' do
+        it 'returns an array with all of the total goals scored by the team in argument for the games that they were home/away' do
+            @game_team_factory.create_game_team
+
+
+            expect(@game_team_factory.goals_by_team_and_hoa(3, "HOME")).to eq([1, 2])
+            expect(@game_team_factory.goals_by_team_and_hoa(3, "AWAY")).to eq([2, 2, 1])
+        end
+    end
+
 end
