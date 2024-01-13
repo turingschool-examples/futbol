@@ -71,6 +71,14 @@ class StatTracker
         game_teams_array
     end
 
+    def highest_total_score
+        @games.map {|game| game.total_score}.max
+    end
+
+    def lowest_total_score
+        @games.map {|game| game.total_score}.min
+    end
+    
     def percentage_home_wins
 
         total_home_wins = @games.count do |game|
