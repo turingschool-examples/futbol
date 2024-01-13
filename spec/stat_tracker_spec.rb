@@ -185,20 +185,14 @@ RSpec.describe StatTracker do
 
    describe '#team_accuracy' do
       it 'returns accuracy for a team based on ratio gols to shots' do
-         expect(@stat_tracker.team_accuracy).to be_a Hash
+         expect(@stat_tracker.team_accuracy("20122013")).to be_a Hash
       end
    end
 
-   describe '#games_goals_and_shots' do
-      it 'returns a hash with the game_team obj and its total shots and total goals' do
-         expect(@stat_tracker.games_goals_and_shots).to be_a Hash
-      end
-   end
-
-   describe '#season_games(season)' do
+   describe '#season_games_by_id(season)' do
       it 'returns an array of games for the season' do
-         expect(@stat_tracker.season_games("20122013")).to be_a Array 
-         expect(@stat_tracker.season_games("20122013")[0]).to be_a Game
+         expect(@stat_tracker.season_games_by_id("20122013")).to be_a Array 
+         expect(@stat_tracker.season_games_by_id("20122013")[0]).to be_a String
       end
    end
 
