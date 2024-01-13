@@ -104,5 +104,20 @@ RSpec.describe StatTracker do
             stat_tracker = StatTracker.from_csv(locations)
             expect(stat_tracker.average_goals_per_game).to eq(4.45)
         end
+
+        it 'returns average goals per season' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './spec/fixtures/teams_fixture.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.average_goals_per_season).to eq({20122013 => 4.55, 20132014 => 3.75})
+        end
     end
 end
