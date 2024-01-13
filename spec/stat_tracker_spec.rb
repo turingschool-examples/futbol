@@ -38,8 +38,8 @@ RSpec.describe StatTracker do
     describe '#percentage_home_wins' do
         it 'returns the percentage of home wins' do
             game_path = './spec/fixtures/games_fixture.csv'
-            team_path = './spec/fixture/teams_fixture.csv'
-            game_teams_path = './spec/fixture/game_teams_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
 
             locations = {
                 games: game_path,
@@ -49,7 +49,7 @@ RSpec.describe StatTracker do
 
             stat_tracker = StatTracker.from_csv(locations)
 
-            expect(stat_tracker.percentage_home_wins).to eq(0.55)
+            expect(stat_tracker.percentage_home_wins).to eq(0.5)
 
         end
     end
@@ -57,8 +57,8 @@ RSpec.describe StatTracker do
     describe '#percentage_visitor_wins' do
         it 'returns the percentage of visitor wins' do
             game_path = './spec/fixtures/games_fixture.csv'
-            team_path = './spec/fixture/teams_fixture.csv'
-            game_teams_path = './spec/fixture/game_teams_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
 
             locations = {
                 games: game_path,
@@ -68,15 +68,16 @@ RSpec.describe StatTracker do
 
             stat_tracker = StatTracker.from_csv(locations)
 
-            expect(stat_tracker.percentage_visitor_wins).to eq(0.45)
+
+            expect(stat_tracker.percentage_visitor_wins).to eq(0.4)
         end
     end
 
     describe '#percentage_ties' do
         it 'returns the percentage of ties' do
             game_path = './spec/fixtures/games_fixture.csv'
-            team_path = './spec/fixture/teams_fixture.csv'
-            game_teams_path = './spec/fixture/game_teams_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
 
             locations = {
                 games: game_path,
@@ -86,7 +87,28 @@ RSpec.describe StatTracker do
 
             stat_tracker = StatTracker.from_csv(locations)
 
-            expect(stat_tracker.percentage_ties).to eq(0.30)
+            expect(stat_tracker.percentage_ties).to eq(0.1)
+
         end
     end
+
+    describe 'count_of_teams' do
+        it 'returns how many teams are there' do
+
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.new(locations)
+          
+            expect(stat_tracker.count_of_teams).to eq(32)
+        end
+    end
+
 end
