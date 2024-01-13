@@ -49,7 +49,8 @@ class GameTeamFactory
             game_results << game_team.hoa if game_team.result == "WIN"
         end
         game_results
-
+    end
+    
   def ratio_of_shots_to_goals_by_season(season)
     ratios = {}
     @game_teams.each do |game_team|

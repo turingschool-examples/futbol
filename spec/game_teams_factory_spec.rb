@@ -2,19 +2,19 @@ require './lib/game_teams'
 require './lib/game_teams_factory'
 require 'pry'
 
-
+RSpec.describe GameTeamFactory do
 	before do
-    @file_path = './data/game_teams_fixture.csv'
-    @game_team_factory = GameTeamFactory.new(@file_path)
+			@file_path = './data/game_teams_fixture.csv'
+			@game_team_factory = GameTeamFactory.new(@file_path)
 	end
 
 	describe '#initialize' do
 		it 'exists' do 
-			expect(@game_team_factory).to be_a(GameTeamFactory)
+				expect(@game_team_factory).to be_a(GameTeamFactory)
 		end
 
 		it 'has a file path attribute' do
-			expect(@game_team_factory.file_path).to eq(@file_path)
+				expect(@game_team_factory.file_path).to eq(@file_path)
 		end
 	end
 
@@ -52,11 +52,11 @@ require 'pry'
 	end
 
 	describe '#ratio_of_shots_to_goals_by_season(season)' do
-    it 'can give you a hash with the shot to goal ratio of each team by their team id' do
-      @game_team_factory.create_game_team
+	it 'can give you a hash with the shot to goal ratio of each team by their team id' do
+		@game_team_factory.create_game_team
 
-      expect(@game_team_factory.ratio_of_shots_to_goals_by_season(20122013)).to eq({3 => 21.05, 6 => 32.53, 5 => 11.67, 17 => 20.00, 16 => 23.53})
-    end
+		expect(@game_team_factory.ratio_of_shots_to_goals_by_season(20122013)).to eq({3 => 21.05, 6 => 32.53, 5 => 11.67, 17 => 20.00, 16 => 23.53})
+	end
 	end
 
 	describe '#ratio_of_shots_to_goals' do
@@ -104,49 +104,48 @@ require 'pry'
 				)
 		end
 	end
-end
     
-    describe '#game_result_by_hoa' do
-        it 'returns an array of strings with the team that won (home, away, or tie)' do
-            @game_team_factory.create_game_team
-            
-            expect(@game_team_factory.game_result_by_hoa).to eq(["home", "home", "away", "away", "home", "away", "away", "home", "home", "home", "home", "home", "home", "home", "home", "home"])
-        end
+  describe '#game_result_by_hoa' do
+    it 'returns an array of strings with the team that won (home, away, or tie)' do
+        @game_team_factory.create_game_team
+
+        expect(@game_team_factory.game_result_by_hoa).to eq(["home", "home", "away", "away", "home", "away", "away", "home", "home", "home", "home", "home", "home", "home", "home", "home"])
     end
+  end
 
-    describe '#goals_by_team_and_hoa(team_id, home/away)' do
-        it 'returns an array with all of the total goals scored by the team in argument for the games that they were home/away' do
-            @game_team_factory.create_game_team
+  describe '#goals_by_team_and_hoa(team_id, home/away)' do
+    it 'returns an array with all of the total goals scored by the team in argument for the games that they were home/away' do
+        @game_team_factory.create_game_team
 
 
-            expect(@game_team_factory.goals_by_team_and_hoa(3, "home")).to eq([1, 2])
-            expect(@game_team_factory.goals_by_team_and_hoa(3, "away")).to eq([2, 2, 1])
-        end
+        expect(@game_team_factory.goals_by_team_and_hoa(3, "home")).to eq([1, 2])
+        expect(@game_team_factory.goals_by_team_and_hoa(3, "away")).to eq([2, 2, 1])
     end
+  end
 
-    
-    describe '#win_percentage_by_coach(head_coach)' do
-        it 'can tell you the win percentage of the headcoach in the argument' do
-            @game_team_factory.create_game_team
-            
-            expect(@game_team_factory.win_percentage_by_coach("John Tortorella")).to eq(16.67)
-            expect(@game_team_factory.win_percentage_by_coach("Claude Julien")).to eq(100.00)
-        end
-    end
 
-    describe '#win_percentage_by_coach_by_season(season)' do
-        it 'can give you a hash with the shot to goal ratio of each team by their team id' do
-            @game_team_factory.create_game_team
-            
-            expect(@game_team_factory.win_percentage_by_coach_by_season(20122013)).to eq({"John Tortorella" => 16.67, "Claude Julien" => 100.00, "Dan Bylsma" => 0.00, "Mike Babcock" => 0.00, "Joel Quenneville" => 100.00})
-        end
+  describe '#win_percentage_by_coach(head_coach)' do
+    it 'can tell you the win percentage of the headcoach in the argument' do
+        @game_team_factory.create_game_team
+
+        expect(@game_team_factory.win_percentage_by_coach("John Tortorella")).to eq(16.67)
+        expect(@game_team_factory.win_percentage_by_coach("Claude Julien")).to eq(100.00)
     end
+  end
+
+  describe '#win_percentage_by_coach_by_season(season)' do
+    it 'can give you a hash with the shot to goal ratio of each team by their team id' do
+        @game_team_factory.create_game_team
+
+        expect(@game_team_factory.win_percentage_by_coach_by_season(20122013)).to eq({"John Tortorella" => 16.67, "Claude Julien" => 100.00, "Dan Bylsma" => 0.00, "Mike Babcock" => 0.00, "Joel Quenneville" => 100.00})
+    end
+  end
 
   describe '#find_coaches_win_percentages' do
     it 'can return a hash with a season as the key and a hash with the key of coach name and their win percentage as the value for the value of the season key' do
         @game_team_factory.create_game_team
 
-            expect(@game_team_factory.find_coaches_win_percentages).to eq({20122013 => {"Claude Julien"=>100.0, "Dan Bylsma"=>0.0, "Joel Quenneville"=>100.0, "John Tortorella"=>16.67, "Mike Babcock"=>0.0}, 20152016 => {"Bill Peters"=>0.0, "Claude Julien"=>100.0, "Joel Quenneville"=>100.0, "John Torchetti"=>0.0, "John Tortorella"=>16.67, "Mike Sullivan"=>0.0}, 20162017 => {"Jared Bednar"=>0.0, "John Hynes"=>0.0, "Lindy Ruff"=>100.0, "Mike Sullivan"=>0.0}, 20172018 => {"Claude Julien"=>100.0, "Dave Hakstol"=>0.0, "Gerard Gallant"=>100.0, "Glen Gulutzan"=>0.0, "Jared Bednar"=>0.0, "John Stevens"=>50.0, "Mike Babcock"=>0.0, "Mike Sullivan"=>0.0, "Travis Green"=>100.0}})
-        end
+        expect(@game_team_factory.find_coaches_win_percentages).to eq({20122013 => {"Claude Julien"=>100.0, "Dan Bylsma"=>0.0, "Joel Quenneville"=>100.0, "John Tortorella"=>16.67, "Mike Babcock"=>0.0}, 20152016 => {"Bill Peters"=>0.0, "Claude Julien"=>100.0, "Joel Quenneville"=>100.0, "John Torchetti"=>0.0, "John Tortorella"=>16.67, "Mike Sullivan"=>0.0}, 20162017 => {"Jared Bednar"=>0.0, "John Hynes"=>0.0, "Lindy Ruff"=>100.0, "Mike Sullivan"=>0.0}, 20172018 => {"Claude Julien"=>100.0, "Dave Hakstol"=>0.0, "Gerard Gallant"=>100.0, "Glen Gulutzan"=>0.0, "Jared Bednar"=>0.0, "John Stevens"=>50.0, "Mike Babcock"=>0.0, "Mike Sullivan"=>0.0, "Travis Green"=>100.0}})
     end
+  end
 end
