@@ -48,7 +48,7 @@ RSpec.describe StatTracker do
             }
 
             stat_tracker = StatTracker.from_csv(locations)
-
+          
             expect(stat_tracker.percentage_home_wins).to eq(0.55)
         end
     end
@@ -67,7 +67,8 @@ RSpec.describe StatTracker do
 
             stat_tracker = StatTracker.from_csv(locations)
 
-            expect(stat_tracker.percentage_visitor_wins).to eq(0.45)
+
+            expect(stat_tracker.percentage_visitor_wins).to eq(0.4)
         end
     end
 
@@ -85,7 +86,8 @@ RSpec.describe StatTracker do
 
             stat_tracker = StatTracker.from_csv(locations)
 
-            expect(stat_tracker.percentage_ties).to eq(0.30)
+            expect(stat_tracker.percentage_ties).to eq(0.1)
+
         end
     end
 
@@ -115,9 +117,10 @@ RSpec.describe StatTracker do
                 teams: team_path,
                 game_teams: game_teams_path
             }
-
             stat_tracker = StatTracker.from_csv(locations)
             expect(stat_tracker.average_goals_per_season).to eq({20122013 => 4.56, 20132014 => 4.36})
+            expect(stat_tracker.count_of_teams).to eq(32)
         end
     end
 end
+

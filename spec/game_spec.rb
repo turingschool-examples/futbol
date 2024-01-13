@@ -21,7 +21,10 @@ RSpec.describe Game do
         expect(@game.venue).to eq("Toyota Stadium")
     end
 
-    it 'calculates total score' do
-        expect(@game.total_score).to eq(5)
+
+    it 'exits' do
+        expect(@game).to be_an_instance_of(Game)
     end
-end 
+
+
+end

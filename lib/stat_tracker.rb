@@ -8,13 +8,13 @@ class StatTracker
     def self.from_csv(locations)
         StatTracker.new(locations)
     end
-    
+
     def initialize(locations)
         @games = games_csv_reader(locations[:games])
         @teams = teams_csv_reader(locations[:teams])
         @game_teams = game_teams_csv_reader(locations[:game_teams])
     end
-                
+
     def games_csv_reader(file_path)
        games_array = []
        CSV.readlines(file_path, headers: true, header_converters: :symbol).map do |row|
@@ -31,7 +31,7 @@ class StatTracker
         end
         games_array
     end
-    
+
     def teams_csv_reader(file_path)
         teams_array = []
         CSV.readlines(file_path, headers: true, header_converters: :symbol).map do |row|
@@ -44,7 +44,7 @@ class StatTracker
         end
         teams_array
     end
-    
+
     def game_teams_csv_reader(file_path)
         game_teams_array = []
         CSV.readlines(file_path, headers: true, header_converters: :symbol).map do |row|
@@ -115,5 +115,11 @@ class StatTracker
         games_by_season.each do |season, game_total_score| 
             games_by_season[season] = (game_total_score.sum.to_f / game_total_score.size.to_f).round(2)
         end
+    end
+
+    def count_of_teams
+        @teams.map do |team|
+            team.team_id
+        end.uniq.count
     end
 end
