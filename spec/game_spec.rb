@@ -2,7 +2,7 @@ require './spec/spec_helper'
 
 RSpec.describe Game do
     before(:each) do
-        @        game = Game.new({
+        @game = Game.new({
             :game_id => 2012030221, 
             :season => 20122013, 
             :type => "Postseason", 

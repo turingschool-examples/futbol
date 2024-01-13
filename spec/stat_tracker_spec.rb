@@ -13,7 +13,7 @@ RSpec.describe StatTracker do
         }
 
         stat_tracker = StatTracker.new(locations)
-        expect(stat_tracker).to be_instance_of(StatTracker)
+        expect(stat_tracker).to be_an_instance_of(StatTracker)
     end
 
     # it 'can create objects' do
@@ -55,7 +55,6 @@ RSpec.describe StatTracker do
 
         end
     end
-
 
     describe '#percentage_visitor_wins' do
         it 'returns the percentage of visitor wins' do
