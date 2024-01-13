@@ -32,4 +32,14 @@ class GameTeamFactory
     end
     @game_teams
   end
+
+  def ratio_of_shots_to_goals_by_team(team_id)
+    shots = 0
+    goals = 0
+    @game_teams.each do |game_team|
+        shots += game_team.shots if game_team.team_id == team_id
+        goals += game_team.goals if game_team.team_id == team_id
+    end
+    ((goals.to_f / shots.to_f) * 100).round(2)
+  end
 end
