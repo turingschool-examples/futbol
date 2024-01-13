@@ -89,29 +89,11 @@ def goals_by_team_and_hoa(team_id, hoa)
     goals
   end
       
-  def win_percentage_by_coach(head_coach)
+  def win_percentage_by_coach(head_coach, season_games)
     wins = 0
     losses = 0
     ties = 0
-    @game_teams.each do |game_team|
-        wins += 1 if game_team.result == 'WIN' && game_team.head_coach == head_coach
-        losses += 1 if game_team.result == 'LOSS' && game_team.head_coach == head_coach
-        ties += 1 if game_team.result == 'TIE' && game_team.head_coach == head_coach
-    end
-    if wins == 0
-        0.00
-    elsif losses == 0
-        100.00
-    else
-        ((wins.to_f / (wins + losses + ties).to_f) * 100).round(2)
-    end
-  end
-    
-  def win_percentage_by_coach(head_coach)
-    wins = 0
-    losses = 0
-    ties = 0
-    @game_teams.each do |game_team|
+    season_games.each do |game_team|
         wins += 1 if game_team.result == 'WIN' && game_team.head_coach == head_coach
         losses += 1 if game_team.result == 'LOSS' && game_team.head_coach == head_coach
         ties += 1 if game_team.result == 'TIE' && game_team.head_coach == head_coach
@@ -130,7 +112,7 @@ def goals_by_team_and_hoa(team_id, hoa)
     percentages_by_coach = {}
     @game_teams.each do |game_team|
         if game_team.get_season_from_game_id == season
-            percentages_by_coach[game_team.head_coach] = win_percentage_by_coach(game_team.head_coach)
+            percentages_by_coach[game_team.head_coach] = win_percentage_by_coach(game_team.head_coach, season_games(season))
         end
     end
     percentages_by_coach
