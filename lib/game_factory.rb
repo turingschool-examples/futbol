@@ -30,10 +30,28 @@ class GameFactory
   end
 
   def total_score
-    
     @games.map do |game|
       game.away_goals + game.home_goals
     end
+  end
+
+  def count_of_goals(season_id)
+    season_goals = 0
+    @games.each do |game|
+      if game.season == season_id
+        season_goals += game.away_goals + game.home_goals
+      end
+      season_goals
+    end
+    season_goals
+  end
+
+  def count_of_games
+    @games.count
+  end
+
+  def season_games(season)
+    @games.count { |game| game.season == season }
   end
   
   def games_by_team(team_id)
