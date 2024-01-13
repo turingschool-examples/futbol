@@ -164,7 +164,7 @@ RSpec.describe StatTracker do
             })
       end
    end
-
+   
    describe '#winingest_coach' do
       it 'can identify coach with most percentage of wins' do
          expect(@stat_tracker.winingest_coach("20122013")).to eq("Claude Julien")
@@ -174,6 +174,37 @@ RSpec.describe StatTracker do
    describe '#worst_coach' do
       it 'can identify coach with least percentage of wins' do
          expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+      end
+   end
+
+   describe '#most_accurate_team(season)' do
+      it 'returns the name of the Team with the best ratio of shots to goals for the season' do
+         expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+      end
+   end
+
+   describe '#team_accuracy' do
+      it 'returns accuracy for a team based on ratio gols to shots' do
+         expect(@stat_tracker.team_accuracy).to be_a Hash
+      end
+   end
+
+   describe '#games_goals_and_shots' do
+      it 'returns a hash with the game_team obj and its total shots and total goals' do
+         expect(@stat_tracker.games_goals_and_shots).to be_a Hash
+      end
+   end
+
+   describe '#season_games(season)' do
+      it 'returns an array of games for the season' do
+         expect(@stat_tracker.season_games("20122013")).to be_a Array 
+         expect(@stat_tracker.season_games("20122013")[0]).to be_a Game
+      end
+   end
+
+   describe '#least_accurate_team(season)' do
+      it 'returns the name of the Team with the worst ratio of shots to goals for the season' do
+         expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
       end
    end
 end
