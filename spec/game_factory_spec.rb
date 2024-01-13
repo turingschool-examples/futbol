@@ -1,3 +1,4 @@
+require 'spec_helper'
 require './lib/game'
 require './lib/game_factory'
 require 'pry'

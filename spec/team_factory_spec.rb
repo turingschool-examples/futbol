@@ -1,3 +1,4 @@
+require 'spec_helper'
 require './lib/team'
 require './lib/team_factory'
 require 'pry'
