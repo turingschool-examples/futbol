@@ -1,3 +1,10 @@
+require './lib/game'
+require './lib/game_team'
+require './lib/team'
+require './lib/game_statistics'
+require './lib/league_statistics'
+require './lib/season_statistics'
+
 class StatTracker
   attr_reader :game_statistics,
               :league_statistics,
@@ -32,7 +39,7 @@ class StatTracker
   def percentage_away_wins
     @game_statistics.percentage_away_wins
   end
-  
+
   def percentage_ties
     @game_statistics.percentage_ties
   end
@@ -67,5 +74,37 @@ class StatTracker
 
   def lowest_scoring_visitor
     @league_statistics.lowest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @league_statistics.highest_scoring_home_team
+  end
+
+  def lowest_scoring_home_team
+    @league_statistics.lowest_scoring_home_team
+  end
+
+  def worst_coach(season)
+    @season_statistics.worst_coach(season)
+  end
+
+  def winningest_coach(season)
+    @season_statistics.winningest_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @season_statistics.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @season_statistics.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @season_statistics.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @season_statistics.fewest_tackles(season)
   end
 end
