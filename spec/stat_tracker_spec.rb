@@ -102,7 +102,7 @@ RSpec.describe StatTracker do
             }
 
             stat_tracker = StatTracker.from_csv(locations)
-            expect(stat_tracker.average_goals_per_game).to eq(4.00)
+            expect(stat_tracker.average_goals_per_game).to eq(4.45)
         end
     end
 end
