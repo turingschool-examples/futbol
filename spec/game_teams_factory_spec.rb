@@ -81,7 +81,7 @@ RSpec.describe GameTeamFactory do
         it 'returns an array of strings with the team that won (home, away, or tie)' do
             @game_team_factory.create_game_team
             
-            expect(@game_team_factory.game_result_by_hoa).to eq(['home', 'home', 'away', 'away', 'home', 'away', 'away', 'home', 'home', 'home'])
+            expect(@game_team_factory.game_result_by_hoa).to eq(["home", "home", "away", "away", "home", "away", "away", "home", "home", "home", "home", "home", "home", "home", "home", "home"])
         end
     end
 
@@ -97,11 +97,10 @@ RSpec.describe GameTeamFactory do
 
     
     describe '#win_percentage_by_coach(head_coach)' do
-        # should add in some extra data in the fixture file that will give us percentages other than 0 and 100 for more thorough testing
         it 'can tell you the win percentage of the headcoach in the argument' do
             @game_team_factory.create_game_team
             
-            expect(@game_team_factory.win_percentage_by_coach("John Tortorella")).to eq(0.00)
+            expect(@game_team_factory.win_percentage_by_coach("John Tortorella")).to eq(16.67)
             expect(@game_team_factory.win_percentage_by_coach("Claude Julien")).to eq(100.00)
         end
     end
@@ -110,7 +109,7 @@ RSpec.describe GameTeamFactory do
         it 'can give you a hash with the shot to goal ratio of each team by their team id' do
             @game_team_factory.create_game_team
             
-            expect(@game_team_factory.win_percentage_by_coach_by_season(20122013)).to eq({"John Tortorella" => 0.00, "Claude Julien" => 100.00, "Dan Bylsma" => 0.00, "Mike Babcock" => 0.00, "Joel Quenneville" => 100.00})
+            expect(@game_team_factory.win_percentage_by_coach_by_season(20122013)).to eq({"John Tortorella" => 16.67, "Claude Julien" => 100.00, "Dan Bylsma" => 0.00, "Mike Babcock" => 0.00, "Joel Quenneville" => 100.00})
         end
     end
 
@@ -118,7 +117,7 @@ RSpec.describe GameTeamFactory do
         it 'can return a hash with a season as the key and a hash with the key of coach name and their win percentage as the value for the value of the season key' do
             @game_team_factory.create_game_team
 
-            expect(@game_team_factory.find_coaches_win_percentages).to eq({20122013=>{"Claude Julien"=>100.0, "Dan Bylsma"=>0.0, "Joel Quenneville"=>100.0, "John Tortorella"=>0.0, "Mike Babcock"=>0.0}})
+            expect(@game_team_factory.find_coaches_win_percentages).to eq({20122013 => {"Claude Julien"=>100.0, "Dan Bylsma"=>0.0, "Joel Quenneville"=>100.0, "John Tortorella"=>16.67, "Mike Babcock"=>0.0}, 20152016 => {"Bill Peters"=>0.0, "Claude Julien"=>100.0, "Joel Quenneville"=>100.0, "John Torchetti"=>0.0, "John Tortorella"=>16.67, "Mike Sullivan"=>0.0}, 20162017 => {"Jared Bednar"=>0.0, "John Hynes"=>0.0, "Lindy Ruff"=>100.0, "Mike Sullivan"=>0.0}, 20172018 => {"Claude Julien"=>100.0, "Dave Hakstol"=>0.0, "Gerard Gallant"=>100.0, "Glen Gulutzan"=>0.0, "Jared Bednar"=>0.0, "John Stevens"=>50.0, "Mike Babcock"=>0.0, "Mike Sullivan"=>0.0, "Travis Green"=>100.0}})
         end
     end
 end
