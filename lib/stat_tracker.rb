@@ -106,6 +106,14 @@ class StatTracker
     end
 
     def average_goals_per_season
-        #code
+        games_by_season = @games.group_by {|game| game.season}
+        games_by_season.each_value do |games| 
+            games.map! do |game|
+                game.total_score
+            end
+        end
+        games_by_season.each do |season, game_total_score| 
+            games_by_season[season] = (game_total_score.sum.to_f / game_total_score.size.to_f).round(2)
+        end
     end
 end
