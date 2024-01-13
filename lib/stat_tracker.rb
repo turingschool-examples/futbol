@@ -18,7 +18,7 @@ class StatTracker
 
   def self.from_csv(location)
     games_statistics = GameStatistics.from_csv(location[:games])
-    league_statistics = LeagueStatistics.from_csv(location[:teams], location[:game_teams])
+    league_statistics = LeagueStatistics.from_csv(location[:game_teams], location[:teams])
     season_statistics = SeasonStatistics.from_csv(location[:games], location[:game_teams], location[:teams])
 
     new(games_statistics, league_statistics, season_statistics)
