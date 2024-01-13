@@ -82,4 +82,11 @@ RSpec.describe GameTeamFactory do
 		end
 	end
 
+	describe '#tackles_by_season(season)' do
+		it "will return number of tackles per team for a specific season" do
+			@game_team_factory.create_game_team
+
+			expect(@game_team_factory.tackles_by_season(20162017)).to eq({21 => 12, 25 => 7, 1 => 40, 5 => 28})     
+		end
+	end
 end
