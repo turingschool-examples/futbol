@@ -73,4 +73,13 @@ RSpec.describe GameTeamFactory do
 				# })
 		end
 	end
+
+	describe '#tackles_by_team(team_id)' do
+		it 'will return number of tackles for a team based on team ID' do
+			@game_team_factory.create_game_team
+
+			expect(@game_team_factory.tackles_by_team(3)).to eq(179)
+		end
+	end
+
 end
