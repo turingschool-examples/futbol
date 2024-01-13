@@ -154,6 +154,24 @@ class StatTracker
       avg_goals_by_season
    end
 
+   def winingest_coach(season_id)
+      best_coach = coach_game_stats(season_id).max_by do |coach, stats|
+         win_percentage = stats[:games_won].to_f / stats[:number_of_games]
+         win_percentage 
+      end
+      best_coach[0]
+      #require 'pry' ; binding.pry
+   end
+
+   def worst_coach(season_id)
+      worst_coach = coach_game_stats(season_id).min_by do |coach, stats|
+         lose_percentage = stats[:games_won].to_f / stats[:number_of_games]
+         lose_percentage 
+      end
+      worst_coach[0]
+      #require 'pry' ; binding.pry
+   end
+
    def most_accurate_team(season)
       most_accurate_team = team_accuracy.max_by { |game_team, accuracy| accuracy }.first
       most_accurate_team_by_season = season_games(season).filter_map do |game|
@@ -169,6 +187,7 @@ class StatTracker
       end
       convert_team_id_to_name(least_accurate_team_by_season[0])
    end
+
 
 #Helper Method
    def calculate_percentage(num1 , num2)
@@ -203,6 +222,19 @@ class StatTracker
          team_stats[game_team.team_id][:games_played] += 1
       end
       team_stats
+   end
+
+   def coach_game_stats(season_id)
+      game_stats = Hash.new {|hash, key| hash[key] = {number_of_games: 0, games_won: 0 }}
+      @data_game_teams.each do |game_team|
+         if game_team.game_id == convert_season_id_to_game_id(season_id)
+            game_stats[game_team.head_coach][:number_of_games] += 1
+            if game_team.result == "WIN"
+               game_stats[game_team.head_coach][:games_won] += 1
+            end
+         end
+      end
+      game_stats
    end
   
    def team_stats_hoa(hoa)
