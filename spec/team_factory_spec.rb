@@ -19,6 +19,10 @@ RSpec.describe TeamFactory do
 
       expect(@team_factory.file_path).to eq(@file_path)
     end
+
+    it 'has a teams array attribute' do
+      expect(@team_factory.teams).to eq([])
+    end
   end
 
   describe '#create_teams' do

@@ -4,17 +4,10 @@ class GameTeam
               :team_id,
               :hoa,
               :result,
-              :settled_in,
               :head_coach,
               :goals,
               :shots,
-              :tackles,
-              :pim,
-              :power_play_opps,
-              :power_play_goals,
-              :faceoff_win_percent,
-              :giveaways,
-              :takeaways
+              :tackles
 
   def initialize(info)
     @game_id = info[:game_id]
