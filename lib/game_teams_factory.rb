@@ -42,4 +42,14 @@ class GameTeamFactory
     end
     ((goals.to_f / shots.to_f) * 100).round(2)
   end
+
+  def ratio_of_shots_to_goals_by_season(season)
+    ratios = {}
+    @game_teams.each do |game_team|
+      if game_team.get_season_from_game_id == season
+          ratios[game_team.team_id] = ratio_of_shots_to_goals_by_team(game_team.team_id)
+      end
+    end
+    ratios
+  end
 end
