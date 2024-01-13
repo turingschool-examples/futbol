@@ -33,10 +33,10 @@ class GameTeamFactory
     @game_teams
   end
 
-  def ratio_of_shots_to_goals_by_team(team_id)
+  def ratio_of_shots_to_goals_by_team(team_id, season_games)
     shots = 0
     goals = 0
-    @game_teams.each do |game_team|
+    season_games.each do |game_team|
         shots += game_team.shots if game_team.team_id == team_id
         goals += game_team.goals if game_team.team_id == team_id
     end
@@ -49,19 +49,39 @@ class GameTeamFactory
             game_results << game_team.hoa if game_team.result == "WIN"
         end
         game_results
+    end
+
+    def season_games(season)
+        season_games = []
+        @game_teams.each do |game_team|
+            if game_team.get_season_from_game_id == season
+                season_games << game_team
+            end
+        end
+        season_games
+    end
 
   def ratio_of_shots_to_goals_by_season(season)
-    ratios = {}
+    ratios = Hash.new(0)
     @game_teams.each do |game_team|
-      if game_team.get_season_from_game_id == season
-          ratios[game_team.team_id] = ratio_of_shots_to_goals_by_team(game_team.team_id)
-      end
+        if game_team.get_season_from_game_id == season 
+          ratios[game_team.team_id] = ratio_of_shots_to_goals_by_team(game_team.team_id, season_games(season))
 
+        end
+        
     end
     ratios
+end
+
+def ratio_of_shots_to_goals
+  hash = Hash.new(0)
+  @game_teams.each do |game_team|
+    hash[game_team.get_season_from_game_id] = ratio_of_shots_to_goals_by_season(game_team.get_season_from_game_id)
   end
-    
-  def goals_by_team_and_hoa(team_id, hoa)
+  hash
+end
+
+def goals_by_team_and_hoa(team_id, hoa)
     goals = []
     @game_teams.each do |game_team|
         goals << game_team.goals if game_team.hoa == hoa && game_team.team_id == team_id
@@ -105,13 +125,6 @@ class GameTeamFactory
     end
   end
       
-  def ratio_of_shots_to_goals
-    hash = {}
-    @game_teams.each do |game_team|
-      hash[game_team.get_season_from_game_id] = ratio_of_shots_to_goals_by_season(game_team.get_season_from_game_id)
-    end
-    hash
-  end
 
   def win_percentage_by_coach_by_season(season)
     percentages_by_coach = {}
