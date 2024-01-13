@@ -15,14 +15,10 @@ class GameFactory
       game_info = {}
       game_info[:game_id] = row[:game_id].to_i
       game_info[:season] = row[:season].to_i
-      game_info[:type] = row[:type]
-      game_info[:date_time] = row[:date_time]
       game_info[:away_team_id] = row[:away_team_id].to_i
       game_info[:home_team_id] = row[:home_team_id].to_i
       game_info[:away_goals] = row[:away_goals].to_i
       game_info[:home_goals] = row[:home_goals].to_i
-      game_info[:venue] = row[:venue]
-      game_info[:venue_link] = row[:venue_link]
 
       @games << Game.new(game_info)
     end
@@ -68,7 +64,6 @@ class GameFactory
       elsif game.home_team_id == team_id
         goals << game.home_goals
       end
-      goals
     end
     goals
   end
