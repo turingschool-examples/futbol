@@ -52,23 +52,19 @@ class SeasonStatistics
   end
 
   def calculate_win_percentage(season)
-    season_game_ids = games
-      .find_all { |game| game.season == season }
+    season_game_ids = games.find_all { |game| game.season == season }
       .map{ |game| game.game_id }
 
-    coach_games = game_teams
+    games_by_coach = game_teams
       .find_all { |game_team| season_game_ids.include?(game_team.game_id) }
       .group_by { |game_team|game_team.head_coach }
 
     coach_average_win_pct = {}
-    coach_games.each do |coach, game_teams|
-      total_games = game_teams.length
-      total_winning_games = game_teams.count {|game_team| game_team.result == "WIN"}
-      if total_games > 0
-        coach_average_win_pct[coach] = ((total_winning_games/total_games).to_f * 100).round(2)
-      else
-        coach_average_win_pct[coach] = 0.0
-      end
+    games_by_coach.each do |coach, coach_games|
+      total_games = coach_games.length
+      total_winning_games = coach_games.count {|gt| gt.result == "WIN"}
+
+      coach_average_win_pct[coach] = ((total_winning_games.to_f/total_games) * 100).round(2)
     end
 
     coach_average_win_pct
