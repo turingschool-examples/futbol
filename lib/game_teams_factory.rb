@@ -76,4 +76,12 @@ class GameTeamFactory
     end
     hash
   end
+
+  def count_of_tackles
+    hash = {}
+    @game_teams.each do |game_team|
+      hash[game_team.get_season_from_game_id] = tackles_by_season(game_team.get_season_from_game_id) 
+    end
+    hash
+  end
 end
