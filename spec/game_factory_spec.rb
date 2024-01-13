@@ -30,14 +30,12 @@ RSpec.describe GameFactory do
     end
   end
 
-
   describe '#total_score' do
     it 'should return array of integers that is the sum of away_goals and home_goals' do
       @game_factory.create_games
 
       expect(@game_factory.total_score).to be_a(Array)
       expect(@game_factory.total_score).to eq([5, 5, 3, 5, 4, 3, 5, 3, 1, 3, 3, 4, 2, 3, 5, 3, 4, 4, 5, 5, 4, 5, 4, 4, 5])
-
     end
   end
 
@@ -64,12 +62,14 @@ RSpec.describe GameFactory do
   describe 'count_of_goals(season_id)' do
     it 'returns an integer' do
       @game_factory.create_games
+      
       expect(@game_factory.count_of_goals(@season_id).class).to eq(Integer)
     end
     
     it 'returns the sum of away and home goals for every game per season' do
       @game_factory.create_games
-      expect(@game_factory.count_of_goals(@season_id)).to eq(97)
+      
+      expect(@game_factory.count_of_goals(@season_id)).to eq(75)
     end
   end
   
@@ -80,7 +80,7 @@ RSpec.describe GameFactory do
       expect(@game_factory.games_by_team(3).class).to eq(Array)
     end
     
-    it 'returned array considers team_id when played hoa' do
+    it 'returnn an array that considers team_id' do
       @game_factory.create_games
       
       expect(@game_factory.games_by_team(3).all? {|game| (game.away_team_id == 3 || game.home_team_id == 3)}).to be true

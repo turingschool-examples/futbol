@@ -35,6 +35,17 @@ class GameFactory
     end
   end
 
+  def count_of_goals(season_id)
+    season_goals = 0
+    @games.each do |game|
+      if game.season == season_id
+        season_goals += game.away_goals + game.home_goals
+      end
+      season_goals
+    end
+    season_goals
+  end
+
   def count_of_games
     @games.count
   end
