@@ -118,14 +118,7 @@ def goals_by_team_and_hoa(team_id, hoa)
     percentages_by_coach
   end
 
-  def tackles_by_team(team_id)
-    tackles = 0
-    @game_teams.each do |game_team|
-        tackles += game_team.tackles if game_team.team_id == team_id
-    end
-    tackles
-  end
-
+  
   def find_coaches_win_percentages
     coaches_win_percentages = {}
     @game_teams.each do |game_team|
@@ -134,10 +127,20 @@ def goals_by_team_and_hoa(team_id, hoa)
     coaches_win_percentages
   end
 
+    def tackles_by_team(team_id, season_games)
+        tackles = 0
+        season_games.each do |game_team|
+            tackles += game_team.tackles if game_team.team_id == team_id
+        end
+        tackles
+    end
+
   def tackles_by_season(season)
     hash = {}
     @game_teams.each do |game_team|
-      hash[game_team.team_id] = game_team.tackles if game_team.get_season_from_game_id == season
+      if game_team.get_season_from_game_id == season
+        hash[game_team.team_id] = tackles_by_team(game_team.team_id, season_games(season))
+      end
     end
     hash
   end
