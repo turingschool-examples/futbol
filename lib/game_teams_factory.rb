@@ -33,6 +33,7 @@ class GameTeamFactory
         @game_teams
     end
 
+    
     def game_result_by_hoa
         game_results = []
         @game_teams.each do |game_team|
@@ -41,6 +42,7 @@ class GameTeamFactory
         game_results
     end
 
+    
     def goals_by_team_and_hoa(team_id, hoa)
         goals = []
         @game_teams.each do |game_team|
@@ -49,6 +51,7 @@ class GameTeamFactory
         goals
     end
 
+    
     def win_percentage_by_coach(head_coach)
         wins = 0
         losses = 0
@@ -67,6 +70,7 @@ class GameTeamFactory
         end
     end
 
+    
     def win_percentage_by_coach_by_season(season)
         percentages_by_coach = {}
         @game_teams.each do |game_team|
@@ -77,6 +81,7 @@ class GameTeamFactory
         percentages_by_coach
     end
 
+    
     def find_coaches_win_percentages
         coaches_win_percentages = {}
         @game_teams.each do |game_team|
