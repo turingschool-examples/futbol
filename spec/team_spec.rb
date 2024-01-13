@@ -1,6 +1,4 @@
 require 'spec_helper'
-require './lib/team'
-require 'pry'
 
 RSpec.describe Team do
     describe '#initialize' do

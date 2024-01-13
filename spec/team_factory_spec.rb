@@ -1,7 +1,4 @@
 require 'spec_helper'
-require './lib/team'
-require './lib/team_factory'
-require 'pry'
 
 RSpec.describe TeamFactory do
     before do

@@ -1,6 +1,4 @@
 require 'spec_helper'
-require './lib/game_teams'
-require 'pry'
 
 RSpec.describe GameTeam do
     before do

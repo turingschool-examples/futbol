@@ -1,6 +1,4 @@
 require 'spec_helper'
-require './lib/game'
-require 'pry'
 
 RSpec.describe Game do
   describe 'initializes' do
