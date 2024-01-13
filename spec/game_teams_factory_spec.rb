@@ -42,4 +42,12 @@ RSpec.describe GameTeamFactory do
 			expect(@game_team_factory.create_game_team.first.takeaways).to eq(7)
 		end
 	end
+
+	describe '#ratio_of_shots_to_goals_by_team(team_id)' do
+		it 'can tell you the ratio of shots to goals by the team id' do
+			@game_team_factory.create_game_team
+
+			expect(@game_team_factory.ratio_of_shots_to_goals_by_team(3)).to eq(21.05)
+		end
+	end
 end
