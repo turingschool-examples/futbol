@@ -79,11 +79,9 @@ RSpec.describe GameTeamFactory do
 		end
 	end
 
-	describe '#tackles_by_team(team_id)' do
+	describe '#tackles_by_team(team_id, season_games)' do
 		it 'will return number of tackles for a team based on team ID' do
-			@game_team_factory.create_game_team
-
-			expect(@game_team_factory.tackles_by_team(3)).to eq(179)
+			expect(@game_team_factory.tackles_by_team(3, @game_team_factory.create_game_team)).to eq(179)
 		end
 	end
 
@@ -101,10 +99,10 @@ RSpec.describe GameTeamFactory do
 			
 			expect(@game_team_factory.count_of_tackles).to eq(
 				{
-					20122013 => {3=>25, 6=>25, 5=>33, 17=>43, 16=>24}, 
-					20172018 => {26=>20, 21=>26, 10=>15, 5=>11, 54=>28, 23=>16, 20=>31, 4=>18, 8=>30}, 
+					20122013 => {3=>179, 6=>271, 17=>43, 16=>24, 5=>150}, 
+					20172018 => {26=>51, 21=>26, 10=>41, 54=>28, 23=>16, 20=>31, 4=>18, 8=>30, 5=>11}, 
 					20162017 => {21 => 12, 25 => 7, 1 => 40, 5 => 28}, 
-					20152016 => {12=>10, 29=>20, 30=>29, 16=>28, 5=>20, 6=>25}
+					20152016 => {12=>10, 29=>20, 30=>29, 16=>28, 6=>25, 5=>20}
 				}
 				)
 		end
