@@ -52,4 +52,12 @@ class GameTeamFactory
     end
     ratios
   end
+
+  def ratio_of_shots_to_goals
+    hash = {}
+    @game_teams.each do |game_team|
+      hash[game_team.get_season_from_game_id] = ratio_of_shots_to_goals_by_season(game_team.get_season_from_game_id)
+    end
+    hash
+  end
 end
