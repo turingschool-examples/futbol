@@ -64,7 +64,6 @@ class GameFactory
       elsif game.home_team_id == team_id
         goals << game.home_goals
       end
-      goals
     end
     goals
   end
