@@ -68,7 +68,6 @@ RSpec.describe GameTeamFactory do
     end
     
     describe '#ratio_of_shots_to_goals' do
-    # should edit fixture to test this with multiple seasons
         it 'can tell you the ratio of shots to goals for all teams by all seasons' do
             @game_team_factory.create_game_team
 
