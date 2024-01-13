@@ -2,6 +2,7 @@ require './spec/spec_helper'
 
 RSpec.describe Game do
     before(:each) do
+
         @game = Game.new(
            2012030221,
            20122013,

@@ -16,26 +16,24 @@ RSpec.describe StatTracker do
         expect(stat_tracker).to be_an_instance_of(StatTracker)
     end
 
-    # it 'can create objects' do
-        #code
-    # end
-    # describe '#highest_total_score'
-    #     it 'returns the highest total score' do
-    #         game_path = './spec/fixtures/games_fixture.csv'
-    #         #this is looking at the original teams.csv file rn
-    #         team_path = './data/teams.csv'
-    #         game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+    describe '#highest_total_score' do
+        it 'returns the highest total score' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            #this is looking at the original teams.csv file rn
+            team_path = './data/teams.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
 
-    #         locations = {
-    #         games: game_path,
-    #         teams: team_path,
-    #         game_teams: game_teams_path
-    #         }
+            locations = {
+            games: game_path,
+            teams: team_path,
+            game_teams: game_teams_path
+            }
 
-    #         stat_tracker = StatTracker.new#(locations)
-    #         expect(stat_tracker.highest_total_score).to eq(5)
-    #     end
-    # end
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.highest_total_score).to eq(7)
+            expect(stat_tracker.lowest_total_score).to eq(2)
+        end
+    end
 
     describe '#percentage_home_wins' do
         it 'returns the percentage of home wins' do
@@ -49,7 +47,7 @@ RSpec.describe StatTracker do
                 game_teams: game_teams_path
             }
 
-            stat_tracker = StatTracker.new(locations)
+            stat_tracker = StatTracker.from_csv(locations)
 
             expect(stat_tracker.percentage_home_wins).to eq(0.5)
 
@@ -68,10 +66,10 @@ RSpec.describe StatTracker do
                 game_teams: game_teams_path
             }
 
-            stat_tracker = StatTracker.new(locations)
+            stat_tracker = StatTracker.from_csv(locations)
+
 
             expect(stat_tracker.percentage_visitor_wins).to eq(0.4)
-
         end
     end
 
@@ -87,7 +85,7 @@ RSpec.describe StatTracker do
                 game_teams: game_teams_path
             }
 
-            stat_tracker = StatTracker.new(locations)
+            stat_tracker = StatTracker.from_csv(locations)
 
             expect(stat_tracker.percentage_ties).to eq(0.1)
 
@@ -108,6 +106,7 @@ RSpec.describe StatTracker do
             }
 
             stat_tracker = StatTracker.new(locations)
+          
             expect(stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014"=>11})
         end
     end
