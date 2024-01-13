@@ -85,4 +85,3 @@ class GameTeamFactory
         coaches_win_percentages
     end
 end
-
