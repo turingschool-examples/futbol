@@ -58,4 +58,19 @@ RSpec.describe GameTeamFactory do
 		expect(@game_team_factory.ratio_of_shots_to_goals_by_season(20122013)).to eq({3 => 21.05, 6 => 32.53, 5 => 11.67, 17 => 20.00, 16 => 23.53})
 	end
 	end
+
+	describe '#ratio_of_shots_to_goals' do
+		it 'can tell you the ratio of shots to goals for all teams by all seasons' do
+			@game_team_factory.create_game_team
+		# Below is the current error
+			expect(@game_team_factory.ratio_of_shots_to_goals).to eq({20122013 => {3 => 21.05, 6 => 32.53, 5 => 11.67, 17 => 20.00, 16 => 23.53}})
+		# below is the expected values:
+				# {
+				#   20122013 => {3 => 21.05, 6 => 32.53, 5 => 11.67, 17 => 20.00, 16 => 23.53},
+				#   20172018 => {26=>28.57, 21=>26.67, 10=>18.75, 5=>11.67, 54=>33.33, 23=>33.33, 20=>0.0, 4=>0.0, 8=>0.0},
+				#   20162017 => {21=>26.67, 25=>60.0, 1=>42.86, 5=>11.67},
+				#   20152016 => {12=>28.57, 29=>50.0, 30=>25.0, 16=>23.53, 5=>11.67, 6=>32.53}
+				# })
+		end
+	end
 end
