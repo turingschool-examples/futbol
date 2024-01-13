@@ -153,7 +153,7 @@ class StatTracker
       avg_goals_by_season
    end
 
-   def winingest_coach(season_id)
+   def winningest_coach(season_id)
       games_this_season = season_games_by_id(season_id)
       coaches = coaches_by_season(season_id)
       coaches.uniq.max_by do |coach|
@@ -174,13 +174,11 @@ class StatTracker
    end
 
    def most_accurate_team(season_id)
-      most_accurate_team_by_season = team_accuracy(season_id).max_by { |team_id, accuracy| accuracy }
-      convert_team_id_to_name(most_accurate_team_by_season[0])
+      most_accurate_team_by_season = highest_team_accuracy(season_id)
    end
 
    def least_accurate_team(season_id)
-      least_accurate_team_by_season = team_accuracy(season_id).min_by { |team_id, accuracy| accuracy }
-      convert_team_id_to_name(least_accurate_team_by_season[0])
+      least_accurate_team_by_season = lowest_team_accuracy(season_id)
    end
 
 
@@ -230,7 +228,7 @@ class StatTracker
       team_stats
    end
 
-   def team_accuracy(season)
+   def highest_team_accuracy(season)
       games_this_season = season_games_by_id(season)
       
       team_stats_by_season = []
@@ -242,7 +240,24 @@ class StatTracker
       
       total_shots = total_shots_by_team(team_stats_by_season)
       
-      average_accuracy_by_team(total_goals, total_shots)
+      most_accurate_team = find_average(total_goals, total_shots).max_by {|team, avg_goals| avg_goals}
+      convert_team_id_to_name(most_accurate_team[0])
+   end
+
+   def lowest_team_accuracy(season)
+      games_this_season = season_games_by_id(season)
+      
+      team_stats_by_season = []
+      @data_game_teams.find_all do |game_team| 
+         team_stats_by_season << game_team if games_this_season.include?(game_team.game_id)
+      end
+
+      total_goals = total_goals_by_team(team_stats_by_season)
+      
+      total_shots = total_shots_by_team(team_stats_by_season)
+      
+      least_accurate_team = find_average(total_goals, total_shots).min_by {|team, avg_goals| avg_goals}
+      convert_team_id_to_name(least_accurate_team[0])
    end
 
    def total_goals_by_team(team_stats_by_season)
@@ -257,12 +272,14 @@ class StatTracker
       end
    end
 
-   def average_accuracy_by_team(total_goals, total_shots)
-      average_accuracy = {}
-      total_goals.keys.each do |team_id|
-         average_accuracy[team_id] = (total_goals[team_id].to_f / total_shots[team_id]).round(2) 
+   def find_average(smaller_hash, bigger_hash)
+      average = Hash.new(0)
+      smaller_hash.each do |key1, value_1|
+         bigger_hash.each do |key2, value_2|
+            average[key1] = (value_1.to_f / value_2.to_f).round(4) if key1 == key2
+         end
       end
-      average_accuracy
+      average
    end
 
    def season_games_by_id(season)
