@@ -50,4 +50,12 @@ RSpec.describe GameTeamFactory do
 			expect(@game_team_factory.ratio_of_shots_to_goals_by_team(3)).to eq(21.05)
 		end
 	end
+
+	describe '#ratio_of_shots_to_goals_by_season(season)' do
+	it 'can give you a hash with the shot to goal ratio of each team by their team id' do
+		@game_team_factory.create_game_team
+
+		expect(@game_team_factory.ratio_of_shots_to_goals_by_season(20122013)).to eq({3 => 21.05, 6 => 32.53, 5 => 11.67, 17 => 20.00, 16 => 23.53})
+	end
+	end
 end
