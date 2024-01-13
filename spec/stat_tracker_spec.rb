@@ -98,13 +98,17 @@ RSpec.describe StatTracker do
         it 'returns the count of games by season' do
 
             game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
             locations = {
-                games: game_path
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
             }
 
             stat_tracker = StatTracker.new(locations)
-
-            expect(stat_tracker.count_of_games_by_season).to eq({})
+            expect(stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014"=>11})
         end
     end
 
