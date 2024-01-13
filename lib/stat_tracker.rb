@@ -270,9 +270,9 @@ class StatTracker
    end
 
    def convert_season_id_to_game_id(season_id)
-      team = @data_games.find do |team|
-         team.season == season_id
+      game_id_by_season = @data_games.find do |game|
+         game.season == season_id
       end
-      team.game_id
+      game_id_by_season.game_id
    end
 end
