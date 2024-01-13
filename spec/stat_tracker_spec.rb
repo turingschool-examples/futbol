@@ -164,6 +164,7 @@ RSpec.describe StatTracker do
             })
       end
    end
+   
    describe '#winingest_coach' do
       it 'can identify coach with most percentage of wins' do
          expect(@stat_tracker.winingest_coach("20122013")).to eq("Claude Julien")
@@ -174,8 +175,9 @@ RSpec.describe StatTracker do
       it 'can identify coach with least percentage of wins' do
          expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
       end
+   end
 
-      describe '#most_accurate_team(season)' do
+   describe '#most_accurate_team(season)' do
       it 'returns the name of the Team with the best ratio of shots to goals for the season' do
          expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
       end
