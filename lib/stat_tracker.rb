@@ -1,7 +1,4 @@
 require 'csv'
-# require_relative './lib/game'
-# require_relative './lib/team'
-# require_relative './lib/game_team'
 
 class StatTracker
     attr_reader :games,
@@ -93,6 +90,13 @@ class StatTracker
           game.home_goals == game.away_goals
         end
         (total_ties.to_f / @games.size).round(2)
+    end
 
+    def average_goals_per_game
+        #code
+    end
+
+    def average_goals_per_season
+        #code
     end
 end
