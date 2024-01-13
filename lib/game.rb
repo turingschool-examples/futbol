@@ -21,4 +21,3 @@ class Game
         @venue = venue
     end
 end
-
