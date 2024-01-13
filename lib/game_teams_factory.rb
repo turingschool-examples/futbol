@@ -60,4 +60,13 @@ class GameTeamFactory
     end
     hash
   end
+
+  def tackles_by_team(team_id)
+    tackles = 0
+    @game_teams.each do |game_team|
+        tackles += game_team.tackles if game_team.team_id == team_id
+    end
+    tackles
+  end
+
 end
