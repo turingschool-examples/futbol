@@ -160,7 +160,6 @@ class StatTracker
          win_percentage 
       end
       best_coach[0]
-      #require 'pry' ; binding.pry
    end
 
    def worst_coach(season_id)
@@ -169,7 +168,6 @@ class StatTracker
          lose_percentage 
       end
       worst_coach[0]
-      #require 'pry' ; binding.pry
    end
 
    def most_accurate_team(season)
@@ -269,5 +267,12 @@ class StatTracker
       season_games = @data_games.find_all do |game| 
          game.season == season
       end
+   end
+
+   def convert_season_id_to_game_id(season_id)
+      team = @data_games.find do |team|
+         team.season == season_id
+      end
+      team.game_id
    end
 end
