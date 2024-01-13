@@ -53,6 +53,24 @@ class GameTeamFactory
     ratios
   end
 
+  def win_percentage_by_coach(head_coach)
+    wins = 0
+    losses = 0
+    ties = 0
+    @game_teams.each do |game_team|
+        wins += 1 if game_team.result == 'WIN' && game_team.head_coach == head_coach
+        losses += 1 if game_team.result == 'LOSS' && game_team.head_coach == head_coach
+        ties += 1 if game_team.result == 'TIE' && game_team.head_coach == head_coach
+    end
+    if wins == 0
+        0.00
+    elsif losses == 0
+        100.00
+    else
+        ((wins.to_f / (wins + losses + ties).to_f) * 100).round(2)
+    end
+  end
+
   def ratio_of_shots_to_goals
     hash = {}
     @game_teams.each do |game_team|
