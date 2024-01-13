@@ -1,21 +1,23 @@
 require 'csv'
+# require_relative './lib/game'
+# require_relative './lib/team'
+# require_relative './lib/game_team'
 
 class StatTracker
     attr_reader :games,
                 :teams,
                 :game_teams
-    
-    def initialize
+
+    def initialize(locations)
         @games = []
         @teams = []
         @game_teams = []
     end
-
     # class method for StatTracker
     def self.from_csv(locations)
         #iterate through each hash key/value pair (key elements -> file_name, value elements -> file_path)
         locations.each do |file_name, file_path|
-            
+
             #for each hash value (file_path) goes through and converts the row to be another hash with the column headers as keys and the row values as the key's values.
             CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
                 if file_name == :games
@@ -28,15 +30,14 @@ class StatTracker
                     away_goals = row[:away_goals]
                     home_goals = row[:home_goals]
                     venue = row[:venue]
-                    game = Game.new(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue)
+                    game = Game.new(row)#game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue)
                     @games << game
                 elsif file_name == :teams
                     team_id = row[:team_id]
                     franchise_id = row[:franchise]
-                    team_name = row[:teamName]
                     abbreviation = row[:abbreviation]
                     stadium = row[:stadium]
-                    @teams << team = Team.new(team_id, franchise_id, abbreviation, stadium)
+                    @teams << team = Team.new(row)#team_id, franchise_id, abbreviation, stadium)
                 elsif file_name == :game_teams
                     game_id = row[:game_id]
                     team_id = row[:team_id]
@@ -62,12 +63,29 @@ class StatTracker
         end
     end
 
-    def highest_total_score
-        #.max may not be the correct method to call on games
-        @games.max {|game| game.total_score}
+
+
+    def percentage_home_wins
+
+        total_home_wins = @games.count do |game|
+            game.home_goals > game.away_goals
+        end
+        (total_home_wins.to_f / @games.size).round(2)
     end
 
-    def lowest_total_score
-        #code
+    def percentage_visitor_wins
+
+        total_home_wins = @games.count do |game|
+            game.home_goals < game.away_goals
+        end
+        (total_home_wins.to_f / @games.size).round(2)
+    end
+
+    def percentage_ties
+        total_ties = @games.count do |game|
+          game.home_goals == game.away_goals
+        end
+        (total_ties.to_f / @games.size).round(2)
+
     end
 end
