@@ -126,11 +126,12 @@ class StatTracker
     #best/worst_offense
     #highest/lowest_scoring
 
-    def winningest_coach
-        #code
+    def winningest_coach(season_id)
+        games_by_season = @games.group_by {|game| game.season}
+        games_by_season[season_id]
     end
 
-    def worst_coach
+    def worst_coach(season_id)
         #code
     end
 end
