@@ -141,4 +141,14 @@ def goals_by_team_and_hoa(team_id, hoa)
     end
     hash
   end
+
+  def game_results_count_by_result(result) 
+    if result == "TIE"
+      game_results.count {|r| r == result } / 2
+    end
+  end
+
+  def game_results
+    @game_teams.map {|game_team| game_team.result}
+  end
 end

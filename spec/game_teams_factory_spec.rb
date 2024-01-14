@@ -135,5 +135,18 @@ RSpec.describe GameTeamFactory do
 
       expect(@game_team_factory.find_coaches_win_percentages).to eq({20122013 => {"Claude Julien"=>100.0, "Dan Bylsma"=>0.0, "Joel Quenneville"=>100.0, "John Tortorella"=>0.0, "Mike Babcock"=>0.0}, 20152016 => {"Bill Peters"=>0.0, "Claude Julien"=>100.0, "Joel Quenneville"=>0.0, "John Torchetti"=>0.0, "John Tortorella"=>100.0, "Mike Sullivan"=>0.0}, 20162017 => {"Jared Bednar"=>0.0, "John Hynes"=>0.0, "Lindy Ruff"=>100.0, "Mike Sullivan"=>0.0}, 20172018 => {"Claude Julien"=>0.0, "Dave Hakstol"=>0.0, "Gerard Gallant"=>100.0, "Glen Gulutzan"=>0.0, "Jared Bednar"=>0.0, "John Stevens"=>50.0, "Mike Babcock"=>0.0, "Mike Sullivan"=>0.0, "Travis Green"=>100.0}})
     end
+
+		describe "#game_results_count_by_result(result)" do
+			it "will return a count of tames with the given results" do
+				@game_team_factory.create_game_team
+				expect(@game_team_factory.game_results_count_by_result("TIE")).to eq(4)
+			end
+	
+			it "will return an array of all game results" do
+				@game_team_factory.create_game_team
+
+				expect(@game_team_factory.game_results).to eq(["LOSS", "WIN", "LOSS", "WIN", "WIN", "LOSS", "WIN", "LOSS", "LOSS", "WIN", "WIN", "LOSS", "WIN", "LOSS", "LOSS", "WIN", "LOSS", "WIN", "LOSS", "WIN", "LOSS", "TIE", "TIE", "LOSS", "WIN", "LOSS", "WIN", "LOSS", "WIN", "TIE", "TIE", "LOSS", "WIN", "LOSS", "WIN", "TIE", "TIE", "LOSS", "WIN", "TIE", "TIE"])
+			end
+		end
   end
 end
