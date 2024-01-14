@@ -247,4 +247,23 @@ RSpec.describe StatTrackerCalculator do
         end
     end
 
+    describe 'most_tackles' do
+        it 'returns a string' do
+            expect(@stat_tracker_calc.most_tackles(@season)).to be_a(String)
+        end
+
+        it 'returns the name of the team with the most tackles in the season' do
+            expect(@stat_tracker_calc.most_tackles(@season)).to eq('FC Dallas')
+        end
+    end
+
+    describe 'fewest_tackles' do
+        it 'returns a string' do
+            expect(@stat_tracker_calc.fewest_tackles(@season)).to be_a(String)
+        end
+
+        it 'returns the name of the team with the fewest tackles in the season' do
+            expect(@stat_tracker_calc.fewest_tackles(@season)).to eq('New England Revolution')
+        end
+    end
 end
