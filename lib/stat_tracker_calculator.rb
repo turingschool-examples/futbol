@@ -39,4 +39,14 @@ class StatTrackerCalculator
     stat_tracker.make_factories
     stat_tracker.use_factories
   end
+
+  def highest_total_score
+    @game_factory.total_score.max
+  end
+
+  def lowest_total_score
+    @game_factory.total_score.min
+  end
+
+
 end
