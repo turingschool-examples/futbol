@@ -55,4 +55,8 @@ class StatTrackerCalculator
   def percentage_visitor_wins
     (@game_team_factory.game_result_by_hoa.count {|result| result == "away"}.to_f / @game_factory.count_of_games.to_f).round(2)
   end
+
+  def percentage_ties
+    (@game_team_factory.game_results_count_by_result("TIE").to_f / @game_factory.count_of_games.to_f).round(2)
+  end
 end
