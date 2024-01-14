@@ -162,7 +162,50 @@ RSpec.describe StatTrackerCalculator do
         end
     end
 
-    
+    describe 'highest_scoring_visitor' do
+
+        it 'returns a string' do
+            expect(@stat_tracker_calc.highest_scoring_visitor).to be_a(String)
+        end
+
+        it 'returns the name of the team with highest average score per game when they are away' do
+            expect(@stat_tracker_calc.highest_scoring_visitor).to eq('FC Dallas')
+        end
+    end
+
+    describe 'lowest_scoring_visitor' do
+
+        it 'returns a string' do
+            expect(@stat_tracker_calc.lowest_scoring_visitor).to be_a(String)
+        end
+
+        it 'returns the name of the team with lowest average score per game across all seasons when they are away' do
+            expect(@stat_tracker_calc.lowest_scoring_visitor).to eq('New England Revolution')
+        end
+    end
+
+    describe 'highest_scoring_home_team' do
+
+        it 'returns a string' do
+            expect(@stat_tracker_calc.highest_scoring_home_team).to be_a(String)
+        end
+
+        it 'return the name of the team with the highest average score per game across all seasons when they are home' do
+            expect(@stat_tracker_calc.highest_scoring_home_team).to eq('New York City FC')
+        end
+    end
+
+    describe 'lowest_scoring_home_team' do
+
+        it 'returns a string' do
+            expect(@stat_tracker_calc.lowest_scoring_home_team).to be_a(String)
+        end
+
+        it 'return the name of the team with the lowest average score per game across all seasons when they are home' do
+            expect(@stat_tracker_calc.lowest_scoring_home_team).to eq('Sporting Kansas City')
+        end
+    end
+
             
 
 end
