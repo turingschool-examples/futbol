@@ -48,5 +48,11 @@ class StatTrackerCalculator
     @game_factory.total_score.min
   end
 
+  def percentage_home_wins
+    (@game_team_factory.game_result_by_hoa.count {|result| result == "home"}.to_f / @game_factory.count_of_games.to_f).round(2)
+  end
 
+  def percentage_visitor_wins
+    (@game_team_factory.game_result_by_hoa.count {|result| result == "away"}.to_f / @game_factory.count_of_games.to_f).round(2)
+  end
 end
