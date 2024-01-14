@@ -12,6 +12,4 @@ class Team
     @abbreviation = abbreviation
     @stadium = stadium
   end
-
 end
-
