@@ -151,6 +151,4 @@ def goals_by_team_and_hoa(team_id, hoa)
   def game_results
     @game_teams.map {|game_team| game_team.result}
   end
-
-
 end
