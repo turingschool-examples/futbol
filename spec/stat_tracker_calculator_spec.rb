@@ -7,6 +7,7 @@ RSpec.describe StatTrackerCalculator do
         @team_path = './data/teams.csv'
         @game_teams_path = './data/game_teams.csv'
         @locations = { games: @game_path, teams: @team_path, game_teams: @game_teams_path }
+        @season = '20122013'
     end
     describe 'initialize' do
         it 'exists' do
@@ -206,6 +207,44 @@ RSpec.describe StatTrackerCalculator do
         end
     end
 
-            
+    describe 'winningest_coach(season)' do
+        it 'returns a string' do
+            expect(@stat_tracker_calc.winningest_coach(@season)).to be_a(String)
+        end
+
+        it 'returns the name of the coach with the best win percentage for the season' do
+            expect(@stat_tracker_calc.winningest_coach(@season)).to eq('Claude Julien')
+        end
+    end
+        
+    describe 'worst_coach(season)' do
+        it 'returns a string' do
+            expect(@stat_tracker_calc.worst_coach(@season)).to be_a(String)
+        end
+
+        it 'returns the name of the coach with the worst win percentage for the season' do
+            expect(@stat_tracker_calc.worst_coach(@season)).to eq('John Tortorella')
+        end
+    end
+
+    describe 'most_accurate_team' do
+        it 'returns a string' do
+            expect(@stat_tracker_calc.most_accurate_team(@season)).to be_a(String)
+        end
+
+        it 'returns the name of the team with the best ratio of shots to goals for the season' do
+            expect(@stat_tracker_calc.most_accurate_team(@season)).to eq('FC Dallas')
+        end
+    end
+
+    describe 'least_accurate_team' do
+        it 'returns a string' do
+            expect(@stat_tracker_calc.least_accurate_team(@season)).to be_a(String)
+        end
+
+        it 'returns the name of the team with the worst ratio of shots to goals for the season' do
+            expect(@stat_tracker_calc.least_accurate_team(@season)).to eq('Sporting Kansas City')
+        end
+    end
 
 end
