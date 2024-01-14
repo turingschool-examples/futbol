@@ -140,7 +140,29 @@ RSpec.describe StatTrackerCalculator do
         end
     end
 
-    de
+    describe 'best_offense' do
+
+        it 'returns a string' do
+            expect(@stat_tracker_calc.best_offense).to be_a(String)
+        end
+
+        it 'returns the name of the team with the best offense' do
+            expect(@stat_tracker_calc.best_offense).to eq('Sky Blue FC')
+        end
+    end
+
+    describe 'worst_offense' do
+
+        it 'returns a string' do
+            expect(@stat_tracker_calc.worst_offense).to be_a(String)
+        end
+
+        it 'returns the name of the team with the worst offense' do
+            expect(@stat_tracker_calc.worst_offense).to eq('Sporting Kansas City')
+        end
+    end
+
+    
             
 
 end
