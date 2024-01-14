@@ -19,3 +19,7 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2017030322,52,home,LOSS,REG,Paul Maurice,1,7,19,6,3,1,49.2,11,2
 2017030323,52,away,TIE,REG,Paul Maurice,2,8,48,22,2,0,48,7,7
 2017030323,54,home,TIE,REG,Gerard Gallant,2,7,41,18,3,0,52,15,18
+2017020696,6,away,WIN,REG,Bruce Cassidy,3,8,26,4,1,1,49.1,14,5
+2017021218,6,away,WIN,OT,Bruce Cassidy,3,9,14,4,3,1,52.9,9,8
+2017021066,8,away,LOSS,REG,Claude Julien,2,10,22,6,2,0,45.3,6,4
+2017020706,8,away,WIN,REG,Claude Julien,3,6,19,13,4,1,42.9,4,4

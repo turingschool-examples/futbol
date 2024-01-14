@@ -122,4 +122,15 @@ class StatTracker
             team.team_id
         end.uniq.count
     end
+
+    #best/worst_offense
+    #highest/lowest_scoring
+
+    def winningest_coach
+        #code
+    end
+
+    def worst_coach
+        #code
+    end
 end
