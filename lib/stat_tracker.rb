@@ -127,8 +127,10 @@ class StatTracker
     #highest/lowest_scoring
 
     def winningest_coach(season_id)
-        games_by_season = @games.group_by {|game| game.season}
-        games_by_season[season_id]
+        # games_by_season = @games.group_by {|game| game.season}
+        # season_game_ids = games_by_season[:season_id].map
+
+        season_game_ids = @games.filter_map {|game| game.game_id if game.season == season_id}
     end
 
     def worst_coach(season_id)
