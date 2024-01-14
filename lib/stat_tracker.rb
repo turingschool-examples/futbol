@@ -123,8 +123,37 @@ class StatTracker
         end.uniq.count
     end
 
-    #best/worst_offense
-    #highest/lowest_scoring
+    def highest_scoring_visitor
+        away_team = @game_teams.select { |game_team| game_team.home_or_away_game == "away" }
+        highest_scoring = away_team.max_by { |game_team| game_team.goals.to_i }
+
+        good_team = @teams.find { |team| team.team_id == highest_scoring.team_id }
+        good_team.team_name
+    end  
+
+    def highest_scoring_home_team
+        home_team = @game_teams.select { |game_team| game_team.home_or_away_game == "home" }
+        highest_scoring = home_team.max_by { |game_team| game_team.goals.to_i }
+
+        good_team = @teams.find { |team| team.team_id == highest_scoring.team_id }
+        good_team.team_name
+    end
+
+    def lowest_scoring_visitor
+        away_team = @game_teams.select { |game_team| game_team.home_or_away_game == "away" }
+        lowest_scoring = away_team.min_by { |game_team| game_team.goals.to_i }
+
+        bad_team = @teams.find { |team| team.team_id == lowest_scoring.team_id }
+        bad_team.team_name
+    end 
+
+    def lowest_scoring_home_team
+        home_team = @game_teams.select { |game_team| game_team.home_or_away_game == "home" }
+        lowest_scoring = home_team.min_by { |game_team| game_team.goals.to_i }
+
+        bad_team = @teams.find { |team| team.team_id == lowest_scoring.team_id }
+        bad_team.team_name
+    end
 
     def winningest_coach(season_id)
         # games_by_season = @games.group_by {|game| game.season}
