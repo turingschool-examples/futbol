@@ -25,12 +25,18 @@ class StatTrackerCalculator
     @game_teams_factory = GameTeamFactory.new(@game_teams_path)
   end
 
+  def use_factories
+    @game_factory.create_games
+    @team_factory.create_teams
+    @game_teams_factory.create_game_team
+  end
+
   def self.from_csv(locations) #will be a hash passed in from runner file
     stat_tracker = StatTracker.new
     stat_tracker.game_path = locations[:games] #changing object's attributes
     stat_tracker.team_path = locations[:teams]
     stat_tracker.game_teams_path = locations[:game_teams]
     stat_tracker.make_factories
+    stat_tracker.use_factories
   end
-
 end
