@@ -122,5 +122,22 @@ RSpec.describe StatTracker do
             expect(stat_tracker.count_of_teams).to eq(32)
         end
     end
+
+    describe '#season coach stats' do
+        it 'returns winningest_coach' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './spec/fixtures/teams_fixture.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+        end
+    end
 end
 
