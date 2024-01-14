@@ -2,7 +2,8 @@ require 'csv'
 
 class GameTeamFactory
 
-  attr_reader :file_path
+  attr_reader :file_path,
+              :game_teams
 
   def initialize(file_path)
     @file_path = file_path
