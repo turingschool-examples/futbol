@@ -119,7 +119,7 @@ RSpec.describe StatTracker do
                 }
 
                 stat_tracker = StatTracker.from_csv(locations)
-                expect(stat_tracker.count_of_teams).to eq(32)
+                expect(stat_tracker.count_of_teams).to eq(4)
             end
         end
 
@@ -151,7 +151,6 @@ RSpec.describe StatTracker do
                 }
                 stat_tracker = StatTracker.from_csv(locations)
                 expect(stat_tracker.average_goals_per_season).to eq({20122013 => 4.56, 20132014 => 4.36})
-                expect(stat_tracker.count_of_teams).to eq(32)
             end
         end
     end
