@@ -13,7 +13,7 @@ class Game
         @game_id = game_id.to_i
         @season = season.to_i
         @type = type
-        @date_time = data_time
+        @date_time = date_time
         @away_team_id = away_team_id.to_i
         @home_team_id = home_team_id.to_i
         @away_goals = away_goals.to_i
@@ -22,6 +22,6 @@ class Game
     end
 
     def total_score
-        @away_goals + @home_goals
+        @home_goals + @away_goals
     end
 end
