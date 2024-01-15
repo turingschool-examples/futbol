@@ -20,10 +20,23 @@ goes and what we need to succeed.
 ## Code Design 
 So far we came up with 4 classes, to each it's different responibility, for example StatTracker is supposed be able to pull statistics for individual teams. As well as using different methods such as class methodsand object oriented solutions, and potentially using modules and other tools that we have learned in this mod.
 
-# DTR
-This is our project group's [DTR](https://docs.google.com/document/d/1m_vG66OgFbGIfTJ0koJnYsiMf2i6kMHXdGWDgNHCfx8/edit?usp=sharing). The DTR was initially created on 
+# Define the Relationship (DTR)
+This is our project group's [DTR](https://docs.google.com/document/d/1m_vG66OgFbGIfTJ0koJnYsiMf2i6kMHXdGWDgNHCfx8/edit?usp=sharing). The 'Before You Start the Project' section was completed when the DTR was initially created on 1/9/2024. The remaining sections were completed when the DTR was updated on 1/14/2024 as part of the project retro.
 
+# Project Retro
+**Tool Utilized:**
+- [Echometer](https://echometerapp.com/en/product/retrospective-2/)
+- [DTR](https://docs.google.com/document/d/1m_vG66OgFbGIfTJ0koJnYsiMf2i6kMHXdGWDgNHCfx8/edit?usp=sharing)
 
+**Top 3 Things That Went Well**
+1. Utilizing GitHub Projects for managing tasks
+2. Collaborating when issues arose
+3. Overall communication and setting project norms
+
+**Top 3 Changes for Next Time**
+1. Providing more formal individual feedback
+2. Reorgnizing how debugging is handled
+3. Help with project/life balance by including time estimates with tasks where possible
 
 ## Contributors
 
