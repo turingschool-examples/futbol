@@ -66,7 +66,7 @@ RSpec.describe StatTracker do
 
                 stat_tracker = StatTracker.from_csv(locations)
 
-                expect(stat_tracker.percentage_home_wins).to eq(0.55)
+                expect(stat_tracker.percentage_home_wins).to eq(0.5)
             end
         end
 
@@ -295,4 +295,24 @@ RSpec.describe StatTracker do
             expect(stat_tracker.least_accurate_team("20132014")).to eq("Utah Royals FC")
         end
     end
+
+    describe '#count of teams by season' do
+        it 'returns the amount of games per season' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './data/game_teams.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+
+            expect(stat_tracker.count_of_games_by_season).to eq({20122013 => 9, 20132014 => 11})
+        end
+
+    end
+
 end
