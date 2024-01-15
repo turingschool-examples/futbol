@@ -65,7 +65,7 @@ RSpec.describe StatTracker do
                 }
 
                 stat_tracker = StatTracker.from_csv(locations)
-            
+
                 expect(stat_tracker.percentage_home_wins).to eq(0.55)
             end
         end
@@ -118,8 +118,8 @@ RSpec.describe StatTracker do
                     game_teams: game_teams_path
                 }
 
-                stat_tracker = StatTracker.from_csv(locations)
-                expect(stat_tracker.count_of_teams).to eq(4)
+                stat_tracker = StatTracker.new(locations)
+                expect(stat_tracker.count_of_teams).to eq(32)
             end
         end
 
@@ -169,8 +169,8 @@ RSpec.describe StatTracker do
 
             stat_tracker = StatTracker.from_csv(locations)
             expect(stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
-        end 
-        
+        end
+
         it 'returns highest scoring home team' do
             game_path = './spec/fixtures/games_fixture.csv'
             team_path = './data/teams.csv'
@@ -215,7 +215,7 @@ RSpec.describe StatTracker do
             stat_tracker = StatTracker.from_csv(locations)
             expect(stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
         end
-    end 
+    end
 
     describe '#season coach stats' do
         it 'returns winningest_coach' do
@@ -296,4 +296,3 @@ RSpec.describe StatTracker do
         end
     end
 end
-
