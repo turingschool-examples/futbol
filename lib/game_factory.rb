@@ -71,4 +71,20 @@ class GameFactory
   def avg_goals_by_team(team_id)
     goals_by_team(team_id).sum.to_f / goals_by_team(team_id).count.to_f
   end
+
+  def goals_at_home(team_id)
+    goals_at_home = []
+    @games.each do |game|
+      goals_at_home << game.home_goals if game.home_team_id == team_id
+    end
+    goals_at_home
+  end
+
+  def goals_at_away(team_id)
+    goals_at_away = []
+    @games.each do |game|
+      goals_at_away << game.away_goals if game.away_team_id == team_id
+    end
+    goals_at_away
+  end
 end
