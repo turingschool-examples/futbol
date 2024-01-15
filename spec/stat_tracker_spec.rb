@@ -118,7 +118,7 @@ RSpec.describe StatTracker do
                     game_teams: game_teams_path
                 }
 
-                stat_tracker = StatTracker.new(locations)
+                stat_tracker = StatTracker.from_csv(locations)
                 expect(stat_tracker.count_of_teams).to eq(32)
             end
         end
@@ -296,11 +296,11 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe '#count of teams by season' do
+    describe '#count of games by season' do
         it 'returns the amount of games per season' do
             game_path = './spec/fixtures/games_fixture.csv'
-            team_path = './data/teams.csv'
-            game_teams_path = './data/game_teams.csv'
+            team_path = './spec/fixtures/teams_fixture.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
 
             locations = {
                 games: game_path,
@@ -310,9 +310,44 @@ RSpec.describe StatTracker do
 
             stat_tracker = StatTracker.from_csv(locations)
 
-            expect(stat_tracker.count_of_games_by_season).to eq({20122013 => 9, 20132014 => 11})
+            expect(stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014"=>11})
         end
 
     end
 
+    describe '#best_offense' do
+        it 'returns the team with the best offense' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './spec/fixtures/teams_fixture.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.best_offense).to eq("FC Dallas")
+        end
+
+    end
+
+
+    describe '#worst_offense' do
+        it 'returns the team with the worst offense' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './spec/fixtures/teams_fixture.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.worst_offense).to eq("Sporting Kansas City")
+        end
+    end
 end
