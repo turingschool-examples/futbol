@@ -143,7 +143,7 @@ RSpec.describe GameFactory do
     it 'returns an integer' do
       @game_factory.create_games
 
-      expect(@game_factory.goals_at_away(3))).to be_a(Integer)
+      expect(@game_factory.goals_at_away(3)).to be_a(Integer)
     end
 
     it 'returns the number goals of away team from a given team_id' do
