@@ -110,4 +110,18 @@ RSpec.describe GameFactory do
         ).to be true
     end
   end
+
+  describe 'avg_goals_by_team' do
+    it 'returns a float' do
+      @game_factory.create_games
+
+      expect(@game_factory.avg_goals_by_team(3)).to be_a Float
+    end
+
+    it 'returns the average goals by the given team _id' do
+      @game_factory.create_games
+
+      expect(@game_factory.avg_goals_by_team(3)).to eq(1.6)
+    end
+  end
 end
