@@ -279,6 +279,21 @@ RSpec.describe StatTracker do
             stat_tracker = StatTracker.from_csv(locations)
             expect(stat_tracker.most_accurate_team("20132014")).to eq("Orlando City SC")
         end
+
+        it 'returns the least accurate team' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './data/game_teams.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.most_accurate_team("20132014")).to eq("Orlando City SC")
+        end
     end
 end
 
