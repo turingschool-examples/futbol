@@ -149,31 +149,4 @@ RSpec.describe GameTeamFactory do
 			end
 		end
   	end
-	describe '#goals_at_home(team_id)' do
-	  it 'returns an integer' do
-		@game_team_factory.create_games
-  
-		expect(@game_team_factory.goals_at_home(6)).to be_a(Integer)
-	  end
-  
-	  it 'returns the number goals of a home team from a given team_id' do
-		@game_team_factory.create_games
-  
-		expect(@game_team_factory.goals_at_home(6)).to eq(12)
-	  end
-	end
-  
-	describe '#goals_at_away(team_id)' do
-	  it 'returns an integer' do
-		@game_team_factory.create_games
-  
-		expect(@game_team_factory.goals_at_away(3)).to be_a(Integer)
-	  end
-  
-	  it 'returns the number goals of away team from a given team_id' do
-		@game_team_factory.create_games
-  
-		expect(@game_team_factory.goals_at_away(3)).to eq(5)
-	  end
-	end
 end

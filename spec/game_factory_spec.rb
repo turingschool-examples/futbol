@@ -124,4 +124,32 @@ RSpec.describe GameFactory do
       expect(@game_factory.avg_goals_by_team(3)).to eq(1.6)
     end
   end
+
+  describe '#goals_at_home(team_id)' do
+    it 'returns an Array' do
+    @game_factory.create_games
+
+    expect(@game_factory.goals_at_home(6)).to be_a(Array)
+    end
+
+    it 'returns the number goals of a home team from a given team_id' do
+    @game_factory.create_games
+
+    expect(@game_factory.goals_at_home(6)).to eq([3, 3, 3, 2, 1])
+    end
+  end
+
+  describe '#goals_at_away(team_id)' do
+    it 'returns an Array' do
+    @game_factory.create_games
+
+    expect(@game_factory.goals_at_away(3)).to be_a(Array)
+    end
+
+    it 'returns the number goals of away team from a given team_id' do
+    @game_factory.create_games
+
+    expect(@game_factory.goals_at_away(3)).to eq([2, 2, 1])
+    end
+  end
 end
