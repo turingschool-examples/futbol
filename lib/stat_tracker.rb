@@ -100,17 +100,12 @@ class StatTracker
         (total_ties.to_f / @games.size).round(2)
     end
 
-    def average_goals_per_game
-        @games.map! {|game| game.total_score}
-        (@games.sum.to_f / @games.size.to_f).round(2)
-    end
+    def count_of_games_by_season
+        season_counts = Hash.new(0)
+        @games.each do |game|
+            season = game.season
+            season_counts[season] += 1
 
-    def average_goals_per_season
-        games_by_season = @games.group_by {|game| game.season}
-        games_by_season.each_value do |games|
-            games.map! do |game|
-                game.total_score
-            end
         end
         games_by_season.each do |season, game_total_score|
             games_by_season[season] = (game_total_score.sum.to_f / game_total_score.size.to_f).round(2)
@@ -220,4 +215,29 @@ class StatTracker
         team_name = avg_goals_made.key(avg_goals_made.values.min)
         name_team_list[team_name]
     end
+
+    def average_goals_per_game
+        @games.map! {|game| game.total_score}
+        (@games.sum.to_f / @games.size.to_f).round(2)
+    end
+
+    def average_goals_per_season
+        games_by_season = @games.group_by {|game| game.season}
+        games_by_season.each_value do |games|
+            games.map! do |game|
+                game.total_score
+            end
+        end
+        games_by_season.each do |season, game_total_score|
+            games_by_season[season] = (game_total_score.sum.to_f / game_total_score.size.to_f).round(2)
+        end
+    end
+
+    def count_of_teams
+        @teams.map do |team|
+            team.team_id
+        end.uniq.count
+    end
+
+
 end
