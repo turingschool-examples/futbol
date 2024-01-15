@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 class StatTracker
     attr_reader :games,
@@ -107,15 +108,7 @@ class StatTracker
             season_counts[season] += 1
 
         end
-        games_by_season.each do |season, game_total_score|
-            games_by_season[season] = (game_total_score.sum.to_f / game_total_score.size.to_f).round(2)
-        end
-
-
-    def count_of_teams
-        @teams.map do |team|
-            team.team_id
-        end.uniq.count
+        season_counts
     end
 
     def count_of_teams
@@ -239,5 +232,69 @@ class StatTracker
         end.uniq.count
     end
 
+
+    def best_offense
+        # Get sorted goals
+        teams = sort_goal_stats
+
+        best_offense_id = get_id_with_average(teams, :average, true)
+
+        best_team = @teams.find { |team| team.team_id == best_offense_id }
+        best_team.team_name
+    end
+
+    def worst_offense
+        # Get sorted goals
+        teams = sort_goal_stats
+
+        worst_offense_id = get_id_with_average(teams, :average, false)
+
+        worst_team = @teams.find { |team| team.team_id == worst_offense_id }
+        worst_team.team_name
+    end
+
+    # Gets id of team with min/max average from array sorted by sort_goal_stats
+    def get_id_with_average(array, key, max)
+        team = max ? array.max_by { |item| item[key] } : array.min_by { |item| item[key] }
+        team[:id]
+    end
+
+    def sort_goal_stats
+        teams = []
+
+        # Sort the data => {:id=>"3", :goals=>8, :number_of_games=>5, :average=>1.6}
+
+        @game_teams.each do |game_team|
+            team_id = game_team.team_id
+            goals = game_team.goals.to_i
+
+            if (team_id == nil)
+                next
+            end
+
+            # Find team with same ID if exists otherwise default object shape
+            current_team = teams.find { |team| team[:id] == team_id } || { id: team_id, goals: 0, number_of_games: 0 }
+
+            current_team[:goals] += goals
+            current_team[:number_of_games] += 1
+
+            # Find index of current_team in teams
+            current_team_index = teams.index { |team| team[:id] == team_id }
+
+            # Update existing team or append new team
+            current_team_index ? teams[current_team_index] = current_team : teams << current_team
+
+        end
+        # binding.pry
+
+        # Get the averages of each team
+        teams = teams.map do |team|
+            team[:average] = team[:goals].to_f / team[:number_of_games].to_f
+            team
+        end
+
+        # Return data
+        teams
+    end
 
 end
