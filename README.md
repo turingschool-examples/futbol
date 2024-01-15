@@ -21,10 +21,12 @@ goes and what we need to succeed.
 So far we came up with 4 classes, to each it's different responibility, for example StatTracker is supposed be able to pull statistics for individual teams. As well as using different methods such as class methodsand object oriented solutions, and potentially using modules and other tools that we have learned in this mod.
 
 # DTR
-This is our first draft of the [DTR](https://docs.google.com/document/d/1m_vG66OgFbGIfTJ0koJnYsiMf2i6kMHXdGWDgNHCfx8/edit) template.
+This is our project group's [DTR](https://docs.google.com/document/d/1m_vG66OgFbGIfTJ0koJnYsiMf2i6kMHXdGWDgNHCfx8/edit?usp=sharing). The DTR was initially created on 
+
+
 
 ## Contributors
 
-Selena : [GitHub](https://github.com/Selena730) profile. [LinkedIn](https://www.linkedin.com/in/selena-hawamdeh-66722b239/) profile.
-Luis : [GitHub](https://github.com/LuisAparicio12) profile. [LinkedIn](https://www.linkedin.com/in/luis-aparicio-319a19261/) profile.
+Selena : [GitHub](https://github.com/Selena730) profile. [LinkedIn](https://www.linkedin.com/in/selena-hawamdeh-66722b239/) profile.<br>
+Luis : [GitHub](https://github.com/LuisAparicio12) profile. [LinkedIn](https://www.linkedin.com/in/luis-aparicio-319a19261/) profile.<br>
 Jess : [GitHub](https://github.com/kohljd?tab=overview&from=2024-01-01&to=2024-01-09) profile. [LinkedIn](https://www.linkedin.com/in/jessica-kohl-545785113/) profile.
