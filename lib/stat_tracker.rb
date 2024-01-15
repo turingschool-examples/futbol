@@ -75,7 +75,7 @@ class StatTracker
     def lowest_total_score
         @games.map {|game| game.total_score}.min
     end
-    
+
     def percentage_home_wins
 
         total_home_wins = @games.count do |game|
@@ -107,14 +107,20 @@ class StatTracker
 
     def average_goals_per_season
         games_by_season = @games.group_by {|game| game.season}
-        games_by_season.each_value do |games| 
+        games_by_season.each_value do |games|
             games.map! do |game|
                 game.total_score
             end
         end
-        games_by_season.each do |season, game_total_score| 
+        games_by_season.each do |season, game_total_score|
             games_by_season[season] = (game_total_score.sum.to_f / game_total_score.size.to_f).round(2)
         end
+
+
+    def count_of_teams
+        @teams.map do |team|
+            team.team_id
+        end.uniq.count
     end
 
     def count_of_teams
@@ -129,7 +135,7 @@ class StatTracker
 
         good_team = @teams.find { |team| team.team_id == highest_scoring.team_id }
         good_team.team_name
-    end  
+    end
 
     def highest_scoring_home_team
         home_team = @game_teams.select { |game_team| game_team.home_or_away_game == "home" }
@@ -145,7 +151,7 @@ class StatTracker
 
         bad_team = @teams.find { |team| team.team_id == lowest_scoring.team_id }
         bad_team.team_name
-    end 
+    end
 
     def lowest_scoring_home_team
         home_team = @game_teams.select { |game_team| game_team.home_or_away_game == "home" }
