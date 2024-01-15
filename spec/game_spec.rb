@@ -10,8 +10,8 @@ RSpec.describe Game do
     end
 
     it "has attributes" do
-        expect(@game.game_id).to eq(2012030221)
-        expect(@game.season).to eq(20122013)
+        expect(@game.game_id).to eq("2012030221")
+        expect(@game.season).to eq("20122013")
         expect(@game.type).to eq("Postseason")
         expect(@game.date_time).to eq("5/16/13")
         expect(@game.away_team_id).to eq(3)

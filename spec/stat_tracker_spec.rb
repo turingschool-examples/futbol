@@ -150,7 +150,7 @@ RSpec.describe StatTracker do
                     game_teams: game_teams_path
                 }
                 stat_tracker = StatTracker.from_csv(locations)
-                expect(stat_tracker.average_goals_per_season).to eq({20122013 => 4.56, 20132014 => 4.36})
+                expect(stat_tracker.average_goals_per_season).to eq({"20122013" => 4.56, "20132014" => 4.36})
             end
         end
     end
@@ -216,5 +216,37 @@ RSpec.describe StatTracker do
             expect(stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
         end
     end 
+
+    describe '#season coach stats' do
+        it 'returns winningest_coach' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './spec/fixtures/teams_fixture.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+        end
+
+        it 'returns worst_coach' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './spec/fixtures/teams_fixture.csv'
+            game_teams_path = './spec/fixtures/game_teams_fixture.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+        end
+    end
 end
 
