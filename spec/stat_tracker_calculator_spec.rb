@@ -10,7 +10,7 @@ RSpec.describe StatTrackerCalculator do
 
     before do 
         @game_path = './data/game_fixture.csv'
-        @team_path = './data/teams_fixture.csv'
+        @team_path = './data/teams.csv'
         @game_teams_path = './data/game_teams_fixture.csv'
         @locations = { games: @game_path, teams: @team_path, game_teams: @game_teams_path }
         @season = '20122013'
@@ -74,7 +74,7 @@ RSpec.describe StatTrackerCalculator do
     
     describe 'count_of_games_by_season' do
 
-        xit 'returns a hash with season as keys and the number of games as values' do
+        it 'returns a hash with season as keys and the number of games as values' do
             games_by_season = @stat_tracker_calc.count_of_games_by_season
 
             expect(games_by_season).to be_a(Hash)
@@ -85,7 +85,7 @@ RSpec.describe StatTrackerCalculator do
 
     describe 'average_goals_per_game' do
 
-        xit 'returns a float with average number of goals scored per game across all seasons' do
+        it 'returns a float with average number of goals scored per game across all seasons' do
             average_goals_per_game = @stat_tracker_calc.average_goals_per_game
 
             expect(average_goals_per_game).to be_a(Float)
@@ -96,7 +96,7 @@ RSpec.describe StatTrackerCalculator do
 
     describe 'average_goals_by_season' do
 
-        xit 'returns a hash with the keys being season name and the values being the average number of goals scored in a game for that season' do
+        it 'returns a hash with the keys being season name and the values being the average number of goals scored in a game for that season' do
             average_goals_by_season = @stat_tracker_calc.average_goals_by_season
 
             expect(average_goals_by_season).to be_a(Hash)
@@ -107,138 +107,147 @@ RSpec.describe StatTrackerCalculator do
 
     describe 'count_of_teams' do
 
-        xit 'returns an integer' do
+        it 'returns an integer' do
             expect(@stat_tracker_calc.count_of_teams).to be_a(Integer)
         end
 
-        xit 'returns an integer of the total amount of teams' do
+        it 'returns an integer of the total amount of teams' do
             expect(@stat_tracker_calc.count_of_teams).to eq(32)
         end
     end
 
     describe 'best_offense' do
 
-        xit 'returns a string' do
+        it 'returns a string' do
             expect(@stat_tracker_calc.best_offense).to be_a(String)
         end
 
-        xit 'returns the name of the team with the best offense' do
+        it 'returns the name of the team with the best offense' do
             expect(@stat_tracker_calc.best_offense).to eq('Sky Blue FC')
         end
     end
 
     describe 'worst_offense' do
 
-        xit 'returns a string' do
+        it 'returns a string' do
             expect(@stat_tracker_calc.worst_offense).to be_a(String)
         end
 
-        xit 'returns the name of the team with the worst offense' do
+        it 'returns the name of the team with the worst offense' do
             expect(@stat_tracker_calc.worst_offense).to eq('Sporting Kansas City')
         end
     end
 
+    before do
+        @game_path1 = './data/games.csv'
+        @team_path1 = './data/teams.csv'
+        @game_teams_path1 = './data/game_teams.csv'
+        @locations1 = { games: @game_path1, teams: @team_path1, game_teams: @game_teams_path1 }
+        @season1 = '20132014'
+        @stat_tracker_calc1 = StatTracker.from_csv(@locations1)
+    end 
+
     describe 'highest_scoring_visitor' do
 
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.highest_scoring_visitor).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.highest_scoring_visitor).to be_a(String)
         end
 
-        xit 'returns the name of the team with highest average score per game when they are away' do
-            expect(@stat_tracker_calc.highest_scoring_visitor).to eq('FC Dallas')
+        it 'returns the name of the team with highest average score per game when they are away' do
+            expect(@stat_tracker_calc1.highest_scoring_visitor).to eq('FC Dallas')
         end
     end
 
     describe 'lowest_scoring_visitor' do
 
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.lowest_scoring_visitor).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.lowest_scoring_visitor).to be_a(String)
         end
 
-        xit 'returns the name of the team with lowest average score per game across all seasons when they are away' do
-            expect(@stat_tracker_calc.lowest_scoring_visitor).to eq('New England Revolution')
+        it 'returns the name of the team with lowest average score per game across all seasons when they are away' do
+            expect(@stat_tracker_calc1.lowest_scoring_visitor).to eq("San Jose Earthquakes")
         end
     end
 
     describe 'highest_scoring_home_team' do
 
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.highest_scoring_home_team).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.highest_scoring_home_team).to be_a(String)
         end
 
-        xit 'return the name of the team with the highest average score per game across all seasons when they are home' do
-            expect(@stat_tracker_calc.highest_scoring_home_team).to eq('New York City FC')
+        it 'return the name of the team with the highest average score per game across all seasons when they are home' do
+            expect(@stat_tracker_calc1.highest_scoring_home_team).to eq('Reign FC')
         end
     end
 
     describe 'lowest_scoring_home_team' do
 
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.lowest_scoring_home_team).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.lowest_scoring_home_team).to be_a(String)
         end
 
-        xit 'return the name of the team with the lowest average score per game across all seasons when they are home' do
-            expect(@stat_tracker_calc.lowest_scoring_home_team).to eq('Sporting Kansas City')
+        it 'return the name of the team with the lowest average score per game across all seasons when they are home' do
+            expect(@stat_tracker_calc1.lowest_scoring_home_team).to eq('Utah Royals FC')
         end
     end
 
     describe 'winningest_coach(season)' do
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.winningest_coach(@season)).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.winningest_coach(@season1)).to be_a(String)
         end
 
-        xit 'returns the name of the coach with the best win percentage for the season' do
-            expect(@stat_tracker_calc.winningest_coach(@season)).to eq('Claude Julien')
+        it 'returns the name of the coach with the best win percentage for the season' do
+            expect(@stat_tracker_calc1.winningest_coach(@season1)).to eq('Claude Julien')
         end
     end
         
     describe 'worst_coach(season)' do
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.worst_coach(@season)).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.worst_coach(@season1)).to be_a(String)
         end
 
-        xit 'returns the name of the coach with the worst win percentage for the season' do
-            expect(@stat_tracker_calc.worst_coach(@season)).to eq('John Tortorella')
+        it 'returns the name of the coach with the worst win percentage for the season' do
+            expect(@stat_tracker_calc1.worst_coach(@season1)).to eq("Peter Laviolette")
         end
     end
 
     describe 'most_accurate_team' do
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.most_accurate_team(@season)).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.most_accurate_team(@season1)).to be_a(String)
         end
 
-        xit 'returns the name of the team with the best ratio of shots to goals for the season' do
-            expect(@stat_tracker_calc.most_accurate_team(@season)).to eq('FC Dallas')
+        it 'returns the name of the team with the best ratio of shots to goals for the season' do
+            expect(@stat_tracker_calc1.most_accurate_team(@season1)).to eq("Real Salt Lake")
         end
     end
 
     describe 'least_accurate_team' do
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.least_accurate_team(@season)).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.least_accurate_team(@season1)).to be_a(String)
         end
 
-        xit 'returns the name of the team with the worst ratio of shots to goals for the season' do
-            expect(@stat_tracker_calc.least_accurate_team(@season)).to eq('Sporting Kansas City')
+        it 'returns the name of the team with the worst ratio of shots to goals for the season' do
+            expect(@stat_tracker_calc1.least_accurate_team(@season1)).to eq("New York City FC")
         end
     end
 
     describe 'most_tackles' do
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.most_tackles(@season)).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.most_tackles(@season1)).to be_a(String)
         end
 
-        xit 'returns the name of the team with the most tackles in the season' do
-            expect(@stat_tracker_calc.most_tackles(@season)).to eq('FC Dallas')
+        it 'returns the name of the team with the most tackles in the season' do
+            expect(@stat_tracker_calc1.most_tackles(@season1)).to eq("FC Cincinnati")
         end
     end
 
     describe 'fewest_tackles' do
-        xit 'returns a string' do
-            expect(@stat_tracker_calc.fewest_tackles(@season)).to be_a(String)
+        it 'returns a string' do
+            expect(@stat_tracker_calc1.fewest_tackles(@season1)).to be_a(String)
         end
 
-        xit 'returns the name of the team with the fewest tackles in the season' do
-            expect(@stat_tracker_calc.fewest_tackles(@season)).to eq('New England Revolution')
+        it 'returns the name of the team with the fewest tackles in the season' do
+            expect(@stat_tracker_calc1.fewest_tackles(@season1)).to eq("Atlanta United")
         end
     end
 end
