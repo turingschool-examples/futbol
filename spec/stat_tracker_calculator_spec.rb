@@ -251,4 +251,3 @@ RSpec.describe StatTrackerCalculator do
         end
     end
 end
-end
