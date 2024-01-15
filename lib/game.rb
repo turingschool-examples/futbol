@@ -20,4 +20,8 @@ class Game
         @home_goals = home_goals.to_i
         @venue = venue
     end
+
+    def total_score
+        @away_goals + @home_goals
+    end
 end
