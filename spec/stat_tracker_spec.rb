@@ -248,5 +248,52 @@ RSpec.describe StatTracker do
             expect(stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
         end
     end
+
+    describe '#most and least accurate team' do
+        it 'can have a team list with the names' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './data/game_teams.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.name_team_list).to be_a Hash
+        end
+
+        it 'returns the most accurate team' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './data/game_teams.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.most_accurate_team("20132014")).to eq("Orlando City SC")
+        end
+
+        it 'returns the least accurate team' do
+            game_path = './spec/fixtures/games_fixture.csv'
+            team_path = './data/teams.csv'
+            game_teams_path = './data/game_teams.csv'
+
+            locations = {
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
+            }
+
+            stat_tracker = StatTracker.from_csv(locations)
+            expect(stat_tracker.least_accurate_team("20132014")).to eq("Utah Royals FC")
+        end
+    end
 end
 
