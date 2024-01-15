@@ -292,7 +292,7 @@ RSpec.describe StatTracker do
             }
 
             stat_tracker = StatTracker.from_csv(locations)
-            expect(stat_tracker.most_accurate_team("20132014")).to eq("Orlando City SC")
+            expect(stat_tracker.least_accurate_team("20132014")).to eq("Utah Royals FC")
         end
     end
 end
