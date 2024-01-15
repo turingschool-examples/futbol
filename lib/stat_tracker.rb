@@ -168,6 +168,14 @@ class StatTracker
     end
 
     def worst_coach(season_id)
-        #code
+        season_game_ids = @games.filter_map {|game| game.game_id if game.season == season_id}
+        total_season_games = season_game_ids.size
+
+        season_game_teams =  @game_teams.select {|game_team| season_game_ids.include?(game_team.game_id)}
+        head_coaches_season_stats = season_game_teams.group_by {|game_team| game_team.head_coach}
+        head_coach_games_won = head_coaches_season_stats.transform_values {|game_teams| game_teams.count{|game_team| game_team.result == "WIN"}}
+        head_coach_win_percentages = head_coach_games_won.transform_values {|games_won| (games_won.to_f / total_season_games.to_f * 100).round(2)}
+
+        head_coach_win_percentages.min_by {|coach, win_percent| win_percent}.first
     end
 end
