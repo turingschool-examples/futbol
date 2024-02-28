@@ -1,19 +1,22 @@
 require 'CSV'
 
 class Team 
-    attr_reader :id, :name
+  attr_reader :id, :name
 
-    def initialize(id, name)
-        @id = id.to_i
-        @name = name
+  def initialize(team_data)
+    @id = team_data[:id].to_i
+    @name = team_data[:name]
+  end
+
+  def self.create_from_csv(file_path)
+    teams = []
+    CSV.foreach(file_path, headers: true, converters: :all) do |row|
+      team_data = {
+        id: row["team_id"],
+        name: row["teamName"]
+      }
+    teams << Team.new(team_data)  
     end
-
-    def self.create_from_csv(file_path)
-        CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-            team_id = row[:team_id]
-            team_name = row[:teamName]
-            Team.new(team_id, team_name)
-        end
-    end
-
+    teams
+  end
 end

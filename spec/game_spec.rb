@@ -19,7 +19,7 @@ RSpec.describe Game do
     expect(@game1).to be_an_instance_of Game
   end
       
-  it 'has attributes' do
+  it 'has attributes that can be read' do
     expect(@game1.game_id).to eq 2012030221
     expect(@game1.season).to eq 20122013
     expect(@game1.type).to eq "Postseason"
@@ -31,12 +31,13 @@ RSpec.describe Game do
 
   it "can create Game objects using the create_from_csv method" do
     new_game = Game.create_from_csv("./data/games_dummy.csv")
-    expect(@game1.game_id).to eq 2012030221
-    expect(@game1.season).to eq 20122013
-    expect(@game1.type).to eq "Postseason"
-    expect(@game1.away_team_id).to eq 3
-    expect(@game1.home_team_id).to eq 6
-    expect(@game1.away_goals).to eq 2
-    expect(@game1.home_goals).to eq 3
+    starter = new_game.first
+    expect(starter.game_id).to eq 2012030221
+    expect(starter.season).to eq 20122013
+    expect(starter.type).to eq "Postseason"
+    expect(starter.away_team_id).to eq 3
+    expect(starter.home_team_id).to eq 6
+    expect(starter.away_goals).to eq 2
+    expect(starter.home_goals).to eq 3
   end
 end

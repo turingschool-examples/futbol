@@ -21,7 +21,7 @@ class Game
 
   def self.create_from_csv(file_path)
     games = []
-    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(file_path, headers: true, converters: :all) do |row|
       game_data = {
         game_id: row["game_id"],
         season: row["season"],
