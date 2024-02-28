@@ -4,13 +4,13 @@ RSpec.describe GameTeam do
 
   before(:each) do
     game_team_data = { game_id: 2014030232,
-    team_id: 30,
-    hoa: "away",
-    result: "LOSS",
-    head_coach: "Mike Yeo",
-    goals: 1,
-    shots: 7,
-    tackles: 42
+      team_id: 30,
+      hoa: "away",
+      result: "LOSS",
+      head_coach: "Mike Yeo",
+      goals: 1,
+      shots: 7,
+      tackles: 42
     }
     @game_team1 = GameTeam.new(game_team_data)
   end
