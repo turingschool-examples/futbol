@@ -28,4 +28,17 @@ RSpec.describe GameTeam do
     expect(@gameteam1.tackles).to eq 44
   end
 
+  it "can create GameTeam objects using the create_from_csv method" do
+    new_game_teams = GameTeam.create_from_csv("./data/game_teams_dummy.csv")
+    starting_game_team = new_game_teams.first
+    expect(starting_game_team.game_id).to eq(2_012_030_221)
+    expect(starting_game_team.team_id).to eq(3)
+    expect(starting_game_team.hoa).to eq("away")
+    expect(starting_game_team.result).to eq("LOSS")
+    expect(starting_game_team.head_coach).to eq('John Tortorella')
+    expect(starting_game_team.goals).to eq(2)
+    expect(starting_game_team.shots).to eq(8)
+    expect(starting_game_team.tackles).to eq(44)
+  end
+
 end
