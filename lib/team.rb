@@ -1,7 +1,6 @@
 require 'CSV'
 
-class Team
-    
+class Team 
     attr_reader :id, :name
 
     def initialize(id, name)
