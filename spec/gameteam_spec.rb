@@ -1,33 +1,33 @@
-require './spec/spec_helper'
+require 'spec_helper'
 
 RSpec.describe GameTeam do
 
   before(:each) do
-    gameteam_data = { 
-      game_id: 2_012_030_221,
-      team_id: 3,
-      hoa: "away",
-      result: "LOSS",
-      head_coach: "John Tortorella",
-      goals: 2,
-      shots: 8,
-      tackles: 44
+    game_team_data = { game_id: 2014030232,
+    team_id: 30,
+    hoa: "away",
+    result: "LOSS",
+    head_coach: "Mike Yeo",
+    goals: 1,
+    shots: 7,
+    tackles: 42
     }
-    @gameteam1 = GameTeam.new(gameteam_data)
+    @game_team1 = GameTeam.new(game_team_data)
   end
 
   it 'exists' do
-    expect(@gameteam1).to be_an_instance_of GameTeam
+    expect(@game_team1).to be_an_instance_of GameTeam
   end
 
   it 'has attributes that can be read' do
-    expect(@gameteam1.team_id).to eq 3
-    expect(@gameteam1.hoa).to eq "away"
-    expect(@gameteam1.result).to eq "LOSS"
-    expect(@gameteam1.head_coach).to eq "John Tortorella"
-    expect(@gameteam1.goals).to eq 2
-    expect(@gameteam1.shots).to eq 8
-    expect(@gameteam1.tackles).to eq 44
+    expect(@game_team1.game_id).to eq 2014030232
+    expect(@game_team1.team_id).to eq 30
+    expect(@game_team1.hoa).to eq "away"
+    expect(@game_team1.result).to eq "LOSS"
+    expect(@game_team1.head_coach).to eq "Mike Yeo"
+    expect(@game_team1.goals).to eq 1
+    expect(@game_team1.shots).to eq 7
+    expect(@game_team1.tackles).to eq 42
   end
 
   it "can create GameTeam objects using the create_from_csv method" do
