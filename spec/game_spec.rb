@@ -1,6 +1,7 @@
 require './spec/spec_helper'
 
 RSpec.describe Game do
+
       before(:each) do
         @game1 = Game.new(2012030221, 20122013, "Postseason", 3, 6, 2, 3)
       end
@@ -18,7 +19,5 @@ RSpec.describe Game do
           expect(@game1.away_goals).to eq 2
           expect(@game1.home_goals).to eq 3
         end
-      
-    
-
+  
 end
