@@ -1,22 +1,17 @@
 class StatTracker
-   
-    # self.from_csv({
-    #     games: './data/games.csv',
-    #     teams: './data/teams.csv',
-    #     game_teams: './data/game_teams.csv'
-    # })
+  attr_reader :games, :teams, :game_teams
+  
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
+  end
+  
+  def self.from_csv(locations)
+    games = Game.create_from_csv(locations[:games])
+    teams = Team.create_from_csv(locations[:teams])
+    game_teams = GameTeam.create_from_csv(locations[:game_teams])
+    StatTracker.new(games, teams, game_teams)
+  end
 
-    def self.from_csv(locations)
-        # if the key is games
-            # game.create_from_csv
-        # if the key is teams
-            # team.create_from_csv(location[:teams])
-        # if the key is gameteam
-            # gameteam.create_from_csv
-
-        # locations[:games] 
-        # locations[:teams]
-        # locations[:game_teams_path]
-    end
-    
 end
