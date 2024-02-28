@@ -1,15 +1,17 @@
 require './spec/spec_helper'
 
 RSpec.describe GameTeam do
+
   before(:each) do
-    gameteam_data = { game_id: 2_012_030_221,
-    team_id: 3,
-    hoa: "away",
-    result: "LOSS",
-    head_coach: "John Tortorella",
-    goals: 2,
-    shots: 8,
-    tackles: 44
+    gameteam_data = { 
+      game_id: 2_012_030_221,
+      team_id: 3,
+      hoa: "away",
+      result: "LOSS",
+      head_coach: "John Tortorella",
+      goals: 2,
+      shots: 8,
+      tackles: 44
     }
     @gameteam1 = GameTeam.new(gameteam_data)
   end
@@ -40,5 +42,4 @@ RSpec.describe GameTeam do
     expect(starting_game_team.shots).to eq(8)
     expect(starting_game_team.tackles).to eq(44)
   end
-
 end

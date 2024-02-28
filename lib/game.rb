@@ -1,4 +1,4 @@
-require './spec/spec_helper'
+require 'CSV'
 
 class Game
   attr_reader :game_id,
@@ -22,7 +22,7 @@ class Game
   def self.create_from_csv(file_path)
     games = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      game_Data = {
+      game_data = {
         game_id: row["game_id"],
         season: row["season"],
         type: row["type"],
@@ -30,8 +30,8 @@ class Game
         home_team_id: row["home_team_id"],
         away_goals: row["away_goals"],
         home_goals: row["home_goals"]
-    }
-    games << Game.new(game_id, season, type, away_team_id, home_team_id, away_goals, home_goals)
+      }
+    games << Game.new(game_data)
     end
     games
   end
