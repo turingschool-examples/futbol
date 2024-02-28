@@ -1,5 +1,5 @@
-require './spec_helper'
+require './spec/spec_helper'
 
-describe Game do
+RSpec.describe Game do
 
 end
