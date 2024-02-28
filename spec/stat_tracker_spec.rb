@@ -16,7 +16,6 @@ RSpec.describe StatTracker do
   end
 
   it 'exists' do
-    stat_tracker = StatTracker.new
     expect(@stat_tracker).to be_a StatTracker
   end
 
