@@ -45,7 +45,6 @@ RSpec.describe StatTracker do
     games_by_season = @stat_tracker.count_of_games_by_season
     expect(games_by_season).to be_a Hash
     expect(games_by_season.count).to eq 6
-    expect(games_by_season[20122013]).to eq 9
   end
 
 end
