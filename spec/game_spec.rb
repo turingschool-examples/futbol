@@ -48,10 +48,16 @@ RSpec.describe Game do
   end
 
   it 'can return a count of games by season' do
-    #Going to need to create hashes with the season id as the key 
-    #and the number (int) of games as the value
-    # expect(Game.count_of_games_by_season).to be a Hash
-    # expect(Game.count_of_games_by_season[:20122013]).to eq 9
+    require 'pry'; binding.pry
+    expected = {
+      20122013 => 45,
+      20132014 => 45,
+      20142015 => 20,
+      20152016 => 10,
+      20162017 => 15,
+      20172018 => 20
+    }
+    expect(Game.count_of_games_by_season).to eq (expected)
   end
 
 end
