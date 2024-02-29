@@ -40,4 +40,13 @@ RSpec.describe Game do
     expect(starter.away_goals).to eq 2
     expect(starter.home_goals).to eq 3
   end
+
+  it "gets the highest total score from all games" do
+    expect(thing).to eq(thing)
+  end
+
+  it "gets the lowest total score from all games" do
+    expect(thing).to eq(thing)
+  end
+
 end
