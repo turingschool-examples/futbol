@@ -31,6 +31,11 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.percentage_home_wins).to eq 0.44
   end
 
+  it '#percentage_visitor_wins returns correct return value' do
+    expect(@stat_tracker.percentage_away_wins).to be_a Float
+    expect(@stat_tracker.percentage_away_wins).to eq 0.36
+  end
+
   it '#percentage_ties returns correct return value' do
     expect(@stat_tracker.percentage_ties).to be_a Float
     expect(@stat_tracker.percentage_ties).to eq 0.20
