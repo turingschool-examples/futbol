@@ -41,11 +41,11 @@ class GameTeam
   end
 
   # def best_offense
-  #   x
+  #   Name of the team with the highest average number of goals scored per game across all seasons.
   # end
 
   # def worst_offense
-  #   x
+  #   Name of the team with the lowest average number of goals scored per game across all seasons.
   # end
 
 end
