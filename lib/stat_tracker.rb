@@ -16,11 +16,11 @@ class StatTracker
 
   def percentage_ties
     total_game_count = self.games.length # 7441
-    tie_counter = 0
+    tie_counter = 0 #1517
 
     self.games.each do |game|
       if game.away_goals == game.home_goals
-        tie_counter += 1 #1517
+        tie_counter += 1
       end
     end
 

@@ -26,8 +26,6 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_teams.first).to be_a GameTeam
   end
 
-  
-
   it '#percentage_ties returns correct return value' do
     expect(@stat_tracker.percentage_ties).to be_a Float
     expect(@stat_tracker.percentage_ties).to eq 0.20
