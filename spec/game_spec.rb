@@ -42,4 +42,11 @@ RSpec.describe Game do
     expect(test_game.home_goals).to eq 3
   end
 
+  it 'can return a count of games by season' do
+    #Going to need to create hashes with the season id as the key 
+    #and the number (int) of games as the value
+    expect(Game.count_of_games_by_season).to be a Hash
+    # expect(Game.count_of_games_by_season[:20122013]).to eq 9
+  end
+
 end
