@@ -40,12 +40,13 @@ class Game
     @@all
   end
 
-  # def self.count_of_games_by_season
-  #   season_ids = []
-  #   @@all.each do |game|
-  #     season_ids << game.season
-  #   end
-  # end
+  def self.count_of_games_by_season
+    season_counts = Hash.new(0)
+    @@all.each do |game|
+      season_counts[game.season] += 1
+    end
+    season_counts
+  end
 
   def self.all_seasons
     season_ids = []
