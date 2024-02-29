@@ -1,3 +1,7 @@
+require_relative 'game'
+require_relative 'team'
+require_relative 'gameteam'
+
 class StatTracker
   attr_reader :games, :teams, :game_teams
   
@@ -44,4 +48,7 @@ class StatTracker
     (tie_counter / self.games.length.to_f).round(2) # 1517 / 7441
   end
 
+  def count_of_games_by_season
+    Game.count_of_games_by_season
+  end
 end
