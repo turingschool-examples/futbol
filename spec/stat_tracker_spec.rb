@@ -1,10 +1,8 @@
 require './spec/spec_helper'
 
 RSpec.describe StatTracker do
+
   before(:each) do
-    # games_file = './data/games_dummy.csv'
-    # teams_file = './data/teams.csv'
-    # game_teams_file = './data/game_teams_dummy.csv'
     games_file = './data/games.csv'
     teams_file = './data/teams.csv'
     game_teams_file = './data/game_teams.csv'
@@ -28,16 +26,19 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_teams.first).to be_a GameTeam
   end
 
-  it 'has a highest score out of all games' do
-    expect(@stat_tracker.highest_total_score).to eq(11)
+  it '#percentage_home_wins returns correct return value' do
+    expect(@stat_tracker.percentage_home_wins).to be_a Float
+    expect(@stat_tracker.percentage_home_wins).to eq 0.44
   end
 
-  it 'has a lowest score out of all games' do
-    expect(@stat_tracker.lowest_total_score).to eq(0)
+  it '#percentage_visitor_wins returns correct return value' do
+    expect(@stat_tracker.percentage_visitor_wins).to be_a Float
+    expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
   end
 
-  it 'can count the total amount of teams' do
-    expect(@stat_tracker.count_of_teams).to eq(32)
+  it '#percentage_ties returns correct return value' do
+    expect(@stat_tracker.percentage_ties).to be_a Float
+    expect(@stat_tracker.percentage_ties).to eq 0.20
   end
 
 end

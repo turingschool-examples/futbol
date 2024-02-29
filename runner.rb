@@ -13,4 +13,8 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-require 'pry'; binding.pry
+# p stat_tracker.percentage_home_wins
+# p stat_tracker.percentage_visitor_wins
+# p stat_tracker.percentage_ties
+
+# require 'pry'; binding.pry
