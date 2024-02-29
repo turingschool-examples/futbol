@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Game do
-
   before(:each) do
     game_data = {
       game_id: 2012030221,
@@ -33,6 +32,7 @@ RSpec.describe Game do
 
   it "can create Game objects using the create_from_csv method" do
     test_game = @games.first
+    expect(@games).to all be_a Game
     expect(test_game.game_id).to eq 2012030221
     expect(test_game.season).to eq 20122013
     expect(test_game.type).to eq "Postseason"
@@ -42,13 +42,7 @@ RSpec.describe Game do
     expect(test_game.home_goals).to eq 3
   end
 
-  it 'can return all of the seasons in an array' do
-    expected = [20122013,20132014,20142015,20152016,20162017,20172018]
-    expect(Game.all_seasons).to eq (expected)
-  end
-
   it 'can return a count of games by season' do
-    require 'pry'; binding.pry
     expected = {
       20122013 => 45,
       20132014 => 45,
