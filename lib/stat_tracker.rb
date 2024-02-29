@@ -32,4 +32,16 @@ class StatTracker
     totals.min
   end
 
+  def count_of_teams
+    @teams.count
+  end
+
+  # def best_offense
+
+  # end
+
+  # def best_defense
+
+  # end
+
 end
