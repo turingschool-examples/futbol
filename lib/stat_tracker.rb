@@ -44,4 +44,7 @@ class StatTracker
     (tie_counter / self.games.length.to_f).round(2) # 1517 / 7441
   end
 
+  def count_of_games_by_season
+    Game.count_of_games_by_season
+  end
 end
