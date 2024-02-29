@@ -2,9 +2,12 @@ require './spec/spec_helper'
 
 RSpec.describe StatTracker do
   before(:each) do
-    games_file = './data/games_dummy.csv'
+    # games_file = './data/games_dummy.csv'
+    # teams_file = './data/teams.csv'
+    # game_teams_file = './data/game_teams_dummy.csv'
+    games_file = './data/games.csv'
     teams_file = './data/teams.csv'
-    game_teams_file = './data/game_teams_dummy.csv'
+    game_teams_file = './data/game_teams.csv'
 
     locations = {
       games: games_file,
@@ -23,6 +26,18 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.games.first).to be_a Game
     expect(@stat_tracker.teams.first).to be_a Team
     expect(@stat_tracker.game_teams.first).to be_a GameTeam
+  end
+
+  it 'has a highest score out of all games' do
+    expect(@stat_tracker.highest_total_score).to eq(11)
+  end
+
+  it 'has a lowest score out of all games' do
+    expect(@stat_tracker.lowest_total_score).to eq(0)
+  end
+
+  it 'can count the total amount of teams' do
+    expect(@stat_tracker.count_of_teams).to eq(32)
   end
 
 end
