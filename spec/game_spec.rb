@@ -66,14 +66,6 @@ RSpec.describe Game do
       expect(Game.count_of_games_by_season).to eq (expected)
     end
 
-    it 'can return the average number of goals by season' do
-      # sum all of the goals within a season
-      # divide that by the number of games in a season 
-        # (can use count_of_games_by_season)
-      # result is hash with keys of the season_id and 
-      # values are a float of the avg. number of goals
-    end
-
     it 'can return the total number of goals in a season' do
       expected = {
         20122013 => 43,
@@ -84,6 +76,17 @@ RSpec.describe Game do
         20172018 => 17
       }
       expect(Game.count_of_goals_by_season).to eq (expected)
+    end
+
+    it 'can return the average number of goals by season' do
+      expected = {
+        20122013 => 4.78,
+        20132014 => 3.25,
+        20142015 => 4.33,
+        20152016 => 3.50,
+        20162017 => 5.00,
+        20172018 => 4.25
+      }
     end
   end
 end
