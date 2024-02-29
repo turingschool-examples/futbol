@@ -13,6 +13,8 @@ RSpec.describe Game do
       home_goals: 3
     }
     @game1 = Game.new(game_data)
+
+    @games = Game.create_from_csv("./data/games_dummy.csv")
   end
 
   it 'exists' do
@@ -30,14 +32,14 @@ RSpec.describe Game do
   end
 
   it "can create Game objects using the create_from_csv method" do
-    new_game = Game.create_from_csv("./data/games_dummy.csv")
-    starter = new_game.first
-    expect(starter.game_id).to eq 2012030221
-    expect(starter.season).to eq 20122013
-    expect(starter.type).to eq "Postseason"
-    expect(starter.away_team_id).to eq 3
-    expect(starter.home_team_id).to eq 6
-    expect(starter.away_goals).to eq 2
-    expect(starter.home_goals).to eq 3
+    test_game = @games.first
+    expect(test_game.game_id).to eq 2012030221
+    expect(test_game.season).to eq 20122013
+    expect(test_game.type).to eq "Postseason"
+    expect(test_game.away_team_id).to eq 3
+    expect(test_game.home_team_id).to eq 6
+    expect(test_game.away_goals).to eq 2
+    expect(test_game.home_goals).to eq 3
   end
+
 end
