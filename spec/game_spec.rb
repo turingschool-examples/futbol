@@ -87,6 +87,8 @@ RSpec.describe Game do
         20162017 => 5.00,
         20172018 => 4.25
       }
+
+      expect(Game.average_goals_by_season).to eq (expected)
     end
   end
 end

@@ -63,7 +63,7 @@ class Game
     goals_count = count_of_goals_by_season
 
     games_count.each_key do |season|
-      goals_per_season[season] = goals_count[season].to_f / games_count[season]
+      goals_per_season[season] = (goals_count[season].to_f / games_count[season]).round(2)
     end
     goals_per_season
   end
