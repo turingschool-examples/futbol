@@ -45,7 +45,9 @@ RSpec.describe Game do
   end
 
   it "gets the highest total score from all games" do
-    expect(@games.highest_total_score).to eq(11)
+    game = @games.first
+    expect(game.highest_total_score(@games)).to eq(11)
+    # expect(game.highest_total_score).to eq(11)
   end
 
   it "gets the lowest total score from all games" do
