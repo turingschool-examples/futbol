@@ -18,7 +18,7 @@ RSpec.describe Game do
   it 'exists' do
     expect(@game1).to be_an_instance_of Game
   end
-      
+
   it 'has attributes that can be read' do
     expect(@game1.game_id).to eq 2012030221
     expect(@game1.season).to eq 20122013
