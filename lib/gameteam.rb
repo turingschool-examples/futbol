@@ -24,7 +24,7 @@ class GameTeam
   def self.create_from_csv(game_teams_path)
     game_teams = []
     CSV.foreach(game_teams_path, headers: true, converters: :all) do |row|
-      gameteam_data = { 
+      gameteam_data = {
         game_id: row["game_id"],
         team_id: row["team_id"],
         hoa: row["HoA"],
@@ -39,4 +39,13 @@ class GameTeam
     end
     game_teams
   end
+
+  # def best_offense
+  #   x
+  # end
+
+  # def worst_offense
+  #   x
+  # end
+
 end
