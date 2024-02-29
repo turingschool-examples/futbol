@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe GameTeam do
+  before(:all) do
+    @gameteams = GameTeams.create_from_csv("./data/game_teams.csv")
+  end
 
   before(:each) do
     game_team_data = { game_id: 2014030232,
