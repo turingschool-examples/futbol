@@ -47,12 +47,4 @@ class Game
     end
     season_counts
   end
-
-  def self.all_seasons
-    season_ids = []
-    @@all.each do |game|
-      season_ids << game.season
-    end
-    season_ids.uniq.sort
-  end
 end
