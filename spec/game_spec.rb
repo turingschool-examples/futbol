@@ -18,7 +18,7 @@ RSpec.describe Game do
         }
       @game1 = Game.new(game_data)
     end
-   
+
     it 'exists' do
       expect(@game1).to be_an_instance_of Game
     end
@@ -47,6 +47,11 @@ RSpec.describe Game do
       expect(test_game.home_team_id).to eq 6
       expect(test_game.away_goals).to eq 2
       expect(test_game.home_goals).to eq 3
+    end
+
+    it 'can return an array of all game objects' do
+      expect(Game.all).to all be_a Game
+      expect(Game.all.count).to eq 31
     end
 
     it 'can return a count of games by season' do
