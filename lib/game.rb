@@ -1,6 +1,7 @@
 require 'CSV'
 
 class Game
+  @@all = []
   attr_reader :game_id,
               :season,
               :type,
@@ -20,7 +21,6 @@ class Game
   end
 
   def self.create_from_csv(file_path)
-    games = []
     CSV.foreach(file_path, headers: true, converters: :all) do |row|
       game_data = {
         game_id: row["game_id"],
@@ -31,8 +31,27 @@ class Game
         away_goals: row["away_goals"],
         home_goals: row["home_goals"]
       }
-    games << Game.new(game_data)
+    @@all << Game.new(game_data)
     end
-    games
+    @@all
+  end
+
+  def self.all
+    @@all
+  end
+
+  # def self.count_of_games_by_season
+  #   season_ids = []
+  #   @@all.each do |game|
+  #     season_ids << game.season
+  #   end
+  # end
+
+  def self.all_seasons
+    season_ids = []
+    @@all.each do |game|
+      season_ids << game.season
+    end
+    season_ids.uniq.sort
   end
 end
