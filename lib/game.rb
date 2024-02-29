@@ -36,7 +36,7 @@ class Game
     games
   end
 
-  def highest_total_score
+  def highest_total_score(games)
     totals = games.map do |game|
       game.away_goals + game.home_goals
     end
