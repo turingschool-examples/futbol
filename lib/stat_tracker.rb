@@ -40,7 +40,7 @@ class StatTracker
 
   # end
 
-  # def best_defense
+  # def worst_offense
 
   # end
 
