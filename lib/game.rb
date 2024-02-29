@@ -47,4 +47,12 @@ class Game
     end
     season_counts
   end
+
+  def self.count_of_goals_by_season
+    goals_count = Hash.new(0)
+    @@all.each do |game|
+      goals_count[game.season] += game.away_goals + game.home_goals
+    end
+    goals_count
+  end
 end
