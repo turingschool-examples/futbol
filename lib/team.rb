@@ -1,6 +1,6 @@
 require 'CSV'
 
-class Team 
+class Team
   attr_reader :id, :name
 
   def initialize(team_data)
@@ -15,8 +15,13 @@ class Team
         id: row["team_id"],
         name: row["teamName"]
       }
-    teams << Team.new(team_data)  
+    teams << Team.new(team_data)
     end
     teams
   end
+
+  def count_of_teams
+    @teams.count
+  end
+
 end

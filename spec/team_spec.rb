@@ -2,13 +2,17 @@ require 'spec_helper'
 
 RSpec.describe Team do
 
+  before(:all) do
+    @teams = Team.create_from_csv("./data/teams.csv")
+  end
+
   before(:each) do
     team_data = {
       id: 1,
       name: "Atlanta United"
     }
     @team1 = Team.new(team_data)
-  end  
+  end
 
   it 'exists' do
     expect(@team1).to be_an_instance_of Team
@@ -24,6 +28,10 @@ RSpec.describe Team do
     starter = new_team.first
     expect(starter.id).to eq 1
     expect(starter.name).to eq "Atlanta United"
+  end
+
+  it "can count the total number of teams" do
+    expect(@teams.count_of_teams).to eq(32)
   end
 
 end
