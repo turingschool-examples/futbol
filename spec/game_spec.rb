@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Game do
+  before(:all) do
+    @games = Game.create_from_csv("./data/games.csv")
+  end
 
   before(:each) do
     game_data = {
@@ -42,11 +45,11 @@ RSpec.describe Game do
   end
 
   it "gets the highest total score from all games" do
-    expect(thing).to eq(thing)
+    expect(@stat_tracker.highest_total_score).to eq(11)
   end
 
   it "gets the lowest total score from all games" do
-    expect(thing).to eq(thing)
+    expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
 end
