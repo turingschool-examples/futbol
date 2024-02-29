@@ -47,4 +47,10 @@ RSpec.describe StatTracker do
     expect(games_by_season.count).to eq 6
   end
 
+  it '#average_goals_by_season' do
+    goals_by_season = @stat_tracker.count_of_games_by_season
+    expect(goals_by_season).to be_a Hash
+    expect(goals_by_season.count).to eq 6
+  end
+
 end

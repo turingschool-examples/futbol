@@ -65,5 +65,30 @@ RSpec.describe Game do
       }
       expect(Game.count_of_games_by_season).to eq (expected)
     end
+
+    it 'can return the total number of goals in a season' do
+      expected = {
+        20122013 => 43,
+        20132014 => 13,
+        20142015 => 39,
+        20152016 => 7,
+        20162017 => 15,
+        20172018 => 17
+      }
+      expect(Game.count_of_goals_by_season).to eq (expected)
+    end
+
+    it 'can return the average number of goals by season' do
+      expected = {
+        20122013 => 4.78,
+        20132014 => 3.25,
+        20142015 => 4.33,
+        20152016 => 3.50,
+        20162017 => 5.00,
+        20172018 => 4.25
+      }
+
+      expect(Game.average_goals_by_season).to eq (expected)
+    end
   end
 end

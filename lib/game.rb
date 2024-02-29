@@ -47,4 +47,24 @@ class Game
     end
     season_counts
   end
+
+  def self.count_of_goals_by_season
+    goals_count = Hash.new(0)
+    @@all.each do |game|
+      goals_count[game.season] += game.away_goals + game.home_goals
+    end
+    goals_count
+  end
+
+  def self.average_goals_by_season
+    goals_per_season = Hash.new(0)
+
+    games_count = count_of_games_by_season
+    goals_count = count_of_goals_by_season
+
+    games_count.each_key do |season|
+      goals_per_season[season] = (goals_count[season].to_f / games_count[season]).round(2)
+    end
+    goals_per_season
+  end
 end
