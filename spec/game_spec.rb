@@ -45,11 +45,11 @@ RSpec.describe Game do
   end
 
   it "gets the highest total score from all games" do
-    expect(@stat_tracker.highest_total_score).to eq(11)
+    expect(@games.highest_total_score).to eq(11)
   end
 
   it "gets the lowest total score from all games" do
-    expect(@stat_tracker.lowest_total_score).to eq(0)
+    expect(@games.lowest_total_score).to eq(0)
   end
 
 end
