@@ -38,7 +38,7 @@ class StatTracker
     GameTeams.worst_offense
   end
 
-  def most_tackles
+  def most_tackles(season)
     # Game.most_tackles
   end
 

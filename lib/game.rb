@@ -50,7 +50,7 @@ class Game
     totals.min
   end
 
-  def self.most_tackles
+  def self.most_tackles(season)
     # Name of the team with the most tackles in the season.
   end
 
