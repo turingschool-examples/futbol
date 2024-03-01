@@ -55,8 +55,8 @@ RSpec.describe Game do
   end
 
   it "gets the team with the most tackles in the season" do
-    expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    expect(@games.most_tackles("20132014")).to eq "FC Cincinnati"
+    expect(@games.most_tackles("20142015")).to eq "Seattle Sounders FC"
   end
 
 end
