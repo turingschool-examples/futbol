@@ -26,7 +26,11 @@ class Team
   end
 
   def self.find_team_name_by_id(team_id)
+    x = []
     team_id_and_name_hash = {}
-    x = @@all.each {|team|team_id_and_name_hash[team.id] = team.name}
+    require 'pry'; binding.pry
+    x = @@all.each do |team| 
+    team_id_and_name_hash[team.id] = team.name
+    end
   end
 end
