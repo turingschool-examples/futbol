@@ -40,8 +40,6 @@ class Game
     @@all
   end
 
-  # Percentage Methods
-
   def self.percentage_home_wins
     home_win_counter = 0
     @@all.each do |game|
@@ -71,8 +69,6 @@ class Game
     end
     (tie_counter / @@all.length.to_f).round(2) # 1517 / 7441
   end
-
-  # Percentage Methods
 
   def self.count_of_games_by_season
     season_counts = Hash.new(0)
