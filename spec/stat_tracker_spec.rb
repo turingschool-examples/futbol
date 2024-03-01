@@ -1,7 +1,8 @@
 require './spec/spec_helper'
 
 RSpec.describe StatTracker do
-  before(:each) do
+
+  before(:all) do
     games_file = './data/games_dummy.csv'
     teams_file = './data/teams.csv'
     game_teams_file = './data/game_teams_dummy.csv'
@@ -28,4 +29,34 @@ RSpec.describe StatTracker do
   it 'has the team by id' do
     expect(@stat_tracker.find_team_name_by_id(6)).to be "FC Dallas"
   end
+  it '#percentage_home_wins returns correct return value' do
+    percentage_home_wins = @stat_tracker.percentage_home_wins
+    expect(percentage_home_wins).to be_a Float
+    expect(percentage_home_wins).to eq 0.48
+  end
+
+  it '#percentage_visitor_wins returns correct return value' do
+    percentage_visitor_wins = @stat_tracker.percentage_visitor_wins
+    expect(percentage_visitor_wins).to be_a Float
+    expect(percentage_visitor_wins).to eq 0.29
+  end
+
+  it '#percentage_ties returns correct return value' do
+    percentage_ties = @stat_tracker.percentage_ties
+    expect(percentage_ties).to be_a Float
+    expect(percentage_ties).to eq 0.23
+  end
+
+  it '#count_of_games_by_season' do
+    games_by_season = @stat_tracker.count_of_games_by_season
+    expect(games_by_season).to be_a Hash
+    expect(games_by_season.count).to eq 6
+  end
+
+  it '#average_goals_by_season' do
+    goals_by_season = @stat_tracker.count_of_games_by_season
+    expect(goals_by_season).to be_a Hash
+    expect(goals_by_season.count).to eq 6
+  end
+
 end
