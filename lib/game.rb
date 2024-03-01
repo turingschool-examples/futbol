@@ -36,21 +36,21 @@ class Game
     games
   end
 
-  def highest_total_score(games)
+  def self.highest_total_score(games)
     totals = games.map do |game|
       game.away_goals + game.home_goals
     end
     totals.max
   end
 
-  def lowest_total_score
+  def self.lowest_total_score
     totals = games.map do |game|
       game.away_goals + game.home_goals
     end
     totals.min
   end
 
-  def most_tackles
+  def self.most_tackles
     # Name of the team with the most tackles in the season.
   end
 

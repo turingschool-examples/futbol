@@ -20,7 +20,7 @@ class Team
     teams
   end
 
-  def count_of_teams
+  def self.count_of_teams
     @teams.count
   end
 

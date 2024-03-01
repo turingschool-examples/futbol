@@ -40,11 +40,11 @@ class GameTeam
     game_teams
   end
 
-  def best_offense
+  def self.best_offense
 
   end
 
-  # def worst_offense
+  # def self.worst_offense
   #   Name of the team with the lowest average number of goals scored per game across all seasons.
   # end
 
