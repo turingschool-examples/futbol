@@ -15,7 +15,14 @@ class StatTracker
   end
 
   def find_team_name_by_id(team_id)
-    require 'pry'; binding.pry
-    @teams.find_all {|team| team}
+    Team.find_team_name_by_id(team_id)
+  end
+
+  def self.highest_scoring_home_team 
+    find_team_name_by_id(GameTeam.scores_per_team_home.max_by {|team_id, goals| goals}.first)
+  end
+
+  def self.lowest_scoring_home_team
+    find_team_name_by_id(GameTeam.scores_per_team_home.min_by {|team_id, goals| goals}.first)
   end
 end

@@ -62,7 +62,11 @@ RSpec.describe GameTeam do
     end
 
     it 'has the highest scoring home team' do
-      expect(GameTeam.lowest_scoring_home_team).to be_a Hash
+      expect(GameTeam.highest_scoring_home_team).to be_a String 
+    end
+
+    it 'has the lowerst scoring home team' do
+      expect(GameTeam.lowest_scoring_home_team).to be_a String 
     end
   end
 end

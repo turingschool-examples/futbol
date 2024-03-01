@@ -25,9 +25,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_teams.first).to be_a GameTeam
   end
 
-  xi
-
   it 'has the team by id' do
-    expect(@stat_tracker.scores_per_team_home).to be "Chicago Fire"
+    expect(@stat_tracker.find_team_name_by_id(6)).to be "FC Dallas"
   end
 end

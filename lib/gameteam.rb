@@ -22,8 +22,7 @@ class GameTeam
     @tackles = gameteam_data[:tackles]
   end
 
-  def self.create_from_csv(game_teams_path, tracker)
-    require 'pry'; binding.pry
+  def self.create_from_csv(game_teams_path)
     CSV.foreach(game_teams_path, headers: true, converters: :all) do |row|
       gameteam_data = { 
         game_id: row["game_id"],
@@ -45,13 +44,7 @@ class GameTeam
     @@game_teams
   end
 
-  def self.highest_scoring_home_team 
-    @tracker.find_team_name_by_id(scores_per_team_home.max_by {|team_id, goals| goals}.first)
-  end
-
-  def self.lowest_scoring_home_team
-    scores_per_team_home.min_by {|team_id, goals| goals}.first
-  end
+  
 
   def self.scores_per_team_home
     team_scores = Hash.new(0)

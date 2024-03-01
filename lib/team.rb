@@ -1,6 +1,7 @@
 require 'CSV'
 
 class Team 
+  @@all = []
   attr_reader :id, :name
 
   def initialize(team_data)
@@ -15,12 +16,17 @@ class Team
         id: row["team_id"],
         name: row["teamName"]
       }
-    teams << Team.new(team_data)  
+    @@all << Team.new(team_data)  
     end
     teams
   end
 
+  def all
+    @@all
+  end
+
   def self.find_team_name_by_id(team_id)
-    @id 
+    team_id_and_name_hash = {}
+    x = @@all.each {|team|team_id_and_name_hash[team.id] = team.name}
   end
 end
