@@ -2,44 +2,67 @@ require 'spec_helper'
 
 RSpec.describe GameTeam do
 
-  before(:each) do
-    game_team_data = { game_id: 2014030232,
-      team_id: 30,
-      hoa: "away",
-      result: "LOSS",
-      head_coach: "Mike Yeo",
-      goals: 1,
-      shots: 7,
-      tackles: 42
+  before(:all) do
+    games_file = './data/games_dummy.csv'
+    teams_file = './data/teams.csv'
+    game_teams_file = './data/game_teams_dummy.csv'
+
+    locations = {
+      games: games_file,
+      teams: teams_file,
+      game_teams: game_teams_file
     }
-    @game_team1 = GameTeam.new(game_team_data)
+
+    tracker = StatTracker.from_csv(locations) 
+    game_team_data = './data/game_teams_dummy.csv'
+    @game_teams = GameTeam.create_from_csv(game_team_data, tracker)
   end
 
-  it 'exists' do
-    expect(@game_team1).to be_an_instance_of GameTeam
-  end
+  describe '#initialize' do 
+    before(:each) do
+      game_data_test = {
+        game_id: 2014030232,
+        team_id:  30,
+        hoa: "away",
+        result: "LOSS",
+        head_coach: "Mike Yeo",
+        goals: 1,
+        shots: 7,
+        tackles: 42
+      }
+      @game_team1 = GameTeam.new(game_data_test)
+    end
+    it 'exists' do
+      expect(@game_team1).to be_an_instance_of GameTeam
+    end
 
-  it 'has attributes that can be read' do
-    expect(@game_team1.game_id).to eq 2014030232
-    expect(@game_team1.team_id).to eq 30
-    expect(@game_team1.hoa).to eq "away"
-    expect(@game_team1.result).to eq "LOSS"
-    expect(@game_team1.head_coach).to eq "Mike Yeo"
-    expect(@game_team1.goals).to eq 1
-    expect(@game_team1.shots).to eq 7
-    expect(@game_team1.tackles).to eq 42
+    it 'has attributes that can be read' do
+      expect(@game_team1.game_id).to eq 2014030232
+      expect(@game_team1.team_id).to eq 30
+      expect(@game_team1.hoa).to eq "away"
+      expect(@game_team1.result).to eq "LOSS"
+      expect(@game_team1.head_coach).to eq "Mike Yeo"
+      expect(@game_team1.goals).to eq 1
+      expect(@game_team1.shots).to eq 7
+      expect(@game_team1.tackles).to eq 42
+    end
   end
+  describe '#Methods' do
+    it "can create GameTeam objects using the create_from_csv method" do
+      
+      starting_game_team = @game_teams.first
+      expect(starting_game_team.game_id).to eq(2012030221)
+      expect(starting_game_team.team_id).to eq(3)
+      expect(starting_game_team.hoa).to eq("away")
+      expect(starting_game_team.result).to eq("LOSS")
+      expect(starting_game_team.head_coach).to eq('John Tortorella')
+      expect(starting_game_team.goals).to eq(2)
+      expect(starting_game_team.shots).to eq(8)
+      expect(starting_game_team.tackles).to eq(44)
+    end
 
-  it "can create GameTeam objects using the create_from_csv method" do
-    new_game_teams = GameTeam.create_from_csv("./data/game_teams_dummy.csv")
-    starting_game_team = new_game_teams.first
-    expect(starting_game_team.game_id).to eq(2_012_030_221)
-    expect(starting_game_team.team_id).to eq(3)
-    expect(starting_game_team.hoa).to eq("away")
-    expect(starting_game_team.result).to eq("LOSS")
-    expect(starting_game_team.head_coach).to eq('John Tortorella')
-    expect(starting_game_team.goals).to eq(2)
-    expect(starting_game_team.shots).to eq(8)
-    expect(starting_game_team.tackles).to eq(44)
+    it 'has the highest scoring home team' do
+      expect(GameTeam.lowest_scoring_home_team).to be_a Hash
+    end
   end
 end

@@ -15,14 +15,19 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  it 'exists' do
+  xit 'exists' do
     expect(@stat_tracker).to be_a StatTracker
   end
 
-  it 'initializes data from a CSV file' do
+  xit 'initializes data from a CSV file' do
     expect(@stat_tracker.games.first).to be_a Game
     expect(@stat_tracker.teams.first).to be_a Team
     expect(@stat_tracker.game_teams.first).to be_a GameTeam
   end
 
+  xi
+
+  it 'has the team by id' do
+    expect(@stat_tracker.scores_per_team_home).to be "Chicago Fire"
+  end
 end

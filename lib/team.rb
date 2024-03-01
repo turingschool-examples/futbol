@@ -5,7 +5,7 @@ class Team
 
   def initialize(team_data)
     @id = team_data[:id].to_i
-    @name = team_data[:name]
+    @name = team_data[:name].to_s
   end
 
   def self.create_from_csv(file_path)
@@ -18,5 +18,9 @@ class Team
     teams << Team.new(team_data)  
     end
     teams
+  end
+
+  def self.find_team_name_by_id(team_id)
+    @id 
   end
 end

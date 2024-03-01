@@ -1,6 +1,7 @@
 require 'CSV'
 
 class GameTeam
+  @@game_teams = []
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -21,8 +22,8 @@ class GameTeam
     @tackles = gameteam_data[:tackles]
   end
 
-  def self.create_from_csv(game_teams_path)
-    game_teams = []
+  def self.create_from_csv(game_teams_path, tracker)
+    require 'pry'; binding.pry
     CSV.foreach(game_teams_path, headers: true, converters: :all) do |row|
       gameteam_data = { 
         game_id: row["game_id"],
@@ -35,8 +36,30 @@ class GameTeam
         shots: row["shots"],
         tackles: row["tackles"]
       }
-    game_teams << GameTeam.new(gameteam_data)
+    @@game_teams << GameTeam.new(gameteam_data)
     end
-    game_teams
+    @@game_teams
+  end
+
+  def self.game_teams
+    @@game_teams
+  end
+
+  def self.highest_scoring_home_team 
+    @tracker.find_team_name_by_id(scores_per_team_home.max_by {|team_id, goals| goals}.first)
+  end
+
+  def self.lowest_scoring_home_team
+    scores_per_team_home.min_by {|team_id, goals| goals}.first
+  end
+
+  def self.scores_per_team_home
+    team_scores = Hash.new(0)
+    @@game_teams.each do |gameteam|
+      if gameteam.hoa == "home"
+        team_scores[gameteam.team_id] += gameteam.goals
+      end
+    end
+    team_scores
   end
 end

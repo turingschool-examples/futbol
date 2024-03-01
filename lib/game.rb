@@ -35,4 +35,11 @@ class Game
     end
     games
   end
+
+  def average_goals_per_game
+    total_goals = self.games.map do |game|
+        (game.away_goals.to_f + game.home_goals)
+    end.sum
+    (total_goals / games.count).round(2)
+  end
 end

@@ -1,6 +1,7 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'CSV'
 require 'pry'
 require 'rspec'
 require './lib/game'

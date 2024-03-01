@@ -14,4 +14,8 @@ class StatTracker
     StatTracker.new(games, teams, game_teams)
   end
 
+  def find_team_name_by_id(team_id)
+    require 'pry'; binding.pry
+    @teams.find_all {|team| team}
+  end
 end
