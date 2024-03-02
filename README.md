@@ -28,3 +28,14 @@ Re-DTR - 2/28
 - Billy - [LinkedIn](https://www.linkedin.com/in/wallacebilly1/); [GitHub](https://github.com/wallacebilly1)
 - Grant - [LinkedIn](https://www.linkedin.com/in/); [GitHub](grantdavis303/https://github.com/grantdavis303)
 - Steddy - [LinkedIn](https://www.linkedin.com/in/steddman-bell-350978139/); [GitHub](https://github.com/Steddy1Love)
+
+### Retro
+*The name of and links (if applicable) to any tools you used for retro*
+[EZRetro](https://easyretro.io/publicboard/Owb6ERtPnzcgUL9bol8fEw36RgJ3/f66060df-87c4-436f-98d2-67fec96b8bde)
+
+*Top 3 things that went well during your project*
+- We are communicating well with each other, even opting to excessively communicate VS under communicate.
+- Use of Slack has been a great tool for updating each other and our tasks.
+- We initially planned on iro very well, it was an effective vision boarding project.
+
+*Top 3 things your team would do differently next time*
