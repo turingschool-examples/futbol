@@ -106,8 +106,6 @@ RSpec.describe Game do
       end
 
       it "gets the highest total score from all games" do
-        # game = @games.first
-        # expect(game.highest_total_score(@games)).to eq(11)
         expect(Game.highest_total_score).to eq(11)
       end
 
