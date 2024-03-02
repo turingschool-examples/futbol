@@ -1,6 +1,8 @@
 require 'CSV'
 
+
 class GameTeam
+  @@all = []
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -11,8 +13,8 @@ class GameTeam
               :tackles
 
   def initialize(gameteam_data)
-    @game_id = gameteam_data[:game_id]
-    @team_id = gameteam_data[:team_id]
+    @game_id = gameteam_data[:game_id].to_s
+    @team_id = gameteam_data[:team_id].to_s
     @hoa = gameteam_data[:hoa]
     @result = gameteam_data[:result]
     @head_coach = gameteam_data[:head_coach]
@@ -22,7 +24,6 @@ class GameTeam
   end
 
   def self.create_from_csv(game_teams_path)
-    game_teams = []
     CSV.foreach(game_teams_path, headers: true, converters: :all) do |row|
       gameteam_data = { 
         game_id: row["game_id"],
@@ -35,8 +36,21 @@ class GameTeam
         shots: row["shots"],
         tackles: row["tackles"]
       }
-    game_teams << GameTeam.new(gameteam_data)
+    @@all << GameTeam.new(gameteam_data)
     end
-    game_teams
+    @@all
   end
+
+  def self.tackles_per_team(season_id)
+    tackles_per_team = Hash.new(0)
+
+    @@all.each do |row|
+      if season_id[0..3] == row.game_id[0..3]
+        tackles_per_team[row.team_id] += row.tackles
+      end
+    end
+    tackles_per_team
+  end
+
+  
 end
