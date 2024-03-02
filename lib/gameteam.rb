@@ -44,8 +44,7 @@ class GameTeam
     # Team has names.
     # divide goals scored by number of games played for each team
     # @@game_teams.goals
-    require 'pry'; binding.pry
-    # return team name with highest average
+    # return team id(/name) with highest average score
   end
 
   # def self.worst_offense
