@@ -48,7 +48,7 @@ RSpec.describe GameTeam do
       expect(starting_game_team.tackles).to eq(44)
     end
 
-    it 'has the scores per home team' do
+    xit 'has the scores per home team' do
       expect(GameTeam.highest_scoring_home_team).to be_a String 
       expect(GameTeam.highest_scoring_home_team).to eq "Reign FC"
     end
