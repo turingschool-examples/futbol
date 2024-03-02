@@ -31,7 +31,7 @@ Re-DTR - 2/28
 
 ### Retro
 *The name of and links (if applicable) to any tools you used for retro*
-[EZRetro](https://easyretro.io/publicboard/Owb6ERtPnzcgUL9bol8fEw36RgJ3/f66060df-87c4-436f-98d2-67fec96b8bde)
+- EasyRetro - [EZRetro](https://easyretro.io/publicboard/Owb6ERtPnzcgUL9bol8fEw36RgJ3/f66060df-87c4-436f-98d2-67fec96b8bde)
 
 *Top 3 things that went well during your project*
 - We are communicating well with each other, even opting to excessively communicate VS under communicate.
