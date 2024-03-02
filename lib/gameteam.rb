@@ -56,4 +56,9 @@ class GameTeam
     tackles_per_team_hash.min_by {|team_id, tackles| tackles}.first
   end
 
+  def self.least_tackles_by_season(season_id)
+    tackles_per_team_hash = GameTeam.tackles_per_team(season_id)
+    GameTeam.least_tackles(tackles_per_team_hash)
+  end
+
 end
