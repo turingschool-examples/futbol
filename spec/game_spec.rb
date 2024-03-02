@@ -106,18 +106,18 @@ RSpec.describe Game do
       end
 
       it "gets the highest total score from all games" do
-        game = @games.first
-        expect(game.highest_total_score(@games)).to eq(11)
-        # expect(game.highest_total_score).to eq(11)
+        # game = @games.first
+        # expect(game.highest_total_score(@games)).to eq(11)
+        expect(Game.highest_total_score).to eq(11)
       end
 
       it "gets the lowest total score from all games" do
-        expect(@games.lowest_total_score).to eq(0)
+        expect(Game.lowest_total_score).to eq(0)
       end
 
       it "gets the team with the most tackles in the season" do
-        expect(@games.most_tackles("20132014")).to eq "FC Cincinnati"
-        expect(@games.most_tackles("20142015")).to eq "Seattle Sounders FC"
+        expect(Game.most_tackles("20132014")).to eq "FC Cincinnati"
+        expect(Game.most_tackles("20142015")).to eq "Seattle Sounders FC"
       end
     end
   end
