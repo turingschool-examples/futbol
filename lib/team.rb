@@ -20,11 +20,8 @@ class Team
     @@all
   end
 
-  def all
-    @@all
-  end
-
   def self.find_team_name_by_id(team_id)
+    team_name = String.new
     @@all.each do |team| 
       if team.id == team_id 
         team_name = team.name
