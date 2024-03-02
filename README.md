@@ -39,3 +39,6 @@ Re-DTR - 2/28
 - We initially planned on iro very well, it was an effective vision boarding project.
 
 *Top 3 things your team would do differently next time*
+- Having more specifics for our Git Workflow agreements, example, a clear way of naming branches or commit titles, check VS merge pull requests.
+- Come to group meetings prepared to talk about what is on the agenda.
+- More focus on updating the project board, good use for check ins.
