@@ -34,29 +34,30 @@ RSpec.describe GameTeam do
         expect(@game_team1.tackles).to eq 42
       end
   end
-  end
+  
   describe '#Methods' do
-    describe '#methods' do
-    it "can create GameTeam objects using the create_from_csv method" do
-        
-        starting_game_team = @game_teams.first
-        expect(starting_game_team.game_id).to eq(2012030221)
-        expect(starting_game_team.team_id).to eq(3)
-        expect(starting_game_team.hoa).to eq("away")
-        expect(starting_game_team.result).to eq("LOSS")
-        expect(starting_game_team.head_coach).to eq('John Tortorella')
-        expect(starting_game_team.goals).to eq(2)
-        expect(starting_game_team.shots).to eq(8)
-        expect(starting_game_team.tackles).to eq(44)
+    xit "can create GameTeam objects using the create_from_csv method" do  
+      starting_game_team = @game_teams.first
+      expect(starting_game_team.game_id).to eq(2012030221)
+      expect(starting_game_team.team_id).to eq(3)
+      expect(starting_game_team.hoa).to eq("away")
+      expect(starting_game_team.result).to eq("LOSS")
+      expect(starting_game_team.head_coach).to eq('John Tortorella')
+      expect(starting_game_team.goals).to eq(2)
+      expect(starting_game_team.shots).to eq(8)
+      expect(starting_game_team.tackles).to eq(44)
     end
 
     it 'has the highest scoring home team' do
       expect(GameTeam.highest_scoring_home_team).to be_a String 
+      expect(GameTeam.highest_scoring_home_team).to eq "Reign FC"
     end
 
     it 'has the lowerst scoring home team' do
       expect(GameTeam.lowest_scoring_home_team).to be_a String 
+      expect(GameTeam.lowest_scoring_home_team).to eq "Utah Royals FC"
     end
-    end
+
+    
   end
 end

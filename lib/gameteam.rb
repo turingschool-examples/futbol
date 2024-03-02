@@ -51,6 +51,7 @@ class GameTeam
         team_scores[gameteam.team_id] += gameteam.goals
       end
     end
+    require 'pry'; binding.pry
     team_scores
   end
 end
