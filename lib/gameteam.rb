@@ -44,14 +44,20 @@ class GameTeam
     @@game_teams
   end
 
-  def self.scores_per_team_home
+  def self.avg_scores_per_team_home
     team_scores = Hash.new(0)
+    gameteam_counter = Hash.new(0)
     @@game_teams.each do |gameteam|
       if gameteam.hoa == "home"
         team_scores[gameteam.team_id] += gameteam.goals
+        gameteam_counter[gameteam.team_id] += 1
       end
     end
     require 'pry'; binding.pry
-    team_scores
-  end
+    gameteam_counter.values
+    team_scores.values.each do |value| gameteam_counter.values.each do |counter|
+        value.to_f / counter 
+      end
+    end
+
 end
