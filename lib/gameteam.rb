@@ -1,6 +1,7 @@
 require 'CSV'
 
 class GameTeam
+  @@game_teams = []
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -22,7 +23,6 @@ class GameTeam
   end
 
   def self.create_from_csv(game_teams_path)
-    game_teams = []
     CSV.foreach(game_teams_path, headers: true, converters: :all) do |row|
       gameteam_data = {
         game_id: row["game_id"],
@@ -35,13 +35,17 @@ class GameTeam
         shots: row["shots"],
         tackles: row["tackles"]
       }
-    game_teams << GameTeam.new(gameteam_data)
+    @@game_teams << GameTeam.new(gameteam_data)
     end
-    game_teams
+    @@game_teams
   end
 
   def self.best_offense
-
+    # Team has names.
+    # divide goals scored by number of games played for each team
+    # @@game_teams.goals
+    require 'pry'; binding.pry
+    # return team name with highest average
   end
 
   # def self.worst_offense
