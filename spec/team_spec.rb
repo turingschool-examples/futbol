@@ -27,5 +27,8 @@ RSpec.describe Team do
     expect(@teams.first.name).to eq "Atlanta United"
   end
 
-  
+  it 'can return the team name when given a team_id' do
+    expect(Team.find_team_name_by_id("3")).to eq "Houston Dynamo"
+    expect(Team.find_team_name_by_id("6")).to eq "FC Dallas"
+  end
 end
