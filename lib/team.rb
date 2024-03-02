@@ -1,6 +1,7 @@
 require 'CSV'
 
 class Team
+  @@teams = []
   attr_reader :id, :name
 
   def initialize(team_data)
@@ -9,19 +10,22 @@ class Team
   end
 
   def self.create_from_csv(file_path)
-    teams = []
     CSV.foreach(file_path, headers: true, converters: :all) do |row|
       team_data = {
         id: row["team_id"],
         name: row["teamName"]
       }
-    teams << Team.new(team_data)
+    @@teams << Team.new(team_data)
     end
-    teams
+    @@teams
+  end
+
+  def self.all
+    @@teams
   end
 
   def self.count_of_teams
-    @teams.count
+    @@teams.count
   end
 
 end
