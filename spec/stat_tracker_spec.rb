@@ -16,7 +16,7 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  xit 'exists' do
+  it 'exists' do
     expect(@stat_tracker).to be_a StatTracker
   end
 
@@ -27,8 +27,9 @@ RSpec.describe StatTracker do
   end
 
   it 'has the team by id' do
-    expect(@stat_tracker.find_team_name_by_id(6)).to be "FC Dallas"
+    expect(@stat_tracker.find_team_name_by_id(6)).to eq "FC Dallas"
   end
+
   it '#percentage_home_wins returns correct return value' do
     percentage_home_wins = @stat_tracker.percentage_home_wins
     expect(percentage_home_wins).to be_a Float
@@ -59,4 +60,19 @@ RSpec.describe StatTracker do
     expect(goals_by_season.count).to eq 6
   end
 
+  it '#average_goals_per_game' do
+    goals_per_game_avg = @stat_tracker.average_goals_per_game
+    expect(goals_per_game_avg).to be_an Float
+    expect(goals_per_game_avg).to eq(4.32)
+  end
+
+  it '#highest_scoring_home_team' do
+    highest_home_team = @stat_tracker.highest_scoring_home_team
+    expect(highest_home_team).to eq("FC Dallas")
+  end
+
+  it '#lowest_scoring_home_team' do
+    lowest_home_team = @stat_tracker.lowest_scoring_home_team
+    expect(lowest_home_team).to eq("Sporting Kansas City")
+  end
 end

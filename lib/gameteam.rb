@@ -44,8 +44,6 @@ class GameTeam
     @@game_teams
   end
 
-  
-
   def self.scores_per_team_home
     team_scores = Hash.new(0)
     @@game_teams.each do |gameteam|

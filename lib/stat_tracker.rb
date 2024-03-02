@@ -22,11 +22,11 @@ class StatTracker
     Team.find_team_name_by_id(team_id)
   end
 
-  def self.highest_scoring_home_team 
+  def highest_scoring_home_team 
     find_team_name_by_id(GameTeam.scores_per_team_home.max_by {|team_id, goals| goals}.first)
   end
 
-  def self.lowest_scoring_home_team
+  def lowest_scoring_home_team
     find_team_name_by_id(GameTeam.scores_per_team_home.min_by {|team_id, goals| goals}.first)
   end
   def percentage_home_wins
@@ -47,5 +47,9 @@ class StatTracker
 
   def average_goals_by_season
     Game.average_goals_by_season
+  end
+
+  def average_goals_per_game
+    Game.average_goals_per_game
   end
 end

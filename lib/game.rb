@@ -98,10 +98,10 @@ class Game
     goals_per_season
   end
 
-  def average_goals_per_game
-    total_goals = self.games.map do |game|
+  def self.average_goals_per_game
+    total_goals = @@all.map do |game|
         (game.away_goals.to_f + game.home_goals)
     end.sum
-    (total_goals / games.count).round(2)
+    (total_goals / @@all.count).round(2)
   end
 end

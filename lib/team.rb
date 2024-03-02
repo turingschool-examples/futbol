@@ -26,11 +26,12 @@ class Team
   end
 
   def self.find_team_name_by_id(team_id)
-    x = []
-    team_id_and_name_hash = {}
-    require 'pry'; binding.pry
-    x = @@all.each do |team| 
-    team_id_and_name_hash[team.id] = team.name
+    team_name = String.new
+    @@all.each do |team| 
+      if team.id == team_id 
+        team_name = team.name
+      end
     end
+    team_name 
   end
 end
