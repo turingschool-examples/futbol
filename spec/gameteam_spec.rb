@@ -51,10 +51,10 @@ RSpec.describe GameTeam do
   end
 
   it "can check for team with the highest average number of goals scored per game across all seasons" do
-    expect(@game_teams.best_offense).to eq("Reign FC")
+    expect(GameTeam.best_offense).to eq("Reign FC")
   end
 
   it "can check for team with the lowest average number of goals scored per game across all seasons" do
-    expect(@game_teams.worst_offense).to eq("Utah Royals FC")
+    expect(GameTeam.worst_offense).to eq("Utah Royals FC")
   end
 end
