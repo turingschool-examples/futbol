@@ -64,10 +64,5 @@ RSpec.describe GameTeam do
       expect(GameTeam.least_tackles(tackles_20122013)).to eq "5"
       expect(GameTeam.least_tackles(tackles_20132014)).to eq "16"
     end
-
-    xit 'can take in a season ID and return the team ID for the team with the most tackles in that season' do
-      expect(GameTeam.least_tackles("20122013")).to eq "3"
-      expect(GameTeam.least_tackles("20152016")).to eq "15"
-    end
   end
 end
