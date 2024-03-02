@@ -57,17 +57,17 @@ RSpec.describe GameTeam do
       expect(GameTeam.tackles_per_team("20132014")).to eq expected_20132014
     end
 
-    it 'can return the team with the least tackles' do
+    it 'can return the team with the fewest tackles' do
       tackles_20122013 = {"3" => 179, "5" => 117, "6" => 246}
       tackles_20132014 = {"16" => 48, "26" => 69}
 
-      expect(GameTeam.least_tackles(tackles_20122013)).to eq "5"
-      expect(GameTeam.least_tackles(tackles_20132014)).to eq "16"
+      expect(GameTeam.fewest_tackles(tackles_20122013)).to eq "5"
+      expect(GameTeam.fewest_tackles(tackles_20132014)).to eq "16"
     end
 
-    it 'can return the team with the least tackles for a given season' do
-      expect(GameTeam.least_tackles_by_season("20122013")).to eq "5"
-      expect(GameTeam.least_tackles_by_season("20132014")).to eq "16"
+    it 'can return the team with the fewest tackles for a given season' do
+      expect(GameTeam.fewest_tackles_by_season("20122013")).to eq "5"
+      expect(GameTeam.fewest_tackles_by_season("20132014")).to eq "16"
     end
   end
 end
