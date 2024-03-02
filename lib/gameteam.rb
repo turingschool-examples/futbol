@@ -52,5 +52,8 @@ class GameTeam
     tackles_per_team
   end
 
-  
+  def self.least_tackles(tackles_per_team_hash)
+    tackles_per_team_hash.min_by {|team_id, tackles| tackles}.first
+  end
+
 end
