@@ -24,14 +24,14 @@ RSpec.describe Team do
   end
 
   it "can create Team objects using the create_from_csv method" do
-    new_team = Team.create_from_csv("./data/teams.csv")
-    starter = new_team.first
+    # new_team = Team.create_from_csv("./data/teams.csv") # This duplicates data.
+    starter = @teams.first # new_team changed to @teams
     expect(starter.id).to eq 1
     expect(starter.name).to eq "Atlanta United"
   end
 
   it "can count the total number of teams" do
-    expect(@teams.count_of_teams).to eq(32)
+    expect(Team.count_of_teams).to eq(32)
   end
 
 end
