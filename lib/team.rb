@@ -31,7 +31,7 @@ class Team
   end
 
   def self.count_of_teams
-    @@teams.count
+    @@all.count
   end
 
 end
