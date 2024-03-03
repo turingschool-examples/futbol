@@ -1,7 +1,6 @@
-require 'game'
-require 'gameteam'
-require 'team'
-require_relative './spec_helper'
+require_relative 'game'
+require_relative 'team'
+require_relative 'gameteam'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
