@@ -51,7 +51,7 @@ class GameTeam
     # @@game_teams.each do |gts| #gameteam stat
     #   (rankings[gts.team_id] ||= [])
       # set values inside the array(key value).
-    end
+    # end
     # Team has names.
     # For each in the array,
     # if the team id is not in hash,
