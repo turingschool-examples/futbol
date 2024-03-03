@@ -5,7 +5,7 @@ RSpec.describe StatTracker do
   before(:all) do
     games_file = './data/games_dummy.csv'
     teams_file = './data/teams.csv'
-    game_teams_file = './data/game_teams.csv'
+    game_teams_file = './data/game_teams_dummy.csv'
 
     locations = {
       games: games_file,

@@ -53,11 +53,11 @@ class GameTeam
         gameteam_counter[gameteam.team_id] += 1
       end
     end
-    require 'pry'; binding.pry
-    gameteam_counter.values
-    team_scores.values.each do |value| gameteam_counter.values.each do |counter|
-        value.to_f / counter 
-      end
+    result_hash = Hash.new
+    team_scores.each_with_index do |(key, value), index|
+      result_hash[key] = value[index].to_f / gameteam_counter.values[index]
     end
-
+    require 'pry'; binding.pry
+    result_hash
+  end
 end
