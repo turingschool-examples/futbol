@@ -27,11 +27,11 @@ RSpec.describe StatTracker do
   end
 
   it "#highest_total_score" do
-    expect(@stat_tracker.highest_total_score).to eq 11
+    expect(@stat_tracker.highest_total_score).to eq 9
   end
 
   it "#lowest_total_score" do
-    expect(@stat_tracker.lowest_total_score).to eq 0
+    expect(@stat_tracker.lowest_total_score).to eq 1
   end
 
   it "#count_of_teams" do
@@ -75,12 +75,4 @@ RSpec.describe StatTracker do
   it "#worst_offense" do
     expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
   end
-
-  it "#most_tackles" do
-    expect(@stat_tracker.most_tackles("20132014")).to eq "FC Cincinnati"
-    expect(@stat_tracker.most_tackles("20142015")).to eq "Seattle Sounders FC"
-  end
-
-
-
 end

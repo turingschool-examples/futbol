@@ -31,11 +31,11 @@ class StatTracker
   end
 
   def best_offense
-    GameTeams.best_offense
+    GameTeam.best_offense
   end
 
   def worst_offense
-    GameTeams.worst_offense
+    GameTeam.worst_offense
   end
 
   def most_tackles(season)

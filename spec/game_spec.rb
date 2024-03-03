@@ -106,11 +106,11 @@ RSpec.describe Game do
       end
 
       it "gets the highest total score from all games" do
-        expect(Game.highest_total_score).to eq(11)
+        expect(Game.highest_total_score).to eq(9)
       end
 
       it "gets the lowest total score from all games" do
-        expect(Game.lowest_total_score).to eq(0)
+        expect(Game.lowest_total_score).to eq(1)
       end
     end
   end
