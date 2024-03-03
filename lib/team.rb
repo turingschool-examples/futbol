@@ -1,6 +1,6 @@
 require 'CSV'
 
-class Team 
+class Team
   @@all = []
   attr_reader :id, :name
 
@@ -15,7 +15,7 @@ class Team
         id: row["team_id"],
         name: row["teamName"]
       }
-    @@all << Team.new(team_data)  
+    @@all << Team.new(team_data)
     end
     @@all
   end
@@ -27,10 +27,6 @@ class Team
         team_name = team.name
       end
     end
-    team_name 
-  end
-
-  def all
-    @@all
+    team_name
   end
 end

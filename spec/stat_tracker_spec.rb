@@ -26,6 +26,18 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_teams.first).to eq GameTeam
   end
 
+  it "#highest_total_score" do
+    expect(@stat_tracker.highest_total_score).to eq 9
+  end
+
+  it "#lowest_total_score" do
+    expect(@stat_tracker.lowest_total_score).to eq 1
+  end
+
+  it "#count_of_teams" do
+    expect(@stat_tracker.count_of_teams).to eq 32
+  end
+
   xit 'has the team by id' do
     expect(@stat_tracker.find_team_name_by_id(6)).to eq "FC Dallas"
   end
@@ -80,4 +92,11 @@ RSpec.describe StatTracker do
     lowest_home_team = @stat_tracker.lowest_scoring_home_team
     expect(lowest_home_team).to eq("Utah Royals FC")
   end
+  # it "#best_offense" do
+  #   expect(@stat_tracker.best_offense).to eq "Reign FC"
+  # end
+
+  # it "#worst_offense" do
+  #   expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+  # end
 end

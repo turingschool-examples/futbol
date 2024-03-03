@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe GameTeam do
-  before(:all) do  
+  before(:all) do
     @game_teams = GameTeam.create_from_csv("./data/game_teams_dummy.csv")
   end
 
@@ -77,4 +77,12 @@ RSpec.describe GameTeam do
       expect(GameTeam.avg_scores_per_team_home).to eq expected
     end
   end
+
+  # it "can check for team with the highest average number of goals scored per game across all seasons" do
+  #   expect(GameTeam.best_offense).to eq("Reign FC")
+  # end
+
+  # it "can check for team with the lowest average number of goals scored per game across all seasons" do
+  #   expect(GameTeam.worst_offense).to eq("Utah Royals FC")
+  # end
 end
