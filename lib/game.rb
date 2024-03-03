@@ -97,4 +97,18 @@ class Game
     end
     goals_per_season
   end
+
+  def self.highest_total_score
+    totals = @@all.map do |game|
+      game.away_goals + game.home_goals
+    end
+    totals.max
+  end
+
+  def self.lowest_total_score
+    totals = @@all.map do |game|
+      game.away_goals + game.home_goals
+    end
+    totals.min
+  end
 end

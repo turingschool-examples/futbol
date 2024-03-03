@@ -24,7 +24,7 @@ class GameTeam
 
   def self.create_from_csv(game_teams_path)
     CSV.foreach(game_teams_path, headers: true, converters: :all) do |row|
-      gameteam_data = { 
+      gameteam_data = {
         game_id: row["game_id"],
         team_id: row["team_id"],
         hoa: row["HoA"],
@@ -59,4 +59,29 @@ class GameTeam
     tackles_per_team_hash = GameTeam.tackles_per_team(season_id)
     GameTeam.fewest_tackles(tackles_per_team_hash)
   end
+
+  # def self.best_offense
+    # @@game_teams.first.goals
+    # require 'pry'; binding.pry
+    # team_stat = {}
+    # start with an array of game teams and for each game team,
+    # @@game_teams.each do |gameteam|
+
+      # if team_id key doesn't exist,
+      # add team_id as a key and its value will be the goals and games hash.
+      # team_stat[3] = {goals: (gameteam.goals), games: 1}
+      # else if team_id does exist
+      # add together goals and add 1 to games
+    #
+    # divide goals scored by number of games played for each team
+    # return team id(/name) with highest average score
+  # end
+
+
+
+
+  # def self.worst_offense
+  #   Name of the team with the lowest average number of goals scored per game across all seasons.
+  # end
+
 end

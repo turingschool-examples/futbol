@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Game do
-  before(:all) do  
+  before(:all) do
     @games = Game.create_from_csv("./data/games_dummy.csv")
   end
 
@@ -32,13 +32,12 @@ RSpec.describe Game do
       expect(@game1.away_goals).to eq 2
       expect(@game1.home_goals).to eq 3
     end
-  end
 
-  describe '#Methods' do
-    it "can create Game objects using the create_from_csv method" do
-      test_game = @games.first
+    describe '#Methods' do
+      it "can create Game objects using the create_from_csv method" do
+        test_game = @games.first
 
-      expect(@games).to all be_a Game
+        expect(@games).to all be_a Game
 
       expect(test_game.game_id).to eq "2012030221"
       expect(test_game.season).to eq "20122013"
@@ -49,25 +48,25 @@ RSpec.describe Game do
       expect(test_game.home_goals).to eq 3
     end
 
-    it 'can return an array of all game objects' do
-      expect(Game.all).to all be_a Game
-      expect(Game.all.count).to eq 31
-    end
+      it 'can return an array of all game objects' do
+        expect(Game.all).to all be_a Game
+        expect(Game.all.count).to eq 31
+      end
 
-    it '#percentage_home_wins returns correct return value' do
-      expect(Game.percentage_home_wins).to be_a Float
-      expect(Game.percentage_home_wins).to eq 0.48
-    end
+      it '#percentage_home_wins returns correct return value' do
+        expect(Game.percentage_home_wins).to be_a Float
+        expect(Game.percentage_home_wins).to eq 0.48
+      end
 
-    it '#percentage_visitor_wins returns correct return value' do
-      expect(Game.percentage_visitor_wins).to be_a Float
-      expect(Game.percentage_visitor_wins).to eq 0.29
-    end
+      it '#percentage_visitor_wins returns correct return value' do
+        expect(Game.percentage_visitor_wins).to be_a Float
+        expect(Game.percentage_visitor_wins).to eq 0.29
+      end
 
-    it '#percentage_ties returns correct return value' do
-      expect(Game.percentage_ties).to be_a Float
-      expect(Game.percentage_ties).to eq 0.23
-    end
+      it '#percentage_ties returns correct return value' do
+        expect(Game.percentage_ties).to be_a Float
+        expect(Game.percentage_ties).to eq 0.23
+      end
 
     it 'can return a count of games by season' do
       expected = {
@@ -103,7 +102,16 @@ RSpec.describe Game do
         '20172018' => 4.25
       }
 
-      expect(Game.average_goals_by_season).to eq (expected)
+        expect(Game.average_goals_by_season).to eq (expected)
+      end
+
+      it "gets the highest total score from all games" do
+        expect(Game.highest_total_score).to eq(9)
+      end
+
+      it "gets the lowest total score from all games" do
+        expect(Game.lowest_total_score).to eq(1)
+      end
     end
   end
 end

@@ -26,6 +26,18 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.game_teams.first).to be_a GameTeam
   end
 
+  it "#highest_total_score" do
+    expect(@stat_tracker.highest_total_score).to eq 9
+  end
+
+  it "#lowest_total_score" do
+    expect(@stat_tracker.lowest_total_score).to eq 1
+  end
+
+  it "#count_of_teams" do
+    expect(@stat_tracker.count_of_teams).to eq 32
+  end
+
   it '#percentage_home_wins returns correct return value' do
     percentage_home_wins = @stat_tracker.percentage_home_wins
     expect(percentage_home_wins).to be_a Float
@@ -61,4 +73,11 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.fewest_tackles("20132014")).to eq "New England Revolution"
   end
 
+  # it "#best_offense" do
+  #   expect(@stat_tracker.best_offense).to eq "Reign FC"
+  # end
+
+  # it "#worst_offense" do
+  #   expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
+  # end
 end
