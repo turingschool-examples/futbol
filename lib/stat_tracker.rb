@@ -52,4 +52,9 @@ class StatTracker
   def average_goals_per_game
     Game.average_goals_per_game
   end
+  
+  def fewest_tackles(season_id)
+    team_id = GameTeam.fewest_tackles_by_season(season_id)
+    Team.find_team_name_by_id(team_id)
+  end
 end
