@@ -54,10 +54,6 @@ class StatTracker
     # GameTeams.most_tackles
   end
 
-
-
-
-
   def percentage_home_wins
     Game.percentage_home_wins
   end

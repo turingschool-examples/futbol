@@ -1,4 +1,4 @@
-require_relative 'spec_helper'
+require 'spec_helper'
 
 RSpec.describe StatTracker do
 
@@ -16,7 +16,7 @@ RSpec.describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  xit 'exists' do
+  it 'exists' do
     expect(@stat_tracker).to be_a StatTracker
   end
 
@@ -38,29 +38,29 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.count_of_teams).to eq 32
   end
 
-  xit 'has the team by id' do
+  it 'has the team by id' do
     expect(@stat_tracker.find_team_name_by_id(6)).to eq "FC Dallas"
   end
 
-  xit '#percentage_home_wins returns correct return value' do
+  it '#percentage_home_wins returns correct return value' do
     percentage_home_wins = @stat_tracker.percentage_home_wins
     expect(percentage_home_wins).to be_a Float
     expect(percentage_home_wins).to eq 0.48
   end
 
-  xit '#percentage_visitor_wins returns correct return value' do
+  it '#percentage_visitor_wins returns correct return value' do
     percentage_visitor_wins = @stat_tracker.percentage_visitor_wins
     expect(percentage_visitor_wins).to be_a Float
     expect(percentage_visitor_wins).to eq 0.29
   end
 
-  xit '#percentage_ties returns correct return value' do
+  it '#percentage_ties returns correct return value' do
     percentage_ties = @stat_tracker.percentage_ties
     expect(percentage_ties).to be_a Float
     expect(percentage_ties).to eq 0.23
   end
 
-  xit '#count_of_games_by_season' do
+  it '#count_of_games_by_season' do
     games_by_season = @stat_tracker.count_of_games_by_season
     expect(games_by_season).to be_a Hash
     expect(games_by_season.count).to eq 6
@@ -77,7 +77,7 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.fewest_tackles("20132014")).to eq "New England Revolution"
   end
 
-  xit '#average_goals_per_game' do
+  it '#average_goals_per_game' do
     goals_per_game_avg = @stat_tracker.average_goals_per_game
     expect(goals_per_game_avg).to be_an Float
     expect(goals_per_game_avg).to eq(4.32)
@@ -92,6 +92,7 @@ RSpec.describe StatTracker do
     lowest_home_team = @stat_tracker.lowest_scoring_home_team
     expect(lowest_home_team).to eq("Utah Royals FC")
   end
+
   # it "#best_offense" do
   #   expect(@stat_tracker.best_offense).to eq "Reign FC"
   # end

@@ -104,7 +104,7 @@ class Game
     end.sum
     (total_goals / @@all.count).round(2)
   end
-end
+
   def self.highest_total_score
     totals = @@all.map do |game|
       game.away_goals + game.home_goals
