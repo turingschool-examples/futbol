@@ -56,4 +56,9 @@ RSpec.describe StatTracker do
     expect(goals_by_season.count).to eq 6
   end
 
+  it '#fewest_tackles' do
+    expect(@stat_tracker.fewest_tackles("20122013")).to eq "Sporting Kansas City"
+    expect(@stat_tracker.fewest_tackles("20132014")).to eq "New England Revolution"
+  end
+
 end
