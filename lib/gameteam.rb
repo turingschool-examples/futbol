@@ -40,16 +40,16 @@ class GameTeam
     @@game_teams
   end
 
-  def self.best_offense
+  # def self.best_offense
     #games.each do |game|
     # if totals.has_key?(game.team_id)
     #   totals[game.team_id] << game.goals
     # else
     #   totals[game.team_id] = [game.goals]
 
-    rankings = {}
-    @@game_teams.each do |gts| #gameteam stat
-      (rankings[gts.team_id] ||= [])
+    # rankings = {}
+    # @@game_teams.each do |gts| #gameteam stat
+    #   (rankings[gts.team_id] ||= [])
       # set values inside the array(key value).
     end
     # Team has names.
@@ -58,10 +58,10 @@ class GameTeam
     # add as a new key, add its goals,
     # and increment the games counter.
     # @@game_teams.goals
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     # divide goals scored by number of games played for each team
     # return team id(/name) with highest average score
-  end
+  # end
 
   # def self.worst_offense
   #   Name of the team with the lowest average number of goals scored per game across all seasons.
