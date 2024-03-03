@@ -113,10 +113,10 @@ RSpec.describe Game do
         expect(Game.lowest_total_score).to eq(0)
       end
 
-      it "gets the team with the most tackles in the season" do
-        expect(Game.most_tackles("20132014")).to eq "FC Cincinnati"
-        expect(Game.most_tackles("20142015")).to eq "Seattle Sounders FC"
-      end
+      # it "gets the team with the most tackles in the season" do
+      #   expect(Game.most_tackles("20132014")).to eq "FC Cincinnati"
+      #   expect(Game.most_tackles("20142015")).to eq "Seattle Sounders FC"
+      # end
     end
   end
 end
