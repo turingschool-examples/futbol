@@ -48,9 +48,11 @@ RSpec.describe GameTeam do
       expect(starting_game_team.tackles).to eq(44)
     end
 
-    xit 'has the scores per home team' do
-      expect(GameTeam.highest_scoring_home_team).to be_a String 
-      expect(GameTeam.highest_scoring_home_team).to eq "Reign FC"
+    it 'has the average scores per home team' do
+      expect(GameTeam.avg_scores_per_team_home).to be_a Hash 
+      expected = {6=>2.75, 3=>1.5, 5=>0.6666666666666666, 16=>2.3333333333333335, 30=>1.5, 9=>2.5}
+      
+      expect(GameTeam.avg_scores_per_team_home).to eq expected
     end
   end
 end

@@ -108,6 +108,6 @@ RSpec.describe Game do
   end
 
   it 'averages the goals per game' do
-    expect(@stat_tracker.average_goals_per_game).to eq(4.32)
+    expect(Game.average_goals_per_game).to eq(4.32)
   end
 end

@@ -53,11 +53,11 @@ class GameTeam
         gameteam_counter[gameteam.team_id] += 1
       end
     end
-    z = []
+    array_of_scores_to_games = []
     result_hash = {}
     team_scores.values.each_with_index do |value, index|
-      z << (value.to_f / gameteam_counter.values[index])
+      array_of_scores_to_games << (value.to_f / gameteam_counter.values[index])
     end
-    result_hash = team_scores.keys.zip(z).to_h
+    result_hash = team_scores.keys.zip(array_of_scores_to_games).to_h
   end
 end
