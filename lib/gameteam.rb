@@ -41,9 +41,25 @@ class GameTeam
   end
 
   def self.best_offense
+    #games.each do |game|
+    # if totals.has_key?(game.team_id)
+    #   totals[game.team_id] << game.goals
+    # else
+    #   totals[game.team_id] = [game.goals]
+
+    rankings = {}
+    @@game_teams.each do |gts| #gameteam stat
+      (rankings[gts.team_id] ||= [])
+      # set values inside the array(key value).
+    end
     # Team has names.
-    # divide goals scored by number of games played for each team
+    # For each in the array,
+    # if the team id is not in hash,
+    # add as a new key, add its goals,
+    # and increment the games counter.
     # @@game_teams.goals
+    require 'pry'; binding.pry
+    # divide goals scored by number of games played for each team
     # return team id(/name) with highest average score
   end
 
