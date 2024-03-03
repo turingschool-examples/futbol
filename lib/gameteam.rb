@@ -53,11 +53,11 @@ class GameTeam
         gameteam_counter[gameteam.team_id] += 1
       end
     end
-    result_hash = Hash.new
-    team_scores.each_with_index do |(key, value), index|
-      result_hash[key] = value[index].to_f / gameteam_counter.values[index]
+    z = []
+    result_hash = {}
+    team_scores.values.each_with_index do |value, index|
+      z << (value.to_f / gameteam_counter.values[index])
     end
-    require 'pry'; binding.pry
-    result_hash
+    result_hash = team_scores.keys.zip(z).to_h
   end
 end

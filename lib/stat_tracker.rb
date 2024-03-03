@@ -21,15 +21,11 @@ class StatTracker
   end
 
   def highest_scoring_home_team 
-    highest_scoring_home = GameTeam.avg_scores_per_team_home.max_by {|team_id, goals| goals}
-    first_highest_scoring_team = highest_scoring_home.first
-    find_team_name_by_id(first_highest_scoring_team)
+    find_team_name_by_id(GameTeam.avg_scores_per_team_home.max_by {|team_id, goals| goals}.first)
   end
 
   def lowest_scoring_home_team
-    lowest_scoring_home = GameTeam.avg_scores_per_team_home.min_by {|team_id, goals| goals}
-    lowest_scoring_team_home = lowest_scoring_home.first
-    find_team_name_by_id(lowest_scoring_team_home)
+    find_team_name_by_id(GameTeam.avg_scores_per_team_home.min_by {|team_id, goals| goals}.first)
   end
   def percentage_home_wins
     Game.percentage_home_wins
