@@ -5,7 +5,7 @@ RSpec.describe StatTracker do
   before(:all) do
     games_file = './data/games_dummy.csv'
     teams_file = './data/teams.csv'
-    game_teams_file = './data/game_teams.csv'
+    game_teams_file = './data/game_teams_dummy.csv'
 
     locations = {
       games: games_file,
@@ -20,10 +20,10 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_a StatTracker
   end
 
-  xit 'initializes data from a CSV file' do
-    expect(@stat_tracker.games.first).to eq Game
-    expect(@stat_tracker.teams.first).to eq Team
-    expect(@stat_tracker.game_teams.first).to eq GameTeam
+  it 'initializes data from a CSV file' do
+    expect(@stat_tracker.games.first).to be_an_instance_of Game
+    expect(@stat_tracker.teams.first).to be_an_instance_of Team
+    expect(@stat_tracker.game_teams.first).to be_an_instance_of GameTeam
   end
 
   it "#highest_total_score" do
@@ -85,12 +85,12 @@ RSpec.describe StatTracker do
 
   it '#highest_scoring_home_team' do
     highest_home_team = @stat_tracker.highest_scoring_home_team
-    expect(highest_home_team).to eq("Reign FC")
+    expect(highest_home_team).to eq("FC Dallas")
   end
 
   it '#lowest_scoring_home_team' do
     lowest_home_team = @stat_tracker.lowest_scoring_home_team
-    expect(lowest_home_team).to eq("Utah Royals FC")
+    expect(lowest_home_team).to eq("Sporting Kansas City")
   end
 
   # it "#best_offense" do

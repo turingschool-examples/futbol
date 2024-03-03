@@ -40,6 +40,10 @@ class GameTeam
     @@all
   end
 
+  def all
+    @@all
+  end
+
   def self.tackles_per_team(season_id)
     tackles_per_team = Hash.new(0)
 
@@ -76,7 +80,7 @@ class GameTeam
     end
     result_hash = team_scores.keys.zip(array_of_scores_to_games).to_h
   end
-end
+
   # def self.best_offense
     # @@game_teams.first.goals
     # require 'pry'; binding.pry

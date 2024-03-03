@@ -29,4 +29,12 @@ class Team
     end
     team_name
   end
+
+  def all
+    @@all
+  end
+
+  def self.count_of_teams
+    @@all.count
+  end
 end
