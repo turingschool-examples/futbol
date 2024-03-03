@@ -11,9 +11,9 @@ class Game
               :home_goals
 
   def initialize(game_data)
-    @game_id = game_data[:game_id]
-    @season = game_data[:season]
-    @type = game_data[:type].to_s
+    @game_id = game_data[:game_id].to_s
+    @season = game_data[:season].to_s
+    @type = game_data[:type]
     @away_team_id = game_data[:away_team_id]
     @home_team_id = game_data[:home_team_id]
     @away_goals = game_data[:away_goals]
