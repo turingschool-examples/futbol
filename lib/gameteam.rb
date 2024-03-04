@@ -77,7 +77,7 @@ class GameTeam
     array_of_scores_to_games = []
     result_hash = {}
     team_scores.values.each_with_index do |value, index|
-      array_of_scores_to_games << (value.to_f / gameteam_counter.values[index])
+      array_of_scores_to_games << (value.to_f / gameteam_counter.values[index]).round(2)
     end
     result_hash = team_scores.keys.zip(array_of_scores_to_games).to_h
   end

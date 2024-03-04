@@ -39,7 +39,7 @@ RSpec.describe StatTracker do
   end
 
   it 'has the team by id' do
-    expect(@stat_tracker.find_team_name_by_id(6)).to eq "FC Dallas"
+    expect(@stat_tracker.find_team_name_by_id('6')).to eq "FC Dallas"
   end
 
   it '#percentage_home_wins returns correct return value' do
