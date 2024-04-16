@@ -2,8 +2,14 @@ require_relative 'CSV'
 require_relative './lib/game.rb'
 require_relative './lib/team.rb'
 require_relative './lib/game_team.rb'
+require_relative './lib/game_stats'
+require_relative './lib/league_stats'
+require_relative './lib/season_stats'
 
 class StatTracker
+    include GameStats
+    include LeagueStats
+    include SeasonStats
     def initialize(locations)
         @games = CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
             Game.new(row[:season], row[:away_team_id], row[:home_team_id], row[:away_goals], row[:home_goals])
