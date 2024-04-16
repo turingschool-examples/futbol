@@ -7,6 +7,7 @@ require './lib/league_stats'
 require './lib/season_stats'
 
 class StatTracker
+    attr_reader :games, :teams, :game_teams
     include GameStats
     include LeagueStats
     include SeasonStats
