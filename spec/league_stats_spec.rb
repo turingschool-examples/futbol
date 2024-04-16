@@ -1,7 +1,7 @@
 require 'spec_helper.rb'
 
 RSpec.describe Game do
-  before_each do
+  before(:each) do
     @game_path = './data/games_fixture.csv'
     @team_path = './data/teams.csv'
     @game_teams_path = './data/game_teams_fixture.csv'
@@ -10,7 +10,7 @@ RSpec.describe Game do
       teams: @team_path,
       game_teams: @game_teams_path
     }
-    @stat_tracker = StatTracker.from_csv(locations)
+    @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   it "#count_of_teams" do
