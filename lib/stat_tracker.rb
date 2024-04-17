@@ -10,6 +10,11 @@ class StatTracker
     include GameStats
     include LeagueStats
     include SeasonStats
+
+    attr_reader :games,
+                :teams,
+                :game_teams
+
     def initialize(locations)
         @games = []
         CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
@@ -17,11 +22,11 @@ class StatTracker
         end
         @teams = []
         CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
-            @teams << Team.new(row[:team_id], row[:teamName])
+            @teams << Team.new(row[:team_id], row[:teamname])
         end
         @game_teams = []
         CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
-            @game_teams << GameTeam.new(row[:team_id], row[:HoA], row[:result], row[:head_coach], row[:goals], row[:shots], row[:tackles])
+            @game_teams << GameTeam.new(row[:game_id], row[:team_id], row[:hoa], row[:result], row[:head_coach], row[:goals], row[:shots], row[:tackles])
         end
     end
 
