@@ -61,20 +61,41 @@ RSpec.describe Game do
   end
 
   it "#team_id_to_name" do
-  expect(@stat_tracker.team_id_to_name("3")).to eq "Houston Dynamo"
-  expect(@stat_tracker.team_id_to_name("6")).to eq "FC Dallas"
-  expect(@stat_tracker.team_id_to_name("5")).to eq "Sporting Kansas City"
-  expect(@stat_tracker.team_id_to_name("17")).to eq "LA Galaxy"
-  expect(@stat_tracker.team_id_to_name("16")).to eq "New England Revolution"
+    expect(@stat_tracker.team_id_to_name("3")).to eq "Houston Dynamo"
+    expect(@stat_tracker.team_id_to_name("6")).to eq "FC Dallas"
+    expect(@stat_tracker.team_id_to_name("5")).to eq "Sporting Kansas City"
+    expect(@stat_tracker.team_id_to_name("17")).to eq "LA Galaxy"
+    expect(@stat_tracker.team_id_to_name("16")).to eq "New England Revolution"
   end
 
-  it "#visitor_team_scores" do
-    expect(@stat_tracker.visitor_team_scores).to be_a Hash
-    # {"3"=>5, "6"=>12, "5"=>1, "17"=>1}
+  it "#away_game_count" do
+    expect(@stat_tracker.away_game_count("3")).to eq 3
+    expect(@stat_tracker.away_game_count("6")).to eq 4
+    expect(@stat_tracker.away_game_count("5")).to eq 2
+    expect(@stat_tracker.away_game_count("17")).to eq 1
+    expect(@stat_tracker.away_game_count("16")).to eq 0
   end
-    
+  
+  it "#visitor_team_scores" do
+  expect(@stat_tracker.visitor_team_scores).to be_a Hash
+  # {"3"=>5, "6"=>12, "5"=>1, "17"=>1}
+  end
+
+  it "visitor_averages" do
+    expect(@stat_tracker.visitor_averages).to be_a Hash
+    # {"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.0}
+  end
+
   it "#highest_scoring_visitor" do
-  expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+  end
+  
+  it "#home_game_count" do
+    expect(@stat_tracker.home_game_count("3")).to eq 2
+    expect(@stat_tracker.home_game_count("6")).to eq 5
+    expect(@stat_tracker.home_game_count("5")).to eq 2
+    expect(@stat_tracker.home_game_count("17")).to eq 0
+    expect(@stat_tracker.home_game_count("16")).to eq 1
 end
 
   it "#home_team_scores" do
@@ -82,9 +103,14 @@ end
     #{"6"=>12, "3"=>3, "5"=>1, "16"=>2}
   end
 
-# it "#highest_scoring_home_team" do
-  #   expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
-  # end
+  it "home_averages" do
+    expect(@stat_tracker.home_averages).to be_a Hash
+    # {"6"=>2.4, "3"=>1.5, "5"=>0.5, "16"=>2.0}
+  end
+
+  it "#highest_scoring_home_team" do
+    expect(@stat_tracker.highest_scoring_home_team).to eq "FC Dallas"
+  end
 
   # it "#lowest_scoring_visitor" do
   #   expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
