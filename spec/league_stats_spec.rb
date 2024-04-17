@@ -1,6 +1,6 @@
 require 'spec_helper.rb'
 
-RSpec.describe Game do
+RSpec.describe LeagueStats do
   before(:each) do
     @game_path = './data/games_fixture.csv'
     @team_path = './data/teams.csv'
