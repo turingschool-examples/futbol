@@ -33,9 +33,27 @@ RSpec.describe Game do
     expect(@stat_tracker.total_games("16")).to eq 1
   end
 
-  xit "#best_offense" do
-  require 'pry'; binding.pry
-    expect(@stat_tracker.best_offense).to eq "Reign FC"
+  it "#average_game_points" do
+    expect(@stat_tracker.average_game_points("3")).to eq 1.6
+    expect(@stat_tracker.average_game_points("6")).to eq 2.67
+    expect(@stat_tracker.average_game_points("5")).to eq 0.5
+    expect(@stat_tracker.average_game_points("17")).to eq 1.0
+    expect(@stat_tracker.average_game_points("16")).to eq 2.0
+  end
+
+  # it "#average_game_points" do
+  #   # require 'pry'; binding.pry
+  #   expect(@stat_tracker.team_averages_list("3")).to eq {
+  #     "FC Dallas"=>2.67, 
+  #     "Houston Dynamo"=>1.6, 
+  #     "Sporting Kansas City"=>0.5, 
+  #     "LA Galaxy"=>1.0, 
+  #     "New England Revolution"=>2.0
+  #   }
+  # end
+
+  it "#best_offense" do
+    expect(@stat_tracker.best_offense).to eq "FC Dallas"
   end
 
   # it "#worst_offense" do
