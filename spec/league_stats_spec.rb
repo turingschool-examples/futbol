@@ -60,22 +60,29 @@ RSpec.describe Game do
     expect(@stat_tracker.worst_offense).to eq "Sporting Kansas City"
   end
 
+  it "#team_id_to_name" do
+  expect(@stat_tracker.team_id_to_name("3")).to eq "Houston Dynamo"
+  expect(@stat_tracker.team_id_to_name("6")).to eq "FC Dallas"
+  expect(@stat_tracker.team_id_to_name("5")).to eq "Sporting Kansas City"
+  expect(@stat_tracker.team_id_to_name("17")).to eq "LA Galaxy"
+  expect(@stat_tracker.team_id_to_name("16")).to eq "New England Revolution"
+  end
+
   it "#visitor_team_scores" do
     expect(@stat_tracker.visitor_team_scores).to be_a Hash
     # {"3"=>5, "6"=>12, "5"=>1, "17"=>1}
   end
+    
+  it "#highest_scoring_visitor" do
+  expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+end
 
   it "#home_team_scores" do
     expect(@stat_tracker.home_team_scores).to be_a Hash
-     #{"6"=>12, "3"=>3, "5"=>1, "16"=>2}
+    #{"6"=>12, "3"=>3, "5"=>1, "16"=>2}
   end
 
-  it "#highest_scoring_visitor" do
-  # require 'pry'; binding.pry
-    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
-  end
-
-  # it "#highest_scoring_home_team" do
+# it "#highest_scoring_home_team" do
   #   expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
   # end
 
