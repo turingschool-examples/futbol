@@ -7,6 +7,7 @@ require './lib/league_stats'
 require './lib/season_stats'
 
 class StatTracker
+    attr_reader :games, :teams, :game_teams
     include GameStats
     include LeagueStats
     include SeasonStats
@@ -22,7 +23,7 @@ class StatTracker
         end
         @game_teams = []
         CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
-            @game_teams << GameTeam.new(row[:game_id], row[:team_id], row[:hoa], row[:result], row[:head_coach], row[:goals], row[:shots], row[:tackles])
+            @game_teams << GameTeam.new(row[:team_id], row[:hoa], row[:result], row[:head_coach], row[:goals], row[:shots], row[:tackles])
         end
     end
 
