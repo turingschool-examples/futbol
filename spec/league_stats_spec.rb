@@ -17,9 +17,26 @@ RSpec.describe Game do
     expect(@stat_tracker.count_of_teams).to eq 32
   end
 
-  # it "#best_offense" do
-  #   expect(@stat_tracker.best_offense).to eq "Reign FC"
-  # end
+  it "#total_points" do
+    expect(@stat_tracker.total_points("3")).to eq 8
+    expect(@stat_tracker.total_points("6")).to eq 24
+    expect(@stat_tracker.total_points("5")).to eq 2
+    expect(@stat_tracker.total_points("17")).to eq 1
+    expect(@stat_tracker.total_points("16")).to eq 2
+  end
+
+  it "#total_games" do
+    expect(@stat_tracker.total_games("3")).to eq 5
+    expect(@stat_tracker.total_games("6")).to eq 9
+    expect(@stat_tracker.total_games("5")).to eq 4
+    expect(@stat_tracker.total_games("17")).to eq 1
+    expect(@stat_tracker.total_games("16")).to eq 1
+  end
+
+  xit "#best_offense" do
+  require 'pry'; binding.pry
+    expect(@stat_tracker.best_offense).to eq "Reign FC"
+  end
 
   # it "#worst_offense" do
   #   expect(@stat_tracker.worst_offense).to eq "Utah Royals FC"
