@@ -53,6 +53,11 @@ module LeagueStats
     winner_id = visitor_averages.max_by {|key, value| value}.first
     team_id_to_name(winner_id)
   end
+
+  def lowest_scoring_visitor
+    loser_id = visitor_averages.min_by {|key, value| value}.first
+    team_id_to_name(loser_id)
+  end
   
   def visitor_averages
     averages_list = {}
@@ -83,6 +88,11 @@ module LeagueStats
   def highest_scoring_home_team
     winner_id = home_averages.max_by {|key, value| value}.first
     team_id_to_name(winner_id)
+  end
+
+  def lowest_scoring_home_team
+    loser_id = home_averages.min_by {|key, value| value}.first
+    team_id_to_name(loser_id)
   end
   
   def home_averages
