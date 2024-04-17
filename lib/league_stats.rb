@@ -48,4 +48,18 @@ module LeagueStats
     end
     total
   end
+
+  def highest_scoring_visitor
+
+  end
+
+  def visitor_team_scores
+    away_team_scores = Hash.new(0)
+    @games.each do |game|
+      away_team_scores[game.away_team_id] += game.away_goals.to_i
+    end
+    away_team_scores
+  end
+
+  
 end
