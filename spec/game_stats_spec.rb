@@ -14,8 +14,8 @@ RSpec.describe LeagueStats do
     end
 
     describe "#count_of_games_by_season"
-        it "#total_points" d
-            expect(@stat_tracker.count_of_games_by_season.to eq 11
+        it "can count total games in a season " do
+            expect(@stat_tracker.count_of_games_by_season).to eq 11
         end
     end
 end
