@@ -2,7 +2,7 @@ require 'spec_helper.rb'
 
 RSpec.describe GameTeam do
   it "can initialize" do
-    game_team = GameTeam.new("3", "away", "LOSS", "John Tortorella", "2", "8", "44")
+    game_team = GameTeam.new("2012030221", "3", "away", "LOSS", "John Tortorella", "2", "8", "44")
 
     expect(game_team.team_id).to eq "3"
     expect(game_team.home_or_away).to eq "away"
