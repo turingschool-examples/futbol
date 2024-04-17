@@ -61,5 +61,13 @@ module LeagueStats
     away_team_scores
   end
 
+  def home_team_scores
+    home_team_scores = Hash.new(0)
+    @games.each do |game|
+      home_team_scores[game.home_team_id] += game.home_goals.to_i
+    end
+    home_team_scores
+    require 'pry'; binding.pry
+  end
   
 end
