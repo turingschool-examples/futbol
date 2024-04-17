@@ -50,7 +50,8 @@ module LeagueStats
   end
 
   def highest_scoring_visitor
-
+    winner_id = visitor_team_scores.max_by {|key, value| value}.first
+    team_id_to_name(winner_id)
   end
 
   def visitor_team_scores
@@ -67,7 +68,9 @@ module LeagueStats
       home_team_scores[game.home_team_id] += game.home_goals.to_i
     end
     home_team_scores
-    require 'pry'; binding.pry
   end
-  
+
+  def team_id_to_name(teams_id)
+    @teams.find {|team| team.team_id == teams_id}.team_name
+  end
 end
