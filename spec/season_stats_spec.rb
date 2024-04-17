@@ -109,4 +109,28 @@ RSpec.describe SeasonStats do
         end
     end
 
+    describe "#load_tackle_hash" do
+        it "can create a hash with team_ids as keys and total tackles as values" do
+            expect(@stat_tracker.load_tackle_hash).to eq({"3"=>179, "6"=>271, "5"=>150, "17"=>43, "16"=>24})
+        end
+    end
+
+    describe "#get_tackles" do
+        it "can retrieve total number of tackles in a season" do
+            expect(@stat_tracker.get_tackles("16")).to eq(24)
+        end
+    end
+
+    describe "#most_tackles" do
+        it "can return team with most tackles in a season" do
+            expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+        end
+    end
+
+    describe "#fewest_tackles" do
+        it "can return team with fewest tackles" do
+            expect(@stat_tracker.fewest_tackles("20122013")).to eq("New England Revolution")
+        end
+    end
+
 end

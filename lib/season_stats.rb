@@ -128,5 +128,39 @@ module SeasonStats
         end
         team_object.team_name
     end
-        
+
+    def most_tackles(season_id)
+        get_all_games(season_id)
+        load_team_array
+        load_tackle_hash
+        team_id = @tackle_hash.sort_by {|k, v| -v}.first[0]
+        team_index(team_id)
+    end
+
+    def load_tackle_hash
+        @tackle_hash = {}
+        @team_array.each do |team|
+            @tackle_hash[team] = get_tackles(team)
+        end
+        @tackle_hash
+    end
+
+    def get_tackles(team_id)
+        tackle_tally = 0
+        @all_season_games.each do |game|
+            if game.team_id == team_id
+                tackle_tally += game.tackles.to_i
+            end
+        end
+        tackle_tally
+    end
+
+    def fewest_tackles(season_id)
+        get_all_games(season_id)
+        load_team_array
+        load_tackle_hash
+        team_id = @tackle_hash.sort_by {|k, v| v}.first[0]
+        team_index(team_id)
+    end
+
 end
