@@ -9,6 +9,10 @@ module LeagueStats
     team_averages_list.max_by {|key, value| value}.first
   end
 
+  def worst_offense
+    team_averages_list.min_by {|key, value| value}.first
+  end
+  
   def team_averages_list
     team_averages = {}
     @teams.each do |team|
