@@ -10,7 +10,6 @@ module GameStats
 		elsif away_winners(season) < home_winners(season)
 			home_winners(season)
 		end
-		#   require 'pry'; binding.pry
 	end
 
 	def lowest_total_score(season)
@@ -32,7 +31,7 @@ module GameStats
 					@home_wins << game.home_goals.to_i
 				end
 			end
-			@home_wins.sum
+		@home_wins.sum
 	end
 
 	def away_winners(season) # helper
@@ -51,8 +50,6 @@ module GameStats
 		wins_float = @home_wins.count.to_f
 		home_wins_percentage = wins_float / games_float
 		home_wins_percentage.round(2) 
-		
-		# require 'pry'; binding.pry
 	end
 
 	def percentage_visitor_wins(season) # float
@@ -61,11 +58,25 @@ module GameStats
 		wins_float = @away_wins.count.to_f
 		home_wins_percentage = wins_float / games_float
 		home_wins_percentage.round(2) 
-		# require 'pry'; binding.pry
 	end
 
 	def percentage_ties(season) # float
+		tie_games(season)
+		games_float = @games.count.to_f
+		ties_float = @tie_games.count.to_f
+		tie_game_percentage = ties_float / games_float
+		tie_game_percentage.round(2)
+		# require 'pry'; binding.pry
+	end
 
+	def tie_games(season) # helper
+		@tie_games = []	
+			@games.each do |game|
+				if game.away_goals.to_i == game.home_goals.to_i	
+					@tie_games << game
+				end
+			end
+		@tie_games
 	end
 
 	def count_of_games_by_season(season) # hash
