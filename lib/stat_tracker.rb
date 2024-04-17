@@ -11,10 +11,6 @@ class StatTracker
     include LeagueStats
     include SeasonStats
 
-    attr_reader :games,
-                :teams,
-                :game_teams
-
     def initialize(locations)
         @games = []
         CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
