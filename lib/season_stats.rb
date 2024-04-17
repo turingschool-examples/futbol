@@ -66,4 +66,67 @@ module SeasonStats
         @coach_percentages.sort_by {|k, v| v}.first[0]
     end
 
+    def most_accurate_team(season_id)
+        get_all_games(season_id)
+        load_team_array
+        load_team_hash
+        accuracy_hash
+        team_id = @accuracy_hash.sort_by {|k, v| -v}.first[0]
+        team_index(team_id)
+    end
+
+    def load_team_array
+        @team_array = []
+        @all_season_games.each do |game|
+            if !@team_array.include?(game.team_id)
+                @team_array << game.team_id
+            end
+        end
+        @team_array
+    end
+
+    def load_team_hash
+        @team_hash = {}
+        @team_array.each do |team|
+            @team_hash[team] = team_subhash(team)
+        end
+        @team_hash
+    end
+
+    def team_subhash(team_id)
+        goal_tally = 0
+        shot_tally = 0
+        @all_season_games.each do |game|
+            if game.team_id == team_id
+                goal_tally += game.goals.to_i
+                shot_tally += game.shots.to_i
+            end
+        end
+        {goals: goal_tally, shots: shot_tally}
+    end
+
+    def accuracy_hash
+        @accuracy_hash = {}
+        @team_hash.each do |team, subhash|
+            @accuracy_hash[team] = subhash[:goals].to_f / subhash[:shots].to_f
+        end
+        @accuracy_hash
+    end
+
+    def least_accurate_team(season_id)
+        get_all_games(season_id)
+        load_team_array
+        load_team_hash
+        accuracy_hash
+        team_id = @accuracy_hash.sort_by {|k, v| v}.first[0]
+        team_index(team_id)
+    end
+
+    def team_index(team_id)
+        team_object = @teams.find do |team|
+            team.team_id == team_id
+        end
+        team_object.team_name
+    end
+        
 end

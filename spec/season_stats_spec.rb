@@ -60,4 +60,53 @@ RSpec.describe SeasonStats do
             expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
         end
     end
+
+    describe "#most_accurate_team" do
+        it "can return most accurate team" do
+            expect(@stat_tracker.most_accurate_team("20122013")).to eq("FC Dallas")
+        end
+    end
+
+    describe "#load_team_array" do
+        it "can create an array with every team_id" do
+            expect(@stat_tracker.load_team_array).to eq(["3", "6", "5", "17", "16"])
+        end
+    end
+
+    describe "#load_team_hash" do
+        it "can create a hash with team_ids as keys" do
+            expect(@stat_tracker.load_team_hash.keys).to eq(["3", "6", "5", "17", "16"])
+        end
+    end
+
+    describe "#team_subhash" do
+        it "can create a subhash with total shots and goals" do
+            expect(@stat_tracker.team_subhash("17")).to eq({goals: 1, shots: 5})
+        end
+    end
+
+    describe "#accuracy_hash" do
+        it "can create a hash with team_ids as keys and accuracy ratio as values" do
+            expected_hash = {"16"=>0.2, 
+                            "17"=>0.2, 
+                            "3"=>0.21052631578947367, 
+                            "5"=>0.0625, 
+                            "6"=>0.3157894736842105}
+
+            expect(@stat_tracker.accuracy_hash).to eq(expected_hash)
+        end
+    end
+
+    describe "#least_accurate_team" do
+        it "can return the least accurate team" do
+            expect(@stat_tracker.least_accurate_team("20122013")).to eq("Sporting Kansas City")
+        end
+    end
+
+    describe "#team_index" do
+        it "can pass in a team_id and return the team_name" do
+            expect(@stat_tracker.team_index("17")).to eq("LA Galaxy")
+        end
+    end
+
 end
