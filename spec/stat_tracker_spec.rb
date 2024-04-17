@@ -1,6 +1,6 @@
 require 'spec_helper.rb'
 
-RSpec.describe Game do
+RSpec.describe StatTracker do
   it "can initialize" do
     @game_path = './data/games_fixture.csv'
     @team_path = './data/teams.csv'
