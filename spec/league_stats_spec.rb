@@ -60,9 +60,14 @@ RSpec.describe Game do
     expect(@stat_tracker.worst_offense).to eq "Sporting Kansas City"
   end
 
-  # it "#highest_scoring_visitor" do
-  #   expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
-  # end
+  it "#visitor_team_scores" do
+    expect(@stat_tracker.visitor_team_scores).to be_a {"3"=>5, "6"=>12, "5"=>1, "17"=>1}
+  end
+
+  it "#highest_scoring_visitor" do
+  # require 'pry'; binding.pry
+    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas"
+  end
 
   # it "#highest_scoring_home_team" do
   #   expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
