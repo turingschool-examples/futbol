@@ -50,16 +50,47 @@ module LeagueStats
   end
 
   def highest_scoring_visitor
-    winner_id = visitor_team_scores.max_by {|key, value| value}.first
+    winner_id = visitor_averages.max_by {|key, value| value}.first
     team_id_to_name(winner_id)
   end
-
+  
+  def visitor_averages
+    averages_list = {}
+    visitor_team_scores.each do |key, value|
+      averages_list[key] = (value.to_f / away_game_count(key)).round(2)
+    end
+    averages_list
+  end
+  
   def visitor_team_scores
     away_team_scores = Hash.new(0)
     @games.each do |game|
       away_team_scores[game.away_team_id] += game.away_goals.to_i
     end
     away_team_scores
+  end
+  
+  def away_game_count(team_id)
+    total = 0
+    @games.each do |game|
+      if game.away_team_id == team_id
+        total += 1
+      end
+    end
+    total
+  end
+  
+  def highest_scoring_home_team
+    winner_id = home_averages.max_by {|key, value| value}.first
+    team_id_to_name(winner_id)
+  end
+  
+  def home_averages
+    averages_list = {}
+    home_team_scores.each do |key, value|
+      averages_list[key] = (value.to_f / home_game_count(key)).round(2)
+    end
+    averages_list
   end
 
   def home_team_scores
@@ -68,6 +99,16 @@ module LeagueStats
       home_team_scores[game.home_team_id] += game.home_goals.to_i
     end
     home_team_scores
+  end
+
+  def home_game_count(team_id)
+    total = 0
+    @games.each do |game|
+      if game.home_team_id == team_id
+        total += 1
+      end
+    end
+    total
   end
 
   def team_id_to_name(teams_id)
