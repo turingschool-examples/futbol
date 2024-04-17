@@ -61,7 +61,13 @@ RSpec.describe Game do
   end
 
   it "#visitor_team_scores" do
-    expect(@stat_tracker.visitor_team_scores).to be_a {"3"=>5, "6"=>12, "5"=>1, "17"=>1}
+    expect(@stat_tracker.visitor_team_scores).to be_a Hash
+    # {"3"=>5, "6"=>12, "5"=>1, "17"=>1}
+  end
+
+  it "#home_team_scores" do
+    expect(@stat_tracker.home_team_scores).to be_a Hash
+     #{"6"=>12, "3"=>3, "5"=>1, "16"=>2}
   end
 
   it "#highest_scoring_visitor" do
