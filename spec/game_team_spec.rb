@@ -1,6 +1,6 @@
 require 'spec_helper.rb'
 
-RSpec.describe Game do
+RSpec.describe GameTeam do
   it "can initialize" do
     game_team = GameTeam.new("3", "away", "LOSS", "John Tortorella", "2", "8", "44")
 
