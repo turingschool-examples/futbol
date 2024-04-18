@@ -1,6 +1,6 @@
 require 'spec_helper.rb'
 
-RSpec.describe LeagueStats do
+RSpec.describe GameStats do
   before(:each) do
     @game_path = './data/games_fixture.csv'
     @team_path = './data/teams.csv'
@@ -15,20 +15,20 @@ RSpec.describe LeagueStats do
 
     describe "#count_of_games_by_season" do
         it "can count total games in one season" do
-            expect(@stat_tracker.count_of_games_by_season).to eq ({"20122013" => 10})
+            expect(@stat_tracker.count_of_games_by_season).to eq ({"20122013" => 10, "20162017" => 4, "20142015" => 3})
         end
 
     end
 
     describe "#average_goals_per_game" do
         it "can determine average goals of a all games" do
-            expect(@stat_tracker.average_goals_per_game).to eq ()
+            expect(@stat_tracker.average_goals_per_game).to eq (4.06) #rounded from 4.0588...
         end
     end
 
     describe "#average_goals_by_season" do
         it "can determine average goals of all games in a given season" do
-            expect(@stat_tracker.average_goals_by_season).to eq ({"20122013" => 1.85, "20162017" => 2.50 })
+            expect(@stat_tracker.average_goals_by_season).to eq ({"20122013" => 3.7, "20162017" => 4.75, "20142015" => 4.33 })
         end
     end
 
