@@ -19,5 +19,13 @@ RSpec.describe LeagueStats do
         end
 
     end
+
+    describe "#average_goals_per_game" do
+        it "can determine average goals of a given game" do
+            expect(@stat_tracker.average_goals_per_game).to eq (1.85)
+        end
+
+    end
+
 end
 
