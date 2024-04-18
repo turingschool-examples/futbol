@@ -13,10 +13,11 @@ RSpec.describe LeagueStats do
     @stat_tracker = StatTracker.from_csv(@locations)
     end
 
-    describe "#count_of_games_by_season"
-        it "can count total games in a season " do
-            expect(@stat_tracker.count_of_games_by_season).to eq 11
+    describe "#count_of_games_by_season" do
+        it "can count total games in one season" do
+            expect(@stat_tracker.count_of_games_by_season).to eq ({"20122013" => 10})
         end
+
     end
 end
 
