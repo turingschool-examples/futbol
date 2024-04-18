@@ -41,26 +41,26 @@ RSpec.describe StatTracker do
     end
 
     describe '#percentage_ties' do
-        xit 'can calculate percentage of tie games' do
-            expect(@stat_tracker.percentage_ties("20122013")).to eq (0.09)
+        it 'can calculate percentage of tie games' do
+            expect(@stat_tracker.percentage_ties).to eq (0.08)
         end
     end
 
-    describe '#count_of_games_by_season' do
-        xit 'can count games in a season' do
-            expect(@stat_tracker.count_of_games_by_season("20122013")).to eq # need to do math
+    describe '#away_winners' do
+        it 'can count away wins' do
+            expect(@stat_tracker.away_winners).to eq 6
         end
     end
 
-    describe '#average_goals_per_game' do
-        xit 'can calculate the average amount of goals per game' do
-            expect(@stat_tracker.average_goals_per_game(game id goes here)).to eq # need to do math
+    describe '#home_winners' do
+        it 'can count home wins' do
+            expect(@stat_tracker.home_winners).to eq 6
         end
     end
 
-    describe '#average_goals_by_season' do
-        xit 'can calculate the average amount of goals in a season' do
-            expect(@stat_tracker.count_of_goals_by_season("20122013")).to eq # need to do math
+    describe '#tie_games' do
+        it 'can count tie games' do
+            expect(@stat_tracker.tie_games).to eq 1
         end
     end
 
