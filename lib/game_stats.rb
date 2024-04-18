@@ -19,29 +19,38 @@ module GameStats
 	end
 
 	def away_winners # helper
-		@away_wins = []
+		away_wins = []
 			@games.each do |game|
 				if game.away_goals.to_i > game.home_goals.to_i	
-					@away_wins << game.away_goals.to_i
+					away_wins << game
 				end
 			end
-		@away_wins.sum
+		away_wins.count
 	end	
 
-	def percentage_home_wins(season) # float
-		home_winners(season)
-		games_float = @games.count.to_f
-		wins_float = @home_wins.count.to_f
-		home_wins_percentage = wins_float / games_float
-		home_wins_percentage.round(2) 
+	def home_winners # helper
+		home_wins = []
+		@games.each do |game|
+			if game.home_goals.to_i > game.away_goals.to_i	
+				home_wins << game				
+			end
+			# require 'pry'; binding.pry
+		end
+		home_wins.count
+	end	
+
+	def percentage_home_wins
+		total_games_float = @games.count.to_f
+		percentage = home_winners.to_f / total_games_float
+		percentage.round(2)
+		
 	end
 
-	def percentage_visitor_wins(season) # float
-		away_winners(season)
-		games_float = @games.count.to_f
-		wins_float = @away_wins.count.to_f
-		home_wins_percentage = wins_float / games_float
-		home_wins_percentage.round(2) 
+	def percentage_visitor_wins
+		total_games_float = @games.count.to_f
+		percentage = away_winners.to_f / total_games_float
+		percentage.round(2)
+		# require 'pry'; binding.pry
 	end
 
 	def percentage_ties(season) # float
