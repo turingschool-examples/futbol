@@ -17,13 +17,13 @@ RSpec.describe StatTracker do
     end
 
     describe '#highest_total_score' do
-        xit 'can find the highest sum of winning and losing teams scores' do 
+        it 'can find the highest sum of winning and losing teams scores' do 
             expect(@stat_tracker.highest_total_score("20122013")).to eq 14
         end
     end
 
     describe '#lowest_total_score' do
-        xit 'can find the lowest sum of winning and losing teams scores' do
+        it 'can find the lowest sum of winning and losing teams scores' do
             expect(@stat_tracker.lowest_total_score("20122013")).to eq 12
         end
     end
