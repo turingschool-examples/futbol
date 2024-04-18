@@ -10,3 +10,5 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2012030314,20122013,Postseason,6/8/13,5,6,0,1,Toyota Stadium,/api/v1/venues/null
 2012030231,20122013,Postseason,5/16/13,17,16,1,2,Gillette Stadium,/api/v1/venues/null
 2012030121,20122013,Postseason,5/2/13,9,8,2,2,Red Bull Arena,/api/v1/venues/null
+2016030174,20162017,Postseason,4/20/17,24,20,3,1,BMO Field,/api/v1/venues/null
+2014030411,20142015,Postseason,6/4/15,16,14,2,1,Audi Field,/api/v1/venues/null

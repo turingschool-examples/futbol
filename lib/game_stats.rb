@@ -4,37 +4,21 @@
 
 module GameStats
 
-	def highest_total_score(season) # integer
-		if away_winners(season) > home_winners(season)
-			away_winners(season)
-		elsif away_winners(season) < home_winners(season)
-			home_winners(season)
+	def highest_total_score
+		all_scores.sort.pop
+	end
+
+	def lowest_total_score
+		all_scores.sort.shift
+	end
+
+	def all_scores # helper
+		@games.map do |game|
+			game.away_goals.to_i + game.home_goals.to_i
 		end
 	end
 
-	def lowest_total_score(season)
-		if away_winners(season) < home_winners(season)
-			away_winners(season)
-		elsif away_winners(season) > home_winners(season)
-			home_winners(season)
-		end
-	end
-
-	def get_games(season) # helper
-		@all_games = @games
-	end
-
-	def home_winners(season) # helper
-		@home_wins = []	
-			@games.each do |game|
-				if game.away_goals.to_i < game.home_goals.to_i	
-					@home_wins << game.home_goals.to_i
-				end
-			end
-		@home_wins.sum
-	end
-
-	def away_winners(season) # helper
+	def away_winners # helper
 		@away_wins = []
 			@games.each do |game|
 				if game.away_goals.to_i > game.home_goals.to_i	
@@ -71,11 +55,11 @@ module GameStats
 
 	def tie_games(season) # helper
 		@tie_games = []	
-			@games.each do |game|
-				if game.away_goals.to_i == game.home_goals.to_i	
-					@tie_games << game
-				end
+		@games.each do |game|
+			if game.away_goals.to_i == game.home_goals.to_i	
+				@tie_games << game
 			end
+		end
 		@tie_games
 	end
 
