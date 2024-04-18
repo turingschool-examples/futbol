@@ -22,13 +22,13 @@ RSpec.describe LeagueStats do
 
     describe "#average_goals_per_game" do
         it "can determine average goals of a all games" do
-            expect(@stat_tracker.average_goals_per_game).to eq (1.85)
+            expect(@stat_tracker.average_goals_per_game).to eq ()
         end
     end
 
     describe "#average_goals_by_season" do
         it "can determine average goals of all games in a given season" do
-            expect(@stat_tracker.average_goals_per_game).to eq ({"20122013" => 1.85, "20162017" => 2.50 })
+            expect(@stat_tracker.average_goals_by_season).to eq ({"20122013" => 1.85, "20162017" => 2.50 })
         end
     end
 
