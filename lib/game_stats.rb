@@ -1,7 +1,4 @@
 
-
-
-
 module GameStats
 
 	def highest_total_score # integer
@@ -66,7 +63,6 @@ module GameStats
 		end
 		tie_games.count
 	end
-
 
     def count_of_games_by_season 
         games_per_season = Hash.new(0)

@@ -1,16 +1,12 @@
 require 'spec_helper.rb'
 
 RSpec.describe GameStats do
-  before(:each) do
-    @game_path = './data/games_fixture.csv'
-    @team_path = './data/teams.csv'
-    @game_teams_path = './data/game_teams_fixture.csv'
-    @locations = {
-        games: @game_path,
-        teams: @team_path,
-        game_teams: @game_teams_path
-    }
-    @stat_tracker = StatTracker.from_csv(@locations)
+    before(:all) do 
+        @locations = {games: './data/games_fixture.csv', 
+        teams: './data/teams.csv', 
+        game_teams: './data/game_teams_fixture.csv'}
+        
+        @stat_tracker = StatTracker.from_csv(@locations)
     end
 
     describe "#count_of_games_by_season" do
@@ -30,26 +26,6 @@ RSpec.describe GameStats do
         it "can determine average goals of all games in a given season" do
             expect(@stat_tracker.average_goals_by_season).to eq ({"20122013" => 3.7, "20162017" => 4.75, "20142015" => 4.33 })
         end
-    end
-
-end
-
-require 'CSV'
-require './lib/game'
-require './lib/team'
-require './lib/game_team'
-require './lib/game_stats'
-require './lib/league_stats'
-require './lib/season_stats'
-require './lib/stat_tracker'
-
-RSpec.describe StatTracker do
-    before(:all) do 
-        @locations = {games: './data/games_fixture.csv', 
-        teams: './data/teams.csv', 
-        game_teams: './data/game_teams_fixture.csv'}
-        
-        @stat_tracker = StatTracker.from_csv(@locations)
     end
 
     describe '#highest_total_score' do
