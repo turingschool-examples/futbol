@@ -64,7 +64,7 @@ module GameStats
 		tie_games.count
 	end
 
-    def count_of_games_by_season 
+    def count_of_games_by_season  # main method
         games_per_season = Hash.new(0)
         @games.each do |game|
             games_per_season[game.season_id] += 1
@@ -72,7 +72,7 @@ module GameStats
         games_per_season
     end
 
-    def average_goals_per_game
+    def average_goals_per_game # main method
         all_goals = []
         @games.each do |game|
             all_goals << game.away_goals.to_f + game.home_goals.to_f
@@ -81,14 +81,14 @@ module GameStats
         average_of_games.round(2)
     end
     
-    def average_goals_by_season
+    def average_goals_by_season # main method
         average_goals_per_season = {}
         season_count = Hash.new(0)
         
         @games.each do |game|
             season_id = game.season_id
             season_count[season_id] += 1
-            average_goals_per_season[season_id] ||= 0
+            average_goals_per_season[season_id] ||= 0 # equivilant to conditional say if average_goals_per_season is = to nil, then set equal to zero using ||=0 operator.
             average_goals_per_season[season_id] += (game.away_goals.to_f + game.home_goals.to_f)
         end
         
