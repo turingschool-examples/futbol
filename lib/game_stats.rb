@@ -67,7 +67,7 @@ module GameStats
     def count_of_games_by_season  # main method
         games_per_season = Hash.new(0)
         @games.each do |game|
-            games_per_season[game.season_id] += 1
+            games_per_season[game.season_id] += 1 # increments value of hash with season ID as key where hash in the number of games in season
         end
         games_per_season
     end
@@ -75,9 +75,9 @@ module GameStats
     def average_goals_per_game # main method
         all_goals = []
         @games.each do |game|
-            all_goals << game.away_goals.to_f + game.home_goals.to_f
+            all_goals << game.away_goals.to_f + game.home_goals.to_f # shovels home goals and away goals into array after iterating through each game
         end
-        average_of_games = all_goals.sum / all_goals.size
+        average_of_games = all_goals.sum / all_goals.size # takes average using string operators
         average_of_games.round(2)
     end
     
@@ -86,14 +86,14 @@ module GameStats
         season_count = Hash.new(0)
         
         @games.each do |game|
-            season_id = game.season_id
-            season_count[season_id] += 1
-            average_goals_per_season[season_id] ||= 0 # equivilant to conditional say if average_goals_per_season is = to nil, then set equal to zero using ||=0 operator.
-            average_goals_per_season[season_id] += (game.away_goals.to_f + game.home_goals.to_f)
+            season_id = game.season_id # sets variable equal to the season ID
+            season_count[season_id] += 1 # upon iteration sets the value of the season_id Key to plus one during each iteration
+            average_goals_per_season[season_id] ||= 0 # equivilant to conditional say if average_goals_per_season speciifc key is = to nil, then set equal to zero using ||=0 operator.
+            average_goals_per_season[season_id] += (game.away_goals.to_f + game.home_goals.to_f) # takes the average goal per season hash 
         end
         
         average_goals_per_season.each do |season_id, total_goals|
-            average_goals_per_season[season_id] = (total_goals / season_count[season_id]).round(2)
+            average_goals_per_season[season_id] = (total_goals / season_count[season_id]).round(2) # takes average per the season iterating through hash using season ID for key in iteration and the total goals as the value 
         end
         
         average_goals_per_season
