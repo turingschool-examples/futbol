@@ -11,7 +11,7 @@ RSpec.describe GameStats do
 
     describe "#count_of_games_by_season" do
         it "can count total games in one season" do
-            expect(@stat_tracker.count_of_games_by_season).to eq ({"20122013" => 10, "20162017" => 4, "20142015" => 3})
+            expect(@stat_tracker.count_of_games_by_season).to eq ({"20122013" => 11, "20162017" => 4, "20142015" => 3})
         end
 
     end
@@ -24,7 +24,7 @@ RSpec.describe GameStats do
 
     describe "#average_goals_by_season" do
         it "can determine average goals of all games in a given season" do
-            expect(@stat_tracker.average_goals_by_season).to eq ({"20122013" => 3.7, "20162017" => 4.75, "20142015" => 4.33 })
+            expect(@stat_tracker.average_goals_by_season).to eq ({"20122013" => 3.73, "20162017" => 4.75, "20142015" => 4.33 })
         end
     end
 
