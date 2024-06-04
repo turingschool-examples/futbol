@@ -1,7 +1,7 @@
 require 'csv'
 
 class League
-    def initialize(league)
-        @league = league
+    def initialize()
+       
     end
 end

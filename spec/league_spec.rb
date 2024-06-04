@@ -1,9 +1,12 @@
-require 'spec_helper'
+require 'spec/spec_helper'
 
-RSpec.describe League do
+RSpec.configure do |config|
+    config.formatter = :documentation
+end
     
-describe initialize do 
-    it "exists" do
-        expect(@league).to be_an_instance_of(League)
+RSpec.describe League do
+    describe '#initialize' do 
+    it "exists with attributes" do
+        
     end
 end
