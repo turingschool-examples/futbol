@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe League dashboard
+RSpec.describe League do
     
 describe initialize do 
     it "exists" do
