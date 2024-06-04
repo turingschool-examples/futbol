@@ -1,14 +1,17 @@
-require 'csv'
-
 class Game
-    attr_reader :game_data
-
-    def initialize(game_data)
-        @game_data = game_data
+    attr_reader :game_id, :season, :type, :date_time, :away_team_id, :home_team_id, :away_goals, :home_goals, :venue, :venue_link
+  
+    def initialize(game_id, season, type, date_time, away_team_id, home_team_id, away_goals, home_goals, venue, venue_link)
+      @game_id = game_id
+      @season = season
+      @type = type
+      @date_time = date_time
+      @away_team_id = away_team_id
+      @home_team_id = home_team_id
+      @away_goals = away_goals
+      @home_goals = home_goals
+      @venue = venue
+      @venue_link = venue_link
     end
-
-    def highest_total_score
-        puts 'this score is high lol'
-    end
-end
-
+  end
+  
