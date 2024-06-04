@@ -1,25 +1,22 @@
 require 'csv'
+require_relative 'league'
+require_relative 'game'
+require_relative 'season'
 
 class StatTracker
-    def initialize(game_path, team_path, game_teams_path)
+    attr_reader :game_data, :team_data, :game_teams_data, :game, :league, :season
+    def initialize(locations)
+        @game_data = CSV.read(locations[:games], headers: true)
+        @team_data = CSV.read(locations[:teams], headers: true)
+        @game_teams_data = CSV.read(locations[:game_teams], headers: true)
 
+        @game = Game.new(@game_data)
+        # @league = League.new(@team_data, @game_teams_data)
+        # @season = Season.new(@game_data, @game_teams_data)
     end
 
-    def self.from_csv(locations)
-        game_path = CSV.read(locations[:games])
-        team_path = CSV.read(locations[:teams])
-        game_teams_path = CSV.read(locations[:game_teams])
-
-        StatTracker.new(game_path, team_path, game_teams_path)
+    #class method, allows us to create a new instance of StatTracker directly from a CSV file location.
+    def self.from_csv(locations) 
+        StatTracker.new(locations)
     end
 end
-
-# def self.create_muliple_objects(path)   This doesn't go here, will go with classes to break out each csv file
-#     teams = []
-#     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-#         teams << StatTracker.new(team header info, would break this out?) team_id,franchiseId,teamName,abbreviation,Stadium,link
-#     end
-# end
-
-# games.csv would be (game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link)
-# games_teams.csv would be (game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways)
