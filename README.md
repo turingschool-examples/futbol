@@ -17,7 +17,7 @@ Cory Bretsch
 
 # README REQUIREMENTS
 ### DTR - Mon. June 3rd, 2024
-[Link to DTR}(https://docs.google.com/document/d/1FACITYUJOXfrlqmo62Xsbf1nut_gJ6O829bR0uazS5U/edit)
+[Link to DTR](https://docs.google.com/document/d/1FACITYUJOXfrlqmo62Xsbf1nut_gJ6O829bR0uazS5U/edit)
   - Initial DTR Completed June 3rd, 2024
   - Re-DTR Planned for June 6th, 2024
 
