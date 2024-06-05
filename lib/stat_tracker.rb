@@ -4,24 +4,20 @@ require_relative 'game_teams'
 require_relative 'league'
 require_relative 'game'
 require_relative 'season'
+require_relative 'game_stat'
 
 class StatTracker
-    attr_reader :game_data, :team_data, :game_teams_data, :game, :league, :season
-    def initialize(locations)
-        @game_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
-        @team_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
-        @game_teams_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
+  attr_reader :game_data, :team_data, :game_teams_data, :game, :league, :season, :game_stats
 
-        @game = @game_data.map do |game|
-            Game.new(game)
-        end      
+  def initialize(locations)
+    @game_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
+    @team_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
+    @game_teams_data = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
 
-        @team_data = team_data.map do |team|
-            Team.new(team)
-        end
+    @games = @game_data.map { |game| Game.new(game) }
+    @team_data = @team_data.map { |team| Team.new(team) }
+    @game_teams_data = @game_teams_data.map { |game_teams| Game_teams.new(game_teams) }
 
-        @game_teams_data = game_teams_data.map do |game_teams|
-            Game_teams.new(game_teams)
-        end
-    end
+    @game_stats = GameStats.new(@games)
+  end
 end
