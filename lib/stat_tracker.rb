@@ -19,4 +19,91 @@ class StatTracker
         @teams = teams
         @game_teams = game_teams
     end
+
+    # Game Statistics
+  def highest_total_score
+    # Your implementation here
+  end
+
+  def lowest_total_score
+    # Your implementation here
+  end
+
+  def percentage_home_wins
+    #  implementation here
+  end
+
+  def percentage_visitor_wins
+    #  implementation here
+  end
+
+  def percentage_ties
+    #  implementation here
+  end
+
+  def count_of_games_by_season
+    #  implementation here
+  end
+
+  def average_goals_per_game
+    #  implementation here
+  end
+
+  def average_goals_by_season
+    #  implementation here
+  end
+
+  # League Statistics
+  def count_of_teams
+    #  implementation here
+  end
+
+  def best_offense
+    #  implementation here
+  end
+
+  def worst_offense
+    #  implementation here
+  end
+
+  def highest_scoring_visitor
+    #  implementation here
+  end
+
+  def highest_scoring_home_team
+    #  implementation here
+  end
+
+  def lowest_scoring_visitor
+    #  implementation here
+  end
+
+  def lowest_scoring_home_team
+    #  implementation here
+  end
+
+  # Season Statistics
+  def winningest_coach(season)
+    #  implementation here
+  end
+
+  def worst_coach(season)
+    #  implementation here
+  end
+
+  def most_accurate_team(season)
+    #  implementation here
+  end
+
+  def least_accurate_team(season)
+    #  implementation here
+  end
+
+  def most_tackles(season)
+    #  implementation here
+  end
+
+  def fewest_tackles(season)
+    #  implementation here
+  end
 end
