@@ -30,7 +30,9 @@ Cory Bretsch
   - We will require 1 person to review code and merge a PR
 
 ### APPROACHES TO PROJECT ORGANIZATION 
-- _2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use._
+  - We looked at a variety of different project management tools and approaches before deciding a kanban board would fit our needs the best, and easyretro would be an excellent tool for implementation. So far it seems to be working really well for us.
 
 ### APPROACH TO CODE DESIGN
-- _2-3 sentence summary describing your approach to the code design._
+  - We discussed a number of different code design approaches. A great example is whether to work with data ojects being pulled from the CSVs by using hashes and assigning values as instance variables, or alternatively, skipping the hash step and treating the data objects as individual objects with their own attributes. We decided to go with the latter option. Our goal is to keep everything as simple and straight forward as we possibly can.
+
+  We will be using TDD, as well as "red, green, refactor" to establish functionality.
