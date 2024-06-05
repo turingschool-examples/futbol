@@ -21,6 +21,12 @@ RSpec.describe Games do
       expect(game.venue).to eq("Toyota Stadium")
       expect(game.venue_link).to eq("/api/v1/venues/null")
     end
+
+    it "pulls data from the games csv file" do
+      path = "./data/games.csv"
+      game = create_games_data_objects(path)
+
+      
   end
 end
   
