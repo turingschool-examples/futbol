@@ -9,6 +9,10 @@ require_relative 'game_stat'
 class StatTracker
   attr_reader :game_data, :team_data, :game_teams_data, :game, :league, :season, :game_stats
 
+  def self.from_csv(locations)
+    StatTracker.new(locations)
+  end
+
   def initialize(locations)
     @game_data = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @team_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
