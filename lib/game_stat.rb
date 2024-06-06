@@ -47,13 +47,18 @@ class GameStats
     total_goals.to_f / total_games
   end
 
+  def average_goals_per_season(seasons = ["20122013", "20132014", "20142015", "20152016", "20162017"])
+    average_goals_per_season = {}
   
-  # def average_goals_per_season (seasons = ["20122013", "20132014", 20142015"])
-  #   average_goals_per_season = {}
-  #   seasons.each do |season|
-  #     games_in_season = count_games_in_seasons
-  #   end
-  # end
+    seasons.each do |season|
+      games_in_season = count_games_in_seasons([season])
+      total_goals = @games.select { |game| game.season == season }.sum { |game| game.away_goals.to_i + game.home_goals.to_i }
+      total_games = games_in_season[season]
+      average_goals_per_season[season] = total_goals.to_f / total_games
+    end
+  
+    average_goals_per_season
+  end
 
 
 
