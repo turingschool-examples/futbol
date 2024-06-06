@@ -58,4 +58,14 @@ RSpec.describe GameStatistics do
             expect(game_stats.percentage_tie_games).to eq(0.00)
         end   
     end
+
+    describe '#count_of_games_by_season' do
+        it "returns a hash with season id's as keys and a count of games as values" do
+            game_data = Games.create_games_data_objects("./data/games_test.csv")
+            game_stats = GameStatistics.new(game_data) 
+            expect(game_stats.count_of_games_by_season).to eq({ 20122013 => 10 })
+        end
+    end
+
+    
 end
