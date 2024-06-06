@@ -48,12 +48,12 @@ class GameStats
   end
 
   
-  def average_goals_per_season (seasons = ["20122013", "20132014", 20142015"])
-    average_goals_per_season = {}
-    seasons.each do |season|
-      games_in_season = count_games_in_seasons
-    end
-  end
+  # def average_goals_per_season (seasons = ["20122013", "20132014", 20142015"])
+  #   average_goals_per_season = {}
+  #   seasons.each do |season|
+  #     games_in_season = count_games_in_seasons
+  #   end
+  # end
 
 
 
