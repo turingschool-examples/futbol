@@ -12,7 +12,7 @@ RSpec.describe League do
       game_teams: game_teams_path
     }
     tracker = StatTracker.from_csv(locations)
-    @teams = Team.new(team_path, tracker)  #need to get this right depending on what we are calling it in stattracker
+    @teams = tracker.team_data #need to get this right depending on what we are calling it in stattracker
   end
 
     describe 'ititalize' do
