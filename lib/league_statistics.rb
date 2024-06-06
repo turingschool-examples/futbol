@@ -12,8 +12,8 @@ class LeagueStatistics
     @teams.count
   end
 
-  def average_goals(team)
-    total_goals = game_teams[team].goals
+  def average_goals
+    total_goals = game_teams.goals.map
     total_goals.inject(0.0) {|sum, goals| sum + goals}/total_goals.size
   end
 
