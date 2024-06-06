@@ -4,12 +4,12 @@ require './lib/team/'
 RSpec.describe Team do
     before :all do
         @team_hash = {
-            team_id : '29',
-            franchiseId : '36',
-            teamName : 'Orlando Pride',
-            abbreviation : 'FLP',
-            Stadium : 'Exploria Stadium',
-            link : '/api/v1/teams/29'
+            team_id: '29',
+            franchiseId: '36',
+            teamName: 'Orlando Pride',
+            abbreviation: 'FLP',
+            Stadium: 'Exploria Stadium',
+            link: '/api/v1/teams/29'
         }
         @team = Team.new(@team_hash)
     end
