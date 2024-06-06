@@ -11,6 +11,7 @@ class Game
                 :home_goals,
                 :venue,
                 :venue_link
+            
 
 
 
@@ -27,8 +28,8 @@ class Game
         @venue_link = game_data[:venue_link]
     end
 
-    def highest_total_score
-        puts 'this score is high lol'
-    end
+      
+    
+
 end
 
