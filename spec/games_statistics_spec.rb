@@ -76,4 +76,12 @@ RSpec.describe GameStatistics do
             expect(game_stats.average_goals_per_game).to eq(3.70)
         end
     end 
+
+    describe '#average_goals_by_season' do
+        it "returns a hash with season id's as keys and a float of average number of goals per game as value" do
+            game_data = Games.create_games_data_objects("./data/games_test.csv")
+            game_stats = GameStatistics.new(game_data) 
+            expect(game_stats.average_goals_by_season).to eq({ 20122013 => 3.70 })
+        end
+    end
 end

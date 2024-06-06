@@ -46,4 +46,19 @@ class GameStatistics
         total_goals = games.sum { |game| game.home_goals + game.away_goals}
         (total_goals.to_f / total_games).round(2)
     end
+
+    def average_goals_by_season
+        total_goals_by_season = Hash.new(0)
+        total_games_by_season = Hash.new(0)
+        @games.each do |game|
+            total_goals_by_season[game.season] += game.home_goals + game.away_goals
+            total_games_by_season[game.season] += 1
+        end
+
+        average_goals_by_season = {}
+        total_goals_by_season.each_key do |season|
+            average_goals_by_season[season] = (total_goals_by_season[season].to_f / total_games_by_season[season]).round(2)
+        end
+            average_goals_by_season
+    end
 end
