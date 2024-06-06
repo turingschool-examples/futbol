@@ -67,5 +67,13 @@ RSpec.describe GameStatistics do
         end
     end
 
-    
+    describe '#average_goals_per_game' do
+        it "returns average number of goals scored per game from all seasons" do
+            game_data = Games.create_games_data_objects("./data/games_test.csv")
+            game_stats = GameStatistics.new(game_data)
+            total_goals = game_data.sum { |game| game.home_goals + game.away_goals }
+            total_games = game_data.length
+            expect(game_stats.average_goals_per_game).to eq(3.70)
+        end
+    end 
 end

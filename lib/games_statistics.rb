@@ -40,4 +40,10 @@ class GameStatistics
         end
         games_by_season
     end
+
+    def average_goals_per_game
+        total_games = @games.length
+        total_goals = games.sum { |game| game.home_goals + game.away_goals}
+        (total_goals.to_f / total_games).round(2)
+    end
 end
