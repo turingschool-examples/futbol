@@ -1,17 +1,35 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jamescochran/mod1/projects/futbol/lib/stat_tracker.rb": {
+      "/Users/corybretsch/turing/mod_1/projects/futbol/lib/stat_tracker.rb": {
         "lines": [
+          1,
+          1,
           1,
           null,
           1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
           null,
           null,
           null
         ]
       },
-      "/Users/jamescochran/mod1/projects/futbol/lib/teams.rb": {
+      "/Users/corybretsch/turing/mod_1/projects/futbol/lib/game_teams.rb": {
         "lines": [
           1,
           null,
@@ -23,7 +41,25 @@
           null,
           null,
           null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0,
@@ -43,7 +79,7 @@
           null
         ]
       },
-      "/Users/jamescochran/mod1/projects/futbol/lib/games.rb": {
+      "/Users/corybretsch/turing/mod_1/projects/futbol/lib/games.rb": {
         "lines": [
           1,
           null,
@@ -61,29 +97,29 @@
           null,
           1,
           null,
-          80,
-          80,
-          80,
-          80,
-          80,
-          80,
-          80,
-          80,
-          80,
-          80,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           null,
           null,
           1,
-          8,
-          8,
-          80,
+          0,
+          0,
+          0,
           null,
-          8,
+          0,
           null,
           null
         ]
       },
-      "/Users/jamescochran/mod1/projects/futbol/lib/game_teams.rb": {
+      "/Users/corybretsch/turing/mod_1/projects/futbol/lib/teams.rb": {
         "lines": [
           1,
           null,
@@ -95,25 +131,7 @@
           null,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
           0,
           0,
           0,
@@ -128,7 +146,6 @@
           0,
           null,
           0,
-          null,
           null,
           null,
           null
@@ -203,6 +220,6 @@
         ]
       }
     },
-    "timestamp": 1717709009
+    "timestamp": 1717704243
   }
 }
