@@ -29,9 +29,9 @@ RSpec.describe StatTracker do
     end
   end
 
-  descrbie '#lowest_total_score' do 
+  describe '#lowest_total_score' do 
     it 'returns an integer' do
-      espect(@stat_tracker.lowest_total_score).to be_a(Integer)
+      expect(@stat_tracker.lowest_total_score).to be_a(Integer)
     end
   end
 
@@ -47,21 +47,21 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#count_of_games_by_season' do 
+  describe '#count_games_in_seasons' do 
     it 'returns a hash' do
-      expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
+      expect(@stat_tracker.count_games_in_seasons).to be_a(Hash)
     end
   end
 
   describe '#average_goals_per_game' do
     it 'returns a float' do 
-      expect(@stat_tracker.count_of_games_per_game).to be_a(Float)
+      expect(@stat_tracker.average_goals_per_game).to be_a(Float)
     end
   end
 
-  describe '#average_goals_by_season' do
+  describe '#average_goals_per_season' do
     it 'returns a hash' do
-      expect(@stat_tracker.average_goals_by_season).to be_a(Hash)
+      expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
     end
   end
 end
