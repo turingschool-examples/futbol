@@ -13,3 +13,5 @@ Google Drive - https://drive.google.com/drive/folders/1fO_bBq-b3HYDC7ttraa4rBsGO
 No one in our group had a strong preference for what organizational strategy or tool they wanted to use.  We had some minor experience with Trello and after all playing around with it decided it would serve our needs.  There are undoubtedly many useful tools built in we are not even aware of yet.  The Google docs will also continue to serve us as they allow more flexibility in the type of content we can upload/manipulate.
 
 We've all read the project requirements individually, shared notes, and begun to outline our plan of attack.  We're making sure everyone understands the project objective on a higher level and breaking it down into smaller chunks in order to delegate those chunks to individual members.  We're doing our best to recognize which steps go where and approach this linearly.
+
+Retro Link - https://easyretro.io/publicboard/vehLoQo3XZNNMMNL8P8qBxb7F7f2/13cc085c-d6da-42bf-b2aa-ad6338af007d

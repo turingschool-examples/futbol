@@ -31,94 +31,98 @@ RSpec.describe StatTracker do
   end
 # Game Statistics
 
-# highest_total_score
-# Look for the highest sum of away_goals and home_goals across all games.
+  it 'calculates the highest_total_score' do
+    expect(@stat_tracker.highest_total_score).to eq(5)
+  end
 
-# lowest_total_score
-# Look for the lowest sum of away_goals and home_goals across all games.
+  it 'calculates the lowest_total_score' do
+    expect(@stat_tracker.lowest_total_score).to eq(3)
+  end
 
-# percentage_home_wins
-# Calculate the percentage of games won by the home team.
-# Look for the number of games where the home team won (result is 'WIN') and divide it by the total number of games.
+  it 'calculates the percentage of home wins' do
+    expect(@stat_tracker.percentage_home_wins).to eq(0.60)
+  end
 
-# percentage_visitor_wins
-# Calculate the percentage of games won by the away team.
-# Look for the number of games where the away team won (result is 'WIN') and divide it by the total number of games.
+  it 'calculates the percentage of visitor wins' do
+    expect(@stat_tracker.percentage_visitor_wins).to eq(0.40)
+  end
 
-# percentage_ties
-# Calculate the percentage of games that resulted in a tie.
-# Look for the number of games where the result is a tie (away_goals = home_goals) and divide it by the total number of games.
+  it 'calculates the percentage of ties' do
+    expect(@stat_tracker.percentage_ties).to eq(0.0)
+  end
 
-# count_of_games_by_season
-# Count the number of games for each season.
-# Group the games by season and count the number of games in each group.
+  it 'calculates the count of games by season' do
+    expect(@stat_tracker.count_of_games_by_season).to eq({ '20122013' => 5 })
+  end
 
-# average_goals_per_game
-# Calculate the average number of goals scored per game.
-# Sum up all the goals (away_goals + home_goals) and divide by the total number of games.
+  it 'calculates the average goals per game' do
+    expect(@stat_tracker.average_goals_per_game).to eq(4.4)
+  end
 
-# average_goals_by_season
-# Calculate the average number of goals scored per game for each season.
-# Group the games by season, sum up the goals for each season, and divide by the number of games in that season.
+  it 'calculates the average goals by season' do
+    expect(@stat_tracker.average_goals_by_season).to eq({ '20122013' => 4.4 })
+  end
 
+  # Team Statistics
+  it 'calculates the highest scoring home team' do
+    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
+  end
 
-# Team Statistics
+  it 'calculates the highest scoring visitor team' do
+    expect(@stat_tracker.highest_scoring_visitor_team).to eq('LA Galaxy')
+  end
 
-# count_of_teams
-# Count the total number of unique teams.
-# Count the distinct team ids in the teams data.
+  it 'calculates the lowest scoring home team' do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq('Portland Timbers')
+  end
 
-# best_offense
-# Find the team with the highest average number of goals scored per game.
-# Calculate the average goals per game for each team and find the team with the highest average.
+  it 'calculates the lowest scoring visitor team' do
+    expect(@stat_tracker.lowest_scoring_visitor_team).to eq('Portland Timbers')
+  end
 
-# worst_offense
-# Find the team with the lowest average number of goals scored per game.
-# Calculate the average goals per game for each team and find the team with the lowest average.
+  it 'calculates the winningest team' do
+    expect(@stat_tracker.winningest_team).to eq('LA Galaxy')
+  end
 
-# highest_scoring_visitor
-# Find the team with the highest average score per game when they are away.
-# Filter the games where the team is away, calculate their average score per game, and find the team with the highest average.
+  it 'calculates the best fans' do
+    expect(@stat_tracker.best_fans).to eq('LA Galaxy')
+  end
 
-# highest_scoring_home_team
-# Find the team with the highest average score per game when they are home.
-# Filter the games where the team is home, calculate their average score per game, and find the team with the highest average.
+  it 'calculates the highest scoring home team' do
+    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
+  end
 
-# lowest_scoring_visitor
-# Find the team with the lowest average score per game when they are a visitor.
-# Filter the games where the team is away, calculate their average score per game, and find the team with the lowest average.
+  it 'calculates the lowest scoring home team' do
+    expect(@stat_tracker.lowest_scoring_home_team).to eq('Portland Timbers')
+  end
 
-# lowest_scoring_home_team
-# Find the team with the lowest average score per game when they are at home.
-# Filter the games where the team is home, calculate their average score per game, and find the team with the lowest average.
+  it 'calculates the worst fans' do
+    expect(@stat_tracker.worst_fans).to eq('Portland Timbers')
+  end
 
+  # Season Statistics
+  it 'calculates the winningest coach for a season' do
+    expect(@stat_tracker.winningest_coach('20122013')).to eq('Claude Julien')
+  end
 
-# Season Statistics
+  it 'calculates the worst coach for a season' do
+    expect(@stat_tracker.worst_coach('20122013')).to eq('John Tortorella')
+  end
 
-# winningest_coach
-# Find the coach with the best win percentage for the season.
-# Group the games by season and head coach, calculate the win percentage for each coach, and find the one with the highest percentage.
+  it 'calculates the most accurate team for a season' do
+    expect(@stat_tracker.most_accurate_team('20122013')).to eq('LA Galaxy')
+  end
 
-# worst_coach
-# Find the coach with the worst win percentage for the season.
-# Group the games by season and head coach, calculate the win percentage for each coach, and find the one with the lowest percentage.
+  it 'calculates the least accurate team for a season' do
+    expect(@stat_tracker.least_accurate_team('20122013')).to eq('Portland Timbers')
+  end
 
-# most_accurate_team
-# Find the team with the best ratio of shots to goals for the season.
-# Group the games by season and team, calculate the ratio of shots to goals for each team, and find the team with the highest ratio.
+  it 'calculates the most tackles in a season' do
+    expect(@stat_tracker.most_tackles('20122013')).to eq('LA Galaxy')
+  end
 
-# least_accurate_team
-# Find the team with the worst ratio of shots to goals for the season.
-# Group the games by season and team, calculate the ratio of shots to goals for each team, and find the team with the lowest ratio.
-
-# most_tackles
-# Find the team with the most tackles in the season.
-# Group the games by season and team, sum up the tackles for each team, and find the team with the highest total tackles.
-
-# fewest_tackles
-# Find the team with the fewest tackles in the season.
-# Group the games by season and team, sum up the tackles for each team, and find the team with the lowest total tackles.
-
-
+  it 'calculates the fewest tackles in a season' do
+    expect(@stat_tracker.fewest_tackles('20122013')).to eq('Portland Timbers')
+  end
 
 end

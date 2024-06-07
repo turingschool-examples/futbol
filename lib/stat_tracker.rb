@@ -28,88 +28,127 @@ class StatTracker
 
     # Game Statistics
   def highest_total_score
-    # Your implementation here
+    @games.map { |game| game[:away_goals].to_i + game[:home_goals].to_i }.max
   end
 
   def lowest_total_score
-    # Your implementation here
+    @games.map { |game| game[:away_goals].to_i + game[:home_goals].to_i }.min
   end
 
   def percentage_home_wins
-    #  implementation here
+    total_games = @games.size
+    home_wins = @games.count { |game| game[:home_goals].to_i > game[:away_goals].to_i }
+    (home_wins.to_f / total_games).round(2)
   end
 
   def percentage_visitor_wins
-    #  implementation here
+    total_games = @games.size
+    visitor_wins = @games.count { |game| game[:away_goals].to_i > game[:home_goals].to_i }
+    (visitor_wins.to_f / total_games).round(2)
   end
 
   def percentage_ties
-    #  implementation here
+    total_games = @games.size
+    ties = @games.count { |game| game[:away_goals].to_i == game[:home_goals].to_i }
+    (ties.to_f / total_games).round(2)
   end
 
   def count_of_games_by_season
-    #  implementation here
+    @games.group_by { |game| game[:season] }.transform_values(&:count)
   end
 
   def average_goals_per_game
-    #  implementation here
+    total_goals = @games.sum { |game| game[:away_goals].to_i + game[:home_goals].to_i }
+    (total_goals.to_f / @games.size).round(2)
   end
 
   def average_goals_by_season
-    #  implementation here
+    season_goals = @games.group_by { |game| game[:season] }
+    season_goals.transform_values do |games|
+      total_goals = games.sum { |game| game[:away_goals].to_i + game[:home_goals].to_i }
+      (total_goals.to_f / games.size).round(2)
+    end
   end
 
   # League Statistics
   def count_of_teams
-    #  implementation here
+    # count_of_teams
+    # Count the total number of unique teams.
+    # Count the distinct team ids in the teams data.
+
   end
 
   def best_offense
-    #  implementation here
+  # best_offense
+  # Find the team with the highest average number of goals scored per game.
+  # Calculate the average goals per game for each team and find the team with the highest average.
+  
   end
 
   def worst_offense
-    #  implementation here
+    # worst_offense
+    # Find the team with the lowest average number of goals scored per game.
+    # Calculate the average goals per game for each team and find the team with the lowest average.
   end
 
   def highest_scoring_visitor
-    #  implementation here
+    # highest_scoring_visitor
+    # Find the team with the highest average score per game when they are away.
+    # Filter the games where the team is away, calculate their average score per game, and find the team with the highest average.
   end
 
   def highest_scoring_home_team
-    #  implementation here
+    # highest_scoring_home_team
+    # Find the team with the highest average score per game when they are home.
+    # Filter the games where the team is home, calculate their average score per game, and find the team with the highest average.  #  implementation here
   end
 
   def lowest_scoring_visitor
-    #  implementation here
+    # lowest_scoring_visitor
+    # Find the team with the lowest average score per game when they are a visitor.
+    # Filter the games where the team is away, calculate their average score per game, and find the team with the lowest average.
   end
 
   def lowest_scoring_home_team
-    #  implementation here
+    # lowest_scoring_home_team
+    # Find the team with the lowest average score per game when they are at home.
+    # Filter the games where the team is home, calculate their average score per game, and find the team with the lowest average.
   end
 
   # Season Statistics
   def winningest_coach(season)
-    #  implementation here
+    # winningest_coach
+    # Find the coach with the best win percentage for the season.
+    # Group the games by season and head coach, calculate the win percentage for each coach, and find the one with the highest percentage.
   end
 
   def worst_coach(season)
-    #  implementation here
+    # worst_coach
+    # Find the coach with the worst win percentage for the season.
+    # Group the games by season and head coach, calculate the win percentage for each coach, and find the one with the lowest percentage.
   end
 
   def most_accurate_team(season)
-    #  implementation here
+    # most_accurate_team
+    # Find the team with the best ratio of shots to goals for the season.
+    # Group the games by season and team, calculate the ratio of shots to goals for each team, and find the team with the highest ratio.
   end
 
   def least_accurate_team(season)
-    #  implementation here
+    # least_accurate_team
+    # Find the team with the worst ratio of shots to goals for the season.
+    # Group the games by season and team, calculate the ratio of shots to goals for each team, and find the team with the lowest ratio.
   end
 
   def most_tackles(season)
-    #  implementation here
+    # most_tackles
+    # Find the team with the most tackles in the season.
+    # Group the games by season and team, sum up the tackles for each team, and find the team with the highest total tackles.
   end
 
   def fewest_tackles(season)
-    #  implementation here
+    # fewest_tackles
+    # Find the team with the fewest tackles in the season.
+    # Group the games by season and team, sum up the tackles for each team, and find the team with the lowest total tackles.
   end
 end
