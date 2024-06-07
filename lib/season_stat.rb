@@ -75,7 +75,6 @@ class SeasonStats
     end
     team.uniq[0].team_name
   end
-
   # Returns the team name with either the highest or lowest accuracy depending 
   # on if the value of the accuracy argument is true or false
   def calculate_accuracy(teams_accuracy, accurate)
@@ -125,6 +124,7 @@ class SeasonStats
 
   def most_accurate_team(season_id)
     seasonal_games = current_season_data(season_id)
+   
     team_accuracy_calculations(seasonal_games, true)
   end
 
