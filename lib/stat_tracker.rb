@@ -28,7 +28,11 @@ class StatTracker
     @game_teams_data = create_objects(locations[:game_teams], GameTeam, self)   
     @game_stats = GameStats.new(@games)
     @league_stats = LeagueStats.new(@game_teams_data, @team_data)
+
     @season_stats = SeasonStats.new(@game_teams_data, @team_data, @games)
+
+    
+
   end
 
   def create_objects(path, obj_class, parent_self)
