@@ -81,4 +81,5 @@ class LeagueStats
         team = @team_data.find {|team| team.team_id == home_goals[0]}.team_name
         team
     end
+
 end
