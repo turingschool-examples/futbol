@@ -45,7 +45,6 @@ class LeagueStats
         team
     end
 
-       
     def highest_scoring_home_team
         home = @game_teams_data.select {|game| game.hoa == "home"}
         home_goals = home.group_by {|game| game.team_id}
@@ -81,5 +80,4 @@ class LeagueStats
         team = @team_data.find {|team| team.team_id == home_goals[0]}.team_name
         team
     end
-
 end

@@ -1,7 +1,10 @@
 require 'spec_helper'
 require 'rspec'
 
-
+RSpec.configure do |config|
+  config.formatter = :documentation
+  end
+  
 RSpec.describe StatTracker do
   before(:each) do
     game_path       = './data/games.csv'
