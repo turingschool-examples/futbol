@@ -6,8 +6,17 @@ require_relative 'game'
 require_relative 'season_stat'
 require_relative 'game_stat'
 
+
 class StatTracker
-  attr_reader :team_data, :games, :game_teams_data, :league, :season, :game_stats, :league_stats 
+  attr_reader :team_data, 
+              :games, 
+              :game_teams_data, 
+              :league, 
+              :season, 
+              :game_stats, 
+              :league_stats,
+              :season_stats
+        
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -19,7 +28,7 @@ class StatTracker
     @game_teams_data = create_objects(locations[:game_teams], GameTeam, self)   
     @game_stats = GameStats.new(@games)
     @league_stats = LeagueStats.new(@game_teams_data, @team_data)
-    # binding.pry
+    @season_stats = SeasonStats.new(@game_teams_data, @team_data, @games)
   end
 
   def create_objects(path, obj_class, parent_self)
