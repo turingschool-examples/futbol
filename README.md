@@ -12,14 +12,16 @@ James Cochran
     
 Cory Bretsch
   - [GitHub Profile](https://github.com/CoryBretsch)
-  - insert LinkedIn profile
+  - [LinkedIn Profile](https://www.linkedin.com/in/cory-bretsch-12591b16b/)
 
 
 # README REQUIREMENTS
-### DTR - Mon. June 3rd, 2024
+### DTR & RETRO
 [Link to DTR](https://docs.google.com/document/d/1FACITYUJOXfrlqmo62Xsbf1nut_gJ6O829bR0uazS5U/edit)
   - Initial DTR Completed June 3rd, 2024
-  - Re-DTR Planned for June 6th, 2024
+  - Re-DTR Completed on June 6th, 2024
+    
+[Link to Retro](_...insert link here..._)
   - Retro Planned for June 7th, 2024
 
 ### CHECK-IN PLAN
@@ -35,5 +37,5 @@ Cory Bretsch
 
 ### APPROACH TO CODE DESIGN
   - We discussed a number of different code design approaches. A great example is whether to work with data ojects being pulled from the CSVs by using hashes and assigning values as instance variables, or alternatively, skipping the hash step and treating the data objects as individual objects with their own attributes. We decided to go with the latter option. Our goal is to keep everything as simple and straight forward as we possibly can.
-
-  We will be using TDD, as well as "red, green, refactor" to establish functionality.
+  - Our original plan was to create 7 class: one for each .csv data file, a StatTracker class, and a Game, League, and Season Statistics class. After jumping into the code and meeting with Kat for a check-in, we are looking at including the latter three classes as a possible refactor option. This design decision aligns with the YANGI principle.
+- We will be using TDD, as well as "red, green, refactor" to establish functionality.
