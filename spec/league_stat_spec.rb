@@ -1,6 +1,10 @@
 require 'spec_helper'
 
-RSpec.describe League do
+RSpec.configure do |config|
+    config.formatter = :documentation
+    end
+
+RSpec.describe LeagueStats do
   before(:each) do
     game_path       = './data/games.csv'
     team_path       = './data/teams.csv'
@@ -12,59 +16,63 @@ RSpec.describe League do
       game_teams: game_teams_path
     }
     tracker = StatTracker.from_csv(locations)
-    @teams = tracker.team_data #need to get this right depending on what we are calling it in stattracker
-  end
+    @league_stats = tracker.league_stats 
+ 
+end
 
-    describe 'ititalize' do
+    describe 'initialize' do
         it 'exists' do
-            expect(@teams).to be_a(Team)
+            expect(@league_stats).to be_a(LeagueStats)
         end
     end
 
     describe 'team_count' do
-        xit 'can count the number of teams in the data' do
-            expect(@league.count_of_teams).to eq() #integer
+        it 'can count the number of teams in the data' do
+            expect(@league_stats.count_of_teams).to be_an(Integer)
+            expect(@league_stats.count_of_teams).to eq(32) 
         end
     end
 
     describe 'best_offense' do
-        xit 'can name the team with the highest average goals per game across all seasons' do
-            expect(@league.best_offense).to eq() #string
+        it 'can name the team with the highest average goals per game across all seasons' do
+            expect(@league_stats.best_offense).to be_a(String) 
+            expect(@league_stats.best_offense).to eq("Reign FC") 
         end
     end
 
     describe 'worst_offense' do
-        xit 'can name the team with the lowest avg number of goals scored per game across all seasons' do
-            expect(@league.worst_offense).to eq() #string
+        it 'can name the team with the lowest avg number of goals scored per game across all seasons' do
+            expect(@league_stats.worst_offense).to be_a(String)
+            expect(@league_stats.worst_offense).to eq("Utah Royals FC")
         end
     end
 
     describe 'highest_scoring_visitor' do
-        xit 'can name the team with the highest avg score per game when they are away' do
-            expect(@league.highest_scoring_visitor).to eq() #string
+        it 'can name the team with the highest avg score per game when they are away' do
+            expect(@league_stats.highest_scoring_visitor).to be_a(String) 
+            expect(@league_stats.highest_scoring_visitor).to eq("FC Dallas") 
         end
     end
 
     describe 'highest_scoring_home_team' do
-        xit 'can name the team with the highest avg score per game when they are home' do
-            expect(@league.highest_scoring_home_team).to eq() #string
+        it 'can name the team with the highest avg score per game when they are home' do
+            expect(@league_stats.highest_scoring_home_team).to be_a(String)
+            expect(@league_stats.highest_scoring_home_team).to eq("Reign FC") 
         end
     end
 
     describe 'lowest_scoring_visitor' do
-        xit 'can name the team with the lowest avg score per game when they are a vistor' do
-            expect(@league.lowest_scoring_visitor).to eq() #string
+        it 'can name the team with the lowest avg score per game when they are a vistor' do
+            expect(@league_stats.lowest_scoring_visitor).to be_a(String)
+            expect(@league_stats.lowest_scoring_visitor).to eq("San Jose Earthquakes") 
         end
     end
 
     describe 'lowest_scoring_home_team' do
-        xit 'can name the team with the lowest avg score per game when they are at home' do
-            expect(@league.lowest_scoring_home_team).to eq() #string
-
-
+         it 'can name the team with the lowest avg score per game when they are at home' do
+            expect(@league_stats.lowest_scoring_home_team).to be_a(String)
+            expect(@league_stats.lowest_scoring_home_team).to eq("Utah Royals FC") 
         end
     end
-
-
-        
+    
 end
