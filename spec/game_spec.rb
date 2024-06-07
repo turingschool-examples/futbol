@@ -18,15 +18,12 @@ RSpec.describe Game do
       @game_data = tracker.games
  end
 
-
-
   describe 'Game instance' do
      it 'exists' do
        expect(@game_data.first).to be_a(Game)
      end
 
      it 'has correct attributes' do
-      #  binding.pry
        expect(@game_data.first.game_id).to eq('2012030221')
        expect(@game_data.first.season).to eq('20122013')
        expect(@game_data.first.type).to eq('Postseason')
@@ -38,7 +35,6 @@ RSpec.describe Game do
        expect(@game_data.first.venue).to eq('Toyota Stadium')
        expect(@game_data.first.venue_link).to eq('/api/v1/venues/null')
      end
-  
-end
+  end
 end
 
