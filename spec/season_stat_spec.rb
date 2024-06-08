@@ -57,6 +57,20 @@ RSpec.describe SeasonStats do
         expect(@season_stats.least_accurate_team("20142015")).to eq("New England Revolution")
       end
     end
+    
+    describe 'team with highest tackles' do
+      it 'can name the team with the most tackles' do
+        expect(@season_stats.most_tackles("20122013")).to eq("FC Cincinnati")
+        expect(@season_stats.most_tackles("20142015")).to eq("Seattle Sounders FC")
+        expect(@season_stats.most_tackles("20162017")).to eq("Sporting Kansas City")
+      end
+    end
 
-
+    describe 'team with least tackles' do
+      it 'can name the team with the fewest tackles' do
+        expect(@season_stats.fewest_tackles("20162017")).to eq("New England Revolution")
+        expect(@season_stats.fewest_tackles("20142015")).to eq("Orlando City SC")
+        expect(@season_stats.fewest_tackles("20122013")).to eq("Atlanta United")
+      end
+    end
 end

@@ -116,4 +116,24 @@ class SeasonStats
     seasonal_games = current_season_data(season_id)
     team_accuracy_calculations(seasonal_games, false)
   end
+
+  def team_tackles(season_id)
+    seasonal_games = current_season_data(season_id)
+    team_tackles = Hash.new {0}
+    seasonal_games.each do |game|
+      team_tackles[game.team_id] += game.tackles.to_i
+    end
+    team_tackles
+  end
+
+  def  most_tackles(season_id)
+    most_tackled = team_tackles(season_id).max_by{|x, y| y} 
+    most_tackled = @team_data.find {|team| team.team_id == most_tackled[0]}.team_name
+  
+  end
+
+  def fewest_tackles(season_id)
+    fewest_tackled = team_tackles(season_id).min_by{|x, y| y}
+    fewest_tackled = @team_data.find {|team| team.team_id == fewest_tackled[0]}.team_name
+  end
 end

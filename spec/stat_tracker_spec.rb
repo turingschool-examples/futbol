@@ -33,9 +33,11 @@ RSpec.describe StatTracker do
   end
 
   describe '#lowest_total_score' do 
+
   it 'can determine lowest sum of the winning and losing teams scores' do
       expect(@stat_tracker.lowest_total_score).to be_a(Integer)
       expect(@stat_tracker.lowest_total_score).to eq(0)
+
     end
   end
 
