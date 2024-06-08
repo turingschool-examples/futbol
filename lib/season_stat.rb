@@ -75,24 +75,15 @@ class SeasonStats
     end
     team.uniq[0].team_name
   end
-  # Returns the team name with either the highest or lowest accuracy depending 
-  # on if the value of the accuracy argument is true or false
+  
   def calculate_accuracy(teams_accuracy, accurate)
     accuracy = {}
-    # tgas stands for team goals and shots
+    
     teams_accuracy.each do |tgas|
       acc = (tgas[1][:goals].to_f / tgas[1][:shots]).round(2) * 100
       accuracy[tgas[0]] = "#{acc}%"
     end
-    # the accuracy variable is a hash where the key is the team_id and 
-    # the value is their accuracy
-    # {
-    #   "3"=>"25.0%",
-    #   "6"=>"27.0%",
-    #   "5"=>"33.0%",
-    #   "17"=>"28.999999999999996%",
-    #   "16"=>"30.0%"
-    # }
+    
     if accurate == true
       get_team_name(accuracy.max_by{|key,value|value}[0])
     else 
@@ -111,14 +102,7 @@ class SeasonStats
         teams_accuracy[game.team_id][:shots] += game.shots.to_i
       end
     end
-    # teams_accuracy is a nested hash where the key is the team_id and the 
-    # value is their accumulative goals and shots, example:
-    # {
-    # "3"=>{:goals=>112, :shots=>441},
-    # "6"=>{:goals=>154, :shots=>561},
-    # "5"=>{:goals=>151, :shots=>459},
-    # "17"=>{:goals=>129, :shots=>440}
-    # }
+    
     calculate_accuracy(teams_accuracy, accurate)
   end
 
