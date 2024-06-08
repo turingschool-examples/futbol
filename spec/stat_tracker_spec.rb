@@ -29,7 +29,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  descrbie '#lowest_total_score' do 
+  describe '#lowest_total_score' do 
     it 'returns an integer' do
       espect(@stat_tracker.lowest_total_score).to be_a(Integer)
     end

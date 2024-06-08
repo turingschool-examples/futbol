@@ -130,7 +130,6 @@ class SeasonStats
 
   def least_accurate_team(season_id)
     seasonal_games = current_season_data(season_id)
-    binding.pry
     team_accuracy_calculations(seasonal_games, false)
   end
 
