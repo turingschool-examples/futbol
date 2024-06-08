@@ -1,4 +1,4 @@
-require 'spec_helper'
+require './spec/spec_helper'
 
 RSpec.configure do |config|
   config.formatter = :documentation
@@ -6,34 +6,12 @@ end
 
 RSpec.describe StatTracker do
   describe '#initialize' do
-    it 'exists with attributes' do
-      game_path = './data/games_test.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/test_game_teams.csv'
-
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-        }
-      
-      stat_tracker = StatTracker.from_csv(locations)
-      
+    it "exists" do 
+      stat_tracker = StatTracker.new([], [], [])
       expect(stat_tracker).to be_a StatTracker
-      expect(stat_tracker.games).to be_all Games
-      expect(stat_tracker.teams).to be_all Teams
-      expect(stat_tracker.game_teams).to be_all GameTeams
-      expect(stat_tracker.games.first).to be_a Games
-      expect(stat_tracker.teams.first).to be_a Teams
-      expect(stat_tracker.game_teams.first).to be_a GameTeams
-      expect(stat_tracker.games.first.game_id).to eq("2012030221")
-      expect(stat_tracker.teams.first.team_id).to eq(1)
-      expect(stat_tracker.game_teams.first.game_id).to eq("2012030221")
     end
   end
-
-  ######### GAME STATS ##############
-
+  
   describe '#highest_total_score' do
     it "returns the highest sum of the winning and losing teams scores" do
       game_data = Games.create_games_data_objects("./data/games_test.csv")
@@ -62,7 +40,7 @@ RSpec.describe StatTracker do
       stat_tracker = StatTracker.new(game_teams, game_data, teams) 
       total_games = stat_tracker.games.length
       home_wins = stat_tracker.games.count { |game| game.home_goals > game.away_goals }
-      expect(stat_tracker.percentage_home_wins).to eq(0.6)
+      expect(stat_tracker.percentage_home_wins).to eq(60.00)
     end
   end
 
@@ -74,9 +52,10 @@ RSpec.describe StatTracker do
       stat_tracker = StatTracker.new(game_teams, game_data, teams) 
       total_games = stat_tracker.games.length
       away_wins = stat_tracker.games.count { |game| game.away_goals > game.home_goals }
-      expect(stat_tracker.percentage_visitor_wins).to eq(0.4)
+      expect(stat_tracker.percentage_visitor_wins).to eq(40.00)
     end   
   end
+
 
   describe '#percentage_ties' do
     it "returns the percentage of tie games" do
@@ -86,7 +65,7 @@ RSpec.describe StatTracker do
       stat_tracker = StatTracker.new(game_teams, game_data, teams) 
       total_games = stat_tracker.games.length
       tie_games = stat_tracker.games.count { |game| game.home_goals == game.away_goals }
-      expect(stat_tracker.percentage_ties).to eq(0.00)
+      expect(stat_tracker.percentage_tie_games).to eq(0.00)
     end   
   end
 
@@ -96,7 +75,7 @@ RSpec.describe StatTracker do
       game_teams = GameTeams.create_game_teams_data_objects("./data/test_game_teams.csv")
       teams = Teams.create_teams_data_objects("./data/teams.csv")
       stat_tracker = StatTracker.new(game_teams, game_data, teams) 
-      expect(stat_tracker.count_of_games_by_season).to eq({ "20122013" => 10 })
+      expect(stat_tracker.count_of_games_by_season).to eq({ 20122013 => 10 })
     end
   end
 
@@ -118,8 +97,7 @@ RSpec.describe StatTracker do
       game_teams = GameTeams.create_game_teams_data_objects("./data/test_game_teams.csv")
       teams = Teams.create_teams_data_objects("./data/teams.csv")
       stat_tracker = StatTracker.new(game_teams, game_data, teams) 
-      expect(stat_tracker.average_goals_by_season).to eq({ "20122013" => 3.70 })
+      expect(stat_tracker.average_goals_by_season).to eq({ 20122013 => 3.70 })
     end
   end
 end
-

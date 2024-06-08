@@ -19,6 +19,8 @@ class StatTracker
     StatTracker.new(game_teams, games, teams)
   end
 
+  #Game Statistics
+
   def highest_total_score
     @games.map { |game| game.away_goals + game.home_goals }.max
   end
@@ -65,14 +67,35 @@ class StatTracker
     @games.each do |game|
       total_goals_by_season[game.season] += game.home_goals + game.away_goals
       total_games_by_season[game.season] += 1
+      total_goals_by_season[game.season] += game.home_goals + game.away_goals
+      total_games_by_season[game.season] += 1
     end
     average_goals_by_season = {}
     total_goals_by_season.each_key do |season|
       average_goals_by_season[season] = (total_goals_by_season[season].to_f / total_games_by_season[season]).round(2)
+      average_goals_by_season[season] = (total_goals_by_season[season].to_f / total_games_by_season[season]).round(2)
     end
-  average_goals_by_season
+      average_goals_by_season
   end
 
+  #League Statistics
+  
+  def count_of_teams
+    @teams.count
+  end
+
+  def total_goals_ever
+    @game_teams.each do |goals|
+      goals.sum
+    end
+  end
+
+  def average_goals
+    total_goals_ever.inject(0.0) {|sum, goals| sum + goals}/total_goals.size.round(2)
+  end
+
+  def best_offense
+    @game_teams.max_by {|average_goals| }.first.team_name
+
+  end
 end
-
-
