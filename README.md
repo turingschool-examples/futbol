@@ -18,11 +18,11 @@ Cory Bretsch
 # README REQUIREMENTS
 ### DTR & RETRO
 [Link to DTR](https://docs.google.com/document/d/1FACITYUJOXfrlqmo62Xsbf1nut_gJ6O829bR0uazS5U/edit)
-  - Initial DTR Completed June 3rd, 2024
+  - Initial DTR Completed on June 3rd, 2024
   - Re-DTR Completed on June 6th, 2024
     
-[Link to Retro](_...insert link here..._)
-  - Retro Planned for June 7th, 2024
+[Link to Retro](https://easyretro.io/publicboard/YEugqgDd8JcsiJopBf4DhiOR6Cm2/9a4f3f19-daf1-4d10-9e1f-1ec9c8a89788)
+  - Retro Completed on June 7th, 2024
 
 ### CHECK-IN PLAN
   - We plan to conduct daily stand-ups 5 min before class. We will complete our first retro and Re-DTR on thursday, June 6th during the class-scheduled time. 

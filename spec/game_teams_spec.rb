@@ -7,10 +7,10 @@ end
 RSpec.describe GameTeams do
   describe '#initialize' do
     it "exists with attributes" do
-      game_teams = GameTeams.new(012030221, 3, :away, :LOSS, :OT, "John Tortorella", 2, 8, 44, 8, 3, 0, 44.8, 17, 7)
+      game_teams = GameTeams.new("012030221", 3, :away, :LOSS, :OT, "John Tortorella", 2, 8, 44, 8, 3, 0, 44.8, 17, 7)
       
       expect(game_teams).to be_a GameTeams
-      expect(game_teams.game_id).to eq(012030221)
+      expect(game_teams.game_id).to eq("012030221")
       expect(game_teams.team_id).to eq(3)
       expect(game_teams.hoa).to eq(:away)
       expect(game_teams.result).to eq(:LOSS)
@@ -35,7 +35,7 @@ RSpec.describe GameTeams do
       expect(game_teams).to be_all GameTeams
 
       expect(game_teams[0]).to be_a GameTeams
-      expect(game_teams[0].game_id).to eq(2012030221)
+      expect(game_teams[0].game_id).to eq("2012030221")
       expect(game_teams[0].team_id).to eq 3
       expect(game_teams[0].hoa).to eq(:away)
       expect(game_teams[0].result).to eq(:LOSS)
