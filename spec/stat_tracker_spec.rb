@@ -60,7 +60,7 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#count_of_games_by_season' do 
+  describe '#count_of_games_in_season' do 
     it 'brings back a hash with season names (e.g. 20122013) as keys and counts of games as values' do
       expect(@stat_tracker.count_games_in_seasons).to be_a(Hash)
       expect(@stat_tracker.count_games_in_seasons).to eq({"20122013"=>806, "20132014"=>1323, "20142015"=>1319})
@@ -72,61 +72,94 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.average_goals_per_game).to be_a(Float)
       expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
-end
 
-describe '#average_goals_by_season' do
-  it 'returns avg number of goals scored in a game in a hash w/season names as keys and a float for avg # of goals rounded to the nearest 100th' do
-    expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
-    expect(@stat_tracker.average_goals_per_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23})
+
+  describe '#average_goals_per_season' do
+    it 'returns avg number of goals scored in a game in a hash w/season names as keys and a float for avg # of goals rounded to the nearest 100th' do
+      expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
+      expect(@stat_tracker.average_goals_per_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23})
+    end
   end
-end
 
-  describe 'team_count' do
-    it 'can count the number of teams in the data' do
-        expect(@league_stats.count_of_teams).to be_an(Integer)
-        expect(@league_stats.count_of_teams).to eq(32) 
+    describe 'team_count' do
+      it 'can count the number of teams in the data' do
+          expect(@stat_tracker.count_of_teams).to be_an(Integer)
+          expect(@stat_tracker.count_of_teams).to eq(32) 
+      end
+  end
+
+  describe 'best_offense' do
+      it 'can name the team with the highest average goals per game across all seasons' do
+          expect(@stat_tracker.best_offense).to be_a(String) 
+          expect(@stat_tracker.best_offense).to eq("Reign FC") 
+      end
+  end
+
+  describe 'worst_offense' do
+      it 'can name the team with the lowest avg number of goals scored per game across all seasons' do
+          expect(@stat_tracker.worst_offense).to be_a(String)
+          expect(@stat_tracker.worst_offense).to eq("Utah Royals FC")
+      end
+  end
+
+  describe 'highest_scoring_visitor' do
+      it 'can name the team with the highest avg score per game when they are away' do
+          expect(@stat_tracker.highest_scoring_visitor).to be_a(String) 
+          expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas") 
+      end
+  end
+
+  describe 'highest_scoring_home_team' do
+      it 'can name the team with the highest avg score per game when they are home' do
+          expect(@stat_tracker.highest_scoring_home_team).to be_a(String)
+          expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC") 
+      end
+  end
+
+  describe 'lowest_scoring_visitor' do
+      it 'can name the team with the lowest avg score per game when they are a vistor' do
+          expect(@stat_tracker.lowest_scoring_visitor).to be_a(String)
+          expect(@stat_tracker.lowest_scoring_visitor).to eq("San Jose Earthquakes") 
+      end
+  end
+
+  describe 'lowest_scoring_home_team' do
+      it 'can name the team with the lowest avg score per game when they are at home' do
+          expect(@stat_tracker.lowest_scoring_home_team).to be_a(String)
+          expect(@stat_tracker.lowest_scoring_home_team).to eq("Utah Royals FC") 
+      end
     end
-end
+  end
 
-describe 'best_offense' do
-    it 'can name the team with the highest average goals per game across all seasons' do
-        expect(@league_stats.best_offense).to be_a(String) 
-        expect(@league_stats.best_offense).to eq("Reign FC") 
+  describe 'winningest and worst coach' do
+    it 'can determine name of the coach with the best win percentage for the season' do
+        expect(@stat_tracker.winningest_coach("20122013")).to be_a(String)
+        expect(@stat_tracker.winningest_coach("20122013")).to eq("Dan Lacroix")
+        expect(@stat_tracker.winningest_coach("20162017")).to eq("Bruce Cassidy")
+        expect(@stat_tracker.winningest_coach("20142015")).to eq("Alain Vigneault")
     end
-end
 
-describe 'worst_offense' do
-    it 'can name the team with the lowest avg number of goals scored per game across all seasons' do
-        expect(@league_stats.worst_offense).to be_a(String)
-        expect(@league_stats.worst_offense).to eq("Utah Royals FC")
+    it 'cam determine name of the coach with the worst win percentage for the season' do
+      expect(@stat_tracker.worst_coach("20122013")).to be_a(String)
+      expect(@stat_tracker.worst_coach("20122013")).to eq("Martin Raymond")
+      expect(@stat_tracker.worst_coach("20162017")).to eq("Dave Tippett")
+      expect(@stat_tracker.worst_coach("20142015")).to eq("Ted Nolan")
     end
-end
+  end
 
-describe 'highest_scoring_visitor' do
-    it 'can name the team with the highest avg score per game when they are away' do
-        expect(@league_stats.highest_scoring_visitor).to be_a(String) 
-        expect(@league_stats.highest_scoring_visitor).to eq("FC Dallas") 
+  describe 'most accurate team' do
+    it ' can name the team with the best ratio of shots to goals for the season' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("DC United")
+      expect(@stat_tracker.most_accurate_team("20162017")).to eq("Portland Thorns FC")
+      expect(@stat_tracker.most_accurate_team("20142015")).to eq("Orlando Pride")
     end
-end
+  end
 
-describe 'highest_scoring_home_team' do
-    it 'can name the team with the highest avg score per game when they are home' do
-        expect(@league_stats.highest_scoring_home_team).to be_a(String)
-        expect(@league_stats.highest_scoring_home_team).to eq("Reign FC") 
-    end
-end
-
-describe 'lowest_scoring_visitor' do
-    it 'can name the team with the lowest avg score per game when they are a vistor' do
-        expect(@league_stats.lowest_scoring_visitor).to be_a(String)
-        expect(@league_stats.lowest_scoring_visitor).to eq("San Jose Earthquakes") 
-    end
-end
-
-describe 'lowest_scoring_home_team' do
-    it 'can name the team with the lowest avg score per game when they are at home' do
-        expect(@league_stats.lowest_scoring_home_team).to be_a(String)
-        expect(@league_stats.lowest_scoring_home_team).to eq("Utah Royals FC") 
+  describe 'least accurate team' do
+    it ' can name the team with the worst ratio of shots to goals for the season' do
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("Houston Dynamo")
+      expect(@stat_tracker.least_accurate_team("20162017")).to eq("FC Cincinnati")
+      expect(@stat_tracker.least_accurate_team("20142015")).to eq("New England Revolution")
     end
   end
 end
