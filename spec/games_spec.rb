@@ -7,11 +7,11 @@ end
 RSpec.describe Games do
   describe '#initialize' do
     it "exists with attributes" do
-      game = Games.new(2012030221, 20122013, "Postseason", "5/16/13", 3, 6, 2, 3, "Toyota Stadium", "/api/v1/venues/null")
+      game = Games.new("2012030221", "20122013", "Postseason", "5/16/13", 3, 6, 2, 3, "Toyota Stadium", "/api/v1/venues/null")
 
       expect(game).to be_a Games
-      expect(game.game_id).to be 2012030221
-      expect(game.season).to be 20122013
+      expect(game.game_id).to eq("2012030221")
+      expect(game.season).to eq("20122013")
       expect(game.type).to eq("Postseason")
       expect(game.date_time).to eq("5/16/13")
       expect(game.away_team_id).to be 3
@@ -27,8 +27,8 @@ RSpec.describe Games do
       game_objects = Games.create_games_data_objects(path)
 
       expect(game_objects[2]).to be_a Games
-      expect(game_objects[2].game_id).to be 2012030223
-      expect(game_objects[2].season).to be 20122013
+      expect(game_objects[2].game_id).to eq("2012030223")
+      expect(game_objects[2].season).to eq("20122013")
       expect(game_objects[2].type).to eq("Postseason")
       expect(game_objects[2].date_time).to eq("5/21/13")
       expect(game_objects[2].away_team_id).to be 6

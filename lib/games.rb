@@ -29,7 +29,7 @@ class Games
     def self.create_games_data_objects(path)
         game_objects = []
         CSV.foreach(path, headers: true) do |row|
-            game_objects << Games.new(row["game_id"].to_i, row["season"].to_i, row["type"], row["date_time"], row["away_team_id"].to_i, row["home_team_id"].to_i, row["away_goals"].to_i, row["home_goals"].to_i, row["venue"], row["venue_link"])
+            game_objects << Games.new(row["game_id"], row["season"], row["type"], row["date_time"], row["away_team_id"].to_i, row["home_team_id"].to_i, row["away_goals"].to_i, row["home_goals"].to_i, row["venue"], row["venue_link"])
         end
         game_objects    
     end

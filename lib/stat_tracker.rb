@@ -1,9 +1,9 @@
-require './lib/game_teams.rb'
-require './lib/games.rb'
-require './lib/teams.rb'
+require_relative './game_teams.rb'
+require_relative './games.rb'
+require_relative './teams.rb'
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :game_statistics
+  attr_reader :games, :teams, :game_teams
 
   def initialize(game_teams, games, teams)
     @game_teams = game_teams
@@ -30,19 +30,19 @@ class StatTracker
   def percentage_home_wins
     total_games = @games.length
     home_wins = @games.count { |game| game.home_goals > game.away_goals }
-    (home_wins.to_f / total_games * 100).round(2)
+    (home_wins.to_f / total_games).round(2)
   end
 
   def percentage_visitor_wins
     total_games = @games.length
     away_wins = @games.count { |game| game.away_goals > game.home_goals }
-    (away_wins.to_f / total_games * 100).round(2)
+    (away_wins.to_f / total_games).round(2)
   end
 
-  def percentage_tie_games
+  def percentage_ties
     total_games = @games.length
     tie_games = @games.count { |game| game.home_goals == game.away_goals }
-    (tie_games.to_f / total_games * 100).round(2)
+    (tie_games.to_f / total_games).round(2)
   end
 
   def count_of_games_by_season
@@ -63,15 +63,14 @@ class StatTracker
     total_goals_by_season = Hash.new(0)
     total_games_by_season = Hash.new(0)
     @games.each do |game|
-        total_goals_by_season[game.season] += game.home_goals + game.away_goals
-        total_games_by_season[game.season] += 1
+      total_goals_by_season[game.season] += game.home_goals + game.away_goals
+      total_games_by_season[game.season] += 1
     end
-
     average_goals_by_season = {}
     total_goals_by_season.each_key do |season|
-        average_goals_by_season[season] = (total_goals_by_season[season].to_f / total_games_by_season[season]).round(2)
+      average_goals_by_season[season] = (total_goals_by_season[season].to_f / total_games_by_season[season]).round(2)
     end
-        average_goals_by_season
+  average_goals_by_season
   end
 
 end
