@@ -50,7 +50,7 @@ RSpec.describe SeasonStats do
       end
     end
 
-    describe 'lease accurate team' do
+    describe 'least accurate team' do
       it ' can name the team with the worst ratio of shots to goals for the season' do
         expect(@season_stats.least_accurate_team("20122013")).to eq("Houston Dynamo")
         expect(@season_stats.least_accurate_team("20162017")).to eq("FC Cincinnati")

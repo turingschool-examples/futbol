@@ -32,11 +32,8 @@ class GameTeam
         @power_play_goals = game_teams_data[:powerplaygoals]
         @face_off_win_percentage = game_teams_data[:faceoffwinpercentage]
         @giveaways = game_teams_data[:giveaways]
-        @takeaways = game_teams_data[:takeaways]       
-        
+        @takeaways = game_teams_data[:takeaways]           
     end
-
-
 end
 
 
