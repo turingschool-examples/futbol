@@ -83,17 +83,17 @@ class StatTracker
   end
 
   def total_goals_ever
-  
+    @game_teams.each do |goals|
+      goals.sum
+    end
   end
 
   def average_goals
-    total_goals.inject(0.0) {|sum, goals| sum + goals}/total_goals.size.round(2)
+    total_goals_ever.inject(0.0) {|sum, goals| sum + goals}/total_goals.size.round(2)
   end
 
   def best_offense
     @game_teams.max_by {|average_goals| }.first.team_name
 
   end
-end
-
 end

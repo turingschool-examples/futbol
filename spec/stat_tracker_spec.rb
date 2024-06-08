@@ -60,7 +60,9 @@ RSpec.describe StatTracker do
   describe "total goals ever" do
     it "calculates the total number of goals a team has scored across all seasons" do
       team = Teams.new(6,6,"FC Dallas","DAL","Toyota Stadium","/api/v1/teams/6")
+      game_teams = GameTeams.create_game_teams_data_objects("./data/test_game_teams.csv")
       teams = Teams.create_teams_data_objects("./data/teams.csv")
+      
       expect(team.total_goals_ever).to be 24
     end
   end
