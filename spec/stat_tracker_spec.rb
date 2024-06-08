@@ -21,60 +21,65 @@ RSpec.describe StatTracker do
     @league_stats = @stat_tracker.league_stats
   end
 
-  it 'exists & has attributes' do
-    expect(@stat_tracker).to be_an_instance_of(StatTracker)
-  end
+    it 'exists & has attributes' do
+      expect(@stat_tracker).to be_an_instance_of(StatTracker)
+    end
  
-
-
   describe '#highest_total_score' do 
-  it 'returns an integer' do
+      it 'can determine highest sum of the winning and losing teams scores' do
       expect(@stat_tracker.highest_total_score).to be_a(Integer)
+      expect(@stat_tracker.highest_total_score).to eq(11)
     end
   end
 
   describe '#lowest_total_score' do 
-
-    xit 'returns an integer' do
-      espect(@stat_tracker.lowest_total_score).to be_a(Integer)
-
+  it 'can determine lowest sum of the winning and losing teams scores' do
+      expect(@stat_tracker.lowest_total_score).to be_a(Integer)
+      expect(@stat_tracker.lowest_total_score).to eq(0)
     end
   end
 
   describe '#percentage_home_wins' do
-    xit 'returns a float' do
+    it 'can determine percentage of games that a home team has won (rounded to the nearest 100th)' do
       expect(@stat_tracker.percentage_home_wins).to be_a(Float)
+      expect(@stat_tracker.percentage_home_wins).to eq(43.5)
+    end
+  end
+
+  describe '#percentage_visitor_wins' do
+     it 'can determine percentage of games that a visitor has won (rounded to the nearest 100th)' do
+      expect(@stat_tracker.percentage_visitor_wins).to be_a(Float)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(36.11)
     end
   end
   
   describe '#percentage_ties' do 
-    xit 'returns a float' do 
+  it 'can determine percentage of games that has resulted in a tie (rounded to the nearest 100th)' do 
       expect(@stat_tracker.percentage_ties).to be_a(Float)
+      expect(@stat_tracker.percentage_ties).to eq(20.39)
     end
   end
 
-
   describe '#count_of_games_by_season' do 
-    xit 'returns a hash' do
-      expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
-
+    it 'brings back a hash with season names (e.g. 20122013) as keys and counts of games as values' do
+      expect(@stat_tracker.count_games_in_seasons).to be_a(Hash)
+      expect(@stat_tracker.count_games_in_seasons).to eq({"20122013"=>806, "20132014"=>1323, "20142015"=>1319})
     end
   end
 
   describe '#average_goals_per_game' do
-
-   xit 'returns a float' do 
-      expect(@stat_tracker.count_of_games_per_game).to be_a(Float)
+    it 'returns avg number of goals scored in a game for all seasons for both home and away goals (rounded to the nearest 100th)' do 
+      expect(@stat_tracker.average_goals_per_game).to be_a(Float)
+      expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end
+end
+
+describe '#average_goals_by_season' do
+  it 'returns avg number of goals scored in a game in a hash w/season names as keys and a float for avg # of goals rounded to the nearest 100th' do
+    expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
+    expect(@stat_tracker.average_goals_per_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23})
   end
-
-  describe '#average_goals_by_season' do
-    xit 'returns a hash' do
-      expect(@stat_tracker.average_goals_by_season).to be_a(Hash)
-
-    end
-  end
-
+end
 
   describe 'team_count' do
     it 'can count the number of teams in the data' do
@@ -123,5 +128,5 @@ describe 'lowest_scoring_home_team' do
         expect(@league_stats.lowest_scoring_home_team).to be_a(String)
         expect(@league_stats.lowest_scoring_home_team).to eq("Utah Royals FC") 
     end
-end
+  end
 end

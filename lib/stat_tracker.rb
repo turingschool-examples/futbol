@@ -48,6 +48,10 @@ class StatTracker
     @game_stats.percentage_home_wins
   end
 
+  def percentage_visitor_wins
+    @game_stats.percentage_visitor_wins
+  end
+
   def percentage_ties
     @game_stats.percentage_ties
   end
