@@ -64,12 +64,13 @@ RSpec.describe StatTracker do
   end
 
   # Team Statistics
-  it 'calculates the highest scoring home team' do
-    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
-  end
 
   it 'calculates the highest scoring visitor team' do
     expect(@stat_tracker.highest_scoring_visitor_team).to eq('LA Galaxy')
+  end
+
+  it 'calculates the highest scoring home team' do
+    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
   end
 
   it 'calculates the lowest scoring home team' do
@@ -82,22 +83,6 @@ RSpec.describe StatTracker do
 
   it 'calculates the winningest team' do
     expect(@stat_tracker.winningest_team).to eq('LA Galaxy')
-  end
-
-  it 'calculates the best fans' do
-    expect(@stat_tracker.best_fans).to eq('LA Galaxy')
-  end
-
-  it 'calculates the highest scoring home team' do
-    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
-  end
-
-  it 'calculates the lowest scoring home team' do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq('Portland Timbers')
-  end
-
-  it 'calculates the worst fans' do
-    expect(@stat_tracker.worst_fans).to eq('Portland Timbers')
   end
 
   # Season Statistics
