@@ -16,17 +16,17 @@ RSpec.describe Team do
   end
 
     describe 'initialize' do
-        it 'exists' do
-            expect(@team_data).to be_an_instance_of(Team)
-        end
+      it 'exists' do
+        expect(@team_data).to be_an_instance_of(Team)
+      end
 
-        it 'has attributes' do
-            expect(@team_data.team_id).to eq("1")
-            expect(@team_data.franchise_id).to eq("23")
-            expect(@team_data.team_name).to eq("Atlanta United")
-            expect(@team_data.abbreviation).to eq("ATL")
-            expect(@team_data.stadium).to eq("Mercedes-Benz Stadium")
-            expect(@team_data.link).to eq("/api/v1/teams/1")
-        end
+      it 'has attributes' do
+        expect(@team_data.team_id).to eq("1")
+        expect(@team_data.franchise_id).to eq("23")
+        expect(@team_data.team_name).to eq("Atlanta United")
+        expect(@team_data.abbreviation).to eq("ATL")
+        expect(@team_data.stadium).to eq("Mercedes-Benz Stadium")
+        expect(@team_data.link).to eq("/api/v1/teams/1")
+      end
     end
 end
