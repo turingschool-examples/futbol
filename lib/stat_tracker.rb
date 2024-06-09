@@ -129,6 +129,34 @@ class StatTracker
     end
   end
 
+  def highest_scoring_home_team
+    total_home_goals_hash = Hash.new(0)
+    @games.each do |game|
+      total_home_goals_hash[game.home_team_id] = total_home_goals_hash.fetch(game.home_team_id, []) << game.home_goals
+    end
+    avg_home_goals_hash = Hash.new(0)
+    total_home_goals_hash.map do |home_team_id, goals_scored_array|
+      avg_home_goals_hash[home_team_id] = (goals_scored_array.sum.to_f/goals_scored_array.count)
+    end
+    team_id_goals_array = avg_home_goals_hash.max_by {|_, avg_home_goals| avg_home_goals}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
+    end
+  end
 
+  def lowest_scoring_home_team
+    total_home_goals_hash = Hash.new(0)
+    @games.each do |game|
+      total_home_goals_hash[game.home_team_id] = total_home_goals_hash.fetch(game.home_team_id, []) << game.home_goals
+    end
+    avg_home_goals_hash = Hash.new(0)
+    total_home_goals_hash.map do |home_team_id, goals_scored_array|
+      avg_home_goals_hash[home_team_id] = (goals_scored_array.sum.to_f/goals_scored_array.count)
+    end
+    team_id_goals_array = avg_home_goals_hash.min_by {|_, avg_home_goals| avg_home_goals}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
+    end
+  end
 
 end

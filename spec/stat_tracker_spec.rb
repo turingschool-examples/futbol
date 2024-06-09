@@ -48,16 +48,12 @@ RSpec.describe StatTracker do
 
   describe '#percentage_home_wins' do
     it "returns the percentage of home team wins" do
-      total_games = @stat_tracker.games.length
-      home_wins = @stat_tracker.games.count { |game| game.home_goals > game.away_goals }
       expect(@stat_tracker.percentage_home_wins).to eq(0.6)
     end
   end
 
   describe '#percentage_visitor_wins' do
     it "returns the percentage of away team wins" do
-      total_games = @stat_tracker.games.length
-      away_wins = @stat_tracker.games.count { |game| game.away_goals > game.home_goals }
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.4)
     end   
   end
@@ -100,6 +96,16 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#highest_scoring_home_team' do
+    it "returns a string of the team name with the highest average score per game across all season when playing home" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+    end
+  end
 
+  describe '#lowest_scoring_home_team' do
+    it "returns a string of the team name with the lowest average score per game across all season when playing home" do
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    end
+  end
 end
 
