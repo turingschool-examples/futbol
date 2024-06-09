@@ -11,6 +11,20 @@ locations = {
 }
 
 stat_tracker = StatTracker.new(locations)
-# stat_tracker = StatTracker.from_csv(locations)
 
-require 'pry'; binding.pry
+# methods for demostrating
+
+puts "worst coach for season 20122013:"
+puts stat_tracker.worst_coach("20122013")
+puts "---\n"
+
+puts "winningest coach for season 20162017"
+puts stat_tracker.winningest_coach("20162017")
+puts "---\n"
+
+puts "most accurate team ratio of shots to goals for season 20152016"
+puts stat_tracker.most_accurate_team("20152016")
+puts "---\n"
+
+
+# require 'pry'; binding.pry
