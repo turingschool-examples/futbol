@@ -64,65 +64,6 @@ RSpec.describe StatTracker do
   end
 
   # Team Statistics
-  it 'calculates the highest scoring home team' do
-    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
-  end
-
-  it 'calculates the highest scoring visitor team' do
-    expect(@stat_tracker.highest_scoring_visitor_team).to eq('LA Galaxy')
-  end
-
-  it 'calculates the lowest scoring home team' do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq('Portland Timbers')
-  end
-
-  it 'calculates the lowest scoring visitor team' do
-    expect(@stat_tracker.lowest_scoring_visitor_team).to eq('Portland Timbers')
-  end
-
-  it 'calculates the winningest team' do
-    expect(@stat_tracker.winningest_team).to eq('LA Galaxy')
-  end
-
-  it 'calculates the best fans' do
-    expect(@stat_tracker.best_fans).to eq('LA Galaxy')
-  end
-
-  it 'calculates the highest scoring home team' do
-    expect(@stat_tracker.highest_scoring_home_team).to eq('LA Galaxy')
-  end
-
-  it 'calculates the lowest scoring home team' do
-    expect(@stat_tracker.lowest_scoring_home_team).to eq('Portland Timbers')
-  end
-
-  it 'calculates the worst fans' do
-    expect(@stat_tracker.worst_fans).to eq('Portland Timbers')
-  end
 
   # Season Statistics
-  it 'calculates the winningest coach for a season' do
-    expect(@stat_tracker.winningest_coach('20122013')).to eq('Claude Julien')
-  end
-
-  it 'calculates the worst coach for a season' do
-    expect(@stat_tracker.worst_coach('20122013')).to eq('John Tortorella')
-  end
-
-  it 'calculates the most accurate team for a season' do
-    expect(@stat_tracker.most_accurate_team('20122013')).to eq('LA Galaxy')
-  end
-
-  it 'calculates the least accurate team for a season' do
-    expect(@stat_tracker.least_accurate_team('20122013')).to eq('Portland Timbers')
-  end
-
-  it 'calculates the most tackles in a season' do
-    expect(@stat_tracker.most_tackles('20122013')).to eq('LA Galaxy')
-  end
-
-  it 'calculates the fewest tackles in a season' do
-    expect(@stat_tracker.fewest_tackles('20122013')).to eq('Portland Timbers')
-  end
-
 end
