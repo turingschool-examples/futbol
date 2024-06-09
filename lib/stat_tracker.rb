@@ -159,4 +159,22 @@ class StatTracker
     end
   end
 
+    #Season Statistics
+
+  def winningest_coach(season_id)
+    coach_wins = Hash.new(0)
+    season_games = games.select { |game| game.season == season_id }
+    season_games.each do |game|
+      if game.home_goals > game.away_goals
+        winning_team_id = game.home_team_id
+      else
+        winning_team_id = game.away_team_id
+      end
+      winning_team = teams.find { |team| team.team_id == winning_team_id } 
+      winning_coach = winning_team.head_coach if winning_team
+      coach_wins[winning_coach] += 1 if winning_coach
+    end
+    winningest_coach_name = coach_wins.max_by { |_, wins| wins }
+    winningest_coach_name.first
+  end
 end
