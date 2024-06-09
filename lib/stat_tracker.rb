@@ -116,37 +116,37 @@ class StatTracker
   end
 
   # Season Statistics
-  def winningest_coach(season)
+  def winningest_coach
     # winningest_coach
     # Find the coach with the best win percentage for the season.
     # Group the games by season and head coach, calculate the win percentage for each coach, and find the one with the highest percentage.
   end
 
-  def worst_coach(season)
+  def worst_coach
     # worst_coach
     # Find the coach with the worst win percentage for the season.
     # Group the games by season and head coach, calculate the win percentage for each coach, and find the one with the lowest percentage.
   end
 
-  def most_accurate_team(season)
+  def most_accurate_team
     # most_accurate_team
     # Find the team with the best ratio of shots to goals for the season.
     # Group the games by season and team, calculate the ratio of shots to goals for each team, and find the team with the highest ratio.
   end
 
-  def least_accurate_team(season)
+  def least_accurate_team
     # least_accurate_team
     # Find the team with the worst ratio of shots to goals for the season.
     # Group the games by season and team, calculate the ratio of shots to goals for each team, and find the team with the lowest ratio.
   end
 
-  def most_tackles(season)
+  def most_tackles
     # most_tackles
     # Find the team with the most tackles in the season.
     # Group the games by season and team, sum up the tackles for each team, and find the team with the highest total tackles.
   end
 
-  def fewest_tackles(season)
+  def fewest_tackles
     # fewest_tackles
     # Find the team with the fewest tackles in the season.
     # Group the games by season and team, sum up the tackles for each team, and find the team with the lowest total tackles.
