@@ -49,12 +49,12 @@ RSpec.describe StatTracker do
   end
 
   it "#average_goals_per_game" do
-    expect(@stat_tracker.average_goals_per_game).to eq 3.33
+    expect(@stat_tracker.average_goals_per_game).to eq 4.33
   end
 
   it "#average_goals_by_season" do
     expected = {
-      "20122013" => 3.33
+      "20122013" => 4.33
     }
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end

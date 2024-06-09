@@ -5,7 +5,7 @@ class GameTeam
     def initialize(data)
         @game_id = data[:game_id]
         @team_id = data[:team_id]
-        @HoA = data[:HoA]
+        @HoA = data[:hoa]
         @result = data[:result]
         @settled_in = data[:settled_in]
         @head_coach = data[:head_coach]
@@ -13,9 +13,9 @@ class GameTeam
         @shots = data[:shots].to_i
         @tackles = data[:tackles].to_i
         @pim = data[:pim].to_i
-        @powerPlayOpportunities = data[:powerPlayOpportunities].to_i
-        @powerPlayGoals = data[:powerPlayGoals].to_i
-        @faceOffWinPercentage = data[:faceOffWinPercentage].to_f
+        @powerPlayOpportunities = data[:powerplayopportunities].to_i
+        @powerPlayGoals = data[:powerplaygoals].to_i
+        @faceOffWinPercentage = data[:faceoffwinpercentage].to_f
         @giveaways = data[:giveaways].to_i
         @takeaways = data[:takeaways].to_i
         

@@ -4,11 +4,11 @@ class Team
 
     def initialize(data)
         @team_id = data[:team_id]
-        @franchiseId = data[:franchiseId]
-        @teamName = data[:teamName]
+        @franchiseId = data[:franchiseid]
+        @teamName = data[:teamname]
         @abbreviation = data[:abbreviation]
-        @Stadium = data[:Stadium]
+        @Stadium = data[:stadium]
         @link = data[:link]
-        #instance variables here
+       # require 'pry'; binding.pry  
     end
 end
