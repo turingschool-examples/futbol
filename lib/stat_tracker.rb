@@ -151,4 +151,4 @@ class StatTracker
   #   # Find the team with the fewest tackles in the season.
   #   # Group the games by season and team, sum up the tackles for each team, and find the team with the lowest total tackles.
   # end
-end
+

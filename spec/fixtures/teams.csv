@@ -1,0 +1,3 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+3,16,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/3
+6,23,Reign FC,RGN,Mercedes-Benz Stadium,/api/v1/teams/6
