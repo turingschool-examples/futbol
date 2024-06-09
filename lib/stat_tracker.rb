@@ -93,11 +93,23 @@ class StatTracker
       goals_array.sum
     end
     team_id_goals_array = total_goals_hash.max_by {|_, goals_array| goals_array}
-    @game_teams.each do |game_teams|
-      return @teams.team_name if @game_teams.team_id == team_id_goals_array.first
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
     end
   end
 
+  def worst_offense
+    total_goals_hash = Hash.new(0)
+    @game_teams.each do |game_teams|
+      total_goals_hash[game_teams.team_id] = total_goals_hash.fetch(game_teams.team_id, []) << game_teams.goals
+    end
+    total_goals_hash.each do |team_id, goals_array|
+      goals_array.sum
+    end
+    team_id_goals_array = total_goals_hash.min_by {|_, goals_array| goals_array}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
+    end
   end
 
   def highest_scoring_visitor
@@ -159,5 +171,4 @@ class StatTracker
       return team.team_name if team.team_id == team_id_goals_array.first
     end
   end
-  
 end
