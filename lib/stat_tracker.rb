@@ -159,4 +159,64 @@ class StatTracker
     end
   end
 
+
+
+
+  ################# SEASON STATS ##################
+
+  def most_tackles(season)
+    season_game_hash = Hash.new(0)
+    @games.each do |game|
+      season_game_hash[game.season] = season_game_hash.fetch(game.season, []) << game.game_id
+    end
+    season_game_id = season_game_hash.values.flatten
+    game_team_array = []
+    @game_teams.each do |game_team|
+      game_team_array << game_team if season_game_id.include?(game_team.game_id)
+    end
+    team_id_tackles_hash = Hash.new(0)
+    game_team_array.each do |game_team|
+      team_id_tackles_hash[game_team.team_id] = team_id_tackles_hash.fetch(game_team.team_id, []) << game_team.tackles
+    end
+    team_id_total_tackles_hash = Hash.new(0)
+    team_id_tackles_hash.map do |team_id, tackles_array|
+      team_id_total_tackles_hash[team_id] = tackles_array.sum
+    end 
+    most_tackles_hash = team_id_total_tackles_hash.max_by do |_, total_tackles|
+      total_tackles
+    end
+    @teams.each do |team|
+      return team.team_name if team.team_id == most_tackles_hash.first
+    end
+  end
+
+
+  def fewest_tackles(season)
+    season_game_hash = Hash.new(0)
+    @games.each do |game|
+      season_game_hash[game.season] = season_game_hash.fetch(game.season, []) << game.game_id
+    end
+    season_game_id = season_game_hash.values.flatten
+    game_team_array = []
+    @game_teams.each do |game_team|
+      game_team_array << game_team if season_game_id.include?(game_team.game_id)
+    end
+    team_id_tackles_hash = Hash.new(0)
+    game_team_array.each do |game_team|
+      team_id_tackles_hash[game_team.team_id] = team_id_tackles_hash.fetch(game_team.team_id, []) << game_team.tackles
+    end
+    team_id_total_tackles_hash = Hash.new(0)
+    team_id_tackles_hash.map do |team_id, tackles_array|
+      team_id_total_tackles_hash[team_id] = tackles_array.sum
+    end 
+    fewest_tackles_hash = team_id_total_tackles_hash.min_by do |_, total_tackles|
+      total_tackles
+    end
+    @teams.each do |team|
+      return team.team_name if team.team_id == fewest_tackles_hash.first
+    end
+  end
+
+
+
 end
