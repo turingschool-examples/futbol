@@ -84,7 +84,7 @@ class StatTracker
     @teams.count
   end
 
-  def total_goals_ever
+  def total_goals_ever(team_id)
     @game_teams.each do |goals|
       goals.sum
     end
