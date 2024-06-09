@@ -1,7 +1,9 @@
 require 'csv'
 
 class LeagueStats
-    attr_reader :game_teams_data, :team_data
+    attr_reader :game_teams_data, 
+                :team_data
+
     def initialize(game_teams_data, team_data)
         @game_teams_data = game_teams_data
         @team_data = team_data

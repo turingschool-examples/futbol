@@ -11,9 +11,7 @@ class Game
                 :home_goals,
                 :venue,
                 :venue_link
-            
-
-
+         
 
     def initialize(game_data)
         @game_id = game_data[:game_id]
@@ -27,9 +25,5 @@ class Game
         @venue = game_data[:venue]
         @venue_link = game_data[:venue_link]
     end
-
-      
-    
-
 end
 
