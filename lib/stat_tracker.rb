@@ -98,4 +98,37 @@ class StatTracker
     @game_teams.max_by {|average_goals| }.first.team_name
 
   end
+
+  def highest_scoring_visitor
+    total_away_goals_hash = Hash.new(0)
+    @games.each do |game|
+      total_away_goals_hash[game.away_team_id] = total_away_goals_hash.fetch(game.away_team_id, []) << game.away_goals
+    end
+    avg_away_goals_hash = Hash.new(0)
+    total_away_goals_hash.map do |away_team_id, goals_scored_array|
+      avg_away_goals_hash[away_team_id] = (goals_scored_array.sum.to_f/goals_scored_array.count)
+    end
+    team_id_goals_array = avg_away_goals_hash.max_by {|_, avg_away_goals| avg_away_goals}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
+    end
+  end
+
+  def lowest_scoring_visitor
+    total_away_goals_hash = Hash.new(0)
+    @games.each do |game|
+      total_away_goals_hash[game.away_team_id] = total_away_goals_hash.fetch(game.away_team_id, []) << game.away_goals
+    end
+    avg_away_goals_hash = Hash.new(0)
+    total_away_goals_hash.map do |away_team_id, goals_scored_array|
+      avg_away_goals_hash[away_team_id] = (goals_scored_array.sum.to_f/goals_scored_array.count)
+    end
+    team_id_goals_array = avg_away_goals_hash.min_by {|_, avg_away_goals| avg_away_goals}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
+    end
+  end
+
+
+
 end
