@@ -82,7 +82,7 @@ RSpec.describe StatTracker do
     end
   end
 
-################### LEAGUE STATS #####################
+ ################## LEAGUE STATS #####################
 
   describe '#highest_scoring_visitor' do
     it "returns a string of the team name with the highest average score per game across all season when playing away" do
@@ -97,10 +97,14 @@ RSpec.describe StatTracker do
   end
 
   
-################### SEASON STATS #####################
+ ################### SEASON STATS #####################
 
   describe '#winningest_coach' do
-    it "returns the name of the coach with the best win percentage for the season" do
-      
+    it "returns the name of the coach with the best win percentage for the season in a string" do
+      season_id = 20122013
+      expect(@stat_tracker.winningest_coach(season_id)).to eq("claude Julien")
+    end
+  end
+
 end
 
