@@ -28,72 +28,86 @@ class SeasonStats
     seasonal_game_teams
   end
 
-  def build_coach_win_loss(seasonal_games)
+  #  build_coach_win_loss is a helper method for winningest_coach and worst_coach
+  #   build_coach_win_loss returns an array of hashes. In each hash the coach is the key and 
+  #  the values are an array of strings: [{"John Tortorella" => ["WIN", "LOSS"]}]
+  def build_coach_win_loss(seasonal_game_teams)
     coaches_wl = {}
-    seasonal_games.each do |data|
-      if !coaches_wl.keys.include?(data.head_coach)
-        coaches_wl[data.head_coach] = [data.result]
+    seasonal_game_teams.each do |seasonal_game_team|
+      if !coaches_wl.keys.include?(seasonal_game_team.head_coach)
+        coaches_wl[seasonal_game_team.head_coach] = [seasonal_game_team.result]
       else
-        coaches_wl[data.head_coach] << [data.result]
+        coaches_wl[seasonal_game_team.head_coach] << seasonal_game_team.result
       end      
     end
      coaches_wl
   end
-
-  def winningest_coach(season_id)
-    seasonal_games = current_season_data(season_id)
-    win_loss_calc(build_coach_win_loss(seasonal_games), "WIN")
-  end 
-  
-  def win_loss_calc(coach_win_loss, win_loss)
+ 
+  # coach_win_loss_calc is a helper method for win_loss_calc
+  # coach_win_loss_calc returns a hash where the coach name is the key and the value is the coach's
+  #  win/loss ratio: {"John Tortorella"=>37, "Claude Julien"=>54, "Dan Bylsma"=>52}
+  def coach_win_loss_calc(coach_win_loss)
     coaches_win_loss_ratio = {}
     coach_win_loss.map do |coach, wl|
       wins = 0
-      total_games = wl.flatten.length
-      wl.flatten.each do |x|
+      total_games = wl.length
+      wl.each do |x|
         wins += 1 if x == "WIN"
       end
       wl_ratio = (wins.to_f / total_games * 100).round(0)
-     
       coaches_win_loss_ratio[coach] = wl_ratio
     end
-    if win_loss == "WIN"
-      coaches_win_loss_ratio.max_by{|key,value|value}[0]
+    coaches_win_loss_ratio
+  end
+
+    # win_loss_calc is a helper method for winningest_coach/worst_coach
+    # return value is a string of the coach's name: "John Tortorella"
+  def win_loss_calc(coach_win_loss, winner)
+    coaches_win_loss = coach_win_loss_calc(coach_win_loss)
+    if winner == true
+      coaches_win_loss.max_by{|key,value|value}[0]
     else 
-      coaches_win_loss_ratio.min_by{|key,value|value}[0]
+      coaches_win_loss.min_by{|key,value|value}[0]
     end  
   end
 
+  def winningest_coach(season_id)
+    seasonal_games = current_season_data(season_id)
+    win_loss_calc(build_coach_win_loss(seasonal_games), true)
+  end 
+
   def worst_coach(season_id)
     seasonal_games = current_season_data(season_id)
-    win_loss_calc(build_coach_win_loss(seasonal_games), "LOSS")
+    win_loss_calc(build_coach_win_loss(seasonal_games), false)
   end
 
-  def get_team_name(team_id)
+  def id_to_team_name(team_id)
     team = @team_data.select do |team|
       team.team_id == team_id
     end
     team.uniq[0].team_name
   end
   
+  # calculate_accuracy is a helper method for get team name
   def calculate_accuracy(teams_accuracy, accurate)
     accuracy = {}
-    
-    teams_accuracy.each do |tgas|
-      acc = (tgas[1][:goals].to_f / tgas[1][:shots]).round(2) * 100
-      accuracy[tgas[0]] = "#{acc}%"
+    teams_accuracy.each do |team_accuracy|
+      # binding.pry
+      acc = (team_accuracy[1][:goals].to_f / team_accuracy[1][:shots]) * 100
+      accuracy[team_accuracy[0]] = "#{acc.round(2)}%"
     end
-    
     if accurate == true
-      get_team_name(accuracy.max_by{|key,value|value}[0])
+      id_to_team_name(accuracy.max_by{|key,value|value}[0])
     else 
-      get_team_name(accuracy.min_by{|key,value|value}[0])
+      id_to_team_name(accuracy.min_by{|key,value|value}[0])
     end  
   end
 
-  def team_accuracy_calculations(seasonal_games, accurate)
+  # get_team_name is a helper method for most_accurate_team and least_accurate_team
+  # returns a string with the team name: "DC United"
+  def get_team_name(seasonal_game_teams, accurate)
     teams_accuracy = Hash.new {|hash, key| hash[key] = Hash.new}
-    seasonal_games.each do |game|
+    seasonal_game_teams.each do |game|
       if !teams_accuracy.include?(game.team_id)
         teams_accuracy[game.team_id][:goals] = game.goals.to_i
         teams_accuracy[game.team_id][:shots] = game.shots.to_i
@@ -102,19 +116,18 @@ class SeasonStats
         teams_accuracy[game.team_id][:shots] += game.shots.to_i
       end
     end
-    
+    # binding.pry
     calculate_accuracy(teams_accuracy, accurate)
   end
 
   def most_accurate_team(season_id)
-    seasonal_games = current_season_data(season_id)
-   
-    team_accuracy_calculations(seasonal_games, true)
+    seasonal_game_teams = current_season_data(season_id)
+    get_team_name(seasonal_game_teams, true)
   end
 
   def least_accurate_team(season_id)
-    seasonal_games = current_season_data(season_id)
-    team_accuracy_calculations(seasonal_games, false)
+    seasonal_game_teams = current_season_data(season_id)
+    get_team_name(seasonal_game_teams, false)
   end
 
   def team_tackles(season_id)
@@ -129,7 +142,6 @@ class SeasonStats
   def  most_tackles(season_id)
     most_tackled = team_tackles(season_id).max_by{|x, y| y} 
     most_tackled = @team_data.find {|team| team.team_id == most_tackled[0]}.team_name
-  
   end
 
   def fewest_tackles(season_id)

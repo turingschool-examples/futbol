@@ -1,5 +1,4 @@
 class GameStats
-
   attr_reader :games
 
   def initialize(games)
@@ -58,15 +57,4 @@ class GameStats
     end
     average_goals_per_season
   end
-
-
-
-  
-  
-  
-
-  
-  
-
-
 end
