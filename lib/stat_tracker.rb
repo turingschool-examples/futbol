@@ -81,22 +81,35 @@ class StatTracker
   #League Statistics
   
   def count_of_teams
-    @teams.count
-  end
-
-  def total_goals_ever
-    @game_teams.each do |goals|
-      goals.sum
-    end
-  end
-
-  def average_goals
-    total_goals_ever.inject(0.0) {|sum, goals| sum + goals}/total_goals.size.round(2)
+    @teams.length
   end
 
   def best_offense
-    @game_teams.max_by {|average_goals| }.first.team_name
+    total_goals_hash = Hash.new(0)
+    @game_teams.each do |game_teams|
+      total_goals_hash[game_teams.team_id] = total_goals_hash.fetch(game_teams.team_id, []) << game_teams.goals
+    end
+    total_goals_hash.each do |team_id, goals_array|
+      goals_array.sum
+    end
+    team_id_goals_array = total_goals_hash.max_by {|_, goals_array| goals_array}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
+    end
+  end
 
+  def worst_offense
+    total_goals_hash = Hash.new(0)
+    @game_teams.each do |game_teams|
+      total_goals_hash[game_teams.team_id] = total_goals_hash.fetch(game_teams.team_id, []) << game_teams.goals
+    end
+    total_goals_hash.each do |team_id, goals_array|
+      goals_array.sum
+    end
+    team_id_goals_array = total_goals_hash.min_by {|_, goals_array| goals_array}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_goals_array.first
+    end
   end
 
   def highest_scoring_visitor
@@ -159,11 +172,24 @@ class StatTracker
     end
   end
 
+    #Season Statistics
 
-
-
-
-  ################# SEASON STATS ##################
+  def winningest_coach(season_id)
+    coach_wins = Hash.new(0)
+    season_games = games.select { |game| game.season == season_id }
+    season_games.each do |game|
+      if game.home_goals > game.away_goals
+        winning_team_id = game.home_team_id
+      else
+        winning_team_id = game.away_team_id
+      end
+      winning_team = teams.find { |team| team.team_id == winning_team_id } 
+      winning_coach = winning_team.head_coach if winning_team
+      coach_wins[winning_coach] += 1 if winning_coach
+    end
+    winningest_coach_name = coach_wins.max_by { |_, wins| wins }
+    winningest_coach_name.first
+  end
 
   def most_tackles(season) #pass 1 of two spec harness tests
     season_game_hash = Hash.new(0)
@@ -191,7 +217,6 @@ class StatTracker
     end
   end
 
-
   def fewest_tackles(season) #does not pass spec_harness
     season_game_hash = Hash.new(0)
     @games.each do |game|
@@ -218,26 +243,5 @@ class StatTracker
     end
   end
 
-
-
-
-    #Season Statistics
-
-  def winningest_coach(season_id)
-    coach_wins = Hash.new(0)
-    require 'pry'; binding.pry    
-    season_games = @games.select { |game| game.season == season_id }
-    season_games.each do |game|  
-      if game.home_goals > game.away_goals
-        winning_team_id = game.home_team_id
-      else
-        winning_team_id = game.away_team_id
-      end
-      winning_team = @teams.find { |team| team.team_id == winning_team_id } 
-      winning_coach = winning_team.head_coach if winning_team
-      coach_wins[winning_coach] += 1 if winning_coach
-    end
-    winningest_coach_name = coach_wins.max_by { |_, wins| wins }
-    winningest_coach_name&.first
-  end
 end
+

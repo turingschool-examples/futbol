@@ -82,13 +82,34 @@ RSpec.describe StatTracker do
     end
   end
 
- ################## LEAGUE STATS #####################
+################### LEAGUE STATS #####################
+  describe 'count_of_teams' do
+    it "counts all of the teams in the league" do
+      expect(@stat_tracker.count_of_teams).to be 32
+    end
+  end
 
+  describe 'best_offense' do
+    it "determines the name of the team with the highest average number of goals per game" do
+      expect(@stat_tracker.best_offense).to eq("FC Dallas")
+    end
+  end
+
+  describe 'worst_offense' do
+    it "determines the name of the team with the lowest average number of goals per game" do
+      expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+    end
+  end
+
+  ### need highest scoring home
+  
   describe '#highest_scoring_visitor' do
     it "returns a string of the team name with the highest average score per game across all season when playing away" do
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
   end
+
+  ##need lowest scoring home
 
   describe '#lowest_scoring_visitor' do
     it "returns a string of the team name with the highest average score per game across all season when playing away" do
@@ -96,7 +117,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  
  ################### SEASON STATS #####################
 
   describe '#winningest_coach' do
@@ -119,4 +139,3 @@ RSpec.describe StatTracker do
   end
 
 end
-
