@@ -3,6 +3,35 @@ require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
 
+
+
+# Method	Description	Return Value
+# count_of_teams	Total number of teams in the data.	Integer
+
+##
+# best_offense	Name of the team with the highest average number of goals scored per game across all seasons.	String
+#
+# Best away team#
+## team -> total number of goals across all seasons
+# team -> average_num_of_goals
+
+
+# 3 games
+
+# 3 teams
+
+# Team1 -> avg goal
+# Team2 -> avg goal
+
+
+
+# worst_offense	Name of the team with the lowest average number of goals scored per game across all seasons.	String
+# highest_scoring_visitor	Name of the team with the highest average score per game across all seasons when they are away.	String
+# highest_scoring_home_team	Name of the team with the highest average score per game across all seasons when they are home.	String
+# lowest_scoring_visitor	Name of the team with the lowest average score per game across all seasons when they are a visitor.	String
+# lowest_scoring_home_team	Name of the team with the lowest average score per game across all seasons when they are at home.	String
+
+
 class StatTracker
     attr_reader :games, :teams, :game_teams
 
@@ -30,6 +59,256 @@ class StatTracker
   def highest_total_score
     @games.map { |game| game.away_goals + game.home_goals }.max
   end
+
+  def count_of_teams
+    @teams.size
+  end
+
+  def best_offense
+    goals_by_team = {}
+    total_num_of_games_by_team = {};
+
+    @games.each do |game|
+      away_team_id = game.away_team_id
+      home_team_id = game.home_team_id
+
+      goals_by_team[away_team_id] ||= 0;
+      goals_by_team[away_team_id] += game.away_goals;
+
+
+      goals_by_team[home_team_id] ||= 0;
+      goals_by_team[home_team_id] += game.home_goals;
+
+    total_num_of_games_by_team[away_team_id] ||= 0;
+    total_num_of_games_by_team[home_team_id] ||= 0;
+
+    total_num_of_games_by_team[home_team_id] += 1;
+    total_num_of_games_by_team[away_team_id] += 1;
+
+
+
+
+
+    end
+
+   team_ids = goals_by_team.keys;
+
+
+   highest_average = 0
+   team_with_highest_average = nil
+
+
+   team_ids.each do |team_id|
+    num_of_games = total_num_of_games_by_team[team_id]
+    num_of_goals = goals_by_team[team_id];
+    average = num_of_goals.to_f/num_of_games.to_f
+
+    if average > highest_average
+      highest_average = average
+      team_with_highest_average = team_id
+    end
+
+  end
+  team_with_highest_average
+  
+  end
+  def worst_offense
+    goals_by_team = {}
+    total_num_of_games_by_team = {};
+
+    @games.each do |game|
+      away_team_id = game.away_team_id
+      home_team_id = game.home_team_id
+
+      goals_by_team[away_team_id] ||= 0;
+      goals_by_team[away_team_id] += game.away_goals;
+
+
+      goals_by_team[home_team_id] ||= 0;
+      goals_by_team[home_team_id] += game.home_goals;
+
+    total_num_of_games_by_team[away_team_id] ||= 0;
+    total_num_of_games_by_team[home_team_id] ||= 0;
+
+    total_num_of_games_by_team[home_team_id] += 1;
+    total_num_of_games_by_team[away_team_id] += 1;
+
+
+
+
+
+    end
+
+   team_ids = goals_by_team.keys;
+
+
+   lowest_average = 99999999
+   team_with_lowest_average = nil
+
+
+   team_ids.each do |team_id|
+    num_of_games = total_num_of_games_by_team[team_id]
+    num_of_goals = goals_by_team[team_id];
+    average = num_of_goals.to_f/num_of_games.to_f
+
+    if average < lowest_average
+      lowest_average = average
+      team_with_lowest_average = team_id
+    end
+
+  end
+  team_with_lowest_average
+  
+  end
+
+
+
+def highest_scoring_visitor
+
+  away_goals_by_team = {}
+  total_num_of_away_games_by_team = {};
+
+  @games.each do |game|
+    away_team_id = game.away_team_id
+    away_goals_by_team[away_team_id] ||= 0;
+    away_goals_by_team[away_team_id] += game.away_goals;
+
+
+    total_num_of_away_games_by_team[away_team_id] ||= 0;
+    total_num_of_away_games_by_team[away_team_id] += 1;
+
+  end
+
+
+  team_ids = away_goals_by_team.keys
+
+  highest_score = 0;
+  highest_visitor = nil;
+
+  team_ids.each do |team_id|
+    goals = away_goals_by_team[team_id]
+    if goals > highest_score
+      highest_score = goals
+      highest_visitor = team_id
+    end
+
+  end
+
+  highest_visitor
+
+end
+
+def lowest_scoring_visitor
+
+  away_goals_by_team = {}
+  total_num_of_away_games_by_team = {};
+
+  @games.each do |game|
+    away_team_id = game.away_team_id
+    away_goals_by_team[away_team_id] ||= 0;
+    away_goals_by_team[away_team_id] += game.away_goals;
+
+
+    total_num_of_away_games_by_team[away_team_id] ||= 0;
+    total_num_of_away_games_by_team[away_team_id] += 1;
+
+  end
+
+
+  team_ids = away_goals_by_team.keys
+
+  lowest_score = 9999; # Change this to a hight number (infiginity)
+  lowest_visitor = nil;
+
+  team_ids.each do |team_id|
+    goals = away_goals_by_team[team_id]
+    if goals < lowest_score
+      lowest_score = goals
+      lowest_visitor = team_id
+    end
+
+  end
+
+  lowest_visitor
+
+end
+
+
+def lowest_scoring_home_team
+
+  home_goals_by_team = {}
+  total_num_of_home_games_by_team = {};
+
+  @games.each do |game|
+    home_team_id = game.home_team_id
+    home_goals_by_team[home_team_id] ||= 0;
+    home_goals_by_team[home_team_id] += game.home_goals;
+
+
+    total_num_of_home_games_by_team[home_team_id] ||= 0;
+    total_num_of_home_games_by_team[home_team_id] += 1;
+
+  end
+
+
+  team_ids = home_goals_by_team.keys
+
+  lowest_score = 9999; # Change this to a hight number (infiginity)
+  lowest_home = nil;
+
+  team_ids.each do |team_id|
+    goals = home_goals_by_team[team_id]
+    if goals < lowest_score
+      lowest_score = goals
+      lowest_home = team_id
+    end
+
+  end
+
+  lowest_home
+
+end
+
+
+
+def highest_scoring_home_team
+
+  home_goals_by_team = {}
+  total_num_of_home_games_by_team = {};
+
+  @games.each do |game|
+    home_team_id = game.home_team_id
+    home_goals_by_team[home_team_id] ||= 0;
+    home_goals_by_team[home_team_id] += game.home_goals;
+
+
+    total_num_of_home_games_by_team[home_team_id] ||= 0;
+    total_num_of_home_games_by_team[home_team_id] += 1;
+
+  end
+
+
+  team_ids = home_goals_by_team.keys
+
+  highest_score = 0; # Change this to a hight number (infiginity)
+  highest_home = nil;
+
+  team_ids.each do |team_id|
+    goals = home_goals_by_team[team_id]
+    if goals > highest_score
+      highest_score = goals
+      highest_home = team_id
+    end
+
+  end
+
+  highest_home
+end
+
+
+
+
+
 
   def lowest_total_score
     @games.map { |game| game.away_goals + game.home_goals }.min
@@ -151,4 +430,4 @@ class StatTracker
   #   # Find the team with the fewest tackles in the season.
   #   # Group the games by season and team, sum up the tackles for each team, and find the team with the lowest total tackles.
   # end
-
+end
