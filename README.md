@@ -7,8 +7,8 @@ Karl Fallenius
   - insert LinkedIn profile
     
 James Cochran
-  - insert github profile
-  - insert LinkedIn profile
+  - [GitHub Profile](https://github.com/James-Cochran)
+  - [LinkedIn Profile](www.linkedin.com/in/james-cochran-7694b1261)
     
 Cory Bretsch
   - [GitHub Profile](https://github.com/CoryBretsch)

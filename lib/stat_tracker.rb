@@ -171,4 +171,90 @@ class StatTracker
       return team.team_name if team.team_id == team_id_goals_array.first
     end
   end
+
 end
+=======
+
+
+
+
+
+  ################# SEASON STATS ##################
+
+  def most_tackles(season) #pass 1 of two spec harness tests
+    season_game_hash = Hash.new(0)
+    @games.each do |game|
+      season_game_hash[game.season] = season_game_hash.fetch(game.season, []) << game.game_id
+    end
+    season_game_id = season_game_hash.values.flatten
+    game_team_array = []
+    @game_teams.each do |game_team|
+      game_team_array << game_team if season_game_id.include?(game_team.game_id)
+    end
+    team_id_tackles_hash = Hash.new(0)
+    game_team_array.each do |game_team|
+      team_id_tackles_hash[game_team.team_id] = team_id_tackles_hash.fetch(game_team.team_id, []) << game_team.tackles
+    end
+    team_id_total_tackles_hash = Hash.new(0)
+    team_id_tackles_hash.map do |team_id, tackles_array|
+      team_id_total_tackles_hash[team_id] = tackles_array.sum
+    end 
+    most_tackles_hash = team_id_total_tackles_hash.max_by do |_, total_tackles|
+      total_tackles
+    end
+    @teams.each do |team|
+      return team.team_name if team.team_id == most_tackles_hash.first
+    end
+  end
+
+
+  def fewest_tackles(season) #does not pass spec_harness
+    season_game_hash = Hash.new(0)
+    @games.each do |game|
+      season_game_hash[game.season] = season_game_hash.fetch(game.season, []) << game.game_id
+    end
+    season_game_id = season_game_hash.values.flatten
+    game_team_array = []
+    @game_teams.each do |game_team|
+      game_team_array << game_team if season_game_id.include?(game_team.game_id)
+    end
+    team_id_tackles_hash = Hash.new(0)
+    game_team_array.each do |game_team|
+      team_id_tackles_hash[game_team.team_id] = team_id_tackles_hash.fetch(game_team.team_id, []) << game_team.tackles
+    end
+    team_id_total_tackles_hash = Hash.new(0)
+    team_id_tackles_hash.map do |team_id, tackles_array|
+      team_id_total_tackles_hash[team_id] = tackles_array.sum
+    end 
+    fewest_tackles_hash = team_id_total_tackles_hash.min_by do |_, total_tackles|
+      total_tackles
+    end
+    @teams.each do |team|
+      return team.team_name if team.team_id == fewest_tackles_hash.first
+    end
+  end
+
+
+
+=======
+    #Season Statistics
+
+  def winningest_coach(season_id)
+    coach_wins = Hash.new(0)
+    season_games = games.select { |game| game.season == season_id }
+    season_games.each do |game|
+      if game.home_goals > game.away_goals
+        winning_team_id = game.home_team_id
+      else
+        winning_team_id = game.away_team_id
+      end
+      winning_team = teams.find { |team| team.team_id == winning_team_id } 
+      winning_coach = winning_team.head_coach if winning_team
+      coach_wins[winning_coach] += 1 if winning_coach
+    end
+    winningest_coach_name = coach_wins.max_by { |_, wins| wins }
+    winningest_coach_name.first
+  end
+
+end
+
