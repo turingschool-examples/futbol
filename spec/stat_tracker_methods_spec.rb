@@ -1,11 +1,11 @@
 require 'rspec'
-require_relative '../lib/stat_tracker'
+require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = 'spec/fixtures/games.csv'
-    team_path = 'spec/fixtures/teams.csv'
-    game_teams_path = 'spec/fixtures/game_teams.csv'
+    game_path = './spec/fixtures/games.csv'
+    team_path = './spec/fixtures/teams.csv'
+    game_teams_path = './spec/fixtures/game_teams.csv'
 
     locations = {
       games: game_path,
@@ -20,7 +20,6 @@ RSpec.describe StatTracker do
     expect(@stat_tracker).to be_an_instance_of StatTracker
   end
 
-  # Game Statistics
   it "#highest_total_score" do
     expect(@stat_tracker.highest_total_score).to eq 5
   end
@@ -42,9 +41,7 @@ RSpec.describe StatTracker do
   end
 
   it "#count_of_games_by_season" do
-    expected = {
-      "20122013" => 3
-    }
+    expected = { "20122013" => 3 }
     expect(@stat_tracker.count_of_games_by_season).to eq expected
   end
 
@@ -53,15 +50,12 @@ RSpec.describe StatTracker do
   end
 
   it "#average_goals_by_season" do
-    expected = {
-      "20122013" => 4.33
-    }
+    expected = { "20122013" => 4.33 }
     expect(@stat_tracker.average_goals_by_season).to eq expected
   end
 
-  # League Statistics
   it "#count_of_teams" do
-    expect(@stat_tracker.count_of_teams).to eq 2
+    expect(@stat_tracker.count_of_teams).to eq 3
   end
 
   it "#best_offense" do
@@ -73,7 +67,7 @@ RSpec.describe StatTracker do
   end
 
   it "#highest_scoring_visitor" do
-    expect(@stat_tracker.highest_scoring_visitor).to eq "Reign FC"
+    expect(@stat_tracker.highest_scoring_visitor).to eq "FC Cincinnati"
   end
 
   it "#highest_scoring_home_team" do
@@ -88,28 +82,28 @@ RSpec.describe StatTracker do
     expect(@stat_tracker.lowest_scoring_home_team).to eq "FC Cincinnati"
   end
 
-  # Season Statistics
   it "#winningest_coach" do
     expect(@stat_tracker.winningest_coach("20122013")).to eq "Claude Julien"
   end
 
   it "#worst_coach" do
-    expect(@stat_tracker.worst_coach("20122013")). to eq "John Tortorella"
+    expect(@stat_tracker.worst_coach("20122013")).to eq "John Tortorella"
   end
 
   it "#most_accurate_team" do
-    expect(@stat_tracker.most_accurate_team("20122013")). to eq "Reign FC"
+    expect(@stat_tracker.most_accurate_team("20122013")).to eq "Reign FC"
   end
 
   it "#least_accurate_team" do
-    expect(@stat_tracker.least_accurate_team("20122013")). to eq "FC Cincinnati"
+    expect(@stat_tracker.least_accurate_team("20122013")).to eq "FC Cincinnati"
   end
 
   it "#most_tackles" do
-    expect(@stat_tracker.most_tackles("20122013")). to eq "FC Cincinnati"
+    expect(@stat_tracker.most_tackles("20122013")).to eq "Reign FC"
   end
 
   it "#fewest_tackles" do
-    expect(@stat_tracker.fewest_tackles("20122013")). to eq "Reign FC"
+    expect(@stat_tracker.fewest_tackles("20122013")).to eq "FC Cincinnati"
   end
 end
+

@@ -27,7 +27,31 @@ class StatTracker
         @game_teams = game_teams
     end
 
-    # Game Statistics
+  def least_accurate_team(season)
+  team_shots_to_goals = Hash.new { |hash, key| hash[key] = { shots: 0, goals: 0 } }
+
+  @game_teams.each do |game_team|
+    game = @games.find { |g| g.game_id == game_team.game_id }
+    if game && game.season == season
+      team_shots_to_goals[game_team.team_id][:shots] += game_team.shots
+      team_shots_to_goals[game_team.team_id][:goals] += game_team.goals
+    end
+  end
+
+  team_shots_to_goals.each do |team_id, stats|
+    accuracy = stats[:goals].to_f / stats[:shots]
+    puts "Team ID: #{team_id}, Accuracy: #{accuracy}, Shots: #{stats[:shots]}, Goals: #{stats[:goals]}"
+  end
+
+  worst_team_id = team_shots_to_goals.min_by { |team_id, stats| stats[:goals].to_f / stats[:shots] }.first
+  team_name = @teams.find { |team| team.team_id == worst_team_id }.teamName
+
+  puts "Least Accurate Team ID: #{worst_team_id}, Name: #{team_name}"
+
+  team_name
+  end
+  
+# Game Statistics
   def highest_total_score
     @games.map { |game| game.away_goals + game.home_goals }.max
   end
@@ -157,27 +181,53 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    season_games = @game_teams.select { |gt| @games.any? { |game| game.game_id == gt.game_id && game.season == season } }
-    team_accuracy = season_games.group_by(&:team_id).transform_values do |games|
-      total_goals = games.sum(&:goals)
-      total_shots = games.sum(&:shots)
-      (total_goals.to_f / total_shots).round(2)
+    team_shots_to_goals = Hash.new { |hash, key| hash[key] = { shots: 0, goals: 0 } }
+  
+    @game_teams.each do |game_team|
+      game = @games.find { |g| g.game_id == game_team.game_id }
+      if game && game.season == season
+        team_shots_to_goals[game_team.team_id][:shots] += game_team.shots
+        team_shots_to_goals[game_team.team_id][:goals] += game_team.goals
+      end
     end
-    best_team_id = team_accuracy.max_by { |_, accuracy| accuracy }&.first
-    @teams.find { |team| team.team_id == best_team_id }&.teamName
+  
+    team_shots_to_goals.each do |team_id, stats|
+      accuracy = stats[:goals].to_f / stats[:shots]
+      puts "Team ID: #{team_id}, Accuracy: #{accuracy}, Shots: #{stats[:shots]}, Goals: #{stats[:goals]}"
+    end
+  
+    best_team_id = team_shots_to_goals.max_by { |team_id, stats| stats[:goals].to_f / stats[:shots] }.first
+    team_name = @teams.find { |team| team.team_id == best_team_id }.teamName
+  
+    puts "Most Accurate Team ID: #{best_team_id}, Name: #{team_name}"
+  
+    team_name
   end
-
+  
   def least_accurate_team(season)
-    season_games = @game_teams.select { |gt| @games.any? { |game| game.game_id == gt.game_id && game.season == season } }
-    team_accuracy = season_games.group_by(&:team_id).transform_values do |games|
-      total_goals = games.sum(&:goals)
-      total_shots = games.sum(&:shots)
-      (total_goals.to_f / total_shots).round(2)
+    team_shots_to_goals = Hash.new { |hash, key| hash[key] = { shots: 0, goals: 0 } }
+  
+    @game_teams.each do |game_team|
+      game = @games.find { |g| g.game_id == game_team.game_id }
+      if game && game.season == season
+        team_shots_to_goals[game_team.team_id][:shots] += game_team.shots
+        team_shots_to_goals[game_team.team_id][:goals] += game_team.goals
+      end
     end
-    worst_team_id = team_accuracy.min_by { |_, accuracy| accuracy }&.first
-    @teams.find { |team| team.team_id == worst_team_id }&.teamName
+  
+    team_shots_to_goals.each do |team_id, stats|
+      accuracy = stats[:goals].to_f / stats[:shots]
+      puts "Team ID: #{team_id}, Accuracy: #{accuracy}, Shots: #{stats[:shots]}, Goals: #{stats[:goals]}"
+    end
+  
+    worst_team_id = team_shots_to_goals.min_by { |team_id, stats| stats[:goals].to_f / stats[:shots] }.first
+    team_name = @teams.find { |team| team.team_id == worst_team_id }.teamName
+  
+    puts "Least Accurate Team ID: #{worst_team_id}, Name: #{team_name}"
+  
+    team_name
   end
-
+  
   def most_tackles(season)
   season_games = @game_teams.select { |gt| @games.any? { |game| game.game_id == gt.game_id && game.season == season } }
   team_tackles = season_games.group_by(&:team_id).transform_values do |games|
