@@ -172,18 +172,15 @@ class StatTracker
     end
   end
 
-  ######Season Statistics######
+  #Season Statistics
 
-  def most_accurate_team
+  def most_accurate_team(season_id) #does not pass
     total_shots_in_a_season = {}
     total_goals_in_a_season = {}
     team_accuracy = {}
-
-    
     @game_teams.each do |game, season|
       total_shots_in_a_season[game.team_id] = total_shots_in_a_season.fetch(game.team_id, []) << game.shots
       total_goals_in_a_season[game.team_id] = total_goals_in_a_season.fetch(game.team_id, []) << game.goals
-      
     end
     team_accuracy.map do |team_id, accuracy_array|
       team_accuracy[team_id] = (total_goals_in_a_season.sum.to_f/total_shots_in_a_season.sum)
@@ -194,11 +191,10 @@ class StatTracker
     end
   end
 
-  def least_accurate_team
+  def least_accurate_team(season_id) #does not pass
     total_shots_in_a_season = {}
     total_goals_in_a_season = {}
     team_accuracy = {}
-
     @game_teams.each do |game, season|
       if season == season
         total_shots_in_a_season[game.team_id] = total_shots_in_a_season.fetch(game.team_id, []) << game.shots
@@ -214,9 +210,7 @@ class StatTracker
     end
   end
 
-    #Season Statistics
-
-  def winningest_coach(season_id)
+  def winningest_coach(season_id) #does not pass
     coach_wins = Hash.new(0)
     season_games = games.select { |game| game.season == season_id }
     season_games.each do |game|
@@ -226,7 +220,6 @@ class StatTracker
         winning_team_id = game.away_team_id
       end
       winning_team = teams.find { |team| team.team_id == winning_team_id } 
-      require 'pry'; binding.pry
       winning_coach = winning_team.head_coach if winning_team
       coach_wins[winning_coach] += 1 if winning_coach
     end
