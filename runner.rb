@@ -27,4 +27,4 @@ puts stat_tracker.most_accurate_team("20152016")
 puts "---\n"
 
 
-# require 'pry'; binding.pry
+require 'pry'; binding.pry

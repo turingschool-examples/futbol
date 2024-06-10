@@ -43,28 +43,28 @@ RSpec.describe StatTracker do
   describe '#percentage_home_wins' do
     it 'can determine percentage of games that a home team has won (rounded to the nearest 100th)' do
       expect(@stat_tracker.percentage_home_wins).to be_a(Float)
-      expect(@stat_tracker.percentage_home_wins).to eq(43.5)
+      expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
   end
 
   describe '#percentage_visitor_wins' do
     it 'can determine percentage of games that a visitor has won (rounded to the nearest 100th)' do
       expect(@stat_tracker.percentage_visitor_wins).to be_a(Float)
-      expect(@stat_tracker.percentage_visitor_wins).to eq(36.11)
+      expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
   end
   
   describe '#percentage_ties' do 
     it 'can determine percentage of games that has resulted in a tie (rounded to the nearest 100th)' do 
       expect(@stat_tracker.percentage_ties).to be_a(Float)
-      expect(@stat_tracker.percentage_ties).to eq(20.39)
+      expect(@stat_tracker.percentage_ties).to eq(0.2)
     end
   end
 
   describe '#count_of_games_in_season' do 
     it 'brings back a hash with season names (e.g. 20122013) as keys and counts of games as values' do
-      expect(@stat_tracker.count_games_in_seasons).to be_a(Hash)
-      expect(@stat_tracker.count_games_in_seasons).to eq({"20122013"=>806, "20132014"=>1323, "20142015"=>1319})
+      expect(@stat_tracker.count_of_games_by_season).to be_a(Hash)
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>806, "20132014"=>1323, "20142015"=>1319})
     end
   end
 
@@ -77,8 +77,8 @@ RSpec.describe StatTracker do
 
   describe '#average_goals_per_season' do
     it 'returns avg number of goals scored in a game in a hash w/season names as keys and a float for avg # of goals rounded to the nearest 100th' do
-      expect(@stat_tracker.average_goals_per_season).to be_a(Hash)
-      expect(@stat_tracker.average_goals_per_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23})
+      expect(@stat_tracker.average_goals_by_season).to be_a(Hash)
+      expect(@stat_tracker.average_goals_by_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23})
     end
   end
 
