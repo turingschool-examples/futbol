@@ -184,6 +184,7 @@ class StatTracker
         winning_team_id = game.away_team_id
       end
       winning_team = teams.find { |team| team.team_id == winning_team_id } 
+      require 'pry'; binding.pry
       winning_coach = winning_team.head_coach if winning_team
       coach_wins[winning_coach] += 1 if winning_coach
     end
@@ -212,9 +213,11 @@ class StatTracker
     most_tackles_hash = team_id_total_tackles_hash.max_by do |_, total_tackles|
       total_tackles
     end
+    target_team_name = []
     @teams.each do |team|
-      return team.team_name if team.team_id == most_tackles_hash.first
+      target_team_name << team.team_name if team.team_id == most_tackles_hash.first
     end
+    target_team_name.first
   end
 
   def fewest_tackles(season) #does not pass spec_harness
@@ -238,9 +241,11 @@ class StatTracker
     fewest_tackles_hash = team_id_total_tackles_hash.min_by do |_, total_tackles|
       total_tackles
     end
+    target_team_name = []
     @teams.each do |team|
-      return team.team_name if team.team_id == fewest_tackles_hash.first
+      target_team_name << team.team_name if team.team_id == fewest_tackles_hash.first
     end
+    target_team_name.first
   end
 
 end
