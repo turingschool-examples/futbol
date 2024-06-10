@@ -121,7 +121,7 @@ RSpec.describe StatTracker do
 
   describe '#most_tackles' do
     it "returns a string of name of team with the most tackles in the season" do
-      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas")
+      expect(@stat_tracker.most_tackles("20122013")).to eq("FC Dallas") 
     end
   end
 

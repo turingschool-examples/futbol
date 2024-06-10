@@ -164,7 +164,7 @@ class StatTracker
 
   ################# SEASON STATS ##################
 
-  def most_tackles(season)
+  def most_tackles(season) #pass 1 of two spec harness tests
     season_game_hash = Hash.new(0)
     @games.each do |game|
       season_game_hash[game.season] = season_game_hash.fetch(game.season, []) << game.game_id
@@ -191,7 +191,7 @@ class StatTracker
   end
 
 
-  def fewest_tackles(season)
+  def fewest_tackles(season) #does not pass spec_harness
     season_game_hash = Hash.new(0)
     @games.each do |game|
       season_game_hash[game.season] = season_game_hash.fetch(game.season, []) << game.game_id
