@@ -100,15 +100,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
     end
   end
-=======
- ################## LEAGUE STATS #####################
 
-
+  ### need highest scoring home
+  
   describe '#highest_scoring_visitor' do
     it "returns a string of the team name with the highest average score per game across all season when playing away" do
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
   end
+
+  ##need lowest scoring home
 
   describe '#lowest_scoring_visitor' do
     it "returns a string of the team name with the highest average score per game across all season when playing away" do
@@ -116,7 +117,6 @@ RSpec.describe StatTracker do
     end
   end
 
-  
  ################### SEASON STATS #####################
 
   describe '#winningest_coach' do
