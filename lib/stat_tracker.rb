@@ -220,13 +220,14 @@ class StatTracker
 
 
 
-=======
+
     #Season Statistics
 
   def winningest_coach(season_id)
     coach_wins = Hash.new(0)
+    require 'pry'; binding.pry    
     season_games = @games.select { |game| game.season == season_id }
-    season_games.each do |game|
+    season_games.each do |game|  
       if game.home_goals > game.away_goals
         winning_team_id = game.home_team_id
       else
@@ -239,5 +240,4 @@ class StatTracker
     winningest_coach_name = coach_wins.max_by { |_, wins| wins }
     winningest_coach_name&.first
   end
-  #require 'pry'; binding.pry
 end
