@@ -1,6 +1,6 @@
 require './lib/stat_tracker.rb'
 
-game_path = './data/games.csv'
+game_path = './data/games_test.csv'
 team_path = './data/teams.csv'
 game_teams_path = './data/game_teams.csv'
 
