@@ -63,7 +63,7 @@ RSpec.describe GameStats do
   describe '#count_of_games_by_season' do 
     it 'brings back a hash with season names (e.g. 20122013) as keys and counts of games as values' do
       expect(@game_stats.count_of_games_by_season).to be_a(Hash)
-      expect(@game_stats.count_of_games_by_season).to eq({"20122013"=>806, "20132014"=>1323, "20142015"=>1319})
+      expect(@game_stats.count_of_games_by_season).to eq({"20122013"=>806, "20132014"=>1323, "20142015"=>1319, "20152016"=>1321, "20162017"=>1317, "20172018"=>1355})
    
     end
   end
@@ -78,7 +78,7 @@ RSpec.describe GameStats do
   describe '#average_goals_by_season' do
     it 'returns avg number of goals scored in a game in a hash w/season names as keys and a float for avg # of goals rounded to the nearest 100th' do
       expect(@game_stats.average_goals_by_season).to be_a(Hash)
-      expect(@game_stats.average_goals_by_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23})
+      expect(@game_stats.average_goals_by_season).to eq({"20122013"=>4.12, "20132014"=>4.19, "20142015"=>4.14, "20152016"=>4.16, "20162017"=>4.23, "20172018"=>4.44})
     end
   end
 end

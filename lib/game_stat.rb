@@ -31,7 +31,7 @@ class GameStats
     (ties.to_f / total_games).round(2)
   end
 
-  def count_of_games_by_season(seasons = ["20122013", "20132014", "20142015"])
+  def count_of_games_by_season(seasons = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"])
     season_games = {}
     seasons.each do |season|
       count = @games.count { |game| game.season == season }
@@ -47,14 +47,16 @@ class GameStats
     average.round(2)
   end
 
-  def average_goals_by_season(seasons = ["20122013", "20132014", "20142015", "20152016", "20162017"])
+  def average_goals_by_season(seasons = ["20122013", "20132014", "20142015", "20152016", "20162017", "20172018"])
     average_goals_by_season = {}
     seasons.each do |season|
-      games_in_season = count_games_in_seasons([season])
+      games_in_season = count_of_games_by_season([season])
       total_goals = @games.select { |game| game.season == season }.sum { |game| game.away_goals.to_i + game.home_goals.to_i }
       total_games = games_in_season[season]
       average_goals_by_season[season] = (total_goals.to_f / total_games).round(2)
     end
     average_goals_by_season
+  
   end
+ 
 end
