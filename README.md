@@ -15,3 +15,15 @@ No one in our group had a strong preference for what organizational strategy or 
 We've all read the project requirements individually, shared notes, and begun to outline our plan of attack.  We're making sure everyone understands the project objective on a higher level and breaking it down into smaller chunks in order to delegate those chunks to individual members.  We're doing our best to recognize which steps go where and approach this linearly.
 
 Retro Link - https://easyretro.io/publicboard/vehLoQo3XZNNMMNL8P8qBxb7F7f2/13cc085c-d6da-42bf-b2aa-ad6338af007d
+
+Top 3 things that went well during your project
+
+1. LOTS of positivity
+2. Lots of communication between all group members using various formats (Slack messages, huddles, etc.)
+3. Used good discernment on when to do sync or async work.
+   
+Top 3 things your team would do differently next time
+
+1. Communication was good but be more explicit so as to avoid
+2. Reaching out to outside people and resources earlier
+3. Take more breaks
