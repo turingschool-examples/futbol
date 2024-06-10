@@ -171,4 +171,46 @@ class StatTracker
       return team.team_name if team.team_id == team_id_goals_array.first
     end
   end
+
+  ######Season Statistics######
+
+  def most_accurate_team
+    total_shots_in_a_season = {}
+    total_goals_in_a_season = {}
+    team_accuracy = {}
+
+    
+    @game_teams.each do |game, season|
+      total_shots_in_a_season[game.team_id] = total_shots_in_a_season.fetch(game.team_id, []) << game.shots
+      total_goals_in_a_season[game.team_id] = total_goals_in_a_season.fetch(game.team_id, []) << game.goals
+      
+    end
+    team_accuracy.map do |team_id, accuracy_array|
+      team_accuracy[team_id] = (total_goals_in_a_season.sum.to_f/total_shots_in_a_season.sum)
+    end
+    team_id_accuracy_array = team_accuracy.max_by {|__, accuracy| accuracy}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_accuracy_array.first
+    end
+  end
+
+  def least_accurate_team
+    total_shots_in_a_season = {}
+    total_goals_in_a_season = {}
+    team_accuracy = {}
+
+    @game_teams.each do |game, season|
+      if season == season
+        total_shots_in_a_season[game.team_id] = total_shots_in_a_season.fetch(game.team_id, []) << game.shots
+        total_goals_in_a_season[game.team_id] = total_goals_in_a_season.fetch(game.team_id, []) << game.goals
+      end
+    end
+    team_accuracy.map do |team_id, accuracy_array|
+      team_accuracy[team_id] = (total_goals_in_a_season.sum.to_f/total_shots_in_a_season.sum)
+    end
+    team_id_accuracy_array = team_accuracy.min_by {|__, accuracy| accuracy}
+    @teams.each do |team|
+      return team.team_name if team.team_id == team_id_accuracy_array.first
+    end
+  end
 end
