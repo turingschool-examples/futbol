@@ -36,13 +36,13 @@ RSpec.describe StatTracker do
 
   describe '#highest_total_score' do
     it "returns the highest sum of the winning and losing teams scores" do        
-      expect(@stat_tracker.highest_total_score).to eq 5 # Calculated manually
+      expect(@stat_tracker.highest_total_score).to eq 5 
     end
   end
 
   describe '#lowest_total_score' do
     it "returns the lowest sum of the winning and losing teams scores" do
-      expect(@stat_tracker.lowest_total_score).to eq(1) # Calculated manually
+      expect(@stat_tracker.lowest_total_score).to eq(1) 
     end
   end
 
@@ -82,7 +82,7 @@ RSpec.describe StatTracker do
     end
   end
 
-################### LEAGUE STATS #####################
+ ################## LEAGUE STATS #####################
 
   describe '#highest_scoring_visitor' do
     it "returns a string of the team name with the highest average score per game across all season when playing away" do
@@ -96,17 +96,16 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#highest_scoring_home_team' do
-    it "returns a string of the team name with the highest average score per game across all season when playing home" do
-      expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+  
+ ################### SEASON STATS #####################
+
+  describe '#winningest_coach' do
+    it "returns the name of the coach with the best win percentage for the season in a string" do
+      season_id = 20122013
+      expect(@stat_tracker.winningest_coach(season_id)).to eq("claude Julien")
     end
   end
 
-  describe '#lowest_scoring_home_team' do
-    it "returns a string of the team name with the lowest average score per game across all season when playing home" do
-      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
-    end
-  end
 
 
 
@@ -130,6 +129,8 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.fewest_tackles("20122013")).to eq("LA Galaxy")
     end
   end
+
+=======
 
 end
 
