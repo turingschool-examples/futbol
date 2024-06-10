@@ -6,7 +6,7 @@ RSpec.describe GameTeam do
     @game_team_hash = {
         game_id: '2012030221',
         team_id: '6',
-        HoA: 'home',
+        hoa: 'home',
         result: 'WIN',
         settled_in: 'OT',
         head_coach: 'Claude Julien',
@@ -14,9 +14,9 @@ RSpec.describe GameTeam do
         shots: '12',
         tackles: '51',
         pim: '6',
-        powerPlayOpportunities: '4',
-        powerPlayGoals: '1',
-        faceOffWinPercentage: '55.2',
+        powerplayopportunities: '4',
+        powerplaygoals: '1',
+        faceoffwinpercentage: '55.2',
         giveaways: '4',
         takeaways: '5'
     }

@@ -5,10 +5,10 @@ RSpec.describe Team do
     before :all do
         @team_hash = {
             team_id: '29',
-            franchiseId: '36',
-            teamName: 'Orlando Pride',
+            franchiseid: '36',
+            teamname: 'Orlando Pride',
             abbreviation: 'FLP',
-            Stadium: 'Exploria Stadium',
+            stadium: 'Exploria Stadium',
             link: '/api/v1/teams/29'
         }
         @team = Team.new(@team_hash)
