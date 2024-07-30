@@ -24,6 +24,5 @@ class Game
        @venue = game_data[:venue]
        @venue_link = game_data[:venue_link]    
     end
-# require 'pry'; binding.pry
 
 end
