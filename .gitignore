@@ -1,0 +1,55 @@
+# Ignore bundler config
+/.bundle
+
+# Ignore the SimpleCov coverage directory
+/coverage
+
+# Ignore logs and temp files
+/log/*
+!/log/.keep
+/tmp
+/pids
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# Ignore SQLite database files
+*.sqlite3
+*.sqlite3-journal
+
+# Ignore Node modules (if you're using Node.js with your Ruby project)
+/node_modules
+
+# Ignore Yarn lock file (if you're using Yarn)
+/yarn.lock
+
+# Ignore the .env file containing environment variables
+.env
+
+# Ignore OSX and Linux file system files
+.DS_Store
+*.swp
+
+# Ignore RSpec example metadata
+.rspec_example
+.rspec_status
+
+# Ignore Ruby version management files
+.ruby-version
+.ruby-gemset
+
+# Ignore coverage results from Code Climate
+/.resultset.json
+
+# Ignore coverage results from SimpleCov
+/coverage/
+
+# Ignore installed dependencies in vendor/bundle
+/vendor/bundle
+
+# Ignore the Gemfile.lock file if you're not committing it
+# Gemfile.lock
+
+# Ignore project-specific artifacts
+/.idea
+/.vscode
