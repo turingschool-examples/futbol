@@ -1,5 +1,6 @@
 require './lib/stat_tracker'
 
+
 game_path = './data/games_dummy.csv'
 team_path = './data/teams_dummy.csv'
 game_teams_path = './data/game_teams_dummy.csv'

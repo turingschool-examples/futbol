@@ -1,4 +1,5 @@
 require 'csv'
+require './lib/game'
 
 class StatTracker
 
@@ -11,8 +12,10 @@ class StatTracker
     def self.game_reader(csv_data)
         games = Hash.new(0)
         CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
-            games[row[:game_id]] = Game.new(row)
+            games[row[:game_id].to_i] = Game.new(row) 
         end
+        require'pry';binding.pry
+        games
     end
     
     def self.teams_reader
