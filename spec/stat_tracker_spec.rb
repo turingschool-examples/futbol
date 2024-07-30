@@ -33,16 +33,20 @@ RSpec.describe StatTracker do
 
     describe 'Class#game_factory' do
         it 'creates a game object from a row' do
+            
+            expect(stat_tracker.games).to include Game
         end
     end
 
     describe 'Class#team_factory' do
         it 'creates a team object from a row' do
+            expect(stat_tracker.team).to include Team
         end
     end
 
     describe 'Class#game_teams_factory' do
         it 'creates a game_teams object from a row' do
+            expect(stat_tracker.game_teams).to include GameTeam
         end
     end
 end

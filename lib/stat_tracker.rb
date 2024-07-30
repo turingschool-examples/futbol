@@ -1,4 +1,7 @@
 require_relative './CSV'
+require_relative './game'
+require_relative './team'
+require_relative './game_team'
 
 class StatTracker
     attr_reader :games, :teams, :game_teams
@@ -48,7 +51,7 @@ class StatTracker
         teams
     end
         
-    def self.game_teams_factory(info)
+    def self.game_team_factory(info)
         game_teams = []
         CSV.foreach(info[:game_teams], headers: true, header_converters: :symbol) do |row|
             class_info = {:game_id => row[:game_id],
@@ -66,7 +69,7 @@ class StatTracker
             :face_off_win_percentage => row[:faceOffWinPercentage],
             :giveaways => row[:giveaways],
             :takeaways => row[:takeaways]}
-            game_teams << GameTeams.new(class_info)
+            game_teams << GameTeam.new(class_info)
         end
         game_teams
     end
