@@ -22,15 +22,15 @@ class GameTeam
         @result = game_teams_data[:result]
         @settled_in = game_teams_data[:settled_in]
         @head_coach = game_teams_data[:head_coach]
-        @goals = game_teams_data[:goals]
-        @shots = game_teams_data[:shots]
-        @tackles = game_teams_data[:tackles]
-        @pim = game_teams_data[:pim]
-        @power_play_opportunities = game_teams_data[:powerplayopportunities]
-        @power_play_goals = game_teams_data[:powerplaygoals]
-        @face_off_win_percentage = game_teams_data[:faceoffwinpercentage]
-        @giveaways = game_teams_data[:giveaways]
-        @takeaways = game_teams_data[:takeaways]          
+        @goals = game_teams_data[:goals].to_i
+        @shots = game_teams_data[:shots].to_i
+        @tackles = game_teams_data[:tackles].to_i
+        @pim = game_teams_data[:pim].to_i
+        @power_play_opportunities = game_teams_data[:power_play_opportunities].to_i
+        @power_play_goals = game_teams_data[:power_play_goals].to_i
+        @face_off_win_percentage = game_teams_data[:face_off_win_percentage].to_f
+        @giveaways = game_teams_data[:giveaways].to_i
+        @takeaways = game_teams_data[:takeaways].to_i          
 
   end
 
