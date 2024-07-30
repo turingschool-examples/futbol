@@ -9,6 +9,7 @@ RSpec.describe StatTracker do
         stat_tracker = StatTracker.new
         expect(stat_tracker).to be_a StatTracker
     end
+
     before(:each) do
         game_path = './data/games.csv'
         team_path = './data/teams.csv'
@@ -58,6 +59,17 @@ RSpec.describe StatTracker do
             team_tracker = StatTracker.team_factory(@locations)
 
             expect(team_tracker).to include Team
+        end
+
+        it 'creates a team object with all variables filled' do
+            team_tracker = StatTracker.team_factory(@locations)
+
+            expect(team_tracker[0].team_id).to eq "1"
+            expect(team_tracker[0].franchise_id).to eq "23"
+            expect(team_tracker[0].team_name).to eq "Atlanta United"
+            expect(team_tracker[0].abbreviation).to eq "ATL"
+            expect(team_tracker[0].stadium).to eq "Mercedes-Benz Stadium"
+            expect(team_tracker[0].link).to eq "/api/v1/teams/1"
         end
     end
 
