@@ -11,50 +11,63 @@ class StatTracker
 
     def self.from_csv(info)
         data_collect = StatTracker.new
-        # Read first location
-        # for each row create game object and store in array
+        data_collect.games = StatTracker.game_factory(info)
+        data_collect.teams = StatTracker.team_factory(info)
+        data_collect.game_teams = StatTracker.game_team_factory(info)
+    end
 
+    def self.game_factory(info)
+        games = []
         CSV.foreach(info[:games], headers: true, header_converters: :symbol) do |row|
-            game_id = row[:game_id]
-            season = row[:season]
-            type = row[:type]
-            date_time = row[:date_time]
-            away_team_id = row[:away_team_id]
-            home_team_id = row[:home_team_id]
-            away_goals = row[:away_goals]
-            home_goals = row[:home_goals]
-            venue = row[:venue]
-            venue_link = row[:venue_link]
+            class_info = {:game_id => row[:game_id],
+            :season => row[:season],
+            :type => row[:type],
+            :date_time => row[:date_time],
+            :away_team_id => row[:away_team_id],
+            :home_team_id => row[:home_team_id],
+            :away_goals => row[:away_goals],
+            :home_goals => row[:home_goals],
+            :venue => row[:venue],
+            :venue_link => row[:venue_link]}
+            games << Game.new(class_info)
         end
-        # Read second location
-        # for each row create team object and store in array
+        games
+    end
+       
+    def self.team_factory(info)
+        teams = []
         CSV.foreach(info[:teams], headers: true, header_converters: :symbol) do |row|
-            team_id = row[:team_id]
-            franchise_id = row[:franchiseId]
-            team_name = row[:teamName]
-            abbreviation = row[:abbreviation]
-            stadium = row[:Stadium]
-            link = row[:link]
+            class_info = {:team_id => row[:team_id],
+            :franchise_id => row[:franchiseId],
+            :team_name => row[:teamName],
+            :abbreviation => row[:abbreviation],
+            :stadium => row[:Stadium],
+            :link => row[:link]}
+            teams << Team.new(class_info)
         end
-        # Read last location
-        # for each row create game_teams object and store in array
+        teams
+    end
+        
+    def self.game_teams_factory(info)
+        game_teams = []
         CSV.foreach(info[:game_teams], headers: true, header_converters: :symbol) do |row|
-            game_id = row[:game_id]
-            team_id = row[:team_id]
-            home_or_away = row[:HoA]
-            result = row[:result]
-            settled_in = row[:settled_in]
-            head_coach = row[:head_coach]
-            goals = row[:goals]
-            shots = row[:shots]
-            tackles = row[:tackles]
-            penalty_minutes = row[:pim]
-            power_play_ops = row[:powerPlayOpportunities]
-            power_play_goals = row[:powerPlayGoals]
-            faceoff_win_percent = row[:faceOffWinPercentage]
-            giveaways = row[:giveaways]
-            takeaways = row[:takeaways]
+            class_info = {:game_id => row[:game_id],
+            :team_id => row[:team_id],
+            :hoa => row[:HoA],
+            :result => row[:result],
+            :settled_in => row[:settled_in],
+            :head_coach => row[:head_coach],
+            :goals => row[:goals],
+            :shots => row[:shots],
+            :tackles => row[:tackles],
+            :pim => row[:pim],
+            :power_play_opportunities => row[:powerPlayOpportunities],
+            :power_play_goals => row[:powerPlayGoals],
+            :face_off_win_percentage => row[:faceOffWinPercentage],
+            :giveaways => row[:giveaways],
+            :takeaways => row[:takeaways]}
+            game_teams << GameTeams.new(class_info)
         end
-        data_collect
+        game_teams
     end
 end
