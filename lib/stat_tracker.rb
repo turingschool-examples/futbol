@@ -1,13 +1,14 @@
 require 'csv'
 require './lib/game'
 require './lib/team'
+require './lib/season'
 
 class StatTracker
 
     def self.from_csv(season_data)
         game_reader(season_data[:games])
         teams_reader(season_data[:teams])
-        games_and_teams_reader(season_data[:game_teams])
+        game_teams_reader(season_data[:game_teams])
     end
 
     def self.game_reader(csv_data)
@@ -23,11 +24,16 @@ class StatTracker
         CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
             teams[row[:team_id].to_i] = Team.new(row)
         end
-        require'pry';binding.pry
         teams
     end
     
-    def self.game_teams_reader
+    def self.game_teams_reader(csv_data)
+        seasons = Hash.new(0)
+        CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
+            seasons[row[:game_id].to_i] = Season.new(row)
+        end
+        require'pry';binding.pry
+        seasons
 
     end
 end
