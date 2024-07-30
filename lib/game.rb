@@ -26,3 +26,17 @@ class Game
     end
 
 end
+# replace row lines w data set
+class_info = {:game_id => row[:game_id],
+:season => row[:season],
+:type => row[:type],
+:date_time => row[:date_time],
+:away_team_id => row[:away_team_id],
+:home_team_id => row[:home_team_id],
+:away_goals => row[:away_goals],
+:home_goals => row[:home_goals],
+:venue => row[:venue],
+:venue_link => row[:venue_link]}
+games << Game.new(class_info)
+
+# test whether it takes in the string and seee if it converts to int

@@ -20,4 +20,8 @@ RSpec.describe Game do
     it 'exists' do
         
     end
+# create variables of the games stuff below
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+
 end
