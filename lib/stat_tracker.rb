@@ -1,4 +1,4 @@
-require_relative './CSV'
+require 'CSV'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
@@ -14,9 +14,10 @@ class StatTracker
 
     def self.from_csv(info)
         data_collect = StatTracker.new
-        data_collect.games = StatTracker.game_factory(info)
-        data_collect.teams = StatTracker.team_factory(info)
-        data_collect.game_teams = StatTracker.game_team_factory(info)
+        data_collect.games.replace(StatTracker.game_factory(info))
+        data_collect.teams.replace(StatTracker.team_factory(info))
+        data_collect.game_teams.replace(StatTracker.game_team_factory(info))
+        data_collect
     end
 
     def self.game_factory(info)
