@@ -79,5 +79,24 @@ RSpec.describe StatTracker do
 
             expect(game_teams_tracker).to include GameTeam
         end
+
+        it 'creates a game_teams object with all variables filled' do
+            game_teams_tracker = StatTracker.game_team_factory(@locations)
+            expect(game_teams_tracker[0].game_id).to eq "2012030221"
+            expect(game_teams_tracker[0].team_id).to eq "3"
+            expect(game_teams_tracker[0].hoa).to eq "away"
+            expect(game_teams_tracker[0].result).to eq "LOSS"
+            expect(game_teams_tracker[0].settled_in).to eq "OT"
+            expect(game_teams_tracker[0].head_coach).to eq "John Tortorella"
+            expect(game_teams_tracker[0].goals).to eq 2
+            expect(game_teams_tracker[0].shots).to eq 8
+            expect(game_teams_tracker[0].tackles).to eq 44
+            expect(game_teams_tracker[0].pim).to eq 8
+            expect(game_teams_tracker[0].power_play_opportunities).to eq 3
+            expect(game_teams_tracker[0].power_play_goals).to eq 0
+            expect(game_teams_tracker[0].face_off_win_percentage).to eq 44.8
+            expect(game_teams_tracker[0].giveaways).to eq 17
+            expect(game_teams_tracker[0].takeaways).to eq 7
+        end
     end
 end
