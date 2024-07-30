@@ -42,10 +42,10 @@ class StatTracker
         teams = []
         CSV.foreach(info[:teams], headers: true, header_converters: :symbol) do |row|
             class_info = {:team_id => row[:team_id],
-            :franchise_id => row[:franchiseId],
-            :team_name => row[:teamName],
+            :franchise_id => row[:franchiseid],
+            :team_name => row[:teamname],
             :abbreviation => row[:abbreviation],
-            :stadium => row[:Stadium],
+            :stadium => row[:stadium],
             :link => row[:link]}
             teams << Team.new(class_info)
         end
@@ -57,7 +57,7 @@ class StatTracker
         CSV.foreach(info[:game_teams], headers: true, header_converters: :symbol) do |row|
             class_info = {:game_id => row[:game_id],
             :team_id => row[:team_id],
-            :hoa => row[:HoA],
+            :hoa => row[:hoa],
             :result => row[:result],
             :settled_in => row[:settled_in],
             :head_coach => row[:head_coach],
@@ -65,9 +65,9 @@ class StatTracker
             :shots => row[:shots],
             :tackles => row[:tackles],
             :pim => row[:pim],
-            :power_play_opportunities => row[:powerPlayOpportunities],
-            :power_play_goals => row[:powerPlayGoals],
-            :face_off_win_percentage => row[:faceOffWinPercentage],
+            :power_play_opportunities => row[:powerplayopportunities],
+            :power_play_goals => row[:powerplaygoals],
+            :face_off_win_percentage => row[:faceoffwinpercentage],
             :giveaways => row[:giveaways],
             :takeaways => row[:takeaways]}
             game_teams << GameTeam.new(class_info)

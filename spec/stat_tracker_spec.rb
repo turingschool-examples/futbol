@@ -36,6 +36,21 @@ RSpec.describe StatTracker do
 
             expect(game_tracker).to include Game
         end
+
+        it 'creates a game object with all attributes' do
+            game_tracker = StatTracker.game_factory(@locations)
+            
+            expect(game_tracker[0].game_id).to eq "2012030221"
+            expect(game_tracker[0].season).to eq "20122013"
+            expect(game_tracker[0].type).to eq "Postseason"
+            expect(game_tracker[0].date_time).to eq "5/16/13"
+            expect(game_tracker[0].away_team_id).to eq "3"
+            expect(game_tracker[0].home_team_id).to eq "6"
+            expect(game_tracker[0].away_goals).to eq 2
+            expect(game_tracker[0].home_goals).to eq 3
+            expect(game_tracker[0].venue).to eq "Toyota Stadium"
+            expect(game_tracker[0].venue_link).to eq "/api/v1/venues/null"
+        end
     end
 
     describe 'Class#team_factory' do
