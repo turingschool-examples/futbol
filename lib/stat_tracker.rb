@@ -6,9 +6,10 @@ require './lib/season'
 class StatTracker
 
     def self.from_csv(season_data)
-        game_reader(season_data[:games])
-        teams_reader(season_data[:teams])
-        game_teams_reader(season_data[:game_teams])
+        games = game_reader(season_data[:games])
+        teams =  teams_reader(season_data[:teams])
+        seasons = game_teams_reader(season_data[:game_teams])
+        game_stats = GameStatistics.new(games),
     end
 
     def self.game_reader(csv_data)
@@ -34,6 +35,5 @@ class StatTracker
         end
         require'pry';binding.pry
         seasons
-
     end
 end
