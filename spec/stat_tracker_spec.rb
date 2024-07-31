@@ -12,6 +12,21 @@ RSpec.describe StatTracker do
             teams: team_path,
             game_teams: game_teams_path
             }
+
+        @stat_tracker = StatTracker.from_csv(@locations)
+    end
+
+    describe "initialize" do
+        it 'exists' do
+            expect(@stat_tracker).to be_an_instance_of StatTracker
+        end
+    
+    end
+
+    describe 'highest_total_score' do
+        it 'returns highest sum of the winning and losing teams scores' do
+            expect(@stat_tracker.highest_total_score).to eq(5)
+        end
     end
 
     describe "game_reader" do

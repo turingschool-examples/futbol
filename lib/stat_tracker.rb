@@ -2,16 +2,29 @@ require 'csv'
 require './lib/game'
 require './lib/team'
 require './lib/season'
-require './lib/game_statistics'
+
 
 class StatTracker
-
+    
     def self.from_csv(season_data)
         games = game_reader(season_data[:games])
         teams =  teams_reader(season_data[:teams])
         seasons = game_teams_reader(season_data[:game_teams])
 
-        game_stats = GameStatistics.new(games)
+        new(games, teams, seasons)
+    end
+
+    def initialize(games, teams, seasons)
+        @game_stats_data = games
+        @teams_stats_data = teams
+        @seasons_stats_data = seasons
+    end
+
+    def highest_total_score
+        highest_scoring_game = @game_stats_data.max_by do |game_id, game_object|
+            game_object.total_goals
+        end
+        highest_scoring_game[1].total_goals
     end
 
     def self.game_reader(csv_data)
