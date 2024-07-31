@@ -14,7 +14,7 @@ RSpec.describe Teams do
             expect(@teams).to be_an_instance_of(Teams)
         end
 
-        it 'has a team_id, franchize_id, team_name, and abbreviation' do
+        it 'has a team_id, franchise_id, team_name, and abbreviation' do
             expect(@teams.team_id).to eq(1)
             expect(@teams.franchise_id).to eq(23)
             expect(@teams.team_name).to eq("Atlanta United")
