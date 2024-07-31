@@ -22,7 +22,6 @@ RSpec.describe LeagueStatistics do
         game_teams: game_teams_path
         }
 
-        @stat_tracker = StatTracker.from_csv(@locations)
     end
 
     it 'can access StatTracker objects' do
