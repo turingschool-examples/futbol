@@ -9,7 +9,10 @@ class StatTracker
         games = game_reader(season_data[:games])
         teams =  teams_reader(season_data[:teams])
         seasons = game_teams_reader(season_data[:game_teams])
+        
         game_stats = GameStatistics.new(games),
+        #league_stats = LeagueStatistics.new(teams)
+        #seasons_stats = S
     end
 
     def self.game_reader(csv_data)
