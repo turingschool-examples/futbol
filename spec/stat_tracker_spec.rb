@@ -14,7 +14,7 @@ RSpec.describe StatTracker do
         game_path = './data/dummy_games.csv'
         team_path = './data/dummy_teams.csv'
         game_teams_path = './data/dummy_game_teams.csv'
-
+# remember to remove dummy after module set up and stat tracker tests passing
         @locations = {
         games: game_path,
         teams: team_path,
@@ -97,6 +97,29 @@ RSpec.describe StatTracker do
             expect(game_teams_tracker[0].face_off_win_percentage).to eq 44.8
             expect(game_teams_tracker[0].giveaways).to eq 17
             expect(game_teams_tracker[0].takeaways).to eq 7
+        end
+    end
+    describe 'Module#LeagueStatistics' do
+        describe '#count_of_teams' do
+
+        end
+        describe '#best_offense' do
+
+        end
+        describe '#worst_offense' do
+
+        end
+        describe '#highest_scoring_visitor' do
+
+        end
+        describe '#highest_scoring_home_team' do
+
+        end
+        describe '#lowest_scoring_visitor' do
+
+        end
+        describe '#lowest_scoring_home_team' do
+
         end
     end
 end

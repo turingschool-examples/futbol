@@ -1,3 +1,3 @@
-class LeagueStatistics
+module LeagueStatistics
     
 end
