@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     end
 
     before(:each) do
-        game_path = './data/dummy_games.csv'
-        team_path = './data/dummy_teams.csv'
-        game_teams_path = './data/dummy_game_teams.csv'
+        game_path = './data/games.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -101,8 +101,18 @@ RSpec.describe StatTracker do
     end
 
     describe 'Module#SeasonStatistics' do
+        before(:each) do
+            @stat_tracker = StatTracker.from_csv(@locations)
+        end
+
+        describe 'helper#games_per_seasons' do
+            it 'will return an array of strings' do
+                expect(@stat_tracker.games_per_season('20122013')).to be_an Array
+            end
+        end
 
         describe '#winningest_coach' do
+            it ''
         end
 
         describe '#worst_coach' do
