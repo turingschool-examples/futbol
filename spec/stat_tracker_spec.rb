@@ -103,7 +103,12 @@ RSpec.describe StatTracker do
     describe 'Module#GameStatistics' do
 
         describe '#highest_total_score' do
+            it 'returns the highest total score' do
+                @stat_tracker = StatTracker.from_csv(@locations)
 
+                @stat_tracker.highest_total_score
+                expect(@stat_tracker.highest_total_score).to eq
+            end
         end
 
         describe '#lowest_total_score' do

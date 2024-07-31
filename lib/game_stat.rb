@@ -2,7 +2,7 @@ module GameStat
 
     def highest_total_score
         @games.map do |game|
-            row[:away_goals] + row[:home_goals]
+            game[:away_goals] + game[:home_goals]
         end.max
     end
     
