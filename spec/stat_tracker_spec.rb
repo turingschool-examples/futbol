@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     end
 
     before(:each) do
-        game_path = './data/dummy_games.csv'
-        team_path = './data/dummy_teams.csv'
-        game_teams_path = './data/dummy_game_teams.csv'
+        game_path = './data/games.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -108,6 +108,13 @@ RSpec.describe StatTracker do
         describe 'helper#games_per_seasons' do
             it 'will return an array of strings' do
                 expect(@stat_tracker.games_per_season('20122013')).to be_an Array
+            end
+
+            it 'will have game id strings' do
+                expected = @stat_tracker.games_per_season('20122013')
+                
+                expect(expected[0]).to eq '2012030221'
+                expect(expected.last).to eq '2012020570'
             end
         end
 
