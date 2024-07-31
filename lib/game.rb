@@ -20,4 +20,8 @@ class Game
         @home_goals = data[:home_goals].to_i
         @venue = data[:venue]
     end
+
+    def total_goals
+        @away_goals + @home_goals
+    end
 end
