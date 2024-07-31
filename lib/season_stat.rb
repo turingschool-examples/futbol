@@ -14,8 +14,7 @@ module SeasonStatistics
         game_teams.each do |object|
             if game_ids.include?(object.game_id)
                 update_coaches(object, coaches)
-                # update game w/l/t for coach
-                ### (if coach exists just add w/l/t, else add coach then w/l/t)
+                update_games(object, coaches)
             end
         end
         coaches
@@ -39,13 +38,23 @@ module SeasonStatistics
         coaches
     end
 
+    def winningest_coach
+        # .max
+    end
 
+    def worst_coach
+        # .min
+    end
 
-# method to get all unique names of coaches for matching game ids
+    def percentage_of_wins(coach)
+        # coaches = coach...
+        
+        wins = coaches[coach][0]
+        losses = coaches[coach][1]
+        ties = coaches[coach][2]
 
-
-
-
-### method to count wins losses and ties and create percentage
-
+        total_games = wins + losses + ties
+             
+        win_percentage = (wins.to_f / total_games) * 100
+    end
 end
