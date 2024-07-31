@@ -28,7 +28,18 @@ module SeasonStatistics
         coaches
     end
 
-    
+    def update_games(game_teams_object, coaches)
+        if game_teams_object.result == 'WIN'
+            coaches[game_teams_object.head_coach][0] += 1 
+        elsif game_teams_object.result == 'LOSS'
+            coaches[game_teams_object.head_coach][1] += 1
+        else 
+            coaches[game_teams_object.head_coach][2] += 1
+        end
+        coaches
+    end
+
+
 
 # method to get all unique names of coaches for matching game ids
 
