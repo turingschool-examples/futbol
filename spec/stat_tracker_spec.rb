@@ -118,6 +118,14 @@ RSpec.describe StatTracker do
             end
         end
 
+        describe 'helper#coaches wins losses ties' do
+            it 'will return a hash' do
+                games_per_season = @stat_tracker.games_per_season('20122013')
+
+                expect(@stat_tracker.coaches_wins_losses_ties(games_per_season)).to be_a Hash
+            end
+        end
+
         describe '#winningest_coach' do
             it ''
         end

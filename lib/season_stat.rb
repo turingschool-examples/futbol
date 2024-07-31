@@ -1,5 +1,4 @@
 module SeasonStatistics
-# main runner method
     def games_per_season(season)
         game_ids = []
         games.find_all do |game| 
@@ -8,11 +7,11 @@ module SeasonStatistics
             end
         end
         game_ids
-
     end
 
-# parameter of what season to look at 
-# games.csv method to get all the game ids per season
+    def coaches_wins_losses_ties(game_ids)
+
+    end
 # game teams - that data comes in as parameter
 
 # now we have an array of all the game ids per season 
