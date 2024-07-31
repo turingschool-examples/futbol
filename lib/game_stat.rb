@@ -2,12 +2,14 @@ module GameStat
 
     def highest_total_score
         @games.map do |game|
-            game[:away_goals] + game[:home_goals]
+            game.away_goals + game.home_goals
         end.max
     end
     
     def lowest_total_score
-
+        @games.map do |game|
+            game.away_goals + game.home_goals
+        end.min
     end
     
     def percentage_home_wins
