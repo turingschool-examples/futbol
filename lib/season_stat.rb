@@ -13,7 +13,8 @@ module SeasonStatistics
         coaches = {}
         game_teams.each do |object|
             if game_ids.include?(object.game_id)
-                # coaches = update_coaches(object, coaches)
+                update_coaches(object, coaches)
+                # update game w/l/t for coach
                 ### (if coach exists just add w/l/t, else add coach then w/l/t)
             end
         end
@@ -21,11 +22,9 @@ module SeasonStatistics
     end
 
     def update_coaches(game_teams_object, coaches)
-        # require 'pry'; binding.pry
         if coaches[game_teams_object.head_coach].nil?
             coaches[game_teams_object.head_coach] = [0, 0, 0]
         end
-
         coaches
     end
 
