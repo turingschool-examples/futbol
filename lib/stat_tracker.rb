@@ -9,10 +9,8 @@ class StatTracker
         games = game_reader(season_data[:games])
         teams =  teams_reader(season_data[:teams])
         seasons = game_teams_reader(season_data[:game_teams])
-        
-        game_stats = GameStatistics.new(games),
-        #league_stats = LeagueStatistics.new(teams)
-        #seasons_stats = S
+
+        game_stats = GameStatistics.new(games)
     end
 
     def self.game_reader(csv_data)
@@ -33,10 +31,12 @@ class StatTracker
     
     def self.game_teams_reader(csv_data)
         seasons = Hash.new(0)
+        count = 1 
         CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
-            seasons[row[:game_id].to_i] = Season.new(row)
+            seasons[count] = Season.new(row)
+            count +=1 
         end
-        require'pry';binding.pry
         seasons
     end
+
 end

@@ -32,6 +32,5 @@ class Season
         @face_off_win_percentage = data[:faceoffwinpercentage].to_i
         @giveaways = data[:giveaways].to_i
         @takeaways = data[:takeaways].to_i
-
     end
 end
