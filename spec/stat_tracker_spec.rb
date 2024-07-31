@@ -143,9 +143,10 @@ RSpec.describe StatTracker do
                     :takeaways => "7"}
 
                 game_teams_data = GameTeam.new(class_info)
+                coaches = {}
 
-                expect(@stat_tracker.update_coaches(game_teams_data)).to eq({
-                    "John Tortorella" => [0, 1, 0]
+                expect(@stat_tracker.update_coaches(game_teams_data, coaches)).to eq({
+                    "John Tortorella" => [0, 0, 0]
                 })
             end
         end
