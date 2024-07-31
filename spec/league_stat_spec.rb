@@ -4,9 +4,9 @@ RSpec.configure do |config|
  config.formatter = :documentation 
 end
 
-Rspec.describe LeagueStatistics do
+RSpec.describe LeagueStatistics do
     it 'exists' do
-        
+        league_statistics = LeagueStatistics.new
 
         expect(LeagueStatistics.new).to be_a LeagueStatistics
     end
@@ -27,6 +27,7 @@ Rspec.describe LeagueStatistics do
 
     it 'can access StatTracker objects' do
         league_statistics = LeagueStatistics.new
-        end
+        
+    
     end
 end
