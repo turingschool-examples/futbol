@@ -10,20 +10,23 @@ module SeasonStatistics
     end
 
     def coaches_wins_losses_ties(game_ids)
-
+        coaches = {}
+        game_teams.each do |object|
+            if game_ids.include?(object.game_id)
+                # coach method
+            end
+        end
+        coaches
     end
-# game teams - that data comes in as parameter
 
-# now we have an array of all the game ids per season 
 
-# for each game_id - 
+
 # method to get all unique names of coaches for matching game ids
-# method to get all the game id
-# 
-# look at coach - if it doesn't exist add coach to hash {coach = key, win/loss/ties = value}
-# - if it does exists add the win/loss/tie
-# method to count the number of games in the season
+# for each game_id - if game_teams.game_id == game_ids && game.hoa == away 
+### run check_for_coach method 
+### (if coach exists just add w/l/t, else add coach then w/l/t)
 
-# method to count wins losses and ties and create percentage
-# 
+
+### method to count wins losses and ties and create percentage
+
 end

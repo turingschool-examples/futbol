@@ -127,7 +127,7 @@ RSpec.describe StatTracker do
         end
 
         describe '#winningest_coach' do
-            it ''
+    
         end
 
         describe '#worst_coach' do
