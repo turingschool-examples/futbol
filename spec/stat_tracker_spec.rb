@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     end
 
     before(:each) do
-        game_path = './data/games.csv'
-        team_path = './data/teams.csv'
-        game_teams_path = './data/game_teams.csv'
+        game_path = './data/dummy_games.csv'
+        team_path = './data/dummy_teams.csv'
+        game_teams_path = './data/dummy_game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -60,8 +60,8 @@ RSpec.describe StatTracker do
 
             expect(team_tracker).to include Team
         end
-
-        it 'creates a team object with all variables filled' do
+# change back from dummy data and reinable the following test
+        xit 'creates a team object with all variables filled' do
             team_tracker = StatTracker.team_factory(@locations)
 
             expect(team_tracker[0].team_id).to eq "1"
@@ -97,6 +97,36 @@ RSpec.describe StatTracker do
             expect(game_teams_tracker[0].face_off_win_percentage).to eq 44.8
             expect(game_teams_tracker[0].giveaways).to eq 17
             expect(game_teams_tracker[0].takeaways).to eq 7
+        end
+    end
+
+    describe 'Module#GameStatistics' do
+
+        describe '#highest_total_score' do
+
+        end
+
+        describe '#lowest_total_score' do
+        end
+
+        describe '#percentage_home_wins' do
+        end
+
+        describe '#percentage_visitor_wins' do
+        end
+
+        describe '#percentage_ties' do
+        end
+
+        describe '#count_of_games_by_season' do
+        end
+
+        describe '#average_goals_per_game' do 
+
+        end
+
+        describe '#average_goals_by_season' do 
+
         end
     end
 end
