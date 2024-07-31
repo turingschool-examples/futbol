@@ -149,6 +149,34 @@ RSpec.describe StatTracker do
                     "John Tortorella" => [0, 0, 0]
                 })
             end
+
+            it 'will update games for each coach' do
+                it 'will add a coach to a hash' do
+                    class_info = {:game_id => "2012030221",
+                        :team_id => "3",
+                        :hoa => "away",
+                        :result => "LOSS",
+                        :settled_in => "OT",
+                        :head_coach => "John Tortorella",
+                        :goals => "2",
+                        :shots => "8",
+                        :tackles => "44",
+                        :pim => "8",
+                        :power_play_opportunities => "3",
+                        :power_play_goals => "0",
+                        :face_off_win_percentage => "44.8",
+                        :giveaways => "17",
+                        :takeaways => "7"}
+    
+                    game_teams_data = GameTeam.new(class_info)
+                    coaches = {}
+                    @stat_tracker.update_coaches(game_teams_data, coaches)
+
+                    expect(@stat_tracker.update_games(game_teams_data, coaches)).to eq({
+                        "John Tortorella" => [0, 1, 0]
+                    })
+                end
+            end
         end
 
         describe '#winningest_coach' do
