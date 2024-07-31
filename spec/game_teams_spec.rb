@@ -1,6 +1,4 @@
-require 'csv'
-require './lib/stat_tracker'
-require './lib/game_teams.rb'
+require 'spec_helper'
 
 RSpec.describe GameTeams do
     before(:each) do
