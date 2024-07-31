@@ -4,15 +4,15 @@ class Season
                 :team_id, 
                 :hoa, 
                 :result,
-                :settle_in,
+                :settled_in,
                 :head_coach,
                 :goals,
                 :shots,
                 :tackles,
                 :pim,
-                :powerplayopportunities,
-                :powerplaygoals,
-                :faceoffwinpercentage,
+                :power_play_opportunities,
+                :power_play_goals,
+                :face_off_win_percentage,
                 :giveaways,
                 :takeaways
 
@@ -21,15 +21,15 @@ class Season
         @team_id = data[:team_id].to_i
         @hoa = data[:hoa]
         @result = data[:result]
-        @settle_in = data[:settle_in]
+        @settled_in = data[:settled_in]
         @head_coach = data[:head_coach]
         @goals = data[:goals].to_i
         @shots = data[:shots].to_i
         @tackles = data[:tackles].to_i
         @pim = data[:pim].to_i
-        @powerplayopportunities = data[:powerplayopportunities].to_i
-        @powerplaygoals = data[:powerplaygoals].to_i
-        @faceoffwinpercentage = data[:faceoffwinpercentage].to_i
+        @power_play_opportunities = data[:powerplayopportunities].to_i
+        @power_play_goals = data[:powerplaygoals].to_i
+        @face_off_win_percentage = data[:faceoffwinpercentage].to_i
         @giveaways = data[:giveaways].to_i
         @takeaways = data[:takeaways].to_i
 

@@ -6,9 +6,9 @@ RSpec.describe Game do
             @game_1= Game.new(row) 
             break
         end
-      end
+    end
 
-      describe 'Initialize' do
+    describe 'Initialize' do
         it 'exists' do
             expect(@game_1).to be_an_instance_of(Game)
         end
