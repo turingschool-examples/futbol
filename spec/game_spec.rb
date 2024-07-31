@@ -49,5 +49,12 @@ RSpec.describe Game do
             expect(@game_1.venue).to eq('Toyota Stadium')
         end
     end
+
+    describe 'total_goals' do
+        it 'returns sum of away_goals and home_goals' do
+            expected = @game_1.away_goals + @game_1.home_goals
+            expect(@game_1.total_goals).to eq(expected)
+        end
+    end
     
 end
