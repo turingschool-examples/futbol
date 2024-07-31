@@ -99,4 +99,27 @@ RSpec.describe StatTracker do
             expect(game_teams_tracker[0].takeaways).to eq 7
         end
     end
+
+    describe 'Module#SeasonStatistics' do
+
+        describe '#winningest_coach' do
+        end
+
+        describe '#worst_coach' do
+        end
+
+        describe '#most_accurate_team' do
+        end
+
+        describe '#least_accurate_team' do
+        end
+
+        describe '#most_tackles' do
+        end
+
+        describe '#fewest_tackles' do
+        end
+    end
+
+
 end

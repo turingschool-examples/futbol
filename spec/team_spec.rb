@@ -8,7 +8,7 @@ RSpec.describe Team do
     before(:each) do
         team_path = './data/teams.csv'
 
-        teams_data = {
+        @teams_data = {
             :team_id => "1",
             :franchise_id => "23",
             :team_name => "Atlanta United",

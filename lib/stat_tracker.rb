@@ -2,8 +2,11 @@ require 'CSV'
 require_relative './game'
 require_relative './team'
 require_relative './game_team'
+require_relative './season_stat'
 
 class StatTracker
+    include SeasonStatistics
+
     attr_reader :games, :teams, :game_teams
 
     def initialize
