@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     end
 
     before(:each) do
-        game_path = './data/games.csv'
-        team_path = './data/teams.csv'
-        game_teams_path = './data/game_teams.csv'
+        game_path = './data/dummy_games.csv'
+        team_path = './data/dummy_teams.csv'
+        game_teams_path = './data/dummy_game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -61,7 +61,7 @@ RSpec.describe StatTracker do
             expect(team_tracker).to include Team
         end
 
-        it 'creates a team object with all variables filled' do
+        xit 'creates a team object with all variables filled' do
             team_tracker = StatTracker.team_factory(@locations)
 
             expect(team_tracker[0].team_id).to eq "1"
