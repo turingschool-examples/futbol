@@ -20,20 +20,6 @@ class StatTracker
         @seasons_stats_data = seasons
     end
 
-    def highest_total_score
-        highest_scoring_game = @game_stats_data.max_by do |game_id, game_object|
-            game_object.total_goals
-        end
-        highest_scoring_game[1].total_goals
-    end
-
-    def percentage_home_wins
-        win_count = @game_stats_data.count do |game_id, game|
-            game.home_goals > game.away_goals 
-        end
-        ((win_count.to_f / @game_stats_data.length) * 100).truncate(2)
-    end
-
     def self.game_reader(csv_data)
         games = Hash.new(0)
         CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
@@ -60,4 +46,76 @@ class StatTracker
         seasons
     end
 
+    def highest_total_score
+        highest_scoring_game = @game_stats_data.max_by do |game_id, game_object|
+            game_object.total_goals
+        end
+        highest_scoring_game[1].total_goals
+    end
+
+    def percentage_home_wins
+        win_count = @game_stats_data.count do |game_id, game|
+            game.home_goals > game.away_goals 
+        end
+        ((win_count.to_f / @game_stats_data.length) * 100).truncate(2)
+    end
+
+    def percentage_ties
+        tie_count = @game_stats_data.count do |game_id, game|
+            game.home_goals == game.away_goals 
+        end
+        ((tie_count.to_f/ @game_stats_data.length).truncate(2))
+    end
+
+    # def count_of_teams
+
+    # end
+   
+    # def best_offense
+
+    # end
+    
+    # def worst_offense
+
+    # end
+    
+    # def highest_scoring_visitor
+        
+    # end
+    
+    # def highest_scoring_home_team
+
+    # end
+    
+    # def lowest_scoring_visitor
+
+    # end
+    
+    # def lowest_scoring_home_team
+
+    # end
+
+    # def winningest_coach
+        
+    # end
+    
+    # def worst_coach
+
+    # end
+    
+    # def most_accurate_team
+
+    # end
+    
+    # def least_accurate_team
+
+    # end
+    
+    # def most_tackles
+
+    # end
+    
+    # def fewest_tackles
+
+    # end
 end
