@@ -1,4 +1,4 @@
-class Game 
+class Game
   attr_reader :game_id,
               :season,
               :type,
@@ -9,7 +9,6 @@ class Game
               :home_goals,
               :venue,
               :venue_link
-              
 
   def initialize(data)
     @game_id = data[:game_id]
