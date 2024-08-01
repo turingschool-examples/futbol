@@ -281,9 +281,6 @@ RSpec.describe StatTracker do
         end
 
         describe '#most_accurate_team' do
-        # games_per_season
-        # create team_id hash with [goals, shots]
-        # update goals shots
         # do ratio goals overs shots
         # max will get the team_id
         # team_id to team name
@@ -309,7 +306,7 @@ RSpec.describe StatTracker do
             end
 
             describe 'helper#update_shots_goals' do
-                it 'updates team_hash with shots and goals' do
+                it 'updates team_hash with goals and shots' do
                     game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
                     hash = {"3" => [0, 0]}
                     teams = {}
@@ -319,6 +316,33 @@ RSpec.describe StatTracker do
                     expect(@stat_tracker.update_shots_goals(game_1, teams)).to eq({"3" => [2, 8]})
                 end
             end
+
+            describe 'helper#team_shot_goal' do
+                it 'creates hash of team ids with tally of goals and shots' do
+                    game_ids = ['2012030221', '2012030232']
+                    hash = {
+                        "3" => [2, 8],
+                        "6" => [3, 12],
+                        "17" => [2, 7],
+                        "16" => [1, 5]
+                    }
+
+                    expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
+                end
+
+                it 'adds to the tally of goals and shots' do
+                    game_ids = ['2012030221', '2012030232', '2012030222']
+                    hash = {
+                        "3" => [4, 17],
+                        "6" => [6, 20],
+                        "17" => [2, 7],
+                        "16" => [1, 5]
+                    }
+
+                    expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
+                end
+            end
+
         end
 
         describe '#least_accurate_team' do

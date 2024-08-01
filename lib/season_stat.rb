@@ -62,9 +62,16 @@ module SeasonStatistics
         coaches
     end
 
-    # def team_shot_goal(game_id) 
-    #     team
-    # end
+    def team_shot_goal(game_ids) 
+        teams = {}
+        game_teams.each do |object|
+            if game_ids.include?(object.game_id)
+                team_id_hash(object, teams)
+                update_shots_goals(object, teams)
+            end
+        end
+        teams
+    end
 
     def team_id_hash(game_teams_object, teams)
         if teams[game_teams_object.team_id].nil?
