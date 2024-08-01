@@ -38,24 +38,21 @@ module SeasonStatistics
         coaches
     end
 
-    def winningest_coach
-        # .max
+    def winningest_coach(season)
+        ids = games_per_season(season)
+        coaches = coaches_wins_losses_ties(ids)
+        coaches = percentage_of_wins(coaches)
+        coaches.values.max
     end
 
-    def worst_coach
-        # .min
+    def worst_coach(season)
+        ids = games_per_season(season)
+        coaches = coaches_wins_losses_ties(ids)
+        coaches = percentage_of_wins(coaches)
+        coaches.values.min
     end
 
     def percentage_of_wins(coaches)
-        # coaches = coach...
-        
-        # wins = coaches[coach][0]
-        # losses = coaches[coach][1]
-        # ties = coaches[coach][2]
-
-        # total_games = wins + losses + ties
-             
-        # win_percentage = (wins.to_f / total_games) * 100
         coaches.each_pair do |coach, wins_losses_ties|
             win_percentage = (wins_losses_ties[0].fdiv(wins_losses_ties.sum) * 100).round(2)
             coaches[coach] = win_percentage
