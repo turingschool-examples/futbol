@@ -13,13 +13,13 @@ class StatTracker
     game_teams = []
     
     CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
-      games << Games.new(row.to_h)
+      games << Game.new(row.to_h)
     end
     CSV.foreach(locations[:teams], headers: true, header_converters: :symbol) do |row|
-      teams << Teams.new(row.to_h)
+      teams << Team.new(row.to_h)
     end
     CSV.foreach(locations[:game_teams], headers: true, header_converters: :symbol) do |row|
-      game_teams << GameTeams.new(row.to_h)
+      game_teams << GameTeam.new(row.to_h)
     end
 
     new(games, teams, game_teams)
