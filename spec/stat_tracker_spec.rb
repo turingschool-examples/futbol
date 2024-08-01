@@ -23,12 +23,6 @@ RSpec.describe StatTracker do
     
     end
 
-    describe 'highest_total_score' do
-        it 'returns highest sum of the winning and losing teams scores' do
-            expect(@stat_tracker.highest_total_score).to eq(5)
-        end
-    end
-
     describe "game_reader" do
         it "returns a hash with keys set to game_id, value is the relevant game object" do
             games_data = StatTracker.game_reader(@locations[:games])
@@ -107,12 +101,104 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe 'highest_total_score' do
+        it 'returns highest sum of the winning and losing teams scores' do
+            expect(@stat_tracker.highest_total_score).to eq(5)
+        end
+    end
+
     describe 'percentage_home_wins' do
         it 'returns percentage of games that a home team has won' do
             expect(@stat_tracker.percentage_home_wins).to eq(64.28)
         end
     end
 
+    describe 'percentage_ties' do
+        it 'returns percentage of games that has resulted in a tie (rounded to the nearest 100th)' do 
+            expect(@stat_tracker.percentage_ties).to eq(0.00) # NO TIES CURRENTLY LISTED
+
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030221].instance_variable_set(:@away_goals, 15) 
+            hash_of_games[2012030221].instance_variable_set(:@home_goals, 15) 
+
+            expect(@stat_tracker.percentage_ties).to eq(0.07)
+
+            hash_of_games[2012030222].instance_variable_set(:@away_goals, 15)
+            hash_of_games[2012030222].instance_variable_set(:@home_goals, 15)
+            
+            hash_of_games[2012030223].instance_variable_set(:@away_goals, 15)
+            hash_of_games[2012030223].instance_variable_set(:@home_goals, 15)
+
+            hash_of_games[2012030224].instance_variable_set(:@away_goals, 15)
+            hash_of_games[2012030224].instance_variable_set(:@home_goals, 15)
+            
+            hash_of_games[2012030225].instance_variable_set(:@away_goals, 15)
+            hash_of_games[2012030225].instance_variable_set(:@home_goals, 15)
+
+            hash_of_games[2012030311].instance_variable_set(:@away_goals, 15)
+            hash_of_games[2012030311].instance_variable_set(:@home_goals, 15)
+
+            hash_of_games[2012030312].instance_variable_set(:@away_goals, 15)
+            hash_of_games[2012030312].instance_variable_set(:@home_goals, 15)
+
+            expect(@stat_tracker.percentage_ties).to eq(0.50)
+        end
+    end
+
+    # describe 'count_of_teams' do
+
+    # end
+
+    describe 'best_offense' do
+        it 'returns team yielding highest goals scored per game over all seasons' do
+            expect(@stat_tracker.best_offense).to eq("FC Dallas")
+        end
+    end
+    
+    # describe 'worst_offense' do
+
+    # end
+    
+    # describe 'highest_scoring_visitor' do
+
+    # end
+    
+    # describe 'highest_scoring_home_team' do
+
+    # end
+    
+    # describe 'lowest_scoring_visitor' do
+
+    # end
+    
+    # describe 'lowest_scoring_home_team' do
+
+    # end
+    
+    # describe 'winningest_coach' do
+
+    # end
+    
+    # describe 'worst_coach' do
+
+    # end
+    
+    # describe 'most_accurate_team' do
+
+    # end
+    
+    # describe 'least_accurate_team' do
+
+    # end
+    
+    # describe 'most_tackles' do
+
+    # end
+    
+    # describe 'fewest_tackles' do
+
+    # end
     describe 'best_offense' do
         it 'returns team yielding highest goals scored per game over all seasons' do
             expect(@stat_tracker.best_offense).to eq("FC Dallas")
