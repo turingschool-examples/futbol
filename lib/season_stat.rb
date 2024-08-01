@@ -107,4 +107,12 @@ module SeasonStatistics
         get_team_name(team[0])
     end
 
+    def least_accurate_team(season)
+        ids = games_per_season(season)
+        teams = team_shot_goal(ids)
+        teams = goal_shot_ratio(teams)
+        team = teams.min_by {|team_id, ratio| ratio}
+        get_team_name(team[0])
+    end
+
 end

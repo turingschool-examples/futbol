@@ -370,6 +370,11 @@ RSpec.describe StatTracker do
         end
 
         describe '#least_accurate_team' do
+            it 'returns the team name of least_accurate_team' do
+                season = '20122013'
+
+                expect(@stat_tracker.least_accurate_team(season)).to eq "Houston Dynamo"
+            end
         end
 
         describe '#most_tackles' do
