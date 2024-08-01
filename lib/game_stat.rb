@@ -36,7 +36,9 @@ module GameStat
     end
     
     def average_goals_per_game
-
+        total_games = @games.count
+        total_goals = @games.sum { |game| game.away_goals + game.home_goals }
+        (total_goals.to_f / total_games).round(2)
     end
     
     def average_goals_by_season
