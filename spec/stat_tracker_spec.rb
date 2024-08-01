@@ -113,4 +113,21 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe 'percentage_ties' do
+        it 'returns percentage of games that has resulted in a tie (rounded to the nearest 100th)' do
+            expect(@stat_tracker.percentage_ties).to eq(0.00) # NO TIES CURRENTLY LISTED
+
+            hash_of_games = @stat_tracker.instance_variable_get(@game_stats_data)
+
+            hash_of_games[2012030221].instance_variable_set(:@away_goals, 15) 
+            hash_of_games[2012030221].instance_variable_set(:@home_goals, 15) 
+
+            expect(@stat_tracker.percentage_ties).to eq(0.07)
+
+            hash_of_games[2012030222].instance_variable_set(:@away_goals, 15)
+            hash_of_games[2012030222].instance_variable_set(:@home_goals, 15)
+
+            expect(@stat_tracker.percentage_ties).to eq(0.12)
+        end
+    end
 end
