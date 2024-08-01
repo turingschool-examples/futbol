@@ -148,8 +148,15 @@ RSpec.describe StatTracker do
 
     describe 'average_goals_per_game' do
         it 'can find the average amount of goals per game for entire season' do
-            expect(@stat_tracker.average_goals_per_game).to eq(1.75)
+            expect(@stat_tracker.average_goals_per_game).to eq(3.5)
+
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030222].instance_variable_set(:@away_goals, 329)
+
+            expect(@stat_tracker.average_goals_per_game).to eq(26.86)
         end
+        
     end
 
     # describe 'count_of_teams' do
