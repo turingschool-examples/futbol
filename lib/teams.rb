@@ -4,16 +4,14 @@ class Teams
               :team_name,
               :abbreviation,
               :stadium,
-              :link,
-              :tracker
+              :link
 
-  def initialize(data, tracker)
+  def initialize(data)
     @team_id = data[:team_id]
     @franchise_id = data[:franchiseId]
     @team_name = data[:teamName]
     @abbreviation = data[:abbreviation]
     @stadium = data[:Stadium]
     @link = data[:link]
-    @tracker = tracker
   end
 end

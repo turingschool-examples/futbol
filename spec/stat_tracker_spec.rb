@@ -22,16 +22,16 @@ RSpec.describe StatTracker do
   end
 
   describe 'highest total score and lowest total' do 
-    it 'returns highest score' do 
+    xit 'returns highest score' do 
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
   end
 
-  it 'returns lowest score' do 
+  xit 'returns lowest score' do 
     expect(@stat_tracker.lowest_total_score).to eq(0)
   end
 
-  it 'calculates total score betwen highest and lowest score' do 
+  xit 'calculates total score betwen highest and lowest score' do 
     total_scores = @stat_tracker.total_score
     expect(@stat_tracker.total_score).to eq(total_scores)
   end

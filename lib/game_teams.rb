@@ -14,10 +14,9 @@ class GameTeams
                 :power_play_goals,
                 :face_off_win_percentage,
                 :giveaways,
-                :takeaways,
-                :tracker
+                :takeaways
 
-    def initialize(data, tracker)
+    def initialize(data)
         @game_id = data[:game_id]
         @team_id = data[:team_id]
         @hoa = data[:hoa]
@@ -33,6 +32,5 @@ class GameTeams
         @face_off_win_percentage = data[:faceOffWinPercentage]
         @giveaways = data[:giveaways]
         @takeaways = data[:takeaways]
-        @tracker = tracker
     end
 end
