@@ -101,21 +101,18 @@ RSpec.describe StatTracker do
     end
 
     describe 'Module#GameStatistics' do
+        before(:each) do
+            @stat_tracker = StatTracker.from_csv(@locations)
+        end
 
         describe '#highest_total_score' do
             it 'returns the highest total score' do
-                @stat_tracker = StatTracker.from_csv(@locations)
-
-                @stat_tracker.highest_total_score
-
                 expect(@stat_tracker.highest_total_score).to eq 5
             end
         end
 
         describe '#lowest_total_score' do
             it 'returns the lowest total score' do
-                @stat_tracker = StatTracker.from_csv(@locations)
-
                 @stat_tracker.lowest_total_score
 
                 expect(@stat_tracker.lowest_total_score).to eq 1
@@ -123,6 +120,10 @@ RSpec.describe StatTracker do
         end
 
         describe '#percentage_home_wins' do
+            it 'calculates a percentage of home wins' do
+
+                expect(@stat_tracker.percentage_home_wins).to eq 12.0
+            end
         end
 
         describe '#percentage_visitor_wins' do

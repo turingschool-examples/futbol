@@ -13,11 +13,16 @@ module GameStat
     end
     
     def percentage_home_wins
-
+        total_games = @games.count
+        home_wins = @games.count do |game|
+            game.home_goals > game.away_goals
+            (home_wins.to_f / total_games).round(2)
+        end.to_f
     end
     
     def percentage_visitor_wins
-
+        
+        # require 'pry';binding.pry
     end
     
     def percentage_ties
