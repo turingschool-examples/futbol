@@ -300,16 +300,23 @@ RSpec.describe StatTracker do
 
             describe 'helper#team_id_hash' do
                 it 'returns a hash' do
-                    # require 'pry';binding.pry
                     game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
-                    # game_2 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030232'}
-
-                    
-                    hash = {
-                        "3" => [0, 0]
-                    }
+                    hash = {"3" => [0, 0]}
                     teams = {}
+
                     expect(@stat_tracker.team_id_hash(game_1, teams)).to eq hash
+                end
+            end
+
+            describe 'helper#update_shots_goals' do
+                it 'updates team_hash with shots and goals' do
+                    game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                    hash = {"3" => [0, 0]}
+                    teams = {}
+                    @stat_tracker.team_id_hash(game_1, teams)
+                    expect(teams["3"]).to eq [0, 0]
+
+                    expect(@stat_tracker.update_shots_goals(game_1, teams)).to eq({"3" => [2, 8]})
                 end
             end
         end

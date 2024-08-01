@@ -66,10 +66,16 @@ module SeasonStatistics
     #     team
     # end
 
-    def team_id_hash(game_teams_object, teams_hash)
-        if teams_hash[game_teams_object.team_id].nil?
-            teams_hash[game_teams_object.team_id] = [0, 0]
+    def team_id_hash(game_teams_object, teams)
+        if teams[game_teams_object.team_id].nil?
+            teams[game_teams_object.team_id] = [0, 0]
         end
-        teams_hash
+        teams
+    end
+
+    def update_shots_goals(game_teams_object, teams)
+        teams[game_teams_object.team_id][0] += game_teams_object.goals
+        teams[game_teams_object.team_id][1] += game_teams_object.shots
+        teams
     end
 end
