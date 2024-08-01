@@ -34,6 +34,24 @@ class StatTracker
         ((win_count.to_f / @game_stats_data.length) * 100).truncate(2)
     end
 
+    def best_offense
+        score_tracker = Hash.new(0)
+
+        @game_stats_data.each do |game_id, game|
+            score_tracker[game.away_team_id] = game.away_goals
+            score_tracker[game.home_team_id] = game.home_goals
+            require 'pry'; binding.pry
+        end
+        # iterate through the data
+        # make an accumulator to track goals/game for each team id
+        # counter = [], counter += game.goals
+        # counter / games played = avg goals per game
+        # find team that is associated with the highest avg goals per game
+        #
+        # lastly make method to associate team id in game with team id in teams
+        # and return teams_dummy.teamname.to_s
+    end
+
     def self.game_reader(csv_data)
         games = Hash.new(0)
         CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
