@@ -281,7 +281,6 @@ RSpec.describe StatTracker do
         end
 
         describe '#most_accurate_team' do
-        # do ratio goals overs shots
         # max will get the team_id
         # team_id to team name
             it 'gets game_ids per season' do
@@ -356,6 +355,17 @@ RSpec.describe StatTracker do
                     
                     expect(@stat_tracker.goal_shot_ratio(teams)).to eq hash
                 end
+            end
+            describe 'helper#get_team_name' do
+                it 'takes team_id and returns name' do
+                    expect(@stat_tracker.get_team_name("12")).to eq "Sky Blue FC"
+                end
+            end
+
+            it 'returns the team name of most_accurate_team' do
+                season = '20122013'
+
+                expect(@stat_tracker.most_accurate_team(season)).to eq "DC United"
             end
         end
 

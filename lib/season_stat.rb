@@ -63,35 +63,48 @@ module SeasonStatistics
     end
 
     def team_shot_goal(game_ids) 
-        teams = {}
+        team_ids = {}
         game_teams.each do |object|
             if game_ids.include?(object.game_id)
-                team_id_hash(object, teams)
-                update_shots_goals(object, teams)
+                team_id_hash(object, team_ids)
+                update_shots_goals(object, team_ids)
             end
         end
-        teams
+        team_ids
     end
 
-    def team_id_hash(game_teams_object, teams)
-        if teams[game_teams_object.team_id].nil?
-            teams[game_teams_object.team_id] = [0, 0]
+    def team_id_hash(game_teams_object, team_ids)
+        if team_ids[game_teams_object.team_id].nil?
+            team_ids[game_teams_object.team_id] = [0, 0]
         end
-        teams
+        team_ids
     end
 
-    def update_shots_goals(game_teams_object, teams)
-        teams[game_teams_object.team_id][0] += game_teams_object.goals
-        teams[game_teams_object.team_id][1] += game_teams_object.shots
-        teams
+    def update_shots_goals(game_teams_object, team_ids)
+        team_ids[game_teams_object.team_id][0] += game_teams_object.goals
+        team_ids[game_teams_object.team_id][1] += game_teams_object.shots
+        team_ids
     end
 
-    def goal_shot_ratio(teams)
-        teams.each_pair do |team_id, goals_shots|
+    def goal_shot_ratio(team_ids)
+        team_ids.each_pair do |team_id, goals_shots|
             shot_ratio = (goals_shots[0].fdiv(goals_shots[1])).round(2)
-            teams[team_id] = shot_ratio
+            team_ids[team_id] = shot_ratio
         end
-        teams
+        team_ids
+    end
+
+    def get_team_name(team_id)
+        team_info = teams.find {|team| team.team_id == team_id}
+        team_info.team_name
+    end
+
+    def most_accurate_team(season)
+        ids = games_per_season(season)
+        teams = team_shot_goal(ids)
+        teams = goal_shot_ratio(teams)
+        team = teams.max_by {|team_id, ratio| ratio}
+        get_team_name(team[0])
     end
 
 end
