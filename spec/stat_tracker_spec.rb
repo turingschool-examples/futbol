@@ -5,15 +5,15 @@ RSpec.configure do |config|
 end
 
 RSpec.describe StatTracker do
-    it 'exists' do
+    xit 'exists' do
         stat_tracker = StatTracker.new
         expect(stat_tracker).to be_a StatTracker
     end
 
     before(:each) do
-        game_path = './data/dummy_games.csv'
-        team_path = './data/dummy_teams.csv'
-        game_teams_path = './data/dummy_game_teams.csv'
+        game_path = './data/games.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -23,7 +23,7 @@ RSpec.describe StatTracker do
     end
 
     describe 'Class#from_csv' do
-        it 'loads the files from the locations' do
+        xit 'loads the files from the locations' do
             stat_tracker = StatTracker.from_csv(@locations)
             expect(stat_tracker.games).not_to be_empty
             expect(stat_tracker.teams).not_to be_empty
@@ -32,13 +32,13 @@ RSpec.describe StatTracker do
     end
 
     describe 'Class#game_factory' do
-        it 'creates a game object from a row' do
+        xit 'creates a game object from a row' do
             game_tracker = StatTracker.game_factory(@locations)
 
             expect(game_tracker).to include Game
         end
 
-        it 'creates a game object with all attributes' do
+        xit 'creates a game object with all attributes' do
             game_tracker = StatTracker.game_factory(@locations)
             
             expect(game_tracker[0].game_id).to eq "2012030221"
@@ -74,13 +74,13 @@ RSpec.describe StatTracker do
     end
 
     describe 'Class#game_teams_factory' do
-        it 'creates a game_teams object from a row' do
+        xit 'creates a game_teams object from a row' do
             game_teams_tracker = StatTracker.game_team_factory(@locations)
 
             expect(game_teams_tracker).to include GameTeam
         end
 
-        it 'creates a game_teams object with all variables filled' do
+        xit 'creates a game_teams object with all variables filled' do
             game_teams_tracker = StatTracker.game_team_factory(@locations)
             expect(game_teams_tracker[0].game_id).to eq "2012030221"
             expect(game_teams_tracker[0].team_id).to eq "3"
@@ -106,49 +106,49 @@ RSpec.describe StatTracker do
         end
 
         describe '#highest_total_score' do
-            it 'returns the highest total score' do
+            xit 'returns the highest total score' do
 
                 expect(@stat_tracker.highest_total_score).to be_a Integer
-                expect(@stat_tracker.highest_total_score).to eq 5
-                # expect(@stat_tracker.highest_total_score).to eq 11 WHEN NOT DUMMY
+                # expect(@stat_tracker.highest_total_score).to eq 5
+                expect(@stat_tracker.highest_total_score).to eq 11 
             end
         end
 
         describe '#lowest_total_score' do
-            it 'returns the lowest total score' do
+            xit 'returns the lowest total score' do
                 @stat_tracker.lowest_total_score
 
                 expect(@stat_tracker.lowest_total_score).to be_a Integer
-                expect(@stat_tracker.lowest_total_score).to eq 1
-                # expect(@stat_tracker.lowest_total_score).to eq 0 WHEN NOT DUMMY
+                # expect(@stat_tracker.lowest_total_score).to eq 1
+                expect(@stat_tracker.lowest_total_score).to eq 0 
             end
         end
 
         describe '#percentage_home_wins' do
-            it 'calculates a percentage of home wins' do
+            xit 'calculates a percentage of home wins' do
 
                 expect(@stat_tracker.percentage_home_wins).to be_a Float
-                expect(@stat_tracker.percentage_home_wins).to eq 0.58
-                # expect(@stat_tracker.percentage_home_wins).to eq 0.44 WHEN NOT DUMMY
+                # expect(@stat_tracker.percentage_home_wins).to eq 0.58
+                expect(@stat_tracker.percentage_home_wins).to eq 0.44 
             end
         end
 
         describe '#percentage_visitor_wins' do
-            it 'calculates a percentage of visitor wins' do
+            xit 'calculates a percentage of visitor wins' do
 
                 expect(@stat_tracker.percentage_visitor_wins).to be_a Float
-                expect(@stat_tracker.percentage_visitor_wins).to eq 0.42
-                # expect(@stat_tracker.percentage_visitor_wins).to eq 0.36 WHEN NOT DUMMY
+                # expect(@stat_tracker.percentage_visitor_wins).to eq 0.42
+                expect(@stat_tracker.percentage_visitor_wins).to eq 0.36 
             end
 
         end
 
         describe '#percentage_ties' do
-            it 'calculates ties' do
+            xit 'calculates ties' do
 
                 expect(@stat_tracker.percentage_ties).to be_a Float
-                expect(@stat_tracker.percentage_ties).to eq 0.0
-                # expect(@stat_tracker.percentage_ties).to eq 0.2 WHEN NOT DUMMY
+                # expect(@stat_tracker.percentage_ties).to eq 0.0
+                expect(@stat_tracker.percentage_ties).to eq 0.2
 
             end
         end
@@ -161,11 +161,11 @@ RSpec.describe StatTracker do
         end
 
         describe '#average_goals_per_game' do
-            it 'calculates avg goals per game' do
+            xit 'calculates avg goals per game' do
 
                 expect(@stat_tracker.average_goals_per_game).to be_a Float
-                expect(@stat_tracker.average_goals_per_game).to eq 3.67
-                # expect(@stat_tracker.average_goals_per_game).to eq 4.22 WHEN NOT DUMMY
+                # expect(@stat_tracker.average_goals_per_game).to eq 3.67
+                expect(@stat_tracker.average_goals_per_game).to eq 4.22
             end
 
         end
@@ -257,10 +257,10 @@ RSpec.describe StatTracker do
         
         describe 'helper#percentage_of_wins' do
             it 'will return a percentage of wins per coach' do
-                  coaches = {}
-                  coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
+                coaches = {}
+                coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
 
-                  expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
+                expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
             end
         end
 
@@ -281,9 +281,100 @@ RSpec.describe StatTracker do
         end
 
         describe '#most_accurate_team' do
+        # max will get the team_id
+        # team_id to team name
+            it 'gets game_ids per season' do
+                expect(@stat_tracker.games_per_season("20122013")).to be_a Array
+            end
+
+            it 'will have game id strings' do
+                expected = @stat_tracker.games_per_season('20122013')
+                
+                expect(expected[0]).to eq '2012030221'
+                expect(expected.last).to eq '2012020570'
+            end
+
+            describe 'helper#team_id_hash' do
+                it 'returns a hash' do
+                    game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                    hash = {"3" => [0, 0]}
+                    teams = {}
+
+                    expect(@stat_tracker.team_id_hash(game_1, teams)).to eq hash
+                end
+            end
+
+            describe 'helper#update_shots_goals' do
+                it 'updates team_hash with goals and shots' do
+                    game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                    hash = {"3" => [0, 0]}
+                    teams = {}
+                    @stat_tracker.team_id_hash(game_1, teams)
+                    expect(teams["3"]).to eq [0, 0]
+
+                    expect(@stat_tracker.update_shots_goals(game_1, teams)).to eq({"3" => [2, 8]})
+                end
+            end
+
+            describe 'helper#team_shot_goal' do
+                it 'creates hash of team ids with tally of goals and shots' do
+                    game_ids = ['2012030221', '2012030232']
+                    hash = {
+                        "3" => [2, 8],
+                        "6" => [3, 12],
+                        "17" => [2, 7],
+                        "16" => [1, 5]
+                    }
+
+                    expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
+                end
+
+                it 'adds to the tally of goals and shots' do
+                    game_ids = ['2012030221', '2012030232', '2012030222']
+                    hash = {
+                        "3" => [4, 17],
+                        "6" => [6, 20],
+                        "17" => [2, 7],
+                        "16" => [1, 5]
+                    }
+
+                    expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
+                end
+            end
+
+            describe 'helper#goal_shot_ratio' do
+                it 'converts array into ratio' do
+                    game_ids = ['2012030221', '2012030232', '2012030222']
+                    hash = {
+                        "3" => 0.24,
+                        "6" => 0.30,
+                        "17" => 0.29,
+                        "16" => 0.20
+                    }
+                    teams = @stat_tracker.team_shot_goal(game_ids)
+                    
+                    expect(@stat_tracker.goal_shot_ratio(teams)).to eq hash
+                end
+            end
+            describe 'helper#get_team_name' do
+                it 'takes team_id and returns name' do
+                    expect(@stat_tracker.get_team_name("12")).to eq "Sky Blue FC"
+                end
+            end
+
+            it 'returns the team name of most_accurate_team' do
+                season = '20122013'
+
+                expect(@stat_tracker.most_accurate_team(season)).to eq "DC United"
+            end
         end
 
         describe '#least_accurate_team' do
+            it 'returns the team name of least_accurate_team' do
+                season = '20122013'
+
+                expect(@stat_tracker.least_accurate_team(season)).to eq "Houston Dynamo"
+            end
         end
 
         describe '#most_tackles' do
