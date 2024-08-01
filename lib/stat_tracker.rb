@@ -56,10 +56,24 @@ class StatTracker
   end
 
   def average_goals_per_game
+    total_goals = 0
+    total_games = 0
+    @games.each do |game|
+      total_goals += game.away_goals + game.home_goals
+      total_games += 1
+    end
 
+    if total_games > 0
+      average_goals = total_goals.to_f / total_games
+    else
+      average_goals = 0.0
+    end
+    average_goals_rounded = average_goals.round(2)
+    average_goals_rounded
   end
+  
 
    def average_goals_by_season
-    
+
    end
 end
