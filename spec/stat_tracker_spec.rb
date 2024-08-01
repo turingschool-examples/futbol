@@ -177,53 +177,50 @@ RSpec.describe StatTracker do
             end
         end
         
-        describe 'percentage of wins' do
+        describe 'helper#percentage_of_wins' do
             it 'will return a percentage of wins per coach' do
-                game_data_1 = {
-                    :game_id => "2012030231",
-                    :team_id => "17",
-                    :hoa => "away",
-                    :result => "LOSS",
-                    :settled_in => "REG",
-                    :head_coach => "Mike Babcock",
-                    :goals => "1",
-                    :shots => "5",
-                    :tackles => "43",
-                    :pim => "10",
-                    :power_play_opportunities => "3",
-                    :power_play_goals => "0",
-                    :face_off_win_percentage => "52.5",
-                    :giveaways => "6",
-                    :takeaways => "4"
-                  }
+                # game_data_1 = {
+                #     :game_id => "2012030231",
+                #     :team_id => "17",
+                #     :hoa => "away",
+                #     :result => "LOSS",
+                #     :settled_in => "REG",
+                #     :head_coach => "Mike Babcock",
+                #     :goals => "1",
+                #     :shots => "5",
+                #     :tackles => "43",
+                #     :pim => "10",
+                #     :power_play_opportunities => "3",
+                #     :power_play_goals => "0",
+                #     :face_off_win_percentage => "52.5",
+                #     :giveaways => "6",
+                #     :takeaways => "4"
+                #   }
             
-                  game_data_2 = {
-                    :game_id => "2012030232",
-                    :team_id => "17",
-                    :hoa => "away",
-                    :result => "WIN",
-                    :settled_in => "REG",
-                    :head_coach => "Mike Babcock",
-                    :goals => "2",
-                    :shots => "7",
-                    :tackles => "26",
-                    :pim => "6",
-                    :power_play_opportunities => "4",
-                    :power_play_goals => "0",
-                    :face_off_win_percentage => "55.4",
-                    :giveaways => "6",
-                    :takeaways => "6"
-                  }
+                #   game_data_2 = {
+                #     :game_id => "2012030232",
+                #     :team_id => "17",
+                #     :hoa => "away",
+                #     :result => "WIN",
+                #     :settled_in => "REG",
+                #     :head_coach => "Mike Babcock",
+                #     :goals => "2",
+                #     :shots => "7",
+                #     :tackles => "26",
+                #     :pim => "6",
+                #     :power_play_opportunities => "4",
+                #     :power_play_goals => "0",
+                #     :face_off_win_percentage => "55.4",
+                #     :giveaways => "6",
+                #     :takeaways => "6"
+                #   }
             
-                  game_team_1 = GameTeam.new(game_data_1)
-                  game_team_2 = GameTeam.new(game_data_2)
-            
-                  @stat_tracker.add_game_team(game_team_1)
-                  @stat_tracker.add_game_team(game_team_2)
-            
-                  coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232"])
-            
-                  expect(@stat_tracker.percentage_of_wins("Mike Babcock", '20122013')).to eq(50.0)
+                #   game_team_1 = GameTeam.new(game_data_1)
+                #   game_team_2 = GameTeam.new(game_data_2)
+                  coaches = {}
+                  coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
+
+                  expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
             end
         end
 
