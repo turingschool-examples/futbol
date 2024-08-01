@@ -38,9 +38,10 @@ class StatTracker
         score_tracker = Hash.new(0)
 
         @game_stats_data.each do |game_id, game|
-            score_tracker[game.away_team_id] = game.away_goals
-            score_tracker[game.home_team_id] = game.home_goals
-            require 'pry'; binding.pry
+            goal_count = []
+            score_tracker[game.away_team_id] = goal_count << game.away_goals
+            score_tracker[game.home_team_id] = goal_count << game.home_goals
+            # require 'pry'; binding.pry
         end
         # iterate through the data
         # make an accumulator to track goals/game for each team id
@@ -50,6 +51,15 @@ class StatTracker
         #
         # lastly make method to associate team id in game with team id in teams
         # and return teams_dummy.teamname.to_s
+        # id_to_name(return value of best offense)
+    end
+
+    def id_to_name(id)
+        @teams_stats_data.each do |team_id, team|
+            if team_id == id
+                team.teamName.to_s
+            end
+        end
     end
 
     def self.game_reader(csv_data)
