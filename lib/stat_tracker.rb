@@ -27,6 +27,13 @@ class StatTracker
         highest_scoring_game[1].total_goals
     end
 
+    def percentage_home_wins
+        win_count = @game_stats_data.count do |game_id, game|
+            game.home_goals > game.away_goals 
+        end
+        ((win_count.to_f / @game_stats_data.length) * 100).truncate(2)
+    end
+
     def self.game_reader(csv_data)
         games = Hash.new(0)
         CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
