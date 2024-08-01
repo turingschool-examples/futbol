@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     end
 
     before(:each) do
-        game_path = './data/games.csv'
-        team_path = './data/teams.csv'
-        game_teams_path = './data/game_teams.csv'
+        game_path = './data/dummy_games.csv'
+        team_path = './data/dummy_teams.csv'
+        game_teams_path = './data/dummy_game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -381,36 +381,46 @@ RSpec.describe StatTracker do
             it 'returns the team with the most tackles' do
                 season = '20122-13'
 
-                expect(@stat_tracker.most_tackles(season).to eq "The meanest team"
+                expect(@stat_tracker.most_tackles(season)).to eq "The meanest team"
             end
         end
-        # games per season
-        # team_tackles
-        # teams.max_by
-        # get team_name
+
+        describe 'helper#team tackles' do
+            it 'returns a hash with teams and tackles' do
+                game_ids = ['2012030221', '2012030232', '2012030222']
+                    hash = {
+                        "3" => 77,
+                        "6" => 87,
+                        "17" => 26,
+                        "16" => 36                    
+                    }
+                    
+                expect(@stat_tracker.team_tackles(game_ids)).to eq hash
+            end
         end
-
-
-        # games per season
-        # modify team_shot_goal so that it is just team_tackles
-        # modify team_id_hash to be an integer instead of an array
-        # modify update_shot goal - to be modify tackles - find key and incriment value by however many tackles
-        # 
-        # modify most/least accurate
-        # teams max_by
-        # teams min_by
-        # no need for ratio method
-
-
-        describe '#fewest_tackles' do
-        # games per season
-        # team_tackles
-        # teams.min_by
-        # get team_name
-        end
-
-       
     end
-
-
 end
+## games per season
+# team_tackles
+# teams.max_by
+# get team_name
+
+
+
+# games per season
+# modify team_shot_goal so that it is just team_tackles
+# modify team_id_hash to be an integer instead of an array
+# modify update_shot goal - to be modify tackles - find key and incriment value by however many tackles
+# 
+# modify most/least accurate
+# teams max_by
+# teams min_by
+# no need for ratio method
+
+
+# describe '#fewest_tackles' do
+# games per season
+# team_tackles
+# teams.min_by
+# get team_name
+# end
