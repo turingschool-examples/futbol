@@ -140,9 +140,15 @@ RSpec.describe StatTracker do
             hash_of_games[2012030311].instance_variable_set(:@home_goals, 15)
 
             hash_of_games[2012030312].instance_variable_set(:@away_goals, 15)
-            hash_of_games[2012030312].instance_variable_set(:@home_goals, 15)
+            hash_of_games[2012030312].instance_variable_set(:@home_goals, 15) # UPDATE DATA SO TIES AND WINS ARE 50/50
 
             expect(@stat_tracker.percentage_ties).to eq(0.50)
+        end
+    end
+
+    describe 'average_goals_per_game' do
+        it 'can find the average amount of goals per game for entire season' do
+            expect(@stat_tracker.average_goals_per_game).to eq(1.75)
         end
     end
 
