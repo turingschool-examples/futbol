@@ -42,14 +42,16 @@ module SeasonStatistics
         ids = games_per_season(season)
         coaches = coaches_wins_losses_ties(ids)
         coaches = percentage_of_wins(coaches)
-        coaches.values.max
+        highest_percent = coaches.values.max
+        coaches.find {|coach, percent| percent == highest_percent}
     end
 
     def worst_coach(season)
         ids = games_per_season(season)
         coaches = coaches_wins_losses_ties(ids)
         coaches = percentage_of_wins(coaches)
-        coaches.values.min
+        lowest_percent = coaches.values.min
+        coaches.find {|coach, percent| percent == lowest_percent}
     end
 
     def percentage_of_wins(coaches)

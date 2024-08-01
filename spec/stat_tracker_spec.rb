@@ -61,7 +61,7 @@ RSpec.describe StatTracker do
             expect(team_tracker).to include Team
         end
 
-        xit 'creates a team object with all variables filled' do
+        it 'creates a team object with all variables filled' do
             team_tracker = StatTracker.team_factory(@locations)
 
             expect(team_tracker[0].team_id).to eq "1"
@@ -190,7 +190,7 @@ RSpec.describe StatTracker do
             it 'determines the coach with best season' do
                 season = "20122013"
 
-                expect(@stat_tracker.winningest_coach(season)).to eq(100.00)
+                expect(@stat_tracker.winningest_coach(season)).to eq(["Dan Lacroix", 100.0])
             end
         end
 
@@ -198,7 +198,7 @@ RSpec.describe StatTracker do
             it 'determines the coach with worst season' do
                 season = "20122013"
 
-                expect(@stat_tracker.worst_coach(season)).to eq(0.00)
+                expect(@stat_tracker.worst_coach(season)).to eq(["Martin Raymond", 0.0])
             end
         end
 
