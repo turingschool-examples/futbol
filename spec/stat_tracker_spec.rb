@@ -23,12 +23,6 @@ RSpec.describe StatTracker do
     
     end
 
-    describe 'highest_total_score' do
-        it 'returns highest sum of the winning and losing teams scores' do
-            expect(@stat_tracker.highest_total_score).to eq(5)
-        end
-    end
-
     describe "game_reader" do
         it "returns a hash with keys set to game_id, value is the relevant game object" do
             games_data = StatTracker.game_reader(@locations[:games])
@@ -107,4 +101,9 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe 'highest_total_score' do
+        it 'returns highest sum of the winning and losing teams scores' do
+            expect(@stat_tracker.highest_total_score).to eq(5)
+        end
+    end
 end
