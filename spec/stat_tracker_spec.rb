@@ -343,6 +343,20 @@ RSpec.describe StatTracker do
                 end
             end
 
+            describe 'helper#goal_shot_ratio' do
+                it 'converts array into ratio' do
+                    game_ids = ['2012030221', '2012030232', '2012030222']
+                    hash = {
+                        "3" => 0.24,
+                        "6" => 0.30,
+                        "17" => 0.29,
+                        "16" => 0.20
+                    }
+                    teams = @stat_tracker.team_shot_goal(game_ids)
+                    
+                    expect(@stat_tracker.goal_shot_ratio(teams)).to eq hash
+                end
+            end
         end
 
         describe '#least_accurate_team' do
