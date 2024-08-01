@@ -61,17 +61,26 @@ class StatTracker
     end
 
     def percentage_home_wins
-        win_count = @game_stats_data.count do |game_id, game|
-            game.home_goals > game.away_goals 
+        win_count = @game_stats_data.count do |game_id, game_object|
+            game_object.home_goals > game_object.away_goals 
         end
         ((win_count.to_f / @game_stats_data.length) * 100).truncate(2)
     end
 
     def percentage_ties
-        tie_count = @game_stats_data.count do |game_id, game|
-            game.home_goals == game.away_goals 
+        tie_count = @game_stats_data.count do |game_id, game_object|
+            game_object.home_goals == game_object.away_goals 
         end
-        ((tie_count.to_f/ @game_stats_data.length).truncate(2))
+        ((tie_count.to_f / @game_stats_data.length).truncate(2))
+    end
+
+    def average_goals_per_game
+        total_goals_per_game = []
+        @game_stats_data.each do |game_id, game_object|
+            total_goals_per_game << game_object.total_goals
+        end
+        
+        (total_goals_per_game.sum / total_goals_per_game.length.to_f).round(2)
     end
 
     # def count_of_teams
