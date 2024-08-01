@@ -107,7 +107,10 @@ RSpec.describe StatTracker do
 
         describe '#highest_total_score' do
             it 'returns the highest total score' do
+
+                expect(@stat_tracker.highest_total_score).to be_a Integer
                 expect(@stat_tracker.highest_total_score).to eq 5
+                # expect(@stat_tracker.highest_total_score).to eq 11 WHEN NOT DUMMY
             end
         end
 
@@ -115,37 +118,61 @@ RSpec.describe StatTracker do
             it 'returns the lowest total score' do
                 @stat_tracker.lowest_total_score
 
+                expect(@stat_tracker.lowest_total_score).to be_a Integer
                 expect(@stat_tracker.lowest_total_score).to eq 1
+                # expect(@stat_tracker.lowest_total_score).to eq 0 WHEN NOT DUMMY
             end
         end
 
         describe '#percentage_home_wins' do
             it 'calculates a percentage of home wins' do
 
+                expect(@stat_tracker.percentage_home_wins).to be_a Float
                 expect(@stat_tracker.percentage_home_wins).to eq 0.58
+                # expect(@stat_tracker.percentage_home_wins).to eq 0.44 WHEN NOT DUMMY
             end
         end
 
         describe '#percentage_visitor_wins' do
             it 'calculates a percentage of visitor wins' do
 
+                expect(@stat_tracker.percentage_visitor_wins).to be_a Float
                 expect(@stat_tracker.percentage_visitor_wins).to eq 0.42
+                # expect(@stat_tracker.percentage_visitor_wins).to eq 0.36 WHEN NOT DUMMY
             end
 
         end
 
         describe '#percentage_ties' do
+            it 'calculates ties' do
+
+                expect(@stat_tracker.percentage_ties).to be_a Float
+                expect(@stat_tracker.percentage_ties).to eq 0.0
+                # expect(@stat_tracker.percentage_ties).to eq 0.2 WHEN NOT DUMMY
+
+            end
         end
 
         describe '#count_of_games_by_season' do
+            xit 'counts the game by season(regular or post)' do
+
+                expect(@stat_tracker.count_of_games_by_season).to be_a Hash
+            end
         end
 
-        describe '#average_goals_per_game' do 
+        describe '#average_goals_per_game' do
+            it 'calculates avg goals per game' do
+
+                expect(@stat_tracker.average_goals_per_game).to be_a Float
+            end
 
         end
 
         describe '#average_goals_by_season' do 
+            xit 'calculates the average goals by season (regular or post)' do
 
+                expect(@stat_tracker.average_goals_by_season).to be_a Hash
+            end
         end
     end
 end

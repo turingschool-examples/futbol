@@ -26,7 +26,9 @@ module GameStat
     
     # require 'pry';binding.pry
     def percentage_ties
-
+        total_games = @games.count
+        ties = @games.count { |game| game.away_goals == game.home_goals }
+        (ties.to_f / total_games).round(2)        
     end
     
     def count_of_games_by_season
