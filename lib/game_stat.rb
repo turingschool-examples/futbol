@@ -47,6 +47,12 @@ module GameStat
     end
     
     def average_goals_by_season
-
+        average_goals = Hash.new(0)
+        require 'pry';binding.pry
+        season = @games.season.count
+        total_goals = @games.sum { |game| game.away_goals + game.home_goals }
+        (total_goals.to_f / season).round(2)    
+        # require 'pry';binding.pry
+        average_goals
     end
 end

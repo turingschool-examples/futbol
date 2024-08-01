@@ -179,9 +179,17 @@ RSpec.describe StatTracker do
         end
 
         describe '#average_goals_by_season' do 
-            xit 'calculates the average goals by season (regular or post)' do
-
+            it 'calculates the average goals by season (regular or post)' do
+                expected = {
+                    "20122013" => 806,
+                    "20132014" => 1323,
+                    "20142015" => 1319,
+                    "20152016" => 1321,
+                    "20162017" => 1317,
+                    "20172018" => 1355
+                }
                 expect(@stat_tracker.average_goals_by_season).to be_a Hash
+                expect(@stat_tracker.average_goals_by_season).to eq(expected)
             end
         end
     end
