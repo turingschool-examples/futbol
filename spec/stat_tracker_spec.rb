@@ -107,6 +107,12 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe 'lowest_total_score' do
+        it 'returns lowest sum of the winning and losing teams scores' do
+            expect(@stat_tracker.lowest_total_score).to eq(1)
+        end
+    end
+
     describe 'percentage_home_wins' do
         it 'returns percentage of games that a home team has won' do
             expect(@stat_tracker.percentage_home_wins).to eq(64.28)
