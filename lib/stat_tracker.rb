@@ -27,6 +27,13 @@ class StatTracker
         highest_scoring_game[1].total_goals
     end
 
+    def lowest_total_score
+        lowest_scoring_game = @game_stats_data.min_by do |game_id, game_object|
+            game_object.away_goals + game_object.home_goals
+        end
+        lowest_scoring_game[1].away_goals + lowest_scoring_game[1].home_goals
+    end
+
     def percentage_home_wins
         win_count = @game_stats_data.count do |game_id, game|
             game.home_goals > game.away_goals 
