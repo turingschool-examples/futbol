@@ -43,7 +43,7 @@ module SeasonStatistics
         coaches = coaches_wins_losses_ties(ids)
         coaches = percentage_of_wins(coaches)
         highest_percent = coaches.values.max
-        coaches.find {|coach, percent| percent == highest_percent}
+        (coaches.find {|coach, percent| percent == highest_percent})[0]
     end
 
     def worst_coach(season)
@@ -51,7 +51,7 @@ module SeasonStatistics
         coaches = coaches_wins_losses_ties(ids)
         coaches = percentage_of_wins(coaches)
         lowest_percent = coaches.values.min
-        coaches.find {|coach, percent| percent == lowest_percent}
+        (coaches.find {|coach, percent| percent == lowest_percent})[0]
     end
 
     def percentage_of_wins(coaches)

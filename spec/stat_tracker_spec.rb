@@ -190,7 +190,7 @@ RSpec.describe StatTracker do
             it 'determines the coach with best season' do
                 season = "20122013"
 
-                expect(@stat_tracker.winningest_coach(season)).to eq(["Dan Lacroix", 100.0])
+                expect(@stat_tracker.winningest_coach(season)).to eq("Dan Lacroix")
             end
         end
 
@@ -198,7 +198,7 @@ RSpec.describe StatTracker do
             it 'determines the coach with worst season' do
                 season = "20122013"
 
-                expect(@stat_tracker.worst_coach(season)).to eq(["Martin Raymond", 0.0])
+                expect(@stat_tracker.worst_coach(season)).to eq("Martin Raymond")
             end
         end
 
