@@ -61,4 +61,15 @@ module SeasonStatistics
         end
         coaches
     end
+
+    # def team_shot_goal(game_id) 
+    #     team
+    # end
+
+    def team_id_hash(game_teams_object, teams_hash)
+        if teams_hash[game_teams_object.team_id].nil?
+            teams_hash[game_teams_object.team_id] = [0, 0]
+        end
+        teams_hash
+    end
 end
