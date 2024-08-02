@@ -46,13 +46,26 @@ module GameStat
         (total_goals.to_f / total_games).round(2)
     end
     
+    def total_goals_by_season
+        total_goals = Hash.new(0)
+        @games.each do |game|
+            total_goals[game.season] += (game.away_goals + game.home_goals)
+        end
+        total_goals
+    end
+
     def average_goals_by_season
         average_goals = Hash.new(0)
-        require 'pry';binding.pry
-        season = @games.season.count
-        total_goals = @games.sum { |game| game.away_goals + game.home_goals }
-        (total_goals.to_f / season).round(2)    
-        # require 'pry';binding.pry
+        goals= total_goals_by_season
+        games = count_of_games_by_season
+        seasons = games.keys
+        seasons.each do |season|
+            average_goals[season] = (goals[season].to_f / games[season]).round(2)
+        end
         average_goals
     end
+        # now i want to divide both methods values. (.try_convert)???
+        # total goals byseason(v) divided by total games by season (v)
+        # the keys remain the same.  we just gotta divide the values and make a new hash.
+        # use .keys 
 end
