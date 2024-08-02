@@ -509,27 +509,3 @@ RSpec.describe StatTracker do
 
     end
 end
-## games per season
-# team_tackles
-# teams.max_by
-# get team_name
-
-
-
-# games per season
-# modify team_shot_goal so that it is just team_tackles
-# modify team_id_hash to be an integer instead of an array
-# modify update_shot goal - to be modify tackles - find key and incriment value by however many tackles
-# 
-# modify most/least accurate
-# teams max_by
-# teams min_by
-# no need for ratio method
-
-
-# describe '#fewest_tackles' do
-# games per season
-# team_tackles
-# teams.min_by
-# get team_name
-# end
