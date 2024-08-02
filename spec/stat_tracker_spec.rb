@@ -191,9 +191,11 @@ RSpec.describe StatTracker do
 
     # end
     
-    # describe 'worst_coach' do
-
-    # end
+    describe 'worst_coach' do
+        it 'returns coach with worst win percentage for the season' do
+            expect(@stat_tracker.worst_coach).to eq('ur mom')
+        end
+    end
     
     # describe 'most_accurate_team' do
 
