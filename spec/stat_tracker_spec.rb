@@ -14,10 +14,7 @@ RSpec.describe StatTracker do
         game_path = './data/dummy_games.csv'
         team_path = './data/dummy_teams.csv'
         game_teams_path = './data/dummy_game_teams.csv'
-# remember to remove dummy after module set up and stat tracker tests passing
-        game_path = './data/dummy_games.csv'
-        team_path = './data/dummy_teams.csv'
-        game_teams_path = './data/dummy_game_teams.csv'
+
 
         @locations = {
         games: game_path,
@@ -104,24 +101,37 @@ RSpec.describe StatTracker do
         end
     end
     describe 'Module#LeagueStatistics' do
+        before(:each) do
+            @stat_tracker = StatTracker.from_csv(@locations)
+        end
+
         describe '#count_of_teams' do
 
         end
+
         describe '#best_offense' do
 
         end
+
         describe '#worst_offense' do
 
         end
-        describe '#highest_scoring_visitor' do
 
+        describe '#highest_scoring_visitor' do
+            it "can do highest scoring visitor" do
+                expect(@stat_tracker.highest_scoring_visitor).to be_a String  
+                expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas" 
+            end
         end
+
         describe '#highest_scoring_home_team' do
 
         end
+
         describe '#lowest_scoring_visitor' do
 
         end
+
         describe '#lowest_scoring_home_team' do
 
         end
