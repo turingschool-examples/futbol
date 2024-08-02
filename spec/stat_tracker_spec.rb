@@ -14,6 +14,8 @@ RSpec.describe StatTracker do
         game_path = './data/games.csv'
         team_path = './data/teams.csv'
         game_teams_path = './data/game_teams.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -60,8 +62,8 @@ RSpec.describe StatTracker do
 
             expect(team_tracker).to include Team
         end
-# change back from dummy data and reinable the following test
-        xit 'creates a team object with all variables filled' do
+
+        it 'creates a team object with all variables filled' do
             team_tracker = StatTracker.team_factory(@locations)
 
             expect(team_tracker[0].team_id).to eq "1"
@@ -109,8 +111,7 @@ RSpec.describe StatTracker do
             xit 'returns the highest total score' do
 
                 expect(@stat_tracker.highest_total_score).to be_a Integer
-                # expect(@stat_tracker.highest_total_score).to eq 5
-                expect(@stat_tracker.highest_total_score).to eq 11 
+                expect(@stat_tracker.highest_total_score).to eq 11
             end
         end
 
@@ -119,61 +120,81 @@ RSpec.describe StatTracker do
                 @stat_tracker.lowest_total_score
 
                 expect(@stat_tracker.lowest_total_score).to be_a Integer
-                # expect(@stat_tracker.lowest_total_score).to eq 1
-                expect(@stat_tracker.lowest_total_score).to eq 0 
+                expect(@stat_tracker.lowest_total_score).to eq 0
             end
         end
 
         describe '#percentage_home_wins' do
-            xit 'calculates a percentage of home wins' do
-
+            it 'calculates a percentage of home wins' do
                 expect(@stat_tracker.percentage_home_wins).to be_a Float
-                # expect(@stat_tracker.percentage_home_wins).to eq 0.58
-                expect(@stat_tracker.percentage_home_wins).to eq 0.44 
+                expect(@stat_tracker.percentage_home_wins).to eq 0.44
             end
         end
 
         describe '#percentage_visitor_wins' do
-            xit 'calculates a percentage of visitor wins' do
-
+            it 'calculates a percentage of visitor wins' do
                 expect(@stat_tracker.percentage_visitor_wins).to be_a Float
-                # expect(@stat_tracker.percentage_visitor_wins).to eq 0.42
-                expect(@stat_tracker.percentage_visitor_wins).to eq 0.36 
+                expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
             end
 
         end
 
         describe '#percentage_ties' do
-            xit 'calculates ties' do
-
+            it 'calculates ties' do
                 expect(@stat_tracker.percentage_ties).to be_a Float
-                # expect(@stat_tracker.percentage_ties).to eq 0.0
                 expect(@stat_tracker.percentage_ties).to eq 0.2
-
             end
         end
 
         describe '#count_of_games_by_season' do
-            xit 'counts the game by season(regular or post)' do
-
+            it 'counts the game by season(regular or post)' do
+                expected = {
+                    "20122013" => 806,
+                    "20132014" => 1323,
+                    "20142015" => 1319,
+                    "20152016" => 1321,
+                    "20162017" => 1317,
+                    "20172018" => 1355
+                }
                 expect(@stat_tracker.count_of_games_by_season).to be_a Hash
+                expect(@stat_tracker.count_of_games_by_season).to eq(expected)
             end
         end
 
         describe '#average_goals_per_game' do
-            xit 'calculates avg goals per game' do
-
+            it 'calculates avg goals per game' do
                 expect(@stat_tracker.average_goals_per_game).to be_a Float
-                # expect(@stat_tracker.average_goals_per_game).to eq 3.67
                 expect(@stat_tracker.average_goals_per_game).to eq 4.22
             end
+        end
 
+        describe '#total_goals_by_season' do 
+            it 'calculates the total goals by season' do
+                expected = {
+                    "20122013" => 3322,
+                    "20132014" => 5547,
+                    "20142015" => 5461,
+                    "20152016" => 5499,
+                    "20162017" => 5565,
+                    "20172018" => 6019
+                }
+                expect(@stat_tracker.total_goals_by_season).to be_a Hash
+                expect(@stat_tracker.total_goals_by_season).to eq(expected)
+            end
         end
 
         describe '#average_goals_by_season' do 
-            xit 'calculates the average goals by season (regular or post)' do
-
+            it 'calculates the average goals by season' do
+                expected = {
+                    "20122013" => 4.12,
+                    "20132014" => 4.19,
+                    "20142015" => 4.14,
+                    "20152016" => 4.16,
+                    "20162017" => 4.23,
+                    "20172018" => 4.44
+                }
                 expect(@stat_tracker.average_goals_by_season).to be_a Hash
+                expect(@stat_tracker.average_goals_by_season).to eq(expected)
             end
         end
     end
@@ -257,10 +278,10 @@ RSpec.describe StatTracker do
         
         describe 'helper#percentage_of_wins' do
             it 'will return a percentage of wins per coach' do
-                coaches = {}
-                coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
+                  coaches = {}
+                  coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
 
-                expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
+                  expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
             end
         end
 
