@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     end
 
     before(:each) do
-        game_path = './data/dummy_games.csv'
-        team_path = './data/dummy_teams.csv'
-        game_teams_path = './data/dummy_game_teams.csv'
+        game_path = './data/games.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/game_teams.csv'
 
 
         @locations = {
@@ -106,7 +106,10 @@ RSpec.describe StatTracker do
         end
 
         describe '#count_of_teams' do
-
+            it 'can count the number of teams in the data' do
+                expect(@stat_tracker.count_of_teams).to be_an Integer
+                expect(@stat_tracker.count_of_teams).to eq 32  
+            end
         end
 
         describe '#best_offense' do
@@ -127,16 +130,22 @@ RSpec.describe StatTracker do
         describe '#highest_scoring_home_team' do
             it 'returns highest scoring home team' do
                 expect(@stat_tracker.highest_scoring_home_team).to be_a String  
-                expect(@stat_tracker.highest_scoring_home_team).to eq "FC Dallas" 
+                expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
             end
         end
 
         describe '#lowest_scoring_visitor' do
-
+            it 'returns highest scoring visitor' do
+                expect(@stat_tracker.lowest_scoring_visitor).to be_a String  
+                expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+            end
         end
 
         describe '#lowest_scoring_home_team' do
-
+            it 'returns highest scoring home team' do
+                expect(@stat_tracker.highest_scoring_home_team).to be_a String  
+                expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+            end
         end
     end
 
@@ -147,7 +156,6 @@ RSpec.describe StatTracker do
 
         describe '#highest_total_score' do
             it 'returns the highest total score' do
-
                 expect(@stat_tracker.highest_total_score).to be_a Integer
                 expect(@stat_tracker.highest_total_score).to eq 5
                 # expect(@stat_tracker.highest_total_score).to eq 11 WHEN NOT DUMMY
@@ -166,7 +174,6 @@ RSpec.describe StatTracker do
 
         describe '#percentage_home_wins' do
             it 'calculates a percentage of home wins' do
-
                 expect(@stat_tracker.percentage_home_wins).to be_a Float
                 expect(@stat_tracker.percentage_home_wins).to eq 0.58
                 # expect(@stat_tracker.percentage_home_wins).to eq 0.44 WHEN NOT DUMMY
@@ -175,39 +182,32 @@ RSpec.describe StatTracker do
 
         describe '#percentage_visitor_wins' do
             it 'calculates a percentage of visitor wins' do
-
                 expect(@stat_tracker.percentage_visitor_wins).to be_a Float
                 expect(@stat_tracker.percentage_visitor_wins).to eq 0.42
                 # expect(@stat_tracker.percentage_visitor_wins).to eq 0.36 WHEN NOT DUMMY
             end
-
         end
 
         describe '#percentage_ties' do
             it 'calculates ties' do
-
                 expect(@stat_tracker.percentage_ties).to be_a Float
                 expect(@stat_tracker.percentage_ties).to eq 0.0
                 # expect(@stat_tracker.percentage_ties).to eq 0.2 WHEN NOT DUMMY
-
             end
         end
 
         describe '#count_of_games_by_season' do
             xit 'counts the game by season(regular or post)' do
-
                 expect(@stat_tracker.count_of_games_by_season).to be_a Hash
             end
         end
 
         describe '#average_goals_per_game' do
             it 'calculates avg goals per game' do
-
                 expect(@stat_tracker.average_goals_per_game).to be_a Float
                 expect(@stat_tracker.average_goals_per_game).to eq 3.67
                 # expect(@stat_tracker.average_goals_per_game).to eq 4.22 WHEN NOT DUMMY
             end
-
         end
 
         describe '#average_goals_by_season' do 
