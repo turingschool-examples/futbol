@@ -115,7 +115,7 @@ RSpec.describe StatTracker do
 
     describe 'percentage_home_wins' do
         it 'returns percentage of games that a home team has won' do
-            expect(@stat_tracker.percentage_home_wins).to eq(64.28)
+            expect(@stat_tracker.percentage_home_wins).to eq(0.64)
         end
     end
 
@@ -146,10 +146,23 @@ RSpec.describe StatTracker do
             hash_of_games[2012030311].instance_variable_set(:@home_goals, 15)
 
             hash_of_games[2012030312].instance_variable_set(:@away_goals, 15)
-            hash_of_games[2012030312].instance_variable_set(:@home_goals, 15)
+            hash_of_games[2012030312].instance_variable_set(:@home_goals, 15) # UPDATE DATA SO TIES AND WINS ARE 50/50
 
             expect(@stat_tracker.percentage_ties).to eq(0.50)
         end
+    end
+
+    describe 'average_goals_per_game' do
+        it 'can find the average amount of goals per game for entire season' do
+            expect(@stat_tracker.average_goals_per_game).to eq(3.5)
+
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030222].instance_variable_set(:@away_goals, 329)
+
+            expect(@stat_tracker.average_goals_per_game).to eq(26.86)
+        end
+        
     end
 
     describe 'count_of_teams' do
@@ -158,25 +171,38 @@ RSpec.describe StatTracker do
         end
     end
 
-    # describe 'best_offense' do
+    describe 'best_offense' do
+        it 'returns name from id' do
+            @teams_stats_data = StatTracker.teams_reader(@locations[:teams])
+            @teams_stats_data.each do |team_id, team_object|
+                expect(@stat_tracker.id_to_name(team_id)).to eq(team_object.team_name)
+            end
+        end
 
-    # end
-    
+        it 'returns team yielding highest goals scored per game over all seasons' do
+            expect(@stat_tracker.best_offense).to eq('FC Dallas')
+        end
+    end
+
     # describe 'worst_offense' do
 
     # end
     
-    # describe 'highest_scoring_visitor' do
-
-    # end
+    describe 'highest_scoring_visitor' do
+        it 'returns name of the team with the highest average score per game across all seasons when they are away.' do
+            expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+        end
+    end
     
     # describe 'highest_scoring_home_team' do
 
     # end
     
-    # describe 'lowest_scoring_visitor' do
-
-    # end
+    describe 'lowest_scoring_visitor' do
+        it 'returns lowest average scoring team when they are a visitor.' do
+            expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
+        end
+    end
     
     # describe 'lowest_scoring_home_team' do
 
@@ -186,17 +212,23 @@ RSpec.describe StatTracker do
 
     # end
     
-    # describe 'worst_coach' do
-
-    # end
+    xdescribe 'worst_coach' do
+        it 'returns coach with worst win percentage for the season' do
+            expect(@stat_tracker.worst_coach).to eq('ur mom')
+        end
+    end
     
     # describe 'most_accurate_team' do
 
     # end
     
-    # describe 'least_accurate_team' do
-
-    # end
+    describe 'least_accurate_team' do
+        it 'returns name of the Team with the worst ratio of shots to goals for the season.' do
+            expect(@stat_tracker.least_accurate_team("20122013")).to eq('Sporting Kansas City')
+            #expect(@stat_tracker.least_accurate_team(20132014)).to eq "New York City FC"
+            #expect(@stat_tracker.least_accurate_team(20142015)).to eq "Columbus Crew SC"
+        end
+    end
     
     # describe 'most_tackles' do
 
