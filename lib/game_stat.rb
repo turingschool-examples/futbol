@@ -56,7 +56,7 @@ module GameStat
 
     def average_goals_by_season
         average_goals = Hash.new(0)
-        goals= total_goals_by_season
+        goals = total_goals_by_season
         games = count_of_games_by_season
         seasons = games.keys
         seasons.each do |season|
@@ -64,8 +64,4 @@ module GameStat
         end
         average_goals
     end
-        # now i want to divide both methods values. (.try_convert)???
-        # total goals byseason(v) divided by total games by season (v)
-        # the keys remain the same.  we just gotta divide the values and make a new hash.
-        # use .keys 
 end
