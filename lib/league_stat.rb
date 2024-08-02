@@ -16,16 +16,20 @@ module LeagueStatistics
             gpg
         end
         get_team_name(best_team[0])
-        # require 'pry'; binding.pry
     end
 
     def worst_offense
-
-        # average number of goals by team
-        # total number of games
-        # goals divides by games
-        # use game_team data
-        # get name of team
+        total_games = total_games_by_team
+        total_goals = total_goals_by_team
+        team_ids = total_goals.keys
+        goals_per_game = Hash.new(0)
+        team_ids.each do |team_id|
+            goals_per_game[team_id] = total_goals[team_id] / total_games[team_id]
+        end
+        worst_team = goals_per_game.min_by do |team_id, gpg| 
+            gpg
+        end
+        get_team_name(worst_team[0])
     end
 
     def total_goals_by_team
