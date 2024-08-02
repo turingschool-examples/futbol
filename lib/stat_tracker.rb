@@ -79,35 +79,21 @@ class StatTracker
         @seasons_stats_data.each do |game_id, season|
             teams_goals[season.team_id] += season.goals
             games_played[season.team_id] += 1
-             require 'pry'; binding.pry
         end
 
-        best_offense_teamid = teams_goals.max_by do |team_id, goals|
-            goals / 
+        best_offense_team = teams_goals.max_by do |team_id, goals|
+            goals.to_f / games_played[team_id].to_f
         end
 
-        # @game_stats_data.each do |game_id, game|
-        #     goal_count = []
-        #     score_tracker[game.away_team_id] = goal_count << game.away_goals
-        #     score_tracker[game.home_team_id] = goal_count << game.home_goals
-        #     # require 'pry'; binding.pry
-        # end
-        # iterate through the data
-        # make an accumulator to track goals/game for each team id
-        # counter = [], counter += game.goals
-        # counter / games played = avg goals per game
-        # find team that is associated with the highest avg goals per game
-        #
-        # lastly make method to associate team id in game with team id in teams
-        # and return teams_dummy.teamname.to_s
-        # id_to_name(return value of best offense)
+        best_offense_team_id = best_offense_team[0]
+
+        id_to_name(best_offense_team_id)
+        
     end
 
     def id_to_name(id)
         @teams_stats_data.each do |team_id, team|
-            if team_id == id
-                team.teamName.to_s
-            end
+            return team.team_name.to_s if team_id == id
         end
     end
     
