@@ -87,9 +87,30 @@ class StatTracker
 
     # end
    
-    # def best_offense
+    def best_offense
 
-    # end
+        teams_goals = Hash.new(0)
+        games_played = Hash.new(0)
+
+        @seasons_stats_data.each do |game_id, season|
+            teams_goals[season.team_id] += season.goals
+            games_played[season.team_id] += 1
+        end
+
+        best_offense_team = teams_goals.max_by do |team_id, goals|
+            goals.to_f / games_played[team_id].to_f
+        end
+
+        best_offense_team_id = best_offense_team[0]
+
+        id_to_name(best_offense_team_id)
+    end
+
+    def id_to_name(id)
+        @teams_stats_data.each do |team_id, team|
+            return team.team_name.to_s if team_id == id
+        end
+    end
     
     # def worst_offense
 
