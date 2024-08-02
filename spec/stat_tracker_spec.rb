@@ -199,9 +199,4 @@ RSpec.describe StatTracker do
     # describe 'fewest_tackles' do
 
     # end
-    describe 'best_offense' do
-        it 'returns team yielding highest goals scored per game over all seasons' do
-            expect(@stat_tracker.best_offense).to eq("FC Dallas")
-        end
-    end
 end

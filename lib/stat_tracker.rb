@@ -72,14 +72,26 @@ class StatTracker
     # end
    
     def best_offense
-        score_tracker = Hash.new(0)
 
-        @game_stats_data.each do |game_id, game|
-            goal_count = []
-            score_tracker[game.away_team_id] = goal_count << game.away_goals
-            score_tracker[game.home_team_id] = goal_count << game.home_goals
-            # require 'pry'; binding.pry
+        teams_goals = Hash.new(0)
+        games_played = Hash.new(0)
+
+        @seasons_stats_data.each do |game_id, season|
+            teams_goals[season.team_id] += season.goals
+            games_played[season.team_id] += 1
+             require 'pry'; binding.pry
         end
+
+        best_offense_teamid = teams_goals.max_by do |team_id, goals|
+            goals / 
+        end
+
+        # @game_stats_data.each do |game_id, game|
+        #     goal_count = []
+        #     score_tracker[game.away_team_id] = goal_count << game.away_goals
+        #     score_tracker[game.home_team_id] = goal_count << game.home_goals
+        #     # require 'pry'; binding.pry
+        # end
         # iterate through the data
         # make an accumulator to track goals/game for each team id
         # counter = [], counter += game.goals
