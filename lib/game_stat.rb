@@ -24,7 +24,6 @@ module GameStat
         (visitor_wins.to_f / total_games).round(2)        
     end
     
-    # require 'pry';binding.pry
     def percentage_ties
         total_games = @games.count
         ties = @games.count { |game| game.away_goals == game.home_goals }
@@ -32,7 +31,11 @@ module GameStat
     end
     
     def count_of_games_by_season
-
+        count_of_games = Hash.new(0)
+        @games.each do |game|
+            count_of_games[game.season] += 1
+        end
+        count_of_games
     end
     
     def average_goals_per_game
@@ -41,7 +44,22 @@ module GameStat
         (total_goals.to_f / total_games).round(2)
     end
     
-    def average_goals_by_season
+    def total_goals_by_season
+        total_goals = Hash.new(0)
+        @games.each do |game|
+            total_goals[game.season] += (game.away_goals + game.home_goals)
+        end
+        total_goals
+    end
 
+    def average_goals_by_season
+        average_goals = Hash.new(0)
+        goals = total_goals_by_season
+        games = count_of_games_by_season
+        seasons = games.keys
+        seasons.each do |season|
+            average_goals[season] = (goals[season].to_f / games[season]).round(2)
+        end
+        average_goals
     end
 end
