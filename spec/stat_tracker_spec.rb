@@ -152,7 +152,7 @@ RSpec.describe StatTracker do
 
     describe 'best_offense' do
         it 'returns team yielding highest goals scored per game over all seasons' do
-            expect(@stat_tracker.best_offense).to eq("FC Dallas")
+            expect(@stat_tracker.best_offense).to eq('FC Dallas')
         end
     end
 
@@ -177,9 +177,11 @@ RSpec.describe StatTracker do
 
     # end
     
-    # describe 'lowest_scoring_visitor' do
-
-    # end
+    describe 'lowest_scoring_visitor' do
+        it 'returns lowest average scoring team when they are a visitor.' do
+            expect(@stat_tracker.lowest_scoring_visitor).to eq('LA Galaxy')
+        end
+    end
     
     # describe 'lowest_scoring_home_team' do
 

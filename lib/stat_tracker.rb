@@ -108,9 +108,9 @@ class StatTracker
 
     # end
     
-    # def lowest_scoring_visitor
+    def lowest_scoring_visitor
 
-    # end
+    end
     
     # def lowest_scoring_home_team
 
