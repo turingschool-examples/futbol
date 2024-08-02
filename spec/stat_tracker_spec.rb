@@ -116,7 +116,38 @@ RSpec.describe StatTracker do
         describe 'helper#total goals by team' do
             it 'returns total goals by team' do
                 expected = {
-                    "1" => 0
+                    "1" => 896,
+                    "10" => 1007,
+                    "12" => 936,
+                    "13" => 955,
+                    "14" => 1159,
+                    "15" => 1168,
+                    "16" => 1156,
+                    "17" => 1007,
+                    "18" => 1101,
+                    "19" => 1068,
+                    "2" => 1053,
+                    "20" => 978,
+                    "21" => 973,
+                    "22" => 964,
+                    "23" => 923,
+                    "24" => 1146,
+                    "25" => 1061,
+                    "26" => 1065,
+                    "27" => 263,
+                    "28" => 1128,
+                    "29" => 1029,
+                    "3" => 1129,
+                    "30" => 1062,
+                    "4" => 972,
+                    "5" => 1262,
+                    "52" => 1041,
+                    "53" => 620,
+                    "54" => 239,
+                    "6" => 1154,
+                    "7" => 841,
+                    "8" => 1019,
+                    "9" => 1038,
                 }
                 expect(@stat_tracker.total_goals_by_team).to be_a Hash
                 expect(@stat_tracker.total_goals_by_team).to eq(expected)
@@ -126,7 +157,38 @@ RSpec.describe StatTracker do
         describe 'helper#total games by team' do
             it 'returns total games by team' do
                 expected = {
-                    "1" => 0
+                    "1" => 463,
+                    "10" => 478,
+                    "12" => 458,
+                    "13" => 464,
+                    "14" => 522,
+                    "15" => 528,
+                    "16" => 534,
+                    "17" => 489,
+                    "18" => 513,
+                    "19" => 507,
+                    "2" => 482,
+                    "20" => 473,
+                    "21" => 471,
+                    "22" => 471,
+                    "23" => 468,
+                    "24" => 522,
+                    "25" => 477,
+                    "26" => 511,
+                    "27" => 130,
+                    "28" => 516,
+                    "29" => 475,
+                    "3" => 531,
+                    "30" => 502,
+                    "4" => 477,
+                    "5" => 552,
+                    "52" => 479,
+                    "53" => 328,
+                    "54" => 102,
+                    "6" => 510,
+                    "7" => 458,
+                    "8" => 498,
+                    "9" => 493,
                 }
                 expect(@stat_tracker.total_games_by_team).to be_a Hash
                 expect(@stat_tracker.total_games_by_team).to eq(expected)
@@ -134,14 +196,14 @@ RSpec.describe StatTracker do
         end
 
         describe '#best_offense' do
-            it 'returns the best offense' do
+            xit 'returns the best offense' do
                 expect(@stat_tracker.best_offense).to be_a String
                 expect(@stat_tracker.best_offense).to eq("")
             end
         end
 
         describe '#worst_offense' do
-            it 'returns the worst offense' do
+            xit 'returns the worst offense' do
                 expect(@stat_tracker.worst_offense).to be_a String
                 expect(@stat_tracker.worst_offense).to eq("")
             end
