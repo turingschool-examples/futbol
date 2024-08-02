@@ -106,7 +106,7 @@ class StatTracker
             end
         end
         winning_team = visitor_team_scores.max_by do |team, scores|
-            scores.sum / scores.length
+            (scores.sum / scores.length.to_f).round(2)
         end
         
         @teams_stats_data.each  do |team_id, team_object|
