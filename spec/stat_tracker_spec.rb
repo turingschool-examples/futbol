@@ -179,7 +179,7 @@ RSpec.describe StatTracker do
     
     describe 'lowest_scoring_visitor' do
         it 'returns lowest average scoring team when they are a visitor.' do
-            expect(@stat_tracker.lowest_scoring_visitor).to eq('LA Galaxy')
+            expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
         end
     end
     
