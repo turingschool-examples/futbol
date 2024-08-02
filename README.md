@@ -30,7 +30,4 @@ Create a section in your README called “Contributors”. List each group membe
 - [DTR](https://docs.google.com/document/d/1gyJFtLm62Aqfi5fxmL0Uc9b-sDG-u0IKUANCgX8b4CM/edit?usp=sharing)
 - [Jira](https://sgalvin36.atlassian.net/jira/software/projects/KAN/boards/1)
 - [Miro](https://miro.com/app/board/uXjVKu-MTYE=/)
-
-
-
-
+- [Mural](https://app.mural.co/t/futbol9917/m/futbol9917/1722531187535/a6cbaccfff46d7d53334e83ffca9ed95f8c41f0d?sender=u9f8932b2d14570e05da22390)
