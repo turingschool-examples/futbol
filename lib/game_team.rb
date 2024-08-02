@@ -6,8 +6,8 @@ class GameTeam
               :head_coach,
               :goals,
               :shots,
-              :tackles,
-              :face_off_win_percentage,
+              :tackles
+
 
   def initialize(game_teams_data)
         @game_id = game_teams_data[:game_id]
