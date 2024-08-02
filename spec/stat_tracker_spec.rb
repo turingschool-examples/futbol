@@ -113,6 +113,26 @@ RSpec.describe StatTracker do
             end
         end
 
+        describe 'helper#total goals by team' do
+            it 'returns total goals by team' do
+                expected = {
+                    "1" => 0
+                }
+                expect(@stat_tracker.total_goals_by_team).to be_a Hash
+                expect(@stat_tracker.total_goals_by_team).to eq(expected)
+            end
+        end
+
+        describe 'helper#total games by team' do
+            it 'returns total games by team' do
+                expected = {
+                    "1" => 0
+                }
+                expect(@stat_tracker.total_games_by_team).to be_a Hash
+                expect(@stat_tracker.total_games_by_team).to eq(expected)
+            end
+        end
+
         describe '#best_offense' do
             it 'returns the best offense' do
                 expect(@stat_tracker.best_offense).to be_a String

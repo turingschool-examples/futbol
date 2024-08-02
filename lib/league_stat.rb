@@ -10,6 +10,27 @@ module LeagueStatistics
 
     def worst_offense
 
+        # average number of goals by team
+        # total number of games
+        # goals divides by games
+        # use game_team data
+        # get name of team
+    end
+
+    def total_goals_by_team
+        total_goals = Hash.new(0)
+        @game_teams.each do |game_team|
+            total_goals[game_team.team_id] += (game_team.goals)
+        end
+        total_goals
+    end
+
+    def total_games_by_team
+        total_games = Hash.new(0)
+        @game_teams.each do |game_team|
+            total_games[game_team.team_id] += 1
+        end
+        total_games
     end
 
     def highest_scoring_visitor
