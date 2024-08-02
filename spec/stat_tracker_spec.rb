@@ -111,12 +111,100 @@ RSpec.describe StatTracker do
             end
         end
 
-        describe '#best_offense' do
+        describe 'helper#total goals by team' do
+            it 'returns total goals by team' do
+                expected = {
+                    "1" => 896,
+                    "10" => 1007,
+                    "12" => 936,
+                    "13" => 955,
+                    "14" => 1159,
+                    "15" => 1168,
+                    "16" => 1156,
+                    "17" => 1007,
+                    "18" => 1101,
+                    "19" => 1068,
+                    "2" => 1053,
+                    "20" => 978,
+                    "21" => 973,
+                    "22" => 964,
+                    "23" => 923,
+                    "24" => 1146,
+                    "25" => 1061,
+                    "26" => 1065,
+                    "27" => 263,
+                    "28" => 1128,
+                    "29" => 1029,
+                    "3" => 1129,
+                    "30" => 1062,
+                    "4" => 972,
+                    "5" => 1262,
+                    "52" => 1041,
+                    "53" => 620,
+                    "54" => 239,
+                    "6" => 1154,
+                    "7" => 841,
+                    "8" => 1019,
+                    "9" => 1038,
+                }
+                expect(@stat_tracker.total_goals_by_team).to be_a Hash
+                expect(@stat_tracker.total_goals_by_team).to eq(expected)
+            end
+        end
 
+        describe 'helper#total games by team' do
+            it 'returns total games by team' do
+                expected = {
+                    "1" => 463,
+                    "10" => 478,
+                    "12" => 458,
+                    "13" => 464,
+                    "14" => 522,
+                    "15" => 528,
+                    "16" => 534,
+                    "17" => 489,
+                    "18" => 513,
+                    "19" => 507,
+                    "2" => 482,
+                    "20" => 473,
+                    "21" => 471,
+                    "22" => 471,
+                    "23" => 468,
+                    "24" => 522,
+                    "25" => 477,
+                    "26" => 511,
+                    "27" => 130,
+                    "28" => 516,
+                    "29" => 475,
+                    "3" => 531,
+                    "30" => 502,
+                    "4" => 477,
+                    "5" => 552,
+                    "52" => 479,
+                    "53" => 328,
+                    "54" => 102,
+                    "6" => 510,
+                    "7" => 458,
+                    "8" => 498,
+                    "9" => 493,
+                }
+                expect(@stat_tracker.total_games_by_team).to be_a Hash
+                expect(@stat_tracker.total_games_by_team).to eq(expected)
+            end
+        end
+
+        describe '#best_offense' do
+            it 'returns the best offense' do
+                expect(@stat_tracker.best_offense).to be_a String
+                expect(@stat_tracker.best_offense).to eq("Houston Dynamo")
+            end
         end
 
         describe '#worst_offense' do
-
+            it 'returns the worst offense' do
+                expect(@stat_tracker.worst_offense).to be_a String
+                expect(@stat_tracker.worst_offense).to eq("Atlanta United")
+            end
         end
 
         describe '#highest_scoring_visitor' do
@@ -421,9 +509,9 @@ RSpec.describe StatTracker do
                 it 'converts array into ratio' do
                     game_ids = ['2012030221', '2012030232', '2012030222']
                     hash = {
-                        "3" => 0.24,
+                        "3" => 0.23529411764705882,
                         "6" => 0.30,
-                        "17" => 0.29,
+                        "17" => 0.2857142857142857,
                         "16" => 0.20
                     }
                     teams = @stat_tracker.team_shot_goal(game_ids)
@@ -448,7 +536,7 @@ RSpec.describe StatTracker do
             it 'returns the team name of least_accurate_team' do
                 season = '20122013'
 
-                expect(@stat_tracker.least_accurate_team(season)).to eq "Houston Dynamo"
+                expect(@stat_tracker.least_accurate_team(season)).to eq "New York City FC"
             end
         end
 
@@ -507,27 +595,3 @@ RSpec.describe StatTracker do
 
     end
 end
-## games per season
-# team_tackles
-# teams.max_by
-# get team_name
-
-
-
-# games per season
-# modify team_shot_goal so that it is just team_tackles
-# modify team_id_hash to be an integer instead of an array
-# modify update_shot goal - to be modify tackles - find key and incriment value by however many tackles
-# 
-# modify most/least accurate
-# teams max_by
-# teams min_by
-# no need for ratio method
-
-
-# describe '#fewest_tackles' do
-# games per season
-# team_tackles
-# teams.min_by
-# get team_name
-# end

@@ -5,11 +5,47 @@ module LeagueStatistics
     end
 
     def best_offense
-        @goals.max.to_s
+        total_games = total_games_by_team
+        total_goals = total_goals_by_team
+        team_ids = total_goals.keys
+        goals_per_game = Hash.new(0)
+        team_ids.each do |team_id|
+            goals_per_game[team_id] = total_goals[team_id] / total_games[team_id]
+        end
+        best_team = goals_per_game.max_by do |team_id, gpg| 
+            gpg
+        end
+        get_team_name(best_team[0])
     end
 
     def worst_offense
+        total_games = total_games_by_team
+        total_goals = total_goals_by_team
+        team_ids = total_goals.keys
+        goals_per_game = Hash.new(0)
+        team_ids.each do |team_id|
+            goals_per_game[team_id] = total_goals[team_id] / total_games[team_id]
+        end
+        worst_team = goals_per_game.min_by do |team_id, gpg| 
+            gpg
+        end
+        get_team_name(worst_team[0])
+    end
 
+    def total_goals_by_team
+        total_goals = Hash.new(0)
+        @game_teams.each do |game_team|
+            total_goals[game_team.team_id] += (game_team.goals)
+        end
+        total_goals
+    end
+
+    def total_games_by_team
+        total_games = Hash.new(0)
+        @game_teams.each do |game_team|
+            total_games[game_team.team_id] += 1
+        end
+        total_games
     end
 
     def highest_scoring_visitor
