@@ -124,6 +124,15 @@ module SeasonStatistics
         get_team_name(team_with_most_tackles[0])
     end
 
+    def fewest_tackles(season)
+        ids = games_per_season(season)
+        teams = team_tackles(ids)
+        fewest_tackles = teams.values.min
+        team_with_fewest_tackles = teams.find {|team, tackles| tackles == fewest_tackles }
+        team_with_fewest_tackles
+        get_team_name(team_with_fewest_tackles[0])
+    end
+
     def team_tackles(game_ids)
         team_ids = {}
         game_teams.each do |object|
