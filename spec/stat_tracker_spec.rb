@@ -118,14 +118,17 @@ RSpec.describe StatTracker do
         end
 
         describe '#highest_scoring_visitor' do
-            it "can do highest scoring visitor" do
+            it 'returns highest scoring visitor' do
                 expect(@stat_tracker.highest_scoring_visitor).to be_a String  
                 expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas" 
             end
         end
 
         describe '#highest_scoring_home_team' do
-
+            it 'returns highest scoring home team' do
+                expect(@stat_tracker.highest_scoring_home_team).to be_a String  
+                expect(@stat_tracker.highest_scoring_home_team).to eq "FC Dallas" 
+            end
         end
 
         describe '#lowest_scoring_visitor' do
