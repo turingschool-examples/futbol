@@ -83,9 +83,9 @@ class StatTracker
         (total_goals_per_game.sum / total_goals_per_game.length.to_f).round(2)
     end
 
-    # def count_of_teams
-
-    # end
+    def count_of_teams
+       @teams_stats_data.size
+    end
    
     def best_offense
 

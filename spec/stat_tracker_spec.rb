@@ -165,9 +165,11 @@ RSpec.describe StatTracker do
         
     end
 
-    # describe 'count_of_teams' do
-
-    # end
+    describe 'count_of_teams' do
+        it 'returns the total number of teams' do
+            expect(@stat_tracker.count_of_teams).to eq(14)
+        end
+    end
 
     describe 'best_offense' do
         it 'returns name from id' do
