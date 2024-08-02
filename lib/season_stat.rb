@@ -88,7 +88,7 @@ module SeasonStatistics
 
     def goal_shot_ratio(team_ids)
         team_ids.each_pair do |team_id, goals_shots|
-            shot_ratio = (goals_shots[0].fdiv(goals_shots[1])).round(2)
+            shot_ratio = (goals_shots[0].fdiv(goals_shots[1]))
             team_ids[team_id] = shot_ratio
         end
         team_ids
