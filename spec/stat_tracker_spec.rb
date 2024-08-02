@@ -121,7 +121,10 @@ RSpec.describe StatTracker do
         end
 
         describe '#worst_offense' do
-
+            it 'returns the worst offense' do
+                expect(@stat_tracker.worst_offense).to be_a String
+                expect(@stat_tracker.worst_offense).to eq("")
+            end
         end
 
         describe '#highest_scoring_visitor' do
