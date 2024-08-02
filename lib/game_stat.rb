@@ -34,7 +34,6 @@ module GameStat
         count_of_games = Hash.new(0)
         @games.each do |game|
             count_of_games[game.season] += 1
-            # require 'pry';binding.pry
         end
         count_of_games
     end
