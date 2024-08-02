@@ -141,9 +141,22 @@ class StatTracker
 
     # end
     
-    # def lowest_scoring_visitor
+    def lowest_scoring_visitor
+        teams_goals = Hash.new(0)
+        games_played = Hash.new(0)
 
-    # end
+        @game_stats_data.each do |game_id, game|
+            teams_goals[game.away_team_id] += game.away_goals
+            games_played[game.away_team_id] += 1
+        end
+
+        worst_visitors = teams_goals.min_by do |team_id, away_goals|
+            away_goals.to_f / games_played[team_id].to_f
+        end
+
+        worst_visitor_id = worst_visitors[0]
+        id_to_name(worst_visitor_id)
+    end
     
     # def lowest_scoring_home_team
 
