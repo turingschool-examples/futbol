@@ -398,6 +398,18 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.team_tackles(game_ids)).to eq hash
             end
         end
+
+        describe 'helper#team id hashes' do
+            it 'returns a hash' do
+                game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                hash = {"3" => 0}
+                teams = {}
+
+                expect(@stat_tracker.team_id_hashes(game_1, teams)).to eq hash
+            end
+        end
+
+
     end
 end
 ## games per season
