@@ -11,9 +11,9 @@ RSpec.describe StatTracker do
     end
 
     before(:each) do
-        game_path = './data/dummy_games.csv'
-        team_path = './data/dummy_teams.csv'
-        game_teams_path = './data/dummy_game_teams.csv'
+        game_path = './data/games.csv'
+        team_path = './data/teams.csv'
+        game_teams_path = './data/game_teams.csv'
 
         @locations = {
         games: game_path,
@@ -400,6 +400,7 @@ RSpec.describe StatTracker do
         end
 
         describe 'helper#team id hashes' do
+        #rename later
             it 'returns a hash' do
                 game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
                 hash = {"3" => 0}
@@ -409,7 +410,17 @@ RSpec.describe StatTracker do
             end
         end
 
+        describe 'helper#update tackles' do
+            it 'updates team_id hashes with tackles' do
+                game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                hash = {"3" => 0}
+                teams = {}
+                @stat_tracker.team_id_hashes(game_1, teams)
+                expect(teams["3"]).to eq 0
 
+                expect(@stat_tracker.update_tackles(game_1, teams)).to eq({"3" => 44})
+            end
+        end
     end
 end
 ## games per season
