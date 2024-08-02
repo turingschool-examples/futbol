@@ -114,7 +114,10 @@ RSpec.describe StatTracker do
         end
 
         describe '#best_offense' do
-
+            it 'returns the best offense' do
+                expect(@stat_tracker.best_offense).to be_a String
+                expect(@stat_tracker.best_offense).to eq("")
+            end
         end
 
         describe '#worst_offense' do
