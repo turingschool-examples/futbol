@@ -74,6 +74,16 @@ class StatTracker
         ((tie_count.to_f / @game_stats_data.length).truncate(2))
     end
 
+    def count_of_games_by_season
+        season_game_count = Hash.new(0)
+        @game_stats_data.each do |game_id, game_object|
+            season = game_object.season
+            season_game_count[season] += 1 
+        end
+
+        season_game_count
+    end
+
     def average_goals_per_game
         total_goals_per_game = []
         @game_stats_data.each do |game_id, game_object|
