@@ -166,7 +166,7 @@ RSpec.describe StatTracker do
     end
 
     describe 'count_of_games_by_season' do
-        it 'returns sum of games per season on dummy file' do
+        it 'returns sum of games per season' do
             expect(@stat_tracker.count_of_games_by_season).to eq(20122013 => 14)
         end
 
@@ -180,7 +180,6 @@ RSpec.describe StatTracker do
             object_5 = hash[2012030225]
             object_6 = hash[2012030312]
             object_7 = hash[2012030233]
-            
 
             object_1.instance_variable_set(:@season, (20122013 + 1))
             object_2.instance_variable_set(:@season, (20122013 + 2))
