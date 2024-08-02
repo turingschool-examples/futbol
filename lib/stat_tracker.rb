@@ -96,7 +96,7 @@ class StatTracker
     # end
     
     def highest_scoring_visitor
-        visitor_team_scores = Hash.new
+        visitor_team_scores = {}
         @game_stats_data.each do |game_id, game_object|
             if !(visitor_team_scores.keys.include?(game_object.away_team_id))
                 visitor_team_scores[game_object.away_team_id] = []
@@ -140,9 +140,44 @@ class StatTracker
 
     # end
     
-    # def least_accurate_team
+    def least_accurate_team(specific_season)
+        specific_season_integer = specific_season.to_i
+        games_in_season = {specific_season => []}
+        @game_stats_data.each do |game_id, game_object|
+            games_in_season[specific_season].push(game_id) if game_object.season == specific_season_integer
+        end
 
-    # end
+        teams_goal_ratio = {}
+
+        @seasons_stats_data.each do |game_key, game_object|
+            if games_in_season[specific_season].include?(game_object.game_id)
+                if !(teams_goal_ratio.keys.include?(game_object.team_id))
+                    if game_object.shots > 0
+                        teams_goal_ratio[game_object.team_id] = []
+                        teams_goal_ratio[game_object.team_id].push((game_object.goals / game_object.shots.to_f).truncate(2))
+                    else 
+                        teams_goal_ratio[game_object.team_id].push(0.00)
+                    end
+                else
+                    if game_object.shots > 0
+                        teams_goal_ratio[game_object.team_id].push((game_object.goals / game_object.shots.to_f).truncate(2))
+                    else 
+                        teams_goal_ratio[game_object.team_id].push(0.00)
+                    end
+                end
+            end
+        end
+
+        lowest_accuracy_team = teams_goal_ratio.min_by do |team, accuracy_per_game|
+            accuracy_per_game.sum / accuracy_per_game.length
+        end
+        
+        @teams_stats_data.each  do |team_id, team_object|
+            if lowest_accuracy_team[0] == team_id
+                return team_object.team_name
+            end
+        end
+    end
     
     # def most_tackles
 
