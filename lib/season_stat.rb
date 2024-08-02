@@ -118,7 +118,10 @@ module SeasonStatistics
     def most_tackles(season)
         ids = games_per_season(season)
         teams = team_tackles(ids)
-        teams
+        most_tackles = teams.values.max
+        team_with_most_tackles = teams.find {|team, tackles| tackles == most_tackles }
+        team_with_most_tackles
+        get_team_name(team_with_most_tackles[0])
     end
 
     def team_tackles(game_ids)
@@ -143,6 +146,4 @@ module SeasonStatistics
         team_ids[game_teams_object.team_id] += game_teams_object.tackles
         team_ids
     end
-
-
 end

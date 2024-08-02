@@ -281,8 +281,6 @@ RSpec.describe StatTracker do
         end
 
         describe '#most_accurate_team' do
-        # max will get the team_id
-        # team_id to team name
             it 'gets game_ids per season' do
                 expect(@stat_tracker.games_per_season("20122013")).to be_a Array
             end
@@ -377,14 +375,6 @@ RSpec.describe StatTracker do
             end
         end
 
-        describe '#most_tackles' do
-            it 'returns the team with the most tackles' do
-                season = '20122-13'
-
-                expect(@stat_tracker.most_tackles(season)).to eq "The meanest team"
-            end
-        end
-
         describe 'helper#team tackles' do
             it 'returns a hash with teams and tackles' do
                 game_ids = ['2012030221', '2012030232', '2012030222']
@@ -419,6 +409,14 @@ RSpec.describe StatTracker do
                 expect(teams["3"]).to eq 0
 
                 expect(@stat_tracker.update_tackles(game_1, teams)).to eq({"3" => 44})
+            end
+        end
+
+        describe '#most_tackles' do
+            it 'returns the team with the most tackles' do
+                season = '20122013'
+
+                expect(@stat_tracker.most_tackles(season)).to eq "FC Cincinnati"
             end
         end
     end
