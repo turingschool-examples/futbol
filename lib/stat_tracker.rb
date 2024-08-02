@@ -64,7 +64,7 @@ class StatTracker
         win_count = @game_stats_data.count do |game_id, game_object|
             game_object.home_goals > game_object.away_goals 
         end
-        ((win_count.to_f / @game_stats_data.length) * 100).truncate(2)
+        ((win_count.to_f / @game_stats_data.length)).round(2)
     end
 
     def percentage_ties
