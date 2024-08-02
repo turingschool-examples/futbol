@@ -179,11 +179,7 @@ RSpec.describe StatTracker do
     
     describe 'highest_scoring_visitor' do
         it 'returns name of the team with the highest average score per game across all seasons when they are away.' do
-            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
-
-            hash_of_games[2012030221].instance_variable_set(:@away_goals, 50000)
-
-            expect(@stat_tracker.highest_scoring_visitor).to eq("Houston Dynamo")
+            expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
         end
     end
     
