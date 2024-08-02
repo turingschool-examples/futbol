@@ -281,8 +281,6 @@ RSpec.describe StatTracker do
         end
 
         describe '#most_accurate_team' do
-        # max will get the team_id
-        # team_id to team name
             it 'gets game_ids per season' do
                 expect(@stat_tracker.games_per_season("20122013")).to be_a Array
             end
@@ -377,12 +375,82 @@ RSpec.describe StatTracker do
             end
         end
 
+        describe 'helper#team tackles' do
+            it 'returns a hash with teams and tackles' do
+                game_ids = ['2012030221', '2012030232', '2012030222']
+                    hash = {
+                        "3" => 77,
+                        "6" => 87,
+                        "17" => 26,
+                        "16" => 36                    
+                    }
+                    
+                expect(@stat_tracker.team_tackles(game_ids)).to eq hash
+            end
+        end
+
+        describe 'helper#team id hashes' do
+        #rename later
+            it 'returns a hash' do
+                game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                hash = {"3" => 0}
+                teams = {}
+
+                expect(@stat_tracker.team_id_hashes(game_1, teams)).to eq hash
+            end
+        end
+
+        describe 'helper#update tackles' do
+            it 'updates team_id hashes with tackles' do
+                game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                hash = {"3" => 0}
+                teams = {}
+                @stat_tracker.team_id_hashes(game_1, teams)
+                expect(teams["3"]).to eq 0
+
+                expect(@stat_tracker.update_tackles(game_1, teams)).to eq({"3" => 44})
+            end
+        end
+
         describe '#most_tackles' do
+            it 'returns the team with the most tackles' do
+                season = '20122013'
+
+                expect(@stat_tracker.most_tackles(season)).to eq "FC Cincinnati"
+            end
         end
 
         describe '#fewest_tackles' do
+            it 'returns the team with the most tackles' do
+                season = '20122013'
+
+                expect(@stat_tracker.fewest_tackles(season)).to eq "Atlanta United"
+            end
         end
+
     end
-
-
 end
+## games per season
+# team_tackles
+# teams.max_by
+# get team_name
+
+
+
+# games per season
+# modify team_shot_goal so that it is just team_tackles
+# modify team_id_hash to be an integer instead of an array
+# modify update_shot goal - to be modify tackles - find key and incriment value by however many tackles
+# 
+# modify most/least accurate
+# teams max_by
+# teams min_by
+# no need for ratio method
+
+
+# describe '#fewest_tackles' do
+# games per season
+# team_tackles
+# teams.min_by
+# get team_name
+# end

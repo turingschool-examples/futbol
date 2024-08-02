@@ -115,4 +115,44 @@ module SeasonStatistics
         get_team_name(team[0])
     end
 
+    def most_tackles(season)
+        ids = games_per_season(season)
+        teams = team_tackles(ids)
+        most_tackles = teams.values.max
+        team_with_most_tackles = teams.find {|team, tackles| tackles == most_tackles }
+        team_with_most_tackles
+        get_team_name(team_with_most_tackles[0])
+    end
+
+    def fewest_tackles(season)
+        ids = games_per_season(season)
+        teams = team_tackles(ids)
+        fewest_tackles = teams.values.min
+        team_with_fewest_tackles = teams.find {|team, tackles| tackles == fewest_tackles }
+        team_with_fewest_tackles
+        get_team_name(team_with_fewest_tackles[0])
+    end
+
+    def team_tackles(game_ids)
+        team_ids = {}
+        game_teams.each do |object|
+            if game_ids.include?(object.game_id)
+                team_id_hashes(object, team_ids)
+                update_tackles(object, team_ids)
+            end
+        end
+        team_ids
+    end
+
+    def team_id_hashes(game_teams_object, team_ids)
+        if team_ids[game_teams_object.team_id].nil?
+            team_ids[game_teams_object.team_id] = 0
+        end
+        team_ids
+    end
+
+    def update_tackles(game_teams_object, team_ids)
+        team_ids[game_teams_object.team_id] += game_teams_object.tackles
+        team_ids
+    end
 end
