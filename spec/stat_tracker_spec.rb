@@ -14,8 +14,8 @@ RSpec.describe StatTracker do
         game_path = './data/games.csv'
         team_path = './data/teams.csv'
         game_teams_path = './data/game_teams.csv'
-        team_path = './data/teams.csv'
-        game_teams_path = './data/game_teams.csv'
+
+
 
         @locations = {
         games: game_path,
@@ -101,6 +101,54 @@ RSpec.describe StatTracker do
             expect(game_teams_tracker[0].takeaways).to eq 7
         end
     end
+    describe 'Module#LeagueStatistics' do
+        before(:each) do
+            @stat_tracker = StatTracker.from_csv(@locations)
+        end
+
+        describe '#count_of_teams' do
+            it 'can count the number of teams in the data' do
+                expect(@stat_tracker.count_of_teams).to be_an Integer
+                expect(@stat_tracker.count_of_teams).to eq 32  
+            end
+        end
+
+        describe '#best_offense' do
+
+        end
+
+        describe '#worst_offense' do
+
+        end
+
+        describe '#highest_scoring_visitor' do
+            it 'returns highest scoring visitor' do
+                expect(@stat_tracker.highest_scoring_visitor).to be_a String  
+                expect(@stat_tracker.highest_scoring_visitor).to eq "FC Dallas" 
+            end
+        end
+
+        describe '#highest_scoring_home_team' do
+            it 'returns highest scoring home team' do
+                expect(@stat_tracker.highest_scoring_home_team).to be_a String  
+                expect(@stat_tracker.highest_scoring_home_team).to eq "Reign FC"
+            end
+        end
+
+        describe '#lowest_scoring_visitor' do
+            it 'returns highest scoring visitor' do
+                expect(@stat_tracker.lowest_scoring_visitor).to be_a String  
+                expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
+            end
+        end
+
+        describe '#lowest_scoring_home_team' do
+            it 'returns highest scoring home team' do
+                expect(@stat_tracker.highest_scoring_home_team).to be_a String  
+                expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
+            end
+        end
+    end
 
     describe 'Module#GameStatistics' do
         before(:each) do
@@ -108,7 +156,10 @@ RSpec.describe StatTracker do
         end
 
         describe '#highest_total_score' do
-            xit 'returns the highest total score' do
+
+            it 'returns the highest total score' do
+
+
 
                 expect(@stat_tracker.highest_total_score).to be_a Integer
                 expect(@stat_tracker.highest_total_score).to eq 11
@@ -136,17 +187,20 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.percentage_visitor_wins).to be_a Float
                 expect(@stat_tracker.percentage_visitor_wins).to eq 0.36
             end
-
         end
 
         describe '#percentage_ties' do
             it 'calculates ties' do
                 expect(@stat_tracker.percentage_ties).to be_a Float
+
                 expect(@stat_tracker.percentage_ties).to eq 0.2
+
             end
         end
 
         describe '#count_of_games_by_season' do
+
+
             it 'counts the game by season(regular or post)' do
                 expected = {
                     "20122013" => 806,
@@ -156,6 +210,7 @@ RSpec.describe StatTracker do
                     "20162017" => 1317,
                     "20172018" => 1355
                 }
+
                 expect(@stat_tracker.count_of_games_by_season).to be_a Hash
                 expect(@stat_tracker.count_of_games_by_season).to eq(expected)
             end
@@ -166,6 +221,8 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.average_goals_per_game).to be_a Float
                 expect(@stat_tracker.average_goals_per_game).to eq 4.22
             end
+
+
         end
 
         describe '#total_goals_by_season' do 
@@ -181,6 +238,7 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.total_goals_by_season).to be_a Hash
                 expect(@stat_tracker.total_goals_by_season).to eq(expected)
             end
+
         end
 
         describe '#average_goals_by_season' do 
