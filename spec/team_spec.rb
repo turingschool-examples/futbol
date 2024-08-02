@@ -13,8 +13,6 @@ RSpec.describe Team do
             :franchise_id => "23",
             :team_name => "Atlanta United",
             :abbreviation => "ATL",
-            :stadium => "Mercedes-Benz Stadium",
-            :link => "/api/v1/teams/1"
         }
 
         @team = Team.new(@teams_data)
@@ -29,7 +27,5 @@ RSpec.describe Team do
         expect(@team.franchise_id).to eq("23")
         expect(@team.team_name).to eq("Atlanta United")
         expect(@team.abbreviation).to eq("ATL")
-        expect(@team.stadium).to eq("Mercedes-Benz Stadium")
-        expect(@team.link).to eq("/api/v1/teams/1")
     end
 end

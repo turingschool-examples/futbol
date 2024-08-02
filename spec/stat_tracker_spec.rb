@@ -70,8 +70,6 @@ RSpec.describe StatTracker do
             expect(team_tracker[0].franchise_id).to eq "23"
             expect(team_tracker[0].team_name).to eq "Atlanta United"
             expect(team_tracker[0].abbreviation).to eq "ATL"
-            expect(team_tracker[0].stadium).to eq "Mercedes-Benz Stadium"
-            expect(team_tracker[0].link).to eq "/api/v1/teams/1"
         end
     end
 
