@@ -166,9 +166,15 @@ class StatTracker
         
     # end
     
-    # def worst_coach
+    def worst_coach
+        # use game_teams.
+        # similar test structure as BO / LSV
+        # compare team id to winn vs loss
+        #make helper method to take team 1d and return coach
+        #helper method test should iterate over game_teams
+        #
 
-    # end
+    end
     
     # def most_accurate_team
 
