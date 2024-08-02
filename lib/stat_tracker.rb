@@ -88,7 +88,6 @@ class StatTracker
         best_offense_team_id = best_offense_team[0]
 
         id_to_name(best_offense_team_id)
-        
     end
 
     def id_to_name(id)

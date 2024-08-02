@@ -155,7 +155,16 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.best_offense).to eq("FC Dallas")
         end
     end
-    
+
+    describe 'id_to_name' do
+        it 'returns name from id' do
+            @teams_stats_data = StatTracker.teams_reader(@locations[:teams])
+            @teams_stats_data.each do |team_id, team_object|
+                expect(@stat_tracker.id_to_name(team_id)).to eq(team_object.team_name)
+            end
+        end
+    end
+
     # describe 'worst_offense' do
 
     # end
