@@ -74,9 +74,9 @@ class StatTracker
         ((tie_count.to_f/ @game_stats_data.length).truncate(2))
     end
 
-    # def count_of_teams
-
-    # end
+    def count_of_teams
+       @teams_stats_data.size
+    end
    
     # def best_offense
 
