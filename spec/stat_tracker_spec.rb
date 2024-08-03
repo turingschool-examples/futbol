@@ -119,6 +119,12 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe 'percentage_visitor_wins' do
+        it 'Percentage of games that a visitor has won (rounded to the nearest 100th)' do
+            expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
+        end
+    end
+
     describe 'percentage_ties' do
         it 'returns percentage of games that has resulted in a tie (rounded to the nearest 100th)' do 
             expect(@stat_tracker.percentage_ties).to eq(0.00) # NO TIES CURRENTLY LISTED
