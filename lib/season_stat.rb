@@ -1,4 +1,54 @@
 module SeasonStatistics
+    def winningest_coach(season)
+        ids = games_per_season(season)
+        coaches = coaches_wins_losses_ties(ids)
+        coaches = percentage_of_wins(coaches)
+        highest_percent = coaches.values.max
+        (coaches.find {|coach, percent| percent == highest_percent})[0]
+    end
+
+    def worst_coach(season)
+        ids = games_per_season(season)
+        coaches = coaches_wins_losses_ties(ids)
+        coaches = percentage_of_wins(coaches)
+        lowest_percent = coaches.values.min
+        (coaches.find {|coach, percent| percent == lowest_percent})[0]
+    end
+
+    def most_accurate_team(season)
+        ids = games_per_season(season)
+        teams = team_shot_goal(ids)
+        teams = goal_shot_ratio(teams)
+        team = teams.max_by {|team_id, ratio| ratio}
+        get_team_name(team[0])
+    end
+
+    def least_accurate_team(season)
+        ids = games_per_season(season)
+        teams = team_shot_goal(ids)
+        teams = goal_shot_ratio(teams)
+        team = teams.min_by {|team_id, ratio| ratio}
+        get_team_name(team[0])
+    end
+
+    def most_tackles(season)
+        ids = games_per_season(season)
+        teams = team_tackles(ids)
+        most_tackles = teams.values.max
+        team_with_most_tackles = teams.find {|team, tackles| tackles == most_tackles }
+        team_with_most_tackles
+        get_team_name(team_with_most_tackles[0])
+    end
+
+    def fewest_tackles(season)
+        ids = games_per_season(season)
+        teams = team_tackles(ids)
+        fewest_tackles = teams.values.min
+        team_with_fewest_tackles = teams.find {|team, tackles| tackles == fewest_tackles }
+        team_with_fewest_tackles
+        get_team_name(team_with_fewest_tackles[0])
+    end
+
     def games_per_season(season)
         game_ids = []
         games.find_all do |game| 
@@ -36,22 +86,6 @@ module SeasonStatistics
             coaches[game_teams_object.head_coach][2] += 1
         end
         coaches
-    end
-
-    def winningest_coach(season)
-        ids = games_per_season(season)
-        coaches = coaches_wins_losses_ties(ids)
-        coaches = percentage_of_wins(coaches)
-        highest_percent = coaches.values.max
-        (coaches.find {|coach, percent| percent == highest_percent})[0]
-    end
-
-    def worst_coach(season)
-        ids = games_per_season(season)
-        coaches = coaches_wins_losses_ties(ids)
-        coaches = percentage_of_wins(coaches)
-        lowest_percent = coaches.values.min
-        (coaches.find {|coach, percent| percent == lowest_percent})[0]
     end
 
     def percentage_of_wins(coaches)
@@ -97,40 +131,6 @@ module SeasonStatistics
     def get_team_name(team_id)
         team_info = teams.find {|team| team.team_id == team_id}
         team_info.team_name
-    end
-
-    def most_accurate_team(season)
-        ids = games_per_season(season)
-        teams = team_shot_goal(ids)
-        teams = goal_shot_ratio(teams)
-        team = teams.max_by {|team_id, ratio| ratio}
-        get_team_name(team[0])
-    end
-
-    def least_accurate_team(season)
-        ids = games_per_season(season)
-        teams = team_shot_goal(ids)
-        teams = goal_shot_ratio(teams)
-        team = teams.min_by {|team_id, ratio| ratio}
-        get_team_name(team[0])
-    end
-
-    def most_tackles(season)
-        ids = games_per_season(season)
-        teams = team_tackles(ids)
-        most_tackles = teams.values.max
-        team_with_most_tackles = teams.find {|team, tackles| tackles == most_tackles }
-        team_with_most_tackles
-        get_team_name(team_with_most_tackles[0])
-    end
-
-    def fewest_tackles(season)
-        ids = games_per_season(season)
-        teams = team_tackles(ids)
-        fewest_tackles = teams.values.min
-        team_with_fewest_tackles = teams.find {|team, tackles| tackles == fewest_tackles }
-        team_with_fewest_tackles
-        get_team_name(team_with_fewest_tackles[0])
     end
 
     def team_tackles(game_ids)
