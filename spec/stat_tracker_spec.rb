@@ -245,6 +245,12 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe 'team_seasons_goals' do
+        it "returns a hash with each team as the key, and the value a hash with :goals & :games_played as keys, and their respective values" do
+            expect(@stat_tracker.team_seasons_goals).to eq ({3=>{:goals=>8, :games_played=>5}, 6=>{:goals=>21, :games_played=>7}, 5=>{:goals=>1, :games_played=>2}})
+        end
+    end
+
     describe 'best_offense' do
         it 'returns name from id' do
             @teams_stats_data = StatTracker.teams_reader(@locations[:teams])
@@ -258,9 +264,11 @@ RSpec.describe StatTracker do
         end
     end
 
-    # describe 'worst_offense' do
-
-    # end
+    describe 'worst_offense' do
+        it 'returns team yielding lowest goals scored per game over all seaons' do
+            expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
+        end
+    end
     
     describe 'highest_scoring_visitor' do
         it 'returns name of the team with the highest average score per game across all seasons when they are away.' do
