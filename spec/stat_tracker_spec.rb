@@ -172,7 +172,7 @@ RSpec.describe StatTracker do
     end
 
     describe 'teams_scores_max_by' do
-
+        it 'returns the team with the max'
     end
 
     describe 'team_seasons_goals' do

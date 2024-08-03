@@ -100,13 +100,13 @@ class StatTracker
         teams_data
     end
 
-    def teams_scores_min_by(teams_data)
+    def teams_scores_average_min_by(teams_data)
         lowest_scoring_team = teams_data.min_by do |team_id, team_data|
             team_data[:goals].to_f / team_data[:games_played].to_f
         end
     end
 
-    def teams_scores_max_by(teams_data)
+    def teams_scores_average_max_by(teams_data)
         highest_scoring_team = teams_data.max_by do |team_id, team_data|
             team_data[:goals].to_f / team_data[:games_played].to_f
         end
@@ -114,7 +114,7 @@ class StatTracker
 
     def best_offense
         teams_goals_data = team_seasons_goals(['home','away'])
-        best_offense_team = teams_scores_max_by(teams_goals_data)
+        best_offense_team = teams_scores_average_max_by(teams_goals_data)
 
         best_offense_team_id = best_offense_team[0]
         id_to_name(best_offense_team_id)
@@ -130,7 +130,7 @@ class StatTracker
     
     def worst_offense
         teams_goals_data = team_seasons_goals(['home','away'])
-        worst_offense_team = teams_scores_min_by(teams_goals_data)
+        worst_offense_team = teams_scores_average_min_by(teams_goals_data)
         worst_offense_team_id = worst_offense_team[0]
 
         id_to_name(worst_offense_team_id)
@@ -165,7 +165,7 @@ class StatTracker
     def lowest_scoring_visitor
         away_teams_goals_data = team_seasons_goals('away')
 
-        lowest_scoring_team = teams_scores_min_by(away_teams_goals_data)
+        lowest_scoring_team = teams_scores_average_min_by(away_teams_goals_data)
 
         worst_visitor_id = lowest_scoring_team[0]
         id_to_name(worst_visitor_id)
@@ -174,7 +174,7 @@ class StatTracker
     def lowest_scoring_home_team
         home_teams_goals_data = team_seasons_goals('home')
 
-        lowest_scoring_team = teams_scores_min_by(home_teams_goals_data)
+        lowest_scoring_team = teams_scores_average_min_by(home_teams_goals_data)
 
         lowest_scoring_team_id = lowest_scoring_team[0]
         id_to_name(lowest_scoring_team_id)
