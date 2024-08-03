@@ -171,6 +171,46 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.home_away_goals_and_games("away", "lowest")).to eq("27")
             end
         end
+
+        describe 'helper#team_goals_and_games' do
+            it 'creates a hash with team_id as key and a hash of goals and games' do
+                expected = {
+                    "1" => {:games=>463, :goals=>896},
+                    "10" => {:games=>478, :goals=>1007},
+                    "12" => {:games=>458, :goals=>936},
+                    "13" => {:games=>464, :goals=>955},
+                    "14" => {:games=>522, :goals=>1159},
+                    "15" => {:games=>528, :goals=>1168},
+                    "16" => {:games=>534, :goals=>1156},
+                    "17" => {:games=>489, :goals=>1007},
+                    "18" => {:games=>513, :goals=>1101},
+                    "19" => {:games=>507, :goals=>1068},
+                    "2" => {:games=>482, :goals=>1053},
+                    "20" => {:games=>473, :goals=>978},
+                    "21" => {:games=>471, :goals=>973},
+                    "22" => {:games=>471, :goals=>964},
+                    "23" => {:games=>468, :goals=>923},
+                    "24" => {:games=>522, :goals=>1146},
+                    "25" => {:games=>477, :goals=>1061},
+                    "26" => {:games=>511, :goals=>1065},
+                    "27" => {:games=>130, :goals=>263},
+                    "28" => {:games=>516, :goals=>1128},
+                    "29" => {:games=>475, :goals=>1029},
+                    "3" => {:games=>531, :goals=>1129},
+                    "30" => {:games=>502, :goals=>1062},
+                    "4" => {:games=>477, :goals=>972},
+                    "5" => {:games=>552, :goals=>1262},
+                    "52" => {:games=>479, :goals=>1041},
+                    "53" => {:games=>328, :goals=>620},
+                    "54" => {:games=>102, :goals=>239},
+                    "6" => {:games=>510, :goals=>1154},
+                    "7" => {:games=>458, :goals=>841},
+                    "8" => {:games=>498, :goals=>1019},
+                    "9" => {:games=>493, :goals=>1038}
+                }
+                expect(@stat_tracker.team_goals_and_games(@stat_tracker.game_teams)).to eq(expected)
+            end
+        end
     end
 
     describe 'Module#GameStatistics' do

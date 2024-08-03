@@ -18,7 +18,7 @@ module LeagueStatistics
     end
 
     def highest_scoring_visitor
-        get_team_name(home_away_goals_and_games("away", "lowest"))
+        get_team_name(home_away_goals_and_games("away", "highest"))
     end
 
     def highest_scoring_home_team
