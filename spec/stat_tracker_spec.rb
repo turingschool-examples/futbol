@@ -101,6 +101,7 @@ RSpec.describe StatTracker do
             expect(game_teams_tracker[0].takeaways).to eq 7
         end
     end
+
     describe 'Module#LeagueStatistics' do
         before(:each) do
             @stat_tracker = StatTracker.from_csv(@locations)
@@ -136,15 +137,15 @@ RSpec.describe StatTracker do
         end
 
         describe '#lowest_scoring_visitor' do
-            it 'returns highest scoring visitor' do
+            it 'returns lowest scoring visitor' do
                 expect(@stat_tracker.lowest_scoring_visitor).to be_a String  
                 expect(@stat_tracker.lowest_scoring_visitor).to eq "San Jose Earthquakes"
             end
         end
 
         describe '#lowest_scoring_home_team' do
-            it 'returns highest scoring home team' do
-                expect(@stat_tracker.highest_scoring_home_team).to be_a String  
+            it 'returns lowest scoring home team' do
+                expect(@stat_tracker.lowest_scoring_home_team).to be_a String  
                 expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
             end
         end
