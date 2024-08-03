@@ -32,7 +32,7 @@ module LeagueStatistics
     def lowest_scoring_home_team
         get_team_name(home_away_goals_and_games("home", "lowest"))
     end
- 
+
     def home_away_goals_and_games(home_or_away, highest_or_lowest) 
         selected_games = @game_teams.select {|game| game.hoa == home_or_away}
         team_totals = team_goals_and_games(selected_games)
