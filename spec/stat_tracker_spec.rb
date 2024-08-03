@@ -173,7 +173,11 @@ RSpec.describe StatTracker do
 
     describe 'team_seasons_goals' do
         it "returns a hash with each team as the key, and the value a hash with :goals & :games_played as keys, and their respective values" do
-            expect(@stat_tracker.team_seasons_goals).to eq ({3=>{:goals=>8, :games_played=>5}, 6=>{:goals=>21, :games_played=>7}, 5=>{:goals=>1, :games_played=>2}})
+            expect(@stat_tracker.team_seasons_goals(['away','home'])).to eq ({3=>{:goals=>8, :games_played=>5}, 6=>{:goals=>21, :games_played=>7}, 5=>{:goals=>1, :games_played=>2}})
+        end
+
+        it 'returns returns values for only home teams' do
+
         end
     end
 
