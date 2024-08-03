@@ -153,6 +153,24 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
             end
         end
+
+        describe 'helper#home_away_goals_and_games' do
+            it 'retrns a string of highest home team_id' do
+                expect(@stat_tracker.home_away_goals_and_games("home", "highest")).to eq("54")
+            end
+
+            it 'retrns a string of lowest home team_id' do
+                expect(@stat_tracker.home_away_goals_and_games("home", "lowest")).to eq("7")
+            end
+
+            it 'retrns a string of highest away team_id' do
+                expect(@stat_tracker.home_away_goals_and_games("away", "highest")).to eq("6")
+            end
+
+            it 'retrns a string of lowest away team_id' do
+                expect(@stat_tracker.home_away_goals_and_games("away", "lowest")).to eq("27")
+            end
+        end
     end
 
     describe 'Module#GameStatistics' do
@@ -161,11 +179,7 @@ RSpec.describe StatTracker do
         end
 
         describe '#highest_total_score' do
-
             it 'returns the highest total score' do
-
-
-
                 expect(@stat_tracker.highest_total_score).to be_a Integer
                 expect(@stat_tracker.highest_total_score).to eq 11
             end
@@ -204,8 +218,6 @@ RSpec.describe StatTracker do
         end
 
         describe '#count_of_games_by_season' do
-
-
             it 'counts the game by season(regular or post)' do
                 expected = {
                     "20122013" => 806,
@@ -226,8 +238,6 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.average_goals_per_game).to be_a Float
                 expect(@stat_tracker.average_goals_per_game).to eq 4.22
             end
-
-
         end
 
         describe '#total_goals_by_season' do 
@@ -341,10 +351,10 @@ RSpec.describe StatTracker do
         
         describe 'helper#percentage_of_wins' do
             it 'will return a percentage of wins per coach' do
-                  coaches = {}
-                  coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
+                coaches = {}
+                coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
 
-                  expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
+                expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
             end
         end
 
@@ -468,13 +478,12 @@ RSpec.describe StatTracker do
                         "17" => 26,
                         "16" => 36                    
                     }
-                    
+                
                 expect(@stat_tracker.team_tackles(game_ids)).to eq hash
             end
         end
 
         describe 'helper#team id hashes' do
-        #rename later
             it 'returns a hash' do
                 game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
                 hash = {"3" => 0}
@@ -511,6 +520,5 @@ RSpec.describe StatTracker do
                 expect(@stat_tracker.fewest_tackles(season)).to eq "Atlanta United"
             end
         end
-
     end
 end

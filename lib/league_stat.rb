@@ -17,39 +17,22 @@ module LeagueStatistics
         get_team_name(worst_team[0])
     end
 
-    # def goals_per_game(total_goals_games, team_ids)
-    #     goals_per_game = Hash.new(0)
-    #     team_ids.each do |team_id|
-    #         goals_per_game[team_id] = total_goals_games[team_id][:goals].fdiv(total_goals_games[team_id][:games])
-    #     end
-    #     goals_per_game
-    # end
-
     def highest_scoring_visitor
-        @teams.each do |team|
-            return team.team_name if team.team_id == home_away_goals_and_games("away", "highest")
-        end
+        get_team_name(home_away_goals_and_games("away", "lowest"))
     end
 
     def highest_scoring_home_team
-        @teams.each do |team|
-            return team.team_name if team.team_id == home_away_goals_and_games("home", "highest")
-        end
+        get_team_name(home_away_goals_and_games("home", "highest"))
     end
 
     def lowest_scoring_visitor
-        @teams.each do |team|
-            return team.team_name if team.team_id == home_away_goals_and_games("away", "lowest")
-        end
+        get_team_name(home_away_goals_and_games("away", "lowest"))
     end
 
     def lowest_scoring_home_team
-        @teams.each do |team|
-            return team.team_name if team.team_id == home_away_goals_and_games("home", "lowest")
-        end
+        get_team_name(home_away_goals_and_games("home", "lowest"))
     end
-
-    private 
+ 
     def home_away_goals_and_games(home_or_away, highest_or_lowest) 
         selected_games = @game_teams.select {|game| game.hoa == home_or_away}
         team_totals = team_goals_and_games(selected_games)
