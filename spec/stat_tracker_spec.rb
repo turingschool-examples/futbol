@@ -171,8 +171,18 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe 'teams_scores_max_by' do
-        it 'returns the team with the max'
+    describe 'teams_scores_average_max_by' do
+        it 'returns the team with key value pair, of the team with the highest score average' do
+            data= {3=>{:goals=>5, :games_played=>3}, 6=>{:goals=>12, :games_played=>4}}
+            expect(@stat_tracker.teams_scores_average_max_by(data)).to eq([6, {:goals=>12, :games_played=>4}])
+        end
+    end
+
+    describe 'teams_scores_average_min_by' do
+        it 'returns the team with key value pair, of the team with the lowest score average' do
+            data= {3=>{:goals=>5, :games_played=>3}, 6=>{:goals=>12, :games_played=>4}}
+            expect(@stat_tracker.teams_scores_average_min_by(data)).to eq([3, {:goals=>5, :games_played=>3}])
+        end
     end
 
     describe 'team_seasons_goals' do
