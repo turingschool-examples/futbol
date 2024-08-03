@@ -176,8 +176,12 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.team_seasons_goals(['away','home'])).to eq ({3=>{:goals=>8, :games_played=>5}, 6=>{:goals=>21, :games_played=>7}, 5=>{:goals=>1, :games_played=>2}})
         end
 
-        it 'returns returns values for only home teams' do
+        it 'returns values for only home teams' do
+            expect(@stat_tracker.team_seasons_goals('away')).to eq ({3=>{:goals=>5, :games_played=>3}, 6=>{:goals=>12, :games_played=>4}})
+        end
 
+        it 'returns values for only away teams' do
+            expect(@stat_tracker.team_seasons_goals('home')).to eq ({6=>{:goals=>9, :games_played=>3}, 3=>{:goals=>3, :games_played=>2}, 5=>{:goals=>1, :games_played=>2}})
         end
     end
 
