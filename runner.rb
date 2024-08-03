@@ -14,3 +14,6 @@ season_data = {
 stat_tracker = StatTracker.from_csv(season_data)
 puts stat_tracker.highest_total_score
 puts stat_tracker.class
+
+puts Object.superclass
+puts BasicObject.superclass
