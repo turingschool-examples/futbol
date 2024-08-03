@@ -195,6 +195,36 @@ RSpec.describe StatTracker do
         end
 
     end
+
+    describe 'average_goals_by_season' do
+        it 'returns the average of goals by season' do
+            expect(@stat_tracker.average_goals_by_season).to eq(20122013 => 3.5)
+        end
+
+        it 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            object_1 = hash[2012030221] 
+            object_2 = hash[2012030222]
+            object_3 = hash[2012030223]
+            object_4 = hash[2012030224]
+            object_5 = hash[2012030225]
+            object_6 = hash[2012030312]
+            object_7 = hash[2012030233]
+
+            object_1.instance_variable_set(:@season, (20122013 + 1))
+            object_2.instance_variable_set(:@season, (20122013 + 2))
+            object_3.instance_variable_set(:@season, (20122013 + 2))
+            object_4.instance_variable_set(:@season, (20122013 + 4))
+            object_5.instance_variable_set(:@season, (20122013 + 4))
+            object_6.instance_variable_set(:@season, (20122013 + 4))
+            object_7.instance_variable_set(:@season, (20122013 + 4))
+
+            expected = {20122014=>5, 20122015=>4, 20122017=>4.5, 20122013=>2.57}
+
+            expect(@stat_tracker.average_goals_by_season).to eq(expected)
+        end
+    end
     # describe 'count_of_teams' do
 
     # end
