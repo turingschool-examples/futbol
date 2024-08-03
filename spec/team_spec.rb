@@ -10,8 +10,8 @@ RSpec.describe Team do
 
         @teams_data = {
             :team_id => "1",
-            :franchise_id => "23",
-            :team_name => "Atlanta United",
+            :franchiseid => "23",
+            :teamname => "Atlanta United",
             :abbreviation => "ATL",
         }
 

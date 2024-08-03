@@ -19,5 +19,4 @@ class GameTeam
         @shots = game_teams_data[:shots].to_i
         @tackles = game_teams_data[:tackles].to_i
   end
-
 end

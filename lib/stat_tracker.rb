@@ -31,31 +31,15 @@ class StatTracker
     def self.game_factory(info)
         games = []
         CSV.foreach(info[:games], headers: true, header_converters: :symbol) do |row|
-            class_info = {:game_id => row[:game_id],
-            :season => row[:season],
-            :type => row[:type],
-            :date_time => row[:date_time],
-            :away_team_id => row[:away_team_id],
-            :home_team_id => row[:home_team_id],
-            :away_goals => row[:away_goals],
-            :home_goals => row[:home_goals],
-            :venue => row[:venue],
-            :venue_link => row[:venue_link]}
-            games << Game.new(class_info)
+            games << Game.new(row)
         end
         games
     end
-       
+    
     def self.team_factory(info)
         teams = []
         CSV.foreach(info[:teams], headers: true, header_converters: :symbol) do |row|
-            class_info = {:team_id => row[:team_id],
-            :franchise_id => row[:franchiseid],
-            :team_name => row[:teamname],
-            :abbreviation => row[:abbreviation],
-            :stadium => row[:stadium],
-            :link => row[:link]}
-            teams << Team.new(class_info)
+            teams << Team.new(row)
         end
         teams
     end
@@ -63,22 +47,7 @@ class StatTracker
     def self.game_team_factory(info)
         game_teams = []
         CSV.foreach(info[:game_teams], headers: true, header_converters: :symbol) do |row|
-            class_info = {:game_id => row[:game_id],
-            :team_id => row[:team_id],
-            :hoa => row[:hoa],
-            :result => row[:result],
-            :settled_in => row[:settled_in],
-            :head_coach => row[:head_coach],
-            :goals => row[:goals],
-            :shots => row[:shots],
-            :tackles => row[:tackles],
-            :pim => row[:pim],
-            :power_play_opportunities => row[:powerplayopportunities],
-            :power_play_goals => row[:powerplaygoals],
-            :face_off_win_percentage => row[:faceoffwinpercentage],
-            :giveaways => row[:giveaways],
-            :takeaways => row[:takeaways]}
-            game_teams << GameTeam.new(class_info)
+            game_teams << GameTeam.new(row)
         end
         game_teams
     end
