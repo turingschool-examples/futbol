@@ -49,13 +49,8 @@ class StatTracker
     def self.team_factory(info)
         teams = []
         CSV.foreach(info[:teams], headers: true, header_converters: :symbol) do |row|
-            class_info = {:team_id => row[:team_id],
-            :franchise_id => row[:franchiseid],
-            :team_name => row[:teamname],
-            :abbreviation => row[:abbreviation],
-            :stadium => row[:stadium],
-            :link => row[:link]}
-            teams << Team.new(class_info)
+            # require 'pry';binding.pry
+            teams << Team.new(row)
         end
         teams
     end

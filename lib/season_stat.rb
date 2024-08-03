@@ -2,7 +2,7 @@ module SeasonStatistics
     def winningest_coach(season)
         ids = games_per_season(season)
         coaches = coaches_wins_losses_ties(ids)
-        coaches = percentage_of_wins(coaches)
+        coaches = find_ratio(coaches)
         highest_percent = coaches.values.max
         (coaches.find {|coach, percent| percent == highest_percent})[0]
     end
@@ -10,7 +10,7 @@ module SeasonStatistics
     def worst_coach(season)
         ids = games_per_season(season)
         coaches = coaches_wins_losses_ties(ids)
-        coaches = percentage_of_wins(coaches)
+        coaches = find_ratio(coaches)
         lowest_percent = coaches.values.min
         (coaches.find {|coach, percent| percent == lowest_percent})[0]
     end
@@ -18,7 +18,7 @@ module SeasonStatistics
     def most_accurate_team(season)
         ids = games_per_season(season)
         teams = team_shot_goal(ids)
-        teams = goal_shot_ratio(teams)
+        teams = find_ratio(teams)
         team = teams.max_by {|team_id, ratio| ratio}
         get_team_name(team[0])
     end
@@ -26,7 +26,7 @@ module SeasonStatistics
     def least_accurate_team(season)
         ids = games_per_season(season)
         teams = team_shot_goal(ids)
-        teams = goal_shot_ratio(teams)
+        teams = find_ratio(teams)
         team = teams.min_by {|team_id, ratio| ratio}
         get_team_name(team[0])
     end
@@ -72,7 +72,7 @@ module SeasonStatistics
 
     def update_coaches(game_teams_object, coaches)
         if coaches[game_teams_object.head_coach].nil?
-            coaches[game_teams_object.head_coach] = [0, 0, 0]
+            coaches[game_teams_object.head_coach] = [0, 0]
         end
         coaches
     end
@@ -80,20 +80,17 @@ module SeasonStatistics
     def update_games(game_teams_object, coaches)
         if game_teams_object.result == 'WIN'
             coaches[game_teams_object.head_coach][0] += 1 
-        elsif game_teams_object.result == 'LOSS'
-            coaches[game_teams_object.head_coach][1] += 1
-        else 
-            coaches[game_teams_object.head_coach][2] += 1
         end
+        coaches[game_teams_object.head_coach][1] += 1
         coaches
     end
 
-    def percentage_of_wins(coaches)
-        coaches.each_pair do |coach, wins_losses_ties|
-            win_percentage = (wins_losses_ties[0].fdiv(wins_losses_ties.sum) * 100).round(2)
-            coaches[coach] = win_percentage
+    def find_ratio(hash)
+        hash.each_pair do |id, values|
+            ratio = (values[0].fdiv(values[1]))
+            hash[id] = ratio
         end
-        coaches
+        hash
     end
 
     def team_shot_goal(game_ids) 
@@ -117,14 +114,6 @@ module SeasonStatistics
     def update_shots_goals(game_teams_object, team_ids)
         team_ids[game_teams_object.team_id][0] += game_teams_object.goals
         team_ids[game_teams_object.team_id][1] += game_teams_object.shots
-        team_ids
-    end
-
-    def goal_shot_ratio(team_ids)
-        team_ids.each_pair do |team_id, goals_shots|
-            shot_ratio = (goals_shots[0].fdiv(goals_shots[1]))
-            team_ids[team_id] = shot_ratio
-        end
         team_ids
     end
 

@@ -400,7 +400,7 @@ RSpec.describe StatTracker do
                     coaches = {}
 
                     expect(@stat_tracker.update_coaches(game_teams_data, coaches)).to eq({
-                        "John Tortorella" => [0, 0, 0]
+                        "John Tortorella" => [0, 0]
                     })
                 end
 
@@ -426,17 +426,8 @@ RSpec.describe StatTracker do
                     @stat_tracker.update_coaches(game_teams_data, coaches)
 
                     expect(@stat_tracker.update_games(game_teams_data, coaches)).to eq({
-                        "John Tortorella" => [0, 1, 0]
+                        "John Tortorella" => [0, 1]
                     })
-                end
-            end
-            
-            describe 'helper#percentage_of_wins' do
-                it 'will return a percentage of wins per coach' do
-                    coaches = {}
-                    coaches = @stat_tracker.coaches_wins_losses_ties(["2012030231", "2012030232", "2012030162"])
-
-                    expect(@stat_tracker.percentage_of_wins(coaches)).to eq({"Bruce Boudreau"=>0.0, "Joel Quenneville"=>50.0, "Mike Babcock"=>66.67})
                 end
             end
 
@@ -516,20 +507,6 @@ RSpec.describe StatTracker do
                     end
                 end
 
-                describe 'helper#goal_shot_ratio' do
-                    it 'converts array into ratio' do
-                        game_ids = ['2012030221', '2012030232', '2012030222']
-                        hash = {
-                            "3" => 0.23529411764705882,
-                            "6" => 0.30,
-                            "17" => 0.2857142857142857,
-                            "16" => 0.20
-                        }
-                        teams = @stat_tracker.team_shot_goal(game_ids)
-                        
-                        expect(@stat_tracker.goal_shot_ratio(teams)).to eq hash
-                    end
-                end
                 describe 'helper#get_team_name' do
                     it 'takes team_id and returns name' do
                         expect(@stat_tracker.get_team_name("12")).to eq "Sky Blue FC"

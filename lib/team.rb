@@ -6,8 +6,8 @@ class Team
                 
     def initialize(teams_data)
         @team_id = teams_data[:team_id]
-        @franchise_id = teams_data[:franchise_id]
-        @team_name = teams_data[:team_name]
+        @franchise_id = teams_data[:franchiseid]
+        @team_name = teams_data[:teamname]
         @abbreviation = teams_data[:abbreviation]
 
     end
