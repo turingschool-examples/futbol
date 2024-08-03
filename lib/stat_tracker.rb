@@ -87,15 +87,18 @@ class StatTracker
        @teams_stats_data.size
     end
    
-    def best_offense
-
-        teams_goals = Hash.new(0)
-        games_played = Hash.new(0)
+    def team_scoring
+        teams_data = Hash.new { |hash, key| hash[key] = { goals: 0, games_played: 0 } }
 
         @seasons_stats_data.each do |game_id, season|
-            teams_goals[season.team_id] += season.goals
-            games_played[season.team_id] += 1
+            teams_data[season.team_id][:goals] += season.goals
+            teams_data[season.team_id][:games_played] += 1
         end
+        teams_data
+    end
+
+    def best_offense
+        teams_data
 
         best_offense_team = teams_goals.max_by do |team_id, goals|
             goals.to_f / games_played[team_id].to_f
@@ -112,9 +115,11 @@ class StatTracker
         end
     end
     
-    # def worst_offense
+    def 
 
-    # end
+    def worst_offense
+
+    end
     
     def highest_scoring_visitor
         visitor_team_scores = {}
