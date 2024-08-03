@@ -93,7 +93,10 @@ class StatTracker
             season_game_count[season] += 1
             total_season_goals[season] += goals
         end
-       total_season_goals.merge!(season_game_count) {|season, goals, games| (goals / games.to_f).round(2)}
+       average = total_season_goals.merge!(season_game_count) do |season, goals, games|
+        (goals / games.to_f).round(2)
+       end
+       average
     end
 
     def average_goals_per_game
