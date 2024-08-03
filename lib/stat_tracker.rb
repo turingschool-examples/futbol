@@ -109,6 +109,18 @@ class StatTracker
         id_to_name(best_offense_team_id)
     end
 
+    def worst_offense
+        teams_goals_data = team_seasons_goals
+
+        worst_offense_team = teams_goals_data.min_by do |team_id, teams_data|
+            teams_data[:goals].to_f / teams_data[:games_played].to_f
+        end
+
+        worst_offense_team_id = worst_offense_team[0]
+
+        id_to_name(worst_offense_team_id)
+    end
+
     def id_to_name(id)
         @teams_stats_data.each do |team_id, team|
             return team.team_name.to_s if team_id == id

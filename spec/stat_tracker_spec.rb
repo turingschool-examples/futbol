@@ -190,9 +190,11 @@ RSpec.describe StatTracker do
         end
     end
 
-    # describe 'worst_offense' do
-
-    # end
+    describe 'worst_offense' do
+        it 'returns team yielding lowest goals scored per game over all seaons' do
+            expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
+        end
+    end
     
     describe 'highest_scoring_visitor' do
         it 'returns name of the team with the highest average score per game across all seasons when they are away.' do
