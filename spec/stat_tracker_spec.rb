@@ -109,7 +109,7 @@ RSpec.describe StatTracker do
 
     describe 'percentage_home_wins' do
         it 'returns percentage of games that a home team has won' do
-            expect(@stat_tracker.percentage_home_wins).to eq(64.28)
+            expect(@stat_tracker.percentage_home_wins).to eq(0.64)
         end
     end
 
@@ -151,20 +151,19 @@ RSpec.describe StatTracker do
     # end
 
     describe 'best_offense' do
-        it 'returns team yielding highest goals scored per game over all seasons' do
-            expect(@stat_tracker.best_offense).to eq('FC Dallas')
-        end
-    end
-
-    describe 'id_to_name' do
         it 'returns name from id' do
             @teams_stats_data = StatTracker.teams_reader(@locations[:teams])
             @teams_stats_data.each do |team_id, team_object|
                 expect(@stat_tracker.id_to_name(team_id)).to eq(team_object.team_name)
             end
         end
+
+        it 'returns team yielding highest goals scored per game over all seasons' do
+            expect(@stat_tracker.best_offense).to eq('FC Dallas')
+        end
     end
 
+    
     # describe 'worst_offense' do
 
     # end
@@ -192,8 +191,16 @@ RSpec.describe StatTracker do
     # end
     
     describe 'worst_coach' do
+        it 'returns coach from id' do
+            @seasons_stats_data = StatTracker.game_teams_reader(@locations[:game_teams])
+            @seasons_stats_data.each do |game_id, game_object|
+                expect(@stat_tracker.id_to_coach(game_object.team_id)).to eq(game_object.head_coach)
+            end
+        end
         it 'returns coach with worst win percentage for the season' do
-            expect(@stat_tracker.worst_coach).to eq('ur mom')
+            hash_of_games = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+            hash_of_games[1].instance_variable_set(:@result, "WIN")
+            expect(@stat_tracker.worst_coach('20122013')).to eq('Dan Bylsma')
         end
     end
     
