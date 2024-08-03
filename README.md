@@ -1,20 +1,43 @@
 # Futbol 
 
+### Plan for Check-ins
 
-Deliverables
-Your iteration deliverable is to create a README with the following. As you craft your answers, consider how you might talk about these same topics in a job interview after you graduate.
+- We had standup meetings every day via Zoom in the morning and in the afternoon.
+- We communicated through Slack if we needed help, or needed an impromtu meetings.
+- We updated Jira frequently when tasks were assigned and completed.
+- We also left comments on our pull requests when making them and when merging.
 
-A 1-2 summary or bullet points outlining your plan for check-ins throughout the duration of the project.
+### Plan for Project Organization and Workflow
+ 
+- We used Miro for the flow of our project, drawing out the exact classes/methods/modules we would need to complete the project.
+- We used Jira for task management. 
+- We worked in various teams, sometimes a team of two and and team of three and at other times we worked independently. 
+- We did not merge our own pull requests and had a system in place that two people needed to look at the PR's and comment before merging.
+- We filled out one DTR for all of us on July 29th, 2024 and did the DTR retro on Aug 1st, 2024.
 
-A 2-4 sentence summary of your plan for project organization and workflow. This can include bullet points. If you plan to use a project management tool, please include a link to your project board.
+### Approach to Organization
 
-A 2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
+- We looked at suggested organizational tools like Tello and Jira, Miro and others. We collectively decided on Jira, it's interface seemed ideal to our purposes. It was easy to 
+    make tickets to track our progress and to assign different tasks to ourselves. It kept us very organized.
 
-A 2-3 sentence summary describing your approach to the code design.
+### Approach to Code Design
 
-Include link to your initial DTR document and the date it was completed. If you do additional DTRs later in the project, you should link the revised versions here as well with the date. New versions should be listed alongside older versions. Do not delete old DTRs.
+- We chose Miro because it was easy to use, it helped us to sketch out how we thought our classes could be laid out, what would be the superclass and even what methods
+    would come from what classes.
+- Later, after working on the classes for a few days, we all decided that turning the stat classes into modules would better serve our purposes, keeping our code DRY and efficient.
 
-Create a section in your README called “Contributors”. List each group member’s name and link to their LinkedIn and Github profiles.
+### Project Retro
+
+- For our project retro, we used Mural, which served to facilitate a productive retrospective. 
+- Some things that went well during our project are:
+    - Changing the overall design plan collectively.
+    - Having two daily check-ins.
+    - Having two people comment on each pull request.
+    - Having collaborative coding sessions.
+- Some things that our team would do differently next time:
+    - More atomic commits.
+    - Having a time in our check-in for any interpersonal issues.
+    - Making git branches only off of main and doing more frequent pull requests.
 
 
 ## Contributors
