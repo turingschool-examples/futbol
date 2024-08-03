@@ -10,8 +10,9 @@ module LeagueStatistics
         team_ids = total_goals.keys
         goals_per_game = Hash.new(0)
         team_ids.each do |team_id|
-            goals_per_game[team_id] = total_goals[team_id] / total_games[team_id]
+            goals_per_game[team_id] = total_goals[team_id].fdiv(total_games[team_id])
         end
+
         best_team = goals_per_game.max_by do |team_id, gpg| 
             gpg
         end
@@ -24,7 +25,7 @@ module LeagueStatistics
         team_ids = total_goals.keys
         goals_per_game = Hash.new(0)
         team_ids.each do |team_id|
-            goals_per_game[team_id] = total_goals[team_id] / total_games[team_id]
+            goals_per_game[team_id] = total_goals[team_id].fdiv(total_games[team_id])
         end
         worst_team = goals_per_game.min_by do |team_id, gpg| 
             gpg
