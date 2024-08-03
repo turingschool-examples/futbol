@@ -57,7 +57,7 @@ class StatTracker
         win_count = @game_stats_data.count do |game_id, game|
             game.home_goals > game.away_goals 
         end
-        ((win_count.to_f / @game_stats_data.length) * 100).truncate(2)
+        ((win_count.to_f / @game_stats_data.length)).round(2)
     end
 
     def percentage_ties
@@ -133,10 +133,51 @@ class StatTracker
         
     # end
     
-    # def worst_coach
+    def worst_coach(specific_season)
+        specific_season_integer = specific_season.to_i
 
-    # end
-    
+        games_in_season = {specific_season => []}
+        @game_stats_data.each do |game_id, game_object|
+            games_in_season[specific_season].push(game_id) if game_object.season == specific_season_integer
+        end
+
+        teams_total_results = {}
+        @seasons_stats_data.each do |game_id, game_object|
+            if games_in_season[specific_season].include?(game_object.game_id)
+                if !(teams_total_results.keys.include?(game_object.team_id))
+                    teams_total_results[game_object.team_id] = []
+                    teams_total_results[game_object.team_id].push(game_object.result)
+                else
+                    teams_total_results[game_object.team_id].push(game_object.result)
+                end
+            end
+        end
+
+        team_win_ratio = {}
+        teams_total_results.map do |team_id, total_results|
+            
+            win_counter = 0
+            total_results.each do |result|
+                if result == "WIN"
+                    win_counter += 1
+                end
+            end
+            team_win_ratio[team_id] = (win_counter.to_f / total_results.length).truncate(2)
+        end
+
+        worst_team = team_win_ratio.min_by do |team_id, win_ratio|
+            win_ratio
+        end
+        id_to_coach(worst_team[0])
+    end
+
+    def id_to_coach(id)
+        @seasons_stats_data.each do |game_id, game_object|
+            return game_object.head_coach if game_object.team_id == id
+        end
+    end
+
+  
     # def most_accurate_team
 
     # end
