@@ -16,8 +16,7 @@ RSpec.describe Game do
       :away_team_id => "3",
       :home_team_id => "6",
       :away_goals => 2,
-      :home_goals => 3,
-      :venue_link => "/api/v1/venues/null"
+      :home_goals => 3
     }
 
     @game = Game.new(@game_data)
@@ -35,7 +34,6 @@ RSpec.describe Game do
       expect(@game.home_team_id).to eq("6")
       expect(@game.away_goals).to eq(2)
       expect(@game.home_goals).to eq(3)
-      expect(@game.venue_link).to eq("/api/v1/venues/null")
     end
 
     it 'coverts home goals and aways goals from strings to ints' do
