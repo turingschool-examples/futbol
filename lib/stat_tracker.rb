@@ -117,38 +117,37 @@ class StatTracker
        @teams_stats_data.size
     end
    
-    def team_seasons_goals
+    def team_seasons_goals(location)
+        
         teams_data = Hash.new { |hash, key| hash[key] = { goals: 0, games_played: 0 } }
 
         @seasons_stats_data.each do |game_id, season|
-            teams_data[season.team_id][:goals] += season.goals
-            teams_data[season.team_id][:games_played] += 1
+            if location.include?(season.hoa)
+                teams_data[season.team_id][:goals] += season.goals
+                teams_data[season.team_id][:games_played] += 1
+            end
         end
         teams_data
     end
 
-    def best_offense
-        teams_goals_data = team_seasons_goals
-
-        best_offense_team = teams_goals_data.max_by do |team_id, teams_data|
-            teams_data[:goals].to_f / teams_data[:games_played].to_f
+    def teams_scores_average_min_by(teams_data)
+        lowest_scoring_team = teams_data.min_by do |team_id, team_data|
+            team_data[:goals].to_f / team_data[:games_played].to_f
         end
-
-        best_offense_team_id = best_offense_team[0]
-
-        id_to_name(best_offense_team_id)
     end
 
-    def worst_offense
-        teams_goals_data = team_seasons_goals
-
-        worst_offense_team = teams_goals_data.min_by do |team_id, teams_data|
-            teams_data[:goals].to_f / teams_data[:games_played].to_f
+    def teams_scores_average_max_by(teams_data)
+        highest_scoring_team = teams_data.max_by do |team_id, team_data|
+            team_data[:goals].to_f / team_data[:games_played].to_f
         end
+    end
 
-        worst_offense_team_id = worst_offense_team[0]
+    def best_offense
+        teams_goals_data = team_seasons_goals(['home','away'])
+        best_offense_team = teams_scores_average_max_by(teams_goals_data)
 
-        id_to_name(worst_offense_team_id)
+        best_offense_team_id = best_offense_team[0]
+        id_to_name(best_offense_team_id)
     end
 
     def id_to_name(id)
@@ -156,12 +155,17 @@ class StatTracker
             return team.team_name.to_s if team_id == id
         end
     end
+
+
     
-    def 
-
     def worst_offense
+        teams_goals_data = team_seasons_goals(['home','away'])
+        worst_offense_team = teams_scores_average_min_by(teams_goals_data)
+        worst_offense_team_id = worst_offense_team[0]
 
+        id_to_name(worst_offense_team_id)
     end
+
     
     def highest_scoring_visitor
         visitor_team_scores = {}
@@ -189,25 +193,22 @@ class StatTracker
     # end
     
     def lowest_scoring_visitor
-        teams_goals = Hash.new(0)
-        games_played = Hash.new(0)
+        away_teams_goals_data = team_seasons_goals('away')
 
-        @game_stats_data.each do |game_id, game|
-            teams_goals[game.away_team_id] += game.away_goals
-            games_played[game.away_team_id] += 1
-        end
+        lowest_scoring_team = teams_scores_average_min_by(away_teams_goals_data)
 
-        worst_visitors = teams_goals.min_by do |team_id, away_goals|
-            away_goals.to_f / games_played[team_id].to_f
-        end
-
-        worst_visitor_id = worst_visitors[0]
+        worst_visitor_id = lowest_scoring_team[0]
         id_to_name(worst_visitor_id)
     end
     
-    # def lowest_scoring_home_team
+    def lowest_scoring_home_team
+        home_teams_goals_data = team_seasons_goals('home')
 
-    # end
+        lowest_scoring_team = teams_scores_average_min_by(home_teams_goals_data)
+
+        lowest_scoring_team_id = lowest_scoring_team[0]
+        id_to_name(lowest_scoring_team_id)
+    end
 
     # def winningest_coach
         

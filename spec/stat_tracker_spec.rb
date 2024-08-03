@@ -245,9 +245,31 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe 'teams_scores_average_max_by' do
+        it 'returns the team with key value pair, of the team with the highest score average' do
+            data= {3=>{:goals=>5, :games_played=>3}, 6=>{:goals=>12, :games_played=>4}}
+            expect(@stat_tracker.teams_scores_average_max_by(data)).to eq([6, {:goals=>12, :games_played=>4}])
+        end
+    end
+
+    describe 'teams_scores_average_min_by' do
+        it 'returns the team with key value pair, of the team with the lowest score average' do
+            data= {3=>{:goals=>5, :games_played=>3}, 6=>{:goals=>12, :games_played=>4}}
+            expect(@stat_tracker.teams_scores_average_min_by(data)).to eq([3, {:goals=>5, :games_played=>3}])
+        end
+    end
+
     describe 'team_seasons_goals' do
         it "returns a hash with each team as the key, and the value a hash with :goals & :games_played as keys, and their respective values" do
-            expect(@stat_tracker.team_seasons_goals).to eq ({3=>{:goals=>8, :games_played=>5}, 6=>{:goals=>21, :games_played=>7}, 5=>{:goals=>1, :games_played=>2}})
+            expect(@stat_tracker.team_seasons_goals(['away','home'])).to eq ({3=>{:goals=>8, :games_played=>5}, 6=>{:goals=>21, :games_played=>7}, 5=>{:goals=>1, :games_played=>2}})
+        end
+
+        it 'returns values for only home teams' do
+            expect(@stat_tracker.team_seasons_goals('away')).to eq ({3=>{:goals=>5, :games_played=>3}, 6=>{:goals=>12, :games_played=>4}})
+        end
+
+        it 'returns values for only away teams' do
+            expect(@stat_tracker.team_seasons_goals('home')).to eq ({6=>{:goals=>9, :games_played=>3}, 3=>{:goals=>3, :games_played=>2}, 5=>{:goals=>1, :games_played=>2}})
         end
     end
 
@@ -282,13 +304,15 @@ RSpec.describe StatTracker do
     
     describe 'lowest_scoring_visitor' do
         it 'returns lowest average scoring team when they are a visitor.' do
-            expect(@stat_tracker.lowest_scoring_visitor).to eq('Sporting Kansas City')
+            expect(@stat_tracker.lowest_scoring_visitor).to eq('Houston Dynamo')
         end
     end
     
-    # describe 'lowest_scoring_home_team' do
-
-    # end
+    describe 'lowest_scoring_home_team' do
+        it 'returns lowest average scoring team when they are a visitor.' do
+            expect(@stat_tracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
+        end
+    end
     
     # describe 'winningest_coach' do
 
