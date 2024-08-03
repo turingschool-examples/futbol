@@ -77,23 +77,21 @@ class StatTracker
     def count_of_games_by_season
         season_game_count = Hash.new(0)
         @game_stats_data.each do |game_id, game_object|
-            season = game_object.season
+            season = game_object.season.to_s
             season_game_count[season] += 1 
         end
-
         season_game_count
     end
 
     def average_goals_by_season
-        season_game_count = Hash.new(0)
+        count_of_games_by_season
         total_season_goals = Hash.new(0)
         @game_stats_data.each do |game_id, game_object|
-            season = game_object.season
+            season = game_object.season.to_s
             goals = game_object.total_goals
-            season_game_count[season] += 1
             total_season_goals[season] += goals
         end
-       average = total_season_goals.merge!(season_game_count) do |season, goals, games|
+       average = total_season_goals.merge!(count_of_games_by_season) do |season, goals, games|
         (goals / games.to_f).round(2)
        end
        average

@@ -167,7 +167,7 @@ RSpec.describe StatTracker do
 
     describe 'count_of_games_by_season' do
         it 'returns sum of games per season' do
-            expect(@stat_tracker.count_of_games_by_season).to eq(20122013 => 14)
+            expect(@stat_tracker.count_of_games_by_season).to eq("20122013" => 14)
         end
 
         it 'returns sum of games per season on mocks' do
@@ -189,7 +189,7 @@ RSpec.describe StatTracker do
             object_6.instance_variable_set(:@season, (20122013 + 4))
             object_7.instance_variable_set(:@season, (20122013 + 4))
 
-            expected = {20122014=>1, 20122015=>2, 20122017=>4, 20122013=>7}
+            expected = {"20122014"=>1, "20122015"=>2, "20122017"=>4, "20122013"=>7}
 
             expect(@stat_tracker.count_of_games_by_season).to eq(expected)
         end
@@ -198,7 +198,7 @@ RSpec.describe StatTracker do
 
     describe 'average_goals_by_season' do
         it 'returns the average of goals by season' do
-            expect(@stat_tracker.average_goals_by_season).to eq(20122013 => 3.5)
+            expect(@stat_tracker.average_goals_by_season).to eq("20122013" => 3.5)
         end
 
         it 'returns sum of games per season on mocks' do
@@ -220,7 +220,7 @@ RSpec.describe StatTracker do
             object_6.instance_variable_set(:@season, (20122013 + 4))
             object_7.instance_variable_set(:@season, (20122013 + 4))
 
-            expected = {20122014=>5, 20122015=>4, 20122017=>4.5, 20122013=>2.57}
+            expected = {"20122014"=>5, "20122015"=>4, "20122017"=>4.5, "20122013"=>2.57}
 
             expect(@stat_tracker.average_goals_by_season).to eq(expected)
         end
