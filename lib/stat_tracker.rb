@@ -162,8 +162,40 @@ class StatTracker
         end
     end
     
-    # def highest_scoring_home_team
-
+    def highest_scoring_home_team
+        home_goals = Hash.new(0)
+        game_count = 0
+        @game_stats_data.each do |game_id, game_object|
+            home_team = game_object.home_team_id
+            goals = game_object.home_goals
+            home_goals[home_team] += goals
+            game_count += 1
+            
+        end
+       average = home_goals.each do |team, goals|
+        (goals / game_count.to_f).round(2)
+        # require 'pry'; binding.pry
+       end
+       average
+    end
+        # home_team_scores = {}
+        # @game_stats_data.each do |game_id, game_object|
+        #     if !(home_team_scores.keys.include?(game_object.home_team_id))
+        #         home_team_scores[game_object.home_team_id] = []
+        #         home_team_scores[game_object.home_team_id].push(game_object.home_goals)
+        #     else
+        #         home_team_scores[game_object.home_team_id].push(game_object.home_goals)
+        #     end
+        # end
+        # winning_team = home_team_scores.max_by do |team, scores|
+        #     (scores.sum / scores.length.to_f).round(2)
+        # end
+        
+        # @teams_stats_data.each  do |team_id, team_object|
+        #     if winning_team[0] == team_id
+        #         return team_object.team_name
+        #     end
+        # end
     # end
     
     def lowest_scoring_visitor
