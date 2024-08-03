@@ -7,14 +7,8 @@ module LeagueStatistics
         total_games = total_games_by_team
         total_goals = total_goals_by_team
         team_ids = total_goals.keys
-        goals_per_game = Hash.new(0)
-        team_ids.each do |team_id|
-            goals_per_game[team_id] = total_goals[team_id].fdiv(total_games[team_id])
-        end
-
-        best_team = goals_per_game.max_by do |team_id, gpg| 
-            gpg
-        end
+        goals_per_game = goals_per_game(total_goals, total_games, team_ids)
+        best_team = goals_per_game.max_by {|team_id, gpg| gpg } 
         get_team_name(best_team[0])
     end
 
@@ -22,13 +16,8 @@ module LeagueStatistics
         total_games = total_games_by_team
         total_goals = total_goals_by_team
         team_ids = total_goals.keys
-        goals_per_game = Hash.new(0)
-        team_ids.each do |team_id|
-            goals_per_game[team_id] = total_goals[team_id].fdiv(total_games[team_id])
-        end
-        worst_team = goals_per_game.min_by do |team_id, gpg| 
-            gpg
-        end
+        goals_per_game = goals_per_game(total_goals, total_games, team_ids)
+        worst_team = goals_per_game.min_by {|team_id, gpg| gpg } 
         get_team_name(worst_team[0])
     end
 
@@ -48,13 +37,21 @@ module LeagueStatistics
         total_games
     end
 
+    def goals_per_game(total_goals, total_games, team_ids)
+        goals_per_game = Hash.new(0)
+        team_ids.each do |team_id|
+            goals_per_game[team_id] = total_goals[team_id].fdiv(total_games[team_id])
+        end
+        goals_per_game
+    end
+
     def highest_scoring_visitor
         visitor_totals = Hash.new { |hash, key| hash[key] = { goals: 0, games: 0 } }
         @game_teams.each do |game|
-          if game.hoa == "away" 
-            visitor_totals[game.team_id][:goals] += game.goals
-            visitor_totals[game.team_id][:games] += 1
-          end
+            if game.hoa == "away" 
+                visitor_totals[game.team_id][:goals] += game.goals
+                visitor_totals[game.team_id][:games] += 1
+            end
         end
         visitor_goals = {}
         visitor_totals.each do |team_id, data|
