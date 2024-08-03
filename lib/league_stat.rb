@@ -5,27 +5,25 @@ module LeagueStatistics
 
     def best_offense
         team_totals = team_goals_and_games(game_teams)
-        team_ids = team_totals.keys
-        goals_per_game = goals_per_game(team_totals, team_ids)
-        worst_team = goals_per_game.max_by {|team_id, gpg| gpg } 
+        team_goals_per_game = goals_per_game(team_totals)
+        worst_team = team_goals_per_game.max_by {|team_id, gpg| gpg } 
         get_team_name(worst_team[0])
     end
 
     def worst_offense
         team_totals = team_goals_and_games(game_teams)
-        team_ids = team_totals.keys
-        goals_per_game = goals_per_game(team_totals, team_ids)
-        worst_team = goals_per_game.min_by {|team_id, gpg| gpg } 
+        team_goals_per_game = goals_per_game(team_totals)
+        worst_team = team_goals_per_game.min_by {|team_id, gpg| gpg } 
         get_team_name(worst_team[0])
     end
 
-    def goals_per_game(total_goals_games, team_ids)
-        goals_per_game = Hash.new(0)
-        team_ids.each do |team_id|
-            goals_per_game[team_id] = total_goals_games[team_id][:goals].fdiv(total_goals_games[team_id][:games])
-        end
-        goals_per_game
-    end
+    # def goals_per_game(total_goals_games, team_ids)
+    #     goals_per_game = Hash.new(0)
+    #     team_ids.each do |team_id|
+    #         goals_per_game[team_id] = total_goals_games[team_id][:goals].fdiv(total_goals_games[team_id][:games])
+    #     end
+    #     goals_per_game
+    # end
 
     def highest_scoring_visitor
         @teams.each do |team|
@@ -55,10 +53,7 @@ module LeagueStatistics
     def home_away_goals_and_games(home_or_away, highest_or_lowest) 
         selected_games = @game_teams.select {|game| game.hoa == home_or_away}
         team_totals = team_goals_and_games(selected_games)
-        team_goals = {}
-        team_totals.each do |team_id, data|
-        team_goals[team_id] = data[:goals].to_f / data[:games]
-        end
+        team_goals = goals_per_game(team_totals)
         if highest_or_lowest == "highest"
             return (team_goals.max_by { |team_id, avg_goals| avg_goals })[0]
         elsif highest_or_lowest == "lowest"
@@ -75,11 +70,12 @@ module LeagueStatistics
         team_totals
     end
 
-    def goals_per_game
+    def goals_per_game(team_totals)
         team_goals = {}
         team_totals.each do |team_id, data|
-        team_goals[team_id] = data[:goals].to_f / data[:games]
+            team_goals[team_id] = data[:goals].to_f / data[:games]
         end
+        team_goals
     end
 end
 
