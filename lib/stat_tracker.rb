@@ -135,40 +135,41 @@ class StatTracker
     
     def worst_coach(specific_season)
         specific_season_integer = specific_season.to_i
+        team_win_loss_ratio = {}
 
-        games_in_season = {specific_season => []}
-        @game_stats_data.each do |game_id, game_object|
-            games_in_season[specific_season].push(game_id) if game_object.season == specific_season_integer
-        end
+        # games_in_season = {specific_season => []}
+        # @game_stats_data.each do |game_id, game_object|
+        #     games_in_season[specific_season].push(game_id) if game_object.season == specific_season_integer
+        # end
 
-        teams_total_results = {}
-        @seasons_stats_data.each do |game_id, game_object|
-            if games_in_season[specific_season].include?(game_object.game_id)
-                if !(teams_total_results.keys.include?(game_object.team_id))
-                    teams_total_results[game_object.team_id] = []
-                    teams_total_results[game_object.team_id].push(game_object.result)
-                else
-                    teams_total_results[game_object.team_id].push(game_object.result)
-                end
-            end
-        end
+        # teams_total_results = {}
+        # @seasons_stats_data.each do |game_id, game_object|
+        #     if games_in_season[specific_season].include?(game_object.game_id)
+        #         if !(teams_total_results.keys.include?(game_object.team_id))
+        #             teams_total_results[game_object.team_id] = []
+        #             teams_total_results[game_object.team_id].push(game_object.result)
+        #         else
+        #             teams_total_results[game_object.team_id].push(game_object.result)
+        #         end
+        #     end
+        # end
 
-        team_win_ratio = {}
-        teams_total_results.map do |team_id, total_results|
+        # team_win_ratio = {}
+        # teams_total_results.map do |team_id, total_results|
             
-            win_counter = 0
-            total_results.each do |result|
-                if result == "WIN"
-                    win_counter += 1
-                end
-            end
-            team_win_ratio[team_id] = (win_counter.to_f / total_results.length).truncate(2)
-        end
+        #     win_counter = 0
+        #     total_results.each do |result|
+        #         if result == "WIN"
+        #             win_counter += 1
+        #         end
+        #     end
+        #     team_win_ratio[team_id] = (win_counter.to_f / total_results.length).truncate(2)
+        # end
 
-        worst_team = team_win_ratio.min_by do |team_id, win_ratio|
-            win_ratio
-        end
-        id_to_coach(worst_team[0])
+        # worst_team = team_win_ratio.min_by do |team_id, win_ratio|
+        #     win_ratio
+        # end
+        # id_to_coach(worst_team[0])
     end
 
     def id_to_coach(id)
