@@ -368,9 +368,35 @@ RSpec.describe StatTracker do
         end
     end
     
-    # describe 'most_tackles' do
+    describe 'most_tackles' do
+        it 'name of the Team with the most tackles in the season' do
+            expect(@stat_tracker.most_tackles(20122013)).to eq("FC Dallas")
+        end
 
-    # end
+        xit 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+
+            object_1 = hash[1] 
+            
+            object_1.instance_variable_set(:@tackles, (20122013))
+
+            expected = ("Houston Dynamo")
+
+            expect(@stat_tracker.most_tackles).to eq(expected)
+        end
+
+        xit 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+
+            object_1 = hash[14] 
+            
+            object_1.instance_variable_set(:@tackles, (20122013))
+
+            expected = ("Sporting Kansas City")
+
+            expect(@stat_tracker.most_tackles).to eq(expected)
+        end
+    end
     
     describe 'fewest_tackles' do
         it 'returns name of the Team with the fewest tackles in the season' do

@@ -226,7 +226,7 @@ class StatTracker
         
     # end
     
-    def worst_coach
+    # def worst_coach
         # use game_teams.
         # similar test structure as BO / LSV
         # compare team id to winn vs loss
@@ -234,7 +234,7 @@ class StatTracker
         #helper method test should iterate over game_teams
         #
 
-    end
+    # end
     
     # def most_accurate_team
 
@@ -279,9 +279,39 @@ class StatTracker
         end
     end
     
-    # def most_tackles
+    def most_tackles(specific_season)
+        specific_season_integer = specific_season.to_i
+        season_tackles_count = Hash.new(0)
+        @game_stats_data.each do |game_id, game_object|
+            season_tackles_count[specific_season_integer] = game_object.game_id
+        end
+        
+        season_tackles_count
+        require 'pry'; binding.pry
+        # season_game_count
+        # team_tackles = Hash.new(0)
+        # @seasons_stats_data.each do |game_id, game_object|
+        #     team_tackles[game_object.team_id] += game_object.tackles
+        # end
+       
+        # most_team_tackles = team_tackles.max_by do |team, tackles|
+        #     tackles
+        # end
+       
+        # best_tackle_team_id = most_team_tackles[0]
+        # id_to_name(best_tackle_team_id)
 
-    # end
+    #     count_of_games_by_season
+    #     total_season_goals = Hash.new(0)
+    #     @game_stats_data.each do |game_id, game_object|
+    #         goals = game_object.total_goals
+    #         total_season_goals[game_object.season] += goals
+    #    end
+    #    average = total_season_goals.merge!(count_of_games_by_season) do |season, goals, games|
+    #       (goals / games.to_f).round(2)
+    #    end
+    #    average
+    end
     
     def fewest_tackles(specific_season)
         specific_season_integer = specific_season.to_i
