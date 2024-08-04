@@ -354,14 +354,43 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.lowest_scoring_home_team).to eq('Sporting Kansas City')
         end
     end
-    
+        
+    describe 'win_loss_ratio' do
+        it 'returns teams win loss ratio' do
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030221].instance_variable_set(:@season, 20122014)
+            hash_of_games[2012030223].instance_variable_set(:@season, 20122014)
+
+            expected = {"John Tortorella"=>{:win_count=>0, :games_played=>2, :tied_games=>0}, 
+                        "Claude Julien"=>{:win_count=>2, :games_played=>2, :tied_games=>0}}
+       
+            expect(@stat_tracker.win_loss_ratio("20122014")).to eq(expected)
+        end
+    end
+
+    describe 'id to coach' do
+        it 'returns head coach from id' do
+            @seasons_data = StatTracker.game_teams_reader(@locations[:game_teams])
+            @seasons_data.each do |game_id, game_object|
+                expect(@stat_tracker.id_to_coach(game_object.team_id)).to eq(game_object.head_coach)
+            end
+        end
+    end
+
     # describe 'winningest_coach' do
 
     # end
+
     
-    xdescribe 'worst_coach' do
+    describe 'worst_coach' do
         it 'returns coach with worst win percentage for the season' do
-            expect(@stat_tracker.worst_coach).to eq('ur mom')
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030221].instance_variable_set(:@season, 20122014)
+            hash_of_games[2012030223].instance_variable_set(:@season, 20122014)
+            
+            expect(@stat_tracker.worst_coach('20122014')).to eq('John Tortorella')
         end
     end
 

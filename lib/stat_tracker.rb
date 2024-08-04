@@ -218,15 +218,53 @@ class StatTracker
         
     # end
     
-    def worst_coach
-        # use game_teams.
-        # similar test structure as BO / LSV
-        # compare team id to winn vs loss
-        #make helper method to take team 1d and return coach
-        #helper method test should iterate over game_teams
-        #
-
+    def game_id_to_coach(game_id, team_id)
+        matching_season = @seasons_stats_data.find do |key, seasons_object|
+            seasons_object.team_id == team_id && seasons_object.game_id == game_id
+        end
+        matching_season[1].head_coach
     end
+
+    def win_loss_ratio(specific_season)
+        specific_season_integer = specific_season.to_i
+        team_win_loss_ratio = Hash.new { |hash, key| hash[key] = { win_count: 0, games_played: 0, tied_games: 0 } }
+
+        @game_stats_data.each do |game_id, game_object|
+           next unless game_object.season == specific_season_integer
+           team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:games_played] += 1
+           team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:games_played] += 1
+
+            if game_object.home_goals > game_object.away_goals
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:win_count] += 1
+            elsif game_object.home_goals < game_object.away_goals
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:win_count] += 1
+            else
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:tied_games] += 1
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:tied_games] += 1
+            end 
+        end
+        return team_win_loss_ratio
+    end
+    
+    def worst_coach(specific_season)
+        team_win_loss_ratio = win_loss_ratio(specific_season)
+
+        worst_team = team_win_loss_ratio.min_by do |coach_name, result_stats|
+            result_stats[:win_count].to_f / result_stats[:games_played]
+        end
+       
+        return worst_team[0]
+    end
+
+    def id_to_coach(id)
+        @seasons_stats_data.each do |game_id, game_object|
+            return game_object.head_coach if game_object.team_id == id
+        end
+    end
+  
+    # def most_accurate_team
+  
+    # end  
 
     def all_games_ids_in_specified_season(specific_season)
         
