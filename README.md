@@ -70,6 +70,6 @@
 
 * **Willett, Bryan**
     * [Github](https://github.com/bwillett2003)
-    * [LinkedIn](https://www.youtube.com/watch?v=ub82Xb1C8os&ab_channel=JuiceboxHero)
+    * [LinkedIn](https://www.linkedin.com/in/bryan-willett-063060321/)
 
 

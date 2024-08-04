@@ -318,12 +318,15 @@ RSpec.describe StatTracker do
 
     # end
     
+    
     describe 'worst_coach' do
-        
         it 'returns coach with worst win percentage for the season' do
-            #make test that tests against actual data
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030221].instance_variable_set(:@season, 20122014)
+            hash_of_games[2012030223].instance_variable_set(:@season, 20122014)
             
-            expect(@stat_tracker.worst_coach('20122013')).to eq('Dan Bylsma')
+            expect(@stat_tracker.worst_coach('20122014')).to eq('John Tortorella')
         end
     end
     
