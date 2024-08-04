@@ -301,36 +301,6 @@ class StatTracker
     # def most_tackles
 
     # end
-    
-    # def fewest_tackles(specific_season)
-    #     specific_season_integer = specific_season.to_i
-    #     games_in_season = {specific_season => []}
-    #     @game_stats_data.each do |game_id, game_object|
-    #         games_in_season[specific_season].push(game_id) if game_object.season == specific_season_integer
-    #     end
-
-    #     team_total_tackles = {}
-
-    #     @seasons_stats_data.each do |game_key, game_object|
-    #         if games_in_season[specific_season].include?(game_object.game_id)
-    #             if !(team_total_tackles.keys.include?(game_object.team_id))
-    #                 team_total_tackles[game_object.team_id] = 0
-    #                 team_total_tackles[game_object.team_id] += game_object.tackles
-    #             else
-    #                 team_total_tackles[game_object.team_id] += game_object.tackles
-    #             end
-    #         end
-    #     end
-    #     lowest_tackling_team = team_total_tackles.min_by do |team_id, tackles|
-    #         tackles
-    #     end
-
-    #     @teams_stats_data.each  do |team_id, team_object|
-    #         if lowest_tackling_team[0] == team_id
-    #             return team_object.team_name
-    #         end
-    #     end
-    # end
 
     def team_tackles_in_games(game_ids)
         team_total_tackles = Hash.new(0)
