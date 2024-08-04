@@ -1,5 +1,4 @@
 module GameStat
-
     def highest_total_score
         games.map do |game|
             game.away_goals + game.home_goals
@@ -43,14 +42,6 @@ module GameStat
         total_goals = games.sum { |game| game.away_goals + game.home_goals }
         (total_goals.to_f / total_games).round(2)
     end
-    
-    def total_goals_by_season
-        total_goals = Hash.new(0)
-        games.each do |game|
-            total_goals[game.season] += (game.away_goals + game.home_goals)
-        end
-        total_goals
-    end
 
     def average_goals_by_season
         average_goals = Hash.new(0)
@@ -61,5 +52,13 @@ module GameStat
             average_goals[season] = (goals[season].to_f / games[season]).round(2)
         end
         average_goals
+    end
+
+    def total_goals_by_season
+        total_goals = Hash.new(0)
+        games.each do |game|
+            total_goals[game.season] += (game.away_goals + game.home_goals)
+        end
+        total_goals
     end
 end

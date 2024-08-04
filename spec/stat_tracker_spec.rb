@@ -1,7 +1,7 @@
 require_relative './spec_helper'
 
 RSpec.configure do |config| 
- config.formatter = :documentation 
+    config.formatter = :documentation 
 end
 
 RSpec.describe StatTracker do
@@ -16,9 +16,9 @@ RSpec.describe StatTracker do
         game_teams_path = './data/game_teams.csv'
 
         @locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
+            games: game_path,
+            teams: team_path,
+            game_teams: game_teams_path
         }
     end
 
@@ -44,13 +44,10 @@ RSpec.describe StatTracker do
             expect(game_tracker[0].game_id).to eq "2012030221"
             expect(game_tracker[0].season).to eq "20122013"
             expect(game_tracker[0].type).to eq "Postseason"
-            # expect(game_tracker[0].date_time).to eq "5/16/13"
             expect(game_tracker[0].away_team_id).to eq "3"
             expect(game_tracker[0].home_team_id).to eq "6"
             expect(game_tracker[0].away_goals).to eq 2
             expect(game_tracker[0].home_goals).to eq 3
-            # expect(game_tracker[0].venue).to eq "Toyota Stadium"
-            # expect(game_tracker[0].venue_link).to eq "/api/v1/venues/null"
         end
     end
 
@@ -84,17 +81,10 @@ RSpec.describe StatTracker do
             expect(game_teams_tracker[0].team_id).to eq "3"
             expect(game_teams_tracker[0].hoa).to eq "away"
             expect(game_teams_tracker[0].result).to eq "LOSS"
-            # expect(game_teams_tracker[0].settled_in).to eq "OT"
             expect(game_teams_tracker[0].head_coach).to eq "John Tortorella"
             expect(game_teams_tracker[0].goals).to eq 2
             expect(game_teams_tracker[0].shots).to eq 8
             expect(game_teams_tracker[0].tackles).to eq 44
-            # expect(game_teams_tracker[0].pim).to eq 8
-            # expect(game_teams_tracker[0].power_play_opportunities).to eq 3
-            # expect(game_teams_tracker[0].power_play_goals).to eq 0
-            # expect(game_teams_tracker[0].face_off_win_percentage).to eq 44.8
-            # expect(game_teams_tracker[0].giveaways).to eq 17
-            # expect(game_teams_tracker[0].takeaways).to eq 7
         end
     end
 
@@ -105,9 +95,9 @@ RSpec.describe StatTracker do
             game_teams_path = './data/game_teams.csv'
     
             @locations = {
-            games: game_path,
-            teams: team_path,
-            game_teams: game_teams_path
+                games: game_path,
+                teams: team_path,
+                game_teams: game_teams_path
             }
             @stat_tracker = StatTracker.from_csv(@locations)
         end
@@ -299,7 +289,6 @@ RSpec.describe StatTracker do
                     expect(@stat_tracker.percentage_ties).to be_a Float
 
                     expect(@stat_tracker.percentage_ties).to eq 0.2
-
                 end
             end
 
@@ -380,7 +369,8 @@ RSpec.describe StatTracker do
                 end
 
                 it 'will add a coach to a hash' do
-                    class_info = {:game_id => "2012030221",
+                    class_info = {
+                        :game_id => "2012030221",
                         :team_id => "3",
                         :hoa => "away",
                         :result => "LOSS",
@@ -394,7 +384,8 @@ RSpec.describe StatTracker do
                         :power_play_goals => "0",
                         :face_off_win_percentage => "44.8",
                         :giveaways => "17",
-                        :takeaways => "7"}
+                        :takeaways => "7"
+                    }
 
                     game_teams_data = GameTeam.new(class_info)
                     coaches = {}
@@ -405,7 +396,8 @@ RSpec.describe StatTracker do
                 end
 
                 it 'will update games for each coach' do
-                    class_info = {:game_id => "2012030221",
+                    class_info = {
+                        :game_id => "2012030221",
                         :team_id => "3",
                         :hoa => "away",
                         :result => "LOSS",
@@ -419,7 +411,8 @@ RSpec.describe StatTracker do
                         :power_play_goals => "0",
                         :face_off_win_percentage => "44.8",
                         :giveaways => "17",
-                        :takeaways => "7"}
+                        :takeaways => "7"
+                    }
 
                     game_teams_data = GameTeam.new(class_info)
                     coaches = {}
@@ -458,61 +451,63 @@ RSpec.describe StatTracker do
                     expect(expected[0]).to eq '2012030221'
                     expect(expected.last).to eq '2012020570'
                 end
+            end
 
-                describe 'helper#team_id_hash' do
-                    it 'returns a hash' do
-                        game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
-                        hash = {"3" => [0, 0]}
-                        teams = {}
+            describe 'helper#team_id_hash' do
+                it 'returns a hash' do
+                    game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                    hash = {"3" => [0, 0]}
+                    teams = {}
 
-                        expect(@stat_tracker.team_id_hash(game_1, teams)).to eq hash
-                    end
+                    expect(@stat_tracker.team_id_hash(game_1, teams)).to eq hash
+                end
+            end
+
+            describe 'helper#update_shots_goals' do
+                it 'updates team_hash with goals and shots' do
+                    game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
+                    hash = {"3" => [0, 0]}
+                    teams = {}
+                    @stat_tracker.team_id_hash(game_1, teams)
+                    expect(teams["3"]).to eq [0, 0]
+
+                    expect(@stat_tracker.update_shots_goals(game_1, teams)).to eq({"3" => [2, 8]})
+                end
+            end
+
+            describe 'helper#team_shot_goal' do
+                it 'creates hash of team ids with tally of goals and shots' do
+                    game_ids = ['2012030221', '2012030232']
+                    hash = {
+                        "3" => [2, 8],
+                        "6" => [3, 12],
+                        "17" => [2, 7],
+                        "16" => [1, 5]
+                    }
+
+                    expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
                 end
 
-                describe 'helper#update_shots_goals' do
-                    it 'updates team_hash with goals and shots' do
-                        game_1 = @stat_tracker.game_teams.find {|game| game.game_id == '2012030221'}
-                        hash = {"3" => [0, 0]}
-                        teams = {}
-                        @stat_tracker.team_id_hash(game_1, teams)
-                        expect(teams["3"]).to eq [0, 0]
+                it 'adds to the tally of goals and shots' do
+                    game_ids = ['2012030221', '2012030232', '2012030222']
+                    hash = {
+                        "3" => [4, 17],
+                        "6" => [6, 20],
+                        "17" => [2, 7],
+                        "16" => [1, 5]
+                    }
 
-                        expect(@stat_tracker.update_shots_goals(game_1, teams)).to eq({"3" => [2, 8]})
-                    end
+                    expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
                 end
+            end
 
-                describe 'helper#team_shot_goal' do
-                    it 'creates hash of team ids with tally of goals and shots' do
-                        game_ids = ['2012030221', '2012030232']
-                        hash = {
-                            "3" => [2, 8],
-                            "6" => [3, 12],
-                            "17" => [2, 7],
-                            "16" => [1, 5]
-                        }
-
-                        expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
-                    end
-
-                    it 'adds to the tally of goals and shots' do
-                        game_ids = ['2012030221', '2012030232', '2012030222']
-                        hash = {
-                            "3" => [4, 17],
-                            "6" => [6, 20],
-                            "17" => [2, 7],
-                            "16" => [1, 5]
-                        }
-
-                        expect(@stat_tracker.team_shot_goal(game_ids)).to eq(hash)
-                    end
+            describe 'helper#get_team_name' do
+                it 'takes team_id and returns name' do
+                    expect(@stat_tracker.get_team_name("12")).to eq "Sky Blue FC"
                 end
+            end
 
-                describe 'helper#get_team_name' do
-                    it 'takes team_id and returns name' do
-                        expect(@stat_tracker.get_team_name("12")).to eq "Sky Blue FC"
-                    end
-                end
-
+            describe '#most_accurate_team' do
                 it 'returns the team name of most_accurate_team' do
                     season = '20122013'
 
