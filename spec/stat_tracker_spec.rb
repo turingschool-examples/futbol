@@ -351,10 +351,19 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe ""
+    describe "teams_shots_and_goals" do
+        it "returns a hash of all teams with shots and goals" do
+            data = [2012030221, 2012030222]
+            require 'pry', binding.pry
+            expect(@stat_tracker.teams_shots_and_goals(data)).to eq {3=>{:goals=>4, :shots=>17}, 6=>{:goals=>6, :shots=>20}}
+        end
+    end
     
     describe 'most_accurate_team' do
+        it "returns the most accurate team" do
 
+
+        end
     end
     
     describe 'least_accurate_team' do
