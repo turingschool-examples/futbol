@@ -317,7 +317,19 @@ RSpec.describe StatTracker do
     # describe 'winningest_coach' do
 
     # end
-    
+    describe 'win_loss_ratio' do
+        it 'returns teams win loss ratio' do
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030221].instance_variable_set(:@season, 20122014)
+            hash_of_games[2012030223].instance_variable_set(:@season, 20122014)
+
+            expected = {"John Tortorella"=>{:win_count=>0, :games_played=>2, :tied_games=>0}, 
+                        "Claude Julien"=>{:win_count=>2, :games_played=>2, :tied_games=>0}}
+       
+            expect(@stat_tracker.win_loss_ratio("20122014")).to eq(expected)
+        end
+    end
     
     describe 'worst_coach' do
         it 'returns coach with worst win percentage for the season' do
