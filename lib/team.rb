@@ -9,6 +9,5 @@ class Team
         @franchise_id = teams_data[:franchiseid]
         @team_name = teams_data[:teamname]
         @abbreviation = teams_data[:abbreviation]
-
     end
 end

@@ -61,5 +61,3 @@ module LeagueStatistics
         team_goals
     end
 end
-
-    
