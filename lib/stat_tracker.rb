@@ -189,19 +189,11 @@ class StatTracker
     end
     
     def highest_scoring_home_team
-        team_home_goals = Hash.new(0)
-        home_games_played = Hash.new(0)
-        @game_stats_data.each do |game_id, game_object|
-            team_home_goals[game_object.home_team_id] += game_object.home_goals
-            home_games_played[game_object.home_team_id] += 1    
-        end
+        teams_home_goals = team_seasons_goals(['home'])
+        best_home_team = teams_scores_average_max_by(teams_home_goals)
 
-        highest_home_team = team_home_goals.max_by do |team, goals|
-            goals.to_f / home_games_played[team].to_f
-       end
-       
-       best_home_team_id = highest_home_team[0]
-       id_to_name(best_home_team_id)
+        best_home_team_id = best_home_team[0]
+        id_to_name(best_home_team_id)
     end
     
     def lowest_scoring_visitor
