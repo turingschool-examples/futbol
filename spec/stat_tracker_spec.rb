@@ -662,6 +662,18 @@ RSpec.describe StatTracker do
                     expect(@stat_tracker.game_check(2, 3, 'low')).to eq 2
                 end
             end
+
+            describe 'favorite_opponent' do
+                it 'returns a string of team who lost the most against given team' do
+                    expect(@stat_tracker.favorite_opponent("4")).to eq "New England Revolution"
+                end
+            end
+
+            describe 'rival' do
+                it 'returns a string of team who lost the most against given team' do
+                    expect(@stat_tracker.rival("4")).to eq "San Jose Earthquakes"
+                end
+            end
         end
     end
 end

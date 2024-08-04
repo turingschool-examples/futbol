@@ -55,6 +55,16 @@ module TeamStatistics
         goals
     end
 
+    def favorite_opponent(team_id)
+        favorite = team_by_team(team_id).max_by {|_,v| v}
+        get_team_name(favorite[0])
+    end
+
+    def rival(team_id)
+        rival = team_by_team(team_id).min_by {|_,v| v}
+        get_team_name(rival[0])
+    end
+    
     def count_of_games_by_season_by_team(team_id)
         games_count = {}
         games.each do |game|
@@ -94,5 +104,34 @@ module TeamStatistics
             end
         end
         goals
+    end
+
+    def team_by_team(team_id)
+        tbt = {}
+        games.each do |game|
+            if game.away_team_id == team_id 
+                tbt = create_team_by_team(game.home_team_id, tbt)
+                tbt = update_team_by_team(game.away_goals, game.home_goals, game.home_team_id, tbt)
+            elsif game.home_team_id == team_id
+                tbt = create_team_by_team(game.away_team_id, tbt)
+                tbt = update_team_by_team(game.home_goals, game.away_goals, game.away_team_id, tbt)
+            end
+        end
+        find_ratio(tbt)
+    end
+
+    def create_team_by_team(team_id, team_by_team)
+        if team_by_team[team_id].nil?
+            team_by_team[team_id] = [0, 0]
+        end
+        team_by_team
+    end
+
+    def update_team_by_team(team_goals, opponent_goals, opponent_id, team_by_team)
+        if team_goals > opponent_goals
+            team_by_team[opponent_id][0] += 1
+        end
+        team_by_team[opponent_id][1] += 1
+        team_by_team
     end
 end
