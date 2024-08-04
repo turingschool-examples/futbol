@@ -213,6 +213,7 @@ class StatTracker
     # def winningest_coach
         
     # end
+    
     def game_id_to_coach(game_id, team_id)
         matching_season = @seasons_stats_data.find do |key, seasons_object|
             seasons_object.team_id == team_id && seasons_object.game_id == game_id
@@ -256,7 +257,6 @@ class StatTracker
             return game_object.head_coach if game_object.team_id == id
         end
     end
-
   
     # def most_accurate_team
 
