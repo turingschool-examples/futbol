@@ -579,18 +579,18 @@ RSpec.describe StatTracker do
         describe 'Module#TeamStatistics' do
             describe 'team_info' do
                 it 'returns a hash' do
-                    expect(@stat_tracker.team_info("Chicago Fire")).to be_a Hash
+                    expect(@stat_tracker.team_info("4")).to be_a Hash
                 end
 
                 it 'has filled in values' do
-                    team_info = {team_name: "Chicago Fire",
-                    team_id: "4",
-                    franchise_id: "16",
-                    abbreviation: "CHI",
-                    link: "/api/v1/teams/4" 
+                    team_info = {"team_name" => "Chicago Fire",
+                    "team_id" => "4",
+                    "franchise_id" => "16",
+                    "abbreviation" => "CHI",
+                    "link" => "/api/v1/teams/4" 
                     }
 
-                    expect(@stat_tracker.team_info("Chicago Fire")).to eq(team_info)
+                    expect(@stat_tracker.team_info("4")).to eq(team_info)
                 end
             end
         end

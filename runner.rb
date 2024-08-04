@@ -40,3 +40,7 @@ puts "\nCoach with the worst win percentage for the 2012-2013 season:"
 puts stat_tracker.worst_coach("20122013")
 puts "\n\n"
 
+puts "\n** Team Statistics **\n"
+puts "\nTeam Infor for Chicago Fire:"
+puts stat_tracker.team_info("Chicago Fire")
+
