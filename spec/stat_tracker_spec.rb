@@ -367,7 +367,7 @@ RSpec.describe StatTracker do
 
     describe 'all_games_ids_in_specified_season' do
         it 'returns all game_ids in the specified season' do
-            expect(@stat_tracker.all_games_ids_in_specified_season(20122013)).to eq [2012030221, 2012030222, 2012030223, 2012030224, 2012030225, 2012030311, 2012030312, 2012030313, 2012030314, 2012030231, 2012030232, 2012030233, 2012030234, 2012030235]
+            expect(@stat_tracker.all_games_ids_in_specified_season(20122013)).to eq ([2012030221, 2012030222, 2012030223, 2012030224, 2012030225, 2012030311, 2012030312, 2012030313, 2012030314, 2012030231, 2012030232, 2012030233, 2012030234, 2012030235])
 
             hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
 
@@ -413,6 +413,14 @@ RSpec.describe StatTracker do
 
     # end
     
+    describe "team_tackles_in_games" do
+        it "returns a hash with team_ids as the key, with the teams_tackles as the value" do
+            data = [2012030221, 2012030222, 2012030223, 2012030224]
+            
+            expect(@stat_tracker.team_tackles_in_games(data)).to eq({3=>154, 6=>139})
+        end
+    end
+
     describe 'fewest_tackles' do
         it 'returns name of the Team with the fewest tackles in the season' do
             expect(@stat_tracker.fewest_tackles('20122013')).to eq("Sporting Kansas City")
