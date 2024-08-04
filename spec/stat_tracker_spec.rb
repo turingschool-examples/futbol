@@ -3,17 +3,31 @@ require 'spec_helper'
 
 RSpec.describe StatTracker do
     before(:each) do
-        game_path = './data/games_dummy.csv'
-        team_path = './data/teams_dummy.csv'
-        game_teams_path = './data/game_teams_dummy.csv'
+        # # Test Data
+        game_path_dummy = './data/games_dummy.csv'
+        team_path_dummy = './data/teams_dummy.csv'
+        game_teams_path_dummy = './data/game_teams_dummy.csv'
 
         @locations = {
-            games: game_path,
-            teams: team_path,
-            game_teams: game_teams_path
-            }
+            games: game_path_dummy,
+            teams: team_path_dummy,
+            game_teams: game_teams_path_dummy
+        }
 
         @stat_tracker = StatTracker.from_csv(@locations)
+
+        # #Actual Data
+        # game_path = './data/games.csv'
+        # team_path = './data/teams.csv'
+        # game_teams_path = './data/game_teams.csv'
+
+        # @locations_actual_data = {
+        #     games: game_path,
+        #     teams: team_path,
+        #     game_teams: game_teams_path
+        # }
+        
+        # @stat_tracker_large_data = StatTracker.from_csv(@locations_actual_data)
     end
 
     describe "initialize" do
@@ -231,6 +245,7 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.average_goals_by_season).to eq(expected)
         end
     end
+
     # describe 'count_of_teams' do
 
     # end
@@ -298,9 +313,35 @@ RSpec.describe StatTracker do
         end
     end
     
-    # describe 'highest_scoring_home_team' do
+    describe 'highest_scoring_home_team' do
+        it ' returns name of the team with the highest average score per game across all seasons when they are home' do
+            expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+        end
 
-    # end
+        it 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+
+            object_1 = hash[14] 
+
+            object_1.instance_variable_set(:@goals, (20120122013))
+
+            expected = ("Sporting Kansas City")
+
+            expect(@stat_tracker.highest_scoring_home_team).to eq(expected)
+        end
+
+        it 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+
+            object_1 = hash[8] 
+
+            object_1.instance_variable_set(:@goals, (20120122013))
+
+            expected = ("Houston Dynamo")
+
+            expect(@stat_tracker.highest_scoring_home_team).to eq(expected)
+        end
+    end
     
     describe 'lowest_scoring_visitor' do
         it 'returns lowest average scoring team when they are a visitor.' do
@@ -352,10 +393,42 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.worst_coach('20122014')).to eq('John Tortorella')
         end
     end
-    
-    # describe 'most_accurate_team' do
 
-    # end
+    describe 'all_games_ids_in_specified_season' do
+        it 'returns all game_ids in the specified season' do
+            expect(@stat_tracker.all_games_ids_in_specified_season(20122013)).to eq ([2012030221, 2012030222, 2012030223, 2012030224, 2012030225, 2012030311, 2012030312, 2012030313, 2012030314, 2012030231, 2012030232, 2012030233, 2012030234, 2012030235])
+
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            hash_of_games[2012030221].instance_variable_set(:@season, 20122014) 
+            hash_of_games[2012030222].instance_variable_set(:@season, 20122014) 
+
+            expect(@stat_tracker.all_games_ids_in_specified_season(20122014)).to eq [2012030221, 2012030222]
+        end
+    end
+
+    describe "teams_shots_and_goals" do
+        it "returns a hash of all teams with shots and goals" do
+            data = [2012030221, 2012030222]
+            
+            expect(@stat_tracker.teams_shots_and_goals(data)).to eq ({3=>{:goals=>4, :shots=>17}, 6=>{:goals=>6, :shots=>20}})
+        end
+    end
+    
+    describe 'most_accurate_team' do
+        it "returns the most accurate team" do
+            allow(@stat_tracker).to receive(:all_games_ids_in_specified_season).and_return([2012030221, 2012030222])
+
+            expect(@stat_tracker.most_accurate_team(20122014)).to eq("FC Dallas")
+        end
+
+        it "handles edge cases where a team has 0 goals or 0 shots (division by zero)" do
+            allow(@stat_tracker).to receive(:all_games_ids_in_specified_season).and_return([2012030221, 2012030222])
+            allow(@stat_tracker).to receive(:teams_shots_and_goals).and_return({3=>{:goals=>4, :shots=>17}, 6=>{:goals=>0, :shots=>20}})
+
+            expect(@stat_tracker.most_accurate_team(20122014)).to eq("Houston Dynamo")
+        end
+    end
     
     describe 'least_accurate_team' do
         it 'returns name of the Team with the worst ratio of shots to goals for the season.' do
@@ -369,6 +442,14 @@ RSpec.describe StatTracker do
 
     # end
     
+    describe "team_tackles_in_games" do
+        it "returns a hash with team_ids as the key, with the teams_tackles as the value" do
+            data = [2012030221, 2012030222, 2012030223, 2012030224]
+            
+            expect(@stat_tracker.team_tackles_in_games(data)).to eq({3=>154, 6=>139})
+        end
+    end
+
     describe 'fewest_tackles' do
         it 'returns name of the Team with the fewest tackles in the season' do
             expect(@stat_tracker.fewest_tackles('20122013')).to eq("Sporting Kansas City")
