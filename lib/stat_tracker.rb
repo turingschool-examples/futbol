@@ -227,10 +227,37 @@ class StatTracker
         #
 
     end
-    
-    # def most_accurate_team
 
-    # end
+    def all_games_ids_in_specified_season(specific_season)
+        
+        games_in_seasons = @game_stats_data.find_all { |game_id, game_object| game_object.season == specific_season.to_i}
+        game_ids_in_season = games_in_seasons.map { |game_id, game_object| game_id }
+        
+    end
+
+    def teams_shots_and_goals(game_ids)
+        teams_data = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+
+        @seasons_stats_data.each do |counter, season_object|
+            
+            next unless game_ids.include?(season_object.game_id)
+           
+            teams_data[season_object.team_id][:goals] += season_object.goals
+            teams_data[season_object.team_id][:shots] += season_object.shots
+        end
+
+        teams_data
+    end
+   
+
+    def most_accurate_team(specific_season)
+        teams_data = teams_shots_and_goals(all_games_ids_in_specified_season(specific_season))
+        
+        most_accurate = teams_data.reject { |_, team_data| team_data[:shots] == 0 || team_data[:goals] == 0 }
+        .max_by { |_, team_data| team_data[:goals].to_f / team_data[:shots] }
+  
+        id_to_name(most_accurate[0])
+    end
     
     def least_accurate_team(specific_season)
         specific_season_integer = specific_season.to_i
