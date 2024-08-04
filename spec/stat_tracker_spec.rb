@@ -640,6 +640,28 @@ RSpec.describe StatTracker do
                     expect(@stat_tracker.average_win_percentage("4")).to eq 0.33
                 end
             end
+
+            describe 'most_goals_scored' do
+                it 'returns an integer of highest amount of goals scored' do
+                    expect(@stat_tracker.most_goals_scored("4")).to eq 6
+                end
+
+                it 'has helper#game_check verify highest goal' do
+                    expect(@stat_tracker.game_check(4, 2, 'high')).to eq 4
+                    expect(@stat_tracker.game_check(2, 3, 'high')).to eq 3
+                end
+            end
+
+            describe 'fewest_goals_scored' do
+                it 'returns an integer of lowest amount of goals scored' do
+                    expect(@stat_tracker.fewest_goals_scored("4")).to eq 0
+                end
+
+                it 'has helper#game_check verify lowest goal' do
+                    expect(@stat_tracker.game_check(4, 2, 'low')).to eq 2
+                    expect(@stat_tracker.game_check(2, 3, 'low')).to eq 2
+                end
+            end
         end
     end
 end

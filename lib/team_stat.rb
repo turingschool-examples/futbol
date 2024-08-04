@@ -31,6 +31,30 @@ module TeamStatistics
         (sum / hash.keys.count).round(2)
     end
 
+    def fewest_goals_scored(team_id)
+        goals = 0
+        games.each do |game|
+            if game.away_team_id == team_id 
+                goals = game_check(game.away_goals, goals, 'low')    
+            elsif game.home_team_id == team_id
+                goals = game_check(game.home_goals, goals, 'low')
+            end
+        end
+        goals
+    end
+
+    def most_goals_scored(team_id)
+        goals = 0
+        games.each do |game|
+            if game.away_team_id == team_id 
+                goals = game_check(game.away_goals, goals, 'high')    
+            elsif game.home_team_id == team_id
+                goals = game_check(game.home_goals, goals, 'high')
+            end
+        end
+        goals
+    end
+
     def count_of_games_by_season_by_team(team_id)
         games_count = {}
         games.each do |game|
@@ -57,5 +81,18 @@ module TeamStatistics
         end
         game_count[game_object.season][1] += 1
         game_count
+    end
+
+    def game_check(game_goals, goals, find)
+        if find == "high"
+            if goals < game_goals
+                goals = game_goals
+            end
+        elsif find == "low"
+            if goals > game_goals
+                goals = game_goals
+            end
+        end
+        goals
     end
 end
