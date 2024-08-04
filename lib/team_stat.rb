@@ -24,6 +24,13 @@ module TeamStatistics
         season[0]
     end
 
+    def average_win_percentage(team_id)
+        hash = count_of_games_by_season_by_team(team_id)
+        hash = find_ratio(hash)
+        sum = hash.sum {|_, value| value}
+        (sum / hash.keys.count).round(2)
+    end
+
     def count_of_games_by_season_by_team(team_id)
         games_count = {}
         games.each do |game|
