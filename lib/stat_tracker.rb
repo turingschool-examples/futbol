@@ -188,9 +188,13 @@ class StatTracker
         end
     end
     
-    # def highest_scoring_home_team
+    def highest_scoring_home_team
+        teams_home_goals = team_seasons_goals(['home'])
+        best_home_team = teams_scores_average_max_by(teams_home_goals)
 
-    # end
+        best_home_team_id = best_home_team[0]
+        id_to_name(best_home_team_id)
+    end
     
     def lowest_scoring_visitor
         away_teams_goals_data = team_seasons_goals('away')

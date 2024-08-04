@@ -231,6 +231,7 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.average_goals_by_season).to eq(expected)
         end
     end
+
     # describe 'count_of_teams' do
 
     # end
@@ -298,9 +299,35 @@ RSpec.describe StatTracker do
         end
     end
     
-    # describe 'highest_scoring_home_team' do
+    describe 'highest_scoring_home_team' do
+        it ' returns name of the team with the highest average score per game across all seasons when they are home' do
+            expect(@stat_tracker.highest_scoring_home_team).to eq("FC Dallas")
+        end
 
-    # end
+        it 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+
+            object_1 = hash[14] 
+
+            object_1.instance_variable_set(:@goals, (20120122013))
+
+            expected = ("Sporting Kansas City")
+
+            expect(@stat_tracker.highest_scoring_home_team).to eq(expected)
+        end
+
+        it 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+
+            object_1 = hash[8] 
+
+            object_1.instance_variable_set(:@goals, (20120122013))
+
+            expected = ("Houston Dynamo")
+
+            expect(@stat_tracker.highest_scoring_home_team).to eq(expected)
+        end
+    end
     
     describe 'lowest_scoring_visitor' do
         it 'returns lowest average scoring team when they are a visitor.' do
