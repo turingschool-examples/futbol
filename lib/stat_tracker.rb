@@ -249,11 +249,8 @@ class StatTracker
     def most_accurate_team(specific_season)
         teams_data = teams_shots_and_goals(all_games_ids_in_specified_season(specific_season))
         
-        most_accurate = teams_data.max_by do |team_id, team_data| 
-            next if team_data[:goals] == 0
-            next if team_data[:shots] == 0
-            team_data[:goals].to_f / team_data[:shots]
-        end
+        most_accurate = teams_data.reject { |_, team_data| team_data[:shots] == 0 || team_data[:goals] == 0 }
+        .max_by { |_, team_data| team_data[:goals].to_f / team_data[:shots] }
   
         id_to_name(most_accurate[0])
     end

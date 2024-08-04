@@ -354,15 +354,23 @@ RSpec.describe StatTracker do
     describe "teams_shots_and_goals" do
         it "returns a hash of all teams with shots and goals" do
             data = [2012030221, 2012030222]
-            require 'pry', binding.pry
-            expect(@stat_tracker.teams_shots_and_goals(data)).to eq {3=>{:goals=>4, :shots=>17}, 6=>{:goals=>6, :shots=>20}}
+            
+            expect(@stat_tracker.teams_shots_and_goals(data)).to eq ({3=>{:goals=>4, :shots=>17}, 6=>{:goals=>6, :shots=>20}})
         end
     end
     
     describe 'most_accurate_team' do
         it "returns the most accurate team" do
+            allow(@stat_tracker).to receive(:all_games_ids_in_specified_season).and_return([2012030221, 2012030222])
 
+            expect(@stat_tracker.most_accurate_team(20122014)).to eq("FC Dallas")
+        end
 
+        it "handles edge cases where a team has 0 goals or 0 shots (division by zero)" do
+            allow(@stat_tracker).to receive(:all_games_ids_in_specified_season).and_return([2012030221, 2012030222])
+            allow(@stat_tracker).to receive(:teams_shots_and_goals).and_return({3=>{:goals=>4, :shots=>17}, 6=>{:goals=>0, :shots=>20}})
+
+            expect(@stat_tracker.most_accurate_team(20122014)).to eq("Houston Dynamo")
         end
     end
     
