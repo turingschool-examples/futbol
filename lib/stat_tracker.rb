@@ -165,24 +165,12 @@ class StatTracker
     end
 
     def highest_scoring_visitor
-        visitor_team_scores = {}
-        @game_stats_data.each do |game_id, game_object|
-            if !(visitor_team_scores.keys.include?(game_object.away_team_id))
-                visitor_team_scores[game_object.away_team_id] = []
-                visitor_team_scores[game_object.away_team_id].push(game_object.away_goals)
-            else
-                visitor_team_scores[game_object.away_team_id].push(game_object.away_goals)
-            end
-        end
-        winning_team = visitor_team_scores.max_by do |team, scores|
-            (scores.sum / scores.length.to_f).round(2)
-        end
-        
-        @teams_stats_data.each  do |team_id, team_object|
-            if winning_team[0] == team_id
-                return team_object.team_name
-            end
-        end
+        away_teams_goals_data = team_seasons_goals('away')
+
+        lowest_scoring_team = teams_scores_average_max_by(away_teams_goals_data)
+
+        worst_visitor_id = lowest_scoring_team[0]
+        id_to_name(worst_visitor_id)
     end
     
     def highest_scoring_home_team
