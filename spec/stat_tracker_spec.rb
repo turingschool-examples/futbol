@@ -575,5 +575,105 @@ RSpec.describe StatTracker do
                 end
             end
         end
+
+        describe 'Module#TeamStatistics' do
+            describe 'team_info' do
+                it 'returns a hash' do
+                    expect(@stat_tracker.team_info("4")).to be_a Hash
+                end
+
+                it 'has filled in values' do
+                    team_info = {"team_name" => "Chicago Fire",
+                    "team_id" => "4",
+                    "franchise_id" => "16",
+                    "abbreviation" => "CHI",
+                    "link" => "/api/v1/teams/4" 
+                    }
+
+                    expect(@stat_tracker.team_info("4")).to eq(team_info)
+                end
+            end
+
+            describe 'best_season' do
+                it 'returns best_season for team' do
+                    expect(@stat_tracker.best_season("4")).to eq "20132014"
+                end
+
+                it 'has helper#count_of_games_by_season_by_team return a hash' do
+                    expected = {"20122013" => [15, 48],
+                    "20132014" => [34, 89],
+                    "20142015" => [27, 82],
+                    "20152016" => [29, 88],
+                    "20162017" => [24, 82],
+                    "20172018" => [31, 88]
+                    }
+
+                    expect(@stat_tracker.count_of_games_by_season_by_team("4")).to be_a Hash
+                    expect(@stat_tracker.count_of_games_by_season_by_team("4")).to eq expected
+                end
+
+                it 'has helper#update_seasons return a hash' do
+                    game = @stat_tracker.games[2]
+                    tracker = {}
+
+                    expect(@stat_tracker.update_seasons(game, tracker)).to eq({"20122013" => [0, 0]})
+                end
+
+                it 'has helper#update_team_games return a hash' do
+                    game = @stat_tracker.games[2]
+                    tracker = {}
+                    team_id = "6"
+                    tracker = @stat_tracker.update_seasons(game, tracker)
+
+                    expect(@stat_tracker.update_team_games(game, tracker, team_id)).to eq({"20122013" => [1, 1]})
+                end
+            end
+
+            describe 'worst_season' do
+                it 'returns worst season for team' do
+                    expect(@stat_tracker.worst_season("4")).to eq "20162017"
+                end
+            end
+
+            describe 'average_win_percentage' do
+                it 'returns float of all wins over all games' do
+                    expect(@stat_tracker.average_win_percentage("4")).to eq 0.33
+                end
+            end
+
+            describe 'most_goals_scored' do
+                it 'returns an integer of highest amount of goals scored' do
+                    expect(@stat_tracker.most_goals_scored("4")).to eq 6
+                end
+
+                it 'has helper#game_check verify highest goal' do
+                    expect(@stat_tracker.game_check(4, 2, 'high')).to eq 4
+                    expect(@stat_tracker.game_check(2, 3, 'high')).to eq 3
+                end
+            end
+
+            describe 'fewest_goals_scored' do
+                it 'returns an integer of lowest amount of goals scored' do
+                    expect(@stat_tracker.fewest_goals_scored("4")).to eq 0
+                end
+
+                it 'has helper#game_check verify lowest goal' do
+                    expect(@stat_tracker.game_check(4, 2, 'low')).to eq 2
+                    expect(@stat_tracker.game_check(2, 3, 'low')).to eq 2
+                end
+            end
+
+            describe 'favorite_opponent' do
+                it 'returns a string of team who lost the most against given team' do
+                    expect(@stat_tracker.favorite_opponent("4")).to eq "New England Revolution"
+                end
+            end
+
+            describe 'rival' do
+                it 'returns a string of team who lost the most against given team' do
+                    expect(@stat_tracker.rival("4")).to eq "San Jose Earthquakes"
+                end
+            end
+        end
     end
 end
