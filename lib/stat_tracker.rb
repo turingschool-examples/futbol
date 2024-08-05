@@ -291,7 +291,6 @@ class StatTracker
         teams_data
     end
    
-
     def most_accurate_team(specific_season)
         teams_data = teams_shots_and_goals(all_games_ids_in_specified_season(specific_season))
         
@@ -362,5 +361,4 @@ class StatTracker
         lowest_tackling_team = team_total_tackles.min_by { | team_id, tackles| tackles}
         id_to_name(lowest_tackling_team[0])
     end
-
 end
