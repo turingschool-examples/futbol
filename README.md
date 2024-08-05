@@ -1,5 +1,13 @@
 # Futbol
 
+## About
+
+* The StatTracker application provides detailed statistical analysis for a sports league, covering game, league, and season metrics. It includes methods to determine the highest and lowest game scores, percentages of home and visitor wins, average goals per game, and games by season. League statistics cover team performance, identifying the best and worst offenses, and the highest and lowest-scoring teams at home and away. Season-specific methods analyze coach performance, team accuracy, and tackle counts. StatTracker is a comprehensive for analyzing league performance and trends.
+
+## Built With
+
+* Ruby 3.2.2 & RSpec 3.13
+
 ## Deliverables
 
 **Outline of Check-ins**
