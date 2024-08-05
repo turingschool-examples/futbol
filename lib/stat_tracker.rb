@@ -243,9 +243,9 @@ class StatTracker
         return team_win_loss_ratio
     end
     
-    # def winningest_coach
+    def winningest_coach
         
-    # end
+    end
     
     def worst_coach(specific_season)
         team_win_loss_ratio = win_loss_ratio(specific_season)
