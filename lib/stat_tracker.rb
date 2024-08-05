@@ -164,7 +164,6 @@ class StatTracker
         id_to_name(worst_offense_team_id)
     end
 
-    
     def highest_scoring_visitor
         visitor_team_scores = {}
         @game_stats_data.each do |game_id, game_object|
