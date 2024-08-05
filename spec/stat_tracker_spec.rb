@@ -245,11 +245,6 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.average_goals_by_season).to eq(expected)
         end
     end
-
-    
-    # describe 'best_offense' do
-
-    # end
     
     describe 'count_of_teams' do
         it 'returns the total number of teams' do
