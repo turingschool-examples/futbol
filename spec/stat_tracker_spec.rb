@@ -583,11 +583,12 @@ RSpec.describe StatTracker do
                 end
 
                 it 'has filled in values' do
-                    team_info = {"team_name" => "Chicago Fire",
-                    "team_id" => "4",
-                    "franchise_id" => "16",
-                    "abbreviation" => "CHI",
-                    "link" => "/api/v1/teams/4" 
+                    team_info = {
+                        "team_name" => "Chicago Fire",
+                        "team_id" => "4",
+                        "franchise_id" => "16",
+                        "abbreviation" => "CHI",
+                        "link" => "/api/v1/teams/4" 
                     }
 
                     expect(@stat_tracker.team_info("4")).to eq(team_info)
@@ -600,12 +601,13 @@ RSpec.describe StatTracker do
                 end
 
                 it 'has helper#count_of_games_by_season_by_team return a hash' do
-                    expected = {"20122013" => [15, 48],
-                    "20132014" => [34, 89],
-                    "20142015" => [27, 82],
-                    "20152016" => [29, 88],
-                    "20162017" => [24, 82],
-                    "20172018" => [31, 88]
+                    expected = {
+                        "20122013" => [15, 48],
+                        "20132014" => [34, 89],
+                        "20142015" => [27, 82],
+                        "20152016" => [29, 88],
+                        "20162017" => [24, 82],
+                        "20172018" => [31, 88]
                     }
 
                     expect(@stat_tracker.count_of_games_by_season_by_team("4")).to be_a Hash
