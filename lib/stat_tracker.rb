@@ -243,8 +243,14 @@ class StatTracker
         return team_win_loss_ratio
     end
     
-    def winningest_coach
+    def winningest_coach(specific_season)
+        team_win_loss_ratio = win_loss_ratio(specific_season)
         
+        best_team = team_win_loss_ratio.max_by do |coach_name, result_stats|
+            result_stats[:win_count].to_f / result_stats[:games_played]
+        end
+       
+        return best_team[0]
     end
     
     def worst_coach(specific_season)
