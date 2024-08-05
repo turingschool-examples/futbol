@@ -3,7 +3,6 @@ require 'spec_helper'
 
 RSpec.describe StatTracker do
     before(:each) do
-        # # Test Data
         game_path_dummy = './data/games_dummy.csv'
         team_path_dummy = './data/teams_dummy.csv'
         game_teams_path_dummy = './data/game_teams_dummy.csv'
@@ -15,19 +14,6 @@ RSpec.describe StatTracker do
         }
 
         @stat_tracker = StatTracker.from_csv(@locations)
-
-        # #Actual Data
-        # game_path = './data/games.csv'
-        # team_path = './data/teams.csv'
-        # game_teams_path = './data/game_teams.csv'
-
-        # @locations_actual_data = {
-        #     games: game_path,
-        #     teams: team_path,
-        #     game_teams: game_teams_path
-        # }
-        
-        # @stat_tracker_large_data = StatTracker.from_csv(@locations_actual_data)
     end
 
     describe "initialize" do
