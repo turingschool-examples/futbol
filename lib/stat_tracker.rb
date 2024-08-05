@@ -156,8 +156,6 @@ class StatTracker
         end
     end
 
-
-    
     def worst_offense
         teams_goals_data = team_seasons_goals(['home','away'])
         worst_offense_team = teams_scores_average_min_by(teams_goals_data)
@@ -166,7 +164,6 @@ class StatTracker
         id_to_name(worst_offense_team_id)
     end
 
-    
     def highest_scoring_visitor
         visitor_team_scores = {}
         @game_stats_data.each do |game_id, game_object|
@@ -189,19 +186,11 @@ class StatTracker
     end
     
     def highest_scoring_home_team
-        team_home_goals = Hash.new(0)
-        home_games_played = Hash.new(0)
-        @game_stats_data.each do |game_id, game_object|
-            team_home_goals[game_object.home_team_id] += game_object.home_goals
-            home_games_played[game_object.home_team_id] += 1    
-        end
+        teams_home_goals = team_seasons_goals(['home'])
+        best_home_team = teams_scores_average_max_by(teams_home_goals)
 
-        highest_home_team = team_home_goals.max_by do |team, goals|
-            goals.to_f / home_games_played[team].to_f
-       end
-       
-       best_home_team_id = highest_home_team[0]
-       id_to_name(best_home_team_id)
+        best_home_team_id = best_home_team[0]
+        id_to_name(best_home_team_id)
     end
     
     def lowest_scoring_visitor
@@ -222,23 +211,94 @@ class StatTracker
         id_to_name(lowest_scoring_team_id)
     end
 
-    # def winningest_coach
+    
+    def game_id_to_coach(game_id, team_id)
+        matching_season = @seasons_stats_data.find do |key, seasons_object|
+            seasons_object.team_id == team_id && seasons_object.game_id == game_id
+        end
+        matching_season[1].head_coach
+    end
+    
+    def win_loss_ratio(specific_season)
+        specific_season_integer = specific_season.to_i
+        team_win_loss_ratio = Hash.new { |hash, key| hash[key] = { win_count: 0, games_played: 0, tied_games: 0 } }
         
-    # end
+        @game_stats_data.each do |game_id, game_object|
+            next unless game_object.season == specific_season_integer
+            team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:games_played] += 1
+            team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:games_played] += 1
+            
+            if game_object.home_goals > game_object.away_goals
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:win_count] += 1
+            elsif game_object.home_goals < game_object.away_goals
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:win_count] += 1
+            else
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:tied_games] += 1
+                team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:tied_games] += 1
+            end 
+        end
+        return team_win_loss_ratio
+    end
     
-    # def worst_coach
-        # use game_teams.
-        # similar test structure as BO / LSV
-        # compare team id to winn vs loss
-        #make helper method to take team 1d and return coach
-        #helper method test should iterate over game_teams
-        #
+    def winningest_coach(specific_season)
+        team_win_loss_ratio = win_loss_ratio(specific_season)
+        
+        best_team = team_win_loss_ratio.max_by do |coach_name, result_stats|
+            result_stats[:win_count].to_f / result_stats[:games_played]
+        end
+       
+        return best_team[0]
+    end
+    
+    def worst_coach(specific_season)
+        team_win_loss_ratio = win_loss_ratio(specific_season)
+        
+        worst_team = team_win_loss_ratio.min_by do |coach_name, result_stats|
+            result_stats[:win_count].to_f / result_stats[:games_played]
+        end
+       
+        return worst_team[0]
+    end
 
-    # end
-    
+    def id_to_coach(id)
+        @seasons_stats_data.each do |game_id, game_object|
+            return game_object.head_coach if game_object.team_id == id
+        end
+    end
+  
     # def most_accurate_team
+  
+    # end  
 
-    # end
+    def all_games_ids_in_specified_season(specific_season)
+        
+        games_in_seasons = @game_stats_data.find_all { |game_id, game_object| game_object.season == specific_season.to_i}
+        game_ids_in_season = games_in_seasons.map { |game_id, game_object| game_id }
+        
+    end
+
+    def teams_shots_and_goals(game_ids)
+        teams_data = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+
+        @seasons_stats_data.each do |counter, season_object|
+            
+            next unless game_ids.include?(season_object.game_id)
+           
+            teams_data[season_object.team_id][:goals] += season_object.goals
+            teams_data[season_object.team_id][:shots] += season_object.shots
+        end
+
+        teams_data
+    end
+   
+    def most_accurate_team(specific_season)
+        teams_data = teams_shots_and_goals(all_games_ids_in_specified_season(specific_season))
+        
+        most_accurate = teams_data.reject { |_, team_data| team_data[:shots] == 0 || team_data[:goals] == 0 }
+        .max_by { |_, team_data| team_data[:goals].to_f / team_data[:shots] }
+  
+        id_to_name(most_accurate[0])
+    end
     
     def least_accurate_team(specific_season)
         specific_season_integer = specific_season.to_i
@@ -280,66 +340,29 @@ class StatTracker
     end
     
     def most_tackles(specific_season)
-        specific_season_integer = specific_season.to_i
-        season_tackles_count = Hash.new(0)
-        @game_stats_data.each do |game_id, game_object|
-            season_tackles_count[specific_season_integer] = game_object.game_id
-        end
-        
-        season_tackles_count
-        require 'pry'; binding.pry
-        # season_game_count
-        # team_tackles = Hash.new(0)
-        # @seasons_stats_data.each do |game_id, game_object|
-        #     team_tackles[game_object.team_id] += game_object.tackles
-        # end
-       
-        # most_team_tackles = team_tackles.max_by do |team, tackles|
-        #     tackles
-        # end
-       
-        # best_tackle_team_id = most_team_tackles[0]
-        # id_to_name(best_tackle_team_id)
+        game_ids = all_games_ids_in_specified_season(specific_season)
+        team_total_tackles = team_tackles_in_games(game_ids)
 
-    #     count_of_games_by_season
-    #     total_season_goals = Hash.new(0)
-    #     @game_stats_data.each do |game_id, game_object|
-    #         goals = game_object.total_goals
-    #         total_season_goals[game_object.season] += goals
-    #    end
-    #    average = total_season_goals.merge!(count_of_games_by_season) do |season, goals, games|
-    #       (goals / games.to_f).round(2)
-    #    end
-    #    average
+        highest_tackling_team = team_total_tackles.max_by { | team_id, tackles| tackles}
+        id_to_name(highest_tackling_team[0])
     end
-    
+
+    def team_tackles_in_games(game_ids)
+        team_total_tackles = Hash.new(0)
+
+        @seasons_stats_data.each do |key, season_object|
+            next unless game_ids.include?(season_object.game_id)
+            team_total_tackles[season_object.team_id] += season_object.tackles
+        end
+
+        team_total_tackles
+    end
+
     def fewest_tackles(specific_season)
-        specific_season_integer = specific_season.to_i
-        games_in_season = {specific_season => []}
-        @game_stats_data.each do |game_id, game_object|
-            games_in_season[specific_season].push(game_id) if game_object.season == specific_season_integer
-        end
+        game_ids =  all_games_ids_in_specified_season(specific_season)
+        team_total_tackles = team_tackles_in_games(game_ids)
 
-        team_total_tackles = {}
-
-        @seasons_stats_data.each do |game_key, game_object|
-            if games_in_season[specific_season].include?(game_object.game_id)
-                if !(team_total_tackles.keys.include?(game_object.team_id))
-                    team_total_tackles[game_object.team_id] = 0
-                    team_total_tackles[game_object.team_id] += game_object.tackles
-                else
-                    team_total_tackles[game_object.team_id] += game_object.tackles
-                end
-            end
-        end
-        lowest_tackling_team = team_total_tackles.min_by do |team_id, tackles|
-            tackles
-        end
-
-        @teams_stats_data.each  do |team_id, team_object|
-            if lowest_tackling_team[0] == team_id
-                return team_object.team_name
-            end
-        end
+        lowest_tackling_team = team_total_tackles.min_by { | team_id, tackles| tackles}
+        id_to_name(lowest_tackling_team[0])
     end
 end
