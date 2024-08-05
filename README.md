@@ -66,7 +66,7 @@
 
 * **Delaney, Kyle**
     * [Github](https://github.com/kylomite)
-    * [LinkedIn](https://www.linkedin.com/in/kyle-delaney-115164172/edit/forms/next-action/after-connect-add-position/)
+    * [LinkedIn](https://www.linkedin.com/in/kyle-delaney-115164172)
 
 * **Hill, John**
     * [Github](https://github.com/jphill19)
