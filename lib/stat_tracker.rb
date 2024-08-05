@@ -214,9 +214,6 @@ class StatTracker
         id_to_name(lowest_scoring_team_id)
     end
 
-    # def winningest_coach
-        
-    # end
     
     def game_id_to_coach(game_id, team_id)
         matching_season = @seasons_stats_data.find do |key, seasons_object|
@@ -224,16 +221,16 @@ class StatTracker
         end
         matching_season[1].head_coach
     end
-
+    
     def win_loss_ratio(specific_season)
         specific_season_integer = specific_season.to_i
         team_win_loss_ratio = Hash.new { |hash, key| hash[key] = { win_count: 0, games_played: 0, tied_games: 0 } }
-
+        
         @game_stats_data.each do |game_id, game_object|
-           next unless game_object.season == specific_season_integer
-           team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:games_played] += 1
-           team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:games_played] += 1
-
+            next unless game_object.season == specific_season_integer
+            team_win_loss_ratio[game_id_to_coach(game_id, game_object.away_team_id)][:games_played] += 1
+            team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:games_played] += 1
+            
             if game_object.home_goals > game_object.away_goals
                 team_win_loss_ratio[game_id_to_coach(game_id, game_object.home_team_id)][:win_count] += 1
             elsif game_object.home_goals < game_object.away_goals
@@ -246,9 +243,13 @@ class StatTracker
         return team_win_loss_ratio
     end
     
+    # def winningest_coach
+        
+    # end
+    
     def worst_coach(specific_season)
         team_win_loss_ratio = win_loss_ratio(specific_season)
-
+        
         worst_team = team_win_loss_ratio.min_by do |coach_name, result_stats|
             result_stats[:win_count].to_f / result_stats[:games_played]
         end

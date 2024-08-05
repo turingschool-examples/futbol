@@ -246,10 +246,7 @@ RSpec.describe StatTracker do
         end
     end
 
-    # describe 'count_of_teams' do
-
-    # end
-
+    
     # describe 'best_offense' do
 
     # end
