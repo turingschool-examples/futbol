@@ -156,8 +156,6 @@ class StatTracker
         end
     end
 
-
-    
     def worst_offense
         teams_goals_data = team_seasons_goals(['home','away'])
         worst_offense_team = teams_scores_average_min_by(teams_goals_data)
