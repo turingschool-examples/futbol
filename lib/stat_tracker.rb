@@ -297,9 +297,13 @@ class StatTracker
         id_to_name(most_accurate[0])
     end
     
-    # def most_tackles
+    def most_tackles(specific_season)
+        game_ids = all_games_ids_in_specified_season(specific_season)
+        team_total_tackles = team_tackles_in_games(game_ids)
 
-    # end
+        highest_tackling_team = team_total_tackles.max_by { | team_id, tackles| tackles}
+        id_to_name(highest_tackling_team[0])
+    end
 
     def team_tackles_in_games(game_ids)
         team_total_tackles = Hash.new(0)

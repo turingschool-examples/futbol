@@ -434,9 +434,35 @@ RSpec.describe StatTracker do
         end
     end
     
-    # describe 'most_tackles' do
+    describe 'most_tackles' do
+        it 'name of the Team with the most tackles in the season' do
+            expect(@stat_tracker.most_tackles('20122013')).to eq("FC Dallas")
+        end
 
-    # end
+        it 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+
+            object_1 = hash[1] 
+            object_1.instance_variable_set(:@tackles, (20122013))
+
+            expected = ("Houston Dynamo")
+
+            expect(@stat_tracker.most_tackles('20122013')).to eq(expected)
+        end
+
+        it 'returns sum of games per season on mocks' do
+            hash = @stat_tracker.instance_variable_get(:@seasons_stats_data)
+            hash_of_games = @stat_tracker.instance_variable_get(:@game_stats_data)
+
+            object_1 = hash[14]
+            object_1.instance_variable_set(:@tackles, (20122013))
+            hash_of_games[2012030312].instance_variable_set(:@season, 20122014)
+
+            expected = ("Sporting Kansas City")
+
+            expect(@stat_tracker.most_tackles('20122014')).to eq(expected)
+        end
+    end
     
     describe "team_tackles_in_games" do
         it "returns a hash with team_ids as the key, with the teams_tackles as the value" do
