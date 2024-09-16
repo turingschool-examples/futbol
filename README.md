@@ -4,6 +4,7 @@ A 1-2 summary or bullet points outlining your plan for check-ins throughout the 
 
 A 2-4 sentence summary of your plan for project organization and workflow. This can include bullet points. If you plan to use a project management tool, please include a link to your project board.
  - Trello Board - https://trello.com/b/X4qz9Wmb/1mod-futbol
+ - DTR - https://docs.google.com/document/d/1o1cZY_vuI0vH_GOJ1P0V5BKkYAg3VNeZASBqXHzkwjE/edit
  - Create branch for each related set of methods
  - On every PR, make sure to run all tests and simplecov
    
