@@ -38,11 +38,25 @@ RSpec.describe Stattracker do
   describe '#highest_total_score' do
     it 'returns the highest sum of the winning and losing teams’ scores' do
       expect(@stat_tracker1.highest_total_score).to eq("41")
-      end
     end
-    describe '#lowest_total_score' do
-      it 'returns the lowest sum of the winning and losing teams’ scores' do
-        expect(@stat_tracker1.lowest_total_score).to eq("03")
-      end
+  end
+
+  describe '#lowest_total_score' do
+    it 'returns the lowest sum of the winning and losing teams’ scores' do
+      expect(@stat_tracker1.lowest_total_score).to eq("03")
     end
+  end
+  
+  describe '#coach_win_percentages' do
+    it 'calculates winning percentages of coaches' do
+      expected = {
+        "Claude Julien"=>1.0, 
+        "Dan Bylsma"=>0.0, 
+        "Joel Quenneville"=>0.3333333333333333, 
+        "John Tortorella"=>0.0, 
+        "Mike Babcock"=>0.6
+      }
+      expect(@stat_tracker1.send(:coach_win_percentages)).to eq(expected)
+    end
+  end
 end
