@@ -15,6 +15,9 @@ class Stattracker
       @game_teams_factory = GameTeamFactory.new
       @teams_factory = Teams_factory.new    
       @game_factory = GameFactory.new
+      @@all_games = stat_tracker.game_factory.games
+      @@all_teams = stat_tracker.teams_factory.teams
+      @@all_game_teams = stat_tracker.game_teams_factory.game_teams
   end
 
   def self.from_csv(source)
