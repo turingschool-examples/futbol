@@ -78,7 +78,7 @@ class Stattracker
     # returns int
   end
 
-  def get_scores(team_id, season = nil) # season is not implemented yet
+  def get_scores(team_id, hoa = :both, season = nil) # season is not implemented yet
     no_goals = [0] # only needed if there are no goals
     team_id = team_id.to_i # team_id can be provided as int or str
     away_games = @all_games.select { |game| game.away_team_id.to_i == team_id }
@@ -92,7 +92,13 @@ class Stattracker
     away_goals = []
     away_games.each { |game| away_goals << game.away_goals.to_i } if away_games
 
-    home_goals + away_goals
+    if hoa == :home
+      home_goals
+    elsif hoa == :away
+      away_goals
+    else
+      home_goals + away_goals
+    end
   end
 
   def highest_total_score

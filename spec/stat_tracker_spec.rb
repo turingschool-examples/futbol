@@ -51,7 +51,11 @@ RSpec.describe Stattracker do
       expect(@stat_tracker1.get_scores(6)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
       expect(@stat_tracker1.get_scores('6')).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
       expect(@stat_tracker1.get_scores('1')).to eq([0])
+
+      expect(@stat_tracker1.get_scores(6, :home)).to eq([3, 3, 3, 2, 1])
+      expect(@stat_tracker1.get_scores(6, :away)).to eq([2, 3, 3, 4])
+      expect(@stat_tracker1.get_scores(6, :total)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
+      expect(@stat_tracker1.get_scores(6, :blahblah)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
     end
   end
 end
-
