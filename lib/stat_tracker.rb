@@ -1,12 +1,6 @@
-require 'CSV'
-require './lib/game'
-require './lib/game_factory'
-require './lib/team'
-require './lib/teams_factory'
-require './lib/game_team'
-require './lib/game_team_factory'
+require_relative './helper_class'
 
-class Stattracker
+class StatTracker
   attr_reader :game_teams_factory,
               :teams_factory,
               :game_factory,
@@ -24,7 +18,7 @@ class Stattracker
   end
 
   def self.from_csv(source)
-    stattracker = Stattracker.new
+    stattracker = StatTracker.new
 
     source.each do |key, value|
       case key
@@ -118,14 +112,19 @@ class Stattracker
   def highest_scoring_visitor
     all_visitor_scores = {}
     @all_teams.each do |team|
-      goals = get_scores(team.team_id, :away)
+      goals = get_scores(team.team_id, :away).sum
       all_visitor_scores[team] = goals
     end
     all_visitor_scores.max_by{|team,goals| goals}.first.teamName
   end
 
   def highest_scoring_home_team
-
+    all_home_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :home).sum
+      all_home_scores[team] = goals
+    end
+    all_home_scores.max_by{|team,goals| goals}.first.teamName
   end
 
   def lowest_scoring_visitor

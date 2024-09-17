@@ -1,6 +1,6 @@
 require './spec/spec_helper'
 
-RSpec.describe Stattracker do
+RSpec.describe StatTracker do
   before(:each) do
     game_path = './data/games_test.csv'
     team_path = './data/teams.csv'
@@ -18,19 +18,20 @@ RSpec.describe Stattracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-    @stat_tracker = Stattracker.new
-    @stat_tracker1 = Stattracker.from_csv(locations)
-    @stat_tracker2 = Stattracker.from_csv(locations2)
+    @stat_tracker = StatTracker.new
+    @stat_tracker1 = StatTracker.from_csv(locations)
+    @stat_tracker2 = StatTracker.from_csv(locations2)
   end
 
   describe '#initialize' do
     it 'exists' do
-      expect(@stat_tracker).to be_an_instance_of(Stattracker)
+      expect(@stat_tracker).to be_an_instance_of(StatTracker)
       expect(@stat_tracker.all_games).to eq([])
       expect(@stat_tracker.all_teams).to eq([])
       expect(@stat_tracker.all_game_teams).to eq([])
     end
   end
+
   describe '#from_csv' do
     it 'can create a new Stattracker instance' do
       expect(@stat_tracker1).to_not eq(@stat_tracker)
@@ -48,6 +49,7 @@ RSpec.describe Stattracker do
       expect(@stat_tracker1.highest_total_score).to eq('41')
     end
   end
+  
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams’ scores' do
       expect(@stat_tracker1.lowest_total_score).to eq('03')
