@@ -1,12 +1,6 @@
-require 'CSV'
-require './lib/game.rb'
-require './lib/game_factory.rb'
-require './lib/team.rb'
-require './lib/teams_factory.rb'
-require './lib/game_team.rb'
-require './lib/game_team_factory.rb'
+require_relative './helper_class'
 
-class Stattracker
+class StatTracker
   attr_reader :game_teams_factory,
               :teams_factory,
               :game_factory,
@@ -24,7 +18,7 @@ class Stattracker
   end
 
   def self.from_csv(source)
-    stattracker = Stattracker.new
+    stattracker = StatTracker.new
 
     source.each do |key, value|
         case key
