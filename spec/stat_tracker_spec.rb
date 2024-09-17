@@ -34,4 +34,28 @@ RSpec.describe Stattracker do
       expect(@stat_tracker1.all_game_teams.count).to eq(29)
     end
   end
+
+  describe '#highest_scoring_home_team' do
+    it 'can find the highest scoring home team' do
+      expect(true).to eq(false)
+    end
+  end
+
+  describe '#highest_scoring_visitor' do
+    it 'can find the highest scoring visiting team' do
+      expect(true).to eq(false)
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'can find the lowest scoring home team' do
+      expect(true).to eq(false)
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do
+    it 'can find the lowest scoring visiting team' do
+      expect(true).to eq(false)
+    end
+  end
 end

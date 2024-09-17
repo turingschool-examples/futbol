@@ -51,4 +51,16 @@ class Stattracker
     percentage = (home_wins.to_f / total_games) * 100
     percentage.round(2)
   end
+
+  def highest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+  end
+
+  def lowest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+  end
 end
