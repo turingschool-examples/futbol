@@ -78,9 +78,20 @@ class Stattracker
     # returns int
   end
 
-  def get_scores(team_id, season)
-    # TODO: helper method
-    # returns array of scores
-    # season parameter option, set to all seasons by default
+  def get_scores(team_id, season = nil) # season is not implemented yet
+    no_goals = [0] # only needed if there are no goals
+    team_id = team_id.to_i # team_id can be provided as int or str
+    away_games = @all_games.select { |game| game.away_team_id.to_i == team_id }
+    home_games = @all_games.select { |game| game.home_team_id.to_i == team_id }
+
+    return no_goals unless home_games.any? || away_games.any?
+
+    home_goals = []
+    home_games.each { |game| home_goals << game.home_goals.to_i } if home_games
+
+    away_goals = []
+    away_games.each { |game| away_goals << game.away_goals.to_i } if away_games
+
+    home_goals + away_goals
   end
 end
