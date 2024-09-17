@@ -38,6 +38,12 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.lowest_total_score).to eq(1)
         #expect(@stat_tracker.lowest_total_score).to eq(0)
     end
+
+    describe "#count_of_games_by_season" do
+      it 'can provide the number of games by season' do
+        expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014"=>2, "20152016"=>5, "20162017"=>3, "20172018"=>6})
+      end
+    end
 end
 
 end
