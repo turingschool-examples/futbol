@@ -73,6 +73,15 @@ class Stattracker
       coach_games[coach][:games] += 1
       coach_games[coach][:wins] += 1 if game_team.result == "WIN"
     end
-    coach_games.transform_values { |stats| stats[:wins].to_f / stats[:games]}
+      coach_games.transform_values do |stats| 
+        games = stats[:games]
+        games > 0 ? stats[:wins].to_f / stats[:games] : 0
+    end
   end
+
+  def winningest_coach
+    coach_win_percentages = coach_win_percentages()
+    coach_win_percentages.max_by { |coach, win_percentage| win_percentage}.first
+  end
+
 end
