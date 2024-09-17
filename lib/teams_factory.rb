@@ -14,9 +14,8 @@ class Teams_factory
     end
 
     CSV.foreach(file_path, headers: true, header_converters: custom_header_converter) do |row|
-      team = Team.new(row[:team_id], row[:franchiseId], row[:teamName], row[:abbreviation], row[:Stadium], row[:link])
+      team = Team.new(row)
       @teams << team
     end
   end
 end
-
