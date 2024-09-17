@@ -52,11 +52,21 @@ class Stattracker
     percentage.round(2)
   end
 
-  def best_offense
+  def percentage_visitor_wins
+
+  end
+
+  def percentage_ties
     
   end
 
-  def worst_offense
+  def best_offense
+    #offense is all game_teams highest score 
+      #output a string of the team name 
+  end
 
+  def worst_offense
+     #offense is all game_teams highest score 
+      #output a string of the team name 
   end
 end
