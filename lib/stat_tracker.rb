@@ -1,6 +1,6 @@
 require 'CSV'
 
-class Stattracker
+class StatTracker
   def average_goals_per_game
     # TODO: required
     # Average number of goals scored in a game across all

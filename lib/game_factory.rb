@@ -1,11 +1,12 @@
+require './lib/game'
 class GameFactory
   attr_reader :games
 
   def initialize
     @games = []
   end
+
   def create_games(source)
-    
     CSV.foreach(source, headers: true, header_converters: :symbol) do |row|
       game_id = row[:game_id]
       season = row[:season]
@@ -19,7 +20,5 @@ class GameFactory
       venue_link = row[:venue_link]
       @games << Game.new(row)
     end
-
   end
-
 end
