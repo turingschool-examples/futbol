@@ -65,4 +65,10 @@ RSpec.describe Stattracker do
       expect(@stat_tracker1.winningest_coach).to eq("Claude Julien")
     end
   end
+
+  describe '#worst_coach' do
+    it 'returns lowest percentage coach' do
+      expect(@stat_tracker1.worst_coach).to eq("John Tortorella", "Dan Bylsma")
+    end
+  end
 end
