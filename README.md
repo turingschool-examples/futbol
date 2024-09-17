@@ -21,7 +21,7 @@
 
 ## DTR Documents
 
-- [Initial DTR Document](link-to-initial-dtr) - Completed on [Date]
+- [Initial DTR Document](link-to-initial-dtr) - Completed on [16SEP2024]
 
 ## Contributors
 
