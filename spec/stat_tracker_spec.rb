@@ -34,4 +34,24 @@ RSpec.describe Stattracker do
       expect(@stat_tracker1.all_game_teams.count).to eq(29)
     end
   end
+  describe '#calculate percentages' do
+    it 'can calculate home wins' do
+      expect(@stat_tracker1.percentage_home_wins).to be_an_instance_of(Float)
+    end
+
+    it 'can calculate visitor wins' do
+      expect(@stat_tracker1.percentage_visitor_wins).to be_an_instance_of(Float)
+    end
+
+    it 'can calculate ties' do
+      expect(@stat_tracker1.percentage_ties).to be_an_instance_of(Float)
+    end
+
+    it 'can calculate accurately' do
+      total = (@stat_tracker1.percentage_ties) + (@stat_tracker1.percentage_visitor_wins) + (@stat_tracker1.percentage_home_wins)
+      expect(total).to be_within(0.5).of(100.00)
+    end
+  end
+
+  
 end
