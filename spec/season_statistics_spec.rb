@@ -13,7 +13,6 @@ RSpec.describe SeasonStatistics do
       game_teams: game_teams_path
     }
     @season_stats = SeasonStatistics.new(locations[:games], locations[:game_teams])
-  
   end
 
   describe '#coach stats' do
@@ -93,5 +92,4 @@ RSpec.describe SeasonStatistics do
       expect(@season_stats.team_data.first[:teamName]).to eq('Houston Dynamo')
     end
   end
-
 end
