@@ -36,13 +36,13 @@ RSpec.describe Stattracker do
   end
   
   describe '#highest_total_score' do
-  it 'returns the highest sum of the winning and losing teams’ scores' do
-    expect(@stat_tracker1.highest_total_score).to eq("41")
+    it 'returns the highest sum of the winning and losing teams’ scores' do
+      expect(@stat_tracker1.highest_total_score).to eq("41")
+      end
     end
-  end
-  describe '#lowest_total_score' do
-    it 'returns the lowest sum of the winning and losing teams’ scores' do
-      expect(@stat_tracker1.lowest_total_score).to eq("03")
+    describe '#lowest_total_score' do
+      it 'returns the lowest sum of the winning and losing teams’ scores' do
+        expect(@stat_tracker1.lowest_total_score).to eq("03")
+      end
     end
-  end
 end
