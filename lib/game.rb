@@ -14,6 +14,11 @@ class Game
         @season = data[:season]
         @type = data[:type]
         @data_time = data[:data_time]
-        @away
+        @away_team_id = data[:away_goals_id]
+        @home_goals_id = data[:home_goals_id]
+        @away_goals = data[:away_goals].to_i
+        @home_goals = data[:home_goals].to_i
+        @venue = data[:venue]
+        @venue_link = data[:venue_link]
     end
 end
