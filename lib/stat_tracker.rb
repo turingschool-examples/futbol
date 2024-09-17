@@ -116,7 +116,12 @@ class Stattracker
   end
 
   def highest_scoring_visitor
-
+    all_visitor_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :away)
+      all_visitor_scores[team] = goals
+    end
+    all_visitor_scores.max_by{|team,goals| goals}.first.teamName
   end
 
   def highest_scoring_home_team

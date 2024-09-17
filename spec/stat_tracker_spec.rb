@@ -5,7 +5,7 @@ RSpec.describe Stattracker do
     game_path = './data/games_test.csv'
     team_path = './data/teams.csv'
     game_teams_path = './data/game_team_test.csv'
-    game_teams_path2 = './data/game_team_test2.csv'
+    game_path_2 = './data/games_test_2.csv'
 
     locations = {
       games: game_path,
@@ -14,9 +14,9 @@ RSpec.describe Stattracker do
     }
 
     locations2 = {
-      games: game_path,
+      games: game_path_2,
       teams: team_path,
-      game_teams: game_teams_path2
+      game_teams: game_teams_path
     }
     @stat_tracker = Stattracker.new
     @stat_tracker1 = Stattracker.from_csv(locations)
@@ -76,25 +76,25 @@ RSpec.describe Stattracker do
 
   describe '#highest_scoring_home_team' do
     it 'can find the highest scoring home team' do
-      expect(@stat_tracker2.highest_scoring_home_team).to eq('FC Dallas')
+      expect(@stat_tracker2.highest_scoring_home_team).to eq('New England Revolution')
     end
   end
 
   describe '#highest_scoring_visitor' do
     it 'can find the highest scoring visiting team' do
-      expect(@stat_tracker2.highest_scoring_visitor).to eq('LA Galaxy')
+      expect(@stat_tracker2.highest_scoring_visitor).to eq('FC Dallas')
     end
   end
 
   describe '#lowest_scoring_home_team' do
     it 'can find the lowest scoring home team' do
-      expect(@stat_tracker2.lowest_scoring_home_team).to eq('Houston Dynamo')
+      expect(@stat_tracker2.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
 
   describe '#lowest_scoring_visitor' do
     it 'can find the lowest scoring visiting team' do
-      expect(@stat_tracker2.lowest_scoring_home_team).to eq('Sporting Kansas City')
+      expect(@stat_tracker2.lowest_scoring_visiting_team).to eq('Sporting Kansas City')
     end
   end
 end
