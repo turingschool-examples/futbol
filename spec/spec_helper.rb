@@ -1,5 +1,8 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/game.rb'
+#add new requires below
 require 'pry'
 require 'csv'
+
+require './lib/game.rb'
+require './lib/game_factory.rb'
