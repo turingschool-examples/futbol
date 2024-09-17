@@ -76,10 +76,10 @@ RSpec.describe SeasonStatistics do
       csv_file = StringIO.new(mocked_csv_data)
       allow(CSV).to receive(:read).and_return(CSV.parse(csv_file, headers: true, header_converters: :symbol))
 
-      @game_stats.load_game_data('path/to/mock_file.csv')
+      @season_stats.load_game_data('path/to/mock_file.csv')
 
-      expect(@game_stats.game_data.length).to eq(8)
-      expect(@game_stats.game_data.first[:head_coach]).to eq('John Tortorella')
+      expect(@season_stats.game_data.length).to eq(8)
+      expect(@season_stats.game_data.first[:head_coach]).to eq('John Tortorella')
     end
   end
 
@@ -94,10 +94,10 @@ RSpec.describe SeasonStatistics do
       csv_file = StringIO.new(mocked_team_csv_data)
       allow(CSV).to receive(:read).and_return(CSV.parse(csv_file, headers: true, header_converters: :symbol))
 
-      @game_stats.load_team_data('path/to/mock_team_file.csv')
+      @season_stats.load_team_data('path/to/mock_team_file.csv')
 
-      expect(@game_stats.team_data.length).to eq(2)
-      expect(@game_stats.team_data.first[:teamName]).to eq('Houston Dynamo')
+      expect(@season_stats.team_data.length).to eq(2)
+      expect(@season_stats.team_data.first[:teamName]).to eq('Houston Dynamo')
     end
   end
 
