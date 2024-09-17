@@ -4,6 +4,7 @@ RSpec.describe StatTracker do
   before(:each) do
     game_path = './data/games_test.csv'
     team_path = './data/teams.csv'
+    team_path_2 = './data/teams_test.csv'
     game_teams_path = './data/game_team_test.csv'
     game_path_2 = './data/games_test_2.csv'
 
@@ -15,7 +16,7 @@ RSpec.describe StatTracker do
 
     locations2 = {
       games: game_path_2,
-      teams: team_path,
+      teams: team_path_2,
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.new
@@ -49,7 +50,7 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.highest_total_score).to eq('41')
     end
   end
-  
+
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams’ scores' do
       expect(@stat_tracker1.lowest_total_score).to eq('03')
@@ -78,7 +79,7 @@ RSpec.describe StatTracker do
 
   describe '#highest_scoring_home_team' do
     it 'can find the highest scoring home team' do
-      expect(@stat_tracker2.highest_scoring_home_team).to eq('New England Revolution')
+      expect(@stat_tracker2.highest_scoring_home_team).to eq('FC Dallas')
     end
   end
 
@@ -96,7 +97,7 @@ RSpec.describe StatTracker do
 
   describe '#lowest_scoring_visitor' do
     it 'can find the lowest scoring visiting team' do
-      expect(@stat_tracker2.lowest_scoring_visiting_team).to eq('Sporting Kansas City')
+      expect(@stat_tracker2.lowest_scoring_visitor).to eq('New York Red Bulls')
     end
   end
 end
