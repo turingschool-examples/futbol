@@ -1,6 +1,9 @@
-require 'pry'
-
 class GameTeam
+  attr_reader :game_id, :team_id, :HoA, :result, :settled_in,
+              :head_coach, :goals, :shots, :tackles, :pim,
+              :powerPlayOpportunities, :powerPlayGoals, :faceOffWinPercentage,
+              :giveaways, :takeaways
+
   def initialize(game_team)
     @game_id = game_team[:game_id].to_i
     @team_id = game_team[:team_id].to_i
@@ -17,6 +20,5 @@ class GameTeam
     @faceOffWinPercentage = game_team[:faceOffWinPercentage].to_f
     @giveaways = game_team[:giveaways].to_i
     @takeaways = game_team[:takeaways].to_i
-    binding.pry
   end
 end
