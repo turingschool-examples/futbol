@@ -8,7 +8,6 @@ RSpec.describe 'team' do
 
   describe '#initialize' do
     it 'exists' do
-      # binding.pry
       expect(@team1).to be_an_instance_of(Team)
       expect(@team1.team_id).to eq('1')
       expect(@team1.franchise_id).to eq('2')
