@@ -42,6 +42,17 @@ RSpec.describe Stattracker do
       expect(@stat_tracker1.all_game_teams.count).to eq(29)
     end
   end
+  
+  describe '#highest_total_score' do
+    it 'returns the highest sum of the winning and losing teams’ scores' do
+      expect(@stat_tracker1.highest_total_score).to eq("41")
+      end
+    end
+    describe '#lowest_total_score' do
+      it 'returns the lowest sum of the winning and losing teams’ scores' do
+        expect(@stat_tracker1.lowest_total_score).to eq("03")
+      end
+    end
 
   describe '#highest_scoring_home_team' do
     it 'can find the highest scoring home team' do
@@ -51,19 +62,19 @@ RSpec.describe Stattracker do
 
   describe '#highest_scoring_visitor' do
     it 'can find the highest scoring visiting team' do
-      expect(@stat_tracker1.highest_scoring_visitor).to eq('LA Galaxy')
+      expect(@stat_tracker2.highest_scoring_visitor).to eq('LA Galaxy')
     end
   end
 
   describe '#lowest_scoring_home_team' do
     it 'can find the lowest scoring home team' do
-      expect(@stat_tracker1.lowest_scoring_home_team).to eq('Houston Dynamo')
+      expect(@stat_tracker2.lowest_scoring_home_team).to eq('Houston Dynamo')
     end
   end
 
   describe '#lowest_scoring_visitor' do
     it 'can find the lowest scoring visiting team' do
-      expect(@stat_tracker1.lowest_scoring_home_team).to eq('Sporting Kansas City')
+      expect(@stat_tracker2.lowest_scoring_home_team).to eq('Sporting Kansas City')
     end
   end
 end
