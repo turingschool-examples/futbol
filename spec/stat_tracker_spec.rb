@@ -11,13 +11,27 @@ RSpec.describe Stattracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-
-    @stat_tracker = Stattracker.from_csv(locations)
+    @stat_tracker = Stattracker.new
+    @stat_tracker1 = Stattracker.from_csv(locations)
   end
 
   describe '#initialize' do
     it 'exists' do
       expect(@stat_tracker).to be_an_instance_of(Stattracker)
+      expect(@stat_tracker.all_games).to eq([])
+      expect(@stat_tracker.all_teams).to eq([])
+      expect(@stat_tracker.all_game_teams).to eq([])
+    end
+  end
+  describe '#from_csv' do
+    it 'can create a new Stattracker instance' do
+      expect(@stat_tracker1).to_not eq(@stat_tracker)
+    end
+
+    it 'has created lists of variables' do
+      expect(@stat_tracker1.all_games.count).to eq(32)
+      expect(@stat_tracker1.all_teams.count).to eq(32)
+      expect(@stat_tracker1.all_game_teams.count).to eq(29)
     end
   end
 end
