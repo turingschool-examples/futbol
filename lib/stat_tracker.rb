@@ -91,4 +91,17 @@ class StatTracker
       lowest = total_goals.min
       lowest
     end
+
+    def count_of_games_by_season
+      games_by_season = {}
+      
+      @games.each do |game|
+        if games_by_season[game.season]
+          games_by_season[game.season] += 1
+        else
+          games_by_season[game.season] = 1
+        end
+      end
+      games_by_season
+    end
 end
