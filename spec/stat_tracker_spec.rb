@@ -1,6 +1,6 @@
 require './spec/spec_helper'
 
-RSpec.describe Stattracker do
+RSpec.describe StatTracker do
   before(:each) do
     game_path = './data/games_test.csv'
     team_path = './data/teams.csv'
@@ -11,13 +11,13 @@ RSpec.describe Stattracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-    @stat_tracker = Stattracker.new
-    @stat_tracker1 = Stattracker.from_csv(locations)
+    @stat_tracker = StatTracker.new
+    @stat_tracker1 = StatTracker.from_csv(locations)
   end
 
   describe '#initialize' do
     it 'exists' do
-      expect(@stat_tracker).to be_an_instance_of(Stattracker)
+      expect(@stat_tracker).to be_an_instance_of(StatTracker)
       expect(@stat_tracker.all_games).to eq([])
       expect(@stat_tracker.all_teams).to eq([])
       expect(@stat_tracker.all_game_teams).to eq([])
@@ -54,4 +54,28 @@ RSpec.describe Stattracker do
   end
 
   
+
+  describe '#highest_total_score' do
+    it 'returns the highest sum of the winning and losing teams’ scores' do
+      expect(@stat_tracker1.highest_total_score).to eq('41')
+    end
+  end
+  describe '#lowest_total_score' do
+    it 'returns the lowest sum of the winning and losing teams’ scores' do
+      expect(@stat_tracker1.lowest_total_score).to eq('03')
+    end
+  end
+
+  describe '#get_scores' do
+    it 'returns an array of all scores for a team_id' do
+      expect(@stat_tracker1.get_scores(6)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
+      expect(@stat_tracker1.get_scores('6')).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
+      expect(@stat_tracker1.get_scores('1')).to eq([0])
+
+      expect(@stat_tracker1.get_scores(6, :home)).to eq([3, 3, 3, 2, 1])
+      expect(@stat_tracker1.get_scores(6, :away)).to eq([2, 3, 3, 4])
+      expect(@stat_tracker1.get_scores(6, :total)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
+      expect(@stat_tracker1.get_scores(6, :blahblah)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
+    end
+  end
 end
