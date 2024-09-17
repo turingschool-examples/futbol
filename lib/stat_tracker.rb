@@ -9,15 +9,18 @@ require './lib/game_team_factory.rb'
 class Stattracker
   attr_reader :game_teams_factory,
               :teams_factory,
-              :game_factory
+              :game_factory,
+              :all_games,
+              :all_teams,
+              :all_game_teams
 
   def initialize
       @game_teams_factory = GameTeamFactory.new
       @teams_factory = Teams_factory.new    
       @game_factory = GameFactory.new
-      @@all_games = stat_tracker.game_factory.games
-      @@all_teams = stat_tracker.teams_factory.teams
-      @@all_game_teams = stat_tracker.game_teams_factory.game_teams
+      @all_games = []
+      @all_teams = []
+      @all_game_teams = []
   end
 
   def self.from_csv(source)
@@ -33,7 +36,12 @@ class Stattracker
           stattracker.game_teams_factory.create_game_teams(value)
         end
       end
-      stattracker 
+
+      stattracker.instance_variable_set(:@all_games, stattracker.game_factory.games)
+      stattracker.instance_variable_set(:@all_teams, stattracker.teams_factory.teams)
+      stattracker.instance_variable_set(:@all_game_teams, stattracker.game_teams_factory.game_teams)
+
+    stattracker
   end
 
   def percentage_home_wins
