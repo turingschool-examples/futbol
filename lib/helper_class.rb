@@ -1,0 +1,7 @@
+require 'CSV'
+require_relative './game.rb'
+require_relative './game_factory.rb'
+require_relative './team.rb'
+require_relative './teams_factory.rb'
+require_relative './game_team.rb'
+require_relative './game_team_factory.rb'

@@ -1,5 +1,4 @@
-require 'CSV'
-require_relative 'team'
+require_relative './helper_class'
 
 class Teams_factory
   attr_reader :teams
