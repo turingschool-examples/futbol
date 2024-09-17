@@ -27,10 +27,10 @@ RSpec.describe 'GameTeam' do
     end
   end
 
-  describe '#create' do
-    it 'exists and has attributes' do
-      expect(@game_team1.game_id).to eq(2_012_030_221)
-      expect(@game_team1.team_id).to eq(3)
+  describe '#create_game_teams' do
+    it 'has attributes' do
+      expect(@game_team1.game_id).to eq('2012030221')
+      expect(@game_team1.team_id).to eq('3')
       expect(@game_team1.hoa).to eq('away')
       expect(@game_team1.result).to eq('LOSS')
       expect(@game_team1.settled_in).to eq('OT')

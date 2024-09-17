@@ -5,8 +5,8 @@ class GameTeam
               :giveaways, :takeaways
 
   def initialize(game_team)
-    @game_id = game_team[:game_id].to_i
-    @team_id = game_team[:team_id].to_i
+    @game_id = game_team[:game_id]
+    @team_id = game_team[:team_id]
     @hoa = game_team[:hoa]
     @result = game_team[:result]
     @settled_in = game_team[:settled_in]
