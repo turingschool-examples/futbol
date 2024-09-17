@@ -50,11 +50,11 @@ RSpec.describe Stattracker do
   describe '#coach_win_percentages' do
     it 'calculates winning percentages of coaches' do
       expected = {
-        "Claude Julien"=>1.0, 
-        "Dan Bylsma"=>0.0, 
-        "Joel Quenneville"=>0.3333333333333333, 
-        "John Tortorella"=>0.0, 
-        "Mike Babcock"=>0.6
+        "Claude Julien"=>100, 
+        "Dan Bylsma"=>0, 
+        "Joel Quenneville"=>33, 
+        "John Tortorella"=>0, 
+        "Mike Babcock"=>60
       }
       expect(@stat_tracker1.send(:coach_win_percentages)).to eq(expected)
     end
