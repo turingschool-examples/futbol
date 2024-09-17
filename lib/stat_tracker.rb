@@ -51,4 +51,19 @@ class Stattracker
     percentage = (home_wins.to_f / total_games) * 100
     percentage.round(2)
   end
+
+  def highest_total_score
+    scores = @all_games.map do |game|
+      game.home_goals + game.away_goals
+    end
+    scores.max
+  end
+
+  def lowest_total_score
+    scores = @all_games.map do |game|
+      game.home_goals + game.away_goals
+    end
+    scores.min
+  end
+
 end
