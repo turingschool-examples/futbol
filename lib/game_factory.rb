@@ -1,3 +1,5 @@
+require_relative './helper_class'
+
 class GameFactory
   attr_reader :games
 

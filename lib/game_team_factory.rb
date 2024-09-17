@@ -1,5 +1,4 @@
-require 'CSV'
-require './lib/game_team'
+require_relative './helper_class'
 
 class GameTeamFactory
   attr_reader :game_teams

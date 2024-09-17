@@ -1,6 +1,6 @@
 require './spec/spec_helper'
 
-RSpec.describe Stattracker do
+RSpec.describe StatTracker do
   before(:each) do
     game_path = './data/games_test.csv'
     team_path = './data/teams.csv'
@@ -11,13 +11,13 @@ RSpec.describe Stattracker do
       teams: team_path,
       game_teams: game_teams_path
     }
-    @stat_tracker = Stattracker.new
-    @stat_tracker1 = Stattracker.from_csv(locations)
+    @stat_tracker = StatTracker.new
+    @stat_tracker1 = StatTracker.from_csv(locations)
   end
 
   describe '#initialize' do
     it 'exists' do
-      expect(@stat_tracker).to be_an_instance_of(Stattracker)
+      expect(@stat_tracker).to be_an_instance_of(StatTracker)
       expect(@stat_tracker.all_games).to eq([])
       expect(@stat_tracker.all_teams).to eq([])
       expect(@stat_tracker.all_game_teams).to eq([])
