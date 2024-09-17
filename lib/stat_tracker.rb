@@ -74,4 +74,21 @@ class StatTracker
           row[:takeaways].to_i)
       end
     end
+
+    def total_goals
+      goals_array= @games.map do |game|
+        game.away_goals + game.home_goals
+    end
+    goals_array
+    end
+
+    def highest_total_score
+      highest = total_goals.max
+      highest
+    end
+
+    def lowest_total_score
+      lowest = total_goals.min
+      lowest
+    end
 end
