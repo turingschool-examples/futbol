@@ -1,0 +1,26 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2012030221,20122013,Postseason,5/16/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030222,20122013,Postseason,5/19/13,3,6,2,3,Toyota Stadium,/api/v1/venues/null
+2012030223,20122013,Postseason,5/21/13,6,3,2,1,BBVA Stadium,/api/v1/venues/null
+2012030224,20122013,Postseason,5/23/13,6,3,3,2,BBVA Stadium,/api/v1/venues/null
+2012030225,20122013,Postseason,5/25/13,3,6,1,3,Toyota Stadium,/api/v1/venues/null
+2015020431,20152016,Regular Season,12/12/15,4,25,1,3,SeatGeek Stadium,/api/v1/venues/null
+2017021125,20172018,Regular Season,3/20/18,13,9,5,2,Yankee Stadium,/api/v1/venues/null
+2017020465,20172018,Regular Season,12/12/17,12,24,2,3,Rio Tinto Stadium,/api/v1/venues/null
+2016020728,20162017,Regular Season,1/27/17,5,6,3,2,Toyota Stadium,/api/v1/venues/null
+2015021001,20152016,Regular Season,3/10/16,2,10,3,3,WakeMed Soccer Park,/api/v1/venues/null
+2012020171,20122013,Regular Season,2/11/13,16,18,3,0,Allianz Field,/api/v1/venues/null
+2013020657,20132014,Regular Season,1/9/14,8,4,1,3,SeatGeek Stadium,/api/v1/venues/null
+2012020529,20122013,Regular Season,4/2/13,20,22,1,2,Maryland SoccerPlex,/api/v1/venues/null
+2012020569,20122013,Regular Season,4/7/13,19,17,1,0,Dignity Health Sports Park,/api/v1/venues/null
+2012020600,20122013,Regular Season,4/11/13,5,14,4,3,Audi Field,/api/v1/venues/null
+2013021212,20132014,Regular Season,4/12/14,7,6,1,2,Toyota Stadium,/api/v1/venues/null
+2017020172,20172018,Regular Season,10/30/17,6,29,3,3,Exploria Stadium,/api/v1/venues/null
+2015020481,20152016,Regular Season,12/19/15,23,17,3,3,Dignity Health Sports Park,/api/v1/venues/null
+2017020658,20172018,Regular Season,1/10/18,22,18,1,2,Allianz Field,/api/v1/venues/null
+2016020405,20162017,Regular Season,12/10/16,15,7,2,1,Rio Tinto Stadium,/api/v1/venues/null
+2017020991,20172018,Regular Season,3/3/18,8,2,4,3,Centruy Link Field,/api/v1/venues/null
+2015020728,20152016,Regular Season,1/26/16,8,29,2,3,Exploria Stadium,/api/v1/venues/null
+2016020854,20162017,Regular Season,2/17/17,53,26,3,3,Nippert Stadium,/api/v1/venues/null
+2017020024,20172018,Regular Season,10/8/17,25,19,2,2,Talen Energy Stadium,/api/v1/venues/null
+2015020820,20152016,Regular Season,2/13/16,5,12,1,1,Yurcak Field,/api/v1/venues/null
