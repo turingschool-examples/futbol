@@ -13,3 +13,4 @@ locations = {
 stat_tracker = StatTracker.from_csv(locations)
 
 require 'pry'; binding.pry
+# This is recommened for when we start analyzing data.  It should be able to be removed for production.
