@@ -65,3 +65,13 @@ class SeasonStatistics
     def most_tackles
     end
 end
+
+#for stattracker
+# class StatTracker
+
+#     def self.from_csv(locations)
+#         StatTracker.new(locations)
+#     end
+
+#     def initialize(locations)
+        
