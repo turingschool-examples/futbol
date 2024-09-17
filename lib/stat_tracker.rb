@@ -1,6 +1,22 @@
 require 'CSV'
 
 class StatTracker
+  attr_reader :game_teams
+
+  def initialize
+    # TODO: Leave empty for now
+  end
+
+  def from_csv(locations)
+    @game_teams = GameTeamFactory.new
+    @game_teams.create_game_teams(locations[:game_teams])
+    @games = GameFactory.new
+    @games.create_games(locations[:games])
+
+    @teams = Teams_factory.new
+    @teams.create_teams(:teams)
+  end
+
   def average_goals_per_game
     # TODO: required
     # Average number of goals scored in a game across all

@@ -14,15 +14,8 @@ locations = {
   game_teams: game_teams_path
 }
 
-# stat_tracker = StatTracker.from_csv(locations)
-game_team1 = GameTeamFactory.new
-game_team1.create_game_teams(game_teams_path)
-
-games1 = GameFactory.new
-games1.create_games(game_path)
-
-teams1 = Teams_factory.new
-teams1.create_teams(team_path)
+stat_tracker = StatTracker.new
+stat_tracker.from_csv(locations)
 
 require 'pry'
 binding.pry
