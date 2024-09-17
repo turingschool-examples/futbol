@@ -7,12 +7,13 @@
 
 - We will use [Trello](https://trello.com) to manage our project tasks and workflow.
 - The project will be organized into the following phases: Planning, Development, Testing, and Review.
-- Each phase will have specific deliverables and deadlines to ensure timely progress.
+- Each phase zwill have specific deliverables and deadlines to ensure timely progress.
 
 ## Approaches Discussed
 
-- We considered using a Kanban board versus a Scrum-based approach. 
-- After discussion, we chose the Kanban approach due to its flexibility and ease of managing tasks in a continuous flow.
+- 
+
+-
 
 ## Code Design Approach
 
