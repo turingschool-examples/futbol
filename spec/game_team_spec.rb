@@ -14,5 +14,13 @@ RSpec.describe 'game_team' do
     expect(@game_team.settled_in).to eq("OT")
     expect(@game_team.head_coach).to eq("John Tortorella")
     expect(@game_team.goals).to eq(2)
+    expect(@game_team.shots).to eq(8)
+    expect(@game_team.tackles).to eq(44)
+    expect(@game_team.pim).to eq(8)
+    expect(@game_team.powerPlayOpportunities).to eq(3)
+    expect(@game_team.powerPlayGoals).to eq(0)
+    expect(@game_team.faceOffWinPercentage).to eq(44.8)
+    expect(@game_team.giveaways).to eq(17)
+    expect(@game_team.takeaways).to eq(7)
   end
 end
