@@ -66,4 +66,13 @@ class Stattracker
     scores.min
   end
 
+  def coach_win_percentages
+    coach_games = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0}}
+    @all_game_teams.each do |game_team|
+      coach = game_team.head_coach
+      coach_games[coach][:games] += 1
+      coach_games[coach][:wins] += 1 if game_team.result == "WIN"
+    end
+    coach_games.transform_values { |stats| stats[:wins].to_f / stats[:games]}
+  end
 end
