@@ -59,4 +59,10 @@ RSpec.describe Stattracker do
       expect(@stat_tracker1.send(:coach_win_percentages)).to eq(expected)
     end
   end
+
+  describe '#winningest_coach' do
+    it 'returns highest winning percentage coach' do
+      expect(@stat_tracker1.winningest_coach).to eq("Claude Julien")
+    end
+  end
 end
