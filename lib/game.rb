@@ -3,7 +3,7 @@ class Game
                 :seasons
                 :type,
                 :date_time,
-                :away,
+                :away_team_id,
                 :home_team_id,
                 :away_goals,
                 :home_goals,
