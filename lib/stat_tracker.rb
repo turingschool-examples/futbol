@@ -53,14 +53,18 @@ class Stattracker
   end
 
   def highest_scoring_visitor
+
   end
 
   def highest_scoring_home_team
+
   end
 
   def lowest_scoring_visitor
+
   end
 
-  def highest_scoring_home_team
+  def lowest_scoring_home_team
+    
   end
 end
