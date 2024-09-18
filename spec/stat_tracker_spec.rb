@@ -134,4 +134,18 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.worst_coach).to eq("John Tortorella")
     end
   end
+
+  describe '#average_goals_per_game' do
+    it 'calculates the correct average' do
+      expect(@stat_tracker1.average_goals_per_game).to eq(3.75)
+      expect(@stat_tracker1.average_goals_per_game).to_not eq(4)
+    end
+  end
+
+  describe '#count_of_all_goals' do
+    it 'counts all goals' do
+      expect(@stat_tracker1.count_of_all_goals).to eq(120)
+      expect(@stat_tracker1.count_of_all_goals).to_not eq(0)
+    end
+  end
 end
