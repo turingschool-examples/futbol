@@ -36,7 +36,7 @@ RSpec.describe StatTracker do
   end
   describe '#calculate percentages' do
     it 'can calculate home wins' do
-      expect(@stat_tracker1.percentage_home_wins).to be_an_instance_of(Float)
+      expect(@stat_tracker1.percentage_home_wins).to eq(68.75)
     end
 
     it 'can calculate visitor wins' do
@@ -49,7 +49,7 @@ RSpec.describe StatTracker do
 
     it 'can calculate accurately' do
       total = (@stat_tracker1.percentage_ties) + (@stat_tracker1.percentage_visitor_wins) + (@stat_tracker1.percentage_home_wins)
-      expect(total).to be_within(0.5).of(100.00)
+      expect(total).to be_within(0.03).of(100.00)
     end
   end
 
@@ -75,5 +75,14 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.get_scores(6, :total)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
       expect(@stat_tracker1.get_scores(6, :blahblah)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
     end
+  end
+
+  describe '#offensive performance' do
+    it 'can show the best offense overall' do
+      expect(@stat_tracker1.best_offense).to eq("FC Dallas")
+    end
+    it 'can show the worst offense overall' do
+      expect(@stat_tracker1.worst_offense).to eq("Sporting Kansas City")
+    end 
   end
 end
