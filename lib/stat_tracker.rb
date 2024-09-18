@@ -172,7 +172,6 @@ class StatTracker
       season_goals_and_games[season][:goals] += game.away_goals + game.home_goals
       season_goals_and_games[season][:games] += 1
     end
-    count_games_and_avg_goals
     season_goals_and_games
   end
   
