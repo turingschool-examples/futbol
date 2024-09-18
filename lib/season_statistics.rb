@@ -58,8 +58,17 @@ class SeasonStatistics
             lowest_percentage_coach
 
      end
+     #we must make dummycsv's smaller so we can actually write these and predict the outcomes ouselves
 
     def fewest_tackles
+        tackles_teams = Hash.new(0)
+        @game_data.each do |game|
+            team_id = game[:team_id]
+
+            tackles_teams[team_id] += game[:tackles].to_i
+        end
+           
+            team_fewest_tackles = tackles_teams.min_by { |team, tackles| tackles }[0]
     end
 
     def most_tackles
