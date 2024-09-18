@@ -159,4 +159,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.worst_offense).to eq("Sporting Kansas City")
     end 
   end
+
+  describe '#team_shot_goal_ratio' do
+    it 'calculates accuracy ratio of a team' do
+      binding.pry
+      result = @stat_tracker1.team_shot_goal_ratios
+    end
+  end
 end
