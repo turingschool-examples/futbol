@@ -21,7 +21,7 @@ RSpec.describe StatTracker do
     end
     
     describe '#initialize' do
-        it 'exits' do
+        it 'exists' do
             expect(@stat_tracker).to be_instance_of(StatTracker)
         end
     end
@@ -38,6 +38,23 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.lowest_total_score).to eq(1)
         #expect(@stat_tracker.lowest_total_score).to eq(0)
       end
+    end
+
+    describe '#teams' do 
+      it 'can count the total number of teams' do
+        expect(@stat_tracker.team_count).to eq(32)
+      end
+    end
+
+    describe '#scoring' do 
+        it 'can identify the best offense' do
+            # require 'pry'; binding.pry
+            expect(@stat_tracker.best_offense).to eq("Toronto FC")
+        end
+
+        it 'can identify the worst offense' do
+            expect(@stat_tracker.worst_offense).to eq("Atlanta United")
+        end
     end
 
     describe "#count_of_games_by_season" do
