@@ -265,4 +265,29 @@ class StatTracker
     find_team_name(lowest_scoring[0])
   end
   
+  def winningest_coach(season)
+
+  end
+
+  def worst_coach(season)
+  end
+
+  def coach_records
+    # Returns a nested hash of information with the coach's name as the outer hash 
+    # The inner has has total games => qty and wins => qty
+    coach_records = {}
+
+    game_teams.each do |game|
+      coach = game.head_coach
+    result = game.result 
+
+    coach_records[coach] ||= { wins: 0, total_games: 0 }
+    coach_records[coach][:total_games] += 1
+    coach_records[coach][:wins] += 1 if result == "WIN"
+    end
+    coach_records
+  end
+
+  
+end
 end
