@@ -62,14 +62,66 @@ class StatTracker
     percentage.round(2)
   end
 
+  def percentage_home_wins
+    total_games = @all_games.length
+    home_wins = @all_games.count {|game| game.home_goals > game.away_goals}
+          
+    percentage = (home_wins.to_f / total_games) * 100
+    percentage.round(2)
+  end
+
   def best_offense
-    #offense is all game_teams highest score 
-      #output a string of the team name 
+    team_goals = {}
+    team_games = {}
+
+    @all_game_teams.each do |game_team|
+      team_id = game_team.team_id
+      goals = game_team.goals.to_i
+
+      team_goals[team_id] ||= 0
+      team_goals[team_id] += goals
+
+      team_games[team_id] ||= 0
+      team_games[team_id] += 1
+    end
+
+    team_averages = team_goals.map do |team_id, total_goals|
+      games_played = team_games[team_id]
+      average_goals = total_goals.to_f / games_played
+      [team_id, average_goals]
+    end
+
+    best_team_id = team_averages.max_by { |_,avg| avg }.first
+    best_team = @all_teams.find {|team| team.team_id == best_team_id}
+
+    best_team.teamName
   end
 
   def worst_offense
-     #offense is all game_teams highest score 
-      #output a string of the team name 
+    team_goals = {}
+    team_games = {}
+  
+    @all_game_teams.each do |game_team|
+      team_id = game_team.team_id
+      goals = game_team.goals.to_i
+  
+      team_goals[team_id] ||= 0
+      team_goals[team_id] += goals
+  
+      team_games[team_id] ||= 0
+      team_games[team_id] += 1
+      end
+  
+      team_averages = team_goals.map do |team_id, total_goals|
+        games_played = team_games[team_id]
+        average_goals = total_goals.to_f / games_played
+        [team_id, average_goals]
+      end
+  
+      best_team_id = team_averages.min_by { |_,avg| avg }.first
+      best_team = @all_teams.find {|team| team.team_id == best_team_id}
+  
+      best_team.teamName
   end
 
   def average_goals_per_game
