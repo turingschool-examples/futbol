@@ -222,6 +222,7 @@ class StatTracker
     end
     all_home_scores.min_by{|team,goals| goals}.first.teamName
   end
+
   def coach_win_percentages
     coach_games = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0}}
     @all_game_teams.each do |game_team|
@@ -261,5 +262,10 @@ class StatTracker
           result[team.teamName] = 0
         end
       end
+  end
+
+  def most_accurate_team
+    team_ratios = team_shot_goal_ratios
+    team_shot_goal_ratios.max_by {|team_name, ratio| ratio }.first
   end
 end
