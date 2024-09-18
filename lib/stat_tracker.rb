@@ -160,4 +160,41 @@ class StatTracker
     def average_goals_per_game
       total_goals.sum / @games.size.to_f
     end
+
+
+    def percentage_home_wins
+      home_wins = 0
+        @games.each do |game|
+     if game.home_goals.to_i > game.away_goals.to_i
+        home_wins += 1
+      end
+    end
+
+      total_games = games.size
+      percentage = (home_wins.to_f / total_games * 100).round(2)
+    end
+
+    def percentage_visitor_wins
+      visitor_wins = 0
+        @games.each do |game|
+      if game.away_goals.to_i > game.home_goals.to_i
+        visitor_wins += 1
+      end
+    end
+  
+      total_games = games.size
+      percentage = (visitor_wins.to_f / total_games * 100).round(2)
+    end
+
+    def percentage_ties
+      ties = 0
+        @games.each do |game|
+      if game.home_goals.to_i == game.away_goals.to_i
+        ties +=1
+      end
+    end
+  
+      total_games = games.size
+      percentage = (ties.to_f / total_games * 100).round(2)
+    end
 end
