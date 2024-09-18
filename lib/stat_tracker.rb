@@ -144,57 +144,79 @@ class StatTracker
     #iterate through teams array to match each team id to a team name
   end
 
-    def count_of_games_by_season
-      games_by_season = {}
+  def count_of_games_by_season
+    games_by_season = {}
 
+    @games.each do |game|
+      if games_by_season[game.season]
+        games_by_season[game.season] += 1
+      else
+        games_by_season[game.season] = 1
+      end
+    end
+    games_by_season
+  end
+
+  def average_goals_per_game
+    total_goals.sum / @games.size.to_f
+  end
+
+  def create_season_goals_and_games
+    season_goals_and_games = {}
+  
+    @games.each do |game| 
+      season = game.season
+  
+      season_goals_and_games[season] ||= { goals: 0, games: 0 }
+  
+      season_goals_and_games[season][:goals] += game.away_goals + game.home_goals
+      season_goals_and_games[season][:games] += 1
+    end
+    count_games_and_avg_goals
+    season_goals_and_games
+  end
+  
+  def average_goals_by_season
+    season_goals_and_games = create_season_goals_and_games
+  
+    season_goals_and_games.map do |season, stats| 
+      [season, (stats[:goals].to_f / stats[:games]).round(2)]
+    end.to_h
+  end
+
+  def percentage_home_wins
+    home_wins = 0
       @games.each do |game|
-        if games_by_season[game.season]
-          games_by_season[game.season] += 1
-        else
-          games_by_season[game.season] = 1
-        end
-      end
-      games_by_season
+   if game.home_goals.to_i > game.away_goals.to_i
+      home_wins += 1
     end
+  end
 
-    def average_goals_per_game
-      total_goals.sum / @games.size.to_f
-    end
+    total_games = games.size
+    percentage = (home_wins.to_f / total_games * 100).round(2)
+  end
 
+  def percentage_visitor_wins
+    visitor_wins = 0
+      @games.each do |game|
+    if game.away_goals.to_i > game.home_goals.to_i
+      visitor_wins += 1
+    end
+  end
 
-    def percentage_home_wins
-      home_wins = 0
-        @games.each do |game|
-     if game.home_goals.to_i > game.away_goals.to_i
-        home_wins += 1
-      end
-    end
+    total_games = games.size
+    percentage = (visitor_wins.to_f / total_games * 100).round(2)
+  end
 
-      total_games = games.size
-      percentage = (home_wins.to_f / total_games * 100).round(2)
+  def percentage_ties
+    ties = 0
+      @games.each do |game|
+    if game.home_goals.to_i == game.away_goals.to_i
+      ties +=1
     end
+  end
 
-    def percentage_visitor_wins
-      visitor_wins = 0
-        @games.each do |game|
-      if game.away_goals.to_i > game.home_goals.to_i
-        visitor_wins += 1
-      end
-    end
-  
-      total_games = games.size
-      percentage = (visitor_wins.to_f / total_games * 100).round(2)
-    end
-
-    def percentage_ties
-      ties = 0
-        @games.each do |game|
-      if game.home_goals.to_i == game.away_goals.to_i
-        ties +=1
-      end
-    end
-  
-      total_games = games.size
-      percentage = (ties.to_f / total_games * 100).round(2)
-    end
+    total_games = games.size
+    percentage = (ties.to_f / total_games * 100).round(2)
+  end
 end
