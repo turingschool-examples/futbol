@@ -46,6 +46,15 @@ class StatTracker
     percentage.round(2)
   end
 
+  def count_of_all_goals
+    all_goals = 0
+    @all_games.each do |game|
+      game_goals = game.away_goals.to_i + game.home_goals.to_i
+      all_goals += game_goals
+    end
+    all_goals
+  end
+
   def percentage_visitor_wins
     total_games = @all_games.length
     visitor_wins = @all_games.count {|game| game.away_goals > game.home_goals}
@@ -117,10 +126,8 @@ class StatTracker
   end
 
   def average_goals_per_game
-    # TODO: required
-    # Average number of goals scored in a game across all
-    # seasons including both home and away goals (rounded to the nearest 100th)
-    # returns float
+    average = count_of_all_goals / @all_games.count.to_f
+  average.round(2)
   end
 
   def average_goals_season
@@ -142,9 +149,10 @@ class StatTracker
     # returns int
   end
 
-  def get_scores(team_id, hoa = :both, season = nil) # season is not implemented yet
+  def get_scores(team_id, hoa = :both)
     no_goals = [0] # only needed if there are no goals
     team_id = team_id.to_i # team_id can be provided as int or str
+
     away_games = @all_games.select { |game| game.away_team_id.to_i == team_id }
     home_games = @all_games.select { |game| game.home_team_id.to_i == team_id }
 
@@ -177,5 +185,61 @@ class StatTracker
       game.home_goals + game.away_goals
     end
     scores.min
+  end
+
+  def highest_scoring_visitor
+    all_visitor_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :away).sum
+      all_visitor_scores[team] = goals
+    end
+    all_visitor_scores.max_by{|team,goals| goals}.first.teamName
+  end
+
+  def highest_scoring_home_team
+    all_home_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :home).sum
+      all_home_scores[team] = goals
+    end
+    all_home_scores.max_by{|team,goals| goals}.first.teamName
+  end
+
+  def lowest_scoring_visitor
+    all_visitor_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :away).sum
+      all_visitor_scores[team] = goals
+    end
+    all_visitor_scores.min_by{|team,goals| goals}.first.teamName
+  end
+
+  def lowest_scoring_home_team
+    all_home_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :home).sum
+      all_home_scores[team] = goals
+    end
+    all_home_scores.min_by{|team,goals| goals}.first.teamName
+  end
+  def coach_win_percentages
+    coach_games = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0}}
+    @all_game_teams.each do |game_team|
+      coach = game_team.head_coach
+      coach_games[coach][:games] += 1
+      coach_games[coach][:wins] += 1 if game_team.result == "WIN"
+    end
+      coach_games.transform_values do |stats| 
+        games = stats[:games]
+        games > 0 ? ((stats[:wins].to_f / games) * 100).round : 0
+      end
+  end
+
+  def winningest_coach
+    coach_win_percentages.max_by { |coach, win_percentage| win_percentage}.first
+  end
+
+  def worst_coach
+    coach_win_percentages.min_by { |coach, win_percentage| win_percentage}.first
   end
 end
