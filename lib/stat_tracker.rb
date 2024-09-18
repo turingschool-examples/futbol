@@ -288,6 +288,12 @@ class StatTracker
     coach_records
   end
 
+  def coach_win_percentage
+    win_percentages = {}
+      
+    coach_records.each do |coach, record|
+      win_percentages[coach] = record[:wins].to_f / record[:total_games]
+    end
+  end
   
-end
 end
