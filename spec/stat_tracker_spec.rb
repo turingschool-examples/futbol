@@ -92,4 +92,16 @@ RSpec.describe StatTracker do
       expect(@stat_tracker.percentage_ties).to eq(24.0)
     end
   end
-end
+
+    describe "highest_scoring_home" do
+      it "can return the team with the highest average goals at home" do
+        expect(@stat_tracker.highest_scoring_home).to eq("FC Dallas")
+      end
+    end
+    
+    describe "lowest_scoring_home" do
+      it "can return the team with the lowest average goals at home" do
+        expect(@stat_tracker.lowest_scoring_home).to eq("Atlanta United")
+      end
+    end
+  end
