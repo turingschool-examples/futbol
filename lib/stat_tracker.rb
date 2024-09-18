@@ -144,43 +144,43 @@ class StatTracker
     #iterate through teams array to match each team id to a team name
   end
 
-    def count_of_games_by_season
-      games_by_season = {}
+  def count_of_games_by_season
+    games_by_season = {}
 
-      @games.each do |game|
-        if games_by_season[game.season]
-          games_by_season[game.season] += 1
-        else
-          games_by_season[game.season] = 1
-        end
+    @games.each do |game|
+      if games_by_season[game.season]
+        games_by_season[game.season] += 1
+      else
+        games_by_season[game.season] = 1
       end
-      games_by_season
     end
+    games_by_season
+  end
 
-    def average_goals_per_game
-      total_goals.sum / @games.size.to_f
-    end
+  def average_goals_per_game
+    total_goals.sum / @games.size.to_f
+  end
 
-    def create_season_goals_and_games
-      season_goals_and_games = {}
+  def create_season_goals_and_games
+    season_goals_and_games = {}
   
-      @games.each do |game| 
-        season = game.season
+    @games.each do |game| 
+      season = game.season
   
-        season_goals_and_games[season] ||= { goals: 0, games: 0 }
+      season_goals_and_games[season] ||= { goals: 0, games: 0 }
   
-        season_goals_and_games[season][:goals] += game.away_goals + game.home_goals
-        season_goals_and_games[season][:games] += 1
-      end
-      season_goals_and_games
+      season_goals_and_games[season][:goals] += game.away_goals + game.home_goals
+      season_goals_and_games[season][:games] += 1
     end
+    season_goals_and_games
+  end
   
-    def average_goals_by_season
-      season_goals_and_games = create_season_goals_and_games
+  def average_goals_by_season
+    season_goals_and_games = create_season_goals_and_games
   
-      season_goals_and_games.map do |season, stats| 
-        [season, (stats[:goals].to_f / stats[:games]).round(2)]
-      end.to_h
-    end
+    season_goals_and_games.map do |season, stats| 
+      [season, (stats[:goals].to_f / stats[:games]).round(2)]
+    end.to_h
+  end
 
 end
