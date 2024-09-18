@@ -39,28 +39,27 @@ class StatTracker
   end
 
   def percentage_home_wins
-    total_games = @all_games.length
     home_wins = @all_games.count {|game| game.home_goals > game.away_goals}
           
     percentage = (home_wins.to_f / total_games)
     percentage.round(4)
   end
 
-  def percentage_visitor_wins
-    total_games = @all_games.length
-    visitor_wins = @all_games.count {|game| game.away_goals > game.home_goals}
+  # def percentage_visitor_wins
+  #   total_games = @all_games.length
+  #   visitor_wins = @all_games.count {|game| game.away_goals > game.home_goals}
           
-    percentage = (visitor_wins.to_f / total_games) 
-    percentage.round(4)
-  end
+  #   percentage = (visitor_wins.to_f / total_games) 
+  #   percentage.round(4)
+  # end
 
-  def percentage_ties
-    total_games = @all_games.length
-    ties = @all_games.count {|game| game.away_goals == game.home_goals}
+  # def percentage_ties
+  #   total_games = @all_games.length
+  #   ties = @all_games.count {|game| game.away_goals == game.home_goals}
           
-    percentage = (ties.to_f / total_games)
-    percentage.round(4)
-  end
+  #   percentage = (ties.to_f / total_games)
+  #   percentage.round(4)
+  # end
 
   def best_offense
     team_goals = {}
