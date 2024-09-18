@@ -46,11 +46,18 @@ class StatTracker
     percentage.round(2)
   end
 
+  def count_of_all_goals
+    all_goals = 0
+    @all_games.each do |game|
+      game_goals = game.away_goals.to_i + game.home_goals.to_i
+      all_goals += game_goals
+    end
+    all_goals
+  end
+
   def average_goals_per_game
-    # TODO: required
-    # Average number of goals scored in a game across all
-    # seasons including both home and away goals (rounded to the nearest 100th)
-    # returns float
+    average = @all_games.count / count_of_all_goals.to_f
+  average.round(2)
   end
 
   def average_goals_season
@@ -71,6 +78,7 @@ class StatTracker
     # TODO: helper method
     # returns int
   end
+
 
   def get_scores(team_id, hoa = :both, season = nil) # season is not implemented yet
     no_goals = [0] # only needed if there are no goals
