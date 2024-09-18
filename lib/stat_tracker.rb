@@ -254,18 +254,19 @@ class StatTracker
     end
       @all_teams.each_with_object({}) do |team, result|
         team_id = team.team_id
-        if team_ratios[team_id]
-          goals = team_ratios[team_id][:goals]
-          shots = team_ratios[team_id][:shots]
-          result[team.teamName] = shots > 0 ? (goals.to_f / shots).round(2) : 0
-        else
-          result[team.teamName] = 0
-        end
+        goals = team_ratios[team_id][:goals]
+        shots = team_ratios[team_id][:shots]
+        result[team.teamName] = shots > 0 ? (goals.to_f / shots).round(2) : 0
       end
   end
 
   def most_accurate_team
     team_ratios = team_shot_goal_ratios
     team_shot_goal_ratios.max_by {|team_name, ratio| ratio }.first
+  end
+
+  def least_accurate_team
+    team_ratios = team_shot_goal_ratios
+    team_shot_goal_ratios.min_by {|team_name, ratio| ratio }.first
   end
 end
