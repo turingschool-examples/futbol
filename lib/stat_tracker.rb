@@ -39,10 +39,9 @@ class StatTracker
   end
 
   def percentage_home_wins
-    total_games = @all_games.length
     home_wins = @all_games.count {|game| game.home_goals > game.away_goals}
           
-    percentage = (home_wins.to_f / total_games) * 100
+    percentage = (home_wins.to_f / total_games)
     percentage.round(2)
   end
 
@@ -56,18 +55,16 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    total_games = @all_games.length
     visitor_wins = @all_games.count {|game| game.away_goals > game.home_goals}
           
-    percentage = (visitor_wins.to_f / total_games) * 100
+    percentage = (visitor_wins.to_f / total_games) 
     percentage.round(2)
   end
 
   def percentage_ties
-    total_games = @all_games.length
     ties = @all_games.count {|game| game.away_goals == game.home_goals}
           
-    percentage = (ties.to_f / total_games) * 100
+    percentage = (ties.to_f / total_games)
     percentage.round(2)
   end
 
@@ -127,7 +124,7 @@ class StatTracker
 
   def average_goals_per_game
     average = count_of_all_goals / @all_games.count.to_f
-  average.round(2)
+    average.round(2)
   end
 
   def average_goals_season
@@ -173,6 +170,8 @@ class StatTracker
     end
   end
 
+  
+
   def highest_total_score
     scores = @all_games.map do |game|
       game.home_goals + game.away_goals
@@ -186,6 +185,12 @@ class StatTracker
     end
     scores.min
   end
+
+
+  private 
+
+  def total_games
+    @all_games.length
 
   def highest_scoring_visitor
     all_visitor_scores = {}
@@ -223,6 +228,7 @@ class StatTracker
     all_home_scores.min_by{|team,goals| goals}.first.teamName
   end
 
+
   def coach_win_percentages(season)
     coach_games = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0}}
     @all_game_teams.each do |game_team|
@@ -244,5 +250,15 @@ class StatTracker
 
   def worst_coach(season = nil)
     coach_win_percentages(season).min_by { |coach, win_percentage| win_percentage}.first
+  end
+
+  def count_of_games_by_season
+    count_of_games_by_season = Hash.new(0)
+    @all_games.each do |game|
+      season = game.season
+      count_of_games_by_season[season] += 1
+    end
+    count_of_games_by_season
+
   end
 end

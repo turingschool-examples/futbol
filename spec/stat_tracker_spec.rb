@@ -3,7 +3,7 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
   before(:each) do
     game_path = './data/games_test.csv'
-    team_path = './data/teams.csv'
+    team_path = './data/teams_test_2.csv'
     team_path_2 = './data/teams_test.csv'
     game_teams_path = './data/game_team_test.csv'
     game_path_2 = './data/games_test_2.csv'
@@ -46,20 +46,20 @@ RSpec.describe StatTracker do
   end
   describe '#calculate percentages' do
     it 'can calculate home wins' do
-      expect(@stat_tracker1.percentage_home_wins).to eq(68.75)
+      expect(@stat_tracker1.percentage_home_wins).to eq(0.69)
     end
 
     it 'can calculate visitor wins' do
-      expect(@stat_tracker1.percentage_visitor_wins).to eq(28.13)
+      expect(@stat_tracker1.percentage_visitor_wins).to eq(0.28)
     end
 
     it 'can calculate ties' do
-      expect(@stat_tracker1.percentage_ties).to eq(3.13)
+      expect(@stat_tracker1.percentage_ties).to eq(0.03)
     end
 
     it 'can calculate accurately' do
       total = (@stat_tracker1.percentage_ties) + (@stat_tracker1.percentage_visitor_wins) + (@stat_tracker1.percentage_home_wins)
-      expect(total).to be_within(0.03).of(100.00)
+      expect(total).to be_within(0.003).of(1.0000)
     end
   end
 
@@ -160,5 +160,12 @@ RSpec.describe StatTracker do
     it 'can show the worst offense overall' do
       expect(@stat_tracker1.worst_offense).to eq("Sporting Kansas City")
     end 
+  end
+
+  describe '#count_of_games_by_season' do
+    it 'can give a count of games by season' do
+      expect(@stat_tracker2.count_of_games_by_season['20122013']).to eq(29)
+      expect(@stat_tracker2.count_of_games_by_season['20142015']).to eq(0)
+    end
   end
 end
