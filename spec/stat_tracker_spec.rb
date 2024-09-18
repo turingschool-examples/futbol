@@ -44,6 +44,24 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.all_game_teams.count).to eq(29)
     end
   end
+  describe '#calculate percentages' do
+    it 'can calculate home wins' do
+      expect(@stat_tracker1.percentage_home_wins).to eq(68.75)
+    end
+
+    it 'can calculate visitor wins' do
+      expect(@stat_tracker1.percentage_visitor_wins).to eq(28.13)
+    end
+
+    it 'can calculate ties' do
+      expect(@stat_tracker1.percentage_ties).to eq(3.13)
+    end
+
+    it 'can calculate accurately' do
+      total = (@stat_tracker1.percentage_ties) + (@stat_tracker1.percentage_visitor_wins) + (@stat_tracker1.percentage_home_wins)
+      expect(total).to be_within(0.03).of(100.00)
+    end
+  end
 
   describe '#highest_total_score' do
     it 'returns the highest sum of the winning and losing teams’ scores' do
@@ -98,8 +116,6 @@ RSpec.describe StatTracker do
   describe '#lowest_scoring_visitor' do
     it 'can find the lowest scoring visiting team' do
       expect(@stat_tracker2.lowest_scoring_visitor).to eq('New York Red Bulls')
-    end
-  end
       expect(@stat_tracker1.highest_total_score).to eq("41")
     end
   end
@@ -147,5 +163,14 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.count_of_all_goals).to eq(120)
       expect(@stat_tracker1.count_of_all_goals).to_not eq(0)
     end
+  end
+
+  describe '#offensive performance' do
+    it 'can show the best offense overall' do
+      expect(@stat_tracker1.best_offense).to eq("FC Dallas")
+    end
+    it 'can show the worst offense overall' do
+      expect(@stat_tracker1.worst_offense).to eq("Sporting Kansas City")
+    end 
   end
 end
