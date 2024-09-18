@@ -68,4 +68,9 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.average_goals_per_game).to eq(4.48)
       end
     end
+
+    it 'can return the percentage of home wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(40.0)
+    end
+  
 end

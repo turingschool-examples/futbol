@@ -160,16 +160,17 @@ class StatTracker
     def average_goals_per_game
       total_goals.sum / @games.size.to_f
     end
-end
 
-def percentage_home_wins
-  home_wins = 0
-  @games.each do |game|
-    if game[:home_goals].to_i > game[:away_goals].to_i
-      home_wins += 1
+
+    def percentage_home_wins
+      home_wins = 0
+        @games.each do |game|
+     if game.home_goals.to_i > game.away_goals.to_i
+        home_wins += 1
+      end
     end
-  end
 
-  total_games = games.size
-  percentage = (home_wins.to_f / total_games * 100).round(2)
+    total_games = games.size
+    percentage = (home_wins.to_f / total_games * 100).round(2)
+  end
 end
