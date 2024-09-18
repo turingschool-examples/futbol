@@ -118,11 +118,11 @@ class StatTracker
       coach_games.transform_values do |stats| 
         games = stats[:games]
         games > 0 ? ((stats[:wins].to_f / games) * 100).round : 0
-    end
+      end
   end
 
   def winningest_coach
-    coach_win_percentages = coach_win_percentages()
+    coach_win_percentages = coach_win_percentages
     coach_win_percentages.max_by { |coach, win_percentage| win_percentage}.first
   end
 
