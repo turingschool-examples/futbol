@@ -40,11 +40,11 @@ RSpec.describe StatTracker do
     end
 
     it 'can calculate visitor wins' do
-      expect(@stat_tracker1.percentage_visitor_wins).to be_an_instance_of(Float)
+      expect(@stat_tracker1.percentage_visitor_wins).to eq(28.13)
     end
 
     it 'can calculate ties' do
-      expect(@stat_tracker1.percentage_ties).to be_an_instance_of(Float)
+      expect(@stat_tracker1.percentage_ties).to eq(3.13)
     end
 
     it 'can calculate accurately' do
