@@ -65,13 +65,13 @@ RSpec.describe StatTracker do
 
   describe '#highest_total_score' do
     it 'returns the highest sum of the winning and losing teams’ scores' do
-      expect(@stat_tracker1.highest_total_score).to eq('41')
+      expect(@stat_tracker1.highest_total_score).to eq(5)
     end
   end
 
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams’ scores' do
-      expect(@stat_tracker1.lowest_total_score).to eq('03')
+      expect(@stat_tracker1.lowest_total_score).to eq(1)
     end
   end
 
@@ -85,13 +85,13 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.get_scores(6, :away)).to eq([2, 3, 3, 4])
       expect(@stat_tracker1.get_scores(6, :total)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
       expect(@stat_tracker1.get_scores(6, :blahblah)).to eq([3, 3, 3, 2, 1, 2, 3, 3, 4])
-      expect(@stat_tracker1.highest_total_score).to eq("41")
+      expect(@stat_tracker1.highest_total_score).to eq(5)
     end
   end
  
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams’ scores' do
-      expect(@stat_tracker1.lowest_total_score).to eq("03")
+      expect(@stat_tracker1.lowest_total_score).to eq(1)
     end
   end
 
@@ -116,13 +116,13 @@ RSpec.describe StatTracker do
   describe '#lowest_scoring_visitor' do
     it 'can find the lowest scoring visiting team' do
       expect(@stat_tracker2.lowest_scoring_visitor).to eq('New York Red Bulls')
-      expect(@stat_tracker1.highest_total_score).to eq("41")
+      expect(@stat_tracker1.highest_total_score).to eq(5)
     end
   end
 
   describe '#lowest_total_score' do
     it 'returns the lowest sum of the winning and losing teams’ scores' do
-      expect(@stat_tracker1.lowest_total_score).to eq("03")
+      expect(@stat_tracker1.lowest_total_score).to eq(1)
     end
   end
   
