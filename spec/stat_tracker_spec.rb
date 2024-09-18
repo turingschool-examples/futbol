@@ -162,7 +162,7 @@ RSpec.describe StatTracker do
 
   describe '#team_shot_goal_ratio' do
     it 'calculates accuracy ratio of a team' do
-      result = @stat_tracker1.team_shot_goal_ratios
+      @stat_tracker1.team_shot_goal_ratios
       expect = {
         "Atlanta United"=>0,
         "Chicago Fire"=>0,
@@ -172,14 +172,21 @@ RSpec.describe StatTracker do
         "Houston Dynamo"=>0.21,
          "Sporting Kansas City"=>0.06,
       }
-      expect(result).to include(expect)
+      expect(@stat_tracker1.team_shot_goal_ratios).to include(expect)
     end
   end
 
   describe '#most_accurate_team' do
     it 'shows the team with the highest goal average' do
-      result = @stat_tracker1.most_accurate_team
-      expect(result).to eq("FC Dallas")
+      @stat_tracker1.most_accurate_team
+      expect(@stat_tracker1.most_accurate_team).to eq("FC Dallas")
+    end
+  end
+
+  describe '#least_accurate_team' do
+    it 'shows the team with the lowest goal average' do
+      @stat_tracker1.least_accurate_team
+      expect(@stat_tracker1.least_accurate_team).to eq("Atlanta United")
     end
   end
 end
