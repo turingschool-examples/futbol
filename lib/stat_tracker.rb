@@ -72,9 +72,10 @@ class StatTracker
     # returns int
   end
 
-  def get_scores(team_id, hoa = :both, season = nil) # season is not implemented yet
+  def get_scores(team_id, hoa = :both)
     no_goals = [0] # only needed if there are no goals
     team_id = team_id.to_i # team_id can be provided as int or str
+
     away_games = @all_games.select { |game| game.away_team_id.to_i == team_id }
     home_games = @all_games.select { |game| game.home_team_id.to_i == team_id }
 
