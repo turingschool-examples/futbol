@@ -108,6 +108,42 @@ class StatTracker
     end
     scores.min
   end
+
+  def highest_scoring_visitor
+    all_visitor_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :away).sum
+      all_visitor_scores[team] = goals
+    end
+    all_visitor_scores.max_by{|team,goals| goals}.first.teamName
+  end
+
+  def highest_scoring_home_team
+    all_home_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :home).sum
+      all_home_scores[team] = goals
+    end
+    all_home_scores.max_by{|team,goals| goals}.first.teamName
+  end
+
+  def lowest_scoring_visitor
+    all_visitor_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :away).sum
+      all_visitor_scores[team] = goals
+    end
+    all_visitor_scores.min_by{|team,goals| goals}.first.teamName
+  end
+
+  def lowest_scoring_home_team
+    all_home_scores = {}
+    @all_teams.each do |team|
+      goals = get_scores(team.team_id, :home).sum
+      all_home_scores[team] = goals
+    end
+    all_home_scores.min_by{|team,goals| goals}.first.teamName
+  end
   def coach_win_percentages
     coach_games = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0}}
     @all_game_teams.each do |game_team|
