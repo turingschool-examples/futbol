@@ -39,10 +39,9 @@ class StatTracker
   end
 
   def percentage_home_wins
-    total_games = @all_games.length
     home_wins = @all_games.count {|game| game.home_goals > game.away_goals}
           
-    percentage = (home_wins.to_f / total_games) * 100
+    percentage = (home_wins.to_f / total_games)
     percentage.round(2)
   end
 
@@ -56,18 +55,16 @@ class StatTracker
   end
 
   def percentage_visitor_wins
-    total_games = @all_games.length
     visitor_wins = @all_games.count {|game| game.away_goals > game.home_goals}
           
-    percentage = (visitor_wins.to_f / total_games) * 100
+    percentage = (visitor_wins.to_f / total_games) 
     percentage.round(2)
   end
 
   def percentage_ties
-    total_games = @all_games.length
     ties = @all_games.count {|game| game.away_goals == game.home_goals}
           
-    percentage = (ties.to_f / total_games) * 100
+    percentage = (ties.to_f / total_games)
     percentage.round(2)
   end
 
@@ -173,6 +170,8 @@ class StatTracker
     end
   end
 
+  
+
   def highest_total_score
     scores = @all_games.map do |game|
       game.home_goals + game.away_goals
@@ -186,6 +185,12 @@ class StatTracker
     end
     scores.min
   end
+
+
+  private 
+
+  def total_games
+    @all_games.length
 
   def highest_scoring_visitor
     all_visitor_scores = {}
@@ -251,5 +256,6 @@ class StatTracker
       count_of_games_by_season[season] += 1
     end
     count_of_games_by_season
+
   end
 end
