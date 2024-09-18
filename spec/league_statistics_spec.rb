@@ -1,20 +1,17 @@
-require 'rspec'
+require './spec/spec_helper'
 
 RSpec.describe LeagueStatistics do 
   before(:each) do 
-    @fake_game_data = [
-        { game_id: '2012030221', team_id: 3, HoA: 'away', result: 'LOSS', settled_in: 'OT', head_coach: 'John Tortorella', goals: 2, shots: 8, tackles: 44, pim: 8, powerPlayOpportunities: 3, powerPlayGoals: 0, faceOffWinPercentage: 44.8, giveaways: 17, takeaways: 7 },
-        { game_id: '2012030221', team_id: 6, HoA: 'home', result: 'WIN', settled_in: 'OT', head_coach: 'Claude Julien', goals: 3, shots: 12, tackles: 51, pim: 6, powerPlayOpportunities: 4, powerPlayGoals: 1, faceOffWinPercentage: 55.2, giveaways: 4, takeaways: 5 },
-        { game_id: '2012030222', team_id: 3, HoA: 'away', result: 'LOSS', settled_in: 'REG', head_coach: 'John Tortorella', goals: 2, shots: 9, tackles: 33, pim: 11, powerPlayOpportunities: 5, powerPlayGoals: 0, faceOffWinPercentage: 51.7, giveaways: 1, takeaways: 4 },
-        { game_id: '2012030222', team_id: 6, HoA: 'home', result: 'WIN', settled_in: 'REG', head_coach: 'Claude Julien', goals: 3, shots: 8, tackles: 36, pim: 19, powerPlayOpportunities: 1, powerPlayGoals: 0, faceOffWinPercentage: 48.3, giveaways: 16, takeaways: 6 }
-        ]
+    game_path = './data/games_dummy.csv'
+    team_path = './data/teams_dummy.csv'
+    game_teams_path = './data/game_teams_dummy.csv'
 
-        @fake_team_data = [
-        { team_id: 6, franchiseId: 6, teamName: 'FC Dallas', abbreviation: 'DAL', Stadium: 'Toyota Stadium', link: '/api/v1/teams/6' },
-        { team_id: 3, franchiseId: 10, teamName: 'Houston Dynamo', abbreviation: 'HOU', Stadium: 'BBVA Stadium', link: '/api/v1/teams/3' }
-        ]      
-    
-        @league_statistics = LeagueStatistics.new(@fake_game_data, @fake_team_data) 
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    @league_statistics = LeagueStatistics.new(locations[:games], locations[:teams]) 
   end
   
   describe 'count_of_teams' do

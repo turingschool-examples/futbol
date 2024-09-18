@@ -13,7 +13,6 @@ RSpec.describe SeasonStatistics do
       game_teams: game_teams_path
     }
     @season_stats = SeasonStatistics.new(locations[:games], locations[:game_teams])
-  
   end
 
   describe '#coach stats' do
@@ -56,5 +55,4 @@ RSpec.describe SeasonStatistics do
     xit 'loads team data from a CSV file' do
       # Loading data successfully should probably be tested in StatTracker?
   end
-
 end
