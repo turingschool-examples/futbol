@@ -43,7 +43,7 @@ class StatTracker
     home_wins = @all_games.count {|game| game.home_goals > game.away_goals}
           
     percentage = (home_wins.to_f / total_games)
-    percentage.round(2)
+    percentage.round(4)
   end
 
   def percentage_visitor_wins
