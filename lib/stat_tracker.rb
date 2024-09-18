@@ -12,9 +12,9 @@ class StatTracker
         games              = create_games(locations[:games])
         require 'pry'; binding.pry
         teams              = locations[:teams] 
-        game_teams         = locations[:game_teams]
+        game_teams         = create_game_teams([:game_teams])
         
-        @league_statistics = LeagueStatistics.new(games,teams)
+        @league_statistics = LeagueStatistics.new(games, teams, game_teams)
     end
 
     def create_games(path) #creating a method called create games that takes the argument of path which is a strign
@@ -22,5 +22,12 @@ class StatTracker
         csv_table.map do |row| #iterating through each row of the data table
             Game.new(row) #Each row  in the table creates a new Game instnace
         end #Returns an array of game instances
+    end
+
+    def create_game_teams(path)
+        csv_table = CSV.parse(File.read(path), headers: true)
+        csv_table.map do |row|
+            GameTeam.new(row.to_h)
+        end
     end
 end
