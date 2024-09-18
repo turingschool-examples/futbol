@@ -2,20 +2,38 @@ require 'csv'
 require 'game.rb'
 
 class GameStatics
-    attr_reader :games
 
-    def self.from_csv(locations[:games]. Game)
-
-        new(game)
+    def initialize(game_data, team_data)
+        @game_data = game_data
+        @team_data = team_data
     end
 
-    #alternative 
-    #def self.from_csv(locations)
-    #game_file = locations[:games]
-    #games = CSV.read(games_file, headers :true).map do |row|
-    #Game.new(row)
-    #end
-    #new(game)
-    #end
+    def percent_home_wins
+
+    end
+
+    def perecent_vistor_wins
+
+    end
+
+    def highest_total_score
+
+    end
+
+    def lowest_total_score
+
     end
 end
+
+
+
+#for stattracker
+# class StatTracker
+
+#     def self.from_csv(locations)
+#         StatTracker.new(locations)
+#     end
+
+#     def initialize(locations)
+#     end
+#end
