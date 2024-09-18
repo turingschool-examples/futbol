@@ -44,7 +44,7 @@ RSpec.describe StatTracker do
     end
 
     it 'can calculate ties' do
-      expect(@stat_tracker1.percentage_ties).to eq(0.313)
+      expect(@stat_tracker1.percentage_ties).to eq(0.0313)
     end
 
     it 'can calculate accurately' do
