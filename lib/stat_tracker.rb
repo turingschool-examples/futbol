@@ -161,58 +161,26 @@ class StatTracker
       total_goals.sum / @games.size.to_f
     end
 
-    # def get_goals_by_season_quantity
-    #   total = 0
-
-    #   @games.each do |game|
-    #     require'pry';binding.pry
-    #   end
-      # total
-    # end
-
-    # def total_goals_by_season
-    #   goals_by_season = {}
-
-    #   @games.each do |game|
-    #     goals_by_season[game.season] = get_goals_by_season_quantity
-    #   end
-    #   goals_by_season
-    #   # so far what this method is doing is replacing the value with the 
-    #   # last game instance away + home goals instead of adding the total 
-    #   # number of goals by season
-    # end
-
-    # def average_goals_by_season
-    #   total_goals_by_season / count_of_games_by_season.value
-    # end
-
     def create_season_goals_and_games
-      #need to calculate the total number of goals and total number of games played in each season so we can get the average number of goals scored per season
       season_goals_and_games = {}
   
       @games.each do |game| 
         season = game.season
-        #iterate over each game and identifies the season title for each season
   
         season_goals_and_games[season] ||= { goals: 0, games: 0 }
-        #create an entry for each season and include a default value
   
         season_goals_and_games[season][:goals] += game.away_goals + game.home_goals
         season_goals_and_games[season][:games] += 1
-        #add goals and games every time that season title is identified 
       end
       season_goals_and_games
-      #return the hash
     end
   
     def average_goals_by_season
       season_goals_and_games = create_season_goals_and_games
-      #use the create team goals and games method
   
       season_goals_and_games.map do |season, stats| 
         [season, (stats[:goals].to_f / stats[:games]).round(2)]
       end.to_h
-      #iterate over team goals and games to identify stats by team id - create a new hash that identifies a team's total goals and divides that by the number of games that team played
     end
 
 end
