@@ -7,17 +7,17 @@ require 'spec_helper'
 
 RSpec.describe StatTracker do
     before(:each) do
-        game_path = './data/games_dummy.csv'
-        team_path = './data/teams.csv'
-        game_teams_path = './data/game_teams_dummy.csv'
+      game_path = './data/games_dummy.csv'
+      team_path = './data/teams.csv'
+      game_teams_path = './data/game_teams_dummy.csv'
 
-        locations = {
-            games: game_path,
-            teams: team_path,
-            game_teams: game_teams_path
-        }
+      locations = {
+          games: game_path,
+          teams: team_path,
+          game_teams: game_teams_path
+          }
         
-        @stat_tracker = StatTracker.from_csv(locations)
+      @stat_tracker = StatTracker.from_csv(locations)
     end
     
     describe '#initialize' do
@@ -34,10 +34,21 @@ RSpec.describe StatTracker do
     end
 
     describe "#lowest_total_score" do
-    it 'can provide the lowest combined score' do
+      it 'can provide the lowest combined score' do
         expect(@stat_tracker.lowest_total_score).to eq(1)
         #expect(@stat_tracker.lowest_total_score).to eq(0)
+      end
     end
-end
 
+    describe "#count_of_games_by_season" do
+      it 'can provide the number of games by season' do
+        expect(@stat_tracker.count_of_games_by_season).to eq({"20122013"=>9, "20132014"=>2, "20152016"=>5, "20162017"=>3, "20172018"=>6})
+      end
+    end
+
+    describe "#average_goals_per_game" do
+      it 'can provide provide the averge number of goals scored in a game across all seasons' do
+        expect(@stat_tracker.average_goals_per_game).to eq(4.48)
+      end
+    end
 end
