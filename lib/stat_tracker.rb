@@ -59,7 +59,7 @@ class StatTracker
     ties = @all_games.count {|game| game.away_goals == game.home_goals}
           
     percentage = (ties.to_f / total_games)
-    percentage.round(2)
+    percentage.round(4)
   end
 
   def best_offense
