@@ -160,4 +160,29 @@ class StatTracker
     def average_goals_per_game
       total_goals.sum / @games.size.to_f
     end
+
+    # def get_goals_by_season_quantity
+    #   total = 0
+
+    #   @games.each do |game|
+    #     require'pry';binding.pry
+    #   end
+      # total
+    # end
+
+    def total_goals_by_season
+      goals_by_season = {}
+
+      @games.each do |game|
+        goals_by_season[game.season] = get_goals_by_season_quantity
+      end
+      goals_by_season
+      # so far what this method is doing is replacing the value with the 
+      # last game instance away + home goals instead of adding the total 
+      # number of goals by season
+    end
+
+    def average_goals_by_season
+      total_goals_by_season / count_of_games_by_season.value
+    end
 end
