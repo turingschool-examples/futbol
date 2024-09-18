@@ -62,14 +62,6 @@ class StatTracker
     percentage.round(2)
   end
 
-  def percentage_home_wins
-    total_games = @all_games.length
-    home_wins = @all_games.count {|game| game.home_goals > game.away_goals}
-          
-    percentage = (home_wins.to_f / total_games) * 100
-    percentage.round(2)
-  end
-
   def best_offense
     team_goals = {}
     team_games = {}
