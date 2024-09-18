@@ -162,8 +162,17 @@ RSpec.describe StatTracker do
 
   describe '#team_shot_goal_ratio' do
     it 'calculates accuracy ratio of a team' do
-      binding.pry
       result = @stat_tracker1.team_shot_goal_ratios
+      expect = {
+        "Atlanta United"=>0,
+        "Chicago Fire"=>0,
+        "FC Cincinnati"=>0,
+        "DC United"=>0,
+         "FC Dallas"=>0.32,
+        "Houston Dynamo"=>0.21,
+         "Sporting Kansas City"=>0.06,
+      }
+      expect(result).to include(expect)
     end
   end
 end
