@@ -116,8 +116,6 @@ RSpec.describe StatTracker do
   describe '#lowest_scoring_visitor' do
     it 'can find the lowest scoring visiting team' do
       expect(@stat_tracker2.lowest_scoring_visitor).to eq('New York Red Bulls')
-    end
-  end
       expect(@stat_tracker1.highest_total_score).to eq("41")
     end
   end
