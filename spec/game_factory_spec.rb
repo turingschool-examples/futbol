@@ -29,8 +29,8 @@ RSpec.describe GameFactory do
       expect(@factory1.games[0].date_time).to eq('5/16/13')
       expect(@factory1.games[0].away_team_id).to eq('3')
       expect(@factory1.games[0].home_team_id).to eq('6')
-      expect(@factory1.games[0].away_goals).to eq('2')
-      expect(@factory1.games[0].home_goals).to eq('3')
+      expect(@factory1.games[0].away_goals).to eq(2)
+      expect(@factory1.games[0].home_goals).to eq(3)
       expect(@factory1.games[0].venue).to eq('Toyota Stadium')
       expect(@factory1.games[0].venue_link).to eq('/api/v1/venues/null')
 
