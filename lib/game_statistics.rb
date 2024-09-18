@@ -1,6 +1,3 @@
-require 'csv'
-require 'game.rb'
-
 class GameStatics
 
     def initialize(game_data, team_data)
@@ -8,19 +5,27 @@ class GameStatics
         @team_data = team_data
     end
 
-    def percent_home_wins
+    #def percent_home_wins
+     #   @game_data =
 
-    end
+   #end
 
     def perecent_vistor_wins
 
     end
 
-    def highest_total_score
+    def total_score
+        @game_data.map do |game|
+            home_goals = games.home_goals
+            
+        end
+    end
 
+    def highest_total_score
+        total_score.max
     end
 
     def lowest_total_score
-
+        total_score.min
     end
 end

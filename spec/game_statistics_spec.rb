@@ -17,21 +17,21 @@ RSpec.describe GameStatistics do
 
     describe '#total score stats' do
         it 'knows the highest total score' do
-        expect(@game_stats.highest_total_score).to eq(11)
+          expect(@game_stats.highest_total_score).to eq(11)
         end
 
         it 'knows the lowest total score' do
-        expect(@game_stats.lowest_total_score).to eq(7)
+           expect(@game_stats.lowest_total_score).to eq(7)
         end
     end
 
     describe '#win, loss, and tie percentages' do
         it 'knows the percentage of home wins' do
-        expect(@game_stats.percentage_home_wins).to eq(.50)
+           expect(@game_stats.percentage_home_wins).to eq(0.50)
         end
 
         it 'knows the percentage of visitor wins' do
-        expect(@game_stats.percentage_visitor_wins).to eq(.50)
+            expect(@game_stats.percentage_visitor_wins).to eq(0.50)
         end
 
         it 'knows the percentage of ties' do
@@ -41,13 +41,13 @@ RSpec.describe GameStatistics do
 
     describe '#knows the number of games in a season' do
         it 'counts the games in a season' do
-        expect(@game_stats.count_of_games_by_season).to eq({season: 20122013, games: 1}, {season: 20162017, games: 4}, {season: 20142015, games: 3})
+           expect(@game_stats.count_of_games_by_season).to eq({season: 20122013, games: 1}, {season: 20162017, games: 4}, {season: 20142015, games: 3})
         end
     end
 
     describe '#calculates average goals ' do
         it 'can average the goals scored per game by both teams in every season combined' do
-        expect(@game_stats.average_goals_per_game).to eq(4.62)
+           expect(@game_stats.average_goals_per_game).to eq(4.62)
         end
 
         it 'can average the goals scored per game by both teams in a single season' do
