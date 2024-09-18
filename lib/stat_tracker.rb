@@ -120,7 +120,7 @@ class StatTracker
       end
   
       worst_team_id = team_averages.min_by { |_,avg| avg }.first
-      worst_team = @all_teams.find {|team| team.team_id == best_team_id}
+      worst_team = @all_teams.find {|team| team.team_id == worst_team_id}
   
       worst_team.teamName
   end
