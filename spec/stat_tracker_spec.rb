@@ -176,9 +176,8 @@ RSpec.describe StatTracker do
 
   describe '#count_of_games_by_season' do
     it 'can give a count of games by season' do
-      expect(true).to eq(false)
-      #this should check that a season that does exist has a count
-      #a season that doesn't exist should not return anything
+      expect(@stat_tracker2.count_of_games_by_season['20122013']).to eq(29)
+      expect(@stat_tracker2.count_of_games_by_season['20142015']).to eq(0)
     end
   end
 end
