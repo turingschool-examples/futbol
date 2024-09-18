@@ -175,4 +175,11 @@ RSpec.describe StatTracker do
       expect(result).to include(expect)
     end
   end
+
+  describe '#most_accurate_team' do
+    it 'shows the team with the highest goal average' do
+      result = @stat_tracker1.most_accurate_team
+      expect(result).to eq("FC Dallas")
+    end
+  end
 end
