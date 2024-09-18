@@ -56,7 +56,7 @@ class StatTracker
   end
 
   def average_goals_per_game
-    average = @all_games.count / count_of_all_goals.to_f
+    average = count_of_all_goals / @all_games.count.to_f
   average.round(2)
   end
 
