@@ -110,10 +110,10 @@ class StatTracker
         [team_id, average_goals]
       end
   
-      best_team_id = team_averages.min_by { |_,avg| avg }.first
-      best_team = @all_teams.find {|team| team.team_id == best_team_id}
+      worst_team_id = team_averages.min_by { |_,avg| avg }.first
+      worst_team = @all_teams.find {|team| team.team_id == best_team_id}
   
-      best_team.teamName
+      worst_team.teamName
   end
 
   def average_goals_per_game
