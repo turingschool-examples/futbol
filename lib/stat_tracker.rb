@@ -172,7 +172,6 @@ class StatTracker
       season_goals_and_games[season][:goals] += game.away_goals + game.home_goals
       season_goals_and_games[season][:games] += 1
     end
-    #count_games_and_avg_goals
     season_goals_and_games
   end
   
@@ -224,7 +223,6 @@ class StatTracker
     home_games = @game_teams.find_all do |game_team|
       game_team.hoa =="home"
     end
-    #require "pry" ; binding.pry
     home_games
   end
   
@@ -232,7 +230,6 @@ class StatTracker
   
     team_goals_and_games = {}
     home_games_only.each do |home_game| 
-      #require "pry" ; binding.pry
       team_id = home_game.team_id
       #iterate over each game_team and identifies the team id for each team
   
