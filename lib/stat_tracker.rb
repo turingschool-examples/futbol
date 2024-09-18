@@ -245,16 +245,21 @@ class StatTracker
 
   def team_shot_goal_ratios
     team_ratios = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+
     @all_game_teams.each do |game_team|
       team_id = game_team.team_id
       team_ratios[team_id][:goals] += game_team.goals.to_i
       team_ratios[team_id][:shots] += game_team.shots.to_i
     end
-
-      team_ratios.transform_values do |stats|
-        goals = stats[:goals]
-        shots = stats[:shots]
-        shots > 0 ? (goals.to_f / shots).round(2) : 0
+      @all_teams.each_with_object({}) do |team, result|
+        team_id = team.team_id
+        if team_ratios[team_id]
+          goals = team_ratios[team_id][:goals]
+          shots = team_ratios[team_id][:shots]
+          result[team.teamName] = shots > 0 ? (goals.to_f / shots).round(2) : 0
+        else
+          result[team.teamName] = 0
+        end
       end
   end
 end
