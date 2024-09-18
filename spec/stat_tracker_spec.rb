@@ -159,4 +159,11 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.worst_offense).to eq("Sporting Kansas City")
     end 
   end
+
+  describe '#count_of_games_by_season' do
+    it 'can give a count of games by season' do
+      expect(@stat_tracker2.count_of_games_by_season['20122013']).to eq(29)
+      expect(@stat_tracker2.count_of_games_by_season['20142015']).to eq(0)
+    end
+  end
 end
