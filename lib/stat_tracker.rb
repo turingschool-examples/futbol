@@ -94,7 +94,7 @@ class StatTracker
 
     def count_of_games_by_season
       games_by_season = {}
-      
+
       @games.each do |game|
         if games_by_season[game.season]
           games_by_season[game.season] += 1
@@ -103,5 +103,9 @@ class StatTracker
         end
       end
       games_by_season
+    end
+
+    def average_goals_per_game
+      total_goals.sum / @games.size.to_f
     end
 end
