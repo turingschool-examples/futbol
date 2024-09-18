@@ -122,12 +122,10 @@ class StatTracker
   end
 
   def winningest_coach
-    coach_win_percentages = coach_win_percentages()
     coach_win_percentages.max_by { |coach, win_percentage| win_percentage}.first
   end
 
   def worst_coach
-    coach_win_percentages = coach_win_percentages()
     coach_win_percentages.min_by { |coach, win_percentage| win_percentage}.first
   end
 end
