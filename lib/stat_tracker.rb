@@ -172,7 +172,6 @@ class StatTracker
       season_goals_and_games[season][:goals] += game.away_goals + game.home_goals
       season_goals_and_games[season][:games] += 1
     end
-    count_games_and_avg_goals
     season_goals_and_games
   end
   
@@ -219,4 +218,51 @@ class StatTracker
     total_games = games.size
     percentage = (ties.to_f / total_games * 100).round(2)
   end
+
+  def home_games_only #for highest/lowest scoring at home
+    home_games = @game_teams.find_all do |game_team|
+      game_team.hoa =="home"
+    end
+    home_games
+  end
+  
+  def home_create_team_goals_and_games
+  
+    team_goals_and_games = {}
+    home_games_only.each do |home_game| 
+      team_id = home_game.team_id
+      #iterate over each game_team and identifies the team id for each team
+  
+      team_goals_and_games[team_id] ||= { goals: 0, games: 0 }
+      #create an entry for each team and include a default value
+  
+      team_goals_and_games[team_id][:goals] += home_game.goals
+      team_goals_and_games[team_id][:games] += 1
+      #add goals and games every time that team id is identified 
+    end
+    team_goals_and_games
+    #return the hash
+  end
+  
+  def home_calculate_average_goals_per_team
+  
+    team_goals_and_games = home_create_team_goals_and_games
+    #use the create team goals and games method
+  
+      team_goals_and_games.map do |team_id, stats| 
+      [team_id, stats[:goals].to_f / stats[:games]]
+
+    end.to_h
+  end
+  
+  def highest_scoring_home
+    highest_scoring=home_calculate_average_goals_per_team.max
+    find_team_name(highest_scoring[0])
+  end
+  
+  def lowest_scoring_home
+    lowest_scoring=home_calculate_average_goals_per_team.min
+    find_team_name(lowest_scoring[0])
+  end
+  
 end
