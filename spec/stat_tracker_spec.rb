@@ -49,7 +49,7 @@ RSpec.describe StatTracker do
 
     it 'can calculate accurately' do
       total = (@stat_tracker1.percentage_ties) + (@stat_tracker1.percentage_visitor_wins) + (@stat_tracker1.percentage_home_wins)
-      expect(total).to be_within(0.03).of(100.00)
+      expect(total).to be_within(0.03).of(1.00)
     end
   end
 
