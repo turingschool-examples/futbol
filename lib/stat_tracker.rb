@@ -186,11 +186,9 @@ class StatTracker
     scores.min
   end
 
-
-  private 
-
   def total_games
     @all_games.length
+  end
 
   def highest_scoring_visitor
     all_visitor_scores = {}
@@ -259,6 +257,5 @@ class StatTracker
       count_of_games_by_season[season] += 1
     end
     count_of_games_by_season
-
   end
 end
