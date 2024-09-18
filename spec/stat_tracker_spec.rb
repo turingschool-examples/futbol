@@ -3,7 +3,7 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
   before(:each) do
     game_path = './data/games_test.csv'
-    team_path = './data/teams.csv'
+    team_path = './data/teams_test_2.csv'
     team_path_2 = './data/teams_test.csv'
     game_teams_path = './data/game_team_test.csv'
     game_path_2 = './data/games_test_2.csv'
