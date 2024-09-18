@@ -68,4 +68,11 @@ RSpec.describe StatTracker do
         expect(@stat_tracker.average_goals_per_game).to eq(4.48)
       end
     end
+
+    describe '#average_goals_by season' do
+      xit 'can prove a hash with season names as keys and average number of goals for that season as the value' do
+      
+      expect(@stat_tracker.average_goals_by_season).to eq(2)
+      end
+    end
 end
