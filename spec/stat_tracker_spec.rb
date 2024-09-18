@@ -148,4 +148,10 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.count_of_all_goals).to_not eq(0)
     end
   end
+
+  describe '#team_shot_goal_ratio' do
+    it 'calculates accuracy ratio of a team' do
+      result = @stat_tracker1.team_shot_goal_ratios
+    end
+  end
 end
