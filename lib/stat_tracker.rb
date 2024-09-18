@@ -170,7 +170,19 @@ class StatTracker
       end
     end
 
-    total_games = games.size
-    percentage = (home_wins.to_f / total_games * 100).round(2)
-  end
+      total_games = games.size
+      percentage = (home_wins.to_f / total_games * 100).round(2)
+    end
+
+    def percentage_visitor_wins
+      visitor_wins = 0
+        @games.each do |game|
+      if game.away_goals.to_i > game.home_goals.to_i
+        visitor_wins += 1
+      end
+    end
+  
+      total_games = games.size
+      percentage = (visitor_wins.to_f / total_games * 100).round(2)
+    end
 end
