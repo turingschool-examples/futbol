@@ -121,7 +121,7 @@ RSpec.describe StatTracker do
         "John Tortorella"=>0, 
         "Mike Babcock"=>60
       }
-      expect(@stat_tracker1.send(:coach_win_percentages)).to eq(expected)
+      expect(@stat_tracker1.send(:coach_win_percentages,nil)).to eq(expected)
     end
   end
 
