@@ -121,19 +121,21 @@ RSpec.describe StatTracker do
         "John Tortorella"=>0, 
         "Mike Babcock"=>60
       }
-      expect(@stat_tracker1.send(:coach_win_percentages)).to eq(expected)
+      expect(@stat_tracker1.send(:coach_win_percentages,nil)).to eq(expected)
     end
   end
 
   describe '#winningest_coach' do
     it 'returns highest winning percentage coach' do
-      expect(@stat_tracker1.winningest_coach).to eq("Claude Julien")
+      expect(@stat_tracker1.winningest_coach(20122013)).to eq("Claude Julien")
+      expect(@stat_tracker1.winningest_coach(20122013)).not_to eq("John Tortorella")
     end
   end
 
   describe '#worst_coach' do
     it 'returns lowest percentage coach' do
-      expect(@stat_tracker1.worst_coach).to eq("John Tortorella")
+      expect(@stat_tracker1.worst_coach(20122013)).to eq("John Tortorella")
+      expect(@stat_tracker1.worst_coach(20122013)).not_to eq("Claude Julien")
     end
   end
 
