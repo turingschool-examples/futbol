@@ -127,7 +127,7 @@ class StatTracker
 
   def average_goals_per_game
     average = count_of_all_goals / @all_games.count.to_f
-  average.round(2)
+    average.round(2)
   end
 
   def average_goals_season
@@ -222,6 +222,7 @@ class StatTracker
     end
     all_home_scores.min_by{|team,goals| goals}.first.teamName
   end
+
   def coach_win_percentages
     coach_games = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0}}
     @all_game_teams.each do |game_team|
@@ -241,5 +242,9 @@ class StatTracker
 
   def worst_coach
     coach_win_percentages.min_by { |coach, win_percentage| win_percentage}.first
+  end
+
+  def count_of_games_by_season
+    #return a hash of seasons and count of games for that season 
   end
 end

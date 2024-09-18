@@ -173,4 +173,12 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.worst_offense).to eq("Sporting Kansas City")
     end 
   end
+
+  describe '#count_of_games_by_season' do
+    it 'can give a count of games by season' do
+      expect(true).to eq(false)
+      #this should check that a season that does exist has a count
+      #a season that doesn't exist should not return anything
+    end
+  end
 end
