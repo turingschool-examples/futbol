@@ -268,13 +268,16 @@ class StatTracker
   # def worst_coach(season)
   # end
 
-  def winningest_coach(game.season)
+  def winningest_coach(season)
     # Returns a nested hash of information with the coach's name as the outer hash 
     # The inner has has total games => qty and wins => qty
     coach_records = {}
+    # Allows you to input the season (which come from the game CSV and only use the 
+    # first four characters which correspond to the year, or season)
+    season_year = season[0..3]
 
     @game_teams.each do |game|
-      next unless @game.season == season
+      next unless game.game_id[0..3] == season_year
       
       coach = game.head_coach
       result = game.result 
@@ -284,6 +287,7 @@ class StatTracker
       coach_records[coach][:wins] += 1 if result == "WIN"
 
       end
+      return nil if coach_records.empty?
 
     win_percentages = {}
       
