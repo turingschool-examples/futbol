@@ -12,12 +12,12 @@ class LeagueStatistics
     @game_teams = game_teams
   end
 
-  def count_of_teams
-    @teams.size
-  end
+  # def count_of_teams
+  #   @teams.size
+  # end
 
   def best_offense
-    team_name(team_avg_goals.max_by { |team_id, avg_goals| avg_goals}[0])
+    @stat_tracker.team_name(team_avg_goals.max_by { |team_id, avg_goals| avg_goals}[0])
   end
   
   def team_avg_goals
@@ -35,9 +35,7 @@ class LeagueStatistics
     end
   end
 
-  def team_name(team_id)
-    @teams[team_id]&.team_name
-  end
-
-
+  # def team_name(team_id)
+  #   @teams[team_id]&.team_name
+  # end
 end
