@@ -1,23 +1,43 @@
 require 'csv'
 require_relative 'game'
+require_relative 'team'
+require_relative 'game_team'
 
 class LeagueStatistics
   attr_reader :games,
               :teams,
-              :game_teams
+              :game_teams,
+              :stat_tracker
 
-  def initialize(games, teams, game_teams)
+  def initialize(games, teams, game_teams, stat_tracker)
     @games = games
     @teams = teams
     @game_teams = game_teams
+    @stat_tracker = stat_tracker
   end
 
-  def count_of_teams
-     @teams.size
-  end
+  # def count_of_teams
+  #   @teams.size
+  # end
 
   def best_offense
-    @stat_tracker.team_name(team_avg_goals.max_by { |team_id, avg_goals| avg_goals}[0])
+    team_id = team_avg_goals.max_by { |team_id, avg_goals| avg_goals}[0]
+    @stat_tracker.team_name(team_id)
+  end
+
+  def worst_offense
+     team_id = team_avg_goals.min_by { |team_id, avg_goals| avg_goals}[0]
+    @stat_tracker.team_name(team_id)
+  end
+
+  def highest_scoring_visitor
+    team_id = team_avg_goals_as_visitor.max_by { |team_id, avg_goals| avg_goals }[0]
+    @stat_tracker.team_name(team_id)
+  end
+
+  def lowest_scoring_visitor
+    team_id = team_avg_goals_as_visitor.min_by { |team_id, avg_goals| avg_goals }[0]
+    @stat_tracker.team_name(team_id)
   end
   
   def team_avg_goals
@@ -26,28 +46,32 @@ class LeagueStatistics
 
     @game_teams.each do |game_team|
       team_id = game_team.team_id
-      total_goals_by_team[team_id] += game_team.goals
+      total_goals_by_team[team_id] += game_team.goals.to_i
       total_games_by_team[team_id] += 1
     end
 
     total_goals_by_team.transform_values do |total_goals|
-      total_goals.to_f / total_games_by_team[team_id]
+      total_games = total_games_by_team[total_goals_by_team.key(total_goals)]
+      total_games > 0 ? total_goals.to_f / total_games : 0
+    end
+  end
+
+  def team_avg_goals_as_visitor
+    total_goals_by_team = Hash.new(0)
+    total_games_by_team = Hash.new(0)
+
+    @games.each do |game|
+      total_goals_by_team[game.away_team_id] += game.away_goals.to_i
+      total_games_by_team[game.away_team_id] += 1
+    end
+
+    total_goals_by_team.transform_values do |total_goals|
+      games_played = total_games_by_team[total_goals_by_team.key(total_goals)]
+      games_played > 0 ? total_goals.to_f / games_played : 0
     end
   end
 
   # def team_name(team_id)
   #   @teams[team_id]&.team_name
   # end
-  def highest_scoring_home_team
-      team = @game_team.team_id
-    #returns a String of Name of the team with 
-    #highest average score per game 
-    #across all seasons 
-  #when they are home.
-    home_games = @game_teams.select {|game_team| game_team.HoA == 'home'}
-    total_games_by_team = Hash.new(0)
-    total_games_by_team = Hash.new(0)
-    require 'pry'; binding.pry
-  end
-  
 end
