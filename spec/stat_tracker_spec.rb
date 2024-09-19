@@ -223,4 +223,31 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.least_accurate_team('20122013')).to eq("Atlanta United")
     end
   end
+
+  describe '#team_tackle_total' do
+    it 'makes a list of teams with tackle scores' do
+      @stat_tracker1.team_tackle_total
+      expect = {
+        "Atlanta United"=>0,
+        "Chicago Fire"=>0,
+        "FC Cincinnati"=>0,
+        "DC United"=>0,
+        "FC Dallas"=>271,
+        "Houston Dynamo"=>179
+    }
+      expect(@stat_tracker1.team_tackle_total).to include(expect)
+    end
+
+    it 'makes a list of team tackles by season' do
+      @stat_tracker1.team_tackle_total('20122013')
+      expect = {
+        "Atlanta United"=>0,
+        "Chicago Fire"=>0,
+        "FC Cincinnati"=>0,
+        "DC United"=>0,
+        "FC Dallas"=>271,
+      }
+      expect(@stat_tracker1.team_tackle_total('20122013')).to include(expect)
+    end
+  end
 end
