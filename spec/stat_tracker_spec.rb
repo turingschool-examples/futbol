@@ -267,7 +267,7 @@ RSpec.describe StatTracker do
     end
 
     it 'shows the team with the fewest tackles of the season' do
-      expect(@stat_tracker1.fewest_tackles).to eq("Atlanta United")
+      expect(@stat_tracker1.fewest_tackles('20122013')).to eq("Atlanta United")
     end
   end
 end
