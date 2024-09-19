@@ -26,5 +26,6 @@ class GameStatistics
 
     def average_goals_per_game
         binding.pry
+        
     end
 end
