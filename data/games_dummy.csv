@@ -98,4 +98,3 @@ game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,ve
 2014030313,20142015,Postseason,5/21/15,3,14,3,4,Audi Field,/api/v1/venues/null
 2014030314,20142015,Postseason,5/23/15,3,14,3,1,Audi Field,/api/v1/venues/null
 2014030315,20142015,Postseason,5/25/15,14,3,2,0,BBVA Stadium,/api/v1/venues/null
-2014030316,20142015,Postseason,5/27/15,3,14,5,3,Audi Field,/api/v1/venues/null

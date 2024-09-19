@@ -10,14 +10,11 @@ class GameStatics
 
    #end
 
-    def perecent_vistor_wins
-
-    end
-
     def total_score
         @game_data.map do |game|
             home_goals = games.home_goals
-            
+            away_goals = game_data.away_goals
+            home_goals + away_goals
         end
     end
 
@@ -27,5 +24,16 @@ class GameStatics
 
     def lowest_total_score
         total_score.min
+    end
+
+    def perecent_home_wins
+        total_games = @game_data.size
+        home_wins = @game_data.count do |game|
+            game.home_goals > game.away_goals
+        end
+
+        perecentage = (home_wins.to_f / total_games)
+        perecentage.round(2)
+        require 'pry'
     end
 end

@@ -7,8 +7,7 @@ class Game
                 :home_team_id,
                 :away_goals,
                 :home_goals,
-                :venue,
-                :venue_link
+                :venue                
 
     def initialize(data)
         @game_id      = data["game_id"]
@@ -19,7 +18,6 @@ class Game
         @home_team_id = data["home_team_id"]
         @away_goals   = data["away_goals"]
         @home_goals   = data["home_goals"]
-        @venue        = data["venue"]
-        @venue_link   = data["venue_link"]
+        @venue        = data["venue"]        
     end
 end
