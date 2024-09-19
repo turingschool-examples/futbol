@@ -51,8 +51,8 @@ class LeagueStatistics
     end
 
     total_goals_by_team.transform_values do |total_goals|
-      team_id = total_games_by_team.key(total_goals)
-      total_goals.to_f / total_games_by_team[team_id]
+      total_games = total_games_by_team[total_goals_by_team.key(total_goals)]
+      total_games > 0 ? total_goals.to_f / total_games : 0
     end
   end
 
@@ -66,12 +66,14 @@ class LeagueStatistics
     end
 
     total_goals_by_team.transform_values do |total_goals|
-      total_goals.to_f / total_games_by_team[total_goals]
+      games_played = total_games_by_team[total_goals_by_team.key(total_goals)]
+      games_played > 0 ? total_goals.to_f / games_played : 0
     end
   end
 
   def team_name(team_id)
-    team = @team.find { |team| team.team_id == team_id}
+    team = @teams.find { |team| team.team_id == team_id}
     team.team_name
   end
 end
+ 
