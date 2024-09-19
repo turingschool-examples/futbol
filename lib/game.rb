@@ -7,7 +7,7 @@ class Game
                 :home_team_id,
                 :away_goals,
                 :home_goals,
-                :venue,                
+                :venue                
 
     def initialize(data)
         @game_id      = data["game_id"]
