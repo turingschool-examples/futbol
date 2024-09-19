@@ -8,11 +8,43 @@ class SeasonStatistics
 
 
     def most_accurate_team
+       goals = Hash.new(0)
+       shots = Hash.new(0)
 
-        
+       game_teams .each do |game|#gets goals and shots for each team
+        team_id = game[:team_id]
+        goals[team_id] += game[:goals].to_i
+        shots[team_id] += game[:shots].to_i
+       end
+       most_accurate_team_id = goals.keys.max_by do |team_id|
+        accuracy(goals[team_id], shots[team_id])#calculates accuracy for each team and then finds most accurate
+       end
+
+       find_team_name(most_accurate_team_id)
     end
 
+    def accuracy(goals, shots)
+        (goals.to_f / shots) * 100
+    end
+
+
+
     def least_accurate_team
+        goals = Hash.new(0)
+        shots = Hash.new(0)
+ 
+        game_teams .each do |game|#gets goals and shots for each team
+         team_id = game[:team_id]
+         goals[team_id] += game[:goals].to_i
+         shots[team_id] += game[:shots].to_i
+        end
+        least_accurate_team_id = goals.keys.min_by do |team_id|
+         accuracy(goals[team_id], shots[team_id])#calculates accuracy for each team and then finds most accurate
+        end
+ 
+        find_team_name(least_accurate_team_id_accurate_team_id)
+     end
+ 
     end
 
     def winningest_coach
