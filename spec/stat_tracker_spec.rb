@@ -279,7 +279,7 @@ RSpec.describe StatTracker do
         :link => '/api/v1/teams/9'
       }
       expect(@stat_tracker1.team_info(9)).to eq(expected)
-      #expect(@stat_tracker1.team_info('9')).to eq(expected)
+      expect(@stat_tracker1.team_info('9')).to eq(expected)
     end
   end
 end
