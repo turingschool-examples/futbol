@@ -19,17 +19,17 @@ class GameStatistics
         end
 
         perecentage = home_wins.to_f / total_games
-        perecentage.round(2)
+        perecentage.round(1)
     end
 
-    def perecentage_vistor_wins
+    def percentage_vistor_wins
         total_games = @game_data.size
         visitor_wins = @game_data.count do |game|
             game.away_goals > game.home_goals
         end
 
         perecentage = away_wins.to_f / total_games
-        perecentage.round(2)
+        perecentage.round(1)
     end
 
     def highest_total_score
