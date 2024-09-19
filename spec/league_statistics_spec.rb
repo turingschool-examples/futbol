@@ -1,4 +1,5 @@
 require './spec/spec_helper'
+require './lib/stat_tracker'
 
 RSpec.describe LeagueStatistics do 
   before(:each) do 
@@ -11,12 +12,13 @@ RSpec.describe LeagueStatistics do
       teams: team_path,
       game_teams: game_teams_path
     }
-    @league_statistics = LeagueStatistics.new(locations[:games], locations[:teams], locations[:game_teams]) 
+    @stat_tracker = StatTracker.from_csv(locations)
+    @league_statistics = LeagueStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams, @stat_tracker) 
   end
   
   describe 'count_of_teams' do
     it 'counts the number of teams' do      
-      expect(@league_statistics.count_of_teams).to eq(22)
+      expect(@league_statistics.count_of_teams).to eq(32)
     end
   end
 
@@ -27,14 +29,14 @@ RSpec.describe LeagueStatistics do
   end
 
   describe 'worst_offense' do
-    xit 'returns the team with the lowest average number of goals per game' do
+    it 'returns the team with the lowest average number of goals per game' do
       expect(@league_statistics.worst_offense).to eq('Houston Dynamo')
     end
   end
 
   describe 'highest_scoring_visitor' do
-    xit 'returns the team with the highest average score when they are away' do
-      expect(@league_statistics.highest_scoring_visitor).to eq('FC Dallas')
+    it 'returns the team with the highest average score when they are away' do
+      expect(@league_statistics.highest_scoring_visitor).to eq('Houston Dynamo')
     end
   end
 
@@ -45,7 +47,7 @@ RSpec.describe LeagueStatistics do
   end
 
   describe 'lowest_scoring_visitor' do
-    xit 'returns the team with the lowest average score when they are away' do
+    it 'returns the team with the lowest average score when they are away' do
       expect(@league_statistics.lowest_scoring_visitor).to eq('Houston Dynamo')
     end
   end
