@@ -12,7 +12,7 @@ RSpec.describe GameStatistics do
           game_teams: game_teams_path
         }
 
-    @game_stats = Gametatistics.new(locations[:games], locations[:teams], locations[:game_teams])
+    @game_stats = GameStatistics.new(locations[:games], locations[:teams])
     end
 
     describe '#total score stats' do
@@ -27,11 +27,11 @@ RSpec.describe GameStatistics do
 
     describe '#win, loss, and tie percentages' do
         it 'knows the percentage of home wins' do
-        expect(@game_stats.percentage_home_wins).to eq(.50)
+        expect(@game_stats.percentage_home_wins).to eq(0.50)
         end
 
         it 'knows the percentage of visitor wins' do
-        expect(@game_stats.percentage_visitor_wins).to eq(.50)
+        expect(@game_stats.percentage_visitor_wins).to eq(0.50)
         end
 
         it 'knows the percentage of ties' do
