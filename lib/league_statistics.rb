@@ -38,4 +38,16 @@ class LeagueStatistics
   # def team_name(team_id)
   #   @teams[team_id]&.team_name
   # end
+  def highest_scoring_home_team
+      team = @game_team.team_id
+    #returns a String of Name of the team with 
+    #highest average score per game 
+    #across all seasons 
+  #when they are home.
+    home_games = @game_teams.select {|game_team| game_team.HoA == 'home'}
+    total_games_by_team = Hash.new(0)
+    total_games_by_team = Hash.new(0)
+    require 'pry'; binding.pry
+  end
+  
 end

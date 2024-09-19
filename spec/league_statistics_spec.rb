@@ -39,7 +39,7 @@ RSpec.describe LeagueStatistics do
   end
 
   describe 'highest_scoring_home_team' do
-    xit 'returns the team with the highest average score when they are home' do
+    it 'returns the team with the highest average score when they are home' do
       expect(@league_statistics.highest_scoring_home_team).to eq('FC Dallas')
     end
   end
