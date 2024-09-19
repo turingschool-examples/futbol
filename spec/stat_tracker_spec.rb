@@ -112,9 +112,9 @@ RSpec.describe StatTracker do
     end
 
     describe "#worst_coach" do
-      xit "can return a name of the Coach with the worst win percentage for the season" do
-        expect(@stat_tracker.worst_coach(@game_teams)).to eq("John Tortorella")
-        #this name is a place holder
+      it "can return a name of the Coach with the worst win percentage for the season" do
+        expect(@stat_tracker.worst_coach("20132014")).to eq("Michel Therrien")
+        expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
       end
     end
   end
