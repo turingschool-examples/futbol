@@ -259,10 +259,12 @@ class StatTracker
     count_of_games_by_season
   end
 
-  def team_shot_goal_ratios
+  def team_shot_goal_ratios(season = nil)
     team_ratios = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
 
     @all_game_teams.each do |game_team|
+      game = @all_games.find { |g| g.game_id == game_team.game_id }
+      next if season && game.season != season.to_s
       team_id = game_team.team_id
       team_ratios[team_id][:goals] += game_team.goals.to_i
       team_ratios[team_id][:shots] += game_team.shots.to_i
@@ -276,13 +278,13 @@ class StatTracker
     end
   end
 
-  def most_accurate_team
-    team_ratios = team_shot_goal_ratios
+  def most_accurate_team(season = nil)
+    team_ratios = team_shot_goal_ratios(season)
     team_shot_goal_ratios.max_by {|team_name, ratio| ratio }.first
   end
 
-  def least_accurate_team
-    team_ratios = team_shot_goal_ratios
+  def least_accurate_team(season = nil)
+    team_ratios = team_shot_goal_ratios(season)
     team_shot_goal_ratios.min_by {|team_name, ratio| ratio }.first
   end
 end
