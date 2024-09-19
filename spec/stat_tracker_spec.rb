@@ -264,6 +264,9 @@ RSpec.describe StatTracker do
   end
 
   describe '#count_teams' do 
-    expect(@stat_tracker1.count_of_teams).to eq(29)
+    it 'shows the number of teams in the data' do 
+      expect(@stat_tracker1.count_of_teams).to eq(32)
+    end
+   
   end
 end

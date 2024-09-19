@@ -301,7 +301,7 @@ class StatTracker
   end
 
   def count_of_teams
-    @all_game_teams.length
+    @all_teams.length
   end
 
   def most_tackles(season = nil)
