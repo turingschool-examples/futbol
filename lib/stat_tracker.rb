@@ -18,7 +18,7 @@ class StatTracker
         @teams              = create_objects(locations[:teams], Team)
         @game_teams         = create_objects(locations[:game_teams], GameTeam)
         #require 'pry'; binding.pry
-        #@league_statistics = LeagueStatistics.new(@games, @teams, @game_teams, self)
+        @league_statistics = LeagueStatistics.new(@games, @teams, @game_teams, self)
         #@team_statistics    = TeamStatistic.new(@teams, self)
     end
 
@@ -34,4 +34,9 @@ class StatTracker
     def count_of_teams
          @team_statistics.count_of_teams
     end
+
+    def team_name(team_id)
+        team = @teams.find { |team| team.team_id == team_id}
+        team.teamName if team
+      end
 end
