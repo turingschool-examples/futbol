@@ -311,4 +311,7 @@ class StatTracker
   def fewest_tackles(season = nil)
     team_tackle_total(season).min_by { |team_name, tackles| tackles}.first
   end
+
+  def team_info(team_id)
+  end
 end
