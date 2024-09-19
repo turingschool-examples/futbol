@@ -8,6 +8,8 @@ class SeasonStatistics
 
 
     def most_accurate_team
+
+        
     end
 
     def least_accurate_team
@@ -69,9 +71,23 @@ class SeasonStatistics
         end
            
             team_fewest_tackles = tackles_teams.min_by { |team, tackles| tackles }[0]
-    end
-
+    
+            find_team_name(team_fewest_tackles)
+        end
+        def find_team_name(team_id)
+            #get the corresponding team name to the team id number in teams...
+        end
     def most_tackles
+        tackles_teams = Hash.new(0)
+        @game_data.each do |game|
+            team_id = game[:team_id]
+
+            tackles_teams[team_id] += game[:tackles].to_i
+        end
+           
+            team_most_tackles = tackles_teams.max_by { |team, tackles| tackles }[0]
+    
+            find_team_name(team_most_tackles)
     end
 end
 
