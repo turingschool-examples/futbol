@@ -6,6 +6,6 @@ class Team
   def initialize(data)
     @team_id = data["team_id"]
     @teamName = data["teamName"]
-    @staduim = data["Stadium"]
+    @stadium = data["Stadium"]
   end
 end
