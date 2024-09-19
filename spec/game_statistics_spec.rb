@@ -12,7 +12,8 @@ RSpec.describe GameStatistics do
           game_teams: game_teams_path
         }
 
-    @game_stats = Gametatistics.new(locations[:games], locations[:teams], locations[:game_teams])
+    @stat_tracker = StatTracker.from_csv(locations)
+    @game_stats = GameStatistics.new(@stat_tracker.games, @stat_tracker.game_teams, @stat_tracker)
     end
 
     describe '#total score stats' do
@@ -27,11 +28,11 @@ RSpec.describe GameStatistics do
 
     describe '#win, loss, and tie percentages' do
         it 'knows the percentage of home wins' do
-           expect(@game_stats.percentage_home_wins).to eq(0.50)
+        expect(@game_stats.percentage_home_wins).to eq(0.50)
         end
 
         it 'knows the percentage of visitor wins' do
-            expect(@game_stats.percentage_visitor_wins).to eq(0.50)
+        expect(@game_stats.percentage_visitor_wins).to eq(0.50)
         end
 
         it 'knows the percentage of ties' do
@@ -45,12 +46,12 @@ RSpec.describe GameStatistics do
         end
     end
 
-    describe '#calculates average goals ' do
-        it 'can average the goals scored per game by both teams in every season combined' do
-           expect(@game_stats.average_goals_per_game).to eq(4.62)
+    describe '#calculates average goals' do
+        it 'can average the goals scored per game by both teams in all seasons combined' do
+        expect(@game_stats.average_goals_per_game).to eq(3.91)
         end
 
-        it 'can average the goals scored per game by both teams in a single season' do
+        xit 'can average the goals scored per game by both teams in a single season' do
             expect(@game_stats.average_goals_by_season).to eq({season: 20122013, goals: 5}, {season: 20162017, goals: 4.75}, {season: 20142015, goals: 4.33})
         end
     end

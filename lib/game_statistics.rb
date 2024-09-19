@@ -1,39 +1,53 @@
-class GameStatics
+require 'csv'
+require 'game.rb'
 
-    def initialize(game_data, team_data)
+class GameStatistics
+    attr_reader :game_data,
+                :team_data,
+                :stat_tracker
+
+    def initialize(game_data, team_data, stat_tracker)
         @game_data = game_data
         @team_data = team_data
+        @stat_tracker = stat_tracker
     end
 
-    #def percent_home_wins
-     #   @game_data =
-
-   #end
-
-    def total_score
-        @game_data.map do |game|
-            home_goals = games.home_goals
-            away_goals = game_data.away_goals
-            home_goals + away_goals
-        end
-    end
-
-    def highest_total_score
-        total_score.max
-    end
-
-    def lowest_total_score
-        total_score.min
-    end
-
-    def perecent_home_wins
+    def percentage_home_wins
         total_games = @game_data.size
         home_wins = @game_data.count do |game|
             game.home_goals > game.away_goals
         end
 
-        perecentage = (home_wins.to_f / total_games)
+        perecentage = home_wins.to_f / total_games
         perecentage.round(2)
-        require 'pry'
+    end
+
+    def perecentage_vistor_wins
+        total_games = @game_data.size
+        visitor_wins = @game_data.count do |game|
+            game.away_goals > game.home_goals
+        end
+
+        perecentage = away_wins.to_f / total_games
+        perecentage.round(2)
+    end
+
+    def highest_total_score
+
+    end
+
+    def lowest_total_score
+
+    end
+
+    def average_goals_per_game
+        total_goals = 0
+        games = 0
+        @game_data.each do |game|
+            total_goals += game.away_goals.to_i + game.home_goals.to_i
+            games += 1
+        end
+        average_goals = total_goals / games.to_f
+        average_goals.round(2)
     end
 end
