@@ -17,7 +17,11 @@ class LeagueStatistics
   end
 
   def best_offense
-    team_name(team_avg_goals.max_by { |team_id, avg_goals| avg_goals}[0])
+    team_name(team_avg_goals.max_by { |team_id, avg_goals| avg_goals }[0])
+  end
+
+  def worst_offense
+    team_name(team_avg_goals.min_by { |team_id, avg_goals| avg_goals }[0])
   end
   
   def team_avg_goals
