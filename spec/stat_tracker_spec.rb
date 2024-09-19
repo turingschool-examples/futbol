@@ -183,6 +183,19 @@ RSpec.describe StatTracker do
       }
       expect(@stat_tracker1.team_shot_goal_ratios).to include(expect)
     end
+
+    it 'calculates accuracy ratios for a specific season' do
+      @stat_tracker1.team_shot_goal_ratios('20122013')
+      expect = {
+        "Atlanta United"=>0,
+        "Chicago Fire"=>0,
+        "FC Cincinnati"=>0,
+        "DC United"=>0,
+        "FC Dallas"=>0.32,
+        "Houston Dynamo"=>0.21,
+      }
+      expect(@stat_tracker1.team_shot_goal_ratios('20122013')).to include(expect)
+    end
   end
 
   describe '#most_accurate_team' do
@@ -190,12 +203,24 @@ RSpec.describe StatTracker do
       @stat_tracker1.most_accurate_team
       expect(@stat_tracker1.most_accurate_team).to eq("FC Dallas")
     end
+
+    it 'shows most accurate team in the season' do
+      @stat_tracker1.most_accurate_team('20122013')
+      expect(@stat_tracker1.most_accurate_team('20122013')).to eq("FC Dallas")
+    end
   end
 
   describe '#least_accurate_team' do
     it 'shows the team with the lowest goal average' do
       @stat_tracker1.least_accurate_team
       expect(@stat_tracker1.least_accurate_team).to eq("Atlanta United")
+    end
+  end
+
+  describe '#least_accurate_team by season' do
+    it 'shows least accurate team in the season' do
+      @stat_tracker1.least_accurate_team('20122013')
+      expect(@stat_tracker1.least_accurate_team('20122013')).to eq("Atlanta United")
     end
   end
 end
