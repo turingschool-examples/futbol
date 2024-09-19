@@ -282,4 +282,22 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.team_info('9')).to eq(expected)
     end
   end
+
+  describe '#fewest_goals_scored' do
+    it 'can return the fewest amount of goals scored if there is only one' do
+      expect(true).to eq(false)
+    end
+    it 'can return the fewest amount of goals scored if there are multiple' do
+      expect(true).to eq(false)
+    end
+  end
+
+  describe '#most_goals_scored' do
+    it 'can return the most amount of goals scored if there is only one' do
+      expect(true).to eq(false)
+    end
+    it 'can return the most amount of goals scored if there are multiple' do
+      expect(true).to eq(false)
+    end
+  end
 end

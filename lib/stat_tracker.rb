@@ -324,4 +324,10 @@ class StatTracker
       :link => team.link
     }
   end
+
+  def most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+  end
 end
