@@ -324,6 +324,22 @@ class StatTracker
       :link => team.link
     }
   end
+  
+  def average_win_percentage(team_id)
+    wins = 0
+    games = 0
+    @all_games.count do |game| 
+      if team_id.to_s == game.home_team_id
+          games += 1
+          wins += 1 if game.home_goals > game.away_goals
+        elsif team_id.to_s == game.away_team_id
+          games += 1
+          wins += 1 if game.away_goals > game.home_goals
+        end
+      end
+    wins > 0 ? ((wins.to_f / games)).to_f.round(2) : 0
+  end
+
 
   def most_goals_scored(team_id)
   end

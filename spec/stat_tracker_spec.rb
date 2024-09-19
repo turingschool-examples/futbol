@@ -283,6 +283,14 @@ RSpec.describe StatTracker do
     end
   end
 
+  describe '#average_win_percentage' do
+    it 'can calculate the average win percentage for a team over all games' do
+      expect(@stat_tracker1.average_win_percentage(19)).to eq(0.5)
+      expect(@stat_tracker1.average_win_percentage('19')).to eq(0.5)
+      expect(@stat_tracker1.average_win_percentage(9)).to eq(0.6) #has a tie 3wins 5 games
+    end
+  end
+
   describe '#fewest_goals_scored' do
     it 'can return the fewest amount of goals scored if there is only one' do
       expect(@stat_tracker1.fewest_goals_scored(16)).to eq(0)
