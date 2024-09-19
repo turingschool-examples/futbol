@@ -1,7 +1,7 @@
 require 'csv'
 require 'game.rb'
 
-class GameStatics
+class GameStatistics
 
     def initialize(game_data, team_data)
         @game_data = game_data
@@ -22,5 +22,9 @@ class GameStatics
 
     def lowest_total_score
 
+    end
+
+    def average_goals_per_game
+        binding.pry
     end
 end
