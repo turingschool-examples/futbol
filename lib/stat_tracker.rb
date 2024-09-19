@@ -302,4 +302,12 @@ class StatTracker
         result[team.teamName] = team_tackles[team_id]
       end
   end
+
+  def most_tackles(season = nil)
+    team_tackle_total(season).max_by { |team_name, tackles| tackles}.first
+  end
+
+  def fewest_tackles(season = nil)
+    team_tackle_total(season).min_by { |team_name, tackles| tackles}.first
+  end
 end
