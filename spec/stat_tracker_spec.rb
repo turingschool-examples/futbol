@@ -262,4 +262,8 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.fewest_tackles('20122013')).to eq("Atlanta United")
     end
   end
+
+  describe '#count_teams' do 
+    expect(@stat_tracker1.count_of_teams).to eq(29)
+  end
 end
