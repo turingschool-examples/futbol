@@ -29,6 +29,16 @@ class LeagueStatistics
      team_id = team_avg_goals.min_by { |team_id, avg_goals| avg_goals}[0]
     @stat_tracker.team_name(team_id)
   end
+
+  def highest_scoring_visitor
+    team_id = team_avg_goals_as_visitor.max_by { |team_id, avg_goals| avg_goals }[0]
+    @stat_tracker.team_name(team_id)
+  end
+
+  def lowest_scoring_visitor
+    team_id = team_avg_goals_as_visitor.min_by { |team_id, avg_goals| avg_goals }[0]
+    @stat_tracker.team_name(team_id)
+  end
   
   def team_avg_goals
     total_goals_by_team = Hash.new(0)
@@ -43,6 +53,20 @@ class LeagueStatistics
     total_goals_by_team.transform_values do |total_goals|
       team_id = total_games_by_team.key(total_goals)
       total_goals.to_f / total_games_by_team[team_id]
+    end
+  end
+
+  def team_avg_goals_as_visitor
+    total_goals_by_team = Hash.new(0)
+    total_games_by_team = Hash.new(0)
+
+    @games.each do |game|
+      total_goals_by_team[game.away_team_id] += game.away_goals.to_i
+      total_games_by_team[game.away_team_id] += 1
+    end
+
+    total_goals_by_team.transform_values do |total_goals|
+      total_goals.to_f / total_games_by_team[total_goals]
     end
   end
 
