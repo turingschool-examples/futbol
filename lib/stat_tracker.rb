@@ -352,5 +352,12 @@ class StatTracker
   end
 
   def fewest_goals_scored(team_id)
+    fewest_goals = Float::INFINITY
+    all_game_teams.each do |game_team|
+      if game_team.team_id == team_id.to_s && game_team.goals < fewest_goals
+        fewest_goals = game_team.goals
+      end
+    end
+    fewest_goals
   end
 end
