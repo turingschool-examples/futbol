@@ -272,13 +272,14 @@ RSpec.describe StatTracker do
   describe '#team_info' do
     it 'can generate a hash of team info' do
       expected = {
-        :team_id => 9,
-        :franchiseid => 30,
+        :team_id => '9',
+        :franchiseid => '30',
         :team_name => 'New York City FC',
         :abbreviation => 'NYC',
         :link => '/api/v1/teams/9'
       }
-      expect(stat_tracker1.team_info(9)).to eq(expected)
+      expect(@stat_tracker1.team_info(9)).to eq(expected)
+      #expect(@stat_tracker1.team_info('9')).to eq(expected)
     end
   end
 end
