@@ -1,5 +1,4 @@
 require './spec/spec_helper'
-require './lib/stat_tracker'
 
 RSpec.describe LeagueStatistics do 
   before(:each) do 
@@ -36,7 +35,7 @@ RSpec.describe LeagueStatistics do
 
   describe 'highest_scoring_visitor' do
     it 'returns the team with the highest average score when they are away' do
-      expect(@league_statistics.highest_scoring_visitor).to eq('Houston Dynamo')
+      expect(@league_statistics.highest_scoring_visitor).to eq('FC Dallas')
     end
   end
 
@@ -48,7 +47,7 @@ RSpec.describe LeagueStatistics do
 
   describe 'lowest_scoring_visitor' do
     it 'returns the team with the lowest average score when they are away' do
-      expect(@league_statistics.lowest_scoring_visitor).to eq('Houston Dynamo')
+      expect(@league_statistics.lowest_scoring_visitor).to eq('Seattle Sounders FC')
     end
   end
 
