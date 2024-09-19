@@ -264,36 +264,34 @@ class StatTracker
     lowest_scoring=home_calculate_average_goals_per_team.min
     find_team_name(lowest_scoring[0])
   end
-  
-  def winningest_coach(season)
 
-  end
+  # def worst_coach(season)
+  # end
 
-  def worst_coach(season)
-  end
-
-  def coach_records
+  def winningest_coach(game.season)
     # Returns a nested hash of information with the coach's name as the outer hash 
     # The inner has has total games => qty and wins => qty
     coach_records = {}
 
-    game_teams.each do |game|
+    @game_teams.each do |game|
+      next unless @game.season == season
+      
       coach = game.head_coach
-    result = game.result 
+      result = game.result 
 
-    coach_records[coach] ||= { wins: 0, total_games: 0 }
-    coach_records[coach][:total_games] += 1
-    coach_records[coach][:wins] += 1 if result == "WIN"
-    end
-    coach_records
-  end
+      coach_records[coach] ||= { wins: 0, total_games: 0 }
+      coach_records[coach][:total_games] += 1
+      coach_records[coach][:wins] += 1 if result == "WIN"
 
-  def coach_win_percentage
+      end
+
     win_percentages = {}
       
     coach_records.each do |coach, record|
       win_percentages[coach] = record[:wins].to_f / record[:total_games]
     end
+
+    win_percentages.max_by { |coach, percentage|
+      percentage }.first
   end
-  
 end
