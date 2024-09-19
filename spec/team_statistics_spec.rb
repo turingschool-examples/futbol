@@ -12,4 +12,4 @@ RSpec.describe TeamStatistics do
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @team_statistics = TeamStatistics.new(@stat_tracker.teams, @stat_tracker)
+    @team_statistics = TeamStatistics.new(@stat_tracker.teams, @stat_tracker.games, @stat_tracker)
