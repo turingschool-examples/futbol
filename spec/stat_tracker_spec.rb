@@ -293,5 +293,6 @@ RSpec.describe StatTracker do
 
   describe '#worst loss do' do
     expect(@stat_tracker1.worst_loss(3)).to eq(2)
+    expect(@stat_tracker1.worst_loss(6)).to eq(0)
   end
 end
