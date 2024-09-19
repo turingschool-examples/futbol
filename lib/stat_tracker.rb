@@ -170,8 +170,6 @@ class StatTracker
     end
   end
 
-
-
   def highest_total_score
     scores = @all_games.map do |game|
       game.home_goals + game.away_goals
@@ -225,7 +223,6 @@ class StatTracker
     end
     all_home_scores.min_by{|team,goals| goals}.first.teamName
   end
-
 
   def coach_win_percentages(season)
     coach_games = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0}}
@@ -301,6 +298,10 @@ class StatTracker
         team_id = team.team_id
         result[team.teamName] = team_tackles[team_id]
       end
+  end
+
+  def count_of_teams
+    @all_game_teams.length
   end
 
   def most_tackles(season = nil)
