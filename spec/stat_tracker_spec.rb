@@ -290,4 +290,8 @@ RSpec.describe StatTracker do
       expect(@stat_tracker1.average_win_percentage(9)).to eq(0.6) #has a tie 3wins 5 games
     end
   end
+
+  describe '#worst loss do' do
+    expect(@stat_tracker1.worst_loss(3)).to eq(2)
+  end
 end
