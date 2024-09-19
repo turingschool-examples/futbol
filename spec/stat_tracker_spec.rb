@@ -171,7 +171,6 @@ RSpec.describe StatTracker do
 
   describe '#team_shot_goal_ratio' do
     it 'calculates accuracy ratio of a team' do
-      @stat_tracker1.team_shot_goal_ratios
       expect = {
         "Atlanta United"=>0,
         "Chicago Fire"=>0,
@@ -185,7 +184,6 @@ RSpec.describe StatTracker do
     end
 
     it 'calculates accuracy ratios for a specific season' do
-      @stat_tracker1.team_shot_goal_ratios('20122013')
       expect = {
         "Atlanta United"=>0,
         "Chicago Fire"=>0,
@@ -200,27 +198,68 @@ RSpec.describe StatTracker do
 
   describe '#most_accurate_team' do
     it 'shows the team with the highest goal average' do
-      @stat_tracker1.most_accurate_team
       expect(@stat_tracker1.most_accurate_team).to eq("FC Dallas")
     end
 
     it 'shows most accurate team in the season' do
-      @stat_tracker1.most_accurate_team('20122013')
       expect(@stat_tracker1.most_accurate_team('20122013')).to eq("FC Dallas")
     end
   end
 
   describe '#least_accurate_team' do
     it 'shows the team with the lowest goal average' do
-      @stat_tracker1.least_accurate_team
       expect(@stat_tracker1.least_accurate_team).to eq("Atlanta United")
     end
   end
 
   describe '#least_accurate_team by season' do
     it 'shows least accurate team in the season' do
-      @stat_tracker1.least_accurate_team('20122013')
       expect(@stat_tracker1.least_accurate_team('20122013')).to eq("Atlanta United")
+    end
+  end
+
+  describe '#team_tackle_total' do
+    it 'makes a list of teams with tackle scores' do
+      expect = {
+        "Atlanta United"=>0,
+        "Chicago Fire"=>0,
+        "FC Cincinnati"=>0,
+        "DC United"=>0,
+        "FC Dallas"=>271,
+        "Houston Dynamo"=>179
+    }
+      expect(@stat_tracker1.team_tackle_total).to include(expect)
+    end
+
+    it 'makes a list of team tackles by season' do
+      expect = {
+        "Atlanta United"=>0,
+        "Chicago Fire"=>0,
+        "FC Cincinnati"=>0,
+        "DC United"=>0,
+        "FC Dallas"=>271,
+      }
+      expect(@stat_tracker1.team_tackle_total('20122013')).to include(expect)
+    end
+  end
+
+  describe '#most_tackles' do
+    it 'shows the team with the most tackles' do
+      expect(@stat_tracker1.most_tackles).to eq("FC Dallas")
+    end
+
+    it 'shows the team with the most tackles of the season' do
+      expect(@stat_tracker1.most_tackles('20122013')).to eq("FC Dallas")
+    end
+  end
+
+  describe '#fewest_tackles' do
+    it 'shows the team with the fewest tackles' do
+      expect(@stat_tracker1.fewest_tackles).to eq("Atlanta United")
+    end
+
+    it 'shows the team with the fewest tackles of the season' do
+      expect(@stat_tracker1.fewest_tackles('20122013')).to eq("Atlanta United")
     end
   end
 end

@@ -287,4 +287,27 @@ class StatTracker
     team_ratios = team_shot_goal_ratios(season)
     team_shot_goal_ratios.min_by {|team_name, ratio| ratio }.first
   end
+
+  def team_tackle_total(season = nil)
+    team_tackles = Hash.new(0)
+
+    @all_game_teams.each do |game_team|
+      game = @all_games.find { |g| g.game_id == game_team.game_id }
+      next if season && game.season != season.to_s
+
+      team_tackles[game_team.team_id] += game_team.tackles.to_i
+    end
+      @all_teams.each_with_object({}) do |team, result|
+        team_id = team.team_id
+        result[team.teamName] = team_tackles[team_id]
+      end
+  end
+
+  def most_tackles(season = nil)
+    team_tackle_total(season).max_by { |team_name, tackles| tackles}.first
+  end
+
+  def fewest_tackles(season = nil)
+    team_tackle_total(season).min_by { |team_name, tackles| tackles}.first
+  end
 end
