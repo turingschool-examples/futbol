@@ -12,7 +12,8 @@ RSpec.describe GameStatistics do
           game_teams: game_teams_path
         }
 
-    @game_stats = GameStatistics.new(locations[:games], locations[:teams])
+    @stat_tracker = StatTracker.from_csv(locations)
+    @game_stats = GameStatistics.new(@stat_tracker.games, @stat_tracker.game_teams, @stat_tracker)
     end
 
     describe '#total score stats' do
