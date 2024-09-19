@@ -340,7 +340,6 @@ class StatTracker
     wins > 0 ? ((wins.to_f / games)).to_f.round(2) : 0
   end
 
-
   def most_goals_scored(team_id)
     most_goals = 0
     all_game_teams.each do |game_team|
