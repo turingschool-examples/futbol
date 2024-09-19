@@ -312,6 +312,19 @@ class StatTracker
     team_tackle_total(season).min_by { |team_name, tackles| tackles}.first
   end
 
+  def team_info(team_id)
+    team = all_teams.find do |team|
+      team.team_id == team_id.to_s
+    end
+    team_info = {
+      :team_id => team.team_id,
+      :franchiseid => team.franchise_id,
+      :team_name => team.teamName,
+      :abbreviation => team.abbreviation,
+      :link => team.link
+    }
+  end
+
   def average_win_percentage(team_id)
     wins = 0
     games = 0
