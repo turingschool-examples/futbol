@@ -23,4 +23,9 @@ class GameStatics
     def lowest_total_score
 
     end
+    
+    def average_goals_by_season
+    
+    
+    
 end
