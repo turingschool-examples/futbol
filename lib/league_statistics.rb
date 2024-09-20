@@ -16,9 +16,9 @@ class LeagueStatistics
     @stat_tracker = stat_tracker
   end
 
-  # def count_of_teams
-  #   @teams.size
-  # end
+  def count_of_teams
+    @game_teams.map(&:team_id).uniq.count
+  end
 
   def best_offense
     team_id = team_avg_goals.max_by { |team_id, avg_goals| avg_goals}[0]
@@ -96,5 +96,16 @@ class LeagueStatistics
 
   def highest_scoring_home_team
     @stat_tracker.team_name(highest_scoring_home_team_id)
+  end
+  
+  def lowest_scoring_home_team_id
+     home_games.min_by do |game_team| 
+      id = game_team.team_id
+      total_home_score(id) / total_home_games(id)
+    end.team_id
+  end
+
+  def lowest_scoring_home_team
+    @stat_tracker.team_name(lowest_scoring_home_team_id)
   end
 end

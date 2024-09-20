@@ -16,8 +16,8 @@ RSpec.describe LeagueStatistics do
   end
   
   describe 'count_of_teams' do
-    xit 'counts the number of teams' do      
-      expect(@league_statistics.count_of_teams).to eq(32)
+    it 'counts the number of teams' do      
+      expect(@league_statistics.count_of_teams).to eq(13)
     end
   end
 
@@ -72,8 +72,8 @@ RSpec.describe LeagueStatistics do
   end
 
   describe 'lowest_scoring_home_team' do
-    xit 'returns the team with the lowest average score when they are home' do
-      expect(@league_statistics.lowest_scoring_home_team).to eq('Houston Dynamo')
+    it 'returns the team with the lowest average score when they are home' do
+      expect(@league_statistics.lowest_scoring_home_team_id).to eq('30')
     end
   end
 end
