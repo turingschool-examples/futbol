@@ -1,11 +1,11 @@
 class SeasonStatistics
+    attr_reader :game_data,
+                :team_data
 
     def initialize(game_data, team_data)
         @game_data = game_data
         @team_data = team_data
     end
-
-
 
     def most_accurate_team
        goals = Hash.new(0)
@@ -27,8 +27,6 @@ class SeasonStatistics
         (goals.to_f / shots) * 100
     end
 
-
-
     def least_accurate_team
         goals = Hash.new(0)
         shots = Hash.new(0)
@@ -42,9 +40,7 @@ class SeasonStatistics
          accuracy(goals[team_id], shots[team_id])#calculates accuracy for each team and then finds most accurate
         end
  
-        find_team_name(least_accurate_team_id_accurate_team_id)
-     end
- 
+        find_team_name(least_accurate_team_id_accurate_team_id) 
     end
 
     def winningest_coach
@@ -64,17 +60,12 @@ class SeasonStatistics
         end
 
             highest_percentage_coach
-        end
+    end
            
-        def win_percentage(wins, total)
-            return 0 if total == 0
-            (wins.to_f / total) * 100
-          end
-
-         
-      
-
-  
+    def win_percentage(wins, total)
+        return 0 if total == 0
+        (wins.to_f / total) * 100
+    end
 
     def worst_coach
         total_games = Hash.new(0)
@@ -91,7 +82,7 @@ class SeasonStatistics
         end
             lowest_percentage_coach
 
-     end
+    end
      #we must make dummycsv's smaller so we can actually write these and predict the outcomes ouselves
 
     def fewest_tackles
@@ -105,10 +96,12 @@ class SeasonStatistics
             team_fewest_tackles = tackles_teams.min_by { |team, tackles| tackles }[0]
     
             find_team_name(team_fewest_tackles)
-        end
-        def find_team_name(team_id)
+    end
+
+    def find_team_name(team_id)
             #get the corresponding team name to the team id number in teams...
-        end
+    end
+    
     def most_tackles
         tackles_teams = Hash.new(0)
         @game_data.each do |game|
@@ -122,13 +115,3 @@ class SeasonStatistics
             find_team_name(team_most_tackles)
     end
 end
-
-#for stattracker
-# class StatTracker
-
-#     def self.from_csv(locations)
-#         StatTracker.new(locations)
-#     end
-
-#     def initialize(locations)
-        
