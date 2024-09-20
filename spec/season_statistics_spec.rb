@@ -13,7 +13,7 @@ RSpec.describe SeasonStatistics do
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @season_stats = SeasonStatistics.new(@stat_tracker.games, @stat_tracker.game_teams, @stat_tracker.teams, @stat_tracker)
+    @season_stats = SeasonStatistics.new(@stat_tracker.games, @stat_tracker.teams, @stat_tracker.game_teams, @stat_tracker)
   end
 
   describe '#coach stats' do
@@ -22,29 +22,29 @@ RSpec.describe SeasonStatistics do
       expect(@season_stats.winningest_coach).to eq('Claude Julien')
     end
 
-    xit 'knows the worst coach' do
+    it 'knows the worst coach' do
      
       expect(@season_stats.worst_coach).to eq('John Tortorella')
     end
   end
 
   describe '#accuracy stats' do
-    xit 'knows the most accurate team' do
-      expect(@season_stats.most_accurate_team).to eq('FC Dallas')
+    it 'knows the most accurate team' do
+      expect(@season_stats.most_accurate_team).to eq("New York City FC")
     end
 
-    xit 'knows the least accurate team' do
+    it 'knows the least accurate team' do
       expect(@season_stats.least_accurate_team).to eq('Houston Dynamo')
     end
   end
 
   describe '#tackle stats' do
-    xit 'knows the team with the most tackles' do
+    it 'knows the team with the most tackles' do
       expect(@season_stats.most_tackles).to eq('Houston Dynamo')
     end
 
-    xit 'knows the team with the fewest tackles' do
-      expect(@season_stats.fewest_tackles).to eq('FC Dallas')
+    it 'knows the team with the fewest tackles' do
+      expect(@season_stats.fewest_tackles).to eq("Portland Timbers")
     end
   end
 end
