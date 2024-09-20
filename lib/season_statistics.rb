@@ -116,7 +116,7 @@ class SeasonStatistics
   
     def team_name(team_id)
       team = @teams.find { |team| team.team_id == team_id }
-      team.teamName
+      team.team_name
     end
  
 end
