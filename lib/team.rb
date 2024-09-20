@@ -1,11 +1,11 @@
 class Team
   attr_reader :team_id,
-              :teamName,
+              :team_name,
               :Stadium
  
   def initialize(data)
     @team_id = data["team_id"]
-    @teamName = data["teamName"]
+    @team_name = data["teamName"]
     @stadium = data["Stadium"]
   end
 end
