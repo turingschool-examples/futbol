@@ -9,6 +9,7 @@
 - Using GitHib Projects
     - Systematically assign and track progrss
 - The project will be organized into the following phases: Planning, Development, Testing, and Review
+- When off track our team was able to get back on track with a few instructor lessons
 
 ## Approaches Discussed
 
@@ -25,7 +26,8 @@
 
 ## DTR Documents
 
-- [Initial DTR Document](https://docs.google.com/document/d/12fh4kkmPvBLDBaC1uzkeOf6Ad5dHzYg0ZLll8TGlCQg/edit) - Completed on [16SEP2024]
+- [Initial DTR Document](https://docs.google.com/document/d/12fh4kkmPvBLDBaC1uzkeOf6Ad5dHzYg0ZLll8TGlCQg/edit) - Updated on [19SEP2024]
+
 
 ## Contributors
 
