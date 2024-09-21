@@ -44,4 +44,11 @@ class TeamStatistics
         end
         goals
     end
+
+    def worst_loss(team_id)
+        gameswithteam = []
+        @games.each do game 
+            if team_id == (home_team_id || away_team_id)
+
+
 end
