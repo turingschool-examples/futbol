@@ -77,6 +77,11 @@ class TeamStatistics
     def team_name(team_id)
         @teams.find { |team| team.team_id == team_id }.team_name
     end
-        
-        
+
+    def favorite_opponent(team_id)
+       head_to_head_results = head_to_head(team_id)
+       highest_win_percentage = head_to_head_results.values.max_by { |record| record[:highest_win_percentage]}
+       favorite = head_to_head_results.key(highest_win_percentage)
+       favorite
+    end 
 end
