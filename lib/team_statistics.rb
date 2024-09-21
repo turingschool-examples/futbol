@@ -87,14 +87,14 @@ class TeamStatistics
     def team_info(team_id)
             @teams.each do |team| 
             if team_id == team.team_id
-                team_info_hash.update({team_id: team.team_id, 
+                @team_info_hash.update({team_id: team.team_id, 
                                     franchiseId: team.franchiseId,
                                     team_name: team.team_name,
                                     abbreviation: team.abbreviation,
                                     link: team.link})
             end
         end
-        team_info_hash
+        @team_info_hash
     end                             
 
  end
