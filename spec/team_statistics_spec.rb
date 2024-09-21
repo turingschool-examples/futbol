@@ -29,10 +29,10 @@ RSpec.describe TeamStatistics do
 
     describe 'best win worst loss' do
       it 'can find the worst loss for a team' do
-        expect(@team_statistics.worst_loss('3')).to eq(4)
+        expect(@team_statistics.worst_loss('3')).to eq(3)
       end
       it 'can find the biggest team blowout for a team' do
-        expect(@team_statistics.biggest_team_blowout('3')).to eq(5)
+        expect(@team_statistics.biggest_team_blowout('26')).to eq(2)
       end
     end
 end

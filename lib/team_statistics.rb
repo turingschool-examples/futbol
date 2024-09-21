@@ -46,9 +46,41 @@ class TeamStatistics
     end
 
     def worst_loss(team_id)
-        gameswithteam = []
-        @games.each do game 
-            if team_id == (home_team_id || away_team_id)
+        max_loss = 0
+    @games.each do |game|
+      if game.away_team_id == team_id
+        loss_margin = game.home_goals.to_i - game.away_goals.to_i
+        max_loss = loss_margin if loss_margin > max_loss
+      end
+      #if the away team is the selected team, get the loss margin and if 
+      #it is the worst one so far, put it as the value of max_loss, until all 
+      #examples have been looked at
+
+      if game.home_team_id == team_id
+        loss_margin = game.away_goals.to_i - game.home_goals.to_i
+        max_loss = loss_margin if loss_margin > max_loss
+      end
+    end
+    max_loss
+  end
+        
+    
 
 
-end
+    def biggest_team_blowout(team_id)
+        max_blowout = 0
+    @games.each do |game|
+      if game.away_team_id == team_id
+        blowout_margin = game.away_goals.to_i - game.home_goals.to_i
+        max_blowout = blowout_margin if blowout_margin > max_blowout
+      end
+
+      if game.home_team_id == team_id
+        blowout_margin = game.home_goals.to_i - game.away_goals.to_i
+        max_blowout = blowout_margin if blowout_margin > max_blowout
+      end
+    end
+    max_blowout
+  end
+
+ end
