@@ -34,6 +34,12 @@ RSpec.describe TeamStatistics do
       end
     end
 
+    describe '#favorite opponent' do
+      it 'can return the opponent with the lowest win percentage'do
+        expect(@team_statistics.favorite_opponent("5")).to eq(0.5)
+      end
+    end
+
     describe 'best win worst loss' do
       it 'can find the worst loss for a team' do
         expect(@team_statistics.worst_loss('3')).to eq(3)
@@ -50,8 +56,4 @@ RSpec.describe TeamStatistics do
       expect(@team_statistics.team_info(9)).to eq('arnold')
     end
   end
-    # describe '#seasonal summary' do
-    #   it 
-  
-    # end
 end
