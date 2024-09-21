@@ -26,6 +26,13 @@ RSpec.describe TeamStatistics do
         expect(@team_statistics.fewest_goals_scored("5")).to eq(0)
       end
     end
+  
+  describe '#head to head' do
+      it 'gives a win percentage against opponents' do        
+        houston_record = @team_statistics.head_to_head('6')["Houston Dynamo"]
+        expect(houston_record).to eq({wins: 5, losses: 0})
+      end
+    end
 
     describe 'best win worst loss' do
       it 'can find the worst loss for a team' do
@@ -43,4 +50,8 @@ RSpec.describe TeamStatistics do
       expect(@team_statistics.team_info(9)).to eq('arnold')
     end
   end
+    # describe '#seasonal summary' do
+    #   it 
+  
+    # end
 end
