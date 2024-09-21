@@ -3,10 +3,13 @@ class TeamStatistics
                 :stat_tracker,
                 :games
 
+    attr_accessor :team_info_hash
+
     def initialize(teams,games, stat_tracker)
         @teams = teams
         @games = games
         @stat_tracker = stat_tracker
+        @team_info_hash = {}
     end
 
     def team_name(team_id)
@@ -64,8 +67,6 @@ class TeamStatistics
     max_loss
   end
         
-    
-
 
     def biggest_team_blowout(team_id)
         max_blowout = 0
@@ -82,5 +83,18 @@ class TeamStatistics
     end
     max_blowout
   end
+
+    def team_info(team_id)
+            @teams.each do |team| 
+            if team_id == team.team_id
+                team_info_hash.update({team_id: team.team_id, 
+                                    franchiseId: team.franchiseId,
+                                    team_name: team.team_name,
+                                    abbreviation: team.abbreviation,
+                                    link: team.link})
+            end
+        end
+        team_info_hash
+    end                             
 
  end

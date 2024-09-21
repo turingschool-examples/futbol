@@ -35,4 +35,12 @@ RSpec.describe TeamStatistics do
         expect(@team_statistics.biggest_team_blowout('26')).to eq(2)
       end
     end
+
+    describe 'team information' do
+    it 'has team info' do
+      expect(@team_statistics.team_info(3)).to be_a(Hash)
+
+      expect(@team_statistics.team_info(9)).to eq('arnold')
+    end
+  end
 end
