@@ -34,6 +34,12 @@ RSpec.describe TeamStatistics do
       end
     end
 
+    describe '#rival' do
+      it 'returns opponent with highest win percentage against' do
+        expect(@team_statistics.rival('6')).to eq("Houston Dynamo")
+      end
+    end
+
     # describe '#seasonal summary' do
     #   it 
   
