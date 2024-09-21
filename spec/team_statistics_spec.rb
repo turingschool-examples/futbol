@@ -26,6 +26,12 @@ RSpec.describe TeamStatistics do
         expect(@team_statistics.fewest_goals_scored("5")).to eq(0)
       end
     end
+
+    describe 'worst season' do
+      it 'can identify worst season' do
+        expect(@team_statistics.worst_season).to eq("20122013")
+      end
+    end
   
   describe '#head to head' do
       it 'gives a win percentage against opponents' do        
