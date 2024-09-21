@@ -30,7 +30,13 @@ RSpec.describe TeamStatistics do
   describe '#head to head' do
       it 'gives a win percentage against opponents' do        
         houston_record = @team_statistics.head_to_head('6')["Houston Dynamo"]
-        expect(houston_record).to eq({wins: 5, losses: 0})
+        expect(houston_record).to eq({wins: 5, losses: 0, win_percentage: 1.0})
+      end
+    end
+
+    describe '#rival' do
+      it 'returns opponent with highest win percentage against' do
+        expect(@team_statistics.rival('6')).to eq("Houston Dynamo")
       end
     end
 
