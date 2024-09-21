@@ -33,7 +33,7 @@ class SeasonStatistics
 
     end
   
-    def winningest_coach
+    def winningest_coach; end
 
     def most_tackles
       tackles_teams = Hash.new(0)

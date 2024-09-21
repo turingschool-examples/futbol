@@ -24,10 +24,13 @@
 - We will use consistent naming conventions and adhere to design patterns to maintain code clarity and manageability.
 - Our initial apprach was to create all the tests, then create classes that would allow the tests to pass
 
-## DTR Documents
+## Shareable Documents
 
 - [Initial DTR Document](https://docs.google.com/document/d/12fh4kkmPvBLDBaC1uzkeOf6Ad5dHzYg0ZLll8TGlCQg/edit) - Updated on [19SEP2024]
 
+- [Retro Document](https://app.mural.co/t/stattracker1257/m/stattracker1257/1726773379888/56f126cf86ecd645d0d87ec4c688138cfec9ee58?sender=udf746af35888b967f4ad3181)
+
+-[GitHub Backlog](https://app.mural.co/t/stattracker1257/m/stattracker1257/1726773379888/56f126cf86ecd645d0d87ec4c688138cfec9ee58?sender=udf746af35888b967f4ad3181)
 
 ## Contributors
 
