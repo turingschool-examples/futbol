@@ -75,6 +75,13 @@ class TeamStatistics
         results
     end
 
+    def rival(team_id)
+        head_to_head_results = head_to_head(team_id)
+        lowest_win_percentage = head_to_head_results.values.min_by { |record| record[:win_percentage] }
+        rival = head_to_head_results.key(lowest_win_percentage)
+        rival
+    end
+
     def team_name(team_id)
         @teams.find { |team| team.team_id == team_id }.team_name
     end       
