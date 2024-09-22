@@ -133,20 +133,16 @@ class TeamStatistics
 
     def team_info(team_id)
         team_info_hash = {}  
-
-    #  @teams.each do |team| 
-       team = @teams.find { |team| team.team_id == team_id }
-        #   if team.team_id == team_id
+       idteam = @teams.find { |team| team.team_id == team_id }
+      
             team_info_hash = {  
-                team_id: team.team_id, 
-                franchise_id: team.franchiseId,
-                team_name: team.team_name,
-                abbreviation: team.abbreviation,
-                link: team.link 
+                team_id: idteam.team_id, 
+                franchise_id: idteam.franchise_id,
+                team_name: idteam.team_name,
+                abbreviation: idteam.abbreviation,
+                link: idteam.link 
                 }
-    #      end
-    #  end
-    # binding.pry
+   
         team_info_hash
     end                
 end
