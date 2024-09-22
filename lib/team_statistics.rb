@@ -9,7 +9,7 @@ class TeamStatistics
         @teams = teams
         @games = games
         @stat_tracker = stat_tracker
-        @team_info_hash = {}
+       
     end
 
     def team_name(team_id)
@@ -132,15 +132,17 @@ class TeamStatistics
   end
 
     def team_info(team_id)
-            @teams.each do |team| 
-            if team_id == team.team_id
-                @team_info_hash.update({team_id: team.team_id, 
-                                    franchiseId: team.franchiseId,
-                                    team_name: team.team_name,
-                                    abbreviation: team.abbreviation,
-                                    link: team.link})
-            end
-        end
-        @team_info_hash
-    end                             
+        team_info_hash = {}  
+       idteam = @teams.find { |team| team.team_id == team_id }
+      
+            team_info_hash = {  
+                team_id: idteam.team_id, 
+                franchise_id: idteam.franchise_id,
+                team_name: idteam.team_name,
+                abbreviation: idteam.abbreviation,
+                link: idteam.link 
+                }
+   
+        team_info_hash
+    end                
 end

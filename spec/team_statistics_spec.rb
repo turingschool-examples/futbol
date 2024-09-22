@@ -57,9 +57,9 @@ RSpec.describe TeamStatistics do
 
     describe 'team information' do
     it 'has team info' do
-      expect(@team_statistics.team_info(3)).to be_a(Hash)
+      expect(@team_statistics.team_info('3')).to be_a(Hash)
 
-      expect(@team_statistics.team_info(9)).to eq('arnold')
+      expect(@team_statistics.team_info('1')).to eq({:abbreviation=>"ATL", :franchise_id=>"23", :link=>"/api/v1/teams/1", :team_id=>"1", :team_name=>"Atlanta United"})
     end
   end
 end
