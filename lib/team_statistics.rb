@@ -85,13 +85,11 @@ class TeamStatistics
       lowest_win_percentage = head_to_head_results.values.min_by { |record| record[:win_percentage] }
       rival = head_to_head_results.key(lowest_win_percentage)
       rival
-  end
-
-  
+  end  
 
   def favorite_opponent(team_id)
      head_to_head_results = head_to_head(team_id)    
-     highest_win_percentage = head_to_head_results.values.max_by { |record| record[:highest_win_percentage]}
+     highest_win_percentage = head_to_head_results.values.max_by { |record| record[:win_percentage]}
      favorite =  head_to_head_results.key(highest_win_percentage)
      favorite     
   end 
