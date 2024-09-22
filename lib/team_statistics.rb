@@ -194,4 +194,21 @@ class TeamStatistics
     end
     worst_season[0]
   end
+
+  def best_season(team_id)
+    season_stats = Hash.new {|hash,key| hash[key] = {games_played: 0, wins: 0}}
+    @games.each do |game|
+      next unless game.away_team_id == team_id || game.home_team_id == team_id
+      season = game.season
+      season_stats[season][:games_played]+= 1
+      if (game.away_team_id == team_id && game.away_goals > game.home_goals || 
+         (game.home_team_id == team_id && game.home_goals > game.away_goals))
+         season_stats[season][:wins]+= 1
+      end
+    end
+    best_season = season_stats.max_by do |_, stats|
+      stats[:wins].to_f / stats[:games_played]
+    end
+    best_season[0]
+  end
 end

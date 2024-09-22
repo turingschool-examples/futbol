@@ -27,10 +27,18 @@ RSpec.describe TeamStatistics do
     end
 
     describe 'worst season' do
-      team_id = '15'
+      team_id  = '15'
       expected = '20152016'
       it 'can identify worst season' do
         expect(@team_statistics.worst_season(team_id)).to eq(expected)
+      end
+    end
+
+    describe 'best season' do
+      team_id  = '15'
+      expected = '20122013'
+      it 'can identify best season' do
+        expect(@team_statistics.best_season(team_id)).to eq(expected)
       end
     end
   
