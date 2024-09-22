@@ -28,7 +28,7 @@ class GameStatistics
 
     end
 
-    def average_goals_per_game
+    def average_goals_per_game_id
         total_goals = 0
         games = 0
         @game_data.each do |game|
@@ -39,6 +39,10 @@ class GameStatistics
         average_goals.round(2)
     end
 
+    def average_goals_per_game
+        @stat_tracker.team_name(average_goals_per_game_id)
+    end
+
     def total_goals_by_season
         total_goals = Hash.new(0)
         @game_data.each do |game|
@@ -47,13 +51,18 @@ class GameStatistics
         total_goals
     end
        
-    def average_goals_by_season
+    def average_goals_by_season_id
         average_goals = Hash.new(0)
        total_goals_by_season.each do |season, total_goals|
             average_goals[season] = (total_goals.to_f / count_of_games_by_season[season]).round(2)
        end
        average_goals
     end 
+
+    def average_goals_by_season
+        @stat_tracker.name(average_goals_by_season_id)
+    end
+
 
     def count_of_games_by_season
         count_by_season = Hash.new(0)
