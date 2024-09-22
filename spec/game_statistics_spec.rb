@@ -12,30 +12,30 @@ RSpec.describe GameStatistics do
           game_teams: game_teams_path
         }
 
-    @stat_tracker = StatTracker.from_csv(locations)
-    @game_stats = GameStatistics.new(@stat_tracker.games, @stat_tracker.game_teams, @stat_tracker)
+        @stat_tracker = StatTracker.from_csv(locations)
+        @game_stats = GameStatistics.new(@stat_tracker.games, @stat_tracker.game_teams, @stat_tracker)
     end
 
     describe '#total score stats' do
-        xit 'knows the highest total score' do
-        expect(@game_stats.highest_total_score).to eq(11)
+        it 'knows the highest total score' do
+            expect(@game_stats.highest_total_score).to eq(11)
         end
 
-        xit 'knows the lowest total score' do
-        expect(@game_stats.lowest_total_score).to eq(7)
+        it 'knows the lowest total score' do
+            expect(@game_stats.lowest_total_score).to eq(7)
         end
     end
 
     describe '#win, loss, and tie percentages' do
-        xit 'knows the percentage of home wins' do
-        expect(@game_stats.percentage_home_wins).to eq(0.50)
+        it 'knows the percentage of home wins' do
+            expect(@game_stats.percentage_home_wins).to eq(0.50)
         end
 
-        xit 'knows the percentage of visitor wins' do
-        expect(@game_stats.percentage_visitor_wins).to eq(0.50)
+        it 'knows the percentage of visitor wins' do
+            expect(@game_stats.percentage_visitor_wins).to eq(0.50)
         end
 
-        xit 'knows the percentage of ties' do
+        it 'knows the percentage of ties' do
             expect(@game_stats.percentage_ties).to eq(0.0)
         end
     end
@@ -48,8 +48,8 @@ RSpec.describe GameStatistics do
     end
 
     describe '#calculates average goals' do
-        xit 'can average the goals scored per game by both teams in all seasons combined' do
-        expect(@game_stats.average_goals_per_game).to eq(3.91)
+        it 'can average the goals scored per game by both teams in all seasons combined' do
+            expect(@game_stats.average_goals_per_game).to eq(3.91)
         end
     
 
