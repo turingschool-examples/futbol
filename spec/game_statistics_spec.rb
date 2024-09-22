@@ -49,13 +49,13 @@ RSpec.describe GameStatistics do
 
     describe '#calculates average goals' do
         it 'can average the goals scored per game by both teams in all seasons combined' do
-        expect(@game_stats.average_goals_per_game_id).to eq(3.91)
+        expect(@game_stats.average_goals_per_game).to eq(3.91)
         end
     
 
         it 'can average the goals scored per season' do
             expected = {"20122013"=>3.86, "20162017"=>4.75, "20142015"=>3.75, "20152016"=>3.88, "20132014"=>4.33}
-            expect(@game_stats.average_goals_by_season_id).to eq(expected)
+            expect(@game_stats.average_goals_by_season).to eq(expected)
         end
 
         it 'can total the goals per season' do
