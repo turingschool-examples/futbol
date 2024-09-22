@@ -59,7 +59,7 @@ RSpec.describe TeamStatistics do
     it 'has team info' do
       expect(@team_statistics.team_info(3)).to be_a(Hash)
 
-      expect(@team_statistics.team_info(9)).to eq('arnold')
+      expect(@team_statistics.team_info(1)).to eq('arnold')
     end
   end
 end
