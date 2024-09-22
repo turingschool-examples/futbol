@@ -18,6 +18,7 @@ class TeamStatistics
       @teams[team_id]&.team_name
   end
 
+
   def count_of_teams
       @teams.size
   end
@@ -155,7 +156,7 @@ class TeamStatistics
     end
     wins
   end
-
+  
   def season_losses(team_id)
     losses = 0
     @game_teams.each do |game|
@@ -211,4 +212,19 @@ class TeamStatistics
     end
     best_season[0]
   end
+  
+  def team_info(team_id)
+    team_info_hash = {}  
+    idteam = @teams.find { |team| team.team_id == team_id }
+      
+      team_info_hash = {  
+        team_id: idteam.team_id, 
+        franchise_id: idteam.franchise_id,
+        team_name: idteam.team_name,
+        abbreviation: idteam.abbreviation,
+        link: idteam.link 
+        }
+   
+     team_info_hash
+  end                
 end
