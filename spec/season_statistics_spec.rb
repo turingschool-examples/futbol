@@ -17,8 +17,7 @@ RSpec.describe SeasonStatistics do
   end
 
   describe '#coach stats' do
-    it 'knows the winningest coach' do
-     
+    it 'knows the winningest coach' do     
       expect(@season_stats.winningest_coach(20122013)).to eq('Claude Julien')
     end
 
