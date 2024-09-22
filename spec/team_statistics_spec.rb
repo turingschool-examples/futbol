@@ -13,10 +13,9 @@ RSpec.describe TeamStatistics do
     }
 
     @stat_tracker = StatTracker.from_csv(locations)
-    @team_statistics = TeamStatistics.new(@stat_tracker.teams, @stat_tracker.games, @stat_tracker)
+    @team_statistics = TeamStatistics.new(@stat_tracker.teams, @stat_tracker.games, @stat_tracker.game_teams, @stat_tracker)
   end
-
-
+  
     describe 'goals scored' do
       it 'counts the highest number of goals score by a team in a single game' do
         expect(@team_statistics.most_goals_scored("5")).to eq(4)
@@ -28,8 +27,10 @@ RSpec.describe TeamStatistics do
     end
 
     describe 'worst season' do
+      team_id = '15'
+      expected = '20152016'
       it 'can identify worst season' do
-        expect(@team_statistics.worst_season).to eq("20122013")
+        expect(@team_statistics.worst_season(team_id)).to eq(expected)
       end
     end
   
@@ -62,7 +63,7 @@ RSpec.describe TeamStatistics do
     end
 
     describe 'team information' do
-    it 'has team info' do
+      it 'has team info' do
       expect(@team_statistics.team_info(3)).to be_a(Hash)
 
       expect(@team_statistics.team_info(9)).to eq('arnold')

@@ -1,5 +1,5 @@
 require 'csv'
-require 'game.rb'
+#require 'game.rb'
 
 class GameStatistics
     attr_reader :game_data,
@@ -7,7 +7,7 @@ class GameStatistics
                 :stat_tracker
 
     def initialize(game_data, team_data, stat_tracker)
-        @game_data = game_data
+       g
         @team_data = team_data
         @stat_tracker = stat_tracker
     end
