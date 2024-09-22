@@ -49,7 +49,7 @@ RSpec.describe TeamStatistics do
 
     describe '#favorite opponent' do
       it 'can return the opponent with the lowest win percentage'do
-        expect(@team_statistics.favorite_opponent("5")).to eq(0.5)
+        expect(@team_statistics.favorite_opponent("5")).to eq("FC Dallas")
       end
     end
 
