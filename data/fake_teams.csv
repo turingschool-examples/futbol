@@ -1,0 +1,6 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+53,28,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
+23,20,Montreal Impact,MTL,Saputo Stadium,/api/v1/teams/23
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+7,19,Utah Royals FC,URF,Rio Tinto Stadium,/api/v1/teams/7
+4,16,Chicago Fire,CHI,SeatGeek Stadium,/api/v1/teams/4
