@@ -1,0 +1,18 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
+3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3
+4,16,Chicago Fire,CHI,SeatGeek Stadium,/api/v1/teams/4
+5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+9,30,New York City FC,NYC,Yankee Stadium,/api/v1/teams/9
+10,5,North Carolina Courage,NCC,WakeMed Soccer Park,/api/v1/teams/10
+13,33,Houston Dash,HOD,BBVA Stadium,/api/v1/teams/13
+16,11,New England Revolution,NE,Gillette Stadium,/api/v1/teams/16
+18,34,Minnesota United FC,MIN,Allianz Field,/api/v1/teams/18
+20,21,Toronto FC,TOR,BMO Field,/api/v1/teams/20
+22,25,Washington Spirit FC,WAS,Maryland SoccerPlex,/api/v1/teams/22
+24,32,Real Salt Lake,RSL,Rio Tinto Stadium,/api/v1/teams/24
+25,15,Chicago Red Stars,CRS,SeatGeek Stadium,/api/v1/teams/25
+28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28
+52,35,Portland Thorns FC,ORT,Providence Park,/api/v1/teams/52
+53,28,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
