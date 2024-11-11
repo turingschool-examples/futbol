@@ -1,0 +1,126 @@
+GameTeams:
+
+
+
+Games:
+
+
+
+Teams:
+
+
+
+initialize(locations)
+v1 v2 v3 = Path locations
+
+hm1(path)
+creates objects (Game)
+
+hm2(path) 
+creates objects (Team)
+
+hm3(path)
+creates objects (GameTeam)
+
+def count_of_teams
+  game.count_of_teams
+end
+
+team.method_name
+
+stat_tracker.game.count_of_teams
+
+class Game
+ statistics => attributes
+ methods => calculating statistics
+
+ def count_of_teams
+
+ end
+end
+
+-----------------------------------
+
+before(:each)
+code
+end
+
+"creates fresh data"
+test 1
+
+"creates fresh data"
+test 2
+
+"creates fresh data"
+test 3
+
+------------------------------------
+
+before(:all)
+code
+end
+
+"creates fresh data"
+test 1
+
+"resuses"
+test 2
+
+"resuses"
+test 3
+
+------------------------------------
+
+require 'rspec'
+require_relative '../lib/stat_tracker'
+require_relative '../lib/data_loader'  # Ensure DataLoader is included for CSV loading
+RSpec.describe StatTracker do
+  before(:all) do
+    @locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: './data/game_teams.csv'
+    
+    # Initialize StatTracker using from_csv
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
+
+
+  Failed Test:
+
+
+
+  Failure 1:
+
+  1) StatCalculator calculates percentage_home_wins
+     Failure/Error: expect(stat_calculator.percentage_home_wins).to eq(66.67) # Assuming 2 out of 3 games are home wins
+     
+     NoMethodError:
+       undefined method `percentage_home_wins' for #<StatCalculator:0x0000000105115ac0>
+
+  Failure 2:
+  1) StatCalculator calculates percentage_home_wins
+     Failure/Error:
+       def percentage_home_wins(games)
+         total_games = games.size
+         home_wins = games.count { |game| game[:home_goals].to_i > game[:away_goals].to_i }
+         ((home_wins.to_f / total_games) * 100).round(2)
+       end
+     
+     ArgumentError:
+       wrong number of arguments (given 0, expected 1)
+     # ./lib/stat_calculator.rb:3:in `percentage_home_wins'
+     # ./spec/stat_calculator_spec.rb:18:in `block (2 levels) in <top (required)>'
+
+Failure 3:
+
+  1) StatCalculator calculates percentage_ties
+     Failure/Error: expect(@stat_calculator.percentage_ties(@games_data)).to eq(66.67)
+     
+       expected: 66.67
+            got: 0.0
+     
+       (compared using ==)
+     # ./spec/stat_calculator_spec.rb:29:in `block (2 levels) in <top (required)>'
+
+     Fix: Added stub data for percentage_ties
