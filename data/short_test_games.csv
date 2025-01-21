@@ -1,0 +1,13 @@
+game_id,season,type,date_time,away_team_id,home_team_id,away_goals,home_goals,venue,venue_link
+2014020651,20142015,Regular Season,1/16/15,52,25,2,1,SeatGeek Stadium,/api/v1/venues/null
+2017020553,20172018,Regular Season,12/24/17,18,25,3,3,SeatGeek Stadium,/api/v1/venues/null
+2016021087,20162017,Regular Season,3/23/17,2,3,3,2,BBVA Stadium,/api/v1/venues/null
+2013020660,20132014,Regular Season,1/10/14,13,7,1,1,Rio Tinto Stadium,/api/v1/venues/null
+2013021224,20132014,Regular Season,4/13/14,17,19,3,0,Talen Energy Stadium,/api/v1/venues/null
+2015020529,20152016,Regular Season,12/27/15,19,25,0,3,SeatGeek Stadium,/api/v1/venues/null
+2015020309,20152016,Regular Season,11/24/15,18,3,0,3,BBVA Stadium,/api/v1/venues/null
+2017020914,20172018,Regular Season,2/19/18,6,20,2,1,BMO Field,/api/v1/venues/null
+2014020297,20142015,Regular Season,11/23/14,17,10,1,2,WakeMed Soccer Park,/api/v1/venues/null
+2014020945,20142015,Regular Season,3/4/15,7,14,0,3,Audi Field,/api/v1/venues/null
+2013021147,20132014,Regular Season,4/3/14,20,14,2,1,Audi Field,/api/v1/venues/null
+2015020620,20152016,Regular Season,1/10/16,30,25,2,1,SeatGeek Stadium,/api/v1/venues/null

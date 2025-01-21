@@ -1,0 +1,25 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2014020651,52,away,WIN,REG,Paul Maurice,2,5,34,16,2,0,30.9,9,11
+2014020651,25,home,LOSS,REG,Lindy Ruff,1,11,23,6,7,0,69.1,14,10
+2017020553,25,home,TIE,SO,Ken Hitchcock,3,7,23,8,4,1,60.9,15,5
+2017020553,18,away,TIE,SO,Peter Laviolette,3,8,22,8,4,1,39.1,4,7
+2016021087,2,away,WIN,REG,Doug Weight,3,7,25,15,4,2,51.4,11,5
+2016021087,3,home,LOSS,REG,Alain Vigneault,2,9,25,13,4,1,48.6,13,10
+2013020660,13,away,TIE,SO,Peter Horachek,1,8,23,4,4,0,53.8,8,4
+2013020660,7,home,TIE,SO,Ted Nolan,1,6,25,8,2,0,46.2,3,7
+2013021224,17,away,WIN,REG,Mike Babcock,3,5,14,6,4,0,43.6,4,8
+2013021224,19,home,LOSS,REG,Ken Hitchcock,0,5,26,8,3,0,56.4,3,5
+2015020529,25,home,WIN,REG,Lindy Ruff,3,9,30,18,3,2,53.6,11,11
+2015020529,19,away,LOSS,REG,Ken Hitchcock,0,5,30,20,2,0,46.4,21,9
+2015020309,18,away,LOSS,REG,Peter Laviolette,0,7,24,20,5,0,47.2,7,8
+2015020309,3,home,WIN,REG,Alain Vigneault,3,4,25,12,4,1,52.8,6,10
+2017020914,20,home,LOSS,OT,Glen Gulutzan,1,7,25,9,3,1,49.2,15,16
+2017020914,6,away,WIN,OT,Bruce Cassidy,2,8,15,11,2,0,50.8,16,9
+2014020297,17,away,LOSS,REG,Mike Babcock,1,6,26,8,3,0,56.5,3,2
+2014020297,10,home,WIN,REG,Randy Carlyle,2,7,36,6,4,0,43.5,11,13
+2014020945,14,home,WIN,REG,Jon Cooper,3,8,28,9,2,2,53.3,10,8
+2014020945,7,away,LOSS,REG,Ted Nolan,0,7,28,9,2,0,46.7,5,3
+2013021147,14,home,LOSS,REG,Jon Cooper,1,8,16,4,3,0,61,13,8
+2013021147,20,away,WIN,REG,Bob Hartley,2,6,21,6,2,1,39,10,5
+2015020620,25,home,LOSS,REG,Lindy Ruff,1,8,29,4,2,1,52.7,12,8
+2015020620,30,away,WIN,REG,Mike Yeo,2,6,23,6,1,0,47.3,7,5
