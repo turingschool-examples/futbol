@@ -1,0 +1,13 @@
+require 'simplecov'
+SimpleCov.start
+require 'rspec'
+require './lib/stats_helper'
+require './lib/csv_helper'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
+require 'pry'
+require './lib/game_statistics'
+require './lib/league_statistics'
+require './lib/season_statistics'
+require './lib/stat_tracker'
